@@ -1,3 +1,4 @@
+import { GUIDES, currentGuide } from './walkthrough';
 import type Phaser from 'phaser';
 import { closeSettings, settingsAreOpen } from './settings';
 import { DebugPause, FLAG_GROUPS, ITEMS, WARPS, editFlag, editItem, prepareWarp } from './debugState';
@@ -12,6 +13,7 @@ export function installDebugControls(game: Phaser.Game): () => void {
   const style = document.createElement('style');
   style.textContent = `#playtest-debug{position:fixed;right:max(8px,env(safe-area-inset-right));top:max(8px,env(safe-area-inset-top));z-index:1500;min-height:36px;padding:6px 12px;background:#14171b;color:#e8e2d0;border:1px solid #8a7a5a;font:16px var(--ui-font);cursor:pointer}
   #playtest-dialog{width:min(600px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;background:#14171b;color:#e8e2d0;border:2px solid #8a7a5a;padding:18px;font:16px/1.4 system-ui}
+  #playtest-dialog summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:#e5cd86} #playtest-dialog details{margin:16px 0;border-block:1px solid #8a7a5a;padding:8px 0} #playtest-dialog #debug-guide{width:100%;min-width:0} #playtest-dialog label:has(#debug-guide){display:block} #debug-guide-content li{margin:12px 0;overflow-wrap:anywhere} #debug-guide-content ol{padding-left:24px}
   #playtest-dialog::backdrop{background:#070b0ae8} #playtest-dialog h2{margin-top:0} #playtest-dialog label{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;overflow-wrap:anywhere}
   #playtest-dialog :is(button,select,input[type=number]){min-height:44px;max-width:100%;padding:6px;font:inherit} #playtest-dialog input[type=number]{width:90px} #playtest-dialog input[type=checkbox]{width:24px;height:24px;flex:none} #playtest-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px} #playtest-dialog fieldset{margin:12px 0;border:1px solid #8a7a5a} #playtest-dialog :focus-visible,#playtest-debug:focus-visible{outline:3px solid #d6ad59;outline-offset:2px}`;
   const dialog = document.createElement('dialog'); dialog.id = 'playtest-dialog'; dialog.setAttribute('aria-labelledby', 'debug-heading');
@@ -70,7 +72,32 @@ export function installDebugControls(game: Phaser.Game): () => void {
     dialog.replaceChildren();
     const heading = document.createElement('h2'); heading.id = 'debug-heading'; heading.textContent = 'Debug · Playtest';
     const warning = document.createElement('p'); warning.textContent = 'Achtung: Warps ersetzen Kapitel-Fortschritt und Reiseausrüstung. Flag-Edits dürfen absichtlich widersprüchlich sein. Anwenden startet die Szene neu; laufende Dialoge gehen verloren. Kein Spielstand wird gespeichert.';
-    dialog.append(heading, makeButton('Schließen · Esc', close), warning);
+    dialog.append(heading, makeButton('Schließen · Esc', close));
+    const walkthrough = document.createElement('details');
+    const summary = document.createElement('summary'); summary.textContent = 'Walkthrough · Spoiler';
+    const explanation = document.createElement('p'); explanation.textContent = 'Nur Anleitung: Lesen verändert weder Fortschritt noch Inventar. Enthält Lösungen und Kapitel-Spoiler. Zum Spielen das Debug-Menü schließen. In begehbaren Lia-Bereichen: WASD/Pfeile oder Ziel anklicken, nahe Ziele mit E benutzen; auf dem Handy Richtungstasten und benannte Aktion nutzen. Nahaufnahmen mit Weiter/Zurück fortsetzen.';
+    const guides = document.createElement('select'); guides.id = 'debug-guide';
+    const relevant = currentGuide({ scene: sceneKey, map: scene.map?.id, area: scene.area?.id, campStep: scene.campStep, beat: scene.beat });
+    for (const guide of GUIDES) {
+      const option = document.createElement('option'); option.value = guide.id; option.textContent = guide.title; guides.append(option);
+    }
+    guides.value = relevant?.id ?? GUIDES[0].id;
+    const guideLabel = document.createElement('label'); guideLabel.htmlFor = guides.id; guideLabel.textContent = 'Walkthrough für'; guideLabel.append(guides);
+    const content = document.createElement('section'); content.id = 'debug-guide-content'; content.setAttribute('aria-live', 'polite');
+    const renderGuide = () => {
+      const guide = GUIDES.find(entry => entry.id === guides.value)!;
+      const title = document.createElement('h3'); title.textContent = `${guide.title} · ${guide.kind}`;
+      const list = document.createElement('ol');
+      for (const step of guide.steps) { const item = document.createElement('li'); item.textContent = step; list.append(item); }
+      const end = document.createElement('p'); end.textContent = `Abschluss: ${guide.completion}`;
+      content.replaceChildren(title, list, end);
+    };
+    guides.addEventListener('change', renderGuide);
+    const current = makeButton('Aktueller Bereich', () => { if (relevant) { guides.value = relevant.id; renderGuide(); } });
+    current.disabled = !relevant;
+    walkthrough.append(summary, explanation, guideLabel, current, content); renderGuide();
+    const cheatsHeading = document.createElement('h3'); cheatsHeading.textContent = 'Cheats · Fortschritt bearbeiten';
+    dialog.append(walkthrough, cheatsHeading, warning);
     stats = document.createElement('pre'); stats.setAttribute('aria-label', 'Live-Stats'); dialog.append(stats);
     const select = document.createElement('select'); select.id = 'debug-warp';
     for (const [id, name] of WARPS) { const option = document.createElement('option'); option.value = id; option.textContent = name; select.append(option); }
