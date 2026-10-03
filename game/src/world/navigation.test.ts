@@ -89,7 +89,7 @@ function targets(map: MapDef): Target[] {
       { id: `Sprung ${index}:b`, at: jump.b, radius: jump.radius - 0.1 },
     ]),
     // These animals react to distance in Critter.update. Pigs are behind their
-    // fence and are reached through the feedPigs prop, rather than touched.
+    // fence and are observed through the schweine prop, rather than touched.
     ...(map.critters ?? []).flatMap((critter, index) => {
       const radii = { butterfly: 30, bird: 44, hare: 64, chicken: 22, pig: 0 };
       const result: Target[] = critter.kind === 'pig' ? [] : [{ id: `Tier ${index}:${critter.kind}`, at: critter.at, radius: radii[critter.kind] - 0.1 }];
@@ -168,9 +168,9 @@ describe.each(Object.values(MAPS))('Alle Ziele auf $id', map => {
     }
   });
 
-  it('bietet den Schweinen hinter dem Gatter eine erreichbare Fütterstelle', () => {
+  it('bietet den Schweinen hinter dem Gatter eine erreichbare Beobachtungsstelle', () => {
     if ((map.critters ?? []).some(critter => critter.kind === 'pig')) {
-      expect(map.props.some(prop => prop.action === 'feedPigs')).toBe(true);
+      expect(map.props.some(prop => prop.id === 'schweine')).toBe(true);
     }
     // The hare travels to its burrow with the same 65px approach allowance.
     for (const hare of (map.critters ?? []).filter(critter => critter.burrow)) {

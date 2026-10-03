@@ -3,9 +3,11 @@ import { sfx, startAmbient } from '../audio';
 import { FONT, Hud } from '../ui';
 import { ambientPrefs, getSettings, motionDuration, subscribeSettings } from '../settings';
 import { StoryCloseup } from '../story/closeups';
+import { HOME_PATH_ENTRY, SISTER_CONVERSATION, homecomingObjective } from '../story/homecoming';
+import { state } from '../world/quests';
 
 type Pt = { x: number; y: number };
-type Phase = 'intro' | 'reading' | 'closing' | 'free' | 'title';
+type Phase = 'intro' | 'sisters' | 'reading' | 'closing' | 'free' | 'title';
 type Dir = 's' | 'w' | 'e' | 'n';
 type Detail = 'leaf' | 'flowers' | 'breeze' | 'home';
 type Bookmark = 'leaf' | 'flowers';
@@ -66,12 +68,14 @@ export class LiaScene extends Phaser.Scene {
   private pollen: Phaser.GameObjects.Particles.ParticleEmitter[] = [];
   private ambientCreatures: Phaser.GameObjects.Sprite[] = [];
   private readingCloseup?: StoryCloseup;
+  private sisterLine = 0;
 
   constructor() { super('lia'); }
 
   create() {
     this.data.set({ 'mobile:bookmarks': [], 'mobile:dialogue': '', 'mobile:controls': { directions: [], actions: { E: 'Buch schließen' }, inventory: false, disabled: true } });
     this.readingCloseup = undefined;
+    this.sisterLine = 0;
     this.phase = 'intro'; this.pos = { ...SIT }; this.facing = 's'; this.walked = false;
     this.stepTimer = 0; this.stuckMs = 0; this.canClose = false;
     this.ghosts = []; this.hud = undefined; this.marker = undefined;
@@ -106,7 +110,8 @@ export class LiaScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
 
     this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E') as Record<string, Phaser.Input.Keyboard.Key>;
-    const use = () => this.phase === 'free' ? this.interact(this.nearestDetail()) : this.closeBook();
+    const use = () => this.phase === 'free' ? this.interact(this.nearestDetail())
+      : this.phase === 'sisters' ? this.readingCloseup?.advance() : this.closeBook();
     this.keys.E.on('down', use);
     const chooseBookmark = (kind: Bookmark) => {
       if (this.phase === 'free' && this.found.has(kind)) { this.setBookmark(kind); sfx.select(); }
@@ -124,6 +129,7 @@ export class LiaScene extends Phaser.Scene {
           this.mouseTarget = detail ? this.detailPoint(detail) : { x: ptr.worldX, y: ptr.worldY };
         }
       }
+      else if (this.phase === 'sisters') this.readingCloseup?.advance();
       else this.closeBook();
     };
     this.input.on('pointerdown', click);
@@ -284,11 +290,37 @@ export class LiaScene extends Phaser.Scene {
     this.time.delayedCall(4600, () => this.showHud());
     this.time.delayedCall(5600, () => {
       if (this.phase !== 'reading') return;
-      this.canClose = true;
-      this.data.set('mobile:controls', { directions: [], actions: { E: 'Buch schließen' }, inventory: false });
-      this.hud?.hint('E / Klick: das Buch zuklappen');
-      this.readingCloseup?.setContinue(() => this.closeBook(), 'Buch schließen');
+      this.startSisterConversation();
     });
+  }
+
+  /** Kyra goes home first; Lia's promise explains why she must follow. Roman pp. 9-12. */
+  private startSisterConversation() {
+    this.phase = 'sisters';
+    this.sisterLine = 0;
+    this.hud?.hint('');
+    this.readingCloseup?.show('cut-lia-kyra');
+    this.showSisterLine();
+  }
+
+  private showSisterLine() {
+    this.readingCloseup?.setText(SISTER_CONVERSATION[this.sisterLine]);
+    this.readingCloseup?.setContinue(() => {
+      this.sisterLine++;
+      if (this.sisterLine < SISTER_CONVERSATION.length) this.showSisterLine();
+      else this.finishSisterConversation();
+    });
+  }
+
+  private finishSisterConversation() {
+    state(this.registry).flags.sisterPromise = true;
+    this.phase = 'reading';
+    this.canClose = true;
+    this.readingCloseup?.show('cut-lia-reading');
+    this.readingCloseup?.setText('Kyra ist schon auf dem Heimweg. Die Sonne blendet.');
+    this.readingCloseup?.setContinue(() => this.closeBook(), 'Buch schließen');
+    this.hud?.hint('E / Klick: das Buch zuklappen');
+    this.readLoop();
   }
 
   /** Sie versucht weiterzulesen: abwechselnd blinzeln und lesen, bis der Spieler das Buch zuklappt. */
@@ -491,11 +523,16 @@ export class LiaScene extends Phaser.Scene {
   private startFree() {
     this.phase = 'free';
     this.data.set('mobile:controls', undefined);
-    this.hud?.hint('WASD / Klick: die Wiese erkunden');
+    const objective = homecomingObjective(state(this.registry));
+    this.data.set('mobile:objective', objective);
+    this.add.text(632, 10, objective, { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
+      .setOrigin(1, 0).setDepth(1000);
+    this.hud?.hint('WASD / Klick: dem Hohlweg nach Hause folgen');
     const glow = this.add.ellipse(0, 3, 26, 8, 0xf2d27a, 0.45).setBlendMode(Phaser.BlendModes.ADD);
     const a = this.add.image(0, -5, 'lia-chev');
     const b = this.add.image(0, -13, 'lia-chev');
-    this.marker = this.add.container(MARK.x, MARK.y, [glow, a, b]).setDepth(MARK.y).setAlpha(0);
+    const label = this.add.text(0, -27, 'Nach Hause', { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 }).setOrigin(0.5);
+    this.marker = this.add.container(MARK.x, MARK.y, [glow, a, b, label]).setDepth(MARK.y).setAlpha(0);
     this.tweens.add({ targets: this.marker, alpha: 1, duration: 600 });
     this.ambientTweens.push(this.tweens.add({ targets: glow, scaleX: 1.4, scaleY: 1.4, alpha: 0.1, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.inOut', paused: getSettings().reducedMotion }));
     this.ambientTweens.push(this.tweens.add({ targets: a, alpha: { from: 1, to: 0.35 }, duration: 450, yoyo: true, repeat: -1, ease: 'Sine.inOut', paused: getSettings().reducedMotion }));
@@ -607,12 +644,12 @@ export class LiaScene extends Phaser.Scene {
     }).setOrigin(0.5).setDepth(1100).setAlpha(0);
     this.tweens.add({ targets: title, alpha: 1, y: { from: 144, to: 140 }, delay: 600, duration: 2400, ease: 'Sine.out' });
     this.tweens.add({ targets: sub, alpha: 1, delay: 2200, duration: 1400 });
-    // Nach dem Titel geht es nahtlos in die offene Welt – gleiche Wiese, gleiche Position.
+    // Lia has stepped into the lane. Map coordinates differ, so use its entry.
     this.time.delayedCall(6200, () => {
       this.tweens.add({ targets: [title, sub, shade], alpha: 0, duration: 900 });
       this.cameras.main.fadeOut(1100, 255, 244, 214);
       this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () =>
-        this.scene.start('world', { map: 'wiese', x: Math.round(this.pos.x), y: Math.round(this.pos.y), facing: this.facing }));
+        this.scene.start('world', HOME_PATH_ENTRY));
     });
   }
 }

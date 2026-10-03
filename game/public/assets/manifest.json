@@ -316,7 +316,8 @@
     "cut-camp-rest": "assets/cut/camp-rest.png",
     "cut-camp-capture": "assets/cut/camp-capture.png",
     "cut-camp-companions": "assets/cut/camp-companions.png",
-    "cut-camp-wake": "assets/cut/camp-wake.png"
+    "cut-camp-wake": "assets/cut/camp-wake.png",
+    "cut-lia-kyra": "assets/cut/lia-kyra.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

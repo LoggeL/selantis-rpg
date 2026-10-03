@@ -7,6 +7,7 @@ import { WorldApi, WorldState, objectiveText, pickupText, runAction, state } fro
 import { findWalkingPath, isMapWalkable } from '../world/navigation';
 import { ambientPrefs, motionDuration, subscribeSettings } from '../settings';
 import { InventoryHud, ITEM_FRAME, itemTexture } from '../inventory';
+import { completeHomecoming, homewardExit } from '../story/homecoming';
 
 type Data = { map?: string; from?: string; x?: number; y?: number; facing?: Dir };
 
@@ -31,7 +32,7 @@ export class WorldScene extends Phaser.Scene {
   private targetProp?: import('../world/maps').Prop;
   private stuckMs = 0;
   private hintShown?: string;
-  private exitHints: { c: Phaser.GameObjects.Container; x: number; y: number }[] = [];
+  private exitHints: { c: Phaser.GameObjects.Container; x: number; y: number; home: boolean }[] = [];
   private st!: WorldState;
   private critters: Critter[] = [];
   private pickups: { key: string; item: ItemId; s: Phaser.GameObjects.Image; ready: boolean }[] = [];
@@ -134,6 +135,7 @@ export class WorldScene extends Phaser.Scene {
   private addExitHints() {
     this.exitHints = [];
     for (const e of this.map.exits) {
+      const home = e.to === homewardExit(this.map.id);
       const [x, y, w, h] = e.rect;
       const cx = x + w / 2, cy = y + h / 2;
       const dir = x <= 0 ? 'w' : x + w >= 640 ? 'e' : y <= 0 ? 'n' : 's';
@@ -144,17 +146,44 @@ export class WorldScene extends Phaser.Scene {
       const g = this.add.graphics();
       for (const off of [-4, 3]) {
         g.fillStyle(0x2a1e10, 0.8).fillTriangle(off - 1, -6, off + 6, 0, off - 1, 6);
-        g.fillStyle(0xfff4d8, 1).fillTriangle(off, -4, off + 4, 0, off, 4);
+        g.fillStyle(home ? 0xffd27a : 0xfff4d8, 1).fillTriangle(off, -4, off + 4, 0, off, 4);
       }
       g.setRotation(ang);
-      const target = MAPS[e.to]?.name ?? e.to;
+      const target = home ? 'Nach Hause' : MAPS[e.to]?.name ?? e.to;
       const lx = dir === 'w' ? 12 : dir === 'e' ? -12 : 0, ly = dir === 'n' ? 12 : dir === 's' ? -12 : 0;
       const label = this.add.text(lx, ly, target, { fontFamily: FONT, fontSize: '8px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
         .setOrigin(dir === 'w' ? 0 : dir === 'e' ? 1 : 0.5, 0.5);
-      const c = this.add.container(px, py, [g, label]).setDepth(980).setAlpha(0.55);
+      const c = this.add.container(px, py, [g, label]).setDepth(980).setAlpha(home ? 1 : 0.55);
+      if (home) {
+        label.setInteractive({ useHandCursor: true });
+        g.setInteractive(new Phaser.Geom.Rectangle(-8, -8, 16, 16), Phaser.Geom.Rectangle.Contains);
+        const go = (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+          event.stopPropagation();
+          if (this.busy) return;
+          this.targetProp = undefined;
+          this.setTarget(cx, cy, true);
+        };
+        label.on('pointerdown', go);
+        g.on('pointerdown', go);
+      }
       const dx = Math.cos(ang) * 2, dy = Math.sin(ang) * 2;
       this.tweens.add({ targets: g, x: dx, y: dy, duration: 600, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
-      this.exitHints.push({ c, x: px, y: py });
+      this.exitHints.push({ c, x: px, y: py, home });
+    }
+    if (this.map.id === 'hof') {
+      const ring = this.add.ellipse(275, 181, 18, 7).setStrokeStyle(1, 0xffd27a);
+      const label = this.add.text(275, 148, 'Nach Hause', { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 }).setOrigin(0.5);
+      const arrow = this.add.triangle(275, 167, 0, 0, 8, 0, 4, 5, 0xffd27a);
+      this.add.container(0, 0, [ring, label, arrow]).setDepth(980);
+      for (const object of [ring, label, arrow]) {
+        object.setInteractive({ useHandCursor: true });
+        object.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+          event.stopPropagation();
+          if (this.busy) return;
+          this.targetProp = undefined;
+          this.setTarget(275, 181, true);
+        });
+      }
     }
   }
 
@@ -229,7 +258,7 @@ export class WorldScene extends Phaser.Scene {
     this.updatePrompt();
     for (const h of this.exitHints) {
       const d = Phaser.Math.Distance.Between(this.lia.x, this.lia.y, h.x, h.y);
-      h.c.setAlpha(Phaser.Math.Clamp(1.15 - d / 160, 0.45, 1));
+      h.c.setAlpha(h.home ? 1 : Phaser.Math.Clamp(1.15 - d / 160, 0.45, 1));
     }
     if (Math.random() < dt / 7000) sfx.bird();
   }
@@ -366,9 +395,15 @@ export class WorldScene extends Phaser.Scene {
     if (this.ending) return;
     this.ending = true;
     this.busy = true;
+    this.clearTarget();
     this.lia.play(`lia-idle-${this.facing}`);
-    this.hud.thought('Ganz friedlich lag er da, am Ende des Hohlwegs.', 2600);
+    completeHomecoming(this.st);
+    this.refreshObjective();
+    this.hud.thought('Nach Hause · abgeschlossen', 1800);
+    this.time.delayedCall(1800, () => this.hud.thought('Da ist unser Hof. Aber ...', 2200));
     this.time.delayedCall(2900, () => {
+      this.objText.setText('Etwas stimmt nicht.');
+      this.data.set('mobile:objective', 'Etwas stimmt nicht.');
       sfx.heartbeat();
       this.hud.thought('Doch was war das?', 2400);
       this.dropApplesInShock();
@@ -413,7 +448,6 @@ export class WorldScene extends Phaser.Scene {
     }
     const nestProp = this.map.props.find((p) => p.action === 'returnChick');
     if (nestProp && this.textures.exists('crt-fledgling')) this.showNest(!!this.st.flags.chickReturned, nestProp.at);
-    if (this.st.flags.pigsFed) for (const c of this.critters) c.eat();
   }
 
   /** Einmalige kleine Ortsentdeckungen, ohne weitere Pflichtziele oder Beute. */
@@ -451,7 +485,7 @@ export class WorldScene extends Phaser.Scene {
       this.st.picked[p.key] = true;
       this.give(p.item);
       sfx.pickup();
-      this.hud.thought(pickupText(p.item, this.st), 2600);
+      this.hud.thought(pickupText(p.item), 2600);
       if (!ambientPrefs().particles) continue;
       const fx = this.add.particles(p.s.x, p.s.y - 6, 'px', {
         speed: { min: 20, max: 60 }, lifespan: 420, scale: { start: 1, end: 0 }, tint: [0xfff4d8, 0xffd27a], emitting: false,
@@ -476,7 +510,7 @@ export class WorldScene extends Phaser.Scene {
     this.inventory.refresh(this.st.inv);
   }
 
-  private refreshObjective() { const text = objectiveText(this.st); this.objText?.setText(text); this.data.set('mobile:objective', text); }
+  private refreshObjective() { const text = objectiveText(this.st, this.map.id); this.objText?.setText(text); this.data.set('mobile:objective', text); }
 
   private showNest(withChick: boolean, at?: Pt) {
     const p = at ?? this.map.props.find((x) => x.action === 'returnChick')!.at;
@@ -493,7 +527,6 @@ export class WorldScene extends Phaser.Scene {
       take: (i, n) => this.take(i, n),
       refreshObjective: () => this.refreshObjective(),
       showNest: (c) => this.showNest(c),
-      feedPigs: () => { for (const c of this.critters) c.eat(); sfx.grunt(); this.time.delayedCall(400, () => sfx.grunt()); },
       shakeAt: (x, y) => {
         if (!ambientPrefs().reducedMotion) this.cameras.main.shake(160, 0.003);
         if (!ambientPrefs().particles) return;
@@ -521,7 +554,7 @@ export class WorldScene extends Phaser.Scene {
   /** Wer mit Fallobst heimkommt, lässt es beim Anblick der offenen Tür fallen. */
   private dropApplesInShock() {
     const n = this.st.inv.apfel ?? 0;
-    if (!n || this.st.flags.pigsFed) return;
+    if (!n) return;
     this.take('apfel', n);
     for (let i = 0; i < n; i++) {
       const a = this.add.image(this.lia.x, this.lia.y - 22, 'items', ITEM_FRAME.apfel).setDepth(this.lia.y + 1);

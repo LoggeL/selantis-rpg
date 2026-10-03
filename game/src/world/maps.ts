@@ -24,7 +24,7 @@ export interface Prop {
   radius: number;
   /** Gedankenzeilen, nacheinander bei wiederholtem Untersuchen */
   lines: string[];
-  /** Optionale Handlung (siehe world/quests.ts), z. B. 'shakeTree', 'feedPigs', 'returnChick' */
+  /** Optionale Handlung (siehe world/quests.ts), z. B. 'shakeTree', 'returnChick' */
   action?: string;
   /** Einmalige optionale Ortsentdeckung, als Spieladaption. */
   discovery?: string;

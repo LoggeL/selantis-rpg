@@ -35,7 +35,7 @@ Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. I
 
 Weitere Karten: `felder`, `waldrand`, `hohlweg`, `hof`. `&debug` oder F1 zeigt in der Erkundung Kollisionen und Ausgänge.
 
-An der Haustür geht die Erkundung in den Überfall über. Danach folgen der Morgen am Hof und die erste Reise bis zum gemeinsamen Nachtlager. Der Roman bestimmt die Handlung (PDF-Seiten 13 bis 32). Kleine markierte Interaktionen führen weiter; Lia erhält noch keine Kampf- oder Magiefähigkeiten. Die Reiseausrüstung liegt in ihrer Tasche.
+Lias Einstieg beginnt mit dem kurzen Gespräch mit Kyra unter dem Baum (Roman, PDF-Seiten 9 bis 10). Danach führt eine einzige Hauptquest, "Nach Hause", über markierte Wege zum Hauseingang. Optionale Fundstücke und die Vogelrettung ersetzen dieses Ziel nicht. Die Ankunft schließt die Quest ab und geht in den Überfall über; Kyras Versprechen erklärt den Heimweg, ohne einen Sammelauftrag zu starten. Danach folgen der Morgen am Hof und die erste Reise bis zum gemeinsamen Nachtlager (PDF-Seiten 13 bis 32). Kleine markierte Interaktionen führen weiter; Lia erhält noch keine Kampf- oder Magiefähigkeiten. Die Reiseausrüstung liegt in ihrer Tasche.
 
 ## Build und Deployment
 

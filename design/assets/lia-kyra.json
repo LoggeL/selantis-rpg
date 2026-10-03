@@ -1,0 +1,22 @@
+{
+  "generator": "built-in image_gen",
+  "source": "output/imagegen/homecoming/lia-kyra.png",
+  "references": [
+    "game/public/assets/cut/lia-reading.png",
+    "game/public/assets/cut/cinematic-raid-kyra.png"
+  ],
+  "prompt": "Use case: style-transfer. Asset type: full-bleed 16:9 pixelart story closeup for the Selantis browser RPG. Create a NEW quiet sister conversation at the reading tree BEFORE any raid. Image 1 is the exact art style, Lia identity and location reference: preserve Lia's neutral sandy lightbrown/darkblonde braided hair, cream gathered blouse, mustard-brown skirt, young natural face, brown closed book resting on her lap. Image 2 is Kyra's facial identity and simple beige dress reference only; do NOT copy guards, farmhouse, danger, restraints or palette from image2. Kyra has long loose NUT-BROWN hair per novel, slightly untidy from gathering firewood; she stands at the RIGHT beside the tree with an annoyed but affectionate expression and a small bundle of branches under one arm. Lia sits at LEFT, surprised and apologetic, looking up at her sister. Both young adult sisters fully clothed, no magic/weapons. Same golden summer meadow, old tree, wheat field, distant green hedge as image1. Medium waist-up two-person shot, both faces and full hair crowns entirely inside canvas, at least8% blank scenery above heads; book, hands and wood bundle ABOVE70%height. Bottom27% contains only nonessential skirt/grass so desktop captions don't obscure action. Genuine crisp hand-clustered square PIXELART, earthy limited palette, stepped three-tone shading, no painted smoothing, photography, gradients or antialiasing. No text, UI, border, watermark or emblem. Output one complete wide16:9 image.",
+  "canon": "Roman Selantis 2.pdf, PDF pages 9-10: Kyra gathered wood alone; Lia promises to feed the pigs that evening. Kyra goes home before Lia.",
+  "delivery": {
+    "file": "game/public/assets/cut/lia-kyra.png",
+    "width": 640,
+    "height": 360,
+    "logicalWidth": 320,
+    "logicalHeight": 180,
+    "filter": "nearest",
+    "palette": "design/assets/pixel-story-closeups.json sharedPaletteRgb",
+    "bytes": 43192,
+    "sha256": "62d1c68c98b138f397d5d22a3c307f9906589d58ec174e594b600902c454be96"
+  },
+  "sourceSha256": "eccab83978a3538cb3a188365ab3fd6c588ebaf34580ed2c69ff5a20932f068a"
+}

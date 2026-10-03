@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { sfx } from '../audio';
 import type { ItemId, Prop } from './maps';
+import { homecomingObjective } from '../story/homecoming';
 
 /** Spielzustand der offenen Welt – liegt in der Registry, überlebt Kartenwechsel. */
 export interface WorldState {
@@ -14,8 +15,6 @@ export function state(reg: Phaser.Data.DataManager): WorldState {
   if (!s) { s = { inv: {}, picked: {}, flags: {} }; reg.set('world', s); }
   return s;
 }
-
-export const APPLES_NEEDED = 3;
 
 export const ITEM_NAMES: Record<ItemId, string> = {
   apfel: 'Fallobst', feder: 'Feder', kupfer: 'Kupferstück', kornblume: 'Kornblume', kueken: 'Vogeljunges',
@@ -32,18 +31,13 @@ export interface WorldApi {
   take(item: ItemId, n?: number): void;
   dropPickup(item: ItemId, from: { x: number; y: number }, to: { x: number; y: number }, id: string): void;
   shakeAt(x: number, y: number): void;
-  feedPigs(): void;
   showNest(withChick: boolean): void;
   refreshObjective(): void;
 }
 
 /** Aktuelles Ziel oben rechts. */
-export function objectiveText(st: WorldState): string {
-  const apples = st.inv.apfel ?? 0;
-  if (st.flags.pigsFed) return st.inv.kueken ? 'Das Vogeljunge zurück ins Nest setzen.' : 'Versprochen ist versprochen. Ab nach Hause.';
-  if (st.inv.kueken) return 'Das Vogeljunge zurück ins Nest setzen.';
-  if (apples >= APPLES_NEEDED) return 'Genug Fallobst – die Schweine am Hof füttern.';
-  return `Versprochen: die Schweine füttern. Fallobst (${apples}/${APPLES_NEEDED})`;
+export function objectiveText(st: WorldState, map = 'wiese'): string {
+  return homecomingObjective(st, map);
 }
 
 /** Handlungen an Props. Gibt true zurück, wenn die Handlung etwas getan hat. */
@@ -64,20 +58,6 @@ export function runAction(prop: Prop, api: WorldApi): boolean {
       api.thought('Ein kräftiger Schubs – und es regnet Fallobst!');
       return true;
     }
-    case 'feedPigs': {
-      if (st.flags.pigsFed) { api.thought('Satt und zufrieden. Versprochen ist versprochen.'); return true; }
-      const apples = st.inv.apfel ?? 0;
-      if (apples < APPLES_NEEDED) {
-        api.thought(apples ? `Noch nicht genug. ${APPLES_NEEDED - apples} Äpfel mehr – auf den Feldern liegt Fallobst.` : 'Ich hab’s Kyra versprochen. Aber womit? Auf den Feldern liegt bestimmt Fallobst.', 3000);
-        return true;
-      }
-      api.take('apfel', APPLES_NEEDED);
-      st.flags.pigsFed = true;
-      api.feedPigs();
-      api.thought('So, ihr Vielfraße. Versprochen ist versprochen.', 3000);
-      api.refreshObjective();
-      return true;
-    }
     case 'returnChick': {
       if (st.flags.chickReturned) { api.thought('Da piept es wieder im Nest. Gut so.'); return true; }
       if (!st.inv.kueken) return false;
@@ -95,14 +75,13 @@ export function runAction(prop: Prop, api: WorldApi): boolean {
 }
 
 /** Text beim Aufsammeln. */
-export function pickupText(item: ItemId, st: WorldState): string {
-  const n = st.inv[item] ?? 0;
+export function pickupText(item: ItemId): string {
   switch (item) {
-    case 'apfel': return st.flags.pigsFed ? 'Ein Apfel für unterwegs.' : n >= APPLES_NEEDED ? 'Genug für die Schweine.' : `Fallobst. Noch ${APPLES_NEEDED - n}.`;
-    case 'kornblume': return n >= 3 ? 'Ein kleiner Strauß Kornblumen. Für Mutter.' : 'Eine Kornblume. Mutter mag die.';
+    case 'apfel': return 'Ein Apfel für unterwegs.';
+    case 'kornblume': return 'Eine Kornblume. Die wächst hier überall.';
     case 'kupfer': return 'Ein Kupferstück! Hat Vater das auf dem Weg zum Markt verloren?';
     case 'feder': return 'Eine Feder. Fast, als hätte sie Danke gesagt.';
-    case 'kueken': return 'Ganz vorsichtig … Du bist aus dem Nest gefallen, was?';
+    case 'kueken': return 'Ganz vorsichtig … Dein Nest ist oben in der Eiche am Waldrand.';
     default: return ITEM_NAMES[item];
   }
 }
