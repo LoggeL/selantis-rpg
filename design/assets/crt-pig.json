@@ -1,0 +1,56 @@
+{
+  "id": "crt-pig",
+  "kind": "spritesheet",
+  "files": {
+    "raw": "output/imagegen/raw/crt-pig/crt-pig.png",
+    "attempts": [
+      "output/imagegen/raw/crt-pig/crt-pig-v1.png",
+      "output/imagegen/raw/crt-pig/crt-pig-v2.png",
+      "output/imagegen/raw/crt-pig/crt-pig-v3.png"
+    ]
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 2,
+    "order": [
+      "stand",
+      "sniff",
+      "walk_0",
+      "walk_1",
+      "feed_0",
+      "feed_1",
+      "squeal",
+      "doze"
+    ]
+  },
+  "target": {
+    "w": 32,
+    "h": 48
+  },
+  "source": {
+    "w": 1536,
+    "h": 1024,
+    "cell_w": 384,
+    "cell_h": 512
+  },
+  "facing": "left",
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempts": 3,
+    "selected": 3,
+    "prompt": "Correct this spritesheet for a game pipeline. Exactly 4 columns and 2 rows, same eight muddy pink domestic farm pig poses in the same order, all facing LEFT in slightly elevated three-quarter view. Keep the crisp pixel art, dark brown contours, small natural animal proportions, warm upper-right sunlight.\nCRITICAL CHANGE: Replace the ENTIRE background with flat opaque solid hot magenta #FF00FF (RGB 255,0,255). No gradient, no glow, no shadow, no vignette, no brown outside silhouettes. Every background pixel must be exactly the same solid magenta. Do NOT use transparency in this version.\nAlso make both rows have identical placement within their equal 384x512 cells on a 1536x1024 canvas. All pigs horizontally centered in their cells, pig body same scale. Top-row hoof baseline at y=400. Bottom-row hoof baseline at y=912, exactly 512 pixels lower. In bottom row, align the trough bottoms and lying pig resting bottom to y=912 too. Pig silhouettes should be approximately 250 pixels long, leaving generous space on every side. Keep the visible camera angle, animal identity and the exact eight poses: standing, sniffing head down, two opposite walk strides; two feeding head-down poses into matching small wooden troughs with a clearly different chewing-head position, happy squeal head raised mouth open, lying asleep. No text, no grid lines. Pixel edges hard and sharp."
+  },
+  "notes": "Rosa Hausschwein mit Schlammflecken, erhöhte 3/4-Ansicht, warmes Licht von oben rechts. Zwei Trogframes. Kleines Tier innerhalb der Figurenzelle. Reihenfolge zeilenweise links nach rechts. Version 3 als Magenta-Fallback gewählt.",
+  "self_review": {
+    "status": "needs_pipeline_cleanup",
+    "visual_check": "Alle acht Posen vorhanden, durchgehend linksgerichtet, konsistente Tieridentität und Größenwirkung, dunkle Konturen. Keine sichtbaren Bodenschatten oder Texte. Viel Abstand und keine abgeschnittenen Tiere.",
+    "limitations": [
+      "Magenta-Hintergrund ist visuell einheitlich, aber technisch nicht exakt #FF00FF: Stichproben z. B. RGB (252,2,250), Randabweichungen. Chroma-Key-Normalisierung erforderlich.",
+      "Gleich große Rasterzellen, aber Fuß-/Auflagebaselines zwischen Zeilen und Posen nicht exakt identisch. Vor Animation ausrichten.",
+      "Zwei Fressphasen unterscheiden sich nur schwach.",
+      "Transparente Versuche 1 und 2 enthalten schwache Alpha-Reste außerhalb der Figuren. Version 3 hat keine saubere transparente Freistellung."
+    ],
+    "attempt_limit": "3 von 3 Versuchen genutzt; keine weiteren Generierungen.",
+    "runtime_scale": "Größenwirkung nach 32x48-Downsampling plausibel klein; nicht im Spiel neben Lia geprüft."
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "cut-hand-overlay",
+  "kind": "cutscene-overlay",
+  "files": {
+    "overlay": "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay.png",
+    "test": "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-test.png",
+    "attempts": [
+      "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-v1.png",
+      "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-v2.png",
+      "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-v3.png"
+    ],
+    "test_attempts": [
+      "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-test-v1.png",
+      "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-test-v2.png",
+      "output/imagegen/raw/cut-hand-overlay/cut-hand-overlay-test-v3.png"
+    ],
+    "compose_script": "output/imagegen/raw/cut-hand-overlay/compose_test.py"
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "raw": {
+    "w": 1672,
+    "h": 941,
+    "aspect": "approximately 16:9, identical to background",
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1386944
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "transparent_background": true,
+    "attempts": 3,
+    "selected_attempt": 3,
+    "prompts": {
+      "v1": "Use case: stylized-concept.\nAsset type: cut-hand-overlay.png, isolated foreground cutout for a dark pixel-art RPG cutscene.\nInput image: supplied cut-cradle-sleep.png is ONLY a style, pixel density, camera, lighting and registration reference. Do NOT reproduce ANY of its background objects or its existing left hand.\nGenerate a new landscape 16:9 transparent RGBA image, ideally 1672 x 941, with ONLY ONE adult man's RIGHT hand and its straight connected forearm in a wide loose dark navy robe sleeve. Every other pixel is fully transparent, including above and around the limb. Genuine alpha transparency, no checkerboard painted into the image.\nPose: first-person viewpoint looking DOWN at the BACK of his right hand, palm facing down toward an unseen surface. Five anatomically correct fingers, subtly separated and tense, reaching away from the viewer/upward, gently foreshortened as the hand hovers horizontally in midair. Thumb on the LEFT side of this right hand. Straight forearm with credible wrist connection, no sharp unnatural bends. The sleeve enters from and is cut off by the BOTTOM canvas edge slightly RIGHT of center; the limb reaches inward toward the exact center.\nRegistration: all coordinates normalized to the full transparent 16:9 canvas. Sleeve base centered near x=0.56 at y=1.00, width around 0.20 of canvas; wrist near x=0.51,y=0.58; back of hand near x=0.50,y=0.47; longest fingertip near x=0.50,y=0.32. At y=0.25..0.38 the only possible opaque finger pixels must stay inside x=0.478..0.522, the narrow EMPTY GAP between the two babies' faces in the reference. Keep the slightly spread fingers grouped inward there. Thumb may extend left lower down, but MUST remain BELOW y=0.41. The hand should hover above the center seam between both children, leaving both face regions completely uncovered. Use perspective shortening naturally to achieve this. No hand or sleeve above y=0.29. Most of the canvas is empty transparent space. No arm detached or floating halfway up the canvas: the robe sleeve MUST continue uninterrupted through the bottom edge.\nStyle: match the exact reference's dark handcrafted pixel art, visibly hard-edged enlarged pixel clusters approximately 5 pixels across at 1672-wide output, one consistent pixel density, sparse details, dark outlines, muted skin brown identical to the reference's gripping left hand. Same very dark exposure. Cold faint moonlight from the LEFT with restrained gray-blue left-edge highlights. Wide navy sleeve #1F3550 / #2A4A6E interpreted under deep night shadow, darkest folds #101723. No bright outlines or warm light, no smooth rendering, no photorealistic textures, no fine high-resolution linework.\nConstraints: ONLY the right hand, wrist, forearm and sleeve. No cradle, babies, bedding, floor, other hand, body, face, props, magical glow, light rays, particles, painted cast shadow on a surface, contact shadow, ground plane, text, border or watermark. All background remains transparent. This is a foreground overlay, not an edited full scene.",
+      "v2": "Use case: precise-object-edit. Image 1 is the isolated transparent right-hand overlay to revise; Image 2 is the dark cradle background, ONLY a style and placement reference. Output ONLY an isolated hand and sleeve on actual transparent alpha, at exactly 1672 x 941. Never include ANY of the cradle background.\nCorrect the hand's perspective and size so neither child's face is obscured when composited. Preserve the general straight forearm entering from the bottom edge slightly right of center, five-finger anatomically correct RIGHT hand with thumb on left, back of hand visible and palm facing DOWN, wide loose dark navy robe sleeve, and the matched coarse pixel art.\nThe first hand is too large and flat. Replace it with a SMALLER, strongly FORESHORTENED hand hovering horizontally in air, fingertips gently curled forward/downward away from the viewer. Not a raised vertical stop-sign palm. The adult hand should be about 230 pixels wide INCLUDING thumb, rather than 350, and about 235 pixels long. The fingers should appear shorter because of perspective. Wrist around (855,560), center of back of hand around (835,465), thumb tip around (725,465). Longest middle fingertip around (833,315). Index fingertip around (801,380), ring fingertip around (866,385), little fingertip around (900,420). Thus the only finger above y=370 is the middle finger, entirely within x=805..860, in the EMPTY CENTRAL GAP between baby faces. At y<370 ALL other pixels must be transparent. All other fingers and the thumb start BELOW the faces. Exactly five connected anatomically natural fingers, slightly separated and tense, unmistakable right hand. Avoid contact or face overlap. No limb pixels above y=300. Hand-to-forearm alignment must remain straight and credible.\nSleeve continues from wrist near (855,560) uninterrupted down to the BOTTOM edge, with the center of sleeve base near (965,941). Anatomically plausible perspective, wide dark-blue cloth folds. Only the cut-off bottom edge touches the canvas border.\nMatch image 2's extremely dim exposure and coarse 5-pixel clusters, dark contours, muted brown skin, faint cool silver-blue moonlight from LEFT. Navy sleeve especially should be as dark and desaturated as image 2's existing left sleeve. No bright saturated blue. Hand left-facing surfaces catch only subdued cold highlights.\nONLY this hand, wrist and sleeve. Real transparency everywhere else. No face, babies, cradle, pillow, floor, glow, magic, illumination, painted cast shadow, contact shadow, text, watermark, checkerboard pattern or extra limb.",
+      "v3": "Edit the first supplied transparent hand overlay. Second image is ONLY the background registration/style reference. Return a 1672 x 941 RGBA transparent cutout containing ONLY one RIGHT man's hand with dark navy wide robe sleeve, no background.\nMake the hand visibly MUCH SMALLER: about HALF THE CURRENT WIDTH. Currently it is 360px wide; final hand INCLUDING thumb should be only 180-200px wide. Redraw it with credible adult anatomy and perspective, not a child hand. Keep its highest fingertip centered in the narrow dark gap between the reference's heads at x=835,y=320. Its wrist should be x=855,y=540. Keep ALL skin within x=745..935. At face height (y=200..365) the ONLY opaque skin is a narrow central finger silhouette inside x=810..850. Other fingers are shortened by perspective and begin BELOW y=380. Thumb lies below y=420. Four fingers slightly separated, gently flexed, tense, palm DOWN, back of right hand visible. Hand is held HORIZONTALLY in midair above the gap between children, not vertically like a stop gesture. Fingertips gently point away/down into scene, foreshortened. Exactly five fingers.\nConnect this SMALL compact hand naturally to a straight forearm. The loose wide sleeve tapers to a narrow wrist and expands toward the bottom. Sleeve enters from the BOTTOM EDGE, centered x=950, fully cropped there; do not detach or terminate it above the bottom edge. The limb reads as reaching forward from the viewer, over the front rim, suspended above the babies. Both baby faces must be fully unobscured with visible clearance.\nPreserve the reference's enlarged coarse pixel grid (around 5px clusters), brown desaturated skin and very dark cold LEFT moonlight, hard dark contours. Darken/desaturate the blue sleeve to MATCH the existing LEFT sleeve in image 2. Everything outside this connected limb is genuinely transparent. No ground shadows, background, babies, furniture, glows, particles, text, painted checkerboard, extra limbs."
+    }
+  },
+  "registration": {
+    "background": "output/imagegen/raw/cut-cradle/cut-cradle-sleep.png",
+    "origin": {
+      "x": 0,
+      "y": 0
+    },
+    "scale": 1,
+    "rotation_degrees": 0,
+    "composite": "Pillow Image.alpha_composite(background, overlay); no input resampling or modification"
+  },
+  "notes": [
+    "Freigestellte rechte Männerhand mit Unterarm im weiten dunkelblauen Robenärmel; Ansicht auf den Handrücken, Handfläche nach unten, fünf leicht gespreizte und verkürzte Finger.",
+    "Finale Dateien sind unveränderte Kopien des dritten Generierungsversuchs und seines Pillow-Testkomposits; Alpha der Generierung bleibt erhalten.",
+    "1:1 auf den vollständigen Hintergrund legen. Ärmel läuft durch die Bildunterkante und verdeckt im Vordergrund einen Teil der Kante und der unteren Tücher.",
+    "Keine Wiege, Kinder, Untergrundschatten, gemalten Magieeffekte oder zusätzlichen Gegenstände im Overlay.",
+    "Zielgröße 640 x 360; keine Pixelize-Pipeline und keine Änderung an Spielcode oder Hintergrund ausgeführt.",
+    "Prompts enthalten Sollkoordinaten; die Generierung folgt diesen nur näherungsweise. Höchste sichtbare Fingerspitze liegt etwa bei y=350 statt y=320, mittig auf Höhe der unteren Gesichtskanten.",
+    "Testkomposit ist eine Prüfansicht und enthält den unveränderten Hintergrund; es ist kein freigestelltes Laufzeit-Asset."
+  ],
+  "self_review": {
+    "status": "accepted_for_overlay_composite",
+    "method": "Alle drei Pillow-Komposite visuell geprüft; finale RGBA-Datei, Gesichtsausschnitte und bitgenaues Alpha-Komposit zusätzlich per Pillow geprüft.",
+    "film_look": {
+      "result": "pass_for_visible_costume",
+      "detail": "Rechte Männerhand, anatomisch verbundener Unterarm, weiter dunkelblauer Ärmel. Übrige Figur nicht sichtbar; kein Stab und keine Rüstung."
+    },
+    "palette": {
+      "result": "pass",
+      "detail": "Gedämpfte braune Haut, sehr dunkle Navy-Falten und kalte Highlights links; keine gemalte zusätzliche Lichtquelle."
+    },
+    "pixel_style": {
+      "result": "pass_for_raw_asset",
+      "detail": "Harte dunkle Konturen und sichtbare Pixelcluster passend zur Referenz; endgültige Pipeline-Normalisierung noch nicht ausgeführt."
+    },
+    "anatomy": {
+      "result": "pass_visual",
+      "detail": "Fünf Finger, Daumen links am sichtbaren rechten Handrücken; glaubwürdiger Anschluss über das Handgelenk an den aus der unteren Bildkante kommenden Unterarm."
+    },
+    "placement": {
+      "result": "pass_visual",
+      "detail": "Mittlere Fingerspitze im zentralen Spalt an der unteren Höhe der Gesichter; beide Gesichter vollständig frei. Kein gezeichneter Kontakt zu den Kindern, kein Untergrundschatten. Die Hand überlagert zentral die Tücher und liest sich als Vordergrundgeste."
+    },
+    "face_clearance": {
+      "result": "pass",
+      "left_face_box": [
+        605,
+        207,
+        793,
+        354
+      ],
+      "right_face_box": [
+        888,
+        207,
+        1073,
+        354
+      ],
+      "maximum_overlay_alpha_in_both_boxes": 0,
+      "detail": "In beiden konservativ gewählten Gesichtsausschnitten ist das Overlay vollständig transparent."
+    },
+    "transparency": {
+      "result": "pass",
+      "detail": "Echte RGBA-Transparenz mit Alpha 0..255, 1386944 vollständig transparente Pixel von 1573352; kein aufgemaltes Schachbrett."
+    },
+    "bottom_edge": {
+      "result": "pass",
+      "detail": "526 Pixel mit Alpha >32 in der letzten Bildzeile; Ärmel setzt sich bis zur Bildunterkante fort."
+    },
+    "test_composite": {
+      "result": "pass",
+      "detail": "1672 x 941; entspricht bitgenau Pillow Image.alpha_composite der beiden unveränderten Eingaben bei Position 0,0."
+    },
+    "sprite_grid": {
+      "result": "not_applicable"
+    },
+    "forbidden_elements": {
+      "result": "pass",
+      "detail": "Keine Burg, Runen, Schattenmonster, Wappen, Neon, Chibi, Schrift, HUD, Wasserzeichen oder Effekte."
+    },
+    "rejected_attempts": [
+      {
+        "attempt": 1,
+        "reason": "Hand und Finger zu groß; Finger greifen im Komposit an beide Gesichtsbereiche."
+      },
+      {
+        "attempt": 2,
+        "reason": "Gesichter weitgehend frei, aber seitliche Finger noch zu nah an den Gesichtskanten und Hand zu groß für die gewünschte schwebende Geste."
+      }
+    ],
+    "limitations": [
+      "Schweben und Anatomie visuell am statischen Testkomposit beurteilt; noch keine Prüfung der Animation im Spiel.",
+      "Rohformat ist wegen identischer Hintergrundabmessungen minimal vom mathematisch exakten 16:9 entfernt."
+    ]
+  }
+}

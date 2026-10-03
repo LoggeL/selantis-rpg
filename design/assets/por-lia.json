@@ -1,0 +1,68 @@
+{
+  "id": "por-lia",
+  "kind": "portrait",
+  "files": {
+    "raw": "output/imagegen/raw/por-lia/por-lia.png",
+    "attempts": [
+      "output/imagegen/raw/por-lia/por-lia-v1.png",
+      "output/imagegen/raw/por-lia/por-lia-v2.png",
+      "output/imagegen/raw/por-lia/por-lia-v3.png"
+    ]
+  },
+  "target": {
+    "w": 64,
+    "h": 64
+  },
+  "selected_attempt": 2,
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempt_count": 3,
+    "prompts": [
+      "Use case: stylized-concept.\nAsset type: Selantis RPG dialogue portrait, square bust portrait, opaque PNG, intended downstream target 64x64.\nCreate one portrait of Lia at the farm in the closing scene of the prologue: she has just closed \"The stories of the sorceress Alana\" after losing herself in the book under a tree in the late evening sun. Tell that exact moment THROUGH HER EXPRESSION, without objects or scenery: still half immersed in the story, dreamy eyes angled slightly down and sideways, a restrained closed-mouth smile, slightly sheepish because she has been caught daydreaming. A warm and very human expression, not a confident glamour pose.\nReference roles: image 1 is exclusively the pixel-art style reference: dark earthy outlines, muted natural palette, crisp deliberate pixel clusters. Do NOT copy its red-haired character costume, cloak, HUD or environment. Images 2 and 3 show Lia's actual face, hairstyle and costume. Image 4: Lia is the LEFT woman with gathered white blouse and tied braided hair; do NOT use the right woman's loose hair or sleeveless clothes.\nSubject: young woman with fair natural face like reference 3, natural softly shaped eyebrows, ordinary small nonluminous eyes, softly rounded cheek and jaw, plausible human proportions. Light brown to dark blonde hair with restrained golden lights, side braid following the temple and gathered at the back into a tied low bun; no loose red curls or long loose hair. Plain off-white gathered peasant blouse with gathered round neckline and roomy sleeves, as in references 2 and 3. No cloak, bodice, armor, jewelry or embroidered fantasy trim.\nComposition: square, head and shoulders to mid-chest, full crown with breathing room, torso comfortably inside frame, three-quarter portrait facing slightly to viewer's left, relaxed shoulders, face readable small. Normal realistic head relative to shoulders, no chibi.\nStyle: authentic hand-placed 2D pixel art on ONE coherent 128x128 logical pixel grid, enlarged by integer nearest-neighbor to 1024x1024. Every cluster and edge aligns to the same 8x8 output pixel lattice. Hard square pixels throughout face, hair, blouse and background. Limited about 24-color palette, 3 to 4 flat shading tones per material, dark warm brown contours, economical details, no antialiasing, no gradients, no blur, no photographic textures, no painterly fine marks. Expression must remain legible when later reduced to 64x64.\nBackground: entirely flat unobtrusive muted warm evening-gold ochre, near #B69150, no gradient, no scenery, no halo, no decorative frame. Late sunlight indicated solely by a few flat gold clusters in hair and on skin; summergold palette anchor #D6AD59, pale warm skin, off-white #E8E2D0 and warm gray shadows. Keep everything restrained and earthy.\nNo magic, luminous eyes, blue glow, sparkles, bloom, runes, monsters, castles, invented heraldry, neon, text, watermark, HUD, UI or border.\nDeliver just one finished square portrait.",
+      "Use case: style-transfer. Edit the supplied portrait of Lia for the Selantis pixel RPG.\nKeep the exact character identity, fair natural face, natural brows, modest down-left sideways gaze, tiny dreamy sheepish closed-mouth smile, side braids tied into low bun, dark blonde/light brown hair with golden lights, off-white gathered round-neck blouse, bust framing and human proportions. It is the moment just after she closes her Alana storybook in the farm's evening sun, still half in the story.\nFix ONLY the pixel rendering defects: the ENTIRE background must be one SINGLE flat solid muted ochre #B69150, without ANY gradient, grain, vignette or texture. Render face, hair and blouse as true carefully placed pixel-art clusters on ONE uniform 128x128 grid enlarged by nearest-neighbor to a square image. Every pixel hard square, every edge aligned on this same grid. REDUCE material shading to 3-4 clearly separated flat tones each and total roughly 24 colors. Remove all smooth shading, antialiasing, texture, and tiny fine noisy details. Make dark warm brown outlines and economical clusters like the supplied reference game style; ensure face expression is readable at later 64x64 reduction. Simplify blouse pleats rather than increasing detail. Natural unmade-up eyes, no eyeliner or glamour makeup.\nThe only lighting is small flat warm gold highlight clusters, no glowing rim or halo. No magic, luminous eyes, particles, text, symbols, watermark, frame, HUD or extra objects.\nThis is one square opaque production portrait, not a comparison board.",
+      "Edit this Selantis Lia portrait one final time. Preserve hairstyle, white gathered blouse, face identity, pose and dreamy slightly guilty closed-mouth smile. Simplify rendering substantially into a classic 64x64 pixel-art RPG portrait, enlarged as square blocks. Use a SINGLE consistent chunky square pixel size EVERYWHERE. Draw it as a limited 20-color indexed sprite, no smooth tones between flat colors. Background is one solid fill #B69150 across every single background pixel. NO background shading, NO gradient, NO grain, NO vignette. Face shading in only FOUR opaque flat colors with hard edges, hair in FOUR flat colors, blouse in THREE flat colors. No extra tiny intermediate pixels or texture. Strong dark brown contour. Natural light brown/dark blonde side-braided hair tied in back with warm gold highlights. Pale human face and natural brows. Small ordinary non-glowing eyes, no cosmetics. Chest-up, crown fully inside the square. Evening warmth and a distracted sheepish smile carry the farm scene, just after she put down Alana's storybook. No objects, effects, text, UI, frame, magic, glitter, bloom or watercolor. Treat every edge as a hard square lattice. FLAT background. FLAT shading. Actual pixel sprite portrait, clearly simplified from the input."
+    ]
+  },
+  "references": [
+    "sources/reference/artstyle/user-pixel-baseline.png",
+    "sources/frames/characters-film/lia-costume-ep01-06m22s.jpg",
+    "sources/frames/characters-film/lia-face-ep01-12m22s.jpg",
+    "sources/frames/characters-film/sisters-ep01-04m52s.jpg"
+  ],
+  "notes": [
+    "Lia im Hof-Look nach Film-Triss: helles Gesicht, natürliche Brauen, hellbraunes bis dunkelblondes Haar mit goldenen Lichtern, seitliche Flechtsträhnen hinten zum tiefen Knoten gebunden, weiße geraffte Bluse.",
+    "Szenenmoment: nach dem Lesen von Alanas Geschichte noch verträumt, seitlich gesenkter Blick und kleines, leicht schuldbewusstes Lächeln.",
+    "Warmes Abendgold im Hintergrund folgt dem ausdrücklichen Auftrag und ersetzt den dunklen Standardhintergrund für Portraits.",
+    "Finale Wahl ist eine unveränderte Kopie von Versuch 2. Alle drei Rohversuche erhalten. Die Pipeline für 64x64 und Palettenreduktion wurde nicht ausgeführt."
+  ],
+  "self_review": {
+    "status": "mit_bekannten_maengeln",
+    "method": "Alle drei generierten Bilder selbst visuell mit Stil- und Filmreferenzen verglichen.",
+    "film_look": "Erfüllt: Flechtfrisur hinten gebunden, helle natürliche Gesichtszüge und weiße geraffte Bluse. Gesicht bleibt eine stilisierte Interpretation der Referenz.",
+    "palette": "Erfüllt: sommergoldene Wärme, natürliche Haarfarben, warme Haut und gebrochenes Weiß. Kein Magieblau oder Neon.",
+    "composition": "Erfüllt: quadratisches Brustbild, Kopf vollständig im Bild, dunkle Konturen, normale Kopf-Schulter-Proportionen.",
+    "expression": "Erfüllt: verträumter seitlicher Blick und zurückhaltendes, leicht schuldbewusstes Lächeln.",
+    "sprite_grid": "Nicht anwendbar.",
+    "forbidden_elements": "Keine Magie, leuchtenden Augen, Runen, Monster, Burg, Wappen, Texte, Wasserzeichen, HUD oder Rahmen sichtbar.",
+    "pixel_rendering": "Teilweise erfüllt: klare Pixelkonturen und Cluster, aber leichter Hintergrundverlauf sowie weiche Farbzwischenstufen im Rohbild; kein streng einheitliches hartes Pixelraster garantiert.",
+    "attempts": [
+      {
+        "attempt": 1,
+        "result": "Filmlook und Ausdruck gut. Hintergrundverlauf und zu feine Farbzwischenstufen, daher zweiter Versuch."
+      },
+      {
+        "attempt": 2,
+        "result": "Vereinfachte Schattierung und gute Gesichtszüge, beste Gesamtwahl. Leichter Verlauf und weiche Farbzwischenstufen verbleiben."
+      },
+      {
+        "attempt": 3,
+        "result": "Gröbere Pixel und vereinfachte Bluse. Größere Augen wirken comicartiger und weniger filmnah; Verlauf bleibt. Nicht gewählt."
+      }
+    ],
+    "known_defects": [
+      "Leichter Hintergrundverlauf entgegen der Vorgabe eines einfarbigen Hintergrunds.",
+      "Rohbild enthält weiche Farbzwischenstufen; einheitliche harte Pixelgröße und begrenzte Palette noch nicht technisch normalisiert.",
+      "64x64-Zielbild und Lesbarkeit nach Pipeline noch nicht geprüft."
+    ]
+  }
+}

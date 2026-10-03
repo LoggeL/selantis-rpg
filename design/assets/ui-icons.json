@@ -1,0 +1,125 @@
+{
+  "id": "ui-icons",
+  "kind": "ui-icon-sheet",
+  "files": {
+    "image": "output/imagegen/raw/ui-icons/ui-icons.png",
+    "attempts": [
+      "output/imagegen/raw/ui-icons/ui-icons-v1.png",
+      "output/imagegen/raw/ui-icons/ui-icons-v2.png",
+      "output/imagegen/raw/ui-icons/ui-icons-v3.png"
+    ],
+    "qa_preview_24px": "output/imagegen/raw/ui-icons/ui-icons-v3-qa-24px.png",
+    "qa_preview_enlarged": "output/imagegen/raw/ui-icons/ui-icons-v3-qa-enlarged.png"
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 3,
+    "order": [
+      "energy-beam",
+      "pressure-wave",
+      "wait",
+      "confirm",
+      "intent-axe",
+      "intent-sword",
+      "intent-crossbow-bolt",
+      "protect-boy",
+      "move",
+      "back",
+      "danger-behind",
+      "footsteps-path"
+    ],
+    "reading_order": "row-major, left to right, top to bottom",
+    "cell": {
+      "w": 362,
+      "h": 362
+    }
+  },
+  "target": {
+    "w": 96,
+    "h": 72,
+    "cell": {
+      "w": 24,
+      "h": 24
+    }
+  },
+  "raw": {
+    "w": 1448,
+    "h": 1086,
+    "background": "near #FF00FF chroma key; RGB, no alpha",
+    "selected_attempt": 3
+  },
+  "palette": {
+    "magic": "#397FC1",
+    "danger": "#9A3438",
+    "robe": "#1F3550",
+    "ivory": "#E8E2D0"
+  },
+  "notes": [
+    "Generated with the built-in image_gen tool only. No CLI fallback. Exactly three generation attempts.",
+    "Style reference: sources/reference/artstyle/user-pixel-baseline.png, specifically the framed HUD buttons.",
+    "Creative direction read: Farbdramaturgie and Figurenlook nach Filmvorgabe in docs/creative-direction-tutorial.md; design/asset-style-spec.md.",
+    "Row 1 powers use bare hands with dark navy robe sleeves and ivory trim. Protect-boy represents the endangered young soldier. Eye represents the enemy felt behind Valentus. Footprints represent retreat.",
+    "Final is an unmodified copy of generation attempt 3. QA images are nearest-neighbor inspection previews, not production exports.",
+    "The final raw is intentionally retained for the later normalization pipeline. Chroma-key tolerance, hard edges, color remapping and reduction to 96x72 are still needed."
+  ],
+  "self_review": {
+    "status": "qualified_with_known_defects",
+    "method": "Each generated image visually inspected. All three also inspected as nearest-neighbor 96x72 atlas previews, enlarged 8x for visual inspection. Raw PNG dimensions and colors checked separately.",
+    "film_look": {
+      "result": "pass_for_icon_scope",
+      "details": "Bare hands, navy sleeves and ivory trim; no staff or magician armor. No full character portraits required for this icon atlas."
+    },
+    "palette": {
+      "result": "partial",
+      "details": "Muted blue magic and dark red threat colors follow the intended roles. Exact #397FC1 and #9A3438 are absent in final raw pixels, despite explicit prompt anchors. Chroma background is near magenta; only 10 pixels equal exact #FF00FF. Raw contains 46931 RGB colors, so it is not a final restricted pixel palette."
+    },
+    "grid": {
+      "result": "pass_visual",
+      "details": "Final canvas is 1448x1086, divisible into 4x3 square 362x362 cells. The twelve framed icons visually align with the regular grid, in requested order, with no outer presentation margin."
+    },
+    "readability_24px": {
+      "result": "partial",
+      "details": "All twelve primary meanings are recognizable in the 24x24-per-cell preview. Two pressure-wave hands and three arcs remain distinct. Protect-boy human body and crossbow-bolt fletching lose detail; path footprints remain abstract. Beam is broader than a simple line and contains several tiny blue pixels."
+    },
+    "forbidden_elements": {
+      "result": "pass",
+      "details": "No text, watermark, castle, runes, shadow monster, invented heraldry, staff, chibi character or neon magic. Bright magenta is only the requested key background."
+    },
+    "pixel_consistency": {
+      "result": "partial",
+      "details": "Main silhouettes use coarse square pixel steps, but raw has residual gradients and edge microvariations. Not completely flat or uniformly snapped at target pixel size."
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "selection": "rejected",
+        "details": "Correct order and legible motifs, but nonuniform outer margins, soft shading and semitransparent raw edges."
+      },
+      {
+        "attempt": 2,
+        "selection": "rejected",
+        "details": "Simpler shapes, but margins and soft shading remain; spritesheet alignment still not strict enough."
+      },
+      {
+        "attempt": 3,
+        "selection": "selected",
+        "details": "Best strict 4x3 alignment and opaque chroma background. All required motifs present. Residual raw palette/edge issues documented; third attempt limit reached."
+      }
+    ],
+    "known_defects": [
+      "Exact palette and exact #FF00FF chroma background not achieved.",
+      "Residual raw gradients and edge softness.",
+      "Shielded boy and bolt fletching have limited detail at 24x24.",
+      "Energy beam is thick and includes tiny blue particles."
+    ]
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "attempt_count": 3,
+    "prompts": [
+      "Use case: stylized-concept\nAsset type: production pixel RPG HUD icon sprite atlas, ui-icons, for Selantis prologue.\nImage 1 is STYLE REFERENCE ONLY: imitate only its small HUD buttons (bottom row): dark square inset panels, restrained warm stone/brass pixel border, muted ivory pictograms, simple strong silhouette. Do not reproduce the scene.\nCreate one atlas with exactly FOUR COLUMNS and THREE ROWS, twelve equal square cells, no outer margins and no unequal spacing. Canvas aspect 4:3, preferably 1536x1152. Every cell represents a 24x24 pixel icon enlarged as hard-edged nearest-neighbor pixel art. Use one uniform coarse logical pixel size throughout, integer aligned pixel clusters, extremely economical detail. All twelve dark square framed buttons have identical size and centered placement within their cells, exactly 2 logical pixels of transparent space between neighboring button frames. Genuinely transparent outside frames; inside each button dark charcoal #17201D. Thin dark outline and muted stone border. No letters, numbers, labels, key badges, title, watermark, glow, bloom, smooth gradients, anti-aliasing, background scenery, ornamental runes or invented heraldry.\nStrict reading order, left to right then top to bottom:\nROW ONE:\n1. ENERGY BEAM: open bare palm at left, sleeve in Valentus dark navy #1F3550 with one ivory #E8E2D0 trim, one perfectly straight horizontal BLUE #397FC1 line emitting from palm toward right. Tiny image clearly shows the hand AND beam. No staff.\n2. PRESSURE WAVE: TWO distinct bare open hands below with matching navy ivory-trim wide sleeves, THREE concentric blue #397FC1 semicircular arcs rising above the pair. Strong broad arcs, no cloud or blast.\n3. WAIT: chunky ivory hourglass with muted brown top and bottom, visibly pinched central neck.\n4. CONFIRM: one large clear muted ivory checkmark.\nROW TWO:\n5. AXE ATTACK INTENT: one unmistakable single-bladed medieval axe, danger-red #9A3438 blade and dark red haft, diagonal, simple chunky silhouette.\n6. SWORD ATTACK INTENT: one unmistakable straight medieval sword with crossguard, danger-red #9A3438, diagonal.\n7. CROSSBOW SHOT INTENT: one short danger-red #9A3438 CROSSBOW BOLT, visible broad arrowhead and compact fletching, diagonal. Only bolt, no bow.\n8. PROTECT THE BOY: blue #397FC1 shield above a SMALL distinct ivory human figure, two separate clear shapes, shield protecting him overhead. No crest.\nROW THREE:\n9. MOVE: one muted brown leather pointed medieval boot, strong ankle and toe silhouette, implies Valentus' heavy travelling boot.\n10. BACK: one ivory curved arrow turning back toward left, unmistakable bent shaft and triangular arrowhead.\n11. DANGER BEHIND: one large danger-red #9A3438 EYE, simple almond-shaped outline and central pupil, symbolizes enemy felt at Valentus' back, no monster or extra face.\n12. FOOTSTEPS/PATH: simple muted ivory and earth-brown winding path symbol with TWO distinct boot footprints leading upward. Spacious readable graphic.\nMuted palette, no neon, colors based on reference. Think actual readable 24x24 game buttons, not twelve detailed illustrations. All twelve icons occupy consistent visual weight, all isolated, all frames fit inside their own cells. Exactly 12 buttons arranged in a strict 4 columns by 3 rows grid.",
+      "Use case: style-transfer.\nEdit the supplied TWELVE ICON ATLAS, preserve every icon's meaning, position and exact 4 columns x 3 rows reading order. This is a Selantis pixel RPG HUD sheet, intended to be reduced to 96x72, EACH CELL 24x24.\nFix only the production defects: remove ALL gradient shading from button interiors, border and symbols; use totally flat solid color pixel clusters. No smooth gradients, no micro-texture, no antialiasing, no vignette. Pure crisp low resolution pixel art. Uniform logical pixel size.\nStrict layout: image aspect exactly 4:3, twelve equal square cells, 4 columns, 3 rows. Every frame has exactly the SAME dimensions, same corner cutouts and border thickness, centered in its cell, no outside canvas margin. The left and right cells must have identical margins. Think a 96x72 logical pixel sheet enlarged 16 times to 1536x1152. Every button is 22x22 logical pixels, centered in its 24x24 cell with a 1-pixel transparent margin on EVERY side. All edges align to this same logical pixel grid. Outside buttons actual transparent alpha. Inside each button one FLAT charcoal #17201D, border muted earth stone #75664F with one darker outline #101814. No outer shadows.\nPreserve icons:\nRow 1: one bare open hand with navy sleeve #1F3550 ivory trim #E8E2D0 emitting a connected straight horizontal magic-blue #397FC1 beam; TWO separate open hands under THREE concentric blue semicircular pressure-wave arcs; ivory hourglass; ivory checkmark.\nRow 2: RED single-bladed axe; RED straight sword with crossguard; RED short crossbow bolt with fletching and arrowhead; BLUE shield over a SMALL separate ivory human silhouette.\nRow 3: brown pointed leather travelling boot; ivory curved return arrow pointing left; RED almond-shaped eye and pupil; ivory/earth simple winding path with TWO boot footprints.\nMagic main color EXACT #397FC1, threat main color EXACT #9A3438. May use at most one flat darker red or blue shade. Neutral ivory #E8E2D0 and muted brown. No neon or glowing effects. Keep simplified silhouettes readable at 24x24. The symbols communicate Valentus using barehanded powers, the axe raised over the young soldier, the crossbow bolt threat, shielding the boy, sensing an enemy behind his back, retreat footsteps.\nNo labels, letters, text, keys, watermarks, runes, monsters, staff, heraldry. EXACT 12 equally-sized icons.",
+      "Create a finished game sprite atlas, not a presentation or mockup. Exactly 4 columns x 3 rows of equal SQUARE 24x24 logical pixel HUD icon tiles. Total logical size 96x72, enlarge by nearest neighbor to a large 4:3 PNG. No labels.\nCRITICAL GEOMETRY: Twelve tiles must cover the entire canvas edge to edge. No surrounding blank margin. Every tile has the same side length, and none of its border crosses its cell boundary. The first tile starts at the TOP LEFT CORNER of the IMAGE. Last tile ends at the BOTTOM RIGHT CORNER. Exact column boundaries at 0%,25%,50%,75%,100% of canvas width. Exact row boundaries at 0%,33.333%,66.667%,100% of canvas height. Each tile's own square dark border sits against its cell edge, with a one-logical-pixel solid magenta #FF00FF line at the tile edge. No additional gutters, margins or drop shadows.\nCOLOR/PIXEL RULES: Solid #FF00FF background, NO transparency. Inside each tile a completely flat solid charcoal #17201D square field with a thin muted stone #75664F frame edged in #101814. Pixel clusters only, uniformly sized square logical pixels, sharp right angles. NO SMOOTH GRADIENTS, NO VIGNETTE, NO SHADING TEXTURES, NO ANTIALIASING. Like a real 24x24 pixel art icon atlas magnified. Simple silhouettes occupying about 16x16 logical pixels. The magic icons use EXACT medium blue #397FC1. Danger icons use EXACT muted dark blood-red #9A3438. Ivory #E8E2D0. Leather #75664F. Navy sleeves #1F3550. These are muted medieval HUD colors, never neon except the flat chroma key background.\nStrict row-major order:\nFIRST ROW: (1) an OPEN bare HAND at left, dark navy wide robe sleeve with ivory trim at bottom, a blue horizontal ENERGY BEAM emerging from the palm to right. (2) TWO small open bare HANDS at bottom with matching navy/ivory cuffs, THREE concentric blue semicircular wave ARCS above them. (3) ivory HOURGLASS, narrow neck between two triangular sand chambers and brown caps. (4) large ivory CHECKMARK.\nSECOND ROW: (5) dark red SINGLE-BLADED AXE, diagonal, chunky axe blade and long haft. (6) dark red SWORD, diagonal, clear straight blade and crossguard. (7) dark red short CROSSBOW BOLT, diagonal, broad arrowhead and fletching, no crossbow. (8) blue SHIELD above separate SMALL ivory HUMAN FIGURE, protects the young soldier.\nTHIRD ROW: (9) brown medieval pointed leather BOOT, side silhouette, toe right. (10) ivory CURVED BACK ARROW pointing left. (11) dark red almond-shaped EYE with dark central pupil. (12) a simple ivory winding PATH with TWO separated small brown boot FOOTPRINTS, leading upward.\nThe atlas narrates Selantis' fever-dream battle tutorial: Valentus' barehanded beam, his pressure wave rescuing the boy from a lethal axe, sword/bolt attack intent, shielding the boy, movement, cancelling a move, enemy sensed behind him, the boy's retreat path. Small simple pictograms, never full scenes. No staff, no armor on magician, no runes, heraldry, monster, invented crest, text, letters or numbers. All 12 icons have identical frames, consistent visual weight and fit in their own cells. Strict pixel sprite sheet touching canvas edges, solid magenta chroma background only in the thin lines between tiles."
+    ]
+  }
+}

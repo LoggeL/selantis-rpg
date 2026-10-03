@@ -1,0 +1,89 @@
+{
+  "id": "por-valentus",
+  "kind": "portrait",
+  "files": {
+    "battle": "output/imagegen/raw/por-valentus/por-valentus.png",
+    "wounded": "output/imagegen/raw/por-valentus/por-valentus-wounded.png",
+    "battle_v1": "output/imagegen/raw/por-valentus/por-valentus-v1.png",
+    "battle_v2": "output/imagegen/raw/por-valentus/por-valentus-v2.png",
+    "battle_v3": "output/imagegen/raw/por-valentus/por-valentus-v3.png",
+    "wounded_v1": "output/imagegen/raw/por-valentus/por-valentus-wounded-v1.png",
+    "wounded_v2": "output/imagegen/raw/por-valentus/por-valentus-wounded-v2.png",
+    "wounded_v3": "output/imagegen/raw/por-valentus/por-valentus-wounded-v3.png"
+  },
+  "target": {
+    "w": 64,
+    "h": 64
+  },
+  "raw": {
+    "w": 1254,
+    "h": 1254,
+    "format": "png"
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempts_per_image": 3,
+    "selected": {
+      "battle": 3,
+      "wounded": 3
+    },
+    "wounded_edit_source": "output/imagegen/raw/por-valentus/por-valentus.png",
+    "prompts": {
+      "battle": [
+        "Use case: stylized-concept. Asset: square bust portrait for Selantis RPG, raw image later reduced to 64x64. Reference 1 is pixel-art style only, references 2 and 3 define Valentus's facial identity, hair and robe, NOT their cyan ghost lighting. Create ONE square pixel-art bust portrait of the living human Valentus at the opening of his battlefield fever dream: he stands on the ridge like a stake while the wind pulls his long hair, watching the armies collide offscreen. Serious, composed, gaunt, quietly formidable, lips closed, narrow face, young adult not elderly. Chest-up, entire top of head within frame, shoulders and chest visible, face and gaze turned slightly to viewer's right. Long very dark brown center-parted hair falling to chest with several clearly wind-swept strands toward viewer's left; narrow short chin goatee, no full beard. Strict film costume: dark navy-blue robe #1F3550 / #2A4A6E, broad ivory #E8E2D0 vertical front panel, narrow pale stripe descending from shoulder, small pale ROUND ornaments following the dark neckline in a U shape. No invented medallion or emblems. Physically natural muted skin color, prominent cheekbones, subtle under-eye fatigue, not anime handsome. Background absolutely flat solid dark smoke charcoal #34383D, no setting or objects. Battlefield light is muted flat daylight as day turns to night, muted steel-grey shadow planes, no orange theatrics. Pixel art like the portrait in reference 1: restrained handmade pixel clusters, uniform visible square pixel grid at a logical 128x128 scale enlarged with nearest-neighbour to a square 1024x1024 raster. Every edge and highlight hard pixel steps, dark contours, realistic adult anatomy, limited natural palette, sparse readable details. Portrait must remain recognizable at 64x64. No photorealistic texture, no painterly strokes, no smooth gradients, no bloom, no cyan/turquoise filter, no glowing eyes or ghost aura, no magic effects, no staff, no armor, no runes, no castle, no monsters, no heraldry, no text, no border, no HUD, no watermarks. The character is a solid living person.",
+        "Use case: identity-preserve. Image 1 is the edit target, Valentus battle portrait. Refine this portrait into strictly crisp RPG pixel art. Keep EXACTLY the same man, facial bone structure, narrow chin goatee, serious composed formidable expression, sideways gaze, center-parted long dark hair and wind direction, square chest-up composition, dark navy robe with broad ivory front panel plus narrow pale shoulder stripe and round pale neckline ornaments. Fix TWO rendering defects: (1) every background pixel must be ONE single flat charcoal color #34383D, no mottling or gradient; (2) remove all soft blur, antialiasing and smoothed pixel-block shading, use a SINGLE consistent square pixel grid, hard edges, flat solid colors within clusters and limited palette, render as an exact nearest-neighbour enlargement of a 128x128 logical pixel portrait. No new details. Uniform sharpness from face to robe and hair, deliberate blocky pixel clusters and dark outlines. Flesh remains naturally human, muted daylight, no glow, no turquoise, no filters, no magical effects, no phototexture, no armor, no staff, no text, no border.",
+        "Use case: precise-object-edit. Edit the attached square Valentus pixel portrait. Change ONLY the backdrop: replace the whole backdrop around the character and between windblown hair strands with ABSOLUTELY FLAT SINGLE SOLID DARK CHARCOAL (#34383D), as a flat color index, zero noise, zero grain, zero gradient, zero vignette, zero illumination variation. All corners identical. Treat the background as an empty uniform fill, not a physical photographed wall. Keep character appearance and position unchanged: living young adult gaunt dark-haired man, center part, short narrow chin beard, collected serious gaze turned slightly right, windblown hair, dark navy robe and pale front bands and round neckline ornaments. Preserve hard stepped pixel-art outlines and flat pixel clusters. No new objects, no shadow projected onto background, no effects, no glow, no cyan filter, no text, no border. Square bust portrait, same composition."
+      ],
+      "wounded": [
+        "Use case: identity-preserve. Asset: por-valentus-wounded, square chest-up RPG pixel portrait. EDIT the attached finalized battle portrait of Valentus into his wounded fever state after the dream breaks, the same man who awakens drenched in sweat knowing the hunters will find him. The strength has drained out of him, his exhausted will is holding him upright. Preserve EXACT facial identity, narrow facial proportions and bone structure, center part, short narrow chin goatee, original slight sideways head angle and gaze to viewer's right, original bust crop and head scale, original dark navy blue robe #1F3550 / #2A4A6E, broad ivory front panel #E8E2D0, narrow shoulder stripe, pale ROUND ornaments around neckline. Keep the recognizable film costume. Change only condition and hair arrangement: skin conspicuously pale ashen ivory rather than healthy warm tan, gaunt cheeks, deep tired grey shadows beneath feverish wide intensely focused eyes, slightly reddened eyelid edges but normal nonluminous eyes. Brow tense, lips tightly pressed into one thin horizontal line with subtle asymmetry of pain. Clearly visible sweat beads drawn as a few HARD PIXEL pale highlights on forehead, temples and cheek, no smooth shine. Long dark hair now wet and stringy, hangs limp in clumped strands, several strands sticking across forehead and temple and cheek, no wind-swept fan of dry flowing hair. Hair remains center-parted and chest-long. Living wounded human, not dead, not undead. Wound lies below this chest crop, no added facial cuts and no blood splatter. The scene is told solely through expression, pallor, sweat and damp hair. Uniform square pixel clusters, deliberate hard pixel stairs, limited natural palette, realistic adult anatomy, no painterly textures. Solid single-color charcoal #34383D background absolutely uniform, no gradient, no noise or vignette, no scenery. Square raster about 1024x1024, pixel-art logical resolution 128x128 enlarged by nearest neighbour, readable later at 64x64. No ghost aura, no cyan/turquoise filter, no glowing eyes, no bloom, no magical effects, no staff, no armor, no fantasy runes, no medallion, no text, no border, no watermark. Preserve character identity, composition and costume while visibly changing to sick wounded state.",
+        "Use case: identity-preserve. Edit the attached wounded Valentus pixel-art bust portrait, preserve the exact same character, identity, expression of fever and exhaustion, gaze direction, pale sweaty skin, damp stringy center-parted hair stuck to forehead and cheeks, short narrow chin goatee, navy-and-ivory film robe and round pale neckline ornaments, same square framing. Two precise corrections: 1) his lips are tightly PRESSED TOGETHER into a thin closed line, jaw clenched, pain restrained, NO visible gap between lips and no teeth; reduce the lower lip prominence. 2) all backdrop pixels are a single solid charcoal gray #34383D with zero texture, zero grain and no gradients; preserve all hair strand edges. Keep sweat as hard-edged small pixel beads. Crisp uniform hard square pixel grid and flat pixel-cluster colors, limited muted natural palette. No blur, no ghost lighting, no cyan or turquoise filter, no magical effects, no blood on face, no armor, no staff, no text, no border. The wound is below the crop. The man is living, not undead. Same bust crop, same pose and exact costume.",
+        "Use case: precise-object-edit. Preserve the wounded Valentus character pixels in attached image. Change ONLY the background surrounding his silhouette and between hair strands into one FLAT SOLID SINGLE dark neutral color #34383D. A plain digital flat color fill, NOT a wall, absolutely NO gradients, texture, grain, dithering or illumination falloff. Every background pixel has identical RGB (52,56,61). Keep the same pale living man, center-parted dark wet stringy hair pasted against skin, narrow chin goatee, feverish tired eyes and tight closed lips, sweat beads, navy blue robe with ivory front panels and circular pale neckline ornaments. Keep same square chest-up framing and side gaze. Sharp pixel-art steps, dark outlines, no blur, no cyan filter, no glow, no text, no border or effects. Do not restyle or reinterpret the character."
+      ]
+    }
+  },
+  "notes": [
+    "Stil-Spezifikation und Creative Direction, insbesondere Farbdramaturgie und Figurenlook nach Filmvorgabe, gelesen.",
+    "Filmreferenzen bestimmen Gesicht, Mittelscheitel, lange dunkle Haare, kurzen schmalen Kinnbart und dunkelblaue Robe mit heller Vorderbahn, Schulterstreifen und runden Halszierden. Film-Geistleuchten und Türkisfilter ausdrücklich ausgeschlossen.",
+    "Schlachtportrait: gesammelter ernster Blick am Hangkamm, Haare im Wind; Hintergrund bleibt eine neutrale dunkle Fläche ohne Schlachtszenerie.",
+    "Verwundete Variante durch Bearbeitung des fertigen Schlachtportraits erzeugt: blasse Haut, Schweißperlen, fiebriger Blick mit Augenringen, klebende nasse Haarsträhnen und zusammengepresste Lippen. Keine erfundene Gesichtswunde; Rumpfwunde liegt außerhalb des Brustbilds.",
+    "Unveränderte Rohbilder; keine Pixelize-Pipeline ausgeführt. Zielgröße 64 x 64 ist die spätere Pipeline-Ausgabe."
+  ],
+  "self_review": {
+    "status": "mit dokumentierten Abweichungen",
+    "visual_review": "Alle sechs Ergebnisse unmittelbar visuell geprüft.",
+    "film_look": {
+      "passed": true,
+      "details": "Derselbe schmale, junge erwachsene Mensch in beiden Portraits. Langes dunkles Haar mit Mittelscheitel, kurzer Kinnbart, blaue Robe und helle vertikale Bahnen sowie runde Zierelemente erkennbar. Kein Stab, keine Rüstung und kein Geistleuchten."
+    },
+    "palette": {
+      "passed": true,
+      "details": "Gedämpftes Marineblau, gebrochenes Weiß, dunkles Rauchgrau. Schlacht mit natürlicher Hautfarbe, verwundet deutlich blasser. Keine Neon- oder Türkisfarben und kein Bloom. Palettenanker angenähert, nicht exakt quantisiert."
+    },
+    "format": {
+      "passed": true,
+      "details": "Beide PNGs quadratisch 1254 x 1254, Brustbild mit Blick leicht seitlich; Ziel 64 x 64."
+    },
+    "grid": {
+      "applicable": false,
+      "details": "Keine Spritesheets."
+    },
+    "forbidden_elements": {
+      "passed": true,
+      "details": "Keine Burg, Runen, Schattenmonster, erfundenen Wappen, Chibi-Proportionen, Waffen, Text, HUD oder Wasserzeichen."
+    },
+    "attempt_reviews": {
+      "battle_v1": "Filmlook, Szene und Silhouette passend. Pixelkanten stellenweise weich; Hintergrund nicht exakt einfarbig. Deshalb Korrektur.",
+      "battle_v2": "Pixelkanten und flache Farbcluster deutlich klarer; Gesicht und Kostüm erhalten. Hintergrund weiter mit leichter Tonwertvariation. Deshalb dritter Versuch.",
+      "battle_v3": "Final gewählt. Gesicht, Blick und Wind im Haar erhalten; klare Pixelkonturen. Schwache Hintergrundvariation bleibt trotz gezielter Korrektur.",
+      "wounded_v1": "Identität und Kostüm erhalten, Blässe, Schweiß, Augenringe und klebende Strähnen klar erkennbar. Lippen noch zu ausgeprägt, Hintergrund weiter leicht variierend. Deshalb Korrektur.",
+      "wounded_v2": "Lippen schmaler und stärker gepresst, Fieberzustand erkennbar. Hintergrundvariation bleibt. Deshalb dritter Versuch.",
+      "wounded_v3": "Final gewählt. Blässe, feuchte Strähnen, Schweiß und gepresste Lippen vorhanden; Identität und Bildausschnitt stimmig. Hintergrund bleibt schwach variierend."
+    },
+    "known_defects": [
+      "Der dunkle Hintergrund ist visuell nahezu einfarbig, technisch jedoch nicht vollständig homogen. Hintergrundprobe 150 x 150 oben links: Schlacht 49 RGB-Werte, verwundet 45 RGB-Werte; Kanalspanne jeweils wenige Werte.",
+      "Die Rohbilder besitzen leichte Tonwertstreuung innerhalb mancher Pixelcluster. Ein mathematisch exaktes einheitliches Pixelraster und eine feste Palette sind erst durch die spätere Pipeline sicherzustellen.",
+      "Lesbarkeit und Schweißdetails bei der endgültigen 64-x-64-Ausgabe sind noch nicht visuell qualifiziert."
+    ],
+    "limits": "Je Bild maximal drei Tool-Generierungen genutzt; keine weiteren Retuschen oder Dateien außerhalb der freigegebenen Projektpfade."
+  }
+}

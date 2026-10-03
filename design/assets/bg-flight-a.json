@@ -1,0 +1,93 @@
+{
+  "id": "bg-flight-a",
+  "kind": "background",
+  "files": {
+    "final": "output/imagegen/raw/bg-flight-a/bg-flight-a.png",
+    "attempts": [
+      "output/imagegen/raw/bg-flight-a/bg-flight-a-v1.png",
+      "output/imagegen/raw/bg-flight-a/bg-flight-a-v2.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "raw": {
+    "w": 1672,
+    "h": 941,
+    "format": "PNG",
+    "transparent": false
+  },
+  "generator": {
+    "tool": "image_gen",
+    "mode": "built-in",
+    "attempts": 2,
+    "selected_attempt": 2,
+    "prompts": [
+      "Use case: illustration-story.\nAsset type: bg-flight-a, a finished empty gameplay background for Selantis RPG prologue. Generate ONE opaque 16:9 landscape image, preferably 1536x864 or 1920x1080, edge-to-edge.\n\nThe first attached image is the PIXEL ART STYLE REFERENCE ONLY: match its fixed elevated three-quarter top-down game camera, visible ground and tree fronts, dark outlines, coherent square pixel size, natural muted colors, deliberate clusters of pixels. Do not copy its daylight, character, buildings, bridge, fences or interface.\n\nConcrete story scene: flight through a threatening but beautiful moonlit forest in a SMALL steep-sided valley. A narrow worn dirt footpath enters at the upper-left, descends a clearly steep earthen slope in one continuous readable route through the center, then continues toward the lower-right across a tiny shallow brook. The valley must read as a small intimate playable woodland space, NOT a distant panoramic landscape. Close layered trees and raised dark banks surround the route. Keep the central path visibly open so a separate game sprite can run along it.\n\nKEY LANDMARK 1: halfway down the slope, one LARGE GNARLED EXPOSED TREE ROOT extends from a tree on the left bank and lies transversely ACROSS the entire footpath. It is unmistakably a crooked root rooted in the tree, not a fallen log, not a bridge. Thick twisted bark and a few branching root tips; a low obstacle to stumble over. Locate it around left-center, clearly readable against lighter soil.\n\nKEY LANDMARK 2: in the bottom-right quadrant, a SMALL NARROW shallow trickle of water with a few rounded stones crosses the escape route. Brook only about one running stride wide, plainly jumpable, no broad river or waterfall, no bridge. A short continuation of the path is visible on its far bank before leaving the right/lower-right edge.\n\nThe left edge, far back behind layers of dark trees near the upper-left path entry, contains EXACTLY TWO TINY distant warm amber torch points belonging to unseen pursuers. Only tiny warm pixel marks, no torch bearers, no silhouettes, no people or animals.\n\nLighting and palette: NIGHT, dominant night blue #172535 and black-green #182A23; silver moonlight #B8C4D6. Cold broken moonlight shafts fall through cloud gaps and dense canopy across selected areas of slope, root and water. Show the shafts using hard-edged stepped pixel clusters and restrained discrete bands, never soft airbrush, bloom, fog gradients or lens effects. No sky horizon needed in this top-down scene. Leaves carry sparse individual bright silver dew pixels, not flowers or floating magical particles. Bark and earth remain desaturated and dark. The torch specks are the only warm highlights and remain tiny and far away. Enough tonal separation for the traversable ground and obstacles to read at 640x360.\n\nStyle: handcrafted detailed woodland pixel art consistent with the reference, one coherent pixel grid across foliage, trees, rocks, path, highlights and water. Dense foliage rendered in grouped readable shapes with sparing texture; crisp outlines; no photographic texture, no painterly brushstrokes, no antialiasing, no smooth gradients.\n\nMandatory exclusions: absolutely NO figures, portraits, animals, HUD, UI, text, logos, watermarks, borders, castle, ruins, buildings, runes, monsters, heraldry, banners, neon, magic effects, blood trails. Empty stage. The scene must specifically tell the steep descent, root trip hazard, jumpable brook and distant pursuit of this flight section.",
+      "Use case: precise-object-edit. Asset: bg-flight-a.\nEdit the supplied scene, which is the first generated attempt. Preserve its camera, trees, steep small valley, continuous upper-left to lower-right dirt route, gnarled exposed root across the path, two tiny distant amber torch points at the far upper-left edge, night-blue #172535 / black-green #182A23 / moon-silver #B8C4D6 palette, sharply clustered pixel-art style and empty stage.\n\nONE TARGETED CORRECTION: The brook in the lower-right must be a tiny shallow quiet TRICKLE, one running stride wide and easy to jump across. Remove ALL whitewater, cascades, miniature waterfalls and foamy vertical streams. Replace them with a continuous flat shallow pebbly channel, sparse horizontal silver pixel dashes for gently flowing water, only a few smooth stones. Make the crossing on the dirt escape route unambiguously a low, flat, jumpable gap, not a ravine. The path continues on the right bank to the lower-right edge. No bridge.\n\nKeep the cold moonlight shafts as crisp stepped pixel shapes with no bloom. Keep dew highlights sparse and individually pixelated. No antialiasing, smooth gradients, photographic textures, painterly textures. One consistent pixel grid. Fixed elevated three-quarter top-down game viewpoint.\n\nOutput exact 16:9 landscape composition, preferably 1920x1080 pixels, full bleed. Absolutely no figures, people, torch bearers, animals, HUD/UI, text, borders, blood, buildings, castle, ruins, runes, monsters, banners, heraldry, magic or neon."
+    ]
+  },
+  "references": [
+    "sources/reference/artstyle/user-pixel-baseline.png",
+    "design/asset-style-spec.md",
+    "docs/creative-direction-tutorial.md: Farbdramaturgie",
+    "docs/creative-direction-tutorial.md: Figurenlook nach Filmvorgabe",
+    "docs/creative-direction-tutorial.md: Flucht"
+  ],
+  "notes": [
+    "Leere Nachtwald-Bühne im kleinen Tal. Durchgehender schmaler Fluchtweg vom steilen Hang links oben zur Bachquerung rechts unten.",
+    "Große knorrige Baumwurzel quer über dem Pfad; zwei winzige warme Fackelpunkte am linken oberen Rand hinter dem Wald.",
+    "Version 1 wegen zu kräftiger weißer Bachkaskaden verworfen. Version 2 ersetzt diese durch flaches, ruhiges Wasser und ist die finale Wahl.",
+    "Rohbild unverändert aus dem eingebauten Tool übernommen. Pixelize-Pipeline wurde nicht ausgeführt; Zielgröße 640 × 360 bleibt Aufgabe der Pipeline."
+  ],
+  "self_review": {
+    "reviewed_visually": true,
+    "status": "accepted_with_raw_pipeline_caveats",
+    "film_look": {
+      "status": "not_applicable",
+      "detail": "Leere Bühne ohne Figuren, Kostüme oder Banner; Figurenlook-Abschnitt gelesen."
+    },
+    "palette": {
+      "status": "pass",
+      "detail": "Nachtblau, Schwarzgrün und silberne Akzente dominieren; warme Farbe nur an den zwei fernen Fackeln. Hexwerte sind Prompt-Anker, keine bereits hart quantisierte Ausgabepalette."
+    },
+    "spritesheet_grid": {
+      "status": "not_applicable",
+      "detail": "Hintergrundbild, kein Spritesheet."
+    },
+    "forbidden_elements": {
+      "status": "pass",
+      "detail": "Keine Figuren, Tiere, Burg, Runen, Schattenmonster, erfundenen Wappen, Neonfarben, Chibi-Proportionen, HUD, Schrift oder Wasserzeichen sichtbar."
+    },
+    "composition": {
+      "status": "pass",
+      "detail": "Feste erhöhte 3/4-Sicht, Hangabstieg, querliegende Wurzel, flacher schmaler Bach mit Steinen und weiterführender Weg klar erkennbar. Kleine Talbühne statt Fernpanorama."
+    },
+    "lighting": {
+      "status": "pass",
+      "detail": "Kalte Mondlichtkegel aus dem Dickicht, einzelne silberne Blattlichter und zwei kleine warme Verfolgerfackeln; keine magischen Effekte."
+    },
+    "pixel_style": {
+      "status": "qualified_pass",
+      "detail": "Dunkle Konturen und harte Pixelcluster entsprechen dem Referenzcharakter. Foliage ist detailreicher als die Forderung nach sparsamen Details; streng einheitliches Zielpixelraster und begrenzte Palette sind im Rohbild noch nicht garantiert."
+    },
+    "known_defects": [
+      "Rohformat 1672 × 941 liegt knapp neben mathematisch exaktem 16:9 (weniger als eine Pixelzeile Abweichung). Pipeline-Ziel bleibt 640 × 360.",
+      "Blattdetails sind dicht. Nach Herunterskalierung und Quantisierung muss die Lesbarkeit der Taupixel nochmals geprüft werden.",
+      "Keine native In-Game-Prüfung oder Pixelize-Normalisierung durchgeführt."
+    ],
+    "attempts": [
+      {
+        "attempt": 1,
+        "decision": "rejected",
+        "reason": "Bach enthielt helle Kaskaden und wirkte zu kräftig für das gewünschte flache Rinnsal."
+      },
+      {
+        "attempt": 2,
+        "decision": "selected",
+        "reason": "Kaskaden entfernt, ruhiger flacher Bach, Szene und Wegmarken bleiben lesbar."
+      }
+    ]
+  }
+}

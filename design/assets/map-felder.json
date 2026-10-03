@@ -1,0 +1,157 @@
+{
+  "id": "map-felder",
+  "kind": "background",
+  "files": {
+    "raw": "output/imagegen/raw/map-felder/map-felder.png",
+    "attempts": [
+      "output/imagegen/raw/map-felder/map-felder-v1.png",
+      "output/imagegen/raw/map-felder/map-felder-v2.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "source": {
+    "w": 1672,
+    "h": 941,
+    "format": "PNG",
+    "aspect_ratio": 1.7768331562167907
+  },
+  "description": "Weite, ruhige Felder der Eltern im trockenen Sommerabend: reifes Getreide, Rübenreihen auf brauner Erde, grasige Feldraine, vier einzelne fruchttragende Apfelbäume und eine schlichte Holzbank. Ferner Wald am oberen Rand.",
+  "path_exits": [
+    {
+      "edge": "left",
+      "center_normalized": {
+        "x": 0,
+        "y": 0.63
+      },
+      "span_normalized": [
+        0.61,
+        0.65
+      ],
+      "direction": "Zur Wiese",
+      "description": "Der Feldweg tritt links deutlich in der unteren Bildhälfte aus."
+    },
+    {
+      "edge": "bottom",
+      "center_normalized": {
+        "x": 0.81,
+        "y": 1
+      },
+      "span_normalized": [
+        0.77,
+        0.86
+      ],
+      "direction": "Zum Hof",
+      "description": "Der zusammenhängende Feldweg biegt nach unten und verlässt das Bild im rechten Teil des unteren Randes. Der Hof liegt außerhalb."
+    }
+  ],
+  "references": [
+    {
+      "path": "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow.png",
+      "role": "Verbindliche Referenz für Pixelstil, Pixeldichte, Palette, Abendlicht und erhöhte 3/4-Draufsicht."
+    }
+  ],
+  "literary_source": {
+    "path": "sources/novel/roman-selantis-2.txt",
+    "pdf_pages": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "grounding": [
+      "S. 7-8: weite Wiesen und Felder der Eltern, einzelne Obstbäume und sommerliche Hitze.",
+      "S. 9-10: tiefe Abendsonne.",
+      "S. 11: Mohrrüben auf dem Feld.",
+      "S. 12: trockenes Gras, seit Tagen kein Regen, benutzter ausgehöhlter Feldweg nach Hause."
+    ],
+    "brief_additions": [
+      "Reifes Getreide, sichtbare Rübenreihen, fruchttragende Apfelbäume und die einfache Bank folgen dem Asset-Auftrag."
+    ]
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "skill": "imagegen",
+    "attempts": 2,
+    "selected_attempt": 2,
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: style-transfer / stylized-concept.\nAsset: map-felder, empty playable pixel RPG environment, 16:9 landscape.\nTransform the supplied meadow environment into its NEIGHBORING SCREEN: the parents' wide meadows and cultivated fields. The supplied bg-lia-meadow.png is the ONLY binding reference for pixel density, palette, rendering, lighting and camera. Preserve EXACTLY its crisp pixel-cluster density, elevated fixed three-quarter top-down view, dark olive outlines, golden evening sunlight from UPPER RIGHT, and long shadows extending LOWER LEFT. This must look like the next screen of the SAME game world. Change the terrain layout to the following:\nA spacious quiet rural field map. A large mature golden cereal field occupies the upper-left and central upper ground. A separate cultivated beet/carrot-root field occupies the right middle ground, with unmistakable orderly parallel rows of low green root-crop plants separated by dry brown exposed earth. Grassy field margins separate the plots and broad green meadows.\nThree or four scattered individual modest apple trees with visible small red/gold fruits stand along grassy margins, spaced apart, not an orchard grid. A distant continuous woodland runs across the narrow upper edge. Keep the middle and lower meadow open and readable. Trees must use the same leaf pixel cluster scale as the supplied image, not oversized hero-tree composition.\nMANDATORY ROAD CONNECTIONS: a single dry worn earth cart-track enters at the LEFT image edge at about 68% of image height (in the lower half), curves gently through the lower meadow below the crop fields, then bends down and exits through the BOTTOM edge at about 80% of image width (right side, toward the offscreen farm). Clearly visible uninterrupted road at BOTH exits; no road exiting right edge or top. Two wheel ruts, sparse dry grass between them, modest eroded earth shoulders as in the reference. Do not let a tree or crops block the left entry. A simple undecorated wooden bench stands beside the road near its middle, with empty seat, no inscription.\nLate summer evening: dry grass and dry dusty soil after days without rain, patches of tawny grass among rich green grass, NO water, puddles, wet mud or lush spring blossoms. Low sun is just beyond upper-right, gold-lit leaf tops and cereal ears, long hard-edged tree and bench shadows diagonally lower-left. Summergold #D6AD59, saturated natural green #52783C, warm ochre earth, deep olive shadows. Match reference color intensity.\nCamera: SAME elevated 3/4 game-camera as reference with broad readable ground plane and visible front faces of trees, bench and earth shoulders. Minimal sky; fields and narrow distant forest at upper edge, no cinematic panoramic side view.\nCrisp detailed pixel art with coherent square pixel clusters and restrained dark outlines. Match reference logical pixel size throughout. No photoreal texture, blur, bloom, gradients, painted brush strokes or noise.\nEMPTY STAGE: NO people, characters, animals, HUD, icons, text, letters, watermarks, heraldry, banners, buildings, castle, ruins, runes, magic, neon or decorative symbols. No book or loose character props.\nSource grounding: roman-selantis-2 PDF pages 7-12 describe parents' wide meadows and fields, fruit trees, summer heat, root crops, dry grass and rainless days; road leads home. Farm stays OFFSCREEN.\nReturn one finished 16:9 landscape image."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Targeted correction of supplied map-felder pixel-art background. Preserve EXACTLY its existing palette, crisp pixel-cluster scale, elevated 3/4 top-down camera, golden evening lighting from upper right, long diagonal shadows lower left, golden cereal field, root-crop rows on right, four fruit-bearing apple trees, distant upper forest, simple wooden bench, dry summer grass, empty stage and 16:9 composition.\nChange ONLY the left entrance and left stretch of the dirt road: its opening at the LEFT border must be clearly in the LOWER HALF at 65% of total image height, not around the midline. Replace the old left-border track at 49% height with meadow grass. Reroute the same connected two-rut dirt track from the new left opening at y=0.65 gently across the lower meadow to meet the UNCHANGED existing track below the bench around x=0.40,y=0.68. Keep road exit through the BOTTOM border around x=0.80 unchanged. Make both edge connections completely open and continuous. Remove or shorten only foreground left shrubs that would obstruct the new entry; preserve the spacious meadow and all other terrain. No extra fork, no road at top or right edges.\nStill no people, animals, HUD, text, heraldry, buildings, ruins, symbols, wet ground, bloom or effects. Output one finished 16:9 landscape pixel RPG background, preferably exact 16:9 pixel dimensions."
+      }
+    ]
+  },
+  "notes": [
+    "Finale Wahl ist die unveränderte Kopie von Versuch 2.",
+    "Sonne oben rechts; lange Baumschatten nach links unten.",
+    "Die Wegausgänge sind visuell geschätzte Koordinaten, Ursprung oben links.",
+    "Rohbild, keine Pixelize-Pipeline ausgeführt. Ziel der späteren Pipeline: 640 x 360."
+  ],
+  "self_review": {
+    "status": "accepted_with_known_limitations",
+    "visual_review_performed": true,
+    "scene_composition": {
+      "result": "pass",
+      "details": "Getreide, geordnete Rübenreihen, Feldraine, vier Apfelbäume mit Früchten, Holzbank und ferner Wald sichtbar. Offene Wiesenflächen und ruhige Komposition."
+    },
+    "road_connections": {
+      "result": "pass",
+      "details": "Ein zusammenhängender Feldweg vom linken Rand bei etwa 63 Prozent Bildhöhe zum unteren Rand bei etwa 81 Prozent Bildbreite. Kein weiterer Wegausgang."
+    },
+    "camera_and_style": {
+      "result": "pass_visual",
+      "details": "Erhöhte 3/4-Draufsicht und scharfkantige Pixelcluster wirken visuell konsistent mit bg-lia-meadow. Exakte Gleichheit der logischen Pixelgröße nicht mathematisch nachgewiesen."
+    },
+    "section_palette": {
+      "result": "pass_visual",
+      "details": "Sommergold und sattes Grün entsprechen visuell der verbindlichen Referenz. Hex-Anker #D6AD59 und #52783C im Prompt, exakte Farbwerte nicht numerisch verifiziert."
+    },
+    "lighting": {
+      "result": "pass_visual",
+      "details": "Tiefe Abendsonne oben rechts, goldene Blatt- und Ährenkanten, lange Schatten links unten."
+    },
+    "dryness": {
+      "result": "pass",
+      "details": "Trockenes Erdreich und goldbraune Gräser, keine Pfützen, Wasserflächen oder nasser Schlamm."
+    },
+    "prohibited_elements": {
+      "result": "pass",
+      "details": "Keine Figuren, Tiere, HUD, Texte, Wappen, Gebäude, Burg, Runen, Schattenmonster, Neon oder Magieeffekte sichtbar."
+    },
+    "sprite_grid": {
+      "result": "not_applicable",
+      "details": "Hintergrund."
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "selected": false,
+        "issues": [
+          "Linker Weganschluss zu nah an der Bildmitte."
+        ]
+      },
+      {
+        "attempt": 2,
+        "selected": true,
+        "improvements": [
+          "Linker Weganschluss deutlich in die untere Hälfte verschoben. Bestehender unterer Ausgang und Szenenlayout erhalten."
+        ]
+      }
+    ],
+    "known_limitations": [
+      "Rohformat 1672 x 941 weicht um etwa 0,053 Prozent vom exakten Verhältnis 16:9 ab, wie die verbindliche Referenz.",
+      "Im schmalen Himmelsbereich leichte Tonwertabstufung wie in der Referenz.",
+      "Lesbarkeit nach der späteren Pixelize-Pipeline noch nicht geprüft."
+    ]
+  }
+}

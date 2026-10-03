@@ -1,0 +1,101 @@
+{
+  "id": "crt-fledgling",
+  "kind": "spritesheet",
+  "files": {
+    "sheet": "output/imagegen/raw/crt-fledgling/crt-fledgling.png",
+    "attempts": [
+      "output/imagegen/raw/crt-fledgling/crt-fledgling-v1.png",
+      "output/imagegen/raw/crt-fledgling/crt-fledgling-v2.png",
+      "output/imagegen/raw/crt-fledgling/crt-fledgling-v3.png"
+    ]
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 1,
+    "order": [
+      "fledgling_helpless",
+      "fledgling_chirping",
+      "nest_empty",
+      "nest_with_fledgling"
+    ],
+    "raw_cell": {
+      "w": 543,
+      "h": 724
+    }
+  },
+  "target": {
+    "w": 32,
+    "h": 48,
+    "unit": "per_frame"
+  },
+  "notes": [
+    "Mit eingebautem image_gen erstellt. Drei Versuche, finale Wahl v3. Alle Rohbilder unverändert kopiert.",
+    "Graubraunes flaumiges Vogeljunges mit gelbem offenem Schnabel, braunes Zweignest, leicht erhöhte Dreiviertelansicht nach rechts unten. Warmes Sommerabendlicht von rechts oben.",
+    "Rohbild 2172x724 RGBA mit echter Transparenz, kein Magenta-Fallback. Keine sichtbaren Hintergrundschatten, Beschriftungen, Eier oder zusätzlichen Figuren.",
+    "Bei Zielgröße 32x48 ist das sitzende Küken etwa 14 Pixel hoch, das Nest etwa 20 Pixel breit. Damit deutlich kleiner als Lia; der gewünschte 9-12-Pixel-Kükenmaßstab wurde vom Generator nicht exakt erreicht.",
+    "Spätere Pipeline muss Alpha hart setzen und Pixelpalette normalisieren. Schwache Alpha-Restpixel außerhalb der sichtbaren Konturen vorhanden.",
+    "Nur output/imagegen/raw/crt-fledgling/ und design/assets/crt-fledgling.json beschrieben."
+  ],
+  "self_review": {
+    "status": "best_available_after_three_attempts_requires_alignment_normalization",
+    "selected_attempt": 3,
+    "method": "Alle drei Versuche visuell geprüft; finale PNG-Größe, Alphakanal und Zell-Bounding-Boxes zusätzlich mit Pillow nur gelesen.",
+    "subjects": "Vier gewünschte Motive in korrekter Reihenfolge; hilflos sitzendes Küken und stärker geöffneter Schnabel unterscheidbar. Nest leer und mit genau einem Küken.",
+    "style": "Gedämpfte natürliche Braun-/Grautöne, gelber Schnabel, dunkle Konturen, warmes Licht. Rohbild wirkt pixelartig, enthält aber feine Textur und halbtransparente Kanten; vollständig einheitliche harte Pixelgröße erst nach Pipeline sicherzustellen.",
+    "scale": "Küken in Zelle1 und Zelle2 nahezu gleich groß. Beide Nester nahezu gleich groß, Perspektive gleich. Küken im Nest wirkt anatomisch vergleichbar, Unterkörper verdeckt.",
+    "layout": "Vier gleich große Zellen, breite freie Ränder und keine sichtbare Überlappung. Sichtbare Fuß-/Nestbasis bei y534-536 nahezu gleich. Zentrierung nicht exakt: besonders Nest in Zelle4 liegt etwa48 Rohpixel links der Zellmitte (ungefähr3 Zielpixel).",
+    "alpha": "RGBA, alpha0..255; echte Transparenz. Sehr schwache Restpixel bei Alpha<32 außerhalb der sichtbaren Motive, in den Rohbildern unverändert erhalten.",
+    "visible_bounds_alpha128": [
+      [
+        188,
+        331,
+        390,
+        534
+      ],
+      [
+        168,
+        330,
+        369,
+        534
+      ],
+      [
+        95,
+        324,
+        440,
+        536
+      ],
+      [
+        50,
+        286,
+        396,
+        536
+      ]
+    ],
+    "attempts": [
+      {
+        "attempt": 1,
+        "result": "superseded",
+        "reason": "Küken und Nester zu groß, geringe Ränder bei den Nestern."
+      },
+      {
+        "attempt": 2,
+        "result": "superseded",
+        "reason": "Kleinerer Maßstab, aber versetzte Zentrierung und feine Textur."
+      },
+      {
+        "attempt": 3,
+        "result": "selected_with_limitations",
+        "reason": "Etwas einfachere Pixelkonturen; gleiche Motive, ausreichende Ränder und nahezu gleiche Basis. Exakte Zentrierung, Zielmaßstab und harte Alpha-Kanten bleiben offen."
+      }
+    ]
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "transparent_background": true,
+    "prompts": [
+      "Use case: stylized-concept\nAsset type: Selantis pixel RPG production spritesheet crt-fledgling.\nCreate one wide horizontal PNG spritesheet with EXACTLY 4 equal columns and 1 row, four frames only. Transparent background, no scenery, no floor, no cast shadows, no text, no grid lines. Prefer canvas 1536 by 384, four 384 by 384 cells; if a different resolution is required, keep four equal cells in one horizontal row.\n\nUse the two attached images as STYLE REFERENCES only: first the summer meadow for muted natural gray-brown / ochre palette and warm late-summer sunlight from UPPER RIGHT; second Lia for crisp dark contours, consistent pixel clusters and the game scale. Do not include Lia or the meadow in the sheet.\nStyle: genuine crisp pixel art, fixed mildly elevated three-quarter view, restrained detail, dark brown nearly black one-pixel outlines, limited muted natural colors, no soft gradients, no antialiasing, no painting or vector look. Use a SINGLE CONSISTENT PIXEL SIZE for all four sprites.\n\nSubject: a tiny fallen wild songbird fledgling with fluffy gray-brown down, tiny tucked wings, small dark natural eyes and a conspicuous yellow open begging beak; realistic baby-bird anatomy, helpless and vulnerable rather than cartoon mascot. Same bird identity, size and orientation throughout, facing slightly toward lower right. It must be naturally tiny alongside Lia: intended bird height about 9-12 game pixels versus Lia's roughly 40px visible height. Nest width about 18 game pixels. Depict the bird around 100px high in this raw sheet (roughly one quarter cell height), nest around 175px wide. Generous empty transparent margins, nothing crossing cell boundaries. Keep all ground-contact points on a common horizontal baseline around 70% canvas height and every subject centered in its equal cell.\n\nLEFT TO RIGHT, exactly:\nCELL 1: the little fledgling sitting helplessly on the ground, body low, wings tucked, small yellow beak slightly open. Only the bird, no ground.\nCELL 2: EXACT same fledgling, same body size and position, chirping with the yellow beak wide open, clearly visible dark warm mouth interior. No sound marks.\nCELL 3: one EMPTY small oval bowl-shaped bird nest woven from brown twigs and a few dry straw strands, visible inner hollow in the same elevated perspective. No eggs, no bird.\nCELL 4: EXACT same nest, same size and position as cell 3, with the EXACT same fledgling sitting inside and begging with its yellow beak open. Nest contains one bird only.\nLighting remains warm upper-right highlights with subtle darker lower-left shading on the objects themselves. No ambient background shadows. No labels, no extra birds, no eggs, no accessories. True alpha transparency.",
+      "Edit the referenced Selantis fledgling spritesheet. Keep exactly four equal-width cells in one row, transparent background, no text or shadows. Preserve the same gray-brown fledgling, yellow beak, warm light from upper right, dark contour, elevated three-quarter view facing lower right and frame order: helpless sitting fledgling with slightly open beak, same fledgling chirping with wide-open beak, empty woven twig nest, identical nest with same fledgling inside.\n\nThe single essential correction is GAME SCALE and clean PIXEL SIMPLICITY: shrink ALL four subjects to 60% of their previous size, centered in their respective cells, retaining equal bird sizes and equal nest sizes. On the 2172x724 reference canvas, cell width543: bird sprite height approx155px (not265px), nest width approx265px (not440px). Bird heights cell1 and cell2 equal; bird in cell4 SAME anatomical size. Anchor all four objects at baseline y505; nest front edge at y505, bird feet at y505. Centers x271,814,1357,1900. Large empty transparent space around all sprites.\nUse coarse, uniform square pixel clusters and a limited muted natural palette rather than dense fine feather shading. Natural baby songbird proportions, tiny dark eyes, gray-brown down, small tucked wings, yellow begging beak. The bird is only about10 game pixels tall next to Lia at about40 pixels. Transparent pixels must be completely empty with no faint haze, no background texture, no drop shadow. Crisp dark pixel contours. Preserve four subjects only and the requested different beak poses. Do not add captions, gridlines, scenery, eggs or extra birds.",
+      "Edit this transparent four-frame fledgling/nest pixel sprite sheet for final production alignment. Preserve the four subjects, colors, dark outlines, warm upper-right light, baby bird identity, open yellow beak variations and exact left-to-right order. Keep canvas EXACTLY 2172x724, FOUR equal cells543x724, one horizontal row, NO text or gridlines.\n\nMake all four subjects slightly smaller and precisely center them on the same baseline. This is an exact uniform grid layout:\ncell1 bounding box about x191..351, y345..505, bird helplessly sitting, yellow beak partly open;\ncell2 bounding box about x734..894, y345..505, same-sized bird with beak wide open;\ncell3 nest bounding box about x1221..1493, y330..505, EMPTY twig nest;\ncell4 nest bounding box about x1764..2036, y330..505, IDENTICAL twig nest with same anatomical-sized bird inside (head rises above rim to approx y300). The front rim of both nests must be identical and both nests must be equal size. Bird cell1/cell2 size must be identical. Facing lower right consistently.\nTreat these positions as precise production requirements: sprite centers separated by exactly543px, all bottom contact pixels at y505, huge transparent margins. No visible or invisible haze outside sprites, no floor or contact shadows.\nReplace excessive fine texture with a clean uniform chunky pixel grid, crisp square pixel clusters, small muted gray-brown down palette, ochre golden yellow beak, dark brown contours, brown twig nest. All four sprites share one pixel scale. Tiny natural fledgling with small dark eyes, not mascot/chibi. Preserve transparent alpha. No new objects, no eggs, no scenery."
+    ]
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "sprites": {
+    "valentus-walk": {
+      "file": "assets/sprites/valentus-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1429
+    },
+    "valentus-cast": {
+      "file": "assets/sprites/valentus-cast.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1429
+    },
+    "valentus-cloak-run": {
+      "file": "assets/sprites/valentus-cloak-run.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1399
+    },
+    "valentus-cloak-events": {
+      "file": "assets/sprites/valentus-cloak-events.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 3,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1645
+    },
+    "valentus-refuge": {
+      "file": "assets/sprites/valentus-refuge.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 3,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1159
+    },
+    "warrior": {
+      "file": "assets/sprites/warrior.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1573
+    },
+    "axe": {
+      "file": "assets/sprites/axe.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1547
+    },
+    "crossbow": {
+      "file": "assets/sprites/crossbow.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 3,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1216
+    },
+    "boy": {
+      "file": "assets/sprites/boy.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1111
+    },
+    "falke": {
+      "file": "assets/sprites/falke.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 3,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1541
+    },
+    "woman": {
+      "file": "assets/sprites/woman.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.083
+    },
+    "lia-read": {
+      "file": "assets/sprites/lia-read.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1229
+    },
+    "lia-walk": {
+      "file": "assets/sprites/lia-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ],
+      "scale": 0.1229
+    },
+    "crt-butterfly": {
+      "file": "assets/sprites/crt-butterfly.png",
+      "frameW": 32,
+      "frameH": 32,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        16,
+        29
+      ]
+    },
+    "crt-bird": {
+      "file": "assets/sprites/crt-bird.png",
+      "frameW": 32,
+      "frameH": 32,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        16,
+        29
+      ]
+    },
+    "crt-hare": {
+      "file": "assets/sprites/crt-hare.png",
+      "frameW": 32,
+      "frameH": 32,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        16,
+        29
+      ]
+    },
+    "crt-chicken": {
+      "file": "assets/sprites/crt-chicken.png",
+      "frameW": 32,
+      "frameH": 32,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        16,
+        29
+      ]
+    },
+    "crt-pig": {
+      "file": "assets/sprites/crt-pig.png",
+      "frameW": 32,
+      "frameH": 32,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        16,
+        29
+      ]
+    },
+    "crt-fledgling": {
+      "file": "assets/sprites/crt-fledgling.png",
+      "frameW": 32,
+      "frameH": 32,
+      "cols": 4,
+      "rows": 1,
+      "foot": [
+        16,
+        29
+      ]
+    }
+  },
+  "images": {
+    "bg-battle": "assets/bg/battle.png",
+    "bg-flight-a": "assets/bg/flight-a.png",
+    "bg-flight-b": "assets/bg/flight-b.png",
+    "bg-refuge-candle": "assets/bg/refuge-candle.png",
+    "bg-refuge-dark": "assets/bg/refuge-dark.png",
+    "bg-lia": "assets/bg/lia.png",
+    "cut-wound": "assets/cut/wound.png",
+    "cut-woman": "assets/cut/woman.png",
+    "cut-cradle-sleep": "assets/cut/cradle-sleep.png",
+    "cut-cradle-empty": "assets/cut/cradle-empty.png",
+    "portrait-valentus": "assets/portraits/valentus.png",
+    "portrait-valentus-wounded": "assets/portraits/valentus-wounded.png",
+    "portrait-boy": "assets/portraits/boy.png",
+    "portrait-woman": "assets/portraits/woman.png",
+    "portrait-lia": "assets/portraits/lia.png",
+    "bg-map-waldrand": "assets/bg/map-waldrand.png",
+    "bg-map-felder": "assets/bg/map-felder.png",
+    "bg-map-hohlweg": "assets/bg/map-hohlweg.png",
+    "bg-map-hof": "assets/bg/map-hof.png",
+    "bg-map-hof-open": "assets/bg/map-hof-open.png",
+    "cut-hand": "assets/cut/hand.png",
+    "cut-wound-mono": "assets/cut/wound-mono.png",
+    "cut-wound-red": "assets/cut/wound-red.png"
+  },
+  "icons": {
+    "file": "assets/ui/icons.png",
+    "size": 24,
+    "names": [
+      "beam",
+      "wave",
+      "wait",
+      "confirm",
+      "intent-axe",
+      "intent-sword",
+      "intent-bolt",
+      "protect",
+      "move",
+      "back",
+      "danger-behind",
+      "path"
+    ]
+  },
+  "items": {
+    "file": "assets/ui/items.png",
+    "size": 16
+  }
+}

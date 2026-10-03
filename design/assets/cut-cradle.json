@@ -1,0 +1,89 @@
+{
+  "id": "cut-cradle",
+  "kind": "cutscene",
+  "files": {
+    "sleep": "output/imagegen/raw/cut-cradle/cut-cradle-sleep.png",
+    "hand": "output/imagegen/raw/cut-cradle/cut-cradle-hand.png",
+    "empty": "output/imagegen/raw/cut-cradle/cut-cradle-empty.png"
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "raw": {
+    "w": 1672,
+    "h": 941,
+    "aspect": "approximately 16:9",
+    "opaque": true
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempts": {
+      "sleep": 1,
+      "hand": 3,
+      "empty": 1
+    },
+    "edit_base": "cut-cradle-sleep.png",
+    "prompts": {
+      "sleep": "Use case: illustration-story.\nAsset type: Selantis pixel RPG prologue cutscene, single 16:9 landscape image, 1536x864 or 2048x1152.\nCreate an intimate extremely dark overhead close-up looking down into a plain wooden cradle in a humble room at night. This is Valentus's last quiet moment before transferring his hope to a child. The cradle fills nearly the whole frame. Its long axis runs vertically; two newborn infants lie side by side with their heads at the same height near the upper middle and their feet toward the bottom. Exactly TWO babies, identical size, equally lovingly swaddled in the exact same simple pale off-white cloth, same folds and coverage, tiny minimally indicated faces, absolutely no distinguishing hair, markings, jewelry, clothing, gender or colors. Both sleep peacefully, closed eyes, relaxed tiny mouths. Their heads are close together with a small central gap. Keep their face shapes and visible skin tones identical.\nAt the bottom of the frame the front wooden cradle rim is visible. ONE adult male hand reaches from the bottom LEFT and grips this rim, weary long fingers, anatomically plausible. A loose wide dark navy-blue robe sleeve (#1F3550 / #2A4A6E) enters from the lower edge behind this hand. No adult body or face. Keep the bottom CENTER free for another raised hand in the following shot.\nLighting: very dark room, only faint cool silver moonlight from LEFT. Left edges of cloth catch muted #B8C4D6; right side falls into deep night-blue shadow #172535. Cradle rough dark brown wood #392A23, plain worn boards. Swaddling is muted #E8E2D0 under dim cold light, not brilliant white. No candle, no warm spotlight.\nStyle: match the attached Selantis pixel baseline's handcrafted game pixel art: dark contours, muted natural colors, discrete hard-edged pixel clusters on ONE consistent pixel grid, restrained details, clear silhouettes. A strict close overhead cutscene view, not a scenic perspective. Deliberate low resolution pixel art rendered at an integer enlarged scale. No photorealism, photographic texture, painterly strokes, smooth gradients, antialiasing, bloom or soft focus.\nConstraints: entire composition 16:9. No text, HUD, border, watermark, runes, insignia, castle, staff, armor, neon, magical glow, rays, sparks or other effects. No chibi or cartoon proportions. Infant faces only suggested with a few pixels. Quiet, fragile, ambiguous, neither baby singled out. Use the attached pixel image solely as style reference; do NOT copy its forest, character, colors, composition, or UI.",
+      "hand": "Edit the supplied sleeping-twins source image in place. This is a precise minimal addition for crossfade animation. Original canvas is 1672 x 941; keep that exact size and the exact original positions of the cradle, infants, blankets, floor, and original LEFT hand gripping the bottom-left rim. Never shift either baby or redraw faces.\n\nAdd one right adult hand in a dark navy robe sleeve. The sleeve rises from the bottom center through the gap between the babies. At the top the wrist BENDS SHARPLY FORWARD, like a person holding their palm horizontally above a table. The palm faces DOWN. The viewer sees a FORESHORTENED compact back of the hand, held high in the air above the midpoint between both heads. The slightly separated tense fingers are SHORTENED BY PERSPECTIVE, curling gently forward, not long fingers pointing up flat against the pillow. Clearly a hovering, suspended gesture.\n\nCRITICAL PLACEMENT: draw the ENTIRE added hand, INCLUDING THUMB, entirely inside the empty pillow rectangle x=735..940 and y=100..180. Its lowest skin pixel must remain ABOVE y=185. BOTH babies' foreheads start below y=205. Leave an unmistakable visible strip of pillow between the entire hand and both heads. ALL FIVE FINGERS including the thumb must be above both heads. The thumb is tightly lifted alongside the hand, not reaching toward either infant. No skin silhouette may overlap either face or head. A narrow raised wrist descends only along the exact central gap around x=835, connecting this compact hand to the dark blue sleeve. This geometry is possible because the wrist bends forward and the hand is foreshortened. Do not enlarge the hand beyond the specified pillow area.\n\nAdd a natural subdued soft dark cast shadow across the upper parts of BOTH blankets, equal left/right, detached from the hand to show the air gap. No hand contact with anybody. Perfectly neutral between both children. Both faces remain fully visible, original, peacefully asleep.\n\nEverything else must match the original exactly: framing, camera, cradle position, infant sizes and positions, original LEFT gripping hand, cold dim moonlight, pixel grid, palette, original dark pixel-art style. No glow, magic effects, symbols, rays, sparks, new illumination, text, new characters, crop, scaling, zoom, or repositioning. Only insert this compact hovering hand, bent wrist/sleeve and balanced cast shadow.",
+      "empty": "Use case: precise-object-edit. Edit target: supplied original cut-cradle-sleep image (NOT the image with the raised hand). Create the aftermath shot of the SAME Selantis pixel RPG cutscene.\nKeep the exact 16:9 overhead camera, wooden cradle, wooden floor, bedding, two identically sized babies in the exact same positions with heads at the same height, pale off-white loving swaddling, dark restrained palette, cold faint silver moonlight from the LEFT, dark right shadows, exact pixel art grid and crisp pixel contours.\nChange ONLY these things:\n1. Completely REMOVE the adult gripping hand and its dark-blue sleeve at the lower left, exposing the original wooden cradle rim and dark floorboards. No adult hands, arms, sleeves, body or person anywhere. The cradle is NOT empty of children: both babies remain.\n2. Both babies are now AWAKE AND CRYING loudly after the flash. Their tiny mouths open into small dark crying shapes, eyes open as tiny distressed slits, brows suggested with minimal pixels. Minimal facial detail, do NOT make their identities distinguishable.\n3. Four small baby fists, two per infant, emerge from loosened upper swaddling folds near their chests/shoulders, clenched in distress. Equal affectionate swaddling, exactly equal infant sizes, identical face shapes and skin tone, no hair, no identifying markings or differences. Their poses should communicate the same distress equally. Bodies remain safely and mostly swaddled.\nNarrative: Valentus is gone, leaving two screaming infants, with no proof of death and no clue which child he meant.\nKeep extremely dark quiet room lighting, do not make aftermath brighter or warmer. NO painted flash, glow, beams, sparks, magic, bloom, tears rendered as shiny trails, symbols, text, HUD, watermarks, candle, gore, staff, armor. Effects are built in code. Same hard-edged handcrafted pixel art as the target, not painterly, realistic rendering, smooth gradients or chibi. Preserve all composition outside removal of hand and changed infant faces/fists."
+    }
+  },
+  "notes": [
+    "Beide Varianten sind Bearbeitungen des Schlafbilds; dieselbe Kamera und Wiege bleiben erhalten.",
+    "empty bezeichnet Valentus' Abwesenheit. Beide Säuglinge bleiben in der Wiege.",
+    "Mondlicht von links im bereits dunklen Zimmer gemäß E2; keine Kerze und keine gemalten Magieeffekte.",
+    "Versuche als *-v1.png archiviert, finale Wahl jeweils zusätzlich unter dem angeforderten Dateinamen.",
+    "Keine Pipeline-Normalisierung ausgeführt. Rohformat 1672 x 941 weicht durch ganzzahlige Abmessungen um weniger als 0,1 Prozent von 16:9 ab."
+  ],
+  "self_review": {
+    "method": "Jedes Ergebnis nach der Generierung selbst visuell geprüft, einschließlich Stil, Palette, Szene, Hände und Verbotsliste.",
+    "status": "accepted_with_raw_format_note",
+    "film_look": {
+      "result": "pass_for_visible_costume",
+      "detail": "Nur Valentus' Hände und weite dunkelblaue Robenärmel sichtbar; Gesicht, Haare und übrige Kleidung außerhalb des Ausschnitts, daher nicht beurteilbar. Kein Stab, keine Rüstung."
+    },
+    "palette": {
+      "result": "pass",
+      "detail": "Sehr dunkles Holzbraun und Nachtblau, gedämpfte helle Tücher, kaltes silbernes Mondlicht von links. Keine warmen Lichtquellen."
+    },
+    "pixel_style": {
+      "result": "pass_for_raw_asset",
+      "detail": "Sichtbare harte Pixelcluster, dunkle Konturen, keine Fototexturen, kein Bloom. Endgültige Pixelgröße und Palettenbegrenzung sind Aufgabe der späteren Pipeline."
+    },
+    "sprite_grid": {
+      "result": "not_applicable"
+    },
+    "forbidden_elements": {
+      "result": "pass",
+      "detail": "Keine Burg, Runen, Schattenmonster, Wappen, Neon, Chibi, Schrift, HUD oder Wasserzeichen; keine gemalten Effekte."
+    },
+    "sleep": {
+      "result": "pass",
+      "detail": "Genau zwei gleich große, ohne Identitätsmerkmale dargestellte Säuglinge, gleich liebevoll hell eingewickelt, friedlich schlafend. Eine Männerhand greift die untere linke Kante."
+    },
+    "hand": {
+      "result": "pass",
+      "version": "v2",
+      "file": "output/imagegen/raw/cut-cradle/cut-cradle-hand-v2.png",
+      "archive_v1": "output/imagegen/raw/cut-cradle/cut-cradle-hand-v1.png",
+      "correction_tool": "built-in image_gen",
+      "correction_attempts": 3,
+      "detail": "Dritter Korrekturversuch visuell akzeptiert: Griffhand unten links bleibt erhalten. Zweite Hand mit dunkelblauem Robenärmel, stark verkürztem abgeknicktem Handwinkel und nach unten gerichteter Handfläche schwebt mittig oberhalb beider Köpfe. Sichtbarer Abstand zu beiden Köpfen, beide Gesichter vollständig frei, keine Berührung und keine eindeutige Auswahl eines Kindes. Weicher dunkler Handschatten auf beiden Decken, kein Leuchten. PNG 1672 x 941; Kamera, Kinder- und Wiegenposition visuell mit dem Schlafbild abgeglichen.",
+      "rejected_attempts": [
+        "Versuch 1 verworfen: Kinder seitlich verschoben; Daumen zu nah am linken Gesicht.",
+        "Versuch 2 verworfen: Daumen überdeckt linke Stirn."
+      ],
+      "notes": "Alte aktive Hand-Fassung bleibt byteidentisch als cut-cradle-hand-v1.png. Akzeptierte Korrektur liegt als cut-cradle-hand-v2.png vor und wird zusätzlich als cut-cradle-hand.png verwendet. Keine Aussage über vollständige Pixelidentität außerhalb der Ergänzung."
+    },
+    "empty": {
+      "result": "pass",
+      "detail": "Keine Erwachsenenhand oder Robenärmel. Beide Kinder schreiend, Augen im Schreien zusammengekniffen, je zwei kleine Fäuste. Größe, Gesichtstyp und Tücher bleiben gleichartig."
+    },
+    "known_limitations": [
+      "Rohformat 1672 x 941 ist minimal vom mathematisch exakten 16:9 entfernt; Ziel bleibt 640 x 360.",
+      "Generative Bearbeitungen können geringfügige lokale Pixelabweichungen verursachen; keine Aussage über vollständige Pixelidentität zwischen den Aufnahmen."
+    ]
+  }
+}

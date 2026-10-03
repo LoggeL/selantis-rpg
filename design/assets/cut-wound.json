@@ -1,0 +1,94 @@
+{
+  "id": "cut-wound",
+  "kind": "cutscene",
+  "files": {
+    "final": "output/imagegen/raw/cut-wound/cut-wound.png",
+    "attempts": [
+      "output/imagegen/raw/cut-wound/cut-wound-v1.png",
+      "output/imagegen/raw/cut-wound/cut-wound-v2.png",
+      "output/imagegen/raw/cut-wound/cut-wound-v3.png"
+    ],
+    "qa": "output/imagegen/raw/cut-wound/cut-wound-qa.png"
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "source": {
+    "w": 1664,
+    "h": 936,
+    "selected_attempt": 3,
+    "attempt_count": 3,
+    "generator": "built-in image_gen",
+    "transparent_background": false,
+    "preparation": "Verlustfreier mittiger Beschnitt von 1672 x 941 auf exakt 16:9 (1664 x 936), keine kreative Nachbearbeitung. Rohversuche unverändert."
+  },
+  "references": [
+    "sources/reference/artstyle/user-pixel-baseline.png",
+    "sources/frames/valentus-film/film03-valentus-0038.jpg"
+  ],
+  "prompt": "Use case: illustration-story.\nAsset type: Selantis pixel RPG prologue cutscene, cut-wound, landscape 16:9, preferably 1600x900.\nReference image 1 is ONLY the pixel-art style reference: match its fine uniform hard-edged square pixel scale (about 2-3 image pixels per art pixel), dark stepped contours, restrained clustered shading, realistic proportions. Do not copy scenery or HUD.\nReference image 2 is ONLY the film costume reference for Valentus: deep dark blue robe, very wide sleeves, off-white lengthwise front panel and narrow light vertical shoulder stripe. Ignore its cyan special effect entirely.\nConcrete narrative: the fever dream breaks after Valentus rescues the young soldier; he suddenly feels the wound that was there all along. EXTREME CLOSE-UP on Valentus' anatomical RIGHT flank just below the ribs and above the waist. Face and head entirely out of frame, legs out of frame. View from slightly above and in front of his RIGHT side, not a mirrored left-side wound. His own bare right hand emerges from the wide dark blue right sleeve at viewer LEFT and presses firmly against his right ribcage/flank in the CENTER of the frame; five anatomically coherent fingers splayed and tensed, foreshortening kept simple. Torso continues toward viewer RIGHT where the off-white vertical front panel is visible, showing orientation. Dark burgundy blood anchored at #9A3438 seeps BETWEEN his pressing fingers and spreads as an irregular absorbent stain into the cloth under them. Robe remains intact, no exposed wound, no cuts, no gore, no splashes. Hand and cloth compression tell the pain.\nPalette: robe #1F3550 and #2A4A6E, light lengthwise cloth #E8E2D0, blood #9A3438 with restrained darker shades, muted pale skin. Background ONLY gray smoke swaths #34383D and #59616A, made of crisp pixel clusters, no smooth gradients. Low flat cool light. Clear value separation: fingers against dark robe, burgundy stain visible next to pale fingers and at edge of pale stripe. Must remain readable when all non-red colors are desaturated in game. Do not pre-render magic, glow, bloom, dream disintegration or white burn at edges; those are runtime effects.\nComposition: intimate tight crop, injury and hand as focal point occupying about middle half of frame; gray smoke only at outer margins. One hand only. Retain dark-blue sleeve and pale lengthwise trim clearly. Realistic mature slim male hand, no glove, no armor, no staff, no castle, no runes, no monsters, no emblems, no neon, no chibi, no text, no watermark, no HUD. Authentic detailed 2D game pixel art, never photo texture, painterly brush texture, soft blur, vector art or smooth 3D. Uniform tiny pixel grid even in this closeup; make forms larger, not pixel blocks larger.\nFINAL QUALITY REQUIREMENTS: Match the reference's crisp organic pixel clusters at a uniform fine 3x3 output-pixel scale. No graph-paper lattice, no repeating square mesh over the image, no regular fabric weave, no checkerboard overlay, no filter texture. Shading must be hand-placed irregular clean solid clusters with only a few values.\nMake the blood a flat soaked burgundy patch across intact dark-blue cloth under the right hand, following fabric folds but with no slit-like black cavities or glossy red bulges. Blood #9A3438 dominates its restrained red range. Anatomical right flank is viewer left of the pale front strip. Right hand with one thumb and four fingers comes from wide sleeve at viewer left.\nCrop upper frame below shoulders and lower frame just ABOVE belt; belt and any fastener entirely out of frame. Only torso, sleeve, pressing hand and smoke visible. Costume retains dark navy robe, wide sleeve, narrow cream lengthwise strip and broad cream front panel. NO knotted sash or invented buckle. Background ONLY crisp layered gray pixel-cluster smoke, no blur.\nAll other constraints from the main prompt apply. Deliver 16:9 landscape.",
+  "notes": [
+    "Traumbruch nach der Rettung des Jungen: Die bereits bestehende Wunde wird sichtbar. Nahaufnahme der anatomisch rechten Seite unter den Rippen; rechter Ärmel links im Bild, helle Vorderbahn rechts davon.",
+    "Blut ausdrücklich gemäß Auftrag enthalten. Entsättigung, Weißausbrennen und Traumzerfall bleiben Laufzeiteffekte.",
+    "QA-Kontaktbogen zeigt finale Rohdatei, approximative selektive Entsättigung und vollständige Entsättigung bei 640 x 360. Keine Änderung der finalen Bildfarben; keine Ausführung der Projekt-Pixelpipeline.",
+    "Alle drei Generierungsversuche gespeichert; Version 3 gewählt."
+  ],
+  "self_review": {
+    "status": "Mit bekannten Rohbild-Abweichungen abgegeben; 3 von maximal 3 Versuchen verwendet.",
+    "film_look": {
+      "result": "pass_for_visible_crop",
+      "details": "Dunkelblaue Robe, weiter Ärmel, breite helle Vorderbahn und schmale helle Längsstreifen sichtbar. Fünf Finger einer bloßen rechten Hand. Kopf, Haare, Kinnbart und Gürtel liegen außerhalb des Ausschnitts und sind nicht prüfbar. Keine Rüstung, kein Stab, kein Geistleuchten."
+    },
+    "scene": {
+      "result": "pass",
+      "details": "Hand drückt auf rechte Flanke oberhalb der Taille; dunkelrotes Blut zwischen den Fingern und im Stoff. Nur grauer Rauch im Hintergrund. Kein Täter, keine zusätzliche Handlung."
+    },
+    "palette": {
+      "result": "partial",
+      "details": "Dunkles Marineblau, gebrochenes Weiß, grauer Rauch und Burgunderrot stimmen in der Farbfamilie. Hex-Anker sind im Rohbild nicht exakt getroffen, #9A3438 ist nicht exakt enthalten; die Blutfarbe ist überwiegend dunkler."
+    },
+    "desaturation": {
+      "result": "pass_with_limit",
+      "details": "Bei 640 x 360 bleiben Hand, Druckfalten und heller Längsstreifen klar. In der selektiven QA-Entsättigung bleibt das Blut als einziges Farbsignal sichtbar. Vollständig grau verliert der Fleck Kontrast zum dunklen Stoff; Hand und Schmerzpose bleiben lesbar. QA-Farbmaske ist eine Approximation, kein Nachweis des Spiel-Shaders."
+    },
+    "pixel_style": {
+      "result": "partial",
+      "details": "Dunkle gestufte Konturen und Pixelcluster passen zur Stilrichtung. Das generierte Rohbild besitzt zahlreiche Zwischenfarben und kleine Texturabweichungen; ein exakt identisches einheitliches Pixelraster zur Referenz ist nicht nachgewiesen. Normalisierung auf 640 x 360 und Palettenreduktion durch die vorgesehene Pipeline bleiben erforderlich."
+    },
+    "format": {
+      "result": "pass",
+      "details": "Finales PNG 1664 x 936, exakt 16:9, Ziel 640 x 360."
+    },
+    "spritesheet": {
+      "result": "not_applicable"
+    },
+    "prohibited_content": {
+      "result": "pass",
+      "details": "Keine Burg, Runen, Schattenmonster, erfundene Wappen, Neonfarben, Chibi-Proportionen, Schrift, Wasserzeichen oder HUD."
+    },
+    "attempts": [
+      {
+        "version": 1,
+        "result": "rejected",
+        "reason": "Zu grobe Pixelwirkung und stellenweise offen-wundenartiges Blut."
+      },
+      {
+        "version": 2,
+        "result": "rejected",
+        "reason": "Regelmäßige Gittertextur und sichtbarer Stoffknoten am Gürtel weichen von Stil und Kostüm ab."
+      },
+      {
+        "version": 3,
+        "result": "selected",
+        "reason": "Beste Kombination aus filmnaher Robe, Anatomie, Stofffleck und dezenterer Pixeltextur."
+      }
+    ],
+    "known_defects": [
+      "Hex-Anker im Rohbild nur angenähert, Blut dunkler als #9A3438.",
+      "Pixelraster und Farbreduktion benötigen die vorgesehene Pipeline.",
+      "Blutfleck in vollständigem Graustufenbild weniger kontrastreich."
+    ]
+  },
+  "cd_review": "Creative Director: abgenommen. Horizontal gespiegelt (Original: cut-wound-unmirrored.png), damit die Wunde auf Valentus' rechter Seite liegt (Roman S. 1) und die breite helle Bahn wie im Film links im Bild."
+}

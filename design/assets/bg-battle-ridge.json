@@ -1,0 +1,117 @@
+{
+  "id": "bg-battle-ridge",
+  "kind": "background",
+  "files": {
+    "raw": "output/imagegen/raw/bg-battle-ridge/bg-battle-ridge.png",
+    "attempts": [
+      "output/imagegen/raw/bg-battle-ridge/bg-battle-ridge-v1.png",
+      "output/imagegen/raw/bg-battle-ridge/bg-battle-ridge-v2.png",
+      "output/imagegen/raw/bg-battle-ridge/bg-battle-ridge-v3.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "source": {
+    "w": 1672,
+    "h": 941,
+    "format": "png",
+    "transparent": false
+  },
+  "notes": [
+    "Leere Hangschulter für die Traumschlacht. Freie, zertrampelte schlammige Bildmitte für ein später im Code eingeblendetes 10×8-Feld-Raster; kein Raster im Rohbild.",
+    "Großer grauer Fels links der Mitte, niedrige natürliche Geländestufe rechts mit breiter Erd-Rampe und offenem Weg hangaufwärts.",
+    "Verbündete in enger Reihe oben mit blau-weiß radial gestreiften Bannern und grauem geflügeltem Zentralzeichen. Schwarzes menschliches Heer als dichte Masse unten rechts mit schwarz-weiß geviertelten Bannern und dunklem Zentralzeichen.",
+    "Talbrände und Rauchsäulen am rechten Hintergrund, schwere graue Wolken. Schlamm-Oliv, Stahlgrau, Rauch und zurückhaltendes Glut-Orange.",
+    "Nur eingebaute image_gen-Generierung. Drei Versuche, visuell geprüft; Version 3 gewählt. Keine Pixelize-Pipeline oder Code-/Dokumentänderungen durchgeführt."
+  ],
+  "self_review": {
+    "status": "selected_with_caveats",
+    "selected_attempt": 3,
+    "attempts_used": 3,
+    "method": "Jeden Versuch einzeln mit view_image visuell gegen asset-style-spec.md, Farbdramaturgie, Figurenlook und beide Nutzerreferenzen geprüft.",
+    "film_look": {
+      "result": "pass",
+      "details": "Banner entsprechen den Filmvorgaben: Verbündete radial blau-weiß mit grauem geflügeltem Zentrum; Gegner schwarz-weiß mit vier großen Quadranten. Menschen mit Helmen, dunklen bzw. blau-weißen Waffenröcken und Speeren. Valentus und andere Spielfiguren fehlen bewusst."
+    },
+    "palette": {
+      "result": "pass",
+      "details": "Gedämpftes Stahlgrau, schmutziges Oliv und Rauch, Orange nur an den Talbränden. Kein sattes Frühlingsgrün. Palette visuell geprüft, keine exakte Hexwert-Garantie."
+    },
+    "spritesheet_grid": {
+      "result": "not_applicable",
+      "details": "Hintergrund, kein Spritesheet."
+    },
+    "prohibited_content": {
+      "result": "pass",
+      "details": "Keine Burg, Blumen, Runen, Schattenmonster, erfundenen Wappen, Neonfarben, Chibi-Figuren, Texte, Wasserzeichen oder HUD/UI. Keine Einzelfiguren im spielbaren Zentrum."
+    },
+    "play_area": {
+      "result": "pass_with_caveats",
+      "details": "Breite freie Bildmitte, Fels links der Mitte, sichtbare Rampe rechts und freier Weg zu den Verbündeten. Rasterlesbarkeit nur visuell beurteilt; kein Spieltest oder Code-Overlay angelegt."
+    },
+    "pixel_style": {
+      "result": "partial",
+      "details": "Version 3 hat klarere Pixelcluster und sparsamere Texturen als Version 1/2. Banner, Speerlinien und Konturen bleiben stellenweise feiner als die Bodenpixel; vollständig einheitliche Pixelgröße nicht erreicht."
+    },
+    "aspect_ratio": {
+      "result": "partial",
+      "details": "Tool lieferte 1672×941 statt exaktem 16:9; Abweichung etwa 0,05 %. Ziel bleibt 640×360. Rohbild unverändert gespeichert."
+    },
+    "attempt_reviews": [
+      {
+        "attempt": 1,
+        "selected": false,
+        "issues": [
+          "Bodentextur zu malerisch und kleinteilig.",
+          "Rechte Geländestufe/Rampe nicht deutlich genug.",
+          "Ein isolierter Soldat am linken unteren Rand."
+        ]
+      },
+      {
+        "attempt": 2,
+        "selected": false,
+        "issues": [
+          "Rampe klarer und isolierter Soldat entfernt.",
+          "Texturen und Heeresdetails noch zu fein für eine einheitliche Pixelgröße."
+        ]
+      },
+      {
+        "attempt": 3,
+        "selected": true,
+        "issues": [
+          "Feinere Pixel-/Liniengröße an Bannern und Speeren als am Boden.",
+          "Rohformat minimal von 16:9 abweichend.",
+          "Banner-Zentralzeichen können bei der späteren Reduktion auf 640×360 Details verlieren; Pipeline-Ausgabe noch nicht geprüft."
+        ]
+      }
+    ],
+    "known_defects": [
+      "Keine vollständig einheitliche Pixelgröße.",
+      "Rohformat 1672×941, minimal von 16:9 abweichend.",
+      "Feine Bannerzeichen nach späterer Pipeline erneut prüfen."
+    ]
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "references": [
+      "sources/reference/artstyle/user-pixel-baseline.png",
+      "sources/frames/key-01-scan-opening-0050.jpg"
+    ],
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: stylized-concept.\nAsset: bg-battle-ridge, a single opaque 16:9 pixel-art RPG tactical battle background, preferably 1536x864 or 1920x1080.\nCreate a NEW scene. Attached image 1 is ONLY the pixel art style/camera reference, not its forest setting or HUD. Attached image 2 is ONLY the historical troop clothing and exact banner reference. No composition from its parchment background.\n\nSCENE: Valentus' fever-dream battlefield, the flat shoulder of a muddy hillside during a collapsing grey day. Fixed elevated three-quarter top-down RPG camera like image 1: ground is readable as a flat square-cell plane, objects show front faces. This is a game map with usable ground dominating the frame, not a cinematic horizon landscape or a tilted isometric diamond map.\nLAYOUT: About the central 60% width and central 65% height is a continuous broad nearly level mud and trampled dull olive grass battle shoulder, ample clear empty area for ten columns by eight rows of tactical cells. DO NOT draw cells or grid lines. Subtle patch textures, low visual noise and no figures in the playable area. One large solid grey angular boulder at LEFT-MIDDLE, around x=25%, y=52%, for cover. At RIGHT-MIDDLE x=78% y=50% a LOW earthen/rock terrain ledge with a clearly visible wide sloping mud ramp into the main flat area. Keep a clear walkable route from the center UPHILL to the allied ranks.\nAt the TOP edge, beyond the playable shoulder, a closely spaced row of many SMALL human allied footsoldier silhouettes, steel helmets/chain hoods, pale and muted blue-white tunics, ranks of upright spears. Several tall rectangular banners must be readable: BLUE AND OFF-WHITE RADIAL TRIANGULAR RAYS converging at the center, with the reference's small GREY WINGED CENTRAL EMBLEM, species unspecified. NOT checkerboard, NOT a cross, NOT a new invented crest.\nAt the LOWER-RIGHT edge, clearly DOWNHILL outside the playable shoulder, the black army is a DENSE dark mass of SMALL ORDINARY HUMAN spear infantry silhouettes, dark tunics and chain hoods, tightly packed overlapping rows rather than individual heroes. Their rectangular banners are BLACK AND OFF-WHITE QUARTERED into exactly FOUR large quadrants (two diagonally opposite black, two off-white), with a small dark central symbol only as in film reference. NOT stripes, NOT many checker squares.\nThe ground descends toward a valley visible along the far RIGHT margin behind the black army. Small distant scattered fires in ember orange and solid pixel smoke columns merge into thick steel-grey storm clouds. Only a narrow sliver of cloud sky in that distant corner, so the overall camera stays elevated top-down. Flat dim diffuse light, 'day turning into night', readable gloomy terrain. Broken spear shafts and a few lost dark shields half embedded in mud near battlefield margins, sparse in center.\n\nSTYLE: Match reference 1's crisp hand-drawn pixel clusters, dark contour outlines, simple faceted rocks and limited stepped shading. One consistent visible square pixel scale across the entire image, spare details, no photo texture, no anti-aliased painterly rendering, no smooth gradients, no bloom. Realistic proportions for distant human silhouettes, no chibi.\nPALETTE: muted steel-grey #59616A, mud-olive #5D6043, smoke #34383D, restrained ember orange #D9732B for valley fires only. Allied blue fabric as a restrained accent. No saturated spring green, no bright blue sky.\nFORBIDDEN: NO castle or fortress, NO ruins or buildings, NO flowers, NO forest clearing, NO player characters or isolated figures anywhere on playable ground, NO Valentus, NO monsters or shadow creatures, NO invented heraldry, NO magic runes or effects, NO neon, NO blood effect, NO text, NO HUD/UI, NO watermark, NO visible grid. Do not copy reference 1's portrait, icons, bars, ruins, trees, flowers or emerald grass."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Use case: style-transfer / precise-object-edit.\nImage 1 is the FIRST DRAFT battlefield to improve. Image 2 is the pixel-style/camera reference only. Image 3 is the exact banner and human infantry reference only.\n\nCreate version 2 of Image 1, a finished 16:9 pixelart battle background. Preserve the clear muddy hill-shoulder composition, large empty playable center, upper allied ranks, black army restricted to the bottom-right, distant burning valley and stormclouds. Preserve its excellent exact blue-white radial-ray allied banners with grey winged central emblem and FOUR-quadrant black-white enemy banners with dark central emblem. They must remain readable at game scale.\nPRIMARY CORRECTION: REDRAW ALL OF IMAGE 1 AS TRUE CLEAN HAND-PLACED PIXEL ART like Image 2, one consistent square-pixel scale, crisp dark contours and limited discrete palette. Use a virtual 640x360 pixel canvas enlarged with nearest-neighbor to 1920x1080. Hard square pixel clusters, sparse carefully placed highlights, flat small-color patches, no smooth antialiasing, NO PAINTERLY TEXTURE, no random stippling, no fuzzy edges or gradients. At least half of the central mud field is broad quiet low-detail flat earth tones, so tactical cells are readable over it. Don't draw grid lines.\nSECONDARY TERRAIN CORRECTION: Only ONE large grey cover boulder at left-middle x=25%, y=50%, freestanding in the flat mud with a clean footprint. On the RIGHT x=78%,y=48% show a LOW ONE-STEP natural earth-and-rock ledge with a broad obviously WALKABLE sloping muddy ramp from the center up to its top; ramp forms a flat continuous earthen strip interrupting the ledge's front face. No jagged high rocky barricade across the top-center; the uphill route from the center to allies remains open and broad. Remove the isolated soldier at lower-left; all human figures stay within the two massed army rows outside the center.\nKeep upper allies small distant human silhouettes with blue-white tunics, chain hoods and upright spears, proportionate six/seven head-height people, not individual detailed foreground heroes. Make lower-right enemies dense almost-black human infantry mass, not monsters. Few broken spears and lost shields embedded along stage margins, no upright forest of abandoned spears.\nPalette muted steel-grey #59616A, dirty olive #5D6043, smoke #34383D, restrained distant fire orange #D9732B. Day becomes night under heavy grey storm clouds, small valley/cloud wedge on the far right only. No saturated spring green. Dim flat readable lighting.\nNO CASTLE, buildings, ruins, flowers, runes, magic, neon, glow/bloom, text, HUD, UI, watermark, drawn grid, player characters or single units on playable area.\nEmpty area still supports the intended 10-column by 8-row board when overlaid in code. This is a high elevated 3/4 top-down RPG play map like Image 2, with ground predominant and front faces of rock/ledge visible, not a cinematic low angle panorama."
+      },
+      {
+        "attempt": 3,
+        "prompt": "FINAL VERSION 3. Use case: style-transfer. Generate ONE opaque EXACT 16:9 landscape pixel-art background (1920x1080 canvas requested). Image 1 = battle composition to refine. Image 2 = pixel reference, STYLE ONLY. Image 3 = historical banner reference, SYMBOLS ONLY.\n\nKeep version 2's concrete scene: broad empty muddy hillside shoulder, tightly lined allied infantry behind the playable field at TOP, one grey boulder on the LEFT-MIDDLE, low stone/earth ledge and obvious wide dirt ramp on RIGHT-MIDDLE, dense dark ordinary-human infantry mass downhill at BOTTOM-RIGHT, distant burning valley with small ember-orange fires and upright smoke columns at right, heavy solid grey clouds, day turning to night. No people or units on the broad center. Preserve a clear escape route uphill to the allied ranks. Low terrain rise, not fortress wall. No castle.\nKEEP banner accuracy absolutely: allies have BLUE AND OFF-WHITE TRIANGULAR RADIAL RAYS converging beneath small grey WINGED central emblem; enemy banners have BLACK AND OFF-WHITE FOUR QUADRANTS, diagonally alternating, plus dark central mark like image 3. Do not simplify into stripes/crosses or invent heraldry.\n\nONLY MAJOR CHANGE: make this visibly cleaner genuine pixel art that reads at 640x360. Redraw using a unified 640x360 logical pixel grid, enlarged as integer hard square blocks. ALL contours, banners, rocks, helmets, smoke, clouds and grass must share that pixel scale. No continuous high-resolution curved outlines, no finely rendered chainmail texture, no photographic noise, no painterly stippling, no antialiased softness. Render the armies as closely overlapping small human SILHOUETTE CLUSTERS, black/steel shapes and a few blue-white patches only, six-seven head adult proportions. Spear row reads as simple crisp linear stepped pixels.\nMain play field should be quiet flat brown-olive muddy planes with scattered sparse angular pixel patches showing torn grass, occasional dull-grey puddles, a few broken spear shafts and discarded shields at margins. Distant fires limited stepped orange pixels WITHOUT bloom. Foreground details as restrained as reference 2, not highly textured concept art. Clean grey boulder with 3-4 large angular flat-value facets and dark outlines, one obstacle left-middle. Distinct low ledge at right with obvious ramp opening.\n\nComposition: high fixed elevated three-quarter top-down map camera like reference 2, ground dominant and square tile overlay can be read, not low-view cinematic illustration, not isometric diamond. Empty central ground supports a 10x8 battle grid added in code. Never draw any grid.\nPalette: steel-grey #59616A, dirty mud-olive #5D6043, charcoal smoke #34383D, ember #D9732B. Dim flat light. No saturated fresh greens or cheerful sunshine.\nNo player characters, solo units, chibi, monsters, castle/buildings/ruins, flowers, neon, runes, spell effects, text, HUD/UI, grid, watermark.\nUse exact 16:9 frame, no border or crop bars."
+      }
+    ]
+  }
+}

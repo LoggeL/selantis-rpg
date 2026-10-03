@@ -1,0 +1,301 @@
+{
+  "id": "spr-valentus-cloak",
+  "kind": "spritesheet",
+  "generation": {
+    "tool": "built-in image_gen",
+    "cli_fallback": false,
+    "attempts_per_sheet": {
+      "run": 3,
+      "events": 3
+    },
+    "selected_attempts": {
+      "run": 3,
+      "events": 3
+    }
+  },
+  "files": {
+    "run": "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-run.png",
+    "events": "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-events.png",
+    "attempts": {
+      "run": [
+        "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-run-v1.png",
+        "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-run-v2.png",
+        "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-run-v3.png"
+      ],
+      "events": [
+        "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-events-v1.png",
+        "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-events-v2.png",
+        "output/imagegen/raw/spr-valentus-cloak/spr-valentus-cloak-events-v3.png"
+      ]
+    }
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 4,
+    "order": {
+      "rows": [
+        "south",
+        "west",
+        "east",
+        "north"
+      ],
+      "cols": [
+        "run0_left_forward",
+        "run1_passing",
+        "run2_right_forward",
+        "run3_passing"
+      ]
+    }
+  },
+  "target": {
+    "w": 32,
+    "h": 48,
+    "unit": "pixels_per_frame_after_pipeline"
+  },
+  "sheets": {
+    "run": {
+      "grid": {
+        "cols": 4,
+        "rows": 4,
+        "order": {
+          "rows": [
+            "south",
+            "west",
+            "east",
+            "north"
+          ],
+          "cols": [
+            "run0",
+            "run1",
+            "run2",
+            "run3"
+          ]
+        }
+      },
+      "target": {
+        "w": 32,
+        "h": 48
+      },
+      "raw": {
+        "w": 1254,
+        "h": 1254,
+        "mode": "RGBA",
+        "cell_w": 313.5,
+        "cell_h": 313.5,
+        "integer_grid": false
+      },
+      "review_status": "needs_director_review_and_grid_preparation"
+    },
+    "events": {
+      "grid": {
+        "cols": 4,
+        "rows": 3,
+        "order": {
+          "rows": [
+            "root_stumble",
+            "brook_jump",
+            "escape_landmarks"
+          ],
+          "cols_by_row": [
+            [
+              "trip_contact",
+              "pitch_forward",
+              "brace_near_ground",
+              "recover"
+            ],
+            [
+              "takeoff",
+              "airborne",
+              "landing",
+              "panting_right_hand_on_flank"
+            ],
+            [
+              "pull_over_ledge",
+              "brace_against_tree",
+              "slip",
+              "lying_on_ground"
+            ]
+          ],
+          "facing": "east"
+        }
+      },
+      "target": {
+        "w": 48,
+        "h": 64
+      },
+      "raw": {
+        "w": 1448,
+        "h": 1086,
+        "mode": "RGBA",
+        "cell_w": 362,
+        "cell_h": 362,
+        "integer_grid": true
+      },
+      "review_status": "needs_director_review",
+      "contact_notes": "Grounded silhouettes have similar local baselines; jump, ledge and horizontal collapse deliberately differ. Obstacles are separate scene assets and are not included."
+    }
+  },
+  "references": [
+    "sources/reference/artstyle/user-pixel-baseline.png",
+    "sources/frames/valentus-film/film03-valentus-0038.jpg",
+    "sources/frames/valentus-film/film03-valentus-0058.jpg",
+    "design/asset-style-spec.md",
+    "docs/creative-direction-tutorial.md: Farbdramaturgie, Flucht, Figurenlook nach Filmvorgabe"
+  ],
+  "notes": [
+    "Valentus in der verletzten Mondwald-Flucht, Mantel statt Schlachtrobe als dominierende Silhouette. Kapuze tief, rechte Hand an der verwundeten Seite, zerschlissener Saum und beschlagene Lederstiefel.",
+    "Nur Rohbilder. Keine Pixelize-Pipeline ausgeführt und keine Runtime-Qualifikation. Keine anderen Projektdateien verändert.",
+    "Alle drei Versuche pro Sheet erhalten. Finale Dateien sind unveränderte Kopien von v3.",
+    "Palette im Prompt: #172535, #182A23, #B8C4D6, Blut #9A3438, unterliegende Robe #1F3550 und kleine helle Kanten #E8E2D0. Nicht hart auf exakte Hexwerte quantisiert.",
+    "Der Laufbogen muss vor gleichmäßiger ganzzahliger Frame-Extraktion gepolstert oder durch die zuständige Pipeline normalisiert werden. Keine solche Nachbearbeitung in diesem Worker durchgeführt.",
+    "Front- und Rückenlauf wirken stärker wie zwei wiederkehrende Grundphasen als wie vier klar getrennte Laufphasen. Keine uneingeschränkte Animationsfreigabe."
+  ],
+  "self_review": {
+    "status": "partial_pass_needs_creative_director_review",
+    "method": "Jedes der sechs Ergebnisse direkt visuell geprüft; finale PNGs zusätzlich mit Pillow nur gelesen, nicht bearbeitet. Abmessungen, Alpha und Zell-Bounding-Boxes geprüft.",
+    "film_look": {
+      "result": "partial",
+      "observed": "Dunkler schwerer Kapuzenmantel, niedrige Kapuze, erwachsener schmaler sichtbarer Gesichtsteil, kurzer Bart, dunkle Haarandeutungen, Wunde vorne an der rechten Flanke und schützende Hand. Keine Waffen oder Rüstung.",
+      "limitations": [
+        "Lange Haarsträhnen sind unter der Kapuze nur schwach erkennbar; Filmidentität bleibt bei der kleinen verdeckten Fläche begrenzt.",
+        "Schnabelspitzen der Stiefel sind zu wenig ausgeprägt.",
+        "Beard shape is not guaranteed to be strictly a chin tuft in every view."
+      ]
+    },
+    "palette": {
+      "result": "visual_pass_exact_values_unverified",
+      "observed": "Gedämpftes Nachtblau und Schwarzgrün, diskrete kalte Kanten, dunkles Blut. Kein cyanfarbenes Film-Geistleuchten übernommen.",
+      "limitations": [
+        "Einzelne Blutpixel wirken heller als der gewünschte dunkle Fleck.",
+        "Keine strenge Hex-Quantisierung."
+      ]
+    },
+    "grid_and_identity": {
+      "result": "partial",
+      "observed": "16 Laufposen in korrekten Richtungszeilen. 12 Ereignisposen alle east, richtige Reihenfolge. Gleicher erkennbarer Mantellook; alle finalen Silhouetten bei Alpha >=128 innerhalb der jeweiligen geometrischen Zellen.",
+      "limitations": [
+        "Run: 1254x1254 bei 4x4, rechnerisch 313.5 Pixel pro Zelle; keine ganzzahligen Rohzellgrenzen.",
+        "Run: Fußbaselines schwanken um wenige Rohpixel, charakteristische Bewegungsunterschiede vor allem in south/north zu schwach.",
+        "Figurenmaßstab und Stiefeldetails zwischen Sheets leicht unterschiedlich.",
+        "Die anatomische Rechtsseitigkeit ist vorne und east lesbar; west/north weitgehend verdeckt und aus den Bildern nicht vollständig belegbar."
+      ]
+    },
+    "pixel_style": {
+      "result": "partial",
+      "observed": "Versuch 3 des Laufbogens hat die klarsten flachen Pixelcluster; Ereignis-v3 besitzt deutlich mehr Zellabstand.",
+      "limitations": [
+        "Keine mathematisch einheitliche Pixelblockgröße über alle Details; einzelne feine Texturen und halbtransparente Randpixel bleiben.",
+        "Ereignisbogen ist etwas detaillierter als Laufbogen; daher Rohmaterial für Pipeline/Director-Review."
+      ]
+    },
+    "forbidden_elements": {
+      "result": "pass",
+      "observed": "Keine Burg, Runen, Schattenmonster, erfundenen Wappen, Neonfarben, Zauberstäbe, Rüstung, HUD, Beschriftung, Wasserzeichen oder gemalten Effektflächen sichtbar."
+    },
+    "transparency": {
+      "result": "pass",
+      "run": {
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "fully_transparent_pixels": 972102,
+        "total_pixels": 1572516
+      },
+      "events": {
+        "alpha_min": 0,
+        "alpha_max": 255,
+        "fully_transparent_pixels": 1215747,
+        "total_pixels": 1572528
+      },
+      "observed": "Echte RGBA-Transparenz, kein gezeichnetes Schachbrett und kein Hintergrundschatten."
+    },
+    "events_story": {
+      "result": "pass_with_limitations",
+      "observed": "Wurzelstolpern: Vorbeugen, vorgestreckter freier Arm, tiefe Abfangpose und Erholung. Bachsprung: Absprung, Flug mit angezogenen Beinen, Landung, erschöpftes Stehen. Letzte Reihe: Hochziehen, Baumstütze, rückwärtiges Ausrutschen und seitlich liegender Körper.",
+      "limitations": [
+        "Keuchen wird primär durch Haltung vermittelt; ein offener Mund ist unter der Kapuze nicht klar lesbar.",
+        "Kontaktobjekte absichtlich nicht enthalten, müssen in der Szene passend positioniert werden."
+      ]
+    },
+    "attempt_reviews": {
+      "run": [
+        {
+          "attempt": 1,
+          "selected": false,
+          "issues": [
+            "Zu feine malerische Texturen.",
+            "Zu ähnliche Laufphasen.",
+            "Bart wirkt zu voll."
+          ]
+        },
+        {
+          "attempt": 2,
+          "selected": false,
+          "issues": [
+            "Texturen weiterhin zu fein.",
+            "Stiefel wirken übermäßig metallisch.",
+            "Frontphasen noch schwach unterscheidbar."
+          ]
+        },
+        {
+          "attempt": 3,
+          "selected": true,
+          "improvements": [
+            "Flachere gröbere Pixelcluster.",
+            "Kapuze verdeckt Gesicht stärker.",
+            "West zeigt verdeckte Wundseite statt gespiegelter roter Fläche."
+          ],
+          "remaining": [
+            "Schwache south/north Laufvariation.",
+            "Schnabelstiefel unzureichend spitz.",
+            "Rohmaße nicht durch vier teilbar."
+          ]
+        }
+      ],
+      "events": [
+        {
+          "attempt": 1,
+          "selected": false,
+          "issues": [
+            "Liegende Pose zu nah am rechten Rand.",
+            "Ausgestreckte Gesten zu breit für komfortable Zellabstände.",
+            "Feine Texturen."
+          ]
+        },
+        {
+          "attempt": 2,
+          "selected": false,
+          "issues": [
+            "Zellabstand weiterhin knapp.",
+            "Vorwärts ausgestreckter Arm reicht über erwartete Zellgrenze.",
+            "Stil detaillierter als run-v3."
+          ]
+        },
+        {
+          "attempt": 3,
+          "selected": true,
+          "improvements": [
+            "Alle Figuren kleiner und vollständig innerhalb der Zellen.",
+            "Große klare transparente Zwischenräume.",
+            "Alle zwölf Aktionsmotive erhalten."
+          ],
+          "remaining": [
+            "Pixelmaß nicht streng vereinheitlicht.",
+            "Stil und Maßstab noch leicht abweichend zum Laufbogen."
+          ]
+        }
+      ]
+    }
+  },
+  "prompts": {
+    "run": [
+      "Use case: stylized-concept.\nAsset type: production pixel RPG spritesheet spr-valentus-cloak-run, transparent PNG.\nCreate exactly ONE regular 4-column by 4-row sprite sheet, 16 isolated full-body sprites. Square canvas preferably 1024 x 1024, each cell 256 x 256. No grid lines, no labels, no text.\nReference images visible in conversation: Image 1 ONLY for crisp handcrafted pixel-art aesthetic and realistic adult proportions. Images 2 and 3 ONLY for Valentus identity: lean serious adult man, long dark almost black center-parted hair and small short chin beard. Ignore the cyan glow completely. This is his desperate injured escape through a moonlit forest after battle, under a thick tattered hooded cloak.\nCharacter in all frames is EXACTLY the same man, same scale, 6 to 7 head heights, no chibi. Thick dark hood pulled low over his face; only a few long dark hair strands emerge. Heavy torn cloak, midnight navy #172535 and black-green #182A23, subtle dark blue robe #1F3550 beneath and a very small glimpse of off-white #E8E2D0 trim. Heavy metal-studded medieval pointed beak-toe boots, not plate armor. Dark dried blood patch #9A3438 on HIS anatomical RIGHT flank below ribs, right hand pressed against that wound in most frames, free left arm moving for balance. Front view anatomical right is image-left. Wound stays on the same anatomical side in all rotations; do NOT mirror its position. No back blood patch when back obscures wound. Face partly hidden but lean nose and short chin beard when visible.\nCamera fixed slightly elevated 3/4 top-down RPG projection like first reference, each direction as specified; coherent small sharply stepped pixel clusters, single uniform pixel scale throughout (approximately 4 output pixels per logical pixel), dark outlines, limited flat muted palette with 3 or 4 discrete tones per material, sparse hard-edged moon-silver #B8C4D6 highlights. NO gradients, NO glow, NO phototextures, NO anti-aliased painterly surfaces.\nROW 1: SOUTH, facing towards viewer, columns 1-4 four successive phases of an injured RUN: left foot forward, compressed passing pose, right foot forward, opposite passing pose.\nROW 2: WEST, facing screen LEFT, same four running phases.\nROW 3: EAST, facing screen RIGHT, same four running phases.\nROW 4: NORTH, facing away from viewer, same four running phases, hood and back cloak visible, NOT front-facing.\nMotion tells the story: bowed head, torso stooped and tilted protectively over wounded right flank, uneven shortened stride, flapping ragged hem, right hand guarding wound. Each frame clearly differs in leg separation and cloak movement. NOT a dignified walk or combat stance.\nSTRICT layout: each sprite entirely contained in its equal cell, centered horizontally with exact equal row and column spacing; keep all lowest boot soles at identical local baseline approximately y=225 within each 256px cell; keep adult standing scale constant approx 192px height, margin all around, no overlapping or touching adjacent cells. Entire canvas actual alpha transparency, no background, no checkerboard painted into artwork, no ground shadow, no props or environment.\nAvoid staff, weapons, armor, magic effects, runes, castles, banners, monsters, neon, old grey beard, anime handsome face, UI, watermarks.",
+      "Use case: stylized-concept.\nAsset type: production pixel RPG spritesheet spr-valentus-cloak-run, transparent PNG.\nCreate exactly ONE regular 4-column by 4-row sprite sheet, 16 isolated full-body sprites. Square canvas preferably 1024 x 1024, each cell 256 x 256. No grid lines, no labels, no text.\nReference images visible in conversation: Image 1 ONLY for crisp handcrafted pixel-art aesthetic and realistic adult proportions. Images 2 and 3 ONLY for Valentus identity: lean serious adult man, long dark almost black center-parted hair and small short chin beard. Ignore the cyan glow completely. This is his desperate injured escape through a moonlit forest after battle, under a thick tattered hooded cloak.\nCharacter in all frames is EXACTLY the same man, same scale, 6 to 7 head heights, no chibi. Thick dark hood pulled low over his face; only a few long dark hair strands emerge. Heavy torn cloak, midnight navy #172535 and black-green #182A23, subtle dark blue robe #1F3550 beneath and a very small glimpse of off-white #E8E2D0 trim. Heavy metal-studded medieval pointed beak-toe boots, not plate armor. Dark dried blood patch #9A3438 on HIS anatomical RIGHT flank below ribs, right hand pressed against that wound in most frames, free left arm moving for balance. Front view anatomical right is image-left. Wound stays on the same anatomical side in all rotations; do NOT mirror its position. No back blood patch when back obscures wound. Face partly hidden but lean nose and short chin beard when visible.\nCamera fixed slightly elevated 3/4 top-down RPG projection like first reference, each direction as specified; coherent small sharply stepped pixel clusters, single uniform pixel scale throughout (approximately 4 output pixels per logical pixel), dark outlines, limited flat muted palette with 3 or 4 discrete tones per material, sparse hard-edged moon-silver #B8C4D6 highlights. NO gradients, NO glow, NO phototextures, NO anti-aliased painterly surfaces.\nROW 1: SOUTH, facing towards viewer, columns 1-4 four successive phases of an injured RUN: left foot forward, compressed passing pose, right foot forward, opposite passing pose.\nROW 2: WEST, facing screen LEFT, same four running phases.\nROW 3: EAST, facing screen RIGHT, same four running phases.\nROW 4: NORTH, facing away from viewer, same four running phases, hood and back cloak visible, NOT front-facing.\nMotion tells the story: bowed head, torso stooped and tilted protectively over wounded right flank, uneven shortened stride, flapping ragged hem, right hand guarding wound. Each frame clearly differs in leg separation and cloak movement. NOT a dignified walk or combat stance.\nSTRICT layout: each sprite entirely contained in its equal cell, centered horizontally with exact equal row and column spacing; keep all lowest boot soles at identical local baseline approximately y=225 within each 256px cell; keep adult standing scale constant approx 192px height, margin all around, no overlapping or touching adjacent cells. Entire canvas actual alpha transparency, no background, no checkerboard painted into artwork, no ground shadow, no props or environment.\nAvoid staff, weapons, armor, magic effects, runes, castles, banners, monsters, neon, old grey beard, anime handsome face, UI, watermarks.\nCRITICAL FOR THIS NEW GENERATION: Build at a native logical resolution of 256 x 256 pixels, then show at 4x nearest-neighbor enlargement to EXACT 1024 x 1024 pixels, preserving all transparent margins. Each of the 16 cells is 64 x 64 logical pixels. Each figure approx 48 logical pixels tall. Every visible color cluster must align to the same 4px square pixel lattice. Only 18 to 24 colors total. NO tiny textured dithering, no 1px noise, no soft edges. The reference is a GAME SPRITE, not an illustrated model sheet. Minimal short chin tuft, clean cheeks, NOT a full beard or moustache. The long dark hair is visible in small strands only.\nStrongly alternating legs in front and back rows: frame 1 left boot distinctly forward and right behind, frame 2 feet close together under body, frame 3 right boot distinctly forward and left behind, frame 4 feet close under body with lifted opposite knee. Keep the different boot depths clearly readable from elevated view. Heavy leather pointed boots with only small iron studs, no armored greaves. Hooded cloak is dominant. More hunched exhausted posture, visible asymmetry guarding anatomical right flank. Exact uniform cells and exact 1024-square canvas.",
+      "Use case: stylized-concept. Create a real LOW RESOLUTION pixel game sprite sheet for an injured fleeing man, NOT an illustration, transparent background. Exactly 4 columns by 4 rows, equally spaced cells with no visible grid, no text. Full canvas 1024x1024.\nThe character is Valentus from attached film images: lean adult, dark brown long center-parted hair visible ONLY in small strands below a deeply pulled hood, tiny short chin tuft, clean cheeks, narrow serious face. He wears a thick midnight navy #172535 and black-green #182A23 wool cloak with ragged torn edges, hood covering his eyes. Dark blue robe #1F3550 with tiny ivory trim #E8E2D0 underneath, NOT prominently displayed. Heavy dark leather pointed beak-toe boots with small iron studs. No armor, no weapons, no staff. Muted dark blood #9A3438 beneath his anatomical RIGHT ribs; HIS right hand presses this wound. Left arm free for balance. Wound is image-left on front view; on left-facing west view wounded side can be partly concealed, on right-facing east view clearly visible. No wound on back.\nSTYLE: genuine chunky square pixel clusters like the attached RPG art reference, each character designed at 32 logical pixels wide by 48 logical pixels tall, then enlarged with NEAREST NEIGHBOR. Pixel blocks are clearly big enough to count. One consistent square pixel size, hard stepped edges. Only 16 flat solid colors for whole image. NO smoothed outlines, NO fine stippling, NO painterly shading, NO gradients, NO tiny threads or texture. 3 discrete tones for fabric. Realistic adult 6 to 7 head heights, slender adult body, no chibi.\nFixed slightly elevated RPG 3/4 camera. Exactly 16 sprites, same design and scale in every cell. Hunched and limping in desperate moonlit forest flight: head bowed, back curved, right elbow tight protecting ribs, cloak streaming.\nRows: 1 SOUTH facing camera; 2 WEST screen left; 3 EAST screen right; 4 NORTH away from camera showing back hood. Do not confuse NORTH with SOUTH.\nColumns all rows: 1 LEFT LEG FORWARD / right behind; 2 feet close PASSING PHASE right knee raised; 3 RIGHT LEG FORWARD / left behind; 4 feet close PASSING PHASE left knee raised. Front and back leg phases must be distinct, not repeated. Same foot baseline within every cell, all boot soles at 88% cell height. Keep all art inside each cell with clear generous transparent margins. No shadows on background.\nExclude environmental objects, labels, gridlines, UI, glow, magic, castles, emblems, monsters, grey hair. Actual transparent alpha PNG."
+    ],
+    "events": [
+      "Use case: stylized-concept. Asset: spr-valentus-cloak-events, genuine chunky pixel RPG sprite sheet, actual transparent alpha PNG. Exactly FOUR columns and THREE rows, TWELVE isolated sprites, equal square cells, 4:3 canvas preferably 1536 x 1152, no labels, no grid lines.\nCharacter is exactly the same hooded injured Valentus from the last generated run sheet. Attached films establish his identity: lean serious adult, dark long center-parted hair as a few strands under his low hood, small short chin beard, no full beard. Thick dark tattered hooded wool cloak pulled over eyes, midnight navy #172535 / black-green #182A23, dark blue robe #1F3550 underneath with small ivory edge #E8E2D0, heavy dark leather metal-studded pointed beak-toe boots. Cloth cloak, NO armor. Dark blood #9A3438 on anatomical RIGHT side below ribs. His RIGHT hand guards the wound except when both hands are required for climbing. This is the desperate injured escape through moonlit woods from the prologue, increasingly exhausted, never acrobatic or triumphant.\nSTYLE matches attached pixel-RPG reference and last run sheet: uniform big square pixel clusters, adult realistic 6-7 head height proportions, hard dark stepped outline, sparse flat discrete colors, 3 tones per material, cold moon-silver #B8C4D6 edge accents. Each pose made at approximately 48 x 64 logical pixels then enlarged with nearest neighbor. No phototextures, smooth gradients, glow, blur, soft anti-aliasing, intricate texture, chibi, text, UI.\nAll poses face EAST, SCREEN RIGHT. Fixed slightly elevated 3/4 RPG camera. Same character body scale in every cell even when lying horizontal. Clear generous transparent margins. No environment or ground sprites: the root, brook, ledge, tree and slippery stone are provided separately by the game. Convey contact with those INVISIBLE obstacles through precise body gestures. No water or tree objects, no ground shadows.\nROW 1, four chronological phases of STUMBLING OVER A LARGE ROOT:\nc1 eastward stooped running step with forward RIGHT boot abruptly caught, torso beginning to tip, right hand tight to wound;\nc2 pitching sharply forward, rear leg kicked upward and left arm shooting forward;\nc3 near falling, left hand reaching low to arrest fall, knees bent and cloak thrown over back;\nc4 regaining his feet hunched, braced left leg forward and right hand gripping flank.\nROW 2, BROOK JUMP AND EXHAUSTION:\nc1 takeoff: deep crouch on rear left leg, pushing forward east, right hand holding wound;\nc2 flight: clearly airborne eastward, both knees tucked, cloak streaming behind to left; keep aerial feet higher within cell;\nc3 landing: forward right boot meets common ground baseline, left knee buckles, torso folds forward, left arm balancing;\nc4 panting recovery: standing hunched deeply over wounded RIGHT side, right hand pressed under ribs, mouth open gasping.\nROW 3, FOUR DISTINCT ROMAN ESCAPE LANDMARKS:\nc1 pulling himself over a high ledge on right: both arms reaching high east, fingers hooked over invisible lip, chest to edge, one knee raised against ledge, boots trailing below;\nc2 bracing against a crooked tree on right: LEFT palm at head height on invisible tree, weight leaning into extended arm, right hand still on wound, bent knees;\nc3 slipping on wet stone: feet slide FORWARD toward right, hips low, torso thrown back to left, left arm flails, right hand on wound;\nc4 lying collapsed on his side on ground: body horizontal, hooded head towards RIGHT, boots at LEFT, knees slightly bent, right forearm gripping injured flank, clearly no standing stance.\nPreserve exact 4x3 regular grid, exactly one full-body pose per cell, no cropping, no overlap, exact consistent adult limb scale, common ground baseline in grounded cells; aerial and climbing pose have deliberate action offsets only. Whole isolated sprite sheet on transparent canvas. No staff, weapons, armor, magic effects, runes, banners, emblems, castles, monsters, neon.",
+      "Edit the provided transparent pixel spritesheet, keep exactly all 12 actions and their 4-column by 3-row positions, east-facing direction and costume identity. Preserve the anatomical right-side wound and right hand protecting it. Primary corrections: give every pose generous transparent margins within strictly equal square cells, especially last cell lying pose MUST not approach or touch outer right or bottom canvas border. No opaque or barely opaque pixels on canvas boundary. Exact 4x3 canvas, preferably 1536x1152, each cell square. Equal consistent adult scale (6 to 7 head heights); full figure in each cell, no props, no shadow. Grounded poses' soles at same local baseline; jumping pose higher.\nSECOND correction: match genuine coarse low resolution pixel-art style of the attached reference and earlier run v3. Reduce texture to large flat stepped clusters, single consistent square pixel size. Design at 48 x 64 logical pixels per character then nearest-neighbor enlargement. Only 20-24 colors, no noise, no soft shading, no painterly outlines. Keep navy #172535 and black-green #182A23 cloak with subtle silver edges; dark muted blood #9A3438, not bright red streaks. Longer angular pointed beak toes on dark leather studded boots, no metal armored greaves. Tiny short chin beard, not full beard; small dark hair strands peeking under low hood.\nKeep actions unchanged: row1 root trip four phases, row2 takeoff airborne tucked legs landing panting right-hand-to-wound, row3 pulling over ledge with both arms up, left palm braced against invisible tree with right hand at side, slipping feet to right and falling backwards, lying on side head to right boots left. No additional objects, no text, no grid lines, no magic, actual alpha transparency.",
+      "Edit this 4-column 3-row transparent sprite sheet. Preserve exactly the same 12 poses in exactly the same order, same east-facing injured hooded Valentus design, same blood on anatomical right below ribs, same dark navy/black green muted moonlight palette. ONLY refine the atlas layout and chunky pixel style.\nThe sprites are currently MUCH TOO LARGE and some extend across cell boundaries. REDRAW ALL 12 FIGURES AT 70 PERCENT OF THEIR CURRENT LINEAR SIZE, uniformly shrinking adult body scale, NOT the canvas. The sheet canvas remains the same 4:3 size. Center each reduced pose on the center of its equal square cell; this creates conspicuous large transparent gaps between every pose. Exactly 4 equal columns and 3 equal rows. Keep each entire figure inside its cell, with at least 15% of cell width as clear empty alpha border on all four sides; extended arms and horizontally lying character must fit too. ALL limbs and cloak edges remain inside their own cell. NO opaque edge pixels. Grounded poses align to a common 80% cell-height baseline; jumping floating pose intentionally higher. Keep every pose in its own cell, do not rearrange them.\nStyle: blocky genuine low resolution game pixels, no fine speckle texture. 3 flat navy fabric tones, dark outline, large clean stepped square pixel clusters. NO painterly soft shading or microdetail. Narrow adult head and 6-7-head-height proportions, no cartoon proportions. Low pulled hood, tiny dark hair strands, very small short chin beard, heavy pointed leather beak-toe boots with iron studs, no armor.\nNo text, no grid lines, no added objects, no magic, no shadows, no scenery. Actual alpha transparency."
+    ]
+  }
+}

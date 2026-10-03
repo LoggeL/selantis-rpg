@@ -1,0 +1,16 @@
+{
+  "tool": "built-in image_gen",
+  "intent": "style-transfer to implementable browser-game art",
+  "reference_assets": [
+    "output/imagegen/lia-isometric.png",
+    "output/imagegen/lia-third-person.png"
+  ],
+  "final_assets": [
+    "output/imagegen/lia-isometric-v2.png",
+    "output/imagegen/lia-third-person-v2.png"
+  ],
+  "prompts": [
+    "Use case: style-transfer. Edit this isometric concept into an IMPLEMENTABLE browser RPG 2D sprite-and-tile art direction. Preserve the same character LIA, white blouse, long brown skirt, green cloak, tied auburn-blonde curls and modest travel bag; preserve the forest-path fork, modest ruins, rural atmosphere and all exact German HUD labels. Change the visual rendering substantially: practical hand-ILLUSTRATED 2.5D isometric 2D GAME ART, flat readable color shapes, fine ink outlines, restrained painterly shading, clearly separate repeated tree sprites, grass ground tile motifs, simple stone wall modules, detailed enough to be appealing but NOT a photorealistic scene. Trees foliage modeled as coherent bold green shapes. Protagonist silhouette readable at sprite size. No realistic raytracing, fine hair strand simulation, realistic leaf clutter, depth blur or cinematic lighting. The final should resemble a coherent illustrated indie browser game built with Phaser and reusable tile and sprite atlases. Wide 16:9, clean readability, no new NPCs or invented magical effects, no extra armor. Keep HUD labels LIA, STUFE1, Wald erkunden, Interagieren, Ausweichen, Fokus, Karte, Journal, Fertigkeiten correct.",
+    "Use case: style-transfer. Edit this third-person concept into an IMPLEMENTABLE lightweight WebGL browser RPG art direction. Preserve LIA identity and basic silhouette, white blouse, long brown skirt, open long green cloak, gathered auburn-blonde curls, modest travel bag; preserve same branching woodland paths, stone ruins, rural field setting and exact German HUD. Change scene rendering SUBSTANTIALLY to expressive LOW-POLY STYLIZED GAME 3D suitable for Three.js: simple visibly faceted meshes, foliage in bold polygon crown clusters, modular red sandstone blocks, terrain simple grassy colors, baked soft ambient shading, ONE simple sunlight shadow, coherent restrained materials. Lia hair as a few curved sculpted locks and tied bun/curls, cloth as solid angular shapes, believable human proportions. Avoid detailed strands, full realistic texture maps, leaf transparency clutter, volumetric fog, filmic photorealism, ray tracing, high resolution microscopic detail. Still warm natural world and mature adventure tone, not toy/children cartoon. Slight behind and above full-body gameplay camera. German HUD preserved but clear practical 2D overlay. No added people, monsters, magic, heavy armor or giant castles. Wide 16:9."
+  ]
+}

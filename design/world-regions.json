@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_ONLY",
+  "title": "Selantis: Ostkorridor und optionale Begegnungen",
+  "reference": "docs/world-and-sidequests.md",
+  "display_protagonist": "LIA",
+  "platform": "desktop_browser_pixel_art",
+  "exploration": "free_realtime",
+  "combat": "separate_turn_based_grid",
+  "source_priority": ["user_decisions", "novel_through_pdf_page_90", "mythology_background", "films_after_novel_cutoff"],
+  "sources": {
+    "novel": {"analysis": "docs/novel-analysis.md", "pages": "PDF order, 1-90"},
+    "mythology": {"analysis": "docs/mythology-analysis.md", "pages": "PDF order, 1-7; page 7 blank"}
+  },
+  "adaptation_policy": {
+    "all_quest_content": "ADAPTATION",
+    "all_playable_map_layouts": "ADAPTATION",
+    "source_pages_support": "anchors_only_not_new_quests_or_exact_geography",
+    "known_local_direction": "main_road_west_Trapas_east_toward_Portas",
+    "unknown": ["exact_coordinates", "map_scale", "camp_location", "woodland_connection_directions", "present_condition_of_all_cities"],
+    "map_type": "topological_gameplay_schematic_not_geographic_survey"
+  },
+  "story_guards": {
+    "intro": "playable_overpowered_Valentus_battlefield_tutorial_then_wounded_flight_care_and_infant_cutscene",
+    "intro_adaptation": "moving_the_novel_battle_memory_before_the_flight_is_new_game_structure",
+    "infant_choice_and_power": "initially_unnamed",
+    "farm_departure": "after_attack_burial_and_preparation_eastward",
+    "mandatory_goal": "find_and_save_Kyra",
+    "lia_magic_available_in_novel_arc": false,
+    "flick_available_in_novel_arc": false,
+    "optional_tasks_may_reveal_Foltan_lie_early": false,
+    "optional_tasks_may_block_main_story": false,
+    "camp_returns_after_betrayal": false,
+    "cutoff": {"source": "novel", "pages": [89, 90], "states": ["LIA_alone_wet_in_night_forest", "Azar_search_unsuccessful", "Foltan_ashamed_in_camp", "Kyra_last_seen_with_Baris_departing_toward_sought_grotto"], "resolution": "uncompleted_requires_separate_continuation_adaptation"}
+  },
+  "regions": [
+    {"id": "family_farm", "label": "Familienhof", "role": "bond_and_grief", "source": "novel", "pages": [7, 22], "landmarks": ["house", "barn", "pig_gate", "orchard", "hollow_way"], "main_exit": "east_road", "optional_quest_ids": [], "extra_fetch_gates": false},
+    {"id": "east_road", "label": "Hauptstraße nach Osten", "role": "first_open_exploration", "source": "novel", "pages": [22, 25], "landmarks": ["west_Trapas_sign", "east_Portas_direction", "traders", "travelling_performers"], "subareas": ["road", "near_brook_loop_ADAPTATION", "woodland_edge"], "free_order_within_region": true, "optional_quest_ids": ["road_address", "road_passage"]},
+    {"id": "first_woodland_camp", "label": "Erstes Waldlager", "role": "meet_Foltan_and_Azar", "source": "novel", "pages": [25, 32], "landmarks": ["small_fire", "west_star_Crios"], "optional_quest_ids": ["camp_crios"]},
+    {"id": "woodland_route", "label": "Waldroute", "role": "travel_with_companions", "source": "novel", "pages": [40, 46], "landmarks": ["trees", "path"], "subareas": ["main_path", "short_return_loop_ADAPTATION"], "optional_quest_ids": []},
+    {"id": "golden_boar", "label": "Goldener Eber", "role": "short_route_hub", "source": "novel", "pages": [34, 40, 46, 54], "canonical_npcs": ["Craupor", "Foltan", "Azar", "three_unnamed_dwarves"], "landmarks": ["boar_sign", "central_post", "counter_right", "tables_left", "stable"], "optional_quest_ids": ["inn_account", "inn_rules"], "main_clue_delivery": "Craupor_to_Foltan_hidden_from_LIA_until_camp_revelation"},
+    {"id": "shared_fire_and_brook", "label": "Gemeinsames Feuer und Bach", "role": "reading_and_promise", "source": "novel", "pages": [60, 67, 75, 76], "landmarks": ["fire", "brook"], "optional_quest_ids": ["fire_bookmark"], "canonical_reading_and_promise_require_optional_completion": false},
+    {"id": "brotherhood", "label": "Freie Bruderschaft", "role": "first_safe_hub", "source": "novel", "pages": [77, 85], "access": "companion_guided_blindfolded", "canonical_npcs": ["Elnon", "Alastir", "Foltan", "Azar"], "landmarks": ["tents", "fires", "palisade", "watchtowers", "craft_work", "training"], "subareas": ["fire_area", "Azar_work_area", "inner_palisade_path", "Elnon_tent"], "local_layout": "ADAPTATION", "optional_quest_ids": ["camp_letter", "camp_material", "camp_keepsake", "camp_watch"], "outskirts_limit": "guarded_no_secret_camp_location_disclosure", "irreversible_main_trigger": "overhear_Elnon_tent_meeting", "chapter_transition_hint": "quiet_camp_section_ends"},
+    {"id": "baris_camp", "label": "Baris' Lager", "role": "parallel_Kyra_story_only_in_novel_arc", "source": "novel", "pages": [55, 59, 63, 75], "canonical_npcs": ["Kyra", "Baris", "Orwen", "Algard"], "landmarks": ["pond", "tents", "guard", "large_black_commander_tent"], "early_LIA_access": false, "optional_quest_ids": []},
+    {"id": "rain_forest", "label": "Wald im Sommerregen", "role": "uncompleted_novel_bookend", "source": "novel", "pages": [88, 90], "optional_quest_ids": [], "post_revelation_collectathon": false}
+  ],
+  "connections": [
+    {"from": "family_farm", "to": "east_road", "kind": "main_story", "direction": "east", "source": "novel", "pages": [21, 23]},
+    {"from": "east_road", "to": "first_woodland_camp", "kind": "story_order", "direction": "unspecified"},
+    {"from": "first_woodland_camp", "to": "woodland_route", "kind": "story_order", "direction": "unspecified"},
+    {"from": "woodland_route", "to": "golden_boar", "kind": "playable_return_connection_ADAPTATION", "direction": "unspecified", "available": "before_leaving_tavern_segment"},
+    {"from": "golden_boar", "to": "shared_fire_and_brook", "kind": "story_order", "direction": "unspecified"},
+    {"from": "shared_fire_and_brook", "to": "brotherhood", "kind": "guided_story_transition", "direction": "unspecified"},
+    {"from": "brotherhood", "to": "rain_forest", "kind": "betrayal_flight_story_transition", "direction": "unspecified", "return_in_novel_arc": false}
+  ],
+  "future_region_candidates": [
+    {"id": "Trapas", "source": "mythology", "pages": [3, 6], "role": "protection_religion_and_coercion", "placement": "north_of_Imandur_west_from_start_road", "current_playable_region_designed": false},
+    {"id": "Portas", "source": "mythology", "pages": [3], "role": "guild_trade_and_Foltan_past", "placement": "east_coast", "current_playable_region_designed": false},
+    {"id": "Ebaril", "source": "mythology", "pages": [2, 6], "role": "ruins_and_survivors", "placement": "eastern_middlelands_inland_from_east_coast", "current_playable_region_designed": false},
+    {"id": "Ignis", "source": "mythology", "pages": [2, 5, 6], "role": "oasis_Azar_origin_and_oppression", "placement": "southern_steppe", "current_playable_region_designed": false},
+    {"id": "Moneda", "source": "mythology", "pages": [3, 4], "role": "mountain_craft", "placement": "northern_mountains", "current_playable_region_designed": false},
+    {"id": "Imandur", "source": "mythology", "pages": [2, 3, 6], "role": "wealth_and_persecution", "placement": "western_middlelands", "current_playable_region_designed": false},
+    {"id": "Rogar", "source": "mythology", "pages": [4], "role": "cliff_coast_and_harbour", "placement": "far_north", "current_playable_region_designed": false},
+    {"id": "Dunkelhain", "source": "mythology", "pages": [5, 6], "role": "battle_history", "placement": "approximately_continent_middle", "current_playable_region_designed": false}
+  ],
+  "optional_quest_policy": {
+    "required_count_for_main_story": 0,
+    "initial_implementation_candidates": ["camp_letter", "camp_material", "camp_keepsake"],
+    "duration_unit": "minutes_design_estimate_not_measured",
+    "xp": "one_time_resolution_bonus_equal_for_equivalent_peaceful_or_combat_routes",
+    "numeric_balance_reference": "docs/rpg-systems.md",
+    "repeat_xp": false,
+    "relationship_flags": "specific_local_reactions_not_universal_morality_or_story_override",
+    "states": ["unseen", "offered", "active", "completed", "declined", "closed"],
+    "closed_behavior": "opportunity_ends_at_announced_chapter_transition_without_main_story_penalty"
+  },
+  "optional_quests": [
+    {"id": "road_address", "origin": "ADAPTATION", "region": "east_road", "npcs": ["unnamed_trader_ADAPTATION"], "anchors": [{"source": "novel", "pages": [11, 12, 23]}], "loop": "read_address_or_compare_shipping_mark_then_explain", "outcomes": ["road_sign_understood", "trader_gratitude"], "cost": {"minutes": [1, 2], "new_npcs": 1, "new_props": 1}, "main_hint_exclusive": false},
+    {"id": "road_passage", "origin": "ADAPTATION", "region": "east_road", "npcs": ["unnamed_travelling_performers"], "anchors": [{"source": "novel", "pages": [23]}], "loop": "inspect_wheel_and_ground_choose_stable_exit_or_push", "outcomes": ["wagon_moves", "performers_continue_west_to_Trapas"], "cost": {"minutes": [2, 3], "new_npcs": 1, "new_props": 1}, "future_repair_chain": false},
+    {"id": "camp_crios", "origin": "ADAPTATION", "region": "first_woodland_camp", "npcs": ["Azar"], "anchors": [{"source": "novel", "pages": [32, 40]}, {"source": "mythology", "pages": [1, 3]}], "loop": "look_at_west_star_choose_myth_or_shared_sky_memory", "outcomes": ["azar_personal_response"], "cost": {"minutes": [1, 1], "new_npcs": 0, "new_props": 0}, "myth_proven_as_fact": false},
+    {"id": "inn_account", "origin": "ADAPTATION", "region": "golden_boar", "npcs": ["Craupor", "unnamed_guest_ADAPTATION"], "anchors": [{"source": "novel", "pages": [47, 54]}], "loop": "read_small_bill_question_both_correct_double_charge_or_offer_payment_or_leave", "outcomes": ["craupor_help_remembered"], "cost": {"minutes": [2, 3], "new_npcs": 1, "new_props": 1}, "payment_required": false, "Kyra_clue": false},
+    {"id": "inn_rules", "origin": "ADAPTATION", "region": "golden_boar", "npcs": ["three_unnamed_dwarves"], "anchors": [{"source": "novel", "pages": [36, 37]}], "loop": "hear_local_rules_play_one_trial_or_arbitrate", "outcomes": ["dwarf_table_acquaintance"], "cost": {"minutes": [2, 3], "new_npcs": 0, "new_props": 1}, "wager_required": false, "Kyra_clue": false, "repeat_xp": false},
+    {"id": "fire_bookmark", "origin": "ADAPTATION", "region": "shared_fire_and_brook", "npcs": ["Azar"], "anchors": [{"source": "novel", "pages": [60, 67]}], "loop": "find_bookmark_choose_short_reading_or_stop_for_today", "outcomes": ["azar_adds_wood_quietly"], "cost": {"minutes": [1, 2], "new_npcs": 0, "new_props": 0}, "canonical_reading_scene_gated": false, "canonical_promise_gated": false},
+    {
+      "id": "camp_letter", "origin": "ADAPTATION", "region": "brotherhood", "npcs": ["Azar"],
+      "anchors": [{"source": "novel", "pages": [28, 53, 61, 62]}],
+      "loop": "request_consent_read_privately_then_reply",
+      "cost": {"minutes": [2, 3], "new_npcs": 0, "new_props": 1, "dialogue_variants": 2},
+      "steps": [
+        {"id": "notice", "action": "speak_to_Azar_holding_letter", "transition": "unseen_to_offered"},
+        {"id": "consent", "action": "ask_permission", "choices": ["accept", "decline"], "sets_if_accepted": {"letter_permission": true}, "transition_if_accepted": "offered_to_active"},
+        {"id": "read", "action": "open_letter_in_dialogue", "choices": ["verbatim", "summary", "pause"], "pause_state": "active", "reading_skill_point_required": false},
+        {"id": "reply", "action": "Azar_responds_and_keeps_letter", "transition": "active_to_completed", "sets": {"azar_private_trust": true, "xp_paid": true}, "choice_flag": "letter_delivery"}
+      ],
+      "letter_delivery_values": ["verbatim", "summary"], "rewards": ["one_time_optional_xp", "personal_home_dialogue_variant"],
+      "letter_forbidden_content": ["Kyra_location", "Foltan_lie", "Urmacht_identity", "antler_plan", "unsupported_Azar_family_history"],
+      "canonical_Azar_reaction_to_betrayal_changed": false
+    },
+    {
+      "id": "camp_material", "origin": "ADAPTATION", "region": "brotherhood", "npcs": ["Azar", "unnamed_guard_ADAPTATION"],
+      "anchors": [{"source": "novel", "pages": [81, 82]}],
+      "loop": "inspect_or_ask_find_packet_return_or_report_location",
+      "cost": {"minutes": [3, 4], "new_npcs": 1, "new_props": 2, "tool_visual_states": 2},
+      "steps": [
+        {"id": "offer", "action": "speak_to_Azar_at_workbench", "transition": "unseen_to_offered", "choices": ["accept", "decline"], "transition_if_accepted": "offered_to_active"},
+        {"id": "find", "action": "inspect_shifted_basket_or_question_guard", "state": "active", "choice_flag": "material_route", "location": "inner_palisade_path"},
+        {"id": "resolve", "action": "return_packet_or_tell_Azar_exact_location", "transition": "active_to_completed", "sets": {"azar_work_supported": true, "tool_repaired": true, "xp_paid": true}}
+      ],
+      "material_route_values": ["inspect", "ask"], "rewards": ["one_time_optional_xp", "optional_luggage_spare_strap"],
+      "mandatory_equipment_unlock": false, "ore_grind": false, "random_drop": false
+    },
+    {
+      "id": "camp_keepsake", "origin": "ADAPTATION", "region": "brotherhood", "npcs": ["Elnon", "Alastir", "unnamed_Ebaril_refugee_ADAPTATION"],
+      "anchors": [{"source": "novel", "pages": [78, 82]}, {"source": "mythology", "pages": [2, 6]}],
+      "loop": "hear_loss_find_wooden_pendant_return_with_optional_conversation",
+      "cost": {"minutes": [3, 4], "new_npcs": 1, "new_props": 1, "dialogue_variants": 2},
+      "steps": [
+        {"id": "notice", "action": "see_refugee_search_luggage_then_ask_Elnon_or_refugee", "transition": "unseen_to_offered", "choices": ["accept", "decline"], "transition_if_accepted": "offered_to_active"},
+        {"id": "find", "action": "follow_owner_description_to_bench_or_ask_Alastir_about_leaf_mark", "state": "active", "sets": {"keepsake_found": true}, "optional_sets": {"alastir_memory_talk": true}},
+        {"id": "return", "action": "return_quietly_or_ask_if_owner_wants_to_talk", "transition": "active_to_completed", "sets": {"refugee_trust": true, "elnon_local_help_seen": true, "xp_paid": true}, "choice_flag": "keepsake_return_style"}
+      ],
+      "keepsake_return_style_values": ["quiet", "ask"], "rewards": ["one_time_optional_xp", "refugee_greeting_variant"],
+      "leaf_mark": "new_personal_design_not_canonical_Destar_seal", "requires_ruin_expedition": false, "magical_relic": false, "Foltan_truth_override": false
+    },
+    {"id": "camp_watch", "origin": "ADAPTATION", "region": "brotherhood", "npcs": ["Foltan", "unnamed_training_partner_ADAPTATION"], "anchors": [{"source": "novel", "pages": [81]}], "loop": "observe_defence_or_try_abandonable_nonlethal_grid_exercise", "outcomes": ["training_seen_or_tried"], "cost": {"minutes": [3, 5], "new_npcs": 1, "new_props": 0, "small_combat_fields": 1}, "routes": ["observe", "hold_position_then_reach_retreat"], "equal_resolution_xp": true, "repeat_xp": false, "magic_required": false, "main_story_gate": false}
+  ],
+  "ui": {
+    "exploration_persistent": ["small_journal_icon", "small_bag_icon", "small_skills_icon"],
+    "place_name": "on_entry",
+    "npc_name": "on_approach_or_selection",
+    "quest_offer": "in_conversation",
+    "item_details": "on_examine",
+    "journal": "one_sentence_for_accepted_task",
+    "map": "discovered_places_and_broad_goal_no_all_item_markers",
+    "ambient_quest_markers": false,
+    "persistent_quest_description": false,
+    "camp_transition_hint": "before_Elnon_tent_sequence"
+  }
+}

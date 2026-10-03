@@ -1,0 +1,82 @@
+{
+  "id": "bg-refuge-room",
+  "kind": "background",
+  "files": {
+    "candle": "output/imagegen/raw/bg-refuge-room/bg-refuge-room-candle.png",
+    "dark": "output/imagegen/raw/bg-refuge-room/bg-refuge-room-dark.png",
+    "candle_attempts": [
+      "output/imagegen/raw/bg-refuge-room/bg-refuge-room-candle-v1.png"
+    ],
+    "dark_attempts": [
+      "output/imagegen/raw/bg-refuge-room/bg-refuge-room-dark-v1.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "raw": {
+    "w": 1672,
+    "h": 941,
+    "aspect": "16:9 mit minimaler Pixelrundung im Tool-Rohformat"
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempts": {
+      "candle": 1,
+      "dark": 1
+    },
+    "reference": "sources/reference/artstyle/user-pixel-baseline.png",
+    "dark_edit_source": "output/imagegen/raw/bg-refuge-room/bg-refuge-room-candle.png",
+    "prompts": {
+      "candle": "Use case: stylized-concept.\nAsset type: Selantis RPG prologue composed background, empty playable stage, 16:9 landscape, preferably 1536x864 or 2048x1152. One image only.\nReference: the attached first image is ONLY a PIXEL ART STYLE reference: fixed elevated three-quarter overhead camera, floor plane clearly readable, object front faces visible, dark outlines, muted natural colors, coherent square pixel clusters, realistic prop proportions. Do not copy its outdoors, character, or HUD.\nConcrete narrative scene: the humble wooden refuge where a gravely wounded man has been brought to recover, and two sleeping infants share a cradle. No adult or playable characters present. The bed is EMPTY. Tell this through an abandoned rumpled bed, water prepared beside it, and the distant cradle.\nComposition: a small simple rectangular timber house interior filling the entire wide frame, no exterior diorama border. Camera elevated around 55 degrees, straight floor axes, no diamond isometric floor. Dark timber plank walls at back and sides, worn wide floorboards. LEFT: simple wooden bed, head toward the back-left wall, foot toward foreground. A CLOSED simple wooden door is built into the left wall just beyond the foot of the bed, fully readable. RIGHT, opposite rear corner: ONE small wooden rocking cradle, containing EXACTLY TWO equally sized identical tightly swaddled off-white bundles, side by side with heads in same direction; tiny anonymous oval heads or concealed faces, no distinguishable genders, clothing, features, no third bundle. Cradle small relative to bed. Shelves mounted to the wooden back walls carry many humble earthenware vessels and glass jars, no magical goods. Next to the bed on its inner/right side: ONE little broad-topped wooden stool holding a short candle and a shallow bowl of water. A single small square window on the back wall, near the right side, aligned so its future moonlight could cross the boards toward the cradle.\nThe broad central floor between bed and cradle is EMPTY and WALKABLE, visually around five to six meters, an arduous long diagonal walk. Most of image is unobstructed floor. Do not fill it with furniture or rugs.\nLighting for CANDLE variant: candle burning with a tiny clear pixel flame. This is the ONLY warm LIGHT SOURCE. Small local amber pool #D89B4B on stool, water bowl, bed edge, nearest floor. Rest of room in deeply subdued dark timber #392A23 and near-black night shadows. Window stays faint and dark, NO moonbeam in this first variant. Readable but intimate dark refuge, no broad orange wash.\nStyle strict: richly crafted pixel art consistent with attached reference but restrained prop details. Uniform pixel grid throughout, hard-edged square pixels, stepped flat-color shadow regions, limited palette, dark outlines. NO photographic texture, no airbrush, no soft gradients, no bloom, no depth of field, no HUD, no text, no watermark. No castles, runes, magical effects, banners, crests, monsters, neon, chibi figures, or extra light sources. No blue cradle glow: that will be built in game code later.\nSave generated image if possible under output/imagegen/raw/bg-refuge-room/ only.",
+      "dark": "Use case: lighting-weather edit.\nEdit target: the provided generated refuge room CANDLE image. Produce the DARK variant of precisely this same Selantis RPG room.\nCHANGE ONLY LIGHTING: extinguish the candle completely, leave the unlit candle and candlestick physically on the same stool beside the same water bowl. No flame, no ember, no orange light on floor, bed, stool, walls or vessels.\nThe only illumination now is cold silver moonlight #B8C4D6 with deep night-blue shadows #172535. It enters the EXISTING small back-wall window and falls as one narrow hard-edged diagonal stripe across the existing floorboards to the cradle on the RIGHT. The strip must visibly connect the window area, a short floor stretch, and the cradle, softly in intensity but CRISP STEPPED PIXEL EDGES, no airbrush gradient. Let the moonlight just reveal the two equal anonymous swaddled bundles inside. Much of the long floor route and bed remains very dark but still navigably readable by subdued cool ambient reflected moonlight. Dark timber #392A23 only as unlit material, no warm lighting anywhere. Intimate, tense, candle extinguished after the earlier recovery scene.\nSTRICT INVARIANTS: exact same fixed elevated three-quarter view, crop, projection, room dimensions, floorboard joins, all shelves, all jars and pots, all chests and baskets, empty rumpled bed on LEFT, door beyond foot of bed on LEFT wall, little stool, water bowl, candle, single window, cradle on RIGHT with EXACTLY TWO IDENTICAL equally swaddled tiny infant bundles in same positions and orientations. Do not redraw, enlarge, relocate, add or remove furnishings. Keep broad central floor empty, five-to-six-meter route bed to cradle. No adults, no playable characters. No magical blue glow, no flash, no other effects, no invented symbols.\nKeep the exact pixel-art style and consistent hard square pixel scale of source. Limited palette, sharp dark outlines, flat stepped shadow regions; no photographic texture, no bloom, no soft gradients, no HUD, no text, no watermark. One landscape 16:9 image."
+    }
+  },
+  "notes": [
+    "Zuflucht aus der Creative Direction: leeres zerwühltes Bett links, Tür in der linken Wand am Fußende, Schemel mit Wasser und Kerze, Wandregale mit Tongefäßen und Gläsern, kleines Fenster, gemeinsame hölzerne Wiege rechts.",
+    "Zwei gleich eingehüllte Säuglinge als kleine anonyme Bündel, keine erwachsenen Figuren.",
+    "Breite freie Dielen zwischen Bett und Wiege. Die Weglänge von ca. 5–6 m ist kompositorisch angelegt, ohne vermessenen Weltmaßstab.",
+    "Kerzenfassung: einzelner warmer Bernstein-Lichtpunkt. Dunkelfassung: Kerze erloschen, kalter Mondlichtstreifen vom Fenster über Dielen und Wiege.",
+    "Keine eingebauten Magieeffekte. Zielauflösung und endgültige Palettenquantisierung durch die bestehende Pipeline, hier nicht ausgeführt."
+  ],
+  "self_review": {
+    "method": "Beide vollständigen Tool-Ergebnisse einzeln visuell betrachtet und miteinander verglichen.",
+    "style": {
+      "passed": true,
+      "notes": "Erhöhte feste 3/4-Draufsicht, sichtbare Objektfronten, dunkle Konturen, harte Pixelcluster und gedämpfte Materialien. Keine Fotostrukturen, kein HUD, kein Text oder Wasserzeichen."
+    },
+    "film_look": {
+      "passed": true,
+      "applicability": "Keine Valentus-, Lia- oder Retterin-Figuren in diesem Hintergrund; entsprechende Haar-, Kostüm- und Proportionsprüfungen entfallen. Beide Säuglinge anonym und gleich eingehüllt."
+    },
+    "palette": {
+      "passed": true,
+      "notes": "Visuell dunkles Holz und lokales Bernsteinlicht in candle; dunkle kalte Nachtfarben und Mondsilber in dark. Hexwerte dienen als Prompt-Anker, keine numerisch exakt erzwungene Palette."
+    },
+    "composition": {
+      "passed": true,
+      "notes": "Leeres Bett links, Tür neben Fußende, Wasser/Kerze am Schemel, Regale, Fenster und rechte Wiege mit genau zwei Bündeln vorhanden. Freier Bodenweg."
+    },
+    "layout_consistency": {
+      "passed": true,
+      "notes": "Dunkelfassung als Bearbeitung der Kerzenfassung erstellt. Raum, Kamera, Bett, Tür, Schemel, Fenster, Regale, Dielenfugen und Wiege bleiben visuell an denselben Positionen; keine erkennbare räumliche Verschiebung."
+    },
+    "lighting": {
+      "passed": true,
+      "notes": "Kerzenfassung hat genau eine Flamme und einen lokalen warmen Lichtpool. Dunkelfassung ohne Flamme oder warmes Licht; Mondlichtstreifen erreicht die Wiege, dunkle Einrichtung bleibt lesbar."
+    },
+    "spritesheet_grid": {
+      "applicable": false
+    },
+    "prohibited_elements": {
+      "passed": true,
+      "notes": "Keine Burg, Runen, Schattenmonster, erfundenen Wappen, Neonfarben, Chibi-Figuren, Stäbe, Rüstungen oder Magieeffekte."
+    },
+    "known_limitations": [
+      "Tool-Rohbilder 1672 × 941 statt mathematisch exaktem 16:9; Abweichung ca. 0,05 %. Ziel 640 × 360 bleibt der Pipeline vorbehalten.",
+      "Keine vermessene Weltstrecke und keine numerische Prüfung auf exakte Hexfarben; Rohbild dient als komponierte Bühne."
+    ],
+    "result": "Beide Varianten nach jeweils einem Versuch visuell akzeptiert."
+  }
+}

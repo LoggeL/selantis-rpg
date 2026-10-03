@@ -1,0 +1,137 @@
+{
+  "id": "bg-lia-meadow",
+  "kind": "background",
+  "files": {
+    "raw": "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow.png",
+    "attempts": [
+      "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow-v1.png",
+      "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow-v2.png",
+      "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow-v3.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "source": {
+    "w": 1672,
+    "h": 941,
+    "format": "PNG",
+    "aspect_ratio": 1.7768331562167907
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "skill": "imagegen",
+    "attempts": 3,
+    "selected_attempt": 3,
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: stylized-concept.\nCreate ONE production game background for Selantis Pixel RPG prologue, asset bg-lia-meadow. Landscape 16:9, ideally 1536x864. This is an EMPTY playable stage: no people, no animals, no sprites, no text or HUD.\nReference roles: first attached image is the mandatory pixel-art rendering and elevated 3/4 camera reference only, do not copy its ruin or interface. Second attached film still informs the ordinary rural summer setting, dry field edges and warm natural colors only; do not include the women or any costumes.\nConcrete scene: Lia's private summer-evening reading place, the emotional release after a dark frightening prologue. A single large mature broadleaf tree stands on an open meadow, slightly left of center, with a sturdy warm-brown trunk and broad green crown. Under its lower-right side, leave a clearly readable small patch of short ochre-green grass as an empty place where a separate barefoot reading character can later sit. No book or props painted into this empty stage. Tall sun-dried straw grasses and seed heads surround this clearing, interspersed with rich green summer grass. On the LEFT is a LIGHT, sparse woodland edge on a sloping earthen embankment, its trees clearly secondary to the solitary reading tree; breaks between trunks and the bank are visible. In the far upper ground are agricultural fields and a few separated small fruit trees. At LOWER RIGHT, a hollow lane leading toward the farm: a visibly sunken dirt road with exposed earth banks on BOTH sides, grass growing over the lips, two worn ruts, curving from the lower-right foreground toward the upper-right farmward direction. Farm lies offscreen; no invented architecture. Keep connected readable walkable ground between reading clearing and lane.\nCamera: fixed slightly elevated THREE-QUARTER TOP-DOWN view like the pixel reference, ground visible as a broad playable plane, tree trunks and front faces visible. Do not make a cinematic side-view landscape. Distant fields occupy a narrow upper-ground strip, with little or no visible sky.\nLight: the sun is VERY low beyond the upper-right edge. Strong golden backlighting visibly dazzles the clearing and tall dry grass, narrow bright cream-gold pixel edges on leaves and grass, strong long diagonal shadows toward the lower-left. The bright source can clip to cream at the top-right frame edge but is built from hard-edged stepped color areas, NEVER soft bloom, lens flare, gradients, haze, light-beam overlays or painterly glow. Maintain clear pixel shapes even in bright backlight. Mood: safe, spacious, warm, breathable; late summer evening rather than spring.\nPalette anchors: summer gold #D6AD59 and saturated natural green #52783C, warm ochre straw, brown earth, deep olive-green shadows, sparse cream sun highlights. Natural limited palette.\nRendering: actual crisp detailed pixel art matching first reference, uniform logical pixel size across whole image, square pixel clusters, dark restrained outlines, clean silhouettes, moderate controlled grass details. No photo textures, no soft edges, no dithery noise. All terrain and objects use the same pixel grid.\nSTRICT AVOID: characters, HUD, icons, letters, watermarks, castle, ruins, banners, heraldry, runes, monsters, neon, chibi, magic effects, oversized foreground foliage blocking the playable clearing, a second dominant meadow tree."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Edit the supplied meadow background for asset bg-lia-meadow, preserving its 16:9 elevated 3/4 top-down pixel-art camera, empty reading clearing, single dominant mature broadleaf tree slightly left of center, sparse LEFT woodland edge and earthen embankment, distant agricultural fields with individual fruit trees, and unmistakable sunken dirt hollow lane on LOWER RIGHT with grass-covered earthen banks on both sides.\nRequired corrections:\n1. VERY LOW summer-evening sun beyond upper-right: add one unmistakably LONG connected tree shadow stretching diagonally from the main trunk toward LOWER LEFT across the meadow clearing, plus slender similarly aligned shadows from woodland trunks and distant orchard trees. Use hard-edged dark olive pixel shapes. Preserve a warm empty grass patch lower-right of the trunk for Lia to sit later. The tree silhouette shadow must be obvious even at 640x360.\n2. Completely remove the stone wall, fence posts and masonry in lower-left foreground. Replace only that area with open natural meadow, sparse tall straw-gold grasses and low green grass continuing the terrain. No ruins, fence, props, castles or buildings anywhere.\n3. The sun and sky strip must have NO soft glow, NO bloom, NO smooth gradient, NO hazy beams. Make the very low sun a tiny hard-edged cream pixel shape partially clipped at the far upper-right, bordered by solid stepped gold color bands. Keep strong dazzling golden backlit edges on the tree crown and tall grass, implemented entirely with crisp pixel clusters.\n4. Make the central low-grass meadow distinctly saturated natural green #52783C beneath the summergold #D6AD59 highlights. Grass detail should be sparing rather than crowded with tiny noise. Consistent square-pixel size and restrained dark outlines over the entire scene. Preserve tall DRY SUMMER grass around the clearing, rather than spring flowers. Keep just a few small flowers.\nScene's story remains Lia's safe rural reading place, emotional liberation after the dark prologue. No characters or animals, no painted book, no HUD or text, no watermarks, no runes, magic effects or neon. Do not add narrative objects. Camera must stay elevated three-quarter top-down with broad visible walkable ground. Preserve exact landscape composition and aspect ratio."
+      },
+      {
+        "attempt": 3,
+        "prompt": "Final pixel-art cleanup edit of the supplied bg-lia-meadow scene. Preserve the EXACT scene layout and three-quarter elevated top-down camera: one dominant leafy reading tree slightly left of center, empty grass clearing to lower-right of its trunk, obvious long tree shadow extending lower-left, sparse left woodland edge on an earthen embankment, distant farm fields and scattered small fruit trees, lower-right sunken hollow dirt lane with two ruts and clearly raised earthen banks. No people, animals, objects, UI or text. Preserve strong warm summer-evening golden backlighting from the tiny low sun at extreme upper-right. Green #52783C and gold #D6AD59.\nOnly correct rendering consistency and detail density: redraw as strict crisp pixel art on ONE uniform square-pixel grid as if designed at 640x360 and enlarged nearest-neighbor, with restrained dark contours and simplified readable clusters. Reduce tiny speckled grass and leaf detail; fewer larger intentional leaf/grass clusters. Keep tall DRY straw grass bordering the clearing, keep the center readable green low grass, and keep the sharply defined long shadow and bright golden backlit edges. No soft shading or painterly texture. The thin sky and sun area must consist exclusively of FLAT solid stepped cream and golden-yellow color blocks, absolutely no smooth gradient, blur, atmospheric haze, bloom, lens flare or rays. Don't make the style cartoonish, chibi or vectorlike; match detailed grounded RPG pixel environments. Keep the safe rural emotional release and warm beautiful summer stillness.\nOutput exact 16:9 landscape, preferred 1536x864 or 1920x1080. No castle, ruin, wall, fence, banner, runes, monsters, neon or magic effects. Do not introduce props or narrative additions."
+      }
+    ]
+  },
+  "references": [
+    {
+      "path": "sources/reference/artstyle/user-pixel-baseline.png",
+      "role": "Pixelstil und feste erhöhte 3/4-Draufsicht, keine Übernahme von HUD oder Ruine."
+    },
+    {
+      "path": "sources/frames/characters-film/sisters-ep01-04m52s.jpg",
+      "role": "Ländlicher Sommer, trockene Feldränder und warme natürliche Farben. Keine Figurenübernahme."
+    }
+  ],
+  "notes": [
+    "Leere Bühne für Lias Leseplatz als warme emotionale Befreiung nach dem dunklen Prolog.",
+    "Ein dominanter Laubbaum links der Mitte, freie niedrige Grasfläche rechts unterhalb des Stamms für die separat einzusetzende Lia.",
+    "Lichter Waldrand mit Böschung links; Felder und einzelne kleine Obstbäume im oberen Hintergrund.",
+    "Hohlweg rechts unten mit zwei Fahrspuren und sichtbaren grasbewachsenen Erdböschungen, führt hofwärts aus dem Bild. Hof selbst bleibt außerhalb.",
+    "Sehr tiefe Sonne rechts oben, goldene Blatt- und Graskanten, langer Baumschatten nach links unten.",
+    "Alle drei Rohversuche erhalten; finale Datei ist eine unveränderte Kopie von v3.",
+    "Keine Pipeline ausgeführt. Skalierung und Palettenquantisierung auf 640x360 erfolgen später durch die bestehende Pipeline."
+  ],
+  "self_review": {
+    "status": "accepted_with_known_limitations",
+    "visual_review_performed": true,
+    "film_look": {
+      "result": "not_applicable",
+      "details": "Keine Figuren. Filmreferenz nur für den ländlichen Sommerkontext verwendet."
+    },
+    "section_palette": {
+      "result": "pass_visual",
+      "details": "Sommergold und sattes warmes Grün bestimmen das Bild; Anker #D6AD59 und #52783C im Prompt. Exakte Hexwerte und begrenzte Farbanzahl nicht numerisch nachgewiesen."
+    },
+    "sprite_grid": {
+      "result": "not_applicable",
+      "details": "Hintergrund, kein Spritesheet."
+    },
+    "prohibited_elements": {
+      "result": "pass",
+      "details": "Keine Burg, Runen, Schattenmonster, erfundenen Wappen, Neonfarben oder Chibi-Figuren. Keine Figuren, kein HUD, Text oder Wasserzeichen."
+    },
+    "scene_composition": {
+      "result": "pass",
+      "details": "Einzelner dominanter Wiesenbaum, lesbarer leerer Leseplatz, hohes trockenes Gras, lichter Waldrand links mit Böschung, Felder und Obstbäume in der Ferne, Hohlweg rechts unten."
+    },
+    "camera_and_style": {
+      "result": "pass_with_limitations",
+      "details": "Erhöhte 3/4-Draufsicht mit großflächig sichtbarem Boden; dunkle Konturen, klare Silhouetten und gegenüber v1/v2 vereinfachte Pixelcluster. Mathematisch einheitliches Pixelraster des generierten Rohbildes nicht verifiziert."
+    },
+    "lighting": {
+      "result": "pass_with_limitations",
+      "details": "Tiefe Sonne, starkes goldenes Gegenlicht und deutlich langer zusammenhängender Schatten. Kein sichtbarer Bloom oder Lensflare. Im schmalen Himmelsstreifen bleibt eine leichte weiche Tonwertabstufung."
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "selected": false,
+        "issues": [
+          "Baumschatten zu schwach.",
+          "Weicher Sonnenbereich.",
+          "Ungefragte Steinmauer und Pfosten aus der Stilreferenz übernommen."
+        ]
+      },
+      {
+        "attempt": 2,
+        "selected": false,
+        "improvements": [
+          "Langer Baumschatten klar sichtbar.",
+          "Mauer und Pfosten entfernt.",
+          "Grüne Freifläche besser lesbar."
+        ],
+        "issues": [
+          "Gras- und Blattdetails weiterhin dicht.",
+          "Pixelstruktur noch uneinheitlich wirkend."
+        ]
+      },
+      {
+        "attempt": 3,
+        "selected": true,
+        "improvements": [
+          "Größere, klarere Pixelcluster.",
+          "Weniger kleinteilige Grasdetails.",
+          "Deutlich lesbarer langer Schatten und freier Leseplatz."
+        ],
+        "issues": [
+          "Rohformat 1672x941 weicht etwa 0.053 Prozent vom exakten 16:9-Seitenverhältnis ab.",
+          "Leichte weiche Tonwertabstufung im sehr schmalen Himmelsstreifen.",
+          "Krone des großen Baums am oberen Rand angeschnitten."
+        ]
+      }
+    ],
+    "known_limitations": [
+      "1672x941 statt mathematisch exaktem 16:9; Ziel der späteren Pipeline ist 640x360.",
+      "Leichte weiche Tonwertabstufung im schmalen Himmelsstreifen trotz drittem Versuch.",
+      "Baumkrone oben angeschnitten; Stamm und Leseplatz vollständig sichtbar.",
+      "Endgültige Pixelgröße, begrenzte Palette und Lesbarkeit nach Pipeline noch nicht geprüft."
+    ]
+  }
+}

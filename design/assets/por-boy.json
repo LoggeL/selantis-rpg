@@ -1,0 +1,47 @@
+{
+  "id": "por-boy",
+  "kind": "portrait",
+  "files": {
+    "final": "output/imagegen/raw/por-boy/por-boy.png",
+    "v1": "output/imagegen/raw/por-boy/por-boy-v1.png",
+    "v2": "output/imagegen/raw/por-boy/por-boy-v2.png",
+    "v3": "output/imagegen/raw/por-boy/por-boy-v3.png"
+  },
+  "target": {
+    "w": 64,
+    "h": 64
+  },
+  "generation": {
+    "tool": "image_gen",
+    "attempts": 3,
+    "selected": "v3",
+    "prompts": [
+      "Use case: illustration-story.\nAsset type: one square pixel-art dialogue portrait for Selantis RPG prologue, final target 64x64 pixels.\nPrimary request: bust portrait of the young allied soldier, sixteen or seventeen, at the precise instant in Valentus's fever-dream battlefield when the axe that was about to kill him has been driven away by his rescuer. His head turns toward Valentus, outside the frame: lingering mortal fear is just tipping into disbelieving hope. His wide anxious ordinary human eyes look slightly upward to the left, inner brows raised and tense, lips slightly parted with a tiny hesitant release of tension, NOT smiling or screaming.\nSubject: one realistically proportioned adolescent boy, narrow youthful face, slight jaw, clean-shaven, short tousled dark brown hair, no helmet (lost in battle). Ashy dirt on cheeks and forehead, one small visible muted blood-red scratch on the cheek. Slim shoulders hunched from fear. A simple light ivory quilted padded gambeson/waffenrock, recognizably sewn padded panels, a little too large for him, dirt-stained at shoulder and collar. Plain muted blue and off-white cloth accent at collar and shoulder; no crest, no emblem, no ornamental armor.\nComposition: square, chest-up bust, head and both shoulders entirely within frame, tight readable portrait, slight three-quarter turn. Dark solid single-color background #22272B, completely uniform right to all four edges, opaque. No scenery, no frame, no lettering.\nStyle: match the attached pixel baseline's little LIA portrait (upper left) in dark contour, natural human anatomy and restrained earthy palette, NOT the forest or interface. Deliberate handcrafted retro pixel art: uniform square pixel grid as if authored at 128x128 and enlarged by an integer nearest-neighbor scale. Stepped hard contour edges and compact flat clusters, sparing facial marks, discrete 3-tone shading per material. Keep facial expression readable after reduction to 64x64. No soft transitions, no anti-aliasing, no painterly strokes, no photo texture, no mixed pixel sizes, no fine film grain, no glossy illustration.\nPalette and lighting: battlefield daytime turning to night, muted flat cool illumination. Steel gray #59616A, mud olive #5D6043, smoke #34383D in the dirt and shadows. Gambeson broken ivory #E8E2D0 with muted steel-gray shadows; reserved cloth blue #397FC1, dark blue #2A4A6E. Skin muted natural light earthy tan; scratch #9A3438. No warm safe golden-hour light.\nConstraints: one person only, age visibly 16-17, human natural proportions, no large anime eyes, no chibi, no beard, no helmet, no crown, no shield, no weapon, no magic, no glowing eyes, no effects, no runes, no heraldry, no neon, no castle, no monsters, no text, no watermark, no UI. Deliver a single square image.",
+      "Edit this portrait for strict production pixel-art compliance. Keep exactly the same boy, age 16-17, narrow clean-shaven face, tousled short brown hair, dirty face, small red cheek scratch, ivory quilted gambeson with plain blue-white accent, slight three-quarter upward look, and the same anxious expression beginning to become disbelieving hope. Keep the chest-up square framing and palette. Two mandatory corrections:\n1. Replace ALL background pixels with one absolutely flat uniform dark color #22272B. No mottling, paper texture, grain, vignette, gradient or edge lighting anywhere on the background.\n2. Rebuild the ENTIRE portrait as intentional crisp hand-placed pixel art on ONE uniform low-resolution 96x96 logical pixel grid, then enlarge every logical pixel equally with nearest-neighbor scaling. All contours must be hard stair-step edges. Every square pixel must be uniformly filled. Simplify the texture and shading into clean solid clusters, maximum three shades per material. Eliminate noise and tiny painterly marks. Keep the padded stitching readable using a few clean dark stepped lines. The face must remain realistic and youthful, with ordinary eyes, tense raised inner brows and slightly parted lips, readable when shrunk to 64x64. Do not enlarge the head or eyes. No chibi, no anime, no beautification. NO soft edges or anti-aliasing, NO gradients, NO photographs or painting textures. No text, UI, frame, weapon, helmet, heraldry, magic or glow. This is the rescued young allied soldier from Valentus's fever-dream battlefield, still frightened, unexpectedly alive. Keep restrained battlefield light, muted ivory/steel gray/mud olive and muted blue #397FC1.",
+      "Precise background correction of the attached pixel-art game portrait. Preserve every characteristic of this boy and his frightened, disbelieving newly hopeful expression, costume, hair, cheek scratch, pose, chest-up framing, and square composition. Preserve the crisp pixel-art foreground. Replace the entire dark backdrop outside his silhouette with a single SOLID FLAT RGB COLOR: RGB(34,39,43), hex #22272B. Every background pixel, whether at the corners or next to his hair, MUST be exactly the same solid dark gray. Use a flat digital paint bucket fill, NO textured canvas, NO grain, NO dithering, NO gradient, NO vignette, NO variations or cloudy marks. The background is a pure single-color opaque UI portrait backdrop. It is NOT a painted scene. Hard square-pixel silhouette borders, no feathering or anti-aliasing. No added frame, text, logo, icon, lighting, glow, scenery, or other subject. Keep the restrained muted natural palette and realistic 16-17 year old human face, not chibi."
+    ]
+  },
+  "notes": [
+    "Quadratisches Rohportrait, 1254 × 1254 RGB, opak. Ziel 64 × 64 wird später durch die Projektpipeline hergestellt; Pipeline hier nicht ausgeführt.",
+    "Konkreter Moment: Der zuvor vom Axthieb bedrohte Junge blickt zu Valentus auf. Todesangst beginnt in ungläubige Hoffnung zu kippen.",
+    "Filmnahe Kostümvorgabe aus Creative Direction: heller einfacher gesteppter Waffenrock, blau-weißer Akzent, verlorener Helm. Kein belegtes individuelles Filmgesicht für den Jungen als Vorlage verwendet.",
+    "Nur freigegebene Assetpfade beschrieben. Keine Änderungen an Docs, Code oder anderen Assets."
+  ],
+  "self_review": {
+    "status": "mit bekannten technischen Mängeln abgegeben",
+    "visual_inspection": "Alle drei Generierungsergebnisse selbst visuell geprüft. v1 zu kleinteilig schattiert; v2 vereinfacht; v3 letzte Hintergrundkorrektur, Motiv erhalten.",
+    "look": "Erfüllt: jugendliches schmales bartloses Gesicht, kurzes zerzaustes braunes Haar, Schmutz, roter Wangenkratzer, kein Helm, heller gepolsterter Waffenrock mit blau-weißem Akzent. Augen natürlich proportioniert; keine Chibi-Figur.",
+    "expression": "Erfüllt mit Einschränkung: hochgezogene angespannte Brauen, nach oben gerichteter Blick und leicht geöffneter Mund zeigen starke Angst und beginnendes ungläubiges Aufatmen. Hoffnung bleibt bewusst subtil.",
+    "palette": "Visuell erfüllt: gedecktes Cremeweiß, Stahlgrau und Schlamm-Oliv, zurückhaltendes Blau, gedämpftes Blutrot. Keine Neonfarben, keine sichere warme Abendbeleuchtung. Hex-Anker sind Promptvorgaben, nicht exakt quantisierte Rohbildfarben.",
+    "format": "Quadratisch, Brustbild, dunkler opaker Hintergrund. Zielgröße 64 × 64 noch nicht erzeugt.",
+    "pixel_style": "Klare dunkle gestufte Konturen und große Farbcluster. Rohbild enthält weiterhin leichte Farbschwankungen innerhalb der dargestellten Pixel und liefert kein mathematisch einheitliches natives Pixelraster. Pipeline-Normalisierung erforderlich.",
+    "background": "Nicht vollständig erfüllt: trotz zweier Korrekturversuche bleiben minimale Hintergrundtextur/Farbabweichungen. Dunkel und szenenfrei, aber nicht exakt einfarbig.",
+    "spritesheet": "Nicht zutreffend.",
+    "prohibited_elements": "Visuell erfüllt: keine Burg, Runen, Schattenmonster, erfundenen Wappen, Neonfarben, Magieeffekte, Waffen, Texte, Wasserzeichen oder HUD/UI.",
+    "known_defects": [
+      "Hintergrund bleibt leicht texturiert statt exakt einfarbig.",
+      "Rohbildpixel nicht vollständig rastergleich und farbhomogen; keine Behauptung einer abgeschlossenen 64 × 64-Pipelineprüfung.",
+      "Hoffnung ist im Gesicht nur als beginnender Umschwung lesbar; Angst dominiert."
+    ]
+  }
+}

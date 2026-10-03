@@ -1,0 +1,76 @@
+{
+  "id": "map-waldrand",
+  "kind": "background",
+  "description": "Lichter Laubwald am sommerlichen Waldrand mit warmem Abendlicht, offenem Waldboden und einem großen quer über dem Weg liegenden Baumstamm. Farn, Unterholz und ein kleines Häufchen Reisig und Bruchholz liegen abseits des Weges. Rechts führt eine flache Böschungslücke hinunter zur goldgrünen Wiese.",
+  "files": {
+    "raw": "output/imagegen/raw/map-waldrand/map-waldrand.png",
+    "attempts": [
+      "output/imagegen/raw/map-waldrand/map-waldrand-v1.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "source": {
+    "file": "sources/novel/roman-selantis-2.txt",
+    "pdf_pages": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "relevant_pages": [
+      6,
+      7,
+      8
+    ]
+  },
+  "reference": "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow.png",
+  "path_exits": [
+    {
+      "edge": "left",
+      "position": "oberes Viertel, etwa 25 % der Bildhöhe",
+      "normalized_center": {
+        "x": 0,
+        "y": 0.25
+      },
+      "description": "Schmaler Waldweg kommt links oben aus dem Laubwald."
+    },
+    {
+      "edge": "right",
+      "position": "mittlere Höhe, leicht unterhalb der Mitte, etwa 59 % der Bildhöhe",
+      "normalized_center": {
+        "x": 1,
+        "y": 0.59
+      },
+      "description": "Weg verlässt den Wald durch eine begehbare flache Lücke in der niedrigen Böschung und tritt rechts auf die Wiese hinaus."
+    }
+  ],
+  "notes": "Leere Bühne. Kein Weganschluss am unteren oder oberen Rand. Große Baumstämme als Hindernisse; offener Boden zwischen den Bäumen. Der umgestürzte Stamm quert den Weg im mittleren linken Bereich. Rohbild unverändert übernommen; Skalierung auf 640 × 360 erfolgt später durch die Pipeline.",
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempt_count": 1,
+    "selected_attempt": 1,
+    "raw_size": {
+      "w": 1672,
+      "h": 941
+    },
+    "prompt": "Use case: stylized-concept\nAsset type: Selantis pixel RPG empty playable environment map, map-waldrand. Generate a NEW neighboring screen to the supplied meadow image, landscape 16:9.\nInput image: the provided bg-lia-meadow image is the binding STYLE, PIXEL DENSITY, PALETTE, LIGHT and CAMERA reference, not an edit target. Match its actual small crisp pixel clusters, dark outlines, foliage shapes, bark texture, saturated natural green and summer gold, same fixed elevated three-quarter overhead camera with generous visible ground and visible trunk fronts. This must look like the adjacent woodland screen of exactly that game world.\nScene: airy deciduous forest edge on a summer evening. Most of the screen is woodland floor with widely spaced mature deciduous trees, clearly readable as isolated obstacles, modest ferns and undergrowth around their bases, ample open playable earth and moss between them. Forest deeper at upper left, opening to sunlit golden-green meadow on the right.\nLayout: ONE narrow dirt woodland trail enters at the LEFT image edge in the upper-left quarter (around 20 percent height), curves gently through the open center and exits at the RIGHT image edge at MID HEIGHT (around 50 percent height). Clearly show BOTH paths crossing the actual frame edges, not stopping inside. No exits on the bottom edge. In the middle-left/center, a LARGE fallen tree trunk lies TRANSVERSELY ACROSS the entire width of this dirt path: a low but chunky rough-barked trunk, clearly recognizable as a toe-stubbing obstacle, both ends extending onto the forest floor, fallen trunk axis roughly vertical-diagonal across the left-to-right trail, not lengthwise along it. Keep the trunk fully visible and not hidden beneath canopy.\nAt the right forest edge a LOW earthen embankment drops gently down toward the meadow, with a plainly walkable broad gap / shallow descending earthen ramp where the trail exits. It is a low bank, not a cliff, ravine or river. Some ferns, sparse bushes, a SMALL heap of dry twigs and broken branches for firewood off the trail in the foreground-left, not a building or bonfire.\nLight: SAME low evening sun from UPPER RIGHT as the meadow reference, warm gold raking highlights along upper-right faces of trunks and leaves, long sharply stepped shadows cast toward LOWER LEFT across the floor, bright open meadow to right, cooler but legible forest shade. Light shown through pixel patches on ground, no rendered sunbeams, fog, glow or bloom.\nPalette anchors: summer gold #D6AD59, rich foliage green #52783C, forest dark green and warm bark browns as in reference. Every area uses the same coherent pixel scale. No soft gradients, no painterly brushwork, no photographic textures, no 3D render. Keep sparse clear silhouettes and playable ground.\nSTRICT: empty stage, NO people or characters, NO creatures, NO HUD, NO UI, NO text or labels, NO heraldry or banners, NO buildings or ruins, NO symbols/runes, NO watermark. 16:9 full bleed rectangular environment."
+  },
+  "self_review": {
+    "visually_checked": true,
+    "style": "Pixelgröße, dunkle Konturen, Laub- und Rindenstruktur sowie erhöhte 3/4-Draufsicht passen visuell zur verbindlichen Wiesenreferenz.",
+    "palette": "Sommergold und sattes Grün der Referenz sichtbar aufgenommen; Hex-Anker dienen der stilistischen Orientierung, keine pixelweise Farbverifikation.",
+    "lighting": "Abendsonne oben rechts; warmes Streiflicht auf Stämmen und Laub, lange Schatten nach links unten.",
+    "composition": "Weganschlüsse links im oberen Viertel und rechts im mittleren Bereich sichtbar. Querliegender Stamm gut lesbar, niedrige Böschung und offene Austrittslücke vorhanden. Feuerholzhaufen links unten, Farne und Unterholz abseits des Weges. Nutzbarer Waldboden zwischen klaren Baumhindernissen.",
+    "empty_stage": "Keine Figuren, Tiere, HUD, Schrift, Wappen, Gebäude oder magischen Effekte sichtbar.",
+    "format": "16:9-Querformat wie die Referenz, gleiche Rohbildmaße 1672 × 941 (geringe Rundungsabweichung vom exakten Seitenverhältnis).",
+    "limitations": "Rechter Weganschluss liegt bei etwa 59 % der Höhe und damit etwas unterhalb der Bildmitte. Begehbarkeit und Kollisionen sind visuell angelegt, noch nicht im Spiel geprüft.",
+    "result": "Erster Versuch ausgewählt; keine weitere Generierung nötig."
+  }
+}

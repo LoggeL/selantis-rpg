@@ -1,0 +1,33 @@
+# Only the browser build and selected public media enter the build context.
+**
+!Dockerfile
+!game/
+!game/package.json
+!game/package-lock.json
+!game/tsconfig.json
+!game/index.html
+!game/src/
+!game/src/**
+!game/public/
+!game/public/**
+!deploy/
+!deploy/nginx.conf
+!scripts/
+!scripts/assemble_site.mjs
+!konzept.html
+!musik.html
+!output/
+!output/imagegen/
+!output/imagegen/lia-pixel-film-look.png
+!output/imagegen/tutorial-valentus-battle-film-look.png
+!output/audio/
+!output/audio/rauberlied-lyria-3-5.mp3
+!output/audio/scenes/
+!output/audio/scenes/*-lyria-3-5.mp3
+# Commit metadata only, without credentials or Git objects/history.
+!.git/
+!.git/HEAD
+!.git/packed-refs
+!.git/refs/
+!.git/refs/heads/
+!.git/refs/heads/main

@@ -1,0 +1,187 @@
+{
+  "id": "map-hof",
+  "kind": "background",
+  "description": "Kleiner friedlicher Bauernhof am Ende des Hohlwegs im goldenen Sommerabend. Kleines Fachwerkhaus links der Mitte, deutlich größere Scheune rechts daneben; hinter dem Haus ein leeres Schweinegatter mit Koben und unmittelbar anschließendes Wäldchen.",
+  "files": {
+    "raw": "output/imagegen/raw/map-hof/map-hof.png",
+    "attempts": [
+      "output/imagegen/raw/map-hof/map-hof-v1.png",
+      "output/imagegen/raw/map-hof/map-hof-v2.png",
+      "output/imagegen/raw/map-hof/map-hof-v3.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "skill": "imagegen",
+    "attempts": 3,
+    "selected_attempt": 3,
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: stylized-concept.\nAsset type: map-hof, an EMPTY playable background screen for Selantis pixel RPG.\nCreate ONE 16:9 landscape image, preferably 1672x941 matching the reference.\nREFERENCE: The supplied bg-lia-meadow.png is the binding visual reference for pixel density, natural palette, light direction and elevated three-quarter top-down camera. This farm must look like the adjacent game screen of EXACTLY that same world. Change the scene into the requested farm, retain its crisp dark-outlined pixel clusters, golden summer grass, rich green foliage, warm brown soil, low upper-right evening sun and long diagonal shadows toward lower-left. Do not reuse the giant meadow tree as central subject.\n\nComposition and spatial layout, critical:\nA small peaceful rural farm at the end of a hollow lane on a summer evening. Broad clearly readable packed-earth playable courtyard fills the middle and lower middle, with a continuous clear route from the LEFT entry to the UPPER RIGHT entry.\nThe sunken dirt HOLLOW LANE enters at the LEFT IMAGE EDGE at middle height (approximately y=55%), between grassy elevated earth banks on both sides, and opens directly into the courtyard. The lane must visibly meet the left edge, not the bottom.\nA modest small single-storey timber-framed farmhouse stands LEFT OF CENTER (approximately x=34%, y=37%). Warm weathered timber and pale earth plaster, low straw thatch roof, small chimney with a few hard-edged pale pixel smoke clusters, closed wooden front door facing the courtyard. House is a clearly SMALLER building than the barn.\nA MUCH LARGER wooden agricultural BARN stands immediately to the RIGHT of the farmhouse (approximately x=64%, y=35%), about twice the farmhouse width and noticeably higher, huge straw-covered roof, wide plain plank doors. The barn dominates the building group in scale. Separate buildings with a modest visible gap, neither mansion nor castle.\nBEHIND the farmhouse, ABOVE it in the picture (approximately x=26%, y=18%), a clearly visible simple wooden gated PIG ENCLOSURE with a small low rustic pig shelter / pigsty. Keep this enclosure empty of animals for later separate sprites. Show its gate and fence beyond the house, not hidden entirely behind its roof. DIRECTLY behind that enclosure a SMALL BROADLEAF WOOD starts and reaches the TOP EDGE at upper-left/upper-middle. It is a nearby small wood, not distant mountains.\nA field track enters through the TOP EDGE near the UPPER RIGHT corner (approximately x=90%), comes from visible sun-gold fields, travels along the right of the barn and joins the courtyard. Its exit at the upper-right top boundary must be unmistakable. Keep the barn clear of this road.\nA small plain stone water trough at an edge of the courtyard, a modest empty two-wheel wooden farm cart parked beside the barn, and stacked cut firewood beside the farmhouse. All props peripheral, central ground spacious and walkable.\nLower edge is grass and low shrubs, not a third road exit. Agricultural gold grasses and rich summer green vegetation frame the yard; sparse tiny flowers only.\n\nStyle and light: fixed ELEVATED 3/4 TOP-DOWN RPG camera identical to the supplied reference, visible roof tops and building front faces, broad readable ground plane. Crisp detailed grounded PIXEL ART, uniform pixel density throughout, square intentional clusters, restrained dark outlines. Limited natural palette centered on summer gold #D6AD59 and rich green #52783C, dark olive shadows, warm brown wood and ochre dirt. Same low sunset illumination from UPPER RIGHT with long connected shadows cast LOWER LEFT by buildings, fences and trees. Warm and tranquil late summer, dry golden field edges. Prefer little or no sky; world continues to all image edges. No soft gradients, bloom, haze, smooth painting, 3D render, phototextures or inconsistent pixel sizes.\n\nSTRICT EMPTY STAGE: NO human figures, NO animals, NO sprites, NO HUD, NO UI, NO text, letters, signs, labels, watermark, heraldry or coat of arms, banners, ruins, castles, magic effects, neon, runes, chibi. Farmhouse door CLOSED. Do not illustrate the later attack from the novel. No people, threats, violence or open house door. Output the finished full-bleed farm background only."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Use case: precise-object-edit.\nEdit target: first supplied image, map-hof-v1.png. Second supplied image bg-lia-meadow.png is the binding style, pixel density, palette, perspective and illumination reference.\nMake ONLY ONE spatial correction: the field track on the right of the big barn currently tapers into the distant field inside the frame. Extend this SAME track upward through the field until it clearly crosses and is cut off by the TOP IMAGE BORDER near x=94% (upper-right area). A small walkable track opening should visibly touch the top edge, with its earth surface and two ruts continuous from the courtyard all the way out. Continue existing roadside plain wooden fencing consistently where needed. Do not put an obstacle or horizon tree across the exit. This is a game-screen edge connection, so the path MUST reach the top boundary, not vanish into a point inside the frame.\n\nPreserve EVERYTHING else exactly: 16:9 full-bleed composition, same uniform crisp square-pixel density, elevated 3/4 top-down camera, natural summer gold #D6AD59 and rich green #52783C, low warm evening sun from upper-right with long shadows toward lower-left; left-edge hollow lane at middle height between elevated banks; SMALL farmhouse left of center with closed door, straw roof, chimney and crisp pixel smoke; MUCH LARGER barn immediately on its right; empty gated pig enclosure behind the house and woodland immediately behind enclosure along upper edge; existing trough, cart, firewood, yard and all their proportions, placements, textures. Clear open packed-earth courtyard. No new bottom or right edge exit. Do not alter the farm buildings or yard.\nEmpty stage: no people, animals, sprites, HUD/UI, text, signs, letters, heraldry, banners, watermark, runes, monsters, magic effects. No smooth painting, gradients, blur, bloom, haze or photorealism. Keep exact original dimensions."
+      },
+      {
+        "attempt": 3,
+        "prompt": "Use case: precise-object-edit. Edit the supplied farm background.\nOne final targeted correction in the upper-right corner ONLY: make the field-track exit natural on the game-map ground plane. The path now extends to the top image border but its topmost segment appears isolated against a strip of yellow SKY, like a bridge or steep ramp. Replace that narrow SKY/horizon area around the track in the top-right with CONTINUOUS SUNLIT AGRICULTURAL GROUND and small golden grain fields right up to the top border, on BOTH sides of the track. Keep a roughly constant road width at the boundary, gently continuous dirt ruts and plain fences, no cliff, no bridge, no elevated ramp. The right-hand track must STILL physically cross the TOP boundary near x=94%. The fields outside the frame are at the same ground level. Preserve the matching elevated three-quarter top-down game perspective; do not introduce a vanishing point or distant tiny road.\nLeave ALL the rest of the image unchanged: small closed-door thatched timber-frame farmhouse left of center and much bigger barn right beside it, hard pixel smoke from chimney, empty pig enclosure behind house with small woodland immediately behind, empty central packed-earth yard, cart, woodpile, trough, left-edge sunken lane at middle height with banks, foreground grass and shrubs. Preserve existing building scale and layout, road connections, crisp square pixel density, green #52783C, summer gold #D6AD59, same upper-right low evening light with long lower-left shadows. No additional props or road exits. No humans or animals, no HUD, text, signs, heraldry, banners, watermarks or magical effects. No blur, gradients, bloom, haze, smooth painting or phototextures. Preserve exact original dimensions and 16:9 landscape."
+      }
+    ]
+  },
+  "references": [
+    {
+      "path": "output/imagegen/raw/bg-lia-meadow/bg-lia-meadow.png",
+      "role": "Verbindliche Stil-, Paletten-, Licht-, Pixeldichte- und Perspektivreferenz; benachbarter Bildschirm derselben Welt."
+    }
+  ],
+  "source_text": {
+    "path": "sources/novel/roman-selantis-2.txt",
+    "pdf_pages": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "key_page": 13,
+    "adaptation": "Friedlicher Zustand vor dem Überfall. Die im Roman auf Seite 13 offene Haustür bleibt gemäß Auftrag geschlossen. Figuren und Tiere werden separat eingesetzt."
+  },
+  "path_exits": [
+    {
+      "id": "hohlweg",
+      "edge": "left",
+      "center_normalized": {
+        "x": 0,
+        "y": 0.51
+      },
+      "span_normalized": [
+        0.47,
+        0.55
+      ],
+      "description": "Hohlweg tritt am linken Bildrand auf mittlerer Höhe zwischen grasbewachsenen Erdböschungen aus und öffnet sich nach rechts zum Hofplatz."
+    },
+    {
+      "id": "feldweg",
+      "edge": "top",
+      "center_normalized": {
+        "x": 0.951,
+        "y": 0
+      },
+      "span_normalized": [
+        0.943,
+        0.96
+      ],
+      "description": "Feldweg tritt am oberen Rand nahe der rechten Ecke zwischen goldenen Feldern aus, läuft rechts an der Scheune vorbei und mündet in den Hofplatz."
+    }
+  ],
+  "notes": [
+    "Leere Bühne ohne Figuren, Tiere, HUD, Text oder Wappen.",
+    "Geschlossene Haustür, kleines Strohdachhaus mit Schornsteinrauch; größere Scheune unmittelbar rechts.",
+    "Schweinekoben und geschlossenes Gatter hinter dem Haus, Wäldchen direkt dahinter am oberen Rand.",
+    "Gestampfter Hofplatz mit freier Verbindung zwischen Hohlweg und Feldweg; Steintrog, leerer Karren und Holzstapel an den Rändern.",
+    "Sommergold #D6AD59 und sattes Grün #52783C als Palettenanker, Abendlicht von oben rechts und lange Schatten nach links unten.",
+    "Alle drei Rohversuche erhalten; finale Datei ist eine unveränderte Kopie von Versuch 3.",
+    "Keine Pixelize-Pipeline ausgeführt. Zielgröße 640x360 und Palettenquantisierung erfolgen später."
+  ],
+  "self_review": {
+    "status": "accepted_with_known_limitations",
+    "visual_review_performed": true,
+    "reference_match": "Visuell nah an bg-lia-meadow: gleiche goldene trockene Sommervegetation, sattes Grün, dunkle Konturen und erhöhte 3/4-Draufsicht.",
+    "layout": "Erfüllt: Haus links der Mitte deutlich kleiner als Scheune rechts; Gatter und Koben oberhalb des Hauses, direkt dahinter Wald.",
+    "walkability": "Hofplatz klar und zusammenhängend lesbar; Props stehen randständig. Beide Weganschlüsse erreichen die jeweiligen Bildränder.",
+    "lighting": "Warme Abendbeleuchtung von oben rechts; Gebäudeschatten verlaufen deutlich nach links unten.",
+    "empty_stage": "Keine Menschen, Tiere, HUD, Texte, Wappen oder verbotenen Fantasy-Elemente sichtbar; Haustür geschlossen.",
+    "attempt_reviews": [
+      {
+        "attempt": 1,
+        "result": "Sehr guter Stil- und Layouttreffer; Feldweg endete jedoch innerhalb des Bildes."
+      },
+      {
+        "attempt": 2,
+        "result": "Feldweg erreicht oberen Rand; oberstes Stück wirkte gegen den Himmel wie eine Rampe."
+      },
+      {
+        "attempt": 3,
+        "result": "Gewählt: Felder reichen bis zum oberen Rand, Weganschluss liegt natürlich auf zusammenhängendem Boden; übrige Hofanordnung erhalten."
+      }
+    ],
+    "limitations": [
+      "Rohbild enthält feine Dach- und Vegetationsdetails; feste Pixelrastergröße und endgültige Palette werden erst durch die bestehende Pipeline hergestellt.",
+      "Wegpositionen sind visuell geschätzte normierte Angaben, keine Kollisionsdaten."
+    ]
+  },
+  "source": {
+    "w": 1672,
+    "h": 941,
+    "format": "PNG",
+    "aspect_ratio": 1.7768331562167907
+  },
+  "variants": [
+    {
+      "id": "map-hof-open",
+      "description": "Roman S. 13, \"Doch was war das?\": sperrangelweit offene Haustür mit dunklem Innenraum, kein Schornsteinrauch; leicht kühleres und etwas dunkleres Licht.",
+      "files": {
+        "raw": "output/imagegen/raw/map-hof/map-hof-open.png"
+      },
+      "base_asset": "map-hof",
+      "source": {
+        "w": 1672,
+        "h": 941,
+        "format": "PNG"
+      },
+      "source_text": {
+        "path": "sources/novel/roman-selantis-2.txt",
+        "key_page": 13,
+        "cue": "Doch was war das?"
+      },
+      "generation": {
+        "tool": "built-in image_gen",
+        "skill": "imagegen",
+        "attempts": 1,
+        "selected_attempt": 1,
+        "prompt": "Use case: precise-object-edit.\nInput image: map-hof.png is the EDIT TARGET, not a loose reference.\nAsset: Selantis RPG background variant map-hof-open, to be crossfaded directly over the original.\nCRITICAL: preserve EXACT 1672x941 pixel dimensions, exact full-frame crop, camera, perspective and pixel coordinate positions of ALL buildings, roof outlines, chimney, fences, trees, paths, cart, trough, woodpile, barrels, vegetation and shadows. Edit the existing image in place; do not redraw or recompose it. No zoom, camera shift, warp, repositioning or rescaling. Pixel-art texture and pixel density must stay identical.\nChange ONLY these three details:\n1. The small timber-framed FARMHOUSE LEFT OF THE BIG BARN has its wooden front door at approximately x=710,y=410. Swing this door WIDE OPEN, roughly 100 degrees, visibly leaving the ENTIRE doorway open with a very dark, unlit interior. Preserve the original door frame, width, lintel, threshold and house footprint. The original plank door leaf is visibly swung outward alongside the doorway, never partly covering it. Do not change the barn doors, which remain closed.\n2. Remove ALL pale smoke above the farmhouse chimney, restoring only the already existing background foliage and fence behind the smoke. Keep the stone chimney itself exactly intact and in place.\n3. Very subtly cooler and a tiny bit darker overall light, as if a cloud just moved in front of the sun. This is a restrained slight change, retain nearly all the original warm summer gold/green palette and shadow shapes, no dramatic blue cast or new weather elements.\nEverything else must remain exactly as the original. Empty scene: no people, animals, blood, objects, text or effects added. Do not add a visible cloud. Return the edited full-bleed 1672x941 PNG."
+      },
+      "self_review": {
+        "status": "accepted",
+        "visual_review_performed": true,
+        "composition": "Visuell gleicher Bildausschnitt und gleiche Perspektive; Positionen von Bauernhaus, Scheune und Schweinekoben gegen das Original geprüft.",
+        "changes": "Haustür weit nach außen geöffnet, Türöffnung dunkel. Schornstein intakt, Rauch entfernt. Sommerpalette erhalten, Licht etwas kühler und dunkler.",
+        "empty_stage": "Keine Figuren, Tiere, Blut oder weiteren Objekte hinzugefügt.",
+        "dimensions_match": true,
+        "edge_alignment": {
+          "method": "Lokale Kantenkorrelation im Suchfenster von +/-3 Pixeln gegen das Original",
+          "best_offset_pixels": {
+            "farmhouse_roof": [
+              0,
+              0
+            ],
+            "barn_roof": [
+              0,
+              0
+            ],
+            "pig_shelter": [
+              0,
+              0
+            ],
+            "trough": [
+              0,
+              0
+            ]
+          }
+        },
+        "limitations": [
+          "Gebäudeausrichtung visuell und durch lokale Kantenprüfung bestätigt; keine pixelweise Identität aller unveränderten Bilddetails nach generativer Bearbeitung behauptet."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "id": "spr-boy",
+  "kind": "spritesheet",
+  "files": {
+    "final": "output/imagegen/raw/spr-boy/spr-boy.png",
+    "attempts": [
+      "output/imagegen/raw/spr-boy/spr-boy-v1.png",
+      "output/imagegen/raw/spr-boy/spr-boy-v2.png",
+      "output/imagegen/raw/spr-boy/spr-boy-v3.png"
+    ]
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 4,
+    "order": [
+      [
+        "fallen_shield_face_tremble_0",
+        "fallen_shield_face_tremble_1",
+        "scramble_up_0",
+        "scramble_up_1"
+      ],
+      [
+        "run_north_0",
+        "run_north_1",
+        "run_north_2",
+        "run_north_3"
+      ],
+      [
+        "run_east_0",
+        "run_east_1",
+        "run_east_2",
+        "run_east_3"
+      ],
+      [
+        "stop_look_back_south_0",
+        "stop_look_back_south_1",
+        "idle_south_0",
+        "idle_south_1"
+      ]
+    ],
+    "raw_cell": {
+      "w": 256,
+      "h": 384
+    }
+  },
+  "target": {
+    "w": 32,
+    "h": 48
+  },
+  "notes": [
+    "Rohsheet 1024 x 1536 RGBA. target bezeichnet die spätere Größe pro Frame; keine Pipeline ausgeführt.",
+    "Built-in image_gen, drei Generierungsversuche, kein CLI-Fallback. Versuch 3 als beste Rohfassung gewählt, nicht vollständig freigegeben.",
+    "Rettungsmoment aus Creative Direction: schützend am Boden, Aufrappeln, Flucht hangaufwärts, ängstlicher Rückblick.",
+    "Originalreferenzen: sources/reference/artstyle/user-pixel-baseline.png und sources/frames/characters-film/dunkelschatten-soldiers-full-ep01-17m15s.jpg. Filmreferenz nur für schlichte Materialien/Kostüm, Allianzfarben nach Vorgabe.",
+    "Alle Versuche unverändert kopiert, keine Retusche oder Neuordnung. Keine anderen Workspace-Dateien verändert."
+  ],
+  "generation": {
+    "tool": "image_gen",
+    "selected_attempt": 3,
+    "prompts": [
+      "Use case: illustration-story.\nAsset type: production-ready transparent pixel-art character sprite sheet for Selantis RPG prologue, spr-boy.\nInput images: Image 1 is ONLY a pixel-art style/camera reference, never copy environment or UI. Image 2 is ONLY a film reference for simple cloth medieval soldier costume/materials, not for allegiance: the requested boy is allied, wearing BLUE AND OFF-WHITE, no chainmail hood, no helmet.\nNarrative: a terrified sixteen-to-seventeen-year-old allied recruit has been knocked down beside Valentus with an enemy axe poised above him. He shields his face, trembles, scrambles upright, escapes uphill to his own troops, stops and looks back in fear before the dream breaks. Show these exact body actions through the sheet; do not paint other characters, axe, terrain or effects.\nSubject: SAME narrow adolescent boy in ALL 16 frames, short tousled medium brown hair, youthful frightened face, slight build, realistic 6 to 7 head proportions, undersized body inside slightly oversized simple quilted off-white gambeson/waffenrock with muted blue shoulder trim and modest blue vertical cloth accents, plain brown belt, dark mud-olive trousers and worn brown boots. Bare head, no beard, no weapons, no shield, no crests. Quilting sparse and readable, no ornate armor.\nStyle: crisp handmade pixel art matching the first reference character, fixed slightly elevated 3/4 top-down game camera, dark pixel outlines, restrained natural color clusters, one consistent pixel size throughout, hard edges, no smooth antialiasing, no painterly/photo textures or soft gradients. Never chibi. Flat subdued battle lighting, steel gray #59616A and mud olive #5D6043 shadows, off-white #E8E2D0 cloth and muted blue #397FC1 accents. No glow.\nCanvas: portrait 1024 x 1536 pixels, TRUE transparent alpha background. Strict 4 columns by 4 rows, exactly 16 equal cells each 256 x 384 px. Logical frames will later be reduced to 32 x 48 px each by another pipeline. No visible grid lines or labels. Every cell has ONLY one full-body sprite, entirely contained, generous transparent spacing. Same body scale, costume, hair and pixel density throughout, common ground-contact baseline near bottom of each cell; fallen poses occupy lower part of cell without enlarging the body. All upright feet at same baseline. NO cast shadows onto background.\nCELL ORDER left to right:\nROW 1 col1: lying on ground on side/back, knees bent, BOTH hands raised protectively across face, frightened curled posture.\nROW 1 col2: same lying defensive pose with slightly different trembling arm/shoulder position, not standing or kneeling.\nROW 1 col3: beginning to scramble up, one knee on ground, one palm supports body, other forearm still protecting face, head bowed.\nROW 1 col4: finishing scramble, rising from crouch, one foot planted and body leaning into flight, much higher than col3.\nROW 2 NORTH run cycle: all FOUR show BACK of head and back of gambeson, travelling uphill toward TOP of canvas, head looking north. Col1 left leg forward right back, col2 passing legs, col3 right leg forward left back, col4 opposite passing legs. Consistent hand/leg counter-swing, fearful hunched shoulders.\nROW 3 EAST run cycle: all FOUR face screen RIGHT, clear right-facing profile from same elevated camera. Col1 left leg forward right back, col2 passing legs, col3 right leg forward left back, col4 opposite passing legs, consistent arm counter-swing.\nROW 4 col1: stops while torso still facing north, feet planted, head turns over LEFT shoulder to look SOUTH toward viewer, wary youthful face visible.\nROW 4 col2: completes frightened SOUTH look over shoulder, torso three-quarter north, face visible toward viewer, neck/shoulder twist clearly distinct from idle.\nROW 4 col3: idle SOUTH, body fully faces bottom/viewer, both boots planted, frightened exhausted recruit with arms lowered.\nROW 4 col4: second idle SOUTH, same facing with tiny breathing/shoulder change, both boots planted.\nConstraints: exactly 4 by 4, no extra sprites. Correct north/back and east/right directions. No helmet or chainmail hood. No anime, chibi, giant head, muscular mature soldier, flashy armor, invented heraldry, runes, neon, blood, magical effects, shadow monster, castle, landscape, text, watermark, HUD, border, checkerboard painted into image. Transparent empty pixels.",
+      "Use case: illustration-story.\nAsset type: production-ready transparent pixel-art character sprite sheet for Selantis RPG prologue, spr-boy.\nInput images: Image 1 is ONLY a pixel-art style/camera reference, never copy environment or UI. Image 2 is ONLY a film reference for simple cloth medieval soldier costume/materials, not for allegiance: the requested boy is allied, wearing BLUE AND OFF-WHITE, no chainmail hood, no helmet.\nNarrative: a terrified sixteen-to-seventeen-year-old allied recruit has been knocked down beside Valentus with an enemy axe poised above him. He shields his face, trembles, scrambles upright, escapes uphill to his own troops, stops and looks back in fear before the dream breaks. Show these exact body actions through the sheet; do not paint other characters, axe, terrain or effects.\nSubject: SAME narrow adolescent boy in ALL 16 frames, short tousled medium brown hair, youthful frightened face, slight build, realistic 6 to 7 head proportions, undersized body inside slightly oversized simple quilted off-white gambeson/waffenrock with muted blue shoulder trim and modest blue vertical cloth accents, plain brown belt, dark mud-olive trousers and worn brown boots. Bare head, no beard, no weapons, no shield, no crests. Quilting sparse and readable, no ornate armor.\nStyle: crisp handmade pixel art matching the first reference character, fixed slightly elevated 3/4 top-down game camera, dark pixel outlines, restrained natural color clusters, one consistent pixel size throughout, hard edges, no smooth antialiasing, no painterly/photo textures or soft gradients. Never chibi. Flat subdued battle lighting, steel gray #59616A and mud olive #5D6043 shadows, off-white #E8E2D0 cloth and muted blue #397FC1 accents. No glow.\nCanvas: portrait 1024 x 1536 pixels, TRUE transparent alpha background. Strict 4 columns by 4 rows, exactly 16 equal cells each 256 x 384 px. Logical frames will later be reduced to 32 x 48 px each by another pipeline. No visible grid lines or labels. Every cell has ONLY one full-body sprite, entirely contained, generous transparent spacing. Same body scale, costume, hair and pixel density throughout, common ground-contact baseline near bottom of each cell; fallen poses occupy lower part of cell without enlarging the body. All upright feet at same baseline. NO cast shadows onto background.\nCELL ORDER left to right:\nROW 1 col1: lying on ground on side/back, knees bent, BOTH hands raised protectively across face, frightened curled posture.\nROW 1 col2: same lying defensive pose with slightly different trembling arm/shoulder position, not standing or kneeling.\nROW 1 col3: beginning to scramble up, one knee on ground, one palm supports body, other forearm still protecting face, head bowed.\nROW 1 col4: finishing scramble, rising from crouch, one foot planted and body leaning into flight, much higher than col3.\nROW 2 NORTH run cycle: all FOUR show BACK of head and back of gambeson, travelling uphill toward TOP of canvas, head looking north. Col1 left leg forward right back, col2 passing legs, col3 right leg forward left back, col4 opposite passing legs. Consistent hand/leg counter-swing, fearful hunched shoulders.\nROW 3 EAST run cycle: all FOUR face screen RIGHT, clear right-facing profile from same elevated camera. Col1 left leg forward right back, col2 passing legs, col3 right leg forward left back, col4 opposite passing legs, consistent arm counter-swing.\nROW 4 col1: stops while torso still facing north, feet planted, head turns over LEFT shoulder to look SOUTH toward viewer, wary youthful face visible.\nROW 4 col2: completes frightened SOUTH look over shoulder, torso three-quarter north, face visible toward viewer, neck/shoulder twist clearly distinct from idle.\nROW 4 col3: idle SOUTH, body fully faces bottom/viewer, both boots planted, frightened exhausted recruit with arms lowered.\nROW 4 col4: second idle SOUTH, same facing with tiny breathing/shoulder change, both boots planted.\nConstraints: exactly 4 by 4, no extra sprites. Correct north/back and east/right directions. No helmet or chainmail hood. No anime, chibi, giant head, muscular mature soldier, flashy armor, invented heraldry, runes, neon, blood, magical effects, shadow monster, castle, landscape, text, watermark, HUD, border, checkerboard painted into image. Transparent empty pixels.\nREVISION AFTER VISUAL REVIEW: the prior generated sheet is a layout/pose reference ONLY; reject its comic/anime big heads and finely painted texture. The standing boy MUST be 6.5 head heights tall: make skull including hair only about 1/6.5 of full upright height, slim teenage human silhouette. Tiny restrained eyes, not wide anime eyes. Render as REAL LOW-RES PIXEL ART with visible square blocks at a strict uniform 4x4 source-pixel size, dark stepped outlines, flat palette clusters and no subpixel texture anywhere. Simple unadorned clothing, no embroidered arm badge. Keep poses/cell order identical. Alpha must be clean transparent with opaque solid sprite interiors; no soft halo or background. Clear differences between alternating leg frames. Top-down camera slightly elevated as reference 1. Fear is in protective hands, hunched shoulders, turned head and brow, not cartoon eyes.",
+      "Create ONE transparent sprite sheet, exactly 4 columns x 4 rows, 16 poses total, portrait canvas 1024x1536. Each equal cell is 256x384, later downsampled to 32x48. This is a NEW drawing, based ONLY on the attached original references.\n\nReference 1: pixel-art style, game camera and realistically proportioned SMALL-headed character. Reference 2: plain medieval cloth soldier clothing/materials only, allegiance must be blue/off-white.\n\nThe same young allied soldier aged 16-17 in every frame: thin, short tousled brown hair, NO helmet or hood, NO beard, plainly frightened. Wears an oversized light off-white quilted gambeson, modest muted blue shoulder and side accents, simple brown belt, mud-olive trousers, brown boots. No badge, heraldry, metal armor, weapons or shield. Tiny head, LONG slim legs and normal human narrow torso. Upright height MUST be about 6.5 head heights including hair. At source size approximately 300px tall with a head only 46px tall. Facial eyes SMALL and natural, no anime.\n\nPixel art means a VISIBLE strict 4x4 square pixel grid: render a low-resolution pixel sprite sheet at 256x384 logical resolution and scale it fourfold using nearest-neighbor look to 1024x1536. EVERY line, edge and color cluster aligned to those 4x4 blocks. Use only about 24 muted natural colors. NO internal photo grain, no painterly hatching, no smooth curves, no gradients, no antialiasing. Dark crisp stepped outlines. Fixed slightly raised three-quarter top-down game camera as reference 1, not eye-level side view. Flat gray battle light, off-white #E8E2D0, subdued blue #397FC1, steel gray #59616A, mud olive #5D6043.\n\nExactly this animation left to right:\nRow 1: (1) knocked onto his side/back, bent knees, BOTH HANDS protect face from imminent axe blow; (2) same defensive lying pose with slight arm tremble; (3) scrambles up on one knee supported by one palm; (4) rises from crouch into escape.\nRow 2: NORTH running uphill, BACK visible in ALL four cells, 4 phase cycle with alternating left/right strides and two passing poses.\nRow 3: EAST running, faces screen RIGHT in ALL four cells, 4 phase cycle with alternating left/right strides and two passing poses.\nRow 4: (1-2) stopped facing north but twists frightened head over shoulder to look SOUTH toward camera, two subtly different frames; (3-4) idle fully facing SOUTH toward camera, arms lowered, two subtly different breathing frames.\n\nOne full-body sprite per cell, same individual, scale and equipment, ground-contact baseline at same cell-local height near bottom. Fallen boy retains normal body size, simply folded on ground. Enough transparent margin that no cell touches the next. TRUE transparent empty alpha, solid opaque sprite pixels, no background shadows, scenery or floor. No grid lines, text, numbers, HUD, watermark, effects, chibi/cartoon head, neon or invented crests. The story is a frightened recruit being rescued, fleeing uphill, looking back anxiously. Deliver usable pixel-art frames rather than smooth illustrated concept art."
+    ]
+  },
+  "self_review": {
+    "status": "needs_revision_after_attempt_limit",
+    "visually_reviewed_attempts": [
+      1,
+      2,
+      3
+    ],
+    "look": {
+      "result": "partial",
+      "observed": "Schmaler, jung wirkender Soldat, kurzes zerzaustes braunes Haar, heller gesteppter Waffenrock mit Blau-Weiß-Akzenten, Gürtel, dunkle Hose und Stiefel. Kein Helm. Schutzpose und Flucht erkennbar.",
+      "defects": [
+        "Kopf im Verhältnis zum Körper weiterhin zu groß, ca. 4.5–5.5 statt 6–7 Kopfhöhen; Gesicht stilisiert.",
+        "Angst in Schutzposen deutlich, in Idle-Frames eher besorgt als stark verängstigt."
+      ]
+    },
+    "palette": {
+      "result": "pass_visual",
+      "observed": "Gedämpftes Blau, gebrochenes Weiß, Oliv und Braun, keine Neonfarben. Hex-Anker wurden im Prompt angegeben, exakte Farbtreue nicht behauptet."
+    },
+    "grid_and_directions": {
+      "result": "partial",
+      "observed": "16 Figuren in 4 x 4 Anordnung. Zeile 2 zeigt Rücken/North, Zeile 3 zeigt East, letzte zwei Frames South. Aufrappeln nachvollziehbar.",
+      "defects": [
+        "Zeile 1 Spalte 1 erreicht die rechte Zellgrenze, Spalte 2 hat belegte Pixel an linker Zellgrenze; ungenügender Abstand für sicheres automatisches Schneiden.",
+        "Ground-contact Baseline schwankt: Zeile 2 bei Alpha >=128 endet zelllokal bei y=329,347,348,348.",
+        "Zeile 4 Spalte 2 blickt eher East statt South über die Schulter.",
+        "Laufphasen erkennbar unterschiedlich, aber kein sauber qualifizierter vierphasiger Zyklus.",
+        "Figurenmaßstab und Kamera nur näherungsweise konsistent; Draufsicht schwächer als Pixelstilreferenz."
+      ]
+    },
+    "pixel_style": {
+      "result": "partial",
+      "observed": "Versuch 3 zeigt klarere abgestufte Pixelkonturen als v1/v2.",
+      "defects": [
+        "Kein durchgehend exakt einheitliches 4x4-Pixelraster; feine Textur und weiche Farbübergänge verbleiben."
+      ]
+    },
+    "transparency": {
+      "result": "partial",
+      "observed": "RGBA mit echtem Alpha=0 im freien Hintergrund, Raster-Schnittpunkte transparent. 1018581 vollständig transparente Pixel.",
+      "defects": [
+        "Alpha-Werte reichen nur von 0 bis 254; 554283 Pixel haben Alpha >0, kein Pixel Alpha=255. Sprites besitzen teiltransparente Innen- und Randpixel. Keine bereinigte Alpha-Maske."
+      ]
+    },
+    "forbidden_content": {
+      "result": "pass_visual",
+      "observed": "Keine Burg, Runen, Schattenmonster, erfundenen Wappen, Neon, Effekte, Waffen, Beschriftungen oder HUD. Proportionsabweichung separat unter Look dokumentiert."
+    },
+    "attempt_selection": [
+      {
+        "attempt": 1,
+        "result": "rejected",
+        "reason": "Zu große Köpfe, animeartige Augen, feine malerische Textur statt konsistenter Pixelcluster."
+      },
+      {
+        "attempt": 2,
+        "result": "rejected",
+        "reason": "Proportions- und Texturprobleme bleiben trotz Korrekturprompt weitgehend bestehen."
+      },
+      {
+        "attempt": 3,
+        "result": "best_available_not_approved",
+        "reason": "Klarste Pixelkonturen der drei Versuche, Kostüm und Erzählfolge weitgehend erfüllt; verbleibende Mängel verhindern vollständige Freigabe."
+      }
+    ]
+  }
+}

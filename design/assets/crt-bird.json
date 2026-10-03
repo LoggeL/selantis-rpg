@@ -1,0 +1,96 @@
+{
+  "id": "crt-bird",
+  "kind": "spritesheet",
+  "files": {
+    "sheet": "output/imagegen/raw/crt-bird/crt-bird.png",
+    "attempts": [
+      "output/imagegen/raw/crt-bird/crt-bird-v1.png",
+      "output/imagegen/raw/crt-bird/crt-bird-v2.png",
+      "output/imagegen/raw/crt-bird/crt-bird-v3.png"
+    ]
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 2,
+    "order": {
+      "rows": [
+        "ground_right",
+        "flight_right"
+      ],
+      "frames": [
+        [
+          "stand",
+          "peck",
+          "hop_up",
+          "hop_land"
+        ],
+        [
+          "wing_up",
+          "wing_up_back",
+          "wing_down",
+          "wing_down_back"
+        ]
+      ]
+    }
+  },
+  "target": {
+    "w": 32,
+    "h": 48,
+    "unit": "per_frame"
+  },
+  "notes": [
+    "Mit eingebautem image_gen erzeugt; drei Versuche, finale Auswahl v3. Rohbilder unverändert kopiert. Keine Pixelisierung, Skalierung oder Freistellung durch diesen Worker.",
+    "Brauner kleiner Singvogel mit rostroter Brust und cremefarbenem Bauch. Seitenansicht nach rechts in allen acht Frames, warme Sommerabendbeleuchtung von oben rechts.",
+    "Referenzen: bg-lia-meadow für Welt, Farbpalette und Licht; spr-lia-walk für Kontur, Pixeldichte und Größenverhältnis.",
+    "Finales Rohbild: RGBA, 1447 x 1087 Pixel, echte Transparenz. Bildbreite modulo 4 = 3, Bildhöhe modulo 2 = 1. Raster vor Weiterverarbeitung auf exakt teilbare Abmessungen normalisieren.",
+    "Standpose bei 32 x 48 Zielzelle ungefähr 9 x 6 Pixel, gegenüber Lias ungefähr 40 Pixel hoher Figur natürlich klein.",
+    "Nur crt-bird-Pfade im Workspace geschrieben. Alle drei Versuche erhalten."
+  ],
+  "self_review": {
+    "status": "best_available_after_three_attempts_requires_grid_normalization",
+    "selected_attempt": 3,
+    "generation_attempts": 3,
+    "review_method": "Alle drei Toolbilder visuell gegen Welt- und Lia-Referenz geprüft; finale PNG-Abmessungen, Alpha und Zellbegrenzungen zusätzlich read-only mit Pillow geprüft.",
+    "subject": "Acht natürlich proportionierte kleine Singvögel, braunes Gefieder, orangerote Brust, cremefarbener Bauch, dunkle Kontur. Alle nach rechts orientiert.",
+    "palette": "Warme natürliche Braun-, Rostrot- und Cremetöne passen zur sommergoldenen Wiese; keine Neonfarben.",
+    "poses": "Oben stehen, nach rechts unten picken, hüpfen mit angezogenen Füßen, Landepose mit ausgestreckten Füßen. Unten vier sichtbar unterschiedliche Flügelpositionen. Landepose relativ nah an Standpose, aber abgesenkter und mit anderer Beinposition.",
+    "scale": "Dritter Versuch bewusst deutlich kleiner. Deckende Begrenzungsrahmen je Zelle: Stand 98x71, Peck 91x55, Hop 97x70, Land 102x66; Flug 96x96,97x89,100x74,100x59 Rohpixel. Körpermaßstab visuell weitgehend konstant, Flügelsilhouette verändert sich absichtlich.",
+    "grid": "Visuell vier Spalten und zwei Zeilen mit sehr viel freiem Rand, keine Überlappung. Rohabmessungen sind nicht exakt teilbar, mathematisch gleich große Integer-Zellen erfordern Normalisierung. Horizontale Anker variieren um etwa 15 Rohpixel, weniger als 1.5 Zielpixel; Bodenbaseline ca.429-432 innerhalb oberer Zeile, Hop absichtlich höher.",
+    "transparency": "Echte Alpha-Transparenz (Extrema 0 und 255), 1533056 vollständig transparente Pixel. Keine sichtbaren Bodenschatten, Kulisse, Rasterlinien oder Text.",
+    "pixel_style": "Dunkle Konturen und erkennbare Pixelcluster; Federdetails im Rohbild etwas dichter und weicher als ideal. Keine garantiert mathematisch einheitliche logische Pixelgröße. Spätere Pixelisierung bleibt erforderlich.",
+    "forbidden_elements": "Kein Text, Wasserzeichen, HUD, Schatten auf dem Hintergrund oder zusätzliche Motive.",
+    "known_defects": [
+      "Rohgröße 1447x1087 nicht exakt durch 4x2 teilbar.",
+      "Leichte horizontale Ankervariation zwischen Zellen.",
+      "Rohdetails nicht überall streng gleich große Pixelblöcke; spätere Pixelisierung erforderlich."
+    ],
+    "production_ready": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "decision": "rejected",
+        "reason": "Vogel im Verhältnis zu Lia zu groß."
+      },
+      {
+        "attempt": 2,
+        "decision": "superseded",
+        "reason": "Vogel kleiner, für natürlichen Singvogel noch zu groß; Rohgröße nicht exakt teilbar."
+      },
+      {
+        "attempt": 3,
+        "decision": "selected_with_raw_limitations",
+        "reason": "Natürlicher kleiner Maßstab und alle acht Posen vorhanden; Rasternormalisierung und Pixelisierung bleiben erforderlich."
+      }
+    ]
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "attempt_limit": 3,
+    "prompts": [
+      "Use case: stylized-concept\nAsset type: production pixel RPG wildlife spritesheet, crt-bird.\nCreate one tiny brown songbird with an orange-red robin breast, repeated in EXACTLY 8 frames in an invisible strict 4-column by 2-row grid. Transparent background. Preferred canvas 1024 x 768, equal cells 256 x 384. No visible grid lines.\nThe first attached image is STYLE/PALETTE/LIGHTING REFERENCE ONLY: Selantis meadow, muted natural summer gold, olive greens, deep warm brown contours, evening sunlight from upper right. The second attached image is PIXEL DENSITY / SCALE REFERENCE ONLY: Lia human walk sheet. Do not reproduce either image. The bird must look naturally TINY beside Lia, roughly one seventh her standing height including its feet. In each cell a compact bird body approximately 85-100 raw pixels wide including tail and beak and 45-55 pixels high, with flight wings reaching a little farther; leave very generous transparent empty margins. Do not enlarge the bird to fill a cell.\nStyle: clean crisp deliberate pixel art, square pixel clusters, consistent single pixel scale, dark brown outline, sparse feather clusters and solid stepped color shading. Brown back and head, muted rusty orange-red breast, cream belly, tiny dark eye with one light pixel, small pointed beak, fine dark legs. Natural songbird anatomy, no cartoon big head, no painterly smoothing, no gradients, no bloom.\nAll eight birds are the same individual at identical body scale, STRICT RIGHT-FACING SIDE PROFILE (beak on right, tail on left), completely visible and contained in their own cells. Body horizontal anchor at the exact center of each cell. Ground poses share a baseline except intentional jump.\nReading order left to right:\nTOP ROW: 1 standing calmly with wings folded; 2 pecking downward to the right, lowered head and beak touching an imaginary ground line, legs planted; 3 hopping upward phase, feet tucked and body lifted slightly; 4 hopping landing phase, body lowered and legs extending to land.\nBOTTOM ROW: 1 flying with wings straight raised above body; 2 flying with wings sweeping diagonally upward-back; 3 flying with wings fully extended downward in power stroke; 4 flying with wings sweeping diagonally downward-back in recovery. Four clearly distinct continuous wingbeat poses. Flight body centers all on the SAME horizontal baseline, body scale invariant, feet tucked, side view maintained. Wings attached anatomically at the shoulders, no wing separate from body.\nConstraints: exactly one bird per cell, exactly eight birds, correct fixed 4 x 2 equal grid, plenty of margin between frames, no cropping, no other animals, no scenery, no ground marks, no cast shadow, no text, no labels, no watermark. Genuine transparent alpha throughout all empty space; if actual transparency is impossible use perfectly solid #FF00FF background, with absolutely no shadows or texture.",
+      "Edit this songbird sprite sheet only. Preserve its transparent background, exactly eight birds in an invisible strict 4 columns x 2 rows grid, fixed canvas 1448x1086, equal cells 362x543. All birds remain right-facing, same brown back, rusty orange-red breast, cream belly, dark outline, summer evening light from upper right. Preserve the exact pose order: top row standing, pecking, upward hop with feet tucked, landing hop legs extended; bottom row wing fully up, diagonally up/back, fully down, diagonally down/back.\nONE KEY CORRECTION: birds are much too large for a small wild songbird beside a human RPG sprite. Reduce EVERY bird to 42 percent of its current linear dimensions, including its wings, legs, head, tail, every detail, uniformly across all eight poses. Its complete standing silhouette including beak and tail must now be only about 98 pixels wide and 65 pixels tall inside its huge 362x543 cell. Each bird's BODY excluding wings must stay at exactly the same anatomy scale. Do not fill empty cells. Leave HUGE transparent empty margins around every tiny sprite. At final 32x48 cell size, the bird body should be only about 8-9 pixels wide and 4-5 pixels tall, naturally tiny beside 40-pixel-tall Lia.\nUniform cell x center 181. Ground-row stand, peck and landing feet anchored at cell-local y500; hop body lifted only 12 raw pixels above the same anchor. Flight bird BODY centers at cell-local y400 identically in all four flight cells, with feet tucked and wings free to move above or below that center.\nPixel technique: simplify tiny sprites into clean spare square pixel clusters consistent with Lia, dark brown pixel contour, flat limited color steps, crisp edges; do not retain ornate feather microtexture or smooth gradients. Keep recognizable natural songbird anatomy and visible orange-red breast. No extra birds. No text. No borders. No background shadows, no scenery, no ground marks. Truly transparent empty alpha, preserve it.",
+      "Edit ONLY the attached bird sheet. FINAL size correction. Keep exactly the same eight poses, palette, lighting, right-facing direction, transparency, canvas1448x1086 and strict4x2 grid. Reduce all eight bird drawings to 65% of their CURRENT width and height, uniformly, WITHOUT moving each bird's current center. Standing bird should be approximately90px wide and65px tall in its362x543 cell; huge transparent margins are intentional and essential. Flight wings shrink uniformly too. Tiny natural bird beside human Lia: on32x48 final cell the standing bird is about8x6 pixels. Do not create larger birds or rescale the cell or canvas. No visual changes beyond this uniform reduction and clean simplified crisp square pixel details suitable for such tiny sprites. Top row: stand, peck, hop up, hop landing. Bottom row: wings up, diagonally up/back, down, diagonally down/back. One right-facing bird per cell, eight total, no shadow, no text, no scenery, preserve true transparent alpha."
+    ]
+  }
+}

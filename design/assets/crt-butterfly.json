@@ -1,0 +1,66 @@
+{
+  "id": "crt-butterfly",
+  "kind": "spritesheet",
+  "files": {
+    "sheet": "output/imagegen/raw/crt-butterfly/crt-butterfly.png",
+    "attempts": [
+      "output/imagegen/raw/crt-butterfly/crt-butterfly-v1.png",
+      "output/imagegen/raw/crt-butterfly/crt-butterfly-v2.png",
+      "output/imagegen/raw/crt-butterfly/crt-butterfly-v3.png"
+    ]
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 2,
+    "order": {
+      "rows": [
+        "zitronenfalter",
+        "tagpfauenauge"
+      ],
+      "cols": [
+        "open",
+        "half",
+        "closed",
+        "half"
+      ]
+    },
+    "raw_cell": {
+      "w": 384,
+      "h": 512
+    }
+  },
+  "target": {
+    "w": 12,
+    "h": 16,
+    "unit": "per_frame"
+  },
+  "notes": [
+    "Mit eingebautem image_gen erzeugt. Drei Versuche, finale Auswahl v3. Rohbilder unverändert kopiert; keine Pixelisierung, Freistellung oder Rasterkorrektur vorgenommen.",
+    "Target 12x16 je Frame ist bewusst kleiner als das allgemeine Figurenformat, damit offene Schmetterlinge nach Skalierung ungefähr 5x5 Spielpixel neben Lia einnehmen. Das Seitenverhältnis 3:4 der Rohzellen bleibt erhalten.",
+    "Magenta-Fallback: Transparenzversuche lieferten ungenaue Abmessungen beziehungsweise Lichtschleier. Finale Datei RGB, 1536x1024, ohne sichtbare Hintergrundschatten.",
+    "Der Hintergrund sieht einfarbig magenta aus, ist technisch nicht exakt #FF00FF. Häufigste Farbe #FC03FA. Spätere Pipeline braucht eine tolerante Farbschlüsselung.",
+    "Geschlossene Tagpfauenaugen zeigen braune Flügelunterseiten. Die Änderung der projizierten Flügelbreite ist beabsichtigte Animation; Körpermaß soll konstant bleiben."
+  ],
+  "self_review": {
+    "status": "best_available_after_3_attempts_requires_normalization",
+    "selected_attempt": 3,
+    "review_method": "Alle drei generierten Ausgaben visuell geprüft, finale Datei zusätzlich mit view_image. Abmessungen, Farbverteilung und ungefähre Zellgrenzen gelesen.",
+    "palette": "Sommergelb und warme braunrote Flügel mit dunklen Konturen passen zur Wiesenreferenz. Tagpfauenauge hat erkennbare Augenflecken; offene 3/4-Pose zeigt drei Augenflecken deutlich, der vierte ist perspektivisch verdeckt.",
+    "grid": "1536x1024 ist exakt in 4x2 gleich große 384x512-Zellen teilbar. Acht Tiere ohne Überlappung und mit viel Rand. Flügelphasen je Zeile offen, halb, geschlossen, halb.",
+    "scale": "Kleine Spielgröße durch Target 12x16. Körpergrößen visuell ähnlich; die zweite Reihe wirkt etwas kräftiger.",
+    "orientation": "Alle Tiere blicken nach rechts, leicht diagonal nach rechts oben. Kamera schräg von oben; stärker seitlich als eine reine Draufsicht.",
+    "animation_limitations": "Körperanker sind nicht pixelgenau gleich: Spalten 3/4 liegen ungefähr 35-40 Rohpixel weiter links als Spalten 1/2; zweite Reihe sitzt relativ zur Zelle etwa 75 Rohpixel höher. Halbphasen sind ähnlich, nicht exakt identisch. Vor spielfertigem Export Anker je Frame normalisieren.",
+    "background": "Keine Schatten oder Lichtschleier im finalen Sheet. Opaker Magenta-Fallback mit kleinen RGB-Abweichungen statt exakter #FF00FF-Fläche.",
+    "pixel_style": "Klare pixelige Außenkontur; Rohbild enthält feinere Details und leichte Farbstreuung. Einheitliche Spielpixel entstehen erst durch die vorgesehene Pipeline.",
+    "forbidden_elements": "Kein Text, HUD, Rasterlinien, Landschaft, Glühen oder zusätzliche Figuren."
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "attempt_count": 3,
+    "prompts": [
+      "Use case: stylized-concept. Asset type: production pixel RPG butterfly spritesheet, crt-butterfly.\nGenerate ONE transparent PNG spritesheet, exact 4 columns by 2 rows, eight sprites total, landscape 2:1 canvas. Invisible regular equal square cells, no drawn grid. Each cell has generous empty padding. All butterflies have the SAME body scale, SAME center anchor, SAME orientation pointing RIGHT (head east, abdomen west), SAME slightly elevated three-quarter top-down camera. This is a tiny natural butterfly beside a 48 pixel tall human: open wings approximately 10-12 game pixels across, body 4-5 game pixels long. Render crisp enlarged pixel art with sparse detail and uniform chunky square pixel size, dark brown outlines, hard edges. Each butterfly occupies only the central 35-40 percent of its cell; do not enlarge closed or half-open poses to fill their cell. Identical body position and length in each column. No perspective changes.\nRows read left to right:\nTOP ROW: one lemon-yellow brimstone butterfly (Zitronenfalter), lemon yellow wings with muted ochre shading and tiny warm brown dots, dark thin body. Column 1 wings fully OPEN (two wings above and two below horizontal body, 3/4 top-down). Column 2 HALF open, narrower vertical wingspan. Column 3 CLOSED, both paired wings folded together vertically above body, nearly edge-on narrow profile while body stays horizontal pointing right. Column 4 HALF open, visually identical to column 2 for a seamless open-half-closed-half flap cycle.\nBOTTOM ROW: one European peacock butterfly (Tagpfauenauge), muted red-brown wings with four recognizable eye spots as sparse dark brown/cream/desaturated blue pixels. Same exact phases OPEN, HALF, CLOSED, HALF. Folded pose shows a dark brown wing underside, no exposed colorful upper-wing eyes. All four are the same individual.\nStyle references in conversation: Image 1 is ONLY the world palette/light reference (golden summer meadow, warm late summer evening sun from upper right); Image 2 is ONLY Lia's sprite style/pixel-density/outline reference. Do NOT reproduce meadow or human. Match the references' grounded pixel-art rendering at a much simpler tiny insect detail level. Palette anchored by warm summer gold #D6AD59, lemon yellow, natural muted red-brown, deep brown outlines. Sunlit pixels on upper right wing edges.\nBackground genuinely TRANSPARENT; if transparency cannot be produced use completely flat uniform #FF00FF. NO ground shadows, NO cast shadows, NO background scene, NO text, NO labels, NO numbers, NO grid lines, NO flowers, NO trails, NO motion blur, NO antialiased vector curves, NO gradients or glow. Strict even 4x2 grid, consistent anchors and scale, clear empty margins.",
+      "Use case: stylized-concept. Create a production pixel-art butterfly animation spritesheet for Selantis RPG. OUTPUT CANVAS EXACTLY 1536 x 1024 pixels. 4 columns x 2 rows. Each invisible cell EXACTLY 384 wide x 512 tall. No cell borders or labels. KEEP FULL CANVAS INCLUDING EMPTY OUTER MARGINS, DO NOT TRIM OR CROP TRANSPARENCY.\nTransparent background. Eight very small crisp pixel butterflies, each centered at its cell center: x=192,576,960,1344; y=256,768. Butterfly body stays horizontal, head pointing RIGHT, camera three-quarter overhead. Same body size and exact body anchor in every frame. Each butterfly's OPEN WINGSPAN occupies only 100px vertically and 100px horizontally inside its 384x512 cell. Body only 35px long. Half-closed wings and closed wings become smaller than open, never enlarge them. HUGE EMPTY MARGINS essential: wings occupy under one quarter of cell width and one fifth of cell height. Sprite intended at around 6-9 game pixels across beside a 48px tall human. Plain pixel forms with uniform approximately 8px square pixel clusters, dark brown outline, very sparse shading.\nTop row: lemon-yellow brimstone butterfly (Zitronenfalter) in four flap phases: col1 fully open showing four yellow wings; col2 half open; col3 fully closed folded vertical wing pair, slim edge-on pose above horizontal body; col4 same half-open phase as col2.\nBottom row: red-brown European peacock butterfly (Tagpfauenauge), four tiny eyespots in open phase (cream/dark brown/muted blue pixel clusters), same four phases open, half, closed, half. Closed phase wing underside dark brown. Col2 and col4 identical body and wing geometry.\nAll bodies face right in all cells; never rotate body toward viewer or upward. Natural insect anatomy, NO cartoons or human faces. Restrained natural golden summer evening lighting from upper right. Match attached meadow and Lia references only for warm palette and pixel style; draw NO meadow and NO people. Lemon-yellow, ochre #D6AD59, brown, muted russet red. HARD crisp pixelated silhouettes, no photorealism.\nNo shadows on transparent background, no glow, no text, no watermark, no outlines around cells, no motion trails. Real transparent empty background, keep original 1536x1024 canvas size and padding.",
+      "Edit this 1536x1024 butterfly spritesheet. Preserve canvas size EXACTLY 1536x1024 and strict 4 columns x 2 rows of 384x512px cells. Preserve the two species and phase sequence. Replace ALL empty background including every dark or golden halo with a SINGLE SOLID OPAQUE PURE MAGENTA RGB(255,0,255), hex #FF00FF. NO transparency for this version, completely opaque canvas. No gradients, no halos, no lighting outside the insects, no cast shadows, no ground shadows. Magenta pixels must be perfectly uniform, including behind/around antennae. Keep hard crisp dark pixel outlines.\nScale all eight butterflies down to 60% of their current size, consistently, and center their BODY at exact cell centers (192,256), (576,256), (960,256), (1344,256), (192,768), (576,768), (960,768), (1344,768). Preserve relative sizes between open, half and closed phases. Keep bodies identical in length and facing RIGHT, more horizontal than current diagonal: abdomen left and head right. Top row lemon-yellow Zitronenfalter: wings OPEN, HALF, CLOSED, HALF. Bottom row red-brown Tagpfauenauge with eyespots: OPEN, HALF, CLOSED, HALF. Closed wings folded vertically along body, dark brown underside for peacock. Identical half-wing geometry in col2 and col4. Warm summer evening highlights only on insects, upper-right lighting. Tiny pixel-art insects with uniform square pixels, sparse natural shading, generous blank padding. No text, labels, drawn grid or extra objects. The attached image is an EDIT TARGET. Deliver the complete opaque 1536x1024 magenta spritesheet with all eight small butterflies clearly visible."
+    ]
+  }
+}

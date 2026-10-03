@@ -1,0 +1,154 @@
+{
+  "id": "spr-falke",
+  "kind": "spritesheet",
+  "files": {
+    "final": "output/imagegen/raw/spr-falke/spr-falke.png",
+    "attempts": [
+      "output/imagegen/raw/spr-falke/spr-falke-v1.png",
+      "output/imagegen/raw/spr-falke/spr-falke-v2.png",
+      "output/imagegen/raw/spr-falke/spr-falke-v3.png"
+    ]
+  },
+  "grid": {
+    "cols": 4,
+    "rows": 3,
+    "order": [
+      [
+        "west-charge-0",
+        "west-charge-1",
+        "west-charge-2",
+        "west-charge-3"
+      ],
+      [
+        "west-double-thrust-0",
+        "west-double-thrust-1",
+        "west-double-thrust-2",
+        "west-double-thrust-3"
+      ],
+      [
+        "south-idle-0",
+        "south-idle-1",
+        "south-draw-swords-0",
+        "south-draw-swords-1"
+      ]
+    ],
+    "raw_canvas": {
+      "w": 1254,
+      "h": 1254
+    },
+    "raw_cell_nominal": {
+      "w": 313.5,
+      "h": 418
+    },
+    "row_directions": [
+      "west",
+      "west",
+      "south"
+    ]
+  },
+  "target": {
+    "w": 48,
+    "h": 64
+  },
+  "notes": [
+    "Große Posen: Zielgröße 48 × 64 Pixel pro Frame; gesamtes Zielblatt 192 × 192 Pixel.",
+    "Schlacht im Fiebertraum: Der rasende Falke greift ein, um den gestürzten Jungen vor dem Axtkämpfer zu retten.",
+    "Blau-weiße Verbündetenkleidung gemäß Creative Direction; angehängte Dunkelschatten-Filmreferenz dient nur als Material- und Fußsoldatenreferenz.",
+    "Gesichtsblut ist eine ausdrücklich beauftragte statische Kostümdarstellung. Keine Effekte ins Blatt gemalt.",
+    "Erstellt mit eingebautem image_gen-Tool, ohne CLI-Fallback; keine Pipeline ausgeführt.",
+    "Finale Auswahl ist Versuch 3. Magenta-Fallback nach unbrauchbaren Alpha-/Rasterergebnissen in Versuch 1 und 2. Rohbild unverändert kopiert; keine Freistellung, Umsortierung oder Größenkorrektur vorgenommen."
+  ],
+  "generation": {
+    "tool": "image_gen",
+    "cli_fallback": false,
+    "attempt_count": 3,
+    "selected_attempt": 3,
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: stylized-concept. Asset type: production pixel-art RPG character spritesheet, spr-falke, for the Selantis prologue.\nCreate ONE square PNG spritesheet, ideally exactly 1536x1536 pixels, with REAL transparent alpha background. Exactly 4 columns by 3 rows: twelve equally sized rectangular cells, each 384 wide by 512 tall. No visible grid lines, no text, labels, numbers, captions or UI.\n\nReference roles: first attached image is the pixel-art STYLE reference only: fixed slightly elevated three-quarter view, dark outlines, restrained natural colors and realistically proportioned adults. Second attached film image is a practical medieval FOOT-SOLDIER COSTUME/material reference only; do NOT reproduce those enemy black-white faction colors, that camera angle or the photographed scene.\nSpecific narrative: this is the allied Falcon soldier who intervenes in the nightmare battlefield to save a fallen young soldier from an axe blow. He is berserk and urgently rushing into the fight, face twisted into a snarling grimace, teeth clenched and small dark blood smears on forehead and cheek. Depict ONLY the soldier in each cell, no boy, no enemy, no ground, no scenic backdrop.\n\nIdentity in all twelve cells: same adult human man, lean realistic build, 6 to 7 head-heights, short dark brown hair, no helmet so the blood-smeared furious face reads. Practical blue-and-off-white quilted battle tunic, dark blue shoulder panels and skirt panels, dull steel light shoulder guards, simple brown belt, dark trousers and brown leather boots, two simple short sword scabbards at opposite hips. No invented emblems or insignia. TWO matching straight steel SHORTSWORDS, one in each hand in the running and attack frames. Each blade shorter than a forearm plus hand, plain cruciform guard. Visually distinguish both hands, guards and blades, never merge the swords into one. Keep the same clothing, armor, weapons, proportions and identity in every frame.\n\nFrame sequence, read LEFT TO RIGHT:\nROW 1, four WEST-facing charge run frames, nose and movement to LEFT in every frame, elevated side three-quarter camera:\n1 left leg forward/right back; 2 left leg under body/right starting forward; 3 right leg forward/left back; 4 right under body/left starting forward.\nTorso pitched forward, angry face aimed left, both short swords visibly in separate hands held low and ready, elbows clear; four genuinely different stride phases.\nROW 2, four WEST-facing double-thrust frames, both short swords stabbing together toward LEFT, NOT sword swings:\n1 windup, two elbows bent, both blades pointing left near waist/chest;\n2 attack start, both arms partly extend left;\n3 full double thrust, both arms extended left, TWO distinct short blades separated vertically so both sword tips and guards are visible;\n4 recoil, knees bent and both swords returning toward chest while still pointing left.\nROW 3, all SOUTH-facing, face and chest to viewer, same elevated camera:\n1 idle, both swords sheathed at hips, hands free and tense;\n2 idle breathing, both swords still sheathed at hips, small shoulder change;\n3 drawing BOTH swords halfway out of the two hip scabbards, hands separated with hilts and short exposed blades clear;\n4 draw complete, two exposed short swords in separate hands low on either side, blades pointing outward/down, ready to intercept.\n\nTechnical: exact equal invisible 4x3 grid. One figure per cell, wholly contained, generous empty margin on all sides including swords. SAME character scale and SAME bottom foot baseline at 87.5 percent of each cell height, center anchor of pelvis at the horizontal center of each cell. No pose overlaps neighboring cell, no crop, no frame touches edge. Feet aligned within each row. Clear separated silhouettes, small repeatable hard square pixel clusters and SINGLE consistent pixel size across entire image, no anti-aliasing, no photographic texture, no soft gradient or blur.\nPalette: battle steel #59616A, dark outline #252C30, cloth muted blue #397FC1 and deeper #2A4A6E, offwhite #E8E2D0, subdued mud olive dirt #5D6043, blood #9A3438. Flat dim battlefield daylight, limited discrete shades. No glows, magic, sparkles, particles, blood spray, motion trails, speed lines or cast ground shadows. No castle, runes, monsters, neon, chibi proportions or exaggerated huge heads. Blood here is static facial staining as explicitly required, not an effect."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Use case: style-transfer. Edit the supplied Selantis Falcon soldier spritesheet to correct ONLY the sprite rendering and strict cell registration. Preserve the character design, blood-smeared snarling face, blue/offwhite practical tunic, light steel shoulder armor, short dark hair, two SHORT swords and exact twelve-pose content.\n\nMake this a clean production PIXEL ART sprite sheet rather than a detailed miniature illustration. Use coarse, visibly square, hard-edged single-size pixel clusters, flat discrete shadow planes, dark pixel outlines; no tiny stipple, no fine texture, no gradients or antialiased edges. Realistic adult proportions about 6.5 head heights, smaller head than cartoon sprites. Simplify cloth diamond stitching so it survives 48x64 frame reduction. Blood smears are dark #9A3438 static patches on the forehead and cheek. Keep battle palette steel #59616A, cloth blue #397FC1/#2A4A6E and offwhite #E8E2D0.\n\nEXACT layout: 4 columns x 3 rows, 12 frames total. Square canvas dimensions divisible by 12, preferably 1536x1536. Each cell is same size and 3:4 width:height. NO drawn grid. Fit every entire figure including swords inside its own cell with clear empty margins. In all 12 cells set the bottom of the lowest boot to EXACTLY the same cell-local baseline at 87.5% cell height, and keep the same character height. Use invisible grid columns 0-25%, 25-50%, 50-75%, 75-100%; rows 0-33.333%, 33.333-66.667%, 66.667-100%.\nRow1 four west/LEFT-facing charge-run poses, two distinct swords held in separate hands, four distinct alternating stride phases.\nRow2 four west/LEFT-facing DOUBLE THRUST poses: first both blades withdrawn, second half extension, third full extension, fourth recoil. All thrusts face LEFT and BOTH blades point LEFT, separated vertically and clearly visible. No swings.\nRow3 four SOUTH/viewer-facing poses: first idle swords sheathed, second idle breathing swords sheathed, third drawing both swords halfway from hip scabbards, fourth swords fully drawn with TWO distinct short blades held apart. Preserve this exact order and content.\nNo ground shadows, particles, speed lines, text, labels, logos or emblems, glow or scenery. TRUE transparent alpha background. Fully opaque pixel clusters for the soldier, fully transparent elsewhere, no partially transparent outline or body pixels."
+      },
+      {
+        "attempt": 3,
+        "prompt": "Use case: stylized-concept. Create a production pixel-art game spritesheet for Selantis: the berserk allied Falcon footsoldier who charges to intercept the axe threatening a fallen boy. Only the soldier, no other figures or scenery.\nOutput a SQUARE 1536 x 1536 pixel image. EXACTLY FOUR COLUMNS and THREE ROWS, twelve sprites, STRICT UNIFORM INVISIBLE GRID. Each cell 384 x 512. Entire background is absolutely flat uniform PURE MAGENTA #FF00FF for chroma key, including spaces between sprites. NO shadow, no gradients in background, no grid lines, no text.\n\nREAD THESE GEOMETRY REQUIREMENTS FIRST: all sprites SMALL inside their cells with lots of empty magenta space around them, maximum body height 285 pixels and maximum total width including swords 285 pixels. Bottom of lowest boot in every cell is at local y=440. Column center anchors x=192, 576, 960, 1344. Row bottom boot baselines y=440, 952, 1464. All characters aligned to these three identical local baselines. Head smaller than previous cartoon proportions; adults are 6.5 head heights. Every weapon and foot stays strictly INSIDE its cell, no touching or crossing edges. The grid is not drawn.\n\nSTYLE: actual low-resolution pixel art enlarged with nearest-neighbor, visible clean square pixels ALL THE SAME SIZE. Large simple flat pixel-color clusters, 2 discrete shades per material, 1 dark pixel outline. Absolutely no soft shading, no antialiasing, no realistic micro-texture, no elaborate stitching, no painted illustration. Similar to a restrained natural medieval pixel RPG with fixed slightly elevated three-quarter camera.\n\nIDENTITY in all 12 cells: ONE consistent lean adult man, short dark brown hair, no helmet, blood-smeared forehead and cheek #9A3438, furious snarl with clenched teeth. Blue-and-white plain quilted cloth footsoldier tunic, blue #2A4A6E panels, dirty offwhite #E8E2D0 chest and lower panels, light simple dull steel #59616A shoulder guards, brown belt, dark trousers, brown boots. Two short hip scabbards. No emblem, no eagle/falcon image or fantasy insignia. Practical ordinary human warrior, not a monster. TWO straight short swords with blades SHORTER than his upper arm, plain crossguards, one sword in EACH HAND in run and attack; each sword separately visible.\n\nPOSE MAP, read left to right:\nTOP ROW WEST: all face LEFT. Four-charge run cycle with different strides. 1 left foot forward and right foot back, 2 legs passing underneath body, 3 RIGHT foot forward and LEFT back (opposite stride to frame1), 4 second passing pose with opposite raised foot. Torso bends forward with aggressive intent, both short swords low and separate, face bloodied and snarling.\nMIDDLE ROW WEST: four DOUBLE STAB phases towards LEFT, both blades point left with vertical gap. 1 two elbows bent and swords drawn back near torso; 2 BOTH arms HALF extended towards left; 3 BOTH arms FULLY extended to left with two distinct short parallel blades; 4 BOTH arms pulled back in recoil. No slashes or sword arcs. Two separate hands, guards and tips plainly readable.\nBOTTOM ROW SOUTH: all face viewer. 1 tense idle, both swords fully SHEATHED at opposite hips and empty hands; 2 second subtle breathing idle, both swords still SHEATHED; 3 both hands lift hilts drawing both short swords halfway from two hip scabbards; 4 both short swords completely DRAWN and held low apart on opposite sides of body.\n\nThis is dim, dirty nightmare-battle daylight, blue-white allies, steel gray armor, dried crimson face blood, restrained dark cloth shadows. No neon, glow, magic, effects, blood spray, particles, speed lines, castles, vegetation, lettering, UI, HUD, logos, watermarks, chibi, giant heads, heavy plate armor or long swords. Empty pure #FF00FF background. STRICT GRID AND SMALL WELL-SPACED POSES matter more than fine detail."
+      }
+    ]
+  },
+  "self_review": {
+    "status": "needs_cleanup",
+    "production_ready": false,
+    "visually_reviewed_attempts": [
+      1,
+      2,
+      3
+    ],
+    "max_attempts_reached": true,
+    "film_look": {
+      "result": "pass",
+      "notes": "Gewöhnlicher menschlicher Verbündeter in blau-weißer Kleidung mit leichter Schulterrüstung. Gesicht blutverschmiert und grimassierend, zwei Kurzschwerter. Kein erfundenes Wappen. Die angehängte Filmaufnahme zeigt Feinde und belegt daher nicht das konkrete Falkenkostüm; dessen Farben folgen der ausdrücklichen Figurenlook-Vorgabe."
+    },
+    "palette": {
+      "result": "pass_with_limits",
+      "notes": "Gedämpftes Blau, gebrochenes Weiß, Stahlgrau, braunes Leder und dunkles Gesichtsblut stimmen mit der Schlacht überein. Hex-Anker visuell angenähert, keine exakte Farbquantisierung durchgeführt."
+    },
+    "grid_and_identity": {
+      "result": "partial",
+      "notes": "Zwölf Figuren im geforderten 4×3-Aufbau, Zeile 1 Sturmlauf west, Zeile 2 Doppelstich west, Zeile 3 idle/ziehen south. Beide Klingen lesbar. Figuren ohne sichtbare Überlappung, aber Rohbreite 1254 nicht durch 4 teilbar: nominal 313.5×418 Pixel pro Zelle. Fußbaselines innerhalb einer Zeile weitgehend stabil, zwischen Zeilen abweichend. South-Figuren sichtbar größer als west. Laufphasen 1/3 und 2/4 ähnlich, Gegenbeinphase nicht eindeutig. Doppelstich-Frames 2/3 unterscheiden sich nur gering."
+    },
+    "pixel_style": {
+      "result": "partial",
+      "notes": "Versuch 3 deutlich gröber, mit dunklen Konturen und klaren Silhouetten. Realistische erwachsene Proportionen visuell angenähert. Einheitliches Pixelraster und harte Kanten nicht quantitativ bestätigt; Pipeline erforderlich."
+    },
+    "background": {
+      "result": "fallback_needs_keying",
+      "notes": "Finales Rohbild vollständig deckend (Alpha 255), Magenta-Fallback statt Transparenz. Hintergrund ist nur annähernd #FF00FF, häufigster RGBA-Wert [252,3,250,255]; tolerante Farbfreistellung statt exaktem Hex-Key erforderlich. Keine sichtbaren Bodenschatten."
+    },
+    "forbidden_elements": {
+      "result": "pass",
+      "notes": "Keine Burg, Runen, Schattenmonster, erfundenen Wappen, Neon-Effekte, Chibi-Proportionen, Texte, UI, Wasserzeichen oder gemalten Partikeleffekte sichtbar."
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "result": "rejected",
+        "issues": [
+          "Uneinheitliche feine Pixelstruktur",
+          "Variierende Fußhöhen",
+          "Teiltransparente Figurpixel",
+          "Zellgrenzen nicht zuverlässig eingehalten"
+        ]
+      },
+      {
+        "attempt": 2,
+        "result": "rejected",
+        "issues": [
+          "Figuren überschreiten Zeilengrenzen",
+          "1254 Pixel Rohbreite nicht durch 4 teilbar",
+          "Teiltransparente Figurpixel",
+          "Laufphasen zu ähnlich"
+        ]
+      },
+      {
+        "attempt": 3,
+        "result": "selected_with_known_defects",
+        "issues": [
+          "Magenta-Freistellung fehlt",
+          "Rohbreite nicht durch 4 teilbar",
+          "Größen- und Fußhöhenversatz zwischen Zeilen",
+          "Laufphasen zu ähnlich",
+          "Doppelstich-Mittelphasen nur gering verschieden"
+        ]
+      }
+    ],
+    "known_defects": [
+      "Vor Einsatz Magenta mit Farbtoleranz entfernen und harte Alphakanten herstellen.",
+      "Einheitliche ganzzahlige Zellen, Größe und Fußanker vor Atlasnutzung herstellen.",
+      "Laufzyklus enthält keine eindeutig alternierenden Gegenbeinphasen; für flüssige Animation Nacharbeit nötig.",
+      "Rohbild nicht auf 48×64 Pixel pro Frame heruntergerechnet oder im Spiel geprüft."
+    ]
+  }
+}
