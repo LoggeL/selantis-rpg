@@ -1,6 +1,8 @@
 // Scene music and small WebAudio effects, unlocked by a browser user gesture.
 import type Phaser from 'phaser';
 import { getSettings, subscribeSettings } from './settings';
+import { MUSIC_TRACKS, musicForScene, type AmbientKind } from './musicPolicy';
+export { MUSIC_TRACKS, type AmbientKind } from './musicPolicy';
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
@@ -88,9 +90,10 @@ export const sfx = {
   trumpets() {
     if (!ready()) return;
     const t = ctx!.currentTime, d = out(0.18);
-    [[220, 0], [277, 0.25], [330, 0.5], [440, 0.75]].forEach(([f, dt]) => {
-      tone('sawtooth', f, t + dt, 0.6, 0.5, d);
-      tone('sawtooth', f * 1.005, t + dt, 0.6, 0.3, d);
+    // A low repeated warning, rather than an ascending major fanfare.
+    [[110, 0], [110, 0.65], [103.83, 1.3]].forEach(([f, dt]) => {
+      tone('sawtooth', f, t + dt, 0.55, 0.3, d);
+      tone('sawtooth', f * 1.005, t + dt, 0.55, 0.18, d);
     });
   },
   step() {
@@ -288,14 +291,6 @@ export function startBattleAmbience(): () => void {
 }
 
 
-export type AmbientKind = 'battle' | 'flight' | 'refuge' | 'exploration';
-export const MUSIC_TRACKS: Readonly<Record<AmbientKind, string>> = {
-  battle: '/output/audio/scenes/battle-lyria-3-5.mp3',
-  flight: '/output/audio/scenes/flight-lyria-3-5.mp3',
-  refuge: '/output/audio/scenes/refuge-lyria-3-5.mp3',
-  exploration: '/output/audio/scenes/exploration-lyria-3-5.mp3',
-};
-
 type Voice = { gain: GainNode; sources: (AudioBufferSourceNode | OscillatorNode)[]; stopped: boolean; timer?: ReturnType<typeof setTimeout> };
 type AmbientRequest = { scene: Phaser.Scene; kind: AmbientKind; loading: boolean; failed?: boolean; voice?: Voice; fallback?: Voice; stop: () => void };
 let ambient: AmbientRequest | undefined;
@@ -322,8 +317,9 @@ function fallbackMusic(kind: AmbientKind): Voice {
   gain.gain.setValueAtTime(0, ctx!.currentTime);
   gain.gain.linearRampToValueAtTime(0.035, ctx!.currentTime + 0.7);
   gain.connect(musicBus!);
-  const base = { battle: 55, flight: 73.4, refuge: 110, exploration: 164.8 }[kind];
-  const sources = [1, 1.5].map((ratio) => {
+  const base = { battle: 55, flight: 73.4, refuge: 110, exploration: 164.8, dread: 41.2, grief: 55 }[kind];
+  const interval = kind === 'dread' ? 1.05946 : kind === 'grief' || kind === 'battle' ? 1.1892 : 1.5;
+  const sources = [1, interval].map((ratio) => {
     const oscillator = ctx!.createOscillator();
     oscillator.type = 'sine';
     oscillator.frequency.value = base * ratio;
@@ -388,8 +384,13 @@ async function playRequestedMusic() {
     // A fetch/decode finishing after a scene switch must never restart the old soundtrack.
     if (ambient !== request || !ready()) return;
     request.voice = loopingTrack(buffer);
+    request.scene.data.set('audio:playing', true);
     fadeOut(request.fallback);
-  } catch { request.failed = true; /* Keep the synthesised bed; retry only in a new scene. */ }
+  } catch {
+    request.failed = true;
+    if (ambient === request) request.scene.data.set('audio:failed', true);
+    /* Keep the synthesised bed; retry only in a new scene. */
+  }
   finally { request.loading = false; }
 }
 
@@ -399,6 +400,7 @@ export function startAmbient(scene: Phaser.Scene, kind: AmbientKind): () => void
   const previous = ambient;
   previous?.stop();
   const request: AmbientRequest = { scene, kind, loading: false, stop: () => {} };
+  scene.data.set({ 'audio:kind': kind, 'audio:track': MUSIC_TRACKS[kind], 'audio:playing': false, 'audio:failed': false });
   let stopped = false;
   request.stop = () => {
     if (stopped) return;
@@ -406,6 +408,7 @@ export function startAmbient(scene: Phaser.Scene, kind: AmbientKind): () => void
     scene.events.off('shutdown', request.stop);
     fadeOut(request.voice);
     fadeOut(request.fallback);
+    if (ambient === request) scene.data.set('audio:playing', false);
     if (ambient === request) ambient = undefined;
   };
   ambient = request;
@@ -414,16 +417,22 @@ export function startAmbient(scene: Phaser.Scene, kind: AmbientKind): () => void
   return request.stop;
 }
 
+/** Keep an in-scene mood change until shutdown, including while settings pause the scene. */
+export function setSceneMusic(scene: Phaser.Scene, kind: AmbientKind): void {
+  if (!scene.data.has('audio:mood')) {
+    scene.events.once('shutdown', () => scene.data.remove('audio:mood'));
+  }
+  scene.data.set('audio:mood', kind);
+  startAmbient(scene, kind);
+}
+
 /** Called once from main; also covers scenes that do not explicitly request music. */
 export function installSceneAudio(game: Phaser.Game): () => void {
-  const kinds: Record<string, AmbientKind> = {
-    battle: 'battle', break: 'flight', flight: 'flight', refuge: 'refuge', lia: 'exploration', world: 'exploration',
-    raid: 'flight', aftermath: 'refuge', journey: 'exploration',
-  };
   const sync = () => {
-    const scenes = game.scene.getScenes(false).filter((s) => kinds[s.sys.settings.key] && (game.scene.isActive(s.sys.settings.key) || game.scene.isPaused(s.sys.settings.key)));
+    const scenes = game.scene.getScenes(false).filter((s) => musicForScene(s.sys.settings.key) && (game.scene.isActive(s.sys.settings.key) || game.scene.isPaused(s.sys.settings.key)));
     const scene = scenes[scenes.length - 1];
-    if (scene && (ambient?.scene !== scene || ambient.kind !== kinds[scene.sys.settings.key])) startAmbient(scene, kinds[scene.sys.settings.key]);
+    const kind = scene && musicForScene(scene.sys.settings.key, scene.data.get('audio:mood'));
+    if (scene && kind && (ambient?.scene !== scene || ambient.kind !== kind)) startAmbient(scene, kind);
   };
   const unlock = () => unlockAudio();
   window.addEventListener('pointerdown', unlock);

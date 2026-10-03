@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { sfx } from '../audio';
+import { sfx, setSceneMusic } from '../audio';
 import { FONT, Hud } from '../ui';
 import { Dir, ItemId, MAPS, MapDef, Pt } from '../world/maps';
 import { Critter } from '../world/critters';
@@ -404,6 +404,7 @@ export class WorldScene extends Phaser.Scene {
     this.hud.thought('Da ist unser Hof.', 1800);
     this.time.delayedCall(1800, () => this.hud.thought('Da ist unser Hof. Aber ...', 2200));
     this.time.delayedCall(2900, () => {
+      setSceneMusic(this, 'dread');
       this.objText.setText('Etwas stimmt nicht.');
       this.data.set('mobile:objective', 'Etwas stimmt nicht.');
       sfx.heartbeat();

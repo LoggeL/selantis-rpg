@@ -47,7 +47,7 @@ Quelle: {BASE}
 
 assets/manifest.json beschreibt Sprite-Raster, Fußpunkte, Frames und Dateipfade.
 output/imagegen enthält die beiden finalen Stilreferenzen.
-output/audio enthält Räuberlied und vier Szenenstücke von Lyria 3.5.
+output/audio enthält Räuberlied und die aktuell verwendeten Szenenstücke von Lyria 3.5.
 Keine Originalfilme, PDFs, Rechercheframes, verworfenen Varianten oder Programmdateien.
 '''
 with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as bundle:

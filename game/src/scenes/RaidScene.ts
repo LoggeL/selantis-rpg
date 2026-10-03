@@ -4,6 +4,7 @@ import { RAID_APPROACH_AREA, RAID_AREA } from '../story/areas/raid';
 import type { Pt } from '../story/types';
 import { state } from '../world/quests';
 import { motionDuration } from '../settings';
+import { setSceneMusic } from '../audio';
 
 type Beat = 'approach' | 'hidden' | 'departure' | 'parents' | 'vow' | 'busy';
 
@@ -276,6 +277,7 @@ export class RaidScene extends StoryScene {
   }
 
   private emptyFarm() {
+    setSceneMusic(this, 'grief');
     this.beat = 'parents';
     this.hideCloseup();
     this.setLiaPose(null);

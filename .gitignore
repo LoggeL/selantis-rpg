@@ -20,7 +20,9 @@ output/audio/*
 !output/audio/rauberlied-lyria-3-5.mp3
 !output/audio/scenes/
 output/audio/scenes/*
-!output/audio/scenes/battle-lyria-3-5.mp3
+!output/audio/scenes/battle-dark-lyria-3-5.mp3
+!output/audio/scenes/dread-lyria-3-5.mp3
+!output/audio/scenes/grief-lyria-3-5.mp3
 !output/audio/scenes/flight-lyria-3-5.mp3
 !output/audio/scenes/refuge-lyria-3-5.mp3
 !output/audio/scenes/exploration-lyria-3-5.mp3

@@ -4,6 +4,7 @@ import { ROAD_EAST_AREA, FIRST_CAMP_AREA } from '../story/areas/journey';
 import { state } from '../world/quests';
 import { getSettings, motionDuration, subscribeSettings } from '../settings';
 import { FONT } from '../ui';
+import { setSceneMusic } from '../audio';
 
 type CampStep = 'cloak' | 'twigs' | 'fire' | 'meal' | 'foot' | 'sleep' | 'waking' | 'slip' | 'bound' | 'star' | 'complete';
 
@@ -48,6 +49,7 @@ export class JourneyScene extends StoryScene {
       this.begin(FIRST_CAMP_AREA);
       this.setupCamp(false);
       if (st.flags.metFoltanAzar) {
+        setSceneMusic(this, 'refuge');
         this.addStrangers(true);
         this.campStep = st.flags.criosObserved ? 'complete' : 'star';
         if (st.flags.criosObserved) this.drawStar();
@@ -254,6 +256,7 @@ export class JourneyScene extends StoryScene {
   }
 
   private wakeEncounter() {
+    setSceneMusic(this, 'dread');
     this.campStep = 'waking'; this.setLocked(true); this.campSpots();
     this.lia.setPosition(233, 260).setDepth(260); this.blanket?.setVisible(true);
     this.setLiaPose('lia-sleep');
@@ -320,6 +323,7 @@ export class JourneyScene extends StoryScene {
     const flags = state(this.registry).flags;
     flags.metFoltanAzar = true;
     flags.journeyRopesReleased = true;
+    setSceneMusic(this, 'refuge');
     this.rope?.destroy(); this.rope = undefined;
     this.lia.setPosition(454, 210).setDepth(210);
     this.foltan?.setPosition(355, 231).setDepth(231);
