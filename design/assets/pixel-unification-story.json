@@ -1,0 +1,137 @@
+{
+  "id": "pixel-unification-story",
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "styleBaseline": "sources/reference/artstyle/user-pixel-baseline.png"
+  },
+  "sourceReferences": [
+    "docs/pixel-asset-production.md",
+    "docs/character-film-reference.md",
+    "sources/frames/characters-film/lia-face-ep01-12m22s.jpg",
+    "sources/frames/characters-film/lia-costume-ep01-06m22s.jpg",
+    "sources/frames/characters-film/sisters-ep01-04m52s.jpg",
+    "sources/frames/characters-film/kyra-farm-ep01-04m07s.jpg",
+    "output/imagegen/lia-pixel-film-look.png",
+    "output/imagegen/tutorial-valentus-battle-film-look.png"
+  ],
+  "appearancePolicy": "Film identity and costume take priority for Lia/Kyra. Lia has dark-blonde/light-brown tied sidebraids, ivory gathered blouse and long beige-mustard skirt. Foltan/Azar have no securely named film frames and retain novel costumes. Existing runtime indices remain unchanged. Green travel cloak is the previously authorized novel equipment adaptation.",
+  "technicalPolicy": {
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "foot": [
+      32,
+      60
+    ],
+    "liaStandingHeight": 37,
+    "actorHeights": [
+      37,
+      37,
+      42,
+      28,
+      30,
+      43,
+      37,
+      37
+    ],
+    "paletteLimit": 24,
+    "alphaThreshold": 110,
+    "resampling": "NEAREST",
+    "dithering": "NONE",
+    "creativeProcessing": "Only built-in image generation/editing. Script only equal-cell extraction, alpha threshold, bounding-box crop, nearest-neighbor resizing, anchor placement and palette quantization; no manual illustration/drawing."
+  },
+  "assets": [
+    {
+      "name": "lia-walk",
+      "file": "game/public/assets/sprites/lia-walk.png",
+      "cols": 4,
+      "rows": 4,
+      "raw": "output/imagegen/raw/pixel-unification-story/lia-walk.png",
+      "mode": "lia-walk",
+      "prompts": [
+        "Use case: style-transfer. Redesign this Lia walking atlas into genuine classic low-resolution 2D pixel art matching the forest/battle reference. The sheet is a production asset, not a scene illustration.\nExactly 4 columns x 4 rows, 16 separate 64x64 LOGICAL cells. Draw directly as a 256x256 logical indexed sprite canvas enlarged with NEAREST NEIGHBOR blocks. Each adult character is only FORTY logical pixels high inside each cell, with natural 6-head-height anatomy, compact 6x7 pixel face, no chibi. EVERY visual mark uses one consistent hard square logical pixel. Use roughly20 FLAT colors shared across all16 frames, only 3 shades per material; single dark-brown pixel contours, ivory blouse, muted beige-mustard skirt, dark brown braided belt and wooden clogs. Light brown/dark blonde hair with quiet muted golden highlights, side braid tied behind into short gathered tail. Lia is the LEFT white-blouse girl in film sister reference, never the loose-hair girl. Film anatomy/costume identity matters; no bright orange-red hair. Plain closed brown leather book tucked under anatomical LEFT arm in every direction, no staff/cloak/armor.\nStrict row order: row0 SOUTH front view/book viewer RIGHT; row1 WEST left profile/book visible on near left arm; row2 EAST right profile/book partially obscured far side, do NOT mirror the arm assignment; row3 NORTH BACK view with no eyes/face/book viewer LEFT.\nFour columns are alternating WALK phases: left contact, passing feet, right contact, opposite passing feet. Meaningful clogs/hem/free arm changes, keep head and torso stable and book secure. Consistent elevated orthogonal RPG camera, no perspective shifts.\nFoot baseline local60, x32, head local20; plenty transparent space. Exactly ONE separated sprite in each cell with no neighboring overlap. Genuine fully transparent alpha empty space. No shadows, caption, grid, scenery, gradient, dither, blur, photographic texture, painterly marks, fine invented detail, magical effects, scenery or extra people. Authentic deliberate economical pixel clusters drawn at intended small resolution; don't create a large realistic image merely filtered into pixels. Preserve 4x4 frame contract.",
+        "Correct this Lia sprite atlas. Preserve the strict 4columns x4rows, direction/pose ordering and film costume colors. Fix anatomy in ALL16 frames: SMALL ordinary realistic human head, SIX to SEVEN head heights per standing body, head only about 6 logical pixels high in a 40-pixel-tall figure. Ordinary tiny one-pixel eyes, no big cartoon/chibi eyes. Legs are covered by a LONG ANKLE-LENGTH beige-mustard skirt, never the knee-length skirt shown in input. Feet are brown wooden clogs visible just below long hem. Slender lively teenage HUMAN proportions from the film references. Tall narrow natural body, not short cute child. Hair sidebraided and tied behind, dark blonde/lightbrown, ivory blouse with gathered neck/full sleeves, brown belt. Closed leather book secure anatomical LEFT arm. WALK feet/hem phases genuine alternating, order SOUTH/WEST/EAST/NORTH. Pixel technique: intentionally hand-placed classic pixel sprite, exactly20 flat colors, one consistent hard square pixel grid, strong onepixel dark brown contour, no gradients, dithering or texture. Output itself should be hard squares, not a smooth large illustration. Preserve real transparent alpha and cell padding, no background/shadow/grid/text. Keep most standing figure40logical px tall with foot32,60 and head20 inside64x64cells.",
+        "Edit the ORIGINAL Lia walk sprite sheet provided first. Keep its EXACT slender natural HUMAN anatomy, SMALL head size, long ankle-length skirt, posture, shoe positions, direction order and frame layout. Do NOT substitute a short child/chibi character. The original body is already correct: preserve it.\nOnly improve pixel drawing to the coherent forest-game style: clean hard 1pixel dark warmbrown outline and broad intentional FLAT color clusters, approximately18-24 muted colors for the entire atlas. Preserve film lightbrown/darkblonde sidebraids tied at the back, IVORY full-sleeve gathered blouse, BEIGE-MUSTARD ankle skirt, darkbrown belt, wooden clogs and closed brown book under anatomical LEFT arm. No orange-red hair, no cape, no large round eyes, no blank doll face. Natural tiny profile features. Flat clean shading 3tones/material, no gradients, texture, stippling or dithering. This must be designed SMALL on the actual pixel grid rather than a photographic image filtered to pixels.\n4columns x4rows exact16frames, equal64x64 logical cells. Keep ROW0 south/front, ROW1 west/profile left, ROW2 east/profile right, ROW3 north/back with no face. Each row four visibly alternating walk phases. SAME40logicalpx standing height across all16, foot32,60. Genuine TRANSPARENT background, full separated silhouettes, no shadows or gridlines/text. The second forest-film game reference sets palette and adult sprite anatomy. Film reference confirms blouse and hair only. Preserve natural thin original sprite silhouette in all16."
+      ],
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-269175e7-404c-444b-9b74-b36ec3a0e673.png"
+    },
+    {
+      "name": "lia-read",
+      "file": "game/public/assets/sprites/lia-read.png",
+      "cols": 4,
+      "rows": 2,
+      "raw": "output/imagegen/raw/pixel-unification-story/lia-read.png",
+      "mode": "lia-read",
+      "prompts": [
+        "Use case: style-transfer. Redraw existing Lia reading atlas as authentic economical classic pixel art, match the supplied new walking sprite in exact identity, pixel density, film hairstyle, clothing and realistic proportions.\nStrict 4columns x2rows, 8 equal64x64 logical cells, canvas256x128 enlarged nearest-neighbor square blocks. One isolated complete pose per cell, genuine transparent background. Slender teenage human Lia with SMALL realistic head, six to seven head heights standing, tiny 1pixel ordinary eyes, no chibi. Dark blonde/lightbrown sidebraids tied at back, white gathered blouse/full sleeves, LONG ANKLE LENGTH muted beige-mustard skirt, brown braided belt. Plain brown leather book, no letters. Same anatomy size all8, standing40logical px tall; seated naturally lower height, do not enlarge seated head. Foot/seat ground anchor32,60. ~20 flat colors over entire atlas, 3 tones per material, bold darkbrown1pixel contour and hard square clusters, NO smooth shading, dithering, watercolor, texture, blur or glow.\nExact row-major pose contract:\n0 seated barefoot on ground facing southeast, leaning as if against invisible tree, open book lap, eyes reading;\n1 SAME seated pose, one hand flat over brow shielding eyes, book open lap;\n2 SAME seated pose, both hands closing book covers on lap;\n3 upright barefoot, closed book by anatomical LEFT hip;\n4 south-facing bends down puts first foot in wooden clog, other bare, closed book secured LEFT arm;\n5 south-facing bends down puts second foot in wooden clog, first already worn, same book arm;\n6 south-facing upright idle, both wooden clogs worn, closed book under LEFT upperarm/viewer RIGHT;\n7 same upright idle tiny breathing posture, SAME shoes and bookarm.\nNo tree, rock, ground, scenery, background shadow, UI/grid/labels, particles, weapons, magic, cape or extra people. Genuine transparent alpha empty areas. Make all poses separately drawn and readable at real40px body scale. Do not enlarge head or shorten skirt to knee.",
+        "Edit the ORIGINAL Lia reading sheet provided first, preserve exact natural thin human anatomy, small head size, long anklelength mustard skirt and all8 pose meanings/positions. Improve ONLY flat crisp pixel rendering to match provided final walking sheet. Do NOT enlarge head, use doll face or child/chibi proportions. Film natural ordinary tiny face, darkblonde/lightbrown sidebraids tied behind, ivory gathered blouse/full sleeves, brown belt, long mustard skirt. Plain brown book. Eight isolated64x64logical cells in4columns2rows transparent PNG. SAME standing40logicalpixel anatomy in every pose, seated naturally lower, no heads enlarged in seated poses. Quiet economical20flat colors, strong darkbrown1pixel outline, sharp square clusters, no antialias/blur/textures/dithering/gradients.\nPreserve exact contract0seated barefoot reads OPEN book on lap;1same seated shades eyes hand above brow openbooklap;2same seated closes book;3upright barefoot closedbookLEFThip;4bends putsfirstwoodenclogotherfootbare closedbookLEFTarm;5secondclogfirstworn sameleftarm;6upright south-facing BOTHclogsclosedbookLEFTarm/viewerRIGHT;7sameidletinybreathing. All arms/hands natural. No background tree/rock/ground/shadow, cape, staff, effects, letters, grid or extra people. Genuine transparentalpha and generous cell margins, footanchor32,60. Realistic6-7headheight proportions, keep original anatomy as binding."
+      ],
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-e9887129-928f-4ee6-aba1-5dec4aa2cee3.png"
+    },
+    {
+      "name": "lia-hide",
+      "file": "game/public/assets/sprites/lia-hide.png",
+      "cols": 4,
+      "rows": 2,
+      "raw": "output/imagegen/raw/pixel-unification-story/lia-hide.png",
+      "mode": "lia-hide",
+      "prompts": [
+        "Use case: stylized-concept. Create a new low-resolution Lia DUCK/CROUCH animation atlas for medieval pixel RPG, matching the supplied NATURAL human walking Lia exactly (identity, sidebraid tied behind, darkblonde/lightbrown hair, ivory gathered full-sleeve blouse, anklelength beige-mustard skirt, brown braided belt, wooden clogs). SMALL head and tiny natural face, slender teenager6-7headheight proportions, no doll/chibi/largeanimeeyes.\nStrict4columns x2rows,8 equal64x64 logical cells, canvas256x128 enlarged via sharp nearestneighbor blocks. Genuine transparent alpha. Row0 SOUTH three-quarterfront facing slightly southeast. Row1 EAST profile right. Each row has SAME4phases: column0 upright alert40logicalpxhigh; column1 halfway LOWER crouch bendingknees30pxhigh; column2 LOW crouch tucked skirt around bentknees headlow23pxhigh; column3 SAME LOW crouch quiet hidden idle22-23pxhigh hands close body. Body bends realistically at hips and knees, head/face and hands maintained at EXACT SAME anatomical size allframes, never enlarged. The decreasing silhouette must be obvious, actual crouching not merely standing smaller/scaled. Footgroundanchor32,60everycell. Empty hands, book securely tucked LEFT upperarm wherevisible, no weapons/cape. NO BUSH or scenery, runtime masks behind actual bushes.\nMatch economical handplaced pixelart20flatcolors,3tones/material, clear1pixeldarkwarmbrown outline, hard square clusters and shared costume palette. No smooth texture/gradients/antialias/dithering/noise/photoedges. Full separated silhouettes with clean margins. No effects/shadows/grid/text or extra people. Only8stagedhumanposes showing standing->ducking->lowhiding."
+      ],
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-6cdddc51-2965-49ba-b75d-ea9e63f87891.png"
+    },
+    {
+      "name": "story-actors",
+      "file": "game/public/assets/sprites/story-actors.png",
+      "cols": 4,
+      "rows": 2,
+      "raw": "output/imagegen/raw/pixel-unification-story/story-actors.png",
+      "mode": "story",
+      "prompts": [
+        "Use case: style-transfer. Redraw this8actoratlas in the SAME crisp economical genuine classic pixel style as supplied final Lia walking sprites. Preserve human natural SMALL HEAD anatomy, 6-7headheight standing, existing clothing roles/poses and strict4columns x2rows index contract. Each64x64logicalcell, total256x128logicalcanvas; adultstanding40pxhigh, Foltan43px, Azar37px, kneelingparents28-30px. Same pixel density, groundfoot32,60. Genuine transparent alpha, separated fullfigures.\nUse at most24 FLAT muted colors PER CHARACTER with only3tones/material, strong darkwarmbrown1pixel outlines, intentional square blocks. No antialias/smoothtexture/photographicpixelfilter/dither/noise/gradients. Style should match new Lia: white and mustard, earthy browns and quiet forest greens, tiny eyes and natural slender human silhouette; no bigheads/chibi/anime/dollfaces.\nExactrowmajor8roles:\n0Kyrahealthy: loose long LIGHTBROWN/darkblondehair as farmfilmreference, plain anklelengthdirtybeige sleevelessdress, thinleathershoes, no weapons;\n1SAMEKyra captive tinyeyebrowredmark, bothwristsboundBEHINDBACK, no frontropes, samehairdress/body, dignified;\n2anonymous greyhairedoldraidleader longcharcoalcloakGOLDbrooch, ordinary straightswordlow, noextrahelmet/heraldry;\n3farmmotherbrownhairedcreamblouselongbrownskirtKNEELINGquiet, civiliannotarmor;\n4farmfatherplainmutedbrowntunictrousersKNEELINGquiet,noarmor;\n5FoltanTALLTHINlongbrownhairGOATEElargeLEATHERBERET clearlyBLUEandYELLOWtabard swordbelt CROSSBOWback,noelfears;\n6AzarSHORTSTOUTshortBLACKbeardREDcap beltedYELLOWtunicrobe curvedswordbelt;\n7LiaTRAVEL sameFILMdarkblonde/lightbrown sidebraidsTIEDBEHIND as finalwalkingLia, gatheredIVORYblouse LONGmutedbeigeMUSTARDskirt, plainGREENraincloak smallleatherbag/leathershoes. NOORANGEREDhair, nostaff/weapon/magic.\nFilmrefLia LEFTwhiteblouse, KyraRIGHTloosehairbeigedress. Foltan/Azar defined by novel not invented filmface. No scene/shadow/text/grid/extraobjects/people. Produce ONE8actor production transparentpixelatlas.",
+        "Precise-object-edit of existing8actortransparentatlas. Change ONLY frame5 (BOTTOM ROW SECOND CELL), Foltan's HAT: replace current blue hat with SIMPLE LARGE DARK BROWN LEATHER BERET, NO feather, NO plume, NO gold decoration or emblem. Keep Foltan's long brown hair/goatee, slender body, blue/yellow tabard,crossbow,swordbelt,bodyposeandscale exactlysame. Preserve all otherSEVENcharacter cells unchanged, including Kyra handsbehindback and Lia filmhair/mustardskirt/greencloak. Genuine transparentalpha, fixed4x2grid, samehardpixelstyle, no labels/background. Single simpleleatherhat correction ONLY."
+      ],
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-903f4936-e043-4795-b8f2-1abcbf4a0df0.png"
+    },
+    {
+      "name": "raid-horse",
+      "file": "game/public/assets/sprites/raid-horse.png",
+      "cols": 4,
+      "rows": 1,
+      "raw": "output/imagegen/raw/pixel-unification-story/raid-horse.png",
+      "mode": "horse",
+      "prompts": [
+        "Use case: style-transfer. Edit this existing brown ridinghorse walkingatlas to match shared genuine clean classic pixelart of the new Lia sprites. Preserve horse anatomy, SAME48logicalpixelbodywidth/~39pxheight, plain empty leather saddle and bridle, FOURwalking legphases left-facing/WEST, 4columns x1rowequal64x64logicalcells, transparentbackground. NO RIDER. Allfourhoovesgroundbaseline60, centercell32. SAMEhorse across allfourcells.\nUse only18-24FLATmutedearthcolors across entire horseatlas, natural chestnutbrown body/darkbrownmaneandtail/darkbrown tack, clearlyseparated3tones/material, strong1pixel darkbrownoutline, hard square deliberatepixelclusters. No gradients/noise/dither/phototexture/smoothedges/thinblurredpaint. Natural compacthorse anatomy, nottoy/cartoon/chibi. Four legposes read aswalking/different contacts, headtorsoandsaddleconsistent. No armor/heraldry/person/decorations/feathers/blanket/magic, no landscape/groundshadow/text/grid or other animals. Drawforactual64pixelcell resolution, cleantransparentgutters, fulltailsandlegsinsidecells."
+      ],
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-adf63b70-8fa7-4d15-bbf5-5eb9975ea3c8.png"
+    },
+    {
+      "name": "portrait-lia",
+      "file": "game/public/assets/portraits/lia.png",
+      "width": 48,
+      "height": 48,
+      "raw": "output/imagegen/raw/pixel-unification-story/portrait-lia-hair-corrected.png",
+      "mode": "portrait",
+      "prompts": [
+        "Use case: style-transfer. Edit this Lia portrait into authentic economical LOW RESOLUTION pixelart matching supplied new filmcostume Lia sprite and forestpixelbaseline. Preserve her identity, natural fair HUMAN face, slim ordinary eyebrows, small normal eyes, quiet dreamysheepish closedmouthsmile/downleftgaze, sidebraids tiedbackdarkblonde/lightbrown hair, gathered ivory fullsleeve blouse. No orange/redhair, no glamour/makeup/chibi/anime. Portrait headshoulders, fullcrowninside, natural faceproportion as filmface reference.\nDraw on ONE coherent 48x48 LOGICAL pixel canvas enlarged ONLYnearestneighbor hard squareblocks. Every pixel hardedge, exactly20-24 flat muted colors, skin4tones, hair4tones, blouse3tones, strong economical darkbrowncontour, large coherent shading clusters. NO tiny finerpixelgrid, softtones, anti-alias, dithering, gradient, grain/photo/painterlytexture. Restrained warm summerevening colors.\nBackground ONE flat opaque mutedOCHRE #B69150 everywhere withoutshadow/gradient/vignette/frame. Finished SINGLE square production48pixelportrait, no scenery/objects/text/UI/magic/glow. The forestreference is styleonly, filmreference is face/costumeidentity."
+      ],
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-3cdfe957-28de-487f-8526-c47366c8b86b.png"
+    }
+  ],
+  "frameContracts": {
+    "lia-walk": "4x4; rows south/west/east/north, columns four walk phases; existing idle uses first frame of each row.",
+    "lia-read": "4x2; 0seated reading,1seated shades eyes,2closes book,3stands barefoot,4/5clog transitions,6/7idle book.",
+    "lia-hide": "4x2; row0 south, row1 east; columns stand/half-crouch/low-crouch/low-idle. New runtime consumer must register these actual poses.",
+    "story-actors": "4x2;0Kyrahealthy,1Kyrahandsboundbehind,2anonymousgreyleader,3motherkneeling,4fatherkneeling,5Foltan,6Azar,7Liatravel.",
+    "raid-horse": "4x1; empty saddled horse left-facing walk phases.",
+    "portrait-lia": "48x48 opaque existing HUD contract."
+  },
+  "review": {
+    "selectedAgainst": "Two early Lia walk/read proposals rejected due overly large heads and short skirt. Later selected proposals preserve natural moderate head size, long hem and recognizable ordinary film face. Foltan hat corrected to simple brown leather beret without feather.",
+    "knownLimits": [
+      "Pixel sprites simplify braided strands, fingertips, rope and facial scar.",
+      "Four walking phases are generated animation drawings, not a motion-capture anatomy guarantee.",
+      "New hide sheet must be wired by scene/runtime owner; this asset task does not modify runtime or manifest."
+    ]
+  }
+}

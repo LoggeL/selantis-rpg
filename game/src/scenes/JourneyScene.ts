@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { StoryScene } from '../story/StoryScene';
 import { ROAD_EAST_AREA, FIRST_CAMP_AREA } from '../story/areas/journey';
 import { state } from '../world/quests';
-import { getSettings, motionDuration } from '../settings';
+import { getSettings, motionDuration, subscribeSettings } from '../settings';
 import { FONT } from '../ui';
 
 type CampStep = 'cloak' | 'twigs' | 'fire' | 'meal' | 'foot' | 'sleep' | 'waking' | 'slip' | 'bound' | 'star' | 'complete';
@@ -14,8 +14,8 @@ export class JourneyScene extends StoryScene {
   private conversation = 0;
   private foltan?: Phaser.GameObjects.Image;
   private azar?: Phaser.GameObjects.Image;
-  private cloak?: Phaser.GameObjects.Ellipse;
-  private blanket?: Phaser.GameObjects.Ellipse;
+  private cloak?: Phaser.GameObjects.Graphics;
+  private blanket?: Phaser.GameObjects.Graphics;
   private flame?: Phaser.GameObjects.Graphics;
   private rope?: Phaser.GameObjects.Graphics;
   private progress?: Phaser.GameObjects.Rectangle;
@@ -85,33 +85,29 @@ export class JourneyScene extends StoryScene {
     })));
   }
 
-  /** Anonymous road travelers are silhouettes, not reused named actor frames. */
+  /** Anonymous travelers have their own authored atlas, never a named actor frame. */
   private passingTravelers() {
-    const wagon = this.add.container(515, 193).setDepth(193);
-    const g = this.add.graphics();
-    g.fillStyle(0x6d5137).fillRect(-15, -17, 30, 13);
-    g.fillStyle(0xbbb092).fillRect(-14, -29, 28, 12);
-    g.fillStyle(0x302d28).fillCircle(-10, -3, 5).fillCircle(10, -3, 5);
-    g.fillStyle(0x7f684e).fillRect(-32, -19, 13, 8).fillRect(-30, -11, 3, 10).fillRect(-22, -11, 3, 10);
-    g.fillStyle(0xa98b68).fillCircle(6, -34, 4);
-    wagon.add(g); this.areaRoot.add(wagon);
-    const troupe = this.add.container(580, 199).setDepth(199);
-    const troupeArt = this.add.graphics();
-    [-12, 1, 14].forEach((x, i) => {
-      troupeArt.fillStyle([0x764449, 0x537266, 0xa68a45][i]).fillTriangle(x - 5, -4, x + 5, -4, x, -23);
-      troupeArt.fillStyle(0xc49b74).fillCircle(x, -26, 3);
-      troupeArt.lineStyle(2, 0x3a312a).lineBetween(x - 2, -4, x - 3, 0).lineBetween(x + 2, -4, x + 3, 0);
-    });
-    troupe.add(troupeArt); this.areaRoot.add(troupe);
-    // A modest side observation; the main route remains open.
+    if (!this.textures.exists('road-travelers')) return;
+    const wagon = this.add.image(515, 193, 'road-travelers', 0).setOrigin(0.5, 60 / 64).setDepth(193);
+    const troupe = this.add.image(580, 199, 'road-travelers', 1).setOrigin(0.5, 60 / 64).setDepth(199);
+    this.areaRoot.add([wagon, troupe]);
     const tag = this.add.text(565, 219, 'Gaukler · nach Trapas zum Verbannungsfest', {
       fontFamily: FONT, fontSize: '8px', color: '#ddd1ad', stroke: '#252722', strokeThickness: 2,
     }).setOrigin(1, 0).setDepth(270);
     this.areaRoot.add(tag);
     if (getSettings().reducedMotion) { wagon.x = 110; troupe.x = 80; tag.x = 230; return; }
-    this.tweens.add({ targets: wagon, x: -55, duration: 13000, onComplete: () => wagon.destroy() });
-    this.tweens.add({ targets: troupe, x: -30, duration: 16000, onComplete: () => troupe.destroy() });
-    this.tweens.add({ targets: tag, alpha: 0, delay: 4300, duration: 700, onComplete: () => tag.destroy() });
+    const movement = [
+      this.tweens.add({ targets: wagon, x: -65, duration: 13000, onComplete: () => wagon.destroy() }),
+      this.tweens.add({ targets: troupe, x: -65, duration: 16000, onComplete: () => troupe.destroy() }),
+      this.tweens.add({ targets: tag, alpha: 0, delay: 4300, duration: 700, onComplete: () => tag.destroy() }),
+    ];
+    const unsubscribe = subscribeSettings(settings => {
+      for (const tween of movement) {
+        if (tween.isDestroyed() || tween.isPendingRemove()) continue;
+        if (settings.reducedMotion) tween.pause(); else tween.resume();
+      }
+    });
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
   }
 
   private enterCamp() {
@@ -129,13 +125,21 @@ export class JourneyScene extends StoryScene {
   private setupCamp(fresh: boolean) {
     this.inCamp = true;
     const flags = state(this.registry).flags;
-    this.cloak = this.add.ellipse(233, 260, 66, 22, 0x47634b).setDepth(245).setVisible(!!flags.journeyCloakSpread);
-    this.blanket = this.add.ellipse(233, 254, 46, 17, 0x9c9276).setDepth(270).setVisible(false);
+    this.cloak = this.add.graphics().setPosition(201, 248).setDepth(245).setVisible(!!flags.journeyCloakSpread);
+    this.cloth(this.cloak, ['...sssssssss....', '.ssmmmmmmmmmmss.', 'smmmmhhmmmmmmmms', 'smmhhmmmmmmmsmms', '.smmmmmmssmmmms.', '..ssssssssssss..'], { s: 0x344d39, m: 0x47634b, h: 0x627c59 }, 4);
+    this.blanket = this.add.graphics().setPosition(211, 246).setDepth(270).setVisible(false);
+    this.cloth(this.blanket, ['.ssssssssssssssssssss.', 'smmmmmmmmmmmmmmmmmmmmms', 'smmhhhhmmmmmmhhhhmmmms', 'smmmmmmmmmmmmmmmmmmmmms', 'smmmmssmmmmmmssmmmmmmms', 'smmmmmmmmmmmmmmmmmmmmms', '.ssssssssssssssssssss.'], { s: 0x746b55, m: 0x9c9276, h: 0xb4a689 }, 2);
     this.flame = this.add.graphics().setDepth(230);
     this.areaRoot.add([this.cloak, this.blanket, this.flame]);
     if (fresh) this.campStep = 'cloak';
     else this.campStep = !flags.journeyCloakSpread ? 'cloak' : !flags.journeyTwigsGathered ? 'twigs' : !flags.campfireLit ? 'fire' : !flags.journeyAte ? 'meal' : !flags.journeyFeetChecked ? 'foot' : 'sleep';
     this.drawFire();
+  }
+
+  private cloth(graphics: Phaser.GameObjects.Graphics, rows: string[], colors: Record<string, number>, pixel: number) {
+    rows.forEach((row, y) => [...row].forEach((shade, x) => {
+      if (shade !== '.') graphics.fillStyle(colors[shade]).fillRect(x * pixel, y * pixel, pixel, pixel);
+    }));
   }
 
   private campSpots() {
@@ -183,8 +187,13 @@ export class JourneyScene extends StoryScene {
         // Proviant is the whole travel bundle; a small meal does not consume it.
         this.say('Ein Stück Brot und Käse. Mehr brauche ich jetzt nicht.', 2000); this.campStep = 'foot'; break;
       case 'foot':
-        flags.journeyFeetChecked = true;
-        this.say('Die Schuhe ausziehen. Die Ferse schmerzt noch vom langen Marsch.', 2500); this.campStep = 'sleep'; break;
+        flags.journeyFeetChecked = true; this.campStep = 'sleep';
+        this.lia.setPosition(233, 260); this.setLiaPose('lia-footcare');
+        this.say('', 0);
+        this.showCloseup('cut-camp-rest');
+        this.setCloseupText('Die Schuhe ausziehen. Die Ferse schmerzt noch vom langen Marsch.');
+        this.setCloseupContinue(() => { this.hideCloseup(); this.setLiaPose(null); this.campSpots(); }, 'Hinlegen');
+        this.campSpots(); return;
       case 'sleep': this.sleep(); return;
       case 'slip': this.caught(); return;
       case 'bound': this.listen(); return;
@@ -218,18 +227,19 @@ export class JourneyScene extends StoryScene {
     const flags = state(this.registry).flags;
     this.flame.clear();
     if (!flags.campfireLit) return;
-    this.flame.fillStyle(0xe37335, 0.3).fillEllipse(317, 226, 43, 16);
-    this.flame.fillStyle(0xb74d28).fillCircle(312, 226, 3).fillCircle(321, 226, 3);
+    this.flame.fillStyle(0xe37335, 0.14).fillRect(299, 220, 36, 12).fillRect(303, 216, 28, 20);
+    this.flame.fillStyle(0xb74d28).fillRect(310, 224, 4, 4).fillRect(319, 224, 4, 4);
     if (!flags.firstCampRested || flags.metFoltanAzar) {
-      const sway = getSettings().reducedMotion ? 0 : Math.sin(this.fireClock / 140) * 2;
-      this.flame.fillStyle(0xd87937).fillTriangle(309, 225, 323, 225, 316 + sway, 207);
-      this.flame.fillStyle(0xedbf66).fillTriangle(313, 224, 320, 224, 317, 214);
+      const sway = getSettings().reducedMotion ? 0 : Math.floor(this.fireClock / 180) % 2 * 2;
+      this.flame.fillStyle(0xd87937).fillRect(309, 219, 14, 6).fillRect(313, 213, 8, 6).fillRect(315 + sway, 207, 2, 6);
+      this.flame.fillStyle(0xedbf66).fillRect(313, 220, 6, 4).fillRect(315, 214, 2, 6);
     }
   }
 
   private sleep() {
     this.campStep = 'waking'; this.campSpots(); this.setLocked(true);
     this.lia.setPosition(233, 260).setDepth(260); this.blanket?.setVisible(true);
+    this.setLiaPose('lia-sleep');
     this.say('Die Decke bis zum Hals. Ich habe letzte Nacht kein Auge zugetan.', 2100);
     this.time.delayedCall(1500, () => {
       state(this.registry).flags.firstCampRested = true;
@@ -246,22 +256,24 @@ export class JourneyScene extends StoryScene {
   private wakeEncounter() {
     this.campStep = 'waking'; this.setLocked(true); this.campSpots();
     this.lia.setPosition(233, 260).setDepth(260); this.blanket?.setVisible(true);
+    this.setLiaPose('lia-sleep');
     this.addStrangers(); this.drawFire();
-    const wrist = this.add.line(0, 0, 248, 246, 231, 247, 0xcba783).setLineWidth(2).setDepth(270);
-    this.areaRoot.add(wrist);
-    this.say('Fremder: "Ist sie tot?"', 1200);
-    this.time.delayedCall(1300, () => this.say('Fremder: "Nein. Sie hat noch Puls."', 1600));
-    this.time.delayedCall(2900, () => {
-      wrist.destroy(); this.blanket?.setVisible(false);
-      this.say('Lia: "Ah!"   Fremder: "Aaah!"', 1300);
-      for (const [x, y] of [[233, 213], [295, 194]]) {
-        const bang = this.add.text(x, y, '!', { fontFamily: FONT, fontSize: '18px', color: '#e9d5a4' }).setDepth(400);
-        this.areaRoot.add(bang); this.time.delayedCall(800, () => bang.destroy());
-      }
-    });
-    this.time.delayedCall(4250, () => {
-      this.say('Der Schmale: "Still!"   Der Dicke: "Ich bin schreckhaft."', 2500);
-      this.campStep = 'slip'; this.setLocked(false); this.campSpots();
+    this.say('', 0);
+    this.showCloseup('cut-camp-wake');
+    this.setCloseupText('Fremder: "Ist sie tot?"');
+    this.setCloseupContinue(() => {
+      this.setCloseupText('Fremder: "Nein. Sie hat noch Puls."');
+      this.setCloseupContinue(() => {
+        this.blanket?.setVisible(false); this.setLiaPose('lia-wake');
+        this.setCloseupText('Lia: "Ah!"   Fremder: "Aaah!"');
+        this.setCloseupContinue(() => {
+          this.setCloseupText('Der Schmale: "Still!"   Der Dicke: "Ich bin schreckhaft."');
+          this.setCloseupContinue(() => {
+            this.hideCloseup(); this.setLiaPose(null);
+            this.campStep = 'slip'; this.setLocked(false); this.campSpots();
+          }, 'Leise weiter');
+        });
+      });
     });
   }
 
@@ -272,11 +284,17 @@ export class JourneyScene extends StoryScene {
       this.lia.setPosition(470, 190).setDepth(190);
       this.foltan?.setPosition(443, 206).setDepth(206);
       this.azar?.setPosition(408, 217).setDepth(217);
-      this.rope = this.add.graphics().setDepth(191);
-      this.rope.lineStyle(2, 0xb69a6e).lineBetween(461, 174, 479, 174).lineBetween(462, 179, 479, 179).lineBetween(465, 188, 475, 188);
-      this.areaRoot.add(this.rope);
+      if (!this.anims.exists('lia-bound-sit')) {
+        this.rope = this.add.graphics().setDepth(191);
+        this.rope.fillStyle(0xb69a6e).fillRect(461, 174, 18, 2).fillRect(462, 179, 17, 2).fillRect(465, 188, 10, 2);
+        this.areaRoot.add(this.rope);
+      }
       this.campStep = 'bound'; this.conversation = 0;
-      this.say('Der Schmale bindet meine Hände und Füße. "Damit du uns zuhörst."', 2600);
+      this.setLiaPose('lia-bound-sit');
+      this.say('', 0);
+      this.showCloseup('cut-camp-capture');
+      this.setCloseupText('Der Schmale bindet meine Hände und Füße. "Damit du uns zuhörst."');
+      this.setCloseupContinue(() => this.listen(), 'Zuhören');
       this.campSpots();
     };
     const duration = motionDuration(550);
@@ -294,7 +312,8 @@ export class JourneyScene extends StoryScene {
       'Azar: "Bei uns bist du sicherer."   Foltan: "Wir halten abwechselnd Wache."',
     ];
     if (this.conversation < lines.length) {
-      this.say(lines[this.conversation++], 4500);
+      this.setCloseupText(lines[this.conversation++]);
+      this.setCloseupContinue(() => this.listen());
       this.campSpots();
       return;
     }
@@ -305,8 +324,11 @@ export class JourneyScene extends StoryScene {
     this.lia.setPosition(454, 210).setDepth(210);
     this.foltan?.setPosition(355, 231).setDepth(231);
     this.azar?.setPosition(397, 265).setDepth(265).setAngle(82);
-    this.campStep = 'star'; this.setLocked(false);
-    this.say('Die Fesseln sind gelöst. Foltan legt Zweige auf die Glut. Azar schläft schon.', 3200);
+    this.campStep = 'star'; this.setLiaPose(null);
+    this.say('', 0);
+    this.showCloseup('cut-camp-companions');
+    this.setCloseupText('Die Fesseln sind gelöst. Foltan hält zuerst Wache. Morgen nehmen sie mich mit.');
+    this.setCloseupContinue(() => { this.hideCloseup(); this.setLocked(false); this.campSpots(); }, 'Zum Stern');
     this.drawFire(); this.campSpots();
   }
 

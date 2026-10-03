@@ -1,0 +1,67 @@
+{
+  "id": "pixel-unification-story-additional-poses",
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in"
+  },
+  "assets": [
+    {
+      "name": "lia-story-poses",
+      "file": "game/public/assets/sprites/lia-story-poses.png",
+      "cols": 4,
+      "rows": 2,
+      "mode": "lia-story-poses",
+      "raw": "output/imagegen/raw/pixel-unification-story/lia-story-poses.png",
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-c9ea9e0a-0250-4ce8-9a04-ade48bce90e2.png",
+      "prompts": [
+        "Use case: stylized-concept. New production Lia STORYPOSE atlas matching SAME filmLia naturalhuman identity and genuinecleanpixelstyle of suppliedwalking/read/hideLia. Exactly4columns x2rows,8 equal64x64logicalcells,256x128logicalcanvas enlargedhardnearestneighborblocks. Genuinefullytransparentalpha, no groundshadow/scenery/grid/text.\nSameSLENDERteenageLia everycell: darkblonde/lightbrownSIDEbraidstiedBEHIND, ivorygatheredblousefullsleeves, LONGanklelengthbeigeMUSTARDskirt,darkbrown belt, naturalsmallmoderateheadordinarytinyeyes. SAMEheadsizeandbodyanatomyscale ALL8 (upright37logicalpixelbodyheight inside64cell); kneeling/sitting/lyinglower naturally, NEVER shrinkwholebodytowardstandingheight. Foot/groundbottomlocal60, centered32. Pixelart20-24flatmutedcolors, 3shadeclusters/material,strongdarkbrown1pixelcontour, hardpixelgrid,noantialias/gradient/noise/dither/photopixelfilter.\nEXACTindexorder:\n0 KNEEL grief: Lia kneels quietly, shouldersbowed handsrestknees, nooversizedtears;\n1 KNEEL packing: Lia kneels nexttosmallbrownLEATHERtravelbag, handsplacesimpleclothbundleinsidedifferentfromgrief;\n2 PRONE SLEEP: Lia FULLYCLOTHEDcurledONHERSIDE, fullhumanbodylyinghorizontalacrosscell, cheekonforearm,kneesbentunderlongskirt, woodenclogsnearfeet. Actualhorizontalbody, notaflattenedstandingsprite;\n3 SITTING startledawake: Lia sitsgroundkneesdrawnup, onehandbracesground, headturnsalarmed, eyebrowsnatural;\n4 KNEEL BOUND: Lia kneels upright, BOTHWRISTSTIEDBEHINDBACK, shoulder/elbowspulledback,handsnotvisibleinfront, nogore/chains;\n5 STANDING BOUND: Lia stands37pixelheight, SAMEwristsboundBEHINDBACK,handsnotfront,nobag/book;\n6 STANDING TRAVEL: sameLia ivoryblousemustardLONGskirt, mutedFORESTGREENraincloak plainleatherbag/brownleathershoes,no weapons;\n7 SITTING FOOTCARE: Lia seatedgroundbentknees, one woodenclogremovedbesidefeet, handgentlyrubsbarefoot, keepsFULLCLOTHING/NOnudity.\nNo capeexceptframe6. No staff/knife/magic, no bookunlessimpliedneeded(the8posesdoNOTrequirebook), no otherpersons, propsonlybagin1and6andclog7. Oneclearisolatedfullposeeverycell, consistent3/4slightlyelevatedRPGviewfacefrontright. Preserveface/clothingidentitywithreferences.",
+        "Precise-object-edit of thisexisting8poseLiaatlas. Change ONLY TWO CELLS: bottomrowFIRST(frame4) and bottomrowSECOND(frame5). Novelcorrection: Lia has tiedhands/feet, wrists can be IN FRONT.\nFrame4 must be SITTING BOUND on ground as ifleaningagainstaninvisibletree (DO NOT drawtree), kneesbent inlongskirt, BOTHWRISTStiedtogether IN FRONT visibleatlap, smallplainropelooparoundbothANKLES visibleonlywherefeetemerge. Natural quietcaptivehuman, nogore/chains orsexualization. Keepfullmodestfilmclothing.\nFrame5 must be STANDING BOUND with BOTHWRISTStiedtogether IN FRONT atwaist, visiblehandsandplainrope, sameupright37pixelbodyscale; nogore/chains.\nPreserve SAME Lia faceidentity/darkblonde/lightbrownsidebraidsivorygatheredblouselongmustardskirt. Preserve ALL OTHER SIX CELLS completelyunchangedincludingthecurledsleepingpose3rdtoprow and greenraincloak3rdbottomrow. NoKyrahere. Keep exact4x2transparentalphaatlas/hardpixelstyle/footbaseline/margins. Onlyrequestedboundposesbecome sittingfrontbound and standingfrontbound."
+      ],
+      "contract": [
+        "kneel-grief",
+        "kneel-packing",
+        "prone-curled-sleep",
+        "sitting-startled-awake",
+        "sitting-bound-front-wrists-and-ankles",
+        "standing-bound-front-wrists",
+        "standing-green-cloak-travel",
+        "sitting-footcare"
+      ]
+    },
+    {
+      "name": "road-travelers",
+      "file": "game/public/assets/sprites/road-travelers.png",
+      "cols": 2,
+      "rows": 1,
+      "frameWidth": 128,
+      "frameHeight": 64,
+      "foot": [
+        64,
+        60
+      ],
+      "mode": "road",
+      "raw": "output/imagegen/raw/pixel-unification-story/road-travelers.png",
+      "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-de9bf327-9d2c-442f-926d-afd9a882fbf9.png",
+      "prompts": [
+        "Use case: stylized-concept. New production road encounter RPG pixelart atlas, exactlyTWOwidecells inONErow,2columns x1row,eachcell128x64LOGICALpixels,total256x64. Transparentalphaemptybackground, no scenery/groundshadow/grid/text. SAME genuinecleanpixelstyle as suppliedLia&horse: darkbrown1pixellogicaloutline, naturalhumanheadsize (adult~40logicalpxtall), hard squareclusters, 24flatmutedcolorsperencounter, earthlycloth/leather/wood, no photofiltertexture/antialias/smoothgradient/dither.\nCELL0 LEFT = compactordinaryMEDIEVAL MERCHANT WITH CART AND HORSE: onebrownhorse facesRIGHT/EAST pulls smallplainwoodenTWOwheelcart carryingfewclothbundles, ordinary merchant plainbrown/beigewooltunicleatherbelt seatedoncart orwalkingbeside. No armor/heraldry/ornatecarriage/modernitems, notFoltan/Azar. Fullhorse/cart/merchant fits~112logicalpxwide/~42tall, feet/wheelgroundlocal60, center64, readableat128pixelwidth.\nCELL1 RIGHT = compactANONYMOUS JESTER TRAVEL GROUP: threeordinarymedievalroadperformers walkingRIGHT/EAST in smallgroup, one wearing subduedred/ochrepatchworkjerkinandsoftclothjesterhoodsmalltips, one travelingluteplayerinbrown/creamclothes carryingmodestwoodenlute, oneplaintravelerwithrolledclothpack. No clownmakeup/cartoonbells/neon/spells/weapons/elfears. Naturaladultproportions, visuallydistinctfromFoltan/Azar: noblueyellowtabard/crossbow/curvedsword/redcapyellowrobecombo. Full3humanfiguresfit~88logicalpxwide/~40tall, feetground60, center64. Quietmedievalroadencounter, notcircusstagedance.\nEqual128x64cells, generous8pxtransparentgutters, everyoneatuniformpixeldensityandbaseline, no extracharacters beyondlistedone merchant/onehorseandthreeperformers. No letters/symbols/labels/frame/watermark. Single finished2celltransparentproductionatlas."
+      ],
+      "contract": [
+        "merchant-horse-cart",
+        "anonymous-jester-lute-traveler-group"
+      ]
+    }
+  ],
+  "storyGreenCorrection": {
+    "raw": "output/imagegen/raw/pixel-unification-story/story-actors.png",
+    "generatedSource": "/Users/logge/.codex/generated_images/01a0ff80-5fb1-7c01-a214-d26c73e13ae9/exec-a25298fa-eee7-4de9-95d0-1c7753aa87b5.png",
+    "prompt": "Correct ONLY bottomrowLASTcell/frame7LiaTRAVEL in this8actoratlas. Her raincloak MUST be recognizably GREEN: muted FORESTGREEN fabric approximately#355435/shadow#203520/highlight#547249, distinctlygreen ratherthanbrown/ochre. Preserve the exactfilmdarkblonde/lightbrownsidebraidedtiedhair, ivoryblouse, longbeigeMUSTARDskirt, plainbrownbag/shoes, naturalbodypose andscale. Change ONLYcloakfabric colors toclearforestGREENflatpixelclusters. Keep allotherSEVENactorcells exactly unchanged, same4x2layout, transparency/alpha/footbaseline, noextraweapons/props/text or background. This is a targeted costume color correction usingimagegeneration, allotherdetailsstable."
+  },
+  "review": {
+    "sourceCorrection": "Lia bound pose is sitting with hands and feet bound, based on novel page 27; wrists in front matches current camp art. Kyra remains bound behind per her separate source scene.",
+    "processing": "Same technical source-cell extraction and alpha-threshold workflow as the primary story spec. Lia story states retain a single scale from standing frames, preserving head size and naturally lower horizontal sleep/seat silhouettes. Palette shared across Lia assets. Road cells128x64, first47px overall height, second40px.",
+    "knownLimits": [
+      "Fine rope turns and footcare fingers simplify at native pixel scale.",
+      "The travelers are anonymous visual encounter adapters and do not assert a film identity."
+    ]
+  }
+}

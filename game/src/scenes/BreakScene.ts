@@ -94,6 +94,7 @@ export class BreakScene extends Phaser.Scene {
   }
 
   update(_time: number, dt: number) {
+    this.woundHint.setVisible(!usesMobileInterface());
     if (this.transitioning) return;
     const skipDown = this.skipKey.isDown || this.skipHeld || (!this.woundVisible && this.actionKey.isDown);
     this.skipProgress = skipDown ? Math.min(1, this.skipProgress + dt / 950) : 0;

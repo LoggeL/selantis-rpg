@@ -19,6 +19,7 @@ export class Hud {
   private thoughtTimer?: Phaser.Time.TimerEvent;
   private disabled = false;
   private abilitiesVisible = true;
+  private thoughtsVisible = true;
 
   constructor(scene: Phaser.Scene, portrait: string, name: string) {
     this.scene = scene;
@@ -31,13 +32,19 @@ export class Hud {
     this.root = scene.add.container(0, 0, [frame, img, label, hpBack, this.hp]).setDepth(1000).setScrollFactor(0);
     this.abilityBar = scene.add.container(320, 330).setDepth(1000).setScrollFactor(0);
     const mobileMode = window.matchMedia('(any-pointer: coarse), (max-width: 900px)');
-    const syncAbilities = () => this.abilityBar.setVisible(this.abilitiesVisible && !usesMobileInterface());
+    const syncAbilities = () => {
+      const mobile = usesMobileInterface();
+      this.abilityBar.setVisible(this.abilitiesVisible && !mobile);
+      this.hintText?.setVisible(!mobile);
+      this.thoughtText?.setVisible(this.thoughtsVisible && !mobile);
+    };
     mobileMode.addEventListener('change', syncAbilities);
     syncAbilities();
     this.hintText = scene.add.text(320, 352, '', { fontFamily: FONT, fontSize: '10px', color: '#e8e2d0', stroke: '#0d0f12', strokeThickness: 3 })
       .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
     this.thoughtText = scene.add.text(320, 70, '', { fontFamily: FONT, fontSize: '11px', color: '#cfe0f4', stroke: '#0d0f12', strokeThickness: 3, fontStyle: 'italic', wordWrap: { width: 520 }, align: 'center' })
       .setOrigin(0.5).setDepth(1000).setAlpha(0).setScrollFactor(0);
+    syncAbilities();
     // A tiny corner control; keyboard O is available even in scenes without a HUD.
     const gear = scene.add.graphics().setScrollFactor(0).setDepth(1001);
     gear.lineStyle(2, 0xaaa68f);
@@ -121,6 +128,10 @@ export class Hud {
     this.scene.data.set('mobile:hint', text);
     this.hintText.setText(text);
     if (!quiet && text) { this.hintText.setAlpha(0); this.scene.tweens.add({ targets: this.hintText, alpha: 1, duration: motionDuration(300) }); }
+  }
+  setThoughtsVisible(visible: boolean) {
+    this.thoughtsVisible = visible;
+    this.thoughtText.setVisible(visible && !usesMobileInterface());
   }
   thought(text: string, ms = 2200) {
     this.scene.data.set({ 'mobile:thought': text, 'mobile:thoughtUntil': this.scene.time.now + ms });

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { sfx, startAmbient } from '../audio';
 import { FONT, Hud } from '../ui';
 import { ambientPrefs, getSettings, motionDuration, subscribeSettings } from '../settings';
+import { StoryCloseup } from '../story/closeups';
 
 type Pt = { x: number; y: number };
 type Phase = 'intro' | 'reading' | 'closing' | 'free' | 'title';
@@ -12,11 +13,6 @@ type Bookmark = 'leaf' | 'flowers';
 // Sommerabend, Roman S. 10–12. Bühne 640 x 360, Kamera steht.
 const SUN: Pt = { x: 630, y: 18 };
 const SIT: Pt = { x: 290, y: 182 };
-/** Der Lesebogen ist größer gezeichnet als der Gehbogen (Stehhöhe 54 statt 40 px): lokal auf 3/4 verkleinert. */
-const READ_ANIMS: Record<string, [number[], number, boolean]> = {
-  read: [[0], 1, false], shade: [[1], 1, false], close: [[2], 1, false],
-  stand: [[3], 1, false], shoes: [[4, 5], 2, false], 'idle-book': [[6, 7], 2, true],
-};
 const SPEED = 72;
 const TRUNK = { x: 262, y: 176, rx: 22, ry: 7 };
 
@@ -69,11 +65,13 @@ export class LiaScene extends Phaser.Scene {
   private ambientTweens: Phaser.Tweens.Tween[] = [];
   private pollen: Phaser.GameObjects.Particles.ParticleEmitter[] = [];
   private ambientCreatures: Phaser.GameObjects.Sprite[] = [];
+  private readingCloseup?: StoryCloseup;
 
   constructor() { super('lia'); }
 
   create() {
-    this.data.set('mobile:bookmarks', []);
+    this.data.set({ 'mobile:bookmarks': [], 'mobile:dialogue': '', 'mobile:controls': { directions: [], actions: { E: 'Buch schließen' }, inventory: false, disabled: true } });
+    this.readingCloseup = undefined;
     this.phase = 'intro'; this.pos = { ...SIT }; this.facing = 's'; this.walked = false;
     this.stepTimer = 0; this.stuckMs = 0; this.canClose = false;
     this.ghosts = []; this.hud = undefined; this.marker = undefined;
@@ -89,13 +87,14 @@ export class LiaScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#ffffff');
 
     this.shadow = this.add.image(SIT.x, SIT.y - 1, 'shadow').setScale(1.15, 1);
-    this.lia = this.add.sprite(SIT.x, SIT.y, 'lia-read-s', 0).setOrigin(0.5, 60 / 64).play('lia-s-read');
+    this.lia = this.add.sprite(SIT.x, SIT.y, 'lia-read', 0).setOrigin(0.5, 60 / 64).play('lia-read');
     this.syncLia();
 
     this.atmosphere();
     this.meadowDetails();
     startAmbient(this, 'exploration');
     this.light();
+    this.showReadingCloseup();
     this.intro();
     const unsubscribe = subscribeSettings(() => {
       const prefs = ambientPrefs();
@@ -135,6 +134,23 @@ export class LiaScene extends Phaser.Scene {
     });
   }
 
+  /** The reading shot uses the same caption and single action as later chapters. */
+  private showReadingCloseup() {
+    if (!this.textures.exists('cut-lia-reading')) return;
+    this.readingCloseup = new StoryCloseup(this);
+    this.readingCloseup.show('cut-lia-reading');
+    this.readingCloseup.setText('Die Sonne blendet.');
+    this.readingCloseup.setContinue(null, 'Buch schließen');
+    for (const object of [this.halo, this.sun, this.core, this.rays, ...this.ghosts.map(g => g.img)]) object.setVisible(false);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.readingCloseup?.destroy());
+  }
+
+  private hideReadingCloseup() {
+    this.readingCloseup?.hide();
+    for (const object of [this.halo, this.sun, this.core, this.rays, ...this.ghosts.map(g => g.img)]) object.setVisible(true);
+    this.hud?.setThoughtsVisible(true);
+  }
+
   // ---------- Texturen (einmalig, im Code gebaut) ----------
   private makeTextures() {
     // Sonnenleuchten: gestuft und geordnet gedithert, damit es zur Pixelgrafik passt.
@@ -171,7 +187,6 @@ export class LiaScene extends Phaser.Scene {
       c.fillRect(0, 0, 128, 128);
       t.refresh();
     }
-    this.shrinkReadSheet();
     this.pixelTexture('lia-leaf', ['..##...', '.#oo#..', '#ooo#..', '.#oo#..', '..#o#..', '...#...'], ['#513a20', '#c6ad60']);
     this.pixelTexture('lia-flower', ['..o..', '.ooo.', 'oo#oo', '.ooo.', '..o..', '..#..'], ['#756735', '#fff0c5']);
     this.pixelTexture('lia-detail', ['..o..', '.o.o.', 'o...o', '.o.o.', '..o..'], ['#463622', '#fff0c5']);
@@ -199,64 +214,6 @@ export class LiaScene extends Phaser.Scene {
       ctx.fillRect(x, y, 1, 1);
     }));
     texture.refresh();
-  }
-
-  /**
-   * 'lia-read' (64er Zellen) → 'lia-read-s' (48er Zellen): Silhouette per Block-Maximum, Farbe per
-   * nächstem Nachbarn, danach durchgehende 1-px-Kontur wie im Gehbogen. Fußpunkt bleibt bei 60/64.
-   */
-  private shrinkReadSheet() {
-    if (!this.textures.exists('lia-read-s')) {
-      const src = this.textures.get('lia-read').getSourceImage() as HTMLImageElement;
-      const W = src.width, H = src.height, w = (W * 3) / 4, h = (H * 3) / 4;
-      const cv = document.createElement('canvas');
-      cv.width = W; cv.height = H;
-      const sctx = cv.getContext('2d')!;
-      sctx.drawImage(src, 0, 0);
-      const s = sctx.getImageData(0, 0, W, H).data;
-      const op = (x: number, y: number) => x >= 0 && y >= 0 && x < W && y < H && s[(y * W + x) * 4 + 3] > 127;
-      // Konturfarbe = häufigste Randfarbe der Vorlage
-      const count = new Map<number, number>();
-      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-        if (!op(x, y) || (op(x - 1, y) && op(x + 1, y) && op(x, y - 1) && op(x, y + 1))) continue;
-        const i = (y * W + x) * 4, c = (s[i] << 16) | (s[i + 1] << 8) | s[i + 2];
-        count.set(c, (count.get(c) ?? 0) + 1);
-      }
-      const ink = [...count.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 0x2a1a12;
-      const t = this.textures.createCanvas('lia-read-s', w, h)!;
-      const c = t.getContext();
-      const img = c.createImageData(w, h), d = img.data;
-      const on = new Uint8Array(w * h);
-      for (let ty = 0; ty < h; ty++) for (let tx = 0; tx < w; tx++) {
-        const x0 = Math.floor((tx * 4) / 3), x1 = Math.ceil(((tx + 1) * 4) / 3), y0 = Math.floor((ty * 4) / 3), y1 = Math.ceil(((ty + 1) * 4) / 3);
-        let sx = Math.floor(((tx + 0.5) * 4) / 3), sy = Math.floor(((ty + 0.5) * 4) / 3);
-        if (!op(sx, sy)) {
-          let found = false;
-          for (let y = y0; y < y1 && !found; y++) for (let x = x0; x < x1 && !found; x++) if (op(x, y)) { sx = x; sy = y; found = true; }
-          if (!found) continue;
-        }
-        const i = (sy * W + sx) * 4, o = (ty * w + tx) * 4;
-        d[o] = s[i]; d[o + 1] = s[i + 1]; d[o + 2] = s[i + 2]; d[o + 3] = 255;
-        on[ty * w + tx] = 1;
-      }
-      const at = (x: number, y: number) => x >= 0 && y >= 0 && x < w && y < h && on[y * w + x] === 1;
-      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-        if (!on[y * w + x]) continue;
-        const cx = Math.floor(x / 48), cy = Math.floor(y / 48);
-        const inCell = (xx: number, yy: number) => Math.floor(xx / 48) === cx && Math.floor(yy / 48) === cy && at(xx, yy);
-        if (inCell(x - 1, y) && inCell(x + 1, y) && inCell(x, y - 1) && inCell(x, y + 1)) continue;
-        const o = (y * w + x) * 4;
-        d[o] = (ink >> 16) & 255; d[o + 1] = (ink >> 8) & 255; d[o + 2] = ink & 255;
-      }
-      c.putImageData(img, 0, 0);
-      t.refresh();
-      for (let i = 0; i < (w / 48) * (h / 48); i++) t.add(i, 0, (i % (w / 48)) * 48, Math.floor(i / (w / 48)) * 48, 48, 48);
-    }
-    for (const [k, [frames, fps, loop]] of Object.entries(READ_ANIMS)) {
-      if (!this.anims.exists(`lia-s-${k}`)) {
-        this.anims.create({ key: `lia-s-${k}`, frames: frames.map((f) => ({ key: 'lia-read-s', frame: f })), frameRate: fps, repeat: loop ? -1 : 0 });
-      }
-    }
   }
 
   private radial(key: string, size: number, fn: (d: number) => number, levels: number, color: (v: number) => number) {
@@ -320,22 +277,28 @@ export class LiaScene extends Phaser.Scene {
 
     // Lia liest; nach etwa zwei Sekunden blendet sie die Sonne.
     this.time.delayedCall(3600, () => {
-      this.lia.play('lia-s-shade');
+      this.lia.play('lia-shade');
       this.phase = 'reading';
       this.readLoop();
     });
     this.time.delayedCall(4600, () => this.showHud());
-    this.time.delayedCall(5600, () => { if (this.phase === 'reading') { this.canClose = true; this.hud?.hint('E / Klick: das Buch zuklappen'); } });
+    this.time.delayedCall(5600, () => {
+      if (this.phase !== 'reading') return;
+      this.canClose = true;
+      this.data.set('mobile:controls', { directions: [], actions: { E: 'Buch schließen' }, inventory: false });
+      this.hud?.hint('E / Klick: das Buch zuklappen');
+      this.readingCloseup?.setContinue(() => this.closeBook(), 'Buch schließen');
+    });
   }
 
   /** Sie versucht weiterzulesen: abwechselnd blinzeln und lesen, bis der Spieler das Buch zuklappt. */
   private readLoop() {
     this.time.delayedCall(Phaser.Math.Between(2200, 3000), () => {
       if (this.phase !== 'reading') return;
-      this.lia.play('lia-s-read');
+      this.lia.play('lia-read');
       this.time.delayedCall(Phaser.Math.Between(1500, 2200), () => {
         if (this.phase !== 'reading') return;
-        this.lia.play('lia-s-shade');
+        this.lia.play('lia-shade');
         this.readLoop();
       });
     });
@@ -345,6 +308,8 @@ export class LiaScene extends Phaser.Scene {
     const before = this.children.list.length;
     this.hud = new Hud(this, 'portrait-lia', 'LIA');
     this.hud.setHp(1, false);
+    this.hud.setThoughtsVisible(!this.readingCloseup?.visible);
+    if (this.readingCloseup?.hasCaption) this.data.set('mobile:dialogue', 'Die Sonne blendet.');
     // Nur die Container einblenden; Hinweis- und Gedankenzeile steuert das HUD selbst.
     const fresh = this.children.list.slice(before);
     // Gedankenstimme warm statt kühlblau (das Blau gehört Valentus)
@@ -504,19 +469,20 @@ export class LiaScene extends Phaser.Scene {
   private closeBook() {
     if (this.phase !== 'reading' || !this.canClose) return;
     this.phase = 'closing';
+    this.hideReadingCloseup();
     this.hud?.hint('');
-    this.lia.play('lia-s-close');
+    this.lia.play('lia-close');
     this.hud?.thought('Nur diese Seite noch … ach, die Sonne.', 2600);
     this.time.delayedCall(1700, () => {
-      this.lia.play('lia-s-stand');
+      this.lia.play('lia-stand');
       this.shadow.setScale(0.9, 1);
     });
     this.time.delayedCall(2500, () => {
-      this.lia.play('lia-s-shoes');
+      this.lia.play('lia-shoes');
       sfx.step();
       this.time.delayedCall(500, () => sfx.step());
       this.lia.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-        this.lia.play('lia-s-idle-book');
+        this.lia.play('lia-idle-book');
         this.time.delayedCall(500, () => this.startFree());
       });
     });
@@ -524,6 +490,7 @@ export class LiaScene extends Phaser.Scene {
 
   private startFree() {
     this.phase = 'free';
+    this.data.set('mobile:controls', undefined);
     this.hud?.hint('WASD / Klick: die Wiese erkunden');
     const glow = this.add.ellipse(0, 3, 26, 8, 0xf2d27a, 0.45).setBlendMode(Phaser.BlendModes.ADD);
     const a = this.add.image(0, -5, 'lia-chev');
@@ -551,6 +518,7 @@ export class LiaScene extends Phaser.Scene {
   }
 
   update(_t: number, dt: number) {
+    this.readingCloseup?.update();
     this.pulse();
     if (this.phase !== 'free') return;
     const k = this.keys;

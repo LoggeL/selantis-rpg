@@ -4,6 +4,7 @@ import { motionDuration } from '../settings';
 import { FONT, Hud } from '../ui';
 import { BEAM_LENGTH, cellCenter, inside, type Cell } from '../battle/grid';
 import type { MobileControlProfile } from '../mobileInput';
+import { usesMobileInterface } from '../mobileDialogs';
 
 type Pt = { x: number; y: number };
 type Phase = 'cine' | 'wake' | 'rise' | 'walk' | 'cradle' | 'raise' | 'light';
@@ -47,6 +48,7 @@ export class RefugeScene extends Phaser.Scene {
   private walkLens: number[] = [];
   private inspected = new Set<string>();
   private risePointer?: Phaser.Input.Pointer;
+  private speechTexts: Phaser.GameObjects.Text[] = [];
 
   constructor() { super('refuge'); }
 
@@ -77,6 +79,7 @@ export class RefugeScene extends Phaser.Scene {
 
   create() {
     this.risePointer = undefined;
+    this.speechTexts = [];
     this.data.set('mobile:dialogue', '');
     this.phase = 'cine'; this.cine = []; this.hud = undefined; this.v = undefined; this.blanket = undefined; this.bar = undefined;
     this.inspected.clear();
@@ -138,7 +141,8 @@ export class RefugeScene extends Phaser.Scene {
     name.setPosition(x0, top + 4);
     txt.setPosition(x0 + Math.round(name.width) + 8, top);
     for (const t of [name, txt]) {
-      t.setDepth(1100).setAlpha(0);
+      t.setDepth(1100).setAlpha(0).setVisible(!usesMobileInterface());
+      this.speechTexts.push(t);
       this.tweens.add({ targets: t, alpha: 1, duration: 300, hold: ms, yoyo: true, onComplete: () => t.destroy() });
     }
   }
@@ -569,6 +573,8 @@ export class RefugeScene extends Phaser.Scene {
   }
 
   update(_t: number, dt: number) {
+    this.speechTexts = this.speechTexts.filter(text => text.active);
+    for (const text of this.speechTexts) text.setVisible(!usesMobileInterface());
     if (this.beatEvery > 0) {
       this.beatTimer -= dt;
       if (this.beatTimer <= 0) { this.beatTimer = this.beatEvery; sfx.heartbeat(); }

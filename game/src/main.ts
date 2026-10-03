@@ -46,6 +46,7 @@ let resizeFrame = 0;
 function queueResize() { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(resize); }
 const observer = new ResizeObserver(queueResize);
 observer.observe(document.getElementById('game')!);
+observer.observe(document.getElementById('mobile-controls')!);
 addEventListener('resize', queueResize);
 window.visualViewport?.addEventListener('resize', queueResize);
 touchMode.addEventListener('change', setTouchMode);

@@ -7,6 +7,7 @@ import { clearWalkingLine, findWalkingPath, inPoly } from '../world/navigation';
 import { state } from '../world/quests';
 import type { Dir } from '../world/maps';
 import type { Pt, StoryArea, StorySpot } from './types';
+import { StoryCloseup, type CloseupOptions } from './closeups';
 
 const SPEED = 72;
 const WALK_HINT = 'WASD / Pfeile: gehen · Klick: gehen / untersuchen · I: Tasche';
@@ -31,17 +32,26 @@ export class StoryScene extends Phaser.Scene {
   private facing: Dir = 's';
   private locked = false;
   private cinematic = false;
+  private closeup?: StoryCloseup;
+  private liaPose?: string;
   private leaving = false;
   private stepTimer = 0;
   private stuckMs = 0;
   private hint = '';
   private inventorySignature = '';
-  private readonly onInteract = () => this.useSpot(this.nearestSpot());
+  private readonly onInteract = () => {
+    if (this.closeup?.hasCaption) { this.closeup.advance(); return; }
+    this.useSpot(this.nearestSpot());
+  };
   private transitionDone?: () => void;
 
   protected get areaCurrent(): StoryArea { return this.area; }
+  protected get closeupVisible(): boolean { return this.closeup?.visible ?? false; }
 
   protected begin(area: StoryArea) {
+    this.closeup?.destroy();
+    this.closeup = undefined;
+    this.liaPose = undefined;
     this.locked = false;
     this.cinematic = false;
     this.leaving = false;
@@ -85,6 +95,9 @@ export class StoryScene extends Phaser.Scene {
       this.spots = [];
       this.actors = [];
       this.markers = [];
+      this.closeup = undefined;
+      this.liaPose = undefined;
+      this.data.set('mobile:closeup', '');
     });
     const duration = motionDuration(280);
     this.cameras.main.resetFX();
@@ -92,6 +105,8 @@ export class StoryScene extends Phaser.Scene {
   }
 
   protected changeArea(area: StoryArea) {
+    this.hideCloseup();
+    this.liaPose = undefined;
     this.clearRoute();
     this.spots = [];
     this.markers = [];
@@ -129,13 +144,57 @@ export class StoryScene extends Phaser.Scene {
   protected say(text: string, ms = 3000) { this.hud.thought(text, ms); }
   protected setLocked(locked: boolean) {
     this.locked = locked;
-    if (locked) { this.clearRoute(); this.lia.play(`lia-idle-${this.facing}`); }
+    if (locked) { this.clearRoute(); this.idleLia(); }
   }
   protected setCinematic(cinematic: boolean) {
     this.cinematic = cinematic;
-    this.inventory.setVisible(!cinematic);
+    this.inventory.setVisible(!cinematic && !this.closeupVisible && !this.closeup?.hasCaption);
     if (cinematic) this.clearRoute();
     this.refreshPrompt();
+  }
+
+  /** True illustrated close-ups sit above map art and below dialogue/HUD. */
+  protected showCloseup(textureKey: string, options: CloseupOptions = {}) {
+    this.closeup ??= new StoryCloseup(this);
+    this.closeup.show(textureKey, options);
+    this.hud.setThoughtsVisible(false);
+    this.clearRoute();
+    this.inventory.close();
+    this.inventory.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption);
+    this.data.set('mobile:closeup', this.closeupVisible ? textureKey : '');
+    this.refreshPrompt();
+  }
+
+  protected hideCloseup() {
+    this.closeup?.hide();
+    this.hud?.setThoughtsVisible(true);
+    this.inventory?.setVisible(!this.cinematic);
+    this.data.set('mobile:closeup', '');
+    if (this.prompt) this.refreshPrompt();
+  }
+
+  protected setCloseupText(text: string) {
+    this.closeup ??= new StoryCloseup(this);
+    this.hud.setThoughtsVisible(false);
+    this.closeup.setText(text);
+    if (text) { this.clearRoute(); this.inventory.setVisible(false); }
+    this.refreshPrompt();
+  }
+
+  protected setCloseupContinue(callback: (() => void) | null, label = 'Weiter') {
+    this.closeup ??= new StoryCloseup(this);
+    this.closeup.setContinue(callback, label);
+  }
+
+  /** A kneeling/crouched pose survives logical E interactions and locked idle updates. */
+  protected setLiaPose(animation: string | null) {
+    this.liaPose = animation && this.anims.exists(animation) ? animation : undefined;
+    if (!this.liaPose) this.lia.setTexture('lia-walk').setOrigin(0.5, 60 / 64);
+    this.idleLia();
+  }
+
+  private idleLia() {
+    this.lia.play(this.liaPose ?? `lia-idle-${this.facing}`, true);
   }
 
   protected goTo(sceneKey: string) {
@@ -165,6 +224,7 @@ export class StoryScene extends Phaser.Scene {
   }
 
   update(_time: number, dt: number) {
+    this.closeup?.update();
     if (this.inventory?.isOpen) return;
     if (this.leaving || !this.lia?.active) return;
     dt = Math.min(dt, 50);
@@ -172,7 +232,7 @@ export class StoryScene extends Phaser.Scene {
     this.shadow.setPosition(this.lia.x, this.lia.y - 1).setDepth(this.lia.y - 1);
     this.lia.setDepth(this.lia.y);
     for (const actor of this.actors) if (actor.active) actor.setDepth(actor.y);
-    if (!this.locked) this.move(dt);
+    if (!this.locked && !this.closeupVisible && !this.closeup?.hasCaption) this.move(dt);
     this.areaRoot.sort('depth');
     this.refreshPrompt();
   }
@@ -231,7 +291,7 @@ export class StoryScene extends Phaser.Scene {
   }
 
   private onPointerDown(pointer: Phaser.Input.Pointer) {
-    if (this.leaving || this.inventory.hitTest(pointer) || this.hud.hitTest(pointer)) return;
+    if (this.leaving || this.closeupVisible || this.closeup?.hasCaption || this.inventory.hitTest(pointer) || this.hud.hitTest(pointer)) return;
     if (pointer.x > 606 && pointer.y > 326) return;
     this.inventory.close();
     // Cinematic framing transforms the art, while routes and spots remain area-local.
@@ -290,19 +350,19 @@ export class StoryScene extends Phaser.Scene {
   private useSpot(spot?: StorySpot) {
     if (this.leaving || !spot || !this.spots.includes(spot) || !this.isEnabled(spot) || !this.inRange(spot)) return;
     this.clearRoute();
-    this.lia.play(`lia-idle-${this.facing}`);
+    this.idleLia();
     sfx.select();
     spot.onUse();
   }
   private refreshPrompt() {
     const spot = this.nearestSpot();
-    this.prompt.setVisible(!!spot && !this.leaving && !this.cinematic);
+    this.prompt.setVisible(!!spot && !this.leaving && !this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption);
     if (spot) {
       const position = this.areaRoot.getWorldTransformMatrix().transformPoint(this.lia.x, this.lia.y - 58);
       this.prompt.setPosition(Math.round(position.x), Math.round(position.y));
     }
-    const hint = this.cinematic ? '' : spot ? `${spot.label} · E / Klick` : WALK_HINT;
+    const hint = this.cinematic || this.closeupVisible || this.closeup?.hasCaption ? '' : spot ? `${spot.label} · E / Klick` : WALK_HINT;
     if (hint !== this.hint) { this.hint = hint; this.hud.hint(hint, true); }
-    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && this.isEnabled(marker.spot));
+    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && this.isEnabled(marker.spot));
   }
 }

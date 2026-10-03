@@ -208,6 +208,9 @@ export function installMobileControls(game: Phaser.Game): () => void {
         return control;
       }));
     }
+    // Captions and action rows can move the centered canvas without changing
+    // its dimensions. Refresh its input origin after the DOM has reflowed.
+    if (game.canvas) game.scale.updateBounds();
   }
   const modeChanged = () => { cancel(); dataDirty = true; sync(); };
   const visibilityChanged = () => { if (document.hidden) cancel(); };

@@ -9,8 +9,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1429
+      ]
     },
     "valentus-cast": {
       "file": "assets/sprites/valentus-cast.png",
@@ -21,8 +20,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1429
+      ]
     },
     "valentus-cloak-run": {
       "file": "assets/sprites/valentus-cloak-run.png",
@@ -33,8 +31,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1399
+      ]
     },
     "valentus-cloak-events": {
       "file": "assets/sprites/valentus-cloak-events.png",
@@ -45,8 +42,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1645
+      ]
     },
     "valentus-refuge": {
       "file": "assets/sprites/valentus-refuge.png",
@@ -57,8 +53,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1159
+      ]
     },
     "warrior": {
       "file": "assets/sprites/warrior.png",
@@ -69,8 +64,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1573
+      ]
     },
     "axe": {
       "file": "assets/sprites/axe.png",
@@ -81,8 +75,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1547
+      ]
     },
     "crossbow": {
       "file": "assets/sprites/crossbow.png",
@@ -93,8 +86,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1216
+      ]
     },
     "boy": {
       "file": "assets/sprites/boy.png",
@@ -105,8 +97,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1111
+      ]
     },
     "falke": {
       "file": "assets/sprites/falke.png",
@@ -117,8 +108,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1541
+      ]
     },
     "woman": {
       "file": "assets/sprites/woman.png",
@@ -129,8 +119,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.083
+      ]
     },
     "lia-read": {
       "file": "assets/sprites/lia-read.png",
@@ -141,8 +130,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1229
+      ]
     },
     "lia-walk": {
       "file": "assets/sprites/lia-walk.png",
@@ -153,8 +141,7 @@
       "foot": [
         32,
         60
-      ],
-      "scale": 0.1229
+      ]
     },
     "crt-butterfly": {
       "file": "assets/sprites/crt-butterfly.png",
@@ -254,6 +241,39 @@
         8,
         15
       ]
+    },
+    "lia-hide": {
+      "file": "assets/sprites/lia-hide.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "lia-story-poses": {
+      "file": "assets/sprites/lia-story-poses.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "road-travelers": {
+      "file": "assets/sprites/road-travelers.png",
+      "frameW": 128,
+      "frameH": 64,
+      "cols": 2,
+      "rows": 1,
+      "foot": [
+        64,
+        60
+      ]
     }
   },
   "images": {
@@ -284,7 +304,19 @@
     "bg-farm-dawn": "assets/bg/farm-dawn.png",
     "bg-farm-interior": "assets/bg/farm-interior.png",
     "bg-road-east": "assets/bg/road-east.png",
-    "bg-first-camp": "assets/bg/first-camp.png"
+    "bg-first-camp": "assets/bg/first-camp.png",
+    "cinematic-raid-cover": "assets/cut/cinematic-raid-cover.png",
+    "cinematic-raid-confrontation": "assets/cut/cinematic-raid-confrontation.png",
+    "cinematic-raid-kyra": "assets/cut/cinematic-raid-kyra.png",
+    "cinematic-raid-loss": "assets/cut/cinematic-raid-loss.png",
+    "cinematic-raid-departure": "assets/cut/cinematic-raid-departure.png",
+    "cut-lia-reading": "assets/cut/lia-reading.png",
+    "cut-family-graves": "assets/cut/family-graves.png",
+    "cut-travel-pack": "assets/cut/travel-pack.png",
+    "cut-camp-rest": "assets/cut/camp-rest.png",
+    "cut-camp-capture": "assets/cut/camp-capture.png",
+    "cut-camp-companions": "assets/cut/camp-companions.png",
+    "cut-camp-wake": "assets/cut/camp-wake.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

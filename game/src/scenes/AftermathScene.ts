@@ -70,8 +70,8 @@ export class AftermathScene extends StoryScene {
   private configureFarm() {
     const targets = FARM_DAWN_AREA.targets;
     const uses: Record<string, () => void> = {
-      'grave-mother': () => this.say('Danke, Mutter.'),
-      'grave-father': () => this.say('Ich werde alles tun, um Kyra zu finden.'),
+      'grave-mother': () => this.showDetail('cut-family-graves', 'Danke, Mutter.'),
+      'grave-father': () => this.showDetail('cut-family-graves', 'Ich werde alles tun, um Kyra zu finden.'),
       door: () => {
         if (this.packed() && !this.st.flags.houseClosed) {
           this.st.flags.houseClosed = true;
@@ -128,7 +128,17 @@ export class AftermathScene extends StoryScene {
     for (const [item, count] of items) this.st.inv[item] = (this.st.inv[item] ?? 0) + count;
     this.inventory.refresh(this.st.inv);
     this.refreshProgress();
-    this.say(thought);
+    this.showDetail('cut-travel-pack', thought);
+  }
+
+  /** Packing and farewell share the chapter's single manual caption control. */
+  private showDetail(texture: string, text: string) {
+    if (!this.textures.exists(texture)) { this.say(text); return; }
+    this.say('', 0);
+    this.setLiaPose(texture === 'cut-family-graves' ? 'lia-grieve' : 'lia-pack');
+    this.showCloseup(texture);
+    this.setCloseupText(text);
+    this.setCloseupContinue(() => { this.hideCloseup(); this.setLiaPose(null); }, 'Zurück');
   }
 
   private releasePigs() {

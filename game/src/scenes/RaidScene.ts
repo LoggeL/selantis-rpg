@@ -4,13 +4,13 @@ import { RAID_APPROACH_AREA, RAID_AREA } from '../story/areas/raid';
 import type { Pt } from '../story/types';
 import { state } from '../world/quests';
 import { motionDuration } from '../settings';
-import { FONT } from '../ui';
-import { usesMobileInterface } from '../mobileDialogs';
 
 type Beat = 'approach' | 'hidden' | 'departure' | 'parents' | 'vow' | 'busy';
 
 type ObservationBeat = {
   line: string;
+  shot?: string;
+  shotAfterAction?: boolean;
   speaker?: () => Phaser.GameObjects.Image | Phaser.GameObjects.Sprite | undefined;
   action?: (done: () => void) => void;
 };
@@ -27,13 +27,9 @@ export class RaidScene extends StoryScene {
   private spear?: Phaser.GameObjects.Graphics;
   private dagger?: Phaser.GameObjects.Graphics;
   private browWound?: Phaser.GameObjects.Rectangle;
-  private dialoguePanel?: Phaser.GameObjects.Container;
-  private dialogueText?: Phaser.GameObjects.Text;
-  private continueText?: Phaser.GameObjects.Text;
   private speakerMark?: Phaser.GameObjects.Triangle;
   private nextBeat?: () => void;
   private observation: ObservationBeat[] = [];
-  private dialogueOpen = false;
 
   constructor() { super('raid'); }
 
@@ -42,12 +38,8 @@ export class RaidScene extends StoryScene {
     this.raiders = [];
     this.kyra = undefined;
     this.browWound = undefined;
-    this.dialoguePanel = undefined;
-    this.dialogueText = undefined;
-    this.continueText = undefined;
     this.speakerMark = undefined;
     this.nextBeat = undefined;
-    this.dialogueOpen = false;
     this.data.set({ 'mobile:controls': null, 'mobile:dialogue': '' });
     this.begin(RAID_APPROACH_AREA);
     this.setObjective('In der Böschung links am Weg verstecken.');
@@ -89,17 +81,23 @@ export class RaidScene extends StoryScene {
     this.inventory.close();
     this.cinemaControls(false);
     this.say('', 0);
-    this.lia.stop().play('lia-idle-e');
-    this.tweens.add({ targets: this.lia, x: 104, y: 182, duration: motionDuration(330), onComplete: () => {
-      this.lia.setAlpha(0.72);
-      // The foreground cover stays in the observed shot beside the enlarged farm.
+    // Lia first steps off the road, then visibly lowers herself into the roadside brush.
+    this.lia.play('lia-walk-w');
+    this.tweens.add({ targets: this.lia, x: 96, y: 179, duration: motionDuration(620), onComplete: () => {
       this.cover = this.add.graphics().setDepth(700);
       this.cover.fillStyle(0x344d25, 0.94);
-      for (let x = 87; x <= 120; x += 4) this.cover.fillTriangle(x, 185, x + 3, 185, x + 2, 174 - x % 7);
+      for (let x = 80; x <= 116; x += 4) this.cover.fillTriangle(x, 185, x + 3, 185, x + 2, 174 - x % 7);
       this.areaRoot.add(this.cover);
-      // Transform only the scene art: the HUD and dialogue remain at their original size.
-      this.tweens.add({ targets: this.areaRoot, scaleX: 1.85, scaleY: 1.85, x: -105, y: -158,
-        duration: motionDuration(650), ease: 'Sine.inOut', onComplete: () => this.startObservation() });
+      const hidden = () => {
+        if (this.anims.exists('lia-hidden-e')) this.setLiaPose('lia-hidden-e');
+        else this.lia.stop().play('lia-idle-e');
+        // Hold the actual lowered sprite for a beat before opening the actor close-up.
+        this.time.delayedCall(motionDuration(300), () => this.startObservation());
+      };
+      if (this.anims.exists('lia-hide-e')) {
+        this.lia.once('animationcomplete-lia-hide-e', hidden);
+        this.lia.play('lia-hide-e');
+      } else hidden();
     } });
   }
 
@@ -107,38 +105,11 @@ export class RaidScene extends StoryScene {
     this.data.set('mobile:controls', { directions: [], actions: { E: label }, inventory: false, disabled: !ready });
   }
 
-  private makeDialoguePanel() {
-    this.dialogueOpen = true;
-    if (this.dialoguePanel) { this.dialoguePanel.setVisible(!usesMobileInterface()); return; }
-    const background = this.add.rectangle(320, 300, 600, 64, 0x101b17, 0.96).setStrokeStyle(1, 0xafa083);
-    this.dialogueText = this.add.text(34, 277, '', {
-      fontFamily: FONT, fontSize: '13px', color: '#f4ecd8', wordWrap: { width: 470 }, lineSpacing: 3,
-    });
-    this.continueText = this.add.text(562, 299, '…', {
-      fontFamily: FONT, fontSize: '12px', color: '#e8d5ac', align: 'center',
-    }).setOrigin(0.5);
-    const control = this.add.zone(562, 299, 100, 58).setInteractive({ useHandCursor: true });
-    control.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
-      event.stopPropagation();
-      this.advanceDialogue();
-    });
-    this.dialoguePanel = this.add.container(0, 0, [background, this.dialogueText, this.continueText, control])
-      .setDepth(1010).setVisible(!usesMobileInterface());
-  }
-
-  update(time: number, dt: number) {
-    super.update(time, dt);
-    // Phone captions live below the canvas, at a readable size, without duplication.
-    this.dialoguePanel?.setVisible(this.dialogueOpen && !usesMobileInterface());
-  }
-
   private caption(line: string, speaker?: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite) {
-    this.makeDialoguePanel();
-    this.dialogueText!.setText(line);
-    this.data.set({ 'mobile:dialogue': line, 'mobile:thought': line, 'mobile:thoughtUntil': Number.MAX_SAFE_INTEGER });
+    this.setCloseupText(line);
     this.speakerMark?.destroy();
     this.speakerMark = undefined;
-    if (speaker && speaker !== this.lia) {
+    if (!this.closeupVisible && speaker && speaker !== this.lia) {
       this.speakerMark = this.add.triangle(speaker.x, speaker.y - (speaker === this.mother || speaker === this.father ? 34 : 52), 0, 0, 6, 0, 3, 4, 0xe5cd86).setDepth(720);
       this.areaRoot.add(this.speakerMark);
     }
@@ -150,16 +121,13 @@ export class RaidScene extends StoryScene {
     this.nextBeat = undefined;
     this.setSpots([]);
     this.cinemaControls(false);
-    this.continueText?.setText('…').setAlpha(0.4);
+    this.setCloseupContinue(null);
     next();
   }
 
   private readyToContinue(next: () => void, label = 'Weiter') {
     this.nextBeat = next;
-    this.continueText?.setText(`[E] ${label}`).setAlpha(1);
-    this.cinemaControls(true, label);
-    this.setSpots([{ id: 'observe', at: [this.lia.x, this.lia.y], radius: 18, label,
-      onUse: () => this.advanceDialogue() }]);
+    this.setCloseupContinue(() => this.advanceDialogue(), label);
   }
 
   private startObservation() {
@@ -167,10 +135,10 @@ export class RaidScene extends StoryScene {
     this.setObjective('Im Versteck bleiben und zuhören.');
     // Dialogue is adapted from Roman pp. 13-17; the next line never advances on a timer.
     this.observation = [
-      { line: 'Lia (Gedanke): Dunkelschatten.', speaker: () => this.lia },
-      { line: 'Narbiger: Seht mal, wen ich gefunden habe.', speaker: () => this.raiders[4],
+      { line: 'Lia (Gedanke): Dunkelschatten.', shot: 'cinematic-raid-cover', speaker: () => this.lia },
+      { line: 'Narbiger: Seht mal, wen ich gefunden habe.', shot: 'cinematic-raid-confrontation', speaker: () => this.raiders[4],
         action: done => this.bringKyra(done) },
-      { line: 'Grauhaariger: Ihr sagtet, ihr seid allein. Wer ist sie?', speaker: () => this.leader },
+      { line: 'Grauhaariger: Ihr sagtet, ihr seid allein. Wer ist sie?', shot: 'cinematic-raid-confrontation', speaker: () => this.leader },
       { line: 'Vater: Ich kenne sie nicht. Sie ist nur ein neugieriges Kind. Lasst sie laufen.', speaker: () => this.father },
       { line: 'Grauhaariger: Schon wieder solche Lügen. Ihr Bauern seid doch alle gleich.', speaker: () => this.leader,
         action: done => this.intimidateFather(done) },
@@ -180,18 +148,18 @@ export class RaidScene extends StoryScene {
         action: done => this.inspectHands(done) },
       { line: 'Grauhaariger: Du bist harte Arbeit gewohnt. Der Hauptmann braucht eine Dienstmagd.', speaker: () => this.leader },
       { line: 'Vater: Lasst sie in Ruhe!', speaker: () => this.father },
-      { line: 'Lia (Gedanke): Vater!', speaker: () => this.lia, action: done => this.killFather(done) },
-      { line: 'Lia (Gedanke): Sie fesseln Kyras Hände hinter dem Rücken.', speaker: () => this.lia,
+      { line: 'Lia (Gedanke): Vater!', shot: 'cinematic-raid-loss', speaker: () => this.lia, action: done => this.killFather(done) },
+      { line: 'Lia (Gedanke): Sie fesseln Kyras Hände hinter dem Rücken.', shot: 'cinematic-raid-kyra', shotAfterAction: true, speaker: () => this.lia,
         action: done => this.bindKyra(done) },
       { line: 'Grauhaariger: Wenn ihr euch so allein fühlt, dann folgt ihm ins Jenseits.', speaker: () => this.leader,
         action: done => {
           this.mother.setScale(0.9, 0.8);
           this.tweens.add({ targets: this.leader, x: 260, y: 207, duration: motionDuration(400), onComplete: done });
         } },
-      { line: 'Mutter: Kyra...', speaker: () => this.mother, action: done => this.killMother(done) },
+      { line: 'Mutter: Kyra...', shot: 'cinematic-raid-loss', speaker: () => this.mother, action: done => this.killMother(done) },
       { line: 'Kyra: Ich werde euch töten! Das schwöre ich bei allen Göttern!', speaker: () => this.kyra },
       { line: 'Grauhaariger: Verwahrt sie gut. Der Hauptmann wird sich über unser Geschenk freuen.', speaker: () => this.leader },
-      { line: 'Lia (Gedanke): Sie nehmen Kyra mit.', speaker: () => this.lia, action: done => this.depart(done) },
+      { line: 'Lia (Gedanke): Sie nehmen Kyra mit.', shot: 'cinematic-raid-departure', speaker: () => this.lia, action: done => this.depart(done) },
     ];
     this.showObservationBeat(0);
   }
@@ -201,9 +169,11 @@ export class RaidScene extends StoryScene {
     this.nextBeat = undefined;
     this.setSpots([]);
     this.cinemaControls(false);
+    if (beat.shot && !beat.shotAfterAction) this.showCloseup(beat.shot);
     this.caption(beat.line, beat.speaker?.());
-    this.continueText?.setText('…').setAlpha(0.4);
+    this.setCloseupContinue(null);
     const complete = () => {
+      if (beat.shot && beat.shotAfterAction) this.showCloseup(beat.shot);
       // The arriving/moving speaker may not yet have existed when the line was first displayed.
       this.caption(beat.line, beat.speaker?.());
       this.readyToContinue(() => index + 1 < this.observation.length ? this.showObservationBeat(index + 1) : this.emptyFarm());
@@ -307,10 +277,10 @@ export class RaidScene extends StoryScene {
 
   private emptyFarm() {
     this.beat = 'parents';
+    this.hideCloseup();
+    this.setLiaPose(null);
     this.setCinematic(false);
     this.areaRoot.setScale(1).setPosition(0, 0);
-    this.dialogueOpen = false;
-    this.dialoguePanel?.setVisible(false);
     this.speakerMark?.destroy();
     this.speakerMark = undefined;
     this.data.set({ 'mobile:controls': null, 'mobile:dialogue': '', 'mobile:thought': '' });
@@ -329,8 +299,8 @@ export class RaidScene extends StoryScene {
     this.beat = 'vow';
     this.setLocked(true);
     this.setCinematic(true);
-    this.lia.stop().play('lia-idle-n');
-    this.lia.setScale(1, 0.78);
+    this.setLiaPose('lia-grieve');
+    this.showCloseup('cinematic-raid-loss');
     this.say('', 0);
     this.time.delayedCall(1, () => {
       this.caption('Lia: Ich werde dich finden, Kyra.');
