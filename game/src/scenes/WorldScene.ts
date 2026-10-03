@@ -396,10 +396,12 @@ export class WorldScene extends Phaser.Scene {
     this.ending = true;
     this.busy = true;
     this.clearTarget();
+    this.inventory.setVisible(false);
+    this.data.set('mobile:controls', { directions: [], actions: {}, inventory: false });
     this.lia.play(`lia-idle-${this.facing}`);
     completeHomecoming(this.st);
     this.refreshObjective();
-    this.hud.thought('Nach Hause · abgeschlossen', 1800);
+    this.hud.thought('Da ist unser Hof.', 1800);
     this.time.delayedCall(1800, () => this.hud.thought('Da ist unser Hof. Aber ...', 2200));
     this.time.delayedCall(2900, () => {
       this.objText.setText('Etwas stimmt nicht.');
