@@ -195,7 +195,22 @@ export class InventoryHud {
     for (const id of items) {
       const row = document.createElement('li');
       const label = document.createElement('span');
-      label.textContent = ITEM_NAMES[id];
+      label.className = 'mobile-item-name';
+      const icon = document.createElement('span');
+      icon.className = 'mobile-item-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      if (id === 'kueken') {
+        icon.style.backgroundImage = 'url("/assets/sprites/crt-fledgling.png")';
+        icon.style.backgroundSize = '128px 32px';
+      } else {
+        const story = itemTexture(id) === 'story-items';
+        const columns = story ? 4 : 8;
+        const frame = ITEM_FRAME[id];
+        icon.style.backgroundImage = `url("/assets/ui/${story ? 'story-items' : 'items'}.png")`;
+        icon.style.backgroundSize = story ? '128px 64px' : '256px 32px';
+        icon.style.backgroundPosition = `${-(frame % columns) * 32}px ${-Math.floor(frame / columns) * 32}px`;
+      }
+      label.append(icon, document.createTextNode(ITEM_NAMES[id]));
       const amount = document.createElement('span');
       amount.textContent = `× ${this.inv[id]}`;
       row.append(label, amount);
