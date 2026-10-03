@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { sfx } from '../audio';
-import { motionDuration } from '../settings';
+import { getSettings, motionDuration } from '../settings';
 import { FONT, Hud } from '../ui';
 import { BEAM_LENGTH, cellCenter, inside, type Cell } from '../battle/grid';
 import type { MobileControlProfile } from '../mobileInput';
@@ -177,7 +177,7 @@ export class RefugeScene extends Phaser.Scene {
     // Tränenfilm: grob verpixelt, verschwommen, leicht gewölbt – wird langsam scharf
     const blur = cam.postFX.addBlur(1, 2, 2, 2.6);
     const pix = cam.postFX.addPixelate(10);
-    const lens = cam.postFX.addBarrel(1.08);
+    const lens = getSettings().reducedMotion ? undefined : cam.postFX.addBarrel(1.08);
     cam.fadeIn(1400, 0, 0, 0);
     this.tweens.addCounter({
       from: 0, to: 1, duration: 3300, delay: 700, ease: 'Linear',
@@ -185,16 +185,16 @@ export class RefugeScene extends Phaser.Scene {
         const t = tw.getValue()!, rest = 1 - t;
         pix.amount = Math.floor(Phaser.Math.Linear(10, -1, Math.min(1, t * 1.1)));
         blur.strength = 2.6 * Math.pow(rest, 1.3);
-        lens.amount = 1 + 0.08 * rest + 0.02 * rest * Math.sin(this.time.now / 260);
+        if (lens) lens.amount = getSettings().reducedMotion ? 1 : 1 + 0.08 * rest + 0.02 * rest * Math.sin(this.time.now / 260);
       },
-      onComplete: () => { cam.postFX.remove(pix); cam.postFX.remove(blur); lens.amount = 1; },
+      onComplete: () => { cam.postFX.remove(pix); cam.postFX.remove(blur); if (lens) lens.amount = 1; },
     });
     this.at(4300, () => this.say('Frau', 'Habt keine Angst. Ihr seid in guten Händen.', 2800, 322));
     // Die Sinne schwinden
     this.at(7900, () => {
       const b = cam.postFX.addBlur(1, 2, 2, 0);
       this.tweens.add({ targets: b, strength: 3, duration: 450, ease: 'Quad.in' });
-      this.tweens.add({ targets: lens, amount: 1.12, duration: 450, ease: 'Quad.in' });
+      if (lens && !getSettings().reducedMotion) this.tweens.add({ targets: lens, amount: 1.12, duration: 450, ease: 'Quad.in' });
       cam.fadeOut(450, 0, 0, 0);
     });
     this.at(8500, () => { this.clearWorld(); this.beatEvery = 0; });
@@ -208,8 +208,10 @@ export class RefugeScene extends Phaser.Scene {
     const last = (this.registry.get('lastMagic') as LastMagic) ?? { kind: 'beam', from: { x: 3, y: 4 }, dir: { x: 1, y: 0 } };
     const bg = this.w(this.add.image(0, 0, 'bg-battle').setOrigin(0).setTint(0xa4a8b4));
     bg.preFX?.addColorMatrix().saturate(-1);
-    const lens = cam.postFX.addBarrel(1.22);
-    this.tweens.add({ targets: lens, amount: 0.9, duration: 700 });
+    if (!getSettings().reducedMotion) {
+      const lens = cam.postFX.addBarrel(1.22);
+      this.tweens.add({ targets: lens, amount: 0.9, duration: 700 });
+    }
 
     this.at(140, () => {
       if (last.kind === 'wave') {
@@ -238,7 +240,7 @@ export class RefugeScene extends Phaser.Scene {
       }
       const flash = this.w(this.add.rectangle(320, 180, 640, 360, 0xdfefff, 0.4).setBlendMode(Phaser.BlendModes.ADD).setDepth(60));
       this.tweens.add({ targets: flash, alpha: 0, duration: 220 });
-      cam.shake(240, 0.012);
+      if (!getSettings().reducedMotion) cam.shake(240, 0.012);
     });
     // hart Schwarz
     this.at(760, () => { this.clearWorld(); cam.resetFX(); });

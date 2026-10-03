@@ -14,6 +14,7 @@ import { installSettingsControls } from './settings';
 import { installSceneAudio } from './audio';
 import { installMobileControls } from './mobileControls';
 import { fitGameScale } from './viewport';
+import { installDebugControls } from './debug';
 
 const game = new Phaser.Game({
   type: Phaser.WEBGL,
@@ -29,6 +30,7 @@ const game = new Phaser.Game({
 });
 
 installSettingsControls(game);
+installDebugControls(game);
 installSceneAudio(game);
 const touchMode = matchMedia('(any-pointer: coarse), (max-width: 900px)');
 const setTouchMode = () => { document.documentElement.dataset.touchEnabled = String(touchMode.matches); queueResize(); };

@@ -54,6 +54,18 @@ export function cellAt(px: number, py: number): Cell | null {
 
 export const unitAt = (units: Unit[], c: Cell) => units.find((u) => u.alive && eq(u.cell, c));
 
+/** Keep scripted spawns nearby without placing living units on one another. */
+export function freeCell(units: Unit[], preferred: Cell): Cell {
+  const cells: Cell[] = [];
+  for (let y = 0; y < GRID.rows; y++) for (let x = 0; x < GRID.cols; x++) {
+    const c = { x, y };
+    if (!isRock(c) && !unitAt(units, c)) cells.push(c);
+  }
+  cells.sort((a, b) => manhattan(a, preferred) - manhattan(b, preferred));
+  if (!cells.length) throw new Error('No free battle cell');
+  return cells[0];
+}
+
 /** Erreichbare Felder per Breitensuche; Figuren und Fels blockieren. */
 export function reachable(units: Unit[], from: Cell, range = MOVE_RANGE): Map<string, Cell[]> {
   const paths = new Map<string, Cell[]>([[key(from), [from]]]);

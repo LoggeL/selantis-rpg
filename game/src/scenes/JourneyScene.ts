@@ -90,8 +90,9 @@ export class JourneyScene extends StoryScene {
   /** Anonymous travelers have their own authored atlas, never a named actor frame. */
   private passingTravelers() {
     if (!this.textures.exists('road-travelers')) return;
-    const wagon = this.add.image(515, 193, 'road-travelers', 0).setOrigin(0.5, 60 / 64).setDepth(193);
-    const troupe = this.add.image(580, 199, 'road-travelers', 1).setOrigin(0.5, 60 / 64).setDepth(199);
+    // The traveler atlas faces right; Trapas lies west (decreasing x).
+    const wagon = this.add.image(515, 193, 'road-travelers', 0).setFlipX(true).setOrigin(0.5, 60 / 64).setDepth(193);
+    const troupe = this.add.image(580, 199, 'road-travelers', 1).setFlipX(true).setOrigin(0.5, 60 / 64).setDepth(199);
     this.areaRoot.add([wagon, troupe]);
     const tag = this.add.text(565, 219, 'Gaukler · nach Trapas zum Verbannungsfest', {
       fontFamily: FONT, fontSize: '8px', color: '#ddd1ad', stroke: '#252722', strokeThickness: 2,
@@ -150,7 +151,7 @@ export class JourneyScene extends StoryScene {
       fire: 'Mit Holzreibung ein Feuer entzünden.', meal: 'Etwas Brot und Käse essen.',
       foot: 'Nach den schmerzenden Füßen sehen.', sleep: 'Unter der Wolldecke schlafen.',
       waking: '', slip: 'Während des Streits zur Straße schleichen.', bound: 'Den Fremden zuhören.',
-      star: 'Zum westlichen Stern hinaufsehen.', complete: 'Morgen folgen wir dem Waldweg.',
+      star: 'Zum westlichen Stern hinaufsehen.', complete: 'Ende des Prototyps · Die Reise geht morgen weiter.',
     };
     this.setObjective(objectives[this.campStep]);
     const required: Record<CampStep, string> = {

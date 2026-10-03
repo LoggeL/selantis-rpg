@@ -354,7 +354,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private interact(target?: { id: string; lines: string[] }) {
-    if (this.busy) return;
+    if (this.busy || this.inventory?.isOpen) return;
     const j = target ? undefined : this.nearJump();
     if (j) { this.jump(j.to); return; }
     const p = target ?? this.nearProp();

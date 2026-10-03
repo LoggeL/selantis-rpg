@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { sfx, startBattleAmbience } from '../audio';
 import {
   BEAM_DAMAGE, COLLISION_DAMAGE, Cell, GRID, Push, Unit, WAVE_DAMAGE, WAVE_RANGE,
-  beamCells, boltLine, cellAt, cellCenter, cellFoot, dirFromVector, eq, inside, isRock, key, manhattan,
+  beamCells, boltLine, cellAt, cellCenter, cellFoot, dirFromVector, eq, freeCell, inside, isRock, key, manhattan,
   reachable, unitAt, waveArea, wavePushes,
 } from '../battle/grid';
 import { Hud, FONT } from '../ui';
@@ -189,6 +189,7 @@ export class BattleScene extends Phaser.Scene {
 
   // ---------- Einheiten ----------
   private addUnit(u: Unit) {
+    u.cell = freeCell(this.units, u.cell);
     this.units.push(u);
     const sheet = { valentus: 'valentus-walk', warrior: 'warrior', axe: 'axe', crossbow: 'crossbow', boy: 'boy', falke: 'falke' }[u.kind];
     const f = cellFoot(u.cell);
@@ -290,7 +291,7 @@ export class BattleScene extends Phaser.Scene {
 
   private spawnEnemy(id: string, kind: 'warrior' | 'axe' | 'crossbow', cell: Cell, hp: number) {
     const s = this.addUnit({ id, kind, side: 'enemy', cell, hp, alive: true });
-    const f = cellFoot(cell);
+    const f = cellFoot(this.unit(id).cell);
     s.setPosition(f.x + 160, f.y);
     s.play(kind === 'warrior' ? 'warrior-charge' : kind === 'axe' ? 'axe-walk' : 'crossbow-walk');
     this.tweens.add({
@@ -301,7 +302,7 @@ export class BattleScene extends Phaser.Scene {
 
   private spawnBoyFalling(done: () => void) {
     const s = this.addUnit({ id: 'boy', kind: 'boy', side: 'ally', cell: BOY_CELL, hp: 20, alive: true });
-    const f = cellFoot(BOY_CELL);
+    const f = cellFoot(this.unit('boy').cell);
     s.setPosition(f.x + 50, f.y - 50).play('boy-prone');
     sfx.thud();
     this.tweens.add({
@@ -857,11 +858,11 @@ export class BattleScene extends Phaser.Scene {
   private resolveIntent(id: string, done: () => void) {
     const u = this.unit(id), it = this.intents.get(id)!, s = this.sprite(id);
     if (it.kind === 'advance') {
-      const path = it.path.filter((c) => !unitAt(this.units, c));
+      const path = it.path;
       if (!path.length) return done();
       s.play(u.kind === 'warrior' ? 'warrior-charge' : 'axe-walk');
       const walk = (i: number) => {
-        if (i >= path.length) { s.play(u.kind === 'warrior' ? 'warrior-ready' : 'axe-telegraph'); return done(); }
+        if (i >= path.length || !inside(path[i]) || isRock(path[i]) || unitAt(this.units, path[i])) { s.play(u.kind === 'warrior' ? 'warrior-ready' : 'axe-telegraph'); return done(); }
         u.cell = path[i];
         const f = cellFoot(path[i]);
         this.intentIcons.get(id)?.setX(f.x);

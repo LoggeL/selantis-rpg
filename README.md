@@ -37,6 +37,17 @@ Weitere Karten: `felder`, `waldrand`, `hohlweg`, `hof`. `&debug` oder F1 zeigt i
 
 Lias Einstieg beginnt mit dem kurzen Gespräch mit Kyra unter dem Baum (Roman, PDF-Seiten 9 bis 10). Danach führt eine einzige Hauptquest, "Nach Hause", über markierte Wege zum Hauseingang. Optionale Fundstücke und die Vogelrettung ersetzen dieses Ziel nicht. Die Ankunft schließt die Quest ab und geht in den Überfall über; Kyras Versprechen erklärt den Heimweg, ohne einen Sammelauftrag zu starten. Danach folgen der Morgen am Hof und die erste Reise bis zum gemeinsamen Nachtlager (PDF-Seiten 13 bis 32). Kleine markierte Interaktionen führen weiter; Lia erhält noch keine Kampf- oder Magiefähigkeiten. Die Reiseausrüstung liegt in ihrer Tasche.
 
+## Playtest-Debug
+
+Der kleine **Debug**-Button oben rechts oder **F2** öffnet das öffentlich zugängliche Playtest-Menü; **Escape** schließt es. Währenddessen pausieren Szenen, Tastatur und Touch-Steuerung. Das Menü ist auch auf Smartphones scrollbar und mit Tastatur bedienbar.
+
+- Warps: Schlachtutorial, Verwundung, Flucht, Zuflucht, Lias Einstieg, alle fünf Weltkarten, Überfall, Reisevorbereitung, Straße, Nachtlager und Foltan/Azar. Jeder Warp setzt die nötigen Kapitel-Flags und Reiseausrüstung; spätere Kapitel-Flags werden zurückgesetzt.
+- Flags und Inventar lassen sich kontrolliert ändern (ganze Item-Anzahlen von 0 bis 999). **Änderungen anwenden** startet die aktuelle Szene neu, damit Marker und Ziele den geänderten Zustand übernehmen. Flags dürfen für Grenzfalltests absichtlich widersprüchlich sein.
+- Live-Stats zeigen Szene/Bereich, Position, Phase/Schritt, Bewegungslocks, Fundstellen und besuchte Karten; im Kampf zusätzlich Einheiten-HP, Status und Rasterposition. Das Tutorial hat kein AP-System. Kampfwerte werden nur gelesen, nicht während geskripteter Aktionen verändert.
+- Warps verändern Fortschritt und Reiseausrüstung; laufende Dialoge werden verworfen. **Alles zurücksetzen** braucht eine eigene Bestätigung und führt zum Titel. Das Spiel hat keinen persistenten Spielstand; Einstellungen bleiben erhalten.
+
+Regressionen: `npm test --prefix game`. Browser-Smoke (Chromium, Desktop und Smartphone-Viewport): `cd game && npx playwright install chromium && npx playwright test`. Der Browser-Test startet bei Bedarf den lokalen Vite-Server.
+
 ## Build und Deployment
 
 ```sh

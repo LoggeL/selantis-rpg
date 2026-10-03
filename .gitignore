@@ -34,3 +34,5 @@ konzept-ausfuehrlich.html
 !.env.example
 *.pem
 *.key
+game/test-results/
+game/playwright-report/

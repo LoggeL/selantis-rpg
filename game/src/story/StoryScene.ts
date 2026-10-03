@@ -348,7 +348,7 @@ export class StoryScene extends Phaser.Scene {
       .sort((a, b) => Math.hypot(this.lia.x - a.at[0], this.lia.y - a.at[1]) - Math.hypot(this.lia.x - b.at[0], this.lia.y - b.at[1]))[0];
   }
   private useSpot(spot?: StorySpot) {
-    if (this.leaving || !spot || !this.spots.includes(spot) || !this.isEnabled(spot) || !this.inRange(spot)) return;
+    if (this.leaving || this.inventory?.isOpen || !spot || !this.spots.includes(spot) || !this.isEnabled(spot) || !this.inRange(spot)) return;
     this.clearRoute();
     this.idleLia();
     sfx.select();
