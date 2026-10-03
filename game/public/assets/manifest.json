@@ -221,6 +221,39 @@
         16,
         29
       ]
+    },
+    "story-actors": {
+      "file": "assets/sprites/story-actors.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "raid-horse": {
+      "file": "assets/sprites/raid-horse.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 1,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "story-items": {
+      "file": "assets/ui/story-items.png",
+      "frameW": 16,
+      "frameH": 16,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        8,
+        15
+      ]
     }
   },
   "images": {
@@ -247,7 +280,11 @@
     "bg-map-hof-open": "assets/bg/map-hof-open.png",
     "cut-hand": "assets/cut/hand.png",
     "cut-wound-mono": "assets/cut/wound-mono.png",
-    "cut-wound-red": "assets/cut/wound-red.png"
+    "cut-wound-red": "assets/cut/wound-red.png",
+    "bg-farm-dawn": "assets/bg/farm-dawn.png",
+    "bg-farm-interior": "assets/bg/farm-interior.png",
+    "bg-road-east": "assets/bg/road-east.png",
+    "bg-first-camp": "assets/bg/first-camp.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

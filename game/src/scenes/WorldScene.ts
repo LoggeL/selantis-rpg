@@ -6,7 +6,7 @@ import { Critter } from '../world/critters';
 import { WorldApi, WorldState, objectiveText, pickupText, runAction, state } from '../world/quests';
 import { findWalkingPath, isMapWalkable } from '../world/navigation';
 import { ambientPrefs, motionDuration, subscribeSettings } from '../settings';
-import { InventoryHud, ITEM_FRAME } from '../inventory';
+import { InventoryHud, ITEM_FRAME, itemTexture } from '../inventory';
 
 type Data = { map?: string; from?: string; x?: number; y?: number; facing?: Dir };
 
@@ -385,11 +385,7 @@ export class WorldScene extends Phaser.Scene {
         this.finished = true;
         this.critters = [];
         this.cameras.main.resetFX();
-        this.children.removeAll(true);
-        this.cameras.main.setBackgroundColor('#07080a').fadeIn(800, 0, 0, 0);
-        this.add.text(320, 165, 'Fortsetzung folgt.', { fontFamily: FONT, fontSize: '16px', color: '#d8d2c0' }).setOrigin(0.5);
-        this.add.text(320, 195, 'Ende der Demo · Klick: von vorn', { fontFamily: FONT, fontSize: '9px', color: '#6a665e' }).setOrigin(0.5);
-        this.input.once('pointerdown', () => this.scene.start('title'));
+        this.scene.start('raid');
       });
     });
   }
@@ -434,7 +430,7 @@ export class WorldScene extends Phaser.Scene {
   private addPickup(item: ItemId, x: number, y: number, key: string, ready: boolean) {
     const s = item === 'kueken'
       ? this.add.image(x, y, 'crt-fledgling', 0).setOrigin(0.5, 29 / 32)
-      : this.add.image(x, y, this.textures.exists('items') ? 'items' : 'px', ITEM_FRAME[item]).setOrigin(0.5, 1);
+      : this.add.image(x, y, this.textures.exists(itemTexture(item)) ? itemTexture(item) : 'px', ITEM_FRAME[item]).setOrigin(0.5, 1);
     s.setDepth(y);
     if (!ambientPrefs().reducedMotion) {
       if (item !== 'kueken') this.tweens.add({ targets: s, y: y - 2, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
@@ -526,7 +522,7 @@ export class WorldScene extends Phaser.Scene {
     if (!n || this.st.flags.pigsFed) return;
     this.take('apfel', n);
     for (let i = 0; i < n; i++) {
-      const a = this.add.image(this.lia.x, this.lia.y - 22, this.textures.exists('items') ? 'items' : 'px', ITEM_FRAME.apfel).setDepth(this.lia.y + 1);
+      const a = this.add.image(this.lia.x, this.lia.y - 22, 'items', ITEM_FRAME.apfel).setDepth(this.lia.y + 1);
       const dx = Phaser.Math.Between(-46, 46), dy = Phaser.Math.Between(4, 26);
       this.tweens.add({ targets: a, x: this.lia.x + dx, y: this.lia.y + dy, angle: dx * 8, duration: 900 + i * 120, ease: 'Bounce.out' });
     }

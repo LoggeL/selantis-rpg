@@ -50,8 +50,9 @@ export const hof: MapDef = {
     felder: { at: [596, 40], facing: 's' },
   },
   triggers: [
-    // Vor der Haustür: wer ans Haus herangeht, sieht, was geschehen ist (Ende der Demo)
-    { id: 'hof-ankunft', rect: [172, 176, 158, 62] },
+    // Nur die Haustür löst die Geschichte aus. Der Hofplatz bleibt für
+    // Schweine, Scheune, Karren und Trog zugänglich, auch mit Objektklicks.
+    { id: 'hof-ankunft', rect: [262, 176, 26, 10] },
   ],
   props: [
     { id: 'schweine', at: [154, 198], radius: 20, action: 'feedPigs', lines: ["Die Schweine. Ich hab's Kyra versprochen. Gleich nach dem Abendbrot."] },

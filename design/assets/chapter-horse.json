@@ -1,0 +1,60 @@
+{
+  "id": "raid-horse",
+  "kind": "horse-walk-sprite-atlas",
+  "file": "game/public/assets/sprites/raid-horse.png",
+  "target": {
+    "width": 256,
+    "height": 64,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "columns": 4,
+    "rows": 1,
+    "foot": [
+      32,
+      60
+    ]
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "use_case": "stylized-concept",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Asset type: production medieval RPG riding horse walk/gallop sprite sheet.\nCreate one genuine transparent RGBA PNG, strict 4 COLUMNS x 1 ROW, FOUR equal square cells, overall 4:1 aspect ratio. Exactly one same ordinary BROWN riding HORSE in each cell, EMPTY saddle, NO RIDER OR PEOPLE. Plain brown leather saddle and bridle, no heraldry, no armor, no decorative horse blanket. Consistent 3/4 RPG perspective slightly from above, horse facing LEFT/WEST of screen, front and left flank visible. Four clear simple walking/galloping variations of leg placement left to right; preserve identical head, body, mane, tack and proportions. Grounded natural horse proportions, dark mane/tail, warm muted brown body, darker muzzle, crisp dark brown pixel-outline. Match actual tiny naturally-proportioned pixel characters in the user gameplay baseline and existing Lia sprite. Final logical grid 256x64 with 64x64 cells; horse roughly 48 logical pixels wide by 38-42 logical pixels high, hooves baseline 60, generous transparent gutter. Keep full tail, muzzle, legs and saddle within each cell. One uniform pixel density, flat readable square clusters and limited ~48 muted warm earth colors. No antialiasing, gradients, photorealistic texture, scenery, ground shadow, grid borders, text, watermark or painted checkerboard. Genuine transparent background with clean alpha, no people or additional creatures.",
+    "attempts": 1,
+    "references": [
+      "sources/reference/artstyle/user-pixel-baseline.png",
+      "game/public/assets/sprites/lia-walk.png"
+    ],
+    "selectedRaw": "output/imagegen/raw/chapter-horse/selected.png"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "id": "horse-walk-0"
+    },
+    {
+      "index": 1,
+      "id": "horse-walk-1"
+    },
+    {
+      "index": 2,
+      "id": "horse-walk-2"
+    },
+    {
+      "index": 3,
+      "id": "horse-walk-3"
+    }
+  ],
+  "processing": "Split equal 4x1 source cells. Clean generated alpha using threshold 110, crop each silhouette, resize nearest-neighbor with a single scale 48/460 across all four poses, center horizontally and bottom-align hoof silhouettes at y=60. Quantize generated RGB to 48 colors without dithering and restore clean generated alpha. No creative raster drawing.",
+  "review": {
+    "checked": [
+      "Four consistent left-facing brown horse poses with visibly different leg positions.",
+      "Plain empty brown leather saddle and bridle, no rider, armor or heraldry.",
+      "Frames approximately 48px wide and 38-39px tall; hoof baseline 60.",
+      "Normalized atlas visually inspected at nearest-neighbor 5x enlargement."
+    ],
+    "knownLimits": [
+      "Four poses support a simple walk/gallop loop rather than a biomechanically complete horse animation."
+    ]
+  }
+}

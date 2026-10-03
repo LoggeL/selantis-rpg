@@ -16,7 +16,9 @@ export function isMapWalkable(map: MapDef, x: number, y: number): boolean {
 }
 
 export function clearWalkingLine(a: Pt, b: Pt, walkable: (x: number, y: number) => boolean): boolean {
-  const steps = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 3));
+  // A long planned segment must not miss the narrow foot collision at a
+  // blocker corner that the shorter per-frame movement subsequently detects.
+  const steps = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 0.5));
   for (let i = 0; i <= steps; i++) {
     const t = i / steps;
     if (!walkable(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)) return false;

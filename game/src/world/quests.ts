@@ -19,6 +19,8 @@ export const APPLES_NEEDED = 3;
 
 export const ITEM_NAMES: Record<ItemId, string> = {
   apfel: 'Fallobst', feder: 'Feder', kupfer: 'Kupferstück', kornblume: 'Kornblume', kueken: 'Vogeljunges',
+  proviant: 'Reiseproviant', wasserschlauch: 'Wasserschlauch', dolch: 'Familientolch', silber: 'Silbermünze',
+  reisezeug: 'Mantel, Decke und Schuhe', heilzeug: 'Tinktur und Leinen', 'buch-kraeuter': 'Cronibus Kräuterlexikon', 'buch-alana': 'Alanas Geschichte',
 };
 
 /** Was die Szene den Quests zur Verfügung stellt. */
@@ -101,5 +103,6 @@ export function pickupText(item: ItemId, st: WorldState): string {
     case 'kupfer': return 'Ein Kupferstück! Hat Vater das auf dem Weg zum Markt verloren?';
     case 'feder': return 'Eine Feder. Fast, als hätte sie Danke gesagt.';
     case 'kueken': return 'Ganz vorsichtig … Du bist aus dem Nest gefallen, was?';
+    default: return ITEM_NAMES[item];
   }
 }

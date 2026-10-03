@@ -1,0 +1,89 @@
+{
+  "id": "story-actors",
+  "kind": "story-actor-sprite-atlas",
+  "file": "game/public/assets/sprites/story-actors.png",
+  "target": {
+    "width": 256,
+    "height": 128,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "columns": 4,
+    "rows": 2,
+    "foot": [
+      32,
+      60
+    ]
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "use_case": "stylized-concept",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Asset type: production game sprite atlas, 8 single-pose story actors for medieval browser RPG.\nCreate one genuine transparent RGBA PNG sprite sheet in STRICT 4 COLUMNS x 2 ROWS, 8 equally sized square cells, ROW-MAJOR order below. Overall aspect 2:1. No labels, grid lines, panel borders, shadows on ground or scenery. Each isolated whole actor centered in its cell, feet at same baseline 94% down, generous transparent padding. Design for final logical 256x128 pixels, each 64x64 cell: most standing adults ONLY ~40 logical pixels tall, narrow natural adult proportions, NOT oversized 60px tall. Pixel art with crisp square clusters, dark muted brown outlines, limited ~48 earth/forest colors. Match tiny naturally proportioned characters and muted warm pixels of the existing Lia sprite and user gameplay baseline. Consistent 3/4 RPG view looking down slightly, show front and right. Eight recognizable separate actors; exactly one character per cell, no animations.\nTOP ROW left to right:\n0 KYRA healthy: long loose nut-brown hair, plain ankle-length dirty beige sleeveless dress, thin leather shoes, calm standing. Film reference is for dress and loose hair silhouette, not photo rendering.\n1 SAME KYRA: identical hair, beige dress, proportions and face; wrists tied together with simple rope in FRONT, dignified defiant posture, tiny dark-red eyebrow mark, no gore or chains.\n2 farm RAID LEADER: older grey-haired man, long charcoal-dark cloak secured by small GOLD brooch, holds one ordinary straight sword low. Anonymous human, no magic, no elaborate invented heraldry.\n3 MOTHER: brown hair, modest white/cream farmer blouse and long brown skirt, kneeling quietly. Same adult scale but shorter kneeling silhouette, no armor.\nBOTTOM ROW left to right:\n4 FATHER: plain muted brown farmer tunic and trousers, kneeling quietly. No military armor, no weapons.\n5 FOLTAN: tall THIN man, long brown hair, goatee, large leather BERET, divided muted BLUE and YELLOW tabard, sword belt, crossbow strapped behind back. Do not replace him with generic elf or armored knight. Slightly taller ~43 logical px.\n6 AZAR: SHORT STOUT man, short BLACK beard, RED cloth cap, belted YELLOW tunic/robe, curved sword at belt. Clearly broad stocky silhouette, ~37 logical px.\n7 LIA traveling: reddish-blond hair tied behind, white blouse, brown skirt, GREEN rain cloak, small brown leather bag, leather shoes. No staff, weapon, magic, armor.\nCritical: all 8 have SAME pixel density and baseline; natural heights as specified. Transparent gutters separating cells. No extra objects beyond listed costumes and weapons. No text, watermark, checkerboard painted into image, backgrounds, glow, antialias gradients, vector look or chibi proportions. Preserve genuine transparent alpha.",
+    "correctionPrompt": "Precise-object-edit of this existing transparent 4 columns x 2 rows sprite atlas. Change ONLY top-row SECOND cell (frame 1), the captive Kyra. Move her wrists and hands BEHIND HER BACK so they are no longer visibly bound in front; her upper arms naturally close to her sides with elbows angled back, tied wrists hidden behind waist/body. Preserve her same defiant posture, same long hair, same beige dress, same face and slight eyebrow wound, same natural adult scale and same foot baseline. Preserve all other SEVEN sprite cells exactly, identical characters, identities, costumes, poses, sizes and locations. Do not move or repaint any other sprite. Preserve 4x2 sheet geometry, genuine transparent alpha background, crisp pixel style, no text, no scenery or shadows. The only correction is captive Kyra wrists BEHIND back, as required by the novel.",
+    "attempts": 2,
+    "references": [
+      "sources/reference/artstyle/user-pixel-baseline.png",
+      "game/public/assets/sprites/lia-walk.png",
+      "sources/frames/characters-film/kyra-farm-ep01-04m07s.jpg"
+    ],
+    "selectedRaw": "output/imagegen/raw/chapter-actors/selected.png"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "id": "kyra-healthy",
+      "height": 40
+    },
+    {
+      "index": 1,
+      "id": "kyra-captive",
+      "height": 40
+    },
+    {
+      "index": 2,
+      "id": "raid-leader",
+      "height": 42
+    },
+    {
+      "index": 3,
+      "id": "mother-kneeling",
+      "height": 28
+    },
+    {
+      "index": 4,
+      "id": "father-kneeling",
+      "height": 30
+    },
+    {
+      "index": 5,
+      "id": "foltan",
+      "height": 43
+    },
+    {
+      "index": 6,
+      "id": "azar",
+      "height": 37
+    },
+    {
+      "index": 7,
+      "id": "lia-travel",
+      "height": 40
+    }
+  ],
+  "processing": "Split equal 4x2 source cells. Clean generated alpha using threshold 110, crop each opaque silhouette, resize using nearest-neighbor to listed natural actor heights. Align lower-foot midpoint to x=32 and bottom to y=60. Quantize generated RGB to 48 colors without dithering and restore clean generated alpha. No creative raster drawing or added outlines.",
+  "review": {
+    "checked": [
+      "All eight indices and intended costume silhouettes present.",
+      "Corrected captive Kyra has hands behind her body.",
+      "Farmer parents kneel in plain clothing.",
+      "Foltan remains tall/slender with beret and blue/yellow tabard; Azar remains short/stout in yellow and red.",
+      "Lia has green cloak and satchel, no weapon or staff.",
+      "Normalized atlas visually inspected at nearest-neighbor 5x enlargement."
+    ],
+    "knownLimits": [
+      "Fine facial detail, eyebrow wound, wrist rope and crossbow mechanisms cannot be reliably resolved at 40px character height.",
+      "Costume colors are quantized, so dark blue tabard can appear near charcoal at tiny runtime scale."
+    ]
+  }
+}

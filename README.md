@@ -25,8 +25,13 @@ WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E int
 | `?scene=refuge` | Zuflucht |
 | `?scene=lia` | Lias Einstieg |
 | `?scene=world&map=wiese` | Freie Erkundung |
+| `?scene=raid` | Überfall auf den Hof und Kyras Entführung |
+| `?scene=aftermath` | Abschied, Reisevorbereitung und Aufbruch |
+| `?scene=journey` | Erste Reise, Nachtlager, Foltan und Azar |
 
 Weitere Karten: `felder`, `waldrand`, `hohlweg`, `hof`. `&debug` oder F1 zeigt in der Erkundung Kollisionen und Ausgänge.
+
+An der Haustür geht die Erkundung in den Überfall über. Danach folgen der Morgen am Hof und die erste Reise bis zum gemeinsamen Nachtlager. Der Roman bestimmt die Handlung (PDF-Seiten 13 bis 32). Kleine markierte Interaktionen führen weiter; Lia erhält noch keine Kampf- oder Magiefähigkeiten. Die Reiseausrüstung liegt in ihrer Tasche.
 
 ## Build und Deployment
 

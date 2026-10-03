@@ -418,6 +418,7 @@ export function startAmbient(scene: Phaser.Scene, kind: AmbientKind): () => void
 export function installSceneAudio(game: Phaser.Game): () => void {
   const kinds: Record<string, AmbientKind> = {
     battle: 'battle', break: 'flight', flight: 'flight', refuge: 'refuge', lia: 'exploration', world: 'exploration',
+    raid: 'flight', aftermath: 'refuge', journey: 'exploration',
   };
   const sync = () => {
     const scenes = game.scene.getScenes(false).filter((s) => kinds[s.sys.settings.key] && (game.scene.isActive(s.sys.settings.key) || game.scene.isPaused(s.sys.settings.key)));

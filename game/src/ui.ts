@@ -29,7 +29,7 @@ export class Hud {
     this.abilityBar = scene.add.container(320, 330).setDepth(1000).setScrollFactor(0);
     this.hintText = scene.add.text(320, 352, '', { fontFamily: FONT, fontSize: '10px', color: '#e8e2d0', stroke: '#0d0f12', strokeThickness: 3 })
       .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
-    this.thoughtText = scene.add.text(320, 70, '', { fontFamily: FONT, fontSize: '11px', color: '#cfe0f4', stroke: '#0d0f12', strokeThickness: 3, fontStyle: 'italic' })
+    this.thoughtText = scene.add.text(320, 70, '', { fontFamily: FONT, fontSize: '11px', color: '#cfe0f4', stroke: '#0d0f12', strokeThickness: 3, fontStyle: 'italic', wordWrap: { width: 520 }, align: 'center' })
       .setOrigin(0.5).setDepth(1000).setAlpha(0).setScrollFactor(0);
     // A tiny corner control; keyboard O is available even in scenes without a HUD.
     const gear = scene.add.graphics().setScrollFactor(0).setDepth(1001);

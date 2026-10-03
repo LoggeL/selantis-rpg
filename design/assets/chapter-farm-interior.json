@@ -1,0 +1,100 @@
+{
+  "id": "bg-farm-interior",
+  "kind": "background",
+  "file": "game/public/assets/bg/farm-interior.png",
+  "files": {
+    "raw": "output/imagegen/raw/chapter-farm-interior/farm-interior-v2.png",
+    "attempts": [
+      "output/imagegen/raw/chapter-farm-interior/farm-interior-v1.png",
+      "output/imagegen/raw/chapter-farm-interior/farm-interior-v2.png"
+    ]
+  },
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "skill": "imagegen",
+    "attempts": 2,
+    "selected_attempt": 2,
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: stylized-concept.\nAsset type: bg-farm-interior, EMPTY gameplay interior.\nReferences: user-pixel-baseline.png is binding style; map-hof-open.png supplies the modest rustic timber/plaster farmhouse materials and colors. Create the interior of this single modest one-room farmer house as an elevated 3/4 RPG cutaway with NO roof or leading roof blocking view. Timber-framed plaster walls at top and sides; broad connected walkable floor from x70..580,y120..330 (22%..92% width,33%..92% height), earth/wood/flagstone flooring, warm wood and subdued morning window light, quiet somber intact home. All required props are peripheral and their positions FIXED: bread, cheese and bacon on food counter centered (475,135); water pitcher and waterskin close to (460,175); plain right kitchen cupboard with false bottom closed centered (540,218); small tincture flask and folded linen on left wall shelf (90,150); stool carrying folded GREEN raincoat, leather shoes and blanket at (115,220); small plain table with TWO CLOSED books centered (300,155), visible feet and clear approach, table footprint only 65x40. Exit open doorway at bottom wall centered (300,310), unobstructed approach from center. Broad floor remains empty with clear routes between these interaction anchors. No extra beds or central obstacles, no dead people or remains, no signs, inscriptions, symbols or extra entrances. Camera must show enough tops of furniture for gameplay and visible front faces, same flat elevated view as farm reference. Style and camera: EXACT same grounded crisp dense pixel-art game world as reference images, elevated 3/4 top-down RPG camera, visible ground plane, consistent square clusters and dark restrained outlines. Uniform logical pixel size. 16:9 full-bleed landscape; planned gameplay canvas 640x360. No people, corpses, blood, animals, UI, HUD, letters, labels, text, numbers, watermark, heraldry, magic, neon, bloom, blur, painterly brush strokes or sky-dominated perspective. Never copy characters or UI from reference. Empty game stage. Coordinates below use the FINAL 640x360 canvas; scale proportionally if rendered larger."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Use case: precise-object-edit. Edit supplied640x360 pixel RPG house. Preserve style, exact timber/plaster cutaway walls and doorway, floor texture, palette, lighting and broad walkable center. TARGETED reposition ONLY existing furnishings to these normalized canvas positions, NOT raw pixels: countertop food bread cheese bacon center74%width,37.5%height(475,135); water pitcher and leather waterskin center72%width,48.6%height(460,175), on a small shallow shelf along right room edge; large closed right cupboard center84.4%width,60.6%height(540,218); left wall tincture+linen shelf center14%width,41.7%height(90,150); stool folded green coat blanket shoes center18%width,61.1%height(115,220); small table with two closed books center47%width,43%height(300,155). Objects currently cluster too high. Shift them DOWN into stated positions without enlarging. Floor y120..330 remains connected, open unobstructed center and approaches. Keep cupboard and shelves perimeter, no central new obstacles. Open EXIT remains bottomcenter47%width86%height. Uniform detailed pixel art, elevated3/4 view. No people/remains/animals/HUD/text/letters/blur/bloom.16:9 full bleed."
+      }
+    ],
+    "references": [
+      "sources/reference/artstyle/user-pixel-baseline.png",
+      "game/public/assets/bg/map-hof-open.png"
+    ],
+    "raw_dimensions": [
+      1672,
+      941
+    ],
+    "reference_roles": {
+      "original_references": "First call style and composition inputs listed under references; farm-dawn first image was edit target.",
+      "correction_inputs": "Subsequent calls used previous normalized640x360 project PNG as single edit target."
+    }
+  },
+  "processing": {
+    "method": "matching build_prologue_assets.py fit: aspect-fill resize LANCZOS, centered crop, MEDIANCUT no dither, optimized indexed PNG",
+    "palette_colors": 64
+  },
+  "self_review": {
+    "status": "accepted_with_known_limitations",
+    "visual_review_performed": true,
+    "normalized_image_reviewed": true,
+    "scene_composition": {
+      "result": "pass_visual",
+      "details": "Timber/plaster one-room cutaway, quiet morning light, connected empty center, two closed books, food/water, tincture/linen, coat/shoes and cupboard, open bottom doorway."
+    },
+    "camera_and_style": {
+      "result": "pass_visual",
+      "details": "Elevated three-quarter RPG camera, dense grounded clusters and dark natural palette match accepted farm/forest references visually. Exact logical pixel scale not mathematically established."
+    },
+    "empty_stage": {
+      "result": "pass_visual",
+      "details": "No people, animals, human remains, blood, UI, text, letters, heraldry or magic effects observed."
+    },
+    "rendered_anchors_640x360": {
+      "tincture_linen": [
+        110,
+        145
+      ],
+      "coat_shoes": [
+        110,
+        216
+      ],
+      "books_table": [
+        289,
+        163
+      ],
+      "food_counter": [
+        431,
+        138
+      ],
+      "water": [
+        518,
+        140
+      ],
+      "cupboard": [
+        551,
+        201
+      ],
+      "doorway": [
+        310,
+        306
+      ]
+    },
+    "known_limitations": [
+      "Generated prop placements approximate prompt anchors, especially water/food. Scene worker was supplied measured visible anchors for interaction and obstacle alignment.",
+      "False bottom is closed and therefore not visually distinguishable from ordinary cupboard."
+    ]
+  },
+  "compressed_bytes": 125934
+}

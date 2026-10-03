@@ -6,6 +6,9 @@ import { FlightScene } from './scenes/FlightScene';
 import { RefugeScene } from './scenes/RefugeScene';
 import { LiaScene } from './scenes/LiaScene';
 import { WorldScene } from './scenes/WorldScene';
+import { RaidScene } from './scenes/RaidScene';
+import { AftermathScene } from './scenes/AftermathScene';
+import { JourneyScene } from './scenes/JourneyScene';
 import { SettingsScene } from './scenes/SettingsScene';
 import { installSettingsControls } from './settings';
 import { installSceneAudio } from './audio';
@@ -19,7 +22,7 @@ const game = new Phaser.Game({
   roundPixels: true,
   backgroundColor: '#07080a',
   scale: { mode: Phaser.Scale.NONE, width: 640, height: 360 },
-  scene: [BootScene, TitleScene, BattleScene, new BreakScene(), new FlightScene(), new RefugeScene(), new LiaScene(), new WorldScene(), new SettingsScene()],
+  scene: [BootScene, TitleScene, BattleScene, new BreakScene(), new FlightScene(), new RefugeScene(), new LiaScene(), new WorldScene(), new RaidScene(), new AftermathScene(), new JourneyScene(), new SettingsScene()],
 });
 
 installSettingsControls(game);
