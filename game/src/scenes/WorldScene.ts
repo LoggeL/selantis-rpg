@@ -159,6 +159,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private objective(text: string) {
+    this.data.set('mobile:objective', text);
     this.add.text(632, 10, text, { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
       .setOrigin(1, 0).setDepth(1000);
   }
@@ -168,6 +169,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   update(_t: number, dt: number) {
+    if (this.inventory?.isOpen) return;
     if (this.finished) return;
     dt = Math.min(dt, 50);
     this.shadow.setPosition(this.lia.x, this.lia.y - 1).setDepth(this.lia.y - 1);
@@ -474,7 +476,7 @@ export class WorldScene extends Phaser.Scene {
     this.inventory.refresh(this.st.inv);
   }
 
-  private refreshObjective() { this.objText?.setText(objectiveText(this.st)); }
+  private refreshObjective() { const text = objectiveText(this.st); this.objText?.setText(text); this.data.set('mobile:objective', text); }
 
   private showNest(withChick: boolean, at?: Pt) {
     const p = at ?? this.map.props.find((x) => x.action === 'returnChick')!.at;

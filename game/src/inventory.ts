@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { FONT } from './ui';
 import type { ItemId } from './world/maps';
 import { ITEM_NAMES } from './world/quests';
+import { createMobileDialog, usesMobileInterface } from './mobileDialogs';
 
 export const ITEM_FRAME: Record<ItemId, number> = {
   apfel: 0, feder: 2, kupfer: 3, kornblume: 4, kueken: -1,
@@ -30,6 +31,8 @@ export class InventoryHud {
   private slotFrames = new Map<ItemId, Phaser.GameObjects.Rectangle>();
   private selected?: ItemId;
   private inv: Partial<Record<ItemId, number>> = {};
+  private mobileDialog?: ReturnType<typeof createMobileDialog>;
+  get isOpen() { return this.panel.visible; }
 
   constructor(private scene: Phaser.Scene, private onOpen: () => void) {
     this.frame = scene.add.rectangle(0, 0, 30, 30, 0x141b1a).setOrigin(0).setStrokeStyle(1, 0x8a7a5a);
@@ -67,9 +70,14 @@ export class InventoryHud {
     const dismiss = () => this.close();
     bagKey.on('down', toggle);
     escape.on('down', dismiss);
+    scene.events.on('mobile-inventory-toggle', toggle);
+    this.publish();
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       bagKey.off('down', toggle);
       escape.off('down', dismiss);
+      scene.events.off('mobile-inventory-toggle', toggle);
+      this.mobileDialog?.destroy();
+      this.mobileDialog = undefined;
     });
   }
 
@@ -123,24 +131,67 @@ export class InventoryHud {
     this.badge.setText(`${total}`).setVisible(total > 0);
     if (this.selected && !inv[this.selected]) this.selected = undefined;
     this.refreshLabel();
+    this.publish();
+    this.renderMobileItems();
   }
 
   private refreshLabel() {
     this.label.setText(this.selected ? ITEM_NAMES[this.selected] : [...ORDER, ...TRAVEL_ORDER].some(item => this.inv[item]) ? '' : 'Noch leer.');
   }
 
-  private toggle() {
+  toggle() {
     if (this.panel.visible) { this.close(); return; }
     this.onOpen();
     this.panel.setVisible(true);
     this.tooltip.setVisible(false);
     this.frame.setStrokeStyle(1, 0xd6ad59);
+    this.scene.input.keyboard?.resetKeys();
+    if (usesMobileInterface()) {
+      this.mobileDialog = createMobileDialog('Tasche', () => this.close());
+      this.renderMobileItems();
+    }
+    this.publish();
   }
 
   close() {
     this.panel.setVisible(false);
     this.tooltip.setVisible(false);
     this.frame.setStrokeStyle(1, 0x8a7a5a);
+    this.mobileDialog?.destroy();
+    this.mobileDialog = undefined;
+    this.publish();
+  }
+
+  private publish() {
+    this.scene.data.set('mobile:inventory', {
+      open: this.panel.visible,
+      items: [...ORDER, ...TRAVEL_ORDER].filter(id => (this.inv[id] ?? 0) > 0)
+        .map(id => ({ id, name: ITEM_NAMES[id], count: this.inv[id]! })),
+    });
+  }
+
+  private renderMobileItems() {
+    if (!this.mobileDialog) return;
+    const content = this.mobileDialog.content;
+    content.replaceChildren();
+    const items = [...ORDER, ...TRAVEL_ORDER].filter(id => (this.inv[id] ?? 0) > 0);
+    if (!items.length) {
+      const empty = document.createElement('p');
+      empty.textContent = 'Deine Tasche ist noch leer.';
+      content.append(empty);
+      return;
+    }
+    const list = document.createElement('ul');
+    for (const id of items) {
+      const row = document.createElement('li');
+      const label = document.createElement('span');
+      label.textContent = ITEM_NAMES[id];
+      const amount = document.createElement('span');
+      amount.textContent = `× ${this.inv[id]}`;
+      row.append(label, amount);
+      list.append(row);
+    }
+    content.append(list);
   }
 
   /** HUD clicks must never become walking targets underneath the panel. */

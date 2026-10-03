@@ -45,10 +45,13 @@ export class RefugeScene extends Phaser.Scene {
   private follow = false;
   private walkLens: number[] = [];
   private inspected = new Set<string>();
+  private risePointer?: Phaser.Input.Pointer;
 
   constructor() { super('refuge'); }
 
   create() {
+    this.risePointer = undefined;
+    this.data.set('mobile:dialogue', '');
     this.phase = 'cine'; this.cine = []; this.hud = undefined; this.v = undefined; this.blanket = undefined; this.bar = undefined;
     this.inspected.clear();
     this.skipHeld = 0; this.holding = 0; this.step = 0; this.stepping = false; this.idleMs = 0;
@@ -74,9 +77,16 @@ export class RefugeScene extends Phaser.Scene {
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
       if (this.hud?.hitTest(p)) return;
       if (this.inspectRoom(p.worldX, p.worldY)) return;
+      if (this.phase === 'rise') this.risePointer = p;
       this.tryStep();
       this.raiseHand();
     });
+    const releasePointer = (pointer: Phaser.Input.Pointer) => { if (pointer === this.risePointer) this.risePointer = undefined; };
+    this.input.on('pointerup', releasePointer);
+    this.input.on('pointerupoutside', releasePointer);
+    const resetPointer = () => { this.risePointer = undefined; };
+    this.events.on('pause', resetPointer);
+    this.events.once('shutdown', () => { this.events.off('pause', resetPointer); this.risePointer = undefined; });
 
     this.voices();
   }
@@ -87,6 +97,9 @@ export class RefugeScene extends Phaser.Scene {
 
   /** Untertitel mit kleinem Sprechernamen davor. */
   private say(who: string, line: string, ms: number, y: number) {
+    const caption = `${who.toUpperCase()}: ${line}`;
+    this.data.set('mobile:dialogue', caption);
+    this.time.delayedCall(ms + 600, () => { if (this.data.get('mobile:dialogue') === caption) this.data.set('mobile:dialogue', ''); });
     const txt = this.u(this.add.text(0, 0, line, {
       fontFamily: FONT, fontSize: '11px', color: '#e8e2d0', stroke: '#0d0f12', strokeThickness: 3, wordWrap: { width: 400 },
     }));
@@ -223,6 +236,7 @@ export class RefugeScene extends Phaser.Scene {
 
   // ---------- 4: erstes wirkliches Erwachen ----------
   private wake() {
+    this.data.set('mobile:dialogue', '');
     this.cine.forEach((t) => t.remove(false));
     this.cine = [];
     this.phase = 'wake';
@@ -259,7 +273,7 @@ export class RefugeScene extends Phaser.Scene {
   // ---------- 5: Aufstehen ----------
   private rise(dt: number) {
     const v = this.v!;
-    if (!this.keys.E.isDown && !this.input.activePointer.isDown) { v.x = Math.round(v.x); return; }
+    if (!this.keys.E.isDown && !this.risePointer?.isDown) { v.x = Math.round(v.x); return; }
     this.holding += dt;
     const p = Phaser.Math.Clamp(this.holding / 2400, 0, 1);
     this.drawBar(p, 0x9cc4ec);

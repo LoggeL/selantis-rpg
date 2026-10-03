@@ -73,6 +73,7 @@ export class LiaScene extends Phaser.Scene {
   constructor() { super('lia'); }
 
   create() {
+    this.data.set('mobile:bookmarks', []);
     this.phase = 'intro'; this.pos = { ...SIT }; this.facing = 's'; this.walked = false;
     this.stepTimer = 0; this.stuckMs = 0; this.canClose = false;
     this.ghosts = []; this.hud = undefined; this.marker = undefined;
@@ -108,6 +109,10 @@ export class LiaScene extends Phaser.Scene {
     this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E') as Record<string, Phaser.Input.Keyboard.Key>;
     const use = () => this.phase === 'free' ? this.interact(this.nearestDetail()) : this.closeBook();
     this.keys.E.on('down', use);
+    const chooseBookmark = (kind: Bookmark) => {
+      if (this.phase === 'free' && this.found.has(kind)) { this.setBookmark(kind); sfx.select(); }
+    };
+    this.events.on('mobile-bookmark', chooseBookmark);
     // Maus: Klick schließt beim Lesen das Buch, in der freien Phase läuft Lia zum Cursor.
     const click = (ptr: Phaser.Input.Pointer) => {
       if (this.phase === 'free') {
@@ -126,6 +131,7 @@ export class LiaScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.keys.E.off('down', use);
       this.input.off('pointerdown', click);
+      this.events.off('mobile-bookmark', chooseBookmark);
     });
   }
 
@@ -467,6 +473,7 @@ export class LiaScene extends Phaser.Scene {
     for (const [name, button] of Object.entries(this.bookmarkButtons)) {
       (button!.list[0] as Phaser.GameObjects.Rectangle).setStrokeStyle(name === kind ? 2 : 1, name === kind ? 0xe5d29a : 0x8a7a5a);
     }
+    this.data.set('mobile:bookmarks', [...this.found].map(id => ({ id, label: id === 'leaf' ? 'Blatt' : 'Blüte', selected: id === kind })));
   }
 
   private updateDetails() {

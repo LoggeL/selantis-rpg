@@ -49,6 +49,7 @@ export class FlightScene extends Phaser.Scene {
   private routeMarker!: Phaser.GameObjects.Ellipse;
   private holdBack?: Phaser.GameObjects.Rectangle;
   private pointerHolding = false;
+  private holdPointer?: Phaser.Input.Pointer;
   private hintState = '';
   private skipHeld = 0;
   private skipBar!: Phaser.GameObjects.Rectangle;
@@ -58,6 +59,7 @@ export class FlightScene extends Phaser.Scene {
   constructor() { super('flight'); }
 
   create() {
+    this.holdPointer = undefined;
     startAmbient(this, 'flight');
     this.busy = false; this.nextStation = 0; this.dist = 0; this.ended = false; this.holding = 0;
     this.safeFloor = 0; this.railTarget = undefined; this.pointerHolding = false;
@@ -130,7 +132,14 @@ export class FlightScene extends Phaser.Scene {
     this.keys.R.on('down', () => this.glimmer());
     this.keys.E.on('down', () => this.onInteract());
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => this.onPointer(p));
-    this.input.on('pointerup', () => { this.pointerHolding = false; });
+    const releaseHold = (pointer: Phaser.Input.Pointer) => {
+      if (pointer === this.holdPointer) { this.pointerHolding = false; this.holdPointer = undefined; }
+    };
+    this.input.on('pointerup', releaseHold);
+    this.input.on('pointerupoutside', releaseHold);
+    const resetHold = () => { this.pointerHolding = false; this.holdPointer = undefined; };
+    this.events.on('pause', resetHold);
+    this.events.once('shutdown', () => { this.events.off('pause', resetHold); resetHold(); });
 
     this.time.delayedCall(600, () => sfx.horn());
     this.time.delayedCall(1500, () => this.hud.thought('Sie werden mich finden. Ich muss weiter.', 2600));
@@ -213,7 +222,7 @@ export class FlightScene extends Phaser.Scene {
     // Haltestationen: Fortschritt beim Halten von E
     if (st && st.holdMs && this.dist >= st.at - 1) {
       this.v.anims.stop();
-      if (this.keys.E.isDown || (this.pointerHolding && this.input.activePointer.isDown)) {
+      if (this.keys.E.isDown || (this.pointerHolding && this.holdPointer?.isDown)) {
         this.holding += dt;
         this.drawHold(this.holding / st.holdMs);
         if (this.holding >= st.holdMs) this.finishStation(st);
@@ -298,7 +307,7 @@ export class FlightScene extends Phaser.Scene {
     // An der Bachstation zählt ein Klick wie E
     const nearFeet = Phaser.Math.Distance.Between(p.worldX, p.worldY, this.v.x, this.v.y) < 64;
     if (st && st.kind === 'jump' && this.dist >= st.at - 1 && nearFeet) { this.onInteract(); return; }
-    if (st && st.holdMs && this.dist >= st.at - 1) { this.pointerHolding = nearFeet; return; }
+    if (st && st.holdMs && this.dist >= st.at - 1) { this.pointerHolding = nearFeet; this.holdPointer = nearFeet ? p : undefined; return; }
     this.railTarget = this.nearestDist(p.worldX, p.worldY);
   }
 

@@ -12,6 +12,8 @@ import { JourneyScene } from './scenes/JourneyScene';
 import { SettingsScene } from './scenes/SettingsScene';
 import { installSettingsControls } from './settings';
 import { installSceneAudio } from './audio';
+import { installMobileControls } from './mobileControls';
+import { fitGameScale } from './viewport';
 
 const game = new Phaser.Game({
   type: Phaser.WEBGL,
@@ -20,6 +22,7 @@ const game = new Phaser.Game({
   height: 360,
   pixelArt: true,
   roundPixels: true,
+  input: { activePointers: 3 },
   backgroundColor: '#07080a',
   scale: { mode: Phaser.Scale.NONE, width: 640, height: 360 },
   scene: [BootScene, TitleScene, BattleScene, new BreakScene(), new FlightScene(), new RefugeScene(), new LiaScene(), new WorldScene(), new RaidScene(), new AftermathScene(), new JourneyScene(), new SettingsScene()],
@@ -27,14 +30,30 @@ const game = new Phaser.Game({
 
 installSettingsControls(game);
 installSceneAudio(game);
+const touchMode = matchMedia('(any-pointer: coarse), (max-width: 900px)');
+const setTouchMode = () => { document.documentElement.dataset.touchEnabled = String(touchMode.matches); queueResize(); };
+document.documentElement.dataset.touchEnabled = String(touchMode.matches);
+installMobileControls(game);
 
 function resize() {
-  const zoom = Math.max(1, Math.floor(Math.min(innerWidth / 640, innerHeight / 360)));
-  game.scale.setZoom(zoom);
   const host = document.getElementById('game')!;
-  host.style.width = `${640 * zoom}px`;
-  host.style.height = `${360 * zoom}px`;
+  const zoom = fitGameScale(host.clientWidth, host.clientHeight);
+  if (!zoom) return;
+  game.scale.setZoom(zoom);
+  game.scale.refresh();
 }
-addEventListener('resize', resize);
-resize();
+let resizeFrame = 0;
+function queueResize() { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(resize); }
+const observer = new ResizeObserver(queueResize);
+observer.observe(document.getElementById('game')!);
+addEventListener('resize', queueResize);
+window.visualViewport?.addEventListener('resize', queueResize);
+touchMode.addEventListener('change', setTouchMode);
+queueResize();
+game.events.once('destroy', () => {
+  observer.disconnect(); cancelAnimationFrame(resizeFrame);
+  removeEventListener('resize', queueResize);
+  window.visualViewport?.removeEventListener('resize', queueResize);
+  touchMode.removeEventListener('change', setTouchMode);
+});
 (window as unknown as { game: Phaser.Game }).game = game;

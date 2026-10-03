@@ -2,11 +2,13 @@ import Phaser from 'phaser';
 import { FONT } from '../ui';
 import { closeSettings, getSettings, subscribeSettings, updateSettings } from '../settings';
 import { unlockAudio, sfx } from '../audio';
+import { createMobileDialog, usesMobileInterface } from '../mobileDialogs';
 
 export class SettingsScene extends Phaser.Scene {
   constructor() { super('Settings'); }
   create() {
     this.add.rectangle(320, 180, 640, 360, 0x07080a, 0.76).setInteractive();
+    if (usesMobileInterface()) { this.createTouchSettings(); return; }
     this.add.rectangle(320, 180, 340, 248, 0x14171b).setStrokeStyle(2, 0x8a7a5a);
     const text = (x: number, y: number, value: string, size = 14) => this.add.text(x, y, value, { fontFamily: FONT, fontSize: `${size}px`, color: '#e8e2d0' });
     text(190, 72, 'Einstellungen', 18);
@@ -41,5 +43,44 @@ export class SettingsScene extends Phaser.Scene {
     button.on('pointerdown', () => { sfx.select(); closeSettings(); });
     const unsubscribe = subscribeSettings(() => repaint.forEach((draw) => draw()));
     this.events.once('shutdown', () => { unsubscribe(); closeSettings(); });
+  }
+
+  private createTouchSettings() {
+    const dialog = createMobileDialog('Einstellungen', () => { sfx.select(); closeSettings(); });
+    const repaint: (() => void)[] = [];
+    for (const [key, title] of [['musicVolume', 'Musik'], ['effectsVolume', 'Effekte']] as const) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      const value = document.createElement('output');
+      input.type = 'range'; input.min = '0'; input.max = '100'; input.step = '1';
+      input.id = `mobile-settings-${key}`;
+      label.htmlFor = input.id;
+      label.append(title, value);
+      input.addEventListener('input', () => { unlockAudio(); updateSettings({ [key]: Number(input.value) / 100 }); });
+      repaint.push(() => {
+        const percent = Math.round(getSettings()[key] * 100);
+        input.value = `${percent}`;
+        input.setAttribute('aria-valuetext', `${percent} Prozent`);
+        value.value = `${percent}%`;
+      });
+      dialog.content.append(label, input);
+    }
+    for (const [key, title] of [['reducedMotion', 'Ruhige Bewegung'], ['particles', 'Partikel']] as const) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      label.append(title, input);
+      input.addEventListener('change', () => { unlockAudio(); updateSettings({ [key]: input.checked }); sfx.select(); });
+      repaint.push(() => {
+        input.disabled = key === 'particles' && getSettings().reducedMotion;
+        input.checked = getSettings()[key] && !input.disabled;
+      });
+      dialog.content.append(label);
+    }
+    const note = document.createElement('p');
+    note.textContent = 'Bei ruhiger Bewegung sind Partikel ausgeschaltet.';
+    dialog.content.append(note);
+    const unsubscribe = subscribeSettings(() => repaint.forEach(draw => draw()));
+    this.events.once('shutdown', () => { unsubscribe(); dialog.destroy(); closeSettings(); });
   }
 }

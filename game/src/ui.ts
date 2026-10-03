@@ -20,6 +20,7 @@ export class Hud {
 
   constructor(scene: Phaser.Scene, portrait: string, name: string) {
     this.scene = scene;
+    scene.data.set({ 'mobile:name': name, 'mobile:hp': 1, 'mobile:hint': '', 'mobile:thought': '', 'mobile:thoughtUntil': 0, 'mobile:abilities': [], 'mobile:disabled': false, 'mobile:selected': null });
     const frame = scene.add.rectangle(6, 6, 52, 52, 0x14171b).setOrigin(0).setStrokeStyle(2, 0x8a7a5a);
     const img = scene.add.image(8, 8, portrait).setOrigin(0);
     const label = scene.add.text(64, 8, name, { fontFamily: FONT, fontSize: '11px', color: '#e8e2d0', stroke: '#0d0f12', strokeThickness: 3 });
@@ -55,6 +56,7 @@ export class Hud {
 
   setPortrait(key: string) { (this.root.list[1] as Phaser.GameObjects.Image).setTexture(key); }
   setHp(frac: number, animate = true) {
+    this.scene.data.set('mobile:hp', Phaser.Math.Clamp(frac, 0, 1));
     const w = 88 * Phaser.Math.Clamp(frac, 0, 1);
     if (animate && !getSettings().reducedMotion) this.scene.tweens.add({ targets: this.hp, width: w, duration: 400, ease: 'Cubic.out' });
     else this.hp.width = w;
@@ -65,6 +67,7 @@ export class Hud {
   }
 
   setAbilities(list: Ability[]) {
+    this.scene.data.set('mobile:abilities', list.map(({ icon, key }) => ({ icon, key })));
     const icon = this.scene.registry.get('icon') as (n: string) => number;
     this.abilityBar.removeAll(true);
     this.abilities = [];
@@ -84,9 +87,11 @@ export class Hud {
   }
   setAbilitiesDisabled(dis: boolean) {
     this.disabled = dis;
+    this.scene.data.set('mobile:disabled', dis);
     for (const a of this.abilities) (a.box.list[1] as Phaser.GameObjects.Image).setTint(dis ? 0x555555 : 0xffffff);
   }
   select(name: string | null) {
+    this.scene.data.set('mobile:selected', name);
     for (const a of this.abilities) a.frame.setStrokeStyle(name === a.name ? 2 : 1, name === a.name ? 0x9cc4ec : 0x8a7a5a);
   }
   pulse(name: string) {
@@ -105,15 +110,20 @@ export class Hud {
   }
 
   hint(text: string, quiet = false) {
+    this.scene.data.set('mobile:hint', text);
     this.hintText.setText(text);
     if (!quiet && text) { this.hintText.setAlpha(0); this.scene.tweens.add({ targets: this.hintText, alpha: 1, duration: motionDuration(300) }); }
   }
   thought(text: string, ms = 2200) {
+    this.scene.data.set({ 'mobile:thought': text, 'mobile:thoughtUntil': this.scene.time.now + ms });
     this.thoughtTimer?.remove();
     this.thoughtText.setText(text);
     this.scene.tweens.killTweensOf(this.thoughtText);
     this.scene.tweens.add({ targets: this.thoughtText, alpha: 1, duration: motionDuration(350) });
-    this.thoughtTimer = this.scene.time.delayedCall(ms, () => this.scene.tweens.add({ targets: this.thoughtText, alpha: 0, duration: motionDuration(600) }));
+    this.thoughtTimer = this.scene.time.delayedCall(ms, () => {
+      this.scene.data.set('mobile:thought', '');
+      this.scene.tweens.add({ targets: this.thoughtText, alpha: 0, duration: motionDuration(600) });
+    });
   }
 
   showProtect(portrait: string) {
@@ -131,6 +141,7 @@ export class Hud {
   }
 
   hideAll(ms = 400) {
+    this.scene.data.set({ 'mobile:name': '', 'mobile:hint': '', 'mobile:thought': '', 'mobile:abilities': [] });
     this.scene.tweens.add({ targets: [this.root, this.abilityBar, this.hintText, this.thoughtText, this.protect].filter(Boolean), alpha: 0, duration: motionDuration(ms) });
   }
 }

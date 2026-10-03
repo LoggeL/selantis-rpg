@@ -123,7 +123,7 @@ export class StoryScene extends Phaser.Scene {
     this.refreshPrompt();
   }
 
-  protected setObjective(text: string) { this.objective.setText(text); }
+  protected setObjective(text: string) { this.objective.setText(text); this.data.set('mobile:objective', text); }
   protected say(text: string, ms = 3000) { this.hud.thought(text, ms); }
   protected setLocked(locked: boolean) {
     this.locked = locked;
@@ -157,6 +157,7 @@ export class StoryScene extends Phaser.Scene {
   }
 
   update(_time: number, dt: number) {
+    if (this.inventory?.isOpen) return;
     if (this.leaving || !this.lia?.active) return;
     dt = Math.min(dt, 50);
     this.refreshInventory();
