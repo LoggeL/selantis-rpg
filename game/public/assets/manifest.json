@@ -224,6 +224,7 @@
     }
   },
   "images": {
+    "inventory-bag": "assets/ui/inventory-bag.png",
     "bg-battle": "assets/bg/battle.png",
     "bg-flight-a": "assets/bg/flight-a.png",
     "bg-flight-b": "assets/bg/flight-b.png",

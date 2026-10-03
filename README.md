@@ -14,7 +14,7 @@ npm ci
 npm run dev
 ```
 
-WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E interagiert. Die Szenen unterstützen direkte Einstiege:
+WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E interagiert. In der Erkundung öffnet I oder das Taschen-Icon das Inventar; Escape schließt es. Die Szenen unterstützen direkte Einstiege:
 
 | Parameter | Szene |
 | --- | --- |

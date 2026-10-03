@@ -1,0 +1,17 @@
+{
+  "id": "inventory-bag",
+  "kind": "inventory-hud-icon",
+  "file": "game/public/assets/ui/inventory-bag.png",
+  "target": {
+    "width": 24,
+    "height": 24
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "use_case": "stylized-concept",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept\nAsset type: one production inventory bag icon for a browser pixel-art fantasy RPG called Selantis. This asset will be shown at 24 to 32 pixels inside the existing dark charcoal HUD with muted brass borders.\nPrimary request: one clearly recognizable small medieval travelling satchel, warm brown leather, a broad folded flap, one simple central aged-brass buckle, short shoulder-strap loop above, sturdy rounded-square silhouette with stepped pixel corners. Three-quarter front view with minimal visible side depth. Restrained upper-left highlights in tan leather, dark brown outline, muted olive strap detail.\nStyle/medium: authentic crisp pixel art, designed on a 32x32 logical pixel grid enlarged with nearest-neighbor square blocks. Flat chunky color clusters, 3 brown shades plus dark outline and brass accents. Broad readable silhouette, economical detail, coherent with a woodland fantasy RPG.\nComposition/framing: one icon centered on a square canvas, fits within 26x26 logical pixels with identical transparent padding on all sides. The strap must be thick enough to survive reduction. No surrounding button frame: the game draws the frame separately.\nScene/backdrop: genuinely transparent alpha background.\nConstraints: exactly one satchel, no text, letters, labels, numerals, UI frame, scenery, cast shadow outside the bag, second object, sparkles, runes, heraldry, watermark, photorealism, gradients, soft edges or antialiasing. Keep unmistakable at tiny HUD scale."
+  },
+  "processing": "The generated alpha is preserved. Transparent padding is cropped around the visible silhouette, centered on a square and reduced with nearest-neighbor sampling into a 22x22 area with 1px transparent padding for the 24x24 HUD asset. The source image remains local and is not committed."
+}

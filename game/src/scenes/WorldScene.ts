@@ -6,8 +6,7 @@ import { Critter } from '../world/critters';
 import { WorldApi, WorldState, objectiveText, pickupText, runAction, state } from '../world/quests';
 import { findWalkingPath, isMapWalkable } from '../world/navigation';
 import { ambientPrefs, motionDuration, subscribeSettings } from '../settings';
-
-const ITEM_FRAME: Record<ItemId, number> = { apfel: 0, feder: 2, kupfer: 3, kornblume: 4, kueken: -1 };
+import { InventoryHud, ITEM_FRAME } from '../inventory';
 
 type Data = { map?: string; from?: string; x?: number; y?: number; facing?: Dir };
 
@@ -36,7 +35,7 @@ export class WorldScene extends Phaser.Scene {
   private st!: WorldState;
   private critters: Critter[] = [];
   private pickups: { key: string; item: ItemId; s: Phaser.GameObjects.Image; ready: boolean }[] = [];
-  private invBar!: Phaser.GameObjects.Container;
+  private inventory!: InventoryHud;
   private objText!: Phaser.GameObjects.Text;
   private nest?: Phaser.GameObjects.Image;
   private route: Pt[] = [];
@@ -82,7 +81,7 @@ export class WorldScene extends Phaser.Scene {
     this.objText = this.add.text(632, 10, '', { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
       .setOrigin(1, 0).setDepth(1000);
     this.refreshObjective();
-    this.invBar = this.add.container(64, 44).setDepth(1000);
+    this.inventory = new InventoryHud(this, () => this.clearTarget());
     this.refreshInventory();
     this.spawnWorldLife();
 
@@ -234,7 +233,9 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private onPointerDown(ptr: Phaser.Input.Pointer) {
+    if (this.inventory.hitTest(ptr)) return;
     if (this.busy || this.hud.hitTest(ptr)) return;
+    this.inventory.close();
     const j = this.nearJump();
     if (j && Phaser.Math.Distance.Between(ptr.worldX, ptr.worldY, j.from[0], j.from[1]) >
         Phaser.Math.Distance.Between(ptr.worldX, ptr.worldY, j.to[0], j.to[1])) { this.jump(j.to); return; }
@@ -474,18 +475,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private refreshInventory() {
-    this.invBar.removeAll(true);
-    let x = 0;
-    for (const item of ['apfel', 'kornblume', 'kupfer', 'feder', 'kueken'] as ItemId[]) {
-      const n = this.st.inv[item] ?? 0;
-      if (!n) continue;
-      const icon = item === 'kueken'
-        ? this.add.image(x + 8, 9, 'crt-fledgling', 0).setOrigin(0.5).setScale(0.8)
-        : this.add.image(x + 8, 8, this.textures.exists('items') ? 'items' : 'px', ITEM_FRAME[item]);
-      this.invBar.add(icon);
-      if (n > 1) this.invBar.add(this.add.text(x + 13, 10, `${n}`, { fontFamily: FONT, fontSize: '8px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 }));
-      x += 22;
-    }
+    this.inventory.refresh(this.st.inv);
   }
 
   private refreshObjective() { this.objText?.setText(objectiveText(this.st)); }
