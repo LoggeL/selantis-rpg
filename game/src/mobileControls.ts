@@ -1,20 +1,20 @@
 import type Phaser from 'phaser';
 import { unlockAudio } from './audio';
 import { settingsAreOpen, toggleSettings } from './settings';
-import { TouchKeyHolds, touchHint } from './mobileInput';
+import { TouchKeyHolds, touchHint, resolveMobileControls, type MobileActionKey, type MobileDirection, type MobileControlProfile } from './mobileInput';
 
 export const TOUCH_MEDIA_QUERY = '(any-pointer: coarse), (max-width: 900px)';
-type ActionKey = 'E' | 'Q' | 'R' | 'SPACE' | 'ENTER' | 'ESC';
-type Direction = 'up' | 'left' | 'down' | 'right';
-type Profile = { directions: Direction[]; actions: Partial<Record<ActionKey, string>> };
+type ActionKey = MobileActionKey;
+type Direction = MobileDirection;
+type Profile = MobileControlProfile;
 const allDirections: Direction[] = ['up', 'left', 'down', 'right'];
 const explore: Profile = { directions: allDirections, actions: { E: 'Aktion' } };
 const profiles: Record<string, Profile> = {
   title: { directions: [], actions: { ENTER: 'Start' } },
   battle: { directions: allDirections, actions: { Q: 'Strahl', R: 'Welle', SPACE: 'Warten', ENTER: 'Bestätigen', ESC: 'Zurück' } },
-  break: { directions: [], actions: { E: 'Atmen', SPACE: 'Weiter halten' } },
+  break: { directions: [], actions: { E: 'Weiter halten' } },
   flight: { directions: allDirections, actions: { E: 'Aktion halten', Q: 'Strahl', R: 'Welle', ESC: 'Weiter halten' } },
-  refuge: { directions: ['right'], actions: { E: 'Halten', Q: 'Hand heben', ESC: 'Weiter halten' } },
+  refuge: { directions: [], actions: { E: 'Weiter halten' } },
   lia: explore, world: explore, raid: explore, aftermath: explore, journey: explore,
 };
 const codes = { UP: 38, LEFT: 37, DOWN: 40, RIGHT: 39, E: 69, Q: 81, R: 82, SPACE: 32, ENTER: 13, ESC: 27 };
@@ -84,11 +84,14 @@ export function installMobileControls(game: Phaser.Game): () => void {
       if (press.button.hasPointerCapture(id)) press.button.releasePointerCapture(id);
     }
   }
-  function changed() { dataDirty = true; }
+  function changed(_data: unknown, key: string) {
+    dataDirty = true;
+    if (key === 'mobile:controls') cancel();
+  }
   function sceneStopped() { cancel(); dataDirty = true; }
   function detachScene() {
     if (!scene) return;
-    scene.data.events.off('changedata', changed); scene.data.events.off('setdata', changed);
+    scene.data.events.off('changedata', changed); scene.data.events.off('setdata', changed); scene.data.events.off('removedata', changed);
     for (const event of ['shutdown', 'pause', 'sleep']) scene.events.off(event, sceneStopped);
   }
   function stopEvent(event: Event) { event.stopPropagation(); }
@@ -161,7 +164,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
     if (scene !== nextScene) {
       cancel(); detachScene(); scene = nextScene; dataDirty = true; bookmarkSignature = '';
       if (scene) {
-        scene.data.events.on('changedata', changed); scene.data.events.on('setdata', changed);
+        scene.data.events.on('changedata', changed); scene.data.events.on('setdata', changed); scene.data.events.on('removedata', changed);
         for (const event of ['shutdown', 'pause', 'sleep']) scene.events.on(event, sceneStopped);
       }
     }
@@ -171,19 +174,20 @@ export function installMobileControls(game: Phaser.Game): () => void {
     if (!dataDirty) return;
     dataDirty = false;
     const key = scene?.sys.settings.key ?? 'boot'; root.dataset.scene = key;
-    const profile = profiles[key] ?? { directions: [], actions: {} };
+    const profile = resolveMobileControls(profiles[key] ?? { directions: [], actions: {} }, scene?.data.get('mobile:controls'));
+    root.dataset.controlMode = !profile.directions.length && Object.keys(profile.actions).length === 1 ? 'cinematic' : 'gameplay';
     dpad.hidden = blocked || !profile.directions.length;
-    for (const [direction, control] of directionButtons) { control.hidden = !profile.directions.includes(direction); control.disabled = blocked; }
+    for (const [direction, control] of directionButtons) { control.hidden = !profile.directions.includes(direction); control.disabled = blocked || !!profile.disabled; }
     const abilityDisabled = !!scene?.data.get('mobile:disabled');
     const selected = scene?.data.get('mobile:selected');
     const abilities = (scene?.data.get('mobile:abilities') ?? []) as { key: string; icon: string }[];
     for (const [action, control] of actionButtons) {
       const label = profile.actions[action]; control.hidden = blocked || !label;
-      control.disabled = blocked || (key === 'battle' && abilityDisabled && (action === 'Q' || action === 'R'));
+      control.disabled = blocked || !!profile.disabled || (key === 'battle' && abilityDisabled && (action === 'Q' || action === 'R'));
       control.textContent = label ?? action; control.setAttribute('aria-label', label ?? action);
       control.setAttribute('aria-pressed', String(abilities.some(ability => ability.key === action && ability.icon === selected)));
     }
-    const inventory = scene?.data.get('mobile:inventory'); bag.hidden = !inventory; bag.disabled = blocked;
+    const inventory = scene?.data.get('mobile:inventory'); bag.hidden = !inventory || inventory.available === false || profile.inventory === false; bag.disabled = blocked;
     bag.setAttribute('aria-expanded', String(!!inventory?.open)); settings.disabled = settingsAreOpen();
     const name = scene?.data.get('mobile:name'), hp = scene?.data.get('mobile:hp');
     setCaption('.mobile-identity', typeof name === 'string' ? `${name}${typeof hp === 'number' ? ` · ${Math.round(hp * 100)} %` : ''}` : 'SELANTIS');
@@ -191,7 +195,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
     setCaption('[data-mobile-thought]', scene?.data.get('mobile:dialogue') || scene?.data.get('mobile:thought'));
     setCaption('[data-mobile-hint]', touchHint(scene?.data.get('mobile:hint') ?? '', profile.actions));
     const choices = (scene?.data.get('mobile:bookmarks') ?? []) as { id: string; label: string; selected: boolean }[];
-    const signature = JSON.stringify(choices); bookmarks.hidden = blocked || !choices.length;
+    const signature = JSON.stringify(choices); bookmarks.hidden = blocked || profile.inventory === false || !choices.length;
     if (signature !== bookmarkSignature) {
       bookmarkSignature = signature;
       bookmarks.replaceChildren(...choices.map(choice => {

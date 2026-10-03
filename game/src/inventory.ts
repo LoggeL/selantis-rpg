@@ -32,6 +32,7 @@ export class InventoryHud {
   private selected?: ItemId;
   private inv: Partial<Record<ItemId, number>> = {};
   private mobileDialog?: ReturnType<typeof createMobileDialog>;
+  private enabled = true;
   get isOpen() { return this.panel.visible; }
 
   constructor(private scene: Phaser.Scene, private onOpen: () => void) {
@@ -140,6 +141,7 @@ export class InventoryHud {
   }
 
   toggle() {
+    if (!this.enabled) return;
     if (this.panel.visible) { this.close(); return; }
     this.onOpen();
     this.panel.setVisible(true);
@@ -162,9 +164,17 @@ export class InventoryHud {
     this.publish();
   }
 
+  setVisible(visible: boolean) {
+    this.enabled = visible;
+    this.button.setVisible(visible);
+    if (!visible) this.close();
+    else this.publish();
+  }
+
   private publish() {
     this.scene.data.set('mobile:inventory', {
       open: this.panel.visible,
+      available: this.enabled,
       items: [...ORDER, ...TRAVEL_ORDER].filter(id => (this.inv[id] ?? 0) > 0)
         .map(id => ({ id, name: ITEM_NAMES[id], count: this.inv[id]! })),
     });
@@ -196,7 +206,7 @@ export class InventoryHud {
 
   /** HUD clicks must never become walking targets underneath the panel. */
   hitTest(ptr: Phaser.Input.Pointer) {
-    if (!this.button.active) return false;
+    if (!this.enabled || !this.button.active || !this.button.visible) return false;
     const overButton = ptr.x >= 63 && ptr.x <= 95 && ptr.y >= 37 && ptr.y <= 69;
     const overPanel = this.panel.visible && ptr.x >= 64 && ptr.x <= 64 + PANEL_WIDTH && ptr.y >= 74 && ptr.y <= 74 + this.height;
     return overButton || overPanel;

@@ -7,6 +7,7 @@ import {
 } from '../battle/grid';
 import { Hud, FONT } from '../ui';
 import { ambientPrefs, getSettings, subscribeSettings } from '../settings';
+import type { MobileControlProfile } from '../mobileInput';
 
 type Phase = 'arrival' | 'plan' | 'beam' | 'wave' | 'busy' | 'end';
 type Aim = Pick<Phaser.Input.Pointer, 'worldX' | 'worldY'>;
@@ -49,12 +50,24 @@ export class BattleScene extends Phaser.Scene {
   private goalG!: Phaser.GameObjects.Graphics;
   private ambientTweens: Phaser.Tweens.Tween[] = [];
   private ambientEmitters: Phaser.GameObjects.Particles.ParticleEmitter[] = [];
+  private cinematicAdvance?: () => void;
 
   constructor() { super('battle'); }
 
+  private setPhase(phase: Phase) {
+    this.phase = phase;
+    this.cinematicAdvance = undefined;
+    const controls: MobileControlProfile | undefined = phase === 'arrival'
+      ? { directions: ['up', 'left', 'down', 'right'], actions: {}, inventory: false }
+      : phase === 'busy' || phase === 'end'
+        ? { directions: [], actions: { E: 'Weiter' }, inventory: false, disabled: true }
+        : undefined;
+    this.data.set('mobile:controls', controls);
+  }
+
   create() {
     this.units = []; this.sprites.clear(); this.shadows.clear(); this.intents.clear(); this.intentIcons.clear();
-    this.phase = 'arrival'; this.beat = 0; this.moved = false; this.falkeShown = false; this.boltFired = false;
+    this.setPhase('arrival'); this.beat = 0; this.moved = false; this.falkeShown = false; this.boltFired = false;
     this.facing = 's'; this.lastMagic = null; this.hintsSeen.clear(); this.cursor = { ...START_CELL };
     this.turnStart = { ...START_CELL };
     this.ambientTweens = []; this.ambientEmitters = [];
@@ -86,7 +99,8 @@ export class BattleScene extends Phaser.Scene {
     this.marker = this.add.container(p.x, p.y, [glow, ring]).setDepth(-450);
     this.ambientTweens.push(this.tweens.add({ targets: [ring, glow], scale: { from: 0.8, to: 1.15 }, alpha: { from: 1, to: 0.4 }, duration: 900, yoyo: true, repeat: -1 }));
 
-    this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,Q,R,SPACE,ESC,ENTER') as Record<string, Phaser.Input.Keyboard.Key>;
+    this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E,Q,R,SPACE,ESC,ENTER') as Record<string, Phaser.Input.Keyboard.Key>;
+    this.keys.E.on('down', () => this.cinematicAdvance?.());
     this.keys.Q.on('down', () => this.enterBeam());
     this.keys.R.on('down', () => this.enterWave());
     this.keys.SPACE.on('down', () => this.doWait());
@@ -218,7 +232,7 @@ export class BattleScene extends Phaser.Scene {
 
   // ---------- Schlachtbeginn ----------
   private startBattle() {
-    this.phase = 'busy';
+    this.setPhase('busy');
     const v = this.sprite('valentus');
     this.marker?.destroy();
     const f = cellFoot(START_CELL);
@@ -303,7 +317,7 @@ export class BattleScene extends Phaser.Scene {
     this.turnStart = { ...this.unit('valentus').cell };
     this.moved = false;
     this.cursor = { ...this.turnStart };
-    this.phase = 'plan';
+    this.setPhase('plan');
     this.hud.setAbilitiesVisible(true);
     this.showPlan();
     this.drawGoal();
@@ -416,7 +430,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private moveValentus(path: Cell[]) {
-    this.phase = 'busy';
+    this.setPhase('busy');
     const v = this.unit('valentus'), s = this.sprite('valentus');
     // Zurück zur Startposition, falls schon bewegt, dann Pfad laufen
     if (this.moved) { const f = cellFoot(this.turnStart); s.setPosition(f.x, f.y); }
@@ -426,7 +440,7 @@ export class BattleScene extends Phaser.Scene {
         v.cell = steps[steps.length - 1];
         this.moved = true;
         s.play(`v-idle-${this.facing}`);
-        this.phase = 'plan';
+        this.setPhase('plan');
         this.cursor = { ...v.cell };
         this.computeIntents(); this.drawIntents(); this.drawGoal();
         this.showPlan();
@@ -442,7 +456,7 @@ export class BattleScene extends Phaser.Scene {
 
   private cancel() {
     if (this.phase === 'beam' || this.phase === 'wave') {
-      this.phase = 'plan'; this.previewG.clear(); this.showPlan(); this.hud.select(null);
+      this.setPhase('plan'); this.previewG.clear(); this.showPlan(); this.hud.select(null);
     } else if (this.phase === 'plan' && this.moved) {
       const v = this.unit('valentus');
       v.cell = { ...this.turnStart };
@@ -461,7 +475,7 @@ export class BattleScene extends Phaser.Scene {
   // ---------- Strahl ----------
   private enterBeam() {
     if (this.phase !== 'plan' && this.phase !== 'wave') return;
-    this.phase = 'beam'; this.hud.select('beam'); sfx.select();
+    this.setPhase('beam'); this.hud.select('beam'); sfx.select();
     this.previewG.clear();
     this.previewBeam(this.cursorAim());
     this.hud.hint('Richtung wählen · Klick / Enter: Strahl · Rechtsklick: zurück.', true);
@@ -498,7 +512,7 @@ export class BattleScene extends Phaser.Scene {
     if (!cells.length) return;
     if (hits.some((u) => u.side === 'ally')) { this.shake(120, 0.003); sfx.clang(); return; }
     if (!hits.some((u) => u.side === 'enemy')) { this.hud.hint('Wähle einen Gegner in der Linie.', true); return; }
-    this.phase = 'busy'; this.previewG.clear(); this.hud.select(null); this.hud.hint('');
+    this.setPhase('busy'); this.previewG.clear(); this.hud.select(null); this.hud.hint('');
     const v = this.unit('valentus');
     this.lastMagic = { kind: 'beam', from: { ...v.cell }, dir };
     const d = Math.abs(dir.x) >= Math.abs(dir.y) ? (dir.x > 0 ? 'e' : 'w') : dir.y > 0 ? 's' : 'n';
@@ -548,7 +562,7 @@ export class BattleScene extends Phaser.Scene {
   // ---------- Druckwelle ----------
   private enterWave() {
     if (this.phase !== 'plan' && this.phase !== 'beam') return;
-    this.phase = 'wave'; this.hud.select('wave'); sfx.select();
+    this.setPhase('wave'); this.hud.select('wave'); sfx.select();
     this.previewG.clear();
     this.previewWave(this.cursorAim());
     this.hud.hint(`Mittelpunkt bis ${WAVE_RANGE} Felder · Klick / Enter: Druckwelle.`, true);
@@ -606,7 +620,7 @@ export class BattleScene extends Phaser.Scene {
     const w = this.waveFromPointer(ptr);
     if (!w) return;
     if (!w.pushes.length) { this.hud.hint('Wähle eine Fläche mit Gegnern.', true); return; }
-    this.phase = 'busy'; this.previewG.clear(); this.hud.select(null); this.hud.hint('');
+    this.setPhase('busy'); this.previewG.clear(); this.hud.select(null); this.hud.hint('');
     const v = this.unit('valentus');
     this.lastMagic = { kind: 'wave', from: { ...v.cell }, center: w.center };
     const m = cellCenter(w.center), vm = cellCenter(v.cell);
@@ -804,7 +818,7 @@ export class BattleScene extends Phaser.Scene {
   // ---------- Zugende ----------
   private doWait() {
     if (this.phase !== 'plan') return;
-    this.phase = 'busy'; this.previewG.clear(); this.hud.hint(''); sfx.select();
+    this.setPhase('busy'); this.previewG.clear(); this.hud.hint(''); sfx.select();
     this.sprite('valentus').play(`v-guard-${this.facing}`);
     this.time.delayedCall(300, () => this.afterPlayerAction());
   }
@@ -959,7 +973,7 @@ export class BattleScene extends Phaser.Scene {
 
   // ---------- Beat 4: Der Junge entkommt, dann bricht der Traum ----------
   private boyEscapes() {
-    this.phase = 'busy';
+    this.setPhase('busy');
     this.hud.setAbilitiesVisible(false);
     this.goalG.clear();
     const boy = this.unit('boy'), s = this.sprite('boy');
@@ -983,7 +997,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private dangerBehind() {
-    const v = this.unit('valentus'), vs = this.sprite('valentus');
+    const v = this.unit('valentus');
     const back = { x: v.cell.x - 1, y: v.cell.y };
     const f = cellFoot(inside(back) && !isRock(back) ? back : { x: v.cell.x, y: v.cell.y + 1 });
     const shadow = this.add.sprite(f.x - 6, f.y, 'warrior', 0).setOrigin(0.5, 60 / 64).setTintFill(0x050608).setAlpha(0).setDepth(f.y);
@@ -996,14 +1010,24 @@ export class BattleScene extends Phaser.Scene {
     sfx.drone(3.5);
     this.stopAmbience();
     this.stopAmbience = () => {};
-    this.time.delayedCall(1400, () => {
-      this.phase = 'end';
-      this.registry.set('lastMagic', this.lastMagic);
-      this.game.renderer.snapshot((img) => {
-        if (this.textures.exists('snap')) this.textures.remove('snap');
-        this.textures.addImage('snap', img as HTMLImageElement);
-        this.scene.start('break', { vx: vs.x, vy: vs.y });
-      });
+    // Allow advancing only after the threat has appeared; combat resolution is complete.
+    this.time.delayedCall(900, () => {
+      this.cinematicAdvance = () => this.finishBattle();
+      this.data.set('mobile:controls', { directions: [], actions: { E: 'Weiter' }, inventory: false });
+    });
+    this.time.delayedCall(1400, () => this.finishBattle());
+  }
+
+  private finishBattle() {
+    if (this.phase === 'end') return;
+    this.setPhase('end');
+    this.registry.set('lastMagic', this.lastMagic);
+    const vs = this.sprite('valentus');
+    this.game.renderer.snapshot((img) => {
+      if (this.phase !== 'end') return;
+      if (this.textures.exists('snap')) this.textures.remove('snap');
+      this.textures.addImage('snap', img as HTMLImageElement);
+      this.scene.start('break', { vx: vs.x, vy: vs.y });
     });
   }
 }

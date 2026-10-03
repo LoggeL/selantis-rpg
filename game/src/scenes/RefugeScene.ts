@@ -3,6 +3,7 @@ import { sfx } from '../audio';
 import { motionDuration } from '../settings';
 import { FONT, Hud } from '../ui';
 import { BEAM_LENGTH, cellCenter, inside, type Cell } from '../battle/grid';
+import type { MobileControlProfile } from '../mobileInput';
 
 type Pt = { x: number; y: number };
 type Phase = 'cine' | 'wake' | 'rise' | 'walk' | 'cradle' | 'raise' | 'light';
@@ -49,6 +50,31 @@ export class RefugeScene extends Phaser.Scene {
 
   constructor() { super('refuge'); }
 
+  private setPhase(phase: Phase) {
+    this.phase = phase;
+    this.publishControls();
+  }
+
+  private publishControls() {
+    const action = this.phase === 'cine' ? 'Weiter halten'
+      : this.phase === 'rise' ? 'Aufrichten halten'
+        : this.phase === 'walk' ? 'Schritt'
+          : this.phase === 'cradle' || this.phase === 'raise' ? 'Hand heben'
+            : 'Weiter';
+    const disabled = this.phase === 'wake' || this.phase === 'cradle' || this.phase === 'light' || (this.phase === 'walk' && this.stepping);
+    const controls: MobileControlProfile = { directions: [], actions: { E: action }, inventory: false, disabled };
+    this.data.set('mobile:controls', controls);
+    this.data.set('mobile:hint', disabled ? '' : this.phase === 'cine' ? 'Zum Überspringen gedrückt halten.'
+      : this.phase === 'rise' ? 'Gedrückt halten: aufrichten.'
+        : this.phase === 'walk' ? 'Ein Schritt zur Wiege.' : 'Die Hand heben.');
+  }
+
+  private primaryAction() {
+    if (this.phase === 'walk') this.tryStep();
+    else if (this.phase === 'raise') this.raiseHand();
+    // Cine and rise consume E.isDown in update; automatic phases accept no action.
+  }
+
   create() {
     this.risePointer = undefined;
     this.data.set('mobile:dialogue', '');
@@ -57,6 +83,7 @@ export class RefugeScene extends Phaser.Scene {
     this.skipHeld = 0; this.holding = 0; this.step = 0; this.stepping = false; this.idleMs = 0;
     this.beatEvery = 1500; this.beatTimer = 900; this.focus = { x: 320, y: 180, z: 1 }; this.follow = false;
     this.walkLens = WALK.slice(1).map((p, i) => Phaser.Math.Distance.Between(WALK[i].x, WALK[i].y, p.x, p.y));
+    this.publishControls();
 
     const cam = this.cameras.main;
     cam.setBackgroundColor('#000000');
@@ -70,6 +97,7 @@ export class RefugeScene extends Phaser.Scene {
     this.white = this.u(this.add.rectangle(320, 180, 640, 360, 0xffffff).setAlpha(0).setDepth(5000));
 
     this.keys = this.input.keyboard!.addKeys('D,RIGHT,E,Q,ESC') as Record<string, Phaser.Input.Keyboard.Key>;
+    this.keys.E.on('down', () => this.primaryAction());
     this.keys.D.on('down', () => this.tryStep());
     this.keys.RIGHT.on('down', () => this.tryStep());
     this.keys.Q.on('down', () => this.raiseHand());
@@ -239,7 +267,7 @@ export class RefugeScene extends Phaser.Scene {
     this.data.set('mobile:dialogue', '');
     this.cine.forEach((t) => t.remove(false));
     this.cine = [];
-    this.phase = 'wake';
+    this.setPhase('wake');
     this.dropBar();
     const cam = this.cameras.main;
     cam.resetFX();
@@ -260,14 +288,16 @@ export class RefugeScene extends Phaser.Scene {
     this.hud.setHp(0.12, false);
     this.hud.setAbilities([{ icon: 'beam', key: 'Q', onClick: () => this.raiseHand() }]);
     this.hud.setAbilitiesDisabled(true);
+    this.hud.setAbilitiesVisible(false);
     this.hud.moveAbilities(98, 48);
     this.children.list.slice(before).forEach((o) => this.ui.add(o));
+    this.publishControls();
 
     const t = this.time;
     t.delayedCall(1300, () => this.hud!.thought('Sie werden mich hier finden.', 2300));
     t.delayedCall(4000, () => this.hud!.thought('Er ist eine Gefahr für seine Retter.', 2300));
     t.delayedCall(6700, () => this.hud!.thought('Die Hoffnung muss weiterleben.', 2600));
-    t.delayedCall(8600, () => { this.phase = 'rise'; this.hud!.hint('E / Maus halten: aufrichten'); });
+    t.delayedCall(8600, () => { this.hud!.hint('E / Maus halten: aufrichten'); this.setPhase('rise'); });
   }
 
   // ---------- 5: Aufstehen ----------
@@ -284,7 +314,7 @@ export class RefugeScene extends Phaser.Scene {
     v.setPosition(Math.round(x + Phaser.Math.Between(-1, 1)), Math.round(y)).setDepth(y);
     this.blanket!.setAlpha(1 - Phaser.Math.Clamp((p - 0.1) / 0.3, 0, 1));
     if (p >= 1) {
-      this.phase = 'wake';
+      this.setPhase('wake');
       this.dropBar();
       this.hud!.hint('');
       sfx.creak();
@@ -292,8 +322,8 @@ export class RefugeScene extends Phaser.Scene {
       this.blanket!.destroy(); this.blanket = undefined;
       this.follow = true;
       this.time.delayedCall(900, () => {
-        this.phase = 'walk';
-        this.hud!.hint('D / →: ein Schritt. Klick: Raum ansehen oder Schritt.');
+        this.hud!.hint('E / Klick: ein Schritt zur Wiege.');
+        this.setPhase('walk');
       });
     }
   }
@@ -316,6 +346,7 @@ export class RefugeScene extends Phaser.Scene {
     this.stepping = true;
     this.idleMs = 0;
     if (this.step === 0) this.hud!.hint('', true);
+    this.publishControls();
     const v = this.v!;
     const total = this.walkLens.reduce((a, b) => a + b, 0);
     const d0 = total * this.step / STEPS, d1 = total * (this.step + 1) / STEPS;
@@ -352,6 +383,7 @@ export class RefugeScene extends Phaser.Scene {
         this.time.delayedCall(this.step === STEPS ? 200 : 520, () => {
           this.stepping = false;
           if (this.step >= STEPS) this.atCradle();
+          else this.publishControls();
         });
       },
     });
@@ -390,7 +422,7 @@ export class RefugeScene extends Phaser.Scene {
 
   // ---------- 7: Wiegenkante ----------
   private atCradle() {
-    this.phase = 'cradle';
+    this.setPhase('cradle');
     this.hud!.hint('');
     const v = this.v!;
     v.play('vr-brace');
@@ -407,10 +439,10 @@ export class RefugeScene extends Phaser.Scene {
       sfx.heartbeat();
       this.time.delayedCall(1100, () => this.hud!.thought('Es tut mir leid. Ich hoffe, du kannst mir verzeihen.', 2800));
       this.time.delayedCall(3900, () => {
-        this.phase = 'raise';
-        this.hud!.hint('Q / Klick: die Hand heben');
+        this.hud!.hint('E / Klick: die Hand heben');
+        this.setPhase('raise');
         this.hud!.setAbilitiesDisabled(false);
-        this.hud!.pulse('beam');
+        this.hud!.setAbilitiesVisible(false);
         this.beatEvery = 1700; this.beatTimer = 600;
       });
     });
@@ -419,7 +451,7 @@ export class RefugeScene extends Phaser.Scene {
   // ---------- 8: Hand und Licht ----------
   private raiseHand() {
     if (this.phase !== 'raise') return;
-    this.phase = 'light';
+    this.setPhase('light');
     this.beatEvery = 0;
     this.hud!.hint('');
     this.hud!.select('beam');
@@ -542,7 +574,7 @@ export class RefugeScene extends Phaser.Scene {
       if (this.beatTimer <= 0) { this.beatTimer = this.beatEvery; sfx.heartbeat(); }
     }
     if (this.phase === 'cine') {
-      if (this.keys.ESC.isDown) {
+      if (this.keys.ESC.isDown || this.keys.E.isDown) {
         this.skipHeld += dt;
         this.drawBar(this.skipHeld / 1500, 0x8a8478);
         if (this.skipHeld >= 1500) this.skipCine();

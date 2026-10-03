@@ -58,6 +58,8 @@ body{font-family:system-ui,sans-serif}
 [data-direction="right"]{grid-area:2/3}
 .mobile-actions{display:grid;grid-template-columns:repeat(2,minmax(44px,1fr));gap:6px;max-width:240px;flex:1}
 .mobile-actions>.mobile-control:only-of-type{grid-column:1/-1;min-height:60px}
+#mobile-controls[data-control-mode="cinematic"] .mobile-actions{grid-template-columns:minmax(44px,1fr)}
+#mobile-controls[data-control-mode="cinematic"] .mobile-action:not([hidden]){grid-column:1/-1;min-height:64px}
 #mobile-controls:is([data-scene="world"],[data-scene="lia"],[data-scene="raid"],[data-scene="aftermath"],[data-scene="journey"],[data-scene="title"]) .mobile-action:not([hidden]){grid-column:1/-1;min-height:64px}
 .mobile-bookmarks{grid-column:1/-1;display:flex;gap:6px}
 .mobile-bookmarks button{flex:1}

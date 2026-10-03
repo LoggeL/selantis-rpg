@@ -30,6 +30,7 @@ export class StoryScene extends Phaser.Scene {
   private routeSpot?: StorySpot;
   private facing: Dir = 's';
   private locked = false;
+  private cinematic = false;
   private leaving = false;
   private stepTimer = 0;
   private stuckMs = 0;
@@ -42,6 +43,7 @@ export class StoryScene extends Phaser.Scene {
 
   protected begin(area: StoryArea) {
     this.locked = false;
+    this.cinematic = false;
     this.leaving = false;
     this.facing = 's';
     this.stepTimer = 0;
@@ -128,6 +130,12 @@ export class StoryScene extends Phaser.Scene {
   protected setLocked(locked: boolean) {
     this.locked = locked;
     if (locked) { this.clearRoute(); this.lia.play(`lia-idle-${this.facing}`); }
+  }
+  protected setCinematic(cinematic: boolean) {
+    this.cinematic = cinematic;
+    this.inventory.setVisible(!cinematic);
+    if (cinematic) this.clearRoute();
+    this.refreshPrompt();
   }
 
   protected goTo(sceneKey: string) {
@@ -226,13 +234,15 @@ export class StoryScene extends Phaser.Scene {
     if (this.leaving || this.inventory.hitTest(pointer) || this.hud.hitTest(pointer)) return;
     if (pointer.x > 606 && pointer.y > 326) return;
     this.inventory.close();
-    const spot = this.spots.filter(s => this.isEnabled(s) && Math.hypot(pointer.worldX - s.at[0], pointer.worldY - s.at[1]) <= s.radius)
-      .sort((a, b) => Math.hypot(pointer.worldX - a.at[0], pointer.worldY - a.at[1]) - Math.hypot(pointer.worldX - b.at[0], pointer.worldY - b.at[1]))[0];
+    // Cinematic framing transforms the art, while routes and spots remain area-local.
+    const local = this.areaRoot.getWorldTransformMatrix().applyInverse(pointer.worldX, pointer.worldY);
+    const spot = this.spots.filter(s => this.isEnabled(s) && Math.hypot(local.x - s.at[0], local.y - s.at[1]) <= s.radius)
+      .sort((a, b) => Math.hypot(local.x - a.at[0], local.y - a.at[1]) - Math.hypot(local.x - b.at[0], local.y - b.at[1]))[0];
     if (spot && this.inRange(spot)) { this.useSpot(spot); return; }
     if (this.locked) return;
     this.clearRoute();
     const from: Pt = [this.lia.x, this.lia.y];
-    const goal: Pt = spot?.at ?? [pointer.worldX, pointer.worldY];
+    const goal: Pt = spot?.at ?? [local.x, local.y];
     let path = findWalkingPath(from, goal, this.walkable, spot?.radius ?? 24);
     // A blocked target may have a closer point in a disconnected region. Search
     // the full interaction circle for an approach that this character can reach.
@@ -286,10 +296,13 @@ export class StoryScene extends Phaser.Scene {
   }
   private refreshPrompt() {
     const spot = this.nearestSpot();
-    this.prompt.setVisible(!!spot && !this.leaving);
-    if (spot) this.prompt.setPosition(Math.round(this.lia.x), Math.round(this.lia.y - 58));
-    const hint = spot ? `${spot.label} · E / Klick` : WALK_HINT;
+    this.prompt.setVisible(!!spot && !this.leaving && !this.cinematic);
+    if (spot) {
+      const position = this.areaRoot.getWorldTransformMatrix().transformPoint(this.lia.x, this.lia.y - 58);
+      this.prompt.setPosition(Math.round(position.x), Math.round(position.y));
+    }
+    const hint = this.cinematic ? '' : spot ? `${spot.label} · E / Klick` : WALK_HINT;
     if (hint !== this.hint) { this.hint = hint; this.hud.hint(hint, true); }
-    for (const marker of this.markers) marker.object.setVisible(this.isEnabled(marker.spot));
+    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && this.isEnabled(marker.spot));
   }
 }

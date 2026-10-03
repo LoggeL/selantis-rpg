@@ -2,10 +2,12 @@ import Phaser from 'phaser';
 import { sfx } from '../audio';
 import { FONT, Hud } from '../ui';
 import { ambientPrefs, getSettings } from '../settings';
+import { usesMobileInterface } from '../mobileDialogs';
 
 /** Traumbruch: Farbe läuft aus, die Wunde wird sichtbar, die Welt zerfällt – zuerst der Junge. */
 export class BreakScene extends Phaser.Scene {
   private skipKey!: Phaser.Input.Keyboard.Key;
+  private actionKey!: Phaser.Input.Keyboard.Key;
   private skipFill!: Phaser.GameObjects.Rectangle;
   private skipHeld = false;
   private skipProgress = 0;
@@ -17,7 +19,8 @@ export class BreakScene extends Phaser.Scene {
 
   create() {
     this.skipHeld = false; this.skipProgress = 0; this.transitioning = false;
-    this.woundVisible = false; this.lastBreath = -1000;
+    this.setWoundVisible(false); this.lastBreath = -1000;
+    this.data.set('mobile:thought', '');
     const cam = this.cameras.main;
     cam.setBackgroundColor('#f4f1ea');
     const snapKey = this.textures.exists('snap') ? 'snap' : 'bg-battle';
@@ -28,13 +31,15 @@ export class BreakScene extends Phaser.Scene {
     }).setOrigin(0.5).setDepth(1100).setInteractive({ useHandCursor: true });
     this.add.rectangle(271, 350, 98, 2, 0x262932, 0.55).setOrigin(0).setDepth(1100);
     this.skipFill = this.add.rectangle(271, 350, 0, 2, 0xb8cedf).setOrigin(0).setDepth(1101);
+    if (usesMobileInterface()) skip.setVisible(false).disableInteractive();
     skip.on('pointerdown', () => { this.skipHeld = true; });
     this.input.on('pointerup', () => { this.skipHeld = false; });
     this.input.on('pointerupoutside', () => { this.skipHeld = false; });
     this.events.on('pause', () => {
       this.skipHeld = false; this.skipProgress = 0; this.skipFill.width = 0;
     });
-    this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E).on('down', () => this.breathe());
+    this.actionKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    this.actionKey.on('down', () => this.breathe());
     this.woundHint = this.add.text(320, 337, '', {
       fontFamily: FONT, fontSize: '10px', color: '#e1d4c5', stroke: '#191a1e', strokeThickness: 3,
     }).setOrigin(0.5).setDepth(1100);
@@ -54,9 +59,9 @@ export class BreakScene extends Phaser.Scene {
       snap.setVisible(false);
       const mono = this.add.image(0, 0, 'cut-wound-mono').setOrigin(0);
       const red = this.add.image(0, 0, 'cut-wound-red').setOrigin(0);
-      this.woundVisible = true;
-      this.woundHint.setText('E oder Wunde anklicken: Atemzug.').setY(312);
+      this.woundHint.setText(usesMobileInterface() ? 'Die Wunde.' : 'E oder Wunde anklicken: Atemzug.').setY(312);
       const woundZone = this.add.zone(250, 190, 160, 100).setDepth(1005).setInteractive({ useHandCursor: true });
+      if (usesMobileInterface()) woundZone.disableInteractive();
       woundZone.on('pointerdown', () => this.breathe());
       const maskShape = this.make.graphics({}, false);
       const mask = maskShape.createGeometryMask();
@@ -70,6 +75,7 @@ export class BreakScene extends Phaser.Scene {
       this.time.delayedCall(900, () => sfx.heartbeat());
       const hud = new Hud(this, 'portrait-valentus', 'VALENTUS');
       hud.setHp(1, false);
+      this.setWoundVisible(true);
       this.time.delayedCall(700, () => {
         hud.setPortrait('portrait-valentus-wounded');
         hud.setHp(0.12);
@@ -77,8 +83,9 @@ export class BreakScene extends Phaser.Scene {
       });
       // 3) zurück auf die graue Welt, die zerfällt
       this.time.delayedCall(3100, () => {
-        this.woundVisible = false; this.woundHint.setText(''); woundZone.destroy();
+        this.woundHint.setText(''); woundZone.destroy();
         mono.destroy(); red.destroy(); mask.destroy(); maskShape.destroy(); hud.hideAll(0);
+        this.setWoundVisible(false);
         snap.setVisible(true);
         cm.reset(); cm.saturate(-1); cm.brightness(1.15, true);
         this.time.delayedCall(250, () => { snap.setVisible(false); this.dissolve(snapKey); });
@@ -88,9 +95,19 @@ export class BreakScene extends Phaser.Scene {
 
   update(_time: number, dt: number) {
     if (this.transitioning) return;
-    this.skipProgress = this.skipKey.isDown || this.skipHeld ? Math.min(1, this.skipProgress + dt / 950) : 0;
+    const skipDown = this.skipKey.isDown || this.skipHeld || (!this.woundVisible && this.actionKey.isDown);
+    this.skipProgress = skipDown ? Math.min(1, this.skipProgress + dt / 950) : 0;
     this.skipFill.width = 98 * this.skipProgress;
     if (this.skipProgress >= 1) this.finish();
+  }
+
+  private setWoundVisible(visible: boolean) {
+    this.woundVisible = visible;
+    this.skipProgress = 0;
+    this.data.set('mobile:controls', {
+      directions: [], actions: { E: visible ? 'Atmen' : 'Weiter halten' }, inventory: false,
+    });
+    this.data.set('mobile:hint', visible ? 'Ein Atemzug.' : 'Zum Überspringen gedrückt halten.');
   }
 
   /** A breath changes the image briefly, without healing or changing the story. */
@@ -103,14 +120,19 @@ export class BreakScene extends Phaser.Scene {
       scaleY: getSettings().reducedMotion ? 1 : 2, alpha: 0, duration: 700,
       ease: 'Sine.out', onComplete: () => pulse.destroy() });
     this.woundHint.setText('Ein schwerer Atemzug.');
+    this.data.set('mobile:hint', 'Ein schwerer Atemzug.');
     this.time.delayedCall(850, () => {
-      if (this.woundVisible) this.woundHint.setText('E oder Wunde anklicken: Atemzug.');
+      if (this.woundVisible) {
+        this.woundHint.setText(usesMobileInterface() ? 'Die Wunde.' : 'E oder Wunde anklicken: Atemzug.');
+        this.data.set('mobile:hint', 'Ein Atemzug.');
+      }
     });
   }
 
   private finish() {
     if (this.transitioning) return;
     this.transitioning = true;
+    this.data.set('mobile:controls', { directions: [], actions: { E: 'Weiter' }, inventory: false, disabled: true });
     this.cameras.main.postFX.clear();
     this.scene.start('flight');
   }
@@ -150,6 +172,7 @@ export class BreakScene extends Phaser.Scene {
 
   private fever() {
     this.cameras.main.postFX.clear();
+    this.data.set('mobile:thought', 'Ein Fiebertraum.');
     const t = this.add.text(320, 180, 'Ein Fiebertraum.', { fontFamily: FONT, fontSize: '16px', color: '#3a3832', fontStyle: 'italic' })
       .setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: t, alpha: 1, duration: 900, hold: 1500, yoyo: true });

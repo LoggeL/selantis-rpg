@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TouchKeyHolds, touchHint, type TouchKey } from './mobileInput';
+import { TouchKeyHolds, touchHint, resolveMobileControls, type MobileControlProfile, type TouchKey } from './mobileInput';
 
 const event = { timeStamp: 100 } as KeyboardEvent;
 function key(initial = false) {
@@ -78,5 +78,26 @@ describe('touch instructions', () => {
   });
   it('keeps held actions explicit without duplicating halten', () => {
     expect(touchHint('E halten · Esc halten', { E: 'Aktion halten', ESC: 'Weiter halten' })).toBe('Aktion halten · Weiter halten');
+  });
+});
+
+
+describe('scene control overrides', () => {
+  const exploration: MobileControlProfile = {
+    directions: ['up', 'left', 'down', 'right'],
+    actions: { Q: 'Strahl', R: 'Welle', SPACE: 'Warten', ENTER: 'Bestätigen', ESC: 'Zurück' },
+    inventory: true,
+  };
+  it('replaces tactical controls with exactly one cinematic action', () => {
+    const result = resolveMobileControls(exploration, { directions: [], actions: { E: 'Weiter' }, inventory: false, disabled: true });
+    expect(result).toEqual({ directions: [], actions: { E: 'Weiter' }, inventory: false, disabled: true });
+    expect(exploration.directions).toHaveLength(4);
+    expect(Object.keys(exploration.actions)).toHaveLength(5);
+  });
+  it('returns ordinary controls when the override is removed', () => {
+    expect(resolveMobileControls(exploration, undefined)).toBe(exploration);
+  });
+  it('keeps the optional inventory preference when a scene overrides only actions', () => {
+    expect(resolveMobileControls(exploration, { directions: [], actions: { E: 'Atmen' } }).inventory).toBe(true);
   });
 });

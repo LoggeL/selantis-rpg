@@ -18,6 +18,8 @@ WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E int
 
 Auf Smartphones passt das vollständige Spielbild ins Hoch- und Querformat. Ein Steuerkreuz und große Aktionstasten unterstützen auch Halteaktionen und mehrere Finger. Tippen ins Bild bleibt möglich. Hinweise, Tasche und Einstellungen erscheinen zusätzlich in einer lesbaren Touch-Oberfläche. Auf dem Desktop bleiben Maus und Tastatur verfügbar.
 
+Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. In der Zuflucht übernimmt E das Aufrichten, die Schritte zur Wiege und das Handheben. Beim Überfall beobachtet Lia das Gespräch und die Gefangennahme aus der Böschung; jede kurze Dialogzeile wartet auf Weiter. Während dieser Szene ist die Tasche geschlossen.
+
 | Parameter | Szene |
 | --- | --- |
 | `?scene=title` | Startbildschirm |

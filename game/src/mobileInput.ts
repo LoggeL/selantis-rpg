@@ -1,3 +1,17 @@
+export type MobileActionKey = 'E' | 'Q' | 'R' | 'SPACE' | 'ENTER' | 'ESC';
+export type MobileDirection = 'up' | 'left' | 'down' | 'right';
+export type MobileControlProfile = {
+  directions: MobileDirection[];
+  actions: Partial<Record<MobileActionKey, string>>;
+  inventory?: boolean;
+  disabled?: boolean;
+};
+
+/** Scene overrides replace gameplay controls while retaining unspecified options. */
+export function resolveMobileControls(base: MobileControlProfile, override?: MobileControlProfile): MobileControlProfile {
+  return override ? { ...base, ...override } : base;
+}
+
 /** Small ownership layer for multiple fingers holding the same Phaser key. */
 export interface TouchKey {
   isDown: boolean;

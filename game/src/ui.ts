@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { getSettings, motionDuration, subscribeSettings, toggleSettings } from './settings';
+import { usesMobileInterface } from './mobileDialogs';
 
 export const FONT = 'Pixelify Sans, monospace';
 
@@ -17,6 +18,7 @@ export class Hud {
   private protect?: Phaser.GameObjects.Container;
   private thoughtTimer?: Phaser.Time.TimerEvent;
   private disabled = false;
+  private abilitiesVisible = true;
 
   constructor(scene: Phaser.Scene, portrait: string, name: string) {
     this.scene = scene;
@@ -28,6 +30,10 @@ export class Hud {
     this.hp = scene.add.rectangle(65, 27, 88, 4, 0xb8403a).setOrigin(0);
     this.root = scene.add.container(0, 0, [frame, img, label, hpBack, this.hp]).setDepth(1000).setScrollFactor(0);
     this.abilityBar = scene.add.container(320, 330).setDepth(1000).setScrollFactor(0);
+    const mobileMode = window.matchMedia('(any-pointer: coarse), (max-width: 900px)');
+    const syncAbilities = () => this.abilityBar.setVisible(this.abilitiesVisible && !usesMobileInterface());
+    mobileMode.addEventListener('change', syncAbilities);
+    syncAbilities();
     this.hintText = scene.add.text(320, 352, '', { fontFamily: FONT, fontSize: '10px', color: '#e8e2d0', stroke: '#0d0f12', strokeThickness: 3 })
       .setOrigin(0.5, 1).setDepth(1000).setScrollFactor(0);
     this.thoughtText = scene.add.text(320, 70, '', { fontFamily: FONT, fontSize: '11px', color: '#cfe0f4', stroke: '#0d0f12', strokeThickness: 3, fontStyle: 'italic', wordWrap: { width: 520 }, align: 'center' })
@@ -51,7 +57,7 @@ export class Hud {
       const shield = this.protect?.list[2] as Phaser.GameObjects.Image | undefined;
       if (shield) { scene.tweens.killTweensOf(shield); shield.setScale(1); }
     });
-    scene.events.once('shutdown', unsubscribe);
+    scene.events.once('shutdown', () => { unsubscribe(); mobileMode.removeEventListener('change', syncAbilities); });
   }
 
   setPortrait(key: string) { (this.root.list[1] as Phaser.GameObjects.Image).setTexture(key); }
@@ -83,7 +89,9 @@ export class Hud {
   }
   moveAbilities(x: number, y: number, scale = 1) { this.abilityBar.setPosition(x, y).setScale(scale); }
   setAbilitiesVisible(v: boolean) {
-    this.scene.tweens.add({ targets: this.abilityBar, alpha: v ? 1 : 0.25, duration: motionDuration(200) });
+    this.abilitiesVisible = v;
+    this.scene.tweens.killTweensOf(this.abilityBar);
+    this.abilityBar.setVisible(v && !usesMobileInterface()).setAlpha(1);
   }
   setAbilitiesDisabled(dis: boolean) {
     this.disabled = dis;
