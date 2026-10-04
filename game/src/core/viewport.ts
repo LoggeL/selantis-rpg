@@ -1,5 +1,5 @@
-export const GAME_W = 480;
-export const GAME_H = 270;
+export const GAME_W = 640;
+export const GAME_H = 360;
 
 let canvas: HTMLCanvasElement | null = null;
 export function setCanvas(c: HTMLCanvasElement): void { canvas = c; }

@@ -21,8 +21,8 @@ Das magische Leitmotiv ist **türkises Licht – die Urmacht**. Es taucht im Pro
 
 ## 2. Technik und Struktur
 
-- Phaser 3.90 + TypeScript + Vite (vorhanden). Interne Auflösung **480×270**, `pixelArt: true`, ganzzahlige Skalierung, wenn möglich. Die Leinwand füllt das Fenster im 16:9-Format (Letterbox).
-- **Welt und Figuren werden komplett im Code als Pixel-Art erzeugt** (`src/art/`). Keine alten Sprite-Sheets aus `public/assets/sprites` verwenden. Die Animationen dort waren nicht gut.
+- Phaser 3.90 + TypeScript + Vite (vorhanden). Interne Auflösung **640×360**, `pixelArt: true`, ganzzahlige Skalierung, wenn möglich. Die Leinwand füllt das Fenster im 16:9-Format (Letterbox).
+- **Grafik kommt aus der Codex-Bildgenerierung** (Vorgabe des Nutzers, Stil wie InselRPG bzw. der ursprüngliche Selantis-Stil): gemalte, detailreiche Pixel-Art. Die harte, simple Code-Pixel-Art ist verworfen. Code zeichnet nur noch Effekte (Partikel, Licht, Wetter) und, wo nötig, Hilfsgrafiken. Pipeline siehe §3.
 - **Privatsphäre der Darsteller (verbindlich):** Figuren dürfen **nicht** wie die Schauspieler der Filme aussehen. Keine 1:1-Übernahme von Gesichtern, Frisuren oder Kostümen aus Filmbildern. Aussehen kommt aus dem Roman oder ist ein eigener Entwurf. Deshalb verwendet das Spiel **keine** der alten gemalten Porträts und Tafeln (`public/assets/portraits`, `public/assets/cut`), denn mehrere wurden mit Film-Standbildern als Vorlage erzeugt. Film-Standbilder in `sources/frames/` sind nur für Handlung und Ablauf da, nie als Bildvorlage für Personen.
 - **Wiederverwendet wird nur die Musik** (`output/audio/scenes/*.mp3` + Räuberlied). Alles Visuelle entsteht neu im Code: Welt, Figuren, **Pixel-Porträts** (aus demselben Figuren-Baukasten, mit Stimmungen) und große Story-Momente als **im Spiel inszenierte Tableaus** (Kamera, Letterbox, Licht, Partikel, Nahaufnahme-Zoom).
 - **UI ist DOM/CSS** über der Leinwand (`#ui`), gestochen scharf und responsiv. Phaser zeichnet nur die Spielwelt.
@@ -43,17 +43,27 @@ Das magische Leitmotiv ist **türkises Licht – die Urmacht**. Es taucht im Pro
 
 Kapitel registrieren sich selbst über `import.meta.glob('./chapters/*/index.ts', { eager: true })`. **Kein Agent bearbeitet die Dateien eines anderen Bereichs.** Wenn eine Schnittstelle fehlt, wird sie im eigenen Bereich ergänzt oder als Wunsch dokumentiert (`docs/rebuild/requests.md`).
 
-## 3. Kunststil („Selantis-Pixel“)
+## 3. Kunststil („Selantis-Pixel“, gemalt)
 
-**Ziel:** gemütlich-melancholische 16-Bit-Ästhetik, wie ein sehr gutes modernes Pixel-RPG (Richtung Stardew Valley/Eastward/Sea of Stars in Lesbarkeit und Wärme), aber **eine** konsistente Handschrift. Es soll nicht nach Platzhaltern aussehen. Jedes Element bekommt Schattierung, Lichtkante und Textur.
+**Ziel:** hochwertige, gemalte 16-Bit-Pixel-Art wie ein modernes SNES-inspiriertes Adventure, so wie InselRPG (`~/Documents/Projects/InselRPG`, nur lesen) und der ursprüngliche Selantis-Stil. Warme Lichtstimmungen, reiche Texturen, weiche Schattierung, klare dunkle Konturen, keine harte Klötzchen-Optik. Stil-Referenzen (ohne Personen bzw. ohne Film-Bezug): `output/imagegen/style-refs/` (alte Selantis-Landschaften `selantis-*.png`, InselRPG-Assets `insel-*.png`). **Nie** Film-Standbilder oder alte Selantis-Porträts/Cutscenes als Referenz (Privatsphäre, §2).
 
-- **Tilegröße 16×16.** Figuren-Frames **16×24** (Kinder/Lia schlank, Baris breiter/größer bis 24×32).
-- **Eine feste Palette** (`art/palette.ts`, ca. 40–56 Farben in Rampen): Erdtöne, 4 Grünrampen, Wasserblau, Nachtblau-Violett, Hauttöne (3), Haarfarben (rotblond Lia, nussbraun Kyra, grau Valentus/Orwen, schwarz, rötlich-braun Flick), Stoffe, Stahl, Gold. **Akzent Türkis (Urmacht)** nur für Magie. Dunkelschatten: Schwarz-Weiß mit kaltem Stahl.
-- Licht von **oben links**. Dunkle, eingefärbte Konturen (keine reinen schwarzen Outlines außer bei Figuren-Silhouetten), weiche Schlagschatten als Ellipsen.
-- Natur prozedural mit Seed-Zufall: Gras mit Halmvarianten und Blumen, Bäume (Laubbaum, Obstbaum, Kiefer, toter Baum) mit Blattclustern und Lichtkante, Büsche, Felsen, Getreidefelder, Gemüsebeete, Wasser mit animierten Glanzlichtern und Uferkanten, Wege mit Autotiling.
-- Bauwerke: Bauernhaus (Fachwerk, Ziegeldach), Scheune, Zäune, Brunnen, Schweinegatter, Taverne innen (Holzboden, Theke, Tische, Pfosten, Kamin), Zelte, Palisade, Wachturm, Ruinen, Lagerfeuer, Wagen.
-- **Figuren-Baukasten (Paper-Doll):** Alle Figuren entstehen aus *einem* Körpertemplate mit Schichten (Haut, Haar-Frisur + Farbe, Oberteil, Rock/Hose/Robe, Umhang/Mantel, Kopfbedeckung, Bart, Elfenohren, Waffe). Dadurch haben alle dieselben Proportionen und **saubere, flüssige Animationen**: 4 Richtungen × idle (atmen), walk (6 Frames), run, sneak (geduckt), interact/pick-up, kneel, sit, lie, cast, attack (je Waffe), hit, fall. Sekundärbewegung: Haare/Umhang schwingen nach.
-- Effekte: Staub, Funken, Glut, Rauch, Regen, Spritzer, Blätter, Glühwürmchen, Urmacht-Partikel (türkis), Treffer, Schadenszahlen, Strahl, Druckwelle.
+**Bildgenerierung ausschließlich über die Codex-CLI:** `/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex exec --skip-git-repo-check -c model_reasoning_effort="low" [--image=ref.png …] "<Auftrag>"` (Wrapper `scripts/art/codex_image.sh <ziel.png> "<prompt>" [refs…]`, Vorbild: InselRPG `scripts/art/codex_image.sh`; stdin schließen, Timeout setzen, höchstens 3 parallel pro Agent). Rohbilder ungetrackt unter `output/imagegen/raw/`, Prompts und Lieferdaten unter `docs/rebuild/art/*.json`, Verarbeitung mit Python 3 + Pillow (+ NumPy) unter `scripts/art/`.
+
+**Stil-Satz für jeden Prompt:** „High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.“ Selantis-Palette: sattes Sommergrün, Weizengold, warmes Holzbraun, Ziegelrot, Steingrau, Abendorange, Nachtblau-Violett; Türkis nur für die Urmacht.
+
+| Typ | Pfad | Format |
+| --- | --- | --- |
+| Kartenhintergrund | `game/public/assets/bg/<mapId>.png` | 640×360 (ein Bildschirm) oder 1280×720 (scrollend, für große Gebiete und Verfolgungen), deckend, Drei-Viertel-Draufsicht |
+| Laufblatt | `game/public/assets/sprites/<id>-walk.png` | 256×256 = 4×4 Zellen à 64×64; Zeilen: Süd, West, Ost, Nord; 4 Frames; transparent; Fußanker (32, 60); Figurenhöhe 38–44 px (Baris ~52) |
+| Posen | `game/public/assets/sprites/<id>-<pose>.png` | 64×64 (liegend 128×64), transparent: idle, sit, kneel, lie, read, crouch/sneak, cast, attack, hurt, carry … je nach Bedarf |
+| Requisit | `game/public/assets/props/<id>.png` | transparent, Fußanker unten Mitte; animiert als Streifen |
+| Porträt | `game/public/assets/portraits/<id>[-<mood>].png` | 256×256, Brustbild, dunkel-neutraler Hintergrund; Stimmungen als Varianten (neutral, happy, sad, angry, surprised, determined, hurt) |
+| Tafel/Cutscene | `game/public/assets/cut/<id>.jpg` | 1280×720, ≤ 400 KB |
+| Itemsymbole | `game/public/assets/ui/items.png` | Atlas aus 32×32-Zellen, transparent |
+
+Alles ist in `game/public/assets/manifest.json` registriert. Figuren-Konsistenz: zuerst ein Figurenbogen (Front, Profil, Rücken) pro Figur nach der Figuren-Referenz; Laufblatt, Posen und Porträts werden mit diesem Bogen als Referenz erzeugt. Kampfgelände (isometrisch) wird gemalt bzw. mit gemalter Textur gezeichnet, Figuren im Kampf sind dieselben Sprites.
+
+Karten-Geometrie: Begehbare Flächen, Hindernisse, Verdecker (Bildbereiche, die vor Figuren gezeichnet werden, z. B. Baumkronen, Dächer) und Ausgänge werden als Polygone auf den Hintergrund gelegt und mit einem Werkzeug geprüft (Überlagerungsbild, Erreichbarkeit), Vorbild: InselRPG `scripts/map_tool.mjs`.
 
 ### Figuren-Referenz
 | Figur | Aussehen und Wesen (Quellen: Roman = R, Film = F) |
@@ -118,7 +128,7 @@ Ein **einziges** visuelles System für alles. Kein Stilmix.
 `GameState`: `chapter`, `scene`, `flags: Record<string, boolean|number|string>`, `inventory: Record<itemId, count>`, `journal` (Ziele, Erinnerungen, Wissen), `party`. Autosave in `localStorage` bei jedem Szenenstart und an Checkpoints. Titel bietet „Fortsetzen“.
 
 ### 6.2 Welt-Engine (`world/`)
-- Karten als **ASCII-Raster + Legende** (Boden-Tiles) plus Liste platzierter Objekte (Bäume, Häuser, Requisiten, NPCs, Interaktionen, Ausgänge, Trigger-Zonen, Wachen mit Patrouillen, Lichtquellen). Kollision wird aus Tiles und Objekt-Fußabdrücken abgeleitet. Y-Sortierung.
+- Karten sind **gemalte Hintergründe** (640×360 oder 1280×720 scrollend) mit Polygon-Geometrie: begehbare Flächen, Hindernisse, Verdecker (Bildausschnitte vor Figuren nach Fußlinie), Ausgänge, Trigger-Zonen, Lichtquellen, Verstecke, Wachen mit Patrouillen, Spurenblick-Hinweise, NPCs und Requisiten-Sprites. Y-Sortierung nach Fußpunkt, Figurenskalierung optional pro Karte (Tiefe).
 - Spieler: 8-Wege-Bewegung mit Beschleunigung, Rennen, Schleichen, Klick-zum-Laufen mit A*, Schrittgeräusche je Untergrund, Staub.
 - Interaktion: nächstes Objekt in Reichweite wird hervorgehoben (Kontur), Hinweis „E + Verb“.
 - NPCs: Idle-Animationen, wandern, schauen zum Spieler, Sprechblasen-„Barks“ (ambiente Gespräche).
