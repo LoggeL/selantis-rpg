@@ -74,6 +74,7 @@ export class JourneyScene extends StoryScene {
     this.setObjective(!flags.streamVisited ? 'Am Bach trinken und Wasser nachfüllen.' : !flags.journeyEastChosen ? 'Die Weggabelung ansehen.' : 'Nach Osten bis zum Wald gehen.');
     this.setSpots(ROAD_EAST_AREA.targets.map(target => ({
       ...target,
+      markerVisible: () => target.id === 'stream' ? !flags.streamVisited : target.id === 'fork' ? !flags.journeyEastChosen : true,
       enabled: () => target.id === 'farm-return' || target.id === 'stream' || (target.id === 'fork' && !!flags.streamVisited) || (target.id === 'east' && !!flags.journeyEastChosen),
       onUse: () => {
         if (target.id === 'farm-return') {

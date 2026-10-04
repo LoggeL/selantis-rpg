@@ -32,7 +32,6 @@ const HOUSE_PROPS: { flag: PackFlag; texture: string; at: Pt; size: Pt; items: {
 export class AftermathScene extends StoryScene {
   private st!: WorldState;
   private inside = false;
-  private badges: { flag: string; graphics: Phaser.GameObjects.Graphics; at: Pt }[] = [];
   private door?: Phaser.GameObjects.Graphics;
   private gate?: Phaser.GameObjects.Graphics;
   private pigs: Phaser.GameObjects.Sprite[] = [];
@@ -47,7 +46,6 @@ export class AftermathScene extends StoryScene {
       if (this.st.flags[flag] === undefined) this.st.flags[flag] = true;
     }
     this.inside = false;
-    this.badges = [];
     this.pigs = [];
     this.houseItems.clear();
     this.houseSpots = [];
@@ -57,7 +55,6 @@ export class AftermathScene extends StoryScene {
   }
 
   private configure() {
-    this.badges = [];
     this.door = undefined;
     this.gate = undefined;
     this.pigs = [];
@@ -104,8 +101,8 @@ export class AftermathScene extends StoryScene {
   private configureFarm() {
     const targets = FARM_DAWN_AREA.targets;
     const uses: Record<string, () => void> = {
-      'grave-mother': () => this.showDetail('cut-family-graves', 'Danke, Mutter.'),
-      'grave-father': () => this.showDetail('cut-family-graves', 'Ich werde alles tun, um Kyra zu finden.'),
+      'grave-mother': () => this.showDetail('cut-family-graves', 'Danke, Mutter.', () => { this.st.picked['farewell-mother'] = true; }),
+      'grave-father': () => this.showDetail('cut-family-graves', 'Ich werde alles tun, um Kyra zu finden.', () => { this.st.picked['farewell-father'] = true; }),
       door: () => {
         if (this.packed() && !this.st.flags.houseClosed) {
           this.st.flags.houseClosed = true;
@@ -124,12 +121,16 @@ export class AftermathScene extends StoryScene {
       'east-departure': 'Zu den Feldern',
       backtrack: 'Zum Hohlweg',
     };
-    this.setSpots(targets.map(target => ({ ...target, label: labels[target.id], onUse: uses[target.id] })));
+    this.setSpots(targets.map(target => ({
+      ...target, label: labels[target.id], onUse: uses[target.id],
+      markerVisible: () => target.id === 'pig-gate' ? !this.st.flags.pigsReleased
+        : target.id === 'door' ? !this.st.flags.houseClosed
+        : target.id === 'grave-mother' ? !this.st.picked['farewell-mother']
+        : target.id === 'grave-father' ? !this.st.picked['farewell-father'] : true,
+    })));
     this.door = this.add.graphics().setDepth(176);
     this.gate = this.add.graphics().setDepth(100);
     this.areaRoot.add([this.door, this.gate]);
-    this.badge('pigsReleased', [154, 108]);
-    this.badge('houseClosed', [273, 182]);
     if (this.textures.exists('crt-pig')) {
       const positions: Pt[] = this.st.flags.pigsReleased ? [[72, 189], [96, 201], [119, 209]] : [[176, 74], [212, 78], [245, 82]];
       this.pigs = positions.map(at => {
@@ -171,13 +172,13 @@ export class AftermathScene extends StoryScene {
   }
 
   /** The graves remain an optional farewell; ordinary packing stays in the room. */
-  private showDetail(texture: string, text: string) {
-    if (!this.textures.exists(texture)) { this.say(text); return; }
+  private showDetail(texture: string, text: string, complete?: () => void) {
+    if (!this.textures.exists(texture)) { this.say(text); complete?.(); return; }
     this.say('', 0);
     this.setLiaPose(texture === 'cut-family-graves' ? 'lia-grieve' : 'lia-pack');
     this.showCloseup(texture);
     this.setCloseupText(text);
-    this.setCloseupContinue(() => { this.hideCloseup(); this.setLiaPose(null); }, 'Zurück');
+    this.setCloseupContinue(() => { this.hideCloseup(); this.setLiaPose(null); complete?.(); }, 'Zurück');
   }
 
   private releasePigs() {
@@ -226,28 +227,12 @@ export class AftermathScene extends StoryScene {
     this.scene.start('world', FIELD_DEPARTURE);
   }
 
-  private badge(flag: string, at: Pt) {
-    const graphics = this.add.graphics().setDepth(800);
-    this.areaRoot.add(graphics);
-    this.badges.push({ flag, graphics, at });
-  }
-
   private refreshProgress() {
     const count = PACK_FLAGS.filter(flag => this.st.flags[flag]).length;
     this.st.flags.departureReady = this.packed() && !!this.st.flags.houseClosed && !!this.st.flags.pigsReleased;
     this.setObjective(this.st.flags.departureReady ? 'Über die Felder den Hufspuren nach Osten folgen.' : this.packed()
       ? !this.st.flags.houseClosed ? 'Die Haustür schließen.' : 'Die drei Schweine freilassen.'
       : `Für den Aufbruch packen (${count}/${PACK_FLAGS.length}).`);
-    for (const { flag, graphics, at } of this.badges) {
-      const done = !!this.st.flags[flag];
-      const x = at[0] - 5, y = at[1] - 25;
-      graphics.clear();
-      graphics.fillStyle(0x16211e, 0.92).fillRect(x - 3, y - 3, 19, 18);
-      // Kleiner Lederbeutel, daneben nach dem Einpacken ein Häkchen.
-      graphics.fillStyle(done ? 0x9cad82 : 0xb6986a).fillRect(x, y + 4, 8, 8).fillRect(x + 2, y + 1, 4, 4);
-      graphics.fillStyle(0x584936).fillRect(x, y + 4, 8, 1);
-      if (done) graphics.fillStyle(0xdce9b8).fillRect(x + 9, y + 8, 2, 3).fillRect(x + 11, y + 6, 2, 3).fillRect(x + 13, y + 4, 2, 3);
-    }
     if (this.door) {
       this.door.clear().fillStyle(this.st.flags.houseClosed ? 0x6d5034 : 0x171b21).fillRect(264, 151, 18, 23);
       if (this.st.flags.houseClosed) this.door.fillStyle(0x987349).fillRect(268, 153, 1, 19).fillRect(273, 153, 1, 19).fillRect(278, 153, 1, 19);

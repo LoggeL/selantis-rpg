@@ -393,6 +393,6 @@ export class StoryScene extends Phaser.Scene {
     }
     const hint = this.cinematic || this.closeupVisible || this.closeup?.hasCaption ? '' : spot ? `${spot.label} · E / Klick` : WALK_HINT;
     if (hint !== this.hint) { this.hint = hint; this.hud.hint(hint, true); }
-    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && this.isEnabled(marker.spot));
+    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && this.isEnabled(marker.spot) && (!marker.spot.markerVisible || marker.spot.markerVisible()));
   }
 }

@@ -21,5 +21,7 @@ export interface StoryArea {
 
 export interface StorySpot extends StoryTarget {
   enabled?: () => boolean;
+  /** Repeatable places can remain usable after their one-time task marker ends. */
+  markerVisible?: () => boolean;
   onUse: () => void;
 }
