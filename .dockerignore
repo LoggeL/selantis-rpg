@@ -5,6 +5,7 @@
 !game/package.json
 !game/package-lock.json
 !game/tsconfig.json
+!game/vite.config.mjs
 !game/index.html
 !game/src/
 !game/src/**

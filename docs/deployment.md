@@ -34,7 +34,9 @@ python3 scripts/verify_public_release.py --commit COMMIT_SHA
 
 Die öffentliche Verifikation prüft die Commit-ID, Healthcheck, Dateihashes, Medientypen, fehlende Assetpfade und MP3-Range-Anfragen. Eine erfolgreiche technische Prüfung ist keine vollständige Spielabnahme aller Szenen.
 
-`scripts/dokploy_release.py` bleibt als lokales Werkzeug für Status und den früheren Drop-Upload erhalten. `ensure` akzeptiert nur den Drop-Provider; nach der Umstellung auf GitHub ist der normale Veröffentlichungsweg `git push`. Der API-Key bleibt im macOS-Schlüsselbund unter `dokploy.logge.top API Key` und wird ausschließlich über stdin an curl übergeben. Deploymentpakete und Prüfberichte liegen lokal in `output/deployment/` und werden nicht committet.
+Veröffentlichungen erfolgen ausschließlich durch `git push origin main` und das dadurch ausgelöste GitHub-Auto-Deployment. Keine manuellen Builds hochladen oder Deployments per API bzw. Oberfläche starten. Diese Regel steht auch in `AGENTS.md`.
+
+`python3 scripts/dokploy_release.py status` zeigt die aktuelle GitHub-Konfiguration und den Deploymentverlauf an. Das Werkzeug ist ausschließlich lesend; die früheren Befehle für Drop-Uploads und Provideränderungen sind entfernt. Der API-Key bleibt im macOS-Schlüsselbund unter `dokploy.logge.top API Key` und wird ausschließlich über stdin an curl übergeben. Prüfberichte liegen lokal in `output/deployment/` und werden nicht committet.
 
 Die erste Veröffentlichung am 3. Oktober 2026 wurde über Drop hochgeladen. Die alte lokale Git-Historie ist separat gesichert; das öffentliche Repository beginnt mit einem bereinigten Stand und enthält keine verworfenen Grafikdateien.
 
