@@ -428,7 +428,7 @@ for (const viewport of viewports) {
       expect(state.speaker).toBe('');
       expect(state.portrait).toBe('');
       expect(state.hud).toBe(false);
-      expect(state.texture).toBe(`prologue-${id}`);
+      expect(state.texture).toBe(id === 'valentus' ? 'prologue-valentus-ready' : `prologue-${id}`);
       expect(state.loaded).toBe(true);
       expect(state.full).toBe(true);
       expect(state.bottom).toBeLessThanOrEqual((viewport.mobile ? 360 : 220) + 0.5);
@@ -448,6 +448,9 @@ for (const viewport of viewports) {
         const scene = (window as any).game.scene.getScene('storyprologue');
         return !scene.data.get('dialogue:typing') && scene.data.get('dialogue:complete') === scene.data.get('dialogue:fullText');
       })).toBe(true);
+      const narration = await page.evaluate(() => (window as any).game.scene.getScene('storyprologue').data.get('dialogue:complete'));
+      expect(narration).not.toMatch(/Fiebertraum|verletzt|Verfolger|letzte Hoffnung|Niederlage|überlebten|flieht/i);
+      if (id === 'valentus') expect(narration).toContain('Gleich beginnt die Schlacht.');
       await noHorizontalOverflow(page);
       if (viewport.mobile) {
         const caption = (await page.locator('.mobile-caption').boundingBox())!;

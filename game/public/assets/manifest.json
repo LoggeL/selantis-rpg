@@ -345,8 +345,7 @@
     "camp-stones": "assets/ui/camp-stones.svg",
     "camp-wood": "assets/ui/camp-wood.svg",
     "bg-first-camp-evening": "assets/bg/first-camp-evening-unbuilt.png",
-    "bg-first-camp-night": "assets/bg/first-camp-night-unbuilt.png",
-    "prologue-valentus": "assets/cut/prologue-valentus.png"
+    "bg-first-camp-night": "assets/bg/first-camp-night-unbuilt.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

@@ -1,4 +1,4 @@
-// Reine Rasterregeln der Traumschlacht – keine Phaser-Abhängigkeit.
+// Reine Rasterregeln der Schlacht von Dunkelhain – keine Phaser-Abhängigkeit.
 
 export type Cell = { x: number; y: number };
 export type Side = 'valentus' | 'enemy' | 'ally';
@@ -10,6 +10,8 @@ export interface Unit {
   cell: Cell;
   hp: number;
   alive: boolean;
+  /** Alive, but unable to act after a nonlethal defeat. */
+  wounded?: boolean;
   speed?: number;
   attack?: number;
   defense?: number;
@@ -58,7 +60,7 @@ export function cellAt(px: number, py: number): Cell | null {
   return inside(c) ? c : null;
 }
 
-export const unitAt = (units: Unit[], c: Cell) => units.find((u) => u.alive && eq(u.cell, c));
+export const unitAt = (units: Unit[], c: Cell) => units.find((u) => u.alive && !u.wounded && eq(u.cell, c));
 
 /** Keep scripted spawns nearby without placing living units on one another. */
 export function freeCell(units: Unit[], preferred: Cell): Cell {
@@ -126,9 +128,9 @@ export interface Push { unit: Unit; path: Cell[]; end: Cell; collidedWith?: Unit
 /** Druckwelle: trifft nur Feinde in der 3x3-Fläche, stößt sie WAVE_PUSH Felder vom Mittelpunkt weg. */
 export function wavePushes(units: Unit[], center: Cell, caster: Cell): Push[] {
   const area = waveArea(center);
-  const victims = units.filter((u) => u.alive && u.side === 'enemy' && area.some((c) => eq(c, u.cell)))
+  const victims = units.filter((u) => u.alive && !u.wounded && u.side === 'enemy' && area.some((c) => eq(c, u.cell)))
     .sort((a, b) => manhattan(b.cell, center) - manhattan(a.cell, center) || a.id.localeCompare(b.id));
-  const occupied = new Set(units.filter((u) => u.alive).map((u) => key(u.cell)));
+  const occupied = new Set(units.filter((u) => u.alive && !u.wounded).map((u) => key(u.cell)));
   const pushes: Push[] = [];
   for (const u of victims) {
     let dx = u.cell.x - center.x, dy = u.cell.y - center.y;

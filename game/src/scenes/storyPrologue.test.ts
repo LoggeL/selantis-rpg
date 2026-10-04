@@ -7,6 +7,7 @@ import { StoryPrologueScene, PROLOGUE_CARDS } from './StoryPrologueScene';
 import { TitleScene } from './BootScene';
 import { dialogueSceneFixture } from '../dialogueTestFixture';
 import { updateSettings } from '../settings';
+import { musicForScene, MUSIC_TRACKS } from '../musicPolicy';
 
 function fixture() {
   const f = dialogueSceneFixture();
@@ -28,6 +29,24 @@ function fixture() {
 beforeEach(() => { layout.mobile = false; updateSettings({ reducedMotion: false }); });
 
 describe('four manual prologue cards', () => {
+  it('introduces the Urmacht dispute and stays before the historical battle', () => {
+    const [council, conflict, army, valentus] = PROLOGUE_CARDS;
+    expect(council.text).toContain('wacht über die Urmacht');
+    expect(council.text).toContain('Vier Zaubermeister wollen sie für sich gewinnen');
+    expect(council.text).toContain('sechs anderen stellen sich ihnen entgegen');
+    expect(conflict.text).toContain('Aus dem Streit um die Urmacht wird Krieg');
+    expect(army.title).toBe('Vor Dunkelhain');
+    expect(valentus.art).toBe('prologue-valentus-ready');
+    expect(valentus.text).toContain('Gleich beginnt die Schlacht');
+    expect(PROLOGUE_CARDS.map(card => card.text).join(' ')).not.toMatch(/Fiebertraum|flieht|flüchtet|verwundet|Wiege/i);
+  });
+
+  it('provides quiet tension beneath the prologue and changes mood for the battle', () => {
+    expect(musicForScene('storyprologue')).toBe('dread');
+    expect(MUSIC_TRACKS[musicForScene('storyprologue')!]).toContain('dread-lyria-3-5.mp3');
+    expect(musicForScene('battle')).toBe('battle');
+  });
+
   it('reveals each card before advancing and starts the battle only after the fourth', () => {
     const { s, data, press, emit } = fixture();
     expect(PROLOGUE_CARDS).toHaveLength(4);

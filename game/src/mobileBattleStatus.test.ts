@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mobileBattleSummary } from './mobileBattleStatus';
 const status = `VALENTUS AM ZUG
-LP 100/100 · Traum schützt
+LP 100/100 · Tutorialschutz
 Bewegen: 4 Felder
 Aktion: Strahl / Welle / Warten
 Blick: Nord
@@ -17,7 +17,13 @@ describe('native mobile tactical summary', () => {
     const facing = status.replace('VALENTUS AM ZUG', 'BLICKRICHTUNG WÄHLEN').replace('Bewegen: 4 Felder', 'Bewegen: verbraucht').replace('Aktion: Strahl / Welle / Warten', 'Aktion: verbraucht');
     expect(mobileBattleSummary(facing)).toContain('LP 100/100 · Blick Nord wählen');
     expect(mobileBattleSummary(facing)).toContain('Bewegen verbraucht · Aktion verbraucht');
-    expect(mobileBattleSummary(facing).split('\n')).toHaveLength(3);
+    expect(mobileBattleSummary(facing)).toContain('Front schützt. Rücken nimmt mehr Schaden.');
+    expect(mobileBattleSummary(facing).split('\n')).toHaveLength(4);
+  });
+  it('keeps a wounded opponent distinct from the next attacking enemies', () => {
+    const summary = mobileBattleSummary(status + '\nAxtkämpfer · verwundet');
+    expect(summary).toContain('Axtkämpfer · verwundet');
+    expect(summary.split('\n').find(line => line.startsWith('Danach:'))).not.toContain('Axtkämpfer');
   });
   it('does not create a paragraph from an entire enemy army', () => {
     const many = status + '\n3. Schütze · 5 · LP 30\n4. Axtkämpfer · 4 · LP 80';

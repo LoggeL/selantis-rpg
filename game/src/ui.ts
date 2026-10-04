@@ -159,7 +159,9 @@ export class Hud {
 
   hint(text: string, quiet = false) {
     this.scene.data.set('mobile:hint', text);
-    this.hintText.setText(text);
+    const interaction = /^E(?:\s|\s*\/)/.test(text);
+    this.hintText.setFontSize(interaction ? 14 : 10).setBackgroundColor(interaction ? '#101820' : '')
+      .setPadding(interaction ? 10 : 0, interaction ? 4 : 0).setText(text);
     if (!quiet && text) { this.hintText.setAlpha(0); this.scene.tweens.add({ targets: this.hintText, alpha: 1, duration: motionDuration(300) }); }
   }
   setThoughtsVisible(visible: boolean) {

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { sfx, startAmbient } from '../audio';
 import { FONT, Hud } from '../ui';
 import { ambientPrefs, getSettings, subscribeSettings } from '../settings';
+import { Dialogue } from '../dialogue';
 
 type Pt = { x: number; y: number };
 type Station = { at: number; kind: 'stumble' | 'jump' | 'climb' | 'brace' | 'slip'; hint?: string; holdMs?: number; to?: number };
@@ -55,11 +56,13 @@ export class FlightScene extends Phaser.Scene {
   private skipBar!: Phaser.GameObjects.Rectangle;
   private ambientShapes: Phaser.GameObjects.Ellipse[] = [];
   private ambientTweens: Phaser.Tweens.Tween[] = [];
+  private rescue?: Dialogue;
 
   constructor() { super('flight'); }
 
   create() {
     this.holdPointer = undefined;
+    this.rescue = undefined;
     startAmbient(this, 'flight');
     this.busy = false; this.nextStation = 0; this.dist = 0; this.ended = false; this.holding = 0;
     this.safeFloor = 0; this.railTarget = undefined; this.pointerHolding = false;
@@ -67,8 +70,7 @@ export class FlightScene extends Phaser.Scene {
     this.beatTimer = 1100; this.dropTimer = 380; this.barkTimer = 3000;
     this.torches = []; this.pauses = []; this.holdBar = undefined; this.holdBack = undefined;
     this.ambientShapes = []; this.ambientTweens = [];
-    this.add.image(0, 0, 'bg-flight-a').setOrigin(0).setDepth(-1000);
-    this.add.image(640, 0, 'bg-flight-b').setOrigin(0).setDepth(-1000);
+    this.addForestBackground();
     const cam = this.cameras.main;
     cam.setBounds(0, 0, 1280, 360);
     cam.fadeIn(1200, 0, 0, 0);
@@ -293,6 +295,7 @@ export class FlightScene extends Phaser.Scene {
   }
 
   private onPointer(p: Phaser.Input.Pointer) {
+    if (this.rescue?.visible) { this.rescue.advance(); return; }
     if (this.ended || this.busy) return;
     if (this.isHudPointer(p)) {
       if (p.y >= 34 && p.y <= 62 && p.x >= 67 && p.x <= 129) this.glimmer();
@@ -341,6 +344,7 @@ export class FlightScene extends Phaser.Scene {
   }
 
   private onInteract() {
+    if (this.rescue?.visible) { this.rescue.advance(); return; }
     const st = this.stations[this.nextStation];
     if (this.busy || this.ended) return;
     if (!st || this.dist < st.at - 1) {
@@ -403,6 +407,8 @@ export class FlightScene extends Phaser.Scene {
 
   private slip() {
     this.ended = true;
+    this.busy = true;
+    this.railTarget = undefined;
     this.hud.hint('');
     this.v.play('vc-slip');
     if (!getSettings().reducedMotion) this.tweens.add({ targets: this.v, x: this.v.x + 10, y: this.v.y + 4, duration: 300, ease: 'Quad.in' });
@@ -412,8 +418,24 @@ export class FlightScene extends Phaser.Scene {
         this.cameras.main.shake(250, 0.01);
         this.cameras.main.flash(80, 255, 255, 255);
       }
-      this.time.delayedCall(120, () => this.cameras.main.fadeOut(200, 0, 0, 0));
-      this.time.delayedCall(2600, () => this.scene.start('refuge'));
+      this.time.delayedCall(350, () => this.rescueBridge());
+    });
+  }
+
+  private rescueBridge() {
+    this.hud.hideAll(250);
+    this.cameras.main.stopFollow();
+    this.rescue = new Dialogue(this, { depth: 1200 });
+    [0, 360, 760].forEach(delay => this.time.delayedCall(delay, () => sfx.step()));
+    this.rescue.setText('Schritte im Unterholz. Jemand kommt näher. Dann wird alles schwarz.');
+    this.rescue.setContinue(() => {
+      this.rescue!.hide();
+      const black = this.add.rectangle(320, 180, 640, 360, 0x000000)
+        .setScrollFactor(0).setDepth(1100).setAlpha(0);
+      this.tweens.add({ targets: black, alpha: 1, duration: getSettings().reducedMotion ? 150 : 900, onComplete: () => {
+        this.rescue!.setText('Ein Mann findet Valentus und bringt den Bewusstlosen in ein Bauernhaus. Dort versorgt ihn das Paar.');
+        this.rescue!.setContinue(() => { this.rescue!.hide(); this.scene.start('refuge'); });
+      } });
     });
   }
 
@@ -424,8 +446,8 @@ export class FlightScene extends Phaser.Scene {
   }
 
   private actionMarker(label: string, color: number) {
-    const ring = this.add.circle(0, 0, 7, 0x101820, 0.85).setStrokeStyle(1, color, 0.85);
-    const text = this.add.text(0, 0, label, { fontFamily: FONT, fontSize: '8px', color: '#dbe3e7' }).setOrigin(0.5);
+    const ring = this.add.circle(0, 0, 12, 0x101820, 0.96).setStrokeStyle(2, color, 1);
+    const text = this.add.text(0, -1, label, { fontFamily: FONT, fontSize: '16px', color: '#f4ecd8', stroke: '#101820', strokeThickness: 2 }).setOrigin(0.5);
     return this.add.container(0, 0, [ring, text]).setDepth(810).setVisible(false);
   }
 
@@ -485,6 +507,32 @@ export class FlightScene extends Phaser.Scene {
       this.ambientShapes.push(ripple);
       this.ambientTweens.push(this.tweens.add({ targets: ripple, scaleX: 1.7, alpha: 0.1, duration: 2200, delay: x % 900, yoyo: true, repeat: -1 }));
     }
+  }
+
+  private addForestBackground() {
+    const key = 'bg-flight-blended';
+    if (!this.textures.exists(key)) {
+      const a = this.textures.get('bg-flight-a').getSourceImage() as HTMLImageElement;
+      const b = this.textures.get('bg-flight-b').getSourceImage() as HTMLImageElement;
+      const texture = this.textures.createCanvas(key, 1280, 360)!;
+      const context = texture.getContext();
+      context.imageSmoothingEnabled = false;
+      context.drawImage(a, 0, 0);
+      context.drawImage(b, 640, 0);
+      // Die Randstreifen gehen über 128 Pixel ineinander über. Außerhalb
+      // dieses Bands behalten beide Bühnen ihre ursprünglichen Koordinaten.
+      for (let x = 0; x < 128; x++) {
+        const t = x / 127;
+        const alpha = t * t * (3 - 2 * t);
+        context.globalAlpha = 1;
+        context.drawImage(a, 576 + Math.floor(x / 2), 0, 1, 360, 576 + x, 0, 1, 360);
+        context.globalAlpha = alpha;
+        context.drawImage(b, Math.floor(x / 2), 0, 1, 360, 576 + x, 0, 1, 360);
+      }
+      context.globalAlpha = 1;
+      texture.refresh();
+    }
+    this.add.image(0, 0, key).setOrigin(0).setDepth(-1000);
   }
 
   private skipFlight() {

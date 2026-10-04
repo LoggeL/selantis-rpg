@@ -53,7 +53,9 @@
       "dimensions": [
         1672,
         941
-      ]
+      ],
+      "status": "Archived: removed from intro; future injury and flight must not be revealed before combat.",
+      "supersededBy": "game/public/assets/cut/prologue-valentus-ready.png"
     },
     {
       "name": "splash-art",
@@ -91,6 +93,7 @@
     "captureMethod": "In-app browser screenshot of actual game canvas, no mock gameplay",
     "format": "Browser screenshot encoded as PNG",
     "title": "Die Chroniken von Selantis",
-    "brandingCorrection": "User corrected Zelantis to Selantis before final delivery"
+    "brandingCorrection": "User corrected Zelantis to Selantis before final delivery",
+    "caption": "Valentus' Schlacht. Lias Reise."
   }
 }

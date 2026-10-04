@@ -10,7 +10,7 @@ function battle() {
   scene.phase = 'plan'; scene.beat = 1;
   scene.units = [unit('valentus', 'valentus', 3), unit('w1', 'enemy', 8, 6), unit('w2', 'enemy', 10, 7)];
   scene.data = { set: vi.fn() }; scene.registry = { set: vi.fn() };
-  scene.hud = { hint: vi.fn(), select: vi.fn(), setAbilitiesVisible: vi.fn(), setAbilitiesDisabled: vi.fn() };
+  scene.hud = { hint: vi.fn(), thought: vi.fn(), select: vi.fn(), setAbilitiesVisible: vi.fn(), setAbilitiesDisabled: vi.fn() };
   scene.previewG = { clear: vi.fn() };
   scene.sprites.set('valentus', { play: vi.fn() });
   scene.time = { delayedCall: (_ms: number, fn: () => void) => fn() };
@@ -85,5 +85,25 @@ describe('scene tactical turn lifecycle', () => {
     (BattleScene.prototype as any).computeIntents.call(scene);
     expect(scene.intents.get('w1')).toEqual({ kind: 'strike', target: 'valentus' });
     expect(scene.intents.get('w2').path).toEqual([{ x: 9, y: 4 }]);
+  });
+  it.each(['beam', 'wave', 'falke'])('leaves the axe fighter alive and wounded after lethal %s damage', source => {
+    const scene = battle();
+    const axe = { ...unit('axe', 'enemy', 7), kind: 'axe', hp: 60 } as Unit;
+    scene.units.push(axe);
+    const sprite: any = {};
+    for (const method of ['play', 'setAlpha', 'setVisible', 'setTintFill', 'clearTint']) sprite[method] = vi.fn(() => sprite);
+    scene.sprites.set('axe', sprite);
+    const effect: any = {};
+    for (const method of ['setOrigin', 'setDepth', 'setStrokeStyle']) effect[method] = vi.fn(() => effect);
+    scene.add = { text: vi.fn(() => effect), ellipse: vi.fn(() => effect) };
+    scene.tweens = { add: vi.fn() };
+    scene.clearIntent = vi.fn(); scene.kill = vi.fn();
+    scene.damage(axe, 999, source);
+    expect(axe).toMatchObject({ alive: true, wounded: true, hp: 1 });
+    expect(sprite.play).toHaveBeenCalledWith('axe-land');
+    expect(scene.kill).not.toHaveBeenCalled();
+    expect(scene.data.set).toHaveBeenCalledWith('battle:axeOutcome', 'wounded');
+    scene.damage(axe, 999, source);
+    expect(axe).toMatchObject({ alive: true, wounded: true, hp: 1 });
   });
 });

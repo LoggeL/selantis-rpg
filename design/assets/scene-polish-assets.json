@@ -130,7 +130,9 @@
             "dimensions": [
               1672,
               941
-            ]
+            ],
+            "status": "Archived: removed from intro; future injury and flight must not be revealed before combat.",
+            "supersededBy": "game/public/assets/cut/prologue-valentus-ready.png"
           },
           {
             "name": "splash-art",
@@ -168,8 +170,53 @@
           "captureMethod": "In-app browser screenshot of actual game canvas, no mock gameplay",
           "format": "Browser screenshot encoded as PNG",
           "title": "Die Chroniken von Selantis",
-          "brandingCorrection": "User corrected Zelantis to Selantis before final delivery"
+          "brandingCorrection": "User corrected Zelantis to Selantis before final delivery",
+          "caption": "Valentus' Schlacht. Lias Reise."
         }
+      }
+    },
+    {
+      "metadata": "design/assets/prologue-prebattle-and-stab.json",
+      "production": {
+        "tool": "image_gen.imagegen",
+        "storyConstraint": "Intro ends before combat. No future defeat, flight, injury or dream reveal. Stabbing happens only after the enemy appears behind Valentus at the battle ending.",
+        "sourceGrounding": {
+          "factions": "sources/novel/roman-selantis-2.json, PDF pages51-52, factions only with all outcomes withheld",
+          "prebattle": "PDF page3, armies and mage before the clash",
+          "stab": "User requested explicit visual strike at the existing black-figure battle ending. Novel flight wound below right ribs informs strike location."
+        },
+        "assets": [
+          {
+            "name": "prologue-valentus-ready",
+            "asset": "game/public/assets/cut/prologue-valentus-ready.png",
+            "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-87c91994-eca0-4a9e-8269-b4a80b3dd045.png",
+            "prompt": "Use case: illustration-story. Asset: final landscape16:9 intro screen immediately BEFORE the Battle of Dunkelhain in the browser RPG Die Chroniken von Selantis. Image1 is the identity reference for Valentus (same adult face, long brown hair, mustache and short beard); Image2 is the style, robes and battlefield reference ONLY. Show Valentus healthy and uninjured, standing upright on a rocky grassy hillside before the battle starts. Medium-wide three-quarter view, his whole head and torso clear near centerleft, blue and ivory mage robes fluttering in the wind, calm alert posture, looking toward the opposing ranks down the slope on the right. Behind him stand organized allied soldiers with blue/ivory banners, far down the hill are stationary black-clad enemy ranks. Overcast sky, restrained earthy painterly fantasy style matching image2, finely detailed and readable at small game size, no coarse pixel grid. Essential subjects inside frame with headroom. No text, no logo, no UI. Absolutely no blood, wounds, torn clothing, bandages, injury, exhaustion, running, flight, pursuit, hounds, aftermath, fallen bodies or dream imagery. No spell effects yet. The moment is anticipation before the first clash, with no outcome revealed.",
+            "dimensions": [
+              1672,
+              941
+            ],
+            "sha256": "edcf51699598f39427a77015996bdcd65aee72dab4db975a52fcc7424844613e",
+            "references": [
+              "game/public/assets/portraits/dialogue-valentus.png",
+              "game/public/assets/cut/prologue-falken.png"
+            ]
+          },
+          {
+            "name": "cinematic-valentus-stab",
+            "asset": "game/public/assets/cut/cinematic-valentus-stab.png",
+            "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-12aec6d4-7575-4b0e-b262-03fcc67c4739.png",
+            "prompt": "Use case: illustration-story. Landscape16:9 illustrated cutscene frame for Die Chroniken von Selantis, shown AFTER the playable battle when a dark figure has appeared behind Valentus. Image1 defines Valentus' identity (same adult face, long brown hair, mustache, short beard); image2 defines his blue-and-ivory robe and the painterly battlefield style. Show the exact moment of a stabbing attack from behind. Valentus is in a clear three-quarter side view in foregroundcenter, face reacting in shocked pain, still upright. An anonymous black-clad shadowy adult attacker is immediately behind him, head dark and face obscured by hood, driving one short steel dagger into Valentus' CLOTHED right flank just below the ribs. Make the attacking arm, hand gripping the hilt and the blade's actual contact with the robe unmistakable; this is the thrust/contact frame, not a raised or hovering knife. A small dark-red stain in cloth is enough. No open wound, no exposed organs, no graphic gore, no dead bodies in foreground. Blue/ivory allied and black enemy ranks blurred far behind on the rocky grassy slope, overcast gray sky, subdued earthy colors. Fine hand-painted medieval fantasy detail matching image2, subtly pixel-art character but no coarse pixel grid. Keep complete heads, shoulders, the whole knife action and both figures' torsos within frame with headroom. No text, captions, UI, logo or watermark. No fantasy monster, horns, supernatural glow or magic effects, no extra foreground people or extra weapons.",
+            "dimensions": [
+              1672,
+              941
+            ],
+            "sha256": "a63ba2062f62165334b553865fff316c40a7c8b77c7afb5a7e198416fa840c36",
+            "references": [
+              "game/public/assets/portraits/dialogue-valentus.png",
+              "game/public/assets/cut/prologue-valentus-ready.png"
+            ]
+          }
+        ]
       }
     }
   ]

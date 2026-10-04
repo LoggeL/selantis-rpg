@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { boltLine, isRock, reachable, type Unit } from './grid';
+import { boltLine, isRock, reachable, unitAt, wavePushes, type Unit } from './grid';
 import { attackAspect, beatComplete, dreamDamage, enemyOrder, freshTurn, incomingDamage, spendTurn } from './tactics';
 
 const enemy = (id: string, kind: Unit['kind'] = 'warrior'): Unit => ({ id, kind, side: 'enemy', cell: { x: 8, y: 4 }, hp: 60, alive: true });
@@ -44,7 +44,7 @@ describe('enemy order and final facing', () => {
     expect(damage('back', true)).toBe(19);
     expect(damage('side', true)).toBe(14);
   });
-  it('low HP keeps the opening dream playable without pretending damage was ignored', () => {
+  it('low HP keeps the opening tutorial playable without pretending damage was ignored', () => {
     expect(dreamDamage(100, 19)).toEqual({ hp: 81, damage: 19, protected: false });
     expect(dreamDamage(8, 19)).toEqual({ hp: 1, damage: 7, protected: true });
     expect(dreamDamage(1, 19)).toEqual({ hp: 1, damage: 0, protected: true });
@@ -52,6 +52,14 @@ describe('enemy order and final facing', () => {
 });
 
 describe('prologue progression and rescue sightline', () => {
+  it('a wounded axe fighter stays alive but cannot attack or receive another spell', () => {
+    const axe = { ...enemy('axe', 'axe'), hp: 1, wounded: true };
+    expect(enemyOrder([axe])).toEqual([]);
+    expect(unitAt([axe], axe.cell)).toBeUndefined();
+    expect(wavePushes([axe], axe.cell, { x: 7, y: 4 })).toEqual([]);
+    expect(beatComplete(2, [axe], false)).toBe(true);
+    expect(axe.alive).toBe(true);
+  });
   it('requires both warriors before arrival of the boy, then handles either rescue branch', () => {
     const units = [enemy('w1'), enemy('w2'), enemy('axe', 'axe'), enemy('xbow', 'crossbow')];
     expect(beatComplete(1, units, false)).toBe(false);

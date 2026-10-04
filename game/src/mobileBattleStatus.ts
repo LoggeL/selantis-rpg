@@ -9,9 +9,12 @@ export function mobileBattleSummary(status: unknown): string {
   const actionLabel = action ? `Aktion ${action.includes('verbraucht') ? 'verbraucht' : 'frei'}` : '';
   const enemies = lines.filter(line => /^\d+\. /.test(line)).map(line => line.replace(/^\d+\. /, '').split(' · LP')[0].replace(' · ', ' '));
   const facingLabel = lines[0] === 'BLICKRICHTUNG WÄHLEN' ? `${facing} wählen` : facing;
+  const wounded = lines.filter(line => line.endsWith(' · verwundet'));
   return [
     [hp, facingLabel].filter(Boolean).join(' · '),
     [move, actionLabel].filter(Boolean).join(' · '),
     enemies.length ? `Danach: ${enemies.slice(0, 3).join(' → ')}${enemies.length > 3 ? ' …' : ''}` : '',
+    lines[0] === 'BLICKRICHTUNG WÄHLEN' ? 'Front schützt. Rücken nimmt mehr Schaden.' : '',
+    wounded.slice(0, 2).join(' · '),
   ].filter(Boolean).join('\n');
 }

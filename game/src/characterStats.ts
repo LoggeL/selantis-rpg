@@ -46,7 +46,7 @@ function appendCombatStats(sheet: CharacterSnapshot, stats: CombatStats) {
 function battleCharacter(input: CharacterStatInput, unit: Unit): CharacterSnapshot {
   const live = input.battle?.units.find(entry => entry.id === unit.id);
   const sheet: CharacterSnapshot = { id: unit.id, name: NAMES[unit.kind] ?? unit.id,
-    portrait: PORTRAITS[unit.kind] ?? 'valentus', profile: unit.side === 'valentus' ? 'Die Schlacht im Traum' : 'An deiner Seite',
+    portrait: PORTRAITS[unit.kind] ?? 'valentus', profile: unit.side === 'valentus' ? 'Die Schlacht von Dunkelhain' : 'An deiner Seite',
     hp: Math.max(0, unit.hp), maxHp: live?.maxHp, stats: [], abilities: unit.kind === 'valentus' ? MAGIC : [], items: [] };
   sheet.stats.push({ label: 'Lebenspunkte', value: live ? `${sheet.hp} / ${live.maxHp} HP` : `${sheet.hp} HP` });
   if (live) appendCombatStats(sheet, live);
@@ -68,7 +68,7 @@ export function partyRoster(input: CharacterStatInput): CharacterSnapshot[] {
     .filter(unit => unit.alive && unit.side !== 'enemy').map(unit => battleCharacter(input, unit));
   if (VALENTUS_SCENES.has(input.scene)) return [{ id: 'valentus', name: 'Valentus',
     portrait: input.scene === 'flight' || input.scene === 'break' ? 'valentus-wounded' : 'valentus',
-    profile: ({ break: 'Verwundet', flight: 'Auf der Flucht', refuge: 'In der Zuflucht' })[input.scene] ?? 'Im Traum',
+    profile: ({ break: 'Verwundet', flight: 'Auf der Flucht', refuge: 'In der Zuflucht' })[input.scene] ?? 'In Dunkelhain',
     stats: input.scene === 'break' || input.scene === 'flight' ? [{ label: 'Zustand', value: 'Verwundet' }] : [],
     abilities: input.scene === 'flight' ? [{ name: 'Strahl', key: 'Q', description: 'Blaue Magie auf der Flucht.' }, { name: 'Druckwelle', key: 'R', description: 'Blaue Magie auf der Flucht.' }] : [], items: [] }];
   return availableParty(input.flags).map(id => {
@@ -80,14 +80,13 @@ export function partyRoster(input: CharacterStatInput): CharacterSnapshot[] {
       sheet.hp = member.hp; sheet.maxHp = member.maxHp; sheet.stats.push({ label: 'Lebenspunkte', value: `${member.hp} / ${member.maxHp} HP` });
       appendCombatStats(sheet, resolvePartyUnitStats(member));
     }
-    if (id === 'lia' && input.scene === 'aftermath') sheet.stats.push({ label: 'Ferse', value: input.flags?.heelTreated ? 'Verbunden' : 'Wund' });
     if (id === 'lia' && input.scene === 'journey') sheet.stats.push({ label: 'Nachtlager', value: input.flags?.firstCampRested ? 'Ausgeruht' : 'Noch keine Nachtruhe' });
     return sheet;
   });
 }
 export function characterSnapshot(input: CharacterStatInput): CharacterSnapshot {
   const roster = partyRoster(input);
-  return roster.find(member => member.id === input.selected) ?? roster[0] ?? { id: 'valentus', name: 'Valentus', portrait: 'valentus', profile: 'Die Schlacht im Traum', stats: [], abilities: [], items: [] };
+  return roster.find(member => member.id === input.selected) ?? roster[0] ?? { id: 'valentus', name: 'Valentus', portrait: 'valentus', profile: 'Die Schlacht von Dunkelhain', stats: [], abilities: [], items: [] };
 }
 
 type PauseScene = { input: { enabled: boolean; keyboard?: { enabled: boolean; resetKeys(): unknown } | null } };

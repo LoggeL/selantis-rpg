@@ -18,7 +18,7 @@ export function spendTurn(turn: TurnBudget, choice: 'move' | 'act'): TurnBudget 
 
 /** Prototype phase order: speed sorts enemies, stable ids break ties. This is not CT. */
 export function enemyOrder(units: Unit[]): Unit[] {
-  return units.filter(u => u.alive && u.side === 'enemy')
+  return units.filter(u => u.alive && !u.wounded && u.side === 'enemy')
     .sort((a, b) => unitSpeed(b) - unitSpeed(a) || a.id.localeCompare(b.id));
 }
 export const unitSpeed = (unit: Unit): number => resolveBattleUnitStats(unit).speed;
@@ -40,13 +40,13 @@ export function incomingDamage(attack: number, defense: number, aspect: ReturnTy
   return Math.max(1, Math.round(Math.max(1, attack - defense / 2) * multiplier));
 }
 
-/** The introductory dream stays playable even after repeated failed tactics. */
+/** Tutorial protection keeps the historical battle playable after failed tactics. */
 export function dreamDamage(hp: number, amount: number): { hp: number; damage: number; protected: boolean } {
   const next = Math.max(1, hp - amount);
   return { hp: next, damage: hp - next, protected: next === 1 && amount >= hp };
 }
 
 export function beatComplete(beat: number, units: Unit[], boltFired: boolean): boolean {
-  const alive = (id: string) => units.some(u => u.id === id && u.alive);
+  const alive = (id: string) => units.some(u => u.id === id && u.alive && !u.wounded);
   return beat === 1 ? !alive('w1') && !alive('w2') : beat === 2 ? !alive('axe') : beat === 3 ? !alive('xbow') || boltFired : false;
 }

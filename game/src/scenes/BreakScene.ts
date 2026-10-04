@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 import { sfx } from '../audio';
 import { FONT } from '../ui';
-import { ambientPrefs, getSettings } from '../settings';
+import { getSettings } from '../settings';
 import { usesMobileInterface } from '../mobileDialogs';
 
-/** Traumbruch: Farbe läuft aus, die Wunde wird sichtbar, die Welt zerfällt – zuerst der Junge. */
+/** The historical battle ends in injury, a quiet fade and flight into the forest. */
 export class BreakScene extends Phaser.Scene {
   private skipKey!: Phaser.Input.Keyboard.Key;
   private actionKey!: Phaser.Input.Keyboard.Key;
@@ -17,12 +17,18 @@ export class BreakScene extends Phaser.Scene {
   private woundHint!: Phaser.GameObjects.Text;
   constructor() { super('break'); }
 
+  preload() {
+    // Reuse the existing wounded-flight illustration from the original prologue.
+    if (!this.textures.exists('prologue-valentus-flight'))
+      this.load.image('prologue-valentus-flight', 'assets/cut/prologue-valentus.png');
+  }
+
   create() {
     this.skipHeld = false; this.skipProgress = 0; this.transitioning = false;
     this.setWoundVisible(false); this.lastBreath = -1000;
     this.data.set({ 'mobile:thought': '', 'mobile:hudVisible': false });
     const cam = this.cameras.main;
-    cam.setBackgroundColor('#f4f1ea');
+    cam.setBackgroundColor('#07080a');
     const snapKey = this.textures.exists('snap') ? 'snap' : 'bg-battle';
     const snap = this.add.image(0, 0, snapKey).setOrigin(0);
     this.skipKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -44,19 +50,14 @@ export class BreakScene extends Phaser.Scene {
       fontFamily: FONT, fontSize: '10px', color: '#e1d4c5', stroke: '#191a1e', strokeThickness: 3,
     }).setOrigin(0.5).setDepth(1100);
 
-    // 1) Farbe läuft aus, Lärm wird eingesaugt
-    const cm = cam.postFX.addColorMatrix();
-    sfx.suck();
-    sfx.drone(4);
-    this.tweens.addCounter({
-      from: 0, to: 1, duration: 1600, ease: 'Sine.in',
-      onUpdate: (tw) => { cm.reset(); cm.saturate(-tw.getValue()!); cm.brightness(1 + 0.15 * tw.getValue()!, true); },
-    });
+    // 1) The retreating battlefield fades to black.
+    this.data.set('story:breakStage', 'battlefield');
+    this.tweens.add({ targets: snap, alpha: 0, duration: 1400, ease: 'Sine.inOut' });
 
-    // 2) Nahaufnahme: die Wunde war die ganze Zeit da
-    this.time.delayedCall(1800, () => {
-      cm.reset();
+    // 2) The wound is visible; Valentus is alive and breathing.
+    this.time.delayedCall(1500, () => {
       snap.setVisible(false);
+      this.data.set('story:breakStage', 'wound');
       const mono = this.add.image(0, 0, 'cut-wound-mono').setOrigin(0);
       const red = this.add.image(0, 0, 'cut-wound-red').setOrigin(0);
       this.woundHint.setText(usesMobileInterface() ? 'Die Wunde.' : 'E oder Wunde anklicken: Atemzug.').setY(312);
@@ -69,22 +70,19 @@ export class BreakScene extends Phaser.Scene {
       const blood = { r: 4 };
       sfx.heartbeat();
       this.tweens.add({
-        targets: blood, r: 260, duration: 2600, ease: 'Sine.out',
+        targets: blood, r: 260, duration: 2200, ease: 'Sine.out',
         onUpdate: () => maskShape.clear().fillStyle(0xffffff).fillCircle(250, 190, blood.r),
       });
       this.time.delayedCall(900, () => sfx.heartbeat());
       this.setWoundVisible(true);
-      this.time.delayedCall(700, () => {
-        if (!getSettings().reducedMotion) this.cameras.main.shake(300, 0.006);
-      });
-      // 3) zurück auf die graue Welt, die zerfällt
-      this.time.delayedCall(3100, () => {
-        this.woundHint.setText(''); woundZone.destroy();
-        mono.destroy(); red.destroy(); mask.destroy(); maskShape.destroy();
-        this.setWoundVisible(false);
-        snap.setVisible(true);
-        cm.reset(); cm.saturate(-1); cm.brightness(1.15, true);
-        this.time.delayedCall(250, () => { snap.setVisible(false); this.dissolve(snapKey); });
+      this.time.delayedCall(2700, () => {
+        this.cameras.main.fadeOut(900, 0, 0, 0);
+        this.time.delayedCall(900, () => {
+          this.woundHint.setText(''); woundZone.destroy();
+          mono.destroy(); red.destroy(); mask.destroy(); maskShape.destroy();
+          this.setWoundVisible(false);
+          this.showFlight();
+        });
       });
     });
   }
@@ -134,49 +132,24 @@ export class BreakScene extends Phaser.Scene {
     this.scene.start('flight');
   }
 
-  /** Die Welt zerfällt in Blöcke, die nach oben driften – ausgehend vom geretteten Jungen. */
-  private dissolve(key: string) {
-    if (!ambientPrefs().particles) {
-      const image = this.add.image(0, 0, key).setOrigin(0);
-      this.cameras.main.setBackgroundColor('#f4f1ea');
-      this.tweens.add({ targets: image, alpha: 0, duration: 1300,
-        onComplete: () => { image.destroy(); this.fever(); } });
-      return;
-    }
-    const B = 20, origin = { x: 330, y: 52 };
-    this.cameras.main.setBackgroundColor('#8c8a86');
-    this.tweens.addCounter({ from: 0, to: 1, duration: 4200, onUpdate: (tw) => {
-      const c = Phaser.Display.Color.Interpolate.ColorWithColor(
-        Phaser.Display.Color.ValueToColor(0x8c8a86), Phaser.Display.Color.ValueToColor(0xf4f1ea), 1, tw.getValue()!);
-      this.cameras.main.setBackgroundColor(Phaser.Display.Color.GetColor(c.r, c.g, c.b));
-    } });
-    let last = 0;
-    for (let y = 0; y < 360; y += B) for (let x = 0; x < 640; x += B) {
-      // Ausschnitt mit Drehpunkt in der Blockmitte, damit er an Ort und Stelle bleibt
-      const img = this.add.image(x + B / 2, y + B / 2, key)
-        .setOrigin((x + B / 2) / 640, (y + B / 2) / 360).setDisplaySize(640, 360).setCrop(x, y, B, B);
-      const dist = Phaser.Math.Distance.Between(x + B / 2, y + B / 2, origin.x, origin.y);
-      const delay = dist * 6 + Phaser.Math.Between(0, 260);
-      last = Math.max(last, delay);
-      this.tweens.add({
-        targets: img, y: img.y - Phaser.Math.Between(40, 140), x: img.x + Phaser.Math.Between(-20, 20),
-        alpha: 0, angle: Phaser.Math.Between(-25, 25), duration: Phaser.Math.Between(900, 1500), delay, ease: 'Quad.in',
-        onComplete: () => img.destroy(),
-      });
-    }
-    this.time.delayedCall(last + 1200, () => this.fever());
-  }
-
-  private fever() {
-    this.cameras.main.postFX.clear();
-    this.data.set('mobile:thought', 'Ein Fiebertraum.');
-    const t = this.add.text(320, 180, 'Ein Fiebertraum.', { fontFamily: FONT, fontSize: '16px', color: '#3a3832', fontStyle: 'italic' })
-      .setOrigin(0.5).setAlpha(0);
-    this.tweens.add({ targets: t, alpha: 1, duration: 900, hold: 1500, yoyo: true });
-    this.time.delayedCall(2600, () => sfx.horn());
-    this.time.delayedCall(3500, () => sfx.bark(0.25));
-    this.time.delayedCall(3900, () => sfx.bark(0.3));
-    this.time.delayedCall(3300, () => this.cameras.main.fadeOut(900, 0, 0, 0));
-    this.time.delayedCall(4600, () => this.finish());
+  private showFlight() {
+    if (this.transitioning) return;
+    this.data.set('story:breakStage', 'flight');
+    const source = this.textures.get('prologue-valentus-flight').getSourceImage();
+    const scale = Math.min(640 / source.width, 360 / source.height);
+    this.add.image(320, 180, 'prologue-valentus-flight').setScale(scale);
+    this.cameras.main.fadeIn(850, 0, 0, 0);
+    this.data.set('mobile:thought', 'Verwundet flieht er in den Wald.');
+    this.add.text(320, 307, 'Verwundet flieht er in den Wald.', {
+      fontFamily: FONT, fontSize: '14px', color: '#f0e2d0',
+      stroke: '#11151b', strokeThickness: 4,
+    }).setOrigin(0.5).setDepth(1090);
+    sfx.horn();
+    this.time.delayedCall(1700, () => sfx.bark(0.25));
+    this.time.delayedCall(2300, () => {
+      this.data.set('story:breakStage', 'fade');
+      this.cameras.main.fadeOut(1600, 0, 0, 0);
+    });
+    this.time.delayedCall(4100, () => this.finish());
   }
 }

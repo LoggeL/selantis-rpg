@@ -75,8 +75,8 @@ export class StoryScene extends Phaser.Scene {
       fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3,
       wordWrap: { width: 380 }, align: 'right',
     }).setOrigin(1, 0).setDepth(1000).setScrollFactor(0);
-    const bubble = this.add.rectangle(0, 0, 14, 14, 0x14171b, 0.9).setStrokeStyle(1, 0xd8d2c0);
-    const key = this.add.text(0, 0, 'E', { fontFamily: FONT, fontSize: '9px', color: '#e8e2d0' }).setOrigin(0.5);
+    const bubble = this.add.rectangle(0, 0, 22, 22, 0x14171b, 0.9).setStrokeStyle(1, 0xd8d2c0);
+    const key = this.add.text(0, 0, 'E', { fontFamily: FONT, fontSize: '14px', color: '#e8e2d0' }).setOrigin(0.5);
     this.prompt = this.add.container(0, 0, [bubble, key]).setDepth(990).setVisible(false);
     this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E') as Record<string, Phaser.Input.Keyboard.Key>;
     this.keys.E.on('down', this.onInteract);
