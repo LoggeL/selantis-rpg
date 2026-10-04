@@ -67,6 +67,9 @@ export class Dialogue {
     this.timer = undefined;
     const parsed = parseDialogue(rawText);
     const name = speakerName ?? parsed.name;
+    // These descriptions identify the right face before the strangers introduce
+    // themselves, while the reader only sees that their names are still unknown.
+    const displayName = name && /^(der schmale|der dicke)$/i.test(name) ? '???' : name;
     this.letters = Array.from(parsed.text);
     this.revealed = getSettings().reducedMotion ? this.letters.length : 0;
     this.continuation = undefined;
@@ -75,8 +78,8 @@ export class Dialogue {
     this.hasPortrait = !!name && !!portrait;
     if (portrait) {
       this.portrait.setTexture(portrait.texture, portrait.frame).setDisplaySize(96, 96);
-      this.name.setText(name!);
     }
+    this.name.setText(displayName ?? '');
     const visible = !!parsed.text;
     // Measure the whole line before revealing letters, so the panel never jumps
     // while typing and long wrapped dialogue has room above the continue cue.
@@ -89,7 +92,7 @@ export class Dialogue {
     this.container.setVisible(visible);
     this.options.onVisibilityChange?.(visible);
     this.scene.data.set({
-      'dialogue:active': visible, 'dialogue:speaker': name ?? '', 'dialogue:complete': '', 'dialogue:fullText': parsed.text,
+      'dialogue:active': visible, 'dialogue:speaker': displayName ?? '', 'dialogue:identity': name ?? '', 'dialogue:complete': '', 'dialogue:fullText': parsed.text,
       'dialogue:portraitSrc': portrait && portrait.src ? `${import.meta.env.BASE_URL}${portrait.src}` : '',
       'dialogue:emotion': emotion ?? '',
     });
@@ -158,7 +161,7 @@ export class Dialogue {
     this.timer?.remove(false); this.timer = undefined;
     this.letters = []; this.revealed = 0; this.continuation = undefined;
     this.container.setVisible(false);
-    this.scene.data.set({ 'mobile:dialogue': '', 'dialogue:active': false, 'dialogue:typing': false, 'dialogue:complete': '', 'dialogue:fullText': '', 'dialogue:speaker': '', 'dialogue:portraitSrc': '', 'dialogue:emotion': '' });
+    this.scene.data.set({ 'mobile:dialogue': '', 'dialogue:active': false, 'dialogue:typing': false, 'dialogue:complete': '', 'dialogue:fullText': '', 'dialogue:speaker': '', 'dialogue:identity': '', 'dialogue:portraitSrc': '', 'dialogue:emotion': '' });
     if (this.controlsOwned) this.scene.data.set('mobile:controls', this.previousControls ?? null);
     this.controlsOwned = false; this.previousControls = undefined;
     this.options.onVisibilityChange?.(false);

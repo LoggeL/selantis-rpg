@@ -123,6 +123,7 @@ async function canvasClick(page: Page, x: number, y: number) {
 for (const viewport of viewports) {
   test(`Raid dialogue follows real input through deaths and vow on ${viewport.name}`, async ({ page }) => {
     test.setTimeout(70_000);
+    await page.routeWebSocket(/127\.0\.0\.1:\d+/, socket => socket.close());
     await page.setViewportSize(viewport);
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -181,6 +182,7 @@ for (const viewport of viewports) {
     })).toEqual([true, 'cinematic-raid-confrontation', 'Wir sind allein.']);
     await continueRaid(page, viewport.mobile);
     await raidStep(page, 'parents-protect');
+    await speakerPortrait(page, 'raid', 'Lia (Gedanke)', 'dialogue-lia-grief', viewport.mobile);
     await continueRaid(page, viewport.mobile);
     await raidStep(page, 'kyra-found', false);
     expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('story:raid').ready)).toBe(false);
@@ -214,7 +216,7 @@ for (const viewport of viewports) {
     })).toEqual(['father-denial', false, 'Ich kenne sie nicht. Sie ist nur ein neugieriges Kind. Lasst sie laufen.']);
     await portraitAboveCaption(page, viewport.mobile);
     await interact(page, viewport.mobile);
-    const beats = ['intimidation', 'father-plea', 'threat', 'hands', 'captivity', 'father-protest', 'father-stab', 'father-death', 'kyra-bound', 'mother-threat', 'mother-stab', 'mother-death', 'kyra-vow', 'captor-order', 'departure'];
+    const beats = ['intimidation', 'father-plea', 'threat', 'hands', 'captivity', 'father-protest', 'father-stab', 'father-death', 'kyra-bound', 'mother-threat', 'mother-stab', 'mother-fall', 'mother-last-word', 'mother-death', 'kyra-vow', 'captor-order', 'departure'];
     for (const beat of beats) {
       if (beat.endsWith('-stab')) {
         await raidStep(page, beat, false);
@@ -235,6 +237,24 @@ for (const viewport of viewports) {
       if (beat === 'threat') {
         if (await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:typing'))) await interact(page, viewport.mobile);
         await speakerPortrait(page, 'raid', 'Kapuzenmann', 'dialogue-hooded', viewport.mobile);
+      }
+      if (['father-stab', 'father-death', 'kyra-bound', 'mother-stab', 'mother-fall', 'mother-death', 'departure'].includes(beat)) {
+        expect(await page.evaluate(() => {
+          const scene = (window as any).game.scene.getScene('raid');
+          return [scene.data.get('dialogue:speaker'), scene.data.get('dialogue:portraitSrc'), scene.closeup.dialogue.portraitCard.visible, scene.locked];
+        })).toEqual(['', '', false, true]);
+        if (viewport.mobile) await expect(page.locator('.mobile-dialogue-portrait')).toBeHidden();
+      }
+      if (['mother-fall', 'mother-last-word', 'mother-death'].includes(beat)) {
+        await fullLossImage(page, 'cinematic-raid-mother-death', viewport.mobile);
+        if (beat === 'mother-last-word') {
+          await speakerPortrait(page, 'raid', 'Mutter', 'mother', viewport.mobile);
+          expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').closeup.dialogue.portraitCard.visible)).toBe(!viewport.mobile);
+        }
+        if (await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:typing'))) await interact(page, viewport.mobile);
+        expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:complete')))
+          .toBe({ 'mother-fall': 'Mutter fällt neben Vater.', 'mother-last-word': 'Kyra ...', 'mother-death': 'Dann stirbt sie.' }[beat]);
+        await page.screenshot({ path: `../output/qa/raid-${beat}-${viewport.width}x${viewport.height}.png`, fullPage: true });
       }
       if (beat.endsWith('-stab') || beat.endsWith('-death')) {
         expect(await page.evaluate(() => {
@@ -278,6 +298,7 @@ for (const viewport of viewports) {
       return [scene.closeup.art.visible, scene.closeup.image.texture.key, scene.hud.root.visible];
     })).toEqual([true, shotKeys[2], false]);
     await fullLossImage(page, shotKeys[2], viewport.mobile);
+    await speakerPortrait(page, 'raid', 'Lia (Gedanke)', 'dialogue-lia-grief', viewport.mobile);
     if (!viewport.mobile) {
       if (await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:typing'))) {
         await interact(page, false);
@@ -624,7 +645,7 @@ test('House pickups disappear independently without interrupting packing and sta
   test.setTimeout(40_000);
   // Load the current modules once. A concurrent asset edit must not reset the
   // registry halfway through the packing and reentry assertions.
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/127\.0\.0\.1:\d+/, socket => socket.close());
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/?scene=aftermath');
   await sceneReady(page, 'aftermath');

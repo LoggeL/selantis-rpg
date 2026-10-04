@@ -177,9 +177,9 @@ export class RaidScene extends StoryScene {
         action: done => this.inspectHands(done) },
       { id: 'captivity', line: 'Grauhaariger: Du bist harte Arbeit gewohnt. Der Hauptmann braucht eine Dienstmagd.', speaker: () => this.leader },
       { id: 'father-protest', line: 'Vater: Lasst sie in Ruhe!', speaker: () => this.father },
-      { id: 'father-stab', line: 'Lia (Gedanke): Der Grauhaarige stößt Vater den Dolch in die Brust.', shot: 'cinematic-raid-father-stab', shotOptions: { fit: 'contain' }, speaker: () => this.lia, action: done => this.killFather(done) },
-      { id: 'father-death', line: 'Lia (Gedanke): Vater bricht zusammen. Er rührt sich nicht mehr.', shot: 'cinematic-raid-father-death', shotOptions: { fit: 'contain' }, speaker: () => this.lia },
-      { id: 'kyra-bound', line: 'Lia (Gedanke): Sie fesseln Kyras Hände hinter dem Rücken.', shot: 'cinematic-raid-kyra', shotAfterAction: true, speaker: () => this.lia,
+      { id: 'father-stab', line: 'Der Grauhaarige stößt Vater den Dolch in die Brust.', shot: 'cinematic-raid-father-stab', shotOptions: { fit: 'contain' }, action: done => this.killFather(done) },
+      { id: 'father-death', line: 'Vater bricht zusammen. Er rührt sich nicht mehr.', shot: 'cinematic-raid-father-death', shotOptions: { fit: 'contain' } },
+      { id: 'kyra-bound', line: 'Sie fesseln Kyras Hände hinter dem Rücken.', shot: 'cinematic-raid-kyra', shotAfterAction: true,
         action: done => this.bindKyra(done) },
       { id: 'mother-threat', line: 'Grauhaariger: Wenn ihr euch so allein fühlt, dann folgt ihm ins Jenseits.', speaker: () => this.leader,
         action: done => {
@@ -187,11 +187,13 @@ export class RaidScene extends StoryScene {
           this.faceTowards(this.leader, this.mother.x);
           this.tweens.add({ targets: this.leader, x: 260, y: 207, duration: motionDuration(400), onComplete: done });
         } },
-      { id: 'mother-stab', line: 'Lia (Gedanke): Mit demselben Dolch sticht er auch Mutter nieder.', shot: 'cinematic-raid-mother-stab', shotOptions: { fit: 'contain' }, speaker: () => this.lia, action: done => this.killMother(done) },
-      { id: 'mother-death', line: 'Lia (Gedanke): Mutter fällt neben Vater. Ihr letztes Wort war Kyra.', shot: 'cinematic-raid-mother-death', shotOptions: { fit: 'contain' }, speaker: () => this.lia },
+      { id: 'mother-stab', line: 'Mit demselben Dolch sticht er auch Mutter nieder.', shot: 'cinematic-raid-mother-stab', shotOptions: { fit: 'contain' }, action: done => this.killMother(done) },
+      { id: 'mother-fall', line: 'Mutter fällt neben Vater.', shot: 'cinematic-raid-mother-death', shotOptions: { fit: 'contain' } },
+      { id: 'mother-last-word', line: 'Mutter: Kyra ...', speaker: () => this.mother },
+      { id: 'mother-death', line: 'Dann stirbt sie.' },
       { id: 'kyra-vow', line: 'Kyra: Ich werde euch töten! Das schwöre ich bei allen Göttern!', speaker: () => this.kyra },
       { id: 'captor-order', line: 'Grauhaariger: Verwahrt sie gut. Der Hauptmann wird sich über unser Geschenk freuen.', speaker: () => this.leader },
-      { id: 'departure', line: 'Lia (Gedanke): Sie nehmen Kyra mit.', shot: 'cinematic-raid-departure', speaker: () => this.lia, action: done => this.depart(done) },
+      { id: 'departure', line: 'Sie nehmen Kyra mit.', shot: 'cinematic-raid-departure', action: done => this.depart(done) },
     ];
     this.showObservationBeat(0);
   }

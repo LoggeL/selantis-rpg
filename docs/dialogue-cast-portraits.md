@@ -4,6 +4,11 @@ Jede sprechende Figur hat ein eigenes Gesicht. `portraits.ts` ordnet den
 Sprechernamen einer Figur zu; `BootScene` lädt die Bilder vor dem Spielstart.
 Die Dialogansicht verwendet dieselbe Zuordnung auf Canvas und im mobilen HTML.
 
+Handlungsbeschreibungen und Erzähltexte haben keinen Sprecher und kein Porträt.
+Tatsächliche Gedanken und gesprochene Zeilen behalten das Gesicht der Figur.
+Bei Foltan und Azar steht zunächst "???" im Namensfeld. Erst nach ihrer
+Vorstellung werden ihre Namen angezeigt; die Gesichter bleiben dabei dieselben.
+
 | Sprecher | Portraitdatei unter `game/public/assets/portraits/` |
 | --- | --- |
 | Lia, Lia (Gedanke) | `dialogue-lia.png` |
@@ -15,7 +20,7 @@ Die Dialogansicht verwendet dieselbe Zuordnung auf Canvas und im mobilen HTML.
 | Azar, Der Dicke | `dialogue-azar.png` |
 | Vater | `father.png` |
 | Mutter | `mother.png` |
-| Grauhaariger, Der Grauhaarige | `grey-haired.png` |
+| Grauhaariger, Der Grauhaarige | `grey-haired-message06.png` |
 | Narbiger | `dialogue-scarred.png` |
 | Kapuzenmann | `dialogue-hooded.png` |
 | Mann in der Zuflucht | `dialogue-refuge-man.png` |

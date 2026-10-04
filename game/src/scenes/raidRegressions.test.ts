@@ -192,7 +192,7 @@ describe('courtyard raid progression', () => {
         expect(father.angle).toBe(-90);
         expect(mother.angle).toBe(0);
       }
-      if (current.step === 'mother-death') {
+      if (['mother-fall', 'mother-last-word', 'mother-death'].includes(current.step)) {
         expect(current.shot).toBe('cinematic-raid-mother-death');
         expect(mother.angle).toBe(-90);
       }
@@ -200,6 +200,12 @@ describe('courtyard raid progression', () => {
         expect(current.shot).toBe('cinematic-raid-mother-stab');
         expect(mother.angle).toBe(-90);
       }
+      const line = s.setCloseupText.mock.calls.at(-1)[0];
+      if (['father-stab', 'father-death', 'kyra-bound', 'mother-stab', 'mother-fall', 'mother-death', 'departure'].includes(current.step)) {
+        expect(line).not.toMatch(/^[^:]+:/);
+      }
+      if (current.step === 'mother-last-word') expect(line).toBe('Mutter: Kyra ...');
+      if (current.step === 'mother-death') expect(line).toBe('Dann stirbt sie.');
       // No animation or timer is allowed to advance an already readable card.
       flush();
       expect(progress()).toEqual(current);
@@ -215,7 +221,9 @@ describe('courtyard raid progression', () => {
     expect(steps.indexOf('father-stab')).toBeLessThan(steps.indexOf('father-death'));
     expect(steps.indexOf('father-death')).toBeLessThan(steps.indexOf('kyra-bound'));
     expect(steps.indexOf('kyra-bound')).toBeLessThan(steps.indexOf('mother-stab'));
-    expect(steps.indexOf('mother-stab')).toBeLessThan(steps.indexOf('mother-death'));
+    expect(steps.slice(steps.indexOf('mother-stab'), steps.indexOf('kyra-vow') + 1)).toEqual([
+      'mother-stab', 'mother-fall', 'mother-last-word', 'mother-death', 'kyra-vow',
+    ]);
     expect(steps.indexOf('mother-death')).toBeLessThan(steps.indexOf('departure'));
     expect(killFather).toHaveBeenCalledTimes(1);
     expect(killMother).toHaveBeenCalledTimes(1);

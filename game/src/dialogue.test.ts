@@ -15,6 +15,36 @@ beforeEach(() => { updateSettings({ reducedMotion: false }); layout.mobile = fal
 function fixture() { const f = dialogueSceneFixture(); return { ...f, reader: new Dialogue(f.scene) }; }
 
 describe('dialogue reader', () => {
+  it('clears a spoken portrait for narration, then restores the next speaker', () => {
+    const { reader, objects, data } = fixture();
+    reader.setText('Lia: "Wer ist da?"');
+    expect(objects[4].visible).toBe(true);
+    reader.setText('Im Dunkeln nähern sich zwei Männer dem Lager.');
+    expect(objects[4].visible).toBe(false);
+    expect(objects[3].value).toBe('');
+    expect(data.get('dialogue:speaker')).toBe('');
+    expect(data.get('dialogue:identity')).toBe('');
+    expect(data.get('dialogue:portraitSrc')).toBe('');
+    reader.setText('Azar: "Ist sie tot?"');
+    expect(objects[4].visible).toBe(true);
+    expect(data.get('dialogue:speaker')).toBe('Azar');
+    expect(data.get('dialogue:portraitSrc')).toBe('/assets/portraits/azar.png');
+    reader.destroy();
+  });
+  it('keeps the strangers unidentified while resolving their distinct portraits', () => {
+    const { reader, objects, data } = fixture();
+    reader.setText('Der Dicke: "Ist sie tot?"');
+    expect(data.get('dialogue:speaker')).toBe('???');
+    expect(data.get('dialogue:identity')).toBe('Der Dicke');
+    expect(objects[3].value).toBe('???');
+    expect(data.get('dialogue:portraitSrc')).toContain('der dicke.png');
+    reader.setText('Der Schmale: "Ich bin Foltan. Und das ist Azar."');
+    reader.finishTyping();
+    expect(data.get('dialogue:speaker')).toBe('???');
+    reader.setText('Azar: "Schmied."');
+    expect(data.get('dialogue:speaker')).toBe('Azar');
+    reader.destroy();
+  });
   it('reveals only spoken text, then consumes first press without continuing', () => {
     const { reader, data, tick } = fixture(); const next = vi.fn();
     reader.setText('Lia: "Hallo dort."'); reader.setContinue(next);
