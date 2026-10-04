@@ -28,11 +28,15 @@ export interface UiApi {
   think(text: string): Promise<void>;
 
   /**
-   * Shows an illustration plate (public/art/plates/<id>.jpg) full screen with slow Ken Burns pan.
+   * Shows a book plate full screen with slow pan: a picture drawn in code and registered via
+   * registerPlate(id, draw) (map of Selantis, constellation, letter, book page, vignette...).
+   * NO painted images of people (actor privacy — see DESIGN.md §2). Story climaxes are staged in-world instead.
    * Resolves once it is visible (fade-in done). It stays until closePlate(); dialogue can run on top.
    */
   plate(id: string, opts?: { caption?: string; pan?: 'left' | 'right' | 'in' | 'out' | 'none'; durationMs?: number }): Promise<void>;
   closePlate(): Promise<void>;
+  /** Registers a code-drawn plate. `draw` returns a canvas (any size, 16:9 recommended) or an image URL. */
+  registerPlate(id: string, draw: () => HTMLCanvasElement | string): void;
 
   /** Chapter title card (book page). Waits for continue or ~4s. */
   chapterCard(numeral: string, title: string, subtitle?: string): Promise<void>;

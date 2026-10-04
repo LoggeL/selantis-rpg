@@ -35,6 +35,7 @@ export function createUi(): UiApi {
     async narrate(lines) { for (const l of Array.isArray(lines) ? lines : [lines]) await waitContinue(box(`<i>${l}</i>`)); },
     think: t => waitContinue(box(`<i>${t}</i>`)),
     async plate(id, opts) { const el = document.createElement('img'); el.dataset.plate = id; el.src = `art/plates/${id}.jpg`; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover'; root.prepend(el); void opts; },
+    registerPlate() {},
     async closePlate() { root.querySelectorAll('[data-plate]').forEach(e => e.remove()); },
     chapterCard: (n, t, s) => waitContinue(box(`<h2>${n}: ${t}</h2>${s ?? ''}`)),
     async fade() {},

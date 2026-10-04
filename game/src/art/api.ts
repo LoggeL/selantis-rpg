@@ -89,6 +89,15 @@ export interface ArtApi {
   /** Frame size of a generated character key. */
   characterSize(charKey: string): { w: number; h: number };
 
+  /**
+   * Pixel portrait (bust) for dialogue as a data URL, ~64x64 px (UI scales it up crisply).
+   * Derived from the same character spec as the sprite so they match. Original designs only —
+   * never modelled on film actors (DESIGN.md §2). Moods at least: neutral, happy, sad, angry, surprised,
+   * determined, hurt, thinking, scared. Unknown ids fall back to a hooded silhouette.
+   */
+  portrait(id: string, mood?: string): string;
+  portraitIds(): string[];
+
   /** Small 16x16 item/UI icons as Phaser texture keys and as data URLs (for DOM UI). */
   icon(scene: Phaser.Scene, id: string): string;
   iconDataUrl(id: string): string;

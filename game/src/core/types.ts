@@ -24,7 +24,7 @@ export interface SaveData {
 export interface SpeakerDef {
   id: string;
   name: string;
-  /** File name under public/art/portraits/ without extension, e.g. 'lia'. Optional. */
+  /** Portrait preset id for G.art.portrait() (defaults to the speaker id). */
   portrait?: string;
   /** Voice for typewriter blips. pitch in Hz-ish base (80..600). */
   voice?: { pitch: number; wave?: OscillatorType };

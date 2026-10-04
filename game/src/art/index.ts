@@ -75,6 +75,8 @@ export function createArt(): ArtApi {
     icon(scene, id) { const key = `icon-stub-${id}`; if (!scene.textures.exists(key)) { const { c, g } = canvas(16, 16); g.fillStyle = '#d8b25a'; g.fillRect(3, 3, 10, 10); scene.textures.addCanvas(key, c); } return key; },
     iconDataUrl() { const { c, g } = canvas(16, 16); g.fillStyle = '#d8b25a'; g.fillRect(3, 3, 10, 10); return c.toDataURL(); },
     iconIds: () => [],
+    portrait() { const { c, g } = canvas(64, 64); g.fillStyle = '#2a2f3a'; g.fillRect(0, 0, 64, 64); g.fillStyle = '#e8c39e'; g.fillRect(22, 14, 20, 22); return c.toDataURL(); },
+    portraitIds: () => [],
     fxKeys: () => ['fx-dot', 'fx-dot-soft', 'fx-spark', 'fx-ember', 'fx-smoke', 'fx-leaf', 'fx-petal', 'fx-raindrop', 'fx-splash', 'fx-glow', 'fx-firefly', 'fx-urmacht', 'fx-dust', 'fx-ring', 'fx-star', 'fx-arrow'],
     color: (name: string) => (name === 'urmacht' ? 0x49e0c8 : 0xffffff),
   };
