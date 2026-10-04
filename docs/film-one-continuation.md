@@ -14,7 +14,7 @@ Die Spielhandlung folgt dem Roman bis zu seiner letzten ausgearbeiteten Szene au
 | `flick-trail` | Fährtenlesen, Flicks Ausgrenzung und die gemeinsame Suche | Film 1, 09:20 bis 14:21; zeitlich hinter das Romanende versetzt |
 | `shadow-camp` | Gefangenenlager beobachten, Weg zum Baum prüfen und die Ablenkung planen | Film 1, 14:37 bis 17:00; Verbindung der Gegnertrupps als Adaption |
 | `sisters-reunited` | Flick löst Kyras Fesseln; Lia schützt Kyra, löst unbewusst Magie aus und bricht zusammen | Film 1, 17:10 bis 18:37 |
-| `film-one-finale` | Vardis wird vom Meister bestraft; Lia, Kyra und Flick gehen zu den Rebellen | Film 1, 18:50 bis 20:17 |
+| `film-one-finale` | Baris wird vom Meister bestraft; Lia, Kyra und Flick gehen zu den Rebellen | Film 1, 18:50 bis 20:17 |
 
 Die Räume bleiben mit Maus, Tastatur und Touch begehbar. Markierte Gespräche und Handlungen führen die Geschichte weiter; kurze Inszenierungen warten auf einzelne Weiter-Eingaben. Zusätzliche Gespräche und die Übung im Lager sind optional. Zusätzliche spielbare Kyra-Parallelkapitel wurden nicht ergänzt.
 
@@ -24,9 +24,9 @@ Die bisherige Adaption bleibt erhalten: Lia hat keine Fußverletzung und wurde b
 
 Der Roman endet mit Lia allein im regennassen Wald. Azar sucht sie ohne Erfolg; Foltan bleibt beschämt im Lager. Kyra ist bei Baris' Trupp, der nach einer Grotte und einem Geweih sucht. Keine Einstellung des ersten Films setzt alle diese Zustände unmittelbar fort. Deshalb ist Flicks Begegnung im Regen eine neue Spielszene. Die entfernten Vorgänge bei Foltan und Azar erscheinen als Erzählertext, ohne Lia dieses Wissen zu geben.
 
-Orwen, Baris und Vardis bleiben verschiedene Figuren. Orwen ist der grauhaarige Täter am Hof und Baris' rechte Hand. Baris ist der Hauptmann aus dem Roman. Vardis ist der Hauptmann des ersten Films. Für die Verbindung übernimmt Vardis Kyras Weitertransport, während Baris der Grotte nachgeht. Diese Übergabe ist neu geschrieben und wird durch das Wachgespräch erklärt. Sie wird nicht als Roman- oder Filmbeleg ausgegeben.
+Orwen, Baris und Baris bleiben verschiedene Figuren. Orwen ist der grauhaarige Täter am Hof und Baris' rechte Hand. Baris ist der Hauptmann aus dem Roman. Baris ist der Hauptmann des ersten Films. Für die Verbindung übernimmt Baris Kyras Weitertransport, während Baris der Grotte nachgeht. Diese Übergabe ist neu geschrieben und wird durch das Wachgespräch erklärt. Sie wird nicht als Roman- oder Filmbeleg ausgegeben.
 
-Der Meister bleibt unbenannt. Seine Bestrafung bestätigt Vardis' Tod nicht. Lias Kraft tritt einmal unkontrolliert auf und erschöpft sie; sie erhält dadurch keine frei verfügbare Zauberaktion. Die Schwestern sind wieder zusammen, aber Lias Vertrauen zu Foltan ist damit nicht wiederhergestellt. Flicks Aufnahme bei den Rebellen bleibt am Schluss eine Hoffnung.
+Der Meister bleibt unbenannt. Seine Bestrafung bestätigt Baris' Tod nicht. Lias Kraft tritt einmal unkontrolliert auf und erschöpft sie; sie erhält dadurch keine frei verfügbare Zauberaktion. Die Schwestern sind wieder zusammen, aber Lias Vertrauen zu Foltan ist damit nicht wiederhergestellt. Flicks Aufnahme bei den Rebellen bleibt am Schluss eine Hoffnung.
 
 Die Quellenbasis steht in [Romananalyse](novel-analysis.md), [Film 1](episode-01.md) und dem lokalen Transkript `sources/transcripts/01-3PNiiK653uQ.txt`. Das wiederholte ASR-Material ab 24:58 liegt auf dem schwarzen Nachlauf und gehört nicht zu einem zweiten Schlussereignis.
 
@@ -45,7 +45,7 @@ Die Kapitel liegen unter `game/src/content/chapters/continuationNovel/` und `con
 
 Die Abschlussprüfung am 4. Oktober 2026 besteht: 591 Modultests, vier Architekturtests, Asset-Verträge, beide TypeScript-Prüfungen und der Produktionsbuild. Die 90 bestehenden Browserregressionen bestehen ebenfalls. Sie prüfen unter anderem Lagerbau, Inventar, Überfall, Reise, Szenenwiedereinstiege und Kämpfe auf Desktop sowie im Hoch- und Querformat.
 
-Sieben neue Browserprüfungen bestehen zusätzlich: der reguläre Übergang vom Waldweg zur Schenke, alle neun Kapitel mit echten Maus-, Tastatur- und Touch-Eingaben, kritische Wiedereinstiege, Schluss, Wiederholung, Titelwechsel sowie die eigenen Dialogporträts von Craupor, Elnon, Flick und Vardis. Frühe Eingaben während einer Animation überspringen keine Handlung und blockieren den Dialog nicht. Inventar und gesammelte Gegenstände bleiben erhalten. Nach Kyras Befreiung besteht die Gruppe aus Lia, Flick und Kyra; Lia erhält keine frei verfügbare Zauberaktion.
+Sieben neue Browserprüfungen bestehen zusätzlich: der reguläre Übergang vom Waldweg zur Schenke, alle neun Kapitel mit echten Maus-, Tastatur- und Touch-Eingaben, kritische Wiedereinstiege, Schluss, Wiederholung, Titelwechsel sowie die eigenen Dialogporträts von Craupor, Elnon, Flick und Baris. Frühe Eingaben während einer Animation überspringen keine Handlung und blockieren den Dialog nicht. Inventar und gesammelte Gegenstände bleiben erhalten. Nach Kyras Befreiung besteht die Gruppe aus Lia, Flick und Kyra; Lia erhält keine frei verfügbare Zauberaktion.
 
 Die neue Strecke wurde auf 1280 × 800 mit normaler Bewegung und auf 390 × 844 mit reduzierter Bewegung vollständig durchgespielt. Der [lokale QA-Bericht](../output/qa/continuation-browser/continuation-qa.json) enthält die einzelnen Prüfungen und 33 Screenshots. Die Tests liegen in `game/e2e/continuation-story.pw.ts`. Die Prüfung erfolgte abschnittsweise; ein ununterbrochener Lauf vom vollständigen Prolog bis zum Schluss wurde nicht durchgeführt.
 
