@@ -4,9 +4,29 @@ import { FARM_DAWN_AREA, FARM_INTERIOR_AREA } from '../story/areas/aftermath';
 import type { ItemId, Pt } from '../world/maps';
 import { state, type WorldState } from '../world/quests';
 import { ambientPrefs } from '../settings';
+import { ITEM_FRAME } from '../inventory';
+import type { StorySpot } from '../story/types';
+import { healPartyMember } from '../party';
 
 const PACK_FLAGS = ['packedFood', 'packedWater', 'foundCache', 'heelTreated', 'packedClothes', 'packedBooks'] as const;
 type PackFlag = typeof PACK_FLAGS[number];
+const HOUSE_FLAGS: Record<string, PackFlag> = {
+  food: 'packedFood', water: 'packedWater', cupboard: 'foundCache', medicine: 'heelTreated', clothing: 'packedClothes', books: 'packedBooks',
+};
+const HOUSE_PROPS: { flag: PackFlag; texture: string; at: Pt; size: Pt; items: { item: ItemId; at: Pt; size?: number }[] }[] = [
+  { flag: 'packedFood', texture: 'house-prop-food', at: [433, 126], size: [80, 28], items: [
+    { item: 'proviant', at: [412, 127], size: 22 }, { item: 'proviant', at: [433, 127], size: 22 }, { item: 'proviant', at: [454, 127], size: 22 },
+  ] },
+  { flag: 'packedWater', texture: 'house-prop-water', at: [519, 128], size: [38, 34], items: [{ item: 'wasserschlauch', at: [518, 131], size: 28 }] },
+  { flag: 'foundCache', texture: 'house-prop-cache', at: [551, 175], size: [44, 24], items: [
+    { item: 'silber', at: [540, 174], size: 20 }, { item: 'dolch', at: [558, 173], size: 24 },
+  ] },
+  { flag: 'heelTreated', texture: 'house-prop-medicine', at: [112, 141], size: [48, 24], items: [{ item: 'heilzeug', at: [112, 141], size: 28 }] },
+  { flag: 'packedClothes', texture: 'house-prop-clothes', at: [110, 216], size: [45, 55], items: [{ item: 'reisezeug', at: [110, 209], size: 32 }] },
+  { flag: 'packedBooks', texture: 'house-prop-books', at: [290, 155], size: [46, 24], items: [
+    { item: 'buch-kraeuter', at: [279, 155], size: 20 }, { item: 'buch-alana', at: [300, 155], size: 20 },
+  ] },
+];
 
 /** Roman S. 18-22: Was Lia nach der langen Nacht noch für den Aufbruch braucht. */
 export class AftermathScene extends StoryScene {
@@ -16,6 +36,8 @@ export class AftermathScene extends StoryScene {
   private door?: Phaser.GameObjects.Graphics;
   private gate?: Phaser.GameObjects.Graphics;
   private pigs: Phaser.GameObjects.Sprite[] = [];
+  private houseItems = new Map<PackFlag, Phaser.GameObjects.Image[]>();
+  private houseSpots: StorySpot[] = [];
 
   constructor() { super('aftermath'); }
 
@@ -27,6 +49,8 @@ export class AftermathScene extends StoryScene {
     this.inside = false;
     this.badges = [];
     this.pigs = [];
+    this.houseItems.clear();
+    this.houseSpots = [];
     this.begin(FARM_DAWN_AREA);
     this.configure();
     this.say('Die Steingräber sind fertig. Meine Hände und Füße brennen.');
@@ -37,6 +61,9 @@ export class AftermathScene extends StoryScene {
     this.door = undefined;
     this.gate = undefined;
     this.pigs = [];
+    // changeArea owns destruction; do not retain any objects from the previous room.
+    this.houseItems.clear();
+    this.houseSpots = [];
     if (this.inside) this.configureHouse();
     else this.configureFarm();
     this.refreshProgress();
@@ -60,11 +87,21 @@ export class AftermathScene extends StoryScene {
       food: 'Proviant einpacken', water: 'Wasserschlauch mitnehmen', cupboard: 'Geheimfach öffnen',
       medicine: 'Ferse verbinden', clothing: 'Reisefertig machen', books: 'Bücher einpacken', 'exit-door': 'Zum Hof',
     };
-    this.setSpots(targets.map(target => ({ ...target, label: labels[target.id], onUse: uses[target.id] })));
-    const flags: Record<string, PackFlag> = {
-      food: 'packedFood', water: 'packedWater', cupboard: 'foundCache', medicine: 'heelTreated', clothing: 'packedClothes', books: 'packedBooks',
-    };
-    for (const target of targets) if (flags[target.id]) this.badge(flags[target.id], target.at);
+    this.houseSpots = targets.map(target => ({ ...target, label: labels[target.id], onUse: uses[target.id] }));
+    this.refreshHouseTargets();
+    for (const prop of HOUSE_PROPS) {
+      if (this.st.flags[prop.flag]) continue;
+      const images = this.textures.exists(prop.texture)
+        ? [this.add.image(...prop.at, prop.texture).setDisplaySize(...prop.size)]
+        : prop.items.map(({ item, at, size = 24 }) => this.add.image(...at, 'story-items', ITEM_FRAME[item]).setDisplaySize(size, size));
+      for (const image of images) { image.setDepth(prop.at[1] + 1); this.areaRoot.add(image); }
+      this.houseItems.set(prop.flag, images);
+    }
+  }
+
+  private refreshHouseTargets() {
+    // Remove the pickup marker and action too, so the emptied place stays empty.
+    this.setSpots(this.houseSpots.filter(spot => !HOUSE_FLAGS[spot.id] || !this.st.flags[HOUSE_FLAGS[spot.id]]));
   }
 
   private configureFarm() {
@@ -86,7 +123,7 @@ export class AftermathScene extends StoryScene {
       'grave-mother': 'Bei Mutter', 'grave-father': 'Bei Vater',
       door: this.packed() && !this.st.flags.houseClosed ? 'Tür schließen' : 'Haus betreten',
       'pig-gate': this.st.flags.pigsReleased ? 'Offenes Gatter' : 'Die Schweine freilassen',
-      'east-departure': 'Hohlweg nach Osten',
+      'east-departure': 'Weg nach Osten',
     };
     this.setSpots(targets.map(target => ({ ...target, label: labels[target.id], onUse: uses[target.id] })));
     this.door = this.add.graphics().setDepth(176);
@@ -126,12 +163,16 @@ export class AftermathScene extends StoryScene {
     if (this.st.flags[flag]) { this.say('Das habe ich schon erledigt.'); return; }
     this.st.flags[flag] = true;
     for (const [item, count] of items) this.st.inv[item] = (this.st.inv[item] ?? 0) + count;
+    if (flag === 'heelTreated') healPartyMember(this.registry, 'lia');
+    for (const image of this.houseItems.get(flag) ?? []) image.destroy();
+    this.houseItems.delete(flag);
+    if (this.inside) this.refreshHouseTargets();
     this.inventory.refresh(this.st.inv);
     this.refreshProgress();
-    this.showDetail('cut-travel-pack', thought);
+    this.say(thought, 4500);
   }
 
-  /** Packing and farewell share the chapter's single manual caption control. */
+  /** The graves remain an optional farewell; ordinary packing stays in the room. */
   private showDetail(texture: string, text: string) {
     if (!this.textures.exists(texture)) { this.say(text); return; }
     this.say('', 0);

@@ -8,26 +8,20 @@
     "game/public/assets/portraits/lia.png"
   ],
   "frame": {
-    "width": 640,
-    "height": 360,
-    "logicalWidth": 320,
-    "logicalHeight": 180,
-    "scale": 2,
-    "filter": "nearest",
-    "captionSafeBottom": 96,
-    "hudSafeTopLeft": {
-      "width": 64,
-      "height": 64
-    },
-    "importantImageRect": {
-      "x": 64,
-      "y": 0,
-      "width": 576,
-      "height": 264
-    },
-    "headSafeTopMargin": 20
+    "sceneCoordinateSpace": [
+      640,
+      360
+    ],
+    "preparation": "preserve full approved source",
+    "aspectRatioTolerancePixels": 1,
+    "sourceSizes": [
+      [
+        1672,
+        941
+      ]
+    ]
   },
-  "normalization": "Center-crop to 16:9, nearest-neighbor to 320x180, shared 64-color palette without dithering, nearest-neighbor 2x. Source fullsize retained under ignored output/imagegen/story-closeups/.",
+  "normalization": "Byte-exact approved source passthrough. No crop, resize, quantization, palette reduction or re-encoding.",
   "commonPrompt": "Use case: illustration-story. Asset type: a full-bleed 16:9 close-up story illustration for Selantis RPG at 640x360, designed at a 320x180 logical pixel grid, exactly 2x nearest-neighbor. Replace the reference GAMEPLAY MAP with the specified close-up story illustration. Input reference 1 provides hand-clustered forest palette and crisp pixel medium ONLY; reference 2 provides Lia's corrected identity and costume ONLY. Do NOT include the references' HUD, labels or distant overhead composition. TRUE hand-placed pixel art: visibly chunky square pixels, dark selective outlines, clean contiguous color clusters, restricted shared forest-green, ochre, warm cream, navy, umber palette. Flat 3-step shading per material. No antialiasing, smooth gradients, painterly brushwork, photorealism, noisy speckles or detailed realistic faces. Natural six-head human proportions, not chibi. Camera framing must be a character close-up or hands/action close-up, not a map or distant full-body scene. Every face and meaningful hand action must be within the upper 73% of the frame, below the top margin; bottom 27% continues the ordinary scene as nonessential foreground, because captions overlay it. Upper-left 10% square contains only background, safe for a HUD. No frames, panels, UI, words, runes, text or watermark. Lia always has light-brown/dark-blonde hair, side braids gathered at the back, cream-white gathered-neck blouse with wide long sleeves, long mustard beige skirt, narrow dark woven belt. No orange-red hair, no armor, staff or magic.",
   "assets": [
     {
@@ -37,12 +31,14 @@
       "scene": "SCENE: Intimate waist-up three-quarter view of Lia leaning against the rough trunk of her farm meadow tree, reading an open small leather-bound adventure book held in both hands. Lia's thoughtful profile, braided hair, gathered cream blouse, two hands and open book are the clear focus, spanning the upper-middle half of the image. Her elbows and the book lie above 73% height. Sunlit meadow wheat and distant hedges on right, mossy trunk on left, lowered summer sun as flat golden bands through leaves. Calm absorbed expression, warm ochre rim pixels, not a magical glow. No other people. An ordinary leaf marks the book. The book's tiny marks are non-readable pixel strokes.",
       "delivery": {
         "path": "game/public/assets/cut/lia-reading.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 40669,
-        "paletteColors": 61,
-        "sha256": "ca72426e579cce4a8c232ba01813b7ce26133666295b10de6877449dca397c08",
-        "sourceSha256": "0a5e0d548075736fb5fc64e1c85f037a6a0e93752fcc693b079df42b8bc31d9c"
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 2230626,
+        "sha256": "0a5e0d548075736fb5fc64e1c85f037a6a0e93752fcc693b079df42b8bc31d9c",
+        "sourcePath": "output/imagegen/story-closeups/lia-reading.png",
+        "sourceSha256": "0a5e0d548075736fb5fc64e1c85f037a6a0e93752fcc693b079df42b8bc31d9c",
+        "processing": "byte-exact approved source passthrough"
       }
     },
     {
@@ -52,12 +48,14 @@
       "scene": "SCENE: Intimate eye-level campfire closeup of Lia listening warily to her first companions at a creek in the night forest. Three natural-proportion people waist-up in a tight triangle: Lia left-center, slender Foltan center-right, stocky Azar far right. Faces all in upper half, Lia's folded hands and Foltan's open explanatory hand at 60% height. Foltan: medium brown hair, short goatee, brown leather beret, blue-and-yellow tabard, a crossbow slung behind his shoulder and sword in sheath. Azar: stout middle-aged man, short black beard, plain red cloth cap, mustard yellow tunic, curved sword in sheath. Foltan serious yet restrained, Azar kindly and a little embarrassed, Lia guarded but attentive. No invented shared uniforms, no helmets, no magic. Fire edge in lower foreground casts simple ochre pixels on faces; dark green creek bank and navy trees in background. Lia's hands are now free.",
       "delivery": {
         "path": "game/public/assets/cut/camp-companions.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 38485,
-        "paletteColors": 64,
-        "sha256": "6b7587b124a221687820210e46ecd49fdcb4dbd7b3f49c72674a2ff06edf4792",
-        "sourceSha256": "13ca5e22fc91bec5bc854d11fdbdcc2a5435668934f62eb557efd2c0f70c9e7c"
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 1995020,
+        "sha256": "13ca5e22fc91bec5bc854d11fdbdcc2a5435668934f62eb557efd2c0f70c9e7c",
+        "sourcePath": "output/imagegen/story-closeups/camp-companions.png",
+        "sourceSha256": "13ca5e22fc91bec5bc854d11fdbdcc2a5435668934f62eb557efd2c0f70c9e7c",
+        "processing": "byte-exact approved source passthrough"
       }
     },
     {
@@ -67,12 +65,14 @@
       "scene": "SCENE: Tense, respectful closeup at eye-level of fully-clothed Lia being stopped during an attempted escape from her first forest camp at night. Lia in center, cropped waist-up, shocked indignant face and both sleeve-covered forearms in front above 65% image height. Slender Foltan at right gently but firmly secures her wrists in front with plain cloth strips; his hands and the simple wraps are clearly visible, no elaborate rope webs. Stocky Azar at left, concerned, his broad hand raises in a calming gesture and does not grip her body. Foltan has brown hair, short goatee, brown leather beret, blue/yellow tabard and sheathed sword/crossbow. Azar wears red cap, yellow tunic, short black beard, curved sword in sheath. No weapon pointing at Lia. Ordinary cloth restraint only, no gag, no tied torso, no nudity, wounds or sexual framing. Night creek, dark forest, small warm campfire at lower-left background. Two men look cautious, not sadistic. Capture is a misunderstanding, Lia is frightened but defiant.",
       "delivery": {
         "path": "game/public/assets/cut/camp-capture.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 38296,
-        "paletteColors": 64,
-        "sha256": "b969c4ba0b495975a88920a7100049ff17641e66ce40dac1316991c3ee5f4162",
-        "sourceSha256": "c127fc4c791e2d336638cb657eae80811d7b9bb622fdff730f3aed5dfda0d08c"
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 2246059,
+        "sha256": "c127fc4c791e2d336638cb657eae80811d7b9bb622fdff730f3aed5dfda0d08c",
+        "sourcePath": "output/imagegen/story-closeups/camp-capture.png",
+        "sourceSha256": "c127fc4c791e2d336638cb657eae80811d7b9bb622fdff730f3aed5dfda0d08c",
+        "processing": "byte-exact approved source passthrough"
       }
     },
     {
@@ -82,14 +82,15 @@
       "scene": "SCENE: Respectful morning-after closeup of Lia's grieving face, lowered eyes and hands as she kneels beside the TWO low stone heaps she built for her parents next to the farm. Camera is near the heaps, slightly below shoulder level: Lia occupies center-right from waist upward, left hand resting on a clearly visible foreground gray-brown stone at 60% frame height, other hand cradles another small stone. Second smaller stone heap recedes at middle-left above 70% height; the shot makes two separate stone heaps identifiable. Lia's jaw set, eyes tired, no theatrical crying. Timber farm and fence softly simplified in clustered pixels in background; chilly pale dawn between trees, muted cream and green. No bodies, blood, crosses, engraved tombstones, supernatural lights, flowers invented as a ritual, or extra characters. The scene is close enough to see Lia's face and hand clearly.",
       "delivery": {
         "path": "game/public/assets/cut/family-graves.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 40007,
-        "paletteColors": 63,
-        "sha256": "34c873461a3cf089c0a5f61d9d4f5369edfa61bf68ef73bbaa222cad3f3b0906",
-        "sourceSha256": "e43d7d272c3b8e0744096c2dbb3190413f19c4f365b0defe377ef8287c94c559"
-      },
-      "normalizationCropTopSourcePixels": 40
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 2352957,
+        "sha256": "e43d7d272c3b8e0744096c2dbb3190413f19c4f365b0defe377ef8287c94c559",
+        "sourcePath": "output/imagegen/story-closeups/family-graves.png",
+        "sourceSha256": "e43d7d272c3b8e0744096c2dbb3190413f19c4f365b0defe377ef8287c94c559",
+        "processing": "byte-exact approved source passthrough"
+      }
     },
     {
       "file": "travel-pack.png",
@@ -98,12 +99,14 @@
       "scene": "SCENE: A deliberate closeup of Lia packing travel supplies on a plain wooden table in her parents' farmhouse at dawn. Waist-up Lia at upper-right looks down with resolve; her braided profile visible, gathered cream blouse sleeves framing the HAND ACTION at center. Her left hand holds open a LARGE worn leather shoulder bag while right hand slides two small books into it. Water skin, wrapped bread and cheese, sheathed family dagger, rolled wool blanket with leather straps and folded dark green rain cloak grouped clearly across the upper-middle table, all meaningful objects above 73% image height. No weapon brandishing, no magical objects, no modern equipment. Farm timber interior and modest morning window at upper-left; bottom quarter only table edge and shadow. Simple low-color readable pixel shapes, focus on hands/books/bag rather than inventory icon layout.",
       "delivery": {
         "path": "game/public/assets/cut/travel-pack.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 32064,
-        "paletteColors": 59,
-        "sha256": "23979dcbf8463c3b3adef22c5f4e4674b9153b86974ea7572a996e6135eb4c3f",
-        "sourceSha256": "198315a5829b6e544853809a4533419d9aaafd1ad4c3d90c7d3e6d56eb0ec20c"
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 2017233,
+        "sha256": "198315a5829b6e544853809a4533419d9aaafd1ad4c3d90c7d3e6d56eb0ec20c",
+        "sourcePath": "output/imagegen/story-closeups/travel-pack.png",
+        "sourceSha256": "198315a5829b6e544853809a4533419d9aaafd1ad4c3d90c7d3e6d56eb0ec20c",
+        "processing": "byte-exact approved source passthrough"
       }
     },
     {
@@ -113,14 +116,15 @@
       "scene": "SCENE: A modest, fully-clothed three-quarter seated closeup of Lia tending her sore heel beside her first small campfire at the creek after a long walk. Lia center-right seated on a dark green rain cloak, cream blouse and long mustard skirt covering her legs. Her concerned face is at 30% height; she leans forward, one natural bare foot rests sideways on her own covered knee, at 62% height, while hands check a simple cloth heel wrap. This is ordinary weary travel care: no blood, medical diagrams, detailed injury, exposed legs, sensual pose or magnified foot. A removed flat leather shoe with ankle laces beside her at 66% height, a small piece of bread and cheese on cloth nearby, leather bag behind shoulder. Tight camera from knee up makes face, sleeves, hands and action clear; upper-left only navy forest and creek; small fire in lower-middle, nonessential foreground below 73%. She is alone.",
       "delivery": {
         "path": "game/public/assets/cut/camp-rest.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 42692,
-        "paletteColors": 64,
-        "sha256": "982f19763130305aee33fdee7f46fce0c1b41ad2613c02b9d4cc48b9a679d95b",
-        "sourceSha256": "0b5df5ffc229b6d111af000275ef826592eb504aaba38dba850286ee0f8faba4"
-      },
-      "normalizationCropTopSourcePixels": 40
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 2388928,
+        "sha256": "0b5df5ffc229b6d111af000275ef826592eb504aaba38dba850286ee0f8faba4",
+        "sourcePath": "output/imagegen/story-closeups/camp-rest.png",
+        "sourceSha256": "0b5df5ffc229b6d111af000275ef826592eb504aaba38dba850286ee0f8faba4",
+        "processing": "byte-exact approved source passthrough"
+      }
     },
     {
       "file": "camp-wake.png",
@@ -129,12 +133,14 @@
       "scene": "Use case: illustration-story. Asset type: a full-bleed 16:9 close-up story illustration for Selantis RPG at 640x360, designed at a 320x180 logical pixel grid, exactly 2x nearest-neighbor. Replace the reference GAMEPLAY MAP with the specified close-up story illustration. Input reference 1 provides hand-clustered forest palette and crisp pixel medium ONLY; reference 2 provides Lia's corrected identity and costume ONLY. Do NOT include the references' HUD, labels or distant overhead composition. TRUE hand-placed pixel art: visibly chunky square pixels, dark selective outlines, clean contiguous color clusters, restricted shared forest-green, ochre, warm cream, navy, umber palette. Flat 3-step shading per material. No antialiasing, smooth gradients, painterly brushwork, photorealism, noisy speckles or detailed realistic faces. Natural six-head human proportions, not chibi. Camera framing must be a character close-up or hands/action close-up, not a map or distant full-body scene. Every face and meaningful hand action must be within the upper 73% of the frame, below the top margin; bottom 27% continues the ordinary scene as nonessential foreground, because captions overlay it. Upper-left 10% square contains only background, safe for a HUD. No frames, panels, UI, words, runes, text or watermark. Lia always has light-brown/dark-blonde hair, side braids gathered at the back, cream-white gathered-neck blouse with wide long sleeves, long mustard beige skirt, narrow dark woven belt. No orange-red hair, no armor, staff or magic.\nSCENE: Newly waking pulse-check moment BEFORE Lia is captured, Roman pp25-26. Intimate eye-level close-up of Lia on the left and Foltan on the right, first nighttime forest creek camp. Lia has been asleep on her dark-green raincloak under an ordinary wool blanket pulled to collar; she now lifts her head a little, her eyes just opened wide in startled confusion, lips slightly parted. One loose sleeve-covered arm lies on top of the blanket and her wrist is near her shoulder, at CENTER of image (50% height). Foltan leans beside her, his index and middle fingers GENTLY checking the pulse on the inside of her wrist, concerned yet startled by her awakening. Exact Lia reference identity: dark-blonde/light-brown side braids gathered back, cream gathered-neck blouse; mustard skirt only glimpsed lower blanket edge. Exact Foltan reference: brown hair, SHORT GOATEE, brown leather beret, PLAIN blue/yellow tabard, crossbow slung on his back. Both faces in upper half, his fingers on her loose wrist must be completely above60% height. Lia's other hand lies freely on blanket. No restraints, ropes, cloth wraps, gag, bound hands or feet. No violence or touch anywhere except fingers on wrist. No other people required. Lower third contains only broad wool blanket/darkgreen cloak folds, nonessential moss and glints from dying campfire. Creek and navy clustered forest in background. Camera tight chest-up, natural human proportions. Emotion conveys sleepy surprise, not fear of physical assault. No emblems, heraldry, magic, UI or text.",
       "delivery": {
         "path": "game/public/assets/cut/camp-wake.png",
-        "width": 640,
-        "height": 360,
-        "bytes": 36888,
-        "paletteColors": 64,
-        "sha256": "f569cf70ad78678a47b28460ad8b8b67aee024f515f721f6be4532150400fae3",
-        "sourceSha256": "de99f93f8f36d29ff9e20fd7ce97d66c28ce6cbb8e41671563b681f8f90d5a58"
+        "width": 1672,
+        "height": 941,
+        "mode": "RGB",
+        "bytes": 2195316,
+        "sha256": "de99f93f8f36d29ff9e20fd7ce97d66c28ce6cbb8e41671563b681f8f90d5a58",
+        "sourcePath": "output/imagegen/story-closeups/camp-wake.png",
+        "sourceSha256": "de99f93f8f36d29ff9e20fd7ce97d66c28ce6cbb8e41671563b681f8f90d5a58",
+        "processing": "byte-exact approved source passthrough"
       }
     }
   ],
@@ -158,328 +164,6 @@
       }
     ]
   },
-  "sharedPaletteRgb": [
-    [
-      252,
-      214,
-      151
-    ],
-    [
-      252,
-      191,
-      115
-    ],
-    [
-      241,
-      202,
-      155
-    ],
-    [
-      211,
-      187,
-      158
-    ],
-    [
-      238,
-      163,
-      103
-    ],
-    [
-      239,
-      149,
-      78
-    ],
-    [
-      202,
-      155,
-      109
-    ],
-    [
-      173,
-      148,
-      88
-    ],
-    [
-      226,
-      121,
-      54
-    ],
-    [
-      196,
-      124,
-      54
-    ],
-    [
-      181,
-      133,
-      73
-    ],
-    [
-      179,
-      117,
-      46
-    ],
-    [
-      156,
-      127,
-      73
-    ],
-    [
-      154,
-      109,
-      61
-    ],
-    [
-      124,
-      119,
-      57
-    ],
-    [
-      98,
-      110,
-      70
-    ],
-    [
-      186,
-      92,
-      37
-    ],
-    [
-      150,
-      89,
-      38
-    ],
-    [
-      134,
-      93,
-      51
-    ],
-    [
-      132,
-      74,
-      32
-    ],
-    [
-      107,
-      87,
-      68
-    ],
-    [
-      102,
-      91,
-      34
-    ],
-    [
-      102,
-      69,
-      47
-    ],
-    [
-      108,
-      67,
-      26
-    ],
-    [
-      75,
-      88,
-      61
-    ],
-    [
-      77,
-      86,
-      33
-    ],
-    [
-      75,
-      66,
-      61
-    ],
-    [
-      74,
-      67,
-      35
-    ],
-    [
-      46,
-      77,
-      80
-    ],
-    [
-      54,
-      74,
-      42
-    ],
-    [
-      52,
-      63,
-      44
-    ],
-    [
-      32,
-      63,
-      61
-    ],
-    [
-      128,
-      46,
-      21
-    ],
-    [
-      97,
-      49,
-      25
-    ],
-    [
-      85,
-      46,
-      26
-    ],
-    [
-      76,
-      50,
-      34
-    ],
-    [
-      74,
-      42,
-      23
-    ],
-    [
-      75,
-      35,
-      19
-    ],
-    [
-      63,
-      51,
-      44
-    ],
-    [
-      67,
-      43,
-      24
-    ],
-    [
-      64,
-      38,
-      23
-    ],
-    [
-      61,
-      31,
-      18
-    ],
-    [
-      44,
-      51,
-      53
-    ],
-    [
-      43,
-      52,
-      39
-    ],
-    [
-      41,
-      40,
-      51
-    ],
-    [
-      43,
-      50,
-      29
-    ],
-    [
-      44,
-      39,
-      29
-    ],
-    [
-      43,
-      32,
-      27
-    ],
-    [
-      47,
-      30,
-      16
-    ],
-    [
-      40,
-      22,
-      14
-    ],
-    [
-      12,
-      50,
-      77
-    ],
-    [
-      21,
-      50,
-      49
-    ],
-    [
-      13,
-      38,
-      54
-    ],
-    [
-      24,
-      42,
-      35
-    ],
-    [
-      19,
-      33,
-      32
-    ],
-    [
-      20,
-      27,
-      39
-    ],
-    [
-      7,
-      27,
-      41
-    ],
-    [
-      19,
-      27,
-      25
-    ],
-    [
-      16,
-      21,
-      28
-    ],
-    [
-      23,
-      20,
-      15
-    ],
-    [
-      9,
-      20,
-      30
-    ],
-    [
-      5,
-      20,
-      31
-    ],
-    [
-      12,
-      10,
-      10
-    ],
-    [
-      1,
-      5,
-      7
-    ]
-  ],
   "visualReview": "All seven FINAL normalized PNGs visually inspected against film frame and current Lia portrait. Lia hair is neutral sandy lightbrown/darkblonde across all scenes. Crowns and Foltan berets fully visible with minimum20px final top background. Faces and important hand actions visible above264px caption line. No UI, photo texture, magic or restraints before capture. Capture wrists at chest; wake loose wrist pulse-check; rest solo footcare.",
   "repairReview": {
     "requiredDefects": [
@@ -532,5 +216,10 @@
       "shared64ColorPalette": true,
       "restraintChronologyPreserved": true
     }
+  },
+  "deliveryAudit": {
+    "date": "2026-10-04",
+    "scope": "Seven approved story closeups, dimensions and byte hashes checked against source files.",
+    "promptHistory": "Recorded prompts and prior visual/repair reviews describe generation history. Earlier logical-grid wording does not describe the current delivered PNG resolution."
   }
 }

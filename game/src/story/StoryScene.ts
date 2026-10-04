@@ -34,6 +34,7 @@ export class StoryScene extends Phaser.Scene {
   private cinematic = false;
   private closeup?: StoryCloseup;
   private liaPose?: string;
+  private liaCrouched = false;
   private leaving = false;
   private stepTimer = 0;
   private stuckMs = 0;
@@ -41,6 +42,7 @@ export class StoryScene extends Phaser.Scene {
   private inventorySignature = '';
   private readonly onInteract = () => {
     if (this.closeup?.hasCaption) { this.closeup.advance(); return; }
+    if (this.hud.advanceDialogue()) return;
     this.useSpot(this.nearestSpot());
   };
   private transitionDone?: () => void;
@@ -52,6 +54,8 @@ export class StoryScene extends Phaser.Scene {
     this.closeup?.destroy();
     this.closeup = undefined;
     this.liaPose = undefined;
+    this.liaCrouched = false;
+    this.data.set('story:lia-crouched', false);
     this.locked = false;
     this.cinematic = false;
     this.leaving = false;
@@ -117,7 +121,7 @@ export class StoryScene extends Phaser.Scene {
     this.areaRoot.removeAll(true);
     this.area = area;
     this.facing = 's';
-    const background = this.add.image(0, 0, area.bg).setOrigin(0).setDepth(-1000);
+    const background = this.add.image(0, 0, area.bg).setOrigin(0).setDisplaySize(640, 360).setDepth(-1000);
     this.shadow = this.add.image(...area.start, 'shadow').setDepth(area.start[1] - 1);
     this.lia = this.add.sprite(...area.start, 'lia-walk', 0).setOrigin(0.5, 60 / 64).setDepth(area.start[1]);
     this.lia.play('lia-idle-s');
@@ -150,6 +154,7 @@ export class StoryScene extends Phaser.Scene {
     this.cinematic = cinematic;
     this.inventory.setVisible(!cinematic && !this.closeupVisible && !this.closeup?.hasCaption);
     if (cinematic) this.clearRoute();
+    this.refreshHudVisibility();
     this.refreshPrompt();
   }
 
@@ -157,7 +162,9 @@ export class StoryScene extends Phaser.Scene {
   protected showCloseup(textureKey: string, options: CloseupOptions = {}) {
     this.closeup ??= new StoryCloseup(this);
     this.closeup.show(textureKey, options);
+    this.hud.thought('', 0);
     this.hud.setThoughtsVisible(false);
+    this.refreshHudVisibility();
     this.clearRoute();
     this.inventory.close();
     this.inventory.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption);
@@ -168,6 +175,7 @@ export class StoryScene extends Phaser.Scene {
   protected hideCloseup() {
     this.closeup?.hide();
     this.hud?.setThoughtsVisible(true);
+    this.refreshHudVisibility();
     this.inventory?.setVisible(!this.cinematic);
     this.data.set('mobile:closeup', '');
     if (this.prompt) this.refreshPrompt();
@@ -175,10 +183,18 @@ export class StoryScene extends Phaser.Scene {
 
   protected setCloseupText(text: string) {
     this.closeup ??= new StoryCloseup(this);
+    this.hud.thought('', 0);
     this.hud.setThoughtsVisible(false);
     this.closeup.setText(text);
+    this.refreshHudVisibility();
     if (text) { this.clearRoute(); this.inventory.setVisible(false); }
     this.refreshPrompt();
+  }
+
+  private refreshHudVisibility() {
+    const cinematic = this.cinematic || this.closeupVisible || !!this.closeup?.hasCaption;
+    this.hud?.setCinematic(cinematic);
+    this.objective?.setVisible(!cinematic);
   }
 
   protected setCloseupContinue(callback: (() => void) | null, label = 'Weiter') {
@@ -193,8 +209,21 @@ export class StoryScene extends Phaser.Scene {
     this.idleLia();
   }
 
+  /** Movement changes pose without replacing keyboard or pointer navigation. */
+  protected setLiaCrouched(crouched: boolean) {
+    this.liaCrouched = crouched;
+    this.data.set('story:lia-crouched', crouched);
+    this.idleLia();
+  }
+
+  protected playLiaMovement(direction: Dir, moving: boolean) {
+    this.lia.setFlipX(this.liaCrouched && !(this.liaPose && !moving) && direction === 'w');
+    const profile = this.liaCrouched ? 'lia-crouch' : 'lia';
+    this.lia.play(!moving && this.liaPose ? this.liaPose : `${profile}-${moving ? 'walk' : 'idle'}-${direction}`, true);
+  }
+
   private idleLia() {
-    this.lia.play(this.liaPose ?? `lia-idle-${this.facing}`, true);
+    this.playLiaMovement(this.facing, false);
   }
 
   protected goTo(sceneKey: string) {
@@ -225,6 +254,7 @@ export class StoryScene extends Phaser.Scene {
 
   update(_time: number, dt: number) {
     this.closeup?.update();
+    this.objective?.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && !this.hud.dialogueVisible);
     if (this.inventory?.isOpen) return;
     if (this.leaving || !this.lia?.active) return;
     dt = Math.min(dt, 50);
@@ -232,7 +262,7 @@ export class StoryScene extends Phaser.Scene {
     this.shadow.setPosition(this.lia.x, this.lia.y - 1).setDepth(this.lia.y - 1);
     this.lia.setDepth(this.lia.y);
     for (const actor of this.actors) if (actor.active) actor.setDepth(actor.y);
-    if (!this.locked && !this.closeupVisible && !this.closeup?.hasCaption) this.move(dt);
+    if (!this.locked && !this.closeupVisible && !this.closeup?.hasCaption && !this.hud.dialogueVisible) this.move(dt);
     this.areaRoot.sort('depth');
     this.refreshPrompt();
   }
@@ -268,9 +298,9 @@ export class StoryScene extends Phaser.Scene {
         dy = (this.destination[1] - this.lia.y) / distance;
       }
     }
-    if (!dx && !dy) { this.lia.play(`lia-idle-${this.facing}`, true); return; }
+    if (!dx && !dy) { this.idleLia(); return; }
     const length = Math.hypot(dx, dy);
-    let step = SPEED * dt / 1000;
+    let step = (this.liaCrouched ? 44 : SPEED) * dt / 1000;
     if (this.destination) step = Math.min(step, Math.hypot(this.destination[0] - this.lia.x, this.destination[1] - this.lia.y));
     const ox = this.lia.x, oy = this.lia.y;
     const nx = ox + dx / length * step, ny = oy + dy / length * step;
@@ -283,7 +313,7 @@ export class StoryScene extends Phaser.Scene {
     this.stuckMs = moved < step * 0.2 ? this.stuckMs + dt : 0;
     if (this.destination && this.stuckMs > 250) this.clearRoute();
     this.facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'e' : 'w' : dy > 0 ? 's' : 'n';
-    this.lia.play(moved > 0.05 ? `lia-walk-${this.facing}` : `lia-idle-${this.facing}`, true);
+    this.playLiaMovement(this.facing, moved > 0.05);
     if (moved > 0.05) {
       this.stepTimer -= dt;
       if (this.stepTimer <= 0) { this.stepTimer = 300; sfx.step(); }

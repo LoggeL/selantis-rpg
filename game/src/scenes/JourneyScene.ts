@@ -91,23 +91,43 @@ export class JourneyScene extends StoryScene {
   private passingTravelers() {
     if (!this.textures.exists('road-travelers')) return;
     // The traveler atlas faces right; Trapas lies west (decreasing x).
-    const wagon = this.add.image(515, 193, 'road-travelers', 0).setFlipX(true).setOrigin(0.5, 60 / 64).setDepth(193);
-    const troupe = this.add.image(580, 199, 'road-travelers', 1).setFlipX(true).setOrigin(0.5, 60 / 64).setDepth(199);
+    const wagon = this.add.sprite(515, 193, 'road-travelers', 0).setFlipX(true).setOrigin(0.5, 60 / 64).setDepth(193);
+    const troupe = this.add.sprite(580, 199, 'road-travelers', 1).setFlipX(true).setOrigin(0.5, 60 / 64).setDepth(199);
     this.areaRoot.add([wagon, troupe]);
     const tag = this.add.text(565, 219, 'Gaukler · nach Trapas zum Verbannungsfest', {
       fontFamily: FONT, fontSize: '8px', color: '#ddd1ad', stroke: '#252722', strokeThickness: 2,
     }).setOrigin(1, 0).setDepth(270);
     this.areaRoot.add(tag);
     if (getSettings().reducedMotion) { wagon.x = 110; troupe.x = 80; tag.x = 230; return; }
+    const travelers = [
+      { sprite: wagon, animation: 'road-wagon-walk', idle: 0 },
+      { sprite: troupe, animation: 'road-troupe-walk', idle: 1 },
+    ];
+    const idle = (traveler: typeof travelers[number]) => {
+      traveler.sprite.anims.stop();
+      traveler.sprite.setTexture('road-travelers', traveler.idle);
+    };
+    const walk = (traveler: typeof travelers[number]) => {
+      if (this.anims.exists(traveler.animation)) traveler.sprite.play(traveler.animation, true);
+    };
+    travelers.forEach(walk);
     const movement = [
-      this.tweens.add({ targets: wagon, x: -65, duration: 13000, onComplete: () => wagon.destroy() }),
-      this.tweens.add({ targets: troupe, x: -65, duration: 16000, onComplete: () => troupe.destroy() }),
+      ...travelers.map((traveler, i) => this.tweens.add({
+        targets: traveler.sprite, x: -65, duration: i ? 16000 : 13000,
+        onStop: () => idle(traveler),
+        onComplete: () => { idle(traveler); traveler.sprite.destroy(); },
+      })),
       this.tweens.add({ targets: tag, alpha: 0, delay: 4300, duration: 700, onComplete: () => tag.destroy() }),
     ];
     const unsubscribe = subscribeSettings(settings => {
       for (const tween of movement) {
         if (tween.isDestroyed() || tween.isPendingRemove()) continue;
         if (settings.reducedMotion) tween.pause(); else tween.resume();
+      }
+      for (let i = 0; i < travelers.length; i++) {
+        const traveler = travelers[i], tween = movement[i];
+        if (!traveler.sprite.active || tween.isDestroyed() || tween.isPendingRemove()) continue;
+        if (settings.reducedMotion) idle(traveler); else walk(traveler);
       }
     });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
@@ -264,21 +284,26 @@ export class JourneyScene extends StoryScene {
     this.addStrangers(); this.drawFire();
     this.say('', 0);
     this.showCloseup('cut-camp-wake');
-    this.setCloseupText('Fremder: "Ist sie tot?"');
-    this.setCloseupContinue(() => {
-      this.setCloseupText('Fremder: "Nein. Sie hat noch Puls."');
+    const lines = [
+      'Der Dicke: "Ist sie tot?"',
+      'Der Schmale: "Nein. Sie hat noch Puls."',
+      'Lia: "Ah!"',
+      'Der Dicke: "Aaah!"',
+      'Der Schmale: "Still!"',
+      'Der Dicke: "Ich bin schreckhaft."',
+    ];
+    const showLine = (index: number) => {
+      if (index === 2) { this.blanket?.setVisible(false); this.setLiaPose('lia-wake'); }
+      this.setCloseupText(lines[index]);
       this.setCloseupContinue(() => {
-        this.blanket?.setVisible(false); this.setLiaPose('lia-wake');
-        this.setCloseupText('Lia: "Ah!"   Fremder: "Aaah!"');
-        this.setCloseupContinue(() => {
-          this.setCloseupText('Der Schmale: "Still!"   Der Dicke: "Ich bin schreckhaft."');
-          this.setCloseupContinue(() => {
-            this.hideCloseup(); this.setLiaPose(null);
-            this.campStep = 'slip'; this.setLocked(false); this.campSpots();
-          }, 'Leise weiter');
-        });
-      });
-    });
+        if (index + 1 < lines.length) showLine(index + 1);
+        else {
+          this.hideCloseup(); this.setLiaPose(null);
+          this.campStep = 'slip'; this.setLocked(false); this.campSpots();
+        }
+      }, index === lines.length - 1 ? 'Leise weiter' : 'Weiter');
+    };
+    showLine(0);
   }
 
   private caught() {
@@ -297,23 +322,30 @@ export class JourneyScene extends StoryScene {
       this.setLiaPose('lia-bound-sit');
       this.say('', 0);
       this.showCloseup('cut-camp-capture');
-      this.setCloseupText('Der Schmale bindet meine Hände und Füße. "Damit du uns zuhörst."');
+      this.setCloseupText('Der Schmale: "Damit du uns zuhörst."');
       this.setCloseupContinue(() => this.listen(), 'Zuhören');
       this.campSpots();
     };
     const duration = motionDuration(550);
     if (!duration) finish();
-    else this.tweens.add({ targets: this.lia, x: 470, y: 190, duration, onComplete: finish });
+    else {
+      this.setLiaPose(null);
+      this.lia.play('lia-walk-e', true);
+      this.tweens.add({ targets: this.lia, x: 470, y: 190, duration, onComplete: finish });
+    }
   }
 
   private listen() {
     const lines = [
       'Foltan: "Ich war Leutnant der Stadtgarde von Portas. Das ist Azar, Schmied aus Ignis."',
-      'Lia: "Was macht ihr hier?"   Foltan: "Wir sind Gegner der Dunkelschatten."',
+      'Lia: "Was macht ihr hier?"',
+      'Foltan: "Wir sind Gegner der Dunkelschatten."',
       'Lia: "Sie haben meine Eltern getötet und Kyra mitgenommen. Ich muss meine Schwester finden."',
       'Foltan: "Versprechen können wir dir nichts. Aber wir nehmen dich mit zu unserem Lager."',
-      'Lia: "Und Kyra?"   Foltan: "Allein kannst du sie nicht retten. Schlaf dich erst aus."',
-      'Azar: "Bei uns bist du sicherer."   Foltan: "Wir halten abwechselnd Wache."',
+      'Lia: "Und Kyra?"',
+      'Foltan: "Allein kannst du sie nicht retten. Schlaf dich erst aus."',
+      'Azar: "Bei uns bist du sicherer."',
+      'Foltan: "Wir halten abwechselnd Wache."',
     ];
     if (this.conversation < lines.length) {
       this.setCloseupText(lines[this.conversation++]);

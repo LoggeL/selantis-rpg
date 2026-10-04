@@ -103,6 +103,28 @@ describe.each(AREAS)('Geschichtsziele auf $id', area => {
 });
 
 describe('Erreichbarkeit der Geschichtsphasen', () => {
+  it('verlässt den Hof rechts oben und setzt die Reise am linken Straßenrand nach Osten fort', () => {
+    const exit = FARM_DAWN_AREA.targets.find(target => target.id === 'east-departure')!;
+    expect(exit.at[0]).toBeGreaterThan(550);
+    expect(exit.at[1]).toBeLessThan(70);
+    expect(feetWalkable(FARM_DAWN_AREA)(...exit.at)).toBe(true);
+    const pigGate = FARM_DAWN_AREA.targets.find(target => target.id === 'pig-gate')!;
+    const origins: Pt[] = [FARM_DAWN_AREA.start, [273, 198], arrival(FARM_DAWN_AREA, FARM_DAWN_AREA.start, pigGate)];
+    for (const from of origins) {
+      const path = clickPath(FARM_DAWN_AREA, from, exit);
+      expect(path.some(([x, y]) => x > 560 && y < 170)).toBe(true);
+      const end = arrival(FARM_DAWN_AREA, from, exit);
+      expect(end[0]).toBeGreaterThan(from[0]);
+      expect(end[1]).toBeLessThan(from[1]);
+      expect(end[0]).toBeGreaterThan(550);
+      expect(end[1]).toBeLessThan(70);
+    }
+    expect(ROAD_EAST_AREA.start[0]).toBeLessThan(80);
+    expect(feetWalkable(ROAD_EAST_AREA)(...ROAD_EAST_AREA.start)).toBe(true);
+    const next = ROAD_EAST_AREA.targets.find(target => target.id === 'stream')!;
+    expect(arrival(ROAD_EAST_AREA, ROAD_EAST_AREA.start, next)[0]).toBeGreaterThan(ROAD_EAST_AREA.start[0]);
+  });
+
   it('beschränkt Lia vor dem Abzug auf die Deckung und öffnet danach den Weg zu den Eltern', () => {
     expect(RAID_APPROACH_AREA.targets.map(target => target.id)).toEqual(['hide']);
     expect(feetWalkable(RAID_APPROACH_AREA)(...RAID_AREA.targets.find(target => target.id === 'parents')!.at)).toBe(false);

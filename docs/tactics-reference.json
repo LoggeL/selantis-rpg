@@ -1,0 +1,25 @@
+{
+  "source": {
+    "title": "Final Fantasy Tactics PlayStation instruction manual (Square, mirrored scan)",
+    "url": "https://www.scribd.com/document/702488976/529-final-fantasy-tactics-playstation-manual-usa",
+    "pages": "10-14"
+  },
+  "verifiedPrinciples": [
+    "A unit can move once and act once in an active turn.",
+    "Speed influences how quickly its CT fills and how often it acts.",
+    "Skipping movement or action preserves some CT.",
+    "The player chooses facing at the end of the turn.",
+    "Altitude and terrain affect combat; Move, Jump and Speed appear in status."
+  ],
+  "prototypeScope": [
+    "One movement and one action, in either order, with final facing selection.",
+    "Enemy actions ordered by speed within the scripted enemy phase.",
+    "Facing affects physical damage; waiting protects the front.",
+    "Character panel reads live battle values, inventory and implemented abilities."
+  ],
+  "notImplemented": [
+    "Full CT simulation and independent unit turns",
+    "Job progression, JP and ability inheritance",
+    "Elevation and Jump rules"
+  ]
+}

@@ -6,14 +6,14 @@
   "identityReference": "output/imagegen/lia-pixel-film-look.png",
   "preparation": "scripts/prepare_pixel_cinematic_art.py",
   "frameContract": {
-    "width": 640,
-    "height": 360,
-    "artGrid": [
-      320,
-      180
+    "sceneCoordinateSpace": [
+      640,
+      360
     ],
-    "scaling": "nearest-neighbor 2x",
-    "importantArea": "faces upper 264px; top-left64x64 HUD safe"
+    "sourceDimensions": "preserved per verified output",
+    "preparation": "byte-exact approved source passthrough",
+    "aspectRatioTolerancePixels": 1,
+    "runtimePresentation": "Fit original composition in scene coordinates; gameplay HUD hidden during cutscenes."
   },
   "assets": [
     {
@@ -29,7 +29,8 @@
       "name": "raid-confrontation",
       "prompt": "Use case: illustration-story. Create ONE 16:9 cinematic RPG pixel art frame, 1536x864, edge to edge. Reference 1 fixes STYLE; reference 2 fixes the SAME farmhouse, parents and grey-haired raider leader identities and dusk palette, but DO CHANGE THE FRAMING to an intimate medium close shot. Camera close to the kneeling parents outside the open rustic whitewashed timber farmhouse doorway: father center-left, greying brown short hair beard, beige farm shirt and brown vest, kneeling, chin raised in helpless defiance; mother center with brown hair under ivory cloth cap, brown long sleeve dress and ivory apron, kneeling holding husband's arm. Threatening grey-haired mature human leader at RIGHT, long black/dark-charcoal mantle and small golden brooch at collar, no helmet, human face, right hand on sheathed sword, looking down at them. Two different HUMAN black-and-white cloth uniform men flank them with single light shoulder metal piece or simple helmet, visible ordinary faces; not supernatural, not full armored clones. The open doorway is directly behind parents, forest greens and dusty ochre yard at edges. Story tension is helplessness before violence, no gore or actual killing, no magic. True deliberate pixel illustration with hard square stepped contours, limited color clusters and earthy same-color palette as supplied pixel baseline, not photo, not painting, not a pixel filter over photography. Figures large and emotional; crop at parent's knees/leader hips for close readable expressions. No text, no UI, no frame border. Preserve costumes and face identities from second reference.",
       "path": "game/public/assets/cut/cinematic-raid-confrontation.png",
-      "correctionPrompt": "Edit first image into corrected cinematic medium shot. Preserve same kneelingfather mother, same farmhouse doorway, two blackivory HUMAN guards, same grey-hairedleader, same crisp pixelillustration/style/colorpalette. Move camera slightly higher and pull back about15percent so ALL grey-hairedleader's head including top of hair is fully inside canvas with minimum80px of background ABOVE hair; no topclipping. Keep kneelingparentsfaces upper-middle. Leader remains at right. His brooch MUST be a small PLAIN GOLD DISK, with NO symbol/tree/emblem. Keep silhouettes and emotion. Landscape16:9 1536x864; native pixelartclusters expected to survive nearestdownsizing320x180; use larger angularshadowclusters and avoidfinephotorealtexture. No extra people/no words/no UI/no borders. Thirdstyle reference authoritative."
+      "correctionPrompt": "Edit first image into corrected cinematic medium shot. Preserve same kneelingfather mother, same farmhouse doorway, two blackivory HUMAN guards, same grey-hairedleader, same crisp pixelillustration/style/colorpalette. Move camera slightly higher and pull back about15percent so ALL grey-hairedleader's head including top of hair is fully inside canvas with minimum80px of background ABOVE hair; no topclipping. Keep kneelingparentsfaces upper-middle. Leader remains at right. His brooch MUST be a small PLAIN GOLD DISK, with NO symbol/tree/emblem. Keep silhouettes and emotion. Landscape16:9 1536x864; native pixelartclusters expected to survive nearestdownsizing320x180; use larger angularshadowclusters and avoidfinephotorealtexture. No extra people/no words/no UI/no borders. Thirdstyle reference authoritative.",
+      "finalRaw": "output/imagegen/pixel-cinematics/raid-confrontation-head-safe-raw.png"
     },
     {
       "name": "raid-kyra",
@@ -83,167 +84,58 @@
   "verifiedOutputs": [
     {
       "path": "game/public/assets/cut/cinematic-raid-cover.png",
-      "size": [
-        640,
-        360
-      ],
+      "width": 1672,
+      "height": 941,
       "mode": "RGB",
-      "bytes": 173346,
-      "sha256": "688bf71fcfc5de35545f3513cc8d22977591f58a91bf8b059d7f82deda0a4881",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:41:42"
+      "bytes": 1913401,
+      "sha256": "3c3d98b8953f453bafd354f07632e8303b4c71651e6bd269436eeaadadd81ebb",
+      "sourcePath": "output/imagegen/pixel-cinematics/raid-cover-sandy-hair-headroom-final-raw.png",
+      "sourceSha256": "3c3d98b8953f453bafd354f07632e8303b4c71651e6bd269436eeaadadd81ebb",
+      "processing": "byte-exact approved source passthrough"
     },
     {
       "path": "game/public/assets/cut/cinematic-raid-confrontation.png",
-      "size": [
-        640,
-        360
-      ],
+      "width": 1672,
+      "height": 941,
       "mode": "RGB",
-      "bytes": 171522,
-      "sha256": "a550a7a4461c9a73d45faf62ea26a475bfe8df5560ad53e818b84ca1147db9ab",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:26:04"
+      "bytes": 2478054,
+      "sha256": "8387a1eccd2cd0e3084dca912d4d252caffdb29b3928657f6866b11f30b7f8f5",
+      "sourcePath": "output/imagegen/pixel-cinematics/raid-confrontation-head-safe-raw.png",
+      "sourceSha256": "8387a1eccd2cd0e3084dca912d4d252caffdb29b3928657f6866b11f30b7f8f5",
+      "processing": "byte-exact approved source passthrough"
     },
     {
       "path": "game/public/assets/cut/cinematic-raid-kyra.png",
-      "size": [
-        640,
-        360
-      ],
+      "width": 1672,
+      "height": 941,
       "mode": "RGB",
-      "bytes": 168391,
-      "sha256": "e190b6cf0d2a6308f0bf3275cdb7349504722e05ce1936f137d95bc1efb7f279",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:40:38"
+      "bytes": 2110321,
+      "sha256": "ce2196bbb0d73a1e64dce4c44c9609d24a9515f44281cdaa0f63d581319c4e45",
+      "sourcePath": "output/imagegen/pixel-cinematics/raid-kyra-crown-safe-final-raw.png",
+      "sourceSha256": "ce2196bbb0d73a1e64dce4c44c9609d24a9515f44281cdaa0f63d581319c4e45",
+      "processing": "byte-exact approved source passthrough"
     },
     {
       "path": "game/public/assets/cut/cinematic-raid-loss.png",
-      "size": [
-        640,
-        360
-      ],
+      "width": 1672,
+      "height": 941,
       "mode": "RGB",
-      "bytes": 166568,
-      "sha256": "6c9891bcb781d76343c937a02afe4e40571c99643b8414cf22e825e8911d5aaa",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:38:16"
+      "bytes": 1995397,
+      "sha256": "342723af7edf6af92584bda918bebe1ec23584ca5fcc593df5db2e278df17736",
+      "sourcePath": "output/imagegen/pixel-cinematics/raid-loss-sandy-hair-crown-safe-final-raw.png",
+      "sourceSha256": "342723af7edf6af92584bda918bebe1ec23584ca5fcc593df5db2e278df17736",
+      "processing": "byte-exact approved source passthrough"
     },
     {
       "path": "game/public/assets/cut/cinematic-raid-departure.png",
-      "size": [
-        640,
-        360
-      ],
+      "width": 1672,
+      "height": 941,
       "mode": "RGB",
-      "bytes": 171574,
-      "sha256": "59eb7d29beccd9f3ec6a6874f4ca3b70d7c95de77c435be55679c24a9080cd98",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:39:22"
-    },
-    {
-      "path": "game/public/assets/cut/wound.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGB",
-      "bytes": 96813,
-      "sha256": "9309ef165de7c7c67b3082c4b71046740412dd94d2e9c526ab320ffefbb71e51",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:21:45"
-    },
-    {
-      "path": "game/public/assets/cut/wound-mono.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGB",
-      "bytes": 45171,
-      "sha256": "7f5dd3e81b799d6e82aab99aa623aabf527757ea7edf8a6647879493d8d435fb",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:21:45"
-    },
-    {
-      "path": "game/public/assets/cut/wound-red.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGBA",
-      "bytes": 100569,
-      "sha256": "35ec6074ecde6292a13249a23b3f5726929c3b5502a607247af8da680656889b",
-      "pixelGrid": "320x180 nearest 2x",
-      "alphaExtrema": [
-        255,
-        255
-      ],
-      "opaqueBBox": [
-        0,
-        0,
-        640,
-        360
-      ],
-      "modifiedLocal": "2026-10-03T10:21:45"
-    },
-    {
-      "path": "game/public/assets/cut/woman.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGB",
-      "bytes": 120471,
-      "sha256": "6aee5966f5a5ec5efa4b560e153ddb9955bbe7735655b02b21254fac62af99e0",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:26:57"
-    },
-    {
-      "path": "game/public/assets/cut/cradle-sleep.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGB",
-      "bytes": 118998,
-      "sha256": "6b0176beed6f972f1a94b64f47c59f316caea68f6eb8710c5ed9b08ad064f27f",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:27:45"
-    },
-    {
-      "path": "game/public/assets/cut/cradle-empty.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGB",
-      "bytes": 121626,
-      "sha256": "e81d9c026a076432cdbe56cfcbaaf31abc4d10c0fca513306e5c70f6f06236f9",
-      "pixelGrid": "320x180 nearest 2x",
-      "modifiedLocal": "2026-10-03T10:28:41"
-    },
-    {
-      "path": "game/public/assets/cut/hand.png",
-      "size": [
-        640,
-        360
-      ],
-      "mode": "RGBA",
-      "bytes": 22525,
-      "sha256": "23e9847fefa4ebcadfc3c675cd12a6e116ec5f7ff14af019f14e11d940c867b5",
-      "pixelGrid": "320x180 nearest 2x",
-      "alphaExtrema": [
-        0,
-        255
-      ],
-      "opaqueBBox": [
-        258,
-        122,
-        540,
-        360
-      ],
-      "modifiedLocal": "2026-10-03T10:29:46"
+      "bytes": 2038996,
+      "sha256": "97db7b1f3d69b909884b963a0212d31502477f4329766de82de41dda287010aa",
+      "sourcePath": "output/imagegen/pixel-cinematics/raid-departure-sandy-hair-final-raw.png",
+      "sourceSha256": "97db7b1f3d69b909884b963a0212d31502477f4329766de82de41dda287010aa",
+      "processing": "byte-exact approved source passthrough"
     }
   ],
   "derivedLayers": [
@@ -279,5 +171,75 @@
     "safeCrowns": "all whole heads visible; cover and loss extra forest headroom, Kyra and guards framed below top margin",
     "chronology": "four cover raiders; loss only Lia leaves and tree; five departure raiders and horses with Kyra riding double",
     "confrontation": "latest fully visible leader hair and plain gold disk; no regeneration needed"
+  },
+  "historicalUnrefreshedOutputs": [
+    {
+      "path": "game/public/assets/cut/wound.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:21:45",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    },
+    {
+      "path": "game/public/assets/cut/wound-mono.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:21:45",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    },
+    {
+      "path": "game/public/assets/cut/wound-red.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:21:45",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    },
+    {
+      "path": "game/public/assets/cut/woman.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:26:57",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    },
+    {
+      "path": "game/public/assets/cut/cradle-sleep.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:27:45",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    },
+    {
+      "path": "game/public/assets/cut/cradle-empty.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:28:41",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    },
+    {
+      "path": "game/public/assets/cut/hand.png",
+      "lastRecordedSize": [
+        640,
+        360
+      ],
+      "lastRecordedAt": "2026-10-03T10:29:46",
+      "status": "not refreshed in the 2026-10-04 source-detail audit"
+    }
+  ],
+  "deliveryAudit": {
+    "date": "2026-10-04",
+    "scope": "Five approved raid shots only. Prologue images and derived wound layers were not rewritten or reverified.",
+    "promptHistory": "Generation prompts retain their original art instructions; current delivery adds no pixel grid, palette reduction, crop or re-encoding."
   }
 }

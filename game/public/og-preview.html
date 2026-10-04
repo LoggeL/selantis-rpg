@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1200, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Die Chroniken von Selantis</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; }
+    body { background: #101713; color: #f8eed3; }
+    .cover { position: relative; width: 1200px; height: 630px; isolation: isolate; }
+    .splash { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: -3; }
+    .shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, rgba(5, 12, 10, .96) 0%, rgba(5, 12, 10, .84) 32%, rgba(5, 12, 10, .34) 58%, rgba(5, 12, 10, .05) 100%), linear-gradient(0deg, rgba(5, 10, 8, .85), transparent 48%); }
+    .edge { position: absolute; inset: 20px; border: 1px solid rgba(221, 190, 115, .42); pointer-events: none; }
+    .branding { position: absolute; left: 52px; top: 117px; width: 508px; }
+    .kicker { margin: 0 0 25px; color: #ded1ae; font: 600 16px/1.25 Arial, sans-serif; letter-spacing: 4px; text-transform: uppercase; }
+    h1 { margin: 0; font: 400 53px/1.08 Georgia, 'Times New Roman', serif; letter-spacing: -1.2px; text-shadow: 0 3px 15px #030806; }
+    h1 span { display: block; }
+    h1 .name { margin-top: 5px; font-size: 73px; color: #f4d488; }
+    .rule { width: 86px; height: 2px; margin: 31px 0 23px; background: #b59858; }
+    .description { margin: 0; max-width: 410px; color: #e9e0ca; font: 400 23px/1.4 Georgia, 'Times New Roman', serif; }
+    .gameplay { position: absolute; right: 44px; bottom: 57px; width: 550px; margin: 0; }
+    .gameplay img { display: block; width: 550px; height: 309.375px; object-fit: contain; background: #070b08; border: 2px solid #c6af76; box-shadow: 0 12px 35px rgba(0, 0, 0, .65), 0 0 0 6px rgba(6, 12, 10, .75); }
+    figcaption { margin: 14px 0 0; color: #e4d9bc; font: 400 14px/1.1 Arial, sans-serif; letter-spacing: .4px; }
+    .footer { position: absolute; left: 52px; bottom: 55px; margin: 0; color: #cdbd95; font: 400 16px/1 Arial, sans-serif; letter-spacing: 1.1px; }
+  </style>
+</head>
+<body>
+  <main class="cover" aria-label="Vorschaubild für Die Chroniken von Selantis">
+    <img class="splash" src="assets/social/splash-art.png" alt="" width="1200" height="630">
+    <div class="shade"></div>
+    <div class="edge"></div>
+    <div class="branding">
+      <p class="kicker">Ein Story-RPG im Browser</p>
+      <h1 aria-label="Die Chroniken von Selantis"><span>Die Chroniken</span> <span class="name">von Selantis</span></h1>
+      <div class="rule"></div>
+      <p class="description">Valentus' Fiebertraum.<br>Lias Reise.</p>
+    </div>
+    <figure class="gameplay">
+      <img src="assets/social/gameplay-shot.png" alt="Echte Aufnahme aus dem laufenden Spiel" width="640" height="360">
+      <figcaption>Aufnahme aus dem Spiel</figcaption>
+    </figure>
+    <p class="footer">Direkt im Browser spielbar</p>
+  </main>
+</body>
+</html>

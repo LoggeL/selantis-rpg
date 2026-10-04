@@ -8,8 +8,10 @@ import {
 import { Hud, FONT } from '../ui';
 import { ambientPrefs, getSettings, subscribeSettings } from '../settings';
 import type { MobileControlProfile } from '../mobileInput';
+import { resolveBattleUnitStats } from '../combatStats';
+import { attackAspect, beatComplete, dreamDamage, enemyOrder, facingFromVector, facingVector, freshTurn, incomingDamage, spendTurn, TACTICAL_STATS, unitSpeed, type BattleSnapshot, type Facing, type TurnBudget } from '../battle/tactics';
 
-type Phase = 'arrival' | 'plan' | 'beam' | 'wave' | 'busy' | 'end';
+type Phase = 'arrival' | 'plan' | 'beam' | 'wave' | 'facing' | 'busy' | 'end';
 type Aim = Pick<Phaser.Input.Pointer, 'worldX' | 'worldY'>;
 type Intent =
   | { kind: 'advance'; path: Cell[]; strike: boolean }
@@ -33,8 +35,14 @@ export class BattleScene extends Phaser.Scene {
   private phase: Phase = 'arrival';
   private beat = 0;
   private turnStart: Cell = START_CELL;
-  private moved = false;
-  private facing: 's' | 'w' | 'e' | 'n' = 's';
+  private turn: TurnBudget = freshTurn();
+  private get moved() { return this.turn.moved; }
+  private get acted() { return this.turn.acted; }
+  private guarding = false;
+  private facing: Facing = 's';
+  private tacticalText?: Phaser.GameObjects.Text;
+  private tacticalPanel?: Phaser.GameObjects.Rectangle;
+  private maxHp = new Map<string, number>();
   private gridG!: Phaser.GameObjects.Graphics;
   private previewG!: Phaser.GameObjects.Graphics;
   private intentG!: Phaser.GameObjects.Graphics;
@@ -61,13 +69,19 @@ export class BattleScene extends Phaser.Scene {
       ? { directions: ['up', 'left', 'down', 'right'], actions: {}, inventory: false }
       : phase === 'busy' || phase === 'end'
         ? { directions: [], actions: { E: 'Weiter' }, inventory: false, disabled: true }
-        : undefined;
+        : phase === 'facing'
+          ? { directions: ['up', 'left', 'down', 'right'], actions: { ENTER: 'Zug beenden' }, inventory: true }
+          : { directions: ['up', 'left', 'down', 'right'], actions: this.acted
+            ? { ENTER: 'Feld wählen', SPACE: 'Zug beenden' }
+            : { ENTER: 'Feld wählen', Q: 'Strahl', R: 'Druckwelle', SPACE: 'Warten', ESC: 'Zurück' }, inventory: true };
     this.data.set('mobile:controls', controls);
+    this.refreshTacticalStatus();
   }
 
   create() {
     this.units = []; this.sprites.clear(); this.shadows.clear(); this.intents.clear(); this.intentIcons.clear();
-    this.setPhase('arrival'); this.beat = 0; this.moved = false; this.falkeShown = false; this.boltFired = false;
+    this.turn = freshTurn(); this.guarding = false; this.maxHp.clear();
+    this.setPhase('arrival'); this.beat = 0; this.falkeShown = false; this.boltFired = false;
     this.facing = 's'; this.lastMagic = null; this.hintsSeen.clear(); this.cursor = { ...START_CELL };
     this.turnStart = { ...START_CELL };
     this.ambientTweens = []; this.ambientEmitters = [];
@@ -87,6 +101,8 @@ export class BattleScene extends Phaser.Scene {
       { icon: 'wait', key: '␣', onClick: () => this.doWait() },
     ]);
     this.hud.setAbilitiesVisible(false);
+    this.tacticalPanel = this.add.rectangle(418, 92, 208, 207, 0x111821, 0.92).setOrigin(0).setStrokeStyle(1, 0x64809a).setDepth(980).setVisible(false);
+    this.tacticalText = this.add.text(428, 101, '', { fontFamily: FONT, fontSize: '12px', color: '#e8e2d0', lineSpacing: 5, wordWrap: { width: 188 } }).setDepth(981);
 
     const v = this.addUnit({ id: 'valentus', kind: 'valentus', side: 'valentus', cell: START_CELL, hp: 100, alive: true });
     v.setPosition(172, 74).play('v-idle-s');
@@ -191,11 +207,13 @@ export class BattleScene extends Phaser.Scene {
   private addUnit(u: Unit) {
     u.cell = freeCell(this.units, u.cell);
     this.units.push(u);
+    this.maxHp.set(u.id, u.hp);
     const sheet = { valentus: 'valentus-walk', warrior: 'warrior', axe: 'axe', crossbow: 'crossbow', boy: 'boy', falke: 'falke' }[u.kind];
     const f = cellFoot(u.cell);
     const s = this.add.sprite(f.x, f.y, sheet, 0).setOrigin(0.5, 60 / 64);
     this.sprites.set(u.id, s);
     this.shadows.set(u.id, this.add.image(f.x, f.y, 'shadow').setDepth(-200));
+    this.refreshTacticalStatus();
     return s;
   }
   private sprite(id: string) { return this.sprites.get(id)!; }
@@ -290,7 +308,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private spawnEnemy(id: string, kind: 'warrior' | 'axe' | 'crossbow', cell: Cell, hp: number) {
-    const s = this.addUnit({ id, kind, side: 'enemy', cell, hp, alive: true });
+    const s = this.addUnit({ id, kind, side: 'enemy', cell, hp, alive: true, speed: id === 'w2' ? 7 : TACTICAL_STATS[kind].speed });
     const f = cellFoot(this.unit(id).cell);
     s.setPosition(f.x + 160, f.y);
     s.play(kind === 'warrior' ? 'warrior-charge' : kind === 'axe' ? 'axe-walk' : 'crossbow-walk');
@@ -316,10 +334,12 @@ export class BattleScene extends Phaser.Scene {
     this.computeIntents();
     this.drawIntents();
     this.turnStart = { ...this.unit('valentus').cell };
-    this.moved = false;
+    this.turn = freshTurn();
+    this.guarding = false;
     this.cursor = { ...this.turnStart };
     this.setPhase('plan');
     this.hud.setAbilitiesVisible(true);
+    this.hud.setAbilitiesDisabled(false);
     this.showPlan();
     this.drawGoal();
     this.tutorialHint();
@@ -337,7 +357,9 @@ export class BattleScene extends Phaser.Scene {
 
   private movementPaths() {
     // Planned movement must not block a new route with the caster's own body.
-    return reachable(this.units.filter((u) => u.id !== 'valentus'), this.turnStart);
+    const from = this.unit('valentus').cell;
+    if (this.moved) return new Map([[key(from), [from]]]);
+    return reachable(this.units.filter((u) => u.id !== 'valentus'), from, resolveBattleUnitStats(this.unit('valentus')).move);
   }
 
   private cursorAim(): Aim {
@@ -346,15 +368,18 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private moveCursor(dx: number, dy: number) {
+    if (this.phase === 'facing') { this.face(facingFromVector(dx, dy)); this.drawFacing(); return; }
     if (!['plan', 'beam', 'wave'].includes(this.phase)) return;
     this.cursor = { x: Phaser.Math.Clamp(this.cursor.x + dx, 0, GRID.cols - 1),
       y: Phaser.Math.Clamp(this.cursor.y + dy, 0, GRID.rows - 1) };
     this.refreshPreview(this.cursorAim());
+    this.refreshTacticalStatus();
   }
 
   private confirmCursor() {
     const aim = this.cursorAim();
-    if (this.phase === 'beam') this.confirmBeam(aim);
+    if (this.phase === 'facing') this.commitTurn();
+    else if (this.phase === 'beam') this.confirmBeam(aim);
     else if (this.phase === 'wave') this.confirmWave(aim);
     else if (this.phase === 'plan') this.chooseMovement(this.cursor);
   }
@@ -387,10 +412,11 @@ export class BattleScene extends Phaser.Scene {
 
   private onHover(ptr: Phaser.Input.Pointer) {
     // HUD hover must not aim a spell through the battlefield behind its icons.
-    if (ptr.worldY >= 314 || ptr.worldY < 62) return;
+    if (ptr.worldX >= 418 || ptr.worldY >= 314 || ptr.worldY < 88) return;
     const cell = cellAt(ptr.worldX, ptr.worldY);
     if (cell) this.cursor = cell;
     this.refreshPreview(ptr);
+    this.refreshTacticalStatus();
   }
 
   private refreshPreview(ptr: Aim) {
@@ -416,35 +442,42 @@ export class BattleScene extends Phaser.Scene {
 
   private onClick(ptr: Phaser.Input.Pointer) {
     if (this.hud.hitTest(ptr)) return;
+    if (ptr.worldX >= 418 || ptr.worldY >= 314 || ptr.worldY < 88) return;
     if (this.phase === 'plan') {
       const c = cellAt(ptr.worldX, ptr.worldY);
       if (c) this.chooseMovement(c);
+    } else if (this.phase === 'facing') {
+      const v = cellCenter(this.unit('valentus').cell);
+      this.face(facingFromVector(ptr.worldX - v.x, ptr.worldY - v.y));
+      this.drawFacing();
     } else if (this.phase === 'beam') this.confirmBeam(ptr);
     else if (this.phase === 'wave') this.confirmWave(ptr);
   }
 
   private chooseMovement(c: Cell) {
-    if (this.moved && eq(c, this.turnStart)) { this.cancel(); return; }
+    if (this.moved) { this.hud.hint('Bewegung verbraucht. Aktion wählen oder Zug beenden.', true); return; }
     const path = this.movementPaths().get(key(c));
     if (path && path.length > 1 && !eq(c, this.unit('valentus').cell)) this.moveValentus(path);
     else if (!path) this.hud.hint('Dieses Feld ist blockiert oder zu weit.', true);
   }
 
   private moveValentus(path: Cell[]) {
+    const next = spendTurn(this.turn, 'move');
+    if (!next) return;
+    this.turn = next;
     this.setPhase('busy');
     const v = this.unit('valentus'), s = this.sprite('valentus');
-    // Zurück zur Startposition, falls schon bewegt, dann Pfad laufen
-    if (this.moved) { const f = cellFoot(this.turnStart); s.setPosition(f.x, f.y); }
     const steps = path.slice(1);
     const run = (i: number) => {
       if (i >= steps.length) {
         v.cell = steps[steps.length - 1];
-        this.moved = true;
+        this.refreshTacticalStatus();
         s.play(`v-idle-${this.facing}`);
         this.setPhase('plan');
         this.cursor = { ...v.cell };
         this.computeIntents(); this.drawIntents(); this.drawGoal();
-        this.showPlan();
+        if (this.acted) this.chooseFacing();
+        else { this.showPlan(); this.hud.hint('Bewegung verbraucht · Q: Strahl · R: Druckwelle · Leertaste: Warten.'); }
         return;
       }
       const prev = i ? steps[i - 1] : path[0], c = steps[i], f = cellFoot(c);
@@ -458,24 +491,18 @@ export class BattleScene extends Phaser.Scene {
   private cancel() {
     if (this.phase === 'beam' || this.phase === 'wave') {
       this.setPhase('plan'); this.previewG.clear(); this.showPlan(); this.hud.select(null);
-    } else if (this.phase === 'plan' && this.moved) {
-      const v = this.unit('valentus');
-      v.cell = { ...this.turnStart };
-      const f = cellFoot(v.cell);
-      this.sprite('valentus').setPosition(f.x, f.y);
-      this.moved = false; this.showPlan(); sfx.select();
-      this.cursor = { ...this.turnStart }; this.computeIntents(); this.drawIntents();
     }
   }
 
   private face(d: 's' | 'w' | 'e' | 'n', walk = false) {
     this.facing = d;
+    this.refreshTacticalStatus();
     this.sprite('valentus').play(walk ? `v-walk-${d}` : `v-idle-${d}`, true);
   }
 
   // ---------- Strahl ----------
   private enterBeam() {
-    if (this.phase !== 'plan' && this.phase !== 'wave') return;
+    if (this.acted || (this.phase !== 'plan' && this.phase !== 'wave')) return;
     this.setPhase('beam'); this.hud.select('beam'); sfx.select();
     this.previewG.clear();
     this.previewBeam(this.cursorAim());
@@ -485,7 +512,7 @@ export class BattleScene extends Phaser.Scene {
   private beamFromPointer(ptr: Aim) {
     const v = this.unit('valentus'), m = cellCenter(v.cell);
     const dir = dirFromVector(ptr.worldX - m.x, ptr.worldY - m.y);
-    const cells = beamCells(v.cell, dir);
+    const cells = beamCells(v.cell, dir, resolveBattleUnitStats(v).attackRange);
     const hits = cells.map((c) => unitAt(this.units, c)).filter((u): u is Unit => !!u);
     return { dir, cells, hits };
   }
@@ -501,7 +528,7 @@ export class BattleScene extends Phaser.Scene {
     for (const u of hits) this.markCell(g, u.cell, u.side === 'enemy' ? 0xffb03a : DANGER, u.side !== 'enemy');
     const ally = hits.find((u) => u.side === 'ally');
     if (ally) this.hud.hint('Der Strahl würde den Jungen treffen.', true);
-    else this.hud.hint(hits.length ? `${hits.length} Gegner · Klick / Enter: Strahl.` : 'Kein Ziel in dieser Richtung.', true);
+    else this.hud.hint(hits.length ? `${hits.length} Gegner · ${resolveBattleUnitStats(this.unit('valentus')).magicAttack ?? BEAM_DAMAGE} Schaden je Ziel · Klick / Enter: Strahl.` : 'Kein Ziel in dieser Richtung.', true);
     if (cells.length) {
       const from = cellCenter(this.unit('valentus').cell), end = cellCenter(cells[cells.length - 1]);
       g.lineStyle(2, 0xd6ebff, 0.7).lineBetween(from.x, from.y + 6, end.x, end.y + 6);
@@ -509,10 +536,12 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private confirmBeam(ptr: Aim) {
+    if (this.phase !== 'beam' || this.acted) return;
     const { dir, cells, hits } = this.beamFromPointer(ptr);
     if (!cells.length) return;
     if (hits.some((u) => u.side === 'ally')) { this.shake(120, 0.003); sfx.clang(); return; }
     if (!hits.some((u) => u.side === 'enemy')) { this.hud.hint('Wähle einen Gegner in der Linie.', true); return; }
+    this.turn = spendTurn(this.turn, 'act')!;
     this.setPhase('busy'); this.previewG.clear(); this.hud.select(null); this.hud.hint('');
     const v = this.unit('valentus');
     this.lastMagic = { kind: 'beam', from: { ...v.cell }, dir };
@@ -529,7 +558,7 @@ export class BattleScene extends Phaser.Scene {
         this.time.delayedCall(90, () => { this.tweens.timeScale = 1; this.anims.globalTimeScale = 1; });
       }
       this.shake(260, 0.012);
-      for (const u of hits) this.damage(u, BEAM_DAMAGE, 'beam');
+      for (const u of hits) this.damage(u, resolveBattleUnitStats(v).magicAttack ?? BEAM_DAMAGE, 'beam');
       this.time.delayedCall(1100, () => { s.play(`v-idle-${d}`); this.afterPlayerAction(); });
     });
   }
@@ -562,7 +591,7 @@ export class BattleScene extends Phaser.Scene {
 
   // ---------- Druckwelle ----------
   private enterWave() {
-    if (this.phase !== 'plan' && this.phase !== 'beam') return;
+    if (this.acted || (this.phase !== 'plan' && this.phase !== 'beam')) return;
     this.setPhase('wave'); this.hud.select('wave'); sfx.select();
     this.previewG.clear();
     this.previewWave(this.cursorAim());
@@ -595,7 +624,7 @@ export class BattleScene extends Phaser.Scene {
       (a1.x - a0.x + 1) * GRID.size - 1, (a1.y - a0.y + 1) * GRID.size - 1);
     for (const p of w.pushes) this.drawPush(g, p);
     this.markCell(g, w.center, 0xe8f2ff, false, 0.9);
-    this.hud.hint(w.pushes.length ? 'Pfeile: Rückstoß · Verbündete geschützt · Klick / Enter.' : 'Kein Gegner in der Fläche.', true);
+    this.hud.hint(w.pushes.length ? `${WAVE_DAMAGE} Schaden · Rückstoß +${COLLISION_DAMAGE} bei Aufprall · Verbündete geschützt.` : 'Kein Gegner in der Fläche.', true);
   }
 
   private drawPush(g: Phaser.GameObjects.Graphics, p: Push) {
@@ -618,9 +647,11 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private confirmWave(ptr: Aim) {
+    if (this.phase !== 'wave' || this.acted) return;
     const w = this.waveFromPointer(ptr);
     if (!w) return;
     if (!w.pushes.length) { this.hud.hint('Wähle eine Fläche mit Gegnern.', true); return; }
+    this.turn = spendTurn(this.turn, 'act')!;
     this.setPhase('busy'); this.previewG.clear(); this.hud.select(null); this.hud.hint('');
     const v = this.unit('valentus');
     this.lastMagic = { kind: 'wave', from: { ...v.cell }, center: w.center };
@@ -672,7 +703,8 @@ export class BattleScene extends Phaser.Scene {
   // ---------- Schaden und Tod ----------
   private damage(u: Unit, amount: number, source: 'beam' | 'wave' | 'falke') {
     if (!u.alive) return;
-    u.hp -= amount;
+    u.hp = Math.max(0, u.hp - amount);
+    this.refreshTacticalStatus();
     const s = this.sprite(u.id);
     s.setTintFill(0xffffff);
     this.time.delayedCall(70, () => s.clearTint());
@@ -687,6 +719,7 @@ export class BattleScene extends Phaser.Scene {
 
   private kill(u: Unit, source: string) {
     u.alive = false;
+    this.refreshTacticalStatus();
     this.clearIntent(u.id);
     const s = this.sprite(u.id);
     const fall = u.kind === 'warrior' ? 'warrior-fall' : u.kind === 'axe' ? 'axe-land' : u.kind === 'crossbow' ? 'crossbow-fall' : null;
@@ -714,12 +747,13 @@ export class BattleScene extends Phaser.Scene {
     const v = this.unit('valentus');
     const boy = this.units.find((u) => u.id === 'boy');
     for (const u of this.units.filter((x) => x.alive && x.side === 'enemy')) {
+      const stats = resolveBattleUnitStats(u);
       if (u.kind === 'warrior') {
-        if (manhattan(u.cell, v.cell) === 1) this.intents.set(u.id, { kind: 'strike', target: 'valentus' });
-        else this.intents.set(u.id, { kind: 'advance', path: this.approach(u, v.cell, 2), strike: false });
+        if (manhattan(u.cell, v.cell) <= stats.attackRange) this.intents.set(u.id, { kind: 'strike', target: 'valentus' });
+        else this.intents.set(u.id, { kind: 'advance', path: this.approach(u, v.cell, stats.move), strike: false });
       } else if (u.kind === 'axe' && boy) {
-        if (manhattan(u.cell, boy.cell) === 1) this.intents.set(u.id, { kind: 'chop', target: 'boy' });
-        else this.intents.set(u.id, { kind: 'advance', path: this.approach(u, boy.cell, 2), strike: false });
+        if (manhattan(u.cell, boy.cell) <= stats.attackRange) this.intents.set(u.id, { kind: 'chop', target: 'boy' });
+        else this.intents.set(u.id, { kind: 'advance', path: this.approach(u, boy.cell, stats.move), strike: false });
       } else if (u.kind === 'crossbow' && boy) {
         this.intents.set(u.id, this.boltFired ? { kind: 'reload' } : { kind: 'bolt', line: boltLine(u.cell, boy.cell) });
       }
@@ -818,24 +852,97 @@ export class BattleScene extends Phaser.Scene {
 
   // ---------- Zugende ----------
   private doWait() {
+    if (this.phase === 'facing') { this.commitTurn(); return; }
     if (this.phase !== 'plan') return;
-    this.setPhase('busy'); this.previewG.clear(); this.hud.hint(''); sfx.select();
-    this.sprite('valentus').play(`v-guard-${this.facing}`);
-    this.time.delayedCall(300, () => this.afterPlayerAction());
+    this.guarding = !this.acted;
+    this.turn = { moved: true, acted: true };
+    sfx.select();
+    this.chooseFacing();
   }
 
   private afterPlayerAction() {
+    this.computeIntents(); this.drawIntents();
+    if (this.moved || this.beatDone()) { this.chooseFacing(); return; }
+    this.setPhase('plan');
+    this.hud.setAbilitiesVisible(true);
+    this.hud.setAbilitiesDisabled(false);
+    this.showPlan();
+    this.hud.hint('Aktion verbraucht · Blau: noch einmal bewegen · Leertaste: Zug beenden.');
+  }
+
+  private chooseFacing() {
+    this.setPhase('facing');
+    this.hud.select(null);
+    this.hud.setAbilitiesVisible(false);
+    this.drawFacing();
+    this.hud.hint('Blickrichtung: Pfeiltasten oder Nachbarfeld · Enter: Zug beenden.');
+  }
+
+  private drawFacing() {
+    const g = this.previewG.clear(), center = cellCenter(this.unit('valentus').cell);
+    for (const direction of ['n', 'e', 's', 'w'] as const) {
+      const d = facingVector(direction), x = center.x + d.x * 26, y = center.y + d.y * 26;
+      g.fillStyle(direction === this.facing ? 0xf3d397 : 0x6c8499, 0.95);
+      g.fillTriangle(x + d.x * 7, y + d.y * 7, x - d.x * 5 + d.y * 5, y - d.y * 5 - d.x * 5,
+        x - d.x * 5 - d.y * 5, y - d.y * 5 + d.x * 5);
+    }
+    this.refreshTacticalStatus();
+  }
+
+  private commitTurn() {
+    if (this.phase !== 'facing') return;
+    this.setPhase('busy'); this.previewG.clear(); this.hud.hint('');
+    this.sprite('valentus').play(`v-${this.guarding ? 'guard' : 'idle'}-${this.facing}`);
     this.hud.setAbilitiesVisible(false);
     if (this.beatDone()) return this.nextBeat();
     this.enemyPhase(() => (this.beatDone() ? this.nextBeat() : this.beginPlayerTurn()));
   }
 
+  private refreshTacticalStatus() {
+    const snapshot: BattleSnapshot = {
+      beat: this.beat, phase: this.phase, moved: this.moved, acted: this.acted, guarding: this.guarding, facing: this.facing,
+      units: this.units.map(u => ({ ...u, cell: { ...u.cell }, maxHp: this.maxHp.get(u.id) ?? u.hp, ...resolveBattleUnitStats(u) })),
+    };
+    this.registry?.set?.('battle:state', snapshot);
+    const v = this.units.find(u => u.id === 'valentus');
+    if (!v) return;
+    const names: Record<Unit['kind'], string> = { valentus: 'Valentus', warrior: 'Krieger', axe: 'Axtkämpfer', crossbow: 'Schütze', boy: 'Junge', falke: 'Falke' };
+    const facing = { n: 'Nord', e: 'Ost', s: 'Süd', w: 'West' }[this.facing];
+    const order = enemyOrder(this.units);
+    const target = unitAt(this.units, this.cursor);
+    const lines = [
+      this.phase === 'facing' ? 'BLICKRICHTUNG WÄHLEN' : this.phase === 'busy' ? 'ZUG WIRD AUSGEFÜHRT' : 'VALENTUS AM ZUG',
+      `LP ${v.hp}/${this.maxHp.get(v.id) ?? 100} · Traum schützt`,
+      `Bewegen: ${this.moved ? 'verbraucht' : `${resolveBattleUnitStats(v).move} Felder`}`,
+      `Aktion: ${this.acted ? 'verbraucht' : 'Strahl / Welle / Warten'}`,
+      `Blick: ${facing}${this.guarding ? ' · Deckung' : ''}`,
+      'Danach: Gegner nach Tempo',
+      ...order.map((u, i) => `${i + 1}. ${names[u.kind]}${u.id === 'w1' ? ' I' : u.id === 'w2' ? ' II' : ''} · ${unitSpeed(u)} · LP ${u.hp}`),
+      target && target.side === 'enemy' ? `Ziel: ${names[target.kind]} ${target.hp} LP` : 'Front schützt. Rücken verwundbar.',
+    ];
+    const status = lines.join('\n');
+    const visible = this.phase !== 'arrival' && this.phase !== 'end' && this.beat < 4;
+    this.tacticalPanel?.setVisible(visible);
+    this.tacticalText?.setText(status).setVisible(visible);
+    this.data?.set?.('mobile:battleStatus', this.phase !== 'arrival' && this.phase !== 'end' && this.beat < 4 ? status : '');
+  }
+
+  private hurtValentus(attacker: Unit) {
+    const v = this.unit('valentus'), stats = resolveBattleUnitStats(attacker);
+    const aspect = attackAspect(attacker.cell, v.cell, this.facing);
+    const amount = incomingDamage(stats.attack, resolveBattleUnitStats(v).defense, aspect, this.guarding);
+    const hit = dreamDamage(v.hp, amount);
+    v.hp = hit.hp;
+    this.hud.setHp(v.hp / (this.maxHp.get(v.id) ?? 100));
+    this.refreshTacticalStatus();
+    const position = this.sprite(v.id);
+    const number = this.add.text(position.x, position.y - 48, hit.protected ? 'Traumschutz' : `-${hit.damage} LP`,
+      { fontFamily: FONT, fontSize: '13px', color: '#f2c194', stroke: '#10151b', strokeThickness: 3 }).setOrigin(0.5).setDepth(990);
+    this.tweens.add({ targets: number, y: number.y - 14, alpha: 0, duration: 1000, onComplete: () => number.destroy() });
+  }
+
   private beatDone() {
-    const alive = (id: string) => this.units.some((u) => u.id === id && u.alive);
-    if (this.beat === 1) return !alive('w1') && !alive('w2');
-    if (this.beat === 2) return !alive('axe');
-    if (this.beat === 3) return !alive('xbow') || this.boltFired;
-    return false;
+    return beatComplete(this.beat, this.units, this.boltFired);
   }
 
   private nextBeat() {
@@ -847,7 +954,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private enemyPhase(done: () => void) {
-    const order = [...this.intents.keys()].filter((id) => this.unit(id).alive);
+    const order = enemyOrder(this.units).map(u => u.id).filter(id => this.intents.has(id));
     const step = (i: number) => {
       if (i >= order.length) { this.intents.clear(); this.drawIntents(); done(); return; }
       this.resolveIntent(order[i], () => this.time.delayedCall(250, () => step(i + 1)));
@@ -877,6 +984,7 @@ export class BattleScene extends Phaser.Scene {
         this.sparks(this.sprite('valentus'));
         this.sprite('valentus').play(`v-guard-${this.facing}`);
         this.hud.shakeHp();
+        this.hurtValentus(u);
         this.time.delayedCall(500, () => { s.play('warrior-ready'); this.sprite('valentus').play(`v-idle-${this.facing}`); done(); });
       });
     } else if (it.kind === 'chop') {
@@ -943,6 +1051,7 @@ export class BattleScene extends Phaser.Scene {
         const vs = this.sprite('valentus');
         this.flyBolt(from, { x: vs.x, y: vs.y - 24 }, () => {
           sfx.clang(); this.sparks(vs); vs.play(`v-guard-${this.facing}`); this.hud.shakeHp();
+          this.hurtValentus(u);
           this.hud.thought('Der Bolzen zerspringt an ihm.');
           this.time.delayedCall(700, () => { vs.play(`v-idle-${this.facing}`); done(); });
         });
@@ -977,6 +1086,9 @@ export class BattleScene extends Phaser.Scene {
     this.setPhase('busy');
     this.hud.setAbilitiesVisible(false);
     this.goalG.clear();
+    this.tacticalText?.setVisible(false);
+    this.tacticalPanel?.setVisible(false);
+    this.data.set('mobile:battleStatus', '');
     const boy = this.unit('boy'), s = this.sprite('boy');
     s.play('boy-rise');
     this.time.delayedCall(500, () => {

@@ -10,6 +10,12 @@ export interface Unit {
   cell: Cell;
   hp: number;
   alive: boolean;
+  speed?: number;
+  attack?: number;
+  defense?: number;
+  move?: number;
+  attackRange?: number;
+  magicAttack?: number;
 }
 
 export const GRID = { cols: 11, rows: 7, originX: 48, originY: 88, size: 32 };
@@ -85,10 +91,10 @@ export function reachable(units: Unit[], from: Cell, range = MOVE_RANGE): Map<st
 }
 
 /** Strahl: bis BEAM_LENGTH Felder in eine der 8 Richtungen, durchdringt Figuren, endet am Fels. */
-export function beamCells(from: Cell, dir: Cell): Cell[] {
+export function beamCells(from: Cell, dir: Cell, length = BEAM_LENGTH): Cell[] {
   const out: Cell[] = [];
   let c = from;
-  for (let i = 0; i < BEAM_LENGTH; i++) {
+  for (let i = 0; i < length; i++) {
     const n = { x: c.x + dir.x, y: c.y + dir.y };
     if (!inside(n) || isRock(n)) break;
     // Diagonal an einer Felsecke vorbei: blockiert
@@ -144,15 +150,20 @@ export function wavePushes(units: Unit[], center: Cell, caster: Cell): Push[] {
   return pushes;
 }
 
-/** Bolzenlinie vom Schützen zum Ziel (diagonal oder gerade); stoppt am ersten Körper. */
+/** Integer sightline including its target, even when a spawn shifted to a free cell. */
 export function boltLine(from: Cell, to: Cell): Cell[] {
-  const dx = Math.sign(to.x - from.x), dy = Math.sign(to.y - from.y);
   const out: Cell[] = [];
-  let c = from;
-  while (!eq(c, to)) {
-    c = { x: c.x + dx, y: c.y + dy };
-    out.push(c);
-    if (out.length > 12) break;
+  let x = from.x, y = from.y;
+  const dx = Math.abs(to.x - x), dy = -Math.abs(to.y - y);
+  const sx = x < to.x ? 1 : -1, sy = y < to.y ? 1 : -1;
+  let error = dx + dy;
+  while (x !== to.x || y !== to.y) {
+    const twiceError = 2 * error;
+    if (twiceError >= dy) { error += dy; x += sx; }
+    if (twiceError <= dx) { error += dx; y += sy; }
+    const cell = { x, y };
+    if (!inside(cell) || isRock(cell)) break;
+    out.push(cell);
   }
   return out;
 }

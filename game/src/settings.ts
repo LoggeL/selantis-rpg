@@ -75,6 +75,7 @@ function pauseActiveScenes() {
 export const settingsAreOpen = () => opened;
 export function openSettings(game = host) {
   if (!game || opened || !game.scene.keys[OVERLAY]) return;
+  window.dispatchEvent(new Event('selantis:close-character'));
   host = game;
   opened = true;
   pauseActiveScenes();

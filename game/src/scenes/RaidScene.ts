@@ -5,12 +5,15 @@ import type { Pt } from '../story/types';
 import { state } from '../world/quests';
 import { motionDuration } from '../settings';
 import { setSceneMusic } from '../audio';
+import type { CloseupOptions } from '../story/closeups';
 
 type Beat = 'approach' | 'hidden' | 'departure' | 'parents' | 'vow' | 'busy';
 
 type ObservationBeat = {
+  id: string;
   line: string;
   shot?: string;
+  shotOptions?: CloseupOptions;
   shotAfterAction?: boolean;
   speaker?: () => Phaser.GameObjects.Image | Phaser.GameObjects.Sprite | undefined;
   action?: (done: () => void) => void;
@@ -25,12 +28,14 @@ export class RaidScene extends StoryScene {
   private father!: Phaser.GameObjects.Image;
   private kyra?: Phaser.GameObjects.Image;
   private cover?: Phaser.GameObjects.Graphics;
-  private spear?: Phaser.GameObjects.Graphics;
   private dagger?: Phaser.GameObjects.Graphics;
   private browWound?: Phaser.GameObjects.Rectangle;
   private speakerMark?: Phaser.GameObjects.Triangle;
   private nextBeat?: () => void;
   private observation: ObservationBeat[] = [];
+  private observationIndex = -1;
+  private storyStep = 'approach';
+  private currentShot = '';
 
   constructor() { super('raid'); }
 
@@ -41,8 +46,14 @@ export class RaidScene extends StoryScene {
     this.browWound = undefined;
     this.speakerMark = undefined;
     this.nextBeat = undefined;
+    this.observation = [];
+    this.observationIndex = -1;
+    this.storyStep = 'approach';
+    this.currentShot = '';
     this.data.set({ 'mobile:controls': null, 'mobile:dialogue': '' });
+    this.publishProgress(false);
     this.begin(RAID_APPROACH_AREA);
+    this.setLiaCrouched(true);
     this.setObjective('In der Böschung links am Weg verstecken.');
     this.say('Mutter und Vater knien vor der offenen Tür.', 2400);
     this.populateFarm();
@@ -58,47 +69,48 @@ export class RaidScene extends StoryScene {
       this.textures.exists('story-actors') ? frame : 0, at);
   }
 
+  private faceTowards(actor: Phaser.GameObjects.Image, focusX: number) {
+    actor.setFlipX(actor.x > focusX);
+  }
+
   private populateFarm() {
     this.mother = this.person(3, [259, 194], 'woman').setScale(0.95);
     this.father = this.person(4, [283, 195], 'warrior');
-    this.leader = this.person(2, [262, 224], 'warrior');
+    this.leader = this.person(2, [262, 224], 'warrior').setName('raid-leader');
     // Four initial humans include the grey-haired leader; the scarred fifth arrives from the house.
-    const spearman = this.addActor('warrior', 8, [223, 204]);
-    const axeman = this.addActor('axe', 0, [309, 205]);
-    const hooded = this.addActor('warrior', 8, [310, 182]).setTint(0xc4c4c4);
+    // Frame 0 is the face-visible standing guard, frame 8 shows the back.
+    const spearman = this.addActor(this.textures.exists('raid-spearman') ? 'raid-spearman' : 'warrior', 0, [223, 204]).setName('raid-spearman');
+    const axeman = this.addActor('axe', 0, [309, 205]).setName('raid-axeman');
+    const hooded = this.addActor('warrior', 0, [310, 182]).setTint(0xc4c4c4).setName('raid-hooded');
     this.raiders = [spearman, axeman, hooded, this.leader];
-    this.spear = this.add.graphics().setDepth(206);
-    this.spear.lineStyle(2, 0x725c38).lineBetween(215, 153, 215, 200);
-    this.spear.fillStyle(0xb7b8ae).fillTriangle(211, 155, 219, 155, 215, 147);
-    this.areaRoot.add(this.spear);
+    this.raiders.forEach(actor => this.faceTowards(actor, 271));
     this.areaRoot.add(this.add.rectangle(320, 180, 640, 360, 0x252d25, 0.11).setDepth(600));
   }
 
   private hide() {
     this.beat = 'busy';
+    this.storyStep = 'hiding';
+    this.publishProgress(false);
     this.setSpots([]);
     this.setLocked(true);
     this.setCinematic(true);
     this.inventory.close();
     this.cinemaControls(false);
     this.say('', 0);
-    // Lia first steps off the road, then visibly lowers herself into the roadside brush.
-    this.lia.play('lia-walk-w');
-    this.tweens.add({ targets: this.lia, x: 96, y: 179, duration: motionDuration(620), onComplete: () => {
+    // Lia stays low for the last few steps off the road and into the brush.
+    this.playLiaMovement('w', true);
+    this.tweens.add({ targets: this.lia, x: 96, y: 179, duration: motionDuration(820), onComplete: () => {
       this.cover = this.add.graphics().setDepth(700);
       this.cover.fillStyle(0x344d25, 0.94);
       for (let x = 80; x <= 116; x += 4) this.cover.fillTriangle(x, 185, x + 3, 185, x + 2, 174 - x % 7);
       this.areaRoot.add(this.cover);
       const hidden = () => {
         if (this.anims.exists('lia-hidden-e')) this.setLiaPose('lia-hidden-e');
-        else this.lia.stop().play('lia-idle-e');
+        else this.playLiaMovement('e', false);
         // Hold the actual lowered sprite for a beat before opening the actor close-up.
         this.time.delayedCall(motionDuration(300), () => this.startObservation());
       };
-      if (this.anims.exists('lia-hide-e')) {
-        this.lia.once('animationcomplete-lia-hide-e', hidden);
-        this.lia.play('lia-hide-e');
-      } else hidden();
+      hidden();
     } });
   }
 
@@ -120,6 +132,7 @@ export class RaidScene extends StoryScene {
     const next = this.nextBeat;
     if (!next) return;
     this.nextBeat = undefined;
+    this.publishProgress(false);
     this.setSpots([]);
     this.cinemaControls(false);
     this.setCloseupContinue(null);
@@ -129,6 +142,15 @@ export class RaidScene extends StoryScene {
   private readyToContinue(next: () => void, label = 'Weiter') {
     this.nextBeat = next;
     this.setCloseupContinue(() => this.advanceDialogue(), label);
+    this.publishProgress(true);
+  }
+
+  /** Runtime QA follows the visible cards and input readiness, not quest flags. */
+  private publishProgress(ready: boolean) {
+    this.data.set('story:raid', {
+      phase: this.beat, step: this.storyStep, index: this.observationIndex,
+      total: this.observation.length, shot: this.currentShot, ready,
+    });
   }
 
   private startObservation() {
@@ -136,57 +158,64 @@ export class RaidScene extends StoryScene {
     this.setObjective('Im Versteck bleiben und zuhören.');
     // Dialogue is adapted from Roman pp. 13-17; the next line never advances on a timer.
     this.observation = [
-      { line: 'Lia (Gedanke): Dunkelschatten.', shot: 'cinematic-raid-cover', speaker: () => this.lia },
-      { line: 'Narbiger: Seht mal, wen ich gefunden habe.', shot: 'cinematic-raid-confrontation', speaker: () => this.raiders[4],
+      { id: 'cover', line: 'Lia (Gedanke): Dunkelschatten.', shot: 'cinematic-raid-cover', speaker: () => this.lia },
+      { id: 'kyra-found', line: 'Narbiger: Seht mal, wen ich gefunden habe.', shot: 'cinematic-raid-confrontation', speaker: () => this.raiders[4],
         action: done => this.bringKyra(done) },
-      { line: 'Grauhaariger: Ihr sagtet, ihr seid allein. Wer ist sie?', shot: 'cinematic-raid-confrontation', speaker: () => this.leader },
-      { line: 'Vater: Ich kenne sie nicht. Sie ist nur ein neugieriges Kind. Lasst sie laufen.', speaker: () => this.father },
-      { line: 'Grauhaariger: Schon wieder solche Lügen. Ihr Bauern seid doch alle gleich.', speaker: () => this.leader,
+      { id: 'question', line: 'Grauhaariger: Ihr sagtet, ihr seid allein. Wer ist sie?', shot: 'cinematic-raid-confrontation', speaker: () => this.leader },
+      { id: 'father-denial', line: 'Vater: Ich kenne sie nicht. Sie ist nur ein neugieriges Kind. Lasst sie laufen.', speaker: () => this.father },
+      { id: 'intimidation', line: 'Grauhaariger: Schon wieder solche Lügen. Ihr Bauern seid doch alle gleich.', speaker: () => this.leader,
         action: done => this.intimidateFather(done) },
-      { line: 'Vater: Bitte lasst sie gehen!', speaker: () => this.father },
-      { line: 'Kapuzenmann: Sollen wir sie vor ihren Eltern auspeitschen?', speaker: () => this.raiders[2] },
-      { line: 'Grauhaariger: Nein. Zeig deine Hände!', speaker: () => this.leader,
+      { id: 'father-plea', line: 'Vater: Bitte lasst sie gehen!', speaker: () => this.father },
+      { id: 'threat', line: 'Kapuzenmann: Sollen wir sie vor ihren Eltern auspeitschen?', speaker: () => this.raiders[2] },
+      { id: 'hands', line: 'Grauhaariger: Nein. Zeig deine Hände!', speaker: () => this.leader,
         action: done => this.inspectHands(done) },
-      { line: 'Grauhaariger: Du bist harte Arbeit gewohnt. Der Hauptmann braucht eine Dienstmagd.', speaker: () => this.leader },
-      { line: 'Vater: Lasst sie in Ruhe!', speaker: () => this.father },
-      { line: 'Lia (Gedanke): Vater!', shot: 'cinematic-raid-loss', speaker: () => this.lia, action: done => this.killFather(done) },
-      { line: 'Lia (Gedanke): Sie fesseln Kyras Hände hinter dem Rücken.', shot: 'cinematic-raid-kyra', shotAfterAction: true, speaker: () => this.lia,
+      { id: 'captivity', line: 'Grauhaariger: Du bist harte Arbeit gewohnt. Der Hauptmann braucht eine Dienstmagd.', speaker: () => this.leader },
+      { id: 'father-protest', line: 'Vater: Lasst sie in Ruhe!', speaker: () => this.father },
+      { id: 'father-stab', line: 'Lia (Gedanke): Der Grauhaarige stößt Vater den Dolch in die Brust.', shot: 'cinematic-raid-father-stab', shotOptions: { fit: 'contain' }, speaker: () => this.lia, action: done => this.killFather(done) },
+      { id: 'father-death', line: 'Lia (Gedanke): Vater bricht zusammen. Er rührt sich nicht mehr.', shot: 'cinematic-raid-father-death', shotOptions: { fit: 'contain' }, speaker: () => this.lia },
+      { id: 'kyra-bound', line: 'Lia (Gedanke): Sie fesseln Kyras Hände hinter dem Rücken.', shot: 'cinematic-raid-kyra', shotAfterAction: true, speaker: () => this.lia,
         action: done => this.bindKyra(done) },
-      { line: 'Grauhaariger: Wenn ihr euch so allein fühlt, dann folgt ihm ins Jenseits.', speaker: () => this.leader,
+      { id: 'mother-threat', line: 'Grauhaariger: Wenn ihr euch so allein fühlt, dann folgt ihm ins Jenseits.', speaker: () => this.leader,
         action: done => {
           this.mother.setScale(0.9, 0.8);
+          this.faceTowards(this.leader, this.mother.x);
           this.tweens.add({ targets: this.leader, x: 260, y: 207, duration: motionDuration(400), onComplete: done });
         } },
-      { line: 'Mutter: Kyra...', shot: 'cinematic-raid-loss', speaker: () => this.mother, action: done => this.killMother(done) },
-      { line: 'Kyra: Ich werde euch töten! Das schwöre ich bei allen Göttern!', speaker: () => this.kyra },
-      { line: 'Grauhaariger: Verwahrt sie gut. Der Hauptmann wird sich über unser Geschenk freuen.', speaker: () => this.leader },
-      { line: 'Lia (Gedanke): Sie nehmen Kyra mit.', shot: 'cinematic-raid-departure', speaker: () => this.lia, action: done => this.depart(done) },
+      { id: 'mother-stab', line: 'Lia (Gedanke): Mit demselben Dolch sticht er auch Mutter nieder.', shot: 'cinematic-raid-mother-stab', shotOptions: { fit: 'contain' }, speaker: () => this.lia, action: done => this.killMother(done) },
+      { id: 'mother-death', line: 'Lia (Gedanke): Mutter fällt neben Vater. Ihr letztes Wort war Kyra.', shot: 'cinematic-raid-mother-death', shotOptions: { fit: 'contain' }, speaker: () => this.lia },
+      { id: 'kyra-vow', line: 'Kyra: Ich werde euch töten! Das schwöre ich bei allen Göttern!', speaker: () => this.kyra },
+      { id: 'captor-order', line: 'Grauhaariger: Verwahrt sie gut. Der Hauptmann wird sich über unser Geschenk freuen.', speaker: () => this.leader },
+      { id: 'departure', line: 'Lia (Gedanke): Sie nehmen Kyra mit.', shot: 'cinematic-raid-departure', speaker: () => this.lia, action: done => this.depart(done) },
     ];
     this.showObservationBeat(0);
   }
 
   private showObservationBeat(index: number) {
     const beat = this.observation[index];
+    this.observationIndex = index;
+    this.storyStep = beat.id;
     this.nextBeat = undefined;
     this.setSpots([]);
     this.cinemaControls(false);
-    if (beat.shot && !beat.shotAfterAction) this.showCloseup(beat.shot);
+    if (beat.shot && !beat.shotAfterAction) { this.showCloseup(beat.shot, beat.shotOptions); this.currentShot = beat.shot; }
+    this.publishProgress(false);
     this.caption(beat.line, beat.speaker?.());
     this.setCloseupContinue(null);
     const complete = () => {
-      if (beat.shot && beat.shotAfterAction) this.showCloseup(beat.shot);
-      // The arriving/moving speaker may not yet have existed when the line was first displayed.
-      this.caption(beat.line, beat.speaker?.());
+      if (beat.shot && beat.shotAfterAction) { this.showCloseup(beat.shot, beat.shotOptions); this.currentShot = beat.shot; }
+      // Preserve the reader's typing/reveal progress when the animation ends.
       this.readyToContinue(() => index + 1 < this.observation.length ? this.showObservationBeat(index + 1) : this.emptyFarm());
     };
     if (beat.action) beat.action(complete); else complete();
   }
 
   private bringKyra(done: () => void) {
-    const captor = this.addActor('warrior', 8, [273, 177]).setTint(0xc9c9c9);
+    const captor = this.addActor('warrior', 0, [273, 177]).setTint(0xc9c9c9).setName('raid-captor');
     this.raiders.push(captor);
     this.kyra = this.person(0, [282, 177], 'woman');
-    this.tweens.add({ targets: [captor, this.kyra], y: 216, duration: motionDuration(950), ease: 'Sine.inOut', onComplete: () => {
+    this.faceTowards(captor, this.kyra.x);
+    this.tweens.add({ targets: [captor, this.kyra], y: 216, duration: motionDuration(950), ease: 'Sine.inOut',
+      onUpdate: () => this.faceTowards(captor, this.kyra!.x), onComplete: () => {
       this.kyra?.setScale(0.88, 0.75);
       this.browWound = this.add.rectangle(284, 188, 2, 2, 0x87574e).setDepth(240);
       this.areaRoot.add(this.browWound);
@@ -195,12 +224,14 @@ export class RaidScene extends StoryScene {
   }
 
   private intimidateFather(done: () => void) {
+    this.faceTowards(this.leader, this.father.x);
     this.tweens.add({ targets: this.leader, x: 282, y: 207, duration: motionDuration(250), onComplete: () => {
       this.tweens.add({ targets: this.father, x: 287, duration: motionDuration(120), yoyo: true, onComplete: done });
     } });
   }
 
   private inspectHands(done: () => void) {
+    this.faceTowards(this.leader, this.kyra!.x);
     this.tweens.add({ targets: this.leader, x: 267, y: 215, duration: motionDuration(350), onComplete: () => {
       const hand = this.add.rectangle(277, 191, 8, 3, 0xc7ad8c).setDepth(230);
       this.areaRoot.add(hand);
@@ -216,6 +247,7 @@ export class RaidScene extends StoryScene {
   }
 
   private killFather(done: () => void) {
+    this.faceTowards(this.leader, this.father.x);
     this.tweens.add({ targets: this.leader, x: 281, y: 207, duration: motionDuration(350), onComplete: () => {
       this.drawDagger(281);
       this.silhouetteFall(this.father, done);
@@ -229,8 +261,11 @@ export class RaidScene extends StoryScene {
   private bindKyra(done: () => void) {
     this.browWound?.destroy();
     this.kyra!.setScale(1);
-    this.tweens.add({ targets: this.raiders[4], x: 296, y: 214, duration: motionDuration(300) });
-    this.tweens.add({ targets: this.raiders[1], x: 272, y: 215, duration: motionDuration(300) });
+    const captor = this.raiders[4], axeman = this.raiders[1];
+    this.tweens.add({ targets: captor, x: 296, y: 214, duration: motionDuration(300),
+      onUpdate: () => this.faceTowards(captor, this.kyra!.x) });
+    this.tweens.add({ targets: axeman, x: 272, y: 215, duration: motionDuration(300),
+      onUpdate: () => this.faceTowards(axeman, this.kyra!.x) });
     this.tweens.add({ targets: this.kyra, y: 204, duration: motionDuration(180), yoyo: true, repeat: 2, onComplete: () => {
       if (this.textures.exists('story-actors')) this.kyra?.setFrame(1);
       done();
@@ -253,10 +288,10 @@ export class RaidScene extends StoryScene {
 
   private depart(done: () => void) {
     this.beat = 'departure';
+    this.publishProgress(false);
     this.setSpots([]);
     this.setObjective('Die Reiter vorbeiziehen lassen.');
     this.lia.setAlpha(0.45);
-    this.spear?.destroy();
     this.raiders.forEach((rider, index) => {
       const mount = this.add.container(312 + index * 30, 210 + index % 2 * 6).setDepth(240 + index);
       this.areaRoot.add(mount);
@@ -265,7 +300,7 @@ export class RaidScene extends StoryScene {
       }
       // The rider and captive travel together along the Hohlweg past Lia's cover.
       mount.add(rider);
-      rider.setPosition(0, -15).setOrigin(0.5, 0.8).setScale(0.82);
+      rider.setPosition(0, -15).setOrigin(0.5, 0.8).setScale(0.82).setFlipX(true);
       if (rider === this.leader && this.kyra) {
         mount.add(this.kyra);
         this.kyra.setPosition(-10, -7).setAngle(-80).setOrigin(0.5).setScale(0.69);
@@ -279,8 +314,13 @@ export class RaidScene extends StoryScene {
   private emptyFarm() {
     setSceneMusic(this, 'grief');
     this.beat = 'parents';
+    this.storyStep = 'seek-parents';
+    this.observationIndex = -1;
+    this.currentShot = '';
+    this.publishProgress(false);
     this.hideCloseup();
     this.setLiaPose(null);
+    this.setLiaCrouched(false);
     this.setCinematic(false);
     this.areaRoot.setScale(1).setPosition(0, 0);
     this.speakerMark?.destroy();
@@ -302,11 +342,22 @@ export class RaidScene extends StoryScene {
     this.setLocked(true);
     this.setCinematic(true);
     this.setLiaPose('lia-grieve');
-    this.showCloseup('cinematic-raid-loss');
+    this.storyStep = 'parents-aftermath';
+    this.currentShot = 'cinematic-raid-parents-aftermath';
+    this.showCloseup(this.currentShot, { fit: 'contain' });
     this.say('', 0);
     this.time.delayedCall(1, () => {
-      this.caption('Lia: Ich werde dich finden, Kyra.');
-      this.readyToContinue(() => { this.setSpots([]); this.goTo('aftermath'); }, 'Bleiben');
+      this.caption('Lia (Gedanke): Mutter und Vater sind tot. Kyra ist fort.');
+      this.readyToContinue(() => {
+        this.storyStep = 'vow';
+        this.caption('Lia: Ich werde dich finden, Kyra.');
+        this.readyToContinue(() => {
+          this.storyStep = 'complete';
+          this.publishProgress(false);
+          this.setSpots([]);
+          this.goTo('aftermath');
+        }, 'Bleiben');
+      });
     });
     const flags = state(this.registry).flags;
     flags.raidWitnessed = true;
@@ -315,5 +366,6 @@ export class RaidScene extends StoryScene {
     this.setObjective('Bei den Eltern bleiben.');
     this.setSpots([]);
     this.cinemaControls(false);
+    this.publishProgress(false);
   }
 }

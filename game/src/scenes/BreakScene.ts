@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { sfx } from '../audio';
-import { FONT, Hud } from '../ui';
+import { FONT } from '../ui';
 import { ambientPrefs, getSettings } from '../settings';
 import { usesMobileInterface } from '../mobileDialogs';
 
@@ -20,7 +20,7 @@ export class BreakScene extends Phaser.Scene {
   create() {
     this.skipHeld = false; this.skipProgress = 0; this.transitioning = false;
     this.setWoundVisible(false); this.lastBreath = -1000;
-    this.data.set('mobile:thought', '');
+    this.data.set({ 'mobile:thought': '', 'mobile:hudVisible': false });
     const cam = this.cameras.main;
     cam.setBackgroundColor('#f4f1ea');
     const snapKey = this.textures.exists('snap') ? 'snap' : 'bg-battle';
@@ -73,18 +73,14 @@ export class BreakScene extends Phaser.Scene {
         onUpdate: () => maskShape.clear().fillStyle(0xffffff).fillCircle(250, 190, blood.r),
       });
       this.time.delayedCall(900, () => sfx.heartbeat());
-      const hud = new Hud(this, 'portrait-valentus', 'VALENTUS');
-      hud.setHp(1, false);
       this.setWoundVisible(true);
       this.time.delayedCall(700, () => {
-        hud.setPortrait('portrait-valentus-wounded');
-        hud.setHp(0.12);
         if (!getSettings().reducedMotion) this.cameras.main.shake(300, 0.006);
       });
       // 3) zurück auf die graue Welt, die zerfällt
       this.time.delayedCall(3100, () => {
         this.woundHint.setText(''); woundZone.destroy();
-        mono.destroy(); red.destroy(); mask.destroy(); maskShape.destroy(); hud.hideAll(0);
+        mono.destroy(); red.destroy(); mask.destroy(); maskShape.destroy();
         this.setWoundVisible(false);
         snap.setVisible(true);
         cm.reset(); cm.saturate(-1); cm.brightness(1.15, true);

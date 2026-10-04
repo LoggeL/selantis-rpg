@@ -2,6 +2,7 @@ import type Phaser from 'phaser';
 import { unlockAudio } from './audio';
 import { settingsAreOpen, toggleSettings } from './settings';
 import { TouchKeyHolds, touchHint, resolveMobileControls, type MobileActionKey, type MobileDirection, type MobileControlProfile } from './mobileInput';
+import { mobileBattleSummary } from './mobileBattleStatus';
 
 export const TOUCH_MEDIA_QUERY = '(any-pointer: coarse), (max-width: 900px)';
 type ActionKey = MobileActionKey;
@@ -34,7 +35,10 @@ export function installMobileControls(game: Phaser.Game): () => void {
   const root = document.createElement('section');
   root.id = 'mobile-controls'; root.setAttribute('aria-label', 'Spielsteuerung');
   root.innerHTML = `<div class="mobile-toolbar"></div>
-    <div class="mobile-caption"><span class="mobile-identity"></span><p data-mobile-objective></p><p data-mobile-thought aria-live="polite"></p><p data-mobile-hint></p></div>
+    <div class="mobile-caption">
+      <div class="mobile-dialogue-portrait" hidden><div class="mobile-dialogue-face"><img data-mobile-portrait alt="" hidden></div><span class="mobile-dialogue-name" data-mobile-speaker></span></div>
+      <div class="mobile-caption-text"><span class="mobile-identity"></span><p data-mobile-objective></p><p data-mobile-battle-status aria-label="Lebenspunkte, Zugaktionen, Blickrichtung und nächste Gegner"></p><p data-mobile-thought></p><p class="mobile-dialogue-measure" data-mobile-dialogue-measure aria-hidden="true"></p><span class="mobile-reader-announcement" data-mobile-announcement aria-live="polite" aria-atomic="true"></span><p data-mobile-hint></p></div>
+    </div>
     <div class="mobile-input-row"><div class="mobile-dpad" role="group" aria-label="Bewegen"></div><div class="mobile-actions" role="group" aria-label="Aktionen"></div></div>`;
   const toolbar = root.querySelector<HTMLElement>('.mobile-toolbar')!;
   const dpad = root.querySelector<HTMLElement>('.mobile-dpad')!;
@@ -137,6 +141,11 @@ export function installMobileControls(game: Phaser.Game): () => void {
   }
   for (const [direction, control] of directionButtons) wire(control, directionKeys[direction]);
   for (const [key, control] of actionButtons) wire(control, key);
+  root.querySelector<HTMLElement>('.mobile-caption')!.addEventListener('click', event => {
+    if (!scene?.data.get('dialogue:active')) return;
+    event.preventDefault(); event.stopPropagation();
+    press(actionButtons.get('E')!, 'E');
+  });
   bag.addEventListener('click', event => {
     event.preventDefault(); event.stopPropagation(); sync();
     if (!enabled || blocked || !scene || bag.hidden) return;
@@ -189,11 +198,35 @@ export function installMobileControls(game: Phaser.Game): () => void {
     }
     const inventory = scene?.data.get('mobile:inventory'); bag.hidden = !inventory || inventory.available === false || profile.inventory === false; bag.disabled = blocked;
     bag.setAttribute('aria-expanded', String(!!inventory?.open)); settings.disabled = settingsAreOpen();
+    const dialogueActive = !!scene?.data.get('dialogue:active');
+    const hudVisible = scene?.data.get('mobile:hudVisible') !== false && !dialogueActive;
+    const battleStatus = hudVisible && key === 'battle' ? mobileBattleSummary(scene?.data.get('mobile:battleStatus')) : '';
+    root.dataset.dialogue = String(dialogueActive);
     const name = scene?.data.get('mobile:name'), hp = scene?.data.get('mobile:hp');
-    setCaption('.mobile-identity', typeof name === 'string' ? `${name}${typeof hp === 'number' ? ` · ${Math.round(hp * 100)} %` : ''}` : 'SELANTIS');
-    setCaption('[data-mobile-objective]', scene?.data.get('mobile:objective'));
-    setCaption('[data-mobile-thought]', scene?.data.get('mobile:dialogue') || scene?.data.get('mobile:thought'));
-    setCaption('[data-mobile-hint]', touchHint(scene?.data.get('mobile:hint') ?? '', profile.actions));
+    setCaption('.mobile-identity', battleStatus ? '' : hudVisible && typeof name === 'string' ? `${name}${typeof hp === 'number' ? ` · ${Math.round(hp * 100)} %` : ''}` : hudVisible ? 'SELANTIS' : '');
+    setCaption('[data-mobile-objective]', hudVisible ? scene?.data.get('mobile:objective') : '');
+    setCaption('[data-mobile-battle-status]', battleStatus);
+    setCaption('[data-mobile-thought]', dialogueActive ? scene?.data.get('mobile:dialogue') : scene?.data.get('mobile:thought'));
+    setCaption('[data-mobile-dialogue-measure]', dialogueActive ? scene?.data.get('dialogue:fullText') : '');
+    setCaption('[data-mobile-hint]', hudVisible ? touchHint(scene?.data.get('mobile:hint') ?? '', profile.actions) : '');
+    const thought = root.querySelector<HTMLElement>('[data-mobile-thought]')!;
+    thought.setAttribute('aria-hidden', String(dialogueActive));
+    const announcement = root.querySelector<HTMLElement>('[data-mobile-announcement]')!;
+    const completed = dialogueActive ? scene?.data.get('dialogue:complete') ?? '' : scene?.data.get('mobile:thought') ?? '';
+    if (announcement.textContent !== completed) announcement.textContent = completed;
+    const speaker = scene?.data.get('dialogue:speaker');
+    const caption = root.querySelector<HTMLElement>('.mobile-caption')!;
+    caption.setAttribute('aria-label', dialogueActive && speaker ? `Dialog: ${speaker}` : 'Spielhinweise');
+    const portrait = root.querySelector<HTMLElement>('.mobile-dialogue-portrait')!;
+    const face = root.querySelector<HTMLElement>('.mobile-dialogue-face')!;
+    const image = root.querySelector<HTMLImageElement>('[data-mobile-portrait]')!;
+    const portraitSource = scene?.data.get('dialogue:portraitSrc');
+    portrait.hidden = !dialogueActive || !speaker;
+    image.hidden = !portraitSource;
+    face.dataset.fallback = String(!portraitSource);
+    if (portraitSource && image.getAttribute('src') !== portraitSource) image.setAttribute('src', portraitSource);
+    image.alt = speaker ? `Porträt: ${speaker}` : '';
+    setCaption('[data-mobile-speaker]', speaker);
     const choices = (scene?.data.get('mobile:bookmarks') ?? []) as { id: string; label: string; selected: boolean }[];
     const signature = JSON.stringify(choices); bookmarks.hidden = blocked || profile.inventory === false || !choices.length;
     if (signature !== bookmarkSignature) {

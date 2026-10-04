@@ -17,6 +17,8 @@ Stand: 2026-10-03. Sechs verwendete instrumentale Szenenstücke von Google AI St
 
 Die Musik wechselt auch innerhalb einer Szene. Das Szenenende entfernt den Override; Einstellungen und Pause behalten die Stimmung bei. Ein später fertig geladenes Stück darf die inzwischen aktive Musik nicht überschreiben. Wiedergabe und Schleifen verwenden 0,85 Sekunden Crossfade; höchstens zwei dekodierte Stücke bleiben im Cache. Musik und Effekte lassen sich getrennt regeln.
 
+Vite liefert dieselben sechs Originaldateien auch in der lokalen Vorschau und nimmt sie in `game/dist` auf. Die Pfade berücksichtigen den konfigurierten Basispfad. Während des Ladens und bei Dateifehlern bleibt die Musik still; ein dauerhafter Synthesizer-Fallback entfällt. Die aktive Szene meldet den Zustand über `audio:state` und einen Ladefehler über `audio:error`.
+
 ## Produktionsnachweis
 
 Vorhandener Google-Zugang und vorhandenes bezahltes Projekt, keine neuen Schlüssel oder Abonnements. Je neuer Fassung ein erfolgreicher Generierungslauf. Download über die sichtbare Download-Schaltfläche und den Speicherdialog. Originaldownloads unverändert übernommen, ohne zusätzliche Umkodierung oder Lautheitsbearbeitung.
@@ -75,4 +77,3 @@ Original instrumental medieval dark fantasy suspense underscore for Selantis, Du
 ```text
 Original instrumental medieval dark fantasy grief underscore for Selantis, Nach der langen Nacht. Lia is alone after her parents were killed and her sister was abducted. Bare, sombre, exhausted, quiet loss, never cosy or reassuring. 54 BPM, slow free-feeling 4/4, A natural minor, low soft bowed cello and viola, sparse descending minor fragments separated by long spaces, a few muted dulcimer notes in the lower register, unresolved suspended harmony. Intimate acoustic texture, very restrained steady volume so dialogue remains clear. No upbeat rhythm, major chords, cheerful flute, warm lullaby, romantic sweeping strings, optimism, heroic uplift or grand destiny. About 110 seconds. Dark and sorrowful from the first note to the last, no positive middle section. Start in the sparse ongoing texture and end unresolved in the same texture, suitable for a short crossfade loop. No big climax, conclusive cadence, long intro or fade to silence. Strictly instrumental, no vocals, choir, humming, speech, modern synths or literal crying sound effects.
 ```
-

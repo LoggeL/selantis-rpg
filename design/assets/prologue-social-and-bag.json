@@ -1,0 +1,96 @@
+{
+  "tool": "image_gen.imagegen",
+  "delivery": "Original generated artwork, inspected before delivery. Native text/UI overlays are rendered by the game.",
+  "assets": [
+    {
+      "name": "prologue-power",
+      "asset": "game/public/assets/cut/prologue-power.png",
+      "prompt": "Use case: illustration-story. One landscape16:9 high-resolution illustrated screen for a grounded medieval fantasy browser RPG. Fine hand-painted detail with restrained pixel-art character, subtle warm earthy palette and readable composition, no coarsepixelgrid, no blur. Reference is STYLE ONLY, do not insert Lia into these anonymous historical scenes unless expresslyrequested. No text, no border, no interface, no letters, no heraldic writtenwords. Essential action/subjects central and within image frame. These are illustrative tableaux, unnamed background characters. Depict the splitCouncilofTen in a vaulted ancient councilhall: TEN adult wizard silhouettes around a stone counciltable, visibly split into SIX figures in one lightwarmgroup and FOUR in an opposing cooler/shadowgroup. Quiet tensepoliticalargument withemptychair/crownlike authority carvedarchitecture, genericmedieval rulers seated farbehindobserving. No combat, no magicbolts. The tenwizards are distinctindividuals but no inventednamedcharacters; mutedblueivoryrobes vsdarkearthcloaks. A cleardivisionincomposition communicates fracturedorder.",
+      "refs": [
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-lia.png"
+      ],
+      "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-da7fb0e8-3575-43af-83a0-e379261d28e4.png",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "prologue-conflict",
+      "asset": "game/public/assets/cut/prologue-conflict.png",
+      "prompt": "Use case: illustration-story. One landscape16:9 high-resolution illustrated screen for a grounded medieval fantasy browser RPG. Fine hand-painted detail with restrained pixel-art character, subtle warm earthy palette and readable composition, no coarsepixelgrid, no blur. Reference is STYLE ONLY, do not insert Lia into these anonymous historical scenes unless expresslyrequested. No text, no border, no interface, no letters, no heraldic writtenwords. Essential action/subjects central and within image frame. These are illustrative tableaux, unnamed background characters. Depict a landwithoutsharedorder: fortifiedprincelycity in distantmidground closedgates, countrysideoutside with an abandoned rusticfarm and neglectedroad. A smallgroup of threateningadultblack/ivorycloakedraiders crossesroad in foreground, townspeopleonlyas tinyordinarysilhouettes retreatingfaraway. Two distant cloakedwizard silhouettes aboveonhillside as subtleordinaryhumanoverseers(no magic), notspecificcharacters. Somberovercastgold light, no gore oractiveassault. Compose walledcity andexposedruralground equallyreadable.",
+      "refs": [
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-lia.png"
+      ],
+      "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-5ccd6a4b-30a3-46ce-b6cb-d9ebc943d3ff.png",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "prologue-falken",
+      "asset": "game/public/assets/cut/prologue-falken.png",
+      "prompt": "Use case: illustration-story. One landscape16:9 high-resolution illustrated screen for a grounded medieval fantasy browser RPG. Fine hand-painted detail with restrained pixel-art character, subtle warm earthy palette and readable composition, no coarsepixelgrid, no blur. Reference is STYLE ONLY, do not insert Lia into these anonymous historical scenes unless expresslyrequested. No text, no border, no interface, no letters, no heraldic writtenwords. Essential action/subjects central and within image frame. These are illustrative tableaux, unnamed background characters. The BattleofDunkelhain seenfromridge: alliedarmy onLEFT underplainblue/ivorystandards, lightarmoredpaladins, ordinarysoldiers andPortasfalconforce (genericfalconiconnoinscription); organizedblack-cladopposingarmy onRIGHT. Two clearbattlelinesacrossgrassridgeandrockybanks, spears raised, noinjurydetail. Centralbluewhite-robedmage onalliedside seenfrombehind andlowfog. Composition clearlyshows whosearmiesopposewhom, nofantasycreatures, noextra firemagic.",
+      "refs": [
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-lia.png"
+      ],
+      "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-e02a93a9-7df2-4a42-a84c-b43c144a3853.png",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "prologue-valentus",
+      "asset": "game/public/assets/cut/prologue-valentus.png",
+      "prompt": "Use case: illustration-story. One landscape16:9 high-resolution illustrated screen for a grounded medieval fantasy browser RPG. Fine hand-painted detail with restrained pixel-art character, subtle warm earthy palette and readable composition, no coarsepixelgrid, no blur. Reference is STYLE ONLY, do not insert Lia into these anonymous historical scenes unless expresslyrequested. No text, no border, no interface, no letters, no heraldic writtenwords. Essential action/subjects central and within image frame. These are illustrative tableaux, unnamed background characters. Input2 definesValentusidentity: sameadultmanwithlongbrownhair, mustacheandshortbeard, no copyingbackground. He is a huntedwoundedmage, exhaustedbutdetermined, aloneagainsttwilightforestpath wearing a travel-darkhoodedcloak over blueivoryrobes, onehand pressedto rightside ribs (subtledarkclothmark, nogore). Distantblackcloakpursuers andhounds behind amongtrees. A faintcoolbluereflectioninhisotherhand hintsathopemagic butnoobjectidentified. Closeforegroundadultfaceclearlyvisible, steepbankandtree shadows keepescape readability. Not a battleaftermath image.",
+      "refs": [
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-lia.png",
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-valentus.png"
+      ],
+      "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-ebcc83b2-0d3f-49dd-90bb-539749316e7f.png",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "splash-art",
+      "asset": "game/public/assets/social/splash-art.png",
+      "prompt": "Use case: game splash illustration. One wide16:9 high-resolution medievalfantasy gamecover artwork, NOwordsorlogos(no textwillbeprintedbytool). Preserve referenceyoungLia identity sandyblonde tiedbacksidebraids, creamlinenblouse, modestoliveochreskirt. Fine hand-paintedfantasyillustration withsubtlepixelcharacter, notcoarsepixels. Lia'sheadandshoulders in UPPERRIGHTthird withface at75%x,25%y, attentiveeyeslookingintolands; distantwoodedvalley, humblefarmhouse, windingpath towardwalledcitybluegraymountains, goldlateafternoonsky. Left45% darkquietforest/sky hasopennegative space fornativeOGtitle; lowerRIGHThalf may be coveredbyrealgameplayinset so keepfacehigh. No otherforegroundcharacters, no graphicviolence, no fakeUI, no inventedtitle. Restrainedforestgreen, cream,gold,#397FC1blue distant atmosphericaccents.",
+      "refs": [
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-lia.png"
+      ],
+      "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-7765641f-6f84-4e86-93e2-45fa87d78c84.png",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "bag-open",
+      "asset": "game/public/assets/ui/bag-open.png",
+      "prompt": "Use case: UI game asset. Brandnewopenedleathertravelsatchel visualframe for aninventorydialog. PORTRAIT3:4, about720x960, truealphatransparentbackground. Frontview of largeearthbrown medievalleatherbag, topflapopenabove, curvedstitching,buckles, sideleatherwallsandstrap. Center70%width andmiddle70%height MUSTBEan emptyverydarklineninterior withnoobjects andstablecolor so interactiveitemlistcanrenderthere. Leatherframeonlyaroundedges, no centralbelts crossing emptyarea, no busytexturesintheinterior. Bagbottomfold andmouth read as authenticopensatchel, finepaintedfantasyUIillustration withsubtlepixelartcharacter; crispdetail, notcoarsepixels. No items, no hands, noletters,nolabels,nobordersoutsidebag,noUIbuttons,nogroundshadow. Leave5%transparentguttereachside. No contents atall, blankemptylining.",
+      "source": "/Users/logge/.codex/generated_images/01a1062f-ccee-75b3-94a8-828724b11fa4/exec-52b132dc-2eed-4e36-bf34-045f80b1c981.png",
+      "dimensions": [
+        1086,
+        1448
+      ]
+    }
+  ],
+  "socialComposition": {
+    "output": "game/public/og-image.png",
+    "dimensions": [
+      1200,
+      630
+    ],
+    "template": "game/public/og-preview.html",
+    "gameplayCapture": "game/public/assets/social/gameplay-shot.png",
+    "gameplayUrl": "http://127.0.0.1:5173/?scene=aftermath",
+    "captureMethod": "In-app browser screenshot of actual game canvas, no mock gameplay",
+    "format": "Browser screenshot encoded as PNG",
+    "title": "Die Chroniken von Selantis",
+    "brandingCorrection": "User corrected Zelantis to Selantis before final delivery"
+  }
+}

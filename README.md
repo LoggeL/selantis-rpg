@@ -18,6 +18,8 @@ WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E int
 
 Auf Smartphones passt das vollständige Spielbild ins Hoch- und Querformat. Ein Steuerkreuz und große Aktionstasten unterstützen auch Halteaktionen und mehrere Finger. Tippen ins Bild bleibt möglich. Hinweise, Tasche und Einstellungen erscheinen zusätzlich in einer lesbaren Touch-Oberfläche. Auf dem Desktop bleiben Maus und Tastatur verfügbar.
 
+Im Schlachtutorial hat Valentus pro Zug eine Bewegung bis zu vier Feldern und eine Aktion, in beliebiger Reihenfolge. Q wählt den Strahl, R die Druckwelle; Enter oder ein Rasterklick bestätigt das Ziel. Leertaste wählt Warten oder beendet den restlichen Zug. Vor den Gegneraktionen die Blickrichtung mit Pfeilen oder einem Nachbarfeld wählen und Enter beziehungsweise „Zug beenden“ drücken. Ein ausgeführter Schritt lässt sich nicht zurücknehmen. Warten schützt vorne, wenn die Aktion noch frei war; seitliche und rückwärtige Treffer verursachen mehr Schaden. Die Gegner handeln nach dem angezeigten Tempo innerhalb ihrer Zugphase. Valentus hat echte LP, der Traumschutz hält ihn im Tutorial bei mindestens einem LP.
+
 Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. In der Zuflucht übernimmt E das Aufrichten, die Schritte zur Wiege und das Handheben. Beim Überfall beobachtet Lia das Gespräch und die Gefangennahme aus der Böschung; jede kurze Dialogzeile wartet auf Weiter. Während dieser Szene ist die Tasche geschlossen.
 
 | Parameter | Szene |

@@ -1,12 +1,13 @@
 export type AmbientKind = 'battle' | 'flight' | 'refuge' | 'exploration' | 'dread' | 'grief';
 
+const audioRoot = `${import.meta.env.BASE_URL}output/audio/scenes/`;
 export const MUSIC_TRACKS: Readonly<Record<AmbientKind, string>> = {
-  battle: '/output/audio/scenes/battle-dark-lyria-3-5.mp3',
-  flight: '/output/audio/scenes/flight-lyria-3-5.mp3',
-  refuge: '/output/audio/scenes/refuge-lyria-3-5.mp3',
-  exploration: '/output/audio/scenes/exploration-lyria-3-5.mp3',
-  dread: '/output/audio/scenes/dread-lyria-3-5.mp3',
-  grief: '/output/audio/scenes/grief-lyria-3-5.mp3',
+  battle: `${audioRoot}battle-dark-lyria-3-5.mp3`,
+  flight: `${audioRoot}flight-lyria-3-5.mp3`,
+  refuge: `${audioRoot}refuge-lyria-3-5.mp3`,
+  exploration: `${audioRoot}exploration-lyria-3-5.mp3`,
+  dread: `${audioRoot}dread-lyria-3-5.mp3`,
+  grief: `${audioRoot}grief-lyria-3-5.mp3`,
 };
 
 const SCENE_MOODS: Readonly<Record<string, AmbientKind>> = {

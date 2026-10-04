@@ -87,6 +87,11 @@ function tone(type: OscillatorType, freq: number, t0: number, dur: number, gain:
 const ready = () => !!ctx && ctx.state === 'running';
 
 export const sfx = {
+  dialogue() {
+    if (!ready() || getSettings().effectsVolume === 0) return;
+    // Short and dry, quieter than menu clicks; the effects bus owns volume.
+    tone('sine', 440, ctx!.currentTime, 0.025, 0.06, out(0.1, false), 350);
+  },
   trumpets() {
     if (!ready()) return;
     const t = ctx!.currentTime, d = out(0.18);
@@ -291,8 +296,8 @@ export function startBattleAmbience(): () => void {
 }
 
 
-type Voice = { gain: GainNode; sources: (AudioBufferSourceNode | OscillatorNode)[]; stopped: boolean; timer?: ReturnType<typeof setTimeout> };
-type AmbientRequest = { scene: Phaser.Scene; kind: AmbientKind; loading: boolean; failed?: boolean; voice?: Voice; fallback?: Voice; stop: () => void };
+type Voice = { gain: GainNode; sources: AudioBufferSourceNode[]; stopped: boolean; timer?: ReturnType<typeof setTimeout> };
+type AmbientRequest = { scene: Phaser.Scene; kind: AmbientKind; loading: boolean; failed?: boolean; voice?: Voice; stop: () => void };
 let ambient: AmbientRequest | undefined;
 const buffers = new Map<string, Promise<AudioBuffer>>();
 
@@ -312,24 +317,6 @@ function fadeOut(voice?: Voice, seconds = 0.85) {
   }
 }
 
-function fallbackMusic(kind: AmbientKind): Voice {
-  const gain = ctx!.createGain();
-  gain.gain.setValueAtTime(0, ctx!.currentTime);
-  gain.gain.linearRampToValueAtTime(0.035, ctx!.currentTime + 0.7);
-  gain.connect(musicBus!);
-  const base = { battle: 55, flight: 73.4, refuge: 110, exploration: 164.8, dread: 41.2, grief: 55 }[kind];
-  const interval = kind === 'dread' ? 1.05946 : kind === 'grief' || kind === 'battle' ? 1.1892 : 1.5;
-  const sources = [1, interval].map((ratio) => {
-    const oscillator = ctx!.createOscillator();
-    oscillator.type = 'sine';
-    oscillator.frequency.value = base * ratio;
-    oscillator.connect(gain);
-    oscillator.start();
-    return oscillator;
-  });
-  return { gain, sources, stopped: false };
-}
-
 function loadTrack(path: string): Promise<AudioBuffer> {
   let pending = buffers.get(path);
   if (pending) { buffers.delete(path); buffers.set(path, pending); }
@@ -337,6 +324,9 @@ function loadTrack(path: string): Promise<AudioBuffer> {
     const context = ctx!;
     pending = fetch(path).then((response) => {
       if (!response.ok) throw new Error('Music unavailable');
+      if (response.headers.get('content-type')?.includes('text/html')) {
+        throw new Error('Music URL returned HTML instead of audio');
+      }
       return response.arrayBuffer();
     }).then((data) => context.decodeAudioData(data));
     buffers.set(path, pending);
@@ -378,18 +368,20 @@ async function playRequestedMusic() {
   const request = ambient;
   if (!request || !ready() || request.loading || request.voice || request.failed) return;
   request.loading = true;
-  request.fallback ??= fallbackMusic(request.kind);
+  request.scene.data.set('audio:state', 'loading');
   try {
     const buffer = await loadTrack(MUSIC_TRACKS[request.kind]);
     // A fetch/decode finishing after a scene switch must never restart the old soundtrack.
     if (ambient !== request || !ready()) return;
     request.voice = loopingTrack(buffer);
-    request.scene.data.set('audio:playing', true);
-    fadeOut(request.fallback);
-  } catch {
+    request.scene.data.set({ 'audio:playing': true, 'audio:state': 'playing' });
+  } catch (error) {
     request.failed = true;
-    if (ambient === request) request.scene.data.set('audio:failed', true);
-    /* Keep the synthesised bed; retry only in a new scene. */
+    if (ambient === request) request.scene.data.set({
+      'audio:failed': true, 'audio:state': 'failed',
+      'audio:error': error instanceof Error ? error.message : 'Music unavailable',
+    });
+    // A missing soundtrack stays silent, rather than becoming a permanent hum.
   }
   finally { request.loading = false; }
 }
@@ -400,15 +392,14 @@ export function startAmbient(scene: Phaser.Scene, kind: AmbientKind): () => void
   const previous = ambient;
   previous?.stop();
   const request: AmbientRequest = { scene, kind, loading: false, stop: () => {} };
-  scene.data.set({ 'audio:kind': kind, 'audio:track': MUSIC_TRACKS[kind], 'audio:playing': false, 'audio:failed': false });
+  scene.data.set({ 'audio:kind': kind, 'audio:track': MUSIC_TRACKS[kind], 'audio:playing': false, 'audio:failed': false, 'audio:state': 'blocked', 'audio:error': undefined });
   let stopped = false;
   request.stop = () => {
     if (stopped) return;
     stopped = true;
     scene.events.off('shutdown', request.stop);
     fadeOut(request.voice);
-    fadeOut(request.fallback);
-    if (ambient === request) scene.data.set('audio:playing', false);
+    if (ambient === request) scene.data.set({ 'audio:playing': false, 'audio:state': 'stopped' });
     if (ambient === request) ambient = undefined;
   };
   ambient = request;

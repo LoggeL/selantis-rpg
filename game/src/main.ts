@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { BootScene, TitleScene } from './scenes/BootScene';
 import { BattleScene } from './scenes/BattleScene';
+import { StoryPrologueScene } from './scenes/StoryPrologueScene';
 import { BreakScene } from './scenes/BreakScene';
 import { FlightScene } from './scenes/FlightScene';
 import { RefugeScene } from './scenes/RefugeScene';
@@ -15,6 +16,7 @@ import { installSceneAudio } from './audio';
 import { installMobileControls } from './mobileControls';
 import { fitGameScale } from './viewport';
 import { installDebugControls } from './debug';
+import { installCharacterStatsControls } from './characterStats';
 
 const game = new Phaser.Game({
   type: Phaser.WEBGL,
@@ -26,7 +28,7 @@ const game = new Phaser.Game({
   input: { activePointers: 3 },
   backgroundColor: '#07080a',
   scale: { mode: Phaser.Scale.NONE, width: 640, height: 360 },
-  scene: [BootScene, TitleScene, BattleScene, new BreakScene(), new FlightScene(), new RefugeScene(), new LiaScene(), new WorldScene(), new RaidScene(), new AftermathScene(), new JourneyScene(), new SettingsScene()],
+  scene: [BootScene, TitleScene, StoryPrologueScene, BattleScene, new BreakScene(), new FlightScene(), new RefugeScene(), new LiaScene(), new WorldScene(), new RaidScene(), new AftermathScene(), new JourneyScene(), new SettingsScene()],
 });
 
 installSettingsControls(game);
@@ -36,6 +38,7 @@ const touchMode = matchMedia('(any-pointer: coarse), (max-width: 900px)');
 const setTouchMode = () => { document.documentElement.dataset.touchEnabled = String(touchMode.matches); queueResize(); };
 document.documentElement.dataset.touchEnabled = String(touchMode.matches);
 installMobileControls(game);
+installCharacterStatsControls(game);
 
 function resize() {
   const host = document.getElementById('game')!;

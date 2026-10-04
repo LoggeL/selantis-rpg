@@ -9,14 +9,20 @@
   "canon": "Roman Selantis 2.pdf, PDF pages 9-10: Kyra gathered wood alone; Lia promises to feed the pigs that evening. Kyra goes home before Lia.",
   "delivery": {
     "file": "game/public/assets/cut/lia-kyra.png",
-    "width": 640,
-    "height": 360,
-    "logicalWidth": 320,
-    "logicalHeight": 180,
-    "filter": "nearest",
-    "palette": "design/assets/pixel-story-closeups.json sharedPaletteRgb",
-    "bytes": 43192,
-    "sha256": "62d1c68c98b138f397d5d22a3c307f9906589d58ec174e594b600902c454be96"
+    "path": "game/public/assets/cut/lia-kyra.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "bytes": 2289100,
+    "sha256": "eccab83978a3538cb3a188365ab3fd6c588ebaf34580ed2c69ff5a20932f068a",
+    "sourcePath": "output/imagegen/homecoming/lia-kyra.png",
+    "sourceSha256": "eccab83978a3538cb3a188365ab3fd6c588ebaf34580ed2c69ff5a20932f068a",
+    "processing": "byte-exact approved source passthrough"
   },
-  "sourceSha256": "eccab83978a3538cb3a188365ab3fd6c588ebaf34580ed2c69ff5a20932f068a"
+  "sourceSha256": "eccab83978a3538cb3a188365ab3fd6c588ebaf34580ed2c69ff5a20932f068a",
+  "deliveryAudit": {
+    "date": "2026-10-04",
+    "scope": "Approved sister shot, dimensions and byte hash checked against source.",
+    "promptHistory": "Recorded generation prompt is retained; delivery applies no additional palette, crop or pixel-grid processing."
+  }
 }

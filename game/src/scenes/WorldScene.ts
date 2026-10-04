@@ -409,6 +409,8 @@ export class WorldScene extends Phaser.Scene {
       this.data.set('mobile:objective', 'Etwas stimmt nicht.');
       sfx.heartbeat();
       this.hud.thought('Doch was war das?', 2400);
+      // The people on the farm alarm Lia before she returns to roadside cover.
+      if (this.anims.exists('lia-hidden-e')) this.lia.setFlipX(false).play('lia-hidden-e');
       this.dropApplesInShock();
       if (this.textures.exists('bg-map-hof-open')) {
         const open = this.add.image(0, 0, 'bg-map-hof-open').setOrigin(0).setDepth(-999).setAlpha(0);

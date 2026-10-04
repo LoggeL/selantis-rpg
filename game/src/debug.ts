@@ -61,6 +61,7 @@ export function installDebugControls(game: Phaser.Game): () => void {
   }
   function show() {
     if (dialog.open) { close(); return; }
+    window.dispatchEvent(new Event('selantis:close-character'));
     if (settingsAreOpen()) closeSettings();
     const active = game.scene.getScenes(true).find(scene => !['boot', 'Settings'].includes(scene.sys.settings.key));
     if (!active) return;
@@ -129,7 +130,7 @@ export function installDebugControls(game: Phaser.Game): () => void {
     const confirm = document.createElement('input'); confirm.type = 'checkbox'; confirmation.append(confirm);
     const reset = makeButton('Alles zurücksetzen · Titel', () => {
       if (!confirm.checked) return;
-      game.registry.remove('world'); game.registry.remove('visited'); game.registry.remove('liaBookmark'); game.registry.remove('lastMagic'); restart('title', {});
+      game.registry.remove('world'); game.registry.remove('party'); game.registry.remove('visited'); game.registry.remove('liaBookmark'); game.registry.remove('lastMagic'); restart('title', {});
     }); reset.disabled = true; confirm.addEventListener('change', () => { reset.disabled = !confirm.checked; }); dialog.append(confirmation, reset);
     keyboardEnabled = game.input.keyboard!.enabled;
     dialog.showModal(); suspend(); game.input.keyboard!.enabled = false; refresh();

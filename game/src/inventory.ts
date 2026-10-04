@@ -3,12 +3,10 @@ import { FONT } from './ui';
 import type { ItemId } from './world/maps';
 import { ITEM_NAMES } from './world/quests';
 import { createMobileDialog, usesMobileInterface } from './mobileDialogs';
+import { closeCharacterStats, openBag } from './characterStats';
+import { ITEM_FRAME, itemTexture } from './itemPresentation';
+export { ITEM_FRAME, itemTexture } from './itemPresentation';
 
-export const ITEM_FRAME: Record<ItemId, number> = {
-  apfel: 0, feder: 2, kupfer: 3, kornblume: 4, kueken: -1,
-  proviant: 0, wasserschlauch: 1, dolch: 2, silber: 3, reisezeug: 4, heilzeug: 5, 'buch-kraeuter': 6, 'buch-alana': 7,
-};
-export const itemTexture = (item: ItemId): string => TRAVEL_ORDER.includes(item) ? 'story-items' : 'items';
 const ORDER: ItemId[] = ['apfel', 'kornblume', 'kupfer', 'feder', 'kueken'];
 const TRAVEL_ORDER: ItemId[] = ['proviant', 'wasserschlauch', 'dolch', 'silber', 'reisezeug', 'heilzeug', 'buch-kraeuter', 'buch-alana'];
 const PANEL_WIDTH = 192;
@@ -33,6 +31,7 @@ export class InventoryHud {
   private inv: Partial<Record<ItemId, number>> = {};
   private mobileDialog?: ReturnType<typeof createMobileDialog>;
   private enabled = true;
+  private characterDialog = false;
   get isOpen() { return this.panel.visible; }
 
   constructor(private scene: Phaser.Scene, private onOpen: () => void) {
@@ -72,11 +71,14 @@ export class InventoryHud {
     bagKey.on('down', toggle);
     escape.on('down', dismiss);
     scene.events.on('mobile-inventory-toggle', toggle);
+    const characterOpen = () => { this.close(); this.onOpen(); };
+    scene.events.on('character-open', characterOpen);
     this.publish();
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       bagKey.off('down', toggle);
       escape.off('down', dismiss);
       scene.events.off('mobile-inventory-toggle', toggle);
+      scene.events.off('character-open', characterOpen);
       this.mobileDialog?.destroy();
       this.mobileDialog = undefined;
     });
@@ -148,7 +150,11 @@ export class InventoryHud {
     this.tooltip.setVisible(false);
     this.frame.setStrokeStyle(1, 0xd6ad59);
     this.scene.input.keyboard?.resetKeys();
-    if (usesMobileInterface()) {
+    this.characterDialog = openBag(this.scene.game, () => this.close());
+    if (this.characterDialog) {
+      this.panel.setVisible(true);
+      this.frame.setStrokeStyle(1, 0xd6ad59);
+    } else if (usesMobileInterface()) {
       this.mobileDialog = createMobileDialog('Tasche', () => this.close());
       this.renderMobileItems();
     }
@@ -156,6 +162,7 @@ export class InventoryHud {
   }
 
   close() {
+    if (this.characterDialog) { this.characterDialog = false; closeCharacterStats(); }
     this.panel.setVisible(false);
     this.tooltip.setVisible(false);
     this.frame.setStrokeStyle(1, 0x8a7a5a);

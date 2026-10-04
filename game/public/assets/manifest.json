@@ -264,6 +264,17 @@
         60
       ]
     },
+    "raid-spearman": {
+      "file": "assets/sprites/raid-spearman.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 1,
+      "rows": 1,
+      "foot": [
+        32,
+        60
+      ]
+    },
     "road-travelers": {
       "file": "assets/sprites/road-travelers.png",
       "frameW": 128,
@@ -317,7 +328,17 @@
     "cut-camp-capture": "assets/cut/camp-capture.png",
     "cut-camp-companions": "assets/cut/camp-companions.png",
     "cut-camp-wake": "assets/cut/camp-wake.png",
-    "cut-lia-kyra": "assets/cut/lia-kyra.png"
+    "cut-lia-kyra": "assets/cut/lia-kyra.png",
+    "cinematic-raid-father-stab": "assets/cut/cinematic-raid-father-stab.png",
+    "cinematic-raid-mother-stab": "assets/cut/cinematic-raid-mother-stab.png",
+    "cinematic-raid-father-death": "assets/cut/cinematic-raid-father-death.png",
+    "cinematic-raid-mother-death": "assets/cut/cinematic-raid-mother-death.png",
+    "cinematic-raid-parents-aftermath": "assets/cut/cinematic-raid-parents-aftermath.png",
+    "prologue-power": "assets/cut/prologue-power.png",
+    "prologue-conflict": "assets/cut/prologue-conflict.png",
+    "prologue-falken": "assets/cut/prologue-falken.png",
+    "prologue-valentus": "assets/cut/prologue-valentus.png",
+    "bg-title-splash": "assets/social/splash-art.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

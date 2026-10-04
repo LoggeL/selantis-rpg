@@ -73,7 +73,7 @@ export class LiaScene extends Phaser.Scene {
   constructor() { super('lia'); }
 
   create() {
-    this.data.set({ 'mobile:bookmarks': [], 'mobile:dialogue': '', 'mobile:controls': { directions: [], actions: { E: 'Buch schließen' }, inventory: false, disabled: true } });
+    this.data.set({ 'mobile:hudVisible': false, 'mobile:bookmarks': [], 'mobile:dialogue': '', 'mobile:controls': { directions: [], actions: { E: 'Buch schließen' }, inventory: false, disabled: true } });
     this.readingCloseup = undefined;
     this.sisterLine = 0;
     this.phase = 'intro'; this.pos = { ...SIT }; this.facing = 's'; this.walked = false;
@@ -110,7 +110,7 @@ export class LiaScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
 
     this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E') as Record<string, Phaser.Input.Keyboard.Key>;
-    const use = () => this.phase === 'free' ? this.interact(this.nearestDetail())
+    const use = () => this.hud?.advanceDialogue() ? undefined : this.phase === 'free' ? this.interact(this.nearestDetail())
       : this.phase === 'sisters' ? this.readingCloseup?.advance() : this.closeBook();
     this.keys.E.on('down', use);
     const chooseBookmark = (kind: Bookmark) => {
@@ -340,6 +340,7 @@ export class LiaScene extends Phaser.Scene {
     const before = this.children.list.length;
     this.hud = new Hud(this, 'portrait-lia', 'LIA');
     this.hud.setHp(1, false);
+    this.hud.setCinematic(this.phase !== 'free');
     this.hud.setThoughtsVisible(!this.readingCloseup?.visible);
     if (this.readingCloseup?.hasCaption) this.data.set('mobile:dialogue', 'Die Sonne blendet.');
     // Nur die Container einblenden; Hinweis- und Gedankenzeile steuert das HUD selbst.
@@ -522,6 +523,8 @@ export class LiaScene extends Phaser.Scene {
 
   private startFree() {
     this.phase = 'free';
+    this.hud?.thought('', 0);
+    this.hud?.setCinematic(false);
     this.data.set('mobile:controls', undefined);
     const objective = homecomingObjective(state(this.registry));
     this.data.set('mobile:objective', objective);

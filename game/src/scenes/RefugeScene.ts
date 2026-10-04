@@ -4,7 +4,7 @@ import { getSettings, motionDuration } from '../settings';
 import { FONT, Hud } from '../ui';
 import { BEAM_LENGTH, cellCenter, inside, type Cell } from '../battle/grid';
 import type { MobileControlProfile } from '../mobileInput';
-import { usesMobileInterface } from '../mobileDialogs';
+import { Dialogue } from '../dialogue';
 
 type Pt = { x: number; y: number };
 type Phase = 'cine' | 'wake' | 'rise' | 'walk' | 'cradle' | 'raise' | 'light';
@@ -48,12 +48,13 @@ export class RefugeScene extends Phaser.Scene {
   private walkLens: number[] = [];
   private inspected = new Set<string>();
   private risePointer?: Phaser.Input.Pointer;
-  private speechTexts: Phaser.GameObjects.Text[] = [];
+  private dialogue?: Dialogue;
 
   constructor() { super('refuge'); }
 
   private setPhase(phase: Phase) {
     this.phase = phase;
+    this.hud?.setCinematic(['cine', 'wake', 'cradle', 'raise', 'light'].includes(phase));
     this.publishControls();
   }
 
@@ -72,6 +73,8 @@ export class RefugeScene extends Phaser.Scene {
   }
 
   private primaryAction() {
+    if (this.dialogue?.visible) { this.dialogue.advance(); return; }
+    if (this.hud?.advanceDialogue()) return;
     if (this.phase === 'walk') this.tryStep();
     else if (this.phase === 'raise') this.raiseHand();
     // Cine and rise consume E.isDown in update; automatic phases accept no action.
@@ -79,7 +82,7 @@ export class RefugeScene extends Phaser.Scene {
 
   create() {
     this.risePointer = undefined;
-    this.speechTexts = [];
+    this.dialogue = undefined;
     this.data.set('mobile:dialogue', '');
     this.phase = 'cine'; this.cine = []; this.hud = undefined; this.v = undefined; this.blanket = undefined; this.bar = undefined;
     this.inspected.clear();
@@ -98,6 +101,7 @@ export class RefugeScene extends Phaser.Scene {
     this.uiCam = this.cameras.add(0, 0, 640, 360).setName('ui');
     this.uiCam.ignore(this.world);
     this.white = this.u(this.add.rectangle(320, 180, 640, 360, 0xffffff).setAlpha(0).setDepth(5000));
+    this.dialogue = new Dialogue(this, { layer: this.ui });
 
     this.keys = this.input.keyboard!.addKeys('D,RIGHT,E,Q,ESC') as Record<string, Phaser.Input.Keyboard.Key>;
     this.keys.E.on('down', () => this.primaryAction());
@@ -106,6 +110,7 @@ export class RefugeScene extends Phaser.Scene {
     this.keys.Q.on('down', () => this.raiseHand());
     // Maus: Klick = ein Schritt bzw. die Hand heben; gedrückt halten = aufrichten (wie E)
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+      if (this.dialogue?.visible) { this.dialogue.advance(); return; }
       if (this.hud?.hitTest(p)) return;
       if (this.inspectRoom(p.worldX, p.worldY)) return;
       if (this.phase === 'rise') this.risePointer = p;
@@ -126,25 +131,15 @@ export class RefugeScene extends Phaser.Scene {
   private u<T extends Phaser.GameObjects.GameObject>(o: T): T { this.ui.add(o); return o; }
   private at(ms: number, fn: () => void) { this.cine.push(this.time.delayedCall(ms, fn)); }
 
-  /** Untertitel mit kleinem Sprechernamen davor. */
-  private say(who: string, line: string, ms: number, y: number) {
-    const caption = `${who.toUpperCase()}: ${line}`;
-    this.data.set('mobile:dialogue', caption);
-    this.time.delayedCall(ms + 600, () => { if (this.data.get('mobile:dialogue') === caption) this.data.set('mobile:dialogue', ''); });
-    const txt = this.u(this.add.text(0, 0, line, {
-      fontFamily: FONT, fontSize: '11px', color: '#e8e2d0', stroke: '#0d0f12', strokeThickness: 3, wordWrap: { width: 400 },
-    }));
-    const name = this.u(this.add.text(0, 0, who.toUpperCase(), {
-      fontFamily: FONT, fontSize: '8px', color: '#a8987a', stroke: '#0d0f12', strokeThickness: 2,
-    }));
-    const x0 = Math.round(320 - (name.width + 8 + txt.width) / 2), top = Math.round(y - txt.height / 2);
-    name.setPosition(x0, top + 4);
-    txt.setPosition(x0 + Math.round(name.width) + 8, top);
-    for (const t of [name, txt]) {
-      t.setDepth(1100).setAlpha(0).setVisible(!usesMobileInterface());
-      this.speechTexts.push(t);
-      this.tweens.add({ targets: t, alpha: 1, duration: 300, hold: ms, yoyo: true, onComplete: () => t.destroy() });
-    }
+  /** Reading pauses the cinematic timeline; animation/action locks remain intact. */
+  private say(who: string, line: string, _ms: number, _y: number) {
+    const pending = this.cine.filter(timer => !timer.loop);
+    pending.forEach(timer => { timer.paused = true; });
+    this.dialogue!.setText(line, who);
+    this.dialogue!.setContinue(() => {
+      this.dialogue!.hide();
+      pending.forEach(timer => { timer.paused = false; });
+    });
   }
 
   // ---------- 1: Stimmen im Schwarz ----------
@@ -262,7 +257,8 @@ export class RefugeScene extends Phaser.Scene {
   private skipCine() {
     this.cine.forEach((t) => t.remove(false));
     this.cine = [];
-    this.ui.getAll().filter((o) => o !== this.white).forEach((o) => o.destroy());
+    this.dialogue?.hide();
+    this.ui.getAll().filter((o) => o !== this.white && o !== this.dialogue?.container).forEach((o) => o.destroy());
     this.clearWorld();
     this.cameras.main.resetFX();
     this.wake();
@@ -270,7 +266,7 @@ export class RefugeScene extends Phaser.Scene {
 
   // ---------- 4: erstes wirkliches Erwachen ----------
   private wake() {
-    this.data.set('mobile:dialogue', '');
+    this.dialogue?.hide();
     this.cine.forEach((t) => t.remove(false));
     this.cine = [];
     this.setPhase('wake');
@@ -290,7 +286,8 @@ export class RefugeScene extends Phaser.Scene {
     this.beatEvery = 1400; this.beatTimer = 300;
 
     const before = this.children.list.length;
-    this.hud = new Hud(this, 'portrait-valentus-wounded', 'VALENTUS');
+    this.hud = new Hud(this, 'portrait-valentus-wounded', 'VALENTUS', { dialogueLayer: this.ui });
+    this.hud.setCinematic(true);
     this.hud.setHp(0.12, false);
     this.hud.setAbilities([{ icon: 'beam', key: 'Q', onClick: () => this.raiseHand() }]);
     this.hud.setAbilitiesDisabled(true);
@@ -348,7 +345,7 @@ export class RefugeScene extends Phaser.Scene {
   }
 
   private tryStep() {
-    if (this.phase !== 'walk' || this.stepping) return;
+    if (this.phase !== 'walk' || this.stepping || this.hud?.dialogueVisible) return;
     this.stepping = true;
     this.idleMs = 0;
     if (this.step === 0) this.hud!.hint('', true);
@@ -456,7 +453,7 @@ export class RefugeScene extends Phaser.Scene {
 
   // ---------- 8: Hand und Licht ----------
   private raiseHand() {
-    if (this.phase !== 'raise') return;
+    if (this.phase !== 'raise' || this.hud?.dialogueVisible) return;
     this.setPhase('light');
     this.beatEvery = 0;
     this.hud!.hint('');
@@ -575,14 +572,14 @@ export class RefugeScene extends Phaser.Scene {
   }
 
   update(_t: number, dt: number) {
-    this.speechTexts = this.speechTexts.filter(text => text.active);
-    for (const text of this.speechTexts) text.setVisible(!usesMobileInterface());
+    this.dialogue?.update();
     if (this.beatEvery > 0) {
       this.beatTimer -= dt;
       if (this.beatTimer <= 0) { this.beatTimer = this.beatEvery; sfx.heartbeat(); }
     }
+    if (this.hud?.dialogueVisible) return;
     if (this.phase === 'cine') {
-      if (this.keys.ESC.isDown || this.keys.E.isDown) {
+      if (this.keys.ESC.isDown || (this.keys.E.isDown && !this.dialogue?.visible)) {
         this.skipHeld += dt;
         this.drawBar(this.skipHeld / 1500, 0x8a8478);
         if (this.skipHeld >= 1500) this.skipCine();

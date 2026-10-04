@@ -37,9 +37,8 @@ export const FARM_DAWN_AREA: StoryArea = {
     { id: 'grave-father', at: [283, 247] as Pt, radius: 28, label: 'Bei Vater' },
     { id: 'door', at: [273, 182] as Pt, radius: 18, label: 'Haus betreten' },
     { id: 'pig-gate', at: [154, 108] as Pt, radius: 26, label: 'Schweine freilassen' },
-    // Bildlinks schließt der Hohlweg an. Die Himmelsrichtung folgt dem Roman,
-    // nicht der Bildschirmachse: die Entführer ritten diesen Weg nach Osten.
-    { id: 'east-departure', at: [20, 188] as Pt, radius: 24, label: 'Hohlweg nach Osten' },
+    // Der sichtbare Feldweg rechts oben führt zur Straße nach Osten.
+    { id: 'east-departure', at: [596, 40] as Pt, radius: 20, label: 'Weg nach Osten' },
   ],
 };
 
