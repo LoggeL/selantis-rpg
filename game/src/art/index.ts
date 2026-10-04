@@ -18,6 +18,15 @@ export function createArt(): ArtApi {
       for (const key of FX_KEYS) if (!scene.textures.exists(key)) scene.textures.addCanvas(key, makeFx(key));
       for (const id of ICON_IDS) api.icon(scene, id);
     },
+    async preload() { /* TEMP: replaced by the asset pipeline agent */ },
+    background(scene, id) {
+      const key = `bg-missing-${id}`;
+      if (!scene.textures.exists(key)) { const c = document.createElement('canvas'); c.width = 640; c.height = 360; const g = c.getContext('2d')!; g.fillStyle = '#2b3a2a'; g.fillRect(0, 0, 640, 360); scene.textures.addCanvas(key, c); }
+      return { key, width: 640, height: 360 };
+    },
+    characterAnchor: () => ({ x: 0.5, y: 1 }),
+    plateUrl: (id: string) => `assets/cut/${id}.jpg`,
+    hasAsset: () => false,
     buildGround(scene, spec: GroundSpec) {
       return buildGroundObject(scene, spec);
     },

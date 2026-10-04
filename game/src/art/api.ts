@@ -86,9 +86,34 @@ export interface PropInfo {
   anchors?: Record<string, { x: number; y: number }>;
 }
 
+/** Assets to load before a scene uses them (Codex-generated art from public/assets/manifest.json). */
+export interface AssetRequest {
+  characters?: string[];   // walk sheets + poses of these character ids
+  props?: string[];
+  backgrounds?: string[];
+  plates?: string[];
+}
+
 export interface ArtApi {
   /** Generate all shared textures (tiles atlas, fx, ui icons). Idempotent; call from Boot. */
   init(scene: Phaser.Scene): void;
+
+  /**
+   * ASSET-BASED ART (preferred, DESIGN.md §3): loads the requested Codex-generated assets listed in
+   * public/assets/manifest.json into the scene's texture manager (idempotent, cached across scenes).
+   * Missing ids resolve gracefully (fallback placeholder art) so scenes keep working while assets are produced.
+   * After it resolves, character()/prop()/background() are synchronous for those ids.
+   * Generated character sheets are 64x64 frames with the foot anchor at (32, 60) — use characterAnchor().
+   */
+  preload(scene: Phaser.Scene, req: AssetRequest): Promise<void>;
+  /** A painted map background (640x360 or 1280x720). Returns the texture key and size. */
+  background(scene: Phaser.Scene, id: string): { key: string; width: number; height: number };
+  /** Origin (0..1) to place a character sprite so its feet stand on the given point. */
+  characterAnchor(charKey: string): { x: number; y: number };
+  /** Public URL of a code-independent plate/cutscene image (1280x720), e.g. 'assets/cut/raid-confrontation.jpg'. */
+  plateUrl(id: string): string;
+  /** Whether the manifest contains an asset (for content fallbacks). */
+  hasAsset(kind: 'character' | 'prop' | 'background' | 'plate' | 'portrait', id: string): boolean;
 
   /** Builds the ground layer (autotiled, varied, animated water) for a map. Returns a container at (0,0). */
   buildGround(scene: Phaser.Scene, spec: GroundSpec): Phaser.GameObjects.Container;
@@ -110,7 +135,8 @@ export interface ArtApi {
   characterSize(charKey: string): { w: number; h: number };
 
   /**
-   * Pixel portrait (bust) for dialogue as a data URL, ~64x64 px (UI scales it up crisply).
+   * Dialogue portrait URL: the Codex-generated 256x256 painting from public/assets/portraits/<id>[-<mood>].png
+   * when present (mood falls back to neutral), otherwise a generated fallback data URL.
    * Derived from the same character spec as the sprite so they match. Original designs only —
    * never modelled on film actors (DESIGN.md §2). Moods at least: neutral, happy, sad, angry, surprised,
    * determined, hurt, thinking, scared. Unknown ids fall back to a hooded silhouette.
