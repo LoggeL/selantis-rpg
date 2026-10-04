@@ -170,8 +170,25 @@ for (const viewport of viewports) {
       }
     }
     await continueRaid(page, viewport.mobile);
+    await raidStep(page, 'parents-alone');
+    if (await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:typing'))) {
+      await interact(page, viewport.mobile);
+      await page.waitForFunction(() => !(window as any).game.scene.getScene('raid').data.get('dialogue:typing'));
+    }
+    expect(await page.evaluate(() => {
+      const scene = (window as any).game.scene.getScene('raid');
+      return [scene.kyra == null, scene.closeup.image.texture.key, scene.data.get('dialogue:complete')];
+    })).toEqual([true, 'cinematic-raid-confrontation', 'Wir sind allein.']);
+    await continueRaid(page, viewport.mobile);
+    await raidStep(page, 'parents-protect');
+    await continueRaid(page, viewport.mobile);
     await raidStep(page, 'kyra-found', false);
     expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('story:raid').ready)).toBe(false);
+    expect(await page.evaluate(() => {
+      const scene = (window as any).game.scene.getScene('raid');
+      return [scene.closeup.art.visible, scene.areaRoot.scaleX, scene.kyra.texture.key, Number(scene.kyra.frame.name)];
+    })).toEqual([false, 2.3, 'story-actors', 0]);
+    await page.screenshot({ path: `../output/qa/raid-kyra-arrival-${viewport.width}x${viewport.height}.png`, fullPage: true });
     // Revealing a line during its arrival action cannot skip that action.
     await page.keyboard.press('KeyE', { delay: 50 });
     await page.keyboard.press('KeyE', { delay: 50 });
@@ -179,6 +196,12 @@ for (const viewport of viewports) {
     await speakerPortrait(page, 'raid', 'Narbiger', 'dialogue-scarred', viewport.mobile);
     await raidStep(page, 'kyra-found');
     expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').raiders[4].flipX)).toBe(false);
+    expect(await page.evaluate(() => {
+      const scene = (window as any).game.scene.getScene('raid');
+      return [Number(scene.kyra.frame.name), scene.father.angle, scene.mother.angle,
+        scene.textures.exists('cinematic-raid-kyra-found') ? scene.closeup.image.texture.key : scene.closeup.art.visible];
+    })).toEqual([0, 0, 0, await page.evaluate(() => (window as any).game.textures.exists('cinematic-raid-kyra-found')) ? 'cinematic-raid-kyra-found' : false]);
+    await page.screenshot({ path: `../output/qa/raid-kyra-discovery-${viewport.width}x${viewport.height}.png`, fullPage: true });
     await continueRaid(page, viewport.mobile);
     await raidStep(page, 'question');
     await continueRaid(page, viewport.mobile);
@@ -500,18 +523,9 @@ test('Discovery stays crouched through keyboard and pointer approach into the br
   test.setTimeout(35_000);
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/?scene=world&map=hof');
-  await sceneReady(page, 'world');
-  await page.evaluate(() => (window as any).game.scene.getScene('world').lia.setPosition(266, 193));
-  await page.keyboard.down('ArrowUp');
-  await page.waitForFunction(() => (window as any).game.scene.getScene('world').ending);
-  await page.keyboard.up('ArrowUp');
-  await page.waitForFunction(() => (window as any).game.scene.getScene('world').lia.anims.currentAnim.key === 'lia-hidden-e');
-  expect(await page.evaluate(() => {
-    const lia = (window as any).game.scene.getScene('world').lia;
-    return [lia.texture.key, Number(lia.frame.name), lia.flipX];
-  })).toEqual(['lia-hide', 7, false]);
-  await page.screenshot({ path: '../output/qa/crouch-discovery-desktop.png', fullPage: true });
   await sceneReady(page, 'raid');
+  expect(await page.evaluate(() => (window as any).game.scene.isActive('world'))).toBe(false);
+  await page.screenshot({ path: '../output/qa/crouch-discovery-desktop.png', fullPage: true });
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('raid');
     return [scene.data.get('story:lia-crouched'), scene.lia.texture.key, scene.lia.anims.currentAnim.key];
@@ -608,9 +622,16 @@ test('Valentus character values reflect the live battle unit and combat rules', 
 
 test('House pickups disappear independently without interrupting packing and stay collected on reentry', async ({ page }) => {
   test.setTimeout(40_000);
+  // Load the current modules once. A concurrent asset edit must not reset the
+  // registry halfway through the packing and reentry assertions.
+  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/?scene=aftermath');
   await sceneReady(page, 'aftermath');
+  await page.waitForFunction(() => {
+    const scene = (window as any).game.scene.getScene('aftermath');
+    return scene.input.keyboard.enabled && !scene.cameras.main.fadeEffect.isRunning;
+  });
   const use = async (at: number[]) => {
     await page.evaluate(at => (window as any).game.scene.getScene('aftermath').lia.setPosition(at[0], at[1]), at);
     await page.keyboard.press('KeyE', { delay: 50 });
@@ -622,18 +643,13 @@ test('House pickups disappear independently without interrupting packing and sta
     const scene = (window as any).game.scene.getScene('aftermath');
     (window as any).houseProps = Object.fromEntries(scene.houseItems);
   });
-  // Clothing remains present until Lia has treated her heel.
-  await use([142, 216]);
-  expect(await page.evaluate(() => {
-    const scene = (window as any).game.scene.getScene('aftermath');
-    return [!!scene.st.flags.packedClothes, scene.houseItems.has('packedClothes'), scene.st.inv.reisezeug ?? 0];
-  })).toEqual([false, true, 0]);
   const pickups = [
+    // Clothing can be packed before medicine without treating an injury.
+    { id: 'clothing', flag: 'packedClothes', at: [142, 216] },
     { id: 'food', flag: 'packedFood', at: [431, 188] },
     { id: 'water', flag: 'packedWater', at: [518, 176] },
     { id: 'cupboard', flag: 'foundCache', at: [505, 201] },
-    { id: 'medicine', flag: 'heelTreated', at: [145, 145] },
-    { id: 'clothing', flag: 'packedClothes', at: [142, 216] },
+    { id: 'medicine', flag: 'packedMedicine', at: [145, 145] },
     { id: 'books', flag: 'packedBooks', at: [289, 210] },
   ];
   for (const [index, pickup] of pickups.entries()) {
@@ -671,11 +687,18 @@ test('House pickups disappear independently without interrupting packing and sta
   // and target interaction to carry Lia there from the pig gate.
   await canvasClick(page, 596, 40);
   await expect.poll(() => page.evaluate(() => (window as any).game.scene.getScene('aftermath').lia.x)).toBeGreaterThan(beforeDeparture[0] + 10);
+  await sceneReady(page, 'world');
+  expect(await page.evaluate(() => {
+    const scene = (window as any).game.scene.getScene('world');
+    return [scene.map.id, scene.st.inv];
+  })).toEqual(['felder', inventory]);
+  // The familiar fields connect the farm to the painted northern road trail.
+  await canvasClick(page, 636, 286);
   await sceneReady(page, 'journey');
   expect(await page.evaluate(() => {
     const game = (window as any).game, scene = game.scene.getScene('journey');
     return [game.registry.get('world').flags.aftermathComplete, scene.lia.x, scene.lia.y];
-  })).toEqual([true, 45, 193]);
+  })).toEqual([true, 390, 70]);
 });
 
 test('Anonymous bridge travelers animate while moving and honor reduced motion', async ({ page }) => {

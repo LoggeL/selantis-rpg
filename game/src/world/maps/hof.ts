@@ -49,10 +49,6 @@ export const hof: MapDef = {
     hohlweg: { at: [16, 186], facing: 'e' },
     felder: { at: [596, 40], facing: 's' },
   },
-  triggers: [
-    // Der Hauseingang schließt den Heimweg ab und löst den Überfall aus.
-    { id: 'hof-ankunft', rect: [262, 176, 26, 10] },
-  ],
   props: [
     { id: 'schweine', at: [154, 198], radius: 20, lines: ["Nach dem Abendbrot füttere ich euch. Ich hab's Kyra versprochen."] },
     { id: 'scheune', at: [402, 202], radius: 22, lines: ['Unsere Scheune. Viel größer als das Haus.', 'Es riecht nach Heu und warmem Holz.'] },

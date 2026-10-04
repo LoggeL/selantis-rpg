@@ -15,6 +15,7 @@ type ObservationBeat = {
   shot?: string;
   shotOptions?: CloseupOptions;
   shotAfterAction?: boolean;
+  courtyard?: boolean;
   speaker?: () => Phaser.GameObjects.Image | Phaser.GameObjects.Sprite | undefined;
   action?: (done: () => void) => void;
 };
@@ -159,9 +160,14 @@ export class RaidScene extends StoryScene {
     // Dialogue is adapted from Roman pp. 13-17; the next line never advances on a timer.
     this.observation = [
       { id: 'cover', line: 'Lia (Gedanke): Dunkelschatten.', shot: 'cinematic-raid-cover', speaker: () => this.lia },
-      { id: 'kyra-found', line: 'Narbiger: Seht mal, wen ich gefunden habe.', shot: 'cinematic-raid-confrontation', speaker: () => this.raiders[4],
+      // The novel reports this claim in the leader's next question; make it explicit
+      // before Kyra appears so the parents' attempt to protect her is readable.
+      { id: 'parents-alone', line: 'Vater: Wir sind allein.', shot: 'cinematic-raid-confrontation', shotOptions: { fit: 'contain' }, speaker: () => this.father },
+      { id: 'parents-protect', line: 'Lia (Gedanke): Sie wollen Kyra schützen. Sie ist noch im Haus.', speaker: () => this.lia },
+      { id: 'kyra-found', line: 'Narbiger: Seht mal, wen ich gefunden habe.', courtyard: true,
+        shot: 'cinematic-raid-kyra-found', shotOptions: { fit: 'contain' }, shotAfterAction: true, speaker: () => this.raiders[4],
         action: done => this.bringKyra(done) },
-      { id: 'question', line: 'Grauhaariger: Ihr sagtet, ihr seid allein. Wer ist sie?', shot: 'cinematic-raid-confrontation', speaker: () => this.leader },
+      { id: 'question', line: 'Grauhaariger: Ihr sagtet, ihr seid allein. Wer ist sie?', speaker: () => this.leader },
       { id: 'father-denial', line: 'Vater: Ich kenne sie nicht. Sie ist nur ein neugieriges Kind. Lasst sie laufen.', speaker: () => this.father },
       { id: 'intimidation', line: 'Grauhaariger: Schon wieder solche Lügen. Ihr Bauern seid doch alle gleich.', speaker: () => this.leader,
         action: done => this.intimidateFather(done) },
@@ -197,12 +203,21 @@ export class RaidScene extends StoryScene {
     this.nextBeat = undefined;
     this.setSpots([]);
     this.cinemaControls(false);
+    if (beat.courtyard) {
+      this.hideCloseup();
+      this.currentShot = '';
+      // Show the actual doorway-to-courtyard movement before the discovery art.
+      // The parents and unbound Kyra remain large enough to read above dialogue.
+      this.areaRoot.setScale(2.3).setPosition(320 - 271 * 2.3, 219 - 207 * 2.3);
+    }
     if (beat.shot && !beat.shotAfterAction) { this.showCloseup(beat.shot, beat.shotOptions); this.currentShot = beat.shot; }
     this.publishProgress(false);
     this.caption(beat.line, beat.speaker?.());
     this.setCloseupContinue(null);
     const complete = () => {
-      if (beat.shot && beat.shotAfterAction) { this.showCloseup(beat.shot, beat.shotOptions); this.currentShot = beat.shot; }
+      if (beat.shot && beat.shotAfterAction && this.textures.exists(beat.shot)) {
+        this.showCloseup(beat.shot, beat.shotOptions); this.currentShot = beat.shot;
+      }
       // Preserve the reader's typing/reveal progress when the animation ends.
       this.readyToContinue(() => index + 1 < this.observation.length ? this.showObservationBeat(index + 1) : this.emptyFarm());
     };
@@ -212,7 +227,7 @@ export class RaidScene extends StoryScene {
   private bringKyra(done: () => void) {
     const captor = this.addActor('warrior', 0, [273, 177]).setTint(0xc9c9c9).setName('raid-captor');
     this.raiders.push(captor);
-    this.kyra = this.person(0, [282, 177], 'woman');
+    this.kyra = this.person(0, [282, 177], 'woman').setName('raid-kyra');
     this.faceTowards(captor, this.kyra.x);
     this.tweens.add({ targets: [captor, this.kyra], y: 216, duration: motionDuration(950), ease: 'Sine.inOut',
       onUpdate: () => this.faceTowards(captor, this.kyra!.x), onComplete: () => {

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { StoryScene } from '../story/StoryScene';
 import { ROAD_EAST_AREA, FIRST_CAMP_AREA } from '../story/areas/journey';
+import { FIELD_RETURN } from '../story/travel';
 import { state } from '../world/quests';
 import { getSettings, motionDuration, subscribeSettings } from '../settings';
 import { FONT } from '../ui';
@@ -28,7 +29,7 @@ export class JourneyScene extends StoryScene {
 
   constructor() { super('journey'); }
 
-  create() {
+  create(data: { from?: string } = {}) {
     this.inCamp = false; this.campStep = 'cloak'; this.conversation = 0;
     this.foltan = undefined; this.azar = undefined; this.cloak = undefined;
     this.blanket = undefined; this.flame = undefined; this.rope = undefined;
@@ -45,7 +46,7 @@ export class JourneyScene extends StoryScene {
       });
       st.flags.departureReady = true;
     }
-    if (st.flags.journeyCampReached || st.flags.firstCampRested || st.flags.metFoltanAzar) {
+    if (data.from !== 'felder' && (st.flags.journeyCampReached || st.flags.firstCampRested || st.flags.metFoltanAzar)) {
       this.begin(FIRST_CAMP_AREA);
       this.setupCamp(false);
       if (st.flags.metFoltanAzar) {
@@ -71,9 +72,12 @@ export class JourneyScene extends StoryScene {
     this.setObjective(!flags.streamVisited ? 'Am Bach trinken und Wasser nachfüllen.' : !flags.journeyEastChosen ? 'Die Weggabelung ansehen.' : 'Nach Osten bis zum Wald gehen.');
     this.setSpots(ROAD_EAST_AREA.targets.map(target => ({
       ...target,
-      enabled: () => target.id === 'stream' || (target.id === 'fork' && !!flags.streamVisited) || (target.id === 'east' && !!flags.journeyEastChosen),
+      enabled: () => target.id === 'farm-return' || target.id === 'stream' || (target.id === 'fork' && !!flags.streamVisited) || (target.id === 'east' && !!flags.journeyEastChosen),
       onUse: () => {
-        if (target.id === 'stream') {
+        if (target.id === 'farm-return') {
+          this.scene.start('world', FIELD_RETURN);
+          return;
+        } else if (target.id === 'stream') {
           flags.streamVisited = true;
           this.say('Kühles Wasser. Der Schlauch ist wieder voll.', 2200);
         } else if (target.id === 'fork') {

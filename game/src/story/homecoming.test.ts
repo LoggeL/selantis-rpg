@@ -45,11 +45,11 @@ describe('Lias Heimweg', () => {
         map = next!;
       }
       expect(homewardExit('hof')).toBeUndefined();
-      expect(homecomingObjective(st, 'hof')).toContain('Hauseingang');
+      expect(homecomingObjective(st, 'hof')).toContain('in der Böschung verstecken');
     }
   });
 
-  it('schließt am Hauseingang ohne Sammelpflicht ab und bleibt über Kartenwechsel abgeschlossen', () => {
+  it('schließt bei Ankunft auf dem Hof ohne Sammelpflicht ab und bleibt über Kartenwechsel abgeschlossen', () => {
     const st = fresh();
     expect(completeHomecoming(st)).toBe(true);
     expect(st.inv).toEqual({});

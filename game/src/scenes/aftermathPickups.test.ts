@@ -47,19 +47,19 @@ describe('house pickups remain part of exploration', () => {
     expect(s.showDetail).not.toHaveBeenCalled(); expect(s.showCloseup).not.toHaveBeenCalled();
     expect(s.setLocked).not.toHaveBeenCalled(); expect(s.setLiaPose).not.toHaveBeenCalled();
   });
-  it('keeps clothes visible until the heel is treated, then allows taking them', () => {
+  it('allows taking clothes before medicine and packs medicine without healing Lia', () => {
     const { s, st, use } = house();
     changePartyHealth(s.registry, 'lia', -23);
     expect(partyState(s.registry).members.lia?.hp).toBe(77);
     const clothes = s.houseItems.get('packedClothes');
     use('clothing');
-    expect(st.flags.packedClothes).toBeUndefined(); expect(st.inv.reisezeug).toBeUndefined();
-    expect(clothes.every((image: any) => image.active)).toBe(true);
-    expect(s.say).toHaveBeenLastCalledWith('Erst die Ferse verbinden. Mutters Tinktur steht im Medizinschrank.');
-    use('medicine'); use('clothing');
-    expect(partyState(s.registry).members.lia?.hp).toBe(100);
-    expect(st.flags.heelTreated).toBe(true); expect(st.inv.heilzeug).toBe(1); expect(st.inv.reisezeug).toBe(1);
+    expect(st.flags.packedClothes).toBe(true); expect(st.inv.reisezeug).toBe(1);
     expect(clothes.every((image: any) => !image.active)).toBe(true);
+    expect(st.flags.packedMedicine).toBeUndefined();
+    use('medicine');
+    expect(partyState(s.registry).members.lia?.hp).toBe(77);
+    expect(st.flags.packedMedicine).toBe(true); expect(st.inv.heilzeug).toBe(1);
+    expect(s.say).toHaveBeenLastCalledWith('Mutters Tinktur und Leinenstreifen nehme ich für unterwegs mit.', 4500);
   });
   it('leaves every collected place empty when entering the room again', () => {
     const { s, st, images, use } = house();

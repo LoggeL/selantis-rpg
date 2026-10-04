@@ -27,10 +27,12 @@ export const felder: MapDef = {
   exits: [
     { rect: [0, 196, 8, 84], to: 'wiese' },
     { rect: [462, 352, 96, 8], to: 'hof' },
+    { rect: [632, 266, 8, 40], to: 'journey', scene: 'journey', label: 'Straße nach Osten' },
   ],
   entries: {
     wiese: { at: [18, 246], facing: 'e' },
     hof: { at: [510, 336], facing: 'n' },
+    journey: { at: [615, 286], facing: 'w' },
   },
   props: [
     {

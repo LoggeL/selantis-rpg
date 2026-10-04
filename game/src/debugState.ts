@@ -3,7 +3,7 @@ import type { ItemId } from './world/maps';
 
 export const FLAG_GROUPS = {
   Heimweg: ['sisterPromise', 'homeArrived', 'chickReturned'],
-  Hof: ['raidWitnessed', 'parentsLost', 'kyraTaken', 'packedFood', 'packedWater', 'foundCache', 'heelTreated', 'packedClothes', 'packedBooks', 'houseClosed', 'pigsReleased', 'departureReady', 'aftermathComplete'],
+  Hof: ['raidWitnessed', 'parentsLost', 'kyraTaken', 'packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks', 'houseClosed', 'pigsReleased', 'departureReady', 'aftermathComplete'],
   Reise: ['streamVisited', 'journeyEastChosen', 'journeyCampReached', 'journeyCloakSpread', 'journeyTwigsGathered', 'campfireLit', 'journeyAte', 'journeyFeetChecked', 'firstCampRested', 'metFoltanAzar', 'journeyRopesReleased', 'criosObserved'],
 } as const;
 export const FLAGS: readonly string[] = Object.values(FLAG_GROUPS).flat();

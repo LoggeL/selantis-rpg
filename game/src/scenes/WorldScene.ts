@@ -1,13 +1,14 @@
 import Phaser from 'phaser';
-import { sfx, setSceneMusic } from '../audio';
+import { sfx } from '../audio';
 import { FONT, Hud } from '../ui';
 import { Dir, ItemId, MAPS, MapDef, Pt } from '../world/maps';
 import { Critter } from '../world/critters';
 import { WorldApi, WorldState, objectiveText, pickupText, runAction, state } from '../world/quests';
-import { findWalkingPath, isMapWalkable } from '../world/navigation';
+import { findWalkingPath, inPoly, isMapWalkable } from '../world/navigation';
 import { ambientPrefs, motionDuration, subscribeSettings } from '../settings';
 import { InventoryHud, ITEM_FRAME, itemTexture } from '../inventory';
 import { completeHomecoming, homewardExit } from '../story/homecoming';
+import { eastwardTravelGate, mapForTravel, travelObjective } from '../story/travel';
 
 type Data = { map?: string; from?: string; x?: number; y?: number; facing?: Dir };
 
@@ -27,7 +28,6 @@ export class WorldScene extends Phaser.Scene {
   private debugG?: Phaser.GameObjects.Graphics;
   private stepTimer = 0;
   private bgImage!: Phaser.GameObjects.Image;
-  private ending = false;
   private target?: { x: number; y: number };
   private targetProp?: import('../world/maps').Prop;
   private stuckMs = 0;
@@ -44,6 +44,7 @@ export class WorldScene extends Phaser.Scene {
   private routeUpdatedAt = 0;
   private finished = false;
   private pollen?: Phaser.GameObjects.Particles.ParticleEmitter;
+  private blockedExit?: string;
 
   constructor() { super('world'); }
 
@@ -52,17 +53,31 @@ export class WorldScene extends Phaser.Scene {
     this.map = MAPS[id] ?? MAPS.wiese;
     this.busy = false;
     this.st = state(this.registry);
+    this.map = mapForTravel(this.map, this.st);
+    this.blockedExit = undefined;
     this.registry.set('visited', { ...(this.registry.get('visited') ?? {}), [this.map.id]: true });
 
-    this.ending = false;
+    // Roman S. 13: The raid is already underway when Lia first sees the farm.
+    // Use its restricted approach immediately, before free world input exists.
+    if (this.map.id === 'hof' && !this.st.flags.raidWitnessed) {
+      completeHomecoming(this.st);
+      this.scene.start('raid');
+      return;
+    }
+    if (this.map.id === 'hof' && this.st.flags.raidWitnessed) {
+      this.finished = true;
+      const entry = data.from ? this.map.entries[data.from] : undefined;
+      this.scene.start('aftermath', { from: data.from, at: entry?.at });
+      return;
+    }
+
     this.finished = false;
     this.route = [];
     this.nest = undefined;
     this.debugG = undefined;
     this.hintShown = undefined;
     this.bgImage = this.add.image(0, 0, this.map.bg).setOrigin(0).setDepth(-1000);
-    this.events.off('trigger');
-    this.events.on('trigger', (id: string) => { if (id === 'hof-ankunft') this.hofEnding(); });
+    this.drawFieldBranch();
     this.cameras.main.fadeIn(280, 0, 0, 0);
 
     const entry = data.from ? this.map.entries[data.from] : undefined;
@@ -87,8 +102,8 @@ export class WorldScene extends Phaser.Scene {
     this.spawnWorldLife();
 
     const icon = this.registry.get('icon') as (n: string) => number;
-    const bubble = this.add.rectangle(0, 0, 14, 14, 0x14171b, 0.9).setStrokeStyle(1, 0xd8d2c0);
-    const key = this.add.text(0, 0, 'E', { fontFamily: FONT, fontSize: '9px', color: '#e8e2d0' }).setOrigin(0.5);
+    const bubble = this.add.rectangle(0, 0, 22, 22, 0x14171b, 0.9).setStrokeStyle(1, 0xd8d2c0);
+    const key = this.add.text(0, 0, 'E', { fontFamily: FONT, fontSize: '14px', color: '#e8e2d0' }).setOrigin(0.5);
     void icon;
     this.prompt = this.add.container(0, 0, [bubble, key]).setDepth(990).setVisible(false);
     this.tweens.add({ targets: [bubble, key], y: -2, duration: 500, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
@@ -98,7 +113,6 @@ export class WorldScene extends Phaser.Scene {
     this.input.on('pointerdown', this.onPointerDown, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.input.off('pointerdown', this.onPointerDown, this);
-      this.events.off('trigger');
       this.clearTarget();
     });
     this.clearTarget();
@@ -135,7 +149,7 @@ export class WorldScene extends Phaser.Scene {
   private addExitHints() {
     this.exitHints = [];
     for (const e of this.map.exits) {
-      const home = e.to === homewardExit(this.map.id);
+      const home = !this.st.flags.raidWitnessed && e.to === homewardExit(this.map.id);
       const [x, y, w, h] = e.rect;
       const cx = x + w / 2, cy = y + h / 2;
       const dir = x <= 0 ? 'w' : x + w >= 640 ? 'e' : y <= 0 ? 'n' : 's';
@@ -149,12 +163,12 @@ export class WorldScene extends Phaser.Scene {
         g.fillStyle(home ? 0xffd27a : 0xfff4d8, 1).fillTriangle(off, -4, off + 4, 0, off, 4);
       }
       g.setRotation(ang);
-      const target = home ? 'Nach Hause' : MAPS[e.to]?.name ?? e.to;
+      const target = home ? 'Nach Hause' : e.label ?? MAPS[e.to]?.name ?? e.to;
       const lx = dir === 'w' ? 12 : dir === 'e' ? -12 : 0, ly = dir === 'n' ? 12 : dir === 's' ? -12 : 0;
       const label = this.add.text(lx, ly, target, { fontFamily: FONT, fontSize: '8px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
         .setOrigin(dir === 'w' ? 0 : dir === 'e' ? 1 : 0.5, 0.5);
       const c = this.add.container(px, py, [g, label]).setDepth(980).setAlpha(home ? 1 : 0.55);
-      if (home) {
+      {
         label.setInteractive({ useHandCursor: true });
         g.setInteractive(new Phaser.Geom.Rectangle(-8, -8, 16, 16), Phaser.Geom.Rectangle.Contains);
         const go = (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
@@ -170,19 +184,26 @@ export class WorldScene extends Phaser.Scene {
       this.tweens.add({ targets: g, x: dx, y: dy, duration: 600, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
       this.exitHints.push({ c, x: px, y: py, home });
     }
-    if (this.map.id === 'hof') {
-      const ring = this.add.ellipse(275, 181, 18, 7).setStrokeStyle(1, 0xffd27a);
-      const label = this.add.text(275, 148, 'Nach Hause', { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 }).setOrigin(0.5);
-      const arrow = this.add.triangle(275, 167, 0, 0, 8, 0, 4, 5, 0xffd27a);
-      this.add.container(0, 0, [ring, label, arrow]).setDepth(980);
-      for (const object of [ring, label, arrow]) {
-        object.setInteractive({ useHandCursor: true });
-        object.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
-          event.stopPropagation();
-          if (this.busy) return;
-          this.targetProp = undefined;
-          this.setTarget(275, 181, true);
-        });
+
+  }
+
+  /** The visible side road is present before and after the raid. */
+  private drawFieldBranch() {
+    if (this.map.id !== 'felder') return;
+    const g = this.add.graphics().setDepth(-900);
+    const branch: Pt[] = [[483, 270], [529, 273], [640, 267], [640, 301], [536, 287], [500, 290]];
+    const earth = [0x8b713c, 0x997744, 0xa4864d, 0x80683c, 0xa89353];
+    for (let y = 267; y < 302; y += 2) for (let x = 482; x < 640; x += 2) {
+      if (!inPoly(x, y, branch)) continue;
+      const grain = (x * 13 + y * 17 + x * y) % earth.length;
+      g.fillStyle(earth[grain]).fillRect(x, y, 2, 2);
+      if ((x + y * 3) % 17 === 0) g.fillStyle(0x756f37).fillRect(x, y, 1, 3);
+    }
+    if (!this.st.flags.raidWitnessed) return;
+    for (let x = 492; x < 628; x += 17) {
+      for (const y of [280, 286]) {
+        g.lineStyle(1, 0x4c402a).strokeEllipse(x, y, 4, 5);
+        g.fillStyle(0xa08a4d).fillRect(x + 1, y - 3, 2, 2);
       }
     }
   }
@@ -370,17 +391,29 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private checkExits() {
+    let withinExit = false;
     for (const e of this.map.exits) {
       const [x, y, w, h] = e.rect;
       if (this.lia.x >= x && this.lia.x <= x + w && this.lia.y >= y && this.lia.y <= y + h) {
+        withinExit = true;
+        const blocked = e.scene === 'journey' ? eastwardTravelGate(this.st) : undefined;
+        if (blocked) {
+          this.clearTarget();
+          if (this.blockedExit !== e.to) this.hud.thought(blocked, 4200);
+          this.blockedExit = e.to;
+          return;
+        }
         this.busy = true;
         this.lia.anims.stop();
         this.cameras.main.fadeOut(220, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () =>
-          this.scene.restart({ map: e.to, from: this.map.id }));
+        this.cameras.main.once('camerafadeoutcomplete', () => {
+          if (e.scene) this.scene.start(e.scene, { from: this.map.id });
+          else this.scene.restart({ map: e.to, from: this.map.id });
+        });
         return;
       }
     }
+    if (!withinExit) this.blockedExit = undefined;
   }
 
   private checkTriggers() {
@@ -388,48 +421,6 @@ export class WorldScene extends Phaser.Scene {
       const [x, y, w, h] = t.rect;
       if (this.lia.x >= x && this.lia.x <= x + w && this.lia.y >= y && this.lia.y <= y + h) this.events.emit('trigger', t.id);
     }
-  }
-
-  /** Roman S. 13: Am Ende des Hohlwegs liegt der Hof – doch die Tür steht sperrangelweit offen. */
-  private hofEnding() {
-    if (this.ending) return;
-    this.ending = true;
-    this.busy = true;
-    this.clearTarget();
-    this.inventory.setVisible(false);
-    this.data.set('mobile:controls', { directions: [], actions: {}, inventory: false });
-    this.lia.play(`lia-idle-${this.facing}`);
-    completeHomecoming(this.st);
-    this.refreshObjective();
-    this.hud.thought('Da ist unser Hof.', 1800);
-    this.time.delayedCall(1800, () => this.hud.thought('Da ist unser Hof. Aber ...', 2200));
-    this.time.delayedCall(2900, () => {
-      setSceneMusic(this, 'dread');
-      this.objText.setText('Etwas stimmt nicht.');
-      this.data.set('mobile:objective', 'Etwas stimmt nicht.');
-      sfx.heartbeat();
-      this.hud.thought('Doch was war das?', 2400);
-      // The people on the farm alarm Lia before she returns to roadside cover.
-      if (this.anims.exists('lia-hidden-e')) this.lia.setFlipX(false).play('lia-hidden-e');
-      this.dropApplesInShock();
-      if (this.textures.exists('bg-map-hof-open')) {
-        const open = this.add.image(0, 0, 'bg-map-hof-open').setOrigin(0).setDepth(-999).setAlpha(0);
-        this.tweens.add({ targets: open, alpha: 1, duration: 1400 });
-      }
-      this.tweens.add({ targets: this.bgImage, tint: { from: 0xffffff, to: 0xc8b8a8 }, duration: 1400 });
-    });
-    this.time.delayedCall(5600, () => { sfx.heartbeat(); this.hud.thought('Die Tür stand sperrangelweit offen.', 2600); });
-    this.time.delayedCall(8600, () => {
-      sfx.drone(3);
-      this.cameras.main.fadeOut(1600, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => {
-        this.hud.hideAll(0);
-        this.finished = true;
-        this.critters = [];
-        this.cameras.main.resetFX();
-        this.scene.start('raid');
-      });
-    });
   }
 
   // ---------- Lebendige Welt: Tiere, Fundstücke, Inventar ----------
@@ -515,7 +506,7 @@ export class WorldScene extends Phaser.Scene {
     this.inventory.refresh(this.st.inv);
   }
 
-  private refreshObjective() { const text = objectiveText(this.st, this.map.id); this.objText?.setText(text); this.data.set('mobile:objective', text); }
+  private refreshObjective() { const text = travelObjective(this.st, this.map.id) ?? objectiveText(this.st, this.map.id); this.objText?.setText(text); this.data.set('mobile:objective', text); }
 
   private showNest(withChick: boolean, at?: Pt) {
     const p = at ?? this.map.props.find((x) => x.action === 'returnChick')!.at;
@@ -554,19 +545,6 @@ export class WorldScene extends Phaser.Scene {
         });
       },
     };
-  }
-
-  /** Wer mit Fallobst heimkommt, lässt es beim Anblick der offenen Tür fallen. */
-  private dropApplesInShock() {
-    const n = this.st.inv.apfel ?? 0;
-    if (!n) return;
-    this.take('apfel', n);
-    for (let i = 0; i < n; i++) {
-      const a = this.add.image(this.lia.x, this.lia.y - 22, 'items', ITEM_FRAME.apfel).setDepth(this.lia.y + 1);
-      const dx = Phaser.Math.Between(-46, 46), dy = Phaser.Math.Between(4, 26);
-      this.tweens.add({ targets: a, x: this.lia.x + dx, y: this.lia.y + dy, angle: dx * 8, duration: 900 + i * 120, ease: 'Bounce.out' });
-    }
-    sfx.thud();
   }
 
   /** F1 oder ?debug: Begehbarkeit, Blocker, Ausgänge und Objekte einblenden. */

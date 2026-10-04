@@ -10,6 +10,9 @@ export interface Exit {
   rect: [number, number, number, number];
   /** Zielkarte; man kommt dort an deren `entries[<diese Karte>]` an */
   to: string;
+  /** Optionales Szenenziel für den Übergang aus den verbundenen Weltkarten. */
+  scene?: string;
+  label?: string;
 }
 
 export interface Entry {

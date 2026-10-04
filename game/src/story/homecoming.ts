@@ -19,7 +19,7 @@ const HOME_ROUTE: Record<string, { exit?: string; text: string }> = {
   waldrand: { exit: 'wiese', text: 'Nach Hause · Nach Osten zur Wiese.' },
   felder: { exit: 'hof', text: 'Nach Hause · Dem Feldweg nach Süden folgen.' },
   hohlweg: { exit: 'hof', text: 'Nach Hause · Dem Weg nach Osten folgen.' },
-  hof: { text: 'Nach Hause · Zum Hauseingang gehen.' },
+  hof: { text: 'Nach Hause · Am Hof sofort in der Böschung verstecken.' },
 };
 
 /** Optional discoveries never replace the single main objective. */
@@ -29,7 +29,7 @@ export function homecomingObjective(st: WorldState, map = 'wiese'): string {
 
 export const homewardExit = (map: string) => HOME_ROUTE[map]?.exit;
 
-/** Returns true once, so arriving cannot award or announce completion twice. */
+/** Completes on entering the farm, before the raid takes over. Returns true only once. */
 export function completeHomecoming(st: WorldState): boolean {
   if (st.flags.homeArrived) return false;
   st.flags.homeArrived = true;

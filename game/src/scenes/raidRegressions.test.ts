@@ -23,7 +23,7 @@ function actor(x = 0, y = 0) {
 }
 
 /** Real scene actions and continuation callbacks; replace only rendering and clocks. */
-function raid(spearmanAvailable = true) {
+function raid(spearmanAvailable = true, discoveryAvailable = true) {
   const s: any = new RaidScene();
   const pending: Array<() => void> = [];
   const data = new Map<string, unknown>();
@@ -37,7 +37,7 @@ function raid(spearmanAvailable = true) {
   s.areaRoot = actor();
   s.add = { graphics: vi.fn(() => actor()), rectangle: actor, triangle: actor, container: actor };
   s.addActor = (texture: string, frame: number, at: [number, number]) => Object.assign(actor(...at), { texture: { key: texture }, frame: { name: frame } });
-  s.textures = { exists: (key: string) => key === 'story-actors' || key === 'raid-spearman' && spearmanAvailable };
+  s.textures = { exists: (key: string) => key === 'story-actors' || key === 'cinematic-raid-kyra' || key === 'raid-spearman' && spearmanAvailable || key === 'cinematic-raid-kyra-found' && discoveryAvailable };
   s.anims = { exists: () => false };
   s.inventory = { close: vi.fn(), hitTest: () => false };
   s.hud = { hitTest: () => false };
@@ -69,6 +69,37 @@ function raid(spearmanAvailable = true) {
 beforeEach(() => updateSettings({ reducedMotion: false }));
 
 describe('courtyard raid progression', () => {
+  it('shows the protective claim before the unbound daughter comes out of the house', () => {
+    for (const discoveryAvailable of [true, false]) {
+      const { s, flush, progress, next } = raid(true, discoveryAvailable);
+      s.spots[0].onUse(); flush();
+      expect(s.kyra).toBeUndefined();
+      next();
+      expect(progress()).toMatchObject({ step: 'parents-alone', shot: 'cinematic-raid-confrontation', ready: true });
+      expect(s.setCloseupText).toHaveBeenLastCalledWith('Vater: Wir sind allein.');
+      expect(s.kyra).toBeUndefined();
+      next();
+      expect(progress()).toMatchObject({ step: 'parents-protect', ready: true });
+      expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia (Gedanke): Sie wollen Kyra schützen. Sie ist noch im Haus.');
+      next();
+      expect(progress()).toMatchObject({ step: 'kyra-found', shot: '', ready: false });
+      expect(s.hideCloseup).toHaveBeenCalled();
+      expect(s.areaRoot.setScale).toHaveBeenLastCalledWith(2.3);
+      expect(s.kyra).toMatchObject({ name: 'raid-kyra', x: 282, y: 177, frame: { name: 0 } });
+      expect(s.mother.angle).toBe(0);
+      expect(s.father.angle).toBe(0);
+      s.advanceDialogue();
+      expect(progress().step).toBe('kyra-found');
+      flush();
+      expect(s.kyra).toMatchObject({ y: 216, frame: { name: 0 } });
+      expect(progress()).toMatchObject({ step: 'kyra-found', shot: discoveryAvailable ? 'cinematic-raid-kyra-found' : '', ready: true });
+      expect(s.showCloseup.mock.calls.map(([key]: [string]) => key)).not.toContain('cinematic-raid-kyra');
+      next();
+      expect(progress()).toMatchObject({ step: 'question', shot: discoveryAvailable ? 'cinematic-raid-kyra-found' : '', ready: true });
+      expect(s.kyra.frame.name).toBe(0);
+    }
+  });
+
   it('faces the standing guards inward, the captor toward Kyra and departing riders to the left', () => {
     const { s, flush } = raid();
     expect(s.raiders.map((guard: any) => [guard.name, guard.texture.key, guard.frame.name, guard.flipX])).toEqual([
@@ -190,7 +221,7 @@ describe('courtyard raid progression', () => {
     expect(killMother).toHaveBeenCalledTimes(1);
     expect(s.setCloseupText).toHaveBeenCalledTimes(steps.length);
     expect(s.showCloseup.mock.calls.map(([key]: [string]) => key)).toEqual([
-      'cinematic-raid-cover', 'cinematic-raid-confrontation', 'cinematic-raid-confrontation',
+      'cinematic-raid-cover', 'cinematic-raid-confrontation', 'cinematic-raid-kyra-found',
       'cinematic-raid-father-stab', 'cinematic-raid-father-death', 'cinematic-raid-kyra',
       'cinematic-raid-mother-stab', 'cinematic-raid-mother-death', 'cinematic-raid-departure',
     ]);
@@ -220,26 +251,16 @@ describe('courtyard raid progression', () => {
     expect(s.goTo).toHaveBeenCalledExactlyOnceWith('aftermath');
   });
 
-  it('hands normal world homecoming to the raid after its fade', () => {
+  it('hands normal world homecoming to the raid before painting an empty farm', () => {
     const s: any = new WorldScene();
-    const timers: Array<() => void> = [];
-    let faded: (() => void) | undefined;
-    s.st = { inv: {}, picked: {}, flags: { sisterPromise: true } };
-    s.clearTarget = vi.fn(); s.refreshObjective = vi.fn(); s.dropApplesInShock = vi.fn();
-    s.inventory = { setVisible: vi.fn() }; s.data = { set: vi.fn() };
-    s.lia = actor(); s.hud = { thought: vi.fn(), hideAll: vi.fn() };
-    s.anims = { exists: () => true };
-    s.objText = { setText: vi.fn() }; s.textures = { exists: () => false };
-    s.bgImage = actor(); s.tweens = { add: vi.fn() };
-    s.time = { delayedCall: (_ms: number, callback: () => void) => timers.push(callback) };
-    s.cameras = { main: { fadeOut: vi.fn(), resetFX: vi.fn(), once: (_event: string, callback: () => void) => { faded = callback; } } };
+    const world = { inv: {}, picked: {}, flags: { sisterPromise: true } };
+    s.registry = { get: (key: string) => key === 'world' ? world : {}, set: vi.fn() };
+    s.add = { image: vi.fn(), sprite: vi.fn() };
     s.scene = { start: vi.fn() };
-    s.hofEnding(); s.hofEnding();
-    timers.forEach(callback => callback());
-    expect(s.lia.play).toHaveBeenLastCalledWith('lia-hidden-e');
-    expect(s.scene.start).not.toHaveBeenCalled();
-    expect(faded).toBeTypeOf('function');
-    faded!();
+    s.create({ map: 'hof' });
     expect(s.scene.start).toHaveBeenCalledExactlyOnceWith('raid');
+    expect(s.add.image).not.toHaveBeenCalled();
+    expect(s.add.sprite).not.toHaveBeenCalled();
+    expect(world.flags).toHaveProperty('homeArrived', true);
   });
 });

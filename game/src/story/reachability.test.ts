@@ -103,7 +103,7 @@ describe.each(AREAS)('Geschichtsziele auf $id', area => {
 });
 
 describe('Erreichbarkeit der Geschichtsphasen', () => {
-  it('verlässt den Hof rechts oben und setzt die Reise am linken Straßenrand nach Osten fort', () => {
+  it('verlässt den Hof rechts oben und erreicht die Straße über den nördlichen Feldpfad', () => {
     const exit = FARM_DAWN_AREA.targets.find(target => target.id === 'east-departure')!;
     expect(exit.at[0]).toBeGreaterThan(550);
     expect(exit.at[1]).toBeLessThan(70);
@@ -119,10 +119,11 @@ describe('Erreichbarkeit der Geschichtsphasen', () => {
       expect(end[0]).toBeGreaterThan(550);
       expect(end[1]).toBeLessThan(70);
     }
-    expect(ROAD_EAST_AREA.start[0]).toBeLessThan(80);
+    expect(ROAD_EAST_AREA.start[0]).toBeGreaterThan(350);
+    expect(ROAD_EAST_AREA.start[1]).toBeLessThan(100);
     expect(feetWalkable(ROAD_EAST_AREA)(...ROAD_EAST_AREA.start)).toBe(true);
     const next = ROAD_EAST_AREA.targets.find(target => target.id === 'stream')!;
-    expect(arrival(ROAD_EAST_AREA, ROAD_EAST_AREA.start, next)[0]).toBeGreaterThan(ROAD_EAST_AREA.start[0]);
+    expect(arrival(ROAD_EAST_AREA, ROAD_EAST_AREA.start, next)[1]).toBeGreaterThan(180);
   });
 
   it('beschränkt Lia vor dem Abzug auf die Deckung und öffnet danach den Weg zu den Eltern', () => {
@@ -134,7 +135,7 @@ describe('Erreichbarkeit der Geschichtsphasen', () => {
     arrival(RAID_AREA, [104, 185], parents);
   });
 
-  it('geht vom Verbinden der Ferse über Kleidung und Vorräte zum Hof und zur Straße', () => {
+  it('geht vom Einpacken des Heilzeugs über Kleidung und Vorräte zum Hof und zur Straße', () => {
     const byId = (area: StoryArea, id: string) => area.targets.find(target => target.id === id)!;
     let point = FARM_INTERIOR_AREA.start;
     for (const id of ['medicine', 'clothing', 'food', 'water', 'cupboard', 'books', 'exit-door']) {

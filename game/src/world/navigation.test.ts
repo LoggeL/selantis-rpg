@@ -25,6 +25,7 @@ describe('Weltwege', () => {
   it('setzt jede Rückkehr auf einen begehbaren Punkt außerhalb des Ausgangs', () => {
     for (const map of Object.values(MAPS)) {
       for (const exit of map.exits) {
+        if (exit.scene) continue; // Scene transitions have a separate travel contract test.
         const target = MAPS[exit.to], entry = target.entries[map.id];
         expect(entry, `${map.id} → ${exit.to}: Ankunft`).toBeDefined();
         expect(isMapWalkable(target, ...entry.at), `${exit.to}: ${entry.at}`).toBe(true);

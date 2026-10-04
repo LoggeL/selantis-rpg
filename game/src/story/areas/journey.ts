@@ -1,15 +1,17 @@
 import type { StoryArea } from '../types';
 
-/** The final painted road crosses the bridge; a short eastern bank reaches water. */
+/** Fields meet the painted north trail; the main road and bank reach the stream. */
 export const ROAD_EAST_AREA: StoryArea = {
   id: 'road-east', name: 'Die Straße nach Osten', bg: 'bg-road-east',
-  start: [45, 193],
+  start: [390, 70],
   walk: [
     [[0, 180], [640, 180], [640, 207], [0, 207]],
     [[236, 200], [273, 205], [270, 248], [235, 248]],
+    [[401, 0], [440, 0], [417, 32], [404, 57], [402, 98], [406, 120], [400, 143], [390, 163], [387, 185], [347, 190], [355, 162], [365, 141], [374, 116], [374, 82], [371, 58], [381, 30]],
   ],
   block: [],
   targets: [
+    { id: 'farm-return', at: [414, 14], radius: 18, label: 'Zu den Feldern zurück' },
     { id: 'stream', at: [243, 235], radius: 25, label: 'Trinken und Wasser auffüllen' },
     { id: 'fork', at: [435, 184], radius: 30, label: 'Wegweiser ansehen' },
     { id: 'east', at: [590, 193], radius: 30, label: 'Nach Osten weitergehen' },

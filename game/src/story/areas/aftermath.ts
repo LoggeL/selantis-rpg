@@ -37,8 +37,9 @@ export const FARM_DAWN_AREA: StoryArea = {
     { id: 'grave-father', at: [283, 247] as Pt, radius: 28, label: 'Bei Vater' },
     { id: 'door', at: [273, 182] as Pt, radius: 18, label: 'Haus betreten' },
     { id: 'pig-gate', at: [154, 108] as Pt, radius: 26, label: 'Schweine freilassen' },
-    // Der sichtbare Feldweg rechts oben führt zur Straße nach Osten.
-    { id: 'east-departure', at: [596, 40] as Pt, radius: 20, label: 'Weg nach Osten' },
+    // Derselbe Feldweg wie vor dem Überfall führt zunächst wieder zu den Feldern.
+    { id: 'east-departure', at: [596, 40] as Pt, radius: 20, label: 'Zu den Feldern' },
+    { id: 'backtrack', at: [18, 186] as Pt, radius: 20, label: 'Zum Hohlweg' },
   ],
 };
 
@@ -65,7 +66,7 @@ export const FARM_INTERIOR_AREA: StoryArea = {
     { id: 'food', at: [431, 138] as Pt, radius: 56, label: 'Proviant einpacken' },
     { id: 'cupboard', at: [551, 201] as Pt, radius: 46, label: 'Geheimfach öffnen' },
     { id: 'water', at: [518, 140] as Pt, radius: 44, label: 'Wasserschlauch mitnehmen' },
-    { id: 'medicine', at: [110, 145] as Pt, radius: 35, label: 'Ferse verbinden' },
+    { id: 'medicine', at: [110, 145] as Pt, radius: 35, label: 'Heilzeug einpacken' },
     { id: 'clothing', at: [110, 216] as Pt, radius: 35, label: 'Reisefertig machen' },
     { id: 'books', at: [289, 163] as Pt, radius: 53, label: 'Bücher einpacken' },
     { id: 'exit-door', at: [310, 306] as Pt, radius: 24, label: 'Zum Hof' },

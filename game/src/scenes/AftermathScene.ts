@@ -6,12 +6,12 @@ import { state, type WorldState } from '../world/quests';
 import { ambientPrefs } from '../settings';
 import { ITEM_FRAME } from '../inventory';
 import type { StorySpot } from '../story/types';
-import { healPartyMember } from '../party';
+import { FIELD_DEPARTURE } from '../story/travel';
 
-const PACK_FLAGS = ['packedFood', 'packedWater', 'foundCache', 'heelTreated', 'packedClothes', 'packedBooks'] as const;
+const PACK_FLAGS = ['packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks'] as const;
 type PackFlag = typeof PACK_FLAGS[number];
 const HOUSE_FLAGS: Record<string, PackFlag> = {
-  food: 'packedFood', water: 'packedWater', cupboard: 'foundCache', medicine: 'heelTreated', clothing: 'packedClothes', books: 'packedBooks',
+  food: 'packedFood', water: 'packedWater', cupboard: 'foundCache', medicine: 'packedMedicine', clothing: 'packedClothes', books: 'packedBooks',
 };
 const HOUSE_PROPS: { flag: PackFlag; texture: string; at: Pt; size: Pt; items: { item: ItemId; at: Pt; size?: number }[] }[] = [
   { flag: 'packedFood', texture: 'house-prop-food', at: [433, 126], size: [80, 28], items: [
@@ -21,7 +21,7 @@ const HOUSE_PROPS: { flag: PackFlag; texture: string; at: Pt; size: Pt; items: {
   { flag: 'foundCache', texture: 'house-prop-cache', at: [551, 175], size: [44, 24], items: [
     { item: 'silber', at: [540, 174], size: 20 }, { item: 'dolch', at: [558, 173], size: 24 },
   ] },
-  { flag: 'heelTreated', texture: 'house-prop-medicine', at: [112, 141], size: [48, 24], items: [{ item: 'heilzeug', at: [112, 141], size: 28 }] },
+  { flag: 'packedMedicine', texture: 'house-prop-medicine', at: [112, 141], size: [48, 24], items: [{ item: 'heilzeug', at: [112, 141], size: 28 }] },
   { flag: 'packedClothes', texture: 'house-prop-clothes', at: [110, 216], size: [45, 55], items: [{ item: 'reisezeug', at: [110, 209], size: 32 }] },
   { flag: 'packedBooks', texture: 'house-prop-books', at: [290, 155], size: [46, 24], items: [
     { item: 'buch-kraeuter', at: [279, 155], size: 20 }, { item: 'buch-alana', at: [300, 155], size: 20 },
@@ -41,7 +41,7 @@ export class AftermathScene extends StoryScene {
 
   constructor() { super('aftermath'); }
 
-  create() {
+  create(data: { from?: string; at?: Pt } = {}) {
     this.st = state(this.registry);
     for (const flag of ['raidWitnessed', 'kyraTaken', 'parentsLost']) {
       if (this.st.flags[flag] === undefined) this.st.flags[flag] = true;
@@ -51,9 +51,9 @@ export class AftermathScene extends StoryScene {
     this.pigs = [];
     this.houseItems.clear();
     this.houseSpots = [];
-    this.begin(FARM_DAWN_AREA);
+    this.begin(data.at ? { ...FARM_DAWN_AREA, start: data.at } : FARM_DAWN_AREA);
     this.configure();
-    this.say('Die Steingräber sind fertig. Meine Hände und Füße brennen.');
+    this.say(data.from ? 'Der Hof liegt still. Die Gräber bleiben hier.' : 'Die Steingräber sind fertig. Die Nacht ist vorbei.');
   }
 
   private configure() {
@@ -75,17 +75,14 @@ export class AftermathScene extends StoryScene {
       food: () => this.pack('packedFood', [['proviant', 1]], 'Speck, ein halber Käse, zwei Brote. In den Lederbeutel neben dem Ofen.'),
       water: () => this.pack('packedWater', [['wasserschlauch', 1]], 'Den Wasserschlauch hänge ich mir um.'),
       cupboard: () => this.pack('foundCache', [['kupfer', 22], ['silber', 7], ['dolch', 1]], 'Vaters doppelter Boden: 22 Kupfer, 7 Silber. Und sein Dolch in der Scheide.'),
-      medicine: () => this.pack('heelTreated', [['heilzeug', 1]], 'Mutters Tinktur auf Lakenstreifen. Vorsichtig um die wunde Ferse.'),
-      clothing: () => {
-        if (!this.st.flags.heelTreated) { this.say('Erst die Ferse verbinden. Mutters Tinktur steht im Medizinschrank.'); return; }
-        this.pack('packedClothes', [['reisezeug', 1]], 'Haarband, Lederschuhe. Den grünen Regenmantel und die Wolldecke nehme ich mit.');
-      },
+      medicine: () => this.pack('packedMedicine', [['heilzeug', 1]], 'Mutters Tinktur und Leinenstreifen nehme ich für unterwegs mit.'),
+      clothing: () => this.pack('packedClothes', [['reisezeug', 1]], 'Haarband, Lederschuhe. Den grünen Regenmantel und die Wolldecke nehme ich mit.'),
       books: () => this.pack('packedBooks', [['buch-kraeuter', 1], ['buch-alana', 1]], 'Cronibus Kräuterlexikon. Und Alana, die Geschichte wollte ich noch zu Ende lesen.'),
       'exit-door': () => this.leaveHouse(),
     };
     const labels: Record<string, string> = {
       food: 'Proviant einpacken', water: 'Wasserschlauch mitnehmen', cupboard: 'Geheimfach öffnen',
-      medicine: 'Ferse verbinden', clothing: 'Reisefertig machen', books: 'Bücher einpacken', 'exit-door': 'Zum Hof',
+      medicine: 'Heilzeug einpacken', clothing: 'Reisefertig machen', books: 'Bücher einpacken', 'exit-door': 'Zum Hof',
     };
     this.houseSpots = targets.map(target => ({ ...target, label: labels[target.id], onUse: uses[target.id] }));
     this.refreshHouseTargets();
@@ -118,12 +115,14 @@ export class AftermathScene extends StoryScene {
       },
       'pig-gate': () => this.releasePigs(),
       'east-departure': () => this.depart(),
+      backtrack: () => this.scene.start('world', { map: 'hohlweg', from: 'hof' }),
     };
     const labels: Record<string, string> = {
       'grave-mother': 'Bei Mutter', 'grave-father': 'Bei Vater',
       door: this.packed() && !this.st.flags.houseClosed ? 'Tür schließen' : 'Haus betreten',
       'pig-gate': this.st.flags.pigsReleased ? 'Offenes Gatter' : 'Die Schweine freilassen',
-      'east-departure': 'Weg nach Osten',
+      'east-departure': 'Zu den Feldern',
+      backtrack: 'Zum Hohlweg',
     };
     this.setSpots(targets.map(target => ({ ...target, label: labels[target.id], onUse: uses[target.id] })));
     this.door = this.add.graphics().setDepth(176);
@@ -163,7 +162,6 @@ export class AftermathScene extends StoryScene {
     if (this.st.flags[flag]) { this.say('Das habe ich schon erledigt.'); return; }
     this.st.flags[flag] = true;
     for (const [item, count] of items) this.st.inv[item] = (this.st.inv[item] ?? 0) + count;
-    if (flag === 'heelTreated') healPartyMember(this.registry, 'lia');
     for (const image of this.houseItems.get(flag) ?? []) image.destroy();
     this.houseItems.delete(flag);
     if (this.inside) this.refreshHouseTargets();
@@ -211,7 +209,7 @@ export class AftermathScene extends StoryScene {
   private packed() { return PACK_FLAGS.every(flag => this.st.flags[flag]); }
 
   private nextStep() {
-    if (!this.st.flags.heelTreated) return 'Die wunde Ferse braucht Mutters Tinktur im Haus.';
+    if (!this.st.flags.packedMedicine) return 'Mutters Tinktur und Leinen nehme ich noch für unterwegs mit.';
     if (!this.st.flags.packedFood) return 'Im Haus liegt noch Proviant. Den brauche ich.';
     if (!this.st.flags.packedWater) return 'Den Wasserschlauch im Haus darf ich nicht vergessen.';
     if (!this.st.flags.foundCache) return 'Vaters Geheimfach im Küchenschrank. Vielleicht ist dort noch etwas.';
@@ -219,14 +217,13 @@ export class AftermathScene extends StoryScene {
     if (!this.st.flags.packedBooks) return 'Die beiden Bücher nehme ich noch mit.';
     if (!this.st.flags.houseClosed) return 'Die Haustür will ich noch schließen.';
     if (!this.st.flags.pigsReleased) return 'Die drei Schweine kann ich nicht eingesperrt zurücklassen.';
-    return 'Die Dunkelschatten ritten nach Osten. Mehr weiß ich nicht.';
+    return 'Die Hufspuren führen über die Felder zum Nebenweg nach Osten. Dort suche ich weiter nach Kyra.';
   }
 
   private depart() {
     this.refreshProgress();
-    if (!this.st.flags.departureReady) { this.say(this.nextStep()); return; }
-    this.st.flags.aftermathComplete = true;
-    this.goTo('journey');
+    if (this.st.flags.departureReady) this.st.flags.aftermathComplete = true;
+    this.scene.start('world', FIELD_DEPARTURE);
   }
 
   private badge(flag: string, at: Pt) {
@@ -238,7 +235,7 @@ export class AftermathScene extends StoryScene {
   private refreshProgress() {
     const count = PACK_FLAGS.filter(flag => this.st.flags[flag]).length;
     this.st.flags.departureReady = this.packed() && !!this.st.flags.houseClosed && !!this.st.flags.pigsReleased;
-    this.setObjective(this.st.flags.departureReady ? 'Nach Osten aufbrechen.' : this.packed()
+    this.setObjective(this.st.flags.departureReady ? 'Über die Felder den Hufspuren nach Osten folgen.' : this.packed()
       ? !this.st.flags.houseClosed ? 'Die Haustür schließen.' : 'Die drei Schweine freilassen.'
       : `Für den Aufbruch packen (${count}/${PACK_FLAGS.length}).`);
     for (const { flag, graphics, at } of this.badges) {
