@@ -12,7 +12,7 @@ html[data-touch-enabled="false"] #mobile-controls :is(.mobile-caption,.mobile-in
 .game-action-bar kbd{position:absolute;top:4px;right:5px;font:12px/1 var(--ui-font);color:var(--ui-muted);pointer-events:none}
 .mobile-control>kbd{display:none}
 html[data-touch-enabled="false"] .game-action-bar kbd{display:block}
-.game-action-bar .mobile-party::before{content:'';background:var(--party-portrait,url('/assets/portraits/lia.png')) center/cover no-repeat;image-rendering:pixelated;border:1px solid var(--ui-edge)}
+.game-action-bar .mobile-party::before{content:'';background:var(--party-portrait) center/cover no-repeat;image-rendering:pixelated;border:1px solid var(--ui-edge)}
 .game-action-bar .mobile-party[data-count]:not([data-count="1"])::after{content:attr(data-count);position:absolute;left:6px;top:3px;padding:1px 4px;background:#304137;color:var(--ui-gold);font-size:12px}
 .game-action-bar .mobile-bag[data-count]:not([data-count="0"])::after{content:attr(data-count);position:absolute;left:5px;top:3px;padding:1px 4px;background:#304137;color:var(--ui-gold);font-size:12px}
 .game-action-bar .mobile-action[data-key="E"]::before{content:'';display:block;width:24px;height:24px;border:2px solid #b7ad94;background:#273329;box-shadow:inset 0 0 0 3px #141c17;clip-path:polygon(0 25%,25% 25%,25% 0,75% 0,75% 25%,100% 25%,100% 75%,75% 75%,75% 100%,25% 100%,25% 75%,0 75%)}

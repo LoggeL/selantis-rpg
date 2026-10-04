@@ -64,11 +64,11 @@ function render() {
       const sprite = document.createElement('span'); sprite.className = 'sprite-thumb';
       const scale = Math.min(2, 128 / Math.max(asset.frameW, asset.frameH));
       sprite.style.width = `${asset.frameW * scale}px`; sprite.style.height = `${asset.frameH * scale}px`;
-      sprite.style.backgroundImage = `url("/${asset.file}")`;
+      sprite.style.backgroundImage = `url("/${asset.url ?? asset.file}")`;
       sprite.style.backgroundSize = `${asset.width * scale}px ${asset.height * scale}px`;
       preview.append(sprite);
     } else {
-      const img = document.createElement('img'); img.src = `/${asset.file}`; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async'; preview.append(img);
+      const img = document.createElement('img'); img.src = `/${asset.url ?? asset.file}`; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async'; preview.append(img);
     }
     const copy = document.createElement('span'); copy.className = 'card-copy';
     const name = document.createElement('strong'); name.textContent = asset.title;
@@ -90,8 +90,8 @@ function open(asset) {
   $('viewer-title').textContent = asset.title; $('viewer-category').textContent = categories[asset.category];
   $('filename').textContent = asset.file;
   $('dimensions').textContent = `${asset.width} × ${asset.height} px${asset.frameW ? ` · ${asset.frameW} × ${asset.frameH} px pro Einzelbild` : ''}`;
-  $('download').href = `/${asset.file}`; $('download').download = asset.file.split('/').pop();
-  $('preview-image').src = `/${asset.file}`; $('preview-image').alt = asset.title;
+  $('download').href = `/${asset.url ?? asset.file}`; $('download').download = asset.file.split('/').pop();
+  $('preview-image').src = `/${asset.url ?? asset.file}`; $('preview-image').alt = asset.title;
   $('preview-image').hidden = Boolean(asset.frameW); $('preview-frame').hidden = !asset.frameW;
   $('stage').classList.toggle('checker', Boolean(asset.frameW));
   $('sprite-controls').hidden = !asset.frameW; $('sheet').checked = false;
@@ -103,7 +103,7 @@ function open(asset) {
     $('play').disabled = asset.cols === 1; $('frame-label').value = `1 / ${asset.cols}`;
     image = new Image();
     image.onload = () => { if (version === generation) draw(); };
-    image.src = `/${asset.file}`;
+    image.src = `/${asset.url ?? asset.file}`;
   }
   viewer.showModal(); $('close').focus();
 }

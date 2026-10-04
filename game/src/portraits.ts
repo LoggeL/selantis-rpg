@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import type Phaser from 'phaser';
 
 /** Source-art face crops; the shared loader keeps them separate from map textures. */
@@ -23,7 +24,7 @@ export type PortraitSpec = {
 };
 
 export function loadDialoguePortraits(scene: Phaser.Scene) {
-  for (const file of [...Object.values(DIALOGUE_PORTRAITS), ...Object.values(EXPRESSION_PORTRAITS)]) scene.load.image(`portrait-${file}`, `assets/portraits/${file}.png`);
+  for (const file of [...Object.values(DIALOGUE_PORTRAITS), ...Object.values(EXPRESSION_PORTRAITS)]) scene.load.image(`portrait-${file}`, assetUrl(`assets/portraits/${file}.png`));
 }
 
 export const SPEAKER_PORTRAITS: Readonly<Record<string, string>> = Object.freeze({
@@ -50,7 +51,7 @@ export function resolvePortrait(scene: Phaser.Scene, name: string, emotion?: Dia
   if (id && id !== 'unknown') files.push(id in DIALOGUE_PORTRAITS ? DIALOGUE_PORTRAITS[id as keyof typeof DIALOGUE_PORTRAITS] : id);
   for (const file of files) {
     const texture = `portrait-${file}`;
-    if (scene.textures.exists(texture)) return { texture, src: `assets/portraits/${file}.png`, frameIndex: 0, frameCount: 1 };
+    if (scene.textures.exists(texture)) return { texture, src: assetUrl(`assets/portraits/${file}.png`), frameIndex: 0, frameCount: 1 };
   }
   return scene.textures.exists('portrait-unknown') ? { texture: 'portrait-unknown' } : undefined;
 }

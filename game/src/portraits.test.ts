@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import { describe, expect, it, vi } from 'vitest';
 import type Phaser from 'phaser';
 import { DIALOGUE_PORTRAITS, EXPRESSION_PORTRAITS, loadDialoguePortraits, parseDialogue, resolvePortrait } from './portraits';
@@ -12,9 +13,9 @@ describe('speaker identity and source portraits', () => {
   it('keeps unidentified names while showing the visible camp companion', () => {
     const scene = { textures: { exists: () => true } } as unknown as Phaser.Scene;
     expect(parseDialogue('Der Schmale: Still!')).toEqual({ name: 'Der Schmale', text: 'Still!' });
-    expect(resolvePortrait(scene, 'Der Schmale')).toMatchObject({ texture: 'portrait-dialogue-foltan', src: 'assets/portraits/dialogue-foltan.png' });
-    expect(resolvePortrait(scene, 'Der Dicke')).toMatchObject({ texture: 'portrait-dialogue-azar', src: 'assets/portraits/dialogue-azar.png' });
-    expect(resolvePortrait(scene, 'Grauhaariger')).toMatchObject({ texture: 'portrait-grey-haired-message06', src: 'assets/portraits/grey-haired-message06.png' });
+    expect(resolvePortrait(scene, 'Der Schmale')).toMatchObject({ texture: 'portrait-dialogue-foltan', src: assetUrl('assets/portraits/dialogue-foltan.png') });
+    expect(resolvePortrait(scene, 'Der Dicke')).toMatchObject({ texture: 'portrait-dialogue-azar', src: assetUrl('assets/portraits/dialogue-azar.png') });
+    expect(resolvePortrait(scene, 'Grauhaariger')).toMatchObject({ texture: 'portrait-grey-haired-message06', src: assetUrl('assets/portraits/grey-haired-message06.png') });
   });
 
   it('shows an anonymous silhouette if a face has no reviewed source art', () => {
@@ -28,15 +29,15 @@ describe('speaker identity and source portraits', () => {
     const image = vi.fn();
     loadDialoguePortraits({ load: { image } } as unknown as Phaser.Scene);
     expect(image).toHaveBeenCalledTimes(Object.keys(DIALOGUE_PORTRAITS).length + Object.keys(EXPRESSION_PORTRAITS).length);
-    expect(image).toHaveBeenCalledWith('portrait-kyra', 'assets/portraits/kyra.png');
-    expect(image).toHaveBeenCalledWith('portrait-grey-haired-message06', 'assets/portraits/grey-haired-message06.png');
-    expect(image).toHaveBeenCalledWith('portrait-dialogue-lia-grief', 'assets/portraits/dialogue-lia-grief.png');
-    expect(image).toHaveBeenCalledWith('portrait-dialogue-scarred', 'assets/portraits/dialogue-scarred.png');
+    expect(image).toHaveBeenCalledWith('portrait-kyra', assetUrl('assets/portraits/kyra.png'));
+    expect(image).toHaveBeenCalledWith('portrait-grey-haired-message06', assetUrl('assets/portraits/grey-haired-message06.png'));
+    expect(image).toHaveBeenCalledWith('portrait-dialogue-lia-grief', assetUrl('assets/portraits/dialogue-lia-grief.png'));
+    expect(image).toHaveBeenCalledWith('portrait-dialogue-scarred', assetUrl('assets/portraits/dialogue-scarred.png'));
   });
 
   it('chooses the authored chapter expression and allows explicit emotion overrides', () => {
     const scene = { sys: { settings: { key: 'aftermath' } }, textures: { exists: () => true } } as unknown as Phaser.Scene;
-    expect(resolvePortrait(scene, 'Lia')).toMatchObject({ texture: 'portrait-dialogue-lia-grief', src: 'assets/portraits/dialogue-lia-grief.png', frameCount: 1 });
+    expect(resolvePortrait(scene, 'Lia')).toMatchObject({ texture: 'portrait-dialogue-lia-grief', src: assetUrl('assets/portraits/dialogue-lia-grief.png'), frameCount: 1 });
     expect(resolvePortrait(scene, 'Lia', 'determined')).toMatchObject({ texture: 'portrait-dialogue-lia-determined' });
     scene.sys.settings.key = 'journey';
     expect(resolvePortrait(scene, 'Lia (Gedanke)')).toMatchObject({ texture: 'portrait-dialogue-lia-determined' });
@@ -48,7 +49,7 @@ describe('speaker identity and source portraits', () => {
     const scene = { sys: { settings: { key: 'raid' } }, textures: { exists: (key: string) => available.has(key) } } as unknown as Phaser.Scene;
     expect(resolvePortrait(scene, 'Lia')).toMatchObject({ texture: 'portrait-dialogue-lia' });
     available.delete('portrait-dialogue-lia');
-    expect(resolvePortrait(scene, 'Lia')).toMatchObject({ texture: 'portrait-lia', src: 'assets/portraits/lia.png' });
+    expect(resolvePortrait(scene, 'Lia')).toMatchObject({ texture: 'portrait-lia', src: assetUrl('assets/portraits/lia.png') });
     available.clear();
     expect(resolvePortrait(scene, 'Lia')).toBeUndefined();
   });

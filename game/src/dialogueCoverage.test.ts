@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import type Phaser from 'phaser';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
@@ -36,7 +37,7 @@ const actualSpeakers = new Set(['Valentus', 'Junge']); // On-screen voiced ident
 for (const source of Object.values(sourceFiles)) for (const label of speakerLabels(source)) actualSpeakers.add(label);
 
 function registeredAssets() {
-  const assets = new Map(Object.entries(manifest.images));
+  const assets = new Map(Object.entries(manifest.images).map(([key, path]) => [key, assetUrl(path)]));
   loadDialoguePortraits({ load: { image: (key: string, path: string) => assets.set(key, path) } } as unknown as Phaser.Scene);
   return assets;
 }
@@ -58,9 +59,9 @@ describe('speaking cast portrait coverage', () => {
 
   it('loads all actual speaking portraits from existing files, without anonymous substitutions', () => {
     const assets = registeredAssets();
-    const missingFiles = [...assets.entries()].filter(([key, path]) => key.startsWith('portrait-') && !portraitFiles.has(path));
+    const missingFiles = [...assets.entries()].filter(([key, path]) => key.startsWith('portrait-') && !portraitFiles.has(path.split(/[?#]/)[0]));
     expect(missingFiles, 'Boot must load the authored portrait files before dialogue begins.').toEqual([]);
-    const scene = { sys: { settings: { key: 'raid' } }, textures: { exists: (key: string) => assets.has(key) && portraitFiles.has(assets.get(key)!) } } as unknown as Phaser.Scene;
+    const scene = { sys: { settings: { key: 'raid' } }, textures: { exists: (key: string) => assets.has(key) && portraitFiles.has(assets.get(key)!.split(/[?#]/)[0]) } } as unknown as Phaser.Scene;
     for (const name of actualSpeakers) {
       const portrait = resolvePortrait(scene, name);
       expect(portrait, `${name} needs a loaded portrait`).toBeDefined();
@@ -73,11 +74,11 @@ describe('speaking cast portrait coverage', () => {
   it('uses distinct authored faces for the three formerly anonymous speaking characters', () => {
     const assets = registeredAssets();
     const scene = { textures: { exists: (key: string) => assets.has(key) } } as unknown as Phaser.Scene;
-    expect(resolvePortrait(scene, 'Narbiger')?.src).toBe('assets/portraits/dialogue-scarred.png');
-    expect(resolvePortrait(scene, 'Kapuzenmann')?.src).toBe('assets/portraits/dialogue-hooded.png');
-    expect(resolvePortrait(scene, 'Mann')?.src).toBe('assets/portraits/dialogue-refuge-man.png');
-    expect(assets.get('portrait-woman')).toBe('assets/portraits/woman.png');
-    expect(assets.get('portrait-boy')).toBe('assets/portraits/boy.png');
-    expect(assets.get('portrait-valentus')).toBe('assets/portraits/valentus.png');
+    expect(resolvePortrait(scene, 'Narbiger')?.src).toBe(assetUrl('assets/portraits/dialogue-scarred.png'));
+    expect(resolvePortrait(scene, 'Kapuzenmann')?.src).toBe(assetUrl('assets/portraits/dialogue-hooded.png'));
+    expect(resolvePortrait(scene, 'Mann')?.src).toBe(assetUrl('assets/portraits/dialogue-refuge-man.png'));
+    expect(assets.get('portrait-woman')).toBe(assetUrl('assets/portraits/woman.png'));
+    expect(assets.get('portrait-boy')).toBe(assetUrl('assets/portraits/boy.png'));
+    expect(assets.get('portrait-valentus')).toBe(assetUrl('assets/portraits/valentus.png'));
   });
 });

@@ -1,4 +1,6 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
@@ -43,4 +45,26 @@ export function sceneMusicAssets() {
   };
 }
 
-export default defineConfig({ plugins: [sceneMusicAssets()] });
+/** Stable across builds; changes when any served graphic or manifest bytes change. */
+export function assetContentVersion(root = fileURLToPath(new URL('./public/assets/', import.meta.url))) {
+  const paths = [];
+  function collect(directory, prefix = '') {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const relative = `${prefix}${entry.name}`;
+      if (entry.isDirectory()) collect(join(directory, entry.name), `${relative}/`);
+      else if (entry.isFile()) paths.push(relative);
+    }
+  }
+  collect(root);
+  const digest = createHash('sha256');
+  for (const relative of paths.sort()) {
+    const bytes = readFileSync(join(root, relative));
+    digest.update(`${relative}\0${bytes.length}\0`).update(bytes);
+  }
+  return digest.digest('hex').slice(0, 12);
+}
+
+export default defineConfig({
+  plugins: [sceneMusicAssets()],
+  define: { __ASSET_VERSION__: JSON.stringify(assetContentVersion()) },
+});

@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import type { ItemId } from './world/maps';
 export const ITEM_FRAME: Record<ItemId, number> = {
   steine: 0, zunderholz: 0,
@@ -10,12 +11,12 @@ export const itemTexture = (item: ItemId) => item === 'steine' ? 'camp-stones' :
 export function itemIcon(item: ItemId): HTMLSpanElement {
   const icon = document.createElement('span'); icon.className = 'bag-item-icon'; icon.setAttribute('aria-hidden', 'true');
   if (item === 'steine' || item === 'zunderholz') {
-    icon.style.backgroundImage = `url("/assets/ui/${item === 'steine' ? 'camp-stones' : 'camp-wood'}.svg")`; icon.style.backgroundSize = '32px 32px';
+    icon.style.backgroundImage = `url("${assetUrl(`/assets/ui/${item === 'steine' ? 'camp-stones' : 'camp-wood'}.svg`)}")`; icon.style.backgroundSize = '32px 32px';
   } else if (item === 'kueken') {
-    icon.style.backgroundImage = 'url("/assets/sprites/crt-fledgling.png")'; icon.style.backgroundSize = '128px 32px';
+    icon.style.backgroundImage = `url("${assetUrl('/assets/sprites/crt-fledgling.png')}")`; icon.style.backgroundSize = '128px 32px';
   } else {
     const story = itemTexture(item) === 'story-items', columns = story ? 4 : 8, frame = ITEM_FRAME[item];
-    icon.style.backgroundImage = `url("/assets/ui/${story ? 'story-items' : 'items'}.png")`;
+    icon.style.backgroundImage = `url("${assetUrl(`/assets/ui/${story ? 'story-items' : 'items'}.png`)}")`;
     icon.style.backgroundSize = story ? '128px 64px' : '256px 32px';
     icon.style.backgroundPosition = `${-(frame % columns) * 32}px ${-Math.floor(frame / columns) * 32}px`;
   }

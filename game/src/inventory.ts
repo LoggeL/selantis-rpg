@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import Phaser from 'phaser';
 import { FONT } from './ui';
 import type { ItemId } from './world/maps';
@@ -252,15 +253,15 @@ export class InventoryHud {
       icon.className = 'mobile-item-icon';
       icon.setAttribute('aria-hidden', 'true');
       if (id === 'steine' || id === 'zunderholz') {
-        icon.style.backgroundImage = `url("/assets/ui/${id === 'steine' ? 'camp-stones' : 'camp-wood'}.svg")`; icon.style.backgroundSize = '32px 32px';
+        icon.style.backgroundImage = `url("${assetUrl(`/assets/ui/${id === 'steine' ? 'camp-stones' : 'camp-wood'}.svg`)}")`; icon.style.backgroundSize = '32px 32px';
       } else if (id === 'kueken') {
-        icon.style.backgroundImage = 'url("/assets/sprites/crt-fledgling.png")';
+        icon.style.backgroundImage = `url("${assetUrl('/assets/sprites/crt-fledgling.png')}")`;
         icon.style.backgroundSize = '128px 32px';
       } else {
         const story = itemTexture(id) === 'story-items';
         const columns = story ? 4 : 8;
         const frame = ITEM_FRAME[id];
-        icon.style.backgroundImage = `url("/assets/ui/${story ? 'story-items' : 'items'}.png")`;
+        icon.style.backgroundImage = `url("${assetUrl(`/assets/ui/${story ? 'story-items' : 'items'}.png`)}")`;
         icon.style.backgroundSize = story ? '128px 64px' : '256px 32px';
         icon.style.backgroundPosition = `${-(frame % columns) * 32}px ${-Math.floor(frame / columns) * 32}px`;
       }

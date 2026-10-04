@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import type Phaser from 'phaser';
 import type { ItemId } from './world/maps';
 import type { WorldState } from './world/quests';
@@ -202,7 +203,7 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
       const instruction = source.data.get('mobile:inventory')?.instruction as string | undefined;
       if (instruction) { const hint = document.createElement('p'); hint.className = 'bag-instruction'; hint.textContent = instruction; content.append(hint); }
       const interior = document.createElement('section'); interior.className = 'open-bag-interior'; interior.setAttribute('aria-label', 'Inhalt der Tasche');
-      const art = document.createElement('img'); art.className = 'bag-artwork'; art.alt = ''; art.src = '/assets/ui/bag-open.png';
+      const art = document.createElement('img'); art.className = 'bag-artwork'; art.alt = ''; art.src = assetUrl('/assets/ui/bag-open.png');
       art.addEventListener('load', () => { interior.dataset.art = 'true'; }); art.addEventListener('error', () => { art.hidden = true; });
       interior.append(art);
       interior.append(itemList(VALENTUS_SCENES.has(data.scene) ? [] : carriedItems(data.inventory), 'Deine Tasche ist noch leer.', true)); content.append(interior); return;
@@ -243,10 +244,10 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
   function portraitImage(member: CharacterSnapshot) {
     if (member.portrait === 'falke') {
       const sprite = document.createElement('span'); sprite.className = 'sprite-portrait'; sprite.setAttribute('role', 'img'); sprite.setAttribute('aria-label', member.name);
-      sprite.style.backgroundImage = 'url("/assets/sprites/falke.png")'; sprite.style.backgroundSize = '400% 300%'; sprite.style.backgroundPosition = '0 100%';
+      sprite.style.backgroundImage = `url("${assetUrl('/assets/sprites/falke.png')}")`; sprite.style.backgroundSize = '400% 300%'; sprite.style.backgroundPosition = '0 100%';
       return sprite;
     }
-    const image = document.createElement('img'); image.src = `/assets/portraits/${member.portrait}.png`; image.alt = `Porträt von ${member.name}`; return image;
+    const image = document.createElement('img'); image.src = assetUrl(`/assets/portraits/${member.portrait}.png`); image.alt = `Porträt von ${member.name}`; return image;
   }
   function open(nextView: View, callback?: () => void, member?: string) {
     if (modal) { const same = view === nextView && !member; close(); if (same && !callback) return true; }
@@ -278,7 +279,7 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
     }
     const key = scene?.data.get('mobile:portrait') as string | undefined;
     const portrait = key?.replace(/^portrait-/, '') ?? (VALENTUS_SCENES.has(scene?.sys.settings.key ?? '') ? 'valentus' : 'lia');
-    if (face.dataset.portrait !== portrait) { face.src = `/assets/portraits/${portrait}.png`; face.dataset.portrait = portrait; }
+    if (face.dataset.portrait !== portrait) { face.src = assetUrl(`/assets/portraits/${portrait}.png`); face.dataset.portrait = portrait; }
     button.hidden = !scene || scene.data.get('mobile:hudVisible') === false || !scene.data.get('mobile:name');
     button.disabled = settingsAreOpen() || !!document.querySelector('#playtest-dialog[open]');
     if (game.canvas) {

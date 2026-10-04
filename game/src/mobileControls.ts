@@ -1,3 +1,4 @@
+import { assetUrl } from './assetUrl';
 import type Phaser from 'phaser';
 import { unlockAudio } from './audio';
 import { settingsAreOpen, toggleSettings } from './settings';
@@ -252,7 +253,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
     const battleParty = game.registry.get('battle:state')?.units?.filter((unit: { alive: boolean; side: string }) => unit.alive && unit.side !== 'enemy').length;
     party.dataset.count = String(key === 'battle' ? battleParty || 1 : ['flight', 'break', 'refuge'].includes(key) ? 1 : world?.flags?.metFoltanAzar ? 3 : 1);
     const portraitKey = String(scene?.data.get('mobile:portrait') ?? 'portrait-lia').replace(/^portrait-/, '');
-    party.style.setProperty('--party-portrait', `url('/assets/portraits/${portraitKey}.png')`);
+    party.style.setProperty('--party-portrait', `url('${assetUrl(`/assets/portraits/${portraitKey}.png`)}')`);
     party.setAttribute('aria-expanded', String(!!document.querySelector('#character-dialog[open]')));
     for (const [control, label] of [[bag, 'Tasche'], [party, 'Gruppe'], [settings, 'Optionen']] as const) setButtonLabel(control, label);
     bag.setAttribute('aria-expanded', String(!!inventory?.open)); settings.disabled = settingsAreOpen();

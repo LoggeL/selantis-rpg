@@ -66,7 +66,6 @@ for (const key of ['icons', 'items']) {
   const atlas = manifest[key];
   if (atlas) metadata.set(atlas.file, { id: key, frameW: atlas.size, frameH: atlas.size });
 }
-metadata.set('assets/sprites/road-travelers-walk.png', { id: 'road-travelers-walk', frameW: 128, frameH: 64 });
 const categoryOrder = ['bg', 'cut', 'sprites', 'portraits', 'ui', 'social'];
 const catalog = [];
 for (const file of await files(join(target, 'assets'), 'assets')) {
@@ -77,7 +76,8 @@ for (const file of await files(join(target, 'assets'), 'assets')) {
   if (bytes.subarray(1, 4).toString() !== 'PNG') throw new Error(`Invalid PNG: ${file}`);
   const width = bytes.readUInt32BE(16), height = bytes.readUInt32BE(20);
   const meta = metadata.get(file) ?? {};
-  const asset = { id: meta.id ?? file.split('/').pop().slice(0, -4), file, category, width, height };
+  const version = createHash('sha256').update(bytes).digest('hex').slice(0, 12);
+  const asset = { id: meta.id ?? file.split('/').pop().slice(0, -4), file, url: `${file}?v=${version}`, category, width, height };
   if (meta.frameW && meta.frameH) {
     if (width % meta.frameW || height % meta.frameH) throw new Error(`Invalid sprite grid: ${file}`);
     Object.assign(asset, { frameW: meta.frameW, frameH: meta.frameH, cols: width / meta.frameW, rows: height / meta.frameH });

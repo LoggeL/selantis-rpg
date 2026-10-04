@@ -1,3 +1,4 @@
+import { assetUrl } from '../assetUrl';
 import Phaser from 'phaser';
 import { unlockAudio } from '../audio';
 import { loadDialoguePortraits } from '../portraits';
@@ -116,13 +117,13 @@ export class BootScene extends Phaser.Scene {
 
   preload() {
     loadDialoguePortraits(this);
-    this.load.json('manifest', 'assets/manifest.json');
+    this.load.json('manifest', assetUrl('assets/manifest.json'));
     this.load.once('filecomplete-json-manifest', () => {
       const m = this.cache.json.get('manifest') as Manifest;
-      for (const [id, s] of Object.entries(m.sprites)) this.load.spritesheet(id, s.file, { frameWidth: s.frameW, frameHeight: s.frameH });
-      for (const [id, file] of Object.entries(m.images)) this.load.image(id, file);
-      this.load.spritesheet('icons', m.icons.file, { frameWidth: m.icons.size, frameHeight: m.icons.size });
-      if (m.items) this.load.spritesheet('items', m.items.file, { frameWidth: m.items.size, frameHeight: m.items.size });
+      for (const [id, s] of Object.entries(m.sprites)) this.load.spritesheet(id, assetUrl(s.file), { frameWidth: s.frameW, frameHeight: s.frameH });
+      for (const [id, file] of Object.entries(m.images)) this.load.image(id, assetUrl(file));
+      this.load.spritesheet('icons', assetUrl(m.icons.file), { frameWidth: m.icons.size, frameHeight: m.icons.size });
+      if (m.items) this.load.spritesheet('items', assetUrl(m.items.file), { frameWidth: m.items.size, frameHeight: m.items.size });
     });
   }
 

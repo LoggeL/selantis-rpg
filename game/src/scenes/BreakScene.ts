@@ -1,3 +1,4 @@
+import { assetUrl } from '../assetUrl';
 import Phaser from 'phaser';
 import { sfx } from '../audio';
 import { FONT } from '../ui';
@@ -20,7 +21,7 @@ export class BreakScene extends Phaser.Scene {
   preload() {
     // Reuse the existing wounded-flight illustration from the original prologue.
     if (!this.textures.exists('prologue-valentus-flight'))
-      this.load.image('prologue-valentus-flight', 'assets/cut/prologue-valentus.png');
+      this.load.image('prologue-valentus-flight', assetUrl('assets/cut/prologue-valentus.png'));
   }
 
   create() {
