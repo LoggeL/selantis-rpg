@@ -22,7 +22,7 @@ Auf Smartphones passt das vollständige Spielbild ins Hoch- und Querformat. Ein 
 
 Im Schlachtutorial hat Valentus pro Zug eine Bewegung bis zu vier Feldern und eine Aktion, in beliebiger Reihenfolge. Q wählt den Strahl, R die Druckwelle; Enter oder ein Rasterklick bestätigt das Ziel. Leertaste wählt Warten oder beendet den restlichen Zug. Vor den Gegneraktionen die Blickrichtung mit Pfeilen oder einem Nachbarfeld wählen und Enter beziehungsweise „Zug beenden“ drücken. Ein ausgeführter Schritt lässt sich nicht zurücknehmen. Warten schützt vorne, wenn die Aktion noch frei war; seitliche und rückwärtige Treffer verursachen mehr Schaden. Die Gegner handeln nach dem angezeigten Tempo innerhalb ihrer Zugphase. Valentus hat echte LP, der Tutorialschutz hält ihn bei mindestens einem LP.
 
-Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. In der Zuflucht übernimmt E das Aufrichten, die Schritte zur Wiege und das Handheben. Beim Überfall beobachtet Lia das Gespräch und die Gefangennahme aus der Böschung; jede kurze Dialogzeile wartet auf Weiter. Während dieser Szene ist die Tasche geschlossen.
+Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. In der Zuflucht übernimmt E das Aufrichten, die Schritte zur Wiege und das Handheben. Beim Überfall beobachtet Lia das Gespräch und die Gefangennahme aus der Böschung; jede kurze Dialogzeile wartet auf Weiter. Handlungsbeschreibungen haben kein Charakterportrait. Mutters Sturz, ihr letztes "Kyra ..." und ihr Tod sind einzelne Schritte. Während dieser Szene ist die Tasche geschlossen.
 
 | Parameter | Szene |
 | --- | --- |
@@ -36,6 +36,7 @@ Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. I
 | `?scene=raid` | Überfall auf den Hof und Kyras Entführung |
 | `?scene=aftermath` | Abschied, Reisevorbereitung und Aufbruch |
 | `?scene=journey` | Erste Reise, Nachtlager, Foltan und Azar |
+| `?scene=companions-road` | Gemeinsamer Waldweg, Mittagsrast und Weiterreise |
 
 Weitere Karten: `felder`, `waldrand`, `hohlweg`, `hof`. `&debug` oder F1 zeigt in der Erkundung Kollisionen und Ausgänge.
 
@@ -43,13 +44,15 @@ Lias Einstieg beginnt mit dem kurzen Gespräch mit Kyra unter dem Baum (Roman, P
 
 Nach dem Überfall bleiben Hof, Hohlweg, Wiese und Felder verbunden. Hufspuren auf den Feldern erklären den Weg nach Osten. Der sichtbare Feldabzweig führt zur Hauptstraße; vor der Heimkehr hält Lia wegen des Abendbrots um, später braucht sie dort ihre Reiseausrüstung. Auf der Hauptstraße kommt sie über den begehbaren Nordpfad an und kann auf diesem Weg zu den Feldern zurückkehren.
 
-Das erste Lager beginnt in der Dämmerung. Lia breitet ihren Mantel aus, sammelt Steine und Zunderholz in der Tasche, baut eine Feuerstelle und entzündet sie. Nach einer kleinen Mahlzeit schläft sie; erst danach wird es Nacht. Foltan und Azar beobachten sie zunächst schlafend. Das Gespräch mit den beiden führt direkt zur gemeinsamen Rast und zu Crios. Lia wird dabei weder eingefangen noch gefesselt.
+Das erste Lager beginnt in der Dämmerung. Lia breitet ihren Mantel aus, sammelt Steine und Zunderholz in der Tasche, baut eine Feuerstelle und entzündet sie. Nach einer kleinen Mahlzeit schläft sie; erst danach wird es Nacht. Foltan und Azar kommen sichtbar über die Lagerkarte zu der schlafenden Lia. Dann beginnt die Nahaufnahme. Ihre Namensfelder zeigen "???", bis sie sich vorgestellt haben. Das Gespräch mit den beiden führt direkt zur gemeinsamen Rast und zu Crios. Nach Crios kann Lia bis zum Morgen schlafen und mit beiden durch den Wald ziehen. Auf der Mooslichtung folgt eine Mittagsrast (PDF-Seiten 40 bis 44), danach ein zweiter begehbarer Waldweg bis zum abendlichen Hinweis auf den Goldenen Eber. Die Schenke ist noch nicht spielbar.
+
+Beim Nest und auf Valentus' Fluchtstrecke folgt das Klettern dem Halten von E beziehungsweise der Touch-Aktion. Loslassen pausiert den Aufstieg. Während Valentus sich am Baum abstützt, bleibt er dort stehen. Erledigte Hofmarker verschwinden; das Haus bleibt betretbar. Die Lagergegenstände verwenden eigene freigestellte Grafiken für Mantel, Decke, Steine, Reisig und Feuer.
 
 ## Playtest-Debug
 
 Der kleine **Debug**-Button oben rechts oder **F2** öffnet das öffentlich zugängliche Playtest-Menü; **Escape** schließt es. Währenddessen pausieren Szenen, Tastatur und Touch-Steuerung. Das Menü ist auch auf Smartphones scrollbar und mit Tastatur bedienbar.
 
-- Warps: Schlachtutorial, Verwundung, Flucht, Zuflucht, Lias Einstieg, alle fünf Weltkarten, Überfall, Reisevorbereitung, Straße, Nachtlager und Foltan/Azar. Jeder Warp setzt die nötigen Kapitel-Flags und Reiseausrüstung; spätere Kapitel-Flags werden zurückgesetzt.
+- Warps: Schlachtutorial, Verwundung, Flucht, Zuflucht, Lias Einstieg, alle fünf Weltkarten, Überfall, Reisevorbereitung, Straße, Nachtlager, Foltan/Azar und den gemeinsamen Waldweg. Jeder Warp setzt die nötigen Kapitel-Flags und Reiseausrüstung; spätere Kapitel-Flags werden zurückgesetzt.
 - Flags und Inventar lassen sich kontrolliert ändern (ganze Item-Anzahlen von 0 bis 999). **Änderungen anwenden** startet die aktuelle Szene neu, damit Marker und Ziele den geänderten Zustand übernehmen. Flags dürfen für Grenzfalltests absichtlich widersprüchlich sein.
 - Live-Stats zeigen Szene/Bereich, Position, Phase/Schritt, Bewegungslocks, Fundstellen und besuchte Karten; im Kampf zusätzlich Einheiten-HP, Status und Rasterposition. Das Tutorial hat kein AP-System. Kampfwerte werden nur gelesen, nicht während geskripteter Aktionen verändert.
 - Warps verändern Fortschritt und Reiseausrüstung; laufende Dialoge werden verworfen. **Alles zurücksetzen** braucht eine eigene Bestätigung und führt zum Titel. Das Spiel hat keinen persistenten Spielstand; Einstellungen bleiben erhalten.

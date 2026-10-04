@@ -1,0 +1,23 @@
+# Der nächste spielbare Reisetag
+
+Die Fortsetzung beginnt nach Lias erster Nacht mit Foltan und Azar und dem Blick auf Crios. Grundlage sind die tatsächlich gelesenen PDF-Seiten 31, 32, 40 bis 44 und 46 in `sources/novel/roman-selantis-2.json`, ergänzend `docs/novel-analysis.md`. Seitenangaben beziehen sich auf die PDF-Reihenfolge.
+
+Der nächste Abschnitt von Lias Handlung ist ein Waldmarsch mit einer Mittagsrast. Foltan geht voraus, Lia folgt, Azar bleibt zurück und nutzt angebliche Moosprüfungen zur Pause (S. 40 bis 41). Azar hat zum Frühstück Wachteleier und Speck zubereitet; das wird während der Rast rückblickend erzählt (S. 42). Foltan erklärt, dass ihre Gruppe gegen die Dunkelschatten kämpft und das Hauptlager noch ungefähr einen Tagesmarsch entfernt liegt. Vielleicht haben andere Späher Hinweise auf Kyra. Lia fordert die Männer auf, mit ihr zu sprechen, und drängt auf den Aufbruch (S. 43 bis 44). Erst am Abend erreichen sie den Goldenen Eber (S. 46). Das Hauptlager der Bruderschaft folgt wesentlich später (S. 75 bis 82) und wird hier nicht vorgezogen.
+
+Die vom Nutzer festgelegte Adaption bleibt erhalten: Lia hat keine Fußverletzung, die Männer begegnen ihr freundlich und es gibt keine Flucht, Gefangennahme oder Fesselung. Weil ihre Namen bereits in der Nacht bekannt wurden, wird Lias erneute Namensvorstellung während der Mittagsrast nicht wiederholt. Der parallel erzählte Kyra-Abschnitt S. 33 bis 40 wird durch diesen spielbaren Lia-Abschnitt nicht ersetzt oder neu erfunden. Die neuen Dialoge sind auf die vorhandene Einführung abgestimmte Paraphrasen.
+
+## Spielbarer Umfang
+
+Die neue Szene `CompanionJourneyScene` hat den Schlüssel `companions-road`. Lias abgeschlossene Nacht endet am Schlafplatz mit `goTo('companions-road')`; Registrierung und Lagerübergang wurden durch die Hauptkoordination umgesetzt. Inventar, Sammelzustand, Gruppenmitglieder und frühere Geschichtsflags bleiben in der Registry.
+
+Der Vormittagsabschnitt besitzt einen vollständig begehbaren Waldpfad, eine wiederholbare Frühstückserinnerung, eine Moosbeobachtung, die Mittagsrast und den Rückweg ins erste Lager. Das neun Schritte lange Rastgespräch muss abgeschlossen werden, bevor der östliche Weg offen ist. Danach folgt ein zweiter tatsächlich begehbarer Waldabschnitt. Die Landschaftsgrafik wird dort gespiegelt und wärmer eingefärbt; Fußflächen und Ankünfte folgen dieser Spiegelung. Der westliche Weg führt zurück zur Mooslichtung. Beide Begleiter bewegen sich mit Lia und berechnen Wege um die Biegungen. Alle Bewegungspunkte berücksichtigen dieselben vier Fußproben wie die Spielersteuerung.
+
+Am östlichen Ende des zweiten Waldabschnitts steht die Sonne tief. Foltan kündigt die nahe Schenke und den Gefallen des Wirts an (S. 46). Die Anzeige nennt die Spielgrenze ausdrücklich: "Am Abend: Der Goldene Eber · Fortsetzung folgt." Ein Gasthausinneres, Craupors Befragung, Kyras Aufenthalt dort und die späteren Lagerereignisse sind noch nicht implementiert. Die Gruppe bleibt auf dem begehbaren Waldweg; Rückwege sind weiterhin möglich. Beim erneuten Szeneinstieg nach dem abgeschlossenen Tag beginnt Lia am östlichen Wegende, ohne Rastgespräch oder neue Vorräte.
+
+Neue Flags: `companionMorningStarted`, `companionRestTaken`, `companionBreakfastRemembered`, `companionDayComplete`. Bei einer ausdrücklich aufgerufenen frischen Entwicklungsadresse `?scene=companions-road` werden die vorherigen Checkpoints mit `prepareWarp` hergestellt, falls `metFoltanAzar` fehlt. Reguläre Übergänge und Wiederbesuche erhalten vorhandene Ressourcen und Gruppenwerte.
+
+## Grafik und Prüfung
+
+Das Hintergrundbild `game/public/assets/bg/companion-forest-trail.png` wurde mit dem eingebauten Imagegen-Werkzeug neu erzeugt und anschließend visuell geprüft. Es liegt im Projekt; die Manifestkennung lautet `bg-companion-forest-trail`. Der genaue Prompt steht in `docs/companion-forest-trail-prompt.txt`. Die Fußflächen wurden nach dem erzeugten Bild angelegt, weil seine Wegpositionen von den im Prompt vorgeschlagenen Koordinaten abweichen.
+
+Die fokussierten Tests liegen in `game/src/scenes/companionJourney.test.ts` und `game/e2e/companion-journey.pw.ts`. Sie prüfen alle Zielverbindungen, jeden Fußpunkt und Begleiterabstand entlang vollständiger Wegbiegungen, die Rastfreigabe, wiederholbare Rückwege, unveränderte Vorräte und den ausdrücklichen Abschnittsabschluss. Die Browserprüfung umfasst den Lagerübergang, die benannte Dreiergruppe, den gesamten Waldweg einschließlich Rückkehr zur Lichtung, den gespeicherten Abendzustand und die echte mobile Richtungs- und Interaktionssteuerung nach dem Dialog.
