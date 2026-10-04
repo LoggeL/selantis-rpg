@@ -14,7 +14,7 @@ describe('speaker identity and source portraits', () => {
     expect(parseDialogue('Der Schmale: Still!')).toEqual({ name: 'Der Schmale', text: 'Still!' });
     expect(resolvePortrait(scene, 'Der Schmale')).toMatchObject({ texture: 'portrait-dialogue-foltan', src: 'assets/portraits/dialogue-foltan.png' });
     expect(resolvePortrait(scene, 'Der Dicke')).toMatchObject({ texture: 'portrait-dialogue-azar', src: 'assets/portraits/dialogue-azar.png' });
-    expect(resolvePortrait(scene, 'Grauhaariger')).toMatchObject({ texture: 'portrait-grey-haired' });
+    expect(resolvePortrait(scene, 'Grauhaariger')).toMatchObject({ texture: 'portrait-grey-haired-message06', src: 'assets/portraits/grey-haired-message06.png' });
   });
 
   it('shows an anonymous silhouette if a face has no reviewed source art', () => {
@@ -29,7 +29,7 @@ describe('speaker identity and source portraits', () => {
     loadDialoguePortraits({ load: { image } } as unknown as Phaser.Scene);
     expect(image).toHaveBeenCalledTimes(Object.keys(DIALOGUE_PORTRAITS).length + Object.keys(EXPRESSION_PORTRAITS).length);
     expect(image).toHaveBeenCalledWith('portrait-kyra', 'assets/portraits/kyra.png');
-    expect(image).toHaveBeenCalledWith('portrait-grey-haired', 'assets/portraits/grey-haired.png');
+    expect(image).toHaveBeenCalledWith('portrait-grey-haired-message06', 'assets/portraits/grey-haired-message06.png');
     expect(image).toHaveBeenCalledWith('portrait-dialogue-lia-grief', 'assets/portraits/dialogue-lia-grief.png');
     expect(image).toHaveBeenCalledWith('portrait-dialogue-scarred', 'assets/portraits/dialogue-scarred.png');
   });

@@ -1,0 +1,55 @@
+{
+  "id": "cinematic-camp-observe",
+  "kind": "cutscene",
+  "file": "game/public/assets/cut/cinematic-camp-observe-message12.png",
+  "source": "output/imagegen/raw/message12-camp-observe/cinematic-camp-observe-v1.png",
+  "runtimeKey": "cinematic-camp-observe",
+  "target": {
+    "w": 640,
+    "h": 360
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "skill": "imagegen",
+    "date": "2026-10-04",
+    "attempts": 1,
+    "prompt": "Use case: identity-preserve.\nAsset type: a new earlier cinematic cutscene frame for this existing pixel-art medieval RPG, full-bleed landscape 16:9.\nInput image1 (camp-wake) is edit target for the SAME campsite, Lia identity, and Foltan identity. Input image2 (camp-companions) is identity/costume reference for Azar and the relative slender Foltan vs stocky Azar distinction. Input image3 is authoritative square stepped pixel-cluster STYLE ONLY, never include its UI.\nPrimary request: reframe this moment to BEFORE Lia wakes. Lia lies FLAT ASLEEP on her green cloak/bedroll, head on low rolled fabric, BOTH EYES CLEARLY CLOSED, restful slack face, mouth closed, neutral sandy light-brown/dark-blonde hair with side braids tied back. Ivory gathered blouse visible at neckline and sleeves; plain dark green wool blanket covers torso and mustard skirt. Forearms resting quietly, no raised or bound wrist.\nFoltan and Azar are BOTH STANDING to ONE SIDE of the bedroll, at a respectful visible distance, observing Lia and quietly talking to one another. Hands remain with their OWN bodies, no hand touches Lia, no pulse checking, no kneeling over her, no medical action. Foltan is the taller THIN mercenary: brown leather beret fully visible, long brown hair and short goatee, plain blue and yellow tabard over cream shirt, sword belt and crossbow carried on back. Azar is a distinctly shorter STOUT blacksmith: red cloth cap fully visible, black beard, plain belted ochre-yellow tunic and brown trousers, sheathed curved sword. Foltan glances down at Lia while speaking, Azar turns toward him with a worried face and a small conversational hand gesture.\nComposition/framing: camera low side angle across sleeping Lia in lower-left/middle foreground, two standing strangers at right side in middle-distance. Show their complete heads and caps, upper bodies through hips, body proportions and a visible gap between them and the sleeping girl. Sleeping Lia's closed eyes/head must be plainly legible in LEFT HALF. All faces and important gestures ABOVE 70percent frame-height so game's dialogue overlay at bottom27percent does not cover them. Keep at least 10percent image-height clear navy-green forest above all heads/hats. Creek, mossy rocks and dark woods behind; restrained small fire toward edge, no extra people.\nStyle/medium: match exact existing scene's intentionally square, stepped hand-clustered classic RPG pixel illustration, dense grounded foliage and natural human anatomy, subdued dark forest green/navy/brown with restrained warm firelight, no smooth gradients or photographic textures.\nConstraints: preserve all three identities and costumes, Lia hair NEUTRAL sandy brown with taupe shadows, no orange/red/auburn. Only change time/pose/composition to sleeping observation by two standing strangers. No text, no UI, no borders, no watermark, no restraints, no touching Lia, no wake expression, no magic, no extra characters.",
+    "references": [
+      "game/public/assets/cut/camp-wake.png",
+      "game/public/assets/cut/camp-companions.png",
+      "sources/reference/artstyle/user-pixel-baseline.png"
+    ]
+  },
+  "processing": {
+    "script": "scripts/prepare_message12_assets.py",
+    "method": "Byte-exact approved source passthrough. Phaser fits original frame to 640x360 scene coordinates."
+  },
+  "self_review": {
+    "status": "accepted",
+    "visual_review_performed": true,
+    "details": "Lia lies asleep on green bedroll with both eyes closed. Foltan and Azar stand to the side with a visible gap, discussing her condition. Hands remain on their own bodies. Foltan has brown beret, brown hair/goatee, blue/yellow tabard and carried crossbow; Azar has red cap, black beard, stocky build and yellow tunic. Lia retains sandy light-brown tied sidebraids and ivory gathered blouse. Faces and conversational gesture remain above lower dialogue overlay.",
+    "known_limitations": [
+      "Foltan's hat has about 3 percent top margin rather than the requested 10 percent; the entire cap is visible with no clipping.",
+      "Runtime switching and browser validation belong to the coordinating agent. No runtime integration is claimed by this asset review."
+    ]
+  },
+  "integration": {
+    "initial_dialogue": [
+      "Der Dicke: \"Ist sie tot?\"",
+      "Der Schmale: \"Nein. Sie hat noch Puls.\""
+    ],
+    "switch_to_existing_wake": "At Lia's first awake exclamation (index 2 in wakeEncounter), switch to cut-camp-wake.",
+    "avoid": "Do not use the pulse-checking awake closeup as the initial observation frame."
+  },
+  "delivery": {
+    "path": "game/public/assets/cut/cinematic-camp-observe-message12.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "bytes": 2324117,
+    "sha256": "c639212a3ee9beb6f8a4cecd0f32c4091cb851af36711f88a2aeea82490fd248",
+    "sourcePath": "output/imagegen/raw/message12-camp-observe/cinematic-camp-observe-v1.png",
+    "sourceSha256": "c639212a3ee9beb6f8a4cecd0f32c4091cb851af36711f88a2aeea82490fd248",
+    "processing": "byte-exact approved source passthrough"
+  }
+}

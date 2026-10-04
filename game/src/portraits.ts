@@ -2,7 +2,7 @@ import type Phaser from 'phaser';
 
 /** Source-art face crops; the shared loader keeps them separate from map textures. */
 export const DIALOGUE_PORTRAITS = {
-  kyra: 'kyra', foltan: 'foltan', azar: 'azar', father: 'father', mother: 'mother', 'grey-haired': 'grey-haired',
+  kyra: 'kyra', foltan: 'foltan', azar: 'azar', father: 'father', mother: 'mother', 'grey-haired': 'grey-haired-message06',
 } as const;
 
 /** Generated profiles are separate from the compact gameplay/stat portraits. */
@@ -47,7 +47,7 @@ export function resolvePortrait(scene: Phaser.Scene, name: string, emotion?: Dia
   const files: string[] = [];
   if (id === 'lia' && (liaEmotion === 'grief' || liaEmotion === 'determined')) files.push(EXPRESSION_PORTRAITS[liaEmotion]);
   if (id && id in EXPRESSION_PORTRAITS) files.push(EXPRESSION_PORTRAITS[id as keyof typeof EXPRESSION_PORTRAITS]);
-  if (id && id !== 'unknown') files.push(id);
+  if (id && id !== 'unknown') files.push(id in DIALOGUE_PORTRAITS ? DIALOGUE_PORTRAITS[id as keyof typeof DIALOGUE_PORTRAITS] : id);
   for (const file of files) {
     const texture = `portrait-${file}`;
     if (scene.textures.exists(texture)) return { texture, src: `assets/portraits/${file}.png`, frameIndex: 0, frameCount: 1 };

@@ -1,0 +1,31 @@
+{
+  "source_voice": "2026-10-04 15.19.52.00ee66de",
+  "tool": "built-in image_gen",
+  "source": "game/public/assets/bg/first-camp.png",
+  "invariants": [
+    "640x360 viewport",
+    "empty walkable clearing x105..555 y180..315",
+    "tree anchor470,190",
+    "right road545,282",
+    "west sky opening"
+  ],
+  "assets": [
+    {
+      "key": "bg-first-camp-evening",
+      "path": "game/public/assets/bg/first-camp-evening-unbuilt.png",
+      "prompt": "Use case: precise-object-edit and lighting-weather. Edit target: attached 640x360 pixel art top-down fantasy RPG forest clearing. Preserve EXACT composition and world positions, large tree trunk at (470,190), walkable dirt clearing x105..555 y180..315, path on right at (545,282), western sky opening upper left. Create the SAME clearing at evening dusk, sunset orange-red pink sky through upper left opening, warm muted amber/purple twilight over forest and ground. Remove ALL three camp props: rolled green bedroll centered (233,225), circular stone firepit centered (317,225), neatly stacked twig bundle centered (409,225); replace their footprint with uninterrupted dirt texture. It must be a truly empty forest clearing where player will construct their own camp later. No fire, ring, logs, bedroll, bag, equipment, people, characters, text or UI. Keep precise pixel art detail and wide 16:9 landscape frame. Preserve ground readable. Save image as source; project will rescale nearest neighbor to 640x360."
+    },
+    {
+      "key": "bg-first-camp-night",
+      "path": "game/public/assets/bg/first-camp-night-unbuilt.png",
+      "prompt": "Use case: lighting-weather. Edit target: attached empty forest clearing at sunset. Change ONLY the time of day to late NIGHT several hours after sunset, no orange or red sky remaining. Upper left sky opening midnight blue, faint stars, dim cool blue moonless ambient illumination. Ground remains readable with subdued cool brown and blue-green shadows. Preserve exact composition, all roots, trees, shrubs, dirt pixels and the exact walkable clearing, original same 16:9 framing. EMPTY clearing: no characters, no camping props, no equipment, no stone fire ring, no wood pile, no bedroll, no fire. Keep same detailed crisp fantasy RPG pixel art. Exact anchor tree trunk right at 73% x, clearing center around 50% x and 64% y. Do not change any shape/geometry or add objects."
+    }
+  ],
+  "normalization": "sips rescale to 640x360; original generated assets retained under Codex generated_images",
+  "ui_assets": [
+    "game/public/assets/ui/camp-stones.svg",
+    "game/public/assets/ui/camp-wood.svg"
+  ],
+  "ui_method": "Code-native crisp-edge SVG icons,32x32; no imagegen needed",
+  "review": "Both raster outputs visually inspected; empty dusk, constructed dusk and night screenshots checked."
+}
