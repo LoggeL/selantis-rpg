@@ -6,7 +6,7 @@ import { updateSettings } from '../settings';
 
 function image(x: number, y: number, texture: string, frame: number) {
   const o: any = { x, y, texture, frame, flipX: false, active: true, anims: { stop: vi.fn() } };
-  for (const method of ['setOrigin', 'setDepth', 'setPosition', 'setAngle', 'play']) o[method] = vi.fn(() => o);
+  for (const method of ['setOrigin', 'setDepth', 'setVisible', 'setScale', 'setAlpha', 'setPosition', 'setAngle', 'play']) o[method] = vi.fn(() => o);
   o.destroy = vi.fn(() => { o.active = false; return o; });
   o.setTexture = vi.fn((texture: string, frame: number) => { o.texture = texture; o.frame = frame; return o; });
   o.setFlipX = vi.fn((value: boolean) => { o.flipX = value; return o; });
@@ -77,12 +77,16 @@ describe('friendly camp encounter', () => {
     const s: any = new JourneyScene();
     const world: any = { flags: { firstCampRested: true }, inv: {} };
     s.registry = { get: () => world };
+    s.data = { set: vi.fn() };
     s.lia = image(233, 260, 'lia-walk', 0);
     s.blanket = { setVisible: vi.fn() };
     s.addActor = vi.fn((texture, frame, [x, y]) => image(x, y, texture, frame));
     s.tweens = { add: vi.fn() }; s.time = { delayedCall: vi.fn() };
-    for (const method of ['setObjective', 'setSpots', 'setLocked', 'say', 'setLiaPose', 'showCloseup', 'hideCloseup', 'setCloseupText', 'setCloseupContinue', 'drawFire']) s[method] = vi.fn();
+    for (const method of ['setObjective', 'setSpots', 'setLocked', 'setCinematic', 'say', 'setLiaPose', 'showCloseup', 'hideCloseup', 'setCloseupText', 'setCloseupContinue', 'drawFire']) s[method] = vi.fn();
     s.wakeEncounter();
+    expect(s.showCloseup).not.toHaveBeenCalled();
+    expect(s.arrivalActive).toBe(true);
+    for (let i = 0; i < 94; i++) s.updateArrival(50);
     const advance = () => s.setCloseupContinue.mock.lastCall[0]();
     const text = () => s.setCloseupText.mock.lastCall[0] as string;
     return { s, world, advance, text };

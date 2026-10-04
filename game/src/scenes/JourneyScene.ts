@@ -16,11 +16,13 @@ export class JourneyScene extends StoryScene {
   private conversation = 0;
   private foltan?: Phaser.GameObjects.Image;
   private azar?: Phaser.GameObjects.Image;
-  private cloak?: Phaser.GameObjects.Graphics;
-  private blanket?: Phaser.GameObjects.Graphics;
-  private flame?: Phaser.GameObjects.Graphics;
-  private campStones?: Phaser.GameObjects.Graphics;
-  private campTwigs?: Phaser.GameObjects.Graphics;
+  private cloak?: Phaser.GameObjects.Image;
+  private blanket?: Phaser.GameObjects.Image;
+  private flame?: Phaser.GameObjects.Image;
+  private fireRing?: Phaser.GameObjects.Image;
+  private campLogs?: Phaser.GameObjects.Image;
+  private campStones?: Phaser.GameObjects.Image;
+  private campTwigs?: Phaser.GameObjects.Image;
   private campBackground?: Phaser.GameObjects.Image;
   private progress?: Phaser.GameObjects.Rectangle;
   private progressBack?: Phaser.GameObjects.Rectangle;
@@ -28,17 +30,25 @@ export class JourneyScene extends StoryScene {
   private fireBusy = false;
   private fireClick = false;
   private fireClock = 0;
+  private arrivalClock = 0;
+  private arrivalActive = false;
 
   constructor() { super('journey'); }
 
   create(data: { from?: string } = {}) {
     this.inCamp = false; this.campStep = 'cloak'; this.conversation = 0;
     this.foltan = undefined; this.azar = undefined; this.cloak = undefined;
-    this.blanket = undefined; this.flame = undefined;
+    this.blanket = undefined; this.flame = undefined; this.fireRing = undefined; this.campLogs = undefined;
+    this.campStones = undefined; this.campTwigs = undefined; this.campBackground = undefined;
+    this.arrivalClock = 0; this.arrivalActive = false;
+    this.data.set({ 'story:camp-arrival': '', 'mobile:controls': null });
     this.progress = undefined; this.progressBack = undefined;
     this.friction = 0; this.fireBusy = false; this.fireClick = false; this.fireClock = 0;
     this.input.on('pointerdown', this.clickFire, this);
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.off('pointerdown', this.clickFire, this));
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.input.off('pointerdown', this.clickFire, this);
+      this.arrivalActive = false;
+    });
     const st = state(this.registry);
     // Scene links are a development entry, never a second grant after departure.
     if (new URLSearchParams(window.location.search).get('scene') === 'journey' && !st.flags.departureReady) {
@@ -160,28 +170,16 @@ export class JourneyScene extends StoryScene {
     this.campBackground = this.areaRoot.list[0] as Phaser.GameObjects.Image;
     if (flags.firstCampRested && this.textures.exists('bg-first-camp-night')) this.campBackground.setTexture('bg-first-camp-night');
     this.data.set('story:camp-time', flags.firstCampRested ? 'night' : 'dusk');
-    this.cloak = this.add.graphics().setPosition(201, 248).setDepth(245).setVisible(!!flags.journeyCloakSpread);
-    this.cloth(this.cloak, ['...sssssssss....', '.ssmmmmmmmmmmss.', 'smmmmhhmmmmmmmms', 'smmhhmmmmmmmsmms', '.smmmmmmssmmmms.', '..ssssssssssss..'], { s: 0x344d39, m: 0x47634b, h: 0x627c59 }, 4);
-    this.blanket = this.add.graphics().setPosition(211, 246).setDepth(270).setVisible(false);
-    this.cloth(this.blanket, ['.ssssssssssssssssssss.', 'smmmmmmmmmmmmmmmmmmmmms', 'smmhhhhmmmmmmhhhhmmmms', 'smmmmmmmmmmmmmmmmmmmmms', 'smmmmssmmmmmmssmmmmmmms', 'smmmmmmmmmmmmmmmmmmmmms', '.ssssssssssssssssssss.'], { s: 0x746b55, m: 0x9c9276, h: 0xb4a689 }, 2);
-    this.campStones = this.add.graphics().setDepth(232).setVisible(!flags.journeyStonesGathered);
-    for (const [x, y] of [[145, 228], [153, 232], [165, 222], [137, 239], [160, 242], [172, 235]]) {
-      this.campStones.fillStyle(0x485652).fillRect(x, y, 7, 5).fillStyle(0x889082).fillRect(x + 1, y, 5, 2);
-    }
-    this.campTwigs = this.add.graphics().setDepth(251).setVisible(!flags.journeyTwigsGathered);
-    for (const [x, y] of [[398, 248], [407, 246], [412, 254], [401, 256]]) {
-      this.campTwigs.lineStyle(2, 0x927050).lineBetween(x, y, x + 10, y - 5).lineBetween(x + 4, y - 2, x + 6, y - 7);
-    }
-    this.flame = this.add.graphics().setDepth(230);
-    this.areaRoot.add([this.cloak, this.blanket, this.campStones, this.campTwigs, this.flame]);
+    this.cloak = this.add.image(233, 260, 'camp-cloak-detailed').setDepth(245).setVisible(!!flags.journeyCloakSpread);
+    this.blanket = this.add.image(233, 254, 'camp-blanket-detailed').setDepth(270).setVisible(false);
+    this.campStones = this.add.image(155, 235, 'camp-stones-detailed').setDepth(232).setVisible(!flags.journeyStonesGathered);
+    this.campTwigs = this.add.image(409, 251, 'camp-twigs-detailed').setDepth(251).setVisible(!flags.journeyTwigsGathered);
+    this.fireRing = this.add.image(317, 225, 'camp-fire-ring-detailed').setDepth(229).setVisible(!!flags.journeyFirepitBuilt);
+    this.campLogs = this.add.image(317, 225, 'camp-logs-detailed').setDepth(229.5).setVisible(!!flags.campfireLit);
+    this.flame = this.add.image(317, 225, 'camp-fire-detailed').setOrigin(0.5, 1).setDepth(230).setVisible(!!flags.campfireLit);
+    this.areaRoot.add([this.cloak, this.blanket, this.campStones, this.campTwigs, this.fireRing, this.campLogs, this.flame]);
     this.campStep = fresh ? 'cloak' : !flags.journeyCloakSpread ? 'cloak' : !flags.journeyStonesGathered ? 'stones' : !flags.journeyFirepitBuilt ? 'ring' : !flags.journeyTwigsGathered ? 'twigs' : !flags.campfireLit ? 'fire' : !flags.journeyAte ? 'meal' : 'sleep';
     this.drawFire();
-  }
-
-  private cloth(graphics: Phaser.GameObjects.Graphics, rows: string[], colors: Record<string, number>, pixel: number) {
-    rows.forEach((row, y) => [...row].forEach((shade, x) => {
-      if (shade !== '.') graphics.fillStyle(colors[shade]).fillRect(x * pixel, y * pixel, pixel, pixel);
-    }));
   }
 
   private campSpots() {
@@ -204,6 +202,7 @@ export class JourneyScene extends StoryScene {
     };
     this.setSpots(FIRST_CAMP_AREA.targets.map(target => ({
       ...target,
+      markerVisible: () => this.campStep !== 'complete',
       label: target.id === required[this.campStep] ? labels[this.campStep] ?? target.label : target.label,
       enabled: () => !this.fireBusy && (this.campStep === 'complete' || target.id === required[this.campStep]),
       onUse: () => this.useCampSpot(target.id),
@@ -274,21 +273,14 @@ export class JourneyScene extends StoryScene {
   private drawFire() {
     if (!this.flame) return;
     const flags = state(this.registry).flags;
-    this.flame.clear();
-    if (flags.journeyFirepitBuilt) {
-      for (const [x, y] of [[301, 220], [307, 215], [316, 213], [326, 216], [331, 222], [325, 228], [315, 230], [305, 226]]) {
-        this.flame.fillStyle(0x47524c).fillRect(x, y, 8, 5).fillStyle(0x86907b).fillRect(x + 1, y, 6, 2);
-      }
-    }
+    this.fireRing?.setVisible(!!flags.journeyFirepitBuilt);
+    this.campLogs?.setVisible(!!flags.campfireLit);
+    this.flame.setVisible(!!flags.campfireLit);
     if (!flags.campfireLit) return;
-    this.flame.lineStyle(3, 0x79583d).lineBetween(307, 224, 324, 219).lineBetween(309, 218, 325, 225);
-    this.flame.fillStyle(0xe37335, 0.14).fillRect(299, 220, 36, 12).fillRect(303, 216, 28, 20);
-    this.flame.fillStyle(0xb74d28).fillRect(310, 224, 4, 4).fillRect(319, 224, 4, 4);
-    if (!flags.firstCampRested || flags.metFoltanAzar) {
-      const sway = getSettings().reducedMotion ? 0 : Math.floor(this.fireClock / 180) % 2 * 2;
-      this.flame.fillStyle(0xd87937).fillRect(309, 219, 14, 6).fillRect(313, 213, 8, 6).fillRect(315 + sway, 207, 2, 6);
-      this.flame.fillStyle(0xedbf66).fillRect(313, 220, 6, 4).fillRect(315, 214, 2, 6);
-    }
+    const embers = flags.firstCampRested && !flags.metFoltanAzar;
+    const flicker = getSettings().reducedMotion ? 0 : Math.sin(this.fireClock / 83) * 0.065 + Math.sin(this.fireClock / 137) * 0.035;
+    this.flame.setScale(1 - flicker / 2, (embers ? 0.25 : 0.94) + flicker)
+      .setAlpha(embers ? 0.48 : 0.94 + flicker / 2);
   }
 
   private sleep() {
@@ -305,11 +297,11 @@ export class JourneyScene extends StoryScene {
     });
   }
 
-  private addStrangers(introduced = false) {
+  private addStrangers(introduced = false, arriving = false) {
     // Foltan is the lanky mercenary, Azar the broad blacksmith. Both keep
     // their established actor frames, with empty hands and no restraining pose.
-    this.foltan = this.addActor('story-actors', 5, introduced ? [355, 231] : [259, 245]);
-    this.azar = this.addActor('story-actors', 6, introduced ? [397, 265] : [295, 242]);
+    this.foltan = this.addActor('story-actors', 5, introduced ? [355, 231] : arriving ? [545, 282] : [259, 245]);
+    this.azar = this.addActor('story-actors', 6, introduced ? [397, 265] : arriving ? [563, 296] : [295, 242]);
     if (introduced) this.azar.setAngle(82);
   }
 
@@ -319,8 +311,38 @@ export class JourneyScene extends StoryScene {
     this.campStep = 'waking'; this.setLocked(true); this.campSpots();
     this.lia.setPosition(233, 260).setDepth(260); this.blanket?.setVisible(true);
     this.setLiaPose('lia-sleep');
-    this.addStrangers(); this.drawFire();
+    this.addStrangers(false, true); this.drawFire();
     this.say('', 0);
+    this.setCinematic(true);
+    this.data.set('mobile:controls', { directions: [], actions: {}, inventory: false, disabled: true });
+    this.arrivalClock = 0; this.arrivalActive = true;
+    this.data.set('story:camp-arrival', 'entering');
+  }
+
+  /** Follow the clearing south of the fire; keep the sleeping map visible first. */
+  private updateArrival(delta: number) {
+    if (!this.arrivalActive) return;
+    this.arrivalClock += Math.min(delta, 50);
+    const reduced = getSettings().reducedMotion;
+    const progress = reduced ? 1 : Math.min(1, this.arrivalClock / 4300);
+    const move = (actor: Phaser.GameObjects.Image | undefined, points: number[][], offset: number) => {
+      if (!actor?.active) return;
+      const part = progress < 0.58 ? progress / 0.58 : (progress - 0.58) / 0.42;
+      const [from, to] = progress < 0.58 ? [points[0], points[1]] : [points[1], points[2]];
+      const gait = reduced || progress === 1 ? 0 : Math.sin(this.arrivalClock / 92 + offset);
+      actor.setPosition(from[0] + (to[0] - from[0]) * part, from[1] + (to[1] - from[1]) * part - Math.abs(gait) * 1.5)
+        .setAngle(gait * 1.6);
+    };
+    move(this.foltan, [[545, 282], [338, 282], [259, 245]], 0);
+    move(this.azar, [[563, 296], [372, 293], [295, 242]], 1.1);
+    if (this.arrivalClock < (reduced ? 650 : 4700)) return;
+    this.arrivalActive = false;
+    this.data.set('story:camp-arrival', 'observing');
+    this.observeSleepingLia();
+  }
+
+  private observeSleepingLia() {
+    this.data.set('mobile:controls', null);
     this.showCloseup('cinematic-camp-observe');
     const lines = [
       'Der Dicke: "Ist sie tot?"',
@@ -347,7 +369,7 @@ export class JourneyScene extends StoryScene {
 
   private listen() {
     const lines = [
-      'Foltan: "Ich bin Foltan. Früher Leutnant der Stadtgarde von Portas, jetzt Söldner. Und das ist Azar, Schmied aus Ignis."',
+      'Der Schmale: "Ich bin Foltan. Früher Leutnant der Stadtgarde von Portas, jetzt Söldner. Und das ist Azar, Schmied aus Ignis."',
       'Azar: "Schmied. Kein Totengräber. Ich wollte nur sehen, ob du Hilfe brauchst."',
       'Foltan: "Dann frag das nächstes Mal zuerst."',
       'Azar: "Bei meinem Amboss antwortet auch keiner."',
@@ -376,7 +398,7 @@ export class JourneyScene extends StoryScene {
       this.foltan?.setPosition(355, 231).setDepth(231);
       this.azar?.setPosition(397, 265).setDepth(265).setAngle(82);
       this.campStep = 'star'; this.setLiaPose(null);
-      this.hideCloseup(); this.setLocked(false); this.drawFire(); this.campSpots();
+      this.hideCloseup(); this.setCinematic(false); this.setLocked(false); this.drawFire(); this.campSpots();
     }, 'Zum Stern');
   }
 
@@ -391,6 +413,7 @@ export class JourneyScene extends StoryScene {
     super.update(time, delta);
     if (!this.inCamp) return;
     this.fireClock += delta;
+    this.updateArrival(delta);
     if (this.fireBusy) {
       if (this.fireClick || this.keys.E.isDown) this.friction += Math.min(delta, 50);
       this.hud.hint('E halten: Holz reiben · Klick auf die Feuerstelle: fertigreiben', true);

@@ -46,6 +46,7 @@ describe('road return state', () => {
     const scene: any = new JourneyScene();
     const world = { inv: {}, picked: {}, flags };
     scene.registry = { get: () => world };
+    scene.data = { set: vi.fn() };
     scene.scene = { start: vi.fn() };
     scene.setObjective = vi.fn(); scene.setSpots = vi.fn(); scene.say = vi.fn(); scene.enterCamp = vi.fn();
     scene.roadSpots();

@@ -345,7 +345,14 @@
     "camp-stones": "assets/ui/camp-stones.svg",
     "camp-wood": "assets/ui/camp-wood.svg",
     "bg-first-camp-evening": "assets/bg/first-camp-evening-unbuilt.png",
-    "bg-first-camp-night": "assets/bg/first-camp-night-unbuilt.png"
+    "bg-first-camp-night": "assets/bg/first-camp-night-unbuilt.png",
+    "camp-cloak-detailed": "assets/props/camp-cloak-detailed.png",
+    "camp-blanket-detailed": "assets/props/camp-blanket-detailed.png",
+    "camp-stones-detailed": "assets/props/camp-stones-detailed.png",
+    "camp-twigs-detailed": "assets/props/camp-twigs-detailed.png",
+    "camp-fire-ring-detailed": "assets/props/camp-fire-ring-detailed.png",
+    "camp-logs-detailed": "assets/props/camp-logs-detailed.png",
+    "camp-fire-detailed": "assets/props/camp-fire-detailed.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

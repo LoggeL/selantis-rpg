@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 vi.mock('phaser', () => ({ default: {} }));
 vi.mock('./audio', () => ({ sfx: {} }));
-import { characterSnapshot, CharacterInputPause, partyRoster } from './characterStats';
+import { characterSnapshot, CharacterInputPause, partyRoster, characterViewAllowed } from './characterStats';
 import { BEAM_DAMAGE, BEAM_LENGTH, MOVE_RANGE, WAVE_DAMAGE, WAVE_RANGE, type Unit } from './battle/grid';
 import { TACTICAL_STATS, type BattleSnapshot } from './battle/tactics';
 
@@ -48,6 +48,13 @@ describe('character sheet uses the current game model', () => {
 });
 
 describe('character modal input lifecycle', () => {
+  it('blocks the global bag and party shortcuts while an arrival or dialogue owns the screen', () => {
+    expect(characterViewAllowed(false, true)).toBe(false);
+    expect(characterViewAllowed(true, false)).toBe(false);
+    expect(characterViewAllowed(false, false)).toBe(false);
+    expect(characterViewAllowed(true, true)).toBe(true);
+    expect(characterViewAllowed(undefined, undefined)).toBe(true);
+  });
   it('clears held keys and restores the original disabled state after repeated holds', () => {
     const resetKeys = vi.fn(); const scene = { input: { enabled: false, keyboard: { enabled: false, resetKeys } } };
     const pause = new CharacterInputPause(); pause.hold(scene); pause.hold(scene); pause.release(scene);

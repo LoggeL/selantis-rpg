@@ -110,6 +110,11 @@ export function openCharacterStats(game: Phaser.Game, selected?: string): boolea
 export function openBag(game: Phaser.Game, onClose?: () => void): boolean { return controls?.game === game ? controls.open('bag', onClose) : false; }
 export function closeCharacterStats() { controls?.close(); }
 
+/** Global keyboard shortcuts obey the same cinematic lock as the visible bag. */
+export function characterViewAllowed(hudVisible: unknown, inventoryAvailable: unknown): boolean {
+  return hudVisible !== false && inventoryAvailable !== false;
+}
+
 /** The top-left portrait and the bag have separate destinations and share only pause ownership. */
 export function installCharacterStatsControls(game: Phaser.Game): () => void {
   const button = document.createElement('button'); button.type = 'button'; button.id = 'character-stats-button';
@@ -226,7 +231,7 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
   function open(nextView: View, callback?: () => void, member?: string) {
     if (modal) { const same = view === nextView && !member; close(); if (same && !callback) return true; }
     if (settingsAreOpen() || document.querySelector('dialog[open]')) return false;
-    source = active(); if (!source) return false;
+    source = active(); if (!source || !characterViewAllowed(source.data.get('mobile:hudVisible'), source.data.get('mobile:inventory')?.available)) return false;
     focus = document.activeElement as HTMLElement | null; view = nextView; detail = 'values'; selected = member ?? 'lia'; onDismiss = callback;
     source.events.emit('character-open'); keyboardEnabled = game.input.keyboard?.enabled ?? true;
     modal = createMobileDialog(view === 'bag' ? 'Tasche' : 'Gruppe', close);
