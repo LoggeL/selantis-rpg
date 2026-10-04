@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { validateAssetManifest } from '../game/src/platform/assets/schema.mjs';
+import { validateAssetManifest } from './asset_schema.mjs';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const categoryOrder = ['bg', 'cut', 'sprites', 'portraits', 'ui', 'props', 'social'];
@@ -28,9 +28,9 @@ export function compileAssetCatalog(root = projectRoot) {
   const source = readJSON(join(publicRoot, 'assets/manifest.json'));
   if (source.schemaVersion !== undefined && source.schemaVersion !== 1) throw new Error('Unsupported source asset schema version');
   if (!source.sprites || !source.images || !source.icons || !Array.isArray(source.icons.names)) throw new Error('Invalid legacy asset manifest');
-  const portraits = readJSON(join(root, 'game/src/content/assets/portraits.json'));
-  const registrations = readJSON(join(root, 'game/src/content/assets/registrations.json'));
-  const definitions = readJSON(join(root, 'game/src/content/assets/packs.json'));
+  const portraits = readJSON(join(root, 'scripts/asset-catalog/portraits.json'));
+  const registrations = readJSON(join(root, 'scripts/asset-catalog/registrations.json'));
+  const definitions = readJSON(join(root, 'scripts/asset-catalog/packs.json'));
   const byId = new Map(), byFile = new Map();
   function register(id, descriptor) {
     if (byId.has(id)) throw new Error(`Duplicate asset id: ${id}`);
