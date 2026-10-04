@@ -15,16 +15,8 @@
 !deploy/nginx.conf
 !scripts/
 !scripts/assemble_site.mjs
-!scripts/asset_catalog.mjs
-!konzept.html
 !musik.html
-!assets.html
-!site/
-!site/**
 !output/
-!output/imagegen/
-!output/imagegen/lia-pixel-film-look.png
-!output/imagegen/tutorial-valentus-battle-film-look.png
 !output/audio/
 !output/audio/rauberlied-lyria-3-5.mp3
 !output/audio/scenes/

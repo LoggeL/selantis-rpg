@@ -1,6 +1,0 @@
-{
-  "tool": "built-in image_gen",
-  "prompt": "Use case: game-sprite. Create ONE full-body medieval fantasy raider SPEARMAN sprite on true transparentbackground. Existing sheet is pixel sprite scale/style reference only, do NOT copy swordor shieldorall16frames. Oneadultman in darkcharcoal hoodedcowl over lightlinen tunic, leather belt/boots and simpleopen ironhelmet, sternface lookingthreequartersRIGHT. Neutral standing watchfulpose, upright; weapon ONEstraightwoodenlancewithsimpleironspearhead heldinonehand vertically alonghisRIGHTside. Otherhandempty. AbsolutelyNOsword,NOshield,NOaxe,NOsidearm,NOscabbard,NOadditionalweapon,NOweaponbelt. Fullspearhead/body/feetvisible, transparentgutterallaround, no backdropor groundshadow, no textorborder. Same deliberatefinemedievalpixelillustration asreference, warmmutedbrowns/ivory/black. Sprite willnormalize into64x64 withfeet atpixel60 andspearhead nearpixel3; spear58pxhigh, humanbodyroughly45pxhigh. Renderone isolated fullfigure centered in square1024, actualalpha. No duplicateposes.",
-  "raw": "output/imagegen/raw/pixel-unification-story/raid-spearman.png",
-  "asset": "game/public/assets/sprites/raid-spearman.png"
-}

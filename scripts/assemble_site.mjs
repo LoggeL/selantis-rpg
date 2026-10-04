@@ -2,13 +2,10 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { compileAssetCatalog } from './asset_catalog.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const target = join(root, 'output/site');
 const media = [
-  'output/imagegen/lia-pixel-film-look.png',
-  'output/imagegen/tutorial-valentus-battle-film-look.png',
   'output/audio/rauberlied-lyria-3-5.mp3',
   'output/audio/scenes/battle-dark-lyria-3-5.mp3',
   'output/audio/scenes/dread-lyria-3-5.mp3',
@@ -50,19 +47,7 @@ for (const name of media) {
   await mkdir(dirname(join(target, name)), { recursive: true });
   await cp(join(root, name), join(target, name));
 }
-let concept = await readFile(join(root, 'konzept.html'), 'utf8');
-concept = concept.replace(/<details\b[^>]*>[\s\S]*?<\/details>/g, '');
-concept = concept.replace('Konzept und Medien, noch kein Spielbuild.',
-  'Visuelles Konzept. <a href="/">Spielbaren Prolog öffnen</a>.');
-await writeFile(join(target, 'konzept.html'), concept);
 await cp(join(root, 'musik.html'), join(target, 'musik.html'));
-await cp(join(root, 'assets.html'), join(target, 'assets.html'));
-await cp(join(root, 'site'), join(target, 'site'), { recursive: true });
-// The viewer consumes the same validated catalog as chapter loaders.
-const runtimeManifest = compileAssetCatalog(root);
-const bundledManifest = JSON.parse(await readFile(join(target, 'assets/runtime-manifest.json'), 'utf8'));
-if (JSON.stringify(bundledManifest) !== JSON.stringify(runtimeManifest)) throw new Error('Asset sources changed after the game build');
-await writeFile(join(target, 'assets/catalog.json'), JSON.stringify(runtimeManifest.assets));
 const hashes = {};
 for (const name of await files(target)) {
   hashes[name] = createHash('sha256').update(await readFile(join(target, name))).digest('hex');
