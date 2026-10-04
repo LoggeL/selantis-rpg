@@ -6,6 +6,7 @@ identity or narrative accuracy; those still require a browser/art review.
 from pathlib import Path
 import json
 import hashlib
+import xml.etree.ElementTree as ET
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,8 +21,13 @@ def main():
     records = {entry['path']: entry for entry in cinematic['verifiedOutputs']}
     records.update({asset['delivery']['path']: asset['delivery'] for asset in story['assets']})
     records[sisters['delivery']['file']] = sisters['delivery']
+    raid = json.loads((ROOT / 'design/assets/message06-character-consistency.json').read_text())
+    records.update({shot['delivery']['path']: shot['delivery'] for shot in raid['shots']})
+    observe = json.loads((ROOT / 'design/assets/message12-camp-observe.json').read_text())['delivery']
+    records[observe['path']] = observe
     checked = set()
     frames = 0
+    verified_deliveries = 0
     for key, sheet in manifest['sprites'].items():
         path = PUBLIC / sheet['file']
         with Image.open(path) as image:
@@ -42,6 +48,18 @@ def main():
         checked.add(path)
     for key, filename in manifest['images'].items():
         path = PUBLIC / filename
+        if path.suffix == '.svg':
+            # Authored UI resources are vector icons; validate their local,
+            # self-contained image contract before Phaser rasterizes them.
+            root = ET.parse(path).getroot()
+            assert root.tag == '{http://www.w3.org/2000/svg}svg', (key, 'SVG root')
+            assert root.attrib.get('viewBox') == '0 0 32 32', (key, 'icon geometry')
+            assert all(element.tag.rsplit('}', 1)[-1] not in ('script', 'foreignObject', 'image')
+                       for element in root.iter()), (key, 'self-contained SVG')
+            assert all('href' not in attribute.lower() for element in root.iter()
+                       for attribute in element.attrib), (key, 'external resource')
+            checked.add(path)
+            continue
         with Image.open(path) as image:
             image.load()  # Decode every registered image, including backgrounds.
             if '/portraits/' in filename:
@@ -58,6 +76,7 @@ def main():
                     source = ROOT / record['sourcePath']
                     if source.exists():
                         assert digest == hashlib.sha256(source.read_bytes()).hexdigest(), (key, 'source changed')
+                    verified_deliveries += 1
                 checked.add(path)
     # Dedicated dialogue profiles use the shared loader rather than the manifest.
     for path in (PUBLIC / 'assets/portraits').glob('*.png'):
@@ -67,7 +86,9 @@ def main():
         checked.add(path)
     print(json.dumps({'pixelFiles': len(checked), 'occupiedFrames': frames,
                       'bytes': sum(path.stat().st_size for path in checked),
-                      'manifestImagesDecoded': len(manifest['images']), 'sourceDeliveriesVerified': len(records)}))
+                      'manifestImagesDecoded': sum(Path(name).suffix != '.svg' for name in manifest['images'].values()),
+                      'svgIconsValidated': sum(Path(name).suffix == '.svg' for name in manifest['images'].values()),
+                      'sourceDeliveriesVerified': verified_deliveries}))
 
 
 if __name__ == '__main__':

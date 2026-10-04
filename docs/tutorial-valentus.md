@@ -1,5 +1,8 @@
 # Prolog: Der Traum, der bricht
 
+> Aktueller Stand vom 04.10.2026: Der spielbare Prolog erzählt die tatsächlich geschehene Schlacht von Dunkelhain in der Reihenfolge Rat und Konflikt, Schlacht, Verwundung, Flucht, Rettung und Zuflucht. Die frühere Fiebertraum-Inszenierung in diesem Entwurf ist überholt. Der Axtkämpfer bleibt verwundet auf dem Feld. Valentus erhält im Tutorial Schutz vor einer Niederlage. Die aktuelle Implementierung liegt unter `game/src/scenes/`.
+
+
 Stand: 3. Oktober 2026. Phase 1, abgestimmtes Konzept. Grundlage: [Creative Direction](creative-direction-tutorial.md) und [Roman, PDF-Seiten 1 bis 13](../sources/novel/roman-selantis-2.txt). Regeln und Produktion: [Implementierungsplan](tutorial-implementation-plan.md). Einstellungen: [Storyboard](../design/intro-storyboard.json). Gemäß neuer ausdrücklicher Nutzervorgabe folgen Bildstil und Charakteraussehen der gesetzten Pixelbaseline und geprüften Filmreferenzen; der Roman bleibt Handlungsvorlage.
 
 ## Leitidee

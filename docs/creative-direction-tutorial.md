@@ -1,5 +1,8 @@
 # Creative Direction: Prolog-Tutorial (Review von tutorial-valentus.md)
 
+> Aktueller Stand vom 04.10.2026: Der spielbare Prolog erzählt die tatsächlich geschehene Schlacht von Dunkelhain in der Reihenfolge Rat und Konflikt, Schlacht, Verwundung, Flucht, Rettung und Zuflucht. Die frühere Fiebertraum-Inszenierung in diesem Entwurf ist überholt. Der Axtkämpfer bleibt verwundet auf dem Feld. Valentus erhält im Tutorial Schutz vor einer Niederlage. Die aktuelle Implementierung liegt unter `game/src/scenes/`.
+
+
 Stand: 3. Oktober 2026. Verfasst vom Creative Director. Dieses Dokument hat Vorrang vor `tutorial-valentus.md` und `intro-storyboard.json`, wo beide sich widersprechen. Quellentreue bleibt Pflicht – aber Quellentreue ist die Untergrenze, nicht das Ziel. Das Ziel ist eine Eröffnung, an die sich Spieler erinnern.
 
 ## Urteil zum bisherigen Konzept

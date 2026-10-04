@@ -13,7 +13,7 @@ Stand: 2026-10-03. Sechs verwendete instrumentale Szenenstücke von Google AI St
 | Offene Hoftür, Versteck, Überfall und Kyras Entführung | Bedrohung, bereits ab Lias Erschrecken am Hof |
 | Verlassener Hof, Eltern, Gräber, Vorbereitungen und erster Weg nach Osten | Trauer |
 | Nächtliche Fremde und Fesselung | Bedrohung |
-| Fesseln gelöst, Foltan hält Wache | Zuflucht |
+| Freundliches Gespräch abgeschlossen, Foltan hält Wache | Zuflucht |
 
 Die Musik wechselt auch innerhalb einer Szene. Das Szenenende entfernt den Override; Einstellungen und Pause behalten die Stimmung bei. Ein später fertig geladenes Stück darf die inzwischen aktive Musik nicht überschreiben. Wiedergabe und Schleifen verwenden 0,85 Sekunden Crossfade; höchstens zwei dekodierte Stücke bleiben im Cache. Musik und Effekte lassen sich getrennt regeln.
 

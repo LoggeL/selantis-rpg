@@ -1,5 +1,8 @@
 # Implementierungsplan: Prolog-Tutorial
 
+> Aktueller Stand vom 04.10.2026: Der spielbare Prolog erzählt die tatsächlich geschehene Schlacht von Dunkelhain in der Reihenfolge Rat und Konflikt, Schlacht, Verwundung, Flucht, Rettung und Zuflucht. Die frühere Fiebertraum-Inszenierung in diesem Entwurf ist überholt. Der Axtkämpfer bleibt verwundet auf dem Feld. Valentus erhält im Tutorial Schutz vor einer Niederlage. Die aktuelle Implementierung liegt unter `game/src/scenes/`.
+
+
 Stand: 3. Oktober 2026. Phase 1 liefert Konzept, Datenentwurf, Style-Frames und ein Offline-Assetwerkzeug. Die folgende `game/`-Struktur entsteht in Phase 2. [Creative Direction](creative-direction-tutorial.md) und [Konzept](tutorial-valentus.md) bestimmen die Inszenierung. Claude hat E1/E2 entschieden: Rettung als veränderter Fiebertraum; Fieberspirale bis zum ersten wirklichen Erwachen im dunklen Zimmer. Das [Storyboard](../design/intro-storyboard.json) setzt diese Entscheidungen um. Nutzervorgabe (Film-Look), Handlung bleibt Roman.
 
 ## Projektstruktur
