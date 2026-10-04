@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { sfx } from '../audio';
 import { FONT, Hud } from '../ui';
-import { Dir, ItemId, MAPS, MapDef, Pt } from '../world/maps';
+import { Dir, ItemId, MAPS, MapDef, Prop, Pt } from '../world/maps';
 import { Critter } from '../world/critters';
 import { WorldApi, WorldState, objectiveText, pickupText, runAction, state } from '../world/quests';
 import { findWalkingPath, inPoly, isMapWalkable } from '../world/navigation';
@@ -13,6 +13,8 @@ import { eastwardTravelGate, mapForTravel, travelObjective } from '../story/trav
 type Data = { map?: string; from?: string; x?: number; y?: number; facing?: Dir };
 
 const SPEED = 72;
+const NEST_CLIMB_MS = 2800;
+type NestClimb = { prop: Prop; from: Pt; progress: number; complete: () => void; returning: boolean };
 
 /** Freie Erkundung: verbundene Kartenbildschirme mit Kollision, Ausgängen und Untersuchbarem. */
 export class WorldScene extends Phaser.Scene {
@@ -45,6 +47,10 @@ export class WorldScene extends Phaser.Scene {
   private finished = false;
   private pollen?: Phaser.GameObjects.Particles.ParticleEmitter;
   private blockedExit?: string;
+  private nestClimb?: NestClimb;
+  private climbPointer?: Phaser.Input.Pointer;
+  private climbHands?: Phaser.GameObjects.Graphics;
+  private nestControls = false;
 
   constructor() { super('world'); }
 
@@ -74,6 +80,11 @@ export class WorldScene extends Phaser.Scene {
     this.finished = false;
     this.route = [];
     this.nest = undefined;
+    this.nestClimb = undefined;
+    this.climbPointer = undefined;
+    this.climbHands = undefined;
+    this.nestControls = false;
+    this.data.set('mobile:controls', null);
     this.debugG = undefined;
     this.hintShown = undefined;
     this.bgImage = this.add.image(0, 0, this.map.bg).setOrigin(0).setDepth(-1000);
@@ -113,6 +124,8 @@ export class WorldScene extends Phaser.Scene {
     this.input.on('pointerdown', this.onPointerDown, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.input.off('pointerdown', this.onPointerDown, this);
+      this.nestClimb = undefined;
+      this.climbPointer = undefined;
       this.clearTarget();
     });
     this.clearTarget();
@@ -222,6 +235,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.inventory?.isOpen) return;
     if (this.finished) return;
     dt = Math.min(dt, 50);
+    if (this.nestClimb) { this.updateNestClimb(dt); return; }
     this.shadow.setPosition(this.lia.x, this.lia.y - 1).setDepth(this.lia.y - 1);
     this.lia.setDepth(this.lia.y);
     for (const c of this.critters) c.update(dt, this.lia);
@@ -285,6 +299,12 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private onPointerDown(ptr: Phaser.Input.Pointer) {
+    // A fresh hold resumes the current grip, even though climbing locks walking.
+    if (this.nestClimb) {
+      const [x, y] = this.nestClimb.prop.at;
+      if (!this.nestClimb.returning && Math.hypot(ptr.worldX - x, ptr.worldY - y) < 80) this.climbPointer = ptr;
+      return;
+    }
     if (this.inventory.hitTest(ptr)) return;
     if (this.busy || this.hud.hitTest(ptr)) return;
     this.inventory.close();
@@ -293,6 +313,7 @@ export class WorldScene extends Phaser.Scene {
         Phaser.Math.Distance.Between(ptr.worldX, ptr.worldY, j.to[0], j.to[1])) { this.jump(j.to); return; }
     const prop = this.map.props.find((p) => Phaser.Math.Distance.Between(ptr.worldX, ptr.worldY, p.at[0], p.at[1]) < p.radius);
     if (prop) {
+      if (prop.action === 'returnChick') this.climbPointer = ptr;
       this.targetProp = prop;
       this.setTarget(prop.at[0], prop.at[1], true);
       // Schon da? Dann sofort untersuchen.
@@ -366,8 +387,15 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private updatePrompt() {
+    if (this.nestClimb) { this.prompt.setVisible(false); return; }
     const j = this.nearJump();
     const p = j ?? this.nearProp();
+    const canClimb = !j && !!p && 'action' in p && p.action === 'returnChick' && !!this.st.inv.kueken && !this.st.flags.chickReturned;
+    if (canClimb !== this.nestControls) {
+      this.nestControls = canClimb;
+      this.data.set('mobile:controls', canClimb ? { directions: ['up', 'left', 'down', 'right'], actions: { E: 'Klettern halten' } } : null);
+      this.hud.hint(canClimb ? 'E halten / Baum gedrückt halten: zum Nest klettern' : '', true);
+    }
     if (j && this.hintShown !== j.hint) { this.hud.hint(j.hint, true); this.hintShown = j.hint; }
     else if (!j && this.hintShown) { this.hud.hint('', true); this.hintShown = undefined; }
     this.prompt.setVisible(!!p);
@@ -511,7 +539,61 @@ export class WorldScene extends Phaser.Scene {
   private showNest(withChick: boolean, at?: Pt) {
     const p = at ?? this.map.props.find((x) => x.action === 'returnChick')!.at;
     this.nest?.destroy();
-    this.nest = this.add.image(p[0], p[1] - 58, 'crt-fledgling', withChick ? 3 : 2).setDepth(650);
+    this.nest = this.add.image(p[0], p[1] - 78, 'crt-fledgling', withChick ? 3 : 2).setDepth(650);
+  }
+
+  private beginChickReturn(prop: Prop, complete: () => void) {
+    if (this.nestClimb || this.busy) return;
+    this.clearTarget();
+    this.busy = true;
+    this.facing = 'n';
+    this.nestClimb = { prop, from: [this.lia.x, this.lia.y], progress: 0, complete, returning: false };
+    this.inventory.setVisible(false);
+    this.prompt.setVisible(false);
+    this.lia.play('lia-walk-n').anims.pause();
+    this.climbHands = this.add.graphics().setDepth(641);
+    this.hud.hint('E halten / Baum gedrückt halten: zum Nest klettern', true);
+  }
+
+  private updateNestClimb(dt: number) {
+    const climb = this.nestClimb!;
+    if (climb.returning) return;
+    const held = this.input.enabled && !!this.input.keyboard?.enabled && (this.keys.E.isDown || !!this.climbPointer?.isDown);
+    if (held) climb.progress = Math.min(1, climb.progress + dt / NEST_CLIMB_MS);
+    // The vertical displacement is gameplay feedback, including with reduced motion.
+    const x = Phaser.Math.Linear(climb.from[0], climb.prop.at[0], Math.min(1, climb.progress * 4));
+    const y = Phaser.Math.Linear(climb.from[1], climb.prop.at[1] - 30, climb.progress);
+    this.lia.setPosition(x, y).setDepth(640);
+    this.shadow.setPosition(climb.prop.at[0], climb.prop.at[1] - 1).setDepth(climb.prop.at[1] - 1).setAlpha(0.3);
+    if (held) this.lia.anims.resume(); else this.lia.anims.pause();
+    const grip = Math.floor(climb.progress * 12) % 2;
+    this.climbHands!.clear().setPosition(x, y);
+    // Alternating raised hands make the north-facing steps read as trunk grips.
+    for (const side of [-1, 1]) {
+      const handY = -32 - (side === (grip ? 1 : -1) ? 5 : 0);
+      this.climbHands!.fillStyle(0xb18b56).fillRect(side * 6 - 1, handY + 3, 3, 7);
+      this.climbHands!.fillStyle(0xf0c38a).fillRect(side * 6 - 1, handY, 3, 4);
+    }
+    const percent = Math.round(climb.progress * 100);
+    this.hud.hint(`${held ? 'Zum Nest klettern' : 'Am Stamm festhalten'}: ${percent}% · E / Baum halten`, true);
+    if (climb.progress < 1) return;
+    climb.returning = true;
+    climb.complete();
+    this.hud.hint('Vorsichtig wieder hinunter …', true);
+    this.climbPointer = undefined;
+    this.tweens.add({
+      targets: this.lia, x: climb.from[0], y: climb.from[1], duration: 1100, ease: 'Sine.inOut',
+      onUpdate: () => this.climbHands?.setPosition(this.lia.x, this.lia.y),
+      onComplete: () => {
+        this.lia.setPosition(...climb.from).setDepth(climb.from[1]).play('lia-idle-n');
+        this.shadow.setPosition(climb.from[0], climb.from[1] - 1).setAlpha(1);
+        this.climbHands?.destroy(); this.climbHands = undefined;
+        this.nestClimb = undefined; this.busy = false;
+        this.inventory.setVisible(true);
+        this.hud.hint('', true);
+        this.updatePrompt();
+      },
+    });
   }
 
   private api(): WorldApi {
@@ -523,6 +605,7 @@ export class WorldScene extends Phaser.Scene {
       take: (i, n) => this.take(i, n),
       refreshObjective: () => this.refreshObjective(),
       showNest: (c) => this.showNest(c),
+      beginChickReturn: (p, complete) => this.beginChickReturn(p, complete),
       shakeAt: (x, y) => {
         if (!ambientPrefs().reducedMotion) this.cameras.main.shake(160, 0.003);
         if (!ambientPrefs().particles) return;

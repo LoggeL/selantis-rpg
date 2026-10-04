@@ -1,5 +1,11 @@
 import { test, expect, type Page, type TestInfo } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  // Load current source on navigation, then keep this running scene stable
+  // while other workers edit modules in the same development server.
+  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+});
+
 async function screenshot(page: Page, info: TestInfo, filename: string) {
   const evidence = process.env.SELANTIS_FEEDBACK_EVIDENCE_DIR;
   await page.screenshot({ path: evidence ? `${evidence}/${filename}` : info.outputPath(filename) });

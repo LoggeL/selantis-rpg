@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { loadDialoguePortraits, parseDialogue, resolvePortrait, SPEAKER_PORTRAITS } from './portraits';
 import manifest from '../public/assets/manifest.json';
 
-const UI_LABELS = new Set(['Blau', 'R', 'Bolzenlinie', 'Blickrichtung', 'Danach', 'E', 'E halten', 'E / Klick', 'E / Maus halten', 'WASD / Klick', 'WASD / Pfeiltasten', 'WASD / Pfeile', 'Leertaste halten', 'E oder Wunde anklicken', 'Gedrückt halten']);
+const UI_LABELS = new Set(['Blau', 'R', 'Bolzenlinie', 'Blickrichtung', 'Danach', 'E', 'E halten', 'E halten / Baum gedrückt halten', 'Am Abend', 'E / Klick', 'E / Maus halten', 'WASD / Klick', 'WASD / Pfeiltasten', 'WASD / Pfeile', 'Leertaste halten', 'E oder Wunde anklicken', 'Gedrückt halten']);
 const OBSERVATIONS = new Set(['Westen', 'Vaters doppelter Boden']);
 const sourceFiles = import.meta.glob<string>(['./scenes/*.ts', './story/**/*.ts', './world/**/*.ts', '!./**/*.test.ts'], { query: '?raw', import: 'default', eager: true });
 const portraitFiles = new Set(Object.keys(import.meta.glob('../public/assets/portraits/*.png', { query: '?url', import: 'default', eager: true })).map(path => path.replace('../public/', '')));

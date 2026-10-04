@@ -33,6 +33,7 @@ export interface WorldApi {
   dropPickup(item: ItemId, from: { x: number; y: number }, to: { x: number; y: number }, id: string): void;
   shakeAt(x: number, y: number): void;
   showNest(withChick: boolean): void;
+  beginChickReturn(prop: Prop, complete: () => void): void;
   refreshObjective(): void;
 }
 
@@ -62,13 +63,17 @@ export function runAction(prop: Prop, api: WorldApi): boolean {
     case 'returnChick': {
       if (st.flags.chickReturned) { api.thought('Da piept es wieder im Nest. Gut so.'); return true; }
       if (!st.inv.kueken) return false;
-      api.take('kueken', 1);
-      st.flags.chickReturned = true;
-      api.showNest(true);
-      sfx.bird(); sfx.bird();
-      api.thought('Vorsichtig zurück ins Nest. Da, die Mutter kommt schon.', 3000);
-      api.dropPickup('feder', { x: prop.at[0] + 10, y: prop.at[1] - 70 }, { x: prop.at[0] + 18, y: prop.at[1] + 10 }, 'dank-feder');
-      api.refreshObjective();
+      api.beginChickReturn(prop, () => {
+        // A paused climb still carries the bird; only reaching the nest earns the reward.
+        if (st.flags.chickReturned || !st.inv.kueken) return;
+        st.flags.chickReturned = true;
+        api.take('kueken', 1);
+        api.showNest(true);
+        sfx.bird(); sfx.bird();
+        api.thought('Vorsichtig zurück ins Nest. Da, die Mutter kommt schon.', 3000);
+        api.dropPickup('feder', { x: prop.at[0] + 10, y: prop.at[1] - 70 }, { x: prop.at[0] + 18, y: prop.at[1] + 10 }, 'dank-feder');
+        api.refreshObjective();
+      });
       return true;
     }
   }

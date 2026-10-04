@@ -205,6 +205,12 @@ export class FlightScene extends Phaser.Scene {
     if (this.busy || this.ended) return;
 
     const st = this.stations[this.nextStation];
+    // Der Griff bewegt ihn selbst den Abhang hinauf. Solange die Station
+    // offen ist, können weder Richtungstasten noch ein Klick ihn wegziehen.
+    if (st?.holdMs && this.dist >= st.at - 1) {
+      this.updateHold(st, dt);
+      return;
+    }
     const k = this.keys;
     const ix = (k.D.isDown || k.RIGHT.isDown ? 1 : 0) - (k.A.isDown || k.LEFT.isDown ? 1 : 0);
     const iy = (k.S.isDown || k.DOWN.isDown ? 1 : 0) - (k.W.isDown || k.UP.isDown ? 1 : 0);
@@ -221,21 +227,6 @@ export class FlightScene extends Phaser.Scene {
     }
     const moving = (ix || iy || this.railTarget !== undefined) && Math.abs(dot) > 0.2;
 
-    // Haltestationen: Fortschritt beim Halten von E
-    if (st && st.holdMs && this.dist >= st.at - 1) {
-      this.v.anims.stop();
-      if (this.keys.E.isDown || (this.pointerHolding && this.holdPointer?.isDown)) {
-        this.holding += dt;
-        this.drawHold(this.holding / st.holdMs);
-        if (this.holding >= st.holdMs) this.finishStation(st);
-      } else if (this.holding > 0) {
-        // Eine kurze Unterbrechung verliert nicht sofort den ganzen Griff.
-        this.holding = Math.max(0, this.holding - dt * 0.4);
-        this.drawHold(this.holding / st.holdMs);
-      }
-      return;
-    }
-
     if (moving) {
       let nd = this.dist + Math.sign(dot) * this.speed() * dt / 1000;
       if (st && nd >= st.at) nd = st.at;
@@ -246,14 +237,13 @@ export class FlightScene extends Phaser.Scene {
       const face = Math.abs(dir.x * Math.sign(dot)) >= Math.abs(dir.y) ? (dir.x * Math.sign(dot) > 0 ? 'e' : 'w') : dir.y * Math.sign(dot) > 0 ? 's' : 'n';
       this.facing = face;
       const anim = `vc-run-${face}`;
-      this.v.anims.currentAnim?.key !== anim && this.v.play(anim);
+      this.v.play(anim, true);
       this.v.anims.timeScale = this.speed() / 62;
       this.dropTimer -= dt;
       if (this.dropTimer <= 0) { this.dropTimer = 380; this.bloodDrop(); }
       if (st && this.dist >= st.at - 0.5) this.reachStation(st);
     } else {
-      this.v.anims.stop();
-      if (this.v.texture.key === 'valentus-cloak-run') this.v.setFrame({ s: 0, w: 4, e: 8, n: 12 }[this.facing]);
+      this.movementIdle();
     }
   }
 
@@ -382,8 +372,29 @@ export class FlightScene extends Phaser.Scene {
       this.holdBar = this.add.rectangle(this.v.x - 16, this.v.y + 9, 0, 3, 0x9cc4ec).setOrigin(0, 0.5).setDepth(902);
     }
     this.holdBar.width = 32 * Phaser.Math.Clamp(p, 0, 1);
-    const st = this.stations[this.nextStation];
-    this.v.setTexture('valentus-cloak-events', st.kind === 'climb' ? 8 : 9);
+    this.holdBack!.setPosition(this.v.x, this.v.y + 9);
+    this.holdBar.setPosition(this.v.x - 16, this.v.y + 9);
+  }
+
+  private movementIdle() {
+    this.v.anims.stop();
+    this.v.setTexture('valentus-cloak-run', { s: 0, w: 4, e: 8, n: 12 }[this.facing]);
+  }
+
+  private updateHold(st: Station, dt: number) {
+    this.railTarget = undefined;
+    const held = this.keys.E.isDown || !!(this.pointerHolding && this.holdPointer?.isDown);
+    if (held) this.holding = Math.min(st.holdMs!, this.holding + dt);
+    const progress = this.holding / st.holdMs!;
+    // Loslassen friert Griff und Strecke gemeinsam ein. Am Stamm bleiben
+    // seine Füße am festen Stützpunkt, auch wenn eine Lauftaste gehalten wird.
+    this.placeAt(st.kind === 'climb' ? Phaser.Math.Linear(st.at, st.to!, progress) : st.at);
+    if (held || (st.kind === 'climb' && this.holding > 0)) {
+      this.v.anims.stop();
+      this.v.setTexture('valentus-cloak-events', st.kind === 'climb' ? 8 : 9);
+    } else this.movementIdle();
+    if (held || this.holding > 0) this.drawHold(progress);
+    if (this.holding >= st.holdMs!) this.finishStation(st);
   }
 
   private finishStation(st: Station) {
@@ -391,14 +402,15 @@ export class FlightScene extends Phaser.Scene {
     this.holdBar?.destroy(); this.holdBar = undefined;
     this.holdBack?.destroy(); this.holdBack = undefined;
     this.pointerHolding = false;
+    this.holdPointer = undefined;
+    this.railTarget = undefined;
+    this.movementIdle();
     this.setHint('');
     if (st.kind === 'climb') {
-      this.busy = true;
-      const to = this.pointAt(st.to!).p;
-      this.tweens.add({
-        targets: this.v, x: to.x, y: to.y, duration: getSettings().reducedMotion ? 150 : 700, ease: 'Quad.out',
-        onComplete: () => { this.dist = st.to!; this.safeFloor = st.to!; this.busy = false; this.nextStation++; this.hud.thought('Es darf ihnen nicht in die Hände fallen.', 2600); },
-      });
+      this.placeAt(st.to!);
+      this.safeFloor = st.to!;
+      this.nextStation++;
+      this.hud.thought('Es darf ihnen nicht in die Hände fallen.', 2600);
     } else {
       this.nextStation++;
       this.hud.thought('Wenn sie es bekommen, ist es aus.', 2600);
@@ -455,14 +467,14 @@ export class FlightScene extends Phaser.Scene {
     const st = this.stations[this.nextStation];
     const actionable = st && (st.kind === 'jump' || !!st.holdMs);
     const ready = actionable && this.dist >= st.at - 1;
-    this.stationMarker.setVisible(!!actionable && st.at - this.dist < 85 && !this.busy && !this.ended);
+    this.stationMarker.setVisible(!!actionable && st.at - this.dist < 85 && !this.busy && !this.ended && !(st.holdMs && this.holding > 0));
     if (actionable) {
       const p = this.pointAt(st.at).p;
       this.stationMarker.setPosition(p.x + 12, p.y - 18).setAlpha(ready ? 1 : 0.55);
     }
     for (const pause of this.pauses) {
       const p = this.pointAt(pause.at).p;
-      pause.marker.setPosition(p.x + 14, p.y - 18).setVisible(!pause.done && Math.abs(this.dist - pause.at) < 45 && !this.busy && !this.ended);
+      pause.marker.setPosition(p.x + 14, p.y - 18).setVisible(!pause.done && Math.abs(this.dist - pause.at) < 45 && !this.busy && !this.ended && !ready);
     }
     const nearPause = this.pauses.find((p) => !p.done && Math.abs(this.dist - p.at) < 26);
     if (!this.busy && !this.ended) this.setHint(ready ? st.hint ?? '' : nearPause ? `E · ${nearPause.kind === 'listen' ? 'Lauschen' : 'Wunde drücken'} (optional)` : 'WASD / Klick · Weiter');
