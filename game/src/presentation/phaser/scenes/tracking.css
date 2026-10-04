@@ -1,0 +1,25 @@
+.tracking-dialog { box-sizing: border-box; width: min(1050px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; overflow: auto; border: 2px solid #93845d; background: #131b19; color: #eee4ca; font-family: var(--ui-font); display: grid; grid-template-columns: 55% 45%; }
+.tracking-dialog::backdrop { background: #060b08db; }
+.tracking-dialog header { position: relative; padding: 14px 100px 12px 18px; grid-column: 1 / -1; }
+.tracking-dialog h2 { margin: 0 0 5px; font-size: 24px; font-weight: normal; }
+.tracking-dialog header p { margin: 0; font-size: 16px; }
+.tracking-dialog button { min-height: 44px; padding: 8px 14px; border: 1px solid #a39261; background: #23332e; color: #fff1d0; font: inherit; cursor: pointer; }
+.tracking-dialog button:focus-visible { outline: 3px solid #9ddac2; outline-offset: 2px; }
+.tracking-dialog header button { position: absolute; right: 12px; top: 14px; }
+.tracking-map { position: relative; margin: 0 10px 18px 18px; aspect-ratio: 16/9; align-self: start; overflow: hidden; background: #172318; }
+.tracking-map img { width: 100%; height: 100%; display: block; object-fit: fill; }
+.tracking-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tracking-dialog .tracking-clue { position: absolute; width: 44px; height: 44px; padding: 0; border: 2px solid #ffe1a2; border-radius: 50%; transform: translate(-50%,-50%); background: #121c17df; font-size: 20px; box-shadow: 0 2px 12px #000; }
+.tracking-clue[data-examined=true] { border-color: #abddaf; background: #294536; }
+.tracking-reading { padding: 0 18px 18px 8px; font-size: 17px; line-height: 1.35; }
+.tracking-reading p { margin: 0 0 9px; }
+[data-tracking-evidence] { color: #afc9ab; font-size: 13px; }
+[data-tracking-feedback] { color: #f2d99d; }
+.tracking-routes { display: flex; flex-direction: column; gap: 10px; }
+.tracking-routes button { flex: 1; }
+.tracking-routes button[aria-pressed=true] { border: 2px solid #c8e7a4; background: #35523b; }
+.tracking-routes button:disabled { cursor: default; opacity: .55; }
+.tracking-result { margin-top: 10px; }
+.tracking-dialog [hidden] { display: none; }
+@media (max-width: 600px) { .tracking-dialog { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); display: block; } .tracking-dialog header { padding-left: 12px; } .tracking-map { margin: 0 10px; } .tracking-reading { padding: 10px 12px 14px; } .tracking-dialog h2 { font-size: 22px; } }
+@media (max-height: 500px) and (min-width: 601px) { .tracking-dialog { display: grid; grid-template-columns: 46% 54%; } .tracking-dialog header { grid-column: 1 / -1; padding-block: 9px; } .tracking-dialog header p { font-size: 14px; } .tracking-dialog h2 { font-size: 19px; } .tracking-map { margin: 0 8px 12px 12px; align-self: start; } .tracking-reading { padding: 0 12px 8px; font-size: 14px; } .tracking-reading p { margin-bottom: 5px; } .tracking-result { margin-top: 6px; } .tracking-routes { gap: 6px; } }

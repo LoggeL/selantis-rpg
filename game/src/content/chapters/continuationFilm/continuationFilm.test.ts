@@ -58,7 +58,7 @@ describe('continuous novel-to-first-film ending', () => {
     const burst = cues.find(cue => cue.type === 'burst');
     expect(burst).toMatchObject({ target: 'captain', color: 0x397fc1, to: [481, 216] });
     const care = cues.slice(index('collapse') + 1).find(cue => cue.type === 'move' && cue.actor === 'kyra');
-    expect(care).toMatchObject({ to: [563, 195] });
+    expect(care).toMatchObject({ to: [543, 195] });
     const protection = SISTERS_REUNITED.actions.find(action => action.id === 'protect-kyra')!;
     const recovery = SISTERS_REUNITED.actions.find(action => action.id === 'answer-kyra')!;
     // Collapse freezes walking: recovery must work from every in-range protection position.

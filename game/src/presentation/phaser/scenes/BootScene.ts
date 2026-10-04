@@ -50,6 +50,7 @@ export class TitleScene extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor('#07080a');
     this.data.set('mobile:name', 'Die Chroniken von Selantis');
+    this.data.set('mobile:hudVisible', false);
     if (this.textures.exists('bg-title-splash')) {
       this.add.image(320, 180, 'bg-title-splash').setDisplaySize(640, 360);
     }

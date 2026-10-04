@@ -39,7 +39,9 @@ describe('app viewport lifecycle', () => {
     f.flush(); expect(f.scale.setZoom).toHaveBeenLastCalledWith(2);
     f.touch.matches = true; f.touch.dispatchEvent(new Event('change'));
     expect(f.dataset.touchEnabled).toBe('true');
-    f.dimensions.clientWidth = 1000; f.dataset.actionBar = 'true'; f.changed();
+    f.dimensions.clientWidth = 1000; f.changed();
+    f.flush(); expect(f.scale.setZoom).toHaveBeenLastCalledWith(1.5625);
+    f.dataset.actionBar = 'true'; f.changed();
     f.flush(); expect(f.scale.setZoom).toHaveBeenLastCalledWith(1.5625);
     dispose();
   });

@@ -6,16 +6,16 @@ export const FILM_ONE_FINALE: ContinuationChapterDefinition = {
   source: ['docs/episode-01.md:18:50-20:17', 'sources/transcripts/01-3PNiiK653uQ.txt:19:18-20:17', 'ADAPTION: lia-film-role; walkable-actions; unhealed-betrayal'],
   atmosphere: 'warm', music: 'exploration',
   actors: [
-    { id: 'flick', name: 'Flick', texture: 'flick-walk', at: [90, 190], follow: true },
+    { id: 'flick', name: 'Flick', texture: 'flick-walk', displaySize: [44, 44], at: [90, 190], follow: true },
     { id: 'kyra', name: 'Kyra', texture: 'story-actors', frame: 0, at: [70, 185], follow: true },
   ],
   entry: [
     { id: 'film-one-finale.entry.ruin', line: 'Andernorts, an der Ruine, steht Vardis vor einer schwarzen Kapuzengestalt.', shot: 'cinematic-master-rebuke' },
-    { id: 'film-one-finale.entry.failure', line: 'Die Kapuzengestalt sagt "Du hast versagt, Vardis."' },
-    { id: 'film-one-finale.entry.admission', line: 'Vardis: Ja, Meister.' },
-    { id: 'film-one-finale.entry.wrong', line: 'Die Kapuzengestalt sagt "Du hattest von Anfang an die Falsche."' },
-    { id: 'film-one-finale.entry.punishment', line: 'Vardis krümmt sich und geht zu Boden. Die Gestalt sieht auf ihn herab.' },
-    { id: 'film-one-finale.entry.warning', line: 'Die Kapuzengestalt sagt "Beim nächsten Mal bin ich nicht so nachsichtig."' },
+    { id: 'film-one-finale.entry.failure', line: 'Die Kapuzengestalt sagt "Du hast versagt, Vardis."', shot: 'cinematic-master-rebuke' },
+    { id: 'film-one-finale.entry.admission', line: 'Vardis: Ja, Meister.', shot: 'cinematic-master-rebuke' },
+    { id: 'film-one-finale.entry.wrong', line: 'Die Kapuzengestalt sagt "Du hattest von Anfang an die Falsche."', shot: 'cinematic-master-rebuke' },
+    { id: 'film-one-finale.entry.punishment', line: 'Vardis krümmt sich und geht zu Boden. Die Gestalt sieht auf ihn herab.', shot: 'cinematic-master-rebuke' },
+    { id: 'film-one-finale.entry.warning', line: 'Die Kapuzengestalt sagt "Beim nächsten Mal bin ich nicht so nachsichtig."', shot: 'cinematic-master-rebuke' },
     { id: 'film-one-finale.entry.forest', line: 'Auf dem Waldweg hält Kyra ihre Schwester am Arm. Flick wartet, bis beide zu ihr aufgeschlossen haben.' },
   ],
   actions: [

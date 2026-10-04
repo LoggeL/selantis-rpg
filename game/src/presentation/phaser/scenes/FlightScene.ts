@@ -110,9 +110,9 @@ export class FlightScene extends Phaser.Scene {
     this.pauses = FLIGHT_PAUSES.map(pause => ({
       at: at(pause.pointIndex), kind: pause.kind, done: false, marker: this.actionMarker('E', pause.color),
     }));
-    this.add.text(628, 8, 'Esc halten', { fontFamily: FONT, fontSize: '8px', color: '#8f9aa4', stroke: '#0d0f12', strokeThickness: 2 })
+    this.add.text(558, 8, 'Esc halten', { fontFamily: FONT, fontSize: '8px', color: '#8f9aa4', stroke: '#0d0f12', strokeThickness: 2 })
       .setOrigin(1, 0).setScrollFactor(0).setDepth(1000);
-    this.skipBar = this.add.rectangle(628, 22, 0, 2, 0xa3bdd1).setOrigin(1, 0).setScrollFactor(0).setDepth(1001);
+    this.skipBar = this.add.rectangle(558, 22, 0, 2, 0xa3bdd1).setOrigin(1, 0).setScrollFactor(0).setDepth(1001);
     this.setHint('WASD / Klick · Weiter');
 
     this.bindInput();

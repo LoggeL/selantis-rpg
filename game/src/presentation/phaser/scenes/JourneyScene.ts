@@ -367,7 +367,7 @@ export class JourneyScene extends StoryScene {
     this.fireStrokeCooldown = 0;
     this.inventory.close(); this.say('', 0);
     this.setLocked(true); this.setCinematic(true); this.campSpots();
-    this.fireInputLock = input.lock({ priority: 120, allow: ['interact', 'cancel'] });
+    this.fireInputLock = input.lock({ priority: 120, allow: ['interact', 'cancel', 'settings'] });
     this.fireControls = input.setControls({ directions: [], actions: { E: 'Holz bohren', ESC: 'Pause' }, inventory: false }, { priority: 120 });
     this.fireUI = new FireMinigameUI(this,
       () => input.dispatch({ action: 'interact', phase: 'activate', source: 'pointer' }),
@@ -544,7 +544,7 @@ export class JourneyScene extends StoryScene {
     }, 120);
     this.campDialogue.setText(CAMP_DIALOGUE_PROMPT);
     this.campDialogue.setContinue(() => this.showCampConversationMenu(), 'Gesprächsthema wählen');
-    this.campConversationInputLock = input.lock({ priority: 120, allow: ['continue', 'interact', 'cancel', 'beam', 'wave', 'wait', 'confirm'] });
+    this.campConversationInputLock = input.lock({ priority: 120, allow: ['continue', 'interact', 'cancel', 'beam', 'wave', 'wait', 'confirm', 'settings'] });
     this.campConversationControls = input.setControls({ directions: [], actions: { E: 'Gesprächsthema wählen', ESC: 'Zurück' }, bindings: { E: 'continue' }, inventory: false }, { priority: 120 });
     this.data.set('story:camp-dialogue', { active: true, stage: 'intro', choices: [] });
   }

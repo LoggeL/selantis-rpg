@@ -3,9 +3,9 @@ import { FLICK_TRAIL_AREA } from '../../areas/continuationFilm';
 
 export const FLICK_TRAIL: ContinuationChapterDefinition = {
   id: 'flick-trail', title: 'Flicks Fährte', area: FLICK_TRAIL_AREA,
-  source: ['docs/episode-01.md:09:20-14:21', 'sources/transcripts/01-3PNiiK653uQ.txt:11:39-14:21', 'ADAPTION: rain-flick-encounter; walkable-actions'],
+  source: ['docs/episode-01.md:09:20-14:21', 'sources/transcripts/01-3PNiiK653uQ.txt:11:39-14:21', 'ADAPTION: rain-flick-encounter; walkable-actions. Die Richtungsentscheidung anhand von Hufabdrücken und frischem Rindenabrieb ist eine Spielaufgabe auf dem Waldweg; die konkreten Spuren sind kein zusätzliches Filmzeugnis.'],
   atmosphere: 'night', music: 'exploration',
-  actors: [{ id: 'flick', name: 'Flick', texture: 'flick-walk', at: [93, 190], follow: true }],
+  actors: [{ id: 'flick', name: 'Flick', texture: 'flick-walk', displaySize: [44, 44], at: [93, 190], follow: true }],
   entry: [{ id: 'flick-trail.entry.quiver', line: 'Die Elbin geht leichtfüßig voraus. Über der cremefarbenen Tunika hängt ein burgunderfarbener Umhang. Ihr Bogen stößt leise gegen den Köcher.' }],
   actions: [
     { id: 'follow-hoofprints', label: 'Die Hufspuren am Weg untersuchen', at: [162, 214], radius: 25, completionFlag: 'film.hoofprints', beats: [
@@ -13,8 +13,8 @@ export const FLICK_TRAIL: ContinuationChapterDefinition = {
       { id: 'flick-trail.tracks.darkshadows', line: 'Lia: Schwarze Kleidung, Waffen. So sahen die Männer aus.' },
       { id: 'flick-trail.tracks.answer', line: 'Flick: Dunkelschatten. Das sind Diener des Bösen. Wir sollten ihnen nicht offen in die Arme laufen.' },
     ] },
-    { id: 'cross-fallen-trunk', label: 'Am umgestürzten Stamm die Spur wiederfinden', at: [311, 219], radius: 25, requires: ['film.hoofprints'], completionFlag: 'film.trail-direction', beats: [
-      { id: 'flick-trail.trunk.scout', line: 'Flick geht am Stamm entlang, bis sie auf der anderen Seite eine tiefe Ferse im Lehm findet.', cue: { type: 'move', actor: 'flick', to: [342, 197] } },
+    { id: 'cross-fallen-trunk', label: 'Hinter den Wurzeln die Spur wiederfinden', at: [311, 219], radius: 25, requires: ['film.hoofprints'], completionFlag: 'film.trail-direction', challenge: { kind: 'tracking', successPosition: [342, 219] }, beats: [
+      { id: 'flick-trail.trunk.scout', line: 'Flick folgt den Wurzeln am Wegrand, bis sie dahinter eine tiefe Ferse im Lehm findet.', cue: { type: 'move', actor: 'flick', to: [342, 197] } },
       { id: 'flick-trail.trunk.boast', line: 'Flick: Ein paar Stunden Vorsprung, höchstens. Du hast Glück, dass du mich gefunden hast.' },
       { id: 'flick-trail.trunk.lia', line: 'Lia: Und bescheiden bist du auch noch.' },
       { id: 'flick-trail.trunk.reply', line: 'Flick: Wenn du lieber raten möchtest, bitte.' },

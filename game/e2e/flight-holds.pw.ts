@@ -24,6 +24,7 @@ async function state(page: Page) {
       x: scene.v.x, y: scene.v.y, dist: scene.dist, progress: scene.holding,
       texture: scene.v.texture.key, frame: Number(scene.v.frame.name), playing: scene.v.anims.isPlaying,
       next: scene.nextStation, floor: scene.safeFloor, busy: scene.busy,
+      holdMs: scene.stations[scene.nextStation]?.holdMs ?? 0,
       holdX: scene.holdBack?.x, holdY: scene.holdBack?.y,
     };
   });
@@ -46,9 +47,10 @@ async function holdInput(page: Page, mode: Mode) {
     action = { id: 1, x: e.x + e.width / 2, y: e.y + e.height / 2 };
     direction = { id: 2, x: d.x + d.width / 2, y: d.y + d.height / 2 };
     client = await page.context().newCDPSession(page);
-  } else await page.keyboard.down('KeyD');
+  }
   return {
     async press() {
+      if (mode !== 'phone') await page.keyboard.down('KeyD');
       if (mode === 'keyboard') await page.keyboard.down('KeyE');
       else if (mode === 'pointer') {
         const box = (await page.locator('canvas').boundingBox())!;
@@ -95,8 +97,10 @@ for (const mode of ['keyboard', 'pointer', 'phone'] as const) {
       const start = await state(page);
       const input = await holdInput(page, mode);
       await input.press();
-      await expect.poll(async () => (await state(page)).progress).toBeGreaterThan(350);
+      await page.waitForFunction(() => (window as any).game.scene.getScene('flight').holding > 350);
       const middle = await state(page);
+      // Release before assertions or capture can consume the remaining authored hold duration.
+      await input.release();
       expect(middle.next).toBe(2);
       expect(middle.x).toBeGreaterThan(start.x);
       expect(middle.y).toBeLessThan(start.y - 10);
@@ -105,11 +109,15 @@ for (const mode of ['keyboard', 'pointer', 'phone'] as const) {
       expect(middle.playing).toBe(false);
       expect(middle.holdX).toBe(middle.x);
       expect(middle.holdY).toBe(middle.y + 9);
-      await evidence(page, info, `message-04-mid-climb-${mode}`);
-      await input.release();
+      expect(middle.progress).toBeLessThan(middle.holdMs);
       await page.waitForTimeout(100);
       const paused = await state(page);
+      expect(paused.next).toBe(2);
+      expect(paused.progress).toBeLessThan(paused.holdMs);
       await page.waitForTimeout(400);
+      expect(await state(page)).toEqual(paused);
+      await input.stopDirection();
+      await evidence(page, info, `message-04-mid-climb-${mode}`);
       expect(await state(page)).toEqual(paused);
       await input.press();
       await expect.poll(async () => (await state(page)).next).toBe(3);
@@ -133,21 +141,28 @@ for (const mode of ['keyboard', 'pointer', 'phone'] as const) {
       const start = await state(page);
       const input = await holdInput(page, mode);
       await input.press();
-      await expect.poll(async () => (await state(page)).progress).toBeGreaterThan(250);
+      await page.waitForFunction(() => (window as any).game.scene.getScene('flight').holding > 250);
       const middle = await state(page);
+      await input.release();
+      expect(middle.next).toBe(3);
+      expect(middle.progress).toBeLessThan(middle.holdMs);
       expect(middle.x).toBe(start.x);
       expect(middle.y).toBe(start.y);
       expect(middle.dist).toBe(start.dist);
       expect(middle.texture).toBe('valentus-cloak-events');
       expect(middle.frame).toBe(9);
       expect(middle.playing).toBe(false);
-      await evidence(page, info, `message-04-mid-brace-${mode}`);
-      await input.release();
       await page.waitForTimeout(100);
       const paused = await state(page);
+      expect(paused.next).toBe(3);
+      expect(paused.progress).toBeLessThan(paused.holdMs);
       expect(paused.texture).toBe('valentus-cloak-run');
       expect(paused.playing).toBe(false);
       await page.waitForTimeout(350);
+      expect(await state(page)).toEqual(paused);
+      await input.stopDirection();
+      await info.attach(`unfinished-brace-${mode}`, { body: JSON.stringify(middle), contentType: 'application/json' });
+      await evidence(page, info, `message-04-paused-brace-${mode}`);
       expect(await state(page)).toEqual(paused);
       await input.press();
       await expect.poll(async () => (await state(page)).next).toBe(4);

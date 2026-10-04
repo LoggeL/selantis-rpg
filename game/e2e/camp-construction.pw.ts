@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { restartScene } from './helpers/scenes';
+import { drillToHeat } from './helpers/camp-controls';
 
 for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 }]) {
   test.describe(`camp input ${viewport.width}`, () => {
@@ -79,14 +80,7 @@ for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 
       if (viewport.width < 500) await button.tap();
       else await button.click();
     };
-    const waitGoodStroke = () => page.waitForFunction(() => {
-      const f = (window as any).game.scene.getScene('journey').data.get('story:fire-minigame');
-      return f?.active && f.ready && f.marker > 0.43 && f.marker < 0.57;
-    });
-    await waitGoodStroke();
-    if (viewport.width < 500) await fireButton('Holz bohren');
-    else await page.keyboard.press('KeyE');
-    await expect.poll(async () => (await snap()).minigame.heat).toBe(1);
+    await drillToHeat(page, 1, viewport.width < 500);
     // Pause preserves wood and progress, while tapping outside the game cannot walk Lia.
     await fireButton('Pause');
     await expect.poll(async () => (await snap()).minigame.active).toBe(false);
@@ -95,12 +89,7 @@ for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 
     await use('fire', 'fire');
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:fire-minigame')?.active);
     expect((await snap()).minigame.heat).toBe(1);
-    for (let heat = 2; heat <= 6; heat++) {
-      await waitGoodStroke();
-      if (viewport.width < 500) await fireButton('Holz bohren');
-      else await page.keyboard.press('KeyE');
-      await expect.poll(async () => (await snap()).minigame.heat).toBe(heat);
-    }
+    await drillToHeat(page, 6, viewport.width < 500);
     await expect.poll(async () => (await snap()).step).toBe('meal');
     expect((await snap()).world.inv.zunderholz).toBeUndefined();
     expect(await snap()).toMatchObject({ time: 'dusk', world: { flags: { campfireLit: true } } });

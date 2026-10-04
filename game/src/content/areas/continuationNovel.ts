@@ -8,18 +8,21 @@ export const GOLDEN_BOAR_AREA: StoryArea = {
   targets: [],
 };
 
-/** Reuses the existing night clearing's painted fire and seating anchors. */
+/** Follow the painted bare ground, including the narrow path at the right. */
 export const READING_CAMP_AREA: StoryArea = {
-  id: 'reading-camp', name: 'Bücher am Lagerfeuer', bg: 'bg-first-camp-night', start: [517, 285],
-  walk: [[[105, 180], [555, 180], [555, 315], [105, 315]]],
+  id: 'reading-camp', name: 'Bücher am Lagerfeuer', bg: 'bg-first-camp-night', start: [517, 232],
+  walk: [[[125, 168], [190, 145], [305, 154], [377, 157], [427, 178], [443, 211],
+    [474, 223], [534, 191], [585, 185], [609, 201], [593, 230], [527, 252],
+    [474, 242], [433, 239], [402, 252], [324, 267], [252, 253], [191, 242], [153, 233], [118, 201]]],
   block: [[[300, 211], [334, 211], [334, 238], [300, 238]]],
   targets: [],
 };
 
-/** The tents remain above y130, with the command entrance at upper right. */
+/** The tents stay above y130; the lower-left stump and rocks are off the path. */
 export const BROTHERHOOD_AREA: StoryArea = {
-  id: 'brotherhood', name: 'Das Lager der Freien Bruderschaft', bg: 'bg-brotherhood-camp', start: [94, 286],
-  walk: [[[50, 133], [593, 133], [593, 320], [50, 320]]],
+  id: 'brotherhood', name: 'Das Lager der Freien Bruderschaft', bg: 'bg-brotherhood-camp', start: [133, 267],
+  walk: [[[50, 133], [593, 133], [593, 263], [552, 289], [490, 316],
+    [210, 320], [170, 295], [134, 276], [110, 250], [50, 241]]],
   block: [],
   targets: [],
 };

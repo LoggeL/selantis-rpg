@@ -13,6 +13,8 @@ export interface ContinuationActor {
   follow?: boolean;
   requires?: readonly string[];
   hideFlags?: readonly string[];
+  /** The actor starts tied up, including chapters that only observe the captive. */
+  bound?: boolean;
 }
 export type ContinuationCue =
   | { type: 'move'; actor: string; to: Pt; duration?: number }
@@ -42,6 +44,8 @@ export interface ContinuationAction {
   items?: readonly { item: ItemId; delta: number }[];
   repeatable?: boolean;
   disabledHint?: string;
+  /** Success is earned in a playable encounter before the authored result. */
+  challenge?: { kind: 'rescue' | 'tracking'; successPosition?: Pt };
 }
 export interface ContinuationChapterDefinition {
   id: string;

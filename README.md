@@ -61,6 +61,12 @@ Foltan und Azar kommen sichtbar zu der schlafenden Lia. Ihre Namen bleiben "???"
 
 Von der Schenke führt Lias Suche über ein zweites Nachtlager zur Freien Bruderschaft. Nach dem Bruch mit Foltan verlässt sie das Lager und begegnet Flick im Sommerregen. Beide verfolgen Kyras Spur, bereiten ihre Rettung vor und treffen wieder mit ihr zusammen. Lias unbewusster Magieausbruch und ihre Erholung sind inszenierte Handlungen. Der Abschnitt endet beim gemeinsamen Aufbruch zu den Rebellen, entsprechend dem Ende des ersten Films. Die Schlussansicht bietet Wiederholung und Rückkehr zum Titel. [Quellen, Übergangsadaption und Grafikprompts](docs/film-one-continuation.md) halten den Umfang fest.
 
+Auf Flicks Fährte untersucht der Spieler Hufabdrücke und Rindenabrieb und entscheidet, welcher Weg zur Spur passt. Ein falscher Weg führt zurück zur Wurzel; ohne untersuchte Hinweise bleibt die Richtung offen. Die Kartenpunkte und Schaltflächen funktionieren mit Maus, Touch und Tastatur.
+
+Kyras Befreiung ist ein eigener taktischer Kampf. Lia und Flick haben jeweils eine Bewegung und eine Aktion pro Runde. Flick löst neben Kyra die Fesseln und kann mit ihrem Bogen die Wachen treffen. Lia lenkt Gegner ab, warnt Kyra oder deckt sie aus einem benachbarten Feld. E wechselt die Figur, Q deckt, R wählt ein Ziel, Enter bestätigt ein Feld und Leertaste beendet die Runde. Die Schaltflächen bieten dieselben Aktionen. Das Ziel ist, die befreite Kyra mit beiden Figuren zu schützen und einen Gegnerzug zu überstehen. Scheitern und Abbruch lassen die Geschichte offen und erlauben einen neuen Versuch. Einsatz-LP bleiben auf diesen Kampf begrenzt. Erst danach folgen Lias unbewusster Magieausbruch und das Wiedersehen.
+
+[Visueller Playtest und spielerische Abnahme](docs/visual-playtest-2026-10-04.md) unterscheiden Dialogpassagen, echte Herausforderungen und verbleibende Grenzen.
+
 Beim Nest und auf Valentus' Fluchtstrecke folgt das Klettern dem Halten von E beziehungsweise der Touch-Aktion. Loslassen pausiert den Aufstieg. Während Valentus sich am Baum abstützt, bleibt er dort stehen. Erledigte Hofmarker verschwinden; das Haus bleibt betretbar. Die Lagergegenstände verwenden eigene freigestellte Grafiken für Mantel, Decke, Steine, Reisig und Feuer.
 
 ## Playtest-Debug

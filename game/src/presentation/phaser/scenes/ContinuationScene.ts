@@ -18,10 +18,12 @@ export class ContinuationScene extends StoryScene {
   private currentAction?: string;
   private chapterActors = new Map<string, Phaser.GameObjects.Sprite>();
   private followerRoutes = new Map<string, { goal: Pt; points: Pt[] }>();
+  private actorFacing = new Map<string, 'n' | 's' | 'e' | 'w'>();
   private talking = false;
   private collapsedActors = new Set<string>();
   private ended = false;
   private activeLifetime = 0;
+  private activeChallenge?: string;
   private weather?: Phaser.GameObjects.Graphics;
   private weatherTime = 0;
   private visibilityCues = new Map<string, boolean>();
@@ -33,8 +35,9 @@ export class ContinuationScene extends StoryScene {
   create() {
     const lifetime = ++this.activeLifetime;
     this.conversation?.dispose();
-    this.chapterActors.clear(); this.followerRoutes.clear(); this.effects.clear(); this.visibilityCues.clear(); this.boundActors.clear(); this.collapsedActors.clear();
-    this.talking = false; this.ended = false; this.weatherTime = 0;
+    this.conversation = undefined;
+    this.chapterActors.clear(); this.followerRoutes.clear(); this.actorFacing.clear(); this.effects.clear(); this.visibilityCues.clear(); this.boundActors.clear(); this.collapsedActors.clear();
+    this.talking = false; this.ended = false; this.weatherTime = 0; this.currentAction = undefined; this.activeChallenge = undefined;
     this.data.set('story:chapter-ended', false);
     this.begin(this.chapter.area);
     const st = state(this.registry);
@@ -48,13 +51,12 @@ export class ContinuationScene extends StoryScene {
       const sprite = this.add.sprite(...actor.at, texture, actor.texture.startsWith('portrait-') ? 0 : actor.frame ?? 0)
         .setDisplaySize(...(actor.displaySize ?? [64, 64])).setOrigin(foot[0] / (asset?.frameW ?? 64), foot[1] / (asset?.frameH ?? 64)).setDepth(actor.at[1]);
       this.areaRoot.add(sprite); this.chapterActors.set(actor.id, sprite);
-    }
-    if (st.flags[chapterEntryFlag(this.chapter.id)]) for (const beat of this.chapter.entry ?? []) for (const cue of this.beatCues(beat)) this.restoreCue(cue);
-    for (const action of this.chapter.actions) if (!actionComplete(st.flags, action)) {
-      for (const beat of action.beats) for (const cue of this.beatCues(beat)) if (cue.type === 'unbind' && !this.boundActors.has(cue.actor)) {
-        const rope = this.add.graphics().setDepth(800); this.areaRoot.add(rope); this.boundActors.set(cue.actor, rope);
+      this.actorFacing.set(actor.id, 's');
+      if (actor.bound) {
+        const rope = this.add.graphics(); this.areaRoot.add(rope); this.boundActors.set(actor.id, rope);
       }
     }
+    if (st.flags[chapterEntryFlag(this.chapter.id)]) for (const beat of this.chapter.entry ?? []) for (const cue of this.beatCues(beat)) this.restoreCue(cue);
     for (const action of this.chapter.actions) if (actionComplete(st.flags, action)) {
       for (const beat of action.beats) for (const cue of this.beatCues(beat)) {
         // A collapsed character must reopen beside the recovery interaction.
@@ -63,21 +65,27 @@ export class ContinuationScene extends StoryScene {
       }
     }
     this.refreshActors();
-    if (this.chapter.atmosphere) this.weather = this.add.graphics().setDepth(900);
+    if (this.chapter.atmosphere) {
+      this.weather = this.add.graphics().setDepth(900);
+      this.areaRoot.add(this.weather);
+    }
     setSceneMusic(this, this.chapter.music ?? 'exploration');
     this.refreshSpots();
     this.events.once('shutdown', () => {
       if (this.activeLifetime !== lifetime) return;
       ++this.activeLifetime;
+      if (this.activeChallenge) this.scene.stop(this.activeChallenge);
+      this.activeChallenge = undefined;
       this.conversation?.dispose();
       for (const cleanup of [...this.effects]) cleanup();
-      this.effects.clear(); this.followerRoutes.clear(); this.chapterActors.clear(); this.boundActors.clear();
+      this.effects.clear(); this.followerRoutes.clear(); this.actorFacing.clear(); this.chapterActors.clear(); this.boundActors.clear();
       this.weather = undefined;
     });
     if (this.chapter.end && st.flags[chapterCompleteFlag(this.chapter.id)]) this.showEnding();
     else if (this.chapter.entry?.length && !st.flags[chapterEntryFlag(this.chapter.id)]) {
       this.runSequence(this.chapter.entry, () => { setCampaignFlag(st, chapterEntryFlag(this.chapter.id)); });
     }
+    this.publishSnapshot();
   }
 
   private refreshActors() {
@@ -108,10 +116,52 @@ export class ContinuationScene extends StoryScene {
   private useAction(action: ContinuationAction) {
     if (this.talking || !actionAvailable(state(this.registry).flags, action)) return;
     this.currentAction = action.id;
+    if (action.challenge) { this.runChallenge(action); return; }
     this.runSequence(action.beats, () => {
       completeChapterAction(state(this.registry), action);
       this.refreshLiaAppearance(); this.refreshActors();
     });
+  }
+
+  private runChallenge(action: ContinuationAction) {
+    const challenge = action.challenge!;
+    const key = challenge.kind === 'rescue' ? 'rescue-battle' : 'tracking';
+    const lifetime = this.activeLifetime;
+    let returned = false;
+    this.conversation?.dispose();
+    this.hideCloseup(); this.inventory.close();
+    this.talking = true; this.setLocked(true); this.setCinematic(false);
+    this.activeChallenge = key; this.publishSnapshot();
+    // A sleeping chapter cannot consume the encounter's keyboard/touch actions.
+    this.scene.sleep();
+    this.scene.launch(key, { onComplete: (success: boolean) => {
+      if (returned || lifetime !== this.activeLifetime || this.activeChallenge !== key) return;
+      returned = true; this.activeChallenge = undefined;
+      setSceneMusic(this, this.chapter.music ?? 'exploration');
+      if (!success) {
+        this.talking = false; this.currentAction = undefined; this.setLocked(false);
+        this.refreshSpots(); this.publishSnapshot(); this.scene.wake();
+        return;
+      }
+      if (challenge.successPosition) this.lia.setPosition(...challenge.successPosition).setDepth(challenge.successPosition[1]);
+      if (challenge.kind === 'tracking') {
+        this.runSequence(action.beats, () => {
+          completeChapterAction(state(this.registry), action);
+          this.refreshLiaAppearance(); this.refreshActors();
+        });
+      } else {
+        // The player has already freed Kyra and held the guards off. Restore that
+        // result instead of replaying an automatic fight after the earned win.
+        for (const beat of action.beats) for (const cue of this.beatCues(beat)) this.restoreCue(cue);
+        completeChapterAction(state(this.registry), action);
+        this.talking = false; this.currentAction = undefined; this.setLocked(false);
+        this.refreshLiaAppearance(); this.refreshActors(); this.refreshSpots();
+        this.say('Kyra ist frei. Lia stellt sich zwischen sie und Vardis.');
+      }
+      this.publishSnapshot();
+      // Wake subscribers receive the completed result and current controls.
+      this.scene.wake();
+    } });
   }
 
   private runSequence(beats: readonly ContinuationBeat[], complete: () => void) {
@@ -189,6 +239,8 @@ export class ContinuationScene extends StoryScene {
       // This involuntary blue burst never unlocks a repeatable spell action.
       const color = cue.color ?? 0x397fc1;
       graphic = this.add.graphics().setDepth(950);
+      // World effects follow the map and stay beneath illustrated close-ups.
+      this.areaRoot.add(graphic);
       graphic.fillStyle(color, 0.34).fillCircle(this.lia.x, this.lia.y - 24, 23);
       graphic.fillStyle(0xb3f5ed, 0.88).fillCircle(this.lia.x, this.lia.y - 24, 9);
       graphic.lineStyle(3, color, 0.95).strokeCircle(this.lia.x, this.lia.y - 24, 35);
@@ -202,10 +254,14 @@ export class ContinuationScene extends StoryScene {
   }
 
   private animateCueActor(id: string, actor: Phaser.GameObjects.Sprite, to: Pt, walking: boolean) {
+    const dx = to[0] - actor.x, dy = to[1] - actor.y;
+    const direction = Math.hypot(dx, dy) > 0.05
+      ? Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'e' : 'w' : dy > 0 ? 's' : 'n'
+      : this.actorFacing.get(id) ?? 's';
+    this.actorFacing.set(id, direction);
+    if (id === 'lia') { this.playLiaMovement(direction, walking); return; }
     const definition = this.chapter.actors.find(actor => actor.id === id);
     if (!definition) return;
-    const dx = to[0] - actor.x, dy = to[1] - actor.y;
-    const direction = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'e' : 'w' : dy > 0 ? 's' : 'n';
     const key = `${definition.texture.replace(/-walk$/, '')}-${walking ? 'walk' : 'idle'}-${direction}`;
     if (this.anims.exists(key)) actor.play(key, true);
   }
@@ -269,7 +325,8 @@ export class ContinuationScene extends StoryScene {
       }
       const dx = actor.x - from[0], dy = actor.y - from[1];
       const moved = Math.hypot(dx, dy) > 0.05;
-      const facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'e' : 'w' : dy > 0 ? 's' : 'n';
+      const facing = moved ? Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'e' : 'w' : dy > 0 ? 's' : 'n' : this.actorFacing.get(definition.id) ?? 's';
+      this.actorFacing.set(definition.id, facing);
       const animation = `${definition.texture.replace(/-walk$/, '')}-${moved ? 'walk' : 'idle'}-${facing}`;
       if (this.anims.exists(animation)) actor.play(animation, true);
       actor.setDepth(actor.y);
@@ -280,8 +337,8 @@ export class ContinuationScene extends StoryScene {
   private publishSnapshot() {
     const flags = state(this.registry).flags;
     this.data.set('story:continuation', {
-      chapter: this.chapter.id, talking: this.talking, conversationActive: this.talking && !this.ended, currentAction: this.currentAction ?? null, sequence: this.conversation?.snapshot ?? null,
-      actions: this.chapter.actions.map(action => ({ id: action.id, at: action.at, radius: action.radius, flag: action.completionFlag, available: actionAvailable(flags, action), complete: actionComplete(flags, action) })),
+      chapter: this.chapter.id, talking: this.talking, conversationActive: this.talking && !this.ended && !this.activeChallenge, currentAction: this.currentAction ?? null, challenge: this.activeChallenge ?? null, sequence: this.conversation?.snapshot ?? null,
+      actions: this.chapter.actions.map(action => ({ id: action.id, at: action.at, radius: action.radius, flag: action.completionFlag, challenge: action.challenge?.kind ?? null, available: actionAvailable(flags, action), complete: actionComplete(flags, action) })),
       exit: { at: this.chapter.exit.at, radius: this.chapter.exit.radius, available: chapterExitAvailable(flags, this.chapter), to: this.chapter.exit.to },
       actors: this.chapter.actors.map(actor => { const sprite = this.chapterActors.get(actor.id); return { id: actor.id, texture: sprite?.texture.key ?? actor.texture, visible: sprite?.visible ?? false, at: sprite ? [sprite.x, sprite.y] : actor.at, frame: sprite?.frame.name, angle: sprite?.angle ?? 0, bound: this.boundActors.has(actor.id) }; }), ended: this.ended,
     });

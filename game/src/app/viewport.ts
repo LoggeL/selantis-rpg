@@ -11,7 +11,7 @@ export function installApplicationViewport(game: Phaser.Game, host: HTMLElement,
   const resize = () => {
     frame = 0;
     if (disposed) return;
-    const zoom = fitGameScale(host.clientWidth, host.clientHeight, document.documentElement.dataset.actionBar !== 'true');
+    const zoom = fitGameScale(host.clientWidth, host.clientHeight, false);
     if (!zoom) return;
     game.scale.setZoom(zoom);
     game.scale.refresh();

@@ -38,14 +38,15 @@ describe('first-camp inventory tutorial', () => {
     expect(action).toMatchObject({ item: 'proviant', label: 'Essen' });
     // Exercise the real inventory gate without constructing the Phaser UI.
     const bag: any = Object.create(InventoryHud.prototype);
-    Object.assign(bag, { enabled: true, panel: { visible: false }, inv: world.inv, itemActions: [action] });
+    Object.assign(bag, { enabled: true, openState: false, panel: { visible: false }, inv: world.inv, itemActions: [action] });
     expect(bag.useItem('proviant')).toBe(false);
-    bag.panel.visible = true;
+    bag.openState = true;
     expect(bag.useItem('proviant')).toBe(false);
     bag.selected = 'wasserschlauch';
     expect(bag.useItem('proviant')).toBe(false);
     bag.selected = 'proviant';
     expect(bag.useItem('proviant')).toBe(true);
+    expect(bag.panel.visible).toBe(false);
     expect(world.inv.proviant).toBe(1);
     expect(world.flags.journeyAte).toBe(true);
     expect(scene.campStep).toBe('sleep');

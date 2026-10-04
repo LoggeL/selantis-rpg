@@ -3,7 +3,8 @@ import type { AuthoredFlightStation } from "../../../modules/flight/stations";
 
 // Laufweg über beide Bühnen (Welt 1280 x 360). Romanstationen S. 1–2.
 export const FLIGHT_PATH: readonly RailPoint[] = [
-  { x: 36, y: 44 }, { x: 70, y: 62 }, { x: 110, y: 88 }, { x: 150, y: 108 }, { x: 200, y: 122 },
+  // Enter on the visible trail, clear of the portrait and health panel.
+  { x: 170, y: 110 }, { x: 178, y: 113 }, { x: 186, y: 116 }, { x: 193, y: 119 }, { x: 200, y: 122 },
   /* 5: Wurzel */ { x: 250, y: 136 }, { x: 290, y: 162 }, { x: 322, y: 194 }, { x: 362, y: 216 }, { x: 402, y: 238 },
   { x: 442, y: 255 }, { x: 482, y: 274 }, { x: 522, y: 290 }, { x: 562, y: 302 },
   /* 14: Absprung am Bach */ { x: 604, y: 316 },

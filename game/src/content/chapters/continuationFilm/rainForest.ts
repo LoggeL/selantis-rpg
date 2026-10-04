@@ -5,7 +5,7 @@ export const RAIN_FOREST: ContinuationChapterDefinition = {
   id: 'rain-forest', title: 'Allein im Sommerregen', area: RAIN_FOREST_AREA,
   source: ['Roman Selantis 2.pdf S. 89-90', 'docs/novel-analysis.md:245-251', 'ADAPTION: distant-camp-coda; rain-flick-encounter'],
   atmosphere: 'rain', music: 'grief',
-  actors: [{ id: 'flick', name: 'Flick', texture: 'flick-walk', at: [487, 198] }],
+  actors: [{ id: 'flick', name: 'Flick', texture: 'flick-walk', displaySize: [44, 44], at: [487, 198], requires: ['film.rain-tracks'] }],
   entry: [
     { id: 'rain-forest.entry.alone', line: 'Lia geht weiter, ohne zu wissen, wohin. Hauptsache fort vom Lager. Wenn niemand ihr hilft, wird sie Kyra allein suchen.' },
     { id: 'rain-forest.entry.stars', line: 'Der Wind zerrt an ihren rotblonden Haaren. Wolken nehmen ihr den Mond und die vertrauten Sterne. Aus dem Nieseln wird schwerer Sommerregen.' },

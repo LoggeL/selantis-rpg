@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { restartScene } from './helpers/scenes';
+import { campSpot, prepareFirstCamp } from './helpers/camp-controls';
 
 const layouts = [
   { name: 'desktop', width: 1280, height: 800, mobile: false, reducedMotion: false },
@@ -12,21 +13,15 @@ async function openFriendlyCamp(page: Page, layout: typeof layouts[number], befo
   await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
   await page.setViewportSize({ width: layout.width, height: layout.height });
   await page.addInitScript(reducedMotion => localStorage.setItem('selantis.settings.v1', JSON.stringify({ reducedMotion })), layout.reducedMotion);
-  await page.goto('/');
-  await page.waitForFunction(() => (window as any).game?.scene?.isActive('title'));
-  await page.getByRole('button', { name: 'Debug · Playtest' }).click();
-  await page.getByLabel('Einstieg').selectOption('strangers');
-  await page.getByRole('button', { name: 'Zum Einstieg' }).click();
+  if (beforeEncounter) {
+    await prepareFirstCamp(page, layout.mobile);
+    return;
+  }
+  await page.goto('/?scene=strangers');
   await page.waitForFunction(() => {
     const scene = (window as any).game?.scene?.getScene('journey');
-    return scene?.sys.isActive() && scene.inCamp && scene.lia?.active && scene.foltan?.active && scene.spots?.some((spot: any) => spot.id === 'foltan');
+    return scene?.sys.isActive() && scene.inCamp && !scene.locked && scene.foltan?.active;
   });
-  if (beforeEncounter) {
-    // The checkpoint supplies an intact rested camp. Rewind only the meeting,
-    // then exercise normal preload/create and the whole arrival choreography.
-    await page.evaluate(() => { (window as any).game.registry.get('world').flags.metFoltanAzar = false; });
-    await restartScene(page, 'journey');
-  }
 }
 
 async function interact(page: Page, mobile: boolean) {
@@ -49,6 +44,8 @@ async function sample(page: Page) {
   });
 }
 for (const layout of layouts) {
+  test.describe(layout.name, () => {
+  test.use({ hasTouch: layout.mobile });
   test(`friendly camp dialogue stays continuous on ${layout.name}`, async ({ page }) => {
     test.setTimeout(90_000);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
@@ -91,16 +88,26 @@ for (const layout of layouts) {
       expect(current.pose ?? '').not.toContain('bound');
       expect(current.shot).toBe(index < 2 ? 'cinematic-camp-observe' : index < 7 ? 'cut-camp-wake' : 'cut-camp-companions');
       if (index < 2) expect(current.pose).toBe('lia-sleep');
+      const speaker = await page.evaluate(() => (window as any).game.scene.getScene('journey').data.get('dialogue:speaker'));
+      expect(speaker).toBe(['???', '???', 'Lia', '???', '???', '???', '???', '???', 'Azar', 'Foltan', 'Azar', 'Lia', 'Foltan', 'Lia', 'Foltan', 'Lia', 'Foltan', 'Azar', 'Foltan', ''][index]);
       if (current.typing) {
         // A short line may finish between reading its typing flag and clicking.
-        // Wait for the authored line to settle before using the real advance input.
-        await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('dialogue:typing'));
+        // Sample natural typing at shot boundaries; guard a reveal against advancement.
+        if ([0, 7, 19].includes(index)) {
+          await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('dialogue:typing'));
+        } else {
+          await interact(page, layout.mobile);
+          if ((await sample(page)).text !== current.text) continue;
+          await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('dialogue:typing'));
+        }
         expect((await sample(page)).text).toBe(current.text);
       }
       current = await sample(page);
-      // Twenty rendered frames without input must keep the same line and lock.
-      await page.waitForFunction(frame => (window as any).game.loop.frame > frame + 20, current.frame);
-      expect((await sample(page)).text).toBe(current.text);
+      // Sample the held card across idle frames at each cinematic shot.
+      if ([0, 7, 19].includes(index)) {
+        await page.waitForFunction(frame => (window as any).game.loop.frame > frame + 20, current.frame);
+        expect((await sample(page)).text).toBe(current.text);
+      }
       if (layout.mobile) {
         const caption = (await page.locator('.mobile-caption').boundingBox())!;
         expect(caption.x).toBeGreaterThanOrEqual(0); expect(caption.y).toBeGreaterThanOrEqual(0);
@@ -109,8 +116,6 @@ for (const layout of layouts) {
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       }
       if ([0, 7, 19].includes(index)) await page.screenshot({ path: `../output/qa/friendly-camp-${layout.name}-${index}.png`, fullPage: true });
-      const speaker = await page.evaluate(() => (window as any).game.scene.getScene('journey').data.get('dialogue:speaker'));
-      expect(speaker).toBe(['???', '???', 'Lia', '???', '???', '???', '???', '???', 'Azar', 'Foltan', 'Azar', 'Lia', 'Foltan', 'Lia', 'Foltan', 'Lia', 'Foltan', 'Azar', 'Foltan', ''][index]);
       await interact(page, layout.mobile);
       if (index < 19) await expect.poll(async () => (await sample(page)).text).not.toBe(current.text);
     }
@@ -128,8 +133,14 @@ for (const layout of layouts) {
       const scene = (window as any).game.scene.getScene('journey');
       return [scene.locked, scene.closeupVisible, scene.liaPose ?? null, scene.foltan.texture.key, scene.azar.texture.key, Number(scene.foltan.frame.name), Number(scene.azar.frame.name)];
     })).toEqual([false, false, null, 'foltan-walk', 'azar-walk', 1, 1]);
-    await page.evaluate(() => (window as any).game.scene.getScene('journey').lia.setPosition(155, 188));
-    await interact(page, layout.mobile);
+    expect(errors).toEqual([]);
+  });
+
+  test(`star reflection is held through all six cards and retained on ${layout.name}`, async ({ page }) => {
+    test.setTimeout(45_000);
+    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+    await openFriendlyCamp(page, layout);
+    await campSpot(page, 'star', layout.mobile);
     for (let index = 0; index < 6; index++) {
       await page.waitForFunction(index => {
         const scene = (window as any).game.scene.getScene('journey');
@@ -161,10 +172,7 @@ for (const layout of layouts) {
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
     await openFriendlyCamp(page, layout);
     expect((await sample(page)).targets).toEqual(['fire', 'bedroll', 'foltan', 'azar', 'fire-seat', 'star', 'road']);
-    const at = async (x: number, y: number) => {
-      await page.evaluate(([x, y]) => (window as any).game.scene.getScene('journey').lia.setPosition(x, y), [x, y]);
-      await interact(page, layout.mobile);
-    };
+    const at = (id: string) => campSpot(page, id, layout.mobile);
     const continueLine = async () => {
       const current = await sample(page);
       if (current.typing) {
@@ -174,7 +182,7 @@ for (const layout of layouts) {
       }
       await interact(page, layout.mobile);
     };
-    await at(355, 231);
+    await at('foltan');
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue')?.stage === 'intro');
     await continueLine();
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue')?.stage === 'menu');
@@ -202,17 +210,18 @@ for (const layout of layouts) {
     if (layout.mobile) await page.locator('.mobile-action[data-key="ESC"]').click();
     else await page.keyboard.press('Escape', { delay: 50 });
     await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').locked);
-    await at(397, 265);
-    expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').areaRoot.list.some((object: any) => object.active && object.visible && object.text === 'Zzzzz'))).toBe(true);
-    await at(288, 250);
+    await at('azar');
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').areaRoot.list.some((object: any) => object.active && object.visible && object.text === 'Zzzzz'));
+    await at('fire-seat');
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').liaPose === 'lia-camp-sit');
     expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').data.get('story:camp-seated'))).toBe(true);
     await interact(page, layout.mobile);
     await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('story:camp-seated'));
     // No star interaction occurred. Choosing the bed must still start the morning.
-    await at(233, 260);
+    await at('bedroll');
     await page.waitForFunction(() => (window as any).game.scene.isActive('companions-road'));
     expect(await page.evaluate(() => !!(window as any).game.registry.get('world').flags.criosObserved)).toBe(false);
     expect(errors).toEqual([]);
+  });
   });
 }

@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { restartScene } from './helpers/scenes';
+import { campSpot } from './helpers/camp-controls';
 
 async function snapshot(page: Page) {
   return page.evaluate(() => {
@@ -30,15 +30,7 @@ for (const layout of [
       await page.waitForFunction(() => (window as any).game?.scene?.isActive('journey'));
       await expect.poll(async () => (await snapshot(page)).step).toBe('cloak');
 
-      const clickSpot = async (id: string) => {
-        const frame = await page.evaluate(() => (window as any).game.loop.frame);
-        await page.waitForFunction(frame => (window as any).game.loop.frame > frame + 2, frame);
-        const at = await page.evaluate(id => (window as any).game.scene.getScene('journey').spots.find((spot: any) => spot.id === id).at, id);
-        const canvas = (await page.locator('canvas').boundingBox())!;
-        const x = canvas.x + canvas.width * at[0] / 640, y = canvas.y + canvas.height * at[1] / 360;
-        if (layout.touch) await page.touchscreen.tap(x, y);
-        else await page.mouse.click(x, y);
-      };
+      const clickSpot = (id: string) => campSpot(page, id, layout.touch);
       const initial = await snapshot(page);
       for (const [id, hint] of [['stones', 'Regenmantel'], ['twigs', 'Regenmantel'], ['fire', 'Regenmantel'],
         ['fire-seat', 'Lagerfeuer brennen'], ['star', 'Nachtlager vorbereiten']]) {
@@ -58,13 +50,20 @@ for (const layout of [
         expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeGreaterThan(20);
         if (id === 'stones' || id === 'twigs') expect(after.markers.find((marker: any) => marker.id === id)?.visible).toBe(false);
       }
-      // Restore the later playable phase once, then approach every optional
-      // activity from Lia's actual previous arrival with real pointer inputs.
-      await page.evaluate(() => {
-        const flags = (window as any).game.registry.get('world').flags;
-        Object.assign(flags, { campfireLit: true, journeyAte: true, firstCampRested: true, metFoltanAzar: true });
+      expect(errors).toEqual([]);
+    });
+
+    test('optional activities remain reachable from the restored camp', async ({ page }) => {
+      test.setTimeout(45_000);
+      const errors: string[] = [];
+      page.on('pageerror', error => errors.push(error.message));
+      await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
+      await page.goto('/?scene=strangers');
+      await page.waitForFunction(() => {
+        const scene = (window as any).game?.scene?.getScene('journey');
+        return scene?.sys.isActive() && scene.campStep === 'star' && !scene.locked;
       });
-      await restartScene(page, 'journey');
+      const clickSpot = (id: string) => campSpot(page, id, layout.touch);
       await clickSpot('foltan');
       await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campConversationActive);
       if (layout.touch) await page.locator('.mobile-action[data-key="ESC"]').tap();

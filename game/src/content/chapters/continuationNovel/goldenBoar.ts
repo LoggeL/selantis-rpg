@@ -9,8 +9,8 @@ export const GOLDEN_BOAR_CHAPTER = {
   ],
   atmosphere: 'warm', music: 'refuge',
   actors: [
-    { id: 'foltan', name: 'Foltan', texture: 'foltan-walk', frame: 8, at: [288, 135] },
-    { id: 'azar', name: 'Azar', texture: 'azar-walk', frame: 8, at: [230, 136] },
+    { id: 'foltan', name: 'Foltan', texture: 'foltan-walk', frame: 0, at: [288, 135] },
+    { id: 'azar', name: 'Azar', texture: 'azar-walk', frame: 0, at: [230, 136] },
     { id: 'craupor', name: 'Craupor', texture: 'craupor-idle', frame: 0, at: [476, 134] },
   ],
   entry: [
@@ -29,7 +29,7 @@ export const GOLDEN_BOAR_CHAPTER = {
       ],
     },
     {
-      id: 'craupor-questioning', label: 'Foltan zum Tresen nachsehen', at: [445, 163], radius: 23,
+      id: 'craupor-questioning', label: 'Vom Tisch aus Foltan zum Tresen nachsehen', at: [311, 161], radius: 23,
       requires: ['novel.kyra-described'], completionFlag: 'novel.craupor-questioned',
       disabledHint: 'Foltan braucht zuerst eine Beschreibung von Kyra.',
       beats: [

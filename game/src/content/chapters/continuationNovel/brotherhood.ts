@@ -9,8 +9,8 @@ export const BROTHERHOOD_CHAPTER = {
   ],
   atmosphere: 'warm', music: 'refuge',
   actors: [
-    { id: 'azar', name: 'Azar', texture: 'azar-walk', frame: 8, at: [155, 155] },
-    { id: 'foltan', name: 'Foltan', texture: 'foltan-walk', frame: 8, at: [497, 148], hideFlags: ['novel.brotherhood-welcomed'] },
+    { id: 'azar', name: 'Azar', texture: 'azar-walk', frame: 0, at: [155, 155] },
+    { id: 'foltan', name: 'Foltan', texture: 'foltan-walk', frame: 0, at: [497, 148], hideFlags: ['novel.brotherhood-welcomed'] },
     { id: 'elnon', name: 'Elnon', texture: 'elnon-idle', frame: 0, at: [534, 145], hideFlags: ['novel.brotherhood-welcomed'] },
   ],
   entry: [

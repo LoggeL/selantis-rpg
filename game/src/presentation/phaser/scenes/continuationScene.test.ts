@@ -23,7 +23,9 @@ function fixture(definition: ContinuationChapterDefinition = chapter) {
   const st = createCampaignState(); st.inv.proviant = 2; st.picked.flower = true;
   scene.registry = { get: () => st }; scene.data = { set: vi.fn() };
   scene.textures = { exists: () => true };
-  for (const name of ['setLocked', 'setCinematic', 'setCloseupText', 'hideCloseup', 'showCloseup', 'refreshSpots', 'refreshLiaAppearance', 'refreshActors', 'setCloseupContinue']) scene[name] = vi.fn();
+  for (const name of ['setLocked', 'setCinematic', 'setCloseupText', 'hideCloseup', 'showCloseup', 'refreshSpots', 'refreshLiaAppearance', 'refreshActors', 'setCloseupContinue', 'say']) scene[name] = vi.fn();
+  scene.inventory = { close: vi.fn() };
+  scene.scene = { sleep: vi.fn(), launch: vi.fn(), wake: vi.fn(), stop: vi.fn() };
   return { scene, st };
 }
 afterEach(() => vi.restoreAllMocks());
@@ -113,7 +115,7 @@ describe('continuation dialogue lifetime', () => {
     const { scene, st } = fixture(reentry); st.flags.collapsed = true;
     scene.lia = { anims: { stop: vi.fn() }, setPosition: vi.fn().mockReturnThis(), setAngle: vi.fn().mockReturnThis(), setAlpha: vi.fn().mockReturnThis() };
     vi.spyOn(StoryScene.prototype as any, 'begin').mockImplementation(() => {});
-    const flick = { setDisplaySize: vi.fn().mockReturnThis(), setOrigin: vi.fn().mockReturnThis(), setDepth: vi.fn().mockReturnThis() };
+    const flick = { texture: { key: 'flick-walk' }, frame: { name: 0 }, setDisplaySize: vi.fn().mockReturnThis(), setOrigin: vi.fn().mockReturnThis(), setDepth: vi.fn().mockReturnThis() };
     scene.add = { sprite: vi.fn(() => flick) }; scene.areaRoot = { add: vi.fn() }; scene.events = { once: vi.fn() };
     scene.cache = { json: { get: () => ({ assets: [{ id: 'flick-walk', frameW: 256, frameH: 256, foot: [128, 240] }] }) } };
     scene.create();
@@ -126,5 +128,78 @@ describe('continuation dialogue lifetime', () => {
     const { scene } = fixture(); scene.lia = { active: false }; scene.collapsedActors.add('lia');
     const update = vi.spyOn(StoryScene.prototype, 'update').mockImplementation(() => {});
     scene.update(100, 50); expect(update).toHaveBeenCalledWith(100, 0);
+  });
+  it('keeps rescue completion locked on cancellation and accepts a fresh win only once', () => {
+    const action = { ...chapter.actions[0], challenge: { kind: 'rescue' as const, successPosition: [75, 30] as [number, number] } };
+    const { scene, st } = fixture({ ...chapter, actors: [], actions: [action] });
+    scene.lia = { setPosition: vi.fn().mockReturnThis(), setDepth: vi.fn().mockReturnThis() };
+    scene.restoreCue = vi.fn();
+    scene.useAction(action);
+    expect(scene.scene.sleep).toHaveBeenCalledOnce();
+    expect(scene.scene.launch).toHaveBeenCalledWith('rescue-battle', expect.objectContaining({ onComplete: expect.any(Function) }));
+    const cancelled = scene.scene.launch.mock.lastCall[1].onComplete;
+    cancelled(false); cancelled(true);
+    expect(st.flags.freed).toBeUndefined(); expect(scene.talking).toBe(false);
+    scene.useAction(action);
+    const won = scene.scene.launch.mock.lastCall[1].onComplete;
+    won(true); won(true);
+    expect(st.flags.freed).toBe(true); expect(scene.restoreCue).toHaveBeenCalledOnce();
+    expect(scene.lia.setPosition).toHaveBeenCalledExactlyOnceWith(75, 30);
+    expect(scene.scene.wake).toHaveBeenCalledTimes(2);
+    expect(scene.setCloseupText).not.toHaveBeenCalled();
+    expect(st.inv).toEqual({ proviant: 2 }); expect(st.picked.flower).toBe(true);
+  });
+  it('ignores an encounter callback after the parent chapter has been replaced', () => {
+    const action = { ...chapter.actions[0], challenge: { kind: 'rescue' as const } };
+    const { scene, st } = fixture({ ...chapter, actions: [action] });
+    scene.useAction(action);
+    const returned = scene.scene.launch.mock.lastCall[1].onComplete;
+    ++scene.activeLifetime; returned(true);
+    expect(st.flags.freed).toBeUndefined(); expect(scene.scene.wake).not.toHaveBeenCalled();
+  });
+  it('publishes the returned chapter state before waking its controls', () => {
+    const action = { ...chapter.actions[0], challenge: { kind: 'rescue' as const } };
+    const { scene, st } = fixture({ ...chapter, actions: [action] });
+    scene.restoreCue = vi.fn();
+    scene.scene.wake.mockImplementation(() => {
+      const snapshot = scene.data.set.mock.calls.filter(([key]: [string]) => key === 'story:continuation').at(-1)[1];
+      expect(snapshot).toMatchObject({ talking: false, currentAction: null, challenge: null });
+      expect(st.flags.freed).toBe(true);
+      expect(scene.setLocked).toHaveBeenLastCalledWith(false);
+    });
+    scene.useAction(action); scene.scene.launch.mock.lastCall[1].onComplete(true);
+    expect(scene.scene.wake).toHaveBeenCalledOnce();
+  });
+  it('requires the tracking win and its manual dialogue before granting progress', () => {
+    const action = { ...chapter.actions[0], challenge: { kind: 'tracking' as const }, beats: [{ id: 'answer', line: 'Die Spur führt weiter.' }] };
+    const { scene, st } = fixture({ ...chapter, actions: [action] });
+    scene.useAction(action);
+    const returned = scene.scene.launch.mock.lastCall[1].onComplete;
+    returned(true);
+    expect(st.flags.freed).toBeUndefined(); expect(scene.setCloseupText).toHaveBeenCalledWith('Die Spur führt weiter.');
+    scene.setCloseupContinue.mock.lastCall[0]();
+    expect(st.flags.freed).toBe(true);
+  });
+  it('retains the last actor facing after a walking cue stops', () => {
+    const actorDefinition = { id: 'flick', name: 'Flick', texture: 'flick-walk', at: [10, 10] as [number, number] };
+    const { scene } = fixture({ ...chapter, actors: [actorDefinition] });
+    scene.anims = { exists: () => true };
+    const actor = { x: 10, y: 10, play: vi.fn() };
+    scene.animateCueActor('flick', actor, [20, 10], true);
+    actor.x = 20; scene.animateCueActor('flick', actor, [20, 10], false);
+    expect(actor.play).toHaveBeenLastCalledWith('flick-idle-e', true);
+  });
+  it('shows restraints in an observation-only chapter and removes them on a freed checkpoint', () => {
+    const definition = { ...chapter, actors: [{ id: 'kyra', name: 'Kyra', texture: 'story-actors', bound: true, at: [40, 20] as [number, number] }], actions: [] };
+    const { scene } = fixture(definition);
+    vi.spyOn(StoryScene.prototype as any, 'begin').mockImplementation(() => {});
+    const sprite = { texture: { key: 'story-actors' }, frame: { name: 1 }, setDisplaySize: vi.fn().mockReturnThis(), setOrigin: vi.fn().mockReturnThis(), setDepth: vi.fn().mockReturnThis(), setFrame: vi.fn().mockReturnThis(), clearTint: vi.fn().mockReturnThis(), setAngle: vi.fn().mockReturnThis() };
+    const rope = { destroy: vi.fn() };
+    scene.add = { sprite: () => sprite, graphics: () => rope }; scene.areaRoot = { add: vi.fn() }; scene.events = { once: vi.fn() };
+    scene.cache = { json: { get: () => undefined } };
+    scene.create();
+    expect(scene.boundActors.has('kyra')).toBe(true); expect(scene.areaRoot.add).toHaveBeenCalledWith(rope);
+    scene.restoreCue({ type: 'unbind', actor: 'kyra' });
+    expect(scene.boundActors.has('kyra')).toBe(false); expect(rope.destroy).toHaveBeenCalledOnce();
   });
 });

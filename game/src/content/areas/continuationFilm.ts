@@ -21,5 +21,5 @@ const area = (id: string, name: string, bg: string, start: Pt, walk: Pt[]): Stor
 export const RAIN_FOREST_AREA = area('rain-forest', 'Allein im Sommerregen', 'bg-rain-forest', [52, 207], FOREST_PATH);
 export const FLICK_TRAIL_AREA = area('flick-trail', 'Flicks Fährte', 'bg-companion-forest-trail', [45, 184], FLICK_PATH);
 export const SHADOW_CAMP_AREA = area('shadow-camp', 'Oberhalb des Gefangenenlagers', 'bg-shadow-camp', [55, 240], CAMP_GROUND);
-export const SISTERS_REUNITED_AREA = area('sisters-reunited', 'Kyra am Lagerbaum', 'bg-shadow-camp', [460, 204], CAMP_GROUND);
+export const SISTERS_REUNITED_AREA = area('sisters-reunited', 'Kyra am Lagerbaum', 'bg-shadow-camp', [460, 226], CAMP_GROUND);
 export const FILM_ONE_FINALE_AREA = area('film-one-finale', 'Gemeinsam auf dem Waldweg', 'bg-companion-forest-trail', [48, 184], FLICK_PATH);

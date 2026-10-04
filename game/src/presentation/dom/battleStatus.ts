@@ -1,6 +1,7 @@
 /** Keep the next decisions visible on a phone; the character panel has details. */
 export function mobileBattleSummary(status: unknown): string {
   if (typeof status !== 'string' || !status) return '';
+  if (status.startsWith('BEFREIUNG\n')) return status.slice('BEFREIUNG\n'.length);
   const lines = status.split('\n');
   const hp = lines.find(line => line.startsWith('LP '))?.split(' · ')[0] ?? '';
   const facing = lines.find(line => line.startsWith('Blick: '))?.replace('Blick: ', 'Blick ') ?? '';

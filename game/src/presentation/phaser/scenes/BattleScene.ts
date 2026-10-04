@@ -255,6 +255,9 @@ export class BattleScene extends Phaser.Scene {
     this.stabCloseup?.update();
     if (this.phase === 'arrival') this.updateArrival(dt);
     this.finishControl?.setVisible(!usesMobileInterface() && (this.phase === 'plan' || this.phase === 'facing'));
+    const tacticalVisible = !usesMobileInterface() && this.phase !== 'arrival' && this.phase !== 'end' && this.beat < 4;
+    this.tacticalPanel?.setVisible(tacticalVisible);
+    this.tacticalText?.setVisible(tacticalVisible);
   }
 
   private updateArrival(dt: number) {
@@ -954,7 +957,7 @@ export class BattleScene extends Phaser.Scene {
       target && target.side === 'enemy' ? `Ziel: ${names[target.kind]} ${target.hp} LP` : this.guarding ? 'Warten schützt nur die Front.' : 'Blick zum Gegner schützt die Front.',
     ];
     const status = lines.join('\n');
-    const visible = this.phase !== 'arrival' && this.phase !== 'end' && this.beat < 4;
+    const visible = !usesMobileInterface() && this.phase !== 'arrival' && this.phase !== 'end' && this.beat < 4;
     this.tacticalPanel?.setVisible(visible);
     this.tacticalText?.setText(status).setVisible(visible);
     this.data?.set?.('mobile:battleStatus', this.phase !== 'arrival' && this.phase !== 'end' && this.beat < 4 ? status : '');

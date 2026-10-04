@@ -27,6 +27,8 @@ vi.mock('phaser', () => ({ default: {
 } }));
 vi.mock("../presentation/phaser/scenes/BootScene", () => ({ BootScene: runtime.scene('boot'), TitleScene: runtime.scene('title') }));
 vi.mock("../presentation/phaser/scenes/StoryPrologueScene", () => ({ StoryPrologueScene: runtime.scene('storyprologue') }));
+vi.mock('../presentation/phaser/scenes/RescueBattleScene', () => ({ RescueBattleScene: runtime.scene('rescue-battle') }));
+vi.mock('../presentation/phaser/scenes/TrackingScene', () => ({ TrackingScene: runtime.scene('tracking') }));
 vi.mock("../presentation/phaser/scenes/BattleScene", () => ({ BattleScene: runtime.scene('battle') }));
 vi.mock("../presentation/phaser/scenes/BreakScene", () => ({ BreakScene: runtime.scene('break') }));
 vi.mock("../presentation/phaser/scenes/FlightScene", () => ({ FlightScene: runtime.scene('flight') }));

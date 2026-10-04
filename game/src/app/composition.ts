@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { BootScene, TitleScene } from "../presentation/phaser/scenes/BootScene";
+import { RescueBattleScene } from '../presentation/phaser/scenes/RescueBattleScene';
+import { TrackingScene } from '../presentation/phaser/scenes/TrackingScene';
 import { BattleScene } from "../presentation/phaser/scenes/BattleScene";
 import { StoryPrologueScene } from "../presentation/phaser/scenes/StoryPrologueScene";
 import { BreakScene } from "../presentation/phaser/scenes/BreakScene";
@@ -41,6 +43,8 @@ export function applicationScenes(): SceneConstructor[] {
     'rain-forest': continuationScene('rain-forest'), 'flick-trail': continuationScene('flick-trail'),
     'shadow-camp': continuationScene('shadow-camp'), 'sisters-reunited': continuationScene('sisters-reunited'),
     'film-one-finale': continuationScene('film-one-finale'),
+    'rescue-battle': RescueBattleScene,
+    tracking: TrackingScene,
     boot: BootScene, title: TitleScene, storyprologue: StoryPrologueScene, battle: BattleScene,
     break: BreakScene, flight: FlightScene, refuge: RefugeScene, lia: LiaScene, world: WorldScene,
     raid: RaidScene, aftermath: AftermathScene, journey: JourneyScene, 'companions-road': CompanionJourneyScene,

@@ -37,10 +37,11 @@ export class InventoryHud {
   private mobileDialog?: ReturnType<typeof createMobileDialog>;
   private enabled = true;
   private characterDialog = false;
+  private openState = false;
   private itemActions: InventoryItemAction[] = [];
   private itemInstruction = '';
   private useButton: Phaser.GameObjects.Text;
-  get isOpen() { return this.panel.visible; }
+  get isOpen() { return this.openState; }
 
   constructor(private scene: Phaser.Scene, private onOpen: () => void) {
     this.frame = scene.add.rectangle(0, 0, 30, 30, 0x141b1a).setOrigin(0).setStrokeStyle(1, 0x8a7a5a);
@@ -53,8 +54,8 @@ export class InventoryHud {
     this.button.setVisible(document.documentElement.dataset.actionBarInstalled !== 'true');
     this.tooltip = scene.add.text(100, 53, 'Tasche · I', { fontFamily: FONT, fontSize: '9px', color: '#e8e2d0', backgroundColor: '#141b1a', padding: { x: 4, y: 3 } })
       .setOrigin(0, 0.5).setDepth(1004).setScrollFactor(0).setVisible(false);
-    buttonHit.on('pointerover', () => { this.frame.setStrokeStyle(1, 0xd6ad59); this.tooltip.setVisible(!this.panel.visible); });
-    buttonHit.on('pointerout', () => { this.frame.setStrokeStyle(1, this.panel.visible ? 0xd6ad59 : 0x8a7a5a); this.tooltip.setVisible(false); });
+    buttonHit.on('pointerover', () => { this.frame.setStrokeStyle(1, 0xd6ad59); this.tooltip.setVisible(!this.isOpen); });
+    buttonHit.on('pointerout', () => { this.frame.setStrokeStyle(1, this.isOpen ? 0xd6ad59 : 0x8a7a5a); this.tooltip.setVisible(false); });
     buttonHit.on('pointerdown', (_ptr: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => { event.stopPropagation(); this.toggle(); });
 
     const shadow = this.shadow = scene.add.rectangle(3, 3, PANEL_WIDTH, PANEL_HEIGHT, 0x070b0a, 0.65).setOrigin(0);
@@ -107,8 +108,8 @@ export class InventoryHud {
     scene.events.on('mobile-inventory-toggle', toggle);
     const characterOpen = () => { this.close(); this.onOpen(); };
     scene.events.on('character-open', characterOpen);
-    const bagOpen = () => { this.characterDialog = true; this.panel.setVisible(true); this.publish(); };
-    const bagClose = () => { this.characterDialog = false; this.panel.setVisible(false); this.publish(); };
+    const bagOpen = () => { this.characterDialog = true; this.openState = true; this.panel.setVisible(false); this.publish(); };
+    const bagClose = () => { this.characterDialog = false; this.openState = false; this.panel.setVisible(false); this.publish(); };
     const itemSelect = (item: ItemId) => this.selectItem(item);
     const itemUse = (item: ItemId) => this.useItem(item);
     scene.events.on('character-bag-open', bagOpen);
@@ -224,26 +225,26 @@ export class InventoryHud {
 
   toggle() {
     if (!this.enabled) return;
-    if (this.panel.visible) { this.close(); return; }
+    if (this.isOpen) { this.close(); return; }
     this.onOpen();
     this.selected = undefined;
     this.refresh(this.inv);
-    this.panel.setVisible(true);
     this.tooltip.setVisible(false);
     this.frame.setStrokeStyle(1, 0xd6ad59);
     this.scene.input.keyboard?.resetKeys();
     this.characterDialog = openBag(this.scene.game, () => this.close());
-    if (this.characterDialog) {
-      this.panel.setVisible(true);
-      this.frame.setStrokeStyle(1, 0xd6ad59);
-    } else if (usesMobileInterface()) {
+    this.openState = true;
+    if (!this.characterDialog && usesMobileInterface()) {
       this.mobileDialog = createMobileDialog('Tasche', () => this.close());
       this.renderMobileItems();
     }
+    this.panel.setVisible(!this.characterDialog && !this.mobileDialog);
+    this.frame.setStrokeStyle(1, 0xd6ad59);
     this.publish();
   }
 
   close() {
+    this.openState = false;
     if (this.characterDialog) { this.characterDialog = false; closeCharacterStats(); }
     this.panel.setVisible(false);
     this.tooltip.setVisible(false);
@@ -262,7 +263,7 @@ export class InventoryHud {
 
   private publish() {
     this.scene.data.set('mobile:inventory', {
-      open: this.panel.visible,
+      open: this.isOpen,
       available: this.enabled,
       selected: this.selected,
       inspection: this.inspection(),

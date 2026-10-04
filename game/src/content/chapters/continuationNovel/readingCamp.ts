@@ -10,8 +10,8 @@ export const READING_CAMP_CHAPTER = {
   ],
   atmosphere: 'night', music: 'exploration',
   actors: [
-    { id: 'foltan', name: 'Foltan', texture: 'foltan-walk', frame: 0, at: [355, 244] },
-    { id: 'azar', name: 'Azar', texture: 'azar-walk', frame: 8, at: [252, 260] },
+    { id: 'foltan', name: 'Foltan', texture: 'foltan-walk', frame: 0, at: [355, 207] },
+    { id: 'azar', name: 'Azar', texture: 'azar-walk', frame: 0, at: [252, 235] },
     { id: 'reading-fire-ring', name: 'Feuerstelle', texture: 'camp-fire-ring-detailed', at: [317, 238], displaySize: [50, 27], requires: ['novel.reading-fire-ready'] },
     { id: 'reading-logs', name: 'Feuerholz', texture: 'camp-logs-detailed', at: [317, 238], displaySize: [32, 26], requires: ['novel.reading-fire-ready'] },
     { id: 'reading-fire', name: 'Lagerfeuer', texture: 'camp-fire-detailed', at: [317, 225], displaySize: [24, 47], requires: ['novel.reading-fire-ready'] },
@@ -38,7 +38,7 @@ export const READING_CAMP_CHAPTER = {
       ],
     },
     {
-      id: 'herb-lexicon', label: 'Cronibus großes Kräuterlexikon aufschlagen', at: [230, 283], radius: 22,
+      id: 'herb-lexicon', label: 'Cronibus großes Kräuterlexikon aufschlagen', at: [204, 238], radius: 18,
       requires: ['novel.reading-fire-ready'], completionFlag: 'novel.herb-lexicon-read',
       disabledHint: 'Am Feuer werden die Männer auf Lias Bücher aufmerksam.',
       beats: [
@@ -50,7 +50,7 @@ export const READING_CAMP_CHAPTER = {
       ],
     },
     {
-      id: 'alana-story', label: 'Aus den Geschichten der Magierin Alana lesen', at: [289, 263], radius: 21,
+      id: 'alana-story', label: 'Aus den Geschichten der Magierin Alana lesen', at: [289, 249], radius: 21,
       requires: ['novel.herb-lexicon-read'], completionFlag: 'novel.alana-read',
       disabledHint: 'Lia zeigt den beiden zuerst, dass sie lesen kann.',
       beats: [
@@ -62,7 +62,7 @@ export const READING_CAMP_CHAPTER = {
       ],
     },
     {
-      id: 'parents-and-promise', label: 'Über die Eltern sprechen und ein Versprechen verlangen', at: [383, 273], radius: 22,
+      id: 'parents-and-promise', label: 'Über die Eltern sprechen und ein Versprechen verlangen', at: [383, 245], radius: 22,
       requires: ['novel.alana-read'], completionFlag: 'novel.companions-promised',
       flags: { 'novel.azar-promised': true, 'novel.foltan-promised': true },
       disabledHint: 'Die Geschichte bringt das Gespräch auf die Sterne und die Verstorbenen.',
@@ -86,7 +86,7 @@ export const READING_CAMP_CHAPTER = {
     },
   ],
   exit: {
-    label: 'Am Morgen mit den beiden zur Bruderschaft gehen', at: [532, 283], radius: 24,
+    label: 'Am Morgen mit den beiden zur Bruderschaft gehen', at: [532, 235], radius: 24,
     requires: ['novel.companions-promised'], to: 'brotherhood',
   },
 } satisfies ContinuationChapterDefinition;

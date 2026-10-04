@@ -284,8 +284,9 @@ export function installMobileControls(game: Phaser.Game): () => void {
     }
     const dialogueActive = !!snapshot?.dialogueActive;
     const hudVisible = snapshot?.hudVisible !== false && !dialogueActive;
-    const battleStatus = hudVisible && key === 'battle' ? mobileBattleSummary(snapshot?.battleStatus) : '';
+    const battleStatus = hudVisible ? mobileBattleSummary(snapshot?.battleStatus) : '';
     root.dataset.dialogue = String(dialogueActive);
+    root.dataset.battleStatus = String(!!battleStatus);
     const name = snapshot?.name, hp = snapshot?.hp;
     setCaption('.mobile-identity', battleStatus ? '' : hudVisible && typeof name === 'string' ? `${name}${typeof hp === 'number' ? ` · ${Math.round(hp * 100)} %` : ''}` : hudVisible ? 'SELANTIS' : '');
     setCaption('[data-mobile-objective]', hudVisible ? snapshot?.objective : '');
@@ -300,6 +301,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
     if (announcement.textContent !== completed) announcement.textContent = completed;
     const speaker = snapshot?.dialogueSpeaker;
     const caption = root.querySelector<HTMLElement>('.mobile-caption')!;
+    caption.hidden = !root.querySelector<HTMLElement>('.mobile-caption-text')!.textContent?.trim() && !dialogueActive;
     caption.setAttribute('aria-label', dialogueActive && speaker ? `Dialog: ${speaker}` : 'Spielhinweise');
     const portrait = root.querySelector<HTMLElement>('.mobile-dialogue-portrait')!;
     const face = root.querySelector<HTMLElement>('.mobile-dialogue-face')!;
@@ -327,6 +329,8 @@ export function installMobileControls(game: Phaser.Game): () => void {
     }
     // Captions and action rows can move the centered canvas without changing
     // its dimensions. Refresh its input origin after the DOM has reflowed.
+    const captionText = root.querySelector<HTMLElement>('.mobile-caption-text')!;
+    caption.dataset.scrollable = String(captionText.scrollHeight > captionText.clientHeight);
     if (game.canvas) game.scale.updateBounds();
   }
   const modeChanged = () => { cancel(); dataDirty = true; sync(); };

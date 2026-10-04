@@ -144,6 +144,7 @@
     "@companions-portraits"
   ],
   "Settings": [],
+  "tracking": ["bg-companion-forest-trail"],
   "golden-boar": [
     "@lia-appearances",
     "@lia-portraits",
@@ -251,5 +252,14 @@
     "cinematic-master-rebuke",
     "flick-walk",
     "portrait-dialogue-vardis"
+  ],
+  "rescue-battle": [
+    "bg-shadow-camp",
+    "@lia-appearances",
+    "@lia-portraits",
+    "flick-walk",
+    "story-actors",
+    "warrior",
+    "raid-spearman"
   ]
 }

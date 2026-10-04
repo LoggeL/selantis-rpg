@@ -28,7 +28,7 @@ export const BETRAYAL_CHAPTER = {
       ],
     },
     {
-      id: 'leave-brotherhood', label: 'Sich abwenden und zum Lagerrand gehen', at: [121, 288], radius: 24,
+      id: 'leave-brotherhood', label: 'Sich abwenden und zum Lagerrand gehen', at: [132, 267], radius: 24,
       requires: ['novel.foltan-lie-heard'], completionFlag: 'novel.trust-broken',
       flags: { 'novel.lia-leaves-brotherhood': true, 'novel.azar-searching': true },
       disabledHint: 'Hinter der Plane fällt das Wort "Gefangene".',
@@ -47,7 +47,7 @@ export const BETRAYAL_CHAPTER = {
     },
   ],
   exit: {
-    label: 'Allein in den nächtlichen Wald gehen', at: [56, 287], radius: 24,
+    label: 'Allein in den nächtlichen Wald gehen', at: [58, 232], radius: 24,
     requires: ['novel.trust-broken'], to: 'rain-forest',
   },
 } satisfies ContinuationChapterDefinition;

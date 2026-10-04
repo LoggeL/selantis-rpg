@@ -77,6 +77,20 @@ describe('novel continuation', () => {
     }
   });
 
+  it('keeps the night clearing and brotherhood paths off painted shrubs and rocks', () => {
+    const [, reading, brotherhood, betrayal] = chapters;
+    expect(isMapWalkable(reading.area, 517, 285), 'old spawn inside the right shrubs').toBe(false);
+    expect(isMapWalkable(reading.area, 230, 283), 'old reading position in the lower shrubs').toBe(false);
+    expect(isMapWalkable(brotherhood.area, 94, 286), 'old spawn on the left rocks').toBe(false);
+    expect(isMapWalkable(betrayal.area, 56, 287), 'old exit behind the stump').toBe(false);
+    for (const chapter of [reading, brotherhood, betrayal]) {
+      expect(isMapWalkable(chapter.area, ...chapter.area.start), `${chapter.id} spawn`).toBe(true);
+      expect(isMapWalkable(chapter.area, ...chapter.exit.at), `${chapter.id} exit`).toBe(true);
+    }
+    const observation = chapters[0].actions.find(action => action.id === 'craupor-questioning')!;
+    expect(observation.at[0]).toBeLessThan(350);
+  });
+
   it('preserves the promise, late disclosure and rain-forest handoff in Lias perspective', () => {
     const [golden, reading, brotherhood, betrayal] = chapters;
     expect(golden.exit.to).toBe(reading.id);

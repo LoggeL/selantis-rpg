@@ -1,4 +1,5 @@
 /* One footer for the existing scene controls. It never covers the map. */
+.mobile-caption[hidden]{display:none!important}
 html[data-action-bar="true"] #game-shell{grid-template-rows:minmax(0,1fr) auto;gap:10px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
 html[data-touch-enabled="false"][data-action-bar="true"] #mobile-controls{display:block;width:min(1040px,calc(100% - 32px));justify-self:center}
 html[data-touch-enabled="false"] #mobile-controls :is(.mobile-caption,.mobile-input-row){display:none}
@@ -23,6 +24,9 @@ html[data-touch-enabled="false"] .game-action-bar kbd{display:block}
 .game-action-bar .mobile-bag[data-count]:not([data-count="0"])::after{content:attr(data-count);position:absolute;left:5px;top:3px;padding:1px 4px;background:#304137;color:var(--ui-gold);font-size:12px}
 .game-action-bar .mobile-action[data-key="E"]::before{content:'';display:block;width:24px;height:24px;border:2px solid #b7ad94;background:#273329;box-shadow:inset 0 0 0 3px #141c17;clip-path:polygon(0 25%,25% 25%,25% 0,75% 0,75% 25%,100% 25%,100% 75%,75% 75%,75% 100%,25% 100%,25% 75%,0 75%)}
 .game-action-bar .mobile-bookmarks{display:none}
+/* The rescue uses defensive and targeting actions rather than spell icons. */
+#mobile-controls[data-scene="rescue-battle"] .mobile-action[data-key="Q"]::before{background:var(--ui-blue);clip-path:polygon(12% 8%,88% 8%,88% 58%,50% 96%,12% 58%);box-shadow:inset 0 0 0 4px var(--ui-panel)}
+#mobile-controls[data-scene="rescue-battle"] .mobile-action[data-key="R"]::before{box-sizing:border-box;background:none;border:2px solid var(--ui-text);border-radius:50%;box-shadow:inset 0 0 0 5px var(--ui-panel),inset 0 0 0 7px var(--ui-text)}
 .game-action-bar .mobile-control:disabled{opacity:.46}
 html[data-action-bar="true"] .party-portrait-control{visibility:hidden}
 html[data-touch-enabled="true"][data-action-bar="true"] #mobile-controls{width:min(100%,640px)}
@@ -50,4 +54,7 @@ html[data-touch-enabled="true"][data-action-bar="true"] .mobile-input-row{justif
   html[data-touch-enabled="true"] .game-action-bar .mobile-toolbar{display:flex;grid-area:auto;width:auto}
   html[data-touch-enabled="true"] .game-action-bar .mobile-actions{grid-area:auto;display:flex;width:auto}
   html[data-touch-enabled="true"] .game-action-bar .mobile-control{min-height:48px;min-width:52px;font-size:13px}
+  html[data-touch-enabled="true"][data-action-bar="true"] #game-shell:has(#mobile-controls[data-battle-status="true"]){grid-template-rows:minmax(0,1fr) 88px auto}
+  html[data-touch-enabled="true"] #mobile-controls[data-battle-status="true"] .mobile-caption-text{max-height:72px}
+  html[data-touch-enabled="true"] #mobile-controls[data-battle-status="true"] .mobile-caption[data-scrollable="true"]::after{content:'↕';position:absolute;right:5px;bottom:4px;color:var(--ui-muted);font-size:13px;pointer-events:none}
 }
