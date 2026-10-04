@@ -16,7 +16,7 @@ const profiles: Record<string, Profile> = {
   break: { directions: [], actions: { E: 'Weiter halten' } },
   flight: { directions: allDirections, actions: { E: 'Aktion halten', Q: 'Strahl', R: 'Welle', ESC: 'Weiter halten' } },
   refuge: { directions: [], actions: { E: 'Weiter halten' } },
-  lia: explore, world: explore, raid: explore, aftermath: explore, journey: explore,
+  lia: explore, world: explore, raid: explore, aftermath: explore, journey: explore, 'companions-road': explore,
 };
 const codes = { UP: 38, LEFT: 37, DOWN: 40, RIGHT: 39, E: 69, Q: 81, R: 82, SPACE: 32, ENTER: 13, ESC: 27 };
 const directionKeys: Record<Direction, keyof typeof codes> = { up: 'UP', left: 'LEFT', down: 'DOWN', right: 'RIGHT' };

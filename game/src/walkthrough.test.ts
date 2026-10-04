@@ -3,6 +3,7 @@ import { MAPS } from './world/maps';
 import { FARM_DAWN_AREA, FARM_INTERIOR_AREA } from './story/areas/aftermath';
 import { RAID_AREA, RAID_APPROACH_AREA } from './story/areas/raid';
 import { ROAD_EAST_AREA, FIRST_CAMP_AREA } from './story/areas/journey';
+import { COMPANION_MORNING_AREA, COMPANION_AFTERNOON_AREA } from './story/areas/companionJourney';
 import { GUIDES, currentGuide } from './walkthrough';
 
 describe('current context', () => {
@@ -15,6 +16,8 @@ describe('current context', () => {
       [{ scene: 'journey', area: 'first-camp', campStep: 'cloak' }, 'first-camp'],
       [{ scene: 'journey', area: 'first-camp', campStep: 'waking' }, 'strangers'],
       [{ scene: 'journey', area: 'first-camp', campStep: 'complete' }, 'strangers'],
+      [{ scene: 'companions-road', area: 'companion-morning' }, 'companion-morning'],
+      [{ scene: 'companions-road', area: 'companion-afternoon' }, 'companion-afternoon'],
       [{ scene: 'battle' }, 'battle'],
     ] as const) {
       const before = JSON.stringify(context);
@@ -27,7 +30,7 @@ describe('current context', () => {
 
 describe('walkthrough coverage', () => {
   it('covers every map and authored story area exactly once, plus all playable scenes and the encounter', () => {
-    const expected = ['title', 'battle', 'break', 'flight', 'refuge', 'lia', ...Object.keys(MAPS).map(id => `world:${id}`), ...[RAID_APPROACH_AREA, RAID_AREA, FARM_DAWN_AREA, FARM_INTERIOR_AREA, ROAD_EAST_AREA, FIRST_CAMP_AREA].map(area => area.id), 'strangers'];
+    const expected = ['title', 'battle', 'break', 'flight', 'refuge', 'lia', ...Object.keys(MAPS).map(id => `world:${id}`), ...[RAID_APPROACH_AREA, RAID_AREA, FARM_DAWN_AREA, FARM_INTERIOR_AREA, ROAD_EAST_AREA, FIRST_CAMP_AREA, COMPANION_MORNING_AREA, COMPANION_AFTERNOON_AREA].map(area => area.id), 'strangers'];
     expect(GUIDES.map(g => g.id).sort()).toEqual(expected.sort());
     for (const guide of GUIDES) { expect(guide.steps.length).toBeGreaterThan(1); expect(guide.completion.length).toBeGreaterThan(10); }
   });

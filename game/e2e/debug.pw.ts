@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('debug pauses movement, warps, applies flags and inventory, and restores input', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('http://127.0.0.1:5173/?scene=world&map=wiese');
+  await page.goto('/?scene=world&map=wiese');
   await page.waitForFunction(() => (window as any).game?.scene.isActive('world'));
   await page.getByRole('button', { name: 'Debug · Playtest' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -37,7 +37,7 @@ test('all authored warps are playable on a phone and reset requires confirmation
   await page.setViewportSize({ width: 390, height: 844 });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('http://127.0.0.1:5173/?scene=world');
+  await page.goto('/?scene=world');
   await page.waitForFunction(() => (window as any).game?.scene.isActive('world'));
   await page.getByRole('button', { name: 'Debug · Playtest' }).click();
   const ids = await page.getByLabel('Einstieg').locator('option').evaluateAll(options => options.map(option => (option as HTMLOptionElement).value));

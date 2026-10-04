@@ -13,7 +13,7 @@ export const MUSIC_TRACKS: Readonly<Record<AmbientKind, string>> = {
 const SCENE_MOODS: Readonly<Record<string, AmbientKind>> = {
   storyprologue: 'dread',
   battle: 'battle', break: 'flight', flight: 'flight', refuge: 'refuge',
-  lia: 'exploration', world: 'exploration', raid: 'dread', aftermath: 'grief', journey: 'grief',
+  lia: 'exploration', world: 'exploration', raid: 'dread', aftermath: 'grief', journey: 'grief', 'companions-road': 'refuge',
 };
 
 /** Story beats may change mood without starting a new Phaser scene. */

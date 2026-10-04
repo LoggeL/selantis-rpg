@@ -25,7 +25,7 @@ export type CharacterSnapshot = {
 };
 const VALENTUS_SCENES = new Set(['battle', 'break', 'flight', 'refuge']);
 const EQUIPMENT = new Set<ItemId>(['dolch', 'reisezeug']);
-const PLAYABLE = new Set(['battle', 'break', 'flight', 'refuge', 'lia', 'world', 'raid', 'aftermath', 'journey']);
+const PLAYABLE = new Set(['battle', 'break', 'flight', 'refuge', 'lia', 'world', 'raid', 'aftermath', 'journey', 'companions-road']);
 export function carriedItems(inventory: CharacterStatInput['inventory'] = {}): CarriedItem[] {
   return (Object.keys(ITEM_NAMES) as ItemId[]).filter(id => Number.isFinite(inventory[id]) && (inventory[id] ?? 0) > 0)
     .map(id => ({ id, name: ITEM_NAMES[id], count: inventory[id]! }));
@@ -74,7 +74,7 @@ export function partyRoster(input: CharacterStatInput): CharacterSnapshot[] {
   return availableParty(input.flags).map(id => {
     const member = input.party?.members[id];
     const sheet: CharacterSnapshot = { id, name: NAMES[id], portrait: PORTRAITS[id], profile: id === 'lia'
-      ? ({ lia: 'Mit Kyra am Bach', world: 'Auf dem Heimweg', raid: 'Am Hof', aftermath: 'Vorbereitung auf die Reise', journey: 'Auf der Reise' })[input.scene] ?? 'Unterwegs'
+      ? ({ lia: 'Mit Kyra am Bach', world: 'Auf dem Heimweg', raid: 'Am Hof', aftermath: 'Vorbereitung auf die Reise', journey: 'Auf der Reise', 'companions-road': 'Mit Foltan und Azar im Wald' })[input.scene] ?? 'Unterwegs'
       : 'Mit Lia unterwegs', stats: [], abilities: [], items: id === 'lia' ? carriedItems(input.inventory) : [] };
     if (member) {
       sheet.hp = member.hp; sheet.maxHp = member.maxHp; sheet.stats.push({ label: 'Lebenspunkte', value: `${member.hp} / ${member.maxHp} HP` });

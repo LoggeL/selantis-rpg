@@ -15,7 +15,7 @@ test('walkthrough follows context, allows read-only selection and scrolls on mob
   await page.getByLabel('Walkthrough für').selectOption('battle');
   await expect(page.locator('#debug-guide-content')).toContainText('Druckwelle');
   await page.getByLabel('Walkthrough für').selectOption('strangers');
-  await expect(page.locator('#debug-guide-content')).toContainText('Ende des Prototyps');
+  await expect(page.locator('#debug-guide-content')).toContainText('gemeinsamer Aufbruch und Mittagsrast');
   await page.getByRole('button', { name: 'Aktueller Bereich' }).click();
   await expect(page.getByLabel('Walkthrough für')).toHaveValue('world:waldrand');
   expect(await snapshot()).toBe(before);

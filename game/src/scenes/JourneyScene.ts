@@ -188,7 +188,7 @@ export class JourneyScene extends StoryScene {
       fire: 'Mit Holzreibung ein Feuer entzünden.', meal: 'Etwas Brot und Käse essen.',
       sleep: 'Unter der Wolldecke schlafen.',
       waking: '',
-      star: 'Zum westlichen Stern hinaufsehen.', complete: 'Ende des Prototyps · Die Reise geht morgen weiter.',
+      star: 'Zum westlichen Stern hinaufsehen.', complete: 'Bis zum Morgen schlafen und gemeinsam aufbrechen.',
     };
     this.setObjective(objectives[this.campStep]);
     const required: Record<CampStep, string> = {
@@ -202,8 +202,8 @@ export class JourneyScene extends StoryScene {
     };
     this.setSpots(FIRST_CAMP_AREA.targets.map(target => ({
       ...target,
-      markerVisible: () => this.campStep !== 'complete',
-      label: target.id === required[this.campStep] ? labels[this.campStep] ?? target.label : target.label,
+      markerVisible: () => this.campStep !== 'complete' || target.id === 'bedroll',
+      label: this.campStep === 'complete' && target.id === 'bedroll' ? 'Bis zum Morgen schlafen' : target.id === required[this.campStep] ? labels[this.campStep] ?? target.label : target.label,
       enabled: () => !this.fireBusy && (this.campStep === 'complete' || target.id === required[this.campStep]),
       onUse: () => this.useCampSpot(target.id),
     })));
@@ -214,6 +214,7 @@ export class JourneyScene extends StoryScene {
     const targets: Partial<Record<CampStep, string>> = { cloak: 'bedroll', stones: 'stones', ring: 'fire', twigs: 'twigs', fire: 'fire', meal: 'fire', sleep: 'bedroll', star: 'star' };
     if (this.campStep !== 'complete' && id !== targets[this.campStep]) return;
     if (this.campStep === 'complete') {
+      if (id === 'bedroll') { this.goTo('companions-road'); return; }
       this.say(id === 'star' ? 'Crios steht im Westen. Sieht Kyra gerade denselben Stern?' : id === 'trunk' ? 'Foltan hält Wache. Azar schnarcht bereits.' : id === 'road' ? 'Erst bei Tageslicht. Das Lager ist noch einen Fußmarsch entfernt.' : id === 'fire' ? 'Die Glut wärmt. Morgen gehen wir gemeinsam weiter.' : 'Endlich ein wenig Ruhe.', 2500);
       return;
     }

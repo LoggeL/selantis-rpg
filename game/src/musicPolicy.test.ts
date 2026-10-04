@@ -14,6 +14,7 @@ describe('music follows the story', () => {
     expect(musicForScene('lia')).toBe('exploration');
     expect(musicForScene('world')).toBe('exploration');
     expect(musicForScene('refuge')).toBe('refuge');
+    expect(musicForScene('companions-road')).toBe('refuge');
   });
 
   it('holds a story override across repeated frame syncs and resumes the default when cleared', () => {

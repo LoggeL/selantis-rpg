@@ -132,7 +132,7 @@ describe('friendly camp encounter', () => {
 });
 
 describe('first camp ending', () => {
-  it('labels Crios as the prototype end instead of promising an unavailable next objective', () => {
+  it('points the completed camp toward the next morning after observing Crios', () => {
     const s: any = new JourneyScene();
     const world = { flags: {}, inv: {} };
     s.registry = { get: () => world };
@@ -141,6 +141,6 @@ describe('first camp ending', () => {
     s.useCampSpot('star');
     expect(world.flags).toMatchObject({ criosObserved: true });
     expect(s.campStep).toBe('complete');
-    expect(s.setObjective).toHaveBeenLastCalledWith('Ende des Prototyps · Die Reise geht morgen weiter.');
+    expect(s.setObjective).toHaveBeenLastCalledWith('Bis zum Morgen schlafen und gemeinsam aufbrechen.');
   });
 });

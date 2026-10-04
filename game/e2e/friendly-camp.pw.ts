@@ -112,7 +112,7 @@ for (const layout of layouts) {
     await interact(page, layout.mobile);
     await expect.poll(async () => (await sample(page)).step).toBe('complete');
     expect(await page.evaluate(() => (window as any).game.registry.get('world').flags.criosObserved)).toBe(true);
-    expect((await sample(page)).objective).toBe('Ende des Prototyps · Die Reise geht morgen weiter.');
+    expect((await sample(page)).objective).toBe('Bis zum Morgen schlafen und gemeinsam aufbrechen.');
     await page.evaluate(() => (window as any).game.scene.getScene('journey').scene.restart());
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'complete');
     expect(errors).toEqual([]);

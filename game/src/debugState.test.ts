@@ -49,3 +49,12 @@ it('clears completed camp construction and resources when replaying a checkpoint
   expect(st.inv).not.toHaveProperty('steine'); expect(st.inv).not.toHaveProperty('zunderholz');
   expect(st.flags).toMatchObject({ journeyCampReached: false, journeyStonesGathered: false, journeyFirepitBuilt: false, journeyProviantPortionUsed: false });
 });
+
+it('starts the next morning with the camp complete and clears it on an earlier warp', () => {
+  const st = { inv: { feder: 2 }, picked: {}, flags: {} };
+  expect(prepareWarp(st, 'companions-road')).toEqual({ scene: 'companions-road', data: {} });
+  expect(st.flags).toMatchObject({ metFoltanAzar: true, criosObserved: true, companionRestTaken: false, companionDayComplete: false });
+  expect(st.inv).toMatchObject({ reisezeug: 1, wasserschlauch: 1, feder: 2 });
+  prepareWarp(st, 'camp');
+  expect(st.flags).toMatchObject({ companionMorningStarted: false, companionRestTaken: false, companionDayComplete: false });
+});

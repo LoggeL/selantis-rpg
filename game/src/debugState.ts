@@ -5,6 +5,7 @@ export const FLAG_GROUPS = {
   Heimweg: ['sisterPromise', 'homeArrived', 'chickReturned'],
   Hof: ['raidWitnessed', 'parentsLost', 'kyraTaken', 'packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks', 'houseClosed', 'pigsReleased', 'departureReady', 'aftermathComplete'],
   Reise: ['streamVisited', 'journeyEastChosen', 'journeyCampReached', 'journeyCloakSpread', 'journeyStonesGathered', 'journeyFirepitBuilt', 'journeyTwigsGathered', 'campfireLit', 'journeyAte', 'journeyProviantPortionUsed', 'firstCampRested', 'metFoltanAzar', 'criosObserved'],
+  Gefährten: ['companionMorningStarted', 'companionRestTaken', 'companionBreakfastRemembered', 'companionDayComplete'],
 } as const;
 export const FLAGS: readonly string[] = Object.values(FLAG_GROUPS).flat();
 export const ITEMS: Record<ItemId, string> = {
@@ -15,7 +16,7 @@ export const ITEMS: Record<ItemId, string> = {
 export const WARPS = [
   ['battle', 'Valentus · Schlachtutorial'], ['break', 'Verwundung'], ['flight', 'Flucht'], ['refuge', 'Zuflucht'], ['lia', 'Lia · Gespräch mit Kyra'],
   ['world:wiese', 'Wiese'], ['world:felder', 'Felder'], ['world:waldrand', 'Waldrand'], ['world:hohlweg', 'Hohlweg'], ['world:hof', 'Hof · Heimkehr'],
-  ['raid', 'Überfall'], ['aftermath', 'Hof · Reisevorbereitung'], ['road', 'Reise · Straße'], ['camp', 'Reise · Nachtlager'], ['strangers', 'Reise · Foltan und Azar'],
+  ['raid', 'Überfall'], ['aftermath', 'Hof · Reisevorbereitung'], ['road', 'Reise · Straße'], ['camp', 'Reise · Nachtlager'], ['strangers', 'Reise · Foltan und Azar'], ['companions-road', 'Reise · Aufbruch und Waldrast'],
 ] as const;
 export function editFlag(st: WorldState, key: string, value: boolean): boolean {
   if (!FLAGS.includes(key) || typeof value !== 'boolean') return false;
@@ -54,7 +55,7 @@ export function prepareWarp(st: WorldState, id: string): { scene: string; data: 
   if (!WARPS.some(([key]) => key === id)) throw new Error('Unbekannter Einstieg');
   for (const flag of FLAGS) if (flag !== 'chickReturned') st.flags[flag] = false;
   for (const item of [...Object.keys(equipment), 'steine', 'zunderholz'] as ItemId[]) delete st.inv[item];
-  const travel = ['road', 'camp', 'strangers'].includes(id);
+  const travel = ['road', 'camp', 'strangers', 'companions-road'].includes(id);
   const farm = id === 'aftermath' || travel;
   if (id.startsWith('world:') || id === 'raid' || farm) st.flags.sisterPromise = true;
   if (id === 'raid' || farm) st.flags.homeArrived = true;
@@ -64,6 +65,7 @@ export function prepareWarp(st: WorldState, id: string): { scene: string; data: 
     for (const flag of FLAG_GROUPS.Hof) st.flags[flag] = true;
   }
   if (id === 'camp' || id === 'strangers') for (const flag of ['streamVisited', 'journeyEastChosen', 'journeyCampReached']) st.flags[flag] = true;
+  if (id === 'companions-road') for (const flag of FLAG_GROUPS.Reise) st.flags[flag] = true;
   if (id === 'strangers') for (const flag of FLAG_GROUPS.Reise) st.flags[flag] = flag !== 'criosObserved';
-  return { scene: travel ? 'journey' : id.split(':')[0], data: id.startsWith('world:') ? { map: id.split(':')[1] } : {} };
+  return { scene: id === 'companions-road' ? id : travel ? 'journey' : id.split(':')[0], data: id.startsWith('world:') ? { map: id.split(':')[1] } : {} };
 }
