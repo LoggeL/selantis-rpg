@@ -19,13 +19,13 @@ export function travelObjective(st: WorldState, map: string): string | undefined
 }
 
 const FIELD_TRACKS: Prop[] = [
-  { id: 'hufspuren-feldweg', at: [500, 280], radius: 24, lines: ['Hufspuren vom Hof führen zum Abzweig nach Osten.\nKyra muss dort entlang gebracht worden sein.'] },
-  { id: 'hufspuren-abzweig', at: [604, 283], radius: 24, lines: ['Dieselben Hufspuren ziehen zur Straße nach Osten.\nDie Reiter sind hier abgebogen. Ich folge ihnen.'] },
+  { id: 'hufspuren-feldweg', at: [500, 278], radius: 24, lines: ['Hufspuren vom Hof. Sie führen zum Abzweig nach Osten.\nHier haben sie Kyra entlanggebracht.'] },
+  { id: 'hufspuren-abzweig', at: [605, 305], radius: 24, lines: ['Hier biegen die Spuren zur Straße nach Osten ab.\nIch komme, Kyra.'] },
 ];
 
 /** Tracks only appear after the riders have actually passed through the farm. */
 export function mapForTravel(map: MapDef, st: WorldState): MapDef {
   if (map.id !== 'felder') return map;
-  const branch: Prop = { id: 'feldabzweig', at: [574, 281], radius: 20, lines: [eastwardTravelGate(st) ?? 'Dieser Nebenweg führt zur Straße. Die Hufspuren zeigen nach Osten.'] };
+  const branch: Prop = { id: 'feldabzweig', at: [565, 288], radius: 20, lines: [eastwardTravelGate(st) ?? 'Dieser Nebenweg führt zur Straße. Die Hufspuren zeigen nach Osten.'] };
   return { ...map, props: [...map.props, branch, ...(st.flags.raidWitnessed ? FIELD_TRACKS : [])] };
 }

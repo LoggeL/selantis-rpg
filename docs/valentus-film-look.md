@@ -1,5 +1,13 @@
 # Valentus: geprüfte Filmreferenz für die Figurengestaltung
 
+## Aktueller Kostümvertrag im Spiel, 4. Oktober 2026
+
+Der Nutzer verlangt konsistente Kleidung für Valentus. Die vorhandenen Schlacht-Sprites legen das Grundgewand fest: eine schlichte dunkelblaue Robe mit weiten dunkelblauen Ärmeln, einer breiten hellen Längsbahn und einem zweiten schmaleren hellen Streifen, dunklem Gürtel mit matter ovaler Schnalle und kleinen hellen runden Halsdetails. Goldstickerei, blaue Schultercape, weißes Hemd mit verzierten Manschetten, Brustgeschirr und Zierstab gehören nicht zu diesem Spielmodell. Die Intro-, Angriff- und Fluchtbilder sowie das Dialogporträt zeigen jetzt dieses Grundgewand mit derselben Gesichtsgestaltung.
+
+Auf der Flucht trägt Valentus einen groben schwarzen Kapuzenmantel über derselben Robe. In der Zuflucht ist die Robe beim Liegen und Aufrichten für den vorhandenen Bauchverband geöffnet; bei den Schritten zur Wiege bleiben die blauen Ärmel und hellen Längsbahnen sichtbar. Diese Zustände erklären einen sichtbaren Wechsel, ohne ein neues Grundkostüm einzuführen. Die vorhandenen Sprite-Atlanten, Aktionsfolgen und Bildausschnitte bleiben erhalten.
+
+Die früheren Kostümbefunde aus den Filmen unten bleiben Quellenmaterial. Für die aktuelle Laufzeit ist der Schlacht-Sprite die Kleidungsvorlage. Prompts und lokale Bildprüfung stehen in `design/assets/valentus-consistency-prompts.json` und `design/assets/valentus-consistency-delivery.json`; unveränderte Bildquellen und Sicherungen liegen unter `output/imagegen/valentus-consistency/`.
+
 Stand: 3. Oktober 2026. Der Nutzer möchte das Charakteraussehen stärker an den Filmen ausrichten. Diese Notiz beschreibt direkt angesehene Bilder aus den lokalen Videos. Sie ersetzt die Handlung des Romans nicht. Die Übernahme des späteren Filmkostüms für den lebenden Valentus im Spieltutorial ist eine bewusste visuelle Adaption.
 
 ## Beste Referenzen

@@ -1,0 +1,27 @@
+{
+  "tool": "built-in image_gen",
+  "source": "/Users/logge/.codex/generated_images/01a10773-24dd-7600-9713-8389f5bd0fda/exec-9f741d92-e0cf-4cf3-9180-c41b8d4b010a.png",
+  "output": "game/public/assets/sprites/raid-horse.png",
+  "contract": {
+    "width": 256,
+    "height": 64,
+    "frames": 4,
+    "frameSize": [
+      64,
+      64
+    ],
+    "footAnchor": [
+      32,
+      60
+    ],
+    "facing": "left"
+  },
+  "prompt": "Edit four-frame chestnut saddled left-facing pixel-art horse sheet on transparent background. Keep torso, head, palette, saddle and scale consistent; alternate near foreleg forward/back contact, near hindleg opposite, then opposite lifted passing phases. Distinct skeletal leg poses, no shadows or text.",
+  "processing": "Alpha values below16 cleared as background fringes; independently trim equal sprite bounds; nearest-neighbor resize to48x36 and atlas placement at8,24 in64x64 cells. No limb drawing or pose warping. Final alpha threshold110 to binary0/255 per pixel verifier; foot anchor and atlas placement preserved.",
+  "visualReview": "Frame0 bright foreleg planted forward; frame1 bent foreleg lifted under chest and rear knee tucked; frame2 bright foreleg planted backwards with dark foreleg forward; frame3 foreleg passing and rear near hoof lifted backwards. Ground baseline at60.",
+  "sha256": "e08fcd6e68d028d35b09bb0dcac1dd662b5df3f1fc4bbd8eaf7096e6ba66e891",
+  "alphaValues": [
+    0,
+    255
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "source": "output/imagegen/raw/legacy-gaits/axe-walk-raw-20261004.png",
+  "generatedSource": "/Users/logge/.codex/generated_images/01a10776-376b-7392-851c-7fa2ff57f384/exec-ed3af90e-fc2d-4dff-ad09-7dc959e3603f.png",
+  "prompt": "Use case: precise-object-edit. Edit the pixel-art axe warrior row reference to a four-frame WALK CYCLE: exactly4 equalcells horizontalrow ontransparentalpha. Keep exact identity/outfit/equipment: short brown hair, ivory chest tunic, dark short sleeves, brown belt, charcoal trousers/brown boots, large single-headed matte grey iron AXE on brown shaft held across lower chest with axe head to screenLEFT. Exact original3/4 screenLEFT-facing direction throughout, fixed camera with bothlegs visible. Same compact~38pixelhighbody intended into64pxcells, flatcrisp lowres hard-squarepixelart, limitedmutedpalette, nogolddecoration/nohood. Correct legmovement with drastic changes at hips/knees/ankles. FRAME0: NEARleg projects screenleftahead boot onground; FARleg bentrightbackwardheelraised. FRAME1: passingposition legs CLOSEDbeneathpelvis, nearfootlifting and farfootplanted. FRAME2: FARleg projects screenleftahead bootonground; NEARleg bentRIGHTbackwardheelraised. FRAME3: passingposition legsclosedbeneathpelvis, farfootlifting nearfootplanted. Distinguish nearleglighter warmbrown and farlegdarker; thus LIGHTleftfootinframe0 but DARKleftfootinframe2. Farlegscreenleftmustappear fromcorrecthip undernearthigh while nearlegbendbackscreenright, actualanatomicalswap. Walkingstep alternates whoisforward, notjust repeating samepose/shiftingarms. Headandtorso stablewith1pixelbob, axeheldconsistentandminimalcounterswing. No captions, labels, groundshadows, borders orbackground, generous evenemptytransparentmargins.",
+  "tool": "built-in image_gen",
+  "frames": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "layout": {
+    "columns": 4,
+    "rows": 1
+  },
+  "qa": {
+    "facing": "screen-left threequarter same as original",
+    "transparent": true,
+    "legPhases": "near-leading, passing, far-leading, reverse passing",
+    "bodyHeightTarget": 38,
+    "notes": "Short brown hair, ivory tunic and single-head axe preserved. Clear alternating warm near-leading vs dark far-leading boot and closed passing frames.",
+    "alphaCropThreshold": 32,
+    "normalizationNote": "Ignore invisible low-alpha specks when deriving bounding boxes. Alpha>=32 gives stable ~380px bodyheight before normalization."
+  }
+}

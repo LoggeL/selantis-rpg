@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 vi.mock('phaser', () => ({ default: { Scene: class {}, Scenes: { Events: { SHUTDOWN: 'shutdown' } } } }));
 vi.mock('../audio', () => ({ setSceneMusic: vi.fn(), sfx: {} }));
 import { CompanionJourneyScene } from './CompanionJourneyScene';
@@ -8,15 +8,36 @@ import { clearWalkingLine, findWalkingPath } from '../world/navigation';
 import type { Pt, StoryArea } from '../story/types';
 import { StoryScene } from '../story/StoryScene';
 
+afterEach(() => vi.restoreAllMocks());
+
+function walkingActor(x: number, y: number) {
+  const actor: any = {
+    x, y, active: true,
+    anims: { currentAnim: undefined, stop: vi.fn() },
+    setPosition(nx: number, ny: number) { this.x = nx; this.y = ny; return this; },
+    setAngle: vi.fn().mockReturnThis(), setDepth: vi.fn().mockReturnThis(),
+  };
+  actor.play = vi.fn((key: string) => { actor.anims.currentAnim = { key }; return actor; });
+  return actor;
+}
+
+function walkingFixture(area = COMPANION_MORNING_AREA) {
+  vi.spyOn(StoryScene.prototype, 'update').mockImplementation(() => {});
+  const scene: any = new CompanionJourneyScene();
+  Object.defineProperty(scene, 'areaCurrent', { get: () => area });
+  scene.anims = { exists: () => true };
+  scene.areaRoot = { sort: vi.fn() };
+  scene.lia = walkingActor(...area.start);
+  scene.foltan = walkingActor(area.start[0] + 22, area.start[1]);
+  scene.azar = walkingActor(area.start[0] - 14, area.start[1]);
+  scene.previousLia = area.start;
+  scene.trail = [[scene.azar.x, scene.azar.y], area.start];
+  return scene;
+}
+
 describe('companion forest feet', () => {
   it.each([COMPANION_MORNING_AREA, COMPANION_AFTERNOON_AREA])('keeps both companions with Lia through all bends in $id', area => {
-    const superUpdate = vi.spyOn(StoryScene.prototype, 'update').mockImplementation(() => {});
-    const scene: any = new CompanionJourneyScene();
-    Object.defineProperty(scene, 'areaCurrent', { get: () => area });
-    const actor = (x: number, y: number) => ({ x, y, active: true, setPosition(nx: number, ny: number) { this.x = nx; this.y = ny; return this; }, setAngle() { return this; } });
-    scene.lia = actor(...area.start);
-    scene.foltan = actor(area.start[0] + 22, area.start[1]); scene.azar = actor(area.start[0] - 14, area.start[1]);
-    scene.previousLia = area.start; scene.trail = [[scene.azar.x, scene.azar.y], area.start];
+    const scene = walkingFixture(area);
     const walkable = (x: number, y: number) => companionFeetWalkable(area, x, y);
     const end = area.targets.find(target => target.id === 'continue' || target.id === 'evening')!.at;
     const path = findWalkingPath(area.start, end, walkable, 0);
@@ -31,7 +52,45 @@ describe('companion forest feet', () => {
         }
       }
     }
-    superUpdate.mockRestore();
+  });
+
+  it('animates actual displacement, allows catchup, then stays idle facing the last travel direction', () => {
+    const scene = walkingFixture();
+    scene.lia.setPosition(175, 220);
+    scene.previousLia = [177, 220];
+    scene.foltan.setPosition(165, 220);
+    scene.azar.setPosition(185, 220);
+    scene.trail = [[185, 220], [175, 220]];
+    scene.update(0, 50);
+    expect(scene.foltan.play).toHaveBeenLastCalledWith('foltan-walk-w', true);
+    expect(scene.azar.play).toHaveBeenLastCalledWith('azar-idle-e', true);
+    const initialFoltanX = scene.foltan.x;
+    scene.update(50, 50);
+    expect(scene.foltan.x).toBeLessThan(initialFoltanX);
+    for (let i = 0; i < 30; i++) scene.update(100 + i * 50, 50);
+    expect(scene.foltan.x).toBeCloseTo(150);
+    expect(scene.foltan.play).toHaveBeenLastCalledWith('foltan-idle-w', true);
+    expect(scene.foltan.anims.stop).toHaveBeenCalled();
+    const settledX = scene.foltan.x;
+    for (let i = 0; i < 20; i++) scene.update(2000 + i * 50, 50);
+    expect(scene.foltan.x).toBe(settledX);
+    expect(scene.foltan.setAngle).toHaveBeenLastCalledWith(0);
+  });
+
+  it('faces the dominant actual movement and stops both walking cycles during a conversation', () => {
+    const scene = walkingFixture();
+    scene.foltan.setPosition(190, 221);
+    scene.animateTraveler(scene.foltan, 'foltan', [190, 223]);
+    expect(scene.foltan.play).toHaveBeenLastCalledWith('foltan-walk-n', true);
+    scene.azar.setPosition(180, 225);
+    scene.animateTraveler(scene.azar, 'azar', [180, 222]);
+    expect(scene.azar.play).toHaveBeenLastCalledWith('azar-walk-s', true);
+    scene.talking = true;
+    scene.update(0, 50);
+    expect(scene.foltan.play).toHaveBeenLastCalledWith('foltan-idle-n', true);
+    expect(scene.azar.play).toHaveBeenLastCalledWith('azar-idle-s', true);
+    expect(scene.foltan.anims.stop).toHaveBeenCalled();
+    expect(scene.azar.anims.stop).toHaveBeenCalled();
   });
   it.each([COMPANION_MORNING_AREA, COMPANION_AFTERNOON_AREA])('connects every target in $id along the painted path', area => {
     const walkable = (x: number, y: number) => companionFeetWalkable(area, x, y);
@@ -63,7 +122,8 @@ function sceneFixture(flags: Record<string, boolean> = {}) {
   for (const method of ['setObjective', 'setSpots', 'setLocked', 'setCloseupText', 'hideCloseup', 'say', 'goTo', 'setupTravelers']) scene[method] = vi.fn();
   let continuation = () => {};
   scene.setCloseupContinue = vi.fn((next: () => void) => { continuation = next; });
-  scene.foltan = scene.azar = { setPosition: vi.fn().mockReturnThis(), setAngle: vi.fn().mockReturnThis() };
+  scene.foltan = walkingActor(350, 210); scene.azar = walkingActor(270, 224);
+  scene.anims = { exists: () => true }; scene.areaRoot = { sort: vi.fn() };
   scene.lia = { x: 320, y: 214 };
   return { scene, st, next: () => continuation() };
 }

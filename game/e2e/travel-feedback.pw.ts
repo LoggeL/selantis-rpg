@@ -20,10 +20,33 @@ async function waitMap(page: Page, map: string) {
   });
 }
 
+async function finishGrief(page: Page) {
+  // Packing and travel only become available after the player has read the
+  // night and dawn sequence. Continue each held card through actual input.
+  for (let index = 0; index < 6; index++) {
+    await page.waitForFunction(index => {
+      const scene = (window as any).game.scene.getScene('aftermath');
+      const grief = scene.data.get('story:grief');
+      return grief?.active && grief.index === index && grief.ready;
+    }, index);
+    if (await page.evaluate(() => (window as any).game.scene.getScene('aftermath').data.get('dialogue:typing'))) {
+      await page.keyboard.press('KeyE', { delay: 50 });
+      const unchanged = await page.evaluate(index => {
+        const grief = (window as any).game.scene.getScene('aftermath').data.get('story:grief');
+        return grief.active && grief.index === index;
+      }, index);
+      if (!unchanged) continue;
+      await page.waitForFunction(() => !(window as any).game.scene.getScene('aftermath').data.get('dialogue:typing'));
+    }
+    await page.keyboard.press('KeyE', { delay: 50 });
+  }
+  await page.waitForFunction(() => !(window as any).game.scene.getScene('aftermath').locked);
+}
+
 test('the visible eastern branch explains the early boundary and permits retreat', async ({ page }) => {
   await page.goto('/?scene=world&map=felder');
   await waitMap(page, 'felder');
-  await clickWorld(page, 636, 286);
+  await clickWorld(page, 636, 306);
   await page.waitForFunction(() => (window as any).game.scene.getScene('world').blockedExit === 'journey', undefined, { timeout: 10000 });
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('world');
@@ -42,6 +65,7 @@ test('the bereaved farm still connects to fields, meadow and sunken lane without
   await page.goto('/?scene=aftermath');
   await page.waitForFunction(() => (window as any).game.scene.isActive('aftermath'));
   await page.waitForFunction(() => !(window as any).game.scene.getScene('aftermath').cameras.main.fadeEffect.isRunning);
+  await finishGrief(page);
   // Seed one completed packing task, then preserve it through real map travel.
   await page.evaluate(() => {
     const st = (window as any).game.registry.get('world');
@@ -50,7 +74,7 @@ test('the bereaved farm still connects to fields, meadow and sunken lane without
   await clickWorld(page, 596, 40);
   await waitMap(page, 'felder');
   expect(await page.evaluate(() => (window as any).game.registry.get('world').flags.departureReady)).toBe(false);
-  await clickWorld(page, 636, 286);
+  await clickWorld(page, 636, 306);
   await page.waitForFunction(() => (window as any).game.scene.getScene('world').blockedExit === 'journey', undefined, { timeout: 5000 });
   await clickWorld(page, 500, 280);
   await page.waitForFunction(() => {

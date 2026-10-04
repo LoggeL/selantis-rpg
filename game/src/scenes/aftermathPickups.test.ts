@@ -31,6 +31,18 @@ function house(flags: Record<string, boolean> = {}) {
 }
 
 describe('house pickups remain part of exploration', () => {
+  it.each([['books', 'clothing'], ['clothing', 'books']])('updates the actual standing player after packing in order %s then %s', (first, second) => {
+    const { s, st, use } = house({ raidWitnessed: true });
+    s.data = { set: vi.fn() };
+    s.lia = { setFlipX: vi.fn().mockReturnThis(), play: vi.fn().mockReturnThis() };
+    use(first);
+    expect(s.lia.play).toHaveBeenLastCalledWith(first === 'books' ? 'lia-farm-idle-s' : 'lia-travel-idle-s', true);
+    use(second);
+    expect(s.lia.play).toHaveBeenLastCalledWith('lia-travel-idle-s', true);
+    expect(st.flags).toMatchObject({ packedClothes: true, packedBooks: true });
+    expect(s.data.set).toHaveBeenLastCalledWith('story:lia-appearance', expect.objectContaining({ bookUnderArm: false }));
+  });
+
   it('destroys the picked-up objects and action without a closeup or duplicate inventory', () => {
     const { s, st, use } = house();
     const previous = (s.spots as StorySpot[]).find(spot => spot.id === 'food')!;
@@ -41,7 +53,7 @@ describe('house pickups remain part of exploration', () => {
     expect(objects.every((image: any) => !image.active)).toBe(true);
     expect(s.houseItems.has('packedFood')).toBe(false);
     expect(s.spots.some((spot: StorySpot) => spot.id === 'food')).toBe(false);
-    expect(s.say).toHaveBeenLastCalledWith('Speck, ein halber Käse, zwei Brote. In den Lederbeutel neben dem Ofen.', 4500);
+    expect(s.say).toHaveBeenLastCalledWith('Speck, ein halber Laib Käse, zwei Brote. Alles in den Lederbeutel vom Ofen. Das muss fürs Erste reichen.', 4500);
     previous.onUse();
     expect(st.inv.proviant).toBe(1); expect(objects.every((image: any) => image.destroy.mock.calls.length === 1)).toBe(true);
     expect(s.showDetail).not.toHaveBeenCalled(); expect(s.showCloseup).not.toHaveBeenCalled();
@@ -59,7 +71,7 @@ describe('house pickups remain part of exploration', () => {
     use('medicine');
     expect(partyState(s.registry).members.lia?.hp).toBe(77);
     expect(st.flags.packedMedicine).toBe(true); expect(st.inv.heilzeug).toBe(1);
-    expect(s.say).toHaveBeenLastCalledWith('Mutters Tinktur und Leinenstreifen nehme ich für unterwegs mit.', 4500);
+    expect(s.say).toHaveBeenLastCalledWith('Mutters Kräutertinktur. Damit hat sie uns jede Schramme versorgt. Die nehme ich mit, und Leinen dazu.', 4500);
   });
   it('leaves every collected place empty when entering the room again', () => {
     const { s, st, images, use } = house();

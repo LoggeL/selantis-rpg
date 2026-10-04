@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+});
+
 test('walkthrough follows context, allows read-only selection and scrolls on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const errors: string[] = [];
@@ -15,7 +19,7 @@ test('walkthrough follows context, allows read-only selection and scrolls on mob
   await page.getByLabel('Walkthrough für').selectOption('battle');
   await expect(page.locator('#debug-guide-content')).toContainText('Druckwelle');
   await page.getByLabel('Walkthrough für').selectOption('strangers');
-  await expect(page.locator('#debug-guide-content')).toContainText('gemeinsamer Aufbruch und Mittagsrast');
+  await expect(page.locator('#debug-guide-content')).toContainText('gemeinsamer Aufbruch und Mittagsrast im Wald');
   await page.getByRole('button', { name: 'Aktueller Bereich' }).click();
   await expect(page.getByLabel('Walkthrough für')).toHaveValue('world:waldrand');
   expect(await snapshot()).toBe(before);

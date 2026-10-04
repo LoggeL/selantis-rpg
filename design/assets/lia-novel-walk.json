@@ -1,0 +1,94 @@
+{
+  "name": "Lia novel wardrobe walking atlases",
+  "canon": "Romanbeschreibung vor Film\u00e4hnlichkeit. Eigenst\u00e4ndige Lia mit langen rotblonden Locken, wei\u00dfer Bluse und langem schlichtem braunem Rock.",
+  "directions": [
+    "south",
+    "west",
+    "east",
+    "north"
+  ],
+  "columns": [
+    "walk-phase-1",
+    "walk-phase-2",
+    "walk-phase-3",
+    "walk-phase-4"
+  ],
+  "normalization": {
+    "script": "scripts/build_lia_novel_walk.py",
+    "frameSize": [
+      64,
+      64
+    ],
+    "spriteHeightMedian": 37,
+    "foot": [
+      32,
+      60
+    ],
+    "alphaThreshold": 110,
+    "rowDetection": "four foreground occupancy bands, row boundaries at midpoint of empty gaps",
+    "paletteColors": 32,
+    "palette": "Original generated Lia palette snapshots recorded separately in currentMotionSpec",
+    "resampling": "nearest-neighbor",
+    "creativePixelEdits": false,
+    "horizontalAnchor": "Median head alpha midpoint at 10-22 percent body height, x32, so alternating feet cannot displace the body"
+  },
+  "assets": [
+    {
+      "name": "lia-book-walk",
+      "raw": "output/imagegen/raw/novel-characters/lia-book.png",
+      "file": "game/public/assets/sprites/lia-walk.png",
+      "costume": "Book under arm, wooden shoes, curls loosely pinned behind, no journey hair band or satchel",
+      "generation": {
+        "tool": "builtin image_gen.imagegen",
+        "source": "Root-supplied generated four-row Book atlas",
+        "prompt": "Root retains exact original generation prompt; supplied identity specification: fictional novel Lia, long loose red-blond curls pinned behind, white blouse, long brown skirt, wooden shoes, book carried under arm; 4x4 walking SOUTH WEST EAST NORTH.",
+        "role": "Historical identity generation; current gait generation and accepted row sources are in currentMotionSpec"
+      },
+      "currentMotionSpec": "design/assets/lia-book-motion.json",
+      "currentNormalizer": "scripts/build_lia_book_motion.py",
+      "currentSha256": "a2f1200be50601f74db1f49d6223794a23663a8db2840441863f77ffa7c366fa",
+      "rawRole": "Historical character identity and palette reference. Current accepted gait source files are listed in currentMotionSpec."
+    },
+    {
+      "name": "lia-travel-walk",
+      "raw": "output/imagegen/raw/novel-characters/lia-travel.png",
+      "file": "game/public/assets/sprites/lia-travel-walk.png",
+      "costume": "Hands free, narrow hair band, leather shoes, journey satchel with rolled wool blanket; no arm book or cloak",
+      "generation": {
+        "tool": "builtin image_gen.imagegen",
+        "source": "/Users/logge/.codex/generated_images/01a1075d-ea1c-70f3-9101-4b4ffef6beff/exec-dd66adfd-7cf6-46f6-a8d2-42a691c5544f.png",
+        "prompt": "Use case: illustration-story. Create a NEW pixel-art game sprite sheet, using reference image 1 ONLY for Lia's fictional identity, face, long reddish blond curly hair and game pixel-art style. Reference image 2 ONLY illustrates traveling equipment, its wrong atlas arrangement MUST NOT be copied.\nSubject: Lia, an independent novel character, never resemblance to film actresses. Young woman with long reddish blond curls held back with a plain narrow hair band, simple white linen blouse, long plain brown skirt, worn leather shoes, small brown journey satchel with rolled wool blanket. NO book in her hands or under her arm, both hands free. NO green cloak in this sheet.\nEXACT LAYOUT: one square transparent sprite sheet. EXACTLY FOUR ROWS AND FOUR COLUMNS, 16 separate whole-body sprites. Uniform grid. Row 1 FOUR SOUTH/front-facing walk phases. Row 2 FOUR WEST/left-facing walk phases. Row 3 FOUR EAST/right-facing walk phases. Row 4 FOUR NORTH/back-facing walk phases. Never omit north or replace any row with a costume. Every direction four distinct walking leg positions; same identity and outfit in all 16. No text, labels, borders, grass, scenery or cast shadows. Full body with clean empty space around each sprite; enough gutter to crop each of sixteen uniform cells. True transparent background. Crisp chunky low-resolution pixel-art suitable for downsize to roughly 37 pixels tall. Keep head/body proportions, copper curly hair and costume colors matching reference 1.",
+        "references": [
+          "output/imagegen/raw/novel-characters/lia-book.png",
+          "/Users/logge/.codex/generated_images/01a10756-edfd-7263-9f56-94888238f842/exec-e22dd39f-c6a5-467b-8c15-64ed8a3c3868.png"
+        ],
+        "rejectedAtlasNote": "Second reference contains only six costume rows; it was used only as identity/equipment reference, never bound as a game atlas.",
+        "role": "Historical identity generation; current gait generation and accepted row sources are in currentMotionSpec"
+      },
+      "currentMotionSpec": "design/assets/lia-travel-motion.json",
+      "currentNormalizer": "scripts/build_lia_travel_motion.py",
+      "currentSha256": "60dd28eba1188363beb51d2d2e2e39e100794370aa4eb1ff54fdbc69ab1c314c",
+      "rawRole": "Historical character identity and palette reference. Current accepted gait source files are listed in currentMotionSpec."
+    },
+    {
+      "name": "lia-cloak-walk",
+      "raw": "output/imagegen/raw/novel-characters/lia-cloak.png",
+      "file": "game/public/assets/sprites/lia-cloak-walk.png",
+      "costume": "Journey outfit plus plain long deep green rain cloak, hood down, curly hair visible; hands free",
+      "generation": {
+        "tool": "builtin image_gen.imagegen",
+        "source": "/Users/logge/.codex/generated_images/01a1075d-ea1c-70f3-9101-4b4ffef6beff/exec-15a6982c-ae72-4a11-924a-2785227ddc1f.png",
+        "prompt": "Use case: illustration-story. Create a NEW sprite atlas based on reference image 1. Maintain exactly this fictional young woman Lia, with long copper reddish-blond CURLS held behind with a simple hair band, same petite pixel-art proportions, face and brown skirt/white blouse/leather shoes, her small brown travel satchel with rolled wool blanket. Change costume by ADDING A PLAIN LONG DEEP GREEN RAIN CLOAK over the traveling clothes. Hood DOWN behind her neck, hair stays visible. Cloak below knees, simple poor travel clothing, NO ornament, no elegant fantasy tunic or armor. Both hands free, NO book.\nEXACT LAYOUT: SQUARE transparent sheet with EXACTLY4ROWS and4COLUMNS, sixteen separated full-body walking sprites: TOP row1 SOUTH facing front; row2 WEST facing left; row3 EAST facing right; BOTTOM row4 NORTH facing away/back. Each of four columns has a distinct walking phase, all four rows full. Do NOT omit EAST or NORTH. The reference atlas only gives character identity; ensure each row has green cloak in all four frames. Uniform cell spacing with generous margins for cropping. True transparent alpha backdrop, no environment, no shadows, no labels, no text, no gridlines. Match reference crisp pixel-art palette and chunky forms, final downsize about37px character tall. No resemblance to film actresses.",
+        "references": [
+          "output/imagegen/raw/novel-characters/lia-travel.png"
+        ],
+        "role": "Historical identity generation; current gait generation and accepted row sources are in currentMotionSpec"
+      },
+      "currentMotionSpec": "design/assets/lia-cloak-motion.json",
+      "currentNormalizer": "scripts/build_lia_cloak_motion.py",
+      "currentSha256": "1c4021579449901945536650abc12112189abeb2db3d457017d204f247c5c409",
+      "rawRole": "Historical character identity and palette reference. Current accepted gait source files are listed in currentMotionSpec."
+    }
+  ],
+  "bookExactPromptReference": "design/assets/root-novel-sprite-prompts.json"
+}

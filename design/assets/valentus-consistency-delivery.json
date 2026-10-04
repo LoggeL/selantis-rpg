@@ -1,0 +1,127 @@
+{
+  "id": "valentus-consistency",
+  "date": "2026-10-04",
+  "generator": "built-in image_gen",
+  "costume": "Plain long deep navy wide-sleeved robe, broad ivory longitudinal front panel at viewer-left and narrow ivory shoulder-to-hem strip at viewer-right in frontal view; one dark belt with dull oval buckle, small pale round neckline ornaments. Practical coarse black flight cloak overlays this same robe. No embroidery, blue battle shoulder cape, ornate staff, gold brooch, bracers or crossbody harness.",
+  "delivered": [
+    {
+      "path": "game/public/assets/cut/prologue-valentus-ready.png",
+      "source": "output/imagegen/valentus-consistency/prologue-valentus-ready.png",
+      "width": 1672,
+      "height": 941,
+      "sourceDimensions": [
+        1671,
+        941
+      ],
+      "sha256": "4320e22d63a9eca34e3dbc20313365edb69871f6f665e90cc8f73023f850f665",
+      "processing": "nearest-neighbor resize to existing runtime dimensions",
+      "review": "Visually inspected source and full scene: face/pose and story preserved, navy robe and pale longitudinal panels match battle; attacker/pursuers use coarse black hoods and unbleached tunic.",
+      "sourcePath": "output/imagegen/valentus-consistency/prologue-valentus-ready.png",
+      "sourceSha256": "92d0436765d85370f102ede2052b13e7966a3bbfadcada97aab0c526ae6b7966"
+    },
+    {
+      "path": "game/public/assets/cut/cinematic-valentus-stab.png",
+      "source": "output/imagegen/valentus-consistency/cinematic-valentus-stab.png",
+      "width": 1672,
+      "height": 941,
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "sha256": "105b11657aa9c4dfe2fe5799d69f92912c3a194e0112e11ab2a58a0101bdd2bf",
+      "processing": "byte-exact generated source passthrough",
+      "review": "Visually inspected source and full scene: face/pose and story preserved, navy robe and pale longitudinal panels match battle; attacker/pursuers use coarse black hoods and unbleached tunic.",
+      "sourcePath": "output/imagegen/valentus-consistency/cinematic-valentus-stab.png",
+      "sourceSha256": "105b11657aa9c4dfe2fe5799d69f92912c3a194e0112e11ab2a58a0101bdd2bf"
+    },
+    {
+      "path": "game/public/assets/cut/prologue-valentus.png",
+      "source": "output/imagegen/valentus-consistency/prologue-valentus.png",
+      "width": 1672,
+      "height": 941,
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "sha256": "2e19ac98237bba7595daa7baab2e01c6be37747f93c29115774383bbc46ab39b",
+      "processing": "byte-exact generated source passthrough",
+      "review": "Visually inspected source and full scene: face/pose and story preserved, navy robe and pale longitudinal panels match battle; attacker/pursuers use coarse black hoods and unbleached tunic.",
+      "sourcePath": "output/imagegen/valentus-consistency/prologue-valentus.png",
+      "sourceSha256": "2e19ac98237bba7595daa7baab2e01c6be37747f93c29115774383bbc46ab39b"
+    },
+    {
+      "path": "game/public/assets/portraits/dialogue-valentus.png",
+      "source": "output/imagegen/valentus-consistency/dialogue-valentus.png",
+      "width": 1254,
+      "height": 1254,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "85b866de6e69b0aff9e5cca8b33d674197272d388a47a91f9cf904dd36f723e5",
+      "processing": "byte-exact generated source passthrough",
+      "review": "Visually inspected source and full scene: face/pose and story preserved, navy robe and pale longitudinal panels match battle; attacker/pursuers use coarse black hoods and unbleached tunic.",
+      "sourcePath": "output/imagegen/valentus-consistency/dialogue-valentus.png",
+      "sourceSha256": "85b866de6e69b0aff9e5cca8b33d674197272d388a47a91f9cf904dd36f723e5"
+    }
+  ],
+  "reviewedExisting": [
+    {
+      "path": "game/public/assets/sprites/valentus-walk.png",
+      "review": "4x4 64px frames; navy wide sleeves, broad and narrow ivory front stripes; no battle cloak or staff.",
+      "sha256": "086a108a57c1a905602a165d7c315e3974229362e85ac8320c91efe86eeb25ba"
+    },
+    {
+      "path": "game/public/assets/sprites/valentus-cast.png",
+      "review": "4x4 64px frames, same robe in all sixteen action/direction cells.",
+      "sha256": "243f44f28e32aad15f8f4c177a49b3d94c8e36717478b4f1d87ad93072c515d2"
+    },
+    {
+      "path": "game/public/assets/sprites/valentus-cloak-run.png",
+      "review": "4x4 64px frames; black flight cloak worn over the same navy/ivory robe.",
+      "sha256": "dc7d7a44997e70bf674333e8ffb51e503ca36d5c3fe1fc2aa87745b2c606affc"
+    },
+    {
+      "path": "game/public/assets/sprites/valentus-cloak-events.png",
+      "review": "4x3 64px frames; cloak removed/swung only by event pose, underlying battle robe remains.",
+      "sha256": "21bf8bc022623c3a7e5d399c9fea2e9feca3488fbd1cd5e02e629dd4bd10d2dc"
+    },
+    {
+      "path": "game/public/assets/sprites/valentus-refuge.png",
+      "review": "4x3 64px frames; robe opened for existing abdominal bandage in lie/rise cells, same navy/ivory robe in all walking/cradle actions.",
+      "sha256": "c64bd6882f511a01da704051320bed0bdbd29e0c2c94a6a93fcf8e65e1281342"
+    },
+    {
+      "path": "game/public/assets/portraits/valentus.png",
+      "review": "Existing blue robe neckline, face/long brown hair/small goatee match scene identity.",
+      "sha256": "88354a1588bfed2e6ebba2c277b54657f96e487d485f8b551bb3fe950c41822d"
+    },
+    {
+      "path": "game/public/assets/portraits/valentus-wounded.png",
+      "review": "Existing same blue neckline and identity, sweat/pain variation retained.",
+      "sha256": "be45f2a3e4e3055be912113d4aec2734b345d7658a9a9812fa807dabf2f98f02"
+    },
+    {
+      "path": "game/public/assets/cut/wound.png",
+      "review": "Existing navy sleeve and pale longitudinal panels; right-flank hand closeup.",
+      "sha256": "9309ef165de7c7c67b3082c4b71046740412dd94d2e9c526ab320ffefbb71e51"
+    },
+    {
+      "path": "game/public/assets/cut/wound-mono.png",
+      "review": "Existing companion desaturation layer retained; same composition as wound.",
+      "sha256": "7f5dd3e81b799d6e82aab99aa623aabf527757ea7edf8a6647879493d8d435fb"
+    },
+    {
+      "path": "game/public/assets/cut/wound-red.png",
+      "review": "Existing companion blood overlay retained, unaffected by costume replacements.",
+      "sha256": "35ec6074ecde6292a13249a23b3f5726929c3b5502a607247af8da680656889b"
+    },
+    {
+      "path": "game/public/assets/cut/hand.png",
+      "review": "Existing bare left hand emerges from navy sleeve, refuge costume consistent.",
+      "sha256": "23e9847fefa4ebcadfc3c675cd12a6e116ec5f7ff14af019f14e11d940c867b5"
+    }
+  ],
+  "preservedContract": "Existing runtime names, dimensions, all atlas rows, columns and indices unchanged. Raw originals preserved in before/ and original generation folders.",
+  "verification": "All selected outputs inspected locally. Runtime integration/build/browser verification belongs to main agent."
+}

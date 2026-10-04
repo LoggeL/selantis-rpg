@@ -11,6 +11,29 @@ async function markers(page: Page) {
     .map(({ spot, object }: any) => [spot.id, object.visible])));
 }
 
+async function completeGrief(page: Page, interact: () => Promise<void>) {
+  const beats = ['night-stones', 'night-wounds', 'night-thoughts', 'dawn-graves', 'dawn-farewell', 'dawn-preparation'];
+  for (const [index, step] of beats.entries()) {
+    await expect.poll(() => page.evaluate(() =>
+      (window as any).game.scene.getScene('aftermath').data.get('story:grief')))
+      .toMatchObject({ active: true, index, step, ready: true });
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('aftermath').locked)).toBe(true);
+    if (await page.evaluate(() => (window as any).game.scene.getScene('aftermath').data.get('dialogue:typing'))) {
+      await interact();
+      const current = await page.evaluate(() => (window as any).game.scene.getScene('aftermath').data.get('story:grief'));
+      if (!current.active || current.index !== index) continue;
+      await page.waitForFunction(() => !(window as any).game.scene.getScene('aftermath').data.get('dialogue:typing'));
+    }
+    await interact();
+  }
+  await expect.poll(() => page.evaluate(() =>
+    (window as any).game.scene.getScene('aftermath').data.get('story:grief'))).toMatchObject({ active: false, step: 'complete' });
+  expect(await page.evaluate(() => {
+    const scene = (window as any).game.scene.getScene('aftermath');
+    return [scene.locked, scene.st.flags.aftermathGriefSeen];
+  })).toEqual([false, true]);
+}
+
 for (const viewport of viewports) {
   test(`Completed farm markers disappear while the house stays enterable on ${viewport.name}`, async ({ page }) => {
     test.setTimeout(45_000);
@@ -27,6 +50,7 @@ for (const viewport of viewports) {
       if (viewport.mobile) await page.locator('.mobile-action[data-key="E"]').click();
       else await page.keyboard.press('KeyE', { delay: 50 });
     };
+    await completeGrief(page, interact);
     // Placement removes walking time; each action uses the real keyboard/touch path.
     const use = async (x: number, y: number) => {
       await page.evaluate(([x, y]) => (window as any).game.scene.getScene('aftermath').lia.setPosition(x, y), [x, y]);

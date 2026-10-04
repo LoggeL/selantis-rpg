@@ -285,6 +285,94 @@
         64,
         60
       ]
+    },
+    "lia-travel-walk": {
+      "file": "assets/sprites/lia-travel-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "lia-cloak-walk": {
+      "file": "assets/sprites/lia-cloak-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "lia-farm-walk": {
+      "file": "assets/sprites/lia-farm-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "lia-camp-sit": {
+      "file": "assets/sprites/lia-camp-sit.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 1,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "foltan-walk": {
+      "file": "assets/sprites/foltan-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "azar-walk": {
+      "file": "assets/sprites/azar-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "lia-crouch-walk": {
+      "file": "assets/sprites/lia-crouch-walk.png",
+      "frameW": 64,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        32,
+        60
+      ]
+    },
+    "road-travelers-walk": {
+      "file": "assets/sprites/road-travelers-walk.png",
+      "frameW": 128,
+      "frameH": 64,
+      "cols": 4,
+      "rows": 2,
+      "foot": [
+        64,
+        60
+      ]
     }
   },
   "images": {
@@ -346,14 +434,18 @@
     "camp-wood": "assets/ui/camp-wood.svg",
     "bg-first-camp-evening": "assets/bg/first-camp-evening-unbuilt.png",
     "bg-first-camp-night": "assets/bg/first-camp-night-unbuilt.png",
-    "bg-companion-forest-trail": "assets/bg/companion-forest-trail.png",
     "camp-cloak-detailed": "assets/props/camp-cloak-detailed.png",
     "camp-blanket-detailed": "assets/props/camp-blanket-detailed.png",
     "camp-stones-detailed": "assets/props/camp-stones-detailed.png",
     "camp-twigs-detailed": "assets/props/camp-twigs-detailed.png",
     "camp-fire-ring-detailed": "assets/props/camp-fire-ring-detailed.png",
     "camp-logs-detailed": "assets/props/camp-logs-detailed.png",
-    "camp-fire-detailed": "assets/props/camp-fire-detailed.png"
+    "camp-fire-detailed": "assets/props/camp-fire-detailed.png",
+    "bg-companion-forest-trail": "assets/bg/companion-forest-trail.png",
+    "cut-kyra-wood": "assets/cut/kyra-wood.png",
+    "cut-kyra-forest": "assets/cut/kyra-forest.png",
+    "cut-kyra-discovery": "assets/cut/kyra-discovery.png",
+    "cut-crios-reflection": "assets/cut/crios-reflection.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

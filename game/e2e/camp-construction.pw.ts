@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 }]) {
+  test.describe(`camp input ${viewport.width}`, () => {
+    test.use({ hasTouch: viewport.width < 500 });
   test(`camp is built from inventory at dusk before night (${viewport.width})`, async ({ page }) => {
     test.setTimeout(90000);
     const errors: string[] = [];
@@ -17,7 +19,7 @@ for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 
     const snap = () => page.evaluate(() => {
       const game = (window as any).game, s = game.scene.getScene('journey');
       return { step: s.campStep, time: s.data.get('story:camp-time'), texture: s.campBackground.texture.key,
-        world: game.registry.get('world'), stonesVisible: s.campStones.visible, twigsVisible: s.campTwigs.visible,
+        minigame: s.data.get('story:fire-minigame'), world: game.registry.get('world'), stonesVisible: s.campStones.visible, twigsVisible: s.campTwigs.visible,
         cloak: { texture: s.cloak.texture.key, visible: s.cloak.visible },
         ring: { texture: s.fireRing.texture.key, visible: s.fireRing.visible },
         fire: { texture: s.flame.texture.key, visible: s.flame.visible, scaleY: s.flame.scaleY }, frame: game.loop.frame };
@@ -50,13 +52,50 @@ for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 
     expect((await snap()).fire.visible).toBe(false);
     await use('twigs', 'fire');
     expect(await snap()).toMatchObject({ twigsVisible: false, world: { inv: { zunderholz: 1 }, flags: { journeyFirepitBuilt: true } } });
-    await use('fire', 'meal');
+    await use('fire', 'fire');
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:fire-minigame')?.active);
+    await page.screenshot({ path: `../output/qa/camp-${viewport.width}-fire-minigame.png`, fullPage: true });
+    const fireButton = async (x: number) => {
+      const canvas = (await page.locator('canvas').boundingBox())!;
+      const at = [canvas.x + canvas.width * x / 640, canvas.y + canvas.height * 236 / 360];
+      if (viewport.width < 500) await page.touchscreen.tap(at[0], at[1]);
+      else await page.mouse.click(at[0], at[1]);
+    };
+    const waitGoodStroke = () => page.waitForFunction(() => {
+      const f = (window as any).game.scene.getScene('journey').data.get('story:fire-minigame');
+      return f?.active && f.ready && f.marker > 0.43 && f.marker < 0.57;
+    });
+    await waitGoodStroke();
+    if (viewport.width < 500) await fireButton(267);
+    else await page.keyboard.press('KeyE');
+    await expect.poll(async () => (await snap()).minigame.heat).toBe(1);
+    // Pause preserves wood and progress, while tapping outside the game cannot walk Lia.
+    await fireButton(448);
+    expect((await snap()).world.inv.zunderholz).toBe(1);
+    expect((await snap()).world.flags.campfireLit).toBeUndefined();
+    await use('fire', 'fire');
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:fire-minigame')?.active);
+    expect((await snap()).minigame.heat).toBe(1);
+    for (let heat = 2; heat <= 6; heat++) {
+      await waitGoodStroke();
+      if (viewport.width < 500) await fireButton(267);
+      else await page.keyboard.press('KeyE');
+      await expect.poll(async () => (await snap()).minigame.heat).toBe(heat);
+    }
+    await expect.poll(async () => (await snap()).step).toBe('meal');
     expect((await snap()).world.inv.zunderholz).toBeUndefined();
     expect(await snap()).toMatchObject({ time: 'dusk', world: { flags: { campfireLit: true } } });
     const lit = await snap(); expect(lit.fire.visible).toBe(true);
     await page.waitForFunction(frame => (window as any).game.loop.frame > frame + 15, lit.frame);
     expect((await snap()).fire.scaleY).not.toBe(lit.fire.scaleY);
-    await use('fire', 'sleep');
+    expect((await snap()).world.flags.journeyAte).toBeUndefined();
+    if (viewport.width < 500) await page.getByRole('button', { name: 'Tasche', exact: true }).click();
+    else await page.keyboard.press('KeyI');
+    const bag = page.locator('#bag-dialog');
+    await bag.getByRole('button', { name: 'Reiseproviant auswählen', exact: true }).click();
+    await bag.getByRole('button', { name: 'Reiseproviant: Essen', exact: true }).click();
+    await expect.poll(async () => (await snap()).step).toBe('sleep');
+    await page.keyboard.press('Escape');
     expect(await snap()).toMatchObject({ world: { flags: { journeyAte: true, journeyProviantPortionUsed: true } } });
     expect((await snap()).world.flags.journeyFeetChecked).toBeUndefined();
     await page.screenshot({ path: `../output/qa/camp-${viewport.width}-dusk-built.png`, fullPage: true });
@@ -65,5 +104,6 @@ for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 
     await expect.poll(async () => (await snap()).texture).toBe('bg-first-camp-night');
     await page.screenshot({ path: `../output/qa/camp-${viewport.width}-night.png`, fullPage: true });
     expect(errors).toEqual([]);
+  });
   });
 }

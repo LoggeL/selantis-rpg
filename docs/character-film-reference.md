@@ -1,5 +1,7 @@
 # Filmnahe Figurenreferenz
 
+Für Lia und Kyra gilt seit dem 4. Oktober 2026 die [Romanbeschreibung](character-novel-appearance.md). Die folgenden Filmbeobachtungen dokumentieren die frühere Bildvorgabe und sind für diese beiden Spielfiguren keine aktuelle Gestaltungsvorgabe. Andere Figuren behalten ihre jeweils ausdrücklich gewählte Referenz.
+
 Neue Nutzervorgabe: Das Aussehen der Spielfiguren soll sich stärker an den Filmen orientieren. LIA heißt im Film Triss. Für die Handlung gilt weiter der Roman bis einschließlich der Regenflucht auf PDF-Seite 90. Filmnahes Gesicht, Haar und Kostüm ziehen keine späteren Filmereignisse oder Fähigkeiten in diesen Anfang vor.
 
 Die folgenden Fotobefunde stammen aus gezielt extrahierten und visuell geprüften Originalframes der lokalen Filme. Sie sind keine generierten Figurenbilder. Zeitcodes, Videodateien und Frames stehen im [Manifest](../sources/frames/characters-film/manifest.json). Die Namenszuordnung folgt den [Episodennotizen 1](episode-01.md) und [2](episode-02.md), einschließlich des dort geprüften Rollenabspanns. Dies ist eine gezielte Referenzprüfung, keine neue lückenlose Sichtung aller Filme. Die wechselnde Beleuchtung erlaubt Farbfamilien, aber keine verbindlichen RGB-Werte oder sichere Augenfarben.

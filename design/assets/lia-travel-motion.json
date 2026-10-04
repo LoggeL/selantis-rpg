@@ -1,0 +1,237 @@
+{
+  "name": "Lia travel walk real foot motion",
+  "canon": "Novel Lia copper red curls and practical blouse, brown skirt, leather shoes, free hands, journey satchel and wool roll",
+  "file": "game/public/assets/sprites/lia-travel-walk.png",
+  "directions": [
+    "south",
+    "west",
+    "east",
+    "north"
+  ],
+  "frames": [
+    "left-contact",
+    "passing",
+    "right-contact",
+    "opposite-passing"
+  ],
+  "normalization": {
+    "script": "scripts/build_lia_travel_motion.py",
+    "frameSize": [
+      64,
+      64
+    ],
+    "height": 37,
+    "foot": [
+      32,
+      60
+    ],
+    "alphaThreshold": 110,
+    "resampling": "nearest-neighbor",
+    "palette": "fixed original Lia walk palette snapshot",
+    "creativePixelEdits": false,
+    "paletteRGB": [
+      [
+        10,
+        4,
+        1
+      ],
+      [
+        16,
+        18,
+        8
+      ],
+      [
+        37,
+        36,
+        20
+      ],
+      [
+        40,
+        16,
+        6
+      ],
+      [
+        50,
+        25,
+        12
+      ],
+      [
+        51,
+        57,
+        35
+      ],
+      [
+        63,
+        68,
+        43
+      ],
+      [
+        67,
+        37,
+        22
+      ],
+      [
+        80,
+        37,
+        17
+      ],
+      [
+        83,
+        49,
+        32
+      ],
+      [
+        92,
+        56,
+        38
+      ],
+      [
+        97,
+        40,
+        15
+      ],
+      [
+        99,
+        59,
+        39
+      ],
+      [
+        107,
+        50,
+        23
+      ],
+      [
+        109,
+        60,
+        36
+      ],
+      [
+        112,
+        68,
+        46
+      ],
+      [
+        118,
+        71,
+        46
+      ],
+      [
+        122,
+        75,
+        51
+      ],
+      [
+        129,
+        77,
+        52
+      ],
+      [
+        130,
+        60,
+        25
+      ],
+      [
+        136,
+        69,
+        32
+      ],
+      [
+        149,
+        74,
+        33
+      ],
+      [
+        150,
+        92,
+        56
+      ],
+      [
+        161,
+        79,
+        35
+      ],
+      [
+        171,
+        92,
+        45
+      ],
+      [
+        176,
+        137,
+        110
+      ],
+      [
+        184,
+        95,
+        45
+      ],
+      [
+        192,
+        106,
+        54
+      ],
+      [
+        217,
+        136,
+        86
+      ],
+      [
+        229,
+        209,
+        194
+      ],
+      [
+        230,
+        182,
+        151
+      ]
+    ],
+    "horizontalAnchor": "Median head alpha midpoint over y10-22 percent of cropped body height, centered x32 to keep head still while two feet move."
+  },
+  "generation": [
+    {
+      "role": "side rows selected from complete first generated atlas",
+      "raw": "output/imagegen/raw/novel-characters/lia-travel-motion-atlas.png",
+      "source": "/Users/logge/.codex/generated_images/01a10771-8d82-7f60-b590-59a6987b621f/exec-a5186ba1-0efd-4401-8d97-781f2e57d649.png",
+      "prompt": "Use case: illustration-story. Asset: replacement 4x4 walk-animation pixel-art atlas for this reference Lia travel outfit. Preserve Lia's copper-red long curly hair held back with narrow band, small white blouse, plain brown calf-length skirt, brown leather shoes, satchel and rolled wool blanket. Both hands free. This is an animation task: CHANGE LEG POSES substantially, do not repeat the same legs. Reference defines appearance only; the existing fixed leg poses are WRONG.\nEXACTLY 4 rows and 4 columns of whole-body sprites, uniform grid, TRUE TRANSPARENT background. Rows in order: SOUTH front, WEST left profile, EAST right profile, NORTH back. Columns are exact four-frame walk cycle: 1 left leg forward contact, right foot back; 2 passing phase feet close together with right foot visibly lifting; 3 right leg forward contact, left foot back; 4 opposite passing phase feet close, left foot lifting. Row south: column 1 viewer-right shoe lower and viewer-left shoe higher, column 3 viewer-left shoe lower and viewer-right shoe higher. Row north opposite anatomical feet; two shoes always separated horizontally and visible. Side rows: contact phases shoes widely separated and one knee bent, passing phases shoes near each other vertically, so foot silhouettes alternate wide/narrow/wide/narrow. ALL FOUR ROWS have genuine cyclic foot motion; every frame shows TWO distinct shoes. Skirt hem high enough to show calves and shoes, no single central foot. Head position and torso heights remain stable within each row, no fake whole-body bob. Arms swing with gait. Same face, hair and outfit in every frame. Crisp chunky low-resolution pixel art; game scale roughly37px tall per sprite, avoid finely shaded high-res illustration. Generous clear cell gutters, no text, no frame borders, no terrain, no ground shadows. Front and back stride clearly alternate feet horizontally, not an unchanged single foot centered under skirt.",
+      "tool": "builtin image_gen.imagegen",
+      "references": [
+        "output/imagegen/raw/novel-characters/lia-travel.png"
+      ]
+    },
+    {
+      "role": "rejected targeted correction, front passing foot remained fixed",
+      "source": "/Users/logge/.codex/generated_images/01a10771-8d82-7f60-b590-59a6987b621f/exec-84f9ef10-6d10-4908-8e6d-b86e4603fc6b.png",
+      "prompt": "Use case: precise-object-edit. Correct only gait legs/feet in this already improved 4x4 sprite sheet. Preserve all upper bodies/outfit/hair/pixel style and layout and actual transparency. Rows south, west, east, north; four phases left-contact, passing, right-contact, opposite-passing. The side rows now have wide/narrow/wide/narrow stride; keep that. Row 1 front and row 4 back currently column4 repeats the wrong leg passing. Make column2 visibly feet close together with LEFT boot planted down and RIGHT boot lifted slightly up. Make column4 feet close together with RIGHT boot planted down and LEFT boot lifted slightly up. Both boots need to remain horizontally separated enough to count, beneath a raised skirt hem. Column1 and column3 are contact opposite legs, preserve the correctly switched forward shoe. No fixed one-foot leg pose, no duplicate passing frames. Every sprite TWO visible boots. Head/torso unchanged, same stable vertical placement. 16 sprites only, true alpha transparency, no captions or borders.",
+      "tool": "builtin image_gen.imagegen"
+    },
+    {
+      "role": "south strip",
+      "raw": "output/imagegen/raw/novel-characters/lia-travel-motion-south.png",
+      "source": "/Users/logge/.codex/generated_images/01a10771-8d82-7f60-b590-59a6987b621f/exec-9f5f58af-5eab-4aa5-9115-1e6f49f98a46.png",
+      "prompt": "Use case: illustration-story. Asset: four-frame SOUTH walk cycle strip. Reference is ONLY fictional Lia identity and travel clothing. Generate a SINGLE ROW of EXACTLY FOUR separated sprites facing straight toward camera/front, FULL bodies, each uniform cell on TRUE TRANSPARENT alpha background, no text. Lia same long curly copper-red hair band, blouse, long brown plain skirt, leather shoes, travel pouch and wool roll; NO book NO cloak. Keep head and torso at constant height, no body bob.\nIMPORTANT: four DIFFERENT LEG POSES, explicitly draw TWO legs and TWO shoes side by side beneath raised skirt hem and show calves. Distinct left and right leg. Column1: screen LEFT boot far forward lower down, screen RIGHT boot back/higher; column2: feet almost level side-by-side, RIGHT foot beginning to advance; column3: screen RIGHT boot far forward lower down, screen LEFT boot back/higher; column4: feet nearly level side-by-side, LEFT foot beginning to advance. Frames1 and3 opposite long-stride contact, frames2 and4 nearly level neutral passing. Four phases must never all be the same lone foot sticking beneath skirt. At least two shoe widths gap horizontally between legs in contact phases. Shorten skirt to mid calf so legs motion is plainly visible, while retaining same brown skirt style. Consistent chunky pixel-art, about37px final character height. Heads/outfit/hair same, leg geometry actually changing. No scenery, no shadows, no labels, no gridlines. Four cells. This strip must animate foot alternation.",
+      "tool": "builtin image_gen.imagegen",
+      "references": [
+        "output/imagegen/raw/novel-characters/lia-travel-motion-south-identity.png"
+      ]
+    },
+    {
+      "role": "north strip",
+      "raw": "output/imagegen/raw/novel-characters/lia-travel-motion-north.png",
+      "source": "/Users/logge/.codex/generated_images/01a10771-8d82-7f60-b590-59a6987b621f/exec-4da38fa9-d91d-475e-b313-926e144f6489.png",
+      "prompt": "Use case: illustration-story. Asset: four-frame NORTH walk cycle strip. Reference is ONLY fictional Lia identity and travel clothing. Generate a SINGLE ROW of EXACTLY FOUR separated sprites facing straight away from camera/rear, FULL bodies, each uniform cell on TRUE TRANSPARENT alpha background, no text. Lia same long curly copper-red hair band, blouse, long brown plain skirt, leather shoes, travel pouch and wool roll; NO book NO cloak. Keep head and torso at constant height, no body bob.\nIMPORTANT: four DIFFERENT LEG POSES, explicitly draw TWO legs and TWO shoes side by side beneath raised skirt hem and show calves. Distinct left and right leg. Column1: screen LEFT boot far forward lower down, screen RIGHT boot back/higher; column2: feet almost level side-by-side, RIGHT foot beginning to advance; column3: screen RIGHT boot far forward lower down, screen LEFT boot back/higher; column4: feet nearly level side-by-side, LEFT foot beginning to advance. Frames1 and3 opposite long-stride contact, frames2 and4 nearly level neutral passing. Four phases must never all be the same lone foot sticking beneath skirt. At least two shoe widths gap horizontally between legs in contact phases. Shorten skirt to mid calf so legs motion is plainly visible, while retaining same brown skirt style. Consistent chunky pixel-art, about37px final character height. Heads/outfit/hair same, leg geometry actually changing. No scenery, no shadows, no labels, no gridlines. Four cells. This strip must animate foot alternation.",
+      "tool": "builtin image_gen.imagegen",
+      "references": [
+        "output/imagegen/raw/novel-characters/lia-travel-motion-north-identity.png"
+      ]
+    }
+  ],
+  "visualQA": {
+    "method": "Inspect raw strips and final 4x nearest contact sheet, both feet and contact/passing geometry; byte uniqueness is not used as visual proof",
+    "south": "left low contact, both feet nearly level passing, right low contact, opposite near-level passing",
+    "north": "left low contact, right slightly lower passing, right low contact, left slightly lower passing",
+    "west": "widely separated contact, close shoes passing, reversed limb occlusion contact, close lifted shoe passing",
+    "east": "widely separated contact, close shoes passing, reversed limb occlusion contact, opposite passing"
+  },
+  "currentSha256": "60dd28eba1188363beb51d2d2e2e39e100794370aa4eb1ff54fdbc69ab1c314c"
+}

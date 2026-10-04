@@ -137,6 +137,7 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
   function close() {
     if (!modal) return;
     const closed = modal; modal = undefined; closed.destroy();
+    if (view === 'bag') source?.events.emit('character-bag-close');
     if (game.input.keyboard) game.input.keyboard.enabled = keyboardEnabled;
     for (const [scene, shutdown] of held) {
       scene.events.off('shutdown', shutdown);
@@ -174,13 +175,32 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
       const row = document.createElement('li'); row.dataset.item = item.id;
       const name = document.createElement('span'); name.className = 'bag-item-name'; name.textContent = item.name;
       const count = document.createElement('span'); count.className = 'bag-item-count'; count.textContent = `× ${item.count}`;
-      row.append(itemIcon(item.id), name, count); list.append(row);
+      if (bag) {
+        const inventory = source?.data.get('mobile:inventory') as { selected?: ItemId; actions?: { item: ItemId; label: string }[] } | undefined;
+        const select = document.createElement('button'); select.type = 'button'; select.className = 'bag-item-select';
+        select.setAttribute('aria-label', `${item.name} auswählen`); select.setAttribute('aria-pressed', String(inventory?.selected === item.id));
+        select.append(itemIcon(item.id), name, count);
+        select.addEventListener('click', () => { source?.events.emit('inventory-item-select', item.id); render();
+          document.querySelector<HTMLElement>(`#bag-dialog [data-item="${item.id}"]`)?.scrollIntoView({ block: 'nearest' });
+          (document.querySelector<HTMLButtonElement>(`[data-item="${item.id}"] .bag-item-use`) ??
+            document.querySelector<HTMLButtonElement>(`[data-item="${item.id}"] .bag-item-select`))?.focus({ preventScroll: true }); });
+        row.append(select);
+        const action = inventory?.actions?.find(action => action.item === item.id);
+        if (action && inventory?.selected === item.id) {
+          const use = document.createElement('button'); use.type = 'button'; use.className = 'bag-item-use'; use.textContent = action.label;
+          use.setAttribute('aria-label', `${item.name}: ${action.label}`);
+          use.addEventListener('click', () => { source?.events.emit('inventory-item-use', item.id); if (modal) render(); }); row.append(use);
+        }
+      } else row.append(itemIcon(item.id), name, count);
+      list.append(row);
     } return list;
   }
   function render() {
     if (!modal || !source) return;
     const data = input(), content = modal.content; content.replaceChildren();
     if (view === 'bag') {
+      const instruction = source.data.get('mobile:inventory')?.instruction as string | undefined;
+      if (instruction) { const hint = document.createElement('p'); hint.className = 'bag-instruction'; hint.textContent = instruction; content.append(hint); }
       const interior = document.createElement('section'); interior.className = 'open-bag-interior'; interior.setAttribute('aria-label', 'Inhalt der Tasche');
       const art = document.createElement('img'); art.className = 'bag-artwork'; art.alt = ''; art.src = '/assets/ui/bag-open.png';
       art.addEventListener('load', () => { interior.dataset.art = 'true'; }); art.addEventListener('error', () => { art.hidden = true; });
@@ -236,6 +256,7 @@ export function installCharacterStatsControls(game: Phaser.Game): () => void {
     source.events.emit('character-open'); keyboardEnabled = game.input.keyboard?.enabled ?? true;
     modal = createMobileDialog(view === 'bag' ? 'Tasche' : 'Gruppe', close);
     modal.content.closest('dialog')!.id = view === 'bag' ? 'bag-dialog' : 'character-dialog';
+    if (view === 'bag') source.events.emit('character-bag-open');
     button.setAttribute('aria-expanded', String(view === 'party')); render(); suspend(); if (game.input.keyboard) game.input.keyboard.enabled = false; return true;
   }
   const keydown = (event: KeyboardEvent) => {

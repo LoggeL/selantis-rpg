@@ -2,12 +2,15 @@ import { describe, expect, it, vi } from 'vitest';
 vi.mock('phaser', () => ({ default: { Scene: class {} } }));
 vi.mock('../audio', () => ({ setSceneMusic: vi.fn() }));
 vi.mock('../story/StoryScene', () => ({ StoryScene: class { update() {} } }));
+vi.mock('../story/fireMinigameUI', () => ({ FireMinigameUI: class { update = vi.fn(); result = vi.fn(); destroy = vi.fn(); } }));
 import { JourneyScene } from './JourneyScene';
 import { updateSettings } from '../settings';
 
 function graphics() {
-  const g: any = {};
-  for (const name of ['clear', 'setVisible', 'setPosition', 'setDepth', 'setScale', 'setAlpha', 'setAngle', 'fillStyle', 'fillRect', 'lineStyle', 'lineBetween', 'setOrigin', 'setSize', 'destroy']) g[name] = vi.fn(() => g);
+  const g: any = { x: 0, y: 0, anims: { stop: vi.fn(), currentAnim: undefined } };
+  for (const name of ['clear', 'setVisible', 'setDepth', 'setScale', 'setAlpha', 'setAngle', 'fillStyle', 'fillRect', 'lineStyle', 'lineBetween', 'setOrigin', 'setSize', 'destroy']) g[name] = vi.fn(() => g);
+  g.setPosition = vi.fn((x: number, y: number) => { g.x = x; g.y = y; return g; });
+  g.play = vi.fn((key: string) => { g.anims.currentAnim = { key }; return g; });
   return g;
 }
 function camp(flags: Record<string, boolean> = {}, inv: Record<string, number> = { reisezeug: 1, proviant: 1 }) {
@@ -19,15 +22,34 @@ function camp(flags: Record<string, boolean> = {}, inv: Record<string, number> =
   s.lia = { setPosition: vi.fn(() => s.lia), setDepth: vi.fn(() => s.lia) };
   s.cloak = graphics(); s.blanket = graphics(); s.flame = graphics();
   s.campStones = graphics(); s.campTwigs = graphics();
-  s.areaRoot = { list: [s.campBackground], add: vi.fn() };
+  s.areaRoot = { list: [s.campBackground], add: vi.fn(), sort: vi.fn() };
+  s.anims = { exists: () => true };
   s.add = { graphics, rectangle: graphics, image: graphics };
-  s.time = { delayedCall: vi.fn() }; s.keys = { E: { isDown: false } };
-  for (const method of ['campSpots', 'setLocked', 'say', 'setLiaPose', 'wakeEncounter']) s[method] = vi.fn();
+  s.time = { delayedCall: vi.fn() }; s.keys = { E: { isDown: false, on: vi.fn(), off: vi.fn() }, ESC: { isDown: false, on: vi.fn(), off: vi.fn() } };
+  s.inventory = { toggle: vi.fn(), refresh: vi.fn(), close: vi.fn(), setItemActions: vi.fn() };
+  s.inCamp = true;
+  for (const method of ['campSpots', 'setLocked', 'setCinematic', 'say', 'setLiaPose', 'wakeEncounter']) s[method] = vi.fn();
   s.hud = { hint: vi.fn() };
   return { s, world };
 }
 
 describe('self-built evening camp', () => {
+  it('takes the cloak off for the bed, then recovers it without leaving a duplicate at camp', () => {
+    const { s, world } = camp({ departureReady: true, journeyCampReached: true });
+    s.campStep = 'cloak'; s.useCampSpot('bedroll');
+    expect(world.flags.journeyCloakSpread).toBe(true);
+    expect(world.flags.journeyCloakRecovered).toBe(false);
+    expect(s.cloak.setVisible).toHaveBeenLastCalledWith(true);
+    expect(s.setLiaPose).toHaveBeenLastCalledWith(null);
+    s.goTo = vi.fn(); s.campStep = 'complete'; s.useCampSpot('bedroll');
+    expect(world.flags.journeyCloakRecovered).toBe(true);
+    expect(s.cloak.setVisible).toHaveBeenLastCalledWith(false);
+    expect(s.blanket.setVisible).toHaveBeenLastCalledWith(false);
+    expect(s.goTo).toHaveBeenCalledExactlyOnceWith('companions-road');
+    s.setupCamp(false);
+    expect(s.cloak.setVisible).toHaveBeenLastCalledWith(false);
+  });
+
   it('puts gathered resources into the bag and consumes each exactly once', () => {
     const { s, world } = camp();
     s.campStep = 'cloak'; s.useCampSpot('bedroll'); expect(s.campStep).toBe('stones');
@@ -37,11 +59,18 @@ describe('self-built evening camp', () => {
     s.useCampSpot('fire'); expect(world.inv.steine).toBeUndefined(); expect(world.flags.journeyFirepitBuilt).toBe(true);
     s.useCampSpot('twigs'); expect(world.inv.zunderholz).toBe(1);
     s.useCampSpot('twigs'); expect(world.inv.zunderholz).toBe(1);
+    updateSettings({ reducedMotion: true });
     s.useCampSpot('fire'); expect(s.fireBusy).toBe(true);
-    s.inCamp = true; s.fireClick = true; s.friction = 1090; s.update(0, 20);
+    for (let i = 0; i < 6; i++) {
+      s.fireStroke();
+      for (let j = 0; j < 4; j++) s.updateFire(100);
+    }
+    updateSettings({ reducedMotion: false });
     expect(world.inv.zunderholz).toBeUndefined(); expect(world.flags.campfireLit).toBe(true); expect(s.campStep).toBe('meal');
-    s.useCampSpot('fire'); expect(world.flags.journeyProviantPortionUsed).toBe(true);
-    expect(world.inv.proviant).toBe(1); expect(s.campStep).toBe('sleep');
+    s.useCampSpot('fire'); expect(s.inventory.toggle).toHaveBeenCalledOnce();
+    expect(world.flags.journeyAte).toBeUndefined();
+    s.eatCampProviant(); expect(world.flags.journeyProviantPortionUsed).toBe(true);
+    expect(world.inv.proviant).toBeUndefined(); expect(s.campStep).toBe('sleep');
     expect(world.flags).not.toHaveProperty('journeyFeetChecked');
     s.update(20, 20); expect(world.inv.zunderholz).toBeUndefined();
   });
@@ -70,6 +99,7 @@ describe('self-built evening camp', () => {
     expect(s.campBackground.setTexture).not.toHaveBeenCalled();
     expect(s.fireRing.setVisible).toHaveBeenLastCalledWith(false);
     expect(s.flame.setVisible).toHaveBeenLastCalledWith(false); // No preset fireplace or fire before construction.
+    world.flags.journeyAte = true; world.flags.campfireLit = true;
     s.campStep = 'sleep'; s.sleep(); expect(world.flags.firstCampRested).toBeUndefined();
     expect(s.wakeEncounter).not.toHaveBeenCalled();
     s.time.delayedCall.mock.calls[0][1]();
@@ -85,17 +115,22 @@ describe('self-built evening camp', () => {
   it('shows both strangers crossing the map before the sleeping-Lia closeup', () => {
     updateSettings({ reducedMotion: false });
     const { s } = camp();
-    const actor = (x: number, y: number) => ({ active: true, x, y, angle: 0,
-      setPosition(nx: number, ny: number) { this.x = nx; this.y = ny; return this; },
-      setAngle(angle: number) { this.angle = angle; return this; } });
+    const actor = (x: number, y: number) => Object.assign(graphics(), { active: true, x, y });
     s.foltan = actor(545, 282); s.azar = actor(563, 296);
     s.arrivalActive = true; s.observeSleepingLia = vi.fn();
     for (let i = 0; i < 30; i++) s.updateArrival(50);
     expect(s.foltan.x).toBeGreaterThan(259); expect(s.foltan.x).toBeLessThan(545);
     expect(s.azar.x).toBeGreaterThan(295); expect(s.azar.x).toBeLessThan(563);
+    expect(s.foltan.play).toHaveBeenLastCalledWith('foltan-walk-w', true);
+    expect(s.azar.play).toHaveBeenLastCalledWith('azar-walk-w', true);
+    expect(s.foltan.setAngle).toHaveBeenLastCalledWith(0);
     expect(s.observeSleepingLia).not.toHaveBeenCalled();
     for (let i = 0; i < 64; i++) s.updateArrival(50);
     expect([s.foltan.x, s.foltan.y, s.azar.x, s.azar.y]).toEqual([259, 245, 295, 242]);
+    expect(s.foltan.play).toHaveBeenLastCalledWith('foltan-idle-w', true);
+    expect(s.azar.play).toHaveBeenLastCalledWith('azar-idle-w', true);
+    expect(s.foltan.anims.stop).toHaveBeenCalled();
+    expect(s.azar.anims.stop).toHaveBeenCalled();
     expect(s.observeSleepingLia).toHaveBeenCalledOnce();
     s.updateArrival(50); expect(s.observeSleepingLia).toHaveBeenCalledOnce();
   });
@@ -110,6 +145,9 @@ describe('self-built evening camp', () => {
     s.updateArrival(50);
     expect(s.foltan.setPosition).toHaveBeenLastCalledWith(259, 245);
     expect(s.azar.setPosition).toHaveBeenLastCalledWith(295, 242);
+    expect(s.foltan.play).toHaveBeenLastCalledWith('foltan-idle-w', true);
+    expect(s.azar.play).toHaveBeenLastCalledWith('azar-idle-w', true);
+    expect(s.foltan.play.mock.calls.flat()).not.toContain('foltan-walk-w');
     expect(s.observeSleepingLia).not.toHaveBeenCalled();
     for (let i = 0; i < 4; i++) s.updateArrival(50);
     expect(s.observeSleepingLia).toHaveBeenCalledOnce();

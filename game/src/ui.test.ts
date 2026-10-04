@@ -19,8 +19,10 @@ import { Hud } from './ui';
 function fixture() {
   const objects: any[] = [];
   const add = (...args: any[]) => {
-    const o: any = { visible: true, list: Array.isArray(args[2]) ? args[2] : [] };
-    for (const method of ['setOrigin', 'setDepth', 'setScrollFactor', 'setStrokeStyle', 'setAlpha', 'setInteractive', 'setTint', 'setText', 'setScale', 'setTexture', 'lineStyle', 'strokeCircle', 'lineBetween', 'on']) o[method] = vi.fn(() => o);
+    const o: any = { visible: true, x: args[0], y: args[1], height: 14, text: typeof args[2] === 'string' ? args[2] : '', style: args[3], list: Array.isArray(args[2]) ? args[2] : [] };
+    for (const method of ['setOrigin', 'setDepth', 'setScrollFactor', 'setStrokeStyle', 'setAlpha', 'setInteractive', 'setTint', 'setScale', 'setTexture', 'setSize', 'setY', 'lineStyle', 'strokeCircle', 'lineBetween', 'on']) o[method] = vi.fn(() => o);
+    o.setText = vi.fn((text: string) => { o.text = text; return o; });
+    o.setSize = vi.fn((width: number, height: number) => { o.width = width; o.height = height; return o; });
     o.setDisplaySize = vi.fn(() => o);
     o.setVisible = vi.fn((visible: boolean) => { o.visible = visible; return o; });
     objects.push(o); return o;
@@ -39,10 +41,44 @@ function fixture() {
 beforeEach(() => {
   layout.mobile = false;
   vi.stubGlobal('window', { matchMedia: () => ({ addEventListener: vi.fn(), removeEventListener: vi.fn() }) });
+  vi.stubGlobal('document', { documentElement: { dataset: {} } });
 });
 afterEach(() => vi.unstubAllGlobals());
 
 describe('cinematic HUD suppression', () => {
+  it('keeps the objective in a wrapping, opaque pixel panel and grows with measured multiline text', () => {
+    const f = fixture();
+    f.hud.setObjective('Über die Felder den Hufspuren nach Osten folgen.');
+    const [frame, text, panel] = f.objects.slice(-3);
+    expect(text.style).toMatchObject({ fontSize: '11px', color: '#fff4d8', wordWrap: { width: 244 }, lineSpacing: 2 });
+    expect(frame.setSize).toHaveBeenLastCalledWith(264, 32);
+    expect(panel.visible).toBe(true);
+    expect(f.hud.objectiveBottom).toBe(40);
+    text.height = 54;
+    f.hud.setObjective('Reisebücher, Kleidung und Proviant einpacken. Dann über die Felder nach Osten aufbrechen.');
+    expect(frame.setSize).toHaveBeenLastCalledWith(264, 70);
+    expect(f.thought.setY).toHaveBeenLastCalledWith(90);
+    expect(f.hud.objectiveBottom).toBe(78);
+    expect(f.objects.slice(-3)).toEqual([frame, text, panel]);
+    expect(f.data.get('mobile:objective')).toBe(text.text);
+  });
+
+  it('hides both objective text and frame for closeups and speech, and avoids a duplicate canvas quest on phones', () => {
+    const f = fixture(); f.hud.setObjective('Nach Osten gehen.');
+    const panel = f.objects.at(-1);
+    f.hud.setCinematic(true); expect(panel.visible).toBe(false);
+    f.hud.setCinematic(false); expect(panel.visible).toBe(true);
+    f.hud.thought('Foltan: Wir halten Wache.'); expect(panel.visible).toBe(false);
+    f.hud.setThoughtsVisible(false); expect(panel.visible).toBe(true);
+    f.hud.setObjectiveVisible(false); expect(panel.visible).toBe(false);
+    f.hud.setObjectiveVisible(true); expect(panel.visible).toBe(true);
+    layout.mobile = true; f.hud.setCinematic(false); expect(panel.visible).toBe(false);
+    expect(f.hud.objectiveBottom).toBe(0);
+    expect(f.data.get('mobile:objective')).toBe('Nach Osten gehen.');
+    layout.mobile = false; f.hud.setCinematic(false); expect(panel.visible).toBe(true);
+    f.hud.setObjective(''); expect(panel.visible).toBe(false);
+  });
+
   it('hides gameplay identity, abilities, hints, protector and settings, then restores them', () => {
     const f = fixture(); f.hud.showProtect('portrait-boy');
     const protector = f.objects.at(-1);

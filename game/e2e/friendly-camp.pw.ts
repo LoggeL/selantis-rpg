@@ -96,11 +96,12 @@ for (const layout of layouts) {
       if (index < 19) await expect.poll(async () => (await sample(page)).text).not.toBe(current.text);
     }
     expect(lines.join(' ')).toContain('Wir tun dir nichts.');
-    expect(lines.join(' ')).toContain('Bei meinem Amboss antwortet auch keiner.');
+    expect(lines.join(' ')).toContain('Soll der feine Herr Foltan machen, was er für richtig hält.');
     expect(lines.join(' ')).toContain('Kyra mitgenommen');
     expect(lines.join(' ')).toContain('Versprechen können wir dir nichts.');
     await expect.poll(async () => (await sample(page)).step).toBe('star');
-    expect(await sample(page)).toMatchObject({ locked: false, met: true, ropeFlag: false, targets: ['star'] });
+    expect(await sample(page)).toMatchObject({ locked: false, met: true, ropeFlag: false,
+      targets: ['fire', 'bedroll', 'foltan', 'azar', 'fire-seat', 'star', 'road'] });
     // Scene restart with the same registry models a return to the restored camp.
     await page.evaluate(() => (window as any).game.scene.getScene('journey').scene.restart());
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'star');
@@ -110,11 +111,102 @@ for (const layout of layouts) {
     })).toEqual([false, false, null, 5, 6]);
     await page.evaluate(() => (window as any).game.scene.getScene('journey').lia.setPosition(155, 188));
     await interact(page, layout.mobile);
+    for (let index = 0; index < 6; index++) {
+      await page.waitForFunction(index => {
+        const scene = (window as any).game.scene.getScene('journey');
+        return scene.data.get('story:star-reflection')?.active && scene.data.get('story:star-reflection').index === index;
+      }, index);
+      expect(await page.evaluate(() => {
+        const scene = (window as any).game.scene.getScene('journey');
+        return { locked: scene.locked, observed: !!(window as any).game.registry.get('world').flags.criosObserved,
+          art: scene.closeup.image.texture.key };
+      })).toEqual({ locked: true, observed: false, art: 'cut-crios-reflection' });
+      const text = (await sample(page)).text;
+      if ((await sample(page)).typing) {
+        await interact(page, layout.mobile);
+        if ((await sample(page)).text !== text) continue;
+        await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('dialogue:typing'));
+      }
+      await interact(page, layout.mobile);
+    }
     await expect.poll(async () => (await sample(page)).step).toBe('complete');
     expect(await page.evaluate(() => (window as any).game.registry.get('world').flags.criosObserved)).toBe(true);
-    expect((await sample(page)).objective).toBe('Bis zum Morgen schlafen und gemeinsam aufbrechen.');
+    expect((await sample(page)).objective).toBe('Im Lager zur Ruhe kommen oder bis zum Morgen schlafen.');
     await page.evaluate(() => (window as any).game.scene.getScene('journey').scene.restart());
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'complete');
+    expect(errors).toEqual([]);
+  });
+
+  test(`optional camp actions and direct sleep work on ${layout.name}`, async ({ page }) => {
+    test.setTimeout(45_000);
+    const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+    await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+    await page.setViewportSize({ width: layout.width, height: layout.height });
+    await page.addInitScript(reducedMotion => localStorage.setItem('selantis.settings.v1', JSON.stringify({ reducedMotion })), layout.reducedMotion);
+    await page.goto('/?scene=journey');
+    await page.waitForFunction(() => (window as any).game?.scene.isActive('journey'));
+    // Resume after the encounter, then use actual controls for all optional points.
+    await page.evaluate(() => {
+      const game = (window as any).game;
+      Object.assign(game.registry.get('world').flags, { journeyCampReached: true, firstCampRested: true,
+        journeyCloakSpread: true, journeyStonesGathered: true, journeyFirepitBuilt: true,
+        journeyTwigsGathered: true, campfireLit: true, journeyAte: true, metFoltanAzar: true });
+      game.scene.getScene('journey').scene.restart();
+    });
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'star');
+    expect((await sample(page)).targets).toEqual(['fire', 'bedroll', 'foltan', 'azar', 'fire-seat', 'star', 'road']);
+    const at = async (x: number, y: number) => {
+      await page.evaluate(([x, y]) => (window as any).game.scene.getScene('journey').lia.setPosition(x, y), [x, y]);
+      await interact(page, layout.mobile);
+    };
+    const continueLine = async () => {
+      const current = await sample(page);
+      if (current.typing) {
+        await interact(page, layout.mobile);
+        if ((await sample(page)).text !== current.text) return;
+        await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('dialogue:typing'));
+      }
+      await interact(page, layout.mobile);
+    };
+    await at(355, 231);
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue')?.stage === 'intro');
+    await continueLine();
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue')?.stage === 'menu');
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue').choices))
+      .toEqual(['kyra', 'road', 'watch', 'back']);
+    await page.screenshot({ path: `../output/qa/friendly-camp-${layout.name}-choice-menu.png`, fullPage: true });
+    if (layout.mobile) {
+      for (const key of ['Q', 'R', 'SPACE', 'ESC']) {
+        const choice = page.locator(`.mobile-action[data-key="${key}"]`);
+        await expect(choice).toBeVisible();
+        expect(await choice.evaluate(button => {
+          const box = button.getBoundingClientRect();
+          const target = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+          return { inside: box.x >= 0 && box.y >= 0 && box.right <= innerWidth && box.bottom <= innerHeight,
+            reachable: target === button || button.contains(target) };
+        })).toEqual({ inside: true, reachable: true });
+      }
+    }
+    if (layout.mobile) await page.locator('.mobile-action[data-key="Q"]').click();
+    else await page.keyboard.press('KeyQ', { delay: 50 });
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue')?.stage === 'kyra');
+    expect((await sample(page)).text).toContain('Kyra');
+    for (let index = 0; index < 3; index++) await continueLine();
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-dialogue')?.stage === 'menu');
+    if (layout.mobile) await page.locator('.mobile-action[data-key="ESC"]').click();
+    else await page.keyboard.press('Escape', { delay: 50 });
+    await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').locked);
+    await at(397, 265);
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').areaRoot.list.some((object: any) => object.active && object.visible && object.text === 'Zzzzz'))).toBe(true);
+    await at(288, 250);
+    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').liaPose === 'lia-camp-sit');
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').data.get('story:camp-seated'))).toBe(true);
+    await interact(page, layout.mobile);
+    await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('story:camp-seated'));
+    // No star interaction occurred. Choosing the bed must still start the morning.
+    await at(233, 260);
+    await page.waitForFunction(() => (window as any).game.scene.isActive('companions-road'));
+    expect(await page.evaluate(() => !!(window as any).game.registry.get('world').flags.criosObserved)).toBe(false);
     expect(errors).toEqual([]);
   });
 }

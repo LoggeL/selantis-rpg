@@ -1,0 +1,284 @@
+{
+  "preparation": "RGB, original runtime dimensions, Lanczos resize",
+  "assets": [
+    {
+      "asset": "game/public/assets/portraits/dialogue-scarred.png",
+      "path": "game/public/assets/portraits/dialogue-scarred.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/dialogue-scarred.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/dialogue-scarred.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "e3f2da0b9804092a4831b4da0ecdc1ba06cee3a5ce5c703f205c7f16fd39a991",
+      "sourceSha256": "635819d27ad84c5bb968731b4d43109605d97e937e3bf73503419425deff9dc5"
+    },
+    {
+      "asset": "game/public/assets/portraits/dialogue-hooded.png",
+      "path": "game/public/assets/portraits/dialogue-hooded.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/dialogue-hooded.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/dialogue-hooded.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "5cb60537d213d74e7571a44ce4fa452fb8ae6acc59605206bf09bd3b10c2ae99",
+      "sourceSha256": "5f7d6d5eb7cf406ef9af58ad7b6d12bc3f3d39ba3dabf39f49acb9adcbb65bce"
+    },
+    {
+      "asset": "game/public/assets/portraits/grey-haired-message06.png",
+      "path": "game/public/assets/portraits/grey-haired-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/grey-haired-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/grey-haired-message06.png",
+      "size": [
+        192,
+        192
+      ],
+      "width": 192,
+      "height": 192,
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "processing": "RGB conversion, Lanczos resize to original runtime dimensions, PNG reencode",
+      "byteExact": false,
+      "sha256": "69b4dcc817c19d4e0bf414ed575998e8a6b3093157b3c75d672247868574e0d3",
+      "sourceSha256": "7c66203e7429d1894ad28d829632060c53eabe5b79cc3d7738f35e70e3c8f74f"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-confrontation-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-confrontation-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-confrontation-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-confrontation-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "097cbcb838d9db84b152947bc8611186e32dfb4e0646686ec59e451bac7068b3",
+      "sourceSha256": "61439ea56aaa226e18943f3e06d3736dc71eb0d2317d0a2af3774897eedd825c"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-kyra-discovery-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-kyra-discovery-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-kyra-discovery-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-kyra-discovery-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "0f7c2a0442ce43c64d890054fb9e5b3d43432fa9ce09dae08edfd5aab1bd8c8f",
+      "sourceSha256": "a30369a2ecaa23862ab62f64017ae73f41d57fbe82e66850dd86584a43e90ad9"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-father-stab-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-father-stab-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-father-stab-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-father-stab-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "8b23f6aa18d68e0f8399f21a652b70dfeed67b3e2d57de06c6736aba3fe402da",
+      "sourceSha256": "1788003bca8a5a6fdcf92c582a49d999e3b3badc2e309cb5c2d8c71d64ddc46a"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-father-death-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-father-death-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-father-death-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-father-death-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "14ef346e42143a614ff497c061d4b5728f4103a11fde8fcb0acf943aef8f016b",
+      "sourceSha256": "14cf21e36edef3ebf1488b445d78ab7b709a3bcffde6bcab6bdf15b6cd714244"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-kyra-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-kyra-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-kyra-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-kyra-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "2d92bee7377a808cba87461d1472dfc9879de3c49d361cc9f686a6de8f17bac1",
+      "sourceSha256": "3809ba35348d02527476a8d722afc960e902554f45027bda701fcd29beaa8660"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-mother-stab-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-mother-stab-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-mother-stab-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-mother-stab-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "6512f4a6050f8b283db5ec7b7f9235dd54a2f6d11b3dda99d3060acf7c350129",
+      "sourceSha256": "66b278b754e731d4d03b38e4b847d01fcdbf4ba368f252b887a80a30adc39beb"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-mother-death-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-mother-death-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-mother-death-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-mother-death-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "1bbea8aa530a87443407903a8a3d4e38b7197e318197cec52a92ca3028618de3",
+      "sourceSha256": "8384adfc9cb33cb5589f825976fd482fdd59bfe95536c1941f63a20c06cd5866"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-departure-message06.png",
+      "path": "game/public/assets/cut/cinematic-raid-departure-message06.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-departure-message06.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-departure-message06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "e044c39155bb1ff0fd02b12cb779e4e76aa434bf1b331463e57671093db1f431",
+      "sourceSha256": "70c89a2f40e0cffce95c46f023ccc568112bcd1fae35c3f461fca186a620fc6f"
+    },
+    {
+      "asset": "game/public/assets/cut/cinematic-raid-cover.png",
+      "path": "game/public/assets/cut/cinematic-raid-cover.png",
+      "source": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-cover.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/cinematic-raid-cover.png",
+      "size": [
+        1672,
+        941
+      ],
+      "width": 1672,
+      "height": 941,
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "processing": "RGB conversion and PNG reencode; original dimensions",
+      "byteExact": false,
+      "sha256": "bc851e37b2068363e2e18db6340f21f5f3c77c79155d222dae7d3da05505b336",
+      "sourceSha256": "ffa73a2ce06d439e6ad8926db43c88f1ae82607cbe4960fa33c93d3545a13e5c"
+    },
+    {
+      "asset": "game/public/assets/sprites/story-actors.png",
+      "path": "game/public/assets/sprites/story-actors.png",
+      "frame": 2,
+      "scope": "frame2 only; whole atlas SHA is a delivery snapshot and changes when other owners update their cells",
+      "source": "output/imagegen/raw/darkshadows-consistency/grey-haired-sprite.png",
+      "sourcePath": "output/imagegen/raw/darkshadows-consistency/grey-haired-sprite.png",
+      "width": 256,
+      "height": 128,
+      "cell": [
+        64,
+        64
+      ],
+      "frameSha256": "982eece544b0cb3d90ed8f59cafd30934fd0dbca5dbd88e1d18fa9839a98905d",
+      "processing": "RGBA binary alpha threshold110 before crop, nearest resize to42px figure, foot32,60 and transparent gutter; replace frame2 only",
+      "byteExact": false,
+      "unownedCellHashesBefore": [
+        "af04d16bb054e53f085e27134d7f3f7fc2a97e1cc49a8872d4d2b795e9f8b421",
+        "9f1b2f5ddd6684d2371710f566786d607d27233ba181daac8b37673df1ee5da3",
+        "5425ab365efe992edf5b0a9b9b20072b7c8ebedaaebfab1a00d068a3ba69af4e",
+        "68daaf1a716d6fa2beef98f62e744585aba521c02fe954dc1bc3507e02e89052",
+        "cdb91a589e1aa1b01b17e81d9ea4097475dde53ce3ed78c4348fed37c3e4898e",
+        "810fc56b56303ed06b6a5376b9dbc751a1def6a24e48b37c1875b1c37229f1fa",
+        "b59d9f100a8bbdd1759c85b81fd7a20f0ee6e8ec4f6cbf50c93039fe09030453",
+        "9df40b950f261b51e73d34f22d3def429a84d3507f1cd585ee817a0eed15b0b6"
+      ],
+      "unownedCellHashesAfter": [
+        "af04d16bb054e53f085e27134d7f3f7fc2a97e1cc49a8872d4d2b795e9f8b421",
+        "9f1b2f5ddd6684d2371710f566786d607d27233ba181daac8b37673df1ee5da3",
+        "982eece544b0cb3d90ed8f59cafd30934fd0dbca5dbd88e1d18fa9839a98905d",
+        "68daaf1a716d6fa2beef98f62e744585aba521c02fe954dc1bc3507e02e89052",
+        "cdb91a589e1aa1b01b17e81d9ea4097475dde53ce3ed78c4348fed37c3e4898e",
+        "810fc56b56303ed06b6a5376b9dbc751a1def6a24e48b37c1875b1c37229f1fa",
+        "b59d9f100a8bbdd1759c85b81fd7a20f0ee6e8ec4f6cbf50c93039fe09030453",
+        "9df40b950f261b51e73d34f22d3def429a84d3507f1cd585ee817a0eed15b0b6"
+      ],
+      "sha256": "76fc90a206c63305ba4c0d4e098454923d044481104ea524b83172af2766757f",
+      "sourceSha256": "b35078f91b379cacd56d523dd7f86ba079c75e8cfb940ced3fd079893eb2e3f8"
+    }
+  ]
+}

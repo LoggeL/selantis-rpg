@@ -1,5 +1,9 @@
 import { test, expect, type Page } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+});
+
 async function clickMap(page: Page, x: number, y: number) {
   const bounds = (await page.locator('canvas').boundingBox())!;
   await page.mouse.click(bounds.x + bounds.width * x / 640, bounds.y + bounds.height * y / 360);
@@ -54,8 +58,8 @@ test('the morning forest walk, noon rest and afternoon stretch preserve supplies
   await page.waitForFunction(() => (window as any).game.scene.getScene('companions-road').data.get('story:companions-phase') === 'afternoon');
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('companions-road');
-    return scene.areaRoot.list.filter((object: any) => object.texture?.key === 'story-actors').length;
-  })).toBe(2);
+    return scene.areaRoot.list.filter((object: any) => ['foltan-walk', 'azar-walk'].includes(object.texture?.key)).map((object: any) => object.texture.key).sort();
+  })).toEqual(['azar-walk', 'foltan-walk']);
   await clickMap(page, 600, 185);
   await page.waitForFunction(() => (window as any).game.registry.get('world').flags.companionDayComplete, undefined, { timeout: 12000 });
   expect(await page.evaluate(before => {
@@ -69,8 +73,8 @@ test('the morning forest walk, noon rest and afternoon stretch preserve supplies
   await page.waitForFunction(() => (window as any).game.scene.getScene('companions-road').data.get('story:companions-phase') === 'evening');
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('companions-road');
-    return { talking: scene.talking, position: [scene.lia.x, scene.lia.y], party: scene.areaRoot.list.filter((object: any) => object.texture?.key === 'story-actors').length };
-  })).toEqual({ talking: false, position: [582, 185], party: 2 });
+    return { talking: scene.talking, position: [scene.lia.x, scene.lia.y], party: scene.areaRoot.list.filter((object: any) => ['foltan-walk', 'azar-walk'].includes(object.texture?.key)).map((object: any) => object.texture.key).sort() };
+  })).toEqual({ talking: false, position: [582, 185], party: ['azar-walk', 'foltan-walk'] });
   expect(errors).toEqual([]);
 });
 
@@ -85,8 +89,60 @@ test('sleeping at the completed first camp continues into the next morning with 
   expect(await page.evaluate(() => JSON.stringify((window as any).game.registry.get('world')))).toBe(before);
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('companions-road');
-    return { at: [scene.lia.x, scene.lia.y], party: scene.areaRoot.list.filter((object: any) => object.texture?.key === 'story-actors').map((object: any) => Number(object.frame.name)).sort() };
-  })).toEqual({ at: [40, 185], party: [5, 6] });
+    return { at: [scene.lia.x, scene.lia.y], party: scene.areaRoot.list.filter((object: any) => ['foltan-walk', 'azar-walk'].includes(object.texture?.key)).map((object: any) => object.texture.key).sort() };
+  })).toEqual({ at: [40, 185], party: ['azar-walk', 'foltan-walk'] });
+});
+
+test('Foltan and Azar use all four walking phases and return to idle beside Lia', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/?scene=companions-road');
+  await page.waitForFunction(() => (window as any).game?.scene.isActive('companions-road'));
+  const before = await page.evaluate(() => JSON.stringify((window as any).game.registry.get('world')));
+  // Use an unmarked painted path point; no scene teleport or animation call.
+  await clickMap(page, 225, 210);
+  await page.waitForFunction(() => {
+    const scene = (window as any).game.scene.getScene('companions-road');
+    return [scene.foltan, scene.azar].every(actor => actor.anims.isPlaying && actor.anims.currentAnim.key.endsWith('-walk-e'));
+  });
+  await page.evaluate(() => {
+    const scene = (window as any).game.scene.getScene('companions-road');
+    const sample = { elapsed: 0, foltan: [] as number[], azar: [] as number[], start: [scene.foltan.x, scene.azar.x] };
+    (window as any).companionGaitSample = sample;
+    const collect = (_time: number, dt: number) => {
+      sample.elapsed += Math.min(dt, 50);
+      for (const name of ['foltan', 'azar'] as const) {
+        const actor = scene[name];
+        if (actor.anims.isPlaying && actor.anims.currentAnim.key === `${name}-walk-e`) sample[name].push(Number(actor.frame.name));
+      }
+    };
+    scene.events.on('postupdate', collect);
+    (window as any).stopCompanionGaitSample = () => scene.events.off('postupdate', collect);
+  });
+  await page.waitForFunction(() => (window as any).companionGaitSample.elapsed >= 850);
+  const sample = await page.evaluate(() => {
+    (window as any).stopCompanionGaitSample();
+    const scene = (window as any).game.scene.getScene('companions-road');
+    return { ...(window as any).companionGaitSample, now: [scene.foltan.x, scene.azar.x],
+      actors: [scene.foltan, scene.azar].map(actor => [actor.texture.key, actor.flipX]), lia: scene.lia.texture.key };
+  });
+  expect(new Set(sample.foltan)).toEqual(new Set([8, 9, 10, 11]));
+  expect(new Set(sample.azar)).toEqual(new Set([8, 9, 10, 11]));
+  expect(sample.actors).toEqual([['foltan-walk', false], ['azar-walk', false]]);
+  expect(sample.now[0]).toBeGreaterThan(sample.start[0]);
+  expect(sample.now[1]).toBeGreaterThan(sample.start[1]);
+  expect(sample.lia).toBe('lia-cloak-walk');
+  await page.screenshot({ path: '../output/qa/companions-novel-walking-gaits.png', fullPage: true });
+  await page.waitForFunction(() => {
+    const scene = (window as any).game.scene.getScene('companions-road');
+    return !scene.destination && [scene.foltan, scene.azar].every(actor => !actor.anims.isPlaying && actor.anims.currentAnim.key.endsWith('-idle-e'));
+  });
+  expect(await page.evaluate(() => {
+    const scene = (window as any).game.scene.getScene('companions-road');
+    return [Number(scene.foltan.frame.name), Number(scene.azar.frame.name)];
+  })).toEqual([9, 9]);
+  expect(await page.evaluate(() => JSON.stringify((window as any).game.registry.get('world')))).toBe(before);
+  expect(errors).toEqual([]);
 });
 
 test('mobile walking and interaction return after the noon dialogue', async ({ page }) => {

@@ -6,6 +6,8 @@ async function roadClick(page: Page, x: number, y: number) {
 }
 
 test('north road trail supports walking, field return and eastward progress on revisit', async ({ page }) => {
+  test.setTimeout(60_000);
+  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1280, height: 800 });
@@ -36,7 +38,7 @@ test('north road trail supports walking, field return and eastward progress on r
   expect(await page.evaluate(() => {
     const game = (window as any).game, scene = game.scene.getScene('world');
     return { map: scene.map.id, position: [scene.lia.x, scene.lia.y], facing: scene.facing, state: JSON.stringify(game.registry.get('world')) };
-  })).toEqual({ map: 'felder', position: [615, 286], facing: 'w', state: before });
+  })).toEqual({ map: 'felder', position: [613, 306], facing: 'w', state: before });
   await page.screenshot({ path: '../output/qa/journey-10-field-return.png', fullPage: true });
 
   // Field exit is crossed by normal input; no scene or position teleport.
@@ -48,6 +50,17 @@ test('north road trail supports walking, field return and eastward progress on r
     return { position: [scene.lia.x, scene.lia.y], objective: scene.data.get('mobile:objective'), state: JSON.stringify(game.registry.get('world')) };
   })).toEqual({ position: [390, 70], objective: 'Nach Osten bis zum Wald gehen.', state: before });
   await roadClick(page, 590, 193);
+  await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('dialogue:fullText')?.includes('Die Sonne geht unter'));
+  expect(await page.evaluate(() => {
+    const scene = (window as any).game.scene.getScene('journey');
+    return { inCamp: scene.inCamp, locked: scene.locked, text: scene.data.get('dialogue:fullText') };
+  })).toMatchObject({ inCamp: false, locked: true, text: expect.stringContaining('Ich bin müde') });
+  // Evening narration holds the road until the player explicitly looks for camp.
+  if (await page.evaluate(() => (window as any).game.scene.getScene('journey').data.get('dialogue:typing'))) {
+    await page.keyboard.press('KeyE', { delay: 50 });
+    await page.waitForFunction(() => !(window as any).game.scene.getScene('journey').data.get('dialogue:typing'));
+  }
+  await page.keyboard.press('KeyE', { delay: 50 });
   await page.waitForFunction(() => (window as any).game.scene.getScene('journey').inCamp, undefined, { timeout: 10000 });
   expect(errors).toEqual([]);
 });

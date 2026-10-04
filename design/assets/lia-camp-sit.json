@@ -1,0 +1,95 @@
+{
+  "generator": "Built-in image_gen.imagegen",
+  "rawPath": "output/imagegen/raw/lia-camp-sit/lia-camp-sit-source.png",
+  "originalGeneratedPath": "/Users/logge/.codex/generated_images/01a10768-7b91-7bf3-8ed3-c414285f075d/exec-2df1ad9d-c4b6-408b-affa-a0b60abaa51f.png",
+  "output": "game/public/assets/sprites/lia-camp-sit.png",
+  "script": "scripts/normalize_lia_camp_sit.py",
+  "frames": [
+    "lowering to sit",
+    "seated",
+    "seated breathing",
+    "rising to stand"
+  ],
+  "transparentBackground": true,
+  "prompt": "Use case: stylized-concept. Asset type: pixel art game sprite animation sheet. Create a PNG sprite sheet EXACTLY 256 pixels wide by 64 pixels high, four equal 64x64 cells in one horizontal row, transparent background. Subject: Lia, a small teenage fantasy village girl with shoulder length copper red blonde curly hair, simple white long sleeve peasant blouse, dark brown calf length skirt, brown leather shoes, no cloak, no book or book under arm, no other props. Style: match classic warm muted earth-tone 2D JRPG pixel sprites, genuine crisp pixel art, a tiny roughly 37 pixel tall standing figure on a 64 pixel canvas, small dark outline, no painterly smoothing. All 4 frames face diagonally south-east (camera sees front and right side), centered at x=32 within each cell, feet/ground contact at y=60. Frame 1: half lowering from standing, knees bend. Frame 2: seated on ground with knees bent toward camera right, hands resting at lap, relaxed. Frame 3: same seated pose as frame 2 with subtle breathing shift. Frame 4: rising to stand, hands on knees. Preserve identity and clothes across frames. Leave plenty of empty transparent room above each figure, entire body visible, no labels, no border, no floor, no shadow, no scene, no open book. Pixel proportions similar to this project's simple down-right peasant adventure sprites. Only four sprites; do not add extra rows or directions.",
+  "sourceSHA256": "b8b56643bbb2b29fc04e97e25029085d7cf65792fab08a640665adecf459c5f9",
+  "outputSHA256": "6227728e1622e7604846a439f2188d9b24e5e26464d7719fde682c9e9f861fca",
+  "sourceSize": [
+    1983,
+    793
+  ],
+  "sourceCellAlphaBounds": [
+    [
+      164,
+      273,
+      361,
+      645
+    ],
+    [
+      150,
+      328,
+      379,
+      645
+    ],
+    [
+      147,
+      332,
+      378,
+      645
+    ],
+    [
+      166,
+      263,
+      366,
+      645
+    ]
+  ],
+  "outputSize": [
+    256,
+    64
+  ],
+  "frameAlphaBounds": [
+    [
+      23,
+      24,
+      42,
+      60
+    ],
+    [
+      21,
+      29,
+      43,
+      60
+    ],
+    [
+      21,
+      30,
+      43,
+      60
+    ],
+    [
+      23,
+      23,
+      42,
+      60
+    ]
+  ],
+  "scale": 0.0968586387434555,
+  "alphaThreshold": 110,
+  "alphaValues": [
+    0,
+    255
+  ],
+  "footYMax": 59,
+  "frameSize": [
+    64,
+    64
+  ],
+  "cols": 4,
+  "rows": 1,
+  "normalization": "Binary alpha threshold 110, equal source cells, shared anatomy scale, nearest neighbor, transparent gutters, foot bottom edge 60. No repainting.",
+  "foot": [
+    32,
+    60
+  ]
+}

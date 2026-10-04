@@ -25,6 +25,25 @@ def main():
     records.update({shot['delivery']['path']: shot['delivery'] for shot in raid['shots']})
     observe = json.loads((ROOT / 'design/assets/message12-camp-observe.json').read_text())['delivery']
     records[observe['path']] = observe
+    # Historical generation records stay intact. Explicitly approved revisions
+    # supersede their delivery records, never the files' freshly computed hashes.
+    revision = json.loads((ROOT / 'design/assets/lia-novel-closeups.json').read_text())
+    records.update({a['delivery']['path']: a['delivery'] for a in revision['assets']})
+    intro = json.loads((ROOT / 'design/assets/kyra-intro.json').read_text())
+    for entry in intro['delivery']:
+        records[entry['file']] = {**entry, 'path': entry['file'],
+            'sourcePath': entry['source'], 'sourceSha256': entry['sha256']}
+    for spec_name, collection in [('valentus-consistency-delivery.json', 'delivered'),
+                                  ('darkshadows-consistency-delivery.json', 'assets')]:
+        spec = json.loads((ROOT / 'design/assets' / spec_name).read_text())
+        for entry in spec[collection]:
+            path = entry.get('path', entry.get('asset'))
+            if '/cut/' not in path:
+                continue
+            records[path] = {**entry, 'path': path,
+                'sourcePath': entry.get('sourcePath', entry.get('source'))}
+    reflection = json.loads((ROOT / 'design/assets/crios-reflection.json').read_text())
+    records[reflection['delivery']['path']] = reflection['delivery']
     checked = set()
     frames = 0
     verified_deliveries = 0
@@ -72,10 +91,13 @@ def main():
                 if record:
                     assert image.size == (record['width'], record['height']), (key, 'source resolution')
                     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-                    assert digest == record['sha256'] == record['sourceSha256'], (key, 'approved source hash')
+                    assert digest == record['sha256'], (key, 'approved delivery hash')
                     source = ROOT / record['sourcePath']
                     if source.exists():
-                        assert digest == hashlib.sha256(source.read_bytes()).hexdigest(), (key, 'source changed')
+                        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+                        assert source_digest == record['sourceSha256'], (key, 'source changed')
+                        if 'byte-exact' in record.get('processing', ''):
+                            assert digest == source_digest, (key, 'source passthrough changed')
                     verified_deliveries += 1
                 checked.add(path)
     # Dedicated dialogue profiles use the shared loader rather than the manifest.

@@ -159,7 +159,9 @@ describe.each(Object.values(MAPS))('Alle Ziele auf $id', map => {
       if (target.rect) expect(inRect(last, target.rect), target.id).toBe(true);
       else expect(Math.hypot(last[0] - target.at[0], last[1] - target.at[1]), target.id).toBeLessThan(target.radius);
     }
-  });
+  // The field case enumerates every apple landing and every origin, including
+  // paths around the bent side-road verge. Keep the larger budget scoped here.
+  }, map.id === 'felder' ? 20000 : 5000);
 
   it('hat sichere Absprung- und Landepunkte auf beiden Seiten aller Sprünge', () => {
     for (const jump of map.jumps ?? []) for (const pad of [jump.a, jump.b]) {

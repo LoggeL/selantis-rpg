@@ -43,7 +43,7 @@ installCharacterStatsControls(game);
 
 function resize() {
   const host = document.getElementById('game')!;
-  const zoom = fitGameScale(host.clientWidth, host.clientHeight);
+  const zoom = fitGameScale(host.clientWidth, host.clientHeight, document.documentElement.dataset.actionBar !== 'true');
   if (!zoom) return;
   game.scale.setZoom(zoom);
   game.scale.refresh();

@@ -298,7 +298,7 @@ export class RefugeScene extends Phaser.Scene {
 
     const t = this.time;
     t.delayedCall(1300, () => this.hud!.thought('Sie werden mich hier finden.', 2300));
-    t.delayedCall(4000, () => this.hud!.thought('Er ist eine Gefahr für seine Retter.', 2300));
+    t.delayedCall(4000, () => this.hud!.thought('Und dann töten sie die beiden gleich mit.', 2300));
     t.delayedCall(6700, () => this.hud!.thought('Die Hoffnung muss weiterleben.', 2600));
     t.delayedCall(8600, () => { this.hud!.hint('E / Maus halten: aufrichten'); this.setPhase('rise'); });
   }
@@ -396,8 +396,8 @@ export class RefugeScene extends Phaser.Scene {
   private inspectRoom(x: number, y: number): boolean {
     if (this.phase !== 'wake' && this.phase !== 'walk') return false;
     const points = [
-      { id: 'water', x: 235, y: 91, rx: 36, ry: 28, line: 'Auf dem Tisch steht Wasser für ihn bereit.' },
-      { id: 'supplies', x: 110, y: 24, rx: 58, ry: 24, line: 'Tücher und Vorräte liegen griffbereit.' },
+      { id: 'water', x: 235, y: 91, rx: 36, ry: 28, line: 'Wasser. Sie haben es mir hingestellt.' },
+      { id: 'supplies', x: 110, y: 24, rx: 58, ry: 24, line: 'Tücher und Töpfe, alles griffbereit. Sie haben gut für mich gesorgt.' },
     ];
     const point = points.find((p) => Math.abs(x - p.x) <= p.rx && Math.abs(y - p.y) <= p.ry);
     if (!point) return false;
@@ -496,15 +496,19 @@ export class RefugeScene extends Phaser.Scene {
           sfx.babyCry(3);
           this.tweens.add({ targets: this.white, alpha: 0, duration: 140 });
           this.time.delayedCall(440, () => {
-            // ---------- 10: das Weiß übernimmt ----------
-            this.tweens.add({
-              targets: this.white, alpha: 1, duration: 700, ease: 'Sine.in',
-              onComplete: () => this.time.delayedCall(700, () => { this.wipe(); this.scene.start('lia'); }),
-            });
+            // ---------- 10: ein ruhiger Abschluss vor dem Zeitsprung ----------
+            this.fadeToNextChapter();
           });
         });
       });
     });
+  }
+
+  private fadeToNextChapter() {
+    const black = this.u(this.add.rectangle(320, 180, 640, 360, 0x000000).setDepth(5001).setAlpha(0));
+    if (getSettings().reducedMotion) black.setAlpha(1);
+    else this.tweens.add({ targets: black, alpha: 1, duration: 2000, ease: 'Sine.inOut' });
+    this.time.delayedCall(2000, () => { this.wipe(); this.scene.start('lia'); });
   }
 
   /** Nur die Hautpixel des Hand-Overlays, weiß – für das Blau von unten. */

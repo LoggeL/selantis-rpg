@@ -16,4 +16,9 @@ describe('phone canvas fit', () => {
     expect(fitGameScale(0, 360)).toBe(0);
     expect(fitGameScale(640, Number.NaN)).toBe(0);
   });
+  it('uses the remaining space above an action bar without halving the desktop canvas', () => {
+    const scale = fitGameScale(1280, 680, false);
+    expect(scale).toBeGreaterThan(1.8);
+    expect(scale * 360).toBeLessThanOrEqual(680);
+  });
 });

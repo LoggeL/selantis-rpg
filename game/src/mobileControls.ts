@@ -3,6 +3,9 @@ import { unlockAudio } from './audio';
 import { settingsAreOpen, toggleSettings } from './settings';
 import { TouchKeyHolds, touchHint, resolveMobileControls, type MobileActionKey, type MobileDirection, type MobileControlProfile } from './mobileInput';
 import { mobileBattleSummary } from './mobileBattleStatus';
+import { actionBarSlots } from './actionBar';
+import { openCharacterStats } from './characterStats';
+import './actionBar.css';
 
 export const TOUCH_MEDIA_QUERY = '(any-pointer: coarse), (max-width: 900px)';
 type ActionKey = MobileActionKey;
@@ -43,9 +46,16 @@ export function installMobileControls(game: Phaser.Game): () => void {
   const toolbar = root.querySelector<HTMLElement>('.mobile-toolbar')!;
   const dpad = root.querySelector<HTMLElement>('.mobile-dpad')!;
   const actions = root.querySelector<HTMLElement>('.mobile-actions')!;
+  const inputRow = root.querySelector<HTMLElement>('.mobile-input-row')!;
+  const actionBar = document.createElement('nav');
+  actionBar.className = 'game-action-bar'; actionBar.setAttribute('aria-label', 'Fähigkeiten und Inventar'); actionBar.hidden = true;
+  root.append(actionBar);
   const bag = button('Tasche', 'mobile-control mobile-bag'); bag.dataset.mobileBag = '';
+  const party = button('Gruppe', 'mobile-control mobile-party', 'Gruppe ansehen · C');
+  party.setAttribute('aria-haspopup', 'dialog'); party.dataset.mobileParty = '';
   const settings = button('Optionen', 'mobile-control mobile-settings', 'Einstellungen'); settings.dataset.mobileSettings = '';
-  toolbar.append(bag, settings);
+  toolbar.append(bag, party, settings);
+  const shortcuts = new Map<HTMLButtonElement, string>([[bag, 'I'], [party, 'C'], [settings, 'O']]);
   const directionButtons = new Map<Direction, HTMLButtonElement>();
   const actionButtons = new Map<ActionKey, HTMLButtonElement>();
   const arrows: Record<Direction, string> = { up: '↑', left: '←', down: '↓', right: '→' };
@@ -57,6 +67,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
   for (const key of ['E', 'Q', 'R', 'SPACE', 'ENTER', 'ESC'] as const) {
     const control = button(key, 'mobile-control mobile-action');
     control.dataset.key = key; actionButtons.set(key, control); actions.append(control);
+    shortcuts.set(control, key === 'SPACE' ? '␣' : key === 'ENTER' ? '↵' : key === 'ESC' ? 'Esc' : key);
   }
   const bookmarks = document.createElement('div'); bookmarks.className = 'mobile-bookmarks';
   bookmarks.setAttribute('role', 'group'); bookmarks.setAttribute('aria-label', 'Lesezeichen'); actions.append(bookmarks);
@@ -68,6 +79,10 @@ export function installMobileControls(game: Phaser.Game): () => void {
   let scene: Phaser.Scene | undefined;
   let enabled = false, blocked = false, disposed = false, dataDirty = true;
   let bookmarkSignature = '';
+  let showingActionBar = false;
+  let abilitiesRevealed = false;
+  let returnFocus: HTMLButtonElement | undefined;
+  document.documentElement.dataset.actionBarInstalled = 'true';
   const eventFor = (name: keyof typeof codes = 'E'): KeyboardEvent => ({
     key: keyNames[name] ?? name.toLowerCase(), code: name.length === 1 ? `Key${name}` : keyNames[name] ?? name,
     keyCode: codes[name], which: codes[name], timeStamp: game.loop.time,
@@ -90,6 +105,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
   }
   function changed(_data: unknown, key: string) {
     dataDirty = true;
+    if (key === 'mobile:abilities' && !scene?.data.get('mobile:abilities')?.length) abilitiesRevealed = false;
     if (key === 'mobile:controls') cancel();
   }
   function sceneStopped() { cancel(); dataDirty = true; }
@@ -149,13 +165,22 @@ export function installMobileControls(game: Phaser.Game): () => void {
   bag.addEventListener('click', event => {
     event.preventDefault(); event.stopPropagation(); sync();
     if (!enabled || blocked || !scene || bag.hidden) return;
-    cancel(); unlockAudio(); scene.events.emit('mobile-inventory-toggle'); sync();
+    cancel(); unlockAudio(); returnFocus = bag; scene.events.emit('mobile-inventory-toggle'); sync();
   });
   settings.addEventListener('click', event => {
     event.preventDefault(); event.stopPropagation(); if (!enabled) return;
     cancel(); unlockAudio(); toggleSettings(game); sync();
   });
+  party.addEventListener('click', event => {
+    event.preventDefault(); event.stopPropagation(); sync();
+    if (!enabled || blocked || !scene || party.hidden) return;
+    cancel(); unlockAudio(); returnFocus = party; openCharacterStats(game); sync();
+  });
   for (const type of ['pointerdown', 'pointerup', 'pointermove', 'click', 'contextmenu']) root.addEventListener(type, stopEvent);
+  for (const type of ['keydown', 'keyup']) root.addEventListener(type, event => {
+    const key = event as KeyboardEvent;
+    if (key.target instanceof HTMLButtonElement && (key.code === 'Enter' || key.code === 'Space')) key.stopPropagation();
+  });
   root.addEventListener('contextmenu', event => event.preventDefault());
 
   function setCaption(selector: string, value: unknown) {
@@ -167,37 +192,74 @@ export function installMobileControls(game: Phaser.Game): () => void {
   function sync() {
     if (disposed) return;
     const touch = document.documentElement.dataset.touchEnabled;
-    const nextEnabled = touch === undefined ? media.matches : touch === 'true';
-    const nextScene = game.scene.getScenes(true).find(candidate => candidate.sys.settings.key !== 'Settings');
+    const touchEnabled = touch === undefined ? media.matches : touch === 'true';
+    const nextScene = game.scene.getScenes(false).find(candidate => candidate.sys.settings.key !== 'Settings' &&
+      (candidate.sys.isActive() || candidate.sys.isPaused()));
+    const nextProfile = resolveMobileControls(profiles[nextScene?.sys.settings.key ?? ''] ?? { directions: [], actions: {} }, nextScene?.data.get('mobile:controls'));
+    const nextActionBar = !!nextScene?.data.get('mobile:name') && nextScene.data.get('mobile:hudVisible') !== false &&
+      !nextScene.data.get('dialogue:active');
+    const nextEnabled = touchEnabled || nextActionBar;
     const nextBlocked = settingsAreOpen() || !!nextScene?.data.get('mobile:inventory')?.open || !!document.querySelector('dialog[open]');
+    const justUnblocked = blocked && !nextBlocked;
     if (scene !== nextScene) {
-      cancel(); detachScene(); scene = nextScene; dataDirty = true; bookmarkSignature = '';
+      cancel(); detachScene(); scene = nextScene; dataDirty = true; bookmarkSignature = ''; abilitiesRevealed = false;
       if (scene) {
         scene.data.events.on('changedata', changed); scene.data.events.on('setdata', changed); scene.data.events.on('removedata', changed);
         for (const event of ['shutdown', 'pause', 'sleep']) scene.events.on(event, sceneStopped);
       }
     }
     if ((!nextEnabled && enabled) || (nextBlocked && !blocked)) cancel();
-    if (enabled !== nextEnabled || blocked !== nextBlocked) dataDirty = true;
+    if (enabled !== nextEnabled || blocked !== nextBlocked || showingActionBar !== nextActionBar) dataDirty = true;
     enabled = nextEnabled; blocked = nextBlocked; root.hidden = !enabled;
     if (!dataDirty) return;
     dataDirty = false;
     const key = scene?.sys.settings.key ?? 'boot'; root.dataset.scene = key;
-    const profile = resolveMobileControls(profiles[key] ?? { directions: [], actions: {} }, scene?.data.get('mobile:controls'));
-    root.dataset.controlMode = !profile.directions.length && Object.keys(profile.actions).length === 1 ? 'cinematic' : 'gameplay';
-    dpad.hidden = blocked || !profile.directions.length;
+    const profile = nextProfile;
+    showingActionBar = nextActionBar;
+    document.documentElement.dataset.actionBar = String(showingActionBar);
+    actionBar.hidden = !showingActionBar;
+    if (showingActionBar && toolbar.parentElement !== actionBar) actionBar.append(toolbar, actions);
+    else if (!showingActionBar && toolbar.parentElement === actionBar) { root.prepend(toolbar); inputRow.append(actions); }
+    root.dataset.controlMode = scene?.data.get('story:camp-dialogue')?.stage === 'menu' ? 'choice'
+      : !profile.directions.length && Object.keys(profile.actions).length === 1 ? 'cinematic' : 'gameplay';
+    dpad.hidden = !touchEnabled || (blocked && !showingActionBar) || !profile.directions.length;
     for (const [direction, control] of directionButtons) { control.hidden = !profile.directions.includes(direction); control.disabled = blocked || !!profile.disabled; }
     const abilityDisabled = !!scene?.data.get('mobile:disabled');
     const selected = scene?.data.get('mobile:selected');
     const abilities = (scene?.data.get('mobile:abilities') ?? []) as { key: string; icon: string }[];
+    if (scene?.data.get('mobile:abilitiesVisible') !== false || profile.actions.Q || profile.actions.R) abilitiesRevealed = true;
+    const slots = actionBarSlots(profile, abilities, { visible: abilitiesRevealed, disabled: abilityDisabled, selected });
+    function setButtonLabel(control: HTMLButtonElement, label: string) {
+      const signature = `${showingActionBar}:${label}`;
+      if (control.dataset.label === signature) return;
+      control.dataset.label = signature;
+      const text = document.createElement('span'); text.className = 'mobile-action-label'; text.textContent = label;
+      const shortcut = document.createElement('kbd'); shortcut.textContent = shortcuts.get(control) ?? ''; shortcut.setAttribute('aria-hidden', 'true');
+      control.replaceChildren(text, shortcut);
+    }
     for (const [action, control] of actionButtons) {
-      const label = profile.actions[action]; control.hidden = blocked || !label;
-      control.disabled = blocked || !!profile.disabled || (key === 'battle' && abilityDisabled && (action === 'Q' || action === 'R'));
-      control.textContent = label ?? action; control.setAttribute('aria-label', label ?? action);
-      control.setAttribute('aria-pressed', String(abilities.some(ability => ability.key === action && ability.icon === selected)));
+      const slot = slots.find(entry => entry.key === action);
+      const label = showingActionBar ? slot?.label : profile.actions[action]; control.hidden = (blocked && !showingActionBar) || !label;
+      control.disabled = blocked || (showingActionBar ? !!slot?.disabled : !!profile.disabled || (abilityDisabled && (action === 'Q' || action === 'R')));
+      setButtonLabel(control, label ?? action); control.setAttribute('aria-label', label ?? action);
+      control.setAttribute('aria-pressed', String(showingActionBar ? !!slot?.selected : abilities.some(ability => ability.key === action && ability.icon === selected)));
+      control.title = `${label ?? action}${control.disabled && !blocked && (action === 'Q' || action === 'R') ? ' · Zurzeit nicht verfügbar' : ''}`;
     }
     const inventory = scene?.data.get('mobile:inventory'); bag.hidden = !inventory || inventory.available === false || profile.inventory === false; bag.disabled = blocked;
+    bag.dataset.count = String((inventory?.items ?? []).reduce((total: number, item: { count: number }) => total + item.count, 0));
+    party.hidden = !showingActionBar; party.disabled = blocked;
+    const world = game.registry.get('world');
+    const battleParty = game.registry.get('battle:state')?.units?.filter((unit: { alive: boolean; side: string }) => unit.alive && unit.side !== 'enemy').length;
+    party.dataset.count = String(key === 'battle' ? battleParty || 1 : ['flight', 'break', 'refuge'].includes(key) ? 1 : world?.flags?.metFoltanAzar ? 3 : 1);
+    const portraitKey = String(scene?.data.get('mobile:portrait') ?? 'portrait-lia').replace(/^portrait-/, '');
+    party.style.setProperty('--party-portrait', `url('/assets/portraits/${portraitKey}.png')`);
+    party.setAttribute('aria-expanded', String(!!document.querySelector('#character-dialog[open]')));
+    for (const [control, label] of [[bag, 'Tasche'], [party, 'Gruppe'], [settings, 'Optionen']] as const) setButtonLabel(control, label);
     bag.setAttribute('aria-expanded', String(!!inventory?.open)); settings.disabled = settingsAreOpen();
+    if (justUnblocked && returnFocus) {
+      if (returnFocus.isConnected && !returnFocus.hidden && !returnFocus.disabled) returnFocus.focus({ preventScroll: true });
+      returnFocus = undefined;
+    }
     const dialogueActive = !!scene?.data.get('dialogue:active');
     const hudVisible = scene?.data.get('mobile:hudVisible') !== false && !dialogueActive;
     const battleStatus = hudVisible && key === 'battle' ? mobileBattleSummary(scene?.data.get('mobile:battleStatus')) : '';
@@ -262,6 +324,7 @@ export function installMobileControls(game: Phaser.Game): () => void {
     window.removeEventListener('resize', cancel);
     document.removeEventListener('visibilitychange', visibilityChanged); media.removeEventListener('change', modeChanged);
     game.events.off('prestep', sync); game.events.off('blur', cancel); game.events.off('destroy', dispose); root.remove();
+    delete document.documentElement.dataset.actionBarInstalled; delete document.documentElement.dataset.actionBar;
   };
   game.events.once('destroy', dispose);
   return dispose;

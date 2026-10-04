@@ -3,8 +3,8 @@ import type { ItemId } from './world/maps';
 
 export const FLAG_GROUPS = {
   Heimweg: ['sisterPromise', 'homeArrived', 'chickReturned'],
-  Hof: ['raidWitnessed', 'parentsLost', 'kyraTaken', 'packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks', 'houseClosed', 'pigsReleased', 'departureReady', 'aftermathComplete'],
-  Reise: ['streamVisited', 'journeyEastChosen', 'journeyCampReached', 'journeyCloakSpread', 'journeyStonesGathered', 'journeyFirepitBuilt', 'journeyTwigsGathered', 'campfireLit', 'journeyAte', 'journeyProviantPortionUsed', 'firstCampRested', 'metFoltanAzar', 'criosObserved'],
+  Hof: ['raidWitnessed', 'parentDeath', 'parentsLost', 'kyraTaken', 'packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks', 'houseClosed', 'pigsReleased', 'departureReady', 'aftermathComplete'],
+  Reise: ['streamVisited', 'journeyEastChosen', 'journeyCampReached', 'journeyCloakSpread', 'journeyCloakRecovered', 'journeyStonesGathered', 'journeyFirepitBuilt', 'journeyTwigsGathered', 'campfireLit', 'journeyAte', 'journeyProviantPortionUsed', 'firstCampRested', 'metFoltanAzar', 'criosObserved'],
   Gefährten: ['companionMorningStarted', 'companionRestTaken', 'companionBreakfastRemembered', 'companionDayComplete'],
 } as const;
 export const FLAGS: readonly string[] = Object.values(FLAG_GROUPS).flat();
@@ -66,6 +66,6 @@ export function prepareWarp(st: WorldState, id: string): { scene: string; data: 
   }
   if (id === 'camp' || id === 'strangers') for (const flag of ['streamVisited', 'journeyEastChosen', 'journeyCampReached']) st.flags[flag] = true;
   if (id === 'companions-road') for (const flag of FLAG_GROUPS.Reise) st.flags[flag] = true;
-  if (id === 'strangers') for (const flag of FLAG_GROUPS.Reise) st.flags[flag] = flag !== 'criosObserved';
+  if (id === 'strangers') for (const flag of FLAG_GROUPS.Reise) st.flags[flag] = flag !== 'criosObserved' && flag !== 'journeyCloakRecovered';
   return { scene: id === 'companions-road' ? id : travel ? 'journey' : id.split(':')[0], data: id.startsWith('world:') ? { map: id.split(':')[1] } : {} };
 }

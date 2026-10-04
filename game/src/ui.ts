@@ -16,6 +16,10 @@ export class Hud {
   private hp: Phaser.GameObjects.Rectangle;
   private hintText: Phaser.GameObjects.Text;
   private thoughtText: Phaser.GameObjects.Text;
+  private objectivePanel?: Phaser.GameObjects.Container;
+  private objectiveFrame?: Phaser.GameObjects.Rectangle;
+  private objectiveText?: Phaser.GameObjects.Text;
+  private objectiveVisible = true;
   private abilities: { name: string; box: Phaser.GameObjects.Container; frame: Phaser.GameObjects.Rectangle; onClick: () => void }[] = [];
   private abilityBar: Phaser.GameObjects.Container;
   private protect?: Phaser.GameObjects.Container;
@@ -48,11 +52,12 @@ export class Hud {
       const mobile = usesMobileInterface();
       const cinematic = this.cinematic || this.dialogueOpen;
       this.root.setVisible(!cinematic && !mobile);
-      this.abilityBar.setVisible(this.abilitiesVisible && !mobile && !cinematic);
+      this.abilityBar.setVisible(this.abilitiesVisible && !mobile && !cinematic && document.documentElement.dataset.actionBarInstalled !== 'true');
       this.hintText?.setVisible(!mobile && !cinematic);
       this.thoughtText?.setVisible(this.thoughtsVisible && !mobile && !cinematic);
+      this.objectivePanel?.setVisible(this.objectiveVisible && !!this.objectiveText?.text && !mobile && !cinematic);
       this.protect?.setVisible(!cinematic);
-      for (const object of this.settingsObjects) (object as Phaser.GameObjects.Graphics).setVisible(!cinematic);
+      for (const object of this.settingsObjects) (object as Phaser.GameObjects.Graphics).setVisible(!cinematic && document.documentElement.dataset.actionBarInstalled !== 'true');
       if (cinematic) this.settingsTooltip?.setVisible(false);
     };
     this.syncLayout = syncAbilities;
@@ -75,6 +80,7 @@ export class Hud {
     const tooltip = scene.add.text(606, 318, 'Einstellungen  O', { fontFamily: FONT, fontSize: '10px', color: '#e8e2d0', backgroundColor: '#14171b' }).setOrigin(1, 0.5).setDepth(1002).setScrollFactor(0).setVisible(false);
     this.settingsObjects = [gear, control];
     this.settingsTooltip = tooltip;
+    syncAbilities();
     control.on('pointerover', () => tooltip.setVisible(true));
     control.on('pointerout', () => tooltip.setVisible(false));
     control.on('pointerdown', (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => { event.stopPropagation(); tooltip.setVisible(false); toggleSettings(scene.game); });
@@ -99,6 +105,34 @@ export class Hud {
   }
   get dialogueVisible() { return this.dialogue?.visible ?? false; }
   advanceDialogue() { return this.dialogue?.visible ? this.dialogue.advance() : false; }
+  /** The same objective uses a pixel panel on desktop and the native caption on phones. */
+  setObjective(text: string) {
+    this.scene.data.set('mobile:objective', text);
+    if (!this.objectivePanel) {
+      // Keep the last 88 pixels free for the playtest control and protector portrait.
+      this.objectiveFrame = this.scene.add.rectangle(0, 0, 264, 32, 0x14171b, 0.96)
+        .setOrigin(0).setStrokeStyle(1, 0x8a7a5a);
+      this.objectiveText = this.scene.add.text(10, 8, '', {
+        fontFamily: FONT, fontSize: '11px', color: '#fff4d8',
+        wordWrap: { width: 244 }, lineSpacing: 2,
+      });
+      this.objectivePanel = this.scene.add.container(288, 8, [this.objectiveFrame, this.objectiveText])
+        .setDepth(1000).setScrollFactor(0);
+    }
+    this.objectiveText!.setText(text);
+    const height = Math.max(32, this.objectiveText!.height + 16);
+    this.objectiveFrame!.setSize(264, height);
+    this.thoughtText.setY(Math.max(70, 8 + height + 12));
+    this.syncLayout();
+  }
+  setObjectiveVisible(visible: boolean) {
+    if (this.objectiveVisible === visible) return;
+    this.objectiveVisible = visible;
+    this.syncLayout();
+  }
+  get objectiveBottom() {
+    return this.objectivePanel?.visible ? this.objectivePanel.y + this.objectiveFrame!.height : 0;
+  }
   setHp(frac: number, animate = true) {
     this.scene.data.set('mobile:hp', Phaser.Math.Clamp(frac, 0, 1));
     const w = 88 * Phaser.Math.Clamp(frac, 0, 1);
@@ -128,8 +162,9 @@ export class Hud {
   moveAbilities(x: number, y: number, scale = 1) { this.abilityBar.setPosition(x, y).setScale(scale); }
   setAbilitiesVisible(v: boolean) {
     this.abilitiesVisible = v;
+    this.scene.data.set('mobile:abilitiesVisible', v);
     this.scene.tweens.killTweensOf(this.abilityBar);
-    this.abilityBar.setVisible(v && !usesMobileInterface() && !this.cinematic && !this.dialogueOpen).setAlpha(1);
+    this.abilityBar.setVisible(v && !usesMobileInterface() && !this.cinematic && !this.dialogueOpen && document.documentElement.dataset.actionBarInstalled !== 'true').setAlpha(1);
   }
   setAbilitiesDisabled(dis: boolean) {
     this.disabled = dis;

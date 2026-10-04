@@ -1,5 +1,7 @@
 # Pixelart und Nahaufnahmen im Spiel
 
+Aktuelle Figurenrevision vom 4. Oktober 2026: Lia und Kyra folgen jetzt der [Romanbeschreibung und sichtbaren Ausrüstung](character-novel-appearance.md). Die dort genannten neuen Spezifikationen ersetzen für ihre Laufzeitgrafiken die früheren Film-Prompts und Lieferhashes. Valentus und die Dunkelschatten wurden zwischen Sprites, Nahaufnahmen und Porträts vereinheitlicht. Der folgende Bericht beschreibt den davor gelieferten Satz und seine Prüfung.
+
 Alle verwendeten menschlichen Figurensprites, fünf HUD-Porträts und die Charakterbilder der Cutscenes wurden mit dem eingebauten Imagegen-Werkzeug neu erzeugt oder gezielt überarbeitet. Die Weltkarten bleiben die vorhandene Pixelart-Bühne. Der Roman bestimmt Ereignisse und Reihenfolge, die Filmreferenzen bestimmen belegte Gesichter und Kleidung. Lia hat dunkelblondes bis hellbraunes, hinten gebundenes Flechthaar, eine helle geraffte Bluse und einen langen beige-senfgelben Rock. Valentus trägt die ausdrücklich gewählte blaue Robe mit hellen Partien und hat langes dunkles Haar und einen kleinen Kinnbart.
 
 ## Lieferdateien und Prompts

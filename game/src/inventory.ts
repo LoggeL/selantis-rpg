@@ -11,6 +11,7 @@ const ORDER: ItemId[] = ['apfel', 'kornblume', 'kupfer', 'feder', 'kueken'];
 const TRAVEL_ORDER: ItemId[] = ['proviant', 'wasserschlauch', 'dolch', 'silber', 'reisezeug', 'heilzeug', 'buch-kraeuter', 'buch-alana', 'steine', 'zunderholz'];
 const PANEL_WIDTH = 192;
 const PANEL_HEIGHT = 84;
+export type InventoryItemAction = { item: ItemId; label: string; onUse: () => boolean };
 
 /** Compact bag button, with separate slots and labels only when inspecting an item. */
 export class InventoryHud {
@@ -32,6 +33,9 @@ export class InventoryHud {
   private mobileDialog?: ReturnType<typeof createMobileDialog>;
   private enabled = true;
   private characterDialog = false;
+  private itemActions: InventoryItemAction[] = [];
+  private itemInstruction = '';
+  private useButton: Phaser.GameObjects.Text;
   get isOpen() { return this.panel.visible; }
 
   constructor(private scene: Phaser.Scene, private onOpen: () => void) {
@@ -42,6 +46,7 @@ export class InventoryHud {
     this.badge = scene.add.text(29, -2, '', { fontFamily: FONT, fontSize: '8px', color: '#fff4d8', backgroundColor: '#394034', padding: { x: 2, y: 1 } }).setOrigin(1, 0);
     const buttonHit = scene.add.zone(15, 15, 32, 32).setInteractive({ useHandCursor: true });
     this.button = scene.add.container(64, 38, [this.frame, inset, bag, key, this.badge, buttonHit]).setDepth(1003).setScrollFactor(0);
+    this.button.setVisible(document.documentElement.dataset.actionBarInstalled !== 'true');
     this.tooltip = scene.add.text(100, 53, 'Tasche · I', { fontFamily: FONT, fontSize: '9px', color: '#e8e2d0', backgroundColor: '#141b1a', padding: { x: 4, y: 3 } })
       .setOrigin(0, 0.5).setDepth(1004).setScrollFactor(0).setVisible(false);
     buttonHit.on('pointerover', () => { this.frame.setStrokeStyle(1, 0xd6ad59); this.tooltip.setVisible(!this.panel.visible); });
@@ -54,13 +59,18 @@ export class InventoryHud {
     const header = scene.add.text(8, 7, 'Tasche', { fontFamily: FONT, fontSize: '11px', color: '#e8e2d0' });
     const rule = scene.add.rectangle(8, 23, PANEL_WIDTH - 16, 1, 0x394034).setOrigin(0);
     this.label = scene.add.text(8, 70, '', { fontFamily: FONT, fontSize: '9px', color: '#b7ad94' });
+    this.useButton = scene.add.text(8, 88, '', { fontFamily: FONT, fontSize: '11px', color: '#fff4d8', backgroundColor: '#394034', padding: { x: 12, y: 7 } })
+      .setInteractive({ useHandCursor: true }).setVisible(false);
+    this.useButton.on('pointerdown', (_ptr: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+      event.stopPropagation(); if (this.selected) this.useItem(this.selected);
+    });
     this.slots = scene.add.container(0, 0);
     const panelHit = this.panelHit = scene.add.zone(PANEL_WIDTH / 2, PANEL_HEIGHT / 2, PANEL_WIDTH, PANEL_HEIGHT).setInteractive();
     panelHit.on('pointerdown', (_ptr: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => event.stopPropagation());
     const close = scene.add.text(180, 12, '×', { fontFamily: FONT, fontSize: '14px', color: '#b7ad94' }).setOrigin(0.5);
     const closeHit = scene.add.zone(180, 12, 20, 20).setInteractive({ useHandCursor: true });
     closeHit.on('pointerdown', (_ptr: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => { event.stopPropagation(); this.close(); });
-    this.panel = scene.add.container(64, 74, [shadow, background, innerBorder, panelHit, header, rule, this.slots, this.label, close, closeHit])
+    this.panel = scene.add.container(64, 74, [shadow, background, innerBorder, panelHit, header, rule, this.slots, this.label, this.useButton, close, closeHit])
       .setDepth(1003).setScrollFactor(0).setVisible(false);
 
     const keyboard = scene.input.keyboard!;
@@ -73,12 +83,24 @@ export class InventoryHud {
     scene.events.on('mobile-inventory-toggle', toggle);
     const characterOpen = () => { this.close(); this.onOpen(); };
     scene.events.on('character-open', characterOpen);
+    const bagOpen = () => { this.characterDialog = true; this.panel.setVisible(true); this.publish(); };
+    const bagClose = () => { this.characterDialog = false; this.panel.setVisible(false); this.publish(); };
+    const itemSelect = (item: ItemId) => this.selectItem(item);
+    const itemUse = (item: ItemId) => this.useItem(item);
+    scene.events.on('character-bag-open', bagOpen);
+    scene.events.on('character-bag-close', bagClose);
+    scene.events.on('inventory-item-select', itemSelect);
+    scene.events.on('inventory-item-use', itemUse);
     this.publish();
     scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       bagKey.off('down', toggle);
       escape.off('down', dismiss);
       scene.events.off('mobile-inventory-toggle', toggle);
       scene.events.off('character-open', characterOpen);
+      scene.events.off('character-bag-open', bagOpen);
+      scene.events.off('character-bag-close', bagClose);
+      scene.events.off('inventory-item-select', itemSelect);
+      scene.events.off('inventory-item-use', itemUse);
       this.mobileDialog?.destroy();
       this.mobileDialog = undefined;
     });
@@ -90,13 +112,14 @@ export class InventoryHud {
     this.slotFrames.clear();
     const order = TRAVEL_ORDER.some(item => inv[item]) ? [...ORDER, ...TRAVEL_ORDER] : ORDER;
     const rows = Math.ceil(order.length / 5);
-    this.height = PANEL_HEIGHT + (rows - 1) * 36;
+    this.height = PANEL_HEIGHT + (rows - 1) * 36 + (this.itemActions.length ? 42 : 0);
     this.background.setSize(PANEL_WIDTH, this.height);
     this.shadow.setSize(PANEL_WIDTH, this.height);
     this.innerBorder.setSize(PANEL_WIDTH - 4, this.height - 4);
     this.panelHit.setPosition(PANEL_WIDTH / 2, this.height / 2).setSize(PANEL_WIDTH, this.height);
     if (this.panelHit.input) (this.panelHit.input.hitArea as Phaser.Geom.Rectangle).setSize(PANEL_WIDTH, this.height);
-    this.label.setY(this.height - 14);
+    this.label.setY(this.height - (this.itemActions.length ? 54 : 14));
+    this.useButton.setY(this.height - 36);
     if (this.selected && !inv[this.selected]) this.selected = undefined;
     let total = 0;
     Array.from({ length: rows * 5 }, (_, index) => order[index]).forEach((item, index) => {
@@ -125,9 +148,7 @@ export class InventoryHud {
       hit.on('pointerout', () => { frame.setStrokeStyle(1, this.selected === item ? 0xd6ad59 : 0x807252); this.refreshLabel(); });
       hit.on('pointerdown', (_ptr: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
         event.stopPropagation();
-        this.selected = item;
-        for (const [id, slot] of this.slotFrames) slot.setStrokeStyle(1, id === item ? 0xd6ad59 : this.inv[id] ? 0x807252 : 0x394034);
-        this.refreshLabel();
+        this.selectItem(item);
       });
       this.slots.add([icon, amountBack, amount, hit]);
     });
@@ -140,6 +161,26 @@ export class InventoryHud {
 
   private refreshLabel() {
     this.label.setText(this.selected ? ITEM_NAMES[this.selected] : [...ORDER, ...TRAVEL_ORDER].some(item => this.inv[item]) ? '' : 'Noch leer.');
+    const action = this.itemActions.find(action => action.item === this.selected);
+    this.useButton.setText(action?.label ?? '').setVisible(!!action && !!this.inv[action.item]);
+  }
+
+  setItemActions(actions: InventoryItemAction[], instruction = '') {
+    this.itemActions = actions;
+    this.itemInstruction = instruction;
+    this.refresh(this.inv);
+  }
+
+  private selectItem(item: ItemId) {
+    if (!((this.inv[item] ?? 0) > 0)) return;
+    this.selected = item;
+    for (const [id, slot] of this.slotFrames) slot.setStrokeStyle(1, id === item ? 0xd6ad59 : this.inv[id] ? 0x807252 : 0x394034);
+    this.refreshLabel(); this.publish(); this.renderMobileItems();
+  }
+
+  private useItem(item: ItemId) {
+    if (!this.enabled || !this.isOpen || this.selected !== item || !((this.inv[item] ?? 0) > 0)) return false;
+    return this.itemActions.find(action => action.item === item)?.onUse() ?? false;
   }
 
   toggle() {
@@ -173,7 +214,7 @@ export class InventoryHud {
 
   setVisible(visible: boolean) {
     this.enabled = visible;
-    this.button.setVisible(visible);
+    this.button.setVisible(visible && document.documentElement.dataset.actionBarInstalled !== 'true');
     if (!visible) this.close();
     else this.publish();
   }
@@ -182,6 +223,9 @@ export class InventoryHud {
     this.scene.data.set('mobile:inventory', {
       open: this.panel.visible,
       available: this.enabled,
+      selected: this.selected,
+      instruction: this.itemInstruction,
+      actions: this.itemActions.map(action => ({ item: action.item, label: action.label })),
       items: [...ORDER, ...TRAVEL_ORDER].filter(id => (this.inv[id] ?? 0) > 0)
         .map(id => ({ id, name: ITEM_NAMES[id], count: this.inv[id]! })),
     });
@@ -191,6 +235,7 @@ export class InventoryHud {
     if (!this.mobileDialog) return;
     const content = this.mobileDialog.content;
     content.replaceChildren();
+    if (this.itemInstruction) { const instruction = document.createElement('p'); instruction.textContent = this.itemInstruction; content.append(instruction); }
     const items = [...ORDER, ...TRAVEL_ORDER].filter(id => (this.inv[id] ?? 0) > 0);
     if (!items.length) {
       const empty = document.createElement('p');
@@ -222,7 +267,14 @@ export class InventoryHud {
       label.append(icon, document.createTextNode(ITEM_NAMES[id]));
       const amount = document.createElement('span');
       amount.textContent = `× ${this.inv[id]}`;
-      row.append(label, amount);
+      const select = document.createElement('button'); select.type = 'button';
+      select.setAttribute('aria-pressed', String(this.selected === id)); select.append(label, amount);
+      select.addEventListener('click', () => this.selectItem(id)); row.append(select);
+      const action = this.itemActions.find(action => action.item === id);
+      if (this.selected === id && action) {
+        const use = document.createElement('button'); use.type = 'button'; use.textContent = action.label;
+        use.addEventListener('click', () => this.useItem(id)); row.append(use);
+      }
       list.append(row);
     }
     content.append(list);
@@ -230,8 +282,8 @@ export class InventoryHud {
 
   /** HUD clicks must never become walking targets underneath the panel. */
   hitTest(ptr: Phaser.Input.Pointer) {
-    if (!this.enabled || !this.button.active || !this.button.visible) return false;
-    const overButton = ptr.x >= 63 && ptr.x <= 95 && ptr.y >= 37 && ptr.y <= 69;
+    if (!this.enabled || !this.button.active) return false;
+    const overButton = this.button.visible && ptr.x >= 63 && ptr.x <= 95 && ptr.y >= 37 && ptr.y <= 69;
     const overPanel = this.panel.visible && ptr.x >= 64 && ptr.x <= 64 + PANEL_WIDTH && ptr.y >= 74 && ptr.y <= 74 + this.height;
     return overButton || overPanel;
   }

@@ -4,21 +4,23 @@ import { COMPANION_AFTERNOON_AREA, COMPANION_MORNING_AREA } from '../story/areas
 import { COMPANION_ROAD_SCENE, MIDDAY_REST_LINES, companionFeetWalkable, companionObjective, companionPhase, type CompanionPhase } from '../story/companionJourney';
 import { state } from '../world/quests';
 import { setSceneMusic } from '../audio';
-import { getSettings } from '../settings';
 import { clearWalkingLine, findWalkingPath } from '../world/navigation';
 import type { Pt, StoryArea } from '../story/types';
 import { prepareWarp } from '../debugState';
+import type { Dir } from '../world/maps';
 
 /** Lia's next day, PDF pp. 40–44; the evening lead-in stops before the inn (p. 46). */
 export class CompanionJourneyScene extends StoryScene {
   private phase: CompanionPhase = 'morning';
-  private foltan?: Phaser.GameObjects.Image;
-  private azar?: Phaser.GameObjects.Image;
+  private foltan?: Phaser.GameObjects.Sprite;
+  private azar?: Phaser.GameObjects.Sprite;
   private talking = false;
   private previousLia: Pt = [0, 0];
   private trail: Pt[] = [];
-  private gaitClock = 0;
-  private travelerRoutes = new Map<Phaser.GameObjects.Image, { goal: Pt; points: Pt[] }>();
+  private lastHeading: Pt = [1, 0];
+  private travelerRoutes = new Map<Phaser.GameObjects.Sprite, { goal: Pt; points: Pt[] }>();
+  private travelerFacing = new Map<Phaser.GameObjects.Sprite, Dir>();
+  private travelerShadows = new Map<Phaser.GameObjects.Sprite, Phaser.GameObjects.Image>();
 
   constructor() { super(COMPANION_ROAD_SCENE); }
 
@@ -28,7 +30,7 @@ export class CompanionJourneyScene extends StoryScene {
     if (new URLSearchParams(window.location.search).get('scene') === COMPANION_ROAD_SCENE && !st.flags.metFoltanAzar) prepareWarp(st, COMPANION_ROAD_SCENE);
     // A direct scene entry or old save still collects the bedroll before walking.
     st.flags.journeyCloakRecovered = true;
-    this.phase = companionPhase(st); this.talking = false; this.gaitClock = 0;
+    this.phase = companionPhase(st); this.talking = false;
     const area = this.phase === 'morning' ? COMPANION_MORNING_AREA : COMPANION_AFTERNOON_AREA;
     this.begin(this.phase === 'evening' ? { ...area, start: [582, 185] } : area);
     this.setupTravelers();
@@ -41,11 +43,23 @@ export class CompanionJourneyScene extends StoryScene {
 
   private setupTravelers() {
     this.travelerRoutes.clear();
+    this.travelerFacing.clear();
+    this.travelerShadows.clear();
+    this.lastHeading = [1, 0];
     const afternoon = this.areaCurrent.id === COMPANION_AFTERNOON_AREA.id;
     const background = this.areaRoot.list[0] as Phaser.GameObjects.Image;
     background.setFlipX(afternoon).setTint(afternoon ? 0xffdda5 : 0xffffff);
-    this.foltan = this.addActor('story-actors', 5, [this.lia.x + 22, this.lia.y]);
-    this.azar = this.addActor('story-actors', 6, [this.lia.x - 14, this.lia.y]);
+    const traveler = (name: 'foltan' | 'azar', at: Pt) => {
+      const shadow = this.add.image(at[0], at[1] - 1, 'shadow').setDepth(at[1] - 1);
+      const sprite = this.add.sprite(...at, `${name}-walk`, 8).setOrigin(0.5, 60 / 64).setDepth(at[1]);
+      this.areaRoot.add([shadow, sprite]);
+      this.travelerShadows.set(sprite, shadow);
+      this.travelerFacing.set(sprite, 'e');
+      this.animateTraveler(sprite, name, at);
+      return sprite;
+    };
+    this.foltan = traveler('foltan', [this.lia.x + 22, this.lia.y]);
+    this.azar = traveler('azar', [this.lia.x - 14, this.lia.y]);
     this.previousLia = [this.lia.x, this.lia.y];
     this.trail = [[this.lia.x - 14, this.lia.y], this.previousLia];
     this.data.set('story:companions-phase', this.phase);
@@ -106,6 +120,7 @@ export class CompanionJourneyScene extends StoryScene {
     this.setLocked(true);
     this.foltan?.setPosition(348, 205).setAngle(0);
     this.azar?.setPosition(267, 224).setAngle(0);
+    this.stopTravelers();
     this.setObjective('Mittagsrast · Foltan und Azar zuhören.');
     let line = 0;
     const next = () => {
@@ -125,17 +140,21 @@ export class CompanionJourneyScene extends StoryScene {
 
   update(time: number, delta: number) {
     super.update(time, delta);
-    if (!this.lia?.active || this.talking || this.closeupVisible) return;
+    if (!this.lia?.active || this.talking || this.closeupVisible || this.inventory?.isOpen || this.hud?.dialogueVisible) {
+      this.stopTravelers();
+      return;
+    }
     const current: Pt = [this.lia.x, this.lia.y];
     const moving = Math.hypot(current[0] - this.previousLia[0], current[1] - this.previousLia[1]) > 0.1;
     if (moving) {
-      this.gaitClock += Math.min(delta, 50);
+      const distance = Math.hypot(current[0] - this.previousLia[0], current[1] - this.previousLia[1]);
+      this.lastHeading = [(current[0] - this.previousLia[0]) / distance, (current[1] - this.previousLia[1]) / distance];
       this.trail.push(current);
       if (this.trail.length > 75) this.trail.shift();
     }
-    const direction = current[0] < this.previousLia[0] ? -1 : 1;
     const walkable = (x: number, y: number) => companionFeetWalkable(this.areaCurrent, x, y);
-    const lead: Pt = [current[0] + direction * 25, current[1]];
+    // Retain the last heading when Lia stops, so Foltan cannot switch sides at rest.
+    const lead: Pt = [current[0] + this.lastHeading[0] * 25, current[1] + this.lastHeading[1] * 25];
     const ahead = clearWalkingLine(current, lead, walkable) ? lead : current;
     let walked = 0, behind = current;
     for (let i = this.trail.length - 2; i >= 0; i--) {
@@ -143,7 +162,7 @@ export class CompanionJourneyScene extends StoryScene {
       behind = this.trail[i];
       if (walked >= 30) break;
     }
-    for (const [actor, target, offset] of [[this.foltan, ahead, 0], [this.azar, behind, 1.5]] as [Phaser.GameObjects.Image | undefined, Pt, number][]) {
+    for (const [actor, target, name] of [[this.foltan, ahead, 'foltan'], [this.azar, behind, 'azar']] as [Phaser.GameObjects.Sprite | undefined, Pt, 'foltan' | 'azar'][]) {
       if (!actor?.active) continue;
       const from: Pt = [actor.x, actor.y];
       let destination = target;
@@ -160,9 +179,30 @@ export class CompanionJourneyScene extends StoryScene {
       const distance = Math.hypot(destination[0] - from[0], destination[1] - from[1]);
       const step = Math.min(distance, 85 * Math.min(delta, 50) / 1000);
       const next: Pt = distance ? [from[0] + (destination[0] - from[0]) / distance * step, from[1] + (destination[1] - from[1]) / distance * step] : from;
-      if (moving && clearWalkingLine(from, next, walkable)) actor.setPosition(...next);
-      actor.setAngle(moving && !getSettings().reducedMotion ? Math.sin(this.gaitClock / 110 + offset) * 1.1 : 0);
+      if (distance > 0.1 && clearWalkingLine(from, next, walkable)) actor.setPosition(...next);
+      this.animateTraveler(actor, name, from);
     }
+    this.areaRoot.sort('depth');
     this.previousLia = current;
+  }
+
+  private animateTraveler(actor: Phaser.GameObjects.Sprite, name: 'foltan' | 'azar', from: Pt) {
+    const dx = actor.x - from[0], dy = actor.y - from[1];
+    const walking = Math.hypot(dx, dy) > 0.05;
+    let facing = this.travelerFacing.get(actor) ?? 'e';
+    if (walking) facing = Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'e' : 'w' : dy > 0 ? 's' : 'n';
+    this.travelerFacing.set(actor, facing);
+    const animation = `${name}-${walking ? 'walk' : 'idle'}-${facing}`;
+    if (!walking && actor.anims.currentAnim?.key !== animation) actor.anims.stop();
+    if (this.anims.exists(animation) && (walking || actor.anims.currentAnim?.key !== animation)) actor.play(animation, true);
+    actor.setAngle(0).setDepth(actor.y);
+    this.travelerShadows.get(actor)?.setPosition(actor.x, actor.y - 1).setDepth(actor.y - 1);
+  }
+
+  private stopTravelers() {
+    for (const [actor, name] of [[this.foltan, 'foltan'], [this.azar, 'azar']] as const) {
+      if (actor?.active) this.animateTraveler(actor, name, [actor.x, actor.y]);
+    }
+    this.areaRoot?.sort('depth');
   }
 }

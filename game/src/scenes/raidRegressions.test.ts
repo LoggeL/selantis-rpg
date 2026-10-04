@@ -80,7 +80,7 @@ describe('courtyard raid progression', () => {
       expect(s.kyra).toBeUndefined();
       next();
       expect(progress()).toMatchObject({ step: 'parents-protect', ready: true });
-      expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia (Gedanke): Sie wollen Kyra schützen. Sie ist noch im Haus.');
+      expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia (Gedanke): Allein? Kyra ist doch vorgegangen … Sie verstecken sie.');
       next();
       expect(progress()).toMatchObject({ step: 'kyra-found', shot: '', ready: false });
       expect(s.hideCloseup).toHaveBeenCalled();
@@ -145,7 +145,7 @@ describe('courtyard raid progression', () => {
     expect(s.spots).toEqual([]);
     expect(progress()).toMatchObject({ phase: 'busy', step: 'hiding', ready: false });
     expect(s.lia.play).toHaveBeenLastCalledWith('lia-crouch-walk-w', true);
-    expect(s.lia.flipX).toBe(true);
+    expect(s.lia.flipX).toBe(false);
     flush();
     expect(progress()).toMatchObject({ phase: 'hidden', step: 'cover', index: 0, ready: true });
     expect(s.setLocked).toHaveBeenLastCalledWith(true);
@@ -159,7 +159,7 @@ describe('courtyard raid progression', () => {
     expect(s.lia.x).toBeLessThan(startX);
     expect(startX - s.lia.x).toBeCloseTo(2.2);
     expect(s.lia.play).toHaveBeenLastCalledWith('lia-crouch-walk-w', true);
-    expect(s.lia.flipX).toBe(true);
+    expect(s.lia.flipX).toBe(false);
     s.keys.A.isDown = false;
     s.move(50);
     expect(s.lia.play).toHaveBeenLastCalledWith('lia-crouch-idle-w', true);
@@ -186,6 +186,7 @@ describe('courtyard raid progression', () => {
         expect(current.shot).toBe('cinematic-raid-father-stab');
         expect(father.angle).toBe(-90);
         expect(mother.angle).toBe(0);
+        expect(world.flags).toHaveProperty('parentDeath', true);
       }
       if (current.step === 'father-death') {
         expect(current.shot).toBe('cinematic-raid-father-death');
@@ -227,7 +228,7 @@ describe('courtyard raid progression', () => {
     expect(steps.indexOf('mother-death')).toBeLessThan(steps.indexOf('departure'));
     expect(killFather).toHaveBeenCalledTimes(1);
     expect(killMother).toHaveBeenCalledTimes(1);
-    expect(s.setCloseupText).toHaveBeenCalledTimes(steps.length);
+    expect(s.setCloseupText).toHaveBeenCalledTimes(steps.length + 1); // First post-raid grief card.
     expect(s.showCloseup.mock.calls.map(([key]: [string]) => key)).toEqual([
       'cinematic-raid-cover', 'cinematic-raid-confrontation', 'cinematic-raid-kyra-found',
       'cinematic-raid-father-stab', 'cinematic-raid-father-death', 'cinematic-raid-kyra',
@@ -237,22 +238,42 @@ describe('courtyard raid progression', () => {
       expect(s.showCloseup).toHaveBeenCalledWith(key, { fit: 'contain' });
     }
     expect(s.goTo).not.toHaveBeenCalled();
+    expect(s.spots).toEqual([]);
+    expect(progress()).toMatchObject({ step: 'collapse', shot: '', ready: true });
+    expect(s.setLocked).toHaveBeenLastCalledWith(true);
+    flush();
+    expect(progress().step).toBe('collapse');
+    next();
+    expect(progress().step).toBe('tears');
+    expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia weint. Minutenlang. Noch nie hat sie so weinen müssen. Die Zeit ist ihr egal.');
+    next();
+    expect(progress().step).toBe('rise');
+    next();
     expect(s.spots.map((spot: any) => spot.id)).toEqual(['parents']);
     expect(progress()).toMatchObject({ step: 'seek-parents', shot: '', ready: false });
     expect(s.data.get('story:lia-crouched')).toBe(false);
     s.keys.D.isDown = true;
     s.move(50);
-    expect(s.lia.play).toHaveBeenLastCalledWith('lia-walk-e', true);
+    expect(s.lia.play).toHaveBeenLastCalledWith('lia-farm-walk-e', true);
+    expect(s.data.get('story:lia-appearance')).toMatchObject({ profile: 'lia-farm', bookUnderArm: false });
     expect(s.lia.flipX).toBe(false);
     s.keys.D.isDown = false;
+    s.move(50);
+    expect(s.lia.play).toHaveBeenLastCalledWith('lia-farm-idle-e', true);
     expect(world.flags).not.toHaveProperty('parentsLost');
     s.spots[0].onUse(); flush();
     expect(progress()).toMatchObject({ step: 'parents-aftermath', shot: 'cinematic-raid-parents-aftermath', ready: true });
-    expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia (Gedanke): Mutter und Vater sind tot. Kyra ist fort.');
+    expect(s.setCloseupText).toHaveBeenLastCalledWith('Vorsichtig tritt Lia zu ihren Eltern. Sie liegen eng beieinander. Wieder werden ihre Augen feucht.');
+    expect(s.goTo).not.toHaveBeenCalled();
+    next();
+    expect(progress()).toMatchObject({ step: 'questions', ready: true });
+    expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia (Gedanke): Warum? Warum ihr? Warum Kyra? Was habt ihr denn getan?');
+    next();
+    expect(progress()).toMatchObject({ step: 'uncertainty', ready: true });
     expect(s.goTo).not.toHaveBeenCalled();
     next();
     expect(progress()).toMatchObject({ step: 'vow', shot: 'cinematic-raid-parents-aftermath', ready: true });
-    expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia: Ich werde dich finden, Kyra.');
+    expect(s.setCloseupText).toHaveBeenLastCalledWith('Lia (Gedanke): Aber ich muss sie retten. Kyra ist die einzige Familie, die ich noch habe.');
     expect(s.goTo).not.toHaveBeenCalled();
     next();
     expect(progress()).toMatchObject({ step: 'complete', ready: false });

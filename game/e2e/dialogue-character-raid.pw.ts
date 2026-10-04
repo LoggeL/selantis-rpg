@@ -6,6 +6,11 @@ const viewports = [
   { name: 'phone landscape', width: 844, height: 390, mobile: true },
 ];
 
+test.beforeEach(async ({ page }) => {
+  // Keep the loaded story stable while other workers edit assets or modules.
+  await page.routeWebSocket(/127\.0\.0\.1:\d+/, socket => socket.close());
+});
+
 async function sceneReady(page: Page, key: string) {
   await page.waitForFunction(key => (window as any).game?.scene.isActive(key), key);
 }
@@ -35,6 +40,30 @@ async function continueRaid(page: Page, mobile: boolean) {
     await page.waitForFunction(() => !(window as any).game.scene.getScene('raid').data.get('dialogue:typing'));
   }
   await interact(page, mobile);
+}
+
+async function completeAftermathGrief(page: Page, mobile: boolean) {
+  const beats = ['night-stones', 'night-wounds', 'night-thoughts', 'dawn-graves', 'dawn-farewell', 'dawn-preparation'];
+  for (const [index, step] of beats.entries()) {
+    await expect.poll(() => page.evaluate(() =>
+      (window as any).game.scene.getScene('aftermath').data.get('story:grief')))
+      .toMatchObject({ active: true, index, step, ready: true, phase: index < 3 ? 'night' : 'dawn' });
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('aftermath').locked)).toBe(true);
+    if (await page.evaluate(() => (window as any).game.scene.getScene('aftermath').data.get('dialogue:typing'))) {
+      await interact(page, mobile);
+      // A touch may arrive after typing has naturally finished.
+      const current = await page.evaluate(() => (window as any).game.scene.getScene('aftermath').data.get('story:grief'));
+      if (!current.active || current.index !== index) continue;
+      await page.waitForFunction(() => !(window as any).game.scene.getScene('aftermath').data.get('dialogue:typing'));
+    }
+    await interact(page, mobile);
+  }
+  await expect.poll(() => page.evaluate(() =>
+    (window as any).game.scene.getScene('aftermath').data.get('story:grief'))).toMatchObject({ active: false, step: 'complete' });
+  expect(await page.evaluate(() => {
+    const scene = (window as any).game.scene.getScene('aftermath');
+    return [scene.locked, scene.st.flags.aftermathGriefSeen, scene.spots.length > 0];
+  })).toEqual([false, true, true]);
 }
 
 async function noHorizontalOverflow(page: Page) {
@@ -121,6 +150,46 @@ async function canvasClick(page: Page, x: number, y: number) {
 }
 
 for (const viewport of viewports) {
+  test(`Lia chapter holds the time jump and all three Kyra discoveries on ${viewport.name}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/?scene=lia');
+    await sceneReady(page, 'lia');
+    expect(await page.evaluate(() => {
+      const scene = (window as any).game.scene.getScene('lia');
+      return [scene.phase, scene.children.list.some((object: any) => object.text === '14 Jahre später')];
+    })).toEqual(['intro', true]);
+    // The touch action is deliberately disabled on the chapter card. Keyboard
+    // input still reaches the scene, and must not skip the time jump.
+    if (viewport.mobile) await expect(page.locator('.mobile-action[data-key="E"]')).toBeDisabled();
+    await page.keyboard.press('KeyE', { delay: 50 });
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('lia').phase)).toBe('intro');
+    await page.waitForFunction(() => (window as any).game.scene.getScene('lia').phase === 'kyra');
+    const intro = [
+      { art: 'cut-kyra-wood', line: 'Kyra sammelt Feuerholz.' },
+      { art: 'cut-kyra-forest', line: 'Mit dem Holz unter dem Arm' },
+      { art: 'cut-kyra-discovery', line: 'Am Waldrand erblickt Kyra ihre Schwester.' },
+    ];
+    for (const [index, beat] of intro.entries()) {
+      await expect.poll(() => page.evaluate(() => {
+        const scene = (window as any).game.scene.getScene('lia');
+        return [scene.phase, scene.kyraLine, scene.readingCloseup.image.texture.key];
+      })).toEqual(['kyra', index, beat.art]);
+      expect(await page.evaluate(() => (window as any).game.scene.getScene('lia').data.get('dialogue:fullText'))).toContain(beat.line);
+      if (await page.evaluate(() => (window as any).game.scene.getScene('lia').data.get('dialogue:typing'))) {
+        await interact(page, viewport.mobile);
+        if (await page.evaluate(() => (window as any).game.scene.getScene('lia').kyraLine) !== index) continue;
+        await page.waitForFunction(() => !(window as any).game.scene.getScene('lia').data.get('dialogue:typing'));
+      }
+      if (index === 0) await page.screenshot({ path: `../output/qa/kyra-wood-${viewport.width}x${viewport.height}.png`, fullPage: true });
+      await interact(page, viewport.mobile);
+    }
+    await expect.poll(() => page.evaluate(() => {
+      const scene = (window as any).game.scene.getScene('lia');
+      return [scene.phase, scene.sisterLine, scene.readingCloseup.image.texture.key, scene.data.get('dialogue:speaker')];
+    })).toEqual(['sisters', 0, 'cut-lia-kyra', 'Kyra']);
+    await noHorizontalOverflow(page);
+  });
+
   test(`Raid dialogue follows real input through deaths and vow on ${viewport.name}`, async ({ page }) => {
     test.setTimeout(70_000);
     await page.routeWebSocket(/127\.0\.0\.1:\d+/, socket => socket.close());
@@ -275,16 +344,21 @@ for (const viewport of viewports) {
       }
       await continueRaid(page, viewport.mobile);
     }
+    for (const beat of ['collapse', 'tears', 'rise']) {
+      await raidStep(page, beat);
+      expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').locked)).toBe(true);
+      await continueRaid(page, viewport.mobile);
+    }
     await raidStep(page, 'seek-parents', false);
     expect(await page.evaluate(() => {
       const scene = (window as any).game.scene.getScene('raid');
       return [scene.locked, scene.hud.root.visible, scene.data.get('mobile:hudVisible'), scene.data.get('mobile:closeup'), scene.data.get('mobile:controls')];
     })).toEqual([false, !viewport.mobile, true, '', null]);
-    await expect(page.locator('#character-stats-button')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Gruppe ansehen · C', exact: true })).toBeVisible();
     expect(await page.evaluate(() => {
       const scene = (window as any).game.scene.getScene('raid');
       return [scene.data.get('story:lia-crouched'), scene.lia.texture.key, scene.lia.anims.currentAnim.key.startsWith('lia-crouch')];
-    })).toEqual([false, 'lia-walk', false]);
+    })).toEqual([false, 'lia-farm-walk', false]);
     // The reader releases controls when the shot closes.
     const beforeX = await page.evaluate(() => (window as any).game.scene.getScene('raid').lia.x);
     await page.keyboard.down('ArrowRight');
@@ -298,7 +372,7 @@ for (const viewport of viewports) {
       return [scene.closeup.art.visible, scene.closeup.image.texture.key, scene.hud.root.visible];
     })).toEqual([true, shotKeys[2], false]);
     await fullLossImage(page, shotKeys[2], viewport.mobile);
-    await speakerPortrait(page, 'raid', 'Lia (Gedanke)', 'dialogue-lia-grief', viewport.mobile);
+    expect(await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:speaker'))).toBe('');
     if (!viewport.mobile) {
       if (await page.evaluate(() => (window as any).game.scene.getScene('raid').data.get('dialogue:typing'))) {
         await interact(page, false);
@@ -306,10 +380,13 @@ for (const viewport of viewports) {
       }
       await page.screenshot({ path: '../output/qa/raid-parents-aftermath-desktop.png', fullPage: true });
     }
-    await continueRaid(page, viewport.mobile);
-    await raidStep(page, 'vow');
-    await continueRaid(page, viewport.mobile);
+    for (const beat of ['parents-aftermath', 'questions', 'uncertainty', 'vow']) {
+      await raidStep(page, beat);
+      if (beat !== 'parents-aftermath') await speakerPortrait(page, 'raid', 'Lia (Gedanke)', 'dialogue-lia-grief', viewport.mobile);
+      await continueRaid(page, viewport.mobile);
+    }
     await sceneReady(page, 'aftermath');
+    await completeAftermathGrief(page, viewport.mobile);
     expect(await page.evaluate(() => {
       const flags = (window as any).game.registry.get('world').flags;
       return [flags.raidWitnessed, flags.parentsLost, flags.kyraTaken];
@@ -331,8 +408,9 @@ for (const viewport of viewports) {
     await expect(portraitButton).toBeVisible();
     const portraitBox = (await portraitButton.boundingBox())!;
     const canvasBox = (await page.locator('canvas').boundingBox())!;
-    expect(portraitBox.x).toBeLessThan(canvasBox.x + canvasBox.width * 0.12);
-    expect(portraitBox.y).toBeLessThan(canvasBox.y + canvasBox.height * 0.2);
+    const actionBarBox = (await page.locator('.game-action-bar').boundingBox())!;
+    expect(portraitBox.x).toBeGreaterThanOrEqual(actionBarBox.x);
+    expect(portraitBox.y).toBeGreaterThanOrEqual(canvasBox.y + canvasBox.height - 1);
     await portraitButton.click();
     const dialog = page.locator('#character-dialog');
     await expect(dialog).toBeVisible();
@@ -549,8 +627,8 @@ test('Discovery stays crouched through keyboard and pointer approach into the br
   await page.screenshot({ path: '../output/qa/crouch-discovery-desktop.png', fullPage: true });
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('raid');
-    return [scene.data.get('story:lia-crouched'), scene.lia.texture.key, scene.lia.anims.currentAnim.key];
-  })).toEqual([true, 'lia-hide', 'lia-crouch-idle-s']);
+    return [scene.data.get('story:lia-crouched'), scene.lia.texture.key, Number(scene.lia.frame.name), scene.lia.anims.currentAnim.key, scene.lia.flipX];
+  })).toEqual([true, 'lia-crouch-walk', 0, 'lia-crouch-idle-s', false]);
   // Observe real elapsed scene frames while the keyboard moves Lia. A lower
   // animation name alone would not establish that the reduced speed is applied.
   await page.evaluate(() => {
@@ -568,14 +646,22 @@ test('Discovery stays crouched through keyboard and pointer approach into the br
     (window as any).stopCrouchSample = () => scene.events.off('update', collect);
   });
   await page.keyboard.down('ArrowLeft');
-  await page.waitForFunction(() => (window as any).crouchSample.elapsed >= 650);
+  await page.waitForFunction(() => (window as any).crouchSample.elapsed >= 850);
+  expect(await page.evaluate(() => {
+    const lia = (window as any).game.scene.getScene('raid').lia;
+    return [lia.texture.key, lia.flipX];
+  })).toEqual(['lia-crouch-walk', false]);
   await page.keyboard.up('ArrowLeft');
   const sample = await page.evaluate(() => { (window as any).stopCrouchSample(); return (window as any).crouchSample; });
   expect(sample.distance * 1000 / sample.elapsed).toBeGreaterThan(39);
   expect(sample.distance * 1000 / sample.elapsed).toBeLessThan(49);
-  expect(new Set(sample.frames.slice(1))).toEqual(new Set([6, 7]));
+  expect(new Set(sample.frames.slice(1))).toEqual(new Set([4, 5, 6, 7]));
   expect(sample.animations.slice(1).every((animation: string) => animation === 'lia-crouch-walk-w')).toBe(true);
   await page.waitForFunction(() => (window as any).game.scene.getScene('raid').lia.anims.currentAnim.key === 'lia-crouch-idle-w');
+  expect(await page.evaluate(() => {
+    const lia = (window as any).game.scene.getScene('raid').lia;
+    return [lia.texture.key, Number(lia.frame.name), lia.flipX];
+  })).toEqual(['lia-crouch-walk', 4, false]);
   await page.screenshot({ path: '../output/qa/crouch-raid-approach-desktop.png', fullPage: true });
   const beforeX = await page.evaluate(() => (window as any).game.scene.getScene('raid').lia.x);
   await canvasClick(page, 164, 222);
@@ -587,7 +673,7 @@ test('Discovery stays crouched through keyboard and pointer approach into the br
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('raid');
     return [scene.data.get('story:lia-crouched'), scene.lia.texture.key, scene.lia.anims.currentAnim.key];
-  })).toEqual([true, 'lia-hide', 'lia-crouch-walk-w']);
+  })).toEqual([true, 'lia-crouch-walk', 'lia-crouch-walk-w']);
   await raidStep(page, 'cover');
   expect(await page.evaluate(() => {
     const lia = (window as any).game.scene.getScene('raid').lia;
@@ -649,6 +735,7 @@ test('House pickups disappear independently without interrupting packing and sta
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/?scene=aftermath');
   await sceneReady(page, 'aftermath');
+  await completeAftermathGrief(page, false);
   await page.waitForFunction(() => {
     const scene = (window as any).game.scene.getScene('aftermath');
     return scene.input.keyboard.enabled && !scene.cameras.main.fadeEffect.isRunning;
@@ -714,7 +801,7 @@ test('House pickups disappear independently without interrupting packing and sta
     return [scene.map.id, scene.st.inv];
   })).toEqual(['felder', inventory]);
   // The familiar fields connect the farm to the painted northern road trail.
-  await canvasClick(page, 636, 286);
+  await canvasClick(page, 636, 306);
   await sceneReady(page, 'journey');
   expect(await page.evaluate(() => {
     const game = (window as any).game, scene = game.scene.getScene('journey');
@@ -739,14 +826,14 @@ test('Anonymous bridge travelers animate while moving and honor reduced motion',
     scene.events.on('update', collect);
     (window as any).stopBridgeSample = () => scene.events.off('update', collect);
   });
-  await page.waitForFunction(() => (window as any).bridgeSample.elapsed >= 650);
+  await page.waitForFunction(() => (window as any).bridgeSample.elapsed >= 850);
   const moving = await page.evaluate(() => {
     (window as any).stopBridgeSample();
     return { sample: (window as any).bridgeSample, actors: (window as any).bridgeActors.map((actor: any) => ({ x: actor.x, animation: actor.anims.currentAnim.key, playing: actor.anims.isPlaying, flipX: actor.flipX })) };
   });
   expect(moving.actors).toHaveLength(2);
-  expect(new Set(moving.sample.frames[0])).toEqual(new Set([0, 1]));
-  expect(new Set(moving.sample.frames[1])).toEqual(new Set([2, 3]));
+  expect(new Set(moving.sample.frames[0])).toEqual(new Set([0, 1, 2, 3]));
+  expect(new Set(moving.sample.frames[1])).toEqual(new Set([4, 5, 6, 7]));
   expect(moving.actors.map((actor: any) => [actor.animation, actor.playing, actor.flipX])).toEqual([['road-wagon-walk', true, true], ['road-troupe-walk', true, true]]);
   moving.actors.forEach((actor: any, index: number) => expect(actor.x).toBeLessThan(moving.sample.start[index]));
   await page.screenshot({ path: '../output/qa/bridge-walking-phone.png', fullPage: true });
@@ -755,7 +842,7 @@ test('Anonymous bridge travelers animate while moving and honor reduced motion',
   await page.getByRole('button', { name: 'Zurück zum Spiel', exact: true }).click();
   await sceneReady(page, 'journey');
   const stopped = await page.evaluate(() => ({ frame: (window as any).game.loop.frame, actors: (window as any).bridgeActors.map((actor: any) => ({ x: actor.x, texture: actor.texture.key, frame: Number(actor.frame.name), playing: actor.anims.isPlaying })) }));
-  expect(stopped.actors.map((actor: any) => [actor.texture, actor.frame, actor.playing])).toEqual([['road-travelers', 0, false], ['road-travelers', 1, false]]);
+  expect(stopped.actors.map((actor: any) => [actor.texture, actor.frame, actor.playing])).toEqual([['road-travelers-walk', 0, false], ['road-travelers-walk', 4, false]]);
   await page.waitForFunction(frame => (window as any).game.loop.frame > frame + 20, stopped.frame);
   expect(await page.evaluate(() => (window as any).bridgeActors.map((actor: any) => actor.x))).toEqual(stopped.actors.map((actor: any) => actor.x));
   await page.getByRole('button', { name: 'Einstellungen', exact: true }).click();

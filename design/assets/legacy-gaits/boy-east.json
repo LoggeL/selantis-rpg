@@ -1,0 +1,29 @@
+{
+  "character": "boy",
+  "direction": "east",
+  "tool": "built-in image_gen",
+  "sourceReference": "output/imagegen/raw/legacy-gaits/boy-reference-rows.png",
+  "rawAsset": "output/imagegen/raw/legacy-gaits/boy-east-v3-raw.png",
+  "targetSheet": "game/public/assets/sprites/boy.png",
+  "targetFrames": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "layout": {
+    "rows": 1,
+    "columns": 4
+  },
+  "intendedHeightPx": 42,
+  "prompt": "Use case: identity-preserve. Asset: four-frame transparent pixel art game movement spritesheet strip. Reference image contains existing injured/frightened brown-haired boy: cream short-sleeve tunic with small blue collar trim, brown belt, brown trousers and brown boots. KEEP the boy's identity and original modest clothing, original top-down RPG pixel-art style and 42-pixel intended sprite scale. Create ONE horizontal row of EXACTLY FOUR equally spaced fully visible sprites, no text, no grid, no background. All four sprites face EAST / screen RIGHT, fixed top-down three-quarter side orientation. Camera and scale identical. Boy fleeing with tired forward lean. The FOUR images must be four genuinely different consecutive gait poses, LEFT-to-RIGHT: pose 0 NEAR leg extends to screen RIGHT forward and FAR leg extends screen LEFT behind; near arm bends behind and far arm forward. Pose 1 near foot planted and FAR knee bends passing under hip, narrow stance. Pose 2 FAR leg extends screen RIGHT forward and NEAR leg extends screen LEFT behind, the OPPOSITE leg contact to pose 0; near arm bends forward and far arm back. Pose 3 far foot planted and NEAR knee bends passing under hip, opposite narrow stance. Draw near leg lighter brown and far leg slightly darker brown so contact swap is readable, overlap reverses between pose 0 and pose 2. The feet must genuinely alternate, not four copies of one lead-leg running pose. Preserve upper torso appearance, head shape, cream shirt, belt and palette. Each pose centered inside its own quarter, feet aligned to a common baseline; small natural one-pixel bounce is fine. Clean pixel clusters, hard pixel edges, no soft rendering. Do not add props, weapons, capes, blood, jewelry, writing or decorative shadows. Transparent background.",
+  "refinementPrompts": [
+    "Use case: precise-object-edit. Edit only the third and fourth sprites of this transparent 4-frame pixel-art fleeing boy spritesheet. KEEP sprites 1 and 2 unchanged. KEEP all four characters looking screen RIGHT. KEEP original boy identity, head, cream tunic, blue neck trim, brown belt, and fixed sprite scale. The existing third sprite repeats the FIRST foot contact and needs the OPPOSITE contact: in sprite 3, the NEAR leg must run visibly from the NEAR/right-side hip backward to screen LEFT, with that entire near thigh, shin and boot LIGHT brown clearly visible ON TOP of the far leg. Its boot points diagonally down LEFT. The FAR leg must run from FAR/left-side hip forwards to screen RIGHT, DARKER brown and passing BEHIND the NEAR backward leg. Its forward boot points RIGHT and is darker. Thus the lower-body outline at the crossover changes and foreground leg runs back rather than forwards. Also SWAP arms in sprite 3: NEAR/right arm swings to screen LEFT behind the boy, FAR/left arm forward screen RIGHT. In sprite 4 use opposite passing pose: NEAR knee lifted/bent behind to screen LEFT while FAR foot is planted directly underneath hips. Near arm swings back, far arm forward. All four images should remain distinct four gait phases: near lead stride, passing, far lead stride, opposite passing. No captions, no floor, no background, true transparent alpha. Existing sprites 1 and 2 unchanged; edit ONLY limbs of sprites 3 and 4. Do not flip the character, do not change facing, do not repeat the first sprite.",
+    "Edit the transparent pixel art four-pose fleeing boy strip. Do a small precise gait repair. Keep poses 1 and 2 unchanged. Pose 3 now correctly has the lighter foreground leg extended back LEFT and darker far leg forward RIGHT, preserve those legs. CHANGE pose 3 foreground arm: cream sleeve on nearest shoulder sweeps BACK to LEFT, its tan foreground hand is at the boy's LEFT hip, and the smaller dark far arm bends FORWARD to RIGHT. Pose 4 needs the OPPOSITE passing stance compared to pose 2: nearest lighter brown leg's knee bends and lifts BACK LEFT, nearest boot suspended LEFT of pelvis; darker far leg is straight and planted just below pelvis, its foot DARK brown. A dark planted far foot must be visible in pose 4, versus light planted near foot in pose 2. Pose 4 nearest cream sleeve/hand also swings LEFT behind at hip, and smaller far arm bends RIGHT forward. This is about visually clear opposite limb anatomy; change precisely those limbs to complete a 4-frame running cycle, near stride, passing, far stride, opposite passing. Boy always looks right. Preserve original modest cream tunic blue collar brown belt brown boots brown hair frightened child's identity and game pixel art. Transparent alpha, no floor, no decoration, no letters. Four sprites equally spaced."
+  ],
+  "qa": {
+    "gait": "opposite leading leg at contacts 0 and 2, passing poses 1 and 3",
+    "identity": "brown-haired frightened boy, cream tunic with blue trim, brown belt, brown trousers and boots",
+    "status": "raw generated strip; coordinator owns normalization and final integration"
+  }
+}

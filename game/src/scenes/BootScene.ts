@@ -19,13 +19,18 @@ dirs.forEach((d, r) => {
   ANIMS[`v-wave-${d}`] = ['valentus-cast', [r * 4, r * 4 + 2], 10, false];
   ANIMS[`v-guard-${d}`] = ['valentus-cast', [r * 4 + 3], 1, false];
   ANIMS[`vc-run-${d}`] = ['valentus-cloak-run', [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3], 7, true];
-  ANIMS[`lia-walk-${d}`] = ['lia-walk', [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3], 7, true];
-  ANIMS[`lia-idle-${d}`] = ['lia-walk', [r * 4], 1, false];
-  // The low authored poses keep real bent knees and a fixed ground anchor.
-  // West mirrors the east row at playback; north uses the front crouch row.
-  const low = d === 'e' || d === 'w' ? [6, 7] : [2, 3];
-  ANIMS[`lia-crouch-walk-${d}`] = ['lia-hide', low, 5, true];
-  ANIMS[`lia-crouch-idle-${d}`] = ['lia-hide', [low[1]], 1, true];
+  for (const profile of ['lia', 'lia-farm', 'lia-travel', 'lia-cloak']) {
+    ANIMS[`${profile}-walk-${d}`] = [`${profile}-walk`, [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3], 7, true];
+    ANIMS[`${profile}-idle-${d}`] = [`${profile}-walk`, [r * 4 + 1], 1, false];
+  }
+  for (const companion of ['foltan', 'azar']) {
+    ANIMS[`${companion}-walk-${d}`] = [`${companion}-walk`, [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3], 7, true];
+    ANIMS[`${companion}-idle-${d}`] = [`${companion}-walk`, [r * 4 + 1], 1, false];
+  }
+  // Each authored direction has opposite foot contacts and passing phases.
+  const low = [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3];
+  ANIMS[`lia-crouch-walk-${d}`] = ['lia-crouch-walk', low, 5, true];
+  ANIMS[`lia-crouch-idle-${d}`] = ['lia-crouch-walk', [low[0]], 1, true];
 });
 Object.assign(ANIMS, {
   'warrior-idle': ['warrior', [0], 1, false],
@@ -80,11 +85,15 @@ Object.assign(ANIMS, {
   'lia-hidden-e': ['lia-hide', [7], 1, true],
   'lia-grieve': ['lia-story-poses', [0], 1, false],
   'lia-pack': ['lia-story-poses', [1], 1, false],
+  'lia-camp-sit-down': ['lia-camp-sit', [0, 1], 5, false],
+  'lia-camp-sit': ['lia-camp-sit', [1, 2], 1, true],
+  'lia-camp-stand-up': ['lia-camp-sit', [3], 1, false],
   'lia-sleep': ['lia-story-poses', [2], 1, false],
   'lia-wake': ['lia-story-poses', [3], 1, false],
   'lia-travel': ['lia-story-poses', [6], 1, false],
-  'road-wagon-walk': ['road-travelers-walk', [0, 1], 7, true],
-  'road-troupe-walk': ['road-travelers-walk', [2, 3], 7, true],
+  'road-wagon-walk': ['road-travelers-walk', [0, 1, 2, 3], 7, true],
+  'road-troupe-walk': ['road-travelers-walk', [4, 5, 6, 7], 7, true],
+  'raid-horse-walk': ['raid-horse', [0, 1, 2, 3], 10, true],
   // Tiere der offenen Welt
   'butterfly-a': ['crt-butterfly', [0, 1, 2, 3], 10, true],
   'butterfly-b': ['crt-butterfly', [4, 5, 6, 7], 10, true],
@@ -107,7 +116,6 @@ export class BootScene extends Phaser.Scene {
 
   preload() {
     loadDialoguePortraits(this);
-    this.load.spritesheet('road-travelers-walk', 'assets/sprites/road-travelers-walk.png', { frameWidth: 128, frameHeight: 64 });
     this.load.json('manifest', 'assets/manifest.json');
     this.load.once('filecomplete-json-manifest', () => {
       const m = this.cache.json.get('manifest') as Manifest;

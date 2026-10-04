@@ -1,0 +1,117 @@
+{
+  "intent": "Book descriptions take precedence over film-actor likenesses for Lia and Kyra.",
+  "characters": {
+    "lia": {
+      "hair": "Long strawberry-blonde curls loosely pinned at the back",
+      "clothes": "White gathered round-neck peasant blouse without collar or button placket, brown skirt",
+      "eyeColor": "Unspecified in checked novel description; drawn naturally without canon claim",
+      "expressions": [
+        "neutral",
+        "grief",
+        "determined"
+      ]
+    },
+    "kyra": {
+      "hair": "Long nut-brown hair",
+      "eyes": "Brown",
+      "clothes": "Workworn dirt-stained beige dress with short rough sleeves"
+    }
+  },
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "identityReferences": [
+    "game/public/assets/cut/lia-kyra.png",
+    "game/public/assets/cut/kyra-wood.png"
+  ],
+  "style": "Natural teenage facial proportions and small almond-shaped eyes matching final story illustrations",
+  "receipts": "output/imagegen/raw/novel-portraits/generation-receipts.json",
+  "preparation": "scripts/prepare_novel_portraits.py; crop and nearest-neighbor scaling only",
+  "deliveries": [
+    {
+      "path": "game/public/assets/portraits/dialogue-lia.png",
+      "source": "output/imagegen/raw/novel-portraits/lia-emotions.png",
+      "sourceSha256": "7ec9346d7b7a31cd87ba8bfe3929522028c6a606cb11a9954437c3946269361c",
+      "crop": [
+        0,
+        0,
+        724,
+        724
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sha256": "6c281b14061ddd77795c4c740e4a37f31ecde71cfbfbd040d641cf55c8c97b3f"
+    },
+    {
+      "path": "game/public/assets/portraits/dialogue-lia-grief.png",
+      "source": "output/imagegen/raw/novel-portraits/lia-emotions.png",
+      "sourceSha256": "7ec9346d7b7a31cd87ba8bfe3929522028c6a606cb11a9954437c3946269361c",
+      "crop": [
+        724,
+        0,
+        1448,
+        724
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sha256": "e5389120a9ae434a3732e04305ab77219abc36cc4c4d6ad258fe5c973fd00059"
+    },
+    {
+      "path": "game/public/assets/portraits/dialogue-lia-determined.png",
+      "source": "output/imagegen/raw/novel-portraits/lia-emotions.png",
+      "sourceSha256": "7ec9346d7b7a31cd87ba8bfe3929522028c6a606cb11a9954437c3946269361c",
+      "crop": [
+        1448,
+        0,
+        2172,
+        724
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sha256": "3d2fbb87344c1e83333bf02119fc245a6354334acf69f08d7b763eaa9d6f7784"
+    },
+    {
+      "path": "game/public/assets/portraits/dialogue-kyra.png",
+      "source": "output/imagegen/raw/novel-portraits/kyra.png",
+      "sourceSha256": "738700160196dc16d3f0a089e3b6f47a2450b7bf7c1ab9cba43568195c31f096",
+      "crop": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "width": 1254,
+      "height": 1254,
+      "sha256": "1d7e0baf3abf201217f85f44f4123f262bde628b9e3492ccd648640c377ab031"
+    },
+    {
+      "path": "game/public/assets/portraits/lia.png",
+      "source": "output/imagegen/raw/novel-portraits/lia-emotions.png",
+      "sourceSha256": "7ec9346d7b7a31cd87ba8bfe3929522028c6a606cb11a9954437c3946269361c",
+      "crop": [
+        145,
+        18,
+        579,
+        452
+      ],
+      "pixelGrid": 48,
+      "width": 192,
+      "height": 192,
+      "sha256": "e3f8de0390f2d882264265a00e904ead29e4ac8f52964142a2fa12d33acee917"
+    },
+    {
+      "path": "game/public/assets/portraits/kyra.png",
+      "source": "output/imagegen/raw/novel-portraits/kyra.png",
+      "sourceSha256": "738700160196dc16d3f0a089e3b6f47a2450b7bf7c1ab9cba43568195c31f096",
+      "crop": [
+        251,
+        19,
+        1003,
+        771
+      ],
+      "pixelGrid": 48,
+      "width": 192,
+      "height": 192,
+      "sha256": "b59f1b76bacc20b4d60df633908a5a6a534a80345f5cd8bb8d1adb523163eecd"
+    }
+  ]
+}

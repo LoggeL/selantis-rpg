@@ -1,0 +1,37 @@
+{
+  "character": "crossbow",
+  "method": "built-in image_gen",
+  "direction": "left",
+  "sheetSize": [
+    256,
+    192
+  ],
+  "frameSize": [
+    64,
+    64
+  ],
+  "frameCount": 4,
+  "targetFrames": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "reference": "output/imagegen/raw/legacy-gaits/crossbow-reference-row.png",
+  "rawGeneratedPath": "/Users/logge/Documents/Projects/SelantisRPG/output/imagegen/raw/legacy-gaits/crossbow-left-gait-v2-generated-03bbcc4c-2904-4793-81c3-d9e6033b133d.png",
+  "rawGeneratedFilename": "crossbow-left-gait-v2-generated-03bbcc4c-2904-4793-81c3-d9e6033b133d.png",
+  "prompt": "Use case: precise-object-edit. Target is this four-frame pixel-art crossbowman walking strip, all facing LEFT. Correct only LEG ANATOMY and LEG SHADING in the first and third figures; retain his brown hair, face, ivory tunic, arms, belt and wooden crossbow exactly. Four figures in one horizontal row, transparent background, same scale and spacing. Foreground/NEAR leg must be a distinctly LIGHT medium-brown trouser leg and lighter brown boot; far/BACK leg must be distinctly DARK charcoal-brown trouser leg and darker boot. FIRST figure: LIGHT foreground thigh extends from near hip down toward LEFT, LIGHT boot far LEFT; DARK far thigh extends RIGHT, DARK boot RIGHT. THIRD figure: anatomically SWAP their positions, DARK far thigh extends down toward LEFT and DARK boot far LEFT; LIGHT foreground thigh starts at near hip and extends RIGHT, LIGHT foreground calf and bent boot trail to RIGHT. At crotch the LIGHT foreground thigh must overlay and occlude the DARK far thigh and lead from hip to RIGHT, creating a visible uninterrupted light brown chain hip-to-right-knee-to-right-boot. In third figure the entire left-leading thigh/shin/boot is DARK, entire right-trailing thigh/shin/boot is LIGHT. This is not merely lifting the already dark rear boot: REVERSE THE THIGH OVERLAP AND SHADING. Explicit final mapping: figure 1 left boot LIGHT, right boot DARK; figure 3 left boot DARK, right boot LIGHT. Keep third right boot lifted and bent as reference but now the right leg is the foreground light leg overlapping dark left leg at pelvis. Maintain crisp pixel art, no painterly detail. Second and fourth passing figures unchanged. All head-to-toe visible, alpha transparency, no ground shadow, no text.",
+  "qa": {
+    "checked": "Full resolution visually inspected",
+    "identity": "Brown hair; ivory tunic, dark trousers, same crossbow",
+    "legs": "Opposite foreground leg verified by color and overlap: first contact light near thigh/shin/boot leading left with dark far leg trailing right; third contact dark far leg planted left, light near thigh extending right from hip, bent right boot trailing, near thigh overlays dark far thigh at crotch. No full-body mirroring.",
+    "transparency": "RGBA alpha extrema (0, 255)",
+    "normalization": "Not normalized; raw generation only, public sprite untouched."
+  },
+  "previousRawGeneratedPath": "/Users/logge/Documents/Projects/SelantisRPG/output/imagegen/raw/legacy-gaits/crossbow-left-gait-generated-abca1844-0a17-49f9-a2d0-16dda8d04a09.png",
+  "generationVersion": 2,
+  "rawSize": [
+    2172,
+    724
+  ]
+}

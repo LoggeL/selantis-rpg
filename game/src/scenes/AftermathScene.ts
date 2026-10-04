@@ -3,10 +3,11 @@ import { StoryScene } from '../story/StoryScene';
 import { FARM_DAWN_AREA, FARM_INTERIOR_AREA } from '../story/areas/aftermath';
 import type { ItemId, Pt } from '../world/maps';
 import { state, type WorldState } from '../world/quests';
-import { ambientPrefs } from '../settings';
+import { ambientPrefs, motionDuration } from '../settings';
 import { ITEM_FRAME } from '../inventory';
 import type { StorySpot } from '../story/types';
 import { FIELD_DEPARTURE } from '../story/travel';
+import { AFTERMATH_GRIEF_BEATS, needsAftermathGrief } from '../story/grief';
 
 const PACK_FLAGS = ['packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks'] as const;
 type PackFlag = typeof PACK_FLAGS[number];
@@ -37,6 +38,9 @@ export class AftermathScene extends StoryScene {
   private pigs: Phaser.GameObjects.Sprite[] = [];
   private houseItems = new Map<PackFlag, Phaser.GameObjects.Image[]>();
   private houseSpots: StorySpot[] = [];
+  private griefNight?: Phaser.GameObjects.Rectangle;
+  private griefIndex = -1;
+  private griefReady = false;
 
   constructor() { super('aftermath'); }
 
@@ -49,9 +53,82 @@ export class AftermathScene extends StoryScene {
     this.pigs = [];
     this.houseItems.clear();
     this.houseSpots = [];
+    this.griefNight = undefined;
+    this.griefIndex = -1;
+    this.griefReady = false;
     this.begin(data.at ? { ...FARM_DAWN_AREA, start: data.at } : FARM_DAWN_AREA);
     this.configure();
-    this.say(data.from ? 'Der Hof liegt still. Die Gräber bleiben hier.' : 'Die Steingräber sind fertig. Die Nacht ist vorbei.');
+    if (needsAftermathGrief(this.st, data)) this.beginGrief();
+    else {
+      this.publishGrief(false);
+      this.say(data.from ? 'So still war es hier noch nie.' : 'Die Gräber sind fertig. Jetzt muss ich für die Suche nach Kyra packen.');
+    }
+  }
+
+  private beginGrief() {
+    this.setSpots([]);
+    this.setLocked(true);
+    this.setCinematic(true);
+    this.inventory.close();
+    this.say('', 0);
+    this.griefNight = this.add.rectangle(320, 180, 640, 360, 0x000000)
+      .setDepth(905).setScrollFactor(0);
+    this.showGriefBeat(0);
+  }
+
+  private publishGrief(active: boolean) {
+    const beat = AFTERMATH_GRIEF_BEATS[this.griefIndex];
+    this.data.set('story:grief', { active, index: this.griefIndex, total: AFTERMATH_GRIEF_BEATS.length,
+      step: active ? beat?.id : 'complete', phase: active ? beat?.phase : 'farm', ready: active && this.griefReady });
+  }
+
+  private showGriefBeat(index: number) {
+    const beat = AFTERMATH_GRIEF_BEATS[index];
+    this.griefIndex = index;
+    this.griefReady = false;
+    this.setCloseupContinue(null);
+    this.publishGrief(true);
+    const ready = () => {
+      // A fade only exposes the current card; it never advances the story.
+      if (this.griefIndex !== index) return;
+      this.griefReady = true;
+      this.publishGrief(true);
+      this.setCloseupContinue(() => {
+        if (!this.griefReady || this.griefIndex !== index) return;
+        this.griefReady = false;
+        this.setCloseupContinue(null);
+        if (index + 1 < AFTERMATH_GRIEF_BEATS.length) this.showGriefBeat(index + 1);
+        else this.finishGrief();
+      }, beat.label ?? 'Weiter');
+    };
+    const firstDawn = beat.phase === 'dawn' && AFTERMATH_GRIEF_BEATS[index - 1]?.phase === 'night';
+    if (firstDawn) {
+      this.setLiaPose('lia-grieve');
+      this.showCloseup('cut-family-graves', { fit: 'contain' });
+    }
+    if (beat.id === 'dawn-farewell') this.setLiaPose(null);
+    this.setCloseupText(beat.line);
+    const duration = firstDawn ? motionDuration(900) : 0;
+    if (duration && this.griefNight) this.tweens.add({ targets: this.griefNight, alpha: 0, duration, ease: 'Sine.inOut', onComplete: ready });
+    else {
+      if (firstDawn) this.griefNight?.setAlpha(0);
+      ready();
+    }
+  }
+
+  private finishGrief() {
+    this.st.flags.aftermathGriefSeen = true;
+    this.griefNight?.destroy();
+    this.griefNight = undefined;
+    this.hideCloseup();
+    this.setLiaPose(null);
+    this.setLocked(false);
+    this.setCinematic(false);
+    this.publishGrief(false);
+    this.data.set({ 'mobile:controls': null, 'mobile:dialogue': '', 'mobile:thought': '' });
+    // Intro farewell does not consume either optional grave interaction.
+    this.setSpots([]);
+    this.configure();
   }
 
   private configure() {
@@ -69,12 +146,12 @@ export class AftermathScene extends StoryScene {
   private configureHouse() {
     const targets = FARM_INTERIOR_AREA.targets;
     const uses: Record<string, () => void> = {
-      food: () => this.pack('packedFood', [['proviant', 1]], 'Speck, ein halber Käse, zwei Brote. In den Lederbeutel neben dem Ofen.'),
+      food: () => this.pack('packedFood', [['proviant', 1]], 'Speck, ein halber Laib Käse, zwei Brote. Alles in den Lederbeutel vom Ofen. Das muss fürs Erste reichen.'),
       water: () => this.pack('packedWater', [['wasserschlauch', 1]], 'Den Wasserschlauch hänge ich mir um.'),
-      cupboard: () => this.pack('foundCache', [['kupfer', 22], ['silber', 7], ['dolch', 1]], 'Vaters doppelter Boden: 22 Kupfer, 7 Silber. Und sein Dolch in der Scheide.'),
-      medicine: () => this.pack('packedMedicine', [['heilzeug', 1]], 'Mutters Tinktur und Leinenstreifen nehme ich für unterwegs mit.'),
-      clothing: () => this.pack('packedClothes', [['reisezeug', 1]], 'Haarband, Lederschuhe. Den grünen Regenmantel und die Wolldecke nehme ich mit.'),
-      books: () => this.pack('packedBooks', [['buch-kraeuter', 1], ['buch-alana', 1]], 'Cronibus Kräuterlexikon. Und Alana, die Geschichte wollte ich noch zu Ende lesen.'),
+      cupboard: () => this.pack('foundCache', [['kupfer', 22], ['silber', 7], ['dolch', 1]], 'Vaters doppelter Boden. Den haben sie nicht gefunden: 22 Kupfer, 7 Silber. Und sein Dolch.'),
+      medicine: () => this.pack('packedMedicine', [['heilzeug', 1]], 'Mutters Kräutertinktur. Damit hat sie uns jede Schramme versorgt. Die nehme ich mit, und Leinen dazu.'),
+      clothing: () => this.pack('packedClothes', [['reisezeug', 1]], 'Ich binde die Haare zurück und ziehe die Lederschuhe an. Der grüne Regenmantel und die Wolldecke kommen in die Tasche.'),
+      books: () => this.pack('packedBooks', [['buch-kraeuter', 1], ['buch-alana', 1]], 'Alanas Geschichte und Cronibus Kräuterlexikon kommen in die Tasche.'),
       'exit-door': () => this.leaveHouse(),
     };
     const labels: Record<string, string> = {
@@ -101,8 +178,8 @@ export class AftermathScene extends StoryScene {
   private configureFarm() {
     const targets = FARM_DAWN_AREA.targets;
     const uses: Record<string, () => void> = {
-      'grave-mother': () => this.showDetail('cut-family-graves', 'Danke, Mutter.', () => { this.st.picked['farewell-mother'] = true; }),
-      'grave-father': () => this.showDetail('cut-family-graves', 'Ich werde alles tun, um Kyra zu finden.', () => { this.st.picked['farewell-father'] = true; }),
+      'grave-mother': () => this.showDetail('cut-family-graves', 'Danke, Mutter. Für alles. Auch fürs Lesenlernen.', () => { this.st.picked['farewell-mother'] = true; }),
+      'grave-father': () => this.showDetail('cut-family-graves', 'Danke, Vater. Ich werde alles tun, um Kyra zu finden.', () => { this.st.picked['farewell-father'] = true; }),
       door: () => {
         if (this.packed() && !this.st.flags.houseClosed) {
           this.st.flags.houseClosed = true;
@@ -156,7 +233,7 @@ export class AftermathScene extends StoryScene {
     this.st.flags.houseClosed = this.packed();
     this.changeArea({ ...FARM_DAWN_AREA, start: [273, 198] });
     this.configure();
-    if (this.st.flags.houseClosed) this.say('Ich ziehe die Tür hinter mir zu. Die Gräber liegen rechts von mir.');
+    if (this.st.flags.houseClosed) this.say('Langsam ziehe ich die Tür hinter mir zu. Rechts liegen die Gräber.');
   }
 
   private pack(flag: PackFlag, items: [ItemId, number][], thought: string) {
@@ -168,6 +245,7 @@ export class AftermathScene extends StoryScene {
     if (this.inside) this.refreshHouseTargets();
     this.inventory.refresh(this.st.inv);
     this.refreshProgress();
+    this.refreshLiaAppearance();
     this.say(thought, 4500);
   }
 
@@ -185,7 +263,7 @@ export class AftermathScene extends StoryScene {
     if (this.st.flags.pigsReleased) { this.say('Das Gatter bleibt offen.'); return; }
     this.st.flags.pigsReleased = true;
     this.refreshProgress();
-    this.say('Macht\'s gut. Ich hoffe, ihr kommt ohne mich klar.');
+    this.say('Macht\'s gut. Ihr seid jetzt auf euch gestellt. … Ich rede mit Schweinen.');
     if (ambientPrefs().reducedMotion) {
       this.pigs.forEach((pig, index) => pig.setPosition(72 + index * 24, 189 + index * 10).setDepth(189 + index * 10));
       return;
@@ -217,7 +295,7 @@ export class AftermathScene extends StoryScene {
     if (!this.st.flags.packedClothes) return 'Schuhe, Mantel und Decke fehlen noch.';
     if (!this.st.flags.packedBooks) return 'Die beiden Bücher nehme ich noch mit.';
     if (!this.st.flags.houseClosed) return 'Die Haustür will ich noch schließen.';
-    if (!this.st.flags.pigsReleased) return 'Die drei Schweine kann ich nicht eingesperrt zurücklassen.';
+    if (!this.st.flags.pigsReleased) return 'Gefüttert habe ich die Schweine nicht mehr. Eingesperrt lasse ich sie nicht zurück.';
     return 'Die Hufspuren führen über die Felder zum Nebenweg nach Osten. Dort suche ich weiter nach Kyra.';
   }
 

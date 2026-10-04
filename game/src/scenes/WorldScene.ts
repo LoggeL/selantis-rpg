@@ -4,11 +4,12 @@ import { FONT, Hud } from '../ui';
 import { Dir, ItemId, MAPS, MapDef, Prop, Pt } from '../world/maps';
 import { Critter } from '../world/critters';
 import { WorldApi, WorldState, objectiveText, pickupText, runAction, state } from '../world/quests';
-import { findWalkingPath, inPoly, isMapWalkable } from '../world/navigation';
+import { findWalkingPath, isMapWalkable } from '../world/navigation';
 import { ambientPrefs, motionDuration, subscribeSettings } from '../settings';
 import { InventoryHud, ITEM_FRAME, itemTexture } from '../inventory';
 import { completeHomecoming, homewardExit } from '../story/homecoming';
 import { eastwardTravelGate, mapForTravel, travelObjective } from '../story/travel';
+import { resolveLiaAppearance } from '../appearance';
 
 type Data = { map?: string; from?: string; x?: number; y?: number; facing?: Dir };
 
@@ -39,7 +40,6 @@ export class WorldScene extends Phaser.Scene {
   private critters: Critter[] = [];
   private pickups: { key: string; item: ItemId; s: Phaser.GameObjects.Image; ready: boolean }[] = [];
   private inventory!: InventoryHud;
-  private objText!: Phaser.GameObjects.Text;
   private nest?: Phaser.GameObjects.Image;
   private route: Pt[] = [];
   private requestedTarget?: Pt;
@@ -88,14 +88,16 @@ export class WorldScene extends Phaser.Scene {
     this.debugG = undefined;
     this.hintShown = undefined;
     this.bgImage = this.add.image(0, 0, this.map.bg).setOrigin(0).setDepth(-1000);
-    this.drawFieldBranch();
+    this.drawFieldTracks();
     this.cameras.main.fadeIn(280, 0, 0, 0);
 
     const entry = data.from ? this.map.entries[data.from] : undefined;
     const start: Pt = entry ? entry.at : data.x !== undefined ? [data.x, data.y!] : this.map.start;
     this.facing = entry?.facing ?? data.facing ?? 's';
     this.shadow = this.add.image(start[0], start[1], 'shadow');
-    this.lia = this.add.sprite(start[0], start[1], 'lia-walk', 0).setOrigin(0.5, 60 / 64).play(`lia-idle-${this.facing}`);
+    const appearance = resolveLiaAppearance({ flags: this.st.flags, areaId: this.map.id, direction: this.facing });
+    this.lia = this.add.sprite(start[0], start[1], appearance.texture, 0).setOrigin(0.5, 60 / 64).play(appearance.animation);
+    this.data.set('story:lia-appearance', appearance);
 
     // Sommerabend: Pollen im Gegenlicht
     this.pollen = this.add.particles(0, 0, 'px', {
@@ -105,8 +107,6 @@ export class WorldScene extends Phaser.Scene {
 
     this.hud = new Hud(this, 'portrait-lia', 'LIA');
     this.hud.setHp(1, false);
-    this.objText = this.add.text(632, 10, '', { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
-      .setOrigin(1, 0).setDepth(1000);
     this.refreshObjective();
     this.inventory = new InventoryHud(this, () => this.clearTarget());
     this.refreshInventory();
@@ -153,8 +153,8 @@ export class WorldScene extends Phaser.Scene {
     });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, unsubscribe);
 
-    const name = this.add.text(320, 40, this.map.name, { fontFamily: FONT, fontSize: '12px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
-      .setOrigin(0.5).setDepth(1000).setAlpha(0);
+    const name = this.add.text(320, Math.max(40, this.hud.objectiveBottom + 14), this.map.name, { fontFamily: FONT, fontSize: '12px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
+      .setOrigin(0.5).setDepth(1000).setScrollFactor(0).setAlpha(0);
     this.tweens.add({ targets: name, alpha: 1, duration: 500, hold: 1400, yoyo: true });
   }
 
@@ -200,21 +200,13 @@ export class WorldScene extends Phaser.Scene {
 
   }
 
-  /** The visible side road is present before and after the raid. */
-  private drawFieldBranch() {
-    if (this.map.id !== 'felder') return;
+  /** Fresh hoofprints follow the side road already painted into the field background. */
+  private drawFieldTracks() {
+    if (this.map.id !== 'felder' || !this.st.flags.raidWitnessed) return;
     const g = this.add.graphics().setDepth(-900);
-    const branch: Pt[] = [[483, 270], [529, 273], [640, 267], [640, 301], [536, 287], [500, 290]];
-    const earth = [0x8b713c, 0x997744, 0xa4864d, 0x80683c, 0xa89353];
-    for (let y = 267; y < 302; y += 2) for (let x = 482; x < 640; x += 2) {
-      if (!inPoly(x, y, branch)) continue;
-      const grain = (x * 13 + y * 17 + x * y) % earth.length;
-      g.fillStyle(earth[grain]).fillRect(x, y, 2, 2);
-      if ((x + y * 3) % 17 === 0) g.fillStyle(0x756f37).fillRect(x, y, 1, 3);
-    }
-    if (!this.st.flags.raidWitnessed) return;
-    for (let x = 492; x < 628; x += 17) {
-      for (const y of [280, 286]) {
+    const trail: Pt[] = [[500, 278], [520, 280], [540, 282], [559, 287], [577, 296], [595, 304], [614, 307]];
+    for (const [x, centerY] of trail) {
+      for (const y of [centerY - 3, centerY + 3]) {
         g.lineStyle(1, 0x4c402a).strokeEllipse(x, y, 4, 5);
         g.fillStyle(0xa08a4d).fillRect(x + 1, y - 3, 2, 2);
       }
@@ -222,9 +214,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private objective(text: string) {
-    this.data.set('mobile:objective', text);
-    this.add.text(632, 10, text, { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
-      .setOrigin(1, 0).setDepth(1000);
+    this.hud.setObjective(text);
   }
 
   private walkable(x: number, y: number) {
@@ -281,21 +271,25 @@ export class WorldScene extends Phaser.Scene {
       const d: Dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'e' : 'w') : dy > 0 ? 's' : 'n';
       this.facing = d;
       if (this.target || k.D.isDown || k.A.isDown || k.S.isDown || k.W.isDown || k.UP.isDown || k.DOWN.isDown || k.LEFT.isDown || k.RIGHT.isDown) {
-        this.lia.anims.currentAnim?.key !== `lia-walk-${d}` && this.lia.play(`lia-walk-${d}`);
+        this.playLiaMovement(d, true);
         this.stepTimer -= dt;
         if (this.stepTimer <= 0) { this.stepTimer = 300; sfx.step(); }
       }
       this.checkExits();
       this.checkTriggers();
-    } else if (this.lia.anims.currentAnim?.key.startsWith('lia-walk')) {
-      this.lia.play(`lia-idle-${this.facing}`);
-    }
+    } else this.playLiaMovement(this.facing, false);
     this.updatePrompt();
     for (const h of this.exitHints) {
       const d = Phaser.Math.Distance.Between(this.lia.x, this.lia.y, h.x, h.y);
       h.c.setAlpha(h.home ? 1 : Phaser.Math.Clamp(1.15 - d / 160, 0.45, 1));
     }
     if (Math.random() < dt / 7000) sfx.bird();
+  }
+
+  private playLiaMovement(direction: Dir, moving: boolean) {
+    const appearance = resolveLiaAppearance({ flags: this.st.flags, areaId: this.map.id, direction, moving });
+    this.data.set('story:lia-appearance', appearance);
+    if (this.lia.anims.currentAnim?.key !== appearance.animation || !this.lia.anims.isPlaying) this.lia.play(appearance.animation, true);
   }
 
   private onPointerDown(ptr: Phaser.Input.Pointer) {
@@ -361,7 +355,8 @@ export class WorldScene extends Phaser.Scene {
     const fx = this.lia.x, fy = this.lia.y, [tx, ty] = to;
     const d: Dir = Math.abs(tx - fx) > Math.abs(ty - fy) ? (tx > fx ? 'e' : 'w') : ty > fy ? 's' : 'n';
     this.facing = d;
-    this.lia.play(`lia-walk-${d}`).anims.pause(this.lia.anims.currentAnim!.frames[1]);
+    this.playLiaMovement(d, true);
+    this.lia.anims.pause(this.lia.anims.currentAnim!.frames[1]);
     sfx.step();
     const arc = { t: 0 };
     this.tweens.add({
@@ -376,7 +371,7 @@ export class WorldScene extends Phaser.Scene {
         this.shadow.setScale(1);
         sfx.thud();
         if (!ambientPrefs().reducedMotion) this.cameras.main.shake(80, 0.002);
-        this.lia.play(`lia-idle-${d}`);
+        this.playLiaMovement(d, false);
         this.busy = false;
       },
     });
@@ -534,7 +529,7 @@ export class WorldScene extends Phaser.Scene {
     this.inventory.refresh(this.st.inv);
   }
 
-  private refreshObjective() { const text = travelObjective(this.st, this.map.id) ?? objectiveText(this.st, this.map.id); this.objText?.setText(text); this.data.set('mobile:objective', text); }
+  private refreshObjective() { const text = travelObjective(this.st, this.map.id) ?? objectiveText(this.st, this.map.id); this.hud.setObjective(text); }
 
   private showNest(withChick: boolean, at?: Pt) {
     const p = at ?? this.map.props.find((x) => x.action === 'returnChick')!.at;
@@ -550,7 +545,8 @@ export class WorldScene extends Phaser.Scene {
     this.nestClimb = { prop, from: [this.lia.x, this.lia.y], progress: 0, complete, returning: false };
     this.inventory.setVisible(false);
     this.prompt.setVisible(false);
-    this.lia.play('lia-walk-n').anims.pause();
+    this.playLiaMovement('n', true);
+    this.lia.anims.pause();
     this.climbHands = this.add.graphics().setDepth(641);
     this.hud.hint('E halten / Baum gedrückt halten: zum Nest klettern', true);
   }
@@ -585,7 +581,8 @@ export class WorldScene extends Phaser.Scene {
       targets: this.lia, x: climb.from[0], y: climb.from[1], duration: 1100, ease: 'Sine.inOut',
       onUpdate: () => this.climbHands?.setPosition(this.lia.x, this.lia.y),
       onComplete: () => {
-        this.lia.setPosition(...climb.from).setDepth(climb.from[1]).play('lia-idle-n');
+        this.lia.setPosition(...climb.from).setDepth(climb.from[1]);
+        this.playLiaMovement('n', false);
         this.shadow.setPosition(climb.from[0], climb.from[1] - 1).setAlpha(1);
         this.climbHands?.destroy(); this.climbHands = undefined;
         this.nestClimb = undefined; this.busy = false;

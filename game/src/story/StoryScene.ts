@@ -8,6 +8,7 @@ import { state } from '../world/quests';
 import type { Dir } from '../world/maps';
 import type { Pt, StoryArea, StorySpot } from './types';
 import { StoryCloseup, type CloseupOptions } from './closeups';
+import { resolveLiaAppearance } from '../appearance';
 
 const SPEED = 72;
 const WALK_HINT = 'WASD / Pfeile: gehen · Klick: gehen / untersuchen · I: Tasche';
@@ -22,7 +23,6 @@ export class StoryScene extends Phaser.Scene {
   private area!: StoryArea;
   private shadow!: Phaser.GameObjects.Image;
   private prompt!: Phaser.GameObjects.Container;
-  private objective!: Phaser.GameObjects.Text;
   private spots: StorySpot[] = [];
   private markers: { spot: StorySpot; object: Phaser.GameObjects.Container }[] = [];
   private actors: Phaser.GameObjects.Image[] = [];
@@ -71,10 +71,6 @@ export class StoryScene extends Phaser.Scene {
     this.inventory = new InventoryHud(this, () => this.clearRoute());
     this.inventorySignature = '';
     this.refreshInventory();
-    this.objective = this.add.text(632, 10, '', {
-      fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3,
-      wordWrap: { width: 380 }, align: 'right',
-    }).setOrigin(1, 0).setDepth(1000).setScrollFactor(0);
     const bubble = this.add.rectangle(0, 0, 22, 22, 0x14171b, 0.9).setStrokeStyle(1, 0xd8d2c0);
     const key = this.add.text(0, 0, 'E', { fontFamily: FONT, fontSize: '14px', color: '#e8e2d0' }).setOrigin(0.5);
     this.prompt = this.add.container(0, 0, [bubble, key]).setDepth(990).setVisible(false);
@@ -123,8 +119,9 @@ export class StoryScene extends Phaser.Scene {
     this.facing = 's';
     const background = this.add.image(0, 0, area.bg).setOrigin(0).setDisplaySize(640, 360).setDepth(-1000);
     this.shadow = this.add.image(...area.start, 'shadow').setDepth(area.start[1] - 1);
-    this.lia = this.add.sprite(...area.start, 'lia-walk', 0).setOrigin(0.5, 60 / 64).setDepth(area.start[1]);
-    this.lia.play('lia-idle-s');
+    const appearance = resolveLiaAppearance({ flags: state(this.registry).flags, areaId: area.id });
+    this.lia = this.add.sprite(...area.start, appearance.texture, 0).setOrigin(0.5, 60 / 64).setDepth(area.start[1]);
+    this.refreshLiaAppearance();
     this.areaRoot.add([background, this.shadow, this.lia]);
     this.areaRoot.sort('depth');
     this.refreshPrompt();
@@ -144,7 +141,7 @@ export class StoryScene extends Phaser.Scene {
     this.refreshPrompt();
   }
 
-  protected setObjective(text: string) { this.objective.setText(text); this.data.set('mobile:objective', text); }
+  protected setObjective(text: string) { this.hud.setObjective(text); }
   protected say(text: string, ms = 3000) { this.hud.thought(text, ms); }
   protected setLocked(locked: boolean) {
     this.locked = locked;
@@ -194,7 +191,7 @@ export class StoryScene extends Phaser.Scene {
   private refreshHudVisibility() {
     const cinematic = this.cinematic || this.closeupVisible || !!this.closeup?.hasCaption;
     this.hud?.setCinematic(cinematic);
-    this.objective?.setVisible(!cinematic);
+    this.hud?.setObjectiveVisible(!cinematic);
   }
 
   protected setCloseupContinue(callback: (() => void) | null, label = 'Weiter') {
@@ -205,7 +202,7 @@ export class StoryScene extends Phaser.Scene {
   /** A kneeling/crouched pose survives logical E interactions and locked idle updates. */
   protected setLiaPose(animation: string | null) {
     this.liaPose = animation && this.anims.exists(animation) ? animation : undefined;
-    if (!this.liaPose) this.lia.setTexture('lia-walk').setOrigin(0.5, 60 / 64);
+    if (!this.liaPose) this.lia.setOrigin(0.5, 60 / 64);
     this.idleLia();
   }
 
@@ -217,9 +214,16 @@ export class StoryScene extends Phaser.Scene {
   }
 
   protected playLiaMovement(direction: Dir, moving: boolean) {
-    this.lia.setFlipX(this.liaCrouched && !(this.liaPose && !moving) && direction === 'w');
-    const profile = this.liaCrouched ? 'lia-crouch' : 'lia';
-    this.lia.play(!moving && this.liaPose ? this.liaPose : `${profile}-${moving ? 'walk' : 'idle'}-${direction}`, true);
+    const appearance = resolveLiaAppearance({
+      flags: state(this.registry).flags, areaId: this.area?.id, direction, moving,
+      crouched: this.liaCrouched, pose: this.liaPose,
+    });
+    this.data.set('story:lia-appearance', appearance);
+    this.lia.setFlipX(appearance.flipX).play(appearance.animation, true);
+  }
+
+  protected refreshLiaAppearance() {
+    if (this.lia) this.idleLia();
   }
 
   private idleLia() {
@@ -254,7 +258,7 @@ export class StoryScene extends Phaser.Scene {
 
   update(_time: number, dt: number) {
     this.closeup?.update();
-    this.objective?.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && !this.hud.dialogueVisible);
+    this.hud?.setObjectiveVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && !this.hud.dialogueVisible);
     if (this.inventory?.isOpen) return;
     if (this.leaving || !this.lia?.active) return;
     dt = Math.min(dt, 50);
@@ -393,6 +397,6 @@ export class StoryScene extends Phaser.Scene {
     }
     const hint = this.cinematic || this.closeupVisible || this.closeup?.hasCaption ? '' : spot ? `${spot.label} · E / Klick` : WALK_HINT;
     if (hint !== this.hint) { this.hint = hint; this.hud.hint(hint, true); }
-    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && this.isEnabled(marker.spot) && (!marker.spot.markerVisible || marker.spot.markerVisible()));
+    for (const marker of this.markers) marker.object.setVisible(!this.cinematic && !this.closeupVisible && !this.closeup?.hasCaption && (this.isEnabled(marker.spot) || marker.spot.markerWhenDisabled === true) && (!marker.spot.markerVisible || marker.spot.markerVisible()));
   }
 }

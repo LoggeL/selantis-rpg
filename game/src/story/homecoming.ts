@@ -1,13 +1,19 @@
 import type { WorldState } from '../world/quests';
 
-/** Short adaptation of the sisters' conversation, Roman PDF pp. 9-10. */
+/** Condensed adaptation of the sisters' conversation, Roman PDF pp. 9-10. */
 export const SISTER_CONVERSATION = [
-  'Kyra: Du wolltest mir beim Holz helfen. Das ist zwei Stunden her!',
-  'Lia: Schon so spät? Es war gerade spannend. Tut mir leid.',
-  'Kyra: Bald gibt es Abendbrot. Mutter wartet auf uns.',
-  'Lia: Dafür füttere ich heute Abend die Schweine. Versprochen.',
-  'Kyra: Gut. Dann komm nach Hause. Ich gehe schon vor.',
-  'Lia: Nur noch diese Seite. Dann komme ich.',
+  'Kyra: „Ich komme gleich nach“, hast du gesagt. Das war vor zwei Stunden!',
+  'Lia: Schon so spät? Herrje. Tut mir leid, es war gerade so spannend.',
+  'Kyra: Bei dir ist es immer gerade spannend. Das ganze Holz hab ich allein gesammelt.',
+  'Lia: Hier ist es eben so öde. In meinem Buch gibt es mutige Helden und schöne Königstöchter.',
+  'Kyra: Sei froh drum. Seit Dunkelhain ziehen Dunkelschatten und Räuber durchs Land. Ein Wunder, dass sie uns bisher verschont haben.',
+  'Lia: Siehst du? Selbst denen ist es hier zu langweilig.',
+  'Kyra: Lia!',
+  'Lia: Ja, schon gut. Dafür füttere ich heute Abend die Schweine. Versprochen.',
+  'Kyra: Das hoffe ich für dich. Kommst du mit? Gleich gibt es Abendbrot, und Mutter macht sich sonst Sorgen.',
+  'Lia: Geh ruhig schon vor. Ich bleibe noch kurz und …',
+  'Kyra: … liest. Hätte ich mir denken können. Aber denk an die Schweine!',
+  'Lia: Noch ein Kapitel. Darauf kannst du dich verlassen.',
 ] as const;
 
 // Lia has already entered the sunken lane before the chapter title. Use the

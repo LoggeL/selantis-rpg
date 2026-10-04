@@ -55,7 +55,7 @@ export const waldrand: MapDef = {
     {
       id: 'eiche', at: [420, 184], radius: 26, action: 'returnChick', lines: [
         'Die alte Eiche am Waldrand. In ihrem Schatten ist es angenehm kühl.',
-        'Kühl ist schön. Kalt nicht. Ich mag den Sommer viel lieber.',
+        'Kühl ist schön. Kalt nicht.',
       ],
     },
   ],

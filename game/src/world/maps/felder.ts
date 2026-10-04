@@ -2,6 +2,7 @@ import type { MapDef } from '../maps';
 
 // Roman S. 6–12: die weiten Wiesen und Felder der Eltern – Weizen, Rübenacker, Obstbäume, eine Bank am Feldweg.
 // Der Feldweg kommt links herein (zur Wiese) und biegt rechts unten zum Hof ab.
+// Sein gemalter Ostabzweig knickt leicht nach unten zur Straße ab.
 export const felder: MapDef = {
   id: 'felder',
   name: 'Die Felder',
@@ -12,7 +13,8 @@ export const felder: MapDef = {
     [
       [0, 152], [58, 152], [60, 160], [94, 160], [100, 158], [140, 158], [146, 152], [282, 150],
       [284, 168], [344, 170], [346, 182], [368, 182], [372, 176], [376, 210], [440, 210], [500, 218],
-      [504, 250], [640, 250], [640, 360], [0, 360],
+      [504, 250], [554, 250], [560, 270], [580, 281], [610, 289], [640, 294],
+      [640, 318], [608, 317], [578, 307], [558, 299], [558, 360], [0, 360],
     ],
   ],
   block: [
@@ -27,12 +29,12 @@ export const felder: MapDef = {
   exits: [
     { rect: [0, 196, 8, 84], to: 'wiese' },
     { rect: [462, 352, 96, 8], to: 'hof' },
-    { rect: [632, 266, 8, 40], to: 'journey', scene: 'journey', label: 'Straße nach Osten' },
+    { rect: [632, 294, 8, 24], to: 'journey', scene: 'journey', label: 'Straße nach Osten' },
   ],
   entries: {
     wiese: { at: [18, 246], facing: 'e' },
     hof: { at: [510, 336], facing: 'n' },
-    journey: { at: [615, 286], facing: 'w' },
+    journey: { at: [613, 306], facing: 'w' },
   },
   props: [
     {
@@ -47,7 +49,8 @@ export const felder: MapDef = {
       id: 'bank', at: [302, 218], radius: 26, discovery: 'Blick über die Felder',
       lines: [
         'Die Bank am Feldweg. Von hier aus sieht man die ganzen Felder.',
-        'Hier sitzt selten jemand. Einen Knecht können sich Vater und Mutter nicht leisten.',
+        'Zum Sitzen kommt hier kaum einer. Für einen Knecht reicht das Geld nicht, also machen wir alles selbst.',
+        'Eigentlich macht das meiste Kyra.',
       ],
     },
     {
@@ -61,8 +64,8 @@ export const felder: MapDef = {
       id: 'rueben', at: [462, 214], radius: 22,
       lines: [
         'Mohrrüben, Reihe um Reihe.',
-        'Mutter stammt aus einer reichen Händlerfamilie in Trapas. Für Vater hat sie das alles aufgegeben.',
-        'Jetzt wühlt sie hier auf dem Feld nach Mohrrüben. Wenn das mal nicht wahre Liebe ist.',
+        'Mutter kommt aus einer reichen Händlerfamilie in Trapas. Und jetzt wühlt sie hier nach Mohrrüben.',
+        'Sie sagt, sie würde es wieder genauso machen. Wenn das mal nicht wahre Liebe ist.',
       ],
     },
   ],

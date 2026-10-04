@@ -6,7 +6,9 @@ import { updateSettings } from '../settings';
 
 function image(x: number, y: number, texture: string, frame: number) {
   const o: any = { x, y, texture, frame, flipX: false, active: true, anims: { stop: vi.fn() } };
-  for (const method of ['setOrigin', 'setDepth', 'setVisible', 'setScale', 'setAlpha', 'setPosition', 'setAngle', 'play']) o[method] = vi.fn(() => o);
+  for (const method of ['setOrigin', 'setDepth', 'setVisible', 'setScale', 'setAlpha', 'setAngle']) o[method] = vi.fn(() => o);
+  o.setPosition = vi.fn((x: number, y: number) => { o.x = x; o.y = y; return o; });
+  o.play = vi.fn((key: string) => { o.anims.currentAnim = { key }; return o; });
   o.destroy = vi.fn(() => { o.active = false; return o; });
   o.setTexture = vi.fn((texture: string, frame: number) => { o.texture = texture; o.frame = frame; return o; });
   o.setFlipX = vi.fn((value: boolean) => { o.flipX = value; return o; });
@@ -52,7 +54,7 @@ describe('westbound road travelers', () => {
       const config = s.tweens.add.mock.calls.find(([config]: any[]) => config.targets === images[i])[0];
       config.onStop();
       expect(images[i].anims.stop).toHaveBeenCalled();
-      expect(images[i].setTexture).toHaveBeenLastCalledWith('road-travelers', i);
+      expect(images[i].setTexture).toHaveBeenLastCalledWith('road-travelers-walk', i === 0 ? 0 : 4);
       config.onComplete(); expect(images[i].destroy).toHaveBeenCalledTimes(1);
     }
   });
@@ -61,7 +63,7 @@ describe('westbound road travelers', () => {
     updateSettings({ reducedMotion: true });
     for (let i = 0; i < 2; i++) {
       expect(s.tweens.add.mock.results[i].value.pause).toHaveBeenCalled();
-      expect(images[i].setTexture).toHaveBeenLastCalledWith('road-travelers', i);
+      expect(images[i].setTexture).toHaveBeenLastCalledWith('road-travelers-walk', i === 0 ? 0 : 4);
     }
     images[0].active = false;
     const plays = images[0].play.mock.calls.length;
@@ -80,9 +82,10 @@ describe('friendly camp encounter', () => {
     s.data = { set: vi.fn() };
     s.lia = image(233, 260, 'lia-walk', 0);
     s.blanket = { setVisible: vi.fn() };
-    s.addActor = vi.fn((texture, frame, [x, y]) => image(x, y, texture, frame));
+    s.add = { image, sprite: image };
+    s.anims = { exists: () => true }; s.areaRoot = { add: vi.fn(), sort: vi.fn() };
     s.tweens = { add: vi.fn() }; s.time = { delayedCall: vi.fn() };
-    for (const method of ['setObjective', 'setSpots', 'setLocked', 'setCinematic', 'say', 'setLiaPose', 'showCloseup', 'hideCloseup', 'setCloseupText', 'setCloseupContinue', 'drawFire']) s[method] = vi.fn();
+    for (const method of ['setObjective', 'setSpots', 'setLocked', 'setCinematic', 'say', 'setLiaPose', 'showCloseup', 'hideCloseup', 'setCloseupText', 'setCloseupContinue', 'drawFire', 'drawStar']) s[method] = vi.fn();
     s.wakeEncounter();
     expect(s.showCloseup).not.toHaveBeenCalled();
     expect(s.arrivalActive).toBe(true);
@@ -110,12 +113,12 @@ describe('friendly camp encounter', () => {
       advance();
     }
     expect(lines.join(' ')).toContain('Wir tun dir nichts.');
-    expect(lines.join(' ')).toContain('Schmied. Kein Totengräber.');
-    expect(lines.join(' ')).toContain('Bei meinem Amboss antwortet auch keiner.');
+    expect(lines.join(' ')).toContain('Das mit dem ‚tot‘ war nicht böse gemeint.');
+    expect(lines.join(' ')).toContain('Soll der feine Herr Foltan machen, was er für richtig hält.');
     expect(lines.join(' ')).toContain('Kyra mitgenommen');
     expect(lines.join(' ')).toContain('Versprechen können wir dir nichts.');
-    expect(text()).toContain('Für heute muss ich nicht mehr allein weiter.');
-    expect(s.setCloseupContinue.mock.lastCall[1]).toBe('Zum Stern');
+    expect(text()).toContain('Ich bin nicht mehr allein.');
+    expect(s.setCloseupContinue.mock.lastCall[1]).toBe('Lager erkunden');
     expect(s.setLiaPose.mock.calls.flat()).not.toContain('lia-bound-sit');
     expect(s.showCloseup.mock.calls.flat()).not.toContain('cut-camp-capture');
     expect(s.rope).toBeUndefined(); expect(s.caught).toBeUndefined();
@@ -125,22 +128,23 @@ describe('friendly camp encounter', () => {
     expect(world.flags.journeyRopesReleased).toBeUndefined();
     expect(s.setLocked).toHaveBeenLastCalledWith(false);
     expect(s.hideCloseup).toHaveBeenCalledOnce();
-    expect(s.setObjective).toHaveBeenLastCalledWith('Zum westlichen Stern hinaufsehen.');
-    s.drawStar = vi.fn(); s.useCampSpot('star');
-    expect(world.flags.criosObserved).toBe(true); expect(s.campStep).toBe('complete');
+    expect(s.setObjective).toHaveBeenLastCalledWith('Im Lager zur Ruhe kommen oder bis zum Morgen schlafen.');
+    s.beginStarReflection = vi.fn(); s.useCampSpot('star');
+    expect(s.beginStarReflection).toHaveBeenCalledOnce();
+    expect(world.flags.criosObserved).toBeUndefined();
   });
 });
 
 describe('first camp ending', () => {
-  it('points the completed camp toward the next morning after observing Crios', () => {
+  it('opens the optional reflection without marking Crios observed immediately', () => {
     const s: any = new JourneyScene();
-    const world = { flags: {}, inv: {} };
+    const world = { flags: { metFoltanAzar: true }, inv: {} };
     s.registry = { get: () => world };
     s.campStep = 'star';
     s.setObjective = vi.fn(); s.setSpots = vi.fn(); s.say = vi.fn(); s.drawStar = vi.fn();
+    s.beginStarReflection = vi.fn();
     s.useCampSpot('star');
-    expect(world.flags).toMatchObject({ criosObserved: true });
-    expect(s.campStep).toBe('complete');
-    expect(s.setObjective).toHaveBeenLastCalledWith('Bis zum Morgen schlafen und gemeinsam aufbrechen.');
+    expect(s.beginStarReflection).toHaveBeenCalledOnce();
+    expect(world.flags).not.toHaveProperty('criosObserved');
   });
 });

@@ -57,7 +57,7 @@ export function runAction(prop: Prop, api: WorldApi): boolean {
         const to = { x: prop.at[0] + (i ? 16 : -14) + Phaser.Math.Between(-4, 4), y: prop.at[1] + Phaser.Math.Between(6, 14) };
         api.dropPickup('apfel', { x: to.x, y: prop.at[1] - 60 }, to, `${prop.id}-apfel-${i}`);
       }
-      api.thought('Ein kräftiger Schubs – und es regnet Fallobst!');
+      api.thought('Einmal kräftig gerüttelt, schon fällt das Obst.');
       return true;
     }
     case 'returnChick': {
@@ -86,8 +86,8 @@ export function pickupText(item: ItemId): string {
     case 'apfel': return 'Ein Apfel für unterwegs.';
     case 'kornblume': return 'Eine Kornblume. Die wächst hier überall.';
     case 'kupfer': return 'Ein Kupferstück! Hat Vater das auf dem Weg zum Markt verloren?';
-    case 'feder': return 'Eine Feder. Fast, als hätte sie Danke gesagt.';
-    case 'kueken': return 'Ganz vorsichtig … Dein Nest ist oben in der Eiche am Waldrand.';
+    case 'feder': return 'Eine Feder. Fast, als wollte sie sich bedanken.';
+    case 'kueken': return 'Ganz ruhig, Kleines. Dein Nest ist oben in der Eiche am Waldrand. Ich bring dich hin.';
     default: return ITEM_NAMES[item];
   }
 }

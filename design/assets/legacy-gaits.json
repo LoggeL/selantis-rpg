@@ -1,0 +1,705 @@
+{
+  "purpose": "Replace only existing legacy walk cells with four generated alternating contact and passing phases. Preserve every non-walk RGBA cell.",
+  "tool": "built-in image_gen",
+  "normalization": "Technical RGBA alpha noise cleanup, crop, shared nearest-neighbor scale, stable torso x=32 and foot baseline y=60; no authored pixels.",
+  "assets": [
+    {
+      "name": "warrior",
+      "file": "game/public/assets/sprites/warrior.png",
+      "baseline": "output/imagegen/raw/legacy-gaits/warrior-baseline.png",
+      "baselineFileSha256": "beb29fe577e89bc776165b5c7dcd4d0794009e8c37d2e28abd51a2a9226f8fef",
+      "rows": [
+        {
+          "row": 1,
+          "direction": "west",
+          "height": 38,
+          "source": "output/imagegen/raw/legacy-gaits/warrior-walk-raw-20261004.png",
+          "promptManifest": "design/assets/legacy-gaits/warrior.json",
+          "phases": [
+            "near foot leads",
+            "passing near foot",
+            "far foot leads",
+            "passing far foot"
+          ],
+          "qa": {
+            "facing": "screen-left threequarter same as original",
+            "transparent": true,
+            "legPhases": "near-leading, passing, far-leading, reverse passing",
+            "bodyHeightTarget": 38,
+            "notes": "Helmet, ivory tunic, sword and shield preserved. Frames 0 and 2 reverse which leg is lighter/near and darker/far; frames1 and3 close leg stance under pelvis.",
+            "alphaCropThreshold": 32,
+            "normalizationNote": "Ignore invisible low-alpha specks when deriving bounding boxes. Alpha>=32 gives stable ~380px bodyheight before normalization."
+          },
+          "normalization": {
+            "sourceSha256": "edf13cbf5b39b447179cb16de8d890bc2e5cf13b4806c27ce5736f507d8ed09c",
+            "sharedScale": 0.1,
+            "sourceSize": [
+              2172,
+              724
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "axe",
+      "file": "game/public/assets/sprites/axe.png",
+      "baseline": "output/imagegen/raw/legacy-gaits/axe-baseline.png",
+      "baselineFileSha256": "222f6cc33fad1c28955637d94936f5a36ad94e4f0ba233859aacf0ff3f68b667",
+      "rows": [
+        {
+          "row": 1,
+          "direction": "west",
+          "height": 40,
+          "source": "output/imagegen/raw/legacy-gaits/axe-walk-raw-20261004.png",
+          "promptManifest": "design/assets/legacy-gaits/axe.json",
+          "phases": [
+            "near foot leads",
+            "passing near foot",
+            "far foot leads",
+            "passing far foot"
+          ],
+          "qa": {
+            "facing": "screen-left threequarter same as original",
+            "transparent": true,
+            "legPhases": "near-leading, passing, far-leading, reverse passing",
+            "bodyHeightTarget": 38,
+            "notes": "Short brown hair, ivory tunic and single-head axe preserved. Clear alternating warm near-leading vs dark far-leading boot and closed passing frames.",
+            "alphaCropThreshold": 32,
+            "normalizationNote": "Ignore invisible low-alpha specks when deriving bounding boxes. Alpha>=32 gives stable ~380px bodyheight before normalization."
+          },
+          "normalization": {
+            "sourceSha256": "35d1a435a7d055e12090857111635e0fdf4d6e118d2d5fad760c40f472c9b466",
+            "sharedScale": 0.10582010582010581,
+            "sourceSize": [
+              2172,
+              724
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "boy",
+      "file": "game/public/assets/sprites/boy.png",
+      "baseline": "output/imagegen/raw/legacy-gaits/boy-baseline.png",
+      "baselineFileSha256": "244e7c24d6e2962d39c6183dc63692c4e545fb43182751a2fb01fa1c0a4ecd12",
+      "rows": [
+        {
+          "row": 1,
+          "direction": "north",
+          "height": 38,
+          "source": "output/imagegen/raw/legacy-gaits/boy-north-raw.png",
+          "promptManifest": "design/assets/legacy-gaits/boy-north.json",
+          "phases": [
+            "left trailing boot",
+            "passing right foot",
+            "right trailing boot",
+            "passing left foot"
+          ],
+          "qa": {
+            "gait": "opposite leading leg at contacts 0 and 2, passing poses 1 and 3",
+            "identity": "brown-haired frightened boy, cream tunic with blue trim, brown belt, brown trousers and boots",
+            "status": "raw generated strip; coordinator owns normalization and final integration"
+          },
+          "normalization": {
+            "sourceSha256": "ee5c936571e9b9d44e9f69703164defdbdb0d92740fb854910e3797a7a562f24",
+            "sharedScale": 0.08234019501625135,
+            "sourceSize": [
+              2172,
+              724
+            ]
+          }
+        },
+        {
+          "row": 2,
+          "direction": "east",
+          "height": 36,
+          "source": "output/imagegen/raw/legacy-gaits/boy-east-v3-raw.png",
+          "promptManifest": "design/assets/legacy-gaits/boy-east.json",
+          "phases": [
+            "near foot leads",
+            "passing near foot",
+            "far foot leads",
+            "passing far foot"
+          ],
+          "qa": {
+            "gait": "opposite leading leg at contacts 0 and 2, passing poses 1 and 3",
+            "identity": "brown-haired frightened boy, cream tunic with blue trim, brown belt, brown trousers and boots",
+            "status": "raw generated strip; coordinator owns normalization and final integration"
+          },
+          "normalization": {
+            "sourceSha256": "fdbc9524b8ef72999c9c6374e96cc8f7bf1aefc26241086a578686efa9b2368a",
+            "sharedScale": 0.07792207792207792,
+            "sourceSize": [
+              2120,
+              742
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "crossbow",
+      "file": "game/public/assets/sprites/crossbow.png",
+      "baseline": "output/imagegen/raw/legacy-gaits/crossbow-baseline.png",
+      "baselineFileSha256": "494c3aad745c3d8b0fbf16011d06d523ce92337c403f99b975a4401c519fcf24",
+      "rows": [
+        {
+          "row": 1,
+          "direction": "west",
+          "height": 40,
+          "source": "output/imagegen/raw/legacy-gaits/crossbow-left-gait-v2-generated-03bbcc4c-2904-4793-81c3-d9e6033b133d.png",
+          "promptManifest": "design/assets/legacy-gaits/crossbow.json",
+          "phases": [
+            "near foot leads",
+            "passing near foot",
+            "far foot leads",
+            "passing far foot"
+          ],
+          "qa": {
+            "checked": "Full resolution visually inspected",
+            "identity": "Brown hair; ivory tunic, dark trousers, same crossbow",
+            "legs": "Opposite foreground leg verified by color and overlap: first contact light near thigh/shin/boot leading left with dark far leg trailing right; third contact dark far leg planted left, light near thigh extending right from hip, bent right boot trailing, near thigh overlays dark far thigh at crotch. No full-body mirroring.",
+            "transparency": "RGBA alpha extrema (0, 255)",
+            "normalization": "Not normalized; raw generation only, public sprite untouched."
+          },
+          "normalization": {
+            "sourceSha256": "1bb2f6b2c8f062dda7f25013a6d20789a0a18623e1d2203aaea770fb55ad0882",
+            "sharedScale": 0.08830022075055188,
+            "sourceSize": [
+              2172,
+              724
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "falke",
+      "file": "game/public/assets/sprites/falke.png",
+      "baseline": "output/imagegen/raw/legacy-gaits/falke-baseline.png",
+      "baselineFileSha256": "10db90d0366d18e3b5c405d3e645bbc848c74e799b03cf84c4e0c6bd38f06e85",
+      "rows": [
+        {
+          "row": 0,
+          "direction": "west",
+          "height": 38,
+          "source": "output/imagegen/raw/legacy-gaits/falke-left-gait-v2-generated-df6fbbfd-1ee0-4901-be08-1712c493eaae.png",
+          "promptManifest": "design/assets/legacy-gaits/falke.json",
+          "phases": [
+            "near foot leads",
+            "passing near foot",
+            "far foot leads",
+            "passing far foot"
+          ],
+          "qa": {
+            "checked": "Full resolution visually inspected",
+            "identity": "Brown hair; blue and ivory outfit, same swords",
+            "legs": "Opposite foreground leg verified by color and overlap: first contact light near thigh/shin/boot leading left with dark far leg trailing right; third contact dark far leg planted left, light near thigh extending right from hip, bent right boot trailing, near thigh overlays dark far thigh at crotch. No full-body mirroring.",
+            "transparency": "RGBA alpha extrema (0, 255)",
+            "normalization": "Not normalized; raw generation only, public sprite untouched."
+          },
+          "normalization": {
+            "sourceSha256": "2fde5d8c030202dbd73d36bd57c077df5099ff9c4d9cff07e2b735004ef25630",
+            "sharedScale": 0.09101796407185629,
+            "sourceSize": [
+              2169,
+              725
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "delivery": [
+    {
+      "name": "warrior",
+      "file": "game/public/assets/sprites/warrior.png",
+      "size": [
+        256,
+        256
+      ],
+      "outputSha256": "aa77ac4c29808f3c82ab09e562063ef36837188bcc03ce8cd3eef4eea3d4a0cc",
+      "replacedCells": [
+        {
+          "index": 4,
+          "direction": "west",
+          "phase": "near foot leads",
+          "bounds": [
+            16,
+            22,
+            53,
+            60
+          ],
+          "sha256RGBA": "975a48781ea09d6ad8e0db6364c223ad771d33216b466e84b727166178fe96c7",
+          "lowerBodySha256RGBA": "dcfc3f1fceab122b983c3ab9f6ac8208d2e6db55445697f02d46e1959d4b5bb8"
+        },
+        {
+          "index": 5,
+          "direction": "west",
+          "phase": "passing near foot",
+          "bounds": [
+            16,
+            22,
+            46,
+            60
+          ],
+          "sha256RGBA": "09025788d3b24057c579317e816f8e507598563aa31bd1c05959991a68f2f873",
+          "lowerBodySha256RGBA": "61283af96a1087735c7229d538545c73b6cea0a242673d556db912b92936a63d"
+        },
+        {
+          "index": 6,
+          "direction": "west",
+          "phase": "far foot leads",
+          "bounds": [
+            16,
+            22,
+            49,
+            60
+          ],
+          "sha256RGBA": "7f54674b7138a8710bfff7725d5615984c17f66c9196fa36965baa18d6ebb9a2",
+          "lowerBodySha256RGBA": "fe923ddac975654e56826e3ba7de525d23fe9f4c4fe15a675c004b17cf2fed74"
+        },
+        {
+          "index": 7,
+          "direction": "west",
+          "phase": "passing far foot",
+          "bounds": [
+            16,
+            22,
+            46,
+            60
+          ],
+          "sha256RGBA": "dbfd340b521ecfda829bc15968f5a79e7038f0f595a1e628afb485f325697e75",
+          "lowerBodySha256RGBA": "69d32c5b290e23bb6a3cd0ee42e527224ba3d97feb22847841178ac7f15c2480"
+        }
+      ],
+      "preservedCellsRGBA": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "preservedCellHashes": {
+        "0": "2c756e102d5eb30ea9a22ba752dcc01db8b48c63fd54e5bce0afc2db47de8885",
+        "1": "3f4cb5ce6c069ba6529f353e9813d57decd35635c815a7422672ee0a6ee8d787",
+        "2": "c3c70e0800ed45b5209974a3b9ba01bfd346afd0511d42b801dd0b57b2e4fef1",
+        "3": "3bfeed5569661f76d02a9f443de61ba3ab7cae58931afe0b2c1e241e9dc4bf17",
+        "8": "c7c9e11c35857f8237e0a4cc0f0f28d525185a6d41a1427b8004f012bed05b1d",
+        "9": "bff5b824319cdec9c57f238a4d142aeea26cb77cf00c2f9248e0fe409feaaae4",
+        "10": "a7dbd941db3d002d6c4f86c7135627ffc66054579e521ee62449390b83bd58e3",
+        "11": "c89f66a37d2f5b9ecdab1f8fdf50056d96896148c2b0137b7952efef1c93bdf1",
+        "12": "faf535f4677583c8fb26aecc026bfd8ad39238fd9b0a553656ef3522e9add038",
+        "13": "9c8982149b6c7b7822b69b21339fe4d8132d5f7de30c931ae3f922ca4e3cadd4",
+        "14": "9d2a449a176e5ea3ade3aca9678841129b672a22f9113a80cfbcd06715e3c971",
+        "15": "d84b4c9210660fe025651891f92150f0cea9822a0968d0f9e150139eb7ac89f3"
+      },
+      "preview": "output/imagegen/raw/legacy-gaits/warrior-normalized-preview.png"
+    },
+    {
+      "name": "axe",
+      "file": "game/public/assets/sprites/axe.png",
+      "size": [
+        256,
+        256
+      ],
+      "outputSha256": "adf6fc608a88a9a9b3b1f3d6bde3c0f35a1b744aaf18de312bccdaccadc3f825",
+      "replacedCells": [
+        {
+          "index": 4,
+          "direction": "west",
+          "phase": "near foot leads",
+          "bounds": [
+            10,
+            20,
+            44,
+            60
+          ],
+          "sha256RGBA": "312fb63ab135997238a40a3e8d2728c3beb42b735f52696ce13f08f705ba563b",
+          "lowerBodySha256RGBA": "702a69aa403c919d7b1b7696f2a369130f19e7ec72c69dbd3477b73c2674a8c1"
+        },
+        {
+          "index": 5,
+          "direction": "west",
+          "phase": "passing near foot",
+          "bounds": [
+            11,
+            20,
+            41,
+            60
+          ],
+          "sha256RGBA": "0328bdb77555e0f7b0e013d41a9e63c8f2ba98c038234911ce051b82e2a13381",
+          "lowerBodySha256RGBA": "bca72936e61fedec0327f3aff6f110c399e60ca1bc83d01101d44ceaab4a235d"
+        },
+        {
+          "index": 6,
+          "direction": "west",
+          "phase": "far foot leads",
+          "bounds": [
+            10,
+            20,
+            45,
+            60
+          ],
+          "sha256RGBA": "f50f67c174928f65b9db3c1841fc948caf67b98abfaf9d28dc4b87196773bc8c",
+          "lowerBodySha256RGBA": "27ac89c58ce2c02b5ec426b44b8a1f598f9e9483e833571b18021c71046be587"
+        },
+        {
+          "index": 7,
+          "direction": "west",
+          "phase": "passing far foot",
+          "bounds": [
+            11,
+            20,
+            41,
+            60
+          ],
+          "sha256RGBA": "3b656d348ab48a694d18132a0d30312594986067eb0b84bc63b4e627c2a38fbc",
+          "lowerBodySha256RGBA": "e6b0a14d9953c98f166451d8f6b6879d03d9b02e3ab20bd3185a55fc9c9dee87"
+        }
+      ],
+      "preservedCellsRGBA": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "preservedCellHashes": {
+        "0": "9fcb606c7775aeba7d220a42146fb81370acd8d5c9132e3cf4af2927c64d5917",
+        "1": "c9eb3000328a3026ac1d20a7b778d604187a0f977afe69255dd1fdc2085bb866",
+        "2": "1535885db76cce648f6591ba27f8a5d18d244b10b5d15107bba30596e80f9730",
+        "3": "510f6231eaf79fa61f5fc37c5f585ae72a47bd10d5222d7ab685a7c4415ac82e",
+        "8": "a242c649f8062201b4d38952340ac14c1e25797116b2dc3481341f8acf7dd773",
+        "9": "53f8d256789b3599f2d2a491eceffc6d024e086dc2df6a8338d4de47c4d55fb2",
+        "10": "42f14e3fff264fca2b80a88e6f75f3a837d77b8b5be3fee85c6ef009a8025902",
+        "11": "51309a7f36f8d93e7255093a671e17bac2511ea185bf421ab0d492c4c5c385c1",
+        "12": "9c14eab4db2ff9a963110f01cf4cdf3d31b710a04d00186593af24b73c5b8ffa",
+        "13": "bc00344997ac69826cd1b7fb1b3efc6c35988ed7c7945af3ef64d4ce3a08c1c5",
+        "14": "6f06ac6caf13f469f69a7e82c788338f9292f8e33e9b990f9850c0c6ded7dcf9",
+        "15": "0d133f03b7be499fcde94b926b897db53b2d3f0cec6c102cb02aa4a44cfc1b68"
+      },
+      "preview": "output/imagegen/raw/legacy-gaits/axe-normalized-preview.png"
+    },
+    {
+      "name": "boy",
+      "file": "game/public/assets/sprites/boy.png",
+      "size": [
+        256,
+        256
+      ],
+      "outputSha256": "0df41cbd57bc132689cbe1beebd61013b7698ddcd9f403eac25734809b09903d",
+      "replacedCells": [
+        {
+          "index": 4,
+          "direction": "north",
+          "phase": "left trailing boot",
+          "bounds": [
+            23,
+            21,
+            42,
+            60
+          ],
+          "sha256RGBA": "daecec1c47acfd7623bfd5cac74194f3ed4914c11f017e6cbfa2aded85bc4d09",
+          "lowerBodySha256RGBA": "4e1ad88bf5a6c6b5066d16d5822b03efbf4af184c45c505e01d8a8bb69eeb882"
+        },
+        {
+          "index": 5,
+          "direction": "north",
+          "phase": "passing right foot",
+          "bounds": [
+            24,
+            23,
+            41,
+            60
+          ],
+          "sha256RGBA": "b3bafec147f86b679a907e3aa4045980821dabc411c27ee0a498193ded29f4b6",
+          "lowerBodySha256RGBA": "b281a3aa4a78aa4d2460a8eca53678b45769e3cbbcc7daf767ff778803ebc40f"
+        },
+        {
+          "index": 6,
+          "direction": "north",
+          "phase": "right trailing boot",
+          "bounds": [
+            24,
+            21,
+            42,
+            60
+          ],
+          "sha256RGBA": "1b3a66c7c344543378bbbd37ccedc1e5cb74590ebc7172f76c2bc8d107d90e55",
+          "lowerBodySha256RGBA": "37d84a5c24c24383637659a07bb92cc4a27fd9bf7e93644f0987cb1dfb13332b"
+        },
+        {
+          "index": 7,
+          "direction": "north",
+          "phase": "passing left foot",
+          "bounds": [
+            23,
+            23,
+            41,
+            60
+          ],
+          "sha256RGBA": "84c17782e1695f539611110733f55176f808de1754089520db643813360b9c7c",
+          "lowerBodySha256RGBA": "8abbe640bce33d738bd2d4cb86f6d5a730d1421354e6bd1960933a5556386e9b"
+        },
+        {
+          "index": 8,
+          "direction": "east",
+          "phase": "near foot leads",
+          "bounds": [
+            16,
+            25,
+            47,
+            60
+          ],
+          "sha256RGBA": "db7d58516c55e24003c79a34cba32a43a98c8e79673fdb23436e2d527aaf6f9a",
+          "lowerBodySha256RGBA": "aaced39a31edaa7caf80c6e1a03cbd0f0bfde29e9c37796710ba239cf5431796"
+        },
+        {
+          "index": 9,
+          "direction": "east",
+          "phase": "passing near foot",
+          "bounds": [
+            20,
+            24,
+            42,
+            60
+          ],
+          "sha256RGBA": "2f7cea42ac306084c70011fa25cf6728a363adef0ca89db972b172c2a64e54ba",
+          "lowerBodySha256RGBA": "4b6b646a87ed8f15b4fb4d8b2bb4da84e66960e507a4ee781b7c5004911a1869"
+        },
+        {
+          "index": 10,
+          "direction": "east",
+          "phase": "far foot leads",
+          "bounds": [
+            13,
+            24,
+            43,
+            60
+          ],
+          "sha256RGBA": "902209748a992b1081a0d2423573e6aeb25292fc1e430735b7a15a4e7be9cf8d",
+          "lowerBodySha256RGBA": "61894b2fdc2643b579abc8ad791b09ad1aae9e92262bc48ec8827f9e8d62cc27"
+        },
+        {
+          "index": 11,
+          "direction": "east",
+          "phase": "passing far foot",
+          "bounds": [
+            20,
+            24,
+            43,
+            60
+          ],
+          "sha256RGBA": "d05c8a4d8a1b2487f8b16f4701994036c5afb3539d5e27d26b71e41e8ad6fc02",
+          "lowerBodySha256RGBA": "63f54f2ac7c52588314e3b9ccf5ed13357c2aecd5390b2a493c5bacdae8c0475"
+        }
+      ],
+      "preservedCellsRGBA": [
+        0,
+        1,
+        2,
+        3,
+        12,
+        13,
+        14,
+        15
+      ],
+      "preservedCellHashes": {
+        "0": "16a16f149da468dee44e43bb0233476a3c67d1e6edc5bd33a265aaff1b9c1339",
+        "1": "c28853538e63b176638e2417572b8e34303c755a1b1e7ef17f1861bf4e9299fc",
+        "2": "d702f693403d4a17c83693074df68130f134089499d25edaeeef6797aec543c4",
+        "3": "39aed704df916bede3541d62533130b6ac44fee2f2b6c8a22317def57f5ef519",
+        "12": "bff80ad5a8371fd848a64bb738477341e524cc7602aa699514f8b5786ca2bc63",
+        "13": "348ea47a957b283989f9cffae190b4af46219cf21680b4cab557cec9e2fb5b95",
+        "14": "5eb7c7cd2c6b92f63c5014935dafd63ae5e23ce522fdf7f99da0947ada06a026",
+        "15": "494d704518b3ef07ac45b12b5a354b66af84d4fd693393c880f127a82e55596b"
+      },
+      "preview": "output/imagegen/raw/legacy-gaits/boy-normalized-preview.png"
+    },
+    {
+      "name": "crossbow",
+      "file": "game/public/assets/sprites/crossbow.png",
+      "size": [
+        256,
+        192
+      ],
+      "outputSha256": "c6d69bc9da4f78fee6e54ec637098b863ec26f5c06ea8f2b36110fe9e93c6833",
+      "replacedCells": [
+        {
+          "index": 4,
+          "direction": "west",
+          "phase": "near foot leads",
+          "bounds": [
+            16,
+            20,
+            45,
+            60
+          ],
+          "sha256RGBA": "282eb0ea6f0ac4eafc3a468c92fcf24c83a20ae9210fbeccb6fc30573e9b9008",
+          "lowerBodySha256RGBA": "a56aad1de0fb1bb80aa2ca314020a146ec42c4d0410539d966d55f0be6c58026"
+        },
+        {
+          "index": 5,
+          "direction": "west",
+          "phase": "passing near foot",
+          "bounds": [
+            21,
+            20,
+            44,
+            60
+          ],
+          "sha256RGBA": "72c2f6c01aa1a4d0b359a95f2530ed43cf71ced82553d496485fa0c4b6b9cbc0",
+          "lowerBodySha256RGBA": "3ee2e6dd508559829dccebd8e0e45df02169b9f4706280287a6f0001074981de"
+        },
+        {
+          "index": 6,
+          "direction": "west",
+          "phase": "far foot leads",
+          "bounds": [
+            17,
+            20,
+            44,
+            60
+          ],
+          "sha256RGBA": "030b5530b5b2c2f9a14f9dc3d19fec6769b1213bb8eec557e6a7eedc941f1140",
+          "lowerBodySha256RGBA": "9258a4e38843b13ca4ee9e1588d4a64f4e6add83590a5fe5214c50a48a57c9c7"
+        },
+        {
+          "index": 7,
+          "direction": "west",
+          "phase": "passing far foot",
+          "bounds": [
+            21,
+            20,
+            44,
+            60
+          ],
+          "sha256RGBA": "d61e7f7450e5f96a769acf2bc070455a419384a7c7bd96cb1198e0288bc5a7ff",
+          "lowerBodySha256RGBA": "b2173ea51e8be24c03693e84c5b76633aa3ed866c180bbd5779b914e43b425a8"
+        }
+      ],
+      "preservedCellsRGBA": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        9,
+        10,
+        11
+      ],
+      "preservedCellHashes": {
+        "0": "306a3bce360281ddddcbd75d93e881cfb2107bf84dd1462a705cc60d193910d7",
+        "1": "e167b2aac2895a77833d3feb74f1f553b2d87611bea93c8657c2a793c40955f0",
+        "2": "55811680b6fc27194bb10bbd342cb16b79f83239ae76618944ad1c429f41327c",
+        "3": "d176e652d6eaf860fc2f1537230627014483c16ffdad3f8ee152bc0489345d9e",
+        "8": "e5eb9529c16f422d20d6d991b3ec361806fcf2b2ab7bd20c4f0a191f9e816d54",
+        "9": "57cdbee990667bfdc2cec16bbb88db2c63b332b5083a56b9a56ed6a7754c56ea",
+        "10": "2bc0745580fbd79767844f6e8e6f0d3ab0fc2efca31f68b265bfa6b6e5fbcb96",
+        "11": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      "preview": "output/imagegen/raw/legacy-gaits/crossbow-normalized-preview.png"
+    },
+    {
+      "name": "falke",
+      "file": "game/public/assets/sprites/falke.png",
+      "size": [
+        256,
+        192
+      ],
+      "outputSha256": "3189b8dd1d54ea10cbff601fdec689ae00c20e056098e1427778cb9a09af39d6",
+      "replacedCells": [
+        {
+          "index": 0,
+          "direction": "west",
+          "phase": "near foot leads",
+          "bounds": [
+            12,
+            22,
+            50,
+            60
+          ],
+          "sha256RGBA": "c09a8393edf247e7fd88244a2d9c3fc109977dcf6cbf5248631c21f27bd5dcc3",
+          "lowerBodySha256RGBA": "bb63b47fbb500782ba5868459658c85305ed513b6cf7046df0715532b09bec59"
+        },
+        {
+          "index": 1,
+          "direction": "west",
+          "phase": "passing near foot",
+          "bounds": [
+            13,
+            23,
+            51,
+            60
+          ],
+          "sha256RGBA": "ab9900691f1b6f8ec5ff21210958321620b2ed189aacab7fbee74157956ae31d",
+          "lowerBodySha256RGBA": "4ab26d4e04e319bf8677a539ec26c78c088a88896e00ab79692b4f02c6f12a21"
+        },
+        {
+          "index": 2,
+          "direction": "west",
+          "phase": "far foot leads",
+          "bounds": [
+            12,
+            22,
+            51,
+            60
+          ],
+          "sha256RGBA": "0d27549ddebe5078a66adf6d08f53794c3c23b6d2d7fdf7df89d8ab5361a00f5",
+          "lowerBodySha256RGBA": "7cc0421e2037d6afe985248de85bbc9b48eff8bbe6a2f8ece926da9038651c55"
+        },
+        {
+          "index": 3,
+          "direction": "west",
+          "phase": "passing far foot",
+          "bounds": [
+            12,
+            22,
+            51,
+            60
+          ],
+          "sha256RGBA": "714418b666f60a8284399607bf0e84e11b253aa5b963b0d0f00cf3c066c7f858",
+          "lowerBodySha256RGBA": "37f6c5e212c332936ba9a5526e48a1e3834ab0cc6d779f489c793e0d8bea5313"
+        }
+      ],
+      "preservedCellsRGBA": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "preservedCellHashes": {
+        "4": "a1f9a2bfaf414a1f13217ec181277401da7700073c5854200083bafec06cd4bd",
+        "5": "5ade98e11fe5fb3460beacd47523f1132383e59b179f5c58684463c78e92833f",
+        "6": "3de7842cdffdcac98436493ec5440a1c1c6cefddc56a6272e91eedc070028723",
+        "7": "17f5570a6826e61b46b1c457faa489c6db43ef6ef302eb84713e8d3ff92dd1a3",
+        "8": "88e82315fb5ebd33f12203d79eb03c27b2445c9dd59debc8ac1ebe522e3ce4e1",
+        "9": "3a27c556eaaf67eaf8b4dd0434cf0123721d7ada64b7685bfb5b10607d32e591",
+        "10": "f48a25823af5a880b1667fe7e56b9b755b97f01657c55d8d200d92c9943dabf5",
+        "11": "6dc59eba8a9fb7fc4f7c3936f0bb2d323b7a2308fa3feec790a81aea46a2ed96"
+      },
+      "preview": "output/imagegen/raw/legacy-gaits/falke-normalized-preview.png"
+    }
+  ]
+}

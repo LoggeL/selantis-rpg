@@ -11,6 +11,30 @@ import type { WorldState } from '../world/quests';
 const fresh = (): WorldState => ({ inv: {}, picked: {}, flags: {} });
 
 describe('Der zusammenhängende Weg nach Osten', () => {
+  it('folgt dem gemalten Knick nach unten und kehrt außerhalb des Ostexits zurück', () => {
+    const map = MAPS.felder;
+    const road: Pt[] = [[500, 278], [540, 282], [565, 288], [577, 296], [605, 305], [634, 306]];
+    const canWalk = (x: number, y: number) => isMapWalkable(map, x, y);
+    let previous = road[0];
+    for (const next of road) {
+      expect(canWalk(...next), `Wegfuß ${next}`).toBe(true);
+      expect(clearWalkingLine(previous, next, canWalk), `${previous} bis ${next}`).toBe(true);
+      previous = next;
+    }
+    expect(canWalk(634, 270)).toBe(false);
+    expect(canWalk(634, 340)).toBe(false);
+    const exit = map.exits.find(e => e.to === 'journey')!;
+    const [x, y, width, height] = exit.rect;
+    expect(previous[0]).toBeGreaterThanOrEqual(x);
+    expect(previous[0]).toBeLessThanOrEqual(x + width);
+    expect(previous[1]).toBeGreaterThanOrEqual(y);
+    expect(previous[1]).toBeLessThanOrEqual(y + height);
+    const entry = map.entries.journey.at;
+    expect(canWalk(...entry)).toBe(true);
+    expect(entry[0]).toBeLessThan(x - 5);
+    expect(clearWalkingLine(entry, previous, canWalk)).toBe(true);
+  });
+
   it('begründet die Grenze mit dem Abendbrot und öffnet den selben Abzweig erst nach dem Packen', () => {
     const st = fresh();
     expect(eastwardTravelGate(st)).toMatch(/Abendbrot/);
@@ -84,7 +108,7 @@ describe('Der zusammenhängende Weg nach Osten', () => {
   it('sperrt nur den Fernweg, hält Hinweise ohne Wiederholschleife und nimmt nach Freigabe denselben Ausgang', () => {
     const s: any = new WorldScene(), st = fresh();
     s.map = MAPS.felder; s.st = st;
-    s.lia = { x: 635, y: 286, anims: { stop: vi.fn() } };
+    s.lia = { x: 635, y: 306, anims: { stop: vi.fn() } };
     s.clearTarget = vi.fn(); s.hud = { thought: vi.fn() };
     s.scene = { start: vi.fn(), restart: vi.fn() };
     let finish: () => void = () => {};

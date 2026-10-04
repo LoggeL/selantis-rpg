@@ -1,0 +1,211 @@
+{
+  "name": "lia-book-motion",
+  "file": "game/public/assets/sprites/lia-walk.png",
+  "replaces": "four-row novel atlas with fixed leading leg",
+  "identityReference": "output/imagegen/raw/novel-characters/lia-book-motion-identity.png",
+  "normalization": {
+    "script": "scripts/build_lia_book_motion.py",
+    "frameSize": [
+      64,
+      64
+    ],
+    "foot": [
+      32,
+      60
+    ],
+    "bodyMedian": 37,
+    "palette": [
+      [
+        10,
+        4,
+        1
+      ],
+      [
+        16,
+        18,
+        8
+      ],
+      [
+        37,
+        36,
+        20
+      ],
+      [
+        40,
+        16,
+        6
+      ],
+      [
+        50,
+        25,
+        12
+      ],
+      [
+        51,
+        57,
+        35
+      ],
+      [
+        63,
+        68,
+        43
+      ],
+      [
+        67,
+        37,
+        22
+      ],
+      [
+        80,
+        37,
+        17
+      ],
+      [
+        83,
+        49,
+        32
+      ],
+      [
+        92,
+        56,
+        38
+      ],
+      [
+        97,
+        40,
+        15
+      ],
+      [
+        99,
+        59,
+        39
+      ],
+      [
+        107,
+        50,
+        23
+      ],
+      [
+        109,
+        60,
+        36
+      ],
+      [
+        112,
+        68,
+        46
+      ],
+      [
+        118,
+        71,
+        46
+      ],
+      [
+        122,
+        75,
+        51
+      ],
+      [
+        129,
+        77,
+        52
+      ],
+      [
+        130,
+        60,
+        25
+      ],
+      [
+        136,
+        69,
+        32
+      ],
+      [
+        149,
+        74,
+        33
+      ],
+      [
+        150,
+        92,
+        56
+      ],
+      [
+        161,
+        79,
+        35
+      ],
+      [
+        171,
+        92,
+        45
+      ],
+      [
+        176,
+        137,
+        110
+      ],
+      [
+        184,
+        95,
+        45
+      ],
+      [
+        192,
+        106,
+        54
+      ],
+      [
+        217,
+        136,
+        86
+      ],
+      [
+        229,
+        209,
+        194
+      ],
+      [
+        230,
+        182,
+        151
+      ]
+    ],
+    "resampling": "nearest-neighbor",
+    "creativePixelEdits": false,
+    "horizontalAnchor": "Median head alpha midpoint at 10-22 percent body height, x32; two feet move beneath a stable body",
+    "crop": "Main eight-connected alpha component bounding box, removing detached gutter debris only"
+  },
+  "sources": {
+    "atlas": {
+      "raw": "output/imagegen/raw/novel-characters/lia-book-motion-attempt1.png",
+      "source": "/Users/logge/.codex/generated_images/01a1075d-ea1c-70f3-9101-4b4ffef6beff/exec-740b5012-781b-43aa-a5af-cb9d721c54df.png",
+      "prompt": "Use case: illustration-story. Character walk-cycle animation production, NOT a character turnaround. Regenerate this Lia Book walk sprite atlas using reference ONLY for identity/costume and NOT for the wrong static leg poses. Fictional young Lia, long copper curly hair loosely pinned behind, white peasant blouse, brown ANKLE-length skirt with TWO exposed clogs and lower shins, brown hardback book tucked under her arm. No journey satchel, no hairband, no cloak. Same art and copper/linen/brown palette.\nCRITICAL WALK ANIMATION: columns MUST have different LEG SILHOUETTES. Col1 CONTACT with left leg extended forward and right extended backward; col2 PASSING with BOTH FEET CLOSE beneath hip center, one knee bending; col3 OPPOSITE CONTACT with RIGHT leg extended forward and left backward; col4 OPPOSITE PASSING with both feet CLOSE and the other knee bending. Sideview columns1+3 have widely separated feet; columns2+4 have feet close together. Front/back views columns1+3 have TWO separate visible shoes side by side, one longer/lower and other shorter/higher, exchanged for column3. Do not cross or overlap front legs into one shoe. Both clogs visible in EACH image. Asymmetrical hem swings with legs. The bookholding arm stable and free arm moves COUNTER to leading foot. Top head/torso stay same place and size; actual leg and arm motion, no fake bouncing. Highly legible pixel art with wide enough leg gap to retain gait at37pixel height.\nEXACT square atlas4ROWSx4COLUMNS,16frames: row1 SOUTH front view, row2 WEST left side view, row3 EAST right side view, row4 NORTH rear view. All four rows EXACT SAME phase order CONTACT, PASSING, OPPOSITE CONTACT, OPPOSITE PASSING. Uniform grid with empty margins, no labels, no text, no environment, no shadows. True transparent background. Do not repeat the same striding pose in every column. Make the passing silhouettes clearly narrower around feet than contact silhouettes. Distinct anatomical left/right foot swapping is essential.",
+      "acceptedRows": [
+        "west",
+        "east",
+        "north"
+      ],
+      "rejectedRows": [
+        "south"
+      ]
+    },
+    "south": {
+      "raw": "output/imagegen/raw/novel-characters/lia-book-motion-south.png",
+      "source": "/Users/logge/.codex/generated_images/01a1075d-ea1c-70f3-9101-4b4ffef6beff/exec-7bad6469-f130-4f60-b5bc-b37630f98306.png",
+      "prompt": "Use case: illustration-story. Draw EXACTLY FOUR pixel-art poses in a single HORIZONTAL ROW, transparent background. The same Lia holding a brown book from reference, same long curly copper hair, white blouse, brown ankle skirt and wooden clogs. All four FACE THE VIEWER squarely. Full body, equal head height and size. Animation artist sheet.\nCritical pose instructions, use SCREEN LEFT/SCREEN RIGHT to avoid ambiguity:\nPOSE 1: screen-LEFT shin extends down from left half of skirt, LEFT wooden shoe farther DOWN near bottom baseline. Screen-RIGHT shoe visibly separate on RIGHT and HIGHER near hem. Show TWO SEPARATE SHOES SIDE BY SIDE with gap.\nPOSE 2: passing phase, TWO shoes directly beneath hips, CLOSE together at equal-ish level, narrower skirt hem.\nPOSE 3: reverse of pose1: screen-RIGHT shin extends down from right half of skirt, RIGHT shoe farther DOWN near bottom baseline. Screen-LEFT shoe visibly separate on LEFT and HIGHER near hem. Two separate shoes side by side with gap. THIS POSE HAS THE DOWN FOOT ON THE OPPOSITE SIDE OF POSE1.\nPOSE 4: opposite passing phase, TWO shoes CLOSE directly beneath hips, free hand counter-swung.\nDo not cross legs. Do not repeat the same leading leg. Keep LEFT AND RIGHT SHOE visibly separated in contact poses1&3. Use long-enough exposed shins beneath hem so the different foot height is unmistakable. Body, face and hair identical, only legs/skirt/freehand animate. Bookholding arm fixed. Exactly4fullbodyfigures in1row, NO otherdirections, NO captions or labels, NO background/shadow. This is walk animation, not four portraits."
+    }
+  },
+  "phaseOrder": [
+    "left-contact",
+    "passing",
+    "right-contact",
+    "opposite-passing"
+  ],
+  "visualAcceptance": [
+    "south contact1 left shoe lower, contact3 right shoe lower; both feet visible",
+    "west/east contact silhouettes wide, passing silhouettes narrow",
+    "north contact1 left shoe lower, contact3 right shoe lower"
+  ],
+  "currentSha256": "a2f1200be50601f74db1f49d6223794a23663a8db2840441863f77ffa7c366fa"
+}

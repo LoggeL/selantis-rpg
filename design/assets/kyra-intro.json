@@ -1,0 +1,54 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-10-04",
+  "canon": "sources/novel/roman-selantis-2.txt, PDF pages 6-9",
+  "identity": {
+    "kyra": "Original fictional fourteen-year-old rural girl, long nut-brown hair with tangled leaves and twigs, brown eyes, dirty simple beige ankle-length dress, thin brown leather shoes. No film or actor likeness.",
+    "lia": "Original fictional fourteen-year-old rural girl, long strawberry-blonde curls pinned at the back of her head, white blouse, long dark brown skirt, bare feet, brown leather-bound book. No film or actor likeness."
+  },
+  "promptSummaries": {
+    "wood": "Warm handmade crisp square-pixel adventure cutscene, late summer afternoon, light deciduous woodland. Kyra crouches to gather a branch while holding her firewood bundle. Annoyed tired expression, poor plain farm workwear. No text, no borders, no jewelry, no cloak. Face and bundle above caption area.",
+    "forest": "Same Kyra identity and detailed pixel-art style as wood reference. Walking with firewood through a light woodland toward the sunlit edge, negotiating a large fallen tree trunk across the path. No Lia yet.",
+    "discovery": "Same Kyra identity and style as wood reference, three-quarter rear in left foreground emerging from forest, discovering Lia reading under an apple tree in right middle ground. Before conversation or tickling. Hot summer meadow and fields."
+  },
+  "delivery": [
+    {
+      "key": "cut-kyra-wood",
+      "file": "game/public/assets/cut/kyra-wood.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2881610,
+      "sha256": "1aa3ea24a5219c09e80e45a64b25c6f5d1aee250eb58b93ec1b5b3d3478fe28f",
+      "source": "/Users/logge/.codex/generated_images/01a1075b-ade1-7ee1-9a03-28333d5390d1/exec-c76e40b0-3935-459c-909d-ae791dc1b57a.png",
+      "processing": "byte-exact built-in generation passthrough",
+      "references": []
+    },
+    {
+      "key": "cut-kyra-forest",
+      "file": "game/public/assets/cut/kyra-forest.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 3051504,
+      "sha256": "eb4a7ff32bb97a27e8a907bfafb76eb11547161c2eb31523ef7209a45beed610",
+      "source": "/Users/logge/.codex/generated_images/01a1075b-ade1-7ee1-9a03-28333d5390d1/exec-c9ac67a3-e109-4d49-bd4c-76cf3cefd7f4.png",
+      "processing": "byte-exact built-in generation passthrough",
+      "references": [
+        "game/public/assets/cut/kyra-wood.png"
+      ]
+    },
+    {
+      "key": "cut-kyra-discovery",
+      "file": "game/public/assets/cut/kyra-discovery.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 3049306,
+      "sha256": "b40beb93363bf9223fb4771f0b2c11ecbee7570fd08c424250fe49a448a0d2fa",
+      "source": "/Users/logge/.codex/generated_images/01a1075b-ade1-7ee1-9a03-28333d5390d1/exec-1a5db45a-0913-441f-8aae-b12848e635c9.png",
+      "processing": "byte-exact built-in generation passthrough",
+      "references": [
+        "game/public/assets/cut/kyra-wood.png"
+      ]
+    }
+  ],
+  "verification": "Inspected all three final PNGs visually; runtime scene testing is tracked separately."
+}

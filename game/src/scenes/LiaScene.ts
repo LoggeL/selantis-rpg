@@ -5,9 +5,10 @@ import { ambientPrefs, getSettings, motionDuration, subscribeSettings } from '..
 import { StoryCloseup } from '../story/closeups';
 import { HOME_PATH_ENTRY, SISTER_CONVERSATION, homecomingObjective } from '../story/homecoming';
 import { state } from '../world/quests';
+import { CHAPTER_TRANSITION, KYRA_INTRO } from '../story/kyraIntro';
 
 type Pt = { x: number; y: number };
-type Phase = 'intro' | 'sisters' | 'reading' | 'closing' | 'free' | 'title';
+type Phase = 'intro' | 'kyra' | 'sisters' | 'reading' | 'closing' | 'free' | 'title';
 type Dir = 's' | 'w' | 'e' | 'n';
 type Detail = 'leaf' | 'flowers' | 'breeze' | 'home';
 type Bookmark = 'leaf' | 'flowers';
@@ -69,6 +70,7 @@ export class LiaScene extends Phaser.Scene {
   private ambientCreatures: Phaser.GameObjects.Sprite[] = [];
   private readingCloseup?: StoryCloseup;
   private sisterLine = 0;
+  private kyraLine = 0;
 
   constructor() { super('lia'); }
 
@@ -76,6 +78,7 @@ export class LiaScene extends Phaser.Scene {
     this.data.set({ 'mobile:hudVisible': false, 'mobile:bookmarks': [], 'mobile:dialogue': '', 'mobile:controls': { directions: [], actions: { E: 'Buch schließen' }, inventory: false, disabled: true } });
     this.readingCloseup = undefined;
     this.sisterLine = 0;
+    this.kyraLine = 0;
     this.phase = 'intro'; this.pos = { ...SIT }; this.facing = 's'; this.walked = false;
     this.stepTimer = 0; this.stuckMs = 0; this.canClose = false;
     this.ghosts = []; this.hud = undefined; this.marker = undefined;
@@ -111,7 +114,7 @@ export class LiaScene extends Phaser.Scene {
 
     this.keys = this.input.keyboard!.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E') as Record<string, Phaser.Input.Keyboard.Key>;
     const use = () => this.hud?.advanceDialogue() ? undefined : this.phase === 'free' ? this.interact(this.nearestDetail())
-      : this.phase === 'sisters' ? this.readingCloseup?.advance() : this.closeBook();
+      : this.phase === 'sisters' || this.phase === 'kyra' ? this.readingCloseup?.advance() : this.closeBook();
     this.keys.E.on('down', use);
     const chooseBookmark = (kind: Bookmark) => {
       if (this.phase === 'free' && this.found.has(kind)) { this.setBookmark(kind); sfx.select(); }
@@ -129,7 +132,7 @@ export class LiaScene extends Phaser.Scene {
           this.mouseTarget = detail ? this.detailPoint(detail) : { x: ptr.worldX, y: ptr.worldY };
         }
       }
-      else if (this.phase === 'sisters') this.readingCloseup?.advance();
+      else if (this.phase === 'sisters' || this.phase === 'kyra') this.readingCloseup?.advance();
       else this.closeBook();
     };
     this.input.on('pointerdown', click);
@@ -144,9 +147,6 @@ export class LiaScene extends Phaser.Scene {
   private showReadingCloseup() {
     if (!this.textures.exists('cut-lia-reading')) return;
     this.readingCloseup = new StoryCloseup(this);
-    this.readingCloseup.show('cut-lia-reading');
-    this.readingCloseup.setText('Die Sonne blendet.');
-    this.readingCloseup.setContinue(null, 'Buch schließen');
     for (const object of [this.halo, this.sun, this.core, this.rays, ...this.ghosts.map(g => g.img)]) object.setVisible(false);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.readingCloseup?.destroy());
   }
@@ -262,35 +262,52 @@ export class LiaScene extends Phaser.Scene {
   }
 
   private intro() {
-    const ADD = Phaser.BlendModes.ADD;
-    const white = this.add.rectangle(0, 0, 640, 360, 0xffffff).setOrigin(0).setDepth(2000);
-    const flash = this.add.image(SUN.x, SUN.y, 'lia-flash').setBlendMode(ADD).setDepth(1999).setScale(22);
-    if (getSettings().reducedMotion) { white.setVisible(false); flash.setVisible(false); }
-    this.time.delayedCall(30, () => this.cameras.main.setBackgroundColor('#07080a'));
-    this.tweens.add({ targets: white, alpha: 0, delay: 150, duration: 600, ease: 'Sine.in', onComplete: () => white.destroy() });
-    this.tweens.add({ targets: flash, scale: 1.4, duration: 1800, ease: 'Sine.in' });
-    this.tweens.add({ targets: flash, alpha: 0, delay: 1300, duration: 700, ease: 'Sine.out', onComplete: () => flash.destroy() });
+    const black = this.add.rectangle(0, 0, 640, 360, 0x000000).setOrigin(0).setDepth(2000);
+    const later = this.add.text(320, 180, CHAPTER_TRANSITION.title, {
+      fontFamily: FONT, fontSize: '25px', color: '#f1e6d1', align: 'center',
+    }).setOrigin(0.5).setDepth(2001).setAlpha(0);
+    this.cameras.main.setBackgroundColor('#000000');
+    const titleFade = motionDuration(CHAPTER_TRANSITION.titleFade);
+    if (titleFade) this.tweens.add({ targets: later, alpha: 1, duration: titleFade, ease: 'Sine.inOut' });
+    else later.setAlpha(1);
+    // Scene-clock timers keep the chapter moving even when animation is disabled.
+    // The black chapter card accepts no input, so the previous scene's last click
+    // or held E cannot dismiss it or the first Kyra caption.
+    this.time.delayedCall(titleFade + CHAPTER_TRANSITION.titleHold, () => {
+      this.startKyraIntro();
+      this.readingCloseup?.setContinue(null);
+      const revealFade = motionDuration(CHAPTER_TRANSITION.revealFade);
+      if (revealFade) this.tweens.add({ targets: [black, later], alpha: 0, duration: revealFade, ease: 'Sine.inOut' });
+      this.time.delayedCall(revealFade, () => {
+        black.destroy(); later.destroy();
+        this.phase = 'kyra';
+        this.showKyraLine();
+      });
+    });
     this.tweens.add({ targets: this.sun, alpha: 1, delay: 900, duration: 1100 });
     this.tweens.add({ targets: this.halo, alpha: 1, delay: 700, duration: 1300 });
     this.tweens.add({ targets: this.core, alpha: 0.9, delay: 1100, duration: 900 });
     this.tweens.add({ targets: this.rays, alpha: 1, delay: 1400, duration: 1600 });
     this.ghosts.forEach((g, i) => this.tweens.add({ targets: g.img, alpha: g.a, delay: 1500 + i * 120, duration: 900 }));
 
-    const later = this.add.text(320, 340, 'Viele Jahre später', {
-      fontFamily: FONT, fontSize: '10px', color: '#fbf1d8', stroke: '#4a3018', strokeThickness: 3,
-    }).setOrigin(0.5, 1).setDepth(1500).setAlpha(0);
-    this.tweens.add({ targets: later, alpha: 0.9, delay: 1100, duration: 900, hold: 1700, yoyo: true, onComplete: () => later.destroy() });
+  }
 
-    // Lia liest; nach etwa zwei Sekunden blendet sie die Sonne.
-    this.time.delayedCall(3600, () => {
-      this.lia.play('lia-shade');
-      this.phase = 'reading';
-      this.readLoop();
-    });
-    this.time.delayedCall(4600, () => this.showHud());
-    this.time.delayedCall(5600, () => {
-      if (this.phase !== 'reading') return;
-      this.startSisterConversation();
+  private startKyraIntro() {
+    this.kyraLine = 0;
+    this.readingCloseup?.show(KYRA_INTRO[0].art);
+  }
+
+  private showKyraLine() {
+    const beat = KYRA_INTRO[this.kyraLine];
+    this.readingCloseup?.show(beat.art);
+    this.readingCloseup?.setText(beat.line);
+    this.readingCloseup?.setContinue(() => {
+      this.kyraLine++;
+      if (this.kyraLine < KYRA_INTRO.length) this.showKyraLine();
+      else {
+        this.showHud();
+        this.startSisterConversation();
+      }
     });
   }
 
@@ -342,7 +359,6 @@ export class LiaScene extends Phaser.Scene {
     this.hud.setHp(1, false);
     this.hud.setCinematic(this.phase !== 'free');
     this.hud.setThoughtsVisible(!this.readingCloseup?.visible);
-    if (this.readingCloseup?.hasCaption) this.data.set('mobile:dialogue', 'Die Sonne blendet.');
     // Nur die Container einblenden; Hinweis- und Gedankenzeile steuert das HUD selbst.
     const fresh = this.children.list.slice(before);
     // Gedankenstimme warm statt kühlblau (das Blau gehört Valentus)
@@ -527,9 +543,7 @@ export class LiaScene extends Phaser.Scene {
     this.hud?.setCinematic(false);
     this.data.set('mobile:controls', undefined);
     const objective = homecomingObjective(state(this.registry));
-    this.data.set('mobile:objective', objective);
-    this.add.text(632, 10, objective, { fontFamily: FONT, fontSize: '9px', color: '#fff4d8', stroke: '#2a1e10', strokeThickness: 3 })
-      .setOrigin(1, 0).setDepth(1000);
+    this.hud?.setObjective(objective);
     this.hud?.hint('WASD / Klick: dem Hohlweg nach Hause folgen');
     const glow = this.add.ellipse(0, 3, 26, 8, 0xf2d27a, 0.45).setBlendMode(Phaser.BlendModes.ADD);
     const a = this.add.image(0, -5, 'lia-chev');

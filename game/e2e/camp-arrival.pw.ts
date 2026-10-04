@@ -33,6 +33,9 @@ test('camp arrival survives a restart and a motion-setting change without skippi
   expect(restarted).toMatchObject({ clock: 0, entering: true, oldDestroyed: true, newActors: true,
     foltan: [545, 282], azar: [563, 296], shot: false, pose: 'lia-sleep',
     controls: { directions: [], actions: {}, inventory: false, disabled: true } });
+  const heldFrame = await page.evaluate(() => (window as any).game.loop.frame);
+  await page.waitForFunction(frame => (window as any).game.loop.frame > frame + 30, heldFrame);
+  expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').arrivalClock)).toBe(0);
   await page.evaluate(() => (window as any).game.scene.resume('journey'));
   await expect(page.locator('.mobile-action[data-key="E"]')).toBeHidden();
   await expect(page.getByRole('button', { name: 'Tasche', exact: true })).toBeHidden();

@@ -318,7 +318,7 @@ export class BattleScene extends Phaser.Scene {
         this.spawnEnemy('axe', 'axe', { x: 7, y: 3 }, 60);
         this.time.delayedCall(700, () => {
           this.hud.showProtect('portrait-boy');
-          this.hud.thought('Der Junge.', 2600);
+          this.hud.thought('Ein Junge. Sechzehn? Siebzehn?', 2600);
           this.beginPlayerTurn();
         });
       });
@@ -1126,7 +1126,7 @@ export class BattleScene extends Phaser.Scene {
             sfx.hit(); this.shake(150, 0.005);
             fk.setTint(0x9a3438);
             this.tweens.add({ targets: fk, angle: -80, y: fk.y + 4, duration: 400 });
-            this.hud.thought('Der Falke fängt den Bolzen ab. Mit dem Hals.', 2800);
+            this.hud.thought('Der Falke wirft sich dazwischen. Der Bolzen trifft ihn in den Hals.', 2800);
             const fu = this.unit('falke'); fu.alive = false;
             this.time.delayedCall(1100, done);
           }),

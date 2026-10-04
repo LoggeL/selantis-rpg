@@ -1,0 +1,46 @@
+{
+  "id": "companion-walk",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "transparent_background": true,
+  "prompts": [
+    "Use case: stylized-concept. Asset type: production 4-direction 4-frame pixel-art walking atlas for medieval RPG. Input image is identity and costume reference ONLY. Create Foltan, a tall thin middle-aged man with long brown hair, brown goatee, large brown leather beret, divided muted mustard-YELLOW and dark-BLUE tabard over off-white sleeves, brown leather boots and belt, ordinary sword sheathed at belt, small crossbow strapped BEHIND back. Match reference silhouette and costume colors exactly, small natural adult proportions rather than chibi. 16 fullbody isolated sprites in STRICT equal 4 columns x 4 rows, no label/grid/text/groundshadows, transparent RGBA. Each row is the SAME physical direction all four cells, top to bottom SOUTH facingviewer, WEST facingleft profile, EAST facingright profile, NORTH facingaway. Each column is a truly DIFFERENT sequential walking phase. Col1 leftlegforward footcontact widelegsplit; Col2 leftlegpassingunderbody kneesbent feetclosetogether; Col3 RIGHTlegforward oppositecontact widelegsplit; Col4 rightlegpassingunderbody kneesbent feetclosetogether. Critical DIFFERENT anatomy: alternate leftandright feet visibly, swingfreeoppositearm, shiftknees, keepheadbodyheightconsistent, do NOT duplicate poses or only tilt arms. Sideview rows show clear forward boot extension alternating front leg, with two passing frames having boots together beneath hip. Front/back rows must also show alternating leg movement and small opposing hand motion. Walking at measured travel pace, no running. All frames samecharacter at samefootbaseline, centered same overall scale and grounded stablehead. Maintain matching blue/yellow sides as character turns. Crisp tiny muted pixelart, brown outlines, limited ~32earthpalette, absolutely no painterly high-res shading. Design eachwholefigure to downscale ~43pixels high in64x64cell, generous transparent gutters. Exactly onecompletewholecharacter eachcell, no extracreatures, no scenebackground, no labels, no checkerboard bakedin, genuinealpha. Priority is true alternatinglegwalk cycle for each4frame row, do notrepeat staticposition.",
+    "Precise-object-edit of the provided Foltan sprite atlas. Preserve 4x4 geometry, transparent alpha, costume, every sprite's center and head height, style and scales. Critical correction: current sheet repeats LEFT leg forward at columns1 and3. Change column3 in ALL FOUR rows so the OPPOSITE RIGHT leg steps forward, not the same leg: rotate hips slightly, show RIGHT boot extending forward, LEFT boot behind, free arms swap opposing swing. Column1 staysLEFTlegforward. Column2 shows passing-left leg under hips, Column4 shows passing-right leg under hips. In south front row column3 the boot at VIEWER LEFT must now be extended DOWN and boot VIEWER RIGHT recedes UP, opposite to col1 which has viewer-right boot lower. In north rear row column3 boot on VIEWER RIGHT extended down, viewer-leftboot up, opposite col1. In left/right profile rows oppositeleg forward needs clearlydifferent kneebend and arm swing, not samecontact posewith only armchange. Also ROW2 must face WEST/LEFT, ROW3 EAST/RIGHT, reverse existing currentprofile rowdirections. Preserve row1south,row4north. Stricttruewalking contact->passing->oppositecontact->passing, all 16cells distinct. No floating samefoot stance. Keepgeneratedalpha, no background no labels.",
+    "Use case: stylized-concept. Create anew production medieval pixel-art walking animation spriteatlas, transparent RGBA. REFERENCE characteridentity only, no atlas tocopy. Foltan tallthin man longbrown hair goatee largebrownleather beret, dividedmuted mustardyellowanddarkblue tabard, creamsleeves, brownbelt boots, sheathed sword smallcrossbowbehindback. Strict4 columns4rows with16characters. Allsprites sameheightcenterfeetbaseline. Row1 SOUTH fullfrontview, Row2 WEST leftprofile, Row3 EAST rightprofile, Row4 NORTH backview. NeedtrueclassicRPGwalkcycle visiblydifferent legposes. In FIRSTROW: col1 BOOT ON VIEWERLEFT atBOTTOM(leading), BOOT ON VIEWERRIGHT raised back(shorter); col2 TWOBOOTS touchingunderhips halfway walking; col3 BOOT ON VIEWERRIGHT atBOTTOM(leading), BOOT ON VIEWERLEFT raised(shorter); col4 TWOBOOTS touchingunderhips withoppositearmforward. So col1 andcol3 footpositionsmustswap horizontallyandvertically. In BACKVIEWROW4 col1 anatomicallyleftleglower andrightlegraised, col3 anatomicallyrightleglowerandleftlegraised. LEGS CLEARLYVISIBLEunder tabard no robe. In SIDEPROFILErowscol1leftbootforwardrightbootback, col3rightbootforwardleftbootback, changes arm forward oppositely, legsseparatelayerdifferentlighting. col2+4 kneeunderbodypassing bothfeetclose. Fullydifferent contacts and passing anatomy, no repeated stance. Strong pixelsnaps, tiny pixelartnaturaladult proportion matchingreference, logical43pixelheight. NOcharacterssamepose allrow, no mere bobbing ortilting, legsdo realsteps, no stylisticfaceturnswithinrow. South rowallfullfront, northrowallfullback. FourdirectionroworderS W E N mandatory. Fullytransparent backdropwithgenerousguttersno text labelsgrid/shadows. Onefullbodypercell. Exactly16notmore."
+  ],
+  "assets": [
+    {
+      "name": "foltan",
+      "file": "game/public/assets/sprites/foltan-walk.png",
+      "raw": "output/imagegen/raw/companion-walk/foltan-selected.png",
+      "height": 43,
+      "sourceRows": [
+        "south",
+        "east",
+        "west",
+        "north"
+      ],
+      "frame": [
+        64,
+        64
+      ],
+      "foot": [
+        32,
+        60
+      ]
+    }
+  ],
+  "review": {
+    "checked": [
+      "Four generated gait phases with alternating front and rear leg contacts.",
+      "Side rows manually read before technical reordering to S,W,E,N.",
+      "Slender blue/yellow tabard and brown leather beret retained.",
+      "Independent static-sprite QA confirmed true front/back alternating contact feet, profile passing knees and stable head anchor after normalization."
+    ],
+    "knownLimits": [
+      "Profile contacts have similar silhouettes but opposite arm swing and distinct bent knee passing poses; small game size limits anatomy detail."
+    ]
+  },
+  "processing": "Generated alpha threshold, detected row gaps, crop, nearest-neighbor resize with shared horizontal scale and constant 43px body height, 32-color generated palette, reorder profile rows to S W E N. Horizontal center uses upper head/neck alpha band at x32 to prevent planted toes moving the torso sideways; ground baseline y60.",
+  "relatedAssetSpec": "design/assets/azar-walk.json"
+}
