@@ -8,7 +8,12 @@ import type { Dir } from '../core/types';
  */
 
 export const TILE = 16;
-/** Standard character frame. Huge characters (Baris) use 24x32. Origin is bottom-center (feet) at (0.5, 1). */
+/**
+ * Standard character body size. Huge characters (Baris) have a 24x32 body. Origin is bottom-center (feet) at (0.5, 1).
+ * NOTE (art): the generated frames are wider/taller than the body so weapons, bows and lying poses fit —
+ * 24x24 for normal characters, 32x32 for huge ones. Always use characterSize(key) for the real frame size;
+ * with origin (0.5, 1) the feet stay exactly at the sprite position.
+ */
 export const CHAR_W = 16;
 export const CHAR_H = 24;
 
@@ -33,6 +38,14 @@ export interface GroundSpec {
 export type CharAnim =
   | 'idle' | 'walk' | 'run' | 'sneak' | 'interact' | 'kneel' | 'sit' | 'lie'
   | 'cast' | 'attack' | 'shoot' | 'hit' | 'fall' | 'carry' | 'read';
+
+/**
+ * (art extension) Additional animations every human character also has, same key scheme via animKey():
+ * 'sit-read' (sitting with an open book), 'crouch' (static hiding crouch), 'sleep' (lying, eyes closed),
+ * 'struggle' (hands tied behind the back, tugging), 'wave', 'point', 'talk' (gesturing), 'cheer'.
+ * Animals map every key onto idle/walk/run.
+ */
+export type CharAnimExtra = 'sit-read' | 'crouch' | 'sleep' | 'struggle' | 'wave' | 'point' | 'talk' | 'cheer';
 
 export interface CharacterSpec {
   body?: 'slim' | 'normal' | 'broad' | 'huge' | 'child';
@@ -64,6 +77,13 @@ export interface PropInfo {
   anim?: string;
   /** Light emitted by this prop (world adds a light source). */
   light?: { radius: number; color: number; flicker?: boolean; offsetY?: number };
+  /** (art extension) Additional light sources, positions relative to the origin (e.g. lit windows). */
+  lights?: { x: number; y: number; radius: number; color: number; flicker?: boolean }[];
+  /**
+   * (art extension) Named points relative to the origin, e.g. 'door' (where to stand to enter),
+   * 'seat', 'fire', 'smoke' (chimney top), 'sit' (bench/chair), 'hang' (cloak hook).
+   */
+  anchors?: Record<string, { x: number; y: number }>;
 }
 
 export interface ArtApi {
@@ -84,7 +104,7 @@ export interface ArtApi {
    * Animation keys: animKey(key, anim, dir). Left is usually right mirrored by the art layer itself.
    */
   character(scene: Phaser.Scene, idOrSpec: string | CharacterSpec, customKey?: string): string;
-  animKey(charKey: string, anim: CharAnim, dir: Dir): string;
+  animKey(charKey: string, anim: CharAnim | CharAnimExtra, dir: Dir): string;
   characterIds(): string[];
   /** Frame size of a generated character key. */
   characterSize(charKey: string): { w: number; h: number };

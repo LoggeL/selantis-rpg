@@ -1,0 +1,135 @@
+# Taktikkampf – Leitfaden für Kapitel-Autoren
+
+Der Taktikkampf (`game/src/tactics/`) ist ein isometrisches Raster mit Höhenstufen im Stil von FFTA. Ein Kampf ist reine Daten (`BattleDef`) plus async-Hooks für Story-Momente. Vertrag: `game/src/tactics/api.ts`. Regeln (rein, getestet): `game/src/tactics/rules/`.
+
+## Kampf starten
+
+```ts
+import { G } from '../../core/G';
+import type { TacticsStartData } from '../../tactics/api';
+
+G.stopGameplayScenes();
+G.game.scene.start('Tactics', {
+  battle: myBattle,
+  onEnd: async result => {            // result.outcome: 'win' | 'lose', rounds, dead, wounded, flags, retries
+    await G.goto('naechste-szene');
+  },
+} satisfies TacticsStartData);
+```
+
+Bei einer Niederlage bietet der Kampf standardmäßig „Erneut versuchen“ an (Neustart ohne Fortschrittsverlust). Mit `onDefeat: 'end'` wird stattdessen `onLose` und `onEnd({ outcome: 'lose' })` aufgerufen.
+
+## Karte
+
+Zwei gleich große ASCII-Raster. Leerzeichen zwischen den Zellen sind erlaubt.
+
+- `height`: Ziffern `0`–`9` (oder `a`–`z` für 10+) = Höhenstufe.
+- `terrain`: `.` Gras · `,` Erde · `:` Steinboden · `s` Sand · `~` Wasser (kostet 2, dämpft Stürze) · `m` Schlamm (kostet 2) · `b` Gebüsch (Deckung −30 %, verbirgt) · `r` Fels · `#` Mauer/Ruine · `T` Baum (alle drei blockieren) · `f` Feuer (3 Schaden beim Betreten) · `x` kein Feld.
+- `props`: Deko auf Feldern (`banner-light`, `banner-dark`, `campfire`, `stake`, `crate`, `stump`, `tree-pine`, `tree-oak`, `tree-dead`, `rock`, `bush`, `ruin`, `fire`). Steht eine Deko auf einem Fels-/Baum-/Feuerfeld, ersetzt sie dessen Aussehen (z. B. `crate` auf `r`, `campfire` auf `f`).
+- `trees`: `'oak' | 'pine' | 'mixed' | 'dead'` für `T`-Felder.
+
+Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spalte (nach rechts unten), y = Zeile (nach links unten); (0,0) ist oben.
+
+## Regeln in Kürze
+
+- **Runde:** Spielerphase → Verbündete (KI) → Feindphase. Jede Einheit: einmal bewegen + einmal handeln, beliebige Reihenfolge. Bewegung lässt sich zurücknehmen, bis gehandelt wurde.
+- **Bewegung:** `move` Punkte; Klettern um mehr als 1 Stufe kostet +1 je Stufe; höchstens `jump` Stufen hinauf, `jump + 1` hinab. Verbündete kann man durchqueren, Feinde nicht.
+- **Treffer:** Chance = Genauigkeit ± 5 % je Höhenstufe (max. ±3) + Seite +10 / Rücken +20 − Deckung 30 − Ausweichen 45. Schaden = Stärke + Angriff − Rüstung, × Seite 1,25 / Rücken 1,5 × Höhe ±10 % je Stufe × Schutzwall 0,5.
+- **Blickrichtung** folgt automatisch der letzten Bewegung/Aktion (Pfeil unter jeder Figur).
+- **Wegstoßen:** Aufprall an Hindernis, Kante oder Rand 3 Schaden (die getroffene Einheit 2); Sturz 4 Schaden je Stufe ab der zweiten; Wasser dämpft Stürze. Schutzwall verhindert Stoßen.
+- **Fernkampf:** braucht freie Schusslinie; `heightRange` gibt +1 Reichweite je 2 Stufen Höhenvorteil.
+- **Status:** `guarded` (Schutzwall), `stunned`, `taunt` (Ablenken: Feinde gehen auf sie los), `evasive`, `bound` (gefesselt, unangreifbar, befreibar durch `befreien`), `burning`.
+- **Einheiten-Flags:** `nonLethal: true` → „kampfunfähig“ statt tot (bleibt kniend liegen). Tag `'spared'` → Feinde dürfen die Einheit nicht verletzen. Tag `'vip'` → KI bevorzugt sie als Ziel.
+
+## Fähigkeiten
+
+Standardbibliothek in `rules/abilities.ts`: `handstoss`, `strahl`, `druckwelle`, `schutzwall` (Valentus) · `doppelhieb`, `tritt` (Falke) · `schwerthieb`, `speerstoss`, `bolzen`, `axthieb`, `wuchtschlag` (Dunkelschatten) · `ausweichen`, `ablenken`, `steinwurf`, `dolch` (Lia) · `bogen`, `messer` (Flick) · `befreien`, `schubsen`. Eigene oder geänderte über `BattleDef.abilities` (gleiche Struktur wie `AbilityDef`, Formen: `single`, `line`, `ring`, `cone`, `area`, `self`).
+
+## KI
+
+`ai`: `'melee'` (nähern, flankieren, Verwundete fokussieren) · `'archer'` (Abstand, Höhe, schießen und zurückweichen) · `'guard'` (wartet, bis jemand in `guardRadius` kommt) · `'hold'` · `'passive'` · `'flee'`. Hooks können überschreiben: `ctx.setAi(id, { profile, target, goal, block, skip })`. `block: 'kyra'` lässt Wachen eine Einheit umstellen (mit `goal` = deren Fluchtziel), statt sie anzugreifen.
+
+## Ziele
+
+`win` (eins genügt): `defeatAll`, `defeat {units}`, `survive {rounds}`, `reach {tiles, unit?}`, `escort {unit, tiles}`, `flag {flag}`.
+`lose` (zusätzlich immer „alle Spieler-Einheiten fallen“): `unitDown {units}`, `timeout {rounds}`, `enemyReach {tiles}`, `flag`.
+Ziel-Felder von `reach`/`escort` werden mit goldenen Fahnen markiert (oder `goalTiles`).
+
+## Hooks und BattleCtx
+
+Alle Hooks sind async und halten den Kampf an, bis sie fertig sind: `onStart`, `onRound(ctx, round, phase)`, `onUnitDown`, `onHpBelow: [{ unit, below, run }]`, `triggers: [{ id, when, run, once }]`, `onAction`, `onMove`, `onFree`; außerdem `waves: [{ round, phase?, units, text? }]` für Verstärkung.
+
+`ctx`: `say`, `hint(text, { title, unit, tile, until })` (Tutorial-Karte; `until`: `'click' | 'select' | 'move' | 'act' | 'endTurn' | fn`; Hinweise blockieren die Eingabe nie und verfallen, wenn der Spieler die Runde beendet), `focus`, `wait`, `banner`, `bark`, `spawn`, `remove`, `move`, `face`, `pose`, `damage`, `heal`, `setStatus`, `setAi`, `setObjective`, `flag`, `hasFlag`, `shake`, `win`, `lose`, sowie `ctx.battle` (Regel-Engine, lesend).
+
+## Steuerung (für Texte/Hinweise)
+
+Maus: Einheit anklicken, blaues Feld anklicken (Pfadvorschau beim Überfahren), Fähigkeit wählen, Ziel anklicken; Rechtsklick = zurück; Ziehen = Kamera; Mausrad = Zoom. Tastatur: Pfeile/WASD Cursor, Enter/E bestätigen, Rücktaste zurück (Esc öffnet in der UI das Menü), 1–9 Fähigkeiten, Tab nächste Einheit, Leertaste „Zug beenden“, Z Rückgängig, F Warten, M Bewegen, Q/R Ansicht drehen. Touch: Tippen = Auswahl/Vorschau, zweites Tippen = bestätigen.
+
+## Vollständiges Beispiel
+
+```ts
+import type { BattleDef } from '../../tactics/api';
+
+export const hofKampf: BattleDef = {
+  id: 'kapitel-x-hof',
+  title: 'Der Hof im Morgengrauen',
+  subtitle: 'Haltet die Scheune',
+  backdrop: 'dusk',                       // 'dusk' | 'night' | 'day' | 'forest'
+  music: 'battle',
+  ambience: ['wind'],
+  seed: 42,
+  map: {
+    height: [
+      '2 2 1 0 0 0',
+      '2 2 1 0 0 0',
+      '1 1 1 0 0 0',
+      '0 0 0 0 1 1',
+      '0 0 0 0 1 1',
+    ],
+    terrain: [
+      '. b . , , .',
+      '. . . , ~ .',
+      'r . . , ~ .',
+      '. . b , . T',
+      '. . . , . .',
+    ],
+    props: [{ x: 0, y: 0, prop: 'banner-light' }],
+  },
+  units: [
+    { id: 'valentus', name: 'Valentus', team: 'player', x: 0, y: 0, facing: 's', hp: 30, atk: 3, def: 2,
+      move: 4, jump: 2, abilities: ['handstoss', 'strahl', 'druckwelle', 'schutzwall'], preset: 'valentus' },
+    { id: 'axt', name: 'Axtkämpfer', team: 'enemy', x: 4, y: 4, facing: 'n', hp: 20, atk: 4, def: 2,
+      move: 3, jump: 1, abilities: ['axthieb'], nonLethal: true, preset: 'baris-young', ai: 'melee' },
+    { id: 'armbrust', name: 'Armbrustschütze', team: 'enemy', x: 5, y: 4, hp: 10, atk: 3,
+      abilities: ['bolzen'], preset: 'shadow-crossbow', ai: 'archer' },
+  ],
+  waves: [{ round: 3, text: 'Verstärkung!', units: [
+    { id: 'ds-9', name: 'Dunkelschatten', team: 'enemy', x: 5, y: 0, hp: 13, atk: 2, def: 1,
+      abilities: ['schwerthieb'], preset: 'shadow-sword' },
+  ] }],
+  objective: {
+    text: 'Haltet die Scheune',
+    detail: 'Überlebe 4 Runden oder besiege alle Feinde.',
+    win: [{ type: 'survive', rounds: 4 }, { type: 'defeatAll' }],
+    lose: [{ type: 'unitDown', units: ['valentus'] }],
+  },
+  victoryText: 'Die Scheune steht noch.',
+  hooks: {
+    async onStart(ctx) {
+      await ctx.say('valentus', 'Bleibt oben am Hang!');
+    },
+    async onRound(ctx, round, phase) {
+      if (round === 1 && phase === 'player') {
+        await ctx.hint('Wähle <em>Valentus</em>.', { unit: 'valentus', until: 'select' });
+        await ctx.hint('Blaue Felder zeigen seine Reichweite.', { until: 'move' });
+      }
+    },
+    async onUnitDown(ctx, unit, kind) {
+      if (unit.id === 'axt' && kind === 'wounded') ctx.bark('axt', 'Das … war noch nicht alles …');
+    },
+    onHpBelow: [{ unit: 'valentus', below: 0.3, run: ctx => ctx.say('valentus', 'Lange halte ich das nicht durch …') }],
+  },
+};
+```
+
+Demos zum Ausprobieren: `?scene=tactics-demo` (Dunkelhain mit Tutorial), `?scene=tactics-rescue-demo` (Befreien/Geleiten), `?scene=tactics-sandbox` (Stoßen, Sturz, Aufprall).
