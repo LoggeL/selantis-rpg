@@ -20,13 +20,14 @@ export const ROAD_EAST_AREA: StoryArea = {
 
 /** Anchors use the final painted clearing and the approachable sides of its props. */
 export const FIRST_CAMP_AREA: StoryArea = {
-  id: 'first-camp', name: 'Das erste Nachtlager', bg: 'bg-first-camp',
+  id: 'first-camp', name: 'Das erste Lager in der Dämmerung', bg: 'bg-first-camp-evening',
   start: [535, 282],
   walk: [[[105, 180], [555, 180], [555, 315], [105, 315]]],
   block: [],
   targets: [
     { id: 'fire', at: [317, 225], radius: 27, label: 'Feuerstelle' },
     { id: 'bedroll', at: [233, 260], radius: 28, label: 'Grüner Regenmantel' },
+    { id: 'stones', at: [155, 235], radius: 25, label: 'Lose Steine' },
     { id: 'twigs', at: [409, 251], radius: 27, label: 'Trockenes Laub und Zweige' },
     { id: 'trunk', at: [470, 190], radius: 28, label: 'Zuhören' },
     { id: 'star', at: [155, 188], radius: 27, label: 'In den westlichen Himmel sehen' },

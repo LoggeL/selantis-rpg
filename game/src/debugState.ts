@@ -4,11 +4,12 @@ import type { ItemId } from './world/maps';
 export const FLAG_GROUPS = {
   Heimweg: ['sisterPromise', 'homeArrived', 'chickReturned'],
   Hof: ['raidWitnessed', 'parentsLost', 'kyraTaken', 'packedFood', 'packedWater', 'foundCache', 'packedMedicine', 'packedClothes', 'packedBooks', 'houseClosed', 'pigsReleased', 'departureReady', 'aftermathComplete'],
-  Reise: ['streamVisited', 'journeyEastChosen', 'journeyCampReached', 'journeyCloakSpread', 'journeyTwigsGathered', 'campfireLit', 'journeyAte', 'journeyFeetChecked', 'firstCampRested', 'metFoltanAzar', 'journeyRopesReleased', 'criosObserved'],
+  Reise: ['streamVisited', 'journeyEastChosen', 'journeyCampReached', 'journeyCloakSpread', 'journeyStonesGathered', 'journeyFirepitBuilt', 'journeyTwigsGathered', 'campfireLit', 'journeyAte', 'journeyProviantPortionUsed', 'firstCampRested', 'metFoltanAzar', 'criosObserved'],
 } as const;
 export const FLAGS: readonly string[] = Object.values(FLAG_GROUPS).flat();
 export const ITEMS: Record<ItemId, string> = {
   apfel: 'Fallobst', feder: 'Feder', kupfer: 'Kupfer', kornblume: 'Kornblume', kueken: 'Vogeljunges',
+  steine: 'Feuerstellensteine', zunderholz: 'Zunderholz',
   proviant: 'Proviant', wasserschlauch: 'Wasserschlauch', dolch: 'Dolch', silber: 'Silber', reisezeug: 'Reisezeug', heilzeug: 'Heilzeug', 'buch-kraeuter': 'Kräuterlexikon', 'buch-alana': 'Alanas Geschichte',
 };
 export const WARPS = [
@@ -52,7 +53,7 @@ const equipment: Partial<Record<ItemId, number>> = { proviant: 1, wasserschlauch
 export function prepareWarp(st: WorldState, id: string): { scene: string; data: { map?: string } } {
   if (!WARPS.some(([key]) => key === id)) throw new Error('Unbekannter Einstieg');
   for (const flag of FLAGS) if (flag !== 'chickReturned') st.flags[flag] = false;
-  for (const item of Object.keys(equipment) as ItemId[]) delete st.inv[item];
+  for (const item of [...Object.keys(equipment), 'steine', 'zunderholz'] as ItemId[]) delete st.inv[item];
   const travel = ['road', 'camp', 'strangers'].includes(id);
   const farm = id === 'aftermath' || travel;
   if (id.startsWith('world:') || id === 'raid' || farm) st.flags.sisterPromise = true;

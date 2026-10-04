@@ -72,32 +72,58 @@ describe('westbound road travelers', () => {
   });
 });
 
-describe('camp capture movement', () => {
-  function capture() {
+describe('friendly camp encounter', () => {
+  function encounter() {
     const s: any = new JourneyScene();
+    const world: any = { flags: { firstCampRested: true }, inv: {} };
+    s.registry = { get: () => world };
     s.lia = image(233, 260, 'lia-walk', 0);
-    s.foltan = image(259, 245, 'story-actors', 5); s.azar = image(295, 242, 'story-actors', 6);
-    s.anims = { exists: () => true };
-    s.tweens = { add: vi.fn() };
-    for (const method of ['campSpots', 'setLocked', 'say', 'setLiaPose', 'showCloseup', 'setCloseupText', 'setCloseupContinue']) s[method] = vi.fn();
-    return s;
+    s.blanket = { setVisible: vi.fn() };
+    s.addActor = vi.fn((texture, frame, [x, y]) => image(x, y, texture, frame));
+    s.tweens = { add: vi.fn() }; s.time = { delayedCall: vi.fn() };
+    for (const method of ['setObjective', 'setSpots', 'setLocked', 'say', 'setLiaPose', 'showCloseup', 'hideCloseup', 'setCloseupText', 'setCloseupContinue', 'drawFire']) s[method] = vi.fn();
+    s.wakeEncounter();
+    const advance = () => s.setCloseupContinue.mock.lastCall[0]();
+    const text = () => s.setCloseupText.mock.lastCall[0] as string;
+    return { s, world, advance, text };
   }
-  it('plays Lia walking during her escape, then installs the same bound dialogue card', () => {
-    const s = capture(); s.caught();
-    expect(s.lia.play).toHaveBeenCalledWith('lia-walk-e', true);
-    expect(s.setCloseupText).not.toHaveBeenCalled();
-    const movement = s.tweens.add.mock.calls[0][0];
-    expect(movement).toMatchObject({ targets: s.lia, x: 470, y: 190 });
-    movement.onComplete();
-    expect(s.setLiaPose).toHaveBeenLastCalledWith('lia-bound-sit');
-    expect(s.setCloseupText).toHaveBeenLastCalledWith('Der Schmale: "Damit du uns zuhörst."');
-    expect(s.campStep).toBe('bound'); expect(s.conversation).toBe(0);
-  });
-  it('keeps capture narrative identical without a walking tween in reduced-motion mode', () => {
-    updateSettings({ reducedMotion: true });
-    const s = capture(); s.caught();
-    expect(s.lia.play).not.toHaveBeenCalled(); expect(s.tweens.add).not.toHaveBeenCalled();
-    expect(s.setLiaPose).toHaveBeenLastCalledWith('lia-bound-sit'); expect(s.campStep).toBe('bound');
+  it.each([false, true])('keeps every line input-held and the continuous encounter locked (reduced motion %s)', reducedMotion => {
+    updateSettings({ reducedMotion });
+    const { s, world, advance, text } = encounter();
+    const lines: string[] = [];
+    expect(s.showCloseup).toHaveBeenLastCalledWith('cinematic-camp-observe');
+    expect(s.setLiaPose).toHaveBeenLastCalledWith('lia-sleep');
+    for (let i = 0; i < 19; i++) {
+      const current = text(); lines.push(current);
+      expect(text()).toBe(current);
+      expect(s.campStep).toBe('waking');
+      expect(world.flags.metFoltanAzar).toBeUndefined();
+      expect(s.setLocked).toHaveBeenLastCalledWith(true);
+      expect(s.setSpots.mock.lastCall[0].every((spot: any) => !spot.enabled())).toBe(true);
+      if (i === 1) expect(s.showCloseup).toHaveBeenLastCalledWith('cinematic-camp-observe');
+      if (i === 2) expect(s.showCloseup).toHaveBeenLastCalledWith('cut-camp-wake');
+      if (i === 7) expect(s.showCloseup).toHaveBeenLastCalledWith('cut-camp-companions');
+      advance();
+    }
+    expect(lines.join(' ')).toContain('Wir tun dir nichts.');
+    expect(lines.join(' ')).toContain('Schmied. Kein Totengräber.');
+    expect(lines.join(' ')).toContain('Bei meinem Amboss antwortet auch keiner.');
+    expect(lines.join(' ')).toContain('Kyra mitgenommen');
+    expect(lines.join(' ')).toContain('Versprechen können wir dir nichts.');
+    expect(text()).toContain('Für heute muss ich nicht mehr allein weiter.');
+    expect(s.setCloseupContinue.mock.lastCall[1]).toBe('Zum Stern');
+    expect(s.setLiaPose.mock.calls.flat()).not.toContain('lia-bound-sit');
+    expect(s.showCloseup.mock.calls.flat()).not.toContain('cut-camp-capture');
+    expect(s.rope).toBeUndefined(); expect(s.caught).toBeUndefined();
+    expect(s.tweens.add).not.toHaveBeenCalled(); expect(s.time.delayedCall).not.toHaveBeenCalled();
+    advance();
+    expect(s.campStep).toBe('star'); expect(world.flags.metFoltanAzar).toBe(true);
+    expect(world.flags.journeyRopesReleased).toBeUndefined();
+    expect(s.setLocked).toHaveBeenLastCalledWith(false);
+    expect(s.hideCloseup).toHaveBeenCalledOnce();
+    expect(s.setObjective).toHaveBeenLastCalledWith('Zum westlichen Stern hinaufsehen.');
+    s.drawStar = vi.fn(); s.useCampSpot('star');
+    expect(world.flags.criosObserved).toBe(true); expect(s.campStep).toBe('complete');
   });
 });
 

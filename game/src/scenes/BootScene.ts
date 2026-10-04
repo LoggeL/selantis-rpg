@@ -82,11 +82,7 @@ Object.assign(ANIMS, {
   'lia-pack': ['lia-story-poses', [1], 1, false],
   'lia-sleep': ['lia-story-poses', [2], 1, false],
   'lia-wake': ['lia-story-poses', [3], 1, false],
-  'lia-bound-kneel': ['lia-story-poses', [4], 1, false],
-  'lia-bound-sit': ['lia-story-poses', [4], 1, false],
-  'lia-bound-stand': ['lia-story-poses', [5], 1, false],
   'lia-travel': ['lia-story-poses', [6], 1, false],
-  'lia-footcare': ['lia-story-poses', [7], 1, false],
   'road-wagon-walk': ['road-travelers-walk', [0, 1], 7, true],
   'road-troupe-walk': ['road-travelers-walk', [2, 3], 7, true],
   // Tiere der offenen Welt

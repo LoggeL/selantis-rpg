@@ -3,11 +3,11 @@ import { StoryScene } from '../story/StoryScene';
 import { ROAD_EAST_AREA, FIRST_CAMP_AREA } from '../story/areas/journey';
 import { FIELD_RETURN } from '../story/travel';
 import { state } from '../world/quests';
-import { getSettings, motionDuration, subscribeSettings } from '../settings';
+import { getSettings, subscribeSettings } from '../settings';
 import { FONT } from '../ui';
 import { setSceneMusic } from '../audio';
 
-type CampStep = 'cloak' | 'twigs' | 'fire' | 'meal' | 'foot' | 'sleep' | 'waking' | 'slip' | 'bound' | 'star' | 'complete';
+type CampStep = 'cloak' | 'stones' | 'ring' | 'twigs' | 'fire' | 'meal' | 'sleep' | 'waking' | 'star' | 'complete';
 
 /** Roman S. 22–32: one day on the road and one uneasy night in company. */
 export class JourneyScene extends StoryScene {
@@ -19,7 +19,9 @@ export class JourneyScene extends StoryScene {
   private cloak?: Phaser.GameObjects.Graphics;
   private blanket?: Phaser.GameObjects.Graphics;
   private flame?: Phaser.GameObjects.Graphics;
-  private rope?: Phaser.GameObjects.Graphics;
+  private campStones?: Phaser.GameObjects.Graphics;
+  private campTwigs?: Phaser.GameObjects.Graphics;
+  private campBackground?: Phaser.GameObjects.Image;
   private progress?: Phaser.GameObjects.Rectangle;
   private progressBack?: Phaser.GameObjects.Rectangle;
   private friction = 0;
@@ -32,7 +34,7 @@ export class JourneyScene extends StoryScene {
   create(data: { from?: string } = {}) {
     this.inCamp = false; this.campStep = 'cloak'; this.conversation = 0;
     this.foltan = undefined; this.azar = undefined; this.cloak = undefined;
-    this.blanket = undefined; this.flame = undefined; this.rope = undefined;
+    this.blanket = undefined; this.flame = undefined;
     this.progress = undefined; this.progressBack = undefined;
     this.friction = 0; this.fireBusy = false; this.fireClick = false; this.fireClock = 0;
     this.input.on('pointerdown', this.clickFire, this);
@@ -142,7 +144,7 @@ export class JourneyScene extends StoryScene {
     this.changeArea(FIRST_CAMP_AREA);
     this.setupCamp(true);
     this.setLocked(true);
-    this.say('Der Rock bleibt hängen. Ein Riss. Hundert Meter von der Straße reichen.', 3100);
+    this.say('Seit Stunden unterwegs. Die Sonne geht unter. Ich bin müde und schlage hier ein Lager auf.', 4100);
     const snag = this.add.graphics().setDepth(288);
     snag.lineStyle(2, 0x73544a).lineBetween(525, 277, 541, 264);
     this.areaRoot.add(snag);
@@ -152,14 +154,26 @@ export class JourneyScene extends StoryScene {
   private setupCamp(fresh: boolean) {
     this.inCamp = true;
     const flags = state(this.registry).flags;
+    // Existing saves with a lit fire already have a constructed fireplace.
+    if (flags.campfireLit) { flags.journeyStonesGathered = true; flags.journeyFirepitBuilt = true; }
+    this.campBackground = this.areaRoot.list[0] as Phaser.GameObjects.Image;
+    if (flags.firstCampRested && this.textures.exists('bg-first-camp-night')) this.campBackground.setTexture('bg-first-camp-night');
+    this.data.set('story:camp-time', flags.firstCampRested ? 'night' : 'dusk');
     this.cloak = this.add.graphics().setPosition(201, 248).setDepth(245).setVisible(!!flags.journeyCloakSpread);
     this.cloth(this.cloak, ['...sssssssss....', '.ssmmmmmmmmmmss.', 'smmmmhhmmmmmmmms', 'smmhhmmmmmmmsmms', '.smmmmmmssmmmms.', '..ssssssssssss..'], { s: 0x344d39, m: 0x47634b, h: 0x627c59 }, 4);
     this.blanket = this.add.graphics().setPosition(211, 246).setDepth(270).setVisible(false);
     this.cloth(this.blanket, ['.ssssssssssssssssssss.', 'smmmmmmmmmmmmmmmmmmmmms', 'smmhhhhmmmmmmhhhhmmmms', 'smmmmmmmmmmmmmmmmmmmmms', 'smmmmssmmmmmmssmmmmmmms', 'smmmmmmmmmmmmmmmmmmmmms', '.ssssssssssssssssssss.'], { s: 0x746b55, m: 0x9c9276, h: 0xb4a689 }, 2);
+    this.campStones = this.add.graphics().setDepth(232).setVisible(!flags.journeyStonesGathered);
+    for (const [x, y] of [[145, 228], [153, 232], [165, 222], [137, 239], [160, 242], [172, 235]]) {
+      this.campStones.fillStyle(0x485652).fillRect(x, y, 7, 5).fillStyle(0x889082).fillRect(x + 1, y, 5, 2);
+    }
+    this.campTwigs = this.add.graphics().setDepth(251).setVisible(!flags.journeyTwigsGathered);
+    for (const [x, y] of [[398, 248], [407, 246], [412, 254], [401, 256]]) {
+      this.campTwigs.lineStyle(2, 0x927050).lineBetween(x, y, x + 10, y - 5).lineBetween(x + 4, y - 2, x + 6, y - 7);
+    }
     this.flame = this.add.graphics().setDepth(230);
-    this.areaRoot.add([this.cloak, this.blanket, this.flame]);
-    if (fresh) this.campStep = 'cloak';
-    else this.campStep = !flags.journeyCloakSpread ? 'cloak' : !flags.journeyTwigsGathered ? 'twigs' : !flags.campfireLit ? 'fire' : !flags.journeyAte ? 'meal' : !flags.journeyFeetChecked ? 'foot' : 'sleep';
+    this.areaRoot.add([this.cloak, this.blanket, this.campStones, this.campTwigs, this.flame]);
+    this.campStep = fresh ? 'cloak' : !flags.journeyCloakSpread ? 'cloak' : !flags.journeyStonesGathered ? 'stones' : !flags.journeyFirepitBuilt ? 'ring' : !flags.journeyTwigsGathered ? 'twigs' : !flags.campfireLit ? 'fire' : !flags.journeyAte ? 'meal' : 'sleep';
     this.drawFire();
   }
 
@@ -171,21 +185,21 @@ export class JourneyScene extends StoryScene {
 
   private campSpots() {
     const objectives: Record<CampStep, string> = {
-      cloak: 'Den grünen Regenmantel ausbreiten.', twigs: 'Trockenes Laub und Zweige sammeln.',
+      cloak: 'Den grünen Regenmantel aus der Tasche ausbreiten.', stones: 'Sechs Steine für die Feuerstelle sammeln.', ring: 'Aus den Steinen in der Tasche eine Feuerstelle bauen.', twigs: 'Trockenes Laub und Zweige sammeln.',
       fire: 'Mit Holzreibung ein Feuer entzünden.', meal: 'Etwas Brot und Käse essen.',
-      foot: 'Nach den schmerzenden Füßen sehen.', sleep: 'Unter der Wolldecke schlafen.',
-      waking: '', slip: 'Während des Streits zur Straße schleichen.', bound: 'Den Fremden zuhören.',
+      sleep: 'Unter der Wolldecke schlafen.',
+      waking: '',
       star: 'Zum westlichen Stern hinaufsehen.', complete: 'Ende des Prototyps · Die Reise geht morgen weiter.',
     };
     this.setObjective(objectives[this.campStep]);
     const required: Record<CampStep, string> = {
-      cloak: 'bedroll', twigs: 'twigs', fire: 'fire', meal: 'fire', foot: 'bedroll', sleep: 'bedroll',
-      waking: '', slip: 'road', bound: 'trunk', star: 'star', complete: '',
+      cloak: 'bedroll', stones: 'stones', ring: 'fire', twigs: 'twigs', fire: 'fire', meal: 'fire', sleep: 'bedroll',
+      waking: '', star: 'star', complete: '',
     };
     const labels: Partial<Record<CampStep, string>> = {
-      cloak: 'Mantel ausbreiten', twigs: 'Laub und Zweige sammeln', fire: 'Holz reiben',
-      meal: 'Brot und Käse essen', foot: 'Füße ansehen', sleep: 'Hinlegen und zudecken',
-      slip: 'Leise zur Straße', bound: this.conversation ? 'Weiter zuhören' : 'Zuhören', star: 'Crios ansehen',
+      cloak: 'Mantel ausbreiten', stones: 'Steine sammeln', ring: 'Steine zu einer Feuerstelle legen', twigs: 'Laub und Zweige sammeln', fire: 'Holz reiben',
+      meal: 'Brot und Käse essen', sleep: 'Hinlegen und zudecken',
+      star: 'Crios ansehen',
     };
     this.setSpots(FIRST_CAMP_AREA.targets.map(target => ({
       ...target,
@@ -196,34 +210,39 @@ export class JourneyScene extends StoryScene {
   }
 
   private useCampSpot(id: string) {
-    const flags = state(this.registry).flags;
+    const { flags, inv } = state(this.registry);
+    const targets: Partial<Record<CampStep, string>> = { cloak: 'bedroll', stones: 'stones', ring: 'fire', twigs: 'twigs', fire: 'fire', meal: 'fire', sleep: 'bedroll', star: 'star' };
+    if (this.campStep !== 'complete' && id !== targets[this.campStep]) return;
     if (this.campStep === 'complete') {
       this.say(id === 'star' ? 'Crios steht im Westen. Sieht Kyra gerade denselben Stern?' : id === 'trunk' ? 'Foltan hält Wache. Azar schnarcht bereits.' : id === 'road' ? 'Erst bei Tageslicht. Das Lager ist noch einen Fußmarsch entfernt.' : id === 'fire' ? 'Die Glut wärmt. Morgen gehen wir gemeinsam weiter.' : 'Endlich ein wenig Ruhe.', 2500);
       return;
     }
     switch (this.campStep) {
       case 'cloak':
+        if (!inv.reisezeug) { this.say('Dafür brauche ich meinen eingepackten Regenmantel.', 2100); return; }
         flags.journeyCloakSpread = true; this.cloak?.setVisible(true);
-        this.say('Der Regenmantel schützt mich vor dem kalten Boden.', 2100); this.campStep = 'twigs'; break;
+        this.say('Der Regenmantel aus der Tasche schützt mich vor dem kalten Boden.', 2400); this.campStep = 'stones'; break;
+      case 'stones':
+        inv.steine = (inv.steine ?? 0) + 6; flags.journeyStonesGathered = true;
+        this.campStones?.setVisible(false);
+        this.say('Sechs Steine. Sie liegen jetzt in meiner Tasche (I). Daraus baue ich eine Feuerstelle.', 3200); this.campStep = 'ring'; break;
+      case 'ring':
+        if ((inv.steine ?? 0) < 6) { this.say('Für den Ring brauche ich sechs Steine in der Tasche.', 2400); return; }
+        inv.steine! -= 6; if (!inv.steine) delete inv.steine;
+        flags.journeyFirepitBuilt = true; this.drawFire();
+        this.say('Die Steine umschließen die Feuerstelle. Jetzt fehlt trockenes Holz.', 2400); this.campStep = 'twigs'; break;
       case 'twigs':
-        flags.journeyTwigsGathered = true;
-        this.say('Trockenes Laub, Zweige und ein flaches Holzstück. Den Zunder habe ich vergessen.', 2900); this.campStep = 'fire'; break;
+        flags.journeyTwigsGathered = true; inv.zunderholz = (inv.zunderholz ?? 0) + 1;
+        this.campTwigs?.setVisible(false);
+        this.say('Trockenes Laub und Zweige sind in der Tasche (I). Ein flaches Holzstück hilft beim Feuerreiben.', 3200); this.campStep = 'fire'; break;
       case 'fire': this.lightFire(); return;
       case 'meal':
+        if (!inv.proviant) { this.say('In meiner Tasche fehlt der Reiseproviant.', 2100); return; }
         flags.journeyAte = true;
-        // Proviant is the whole travel bundle; a small meal does not consume it.
-        this.say('Ein Stück Brot und Käse. Mehr brauche ich jetzt nicht.', 2000); this.campStep = 'foot'; break;
-      case 'foot':
-        flags.journeyFeetChecked = true; this.campStep = 'sleep';
-        this.lia.setPosition(233, 260); this.setLiaPose('lia-footcare');
-        this.say('', 0);
-        this.showCloseup('cut-camp-rest');
-        this.setCloseupText('Die Schuhe ausziehen. Die Ferse schmerzt noch vom langen Marsch.');
-        this.setCloseupContinue(() => { this.hideCloseup(); this.setLiaPose(null); this.campSpots(); }, 'Hinlegen');
-        this.campSpots(); return;
+        // The bundle holds several meals; record this portion, keep the rest.
+        flags.journeyProviantPortionUsed = true;
+        this.say('Ein Stück Brot und Käse aus dem Proviant. Den Rest hebe ich für morgen auf.', 2800); this.campStep = 'sleep'; break;
       case 'sleep': this.sleep(); return;
-      case 'slip': this.caught(); return;
-      case 'bound': this.listen(); return;
       case 'star':
         flags.criosObserved = true; this.campStep = 'complete';
         this.say('Crios, der Adler des Aros. Ein treuer Gefährte. Ob Kyra ihn auch sieht?', 3300);
@@ -235,6 +254,8 @@ export class JourneyScene extends StoryScene {
 
   private lightFire() {
     if (this.fireBusy) return;
+    const { flags, inv } = state(this.registry);
+    if (!flags.journeyFirepitBuilt || !inv.zunderholz) { this.say('Erst die Feuerstelle bauen und trockenes Holz sammeln.', 2400); return; }
     this.fireBusy = true; this.friction = 0;
     this.fireClick = !this.keys.E.isDown;
     this.setLocked(true); this.campSpots();
@@ -253,7 +274,13 @@ export class JourneyScene extends StoryScene {
     if (!this.flame) return;
     const flags = state(this.registry).flags;
     this.flame.clear();
+    if (flags.journeyFirepitBuilt) {
+      for (const [x, y] of [[301, 220], [307, 215], [316, 213], [326, 216], [331, 222], [325, 228], [315, 230], [305, 226]]) {
+        this.flame.fillStyle(0x47524c).fillRect(x, y, 8, 5).fillStyle(0x86907b).fillRect(x + 1, y, 6, 2);
+      }
+    }
     if (!flags.campfireLit) return;
+    this.flame.lineStyle(3, 0x79583d).lineBetween(307, 224, 324, 219).lineBetween(309, 218, 325, 225);
     this.flame.fillStyle(0xe37335, 0.14).fillRect(299, 220, 36, 12).fillRect(303, 216, 28, 20);
     this.flame.fillStyle(0xb74d28).fillRect(310, 224, 4, 4).fillRect(319, 224, 4, 4);
     if (!flags.firstCampRested || flags.metFoltanAzar) {
@@ -270,78 +297,59 @@ export class JourneyScene extends StoryScene {
     this.say('Die Decke bis zum Hals. Ich habe letzte Nacht kein Auge zugetan.', 2100);
     this.time.delayedCall(1500, () => {
       state(this.registry).flags.firstCampRested = true;
-      this.wakeEncounter();
+      this.data.set('story:camp-time', 'night');
+      if (this.textures.exists('bg-first-camp-night')) this.campBackground?.setTexture('bg-first-camp-night');
+      this.say('Einige Stunden später. Es ist Nacht geworden.', 2700);
+      this.time.delayedCall(2700, () => this.wakeEncounter());
     });
   }
 
   private addStrangers(introduced = false) {
+    // Foltan is the lanky mercenary, Azar the broad blacksmith. Both keep
+    // their established actor frames, with empty hands and no restraining pose.
     this.foltan = this.addActor('story-actors', 5, introduced ? [355, 231] : [259, 245]);
     this.azar = this.addActor('story-actors', 6, introduced ? [397, 265] : [295, 242]);
     if (introduced) this.azar.setAngle(82);
   }
 
   private wakeEncounter() {
-    setSceneMusic(this, 'dread');
+    setSceneMusic(this, 'refuge');
+    this.conversation = 0;
     this.campStep = 'waking'; this.setLocked(true); this.campSpots();
     this.lia.setPosition(233, 260).setDepth(260); this.blanket?.setVisible(true);
     this.setLiaPose('lia-sleep');
     this.addStrangers(); this.drawFire();
     this.say('', 0);
-    this.showCloseup('cut-camp-wake');
+    this.showCloseup('cinematic-camp-observe');
     const lines = [
       'Der Dicke: "Ist sie tot?"',
       'Der Schmale: "Nein. Sie hat noch Puls."',
       'Lia: "Ah!"',
       'Der Dicke: "Aaah!"',
-      'Der Schmale: "Still!"',
+      'Der Schmale: "Du erschreckst sie noch mehr."',
       'Der Dicke: "Ich bin schreckhaft."',
+      'Der Schmale: "Das haben wir jetzt alle gehört. Wir tun dir nichts."',
     ];
     const showLine = (index: number) => {
-      if (index === 2) { this.blanket?.setVisible(false); this.setLiaPose('lia-wake'); }
+      if (index === 2) {
+        this.blanket?.setVisible(false); this.setLiaPose('lia-wake');
+        this.showCloseup('cut-camp-wake');
+      }
       this.setCloseupText(lines[index]);
       this.setCloseupContinue(() => {
         if (index + 1 < lines.length) showLine(index + 1);
-        else {
-          this.hideCloseup(); this.setLiaPose(null);
-          this.campStep = 'slip'; this.setLocked(false); this.campSpots();
-        }
-      }, index === lines.length - 1 ? 'Leise weiter' : 'Weiter');
+        else this.listen();
+      });
     };
     showLine(0);
   }
 
-  private caught() {
-    this.campStep = 'waking'; this.campSpots(); this.setLocked(true);
-    this.say('Der Dicke: "He, sie haut ab!"', 1300);
-    const finish = () => {
-      this.lia.setPosition(470, 190).setDepth(190);
-      this.foltan?.setPosition(443, 206).setDepth(206);
-      this.azar?.setPosition(408, 217).setDepth(217);
-      if (!this.anims.exists('lia-bound-sit')) {
-        this.rope = this.add.graphics().setDepth(191);
-        this.rope.fillStyle(0xb69a6e).fillRect(461, 174, 18, 2).fillRect(462, 179, 17, 2).fillRect(465, 188, 10, 2);
-        this.areaRoot.add(this.rope);
-      }
-      this.campStep = 'bound'; this.conversation = 0;
-      this.setLiaPose('lia-bound-sit');
-      this.say('', 0);
-      this.showCloseup('cut-camp-capture');
-      this.setCloseupText('Der Schmale: "Damit du uns zuhörst."');
-      this.setCloseupContinue(() => this.listen(), 'Zuhören');
-      this.campSpots();
-    };
-    const duration = motionDuration(550);
-    if (!duration) finish();
-    else {
-      this.setLiaPose(null);
-      this.lia.play('lia-walk-e', true);
-      this.tweens.add({ targets: this.lia, x: 470, y: 190, duration, onComplete: finish });
-    }
-  }
-
   private listen() {
     const lines = [
-      'Foltan: "Ich war Leutnant der Stadtgarde von Portas. Das ist Azar, Schmied aus Ignis."',
+      'Foltan: "Ich bin Foltan. Früher Leutnant der Stadtgarde von Portas, jetzt Söldner. Und das ist Azar, Schmied aus Ignis."',
+      'Azar: "Schmied. Kein Totengräber. Ich wollte nur sehen, ob du Hilfe brauchst."',
+      'Foltan: "Dann frag das nächstes Mal zuerst."',
+      'Azar: "Bei meinem Amboss antwortet auch keiner."',
       'Lia: "Was macht ihr hier?"',
       'Foltan: "Wir sind Gegner der Dunkelschatten."',
       'Lia: "Sie haben meine Eltern getötet und Kyra mitgenommen. Ich muss meine Schwester finden."',
@@ -351,26 +359,24 @@ export class JourneyScene extends StoryScene {
       'Azar: "Bei uns bist du sicherer."',
       'Foltan: "Wir halten abwechselnd Wache."',
     ];
+    if (this.conversation === 0) {
+      this.setLiaPose(null);
+      this.showCloseup('cut-camp-companions');
+    }
     if (this.conversation < lines.length) {
       this.setCloseupText(lines[this.conversation++]);
       this.setCloseupContinue(() => this.listen());
-      this.campSpots();
       return;
     }
-    const flags = state(this.registry).flags;
-    flags.metFoltanAzar = true;
-    flags.journeyRopesReleased = true;
-    setSceneMusic(this, 'refuge');
-    this.rope?.destroy(); this.rope = undefined;
-    this.lia.setPosition(454, 210).setDepth(210);
-    this.foltan?.setPosition(355, 231).setDepth(231);
-    this.azar?.setPosition(397, 265).setDepth(265).setAngle(82);
-    this.campStep = 'star'; this.setLiaPose(null);
-    this.say('', 0);
-    this.showCloseup('cut-camp-companions');
-    this.setCloseupText('Die Fesseln sind gelöst. Foltan hält zuerst Wache. Morgen nehmen sie mich mit.');
-    this.setCloseupContinue(() => { this.hideCloseup(); this.setLocked(false); this.campSpots(); }, 'Zum Stern');
-    this.drawFire(); this.campSpots();
+    this.setCloseupText('Foltan hält zuerst Wache. Morgen nehmen sie mich mit. Für heute muss ich nicht mehr allein weiter.');
+    this.setCloseupContinue(() => {
+      state(this.registry).flags.metFoltanAzar = true;
+      this.lia.setPosition(454, 210).setDepth(210);
+      this.foltan?.setPosition(355, 231).setDepth(231);
+      this.azar?.setPosition(397, 265).setDepth(265).setAngle(82);
+      this.campStep = 'star'; this.setLiaPose(null);
+      this.hideCloseup(); this.setLocked(false); this.drawFire(); this.campSpots();
+    }, 'Zum Stern');
   }
 
   private drawStar() {
@@ -392,7 +398,9 @@ export class JourneyScene extends StoryScene {
         this.fireBusy = false;
         this.progress?.destroy(); this.progressBack?.destroy();
         this.progress = undefined; this.progressBack = undefined;
-        state(this.registry).flags.campfireLit = true;
+        const st = state(this.registry);
+        st.flags.campfireLit = true;
+        st.inv.zunderholz! -= 1; if (!st.inv.zunderholz) delete st.inv.zunderholz;
         this.setLocked(false); this.campStep = 'meal';
         this.say('Es brennt. Trockenes Laub und Zweige nachlegen.', 2000);
         this.campSpots();

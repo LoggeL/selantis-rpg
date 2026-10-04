@@ -33,3 +33,19 @@ describe('playtest checkpoints', () => {
     expect(st.inv).toMatchObject({ feder: 2, proviant: 1, wasserschlauch: 1 });
   });
 });
+
+
+it('clears completed camp construction and resources when replaying a checkpoint', () => {
+  const st = { inv: { steine: 12, zunderholz: 3, feder: 2 }, picked: {}, flags: { journeyStonesGathered: true, journeyFirepitBuilt: true, journeyProviantPortionUsed: true } };
+  prepareWarp(st, 'camp');
+  expect(st.flags).toMatchObject({ journeyStonesGathered: false, journeyFirepitBuilt: false, journeyTwigsGathered: false, journeyProviantPortionUsed: false, campfireLit: false, firstCampRested: false });
+  expect(st.inv).not.toHaveProperty('steine'); expect(st.inv).not.toHaveProperty('zunderholz');
+  expect(st.inv).toMatchObject({ feder: 2, proviant: 1, reisezeug: 1 });
+  prepareWarp(st, 'strangers');
+  expect(st.flags).toMatchObject({ journeyStonesGathered: true, journeyFirepitBuilt: true, journeyTwigsGathered: true, journeyProviantPortionUsed: true, campfireLit: true, journeyAte: true, firstCampRested: true, metFoltanAzar: true, criosObserved: false });
+  expect(st.inv).not.toHaveProperty('steine'); expect(st.inv).not.toHaveProperty('zunderholz');
+  st.inv.steine = 6; st.inv.zunderholz = 1;
+  prepareWarp(st, 'road');
+  expect(st.inv).not.toHaveProperty('steine'); expect(st.inv).not.toHaveProperty('zunderholz');
+  expect(st.flags).toMatchObject({ journeyCampReached: false, journeyStonesGathered: false, journeyFirepitBuilt: false, journeyProviantPortionUsed: false });
+});

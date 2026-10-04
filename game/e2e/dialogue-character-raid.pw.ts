@@ -348,7 +348,7 @@ for (const viewport of viewports) {
     // persisted party state used by damage/healing rather than invented values.
     await page.evaluate(() => {
       const game = (window as any).game;
-      Object.assign(game.registry.get('world').flags, { metFoltanAzar: true, journeyRopesReleased: true });
+      Object.assign(game.registry.get('world').flags, { metFoltanAzar: true });
       game.registry.get('party').members.lia.hp = 73;
     });
     await page.keyboard.press('KeyC', { delay: 50 });

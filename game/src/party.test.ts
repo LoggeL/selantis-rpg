@@ -12,14 +12,18 @@ function registry(flags: Record<string, boolean> = {}) {
 }
 
 describe('persisted travel party', () => {
-  it('requires the completed meeting and released ropes before companions join', () => {
-    expect(availableParty({ metFoltanAzar: true })).toEqual(['lia']);
+  it('requires only the completed friendly meeting before companions join', () => {
+    expect(availableParty({})).toEqual(['lia']);
     expect(availableParty({ journeyRopesReleased: true })).toEqual(['lia']);
-    expect(availableParty({ metFoltanAzar: true, journeyRopesReleased: true })).toEqual(['lia', 'foltan', 'azar']);
+    expect(availableParty({ metFoltanAzar: true })).toEqual(['lia', 'foltan', 'azar']);
     const reg = registry(); const party = partyState(reg);
     expect(party.members).toEqual({ lia: createPartyMember('lia') });
-    const flags = { metFoltanAzar: true, journeyRopesReleased: true };
+    const flags = { metFoltanAzar: true };
     expect(partyState(reg, flags)).toBe(party);
+    const foltan = party.members.foltan, azar = party.members.azar;
+    partyState(reg, flags);
+    expect(party.members.foltan).toBe(foltan); expect(party.members.azar).toBe(azar);
+    expect(Object.keys(party.members)).toEqual(['lia', 'foltan', 'azar']);
     expect(partyRoster({ scene: 'journey', flags, party }).map(member => member.id)).toEqual(['lia', 'foltan', 'azar']);
     expect(partyRoster({ scene: 'journey', flags: {}, party }).map(member => member.id)).toEqual(['lia']);
   });
@@ -34,14 +38,14 @@ describe('persisted travel party', () => {
     expect(changePartyHealth(reg, 'lia', NaN)).toBeUndefined();
   });
   it('keeps actual equipment with Lia and gives no companion invented equipment or controls as skills', () => {
-    const flags = { metFoltanAzar: true, journeyRopesReleased: true }; const party = partyState(registry(flags), flags);
+    const flags = { metFoltanAzar: true }; const party = partyState(registry(flags), flags);
     const roster = partyRoster({ scene: 'journey', flags, party, inventory: { dolch: 1, reisezeug: 1 } });
     expect(roster[0].items.map(item => item.id)).toEqual(['dolch', 'reisezeug']);
     expect(roster[1].items).toEqual([]); expect(roster[2].items).toEqual([]);
     for (const member of roster) expect(member.abilities).toEqual([]);
   });
   it('persists character-specific combat baselines without resetting wounds or tuned stats on reread', () => {
-    const flags = { metFoltanAzar: true, journeyRopesReleased: true }, reg = registry(flags);
+    const flags = { metFoltanAzar: true }, reg = registry(flags);
     const party = partyState(reg, flags);
     expect(party.members.lia).toEqual(createPartyMember('lia'));
     expect(party.members.foltan).toEqual(createPartyMember('foltan'));
@@ -55,7 +59,7 @@ describe('persisted travel party', () => {
     expect(party.members.foltan!.combat.defense).toBe(17);
   });
   it('enriches the previous health-only state and preserves damaged HP exactly', () => {
-    const flags = { metFoltanAzar: true, journeyRopesReleased: true }, reg = registry(flags);
+    const flags = { metFoltanAzar: true }, reg = registry(flags);
     reg.set('party', { version: 1, members: { lia: { hp: 69, maxHp: 100 }, foltan: { hp: 83, maxHp: 100 }, azar: { hp: 100, maxHp: 100 } } });
     const party = partyState(reg, flags);
     expect(party.members.lia).toMatchObject({ hp: 69, maxHp: 100, combat: PARTY_COMBAT_PROFILES.lia.combat });
@@ -84,7 +88,7 @@ describe('persisted travel party', () => {
     expect(lia.combat.attack).toBe(14);
   });
   it('reads the same persisted stats for character sheets and party damage calculations', () => {
-    const flags = { metFoltanAzar: true, journeyRopesReleased: true }, reg = registry(flags), party = partyState(reg, flags);
+    const flags = { metFoltanAzar: true }, reg = registry(flags), party = partyState(reg, flags);
     party.members.foltan!.combat.defense = 17;
     changePartyHealth(reg, 'foltan', -12);
     const roster = partyRoster({ scene: 'journey', flags, party });

@@ -6,7 +6,7 @@ export type PartyState = { version: 1; members: Partial<Record<PartyCharacterId,
 type Registry = { get(key: string): unknown; set(key: string, value: unknown): unknown };
 
 export function availableParty(flags: WorldState['flags'] = {}): PartyCharacterId[] {
-  return flags.metFoltanAzar && flags.journeyRopesReleased ? ['lia', 'foltan', 'azar'] : ['lia'];
+  return flags.metFoltanAzar ? ['lia', 'foltan', 'azar'] : ['lia'];
 }
 
 /** Exploration health lives in the game registry across rooms and chapter changes. */

@@ -19,6 +19,7 @@ export function state(reg: Phaser.Data.DataManager): WorldState {
 export const ITEM_NAMES: Record<ItemId, string> = {
   apfel: 'Fallobst', feder: 'Feder', kupfer: 'Kupferstück', kornblume: 'Kornblume', kueken: 'Vogeljunges',
   proviant: 'Reiseproviant', wasserschlauch: 'Wasserschlauch', dolch: 'Familientolch', silber: 'Silbermünze',
+  steine: 'Steine', zunderholz: 'Laub und Zweige',
   reisezeug: 'Mantel, Decke und Schuhe', heilzeug: 'Tinktur und Leinen', 'buch-kraeuter': 'Cronibus Kräuterlexikon', 'buch-alana': 'Alanas Geschichte',
 };
 

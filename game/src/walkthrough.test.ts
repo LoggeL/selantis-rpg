@@ -13,7 +13,7 @@ describe('current context', () => {
       [{ scene: 'raid', area: 'raid-approach', beat: 'hidden' }, 'raid-farm'],
       [{ scene: 'raid', area: 'raid-approach' }, 'raid-approach'],
       [{ scene: 'journey', area: 'first-camp', campStep: 'cloak' }, 'first-camp'],
-      [{ scene: 'journey', area: 'first-camp', campStep: 'bound' }, 'strangers'],
+      [{ scene: 'journey', area: 'first-camp', campStep: 'waking' }, 'strangers'],
       [{ scene: 'journey', area: 'first-camp', campStep: 'complete' }, 'strangers'],
       [{ scene: 'battle' }, 'battle'],
     ] as const) {

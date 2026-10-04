@@ -75,8 +75,7 @@ const phaseEntries: Record<string, [string, Pt][]> = {
   'farm-dawn': [['aus dem Haus', [273, 198]]],
   'first-camp': [
     ['nach dem Aufwachen', [225, 265]],
-    ['gefesselt am Stamm', [470, 190]],
-    ['nach dem Lösen der Fesseln', [454, 210]],
+    ['nach dem Gespräch mit den Gefährten', [454, 210]],
   ],
 };
 
@@ -150,12 +149,9 @@ describe('Erreichbarkeit der Geschichtsphasen', () => {
     let point = ROAD_EAST_AREA.start;
     for (const id of ['stream', 'fork', 'east']) point = arrival(ROAD_EAST_AREA, point, byId(ROAD_EAST_AREA, id));
     point = FIRST_CAMP_AREA.start;
-    // Cloak, twigs, fire, meal, foot, sleep; wake-up restores Lia to bedroll.
-    for (const id of ['bedroll', 'twigs', 'fire', 'fire', 'bedroll', 'bedroll']) point = arrival(FIRST_CAMP_AREA, point, byId(FIRST_CAMP_AREA, id));
-    point = arrival(FIRST_CAMP_AREA, [225, 265], byId(FIRST_CAMP_AREA, 'road'));
-    // Capture places Lia inside the trunk target, so its seven dialogue uses
-    // remain possible while locked. Releasing the ropes then unlocks the star.
-    expect(distance([470, 190], byId(FIRST_CAMP_AREA, 'trunk').at)).toBeLessThanOrEqual(byId(FIRST_CAMP_AREA, 'trunk').radius);
+    // Cloak, collect stones, construct ring, collect twigs, light fire, meal, sleep; wake-up restores Lia to bedroll.
+    for (const id of ['bedroll', 'stones', 'fire', 'twigs', 'fire', 'fire', 'bedroll']) point = arrival(FIRST_CAMP_AREA, point, byId(FIRST_CAMP_AREA, id));
+    // The continuous nighttime dialogue holds movement until the star is offered.
     arrival(FIRST_CAMP_AREA, [454, 210], byId(FIRST_CAMP_AREA, 'star'));
     expect(feetWalkable(FIRST_CAMP_AREA)(...point)).toBe(true);
   });

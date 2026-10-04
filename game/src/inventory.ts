@@ -8,7 +8,7 @@ import { ITEM_FRAME, itemTexture } from './itemPresentation';
 export { ITEM_FRAME, itemTexture } from './itemPresentation';
 
 const ORDER: ItemId[] = ['apfel', 'kornblume', 'kupfer', 'feder', 'kueken'];
-const TRAVEL_ORDER: ItemId[] = ['proviant', 'wasserschlauch', 'dolch', 'silber', 'reisezeug', 'heilzeug', 'buch-kraeuter', 'buch-alana'];
+const TRAVEL_ORDER: ItemId[] = ['proviant', 'wasserschlauch', 'dolch', 'silber', 'reisezeug', 'heilzeug', 'buch-kraeuter', 'buch-alana', 'steine', 'zunderholz'];
 const PANEL_WIDTH = 192;
 const PANEL_HEIGHT = 84;
 
@@ -206,7 +206,9 @@ export class InventoryHud {
       const icon = document.createElement('span');
       icon.className = 'mobile-item-icon';
       icon.setAttribute('aria-hidden', 'true');
-      if (id === 'kueken') {
+      if (id === 'steine' || id === 'zunderholz') {
+        icon.style.backgroundImage = `url("/assets/ui/${id === 'steine' ? 'camp-stones' : 'camp-wood'}.svg")`; icon.style.backgroundSize = '32px 32px';
+      } else if (id === 'kueken') {
         icon.style.backgroundImage = 'url("/assets/sprites/crt-fledgling.png")';
         icon.style.backgroundSize = '128px 32px';
       } else {

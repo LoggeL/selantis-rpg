@@ -34,7 +34,7 @@ export interface Prop {
 }
 
 export type ItemId = 'apfel' | 'feder' | 'kupfer' | 'kornblume' | 'kueken'
-  | 'proviant' | 'wasserschlauch' | 'dolch' | 'silber' | 'reisezeug' | 'heilzeug' | 'buch-kraeuter' | 'buch-alana';
+  | 'proviant' | 'wasserschlauch' | 'dolch' | 'silber' | 'reisezeug' | 'heilzeug' | 'buch-kraeuter' | 'buch-alana' | 'steine' | 'zunderholz';
 
 export interface Pickup {
   /** eindeutig pro Karte; bereits Aufgesammeltes bleibt verschwunden */
