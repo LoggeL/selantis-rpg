@@ -38,8 +38,11 @@ export class SettingsScene extends Phaser.Scene {
     };
     toggle('Ruhige Bewegung', 201, 'reducedMotion');
     toggle('Partikel', 235, 'particles');
-    const button = this.add.rectangle(320, 278, 126, 24, 0x252c35).setStrokeStyle(1, 0x9cc4ec).setInteractive({ useHandCursor: true });
-    text(320, 278, 'Zurück  O', 12).setOrigin(0.5);
+    const assets = this.add.rectangle(250, 278, 126, 24, 0x252c35).setStrokeStyle(1, 0xd6ad59).setInteractive({ useHandCursor: true });
+    text(250, 278, 'Asset-Viewer ↗', 12).setOrigin(0.5);
+    assets.on('pointerdown', () => window.open('/assets.html', '_blank', 'noopener'));
+    const button = this.add.rectangle(390, 278, 126, 24, 0x252c35).setStrokeStyle(1, 0x9cc4ec).setInteractive({ useHandCursor: true });
+    text(390, 278, 'Zurück  O', 12).setOrigin(0.5);
     button.on('pointerdown', () => { sfx.select(); closeSettings(); });
     const unsubscribe = subscribeSettings(() => repaint.forEach((draw) => draw()));
     this.events.once('shutdown', () => { unsubscribe(); closeSettings(); });
@@ -80,6 +83,11 @@ export class SettingsScene extends Phaser.Scene {
     const note = document.createElement('p');
     note.textContent = 'Bei ruhiger Bewegung sind Partikel ausgeschaltet.';
     dialog.content.append(note);
+    const assets = document.createElement('button');
+    assets.type = 'button';
+    assets.textContent = 'Asset-Viewer öffnen ↗';
+    assets.addEventListener('click', () => window.open('/assets.html', '_blank', 'noopener'));
+    dialog.content.append(assets);
     const unsubscribe = subscribeSettings(() => repaint.forEach(draw => draw()));
     this.events.once('shutdown', () => { unsubscribe(); dialog.destroy(); closeSettings(); });
   }

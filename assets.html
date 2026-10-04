@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Die Grafikassets von Selantis: Schauplätze, Cutscenes, Pixelart-Figuren und Porträts im interaktiven Viewer.">
+  <meta name="theme-color" content="#0b100f">
+  <title>Selantis · Asset-Viewer</title>
+  <link rel="stylesheet" href="/site/assets.css">
+  <script type="module" src="/site/assets.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/">SELANTIS<span>Die Chroniken</span></a>
+    <nav aria-label="Webseite"><a href="/">Spielen</a><a href="/musik.html">Musik</a><a href="/konzept.html">Konzept</a><a href="/assets.html" aria-current="page">Assets</a></nav>
+  </header>
+  <main>
+    <header class="intro"><div><p class="eyebrow">Ein Blick hinter die Kulissen</p><h1>Asset-Viewer</h1><p class="subtitle">Die Grafiken aus dem aktuellen Spielbuild.</p></div><span id="total" class="total" aria-label="Assetanzahl">…</span></header>
+    <section class="toolbar" aria-label="Assets suchen und filtern">
+      <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input id="search" type="search" placeholder="Lia, Wald, Valentus …" aria-label="Assets durchsuchen" autocomplete="off"><kbd>/</kbd></label>
+      <div id="filters" class="filters" role="group" aria-label="Assetkategorie"></div>
+    </section>
+    <div class="collection-heading"><h2 id="collection-title">Alle Assets</h2><span id="result-count" role="status" aria-live="polite"></span></div>
+    <div id="grid" class="grid" aria-busy="true"></div>
+    <p id="empty" class="empty" hidden>Keine Assets gefunden. <button id="reset" type="button">Filter zurücksetzen</button></p>
+    <p id="error" class="empty" role="alert" hidden>Die Assets konnten nicht geladen werden. <button id="retry" type="button">Erneut versuchen</button></p>
+    <noscript><p>Für Suche und Vorschau bitte JavaScript aktivieren.</p><a href="/assets/manifest.json">Asset-Manifest öffnen</a></noscript>
+  </main>
+  <footer>SELANTIS <span>Pixelart · Schauplätze · Figuren</span><a href="/">Zurück zum Spiel</a></footer>
+  <dialog id="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-heading"><div><p id="viewer-category" class="eyebrow"></p><h2 id="viewer-title"></h2></div><button id="close" class="close" type="button" aria-label="Vorschau schließen">×</button></div>
+    <div id="stage" class="stage"><img id="preview-image" alt=""><canvas id="preview-frame" hidden></canvas></div>
+    <div id="sprite-controls" class="sprite-controls" hidden>
+      <div class="control-row"><button id="play" type="button" aria-pressed="false">Abspielen</button><label>Reihe <select id="row" aria-label="Sprite-Reihe"></select></label><label><input id="sheet" type="checkbox"> Ganzes Spritesheet</label></div>
+      <label class="frame-slider">Einzelbild <input id="frame" type="range" min="0" step="1"><output id="frame-label"></output></label>
+    </div>
+    <div class="viewer-bottom"><p><span id="dimensions"></span><code id="filename"></code></p><a id="download" class="download" download>PNG herunterladen <span aria-hidden="true">↓</span></a></div>
+  </dialog>
+</body>
+</html>

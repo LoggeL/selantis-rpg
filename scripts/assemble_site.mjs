@@ -55,6 +55,37 @@ concept = concept.replace('Konzept und Medien, noch kein Spielbuild.',
   'Visuelles Konzept. <a href="/">Spielbaren Prolog öffnen</a>.');
 await writeFile(join(target, 'konzept.html'), concept);
 await cp(join(root, 'musik.html'), join(target, 'musik.html'));
+await cp(join(root, 'assets.html'), join(target, 'assets.html'));
+await cp(join(root, 'site'), join(target, 'site'), { recursive: true });
+// Catalog the selected public graphics only. No raw generations or QA files enter the site.
+const manifest = JSON.parse(await readFile(join(target, 'assets/manifest.json'), 'utf8'));
+const metadata = new Map();
+for (const [id, sprite] of Object.entries(manifest.sprites)) metadata.set(sprite.file, { id, ...sprite });
+for (const [id, file] of Object.entries(manifest.images)) metadata.set(file, { id });
+for (const key of ['icons', 'items']) {
+  const atlas = manifest[key];
+  if (atlas) metadata.set(atlas.file, { id: key, frameW: atlas.size, frameH: atlas.size });
+}
+metadata.set('assets/sprites/road-travelers-walk.png', { id: 'road-travelers-walk', frameW: 128, frameH: 64 });
+const categoryOrder = ['bg', 'cut', 'sprites', 'portraits', 'ui', 'social'];
+const catalog = [];
+for (const file of await files(join(target, 'assets'), 'assets')) {
+  if (!file.endsWith('.png')) continue;
+  const category = file.split('/')[1];
+  if (!categoryOrder.includes(category)) continue;
+  const bytes = await readFile(join(target, file));
+  if (bytes.subarray(1, 4).toString() !== 'PNG') throw new Error(`Invalid PNG: ${file}`);
+  const width = bytes.readUInt32BE(16), height = bytes.readUInt32BE(20);
+  const meta = metadata.get(file) ?? {};
+  const asset = { id: meta.id ?? file.split('/').pop().slice(0, -4), file, category, width, height };
+  if (meta.frameW && meta.frameH) {
+    if (width % meta.frameW || height % meta.frameH) throw new Error(`Invalid sprite grid: ${file}`);
+    Object.assign(asset, { frameW: meta.frameW, frameH: meta.frameH, cols: width / meta.frameW, rows: height / meta.frameH });
+  }
+  catalog.push(asset);
+}
+catalog.sort((a, b) => categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category) || a.id.localeCompare(b.id));
+await writeFile(join(target, 'assets/catalog.json'), `${JSON.stringify(catalog, null, 2)}\n`);
 const hashes = {};
 for (const name of await files(target)) {
   hashes[name] = createHash('sha256').update(await readFile(join(target, name))).digest('hex');

@@ -16,6 +16,9 @@
 !scripts/assemble_site.mjs
 !konzept.html
 !musik.html
+!assets.html
+!site/
+!site/**
 !output/
 !output/imagegen/
 !output/imagegen/lia-pixel-film-look.png

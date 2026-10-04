@@ -5,6 +5,7 @@ Das öffentliche Repository ist [LoggeL/selantis-rpg](https://github.com/LoggeL/
 - Spiel: https://selantis.logge.top/
 - Visuelles Konzept und Räuberlied: https://selantis.logge.top/konzept.html
 - Sechs Szenenstücke: https://selantis.logge.top/musik.html
+- Asset-Viewer: https://selantis.logge.top/assets.html
 - Release mit Commit-ID und SHA-256-Dateihashes: https://selantis.logge.top/release.json
 - Healthcheck: https://selantis.logge.top/healthz
 

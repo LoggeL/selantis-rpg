@@ -2,7 +2,9 @@
 
 Browser-RPG mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der spielbare Prolog beginnt mit Valentus. Aktuell ist es ein Prototyp.
 
-[Spiel öffnen](https://selantis.logge.top/) · [Visuelles Konzept und Räuberlied](https://selantis.logge.top/konzept.html) · [Szenenmusik anhören](https://selantis.logge.top/musik.html)
+[Spiel öffnen](https://selantis.logge.top/) · [Visuelles Konzept und Räuberlied](https://selantis.logge.top/konzept.html) · [Szenenmusik anhören](https://selantis.logge.top/musik.html) · [Asset-Viewer](https://selantis.logge.top/assets.html)
+
+Der Asset-Viewer zeigt die ausgewählten Grafiken aus dem Spielbuild mit Suche, Kategorien, Großansicht, Download und einer Einzelbildvorschau für Spritesheets. Er öffnet sich auch aus den Spieleinstellungen. Sein Katalog entsteht beim Zusammenstellen der Webseite automatisch aus den öffentlichen Grafikdateien und den Rastermaßen im Asset-Manifest.
 
 ## Lokal starten
 
