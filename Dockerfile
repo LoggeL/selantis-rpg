@@ -3,7 +3,7 @@ WORKDIR /app
 COPY game/package.json game/package-lock.json ./game/
 RUN npm ci --prefix game
 COPY . .
-RUN npm test --prefix game && npm run build --prefix game && node scripts/assemble_site.mjs
+RUN npm test --prefix game -- --maxWorkers=2 && npm run build --prefix game && node scripts/assemble_site.mjs
 
 FROM nginx:stable-alpine
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf

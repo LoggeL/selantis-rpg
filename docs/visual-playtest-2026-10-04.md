@@ -53,6 +53,8 @@ Der vollständige lokale Browserlauf mit vier parallelen Workern bestand zunäch
 
 Nach der letzten Änderung an der Szenenrückkehr bestanden zusätzlich alle 17 betroffenen Gameplay-, Pointer- und Rettungsprüfungen. Sie umfassen Erfolg, Abbruch, Niederlage, Wiederholung und den Filmabschluss in allen drei Ansichten.
 
+Der erste automatische Docker-Build bestand alle 615 Tests, scheiterte aber anschließend an `EMFILE` durch Dateiüberwacher. Der Musik-Auslieferungstest deaktiviert deshalb seine unnötige Überwachung; der Docker-Build führt höchstens zwei Testworker parallel aus. Der vollständige Testlauf bestand danach auch mit einem auf 1.024 begrenzten Dateilimit.
+
 Lokale Berichte und Originalbilder:
 
 - `output/qa/visual-playtest/valentus/coverage.md`: Titel, vier Prologkarten, Kampf, Verwundung, beide Fluchtkarten und Zuflucht, 118 Screenshots.

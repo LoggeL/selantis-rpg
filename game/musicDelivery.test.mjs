@@ -19,7 +19,8 @@ describe('authored scene music delivery', () => {
   beforeAll(async () => {
     server = await createServer({ configFile: false, root: new URL('.', import.meta.url).pathname,
       base: '/play/', plugins: [sceneMusicAssets()], optimizeDeps: { noDiscovery: true, include: [] },
-      server: { middlewareMode: true, hmr: false } });
+      // Immutable delivery checks need neither HMR nor filesystem watchers.
+      server: { middlewareMode: true, hmr: false, watch: null } });
     http = createHttpServer(server.middlewares);
     await new Promise(resolve => http.listen(0, '127.0.0.1', resolve));
     origin = `http://127.0.0.1:${http.address().port}`;
