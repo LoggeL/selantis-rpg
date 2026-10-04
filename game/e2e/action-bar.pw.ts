@@ -47,7 +47,7 @@ test('battle bar reveals actual spells, selects targets and keeps spent spells d
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, () => {});
   await page.goto('/?scene=battle');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('battle'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('battle'));
   const bar = page.getByRole('navigation', { name: 'Fähigkeiten und Inventar' });
   await expect(bar.locator('[data-key="Q"]')).toBeHidden();
   // Remove only the long approach; real direction and action inputs run the tutorial.
@@ -77,7 +77,7 @@ test('dialogue takes over actions and restores the gameplay bar after reading', 
   await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, () => {});
   await page.goto('/?scene=lia');
   const bar = page.getByRole('navigation', { name: 'Fähigkeiten und Inventar' });
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('lia'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('lia'));
   await expect(bar).toBeHidden();
   const action = page.locator('.mobile-action[data-key="E"]');
   // The chapter card disables input before Kyra's three held observations.

@@ -134,11 +134,11 @@ def main():
     preview.save(qa/'contact-native.png')
     preview.resize((2048,2400), Image.Resampling.NEAREST).save(qa/'contact-2x.png')
     (qa/'report.json').write_text(json.dumps(reports, indent=2)+'\n')
-    # Exact existing BootScene sequences, no animation remapping in game code.
+    # Use the runtime animation definitions for the authored prologue sequences.
     owned = {j['id'] for j in spec['assets'] if 'grid' in j}
-    boot = (ROOT/'game/src/scenes/BootScene.ts').read_text()
+    animation_source = (ROOT/'game/src/platform/assets/animations.ts').read_text()
     anims = []
-    for match in re.finditer(r"'([^']+)': \['([^']+)', \[([^]]+)\], ([\d.]+), (true|false)\]", boot):
+    for match in re.finditer(r"'([^']+)': \['([^']+)', \[([^]]+)\], ([\d.]+), (true|false)\]", animation_source):
         name, sheet, numbers, fps, loop = match.groups()
         if sheet in owned:
             anims.append({'name':name,'sheet':sheet,'frames':[int(x.strip()) for x in numbers.split(',')], 'fps':float(fps),'loop':loop=='true'})

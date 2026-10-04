@@ -1,0 +1,11 @@
+{
+  "dialogue": {
+    "kyra": "kyra", "foltan": "foltan", "azar": "azar", "father": "father", "mother": "mother", "grey-haired": "grey-haired-message06"
+  },
+  "expressions": {
+    "lia": "dialogue-lia", "valentus": "dialogue-valentus", "kyra": "dialogue-kyra",
+    "foltan": "dialogue-foltan", "azar": "dialogue-azar",
+    "grief": "dialogue-lia-grief", "determined": "dialogue-lia-determined",
+    "scarred": "dialogue-scarred", "hooded": "dialogue-hooded", "refuge-man": "dialogue-refuge-man"
+  }
+}

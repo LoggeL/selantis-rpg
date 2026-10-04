@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
 });
 
 test('walkthrough follows context, allows read-only selection and scrolls on mobile', async ({ page }) => {
@@ -9,7 +9,7 @@ test('walkthrough follows context, allows read-only selection and scrolls on mob
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/?scene=world&map=waldrand');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('world'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('world'));
   const snapshot = () => page.evaluate(() => JSON.stringify((window as any).game.registry.get('world')));
   const before = await snapshot();
   await page.getByRole('button', { name: 'Debug · Playtest' }).click();
@@ -42,7 +42,7 @@ for (const arrival of ['hohlweg', 'felder', 'hof']) {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto(`/?scene=world&map=${arrival}`);
     if (arrival !== 'hof') {
-      await page.waitForFunction(() => (window as any).game?.scene.isActive('world'));
+      await page.waitForFunction(() => (window as any).game?.scene?.isActive('world'));
       // Start one walking step before the real map exit, then cross using input.
       await page.evaluate(arrival => {
         const scene = (window as any).game.scene.getScene('world');
@@ -51,7 +51,7 @@ for (const arrival of ['hohlweg', 'felder', 'hof']) {
       }, arrival);
       await page.keyboard.down(arrival === 'hohlweg' ? 'ArrowRight' : 'ArrowDown');
     }
-    await page.waitForFunction(() => (window as any).game?.scene.isActive('raid'), undefined, { timeout: 2000 });
+    await page.waitForFunction(() => (window as any).game?.scene?.isActive('raid'), undefined, { timeout: 2000 });
     await page.keyboard.up(arrival === 'hohlweg' ? 'ArrowRight' : 'ArrowDown');
     expect(await page.evaluate(() => {
       const game = (window as any).game, scene = game.scene.getScene('raid');

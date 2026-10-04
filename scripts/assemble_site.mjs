@@ -2,6 +2,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { compileAssetCatalog } from './asset_catalog.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const target = join(root, 'output/site');
@@ -57,35 +58,11 @@ await writeFile(join(target, 'konzept.html'), concept);
 await cp(join(root, 'musik.html'), join(target, 'musik.html'));
 await cp(join(root, 'assets.html'), join(target, 'assets.html'));
 await cp(join(root, 'site'), join(target, 'site'), { recursive: true });
-// Catalog the selected public graphics only. No raw generations or QA files enter the site.
-const manifest = JSON.parse(await readFile(join(target, 'assets/manifest.json'), 'utf8'));
-const metadata = new Map();
-for (const [id, sprite] of Object.entries(manifest.sprites)) metadata.set(sprite.file, { id, ...sprite });
-for (const [id, file] of Object.entries(manifest.images)) metadata.set(file, { id });
-for (const key of ['icons', 'items']) {
-  const atlas = manifest[key];
-  if (atlas) metadata.set(atlas.file, { id: key, frameW: atlas.size, frameH: atlas.size });
-}
-const categoryOrder = ['bg', 'cut', 'sprites', 'portraits', 'ui', 'social'];
-const catalog = [];
-for (const file of await files(join(target, 'assets'), 'assets')) {
-  if (!file.endsWith('.png')) continue;
-  const category = file.split('/')[1];
-  if (!categoryOrder.includes(category)) continue;
-  const bytes = await readFile(join(target, file));
-  if (bytes.subarray(1, 4).toString() !== 'PNG') throw new Error(`Invalid PNG: ${file}`);
-  const width = bytes.readUInt32BE(16), height = bytes.readUInt32BE(20);
-  const meta = metadata.get(file) ?? {};
-  const version = createHash('sha256').update(bytes).digest('hex').slice(0, 12);
-  const asset = { id: meta.id ?? file.split('/').pop().slice(0, -4), file, url: `${file}?v=${version}`, category, width, height };
-  if (meta.frameW && meta.frameH) {
-    if (width % meta.frameW || height % meta.frameH) throw new Error(`Invalid sprite grid: ${file}`);
-    Object.assign(asset, { frameW: meta.frameW, frameH: meta.frameH, cols: width / meta.frameW, rows: height / meta.frameH });
-  }
-  catalog.push(asset);
-}
-catalog.sort((a, b) => categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category) || a.id.localeCompare(b.id));
-await writeFile(join(target, 'assets/catalog.json'), `${JSON.stringify(catalog, null, 2)}\n`);
+// The viewer consumes the same validated catalog as chapter loaders.
+const runtimeManifest = compileAssetCatalog(root);
+const bundledManifest = JSON.parse(await readFile(join(target, 'assets/runtime-manifest.json'), 'utf8'));
+if (JSON.stringify(bundledManifest) !== JSON.stringify(runtimeManifest)) throw new Error('Asset sources changed after the game build');
+await writeFile(join(target, 'assets/catalog.json'), JSON.stringify(runtimeManifest.assets));
 const hashes = {};
 for (const name of await files(target)) {
   hashes[name] = createHash('sha256').update(await readFile(join(target, name))).digest('hex');

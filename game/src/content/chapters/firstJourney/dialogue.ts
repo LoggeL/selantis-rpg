@@ -1,0 +1,55 @@
+export type JourneyBeat = { id: string; line: string; cue?: 'lia-wakes' };
+
+export const CAMP_OBSERVATION_BEATS: readonly JourneyBeat[] = [
+  { id: 'camp-observe/is-she-dead', line: 'Der Dicke: "Ist sie tot?"' },
+  { id: 'camp-observe/pulse', line: 'Der Schmale: "Nein, sie hat noch Puls."' },
+  { id: 'camp-observe/lia-startles', line: 'Lia: "Aaah!"', cue: 'lia-wakes' },
+  { id: 'camp-observe/azar-startles', line: 'Der Dicke: "Aaaah!"' },
+  { id: 'camp-observe/quiet', line: 'Der Schmale: "Psst! Du schreist ja lauter als sie."' },
+  { id: 'camp-observe/apology', line: 'Der Dicke: "Tschuldige. Du weißt doch, dass ich schreckhaft bin."' },
+  { id: 'camp-observe/reassurance', line: 'Der Schmale: "Glückwunsch, jetzt weiß der halbe Wald, dass wir hier sind. Ganz ruhig, Kleine. Wir tun dir nichts."' },
+];
+
+export const CAMP_INTRODUCTION_BEATS: readonly JourneyBeat[] = [
+  { id: 'camp-introduction/names', line: 'Der Schmale: "Ich bin Foltan. Ich war Leutnant der Stadtgarde von Portas. Und das hier ist Azar, ein Schmied aus Ignis."' },
+  { id: 'camp-introduction/azar-apology', line: 'Azar: "Das mit dem ‚tot‘ war nicht böse gemeint. Du lagst nur so still da."' },
+  { id: 'camp-introduction/silence', line: 'Foltan: "Manchmal wünschte ich, du würdest einfach schweigen."' },
+  { id: 'camp-introduction/retort', line: 'Azar: "Na bitte. Soll der feine Herr Foltan machen, was er für richtig hält."' },
+  { id: 'camp-introduction/lia-question', line: 'Lia: "Erst sagt ihr mir, was ihr hier macht."' },
+  { id: 'camp-introduction/dark-shadows', line: 'Foltan: "Sieh an, vorlaut ist sie auch noch. Wir sind gegen die Dunkelschatten, falls dich das beruhigt."' },
+  { id: 'camp-introduction/kyra', line: 'Lia: "Dunkelschatten haben gestern meine Eltern umgebracht und Kyra mitgenommen. Meine Schwester. Helft ihr mir?"' },
+  { id: 'camp-introduction/no-promise', line: 'Foltan: "Glaub mir, du bist nicht die Einzige, der so etwas passiert ist. Versprechen können wir dir nichts."' },
+  { id: 'camp-introduction/lia-protests', line: 'Lia: "Und Kyra? Ich kann doch nicht einfach abwarten."' },
+  { id: 'camp-introduction/alone', line: 'Foltan: "Allein kannst du sie nicht retten. Schlag dir das fürs Erste aus dem Kopf."' },
+  { id: 'camp-introduction/invitation', line: 'Azar: "Komm mit uns in unser Lager. Bei uns bist du sicherer, glaub mir."' },
+  { id: 'camp-introduction/watch', line: 'Foltan: "Und jetzt schlaf. Wir halten abwechselnd Wache. Azar, du übernimmst die zweite."' },
+];
+
+export const JOURNEY_TEXT = {
+  roadArrival: { id: 'first-journey/roadArrival', line: 'Endlich die Hauptstraße. Am Bach kann ich trinken und Wasser nachfüllen.' },
+  streamDrink: { id: 'first-journey/streamDrink', line: 'Das kühle Wasser tut gut. Der Schlauch ist wieder voll.' },
+  eastFork: { id: 'first-journey/eastFork', line: 'Westen: Trapas. Osten: Portas. Die Reiter sind nach Osten. Hoffentlich nicht bis ganz nach Portas.' },
+  eveningArrival: { id: 'first-journey/eveningArrival', line: 'Lia: Die Sonne geht unter. Ich bin müde. Dort im Wald suche ich mir einen Platz und schlage mein Lager auf.' },
+  campClearing: { id: 'first-journey/campClearing', line: 'Die Sonne geht unter. Mist, ein Loch im Rock. Ich ziehe den grünen Mantel über. Hier sieht mich von der Straße aus keiner, hier bleibe ich.' },
+  stayInCamp: { id: 'first-journey/stayInCamp', line: 'Es ist dunkel. Ich bleibe im Lager und gehe bei Tageslicht weiter.' },
+  warmEmbers: { id: 'first-journey/warmEmbers', line: 'Die Glut wärmt meine Hände. Hier kann ich einen Augenblick sitzen bleiben.' },
+  missingCloak: { id: 'first-journey/missingCloak', line: 'Dafür brauche ich meinen eingepackten Regenmantel.' },
+  cloakSpread: { id: 'first-journey/cloakSpread', line: 'Ich ziehe den grünen Mantel aus und breite ihn aus. Besser als der kalte Boden.' },
+  stonesGathered: { id: 'first-journey/stonesGathered', line: 'Sechs Steine. Sie liegen jetzt in meiner Tasche (I). Daraus baue ich eine Feuerstelle.' },
+  missingStones: { id: 'first-journey/missingStones', line: 'Für den Ring brauche ich sechs Steine in der Tasche.' },
+  firepitBuilt: { id: 'first-journey/firepitBuilt', line: 'Die Steine umschließen die Feuerstelle. Jetzt fehlt trockenes Holz.' },
+  twigsGathered: { id: 'first-journey/twigsGathered', line: 'Trockenes Laub und Zweige, ab in die Tasche (I). Den Zunder von daheim hätte ich mitnehmen sollen.' },
+  needFireMaterials: { id: 'first-journey/needFireMaterials', line: 'Erst die Feuerstelle bauen und trockenes Holz sammeln.' },
+  fireLit: { id: 'first-journey/fireLit', line: 'Es brennt! Heute Nacht muss ich wenigstens nicht frieren.' },
+  firePause: { id: 'first-journey/firePause', line: 'Ich mache kurz Pause. Das Holz und die Wärme im Zunder bleiben erhalten.' },
+  eatBeforeSleep: { id: 'first-journey/eatBeforeSleep', line: 'Erst esse ich etwas aus meiner Tasche. Dann lege ich mich hin.' },
+  lieDown: { id: 'first-journey/lieDown', line: 'Die Decke bis zum Hals. Ich habe letzte Nacht kein Auge zugetan.' },
+  nightfall: { id: 'first-journey/nightfall', line: 'Einige Stunden später. Es ist Nacht geworden.' },
+  missingProvisions: { id: 'first-journey/missingProvisions', line: 'In meiner Tasche fehlt der Reiseproviant.' },
+  mealEaten: { id: 'first-journey/mealEaten', line: 'Brot und Käse. Jetzt lege ich mich auf den Mantel und ziehe die Decke über mich.' },
+  sitByFire: { id: 'first-journey/sitByFire', line: 'Das Feuer wärmt mich. Für einen Moment bleibe ich hier. Mit E oder einer Bewegung stehe ich auf.' },
+  azarSleeping: { id: 'first-journey/azarSleeping', line: 'Azar schläft schon tief und fest.' },
+  companionsSettled: { id: 'first-journey/companionsSettled', line: 'Foltan setzt sich ans Feuer, Azar schnarcht schon. Ich bin nicht mehr allein. Ob ich mich darüber freuen soll, weiß ich noch nicht.' },
+  criosSeen: { id: 'first-journey/criosSeen', line: 'Crios steht noch im Westen. Vielleicht sieht Kyra ihn auch.' },
+  openProvisions: { id: 'first-journey/openProvisions', line: 'Ich hole den Reiseproviant aus meiner Tasche. Auswählen und Essen.' },
+} as const satisfies Record<string, JourneyBeat>;

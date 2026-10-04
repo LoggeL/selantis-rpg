@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createServer as createHttpServer } from 'node:http';
 import { sceneMusicAssets } from './vite.config.mjs';
-import { MUSIC_TRACKS } from './src/musicPolicy';
+import { MUSIC_TRACKS } from './src/content/audio/tracks';
 
 describe('authored scene music delivery', () => {
   let server;
@@ -14,7 +14,7 @@ describe('authored scene music delivery', () => {
   const manifest = JSON.parse(readFileSync(new URL('output/audio/scenes/manifest.json', sourceRoot), 'utf8'));
 
   it('covers every soundtrack requested by the game', () => {
-    expect(Object.values(MUSIC_TRACKS).sort()).toEqual(manifest.map(track => `/output/audio/scenes/${track.file}`).sort());
+    expect(Object.values(MUSIC_TRACKS).sort()).toEqual(manifest.map(track => `output/audio/scenes/${track.file}`).sort());
   });
   beforeAll(async () => {
     server = await createServer({ configFile: false, root: new URL('.', import.meta.url).pathname,

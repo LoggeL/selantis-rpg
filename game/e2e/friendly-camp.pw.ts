@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { restartScene } from './helpers/scenes';
 
 const layouts = [
   { name: 'desktop', width: 1280, height: 800, mobile: false, reducedMotion: false },
@@ -6,8 +7,33 @@ const layouts = [
   { name: 'phone-landscape', width: 844, height: 390, mobile: true, reducedMotion: false },
   { name: 'reduced-motion', width: 1280, height: 800, mobile: false, reducedMotion: true },
 ];
+/** Start through the supported checkpoint UI, then await real scene creation. */
+async function openFriendlyCamp(page: Page, layout: typeof layouts[number], beforeEncounter = false) {
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
+  await page.setViewportSize({ width: layout.width, height: layout.height });
+  await page.addInitScript(reducedMotion => localStorage.setItem('selantis.settings.v1', JSON.stringify({ reducedMotion })), layout.reducedMotion);
+  await page.goto('/');
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('title'));
+  await page.getByRole('button', { name: 'Debug · Playtest' }).click();
+  await page.getByLabel('Einstieg').selectOption('strangers');
+  await page.getByRole('button', { name: 'Zum Einstieg' }).click();
+  await page.waitForFunction(() => {
+    const scene = (window as any).game?.scene?.getScene('journey');
+    return scene?.sys.isActive() && scene.inCamp && scene.lia?.active && scene.foltan?.active && scene.spots?.some((spot: any) => spot.id === 'foltan');
+  });
+  if (beforeEncounter) {
+    // The checkpoint supplies an intact rested camp. Rewind only the meeting,
+    // then exercise normal preload/create and the whole arrival choreography.
+    await page.evaluate(() => { (window as any).game.registry.get('world').flags.metFoltanAzar = false; });
+    await restartScene(page, 'journey');
+  }
+}
+
 async function interact(page: Page, mobile: boolean) {
-  if (mobile) await page.locator('.mobile-action[data-key="E"]').click();
+  if (mobile) {
+    await expect(page.locator('.mobile-action[data-key="E"]')).toBeEnabled();
+    await page.locator('.mobile-action[data-key="E"]').click();
+  }
   else await page.keyboard.press('KeyE', { delay: 50 });
 }
 async function sample(page: Page) {
@@ -26,31 +52,22 @@ for (const layout of layouts) {
   test(`friendly camp dialogue stays continuous on ${layout.name}`, async ({ page }) => {
     test.setTimeout(90_000);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
-    // Concurrent source edits must not reload the loaded game during acceptance.
-    await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, () => {});
-    await page.setViewportSize({ width: layout.width, height: layout.height });
-    await page.addInitScript(reducedMotion => localStorage.setItem('selantis.settings.v1', JSON.stringify({ reducedMotion })), layout.reducedMotion);
-    await page.goto('/?scene=journey');
-    await page.waitForFunction(() => (window as any).game?.scene.isActive('journey'));
-    // Restore a rested camp through create(), with real E/touch thereafter.
-    await page.evaluate(() => {
-      const game = (window as any).game;
-      Object.assign(game.registry.get('world').flags, { journeyCampReached: true, firstCampRested: true,
-        journeyCloakSpread: true, journeyStonesGathered: true, journeyFirepitBuilt: true,
-        journeyTwigsGathered: true, campfireLit: true, journeyAte: true });
-      game.scene.getScene('journey').scene.restart();
-    });
+    await openFriendlyCamp(page, layout, true);
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').data.get('story:camp-arrival') === 'entering');
     const arrival = () => page.evaluate(() => {
       const s = (window as any).game.scene.getScene('journey');
       return { phase: s.data.get('story:camp-arrival'), locked: s.locked, pose: s.liaPose,
         shot: !!s.closeup?.visible, controls: s.data.get('mobile:controls'),
-        foltan: { x: s.foltan.x, y: s.foltan.y, frame: Number(s.foltan.frame.name) },
-        azar: { x: s.azar.x, y: s.azar.y, frame: Number(s.azar.frame.name) } };
+        foltan: { x: s.foltan.x, y: s.foltan.y, frame: Number(s.foltan.frame.name), texture: s.foltan.texture.key, animation: s.foltan.anims.currentAnim?.key },
+        azar: { x: s.azar.x, y: s.azar.y, frame: Number(s.azar.frame.name), texture: s.azar.texture.key, animation: s.azar.anims.currentAnim?.key } };
     });
     const entry = await arrival();
     expect(entry).toMatchObject({ phase: 'entering', locked: true, pose: 'lia-sleep', shot: false,
-      controls: { directions: [], actions: {}, inventory: false, disabled: true }, foltan: { frame: 5 }, azar: { frame: 6 } });
+      controls: { directions: [], actions: {}, inventory: false, disabled: true }, foltan: { texture: 'foltan-walk' }, azar: { texture: 'azar-walk' } });
+    for (const [name, actor] of [['foltan', entry.foltan], ['azar', entry.azar]] as const) {
+      expect(Number.isInteger(actor.frame)).toBe(true);
+      expect(actor.animation).toMatch(new RegExp(`^${name}-(?:idle-s|walk-w|idle-w)$`));
+    }
     if (!layout.reducedMotion) {
       expect(entry.foltan.x).toBeGreaterThan(450); expect(entry.azar.x).toBeGreaterThan(450);
       // E cannot skip their arrival; movement and the bag also stay locked.
@@ -59,6 +76,8 @@ for (const layout of layouts) {
       const moving = await arrival();
       expect(moving).toMatchObject({ phase: 'entering', shot: false, pose: 'lia-sleep' });
       expect(moving.foltan.x).toBeLessThan(entry.foltan.x); expect(moving.azar.x).toBeLessThan(entry.azar.x);
+      expect(moving.foltan.animation).toBe('foltan-walk-w'); expect(moving.azar.animation).toBe('azar-walk-w');
+      expect([4, 5, 6, 7]).toContain(moving.foltan.frame); expect([4, 5, 6, 7]).toContain(moving.azar.frame);
       expect(await page.evaluate(() => (window as any).game.scene.getScene('journey').inventory.isOpen)).toBe(false);
       await expect(page.locator('#bag-dialog')).not.toBeVisible();
       await page.screenshot({ path: `../output/qa/friendly-camp-${layout.name}-map-arrival.png`, fullPage: true });
@@ -103,12 +122,12 @@ for (const layout of layouts) {
     expect(await sample(page)).toMatchObject({ locked: false, met: true, ropeFlag: false,
       targets: ['fire', 'bedroll', 'foltan', 'azar', 'fire-seat', 'star', 'road'] });
     // Scene restart with the same registry models a return to the restored camp.
-    await page.evaluate(() => (window as any).game.scene.getScene('journey').scene.restart());
+    await restartScene(page, 'journey');
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'star');
     expect(await page.evaluate(() => {
       const scene = (window as any).game.scene.getScene('journey');
-      return [scene.locked, scene.closeupVisible, scene.liaPose ?? null, Number(scene.foltan.frame.name), Number(scene.azar.frame.name)];
-    })).toEqual([false, false, null, 5, 6]);
+      return [scene.locked, scene.closeupVisible, scene.liaPose ?? null, scene.foltan.texture.key, scene.azar.texture.key, Number(scene.foltan.frame.name), Number(scene.azar.frame.name)];
+    })).toEqual([false, false, null, 'foltan-walk', 'azar-walk', 1, 1]);
     await page.evaluate(() => (window as any).game.scene.getScene('journey').lia.setPosition(155, 188));
     await interact(page, layout.mobile);
     for (let index = 0; index < 6; index++) {
@@ -132,7 +151,7 @@ for (const layout of layouts) {
     await expect.poll(async () => (await sample(page)).step).toBe('complete');
     expect(await page.evaluate(() => (window as any).game.registry.get('world').flags.criosObserved)).toBe(true);
     expect((await sample(page)).objective).toBe('Im Lager zur Ruhe kommen oder bis zum Morgen schlafen.');
-    await page.evaluate(() => (window as any).game.scene.getScene('journey').scene.restart());
+    await restartScene(page, 'journey');
     await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'complete');
     expect(errors).toEqual([]);
   });
@@ -140,20 +159,7 @@ for (const layout of layouts) {
   test(`optional camp actions and direct sleep work on ${layout.name}`, async ({ page }) => {
     test.setTimeout(45_000);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
-    await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
-    await page.setViewportSize({ width: layout.width, height: layout.height });
-    await page.addInitScript(reducedMotion => localStorage.setItem('selantis.settings.v1', JSON.stringify({ reducedMotion })), layout.reducedMotion);
-    await page.goto('/?scene=journey');
-    await page.waitForFunction(() => (window as any).game?.scene.isActive('journey'));
-    // Resume after the encounter, then use actual controls for all optional points.
-    await page.evaluate(() => {
-      const game = (window as any).game;
-      Object.assign(game.registry.get('world').flags, { journeyCampReached: true, firstCampRested: true,
-        journeyCloakSpread: true, journeyStonesGathered: true, journeyFirepitBuilt: true,
-        journeyTwigsGathered: true, campfireLit: true, journeyAte: true, metFoltanAzar: true });
-      game.scene.getScene('journey').scene.restart();
-    });
-    await page.waitForFunction(() => (window as any).game.scene.getScene('journey').campStep === 'star');
+    await openFriendlyCamp(page, layout);
     expect((await sample(page)).targets).toEqual(['fire', 'bedroll', 'foltan', 'azar', 'fire-seat', 'star', 'road']);
     const at = async (x: number, y: number) => {
       await page.evaluate(([x, y]) => (window as any).game.scene.getScene('journey').lia.setPosition(x, y), [x, y]);

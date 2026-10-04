@@ -11,9 +11,18 @@ async function state(page: Page) {
   return page.evaluate(() => (window as any).game.registry.get('battle:state'));
 }
 
+async function battleReady(page: Page) {
+  // Phaser marks a lazy scene active before its asset preload and create finish.
+  await page.waitForFunction(() => {
+    const game = (window as any).game;
+    const scene = game?.scene?.getScene('battle');
+    return game?.scene?.isActive('battle') && scene?.sprites?.has('valentus') && !!scene.inputScope;
+  });
+}
+
 async function enterBattle(page: Page, mobile = false) {
   await page.goto('/?scene=battle');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('battle'));
+  await battleReady(page);
   // Only remove the long approach. Arrival recognition and every combat callback
   // still run in the real scene after an actual direction input.
   await page.evaluate(() => (window as any).game.scene.getScene('battle').sprites.get('valentus').setPosition(160, 221));
@@ -187,11 +196,14 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }
     test.setTimeout(35_000); await page.setViewportSize(viewport);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
     await enterBattle(page, true);
+    await expect(page.getByRole('button', { name: 'Strahl', exact: true })).toBeEnabled();
     await page.getByRole('button', { name: 'Warten', exact: true }).click();
     await phase(page, 'facing', 1);
     const finish = page.getByRole('button', { name: 'Zug beenden', exact: true });
     await expect(finish).toBeVisible(); await expect(finish).toBeEnabled();
-    await expect(page.getByRole('button', { name: 'Strahl', exact: true })).toBeHidden();
+    // Learned abilities retain their action-bar slots during facing, with no available action.
+    await expect(page.getByRole('button', { name: 'Strahl', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Strahl', exact: true })).toBeDisabled();
     await page.getByRole('button', { name: 'Nach links', exact: true }).click();
     expect((await state(page)).facing).toBe('w');
     const status = page.locator('[data-mobile-battle-status]');
@@ -223,19 +235,19 @@ test('mouse alone moves from arrival through the battle, hourglass, wound and qu
   await page.setViewportSize({ width: 1280, height: 800 });
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto('/?scene=battle');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('battle'));
+  await battleReady(page);
   // The initial position is untouched: the real pointer takes Valentus to the marker.
   await clickGame(page, 160, 232); await phase(page, 'plan', 1);
   await clickGame(page, 256, 232); await phase(page, 'plan', 1);
   expect((await state(page)).units.find((u: any) => u.id === 'valentus').cell).toEqual({ x: 6, y: 4 });
-  await clickGame(page, 286, 330); await phase(page, 'beam', 1);
+  await page.getByRole('button', { name: 'Strahl', exact: true }).click(); await phase(page, 'beam', 1);
   await clickGame(page, 320, 232); await phase(page, 'facing', 1);
   await clickGame(page, 280, 232);
   expect((await state(page)).facing).toBe('e');
   expect(await page.evaluate(() => (window as any).game.scene.getScene('battle').tacticalText.text)).toContain('Front weniger');
   await page.screenshot({ path: '../output/qa/tactics-mouse-hourglass.png', fullPage: true });
   await clickGame(page, 520, 323); await phase(page, 'plan', 2);
-  await clickGame(page, 320, 330); await phase(page, 'wave', 2);
+  await page.getByRole('button', { name: 'Druckwelle', exact: true }).click(); await phase(page, 'wave', 2);
   await clickGame(page, 288, 200); await phase(page, 'facing', 2);
   expect((await state(page)).units.find((u: any) => u.id === 'axe')).toMatchObject({ alive: true, wounded: true, hp: 1 });
   await clickGame(page, 520, 323); await phase(page, 'plan', 3);

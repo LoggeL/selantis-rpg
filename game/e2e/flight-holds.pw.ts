@@ -5,9 +5,9 @@ type Touch = { id: number; x: number; y: number };
 
 async function ready(page: Page, station: number) {
   // Keep concurrent source edits from reloading a held input midway through a test.
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
   await page.goto('/?scene=flight');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('flight'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('flight'));
   await page.waitForFunction(() => !!(window as any).game.scene.getScene('flight').data.get('mobile:thought'));
   await page.evaluate(index => {
     const scene = (window as any).game.scene.getScene('flight');
@@ -37,9 +37,12 @@ async function evidence(page: Page, info: TestInfo, name: string) {
 async function holdInput(page: Page, mode: Mode) {
   let client: CDPSession | undefined;
   let action: Touch, direction: Touch;
+  let directionHeld = false;
+  const actionButton = page.locator('.mobile-action[data-key="E"]');
+  const directionButton = page.locator('.mobile-direction[data-direction="right"]');
   if (mode === 'phone') {
-    const e = (await page.locator('.mobile-action[data-key="E"]').boundingBox())!;
-    const d = (await page.locator('.mobile-direction[data-direction="right"]').boundingBox())!;
+    const e = (await actionButton.boundingBox())!;
+    const d = (await directionButton.boundingBox())!;
     action = { id: 1, x: e.x + e.width / 2, y: e.y + e.height / 2 };
     direction = { id: 2, x: d.x + d.width / 2, y: d.y + d.height / 2 };
     client = await page.context().newCDPSession(page);
@@ -55,20 +58,29 @@ async function holdInput(page: Page, mode: Mode) {
         });
         await page.mouse.move(box.x + box.width * position.x / 640, box.y + box.height * position.y / 360);
         await page.mouse.down();
-      } else await client!.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [action, direction] });
+      } else {
+        await client!.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: directionHeld ? [action] : [action, direction] });
+        directionHeld = true;
+        await expect(actionButton).toHaveClass(/is-pressed/);
+        await expect(directionButton).toHaveClass(/is-pressed/);
+      }
     },
     async release() {
       if (mode === 'keyboard') await page.keyboard.up('KeyE');
       else if (mode === 'pointer') await page.mouse.up();
       // Lift only the action contact, keeping the direction finger down.
       else await client!.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [action] });
-      if (mode === 'phone') expect(await page.evaluate(() => {
-        const keys = (window as any).game.scene.getScene('flight').keys;
-        return { action: keys.E.isDown, direction: keys.RIGHT.isDown };
-      })).toEqual({ action: false, direction: true });
+      if (mode === 'phone') {
+        await expect(actionButton).not.toHaveClass(/is-pressed/);
+        await expect(directionButton).toHaveClass(/is-pressed/);
+      }
     },
     async stopDirection() {
-      if (mode === 'phone') await client!.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      if (mode === 'phone') {
+        await client!.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        directionHeld = false;
+        await expect(directionButton).not.toHaveClass(/is-pressed/);
+      }
       else await page.keyboard.up('KeyD');
     },
   };

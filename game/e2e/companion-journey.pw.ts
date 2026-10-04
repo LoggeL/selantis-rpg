@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
 });
 
 async function clickMap(page: Page, x: number, y: number) {
@@ -15,7 +15,7 @@ test('the morning forest walk, noon rest and afternoon stretch preserve supplies
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/?scene=companions-road');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('companions-road'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('companions-road'));
   expect(await page.evaluate(() => (window as any).game.registry.get('world').flags.metFoltanAzar)).toBe(true);
   await page.getByRole('button', { name: 'Gruppe ansehen · C' }).click();
   await expect(page.locator('#character-dialog [data-party-member]')).toHaveCount(3);
@@ -80,7 +80,7 @@ test('the morning forest walk, noon rest and afternoon stretch preserve supplies
 
 test('sleeping at the completed first camp continues into the next morning with the same named party and supplies', async ({ page }) => {
   await page.goto('/?scene=companions-road');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('companions-road'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('companions-road'));
   const before = await page.evaluate(() => JSON.stringify((window as any).game.registry.get('world')));
   await clickMap(page, 22, 183);
   await page.waitForFunction(() => (window as any).game.scene.isActive('journey'));
@@ -97,7 +97,7 @@ test('Foltan and Azar use all four walking phases and return to idle beside Lia'
   await page.setViewportSize({ width: 1280, height: 800 });
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto('/?scene=companions-road');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('companions-road'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('companions-road'));
   const before = await page.evaluate(() => JSON.stringify((window as any).game.registry.get('world')));
   // Use an unmarked painted path point; no scene teleport or animation call.
   await clickMap(page, 225, 210);
@@ -148,7 +148,7 @@ test('Foltan and Azar use all four walking phases and return to idle beside Lia'
 test('mobile walking and interaction return after the noon dialogue', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/?scene=companions-road');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('companions-road'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('companions-road'));
   const right = page.locator('.mobile-direction[data-direction="right"]');
   const action = page.locator('.mobile-action[data-key="E"]');
   await expect(right).toBeVisible(); await expect(action).toBeVisible();

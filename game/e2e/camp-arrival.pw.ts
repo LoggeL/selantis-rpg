@@ -6,7 +6,7 @@ test('camp arrival survives a restart and a motion-setting change without skippi
   await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, () => {});
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/?scene=journey');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('journey'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('journey'));
   await page.evaluate(() => {
     const game = (window as any).game;
     Object.assign(game.registry.get('world').flags, { journeyCampReached: true, firstCampRested: true,

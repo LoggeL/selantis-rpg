@@ -43,7 +43,7 @@ for (const viewport of viewports) {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto('/?scene=aftermath');
     await page.waitForFunction(() => {
-      const scene = (window as any).game?.scene.getScene('aftermath');
+      const scene = (window as any).game?.scene?.getScene('aftermath');
       return scene?.scene.isActive() && scene.input.keyboard.enabled && !scene.cameras.main.fadeEffect.isRunning;
     });
     const interact = async () => {

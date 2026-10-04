@@ -3,7 +3,7 @@ import { test, expect, type Page, type TestInfo } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
   // Load current source on navigation, then keep this running scene stable
   // while other workers edit modules in the same development server.
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
 });
 
 async function screenshot(page: Page, info: TestInfo, filename: string) {
@@ -13,7 +13,7 @@ async function screenshot(page: Page, info: TestInfo, filename: string) {
 
 async function ready(page: Page) {
   await page.goto('/?scene=flight');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('flight'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('flight'));
   // The real collapse occurs after the opening thought. Let that scheduled
   // beat run before placing a focused test at a later point on the route.
   await page.waitForFunction(() => !!(window as any).game.scene.getScene('flight').data.get('mobile:thought'));

@@ -7,12 +7,12 @@ async function roadClick(page: Page, x: number, y: number) {
 
 test('north road trail supports walking, field return and eastward progress on revisit', async ({ page }) => {
   test.setTimeout(60_000);
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/?scene=journey');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('journey'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('journey'));
   // Direct road debug entry represents travel after the raid and packing.
   await page.evaluate(() => { (window as any).game.registry.get('world').flags.raidWitnessed = true; });
   expect(await page.evaluate(() => {

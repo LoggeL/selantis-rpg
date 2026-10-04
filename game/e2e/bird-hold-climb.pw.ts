@@ -13,9 +13,9 @@ async function snapshot(page: Page) {
   });
 }
 async function collectBird(page: Page) {
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', () => {});
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, () => {});
   await page.goto('/?scene=world&map=waldrand');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('world'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('world'));
   const chick = await worldPoint(page, 448, 200);
   await page.mouse.click(chick.x, chick.y);
   await expect.poll(async () => (await snapshot(page)).inv.kueken, { timeout: 10000 }).toBe(1);
@@ -66,7 +66,7 @@ for (const mode of ['keyboard', 'pointer', 'touch-action'] as const) {
     await expect.poll(async () => (await snapshot(page)).busy).toBe(false);
     const done = await snapshot(page);
     expect(done.x).toBeCloseTo(ground.x); expect(done.y).toBeCloseTo(ground.y);
-    expect(done.inv.kueken).toBe(0); expect(done.rewards).toBe(1);
+    expect(done.inv.kueken ?? 0).toBe(0); expect(done.rewards).toBe(1);
     await page.keyboard.press('KeyE'); expect((await snapshot(page)).rewards).toBe(1);
     await page.screenshot({ path: `../output/qa/bird-${mode}-returned.png`, fullPage: true });
     expect(errors).toEqual([]);

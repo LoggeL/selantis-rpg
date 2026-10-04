@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test';
 
 test('the painted downward east branch supports early boundary, departure and field return', async ({ page }) => {
   test.setTimeout(45000);
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
   await page.setViewportSize({ width: 1280, height: 800 });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/?scene=world&map=felder');
-  await page.waitForFunction(() => (window as any).game?.scene.isActive('world'));
+  await page.waitForFunction(() => (window as any).game?.scene?.isActive('world'));
   await page.waitForFunction(() => !(window as any).game.scene.getScene('world').cameras.main.fadeEffect.isRunning);
   const click = async (x: number, y: number) => {
     const bounds = (await page.locator('canvas').boundingBox())!;

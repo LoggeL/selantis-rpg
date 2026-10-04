@@ -2,9 +2,9 @@ import { test, expect } from '@playwright/test';
 
 for (const mode of ['click-root', 'click-beyond', 'hold-pointer', 'keyboard'] as const) {
   test(`mandatory root stumble is reached with ${mode}`, async ({ page }, info) => {
-    await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+    await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
     await page.goto('/?scene=flight');
-    await page.waitForFunction(() => (window as any).game?.scene.isActive('flight'));
+    await page.waitForFunction(() => (window as any).game?.scene?.isActive('flight'));
     await page.evaluate(() => {
       const scene = (window as any).game.scene.getScene('flight');
       (window as any).stumbleEvents = [];

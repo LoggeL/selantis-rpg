@@ -1,6 +1,18 @@
 {
   "name": "selantis-prologue", "version": "0.1.0", "private": true, "type": "module",
-  "scripts": {"dev": "vite --host 127.0.0.1", "build": "tsc --noEmit && vite build", "preview": "vite preview --host 127.0.0.1", "test": "vitest run"},
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "check": "tsc --noEmit",
+    "check:e2e": "tsc -p tsconfig.e2e.json",
+    "check:architecture": "node ../scripts/check_architecture.mjs",
+    "check:assets": "node ../scripts/validate_assets.mjs",
+    "build": "npm run check && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:architecture": "node --test ../scripts/check_architecture.test.mjs",
+    "test:e2e": "playwright test",
+    "verify": "npm run check:architecture && npm run test:architecture && npm run check:assets && npm run check:e2e && npm test && npm run build && npm run test:e2e"
+  },
   "dependencies": {"phaser": "3.90.0"},
   "devDependencies": {"@playwright/test": "^1.56.0", "typescript": "^5.9.3", "vite": "^7.1.9", "vitest": "^3.2.4"}
 }

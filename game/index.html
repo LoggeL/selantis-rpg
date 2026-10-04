@@ -158,11 +158,19 @@ body{font-family:var(--ui-font)}
 #bag-dialog .bag-item-select{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;min-height:86px;padding:8px 4px;border:1px solid transparent;background:transparent;color:inherit;font:inherit;cursor:pointer}
 #bag-dialog .bag-item-select[aria-pressed="true"]{border-color:var(--ui-gold);background:#53412688}
 #bag-dialog .bag-item-use{width:100%;min-height:44px;padding:8px;background:#594523;border:1px solid #d6ad59;color:#fff4d8;font:inherit;cursor:pointer}
+#bag-dialog .bag-inspection{margin:0 auto 8px;padding:10px 12px;width:min(420px,100%);box-sizing:border-box;background:#141b1a;border:1px solid #8a7a5a;color:#fff0cf;text-align:left}
+#bag-dialog .bag-inspection h3{margin:0 0 4px;font-size:16px;color:#eed19a}
+#bag-dialog .bag-item-comment{margin:0;font-size:15px;line-height:1.35}
+#bag-dialog:has(.bag-inspection) .open-bag-interior{width:min(100%,calc((100dvh - 250px) * 3 / 4),510px)}
 #bag-dialog :is(.bag-item-select,.bag-item-use):focus-visible{outline:3px solid var(--ui-gold);outline-offset:2px}
 #bag-dialog .bag-instruction{margin:0 auto 8px;padding:8px 12px;max-width:420px;background:#141b1a;border:1px solid #8a7a5a;color:#fff4d8;text-align:center;font-size:16px}
 #bag-dialog .bag-empty{position:absolute;inset:40% 18% auto;text-align:center;color:#e8d3ad;font-size:20px;text-shadow:1px 1px #090705}
 #bag-dialog .mobile-dialog-close{position:relative;width:min(320px,100%);display:block;margin:0 auto 6px;background:#2d2117;border-color:#9b7549;font-size:18px}
 @media(orientation:landscape) and (max-height:600px){
+  #bag-dialog:has(.bag-inspection) .mobile-dialog-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:center}
+  #bag-dialog:has(.bag-inspection) .bag-instruction{grid-column:1/-1;margin-bottom:0}
+  #bag-dialog:has(.bag-inspection) .bag-inspection{margin:0;font-size:14px}
+  #bag-dialog:has(.bag-inspection) .open-bag-interior{width:min(100%,calc((100dvh - 195px) * 3 / 4))}
   #bag-dialog .bag-items{grid-template-columns:minmax(0,1fr);gap:8px}
   #bag-dialog .bag-items li{font-size:17px;min-height:100px;padding:10px 6px}
   #bag-dialog .bag-empty{inset:35% 16% auto;font-size:18px;overflow-wrap:anywhere}

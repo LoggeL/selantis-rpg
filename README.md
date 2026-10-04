@@ -4,7 +4,7 @@ Browser-RPG mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der spielba
 
 [Spiel öffnen](https://selantis.logge.top/) · [Visuelles Konzept und Räuberlied](https://selantis.logge.top/konzept.html) · [Szenenmusik anhören](https://selantis.logge.top/musik.html) · [Asset-Viewer](https://selantis.logge.top/assets.html)
 
-Der Asset-Viewer zeigt die ausgewählten Grafiken aus dem Spielbuild mit Suche, Kategorien, Großansicht, Download und einer Einzelbildvorschau für Spritesheets. Er öffnet sich auch aus den Spieleinstellungen. Sein Katalog entsteht beim Zusammenstellen der Webseite automatisch aus den öffentlichen Grafikdateien und den Rastermaßen im Asset-Manifest.
+Der Asset-Viewer zeigt die ausgewählten Grafiken aus dem Spielbuild mit Suche, Kategorien, Großansicht, Download und einer Einzelbildvorschau für Spritesheets. Er öffnet sich auch aus den Spieleinstellungen. Sein Katalog verwendet dieselben öffentlichen Grafikdateien, Rastermaße und Grafikpakete wie das Spiel.
 
 ## Lokal starten
 
@@ -59,7 +59,7 @@ Der kleine **Debug**-Button oben rechts oder **F2** öffnet das öffentlich zug�
 - Live-Stats zeigen Szene/Bereich, Position, Phase/Schritt, Bewegungslocks, Fundstellen und besuchte Karten; im Kampf zusätzlich Einheiten-HP, Status und Rasterposition. Das Tutorial hat kein AP-System. Kampfwerte werden nur gelesen, nicht während geskripteter Aktionen verändert.
 - Warps verändern Fortschritt und Reiseausrüstung; laufende Dialoge werden verworfen. **Alles zurücksetzen** braucht eine eigene Bestätigung und führt zum Titel. Das Spiel hat keinen persistenten Spielstand; Einstellungen bleiben erhalten.
 
-Regressionen: `npm test --prefix game`. Browser-Smoke (Chromium, Desktop und Smartphone-Viewport): `cd game && npx playwright install chromium && npx playwright test`. Der Browser-Test startet bei Bedarf den lokalen Vite-Server.
+Der vollständige lokale Prüflauf ist `cd game && npx playwright install chromium && npm run verify` nach `npm ci`. Er umfasst Architekturgrenzen, Asset-Verträge, die separate Typprüfung des Browserharness, Modultests, Build und Browserregressionen. Jeder Fehler stoppt den Lauf; der CI-Workflow führt dieselben Prüfungen aus. Einzelne Regressionen: `npm test --prefix game` oder `npm run test:e2e --prefix game`. Playwright startet einen eigenen lokalen Vite-Server auf Port 5187 und verwendet keine bereits laufende Instanz. `SELANTIS_E2E_PORT` wählt bei Bedarf einen anderen freien Port.
 
 ## Build und Deployment
 
@@ -72,7 +72,9 @@ Der Dockerfile baut aus dem Quellcode und liefert das Spiel mit Nginx aus. Dokpl
 
 ## Dateien
 
-`game/src/` enthält das Spiel, `game/public/assets/` die vorbereiteten Spielassets und deren Manifest. Die beiden finalen Konzeptbilder und das Räuberlied liegen unter `output/`. `design/` und `docs/` enthalten Entwürfe und Spielregeln.
+`game/src/` trennt reine Regeln in `modules/`, geschriebene Inhalte in `content/`, technische Adapter in `platform/` und die Anwendungskomposition in `app/`. Phaser-Szenen liegen unter `presentation/phaser/scenes/`, DOM-Ansichten unter `presentation/dom/` und übergreifende Regressionen unter `tests/`. Die Architekturprüfung schützt die Abhängigkeiten. [Architektur und Erweiterungen](docs/architecture.md) beschreibt die Verträge, Lebensdauern und die Registrierung von Konstruktoren und Asset-Paketen für neue Kapitel oder Begegnungen.
+
+`game/public/assets/` enthält die vorbereiteten Spielassets und deren Produktionsmanifest. Der Build erzeugt daraus einen validierten Laufzeitkatalog und den Asset-Viewer-Katalog; Szenen laden ihre zugeordneten Grafikpakete nach Bedarf. Die beiden finalen Konzeptbilder und das Räuberlied liegen unter `output/`. `design/` und `docs/` enthalten Entwürfe und Spielregeln.
 
 Sechs Szenenstücke von Lyria 3.5 liegen unter `output/audio/scenes/`. [Prompts und Produktionsnachweis](docs/scene-music-production.md) dokumentieren ihre Entstehung in Google AI Studio. O öffnet die Einstellungen für Musik, Effekte und Bewegung.
 

@@ -3,7 +3,7 @@ test.setTimeout(60000);
 // A concurrent source edit must not replace the registry halfway through a journey.
 // Each test still loads the latest modules on navigation.
 test.beforeEach(async ({ page }) => {
-  await page.routeWebSocket('ws://127.0.0.1:5173/**', socket => socket.close());
+  await page.routeWebSocket(/ws:\/\/127\.0\.0\.1:\d+\/.*/, socket => socket.close());
 });
 
 async function clickWorld(page: Page, x: number, y: number) {

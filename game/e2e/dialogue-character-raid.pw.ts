@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 async function sceneReady(page: Page, key: string) {
-  await page.waitForFunction(key => (window as any).game?.scene.isActive(key), key);
+  await page.waitForFunction(key => (window as any).game?.scene?.isActive(key), key);
 }
 
 async function raidStep(page: Page, step: string, ready = true) {
@@ -138,7 +138,7 @@ async function speakerPortrait(page: Page, sceneKey: string, speaker: string, fi
   if (mobile) {
     const face = page.locator('img[data-mobile-portrait]');
     await expect(face).toBeVisible();
-    await expect(face).toHaveAttribute('src', new RegExp(`/assets/portraits/${file}\\.png$`));
+    await expect(face).toHaveAttribute('src', new RegExp(`/assets/portraits/${file}\\.png(?:\\?v=[0-9a-f]{12})?$`));
     await expect.poll(() => face.evaluate(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 1)).toBe(true);
     await expect(page.locator('[data-mobile-speaker]')).toHaveText(speaker);
   }
@@ -629,21 +629,22 @@ test('Discovery stays crouched through keyboard and pointer approach into the br
     const scene = (window as any).game.scene.getScene('raid');
     return [scene.data.get('story:lia-crouched'), scene.lia.texture.key, Number(scene.lia.frame.name), scene.lia.anims.currentAnim.key, scene.lia.flipX];
   })).toEqual([true, 'lia-crouch-walk', 0, 'lia-crouch-idle-s', false]);
-  // Observe real elapsed scene frames while the keyboard moves Lia. A lower
-  // animation name alone would not establish that the reduced speed is applied.
+  // Measure completed movement frames from Lia's position. Keyboard ownership
+  // now belongs to the semantic input scope, so legacy Key flags stay idle.
   await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('raid');
     const sample = { elapsed: 0, distance: 0, previousX: scene.lia.x, frames: [] as number[], animations: [] as string[] };
     (window as any).crouchSample = sample;
     const collect = (_time: number, dt: number) => {
-      if (!scene.keys.LEFT.isDown) return;
+      const distance = Math.abs(scene.lia.x - sample.previousX);
+      if (distance < 0.001) return;
       sample.elapsed += Math.min(dt, 50);
-      sample.distance += Math.abs(scene.lia.x - sample.previousX);
+      sample.distance += distance;
       sample.previousX = scene.lia.x;
       sample.frames.push(Number(scene.lia.frame.name)); sample.animations.push(scene.lia.anims.currentAnim.key);
     };
-    scene.events.on('update', collect);
-    (window as any).stopCrouchSample = () => scene.events.off('update', collect);
+    scene.events.on('postupdate', collect);
+    (window as any).stopCrouchSample = () => scene.events.off('postupdate', collect);
   });
   await page.keyboard.down('ArrowLeft');
   await page.waitForFunction(() => (window as any).crouchSample.elapsed >= 850);
