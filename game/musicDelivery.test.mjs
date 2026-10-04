@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createServer as createHttpServer } from 'node:http';
 import { sceneMusicAssets } from './vite.config.mjs';
-import { MUSIC_TRACKS } from './src/content/audio/tracks';
+import { MUSIC_TRACKS } from './src/audio/tracks';
 
 describe('authored scene music delivery', () => {
   let server;
