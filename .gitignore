@@ -36,3 +36,4 @@ konzept-ausfuehrlich.html
 *.key
 game/test-results/
 game/playwright-report/
+game/e2e/scratch-*/
