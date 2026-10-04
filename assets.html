@@ -15,10 +15,11 @@
     <nav aria-label="Webseite"><a href="/">Spielen</a><a href="/musik.html">Musik</a><a href="/konzept.html">Konzept</a><a href="/assets.html" aria-current="page">Assets</a></nav>
   </header>
   <main>
-    <header class="intro"><div><p class="eyebrow">Ein Blick hinter die Kulissen</p><h1>Asset-Viewer</h1><p class="subtitle">Die Grafiken aus dem aktuellen Spielbuild.</p></div><span id="total" class="total" aria-label="Assetanzahl">…</span></header>
+    <header class="intro"><div><p class="eyebrow">Ein Blick hinter die Kulissen</p><h1>Asset-Viewer</h1><p class="subtitle">Die Grafiken aus dem aktuellen Spielbuild. <a href="/assets.html?category=cut">Cutscenes ansehen</a></p></div><span id="total" class="total" aria-label="Assetanzahl">…</span></header>
     <section class="toolbar" aria-label="Assets suchen und filtern">
       <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input id="search" type="search" placeholder="Lia, Wald, Valentus …" aria-label="Assets durchsuchen" autocomplete="off"><kbd>/</kbd></label>
       <div id="filters" class="filters" role="group" aria-label="Assetkategorie"></div>
+      <label class="versions"><input id="extra-versions" type="checkbox"> Weitere Fassungen anzeigen</label>
     </section>
     <div class="collection-heading"><h2 id="collection-title">Alle Assets</h2><span id="result-count" role="status" aria-live="polite"></span></div>
     <div id="grid" class="grid" aria-busy="true"></div>
@@ -34,7 +35,7 @@
       <div class="control-row"><button id="play" type="button" aria-pressed="false">Abspielen</button><label>Reihe <select id="row" aria-label="Sprite-Reihe"></select></label><label><input id="sheet" type="checkbox"> Ganzes Spritesheet</label></div>
       <label class="frame-slider">Einzelbild <input id="frame" type="range" min="0" step="1"><output id="frame-label"></output></label>
     </div>
-    <div class="viewer-bottom"><p><span id="dimensions"></span><code id="filename"></code></p><a id="download" class="download" download>PNG herunterladen <span aria-hidden="true">↓</span></a></div>
+    <div class="viewer-bottom"><p><span id="asset-version"></span><span id="dimensions"></span><code id="filename"></code></p><a id="download" class="download" download>PNG herunterladen <span aria-hidden="true">↓</span></a></div>
   </dialog>
 </body>
 </html>

@@ -5,13 +5,16 @@ export const CHARACTER_IDENTITIES: Record<string, { name: string; portrait: stri
   valentus: { name: 'Valentus', portrait: 'valentus' }, boy: { name: 'Der Junge', portrait: 'boy' },
   falke: { name: 'Falke', portrait: 'falke' }, lia: { name: 'Lia', portrait: 'lia' },
   foltan: { name: 'Foltan', portrait: 'foltan' }, azar: { name: 'Azar', portrait: 'azar' },
+  flick: { name: 'Flick', portrait: 'dialogue-flick' }, kyra: { name: 'Kyra', portrait: 'kyra' },
 };
 
-/** Prototype balance: Lia scouts, Foltan holds a balanced line, Azar hits hard. */
+/** Existing combat profiles retain prototype values; new story followers have no combat actions. */
 export const PARTY_COMBAT_PROFILES: Record<PartyCharacterId, { maxHp: number; combat: CombatStats }> = {
   lia: { maxHp: 100, combat: { attack: 14, defense: 6, speed: 9, move: 5, attackRange: 1 } },
   foltan: { maxHp: 140, combat: { attack: 28, defense: 14, speed: 7, move: 4, attackRange: 1 } },
   azar: { maxHp: 180, combat: { attack: 36, defense: 18, speed: 5, move: 3, attackRange: 1 } },
+  flick: { maxHp: 100, combat: { attack: 0, defense: 0, speed: 0, move: 5, attackRange: 0 } },
+  kyra: { maxHp: 100, combat: { attack: 0, defense: 0, speed: 0, move: 5, attackRange: 0 } },
 };
 
 const beam = DUNKELHAIN.abilities.find(ability => ability.id === 'beam')!;

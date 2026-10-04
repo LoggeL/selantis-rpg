@@ -1,0 +1,119 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "intent": "Four new Selantis continuation cutscenes adapted from combined novel and film evidence. These are game illustrations, not existing filmed frames.",
+  "canon": {
+    "lia": "Novel appearance: long strawberry-blonde curls loosely half gathered, white gathered round-neck peasant blouse, long brown skirt, leather travel shoes.",
+    "kyra": "Novel appearance: long nut-brown hair, brown eyes, dirt-stained beige ankle-length dress, thin leather shoes.",
+    "flick": "Film-derived short auburn hair, pointed ears, cream tunic, burgundy cape, wooden bow and quiver.",
+    "constraints": [
+      "Baris and Orwen are distinct from Vardis.",
+      "Lia's magic is a single involuntary burst, with immediate exhaustion.",
+      "No staff, hidden magic item, blood, or gore.",
+      "The hooded Meister remains unnamed; Vardis's death is not established."
+    ]
+  },
+  "reviewedReferences": [
+    "game/public/assets/cut/lia-kyra.png",
+    "game/public/assets/cut/cinematic-raid-departure-message06.png",
+    "game/public/assets/portraits/dialogue-lia.png",
+    "sources/frames/key-01-elf-0697.jpg"
+  ],
+  "evidence": [
+    "docs/episode-01.md: Flick appearance at 11:37, awakening 17:50-18:22, master's rebuke 18:50-19:30.",
+    "design/assets/lia-kyra-novel-portraits.json: current novel identity descriptions."
+  ],
+  "deliveries": [
+    {
+      "id": "flick",
+      "path": "game/public/assets/cut/cinematic-flick-meeting.png",
+      "initialPrompt": "Use case: illustration-story. Asset type: brand-new Selantis RPG cinematic cutscene, a combined novel/film adaptation rather than reproduction of an existing filmed frame. Output a single landscape PNG, EXACT 16:9 wide frame, ideally 2048x1152 or 1536x864. Style: exquisitely detailed fine pixel-painted fantasy narrative illustration, dense readable hand-placed pixel clusters, textured natural forms, restrained warm skin, natural youthful facial proportions and small almond eyes. Match the existing game illustrations seen earlier: intimate storybook painted pixel art, crisp subtly stepped contours, dithered forests, nuanced expressive faces, no photorealism, no coarse chunky tiles, no 3D or anime chibi. No text, border, UI, logo, watermark. Novel identity invariant: Lia has long strawberry-blonde/red-blonde curls half loosely gathered at back, white gathered round-neck peasant blouse with loose sleeves, no collar/button placket, long brown skirt, leather travel shoes. Kyra has long nut-brown hair, brown eyes, dirty ankle-length beige working dress, thin leather shoes. Flick is a young adult female elf with short auburn hair, pointed ears, cream tunic, dark burgundy shoulder cape, leather belt, a quiver and a wooden bow. All named characters are fictional. Avoid hidden magical artifact or staff, blood/gore, extra named magicians, symbols or letters.\nScene: rain-dark forest at night after Lia has fled a dangerous Brotherhood camp. Create an emotional first meeting. Lia rainweary and frightened is slightly bent beside a mossy fallen tree, green rain cloak loosely draped open over her white blouse and long brown skirt, curls damp and face visibly exhausted. Flick stands a respectful distance from her, short auburn haircut and pointed ears clearly visible. Flick holds the bow lowered safely at her side and offers a cautious open empty hand toward Lia, reassuring rather than ready to attack. Lia looks toward Flick with wary hope. Wide medium composition showing both full silhouettes and the woodland around them, rain streaks, wet leaves, blue moonlit mist, small restrained amber reflected light on faces. No Kyra in this moment, no warriors, no combat, no tents, no magical glow.",
+      "refinementPrompt": "Use case: style-transfer. Edit target image 1 is the new rainy woodland meeting illustration. Image 2 is an EXISTING GAME STYLE REFERENCE ONLY, and image 3 is Lia's identity reference. Keep image 1's wide landscape composition, lowered bow, offer of a helping empty hand, two characters, rainfall, green cloak, grief and exhaustion. Correct only the rendering style and character consistency: reproduce image 2's clearly visible painterly PIXEL ART treatment, deliberately visible square pixel clusters and stepped pixel contours, limited clean warm color ramps, pixel-dithered gradients, flatter painted expressive natural youthful faces, lower-frequency texture in hair/clothing. The current target is excessively detailed semi-realistic digital painting. Make its exact scene a fine PIXEL-PAINTED game illustration matching image 2, not 3D or a photo. Lia must match image 3 with strawberry-blonde long curls half gathered back, white gathered peasant blouse, long brown skirt, green cloak, leather travel shoes. Flick keeps SHORT auburn haircut, pointed ears, cream tunic, burgundy shoulder cape, quiver, lowered wooden bow. Do not change the narrative or add props/people. No text, no borders, no watermark. Output same landscape 16:9 composition.",
+      "rawGeneratedSource": "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-eaef3b78-da85-473a-ab41-aa37b0efd3e4.png",
+      "width": 1672,
+      "height": 941,
+      "framing": "16:9 landscape (built-in raster 1672x941, matching existing game cuts)",
+      "sha256": "78c1e0eb3da84eaa82d11bd8918414c4b373c90555d5d72c71ef3ac42cea9583",
+      "visualReview": {
+        "status": "accepted",
+        "checks": [
+          "Two figures only; rainweary Lia seated low beside fallen tree.",
+          "Flick's short auburn hair and pointed ears visible; bow lowered and open empty hand offered.",
+          "Novel Lia identity and open green raincloak retained."
+        ]
+      },
+      "refinementReferences": [
+        "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-fac7aca3-2383-4ecb-bfaf-4dee07ee2b6c.png",
+        "game/public/assets/cut/lia-kyra.png",
+        "game/public/assets/portraits/dialogue-lia.png"
+      ]
+    },
+    {
+      "id": "awakening",
+      "path": "game/public/assets/cut/cinematic-magic-awakening.png",
+      "initialPrompt": "Use case: illustration-story. Asset type: brand-new Selantis RPG cinematic cutscene, a combined novel/film adaptation rather than reproduction of an existing filmed frame. Output a single landscape PNG, EXACT 16:9 wide frame, ideally 2048x1152 or 1536x864. Style: exquisitely detailed fine pixel-painted fantasy narrative illustration, dense readable hand-placed pixel clusters, textured natural forms, restrained warm skin, natural youthful facial proportions and small almond eyes. Match the existing game illustrations seen earlier: intimate storybook painted pixel art, crisp subtly stepped contours, dithered forests, nuanced expressive faces, no photorealism, no coarse chunky tiles, no 3D or anime chibi. No text, border, UI, logo, watermark. Novel identity invariant: Lia has long strawberry-blonde/red-blonde curls half loosely gathered at back, white gathered round-neck peasant blouse with loose sleeves, no collar/button placket, long brown skirt, leather travel shoes. Kyra has long nut-brown hair, brown eyes, dirty ankle-length beige working dress, thin leather shoes. Flick is a young adult female elf with short auburn hair, pointed ears, cream tunic, dark burgundy shoulder cape, leather belt, a quiver and a wooden bow. All named characters are fictional. Avoid hidden magical artifact or staff, blood/gore, extra named magicians, symbols or letters.\nScene: hilltop captive-camp clearing at night, a large gnarled tree at the edge of sloping fields, sparse camp props. The exact moment of Lia's FIRST involuntary magical burst. Lia in foreground center, her strawberry blonde curls flowing, white blouse and long brown skirt clearly visible, both EMPTY arms thrown outward involuntarily, frightened startled expression, not triumphant or a controlled caster. A SINGLE expanding broad wave of #397FC1 blue energy with luminous teal core radiates from her body and arms. At right a black-armoured captain Vardis with short dark hair and plain reflective metal plates on neck and shoulders is visibly pushed backward by the expanding wave, off balance with arms recoiling, intact and alive. At left/background Flick with SHORT auburn hair, pointed ears, cream tunic and burgundy cape stands protectively beside the freed Kyra, whose long nutbrown hair and dirty beige ankle-length dress are clearly distinct from Lia. Loose cut ropes lie near the tree. Show four people only. Magic comes from Lia herself; no staff, amulet, book, weapon or secret object as source. The effect fills a wide horizontal arc but leaves all faces readable. Dark foliage, blue teal light, grounded terrain. No horned armor, no helmet for Vardis, no red magic, no injured corpses.",
+      "rawGeneratedSource": "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-838722ba-2072-439f-b491-769038250e2f.png",
+      "width": 1672,
+      "height": 941,
+      "framing": "16:9 landscape (built-in raster 1672x941, matching existing game cuts)",
+      "sha256": "799a4c57aef724d6a4a8a615347c4202c3e773acc8112b3db2d0b4a39ea75f9b",
+      "visualReview": {
+        "status": "accepted",
+        "checks": [
+          "Four figures only; Lia frightened with empty outstretched hands and one blue/teal expanding pulse.",
+          "Flick protects freed Kyra, Vardis recoils alive.",
+          "No staff, artifact, city, blood or gore."
+        ]
+      },
+      "refinementReferences": [
+        "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-a6e0843d-8309-452d-8901-a58cac11a6b1.png",
+        "game/public/assets/cut/lia-kyra.png"
+      ]
+    },
+    {
+      "id": "reunion",
+      "path": "game/public/assets/cut/cinematic-sisters-reunion.png",
+      "initialPrompt": "Use case: illustration-story. Asset type: brand-new Selantis RPG cinematic cutscene, a combined novel/film adaptation rather than reproduction of an existing filmed frame. Output a single landscape PNG, EXACT 16:9 wide frame, ideally 2048x1152 or 1536x864. Style: exquisitely detailed fine pixel-painted fantasy narrative illustration, dense readable hand-placed pixel clusters, textured natural forms, restrained warm skin, natural youthful facial proportions and small almond eyes. Match the existing game illustrations seen earlier: intimate storybook painted pixel art, crisp subtly stepped contours, dithered forests, nuanced expressive faces, no photorealism, no coarse chunky tiles, no 3D or anime chibi. No text, border, UI, logo, watermark. Novel identity invariant: Lia has long strawberry-blonde/red-blonde curls half loosely gathered at back, white gathered round-neck peasant blouse with loose sleeves, no collar/button placket, long brown skirt, leather travel shoes. Kyra has long nut-brown hair, brown eyes, dirty ankle-length beige working dress, thin leather shoes. Flick is a young adult female elf with short auburn hair, pointed ears, cream tunic, dark burgundy shoulder cape, leather belt, a quiver and a wooden bow. All named characters are fictional. Avoid hidden magical artifact or staff, blood/gore, extra named magicians, symbols or letters.\nScene: immediately after a SINGLE involuntary magical blast in the same hilltop tree captive-camp clearing, night with cool moonlight, slight lingering blue haze fading in grass. Lia has collapsed from exhaustion, reclined on the grassy ground in front of the gnarled tree, long strawberry-blonde curls half gathered visible, white loose peasant blouse and long brown skirt, leather travel shoes, eyes just opening weakly. Her sister Kyra kneels close beside her and gently supports Lia's shoulder/head with one hand and holds her empty hand with the other. Kyra has long nut-brown hair, natural brown eyes, dirty ankle-length beige dress and thin leather shoes. Faces show relief and tired concern, not celebration. Flick stands protectively to their side in background, short auburn hair, pointed ears, cream tunic and burgundy shoulder cape, quiver, bow lowered but watchful toward the forest. Exactly these three female figures. Loose cut rope near tree, unoccupied distant rough camp props. Medium-wide intimate composition where sisterly care and Lia's visible weakness dominate. NO Lia standing, NO energetic heroic pose, NO ongoing casting, no bandages implying gore, no blood, no other characters.",
+      "rawGeneratedSource": "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-30a9c792-1cb6-4063-bed4-de99d90ab065.png",
+      "width": 1672,
+      "height": 941,
+      "framing": "16:9 landscape (built-in raster 1672x941, matching existing game cuts)",
+      "sha256": "bad0691eac734e8c488f8622337a34ada75a292d139168bda578b0d08eefb547",
+      "visualReview": {
+        "status": "accepted",
+        "checks": [
+          "Three figures only; Lia weakly reclined and awake after collapse.",
+          "Nutbrown-haired Kyra kneels supporting Lia; Flick stands protectively with lowered bow.",
+          "No energetic Lia pose or continuing spell."
+        ]
+      },
+      "refinementReferences": [
+        "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-2f82d309-d50c-453a-a6b2-f07abb87e2dd.png",
+        "game/public/assets/cut/lia-kyra.png"
+      ]
+    },
+    {
+      "id": "rebuke",
+      "path": "game/public/assets/cut/cinematic-master-rebuke.png",
+      "initialPrompt": "Use case: illustration-story. Asset type: brand-new Selantis RPG cinematic cutscene, a combined novel/film adaptation rather than reproduction of an existing filmed frame. Output a single landscape PNG, EXACT 16:9 wide frame, ideally 2048x1152 or 1536x864. Style: exquisitely detailed fine pixel-painted fantasy narrative illustration, dense readable hand-placed pixel clusters, textured natural forms, restrained warm skin, natural youthful facial proportions and small almond eyes. Match the existing game illustrations seen earlier: intimate storybook painted pixel art, crisp subtly stepped contours, dithered forests, nuanced expressive faces, no photorealism, no coarse chunky tiles, no 3D or anime chibi. No text, border, UI, logo, watermark. Novel identity invariant: Lia has long strawberry-blonde/red-blonde curls half loosely gathered at back, white gathered round-neck peasant blouse with loose sleeves, no collar/button placket, long brown skirt, leather travel shoes. Kyra has long nut-brown hair, brown eyes, dirty ankle-length beige working dress, thin leather shoes. Flick is a young adult female elf with short auburn hair, pointed ears, cream tunic, dark burgundy shoulder cape, leather belt, a quiver and a wooden bow. All named characters are fictional. Avoid hidden magical artifact or staff, blood/gore, extra named magicians, symbols or letters.\nScene: rough reddish-stone ruined walls at night in a forest, irregular unmortared masonry and damp ground, faint cold moonlight. Vardis the black-armoured captain with SHORT dark hair, no helmet, plain dark tunic and plain metal plates at neck and shoulders, is visibly weakened and kneeling with one hand braced on stone earth and head lowered but awake. An UNNAMED hooded black-robed Meister stands over him, upright, imposing in plain unmarked black robes, face mostly in shadow. Exactly two adult male figures. The composition conveys stern rebuke for failure and taking the wrong captive. Vardis is alive, in pain or severe weakness, NOT dying. No killing strike, no execution, no blood, no magical staff, no named identity or Vamir emblem, no decorative insignia, no text. Rich readable reddish stone texture, deep navy shadows, subtle muted warm light on Vardis's strained face. The hooded master's presence is the threat; no new spell effect needed.",
+      "rawGeneratedSource": "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-219f938c-3952-40fa-b96b-a6cc4bcc9b50.png",
+      "width": 1672,
+      "height": 941,
+      "framing": "16:9 landscape (built-in raster 1672x941, matching existing game cuts)",
+      "sha256": "78ad3574c2b37409fd013a465420c2ae0a30045e517f4da5a32b7d09fd5705d2",
+      "visualReview": {
+        "status": "accepted",
+        "checks": [
+          "Two adult men only; unrelated witnesses removed.",
+          "Vardis short dark hair, black armour, kneeling with hand braced and alive.",
+          "Unnamed Meister wears plain unmarked hooded black robes; no named identity, emblem, execution or gore."
+        ]
+      },
+      "refinementReferences": [
+        "/Users/logge/.codex/generated_images/01a107f6-e0d0-72b1-bfbe-acd8ae30ccea/exec-64e95b88-7ce2-4c95-95d5-5429706f609c.png",
+        "game/public/assets/cut/lia-kyra.png"
+      ]
+    }
+  ],
+  "preexistingAssetsOverwritten": false
+}

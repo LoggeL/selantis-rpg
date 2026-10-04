@@ -4,7 +4,7 @@ import { createStatsRules, type CombatStats } from './stats';
 const combat: CombatStats = { attack: 11, defense: 3, speed: 2, move: 2, attackRange: 3 };
 const rulesFor = (combatProfiles: Record<string, CombatStats>) => createStatsRules({
   partyProfiles: {
-    lia: { maxHp: 55, combat }, foltan: { maxHp: 66, combat }, azar: { maxHp: 77, combat },
+    lia: { maxHp: 55, combat }, foltan: { maxHp: 66, combat }, azar: { maxHp: 77, combat }, flick: { maxHp: 88, combat }, kyra: { maxHp: 99, combat },
   },
   combatProfiles,
 });

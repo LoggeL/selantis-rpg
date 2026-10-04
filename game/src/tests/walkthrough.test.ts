@@ -30,7 +30,7 @@ describe('current context', () => {
 
 describe('walkthrough coverage', () => {
   it('covers every map and authored story area exactly once, plus all playable scenes and the encounter', () => {
-    const expected = ['title', 'battle', 'break', 'flight', 'refuge', 'lia', ...Object.keys(MAPS).map(id => `world:${id}`), ...[RAID_APPROACH_AREA, RAID_AREA, FARM_DAWN_AREA, FARM_INTERIOR_AREA, ROAD_EAST_AREA, FIRST_CAMP_AREA, COMPANION_MORNING_AREA, COMPANION_AFTERNOON_AREA].map(area => area.id), 'strangers'];
+    const expected = ['title', 'battle', 'break', 'flight', 'refuge', 'lia', ...Object.keys(MAPS).map(id => `world:${id}`), ...[RAID_APPROACH_AREA, RAID_AREA, FARM_DAWN_AREA, FARM_INTERIOR_AREA, ROAD_EAST_AREA, FIRST_CAMP_AREA, COMPANION_MORNING_AREA, COMPANION_AFTERNOON_AREA].map(area => area.id), 'strangers', 'golden-boar', 'reading-camp', 'brotherhood', 'betrayal', 'rain-forest', 'flick-trail', 'shadow-camp', 'sisters-reunited', 'film-one-finale'];
     expect(GUIDES.map(g => g.id).sort()).toEqual(expected.sort());
     for (const guide of GUIDES) { expect(guide.steps.length).toBeGreaterThan(1); expect(guide.completion.length).toBeGreaterThan(10); }
   });

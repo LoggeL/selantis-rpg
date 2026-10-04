@@ -1,0 +1,104 @@
+{
+  "mode": "built-in image_gen",
+  "intent": "generate",
+  "status": "ready",
+  "reference_identity_portraits": [
+    "game/public/assets/portraits/dialogue-craupor.png",
+    "game/public/assets/portraits/dialogue-elnon.png"
+  ],
+  "references_usage": "Inspected portraits visually; brand-new generation requests described their identities without editing portrait images.",
+  "validation": {
+    "visual": "Both outputs inspected with view_image: complete full-body neutral southwest idle, identities and costumes match selected portraits, no floor/background/labels.",
+    "readback": "RGBA images, alpha extrema0..255, all four corners alpha0. Original bytes copied without pixel editing. Foot anchors derived from visible alpha>=128 bounds and lower20percent boot band.",
+    "native_size_note": "Built-in tool chose1254x1254, one single frame each. Faint alpha specks below128 are outside main silhouette; visible bounds use alpha128 threshold.",
+    "runtime_validation": "Pending integration/browser review."
+  },
+  "outputs": [
+    {
+      "key": "craupor-idle",
+      "prompt": "Use case: stylized-concept. Asset type: ONE full-body idle NPC sprite for a pixel fantasy adventure game. Native square PNG canvas ideally 1024x1024, actual fully transparent background. A single complete standing character centered, visible head to both boots, generous transparent margin on all four sides. Figure occupies about 72 percent of canvas height and 28 percent width. Clean readable 64-pixel-tall retro RPG body silhouette when reduced: deliberately chunky nearest-neighbor pixel clusters, dark crisp outlines, compact restrained shading, no fine noisy rendering, no smooth painterly shading. Three-quarter facing southwest (toward bottom-left of image), neutral relaxed idle stance, arms by sides, feet beside each other. Simple proportions consistent with classic slightly elevated-view adventure pixel sprites. No ground, no floor, no background, no halo, no cast shadow outside character, no lettering, no labels, no icons, no grid, no sprite sheet, no extra poses. Do not crop body. Identity: Craupor, a thin middle-aged human innkeeper, lean long oval face, mostly bald shiny scalp with just short brown hair at the sides, thick dark eyebrows, brown eyes, straight angular nose, light warm tan skin, clean-shaven except very faint moustache stubble. Match his dialogue portrait identity. Plain ivory loose open-collar linen shirt with sleeves rolled to forearm, simple weathered brown leather innkeeper apron hanging from two straps, dark muted brown trousers, plain leather boots. No hat, no weapon, no armor. Readable pale bald head and narrow frame distinguish him from other characters.",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-301e1224-eb1c-4e4b-9824-1bce34dcf07c.png",
+      "destination": "game/public/assets/sprites/craupor-idle.png",
+      "width": 1254,
+      "height": 1254,
+      "frameWidth": 1254,
+      "frameHeight": 1254,
+      "frameCount": 1,
+      "sha256": "a4ce3ef895e7f7236efb79e0767fa715c2cb6b4daf53bb12c04df9f7a2c19e59",
+      "bytes": 393978,
+      "rgba": true,
+      "alpha_bounds": [
+        43,
+        77,
+        1192,
+        1198
+      ],
+      "visible_bounds_alpha128": [
+        462,
+        121,
+        807,
+        1174
+      ],
+      "footAnchor": {
+        "x": 610.5,
+        "y": 1174
+      },
+      "origin": {
+        "x": 0.4868421052631579,
+        "y": 0.9362041467304625
+      },
+      "feet_band": {
+        "top": 964,
+        "bounds": [
+          468,
+          964,
+          753,
+          1174
+        ]
+      }
+    },
+    {
+      "key": "elnon-idle",
+      "prompt": "Use case: stylized-concept. Asset type: ONE full-body idle NPC sprite for a pixel fantasy adventure game. Native square PNG canvas ideally 1024x1024, actual fully transparent background. A single complete standing character centered, visible head to both boots, generous transparent margin on all four sides. Figure occupies about 72 percent of canvas height and 28 percent width. Clean readable 64-pixel-tall retro RPG body silhouette when reduced: deliberately chunky nearest-neighbor pixel clusters, dark crisp outlines, compact restrained shading, no fine noisy rendering, no smooth painterly shading. Three-quarter facing southwest (toward bottom-left of image), neutral relaxed idle stance, arms by sides, feet beside each other. Simple proportions consistent with classic slightly elevated-view adventure pixel sprites. No ground, no floor, no background, no halo, no cast shadow outside character, no lettering, no labels, no icons, no grid, no sprite sheet, no extra poses. Do not crop body. Identity: Elnon, a lean athletic adult pointed-ear male elf, light warm tan skin, angular face, dark eyebrows, short dark brown beard and moustache stubble. Distinct dark brown hair cropped very short at the sides, longer hair on top combed back and tied into a small top knot. Pointed ears visible. Match his dialogue portrait identity and costume. Dark olive green long tunic with narrow cream embroidered geometric trim around the open collar and front seam, one dark iron angular shoulder plate on his left shoulder (image right when front-facing), diagonal brown leather strap across torso. Brown belt, dark trousers, tall dark leather boots. No helmet, no crown, no drawn weapon, no cape. Small tunic detailing remains subdued so silhouette and pointed ears read at64 pixels.",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-6ca396cf-bd29-4b91-966f-a7f55511b337.png",
+      "destination": "game/public/assets/sprites/elnon-idle.png",
+      "width": 1254,
+      "height": 1254,
+      "frameWidth": 1254,
+      "frameHeight": 1254,
+      "frameCount": 1,
+      "sha256": "86e064ea39a675f69bfaefc5d985f8941d07a0e78d023cb42086045e3ec32dac",
+      "bytes": 447648,
+      "rgba": true,
+      "alpha_bounds": [
+        59,
+        21,
+        1134,
+        1254
+      ],
+      "visible_bounds_alpha128": [
+        440,
+        96,
+        812,
+        1185
+      ],
+      "footAnchor": {
+        "x": 616.0,
+        "y": 1185
+      },
+      "origin": {
+        "x": 0.49122807017543857,
+        "y": 0.9449760765550239
+      },
+      "feet_band": {
+        "top": 968,
+        "bounds": [
+          471,
+          968,
+          761,
+          1185
+        ]
+      }
+    }
+  ]
+}

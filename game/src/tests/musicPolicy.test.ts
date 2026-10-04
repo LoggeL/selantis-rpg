@@ -28,6 +28,10 @@ describe('music follows the story', () => {
     expect(musicForScene('world', 'toString')).toBe('exploration');
   });
 
+  it('maps every continuation chapter to its authored situation', () => {
+    expect(['golden-boar', 'reading-camp', 'brotherhood', 'betrayal', 'rain-forest', 'flick-trail', 'shadow-camp', 'sisters-reunited', 'film-one-finale'].map(id => musicForScene(id))).toEqual(['refuge', 'refuge', 'exploration', 'dread', 'grief', 'exploration', 'dread', 'dread', 'exploration']);
+  });
+
   it('lets settings and overlays keep the underlying scene music', () => {
     expect(musicForScene('settings', 'dread')).toBeUndefined();
     expect(musicForScene('title')).toBeUndefined();

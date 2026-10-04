@@ -4,6 +4,8 @@ export { MUSIC_TRACKS } from '../content/audio/tracks';
 export type { AmbientKind } from '../modules/audio/types';
 
 const SCENE_MOODS: Readonly<Record<string, AmbientKind>> = {
+  'golden-boar': 'refuge', 'reading-camp': 'refuge', brotherhood: 'exploration', betrayal: 'dread',
+  'rain-forest': 'grief', 'flick-trail': 'exploration', 'shadow-camp': 'dread', 'sisters-reunited': 'dread', 'film-one-finale': 'exploration',
   storyprologue: 'dread',
   battle: 'battle', break: 'flight', flight: 'flight', refuge: 'refuge',
   lia: 'exploration', world: 'exploration', raid: 'dread', aftermath: 'grief', journey: 'grief', 'companions-road': 'refuge',

@@ -14,13 +14,13 @@ import type { Pt, StoryArea } from "../../../modules/narrative/types";
 import { prepareWarp } from "../../../app/debugState";
 import type { Dir } from "../../../modules/exploration/mapTypes";
 
-/** Lia's next day, PDF pp. 40–44; the evening lead-in stops before the inn (p. 46). */
+/** Lia's next day, PDF pp. 40–46; the evening road leads into the inn. */
 export class CompanionJourneyScene extends StoryScene {
   private phase: CompanionPhase = 'morning';
   private foltan?: Phaser.GameObjects.Sprite;
   private azar?: Phaser.GameObjects.Sprite;
   private talking = false;
-  private conversation?: SequenceRunner<typeof MIDDAY_REST_SEQUENCE[number]>;
+  private conversation?: SequenceRunner<{ line: string; narrativeId?: string }>;
   private previousLia: Pt = [0, 0];
   private trail: Pt[] = [];
   private lastHeading: Pt = [1, 0];
@@ -81,7 +81,7 @@ export class CompanionJourneyScene extends StoryScene {
       ...target,
       enabled: () => !this.talking && (target.id !== 'continue' || !!st.flags.companionRestTaken),
       markerVisible: () => target.id === 'rest' ? !st.flags.companionRestTaken
-        : target.id === 'evening' ? !st.flags.companionDayComplete
+        : target.id === 'evening' ? true
         : target.id === 'breakfast' ? !st.flags.companionBreakfastRemembered : true,
       onUse: () => this.useTravelSpot(target.id as CompanionTargetId),
     })));
@@ -112,11 +112,24 @@ export class CompanionJourneyScene extends StoryScene {
       case 'foltan':
         this.say(COMPANIONJOURNEYSCENE_LINES['foltan'].line, 3700); return;
       case 'evening':
-        setCampaignFlag(st, 'companionDayComplete'); this.phase = 'evening';
-        this.refreshSpots();
-        this.say(COMPANIONJOURNEYSCENE_LINES['evening-meal'].line, 4400);
-        return;
+        this.travelToInn(); return;
     }
+  }
+
+  private travelToInn() {
+    this.talking = true; this.setLocked(true); this.stopTravelers();
+    this.conversation?.dispose();
+    this.conversation = new SequenceRunner<{ line: string; narrativeId?: string }>([
+      { narrativeId: 'companion.evening-travel', line: COMPANIONJOURNEYSCENE_LINES['evening-meal'].line },
+      { narrativeId: COMPANIONJOURNEYSCENE_LINES['evening-arrival'].narrativeId, line: COMPANIONJOURNEYSCENE_LINES['evening-arrival'].line },
+    ], {
+      enter: (beat, _index, ready) => { this.setCloseupText(beat.line); this.setCloseupContinue(this.conversation!.continuation()); ready(); },
+      complete: () => {
+        setCampaignFlag(state(this.registry), 'companionDayComplete');
+        this.hideCloseup(); this.goTo('golden-boar');
+      },
+    });
+    this.conversation.start();
   }
 
   private enterStretch(phase: CompanionPhase, area: StoryArea) {
@@ -131,7 +144,7 @@ export class CompanionJourneyScene extends StoryScene {
     this.stopTravelers();
     this.setObjective('Mittagsrast · Foltan und Azar zuhören.');
     this.conversation?.dispose();
-    this.conversation = new SequenceRunner(MIDDAY_REST_SEQUENCE, {
+    this.conversation = new SequenceRunner<{ line: string; narrativeId?: string }>(MIDDAY_REST_SEQUENCE, {
       enter: (beat, _index, ready) => {
         this.setCloseupText(beat.line);
         this.setCloseupContinue(this.conversation!.continuation());

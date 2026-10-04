@@ -1,0 +1,8 @@
+html[data-story-ending="true"] #mobile-controls { display: none !important; }
+.story-ending-dialog { width: min(540px, calc(100vw - 24px)); padding: 24px; }
+.story-ending-dialog h2 { font-size: clamp(24px, 6vw, 32px); line-height: 1.2; }
+.story-ending-dialog > p { font-size: 18px; line-height: 1.55; }
+.story-ending-actions { display: grid; gap: 14px; margin-top: 24px; }
+.story-ending-actions button { width: 100%; min-height: 52px; font-size: 17px; line-height: 1.25; }
+.story-ending-dialog .story-ending-keyboard { margin: 20px 0 0; font-size: 14px; color: var(--ui-muted); }
+@media (max-width: 450px) { .story-ending-dialog { padding: 20px; } }

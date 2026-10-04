@@ -1,5 +1,5 @@
 const $ = id => document.getElementById(id);
-const categories = { all: 'Alle', bg: 'Schauplätze', cut: 'Cutscenes', sprites: 'Sprites', portraits: 'Porträts', ui: 'UI & Items', social: 'Titel & Web' };
+const categories = { all: 'Alle', bg: 'Schauplätze', cut: 'Cutscenes', sprites: 'Sprites', portraits: 'Porträts', ui: 'UI & Items', props: 'Lagerobjekte', social: 'Titel & Web' };
 const names = {
   'bg-battle': 'Schlachtfeld', 'bg-flight-a': 'Flucht: Wald', 'bg-flight-b': 'Flucht: Schlucht',
   'bg-refuge-candle': 'Zuflucht im Kerzenlicht', 'bg-refuge-dark': 'Zuflucht bei Nacht', 'bg-lia': 'Lias Erwachen',
@@ -21,17 +21,32 @@ const names = {
   'cinematic-raid-mother-stab': 'Angriff auf die Mutter', 'cinematic-raid-father-death': 'Der Vater fällt', 'cinematic-raid-mother-death': 'Die Mutter fällt',
   'cinematic-raid-parents-aftermath': 'Nach dem Überfall', 'prologue-power': 'Valentus: Machtdemonstration', 'prologue-conflict': 'Valentus: Konflikt',
   'prologue-falken': 'Die Falken', 'prologue-valentus': 'Valentus im Prolog', 'bg-title-splash': 'Titelbild', 'gameplay-shot': 'Spielvorschau',
+  'prologue-valentus-ready': 'Valentus vor der Schlacht', 'prologue-valentus-flight': 'Valentus auf der Flucht',
+  'cinematic-valentus-stab': 'Valentus wird verwundet', 'cinematic-camp-observe': 'Lia beobachtet Foltan und Azar',
+  'cut-kyra-wood': 'Kyra sammelt Holz', 'cut-kyra-forest': 'Kyra auf dem Waldweg', 'cut-kyra-discovery': 'Kyra entdeckt Lia',
+  'cut-crios-reflection': 'Lia blickt zu Crios', 'cinematic-raid-kyra-found': 'Kyra wird aus dem Haus gezerrt',
+  'lia-farm-walk': 'Lia: Hofkleidung', 'lia-travel-walk': 'Lia: Reiseausrüstung', 'lia-cloak-walk': 'Lia: Regenmantel',
+  'lia-crouch-walk': 'Lia: Geduckt gehen', 'lia-camp-sit': 'Lia: Am Lagerfeuer sitzen',
+  'bg-golden-boar': 'Zum Goldenen Eber', 'bg-brotherhood-camp': 'Lager der Freien Bruderschaft',
+  'bg-rain-forest': 'Wald im Sommerregen', 'bg-shadow-camp': 'Das Gefangenenlager', 'bg-ruins-night': 'Ruine bei Nacht',
+  'cinematic-flick-meeting': 'Lia begegnet Flick', 'cinematic-magic-awakening': 'Lias erster Magieausbruch',
+  'cinematic-sisters-reunion': 'Lia und Kyra wieder vereint', 'cinematic-master-rebuke': 'Vardis vor dem Meister',
+  'flick-walk': 'Flick: Gehen', 'craupor-idle': 'Craupor: Im Gastraum', 'elnon-idle': 'Elnon: Im Lager',
 };
-const people = { valentus: 'Valentus', 'valentus-wounded': 'Valentus verwundet', lia: 'Lia', kyra: 'Kyra', foltan: 'Foltan', azar: 'Azar', father: 'Vater', mother: 'Mutter', woman: 'Frau', boy: 'Junge', 'grey-haired': 'Grauhaariger', scarred: 'Narbiger', hooded: 'Kapuzenmann', 'refuge-man': 'Mann in der Zuflucht', 'lia-grief': 'Lia: Trauer', 'lia-determined': 'Lia: Entschlossen' };
+const people = { valentus: 'Valentus', 'valentus-wounded': 'Valentus verwundet', lia: 'Lia', kyra: 'Kyra', foltan: 'Foltan', azar: 'Azar', flick: 'Flick', craupor: 'Craupor', elnon: 'Elnon', vardis: 'Vardis', father: 'Vater', mother: 'Mutter', woman: 'Frau', boy: 'Junge', 'grey-haired': 'Grauhaariger', scarred: 'Narbiger', hooded: 'Kapuzenmann', 'refuge-man': 'Mann in der Zuflucht', 'lia-grief': 'Lia: Trauer', 'lia-determined': 'Lia: Entschlossen' };
 function title(asset) {
   if (asset.category === 'portraits') {
     const key = asset.file.split('/').pop().replace('.png', '').replace(/^dialogue-/, '');
     return `${people[key] ?? key}${asset.file.includes('/dialogue-') ? ' · Dialog' : ''}`;
   }
-  return names[asset.id] ?? asset.id.replace(/[-_]/g, ' ').replace(/^./, c => c.toUpperCase());
+  const key = asset.id.replace(/^catalog-[^-]+-/, '');
+  return names[key] ?? asset.file.split('/').pop().replace(/\.(png|svg)$/, '').replace(/[-_]/g, ' ').replace(/^./, c => c.toUpperCase());
 }
 
-let assets = [], category = 'all', current, image, frame = 0, row = 0, timer, generation = 0;
+const initial = new URLSearchParams(location.search);
+let assets = [], category = Object.hasOwn(categories, initial.get('category')) ? initial.get('category') : 'all', current, image, frame = 0, row = 0, timer, generation = 0;
+$('search').value = initial.get('q') ?? '';
+$('extra-versions').checked = initial.get('versions') === 'all';
 const viewer = $('viewer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function stop() {
@@ -53,11 +68,12 @@ function draw() {
 }
 function render() {
   const query = $('search').value.trim().toLocaleLowerCase('de');
-  const shown = assets.filter(a => (category === 'all' || a.category === category) && `${a.title} ${a.id} ${a.file} ${categories[a.category]}`.toLocaleLowerCase('de').includes(query));
+  const collection = assets.filter(a => a.inGame || $('extra-versions').checked);
+  const shown = collection.filter(a => (category === 'all' || a.category === category) && `${a.title} ${a.id} ${a.file} ${categories[a.category]}`.toLocaleLowerCase('de').includes(query));
   const fragment = document.createDocumentFragment();
   for (const asset of shown) {
     const card = document.createElement('button'); card.type = 'button'; card.className = 'card';
-    card.setAttribute('aria-label', `${asset.title}: Vorschau öffnen`);
+    card.setAttribute('aria-label', `${asset.title}${asset.inGame ? '' : ' (weitere Fassung)'}: Vorschau öffnen`);
     const preview = document.createElement('span'); preview.className = `thumbnail ${asset.category === 'portraits' ? 'portrait' : ''}`;
     if (asset.frameW) {
       preview.classList.add('checker');
@@ -72,23 +88,37 @@ function render() {
     }
     const copy = document.createElement('span'); copy.className = 'card-copy';
     const name = document.createElement('strong'); name.textContent = asset.title;
+    const version = document.createElement('span'); version.className = `asset-version ${asset.inGame ? 'in-game' : ''}`;
+    version.textContent = asset.inGame ? 'Spielgrafik' : 'Weitere Fassung';
     const meta = document.createElement('span'); meta.className = 'card-meta';
     const kind = document.createElement('span'); kind.textContent = categories[asset.category];
     const count = asset.cols * asset.rows;
     const size = document.createElement('span'); size.textContent = asset.frameW ? `${count} ${count === 1 ? 'Einzelbild' : 'Einzelbilder'}` : `${asset.width} × ${asset.height}`;
-    meta.append(kind, size); copy.append(name, meta); card.append(preview, copy);
+    meta.append(kind, size); copy.append(name, version, meta); card.append(preview, copy);
     card.addEventListener('click', () => open(asset)); fragment.append(card);
   }
   $('grid').replaceChildren(fragment);
   $('collection-title').textContent = category === 'all' ? 'Alle Assets' : categories[category];
   $('result-count').textContent = `${shown.length} von ${assets.length}`;
   $('empty').hidden = shown.length !== 0;
-  for (const button of $('filters').children) button.setAttribute('aria-pressed', String(button.dataset.category === category));
+  for (const button of $('filters').children) {
+    const key = button.dataset.category;
+    button.setAttribute('aria-pressed', String(key === category));
+    const count = key === 'all' ? collection.length : collection.filter(a => a.category === key).length;
+    button.querySelector('small').textContent = count;
+    button.setAttribute('aria-label', `${categories[key]} (${count})`);
+  }
+  const parameters = new URLSearchParams();
+  if (category !== 'all') parameters.set('category', category);
+  if ($('search').value) parameters.set('q', $('search').value);
+  if ($('extra-versions').checked) parameters.set('versions', 'all');
+  history.replaceState(null, '', `${location.pathname}${parameters.size ? `?${parameters}` : ''}`);
 }
 function open(asset) {
   stop(); const version = ++generation; current = asset; frame = 0; row = 0;
   $('viewer-title').textContent = asset.title; $('viewer-category').textContent = categories[asset.category];
   $('filename').textContent = asset.file;
+  $('asset-version').textContent = asset.inGame ? 'Spielgrafik' : 'Weitere Fassung';
   $('dimensions').textContent = `${asset.width} × ${asset.height} px${asset.frameW ? ` · ${asset.frameW} × ${asset.frameH} px pro Einzelbild` : ''}`;
   $('download').href = `/${asset.url ?? asset.file}`; $('download').download = asset.file.split('/').pop();
   $('preview-image').src = `/${asset.url ?? asset.file}`; $('preview-image').alt = asset.title;
@@ -110,9 +140,12 @@ function open(asset) {
 async function load() {
   $('error').hidden = true; $('grid').setAttribute('aria-busy', 'true');
   try {
-    const response = await fetch('/assets/catalog.json');
+    const response = await fetch('/assets/runtime-manifest.json');
     if (!response.ok) throw new Error('Assetkatalog nicht verfügbar');
-    assets = (await response.json()).map(a => ({ ...a, title: title(a) }));
+    const manifest = await response.json();
+    const inGame = new Set(Object.values(manifest.packs).flat());
+    assets = manifest.assets.map(a => ({ ...a, title: title(a), inGame: inGame.has(a.id) }))
+      .sort((a, b) => Number(b.inGame) - Number(a.inGame));
     $('total').textContent = assets.length;
     $('filters').replaceChildren(...Object.entries(categories).map(([key, label]) => {
       const button = document.createElement('button'); button.type = 'button'; button.dataset.category = key;
@@ -125,7 +158,8 @@ async function load() {
   finally { $('grid').setAttribute('aria-busy', 'false'); }
 }
 $('search').addEventListener('input', render);
-$('reset').addEventListener('click', () => { category = 'all'; $('search').value = ''; render(); });
+$('extra-versions').addEventListener('change', render);
+$('reset').addEventListener('click', () => { category = 'all'; $('search').value = ''; $('extra-versions').checked = false; render(); });
 $('retry').addEventListener('click', load);
 $('close').addEventListener('click', () => viewer.close());
 viewer.addEventListener('close', () => { stop(); generation++; });

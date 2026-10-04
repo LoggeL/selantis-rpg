@@ -14,10 +14,13 @@ export function isCampaignState(value: unknown): value is CampaignState {
     && Object.entries(value.picked).every(([key, picked]) => isCampaignKey(key) && picked === true)
     && Object.entries(value.flags).every(([key, flag]) => isCampaignKey(key) && typeof flag === 'boolean');
 }
-/** Data boundary only. Callers decide whether/where to persist it. */
+const sortedRecord = <T>(value: Record<string, T>): Record<string, T> => Object.fromEntries(Object.keys(value).sort().map(key => [key, value[key]]));
+
+/** Canonical key order makes equivalent states stable regardless of transition insertion order. */
 export function serializeCampaign(st: CampaignState): string {
   if (!isCampaignState(st)) throw new Error('Ungültiger Kampagnenzustand');
-  return JSON.stringify({ version: CAMPAIGN_SCHEMA_VERSION, world: cloneCampaignState(st) } satisfies CampaignSave);
+  const world: CampaignState = { inv: sortedRecord(st.inv), picked: sortedRecord(st.picked), flags: sortedRecord(st.flags) };
+  return JSON.stringify({ version: CAMPAIGN_SCHEMA_VERSION, world } satisfies CampaignSave);
 }
 export function deserializeCampaign(serialized: string): CampaignState | undefined {
   try {

@@ -10,6 +10,17 @@ describe('speaker identity and source portraits', () => {
     expect(parseDialogue('Westen: Trapas. Osten: Portas.')).toEqual({ text: 'Westen: Trapas. Osten: Portas.' });
   });
 
+  it.each(['Flick', 'Craupor', 'Elnon', 'Vardis'])('parses %s and resolves its reviewed continuation portrait', name => {
+    const key = `portrait-dialogue-${name.toLowerCase()}`;
+    const scene = { textures: { exists: (texture: string) => texture === key } } as unknown as Phaser.Scene;
+    expect(parseDialogue(`${name}: Eine Zeile.`)).toEqual({ name, text: 'Eine Zeile.' });
+    expect(resolvePortrait(scene, name)).toMatchObject({ texture: key, src: assetUrl(`assets/portraits/dialogue-${name.toLowerCase()}.png`) });
+  });
+
+  it('keeps distant anonymous speech as narration without assigning a face', () => {
+    for (const line of ['Die Kapuzengestalt sagt "Du hast versagt, Vardis."', 'Eine Wache sagt "Raus mit der Sprache!"', 'Eine andere Stimme sagt "Ein Sakrileg."']) expect(parseDialogue(line)).toEqual({ text: line });
+  });
+
   it('keeps unidentified names while showing the visible camp companion', () => {
     const scene = { textures: { exists: () => true } } as unknown as Phaser.Scene;
     expect(parseDialogue('Der Schmale: Still!')).toEqual({ name: 'Der Schmale', text: 'Still!' });

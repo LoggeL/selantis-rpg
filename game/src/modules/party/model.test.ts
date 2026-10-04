@@ -83,7 +83,7 @@ describe('independent authored character catalogs', () => {
   it('binds different battle, health, identity and ability values once without prologue defaults', () => {
     const combat = { attack: 11, defense: 3, speed: 2, move: 2, attackRange: 3 };
     const rules = createCharacterRules({
-      partyProfiles: { lia: { maxHp: 55, combat }, foltan: { maxHp: 66, combat }, azar: { maxHp: 77, combat } },
+      partyProfiles: { lia: { maxHp: 55, combat }, foltan: { maxHp: 66, combat }, azar: { maxHp: 77, combat }, flick: { maxHp: 88, combat }, kyra: { maxHp: 99, combat } },
       combatProfiles: { valentus: { ...combat, magicAttack: 12 }, guardian: { ...combat, defense: 9 } },
       identities: { valentus: { name: 'Wanderer', portrait: 'wanderer' }, lia: { name: 'Scout', portrait: 'scout' }, foltan: { name: 'Companion', portrait: 'companion' }, azar: { name: 'Guard', portrait: 'guard' } },
       fallbackMovement: 2,

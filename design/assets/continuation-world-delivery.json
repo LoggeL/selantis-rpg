@@ -1,0 +1,78 @@
+{
+  "mode": "built-in image_gen",
+  "intent": "generate",
+  "status": "ready",
+  "style_reference_paths": [
+    "game/public/assets/bg/first-camp-evening-unbuilt.png",
+    "game/public/assets/bg/companion-forest-trail.png"
+  ],
+  "note": "References inspected visually; brand new requests carry no referenced_image_paths. Tool outputs will be copied byte-for-byte into the project.",
+  "outputs": [
+    {
+      "asset": "golden-boar",
+      "destination": "game/public/assets/bg/golden-boar.png",
+      "prompt": "Use case: stylized-concept. Asset type: empty landscape background for the Selantis fantasy adventure game, widescreen 16:9, ideally 1792x1008 pixels. Fine detailed pixel fantasy illustration, sharp small clustered pixel texture, clean dark outlines, natural color clusters, high craft late-1990s pixel adventure background, forest vegetation and surfaces made of deliberate small pixels, no smooth vector art, no photorealism. Three-quarter slightly elevated camera showing the playable ground, horizontal wide scene. A broad open walkable stage occupies the entire lower two-thirds; scenery and furniture occupy the upper third or outer edges only. Reserve the central and lower ground for engine-supplied characters. No characters, no people, no animals, no horses, no UI, no readable lettering, no watermark, no emblem or symbols. Full image landscape scene, no borders. Scene: warm rustic timber inn common room. Golden amber candle and hearth light on thick dark timber beams, modest rough plaster and oak plank floor. Tables, benches and a counter only along the far upper wall and upper left/right periphery, compact hearth at far upper left. A small hanging wooden tavern sign at upper right bears only a pictorial golden boar silhouette, no letters. Lower two-thirds must be a large continuous empty wooden walking floor, wide unbroken clearing from left to right. Welcoming earthy bronze palette with shadowed wooden corners.",
+      "status": "ready",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-507b5f8c-528a-4f7d-ae6a-48063f3db1fa.png",
+      "refinement_prompt": null,
+      "width": 1672,
+      "height": 941,
+      "sha256": "c68d9e6e25593117dbe8b364c13a9632473fdf62d2fb7ee3979833fe11c46099",
+      "bytes": 2319111
+    },
+    {
+      "asset": "brotherhood-camp",
+      "destination": "game/public/assets/bg/brotherhood-camp.png",
+      "prompt": "Use case: stylized-concept. Asset type: empty landscape background for the Selantis fantasy adventure game, widescreen 16:9, ideally 1792x1008 pixels. Fine detailed pixel fantasy illustration, sharp small clustered pixel texture, clean dark outlines, natural color clusters, high craft late-1990s pixel adventure background, forest vegetation and surfaces made of deliberate small pixels, no smooth vector art, no photorealism. Three-quarter slightly elevated camera showing the playable ground, horizontal wide scene. A broad open walkable stage occupies the entire lower two-thirds; scenery and furniture occupy the upper third or outer edges only. Reserve the central and lower ground for engine-supplied characters. No characters, no people, no animals, no horses, no UI, no readable lettering, no watermark, no emblem or symbols. Full image landscape scene, no borders. Scene: a brotherhood woodland camp in daylight, ringed by tall leafy broadleaf forest. Worn canvas tents occupy only the far upper left and far upper right; a single larger leadership tent on the upper right. Peripheral wooden training racks and a small unlit campfire ring tucked against the upper edge, never in the walking zone. The lower two-thirds are a wide flat unobstructed dirt exercise ground and open paths, enough room for many actor sprites with readable feet. Natural olive and moss greens, warm earth browns, soft golden filtered daylight. Entire stage empty.",
+      "status": "ready",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-126d9b40-98dc-4a3f-8faa-aab2c0ed817f.png",
+      "refinement_prompt": "Use case: precise-object-edit. Edit this woodland camp background only to remove invented heraldic tree emblems on every hanging banner and rug, making all such fabric plain solid weathered cream or plain dark muted green. Also replace only the distant hilltop castle with ordinary natural rocky wooded hill silhouettes. Keep everything else precisely unchanged: original fine pixel art texture and sharp outlines, the empty open ground across the lower two-thirds, tent placements, larger upper-right leadership tent, trees, warm light, weapon racks, image framing and dimensions. No people, animals, writing, emblems or symbols.",
+      "width": 1672,
+      "height": 941,
+      "sha256": "217a9000f2c795e0383422f44b96b346e91f0a4383a85141ee3df84316ec973e",
+      "bytes": 2834792
+    },
+    {
+      "asset": "rain-forest",
+      "destination": "game/public/assets/bg/rain-forest.png",
+      "prompt": "Use case: stylized-concept. Asset type: empty landscape background for the Selantis fantasy adventure game, widescreen 16:9, ideally 1792x1008 pixels. Fine detailed pixel fantasy illustration, sharp small clustered pixel texture, clean dark outlines, natural color clusters, high craft late-1990s pixel adventure background, forest vegetation and surfaces made of deliberate small pixels, no smooth vector art, no photorealism. Three-quarter slightly elevated camera showing the playable ground, horizontal wide scene. A broad open walkable stage occupies the entire lower two-thirds; scenery and furniture occupy the upper third or outer edges only. Reserve the central and lower ground for engine-supplied characters. No characters, no people, no animals, no horses, no UI, no readable lettering, no watermark, no emblem or symbols. Full image landscape scene, no borders. Scene: secluded summer forest at night under heavy rain clouds, moisture and cool wet surfaces, dark blue and muted green forest. Broad readable pale earthen path and flat forest clearing occupy lower two-thirds, gently winding toward the upper middle. Tall trunks and dense wet summer foliage form upper backdrop and outer margins. A fallen log lies only along upper left side beside the path, never across it. Soft dim moonlight through cloud, enough ground contrast to read walking figures. Rain ambience without painted raindrops, streaks or foreground rain overlay, because the game engine supplies animated rain. Entire stage empty.",
+      "status": "ready",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-efadbd97-5dfb-4890-b690-2f40dbeedc93.png",
+      "refinement_prompt": null,
+      "width": 1672,
+      "height": 941,
+      "sha256": "182f8963d06c2926e14dfc6cac8cbd0b13278d6412fde8ba85da41f979e8dea0",
+      "bytes": 2913606
+    },
+    {
+      "asset": "shadow-camp",
+      "destination": "game/public/assets/bg/shadow-camp.png",
+      "prompt": "Use case: stylized-concept. Asset type: empty landscape background for the Selantis fantasy adventure game, widescreen 16:9, ideally 1792x1008 pixels. Fine detailed pixel fantasy illustration, sharp small clustered pixel texture, clean dark outlines, natural color clusters, high craft late-1990s pixel adventure background, forest vegetation and surfaces made of deliberate small pixels, no smooth vector art, no photorealism. Three-quarter slightly elevated camera showing the playable ground, horizontal wide scene. A broad open walkable stage occupies the entire lower two-thirds; scenery and furniture occupy the upper third or outer edges only. Reserve the central and lower ground for engine-supplied characters. No characters, no people, no animals, no horses, no UI, no readable lettering, no watermark, no emblem or symbols. Full image landscape scene, no borders. Scene: a rough deserted camp in a hill clearing overlooking a distant valley through a gap at the upper left. Old ruined reddish grey stone wall runs along the far upper backdrop. A large sturdy tree occupies only upper right, its lower trunk clearly visible at far right for a captive actor to be placed in front later; no captive painted. A few simple crates and a plain mundane weapon rack are tucked beside the ruined wall on upper left. Lower two-thirds form a broad continuous open flattened earth and sparse grass clearing without any obstacle. Muted earth tones, cold subdued dawn, valley haze, deep green trees. Entire stage empty, no horses.",
+      "status": "ready",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-07d3f30b-0695-4d53-9422-0f4cbcf8599d.png",
+      "refinement_prompt": "Use case: precise-object-edit. In this empty pixel fantasy adventure background, replace only the far distant castle silhouette at the top of its distant hill with ordinary natural rocky wooded hill silhouettes. There must be no distant buildings visible. Keep everything else unchanged, including the fine sharp clustered pixel texture, foreground scenery, all foreground ruins and walls, lighting, framing, dimensions, empty walkable floor in the lower two-thirds, and the large tree at upper right. No people, animals, writing or symbols.",
+      "width": 1673,
+      "height": 940,
+      "sha256": "cccee72d981e45cbf15fd22aeb23d02c9df5c075a9dc247abcd9ace54c8c8008",
+      "bytes": 2596890
+    },
+    {
+      "asset": "ruins-night",
+      "destination": "game/public/assets/bg/ruins-night.png",
+      "prompt": "Use case: stylized-concept. Asset type: empty landscape background for the Selantis fantasy adventure game, widescreen 16:9, ideally 1792x1008 pixels. Fine detailed pixel fantasy illustration, sharp small clustered pixel texture, clean dark outlines, natural color clusters, high craft late-1990s pixel adventure background, forest vegetation and surfaces made of deliberate small pixels, no smooth vector art, no photorealism. Three-quarter slightly elevated camera showing the playable ground, horizontal wide scene. A broad open walkable stage occupies the entire lower two-thirds; scenery and furniture occupy the upper third or outer edges only. Reserve the central and lower ground for engine-supplied characters. No characters, no people, no animals, no horses, no UI, no readable lettering, no watermark, no emblem or symbols. Full image landscape scene, no borders. Scene: old rough reddish stone ruins at night. Crumbling coarse russet masonry walls and broken columns enclose the upper edge and outer sides, missing roof exposes a sliver of midnight sky at upper center. Blue moonlight from upper left falls over textured worn stone paving. Lower two-thirds and especially center form a broad empty flat floor for two actors to face each other later. Loose masonry only at far edges. Quiet ominous moonlit palette of deep blue shadows, reddish brown stone, pale cold stone highlights. No engraved symbols, no runes, no writing, no ritual marks. Entire stage empty.",
+      "status": "ready",
+      "source": "/Users/logge/.codex/generated_images/01a107f5-e914-7a73-bbe5-c03e770d6c60/exec-b6aa261e-50f1-4204-a94f-d8e91302e542.png",
+      "refinement_prompt": "Use case: precise-object-edit. In this empty pixel fantasy adventure background, replace only the far distant castle silhouette at the top of its distant hill with ordinary natural rocky wooded hill silhouettes. There must be no distant buildings visible. Keep everything else unchanged, including the fine sharp clustered pixel texture, foreground scenery, all foreground ruins and walls, lighting, framing, dimensions, empty walkable floor in the lower two-thirds. No people, animals, writing or symbols.",
+      "width": 1672,
+      "height": 941,
+      "sha256": "4b6eb7cfe41ad9ba13227bb27fe307b4a06eac292d863da896953ba109f7b639",
+      "bytes": 2738762
+    }
+  ],
+  "validation": {
+    "method": "view_image visual review for every original and selected refinement; PNG header dimensions; byte-for-byte copy SHA-256 read-back",
+    "composition": "Empty stages with large central/lower walkable floor and peripheral scenery; no character sprites painted. Engine renders actors.",
+    "dimensions_note": "Built-in tool chose 1672x941 for four assets and 1673x940 for shadow-camp. Original output bytes preserved; each ratio differs from exact 16:9 by less than 0.2 percent.",
+    "runtime_validation": "Pending integration agent browser review"
+  }
+}

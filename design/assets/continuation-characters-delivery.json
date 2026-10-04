@@ -1,0 +1,172 @@
+{
+  "generationMode": "builtin-image_gen",
+  "intent": "new-character-assets-with-reference-guidance",
+  "assets": [
+    {
+      "key": "flick_portrait",
+      "path": "game/public/assets/portraits/dialogue-flick.png",
+      "prompt": "Use case: stylized-concept. Asset type: square RPG dialogue portrait, 1024x1024. Create Flick using Image 1 only for character identity and costume, Image 2 only for artistic style. Match Image 2's polished pixel-painted fantasy illustration with clearly deliberate pixel clusters, warm face lighting, rich restrained colors and dark forest-green background. Bust portrait of the youthful auburn-haired elf archer Flick, short cropped copper/auburn hair, clearly pointed ears, the facial features and identity of Image 1, cream-colored tunic under a dark burgundy shoulder cape and collar, diagonal leather quiver strap and red-and-white arrow fletching behind shoulder. A little of the stowed bow may be visible, no weapon in hand. Three-quarter face looking slightly left, alert and sincere. Head and shoulders fill the square with face readable even at 100px. Avoid long hair, blonde hair, changing the person into Lia, generic warrior armor, hats, lettering, frames, watermark. Use photoreference for identity only, render a game illustration in the second reference's style.",
+      "referenceImages": [
+        "/Users/logge/Documents/Projects/SelantisRPG/sources/frames/characters-film/flick-portrait-ep01-11m37s.jpg",
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-foltan.png"
+      ],
+      "transparentBackground": false,
+      "generationSource": "/Users/logge/.codex/generated_images/01a107f6-6498-7783-93b4-3211c47e9b7a/exec-0f6d3bd1-0c94-4dd5-ab0b-875331833200.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "RGB"
+    },
+    {
+      "key": "elnon_portrait",
+      "path": "game/public/assets/portraits/dialogue-elnon.png",
+      "prompt": "Use case: stylized-concept. Asset type: square RPG dialogue portrait, 1024x1024. Create Elnon, a dark-haired elf rebel leader, as game adaptation whose visual reference is the foreground elf Elhon in Image 1. Image 1 is identity/costume reference; Image 2 is style reference only. Match Image 2's polished pixel-painted fantasy illustration with deliberate pixel clusters, warm natural face lighting and dark forest-green background. Bust composition, one character only, short dark hair at shaved sides and dark tied top, pointed elf ears, green tunic with modest ornamental neckline, simple dark angular shoulder plate and leather diagonal strap, subtle chin stubble like the reference. Calm authoritative, restrained serious expression, face looking slightly left. Natural adult face and proportions. Keep visual resemblance to foreground elf, no hat, no second man, no silver hair, no scar, no large crown or fantasy embellishments. No text, border, watermark.",
+      "referenceImages": [
+        "/Users/logge/Documents/Projects/SelantisRPG/sources/frames/characters-film/elhon-portrait-ep02-04m40s.jpg",
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-foltan.png"
+      ],
+      "transparentBackground": false,
+      "generationSource": "/Users/logge/.codex/generated_images/01a107f6-6498-7783-93b4-3211c47e9b7a/exec-35f75471-126f-4d4d-93da-68a4489cc137.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "RGB"
+    },
+    {
+      "key": "craupor_portrait",
+      "path": "game/public/assets/portraits/dialogue-craupor.png",
+      "prompt": "Use case: stylized-concept. Asset type: square RPG dialogue portrait, 1024x1024. Create original novel-grounded innkeeper Craupor. Novel explicitly describes a thin bald man behind tavern counter; retain thin build and bald head. Style reference image only: polished pixel-painted fantasy illustration with deliberate pixel clusters, warm natural face lighting, rich restrained earthy colors and dark forest-green background matching the existing game portrait. Bust portrait of a lean bald middle-aged male innkeeper with a narrow face, expressive warm cautious eyes, clean shaven, simple worn cream linen shirt, practical brown apron strap visible at shoulders. Three-quarter face looking slightly left, personable but observant expression. The apron and expression are visual adaptation, ordinary medieval innkeeper details. Face and shoulders fill frame and read at small size. No hat, no beard, no inflated stout body, no noble dress or armor, no lettering, frame or watermark.",
+      "referenceImages": [
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-foltan.png"
+      ],
+      "transparentBackground": false,
+      "generationSource": "/Users/logge/.codex/generated_images/01a107f6-6498-7783-93b4-3211c47e9b7a/exec-12e905ae-9831-4359-9e65-9e41c406085e.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "RGB"
+    },
+    {
+      "key": "vardis_portrait",
+      "path": "game/public/assets/portraits/dialogue-vardis.png",
+      "prompt": "Use case: stylized-concept. Asset type: square RPG dialogue portrait, 1024x1024. Create Vardis, the foreground dark-clothed film captain from Image 1, preserving his identity and uniform silhouette. Image 1 is identity/costume reference only; Image 2 is polished pixel-painted game art style reference only. Young adult human man with short dark brown hair, clean-shaven round strong face, no elf ears, serious cold confidence. Black cloth uniform with plain silver steel throat and shoulder armor like reference; practical simple metal plates, no ornate symbols. Bust composition, three-quarter face looking slightly left, warm subdued skin lighting against very dark forest-green background. Deliberate pixel clusters, beautiful pixel-painted fantasy dialogue portrait, face readable at small size. Keep this character distinct from a bearded older captain and from a grey-haired murderer. No grey hair, no beard, no helmet, no crown, no second guard, no text, border or watermark.",
+      "referenceImages": [
+        "/Users/logge/Documents/Projects/SelantisRPG/sources/frames/characters-film/dunkelschatten-vardis-ep01-07m00s.jpg",
+        "/Users/logge/Documents/Projects/SelantisRPG/game/public/assets/portraits/dialogue-foltan.png"
+      ],
+      "transparentBackground": false,
+      "generationSource": "/Users/logge/.codex/generated_images/01a107f6-6498-7783-93b4-3211c47e9b7a/exec-8ccc8a53-7564-4b0d-af44-9dab51d3c745.png",
+      "width": 1254,
+      "height": 1254,
+      "format": "RGB"
+    },
+    {
+      "key": "flick_walk",
+      "path": "game/public/assets/sprites/flick-walk.png",
+      "prompt": "Use case: stylized-concept. Asset type: production-ready transparent pixel-art RPG walk sprite atlas, 1024x1024 exact square PNG. Generate a complete sixteen-frame 4 columns x 4 rows atlas of Flick, whose face and costume use the reference. Short auburn hair, pointed elf ears, cream tunic, short burgundy shoulder cape, dark trousers, brown leather boots, leather belt, back-mounted quiver with red-white arrows and bow STOWED, hands free. One same youthful character all frames. Every cell exactly 256x256, character centered at x=128 within each cell, boot soles aligned around y=240 within cell; full body including top hair and boots entirely inside cell, consistent scale around 205px tall. Four directional rows in this exact order: row 1 SOUTH facing viewer; row 2 WEST facing LEFT; row 3 EAST facing RIGHT; row 4 NORTH facing away showing back. Every row contains a looping WALK cycle, columns 1 left-foot-forward stride, 2 passing neutral, 3 right-foot-forward stride, 4 opposite passing neutral. West is strict left-facing profile, East strict right-facing profile, North strictly back-facing. Visible alternate legs, modest matching arm swing, cape stays short and consistent, stationary positions no sideways drifting. Beautiful legible 16-bit pixel-painted sprite art, orthogonal top-down RPG mild elevated viewpoint, consistent anatomy no extra arms, no duplicated heads. Genuine transparent background alpha, NO background color, NO checkerboard baked in, NO grid lines, NO frames, NO text or labels, NO scenery, NO ground shadows, NO hand-held weapons, NO additional weapons. Each character has safe transparent space on all sides, never crosses its 256px cell boundary. The 4x4 layout and row direction order are mandatory. Return the sprite sheet only.",
+      "referenceImages": [
+        "/Users/logge/Documents/Projects/SelantisRPG/sources/frames/characters-film/flick-portrait-ep01-11m37s.jpg"
+      ],
+      "transparentBackground": true,
+      "generationSource": "/Users/logge/.codex/generated_images/01a107f6-6498-7783-93b4-3211c47e9b7a/exec-6b87a7cd-7621-4440-b2af-12fecab4bcb8.png",
+      "width": 1254,
+      "height": 1254,
+      "correctionPrompt": "Use case: precise-object-edit. Edit target is the transparent 4x4 Flick sprite atlas. Preserve the SAME short-auburn-haired elf character, burgundy cape, cream tunic, trousers, boots, quiver, exact south/west/east/north directional rows and 4 walking phases, keep beautiful pixel-art style. CRITICAL production correction: final canvas MUST be exactly 1024 by 1024 pixels, evenly divided four columns/four rows, cells exactly 256x256. Make characters MUCH SMALLER within cells: each sprite about 170 pixels tall, no wider than 135px including equipment, center x128 per cell, foot baseline at local y228 (global rows y228,484,740,996), head starts about local y50-60. Leave a large transparent margin above heads and below boots so neighboring cells never touch or bleed. ALL pixels outside every sprite silhouette must be fully transparent alpha=0; NO stray pixels or almost-transparent color across blank space. Exact equal grid, no text, labels, frames, grid lines or shadows. Full 16 characters in complete consistent 4x4 grid, 4 phases alternating legs per row. All backgrounds genuinely transparent. Preserve character identity and direction row order. Return only the corrected 1024x1024 PNG.",
+      "format": "RGBA",
+      "frameWidth": 209,
+      "frameHeight": 209,
+      "columns": 6,
+      "rows": 6,
+      "rowDirections": [
+        "south",
+        "west",
+        "east",
+        "north",
+        "south-idle",
+        "north-idle"
+      ],
+      "directionFrameIndices": {
+        "south": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "west": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "east": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "north": [
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      "footAnchorsNative": [
+        {
+          "direction": "south",
+          "x": 104,
+          "y": 196
+        },
+        {
+          "direction": "west",
+          "x": 104,
+          "y": 193
+        },
+        {
+          "direction": "east",
+          "x": 104,
+          "y": 195
+        },
+        {
+          "direction": "north",
+          "x": 104,
+          "y": 193
+        }
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "fullyTransparentPixels": 1086717,
+      "note": "Accepted final: native1254x1254, exact integer209px cells in6x6grid. 24walkframes in first4rows,12extra idleframes in last2rows. Fully contained silhouettes, horizontal cell boundaries alpha>128 count0. Commonfoot(104,195); observed walking bootbaseline varies by at most4px.",
+      "foot": {
+        "x": 104,
+        "y": 195
+      },
+      "sha256": "6f316114cc25df4da0582411c4410d63a5e0142060be1461b2e821f9e9974dc7",
+      "previousAtlas": "game/public/assets/sprites/flick-walk-v1.png",
+      "correctionPrompts": [
+        "Use case: precise-object-edit. Asset type: production transparent pixel-art RPG sprite atlas, native 1254x1254 square. Reference is edit target: preserve the same charming youthful short-auburn-haired pointy-eared elf archer Flick, burgundy shoulder cape, cream tunic, dark trousers, leather boots, back quiver red-white arrows, bow stowed and hands free, pixel-art identity and consistent character. REQUIRED CHANGE: replace the four-by-four layout with EXACT SIX COLUMNS AND SIX ROWS on the full native1254x1254 canvas, every invisible cell209x209. Only the first FOUR rows have sprites: each has SIX WALK PHASES,24sprites total. Row0 global y0..208 SOUTH facing viewer; row1 y209..417 WEST facing left; row2 y418..626 EAST facing right; row3 y627..835 NORTH facing away. Rows4and5 global y836..1253 MUST BE ENTIRELY EMPTY TRANSPARENT SPACE, no sprites or other marks. Do not center the artwork vertically: all24sprites occupy the upper two-thirds only. Each sprite is centered at local x104, full body about140px tall, hair top near local y47 and boot soles at local y190, identical foot baseline for every sprite every row. Have ample transparent safety margins around every full body. Six columns walking phases: left foot forward, left passing, feet aligned, right foot forward, right passing, feet aligned. Subtle alternating arm swing, stable consistent outfit and scale. Each invisible cell exactly209square. No crossing cell borders, no drifting, no character oversized. Genuine transparent PNG alpha background, no baked checkerboard, no black or white background, no lettering, no labels, no grid lines, no borders, no ground shadows, no hand-held weapons. Preserve existing pixel-painted sprite beauty. Strict24frames at six columns in top four rows plus two bottom empty transparent rows. Return only1254x1254 RGBA sprite PNG.",
+        "Precise production sprite atlas edit. Keep Flick character identity, outfit, pixel style, genuine transparency. Layout must become a FULL SIX BY SIX atlas,36 whole sprites arranged evenly across entire1254x1254 canvas. FIRST FOUR ROWS: six south-facing walkframes, six west-facing walkframes, six east-facing walkframes, six north/back-facing walkframes. LAST TWO ROWS: six FRONT idle poses and six BACK idle poses. Every invisible cell exactly209x209, columns centers x104,313,522,731,940,1149. All36 sprites MUST be MUCH SMALLER than reference, each sprite145pixels tall maximum and90pixels wide maximum, transparent margins on all sides. Row boot baselines MUST BE globaly189,398,607,816,1025,1234. Top hair globaly44,253,462,671,880,1089. STRICTLY six evenly spaced rows, NOT four tall rows. No sprite may exceed its assigned209square cell; tiny full sprites float within large transparent margins. All36 whole characters use exact same scale, same foot baseline local189. Character short auburn hair elf ears burgundy cape cream tunic darktrousers boots backquiver, bowstowed, handsfree. Preserve clear contrasting legpositions and arm swing across sixwalking phases in top fourrows. No gridlines, no borders, no text, no labels, no coloredbackground, no shadows. FULL evenly spaced six-row six-column36sprite atlas only. This full6x6 arrangement is mandatory.",
+        "Edit only size and placement of the36individual sprites, preserve all character identity, directions, walk poses, pixel style and true transparent alpha. Existing sprites are TOO LARGE AND MISALIGNED. SHRINK EVERY SPRITE TO 60% OF ITS CURRENT SIZE. Put them in a STRICT6x6 equal grid filling the1254x1254 canvas,209x209 per cell. Center each COMPLETE SHRUNK SPRITE at the exact center of its cell. Center coordinates for both axes:104,313,522,731,940,1149. In each cell the entire sprite must fit inside the CENTRAL120x150pixel rectangle, with at least30pixels transparent margin above and below. Center of first sprite is(104,104), NOT(120,160). Center of first sprite of each row is(104,104),(104,313),(104,522),(104,731),(104,940),(104,1149). All36 centered sprites same scale. Rows0south,1left,2right,3back,4frontidle,5backidle preserved. NO body extends into adjacent cell. Every row's boots should sit at localy175, at globaly175,384,593,802,1011,1220. There must be completely transparent horizontal gutters around y209,418,627,836,1045. Keep the grid invisible, no outlines or text. Return only corrected transparent PNG.",
+        "Make ONE precise layout correction to the existing transparent1254x1254 sprite sheet. Keep all36sprites, identities, dimensions, poses, art style, columns and real transparent alpha unchanged. Move EACH OF THE TOP FOUR ROWS OF SIX SPRITES vertically UP BY45PIXELS. Do not move the fifth and sixth rows. This moves the first row boot bottoms from abouty230 to185; second from434 to389; third from642 to597; fourth from843 to798. Topfourrows now sit entirely within their209px-high cells. Firstrow hair starts abouty27, not72. All36characters must remain full body, no clipping. Bottomtwoidle rows stay exactly where they are. Canvas size stays1254square, sixcolumns remain centered at104,313,522,731,940,1149. No new gridlines, no labels, no shadows. Empty transparent background. Return the same sheet with only this upward45px repositioning of the first24sprites."
+      ]
+    }
+  ],
+  "sourceNotes": {
+    "flick": "Film1 flick-portrait-ep01-11m37s.jpg identity and clothes: short auburn hair, pointed ears, burgundy cape, cream tunic, quiver red-white arrows.",
+    "elnon": "Novel Elnon black-haired elf rebel leader; Film2 Elhon foreground visual adaptation with dark tied top and shaved sides, green tunic, dark shoulder plate.",
+    "craupor": "Novel roman-selantis-2.txt PDFpage53 explicitly thin bald man behind counter. Beard was omitted to keep the evidenced thin bald appearance. Shirt/apron details are visual adaptation.",
+    "vardis": "Film1 captain image dunkelschatten-vardis-ep01-07m00s.jpg, short dark hair, clean-shaven, black uniform with plain silver neck/shoulder armor. Distinct from novel Baris and Orwen."
+  },
+  "verification": {
+    "visual": "All4portraits match existing dialogue-foltan style. Accepted Flickatlas is6x6 exact209px cells with24walkframes in south/west/east/northrows and12extraidleframes. All36 full silhouettes inside cells; alpha128 mask shows no opaque pixels on row boundaries.",
+    "alpha": "RGBA with actual alpha0 to255, blank background transparent, original PNG retained.",
+    "runtime": "Not runtime-tested here; manifest and animation integration belongs continuation_wiring."
+  }
+}

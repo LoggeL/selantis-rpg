@@ -50,6 +50,18 @@ function sceneForModule(path: string): string {
 
 const sceneSpeakers = new Map<string, Set<string>>();
 for (const [path, content] of Object.entries(authoredModules)) {
+  // Continuation modules and their barrels export the actual chapter records.
+  // Their authored scene id keeps dialogue coverage aligned with lazy loading.
+  const chapters = Object.values(content).filter((value): value is { id: string } =>
+    !!value && typeof value === 'object' && 'id' in value && typeof value.id === 'string' && 'area' in value && 'actions' in value);
+  if (chapters.length) {
+    for (const chapter of chapters) {
+      const cast = sceneSpeakers.get(chapter.id) ?? new Set<string>();
+      for (const speaker of speakerLabels(chapter)) cast.add(speaker);
+      sceneSpeakers.set(chapter.id, cast);
+    }
+    continue;
+  }
   const speakers = speakerLabels(content);
   if (!speakers.size) continue;
   const scene = sceneForModule(path);

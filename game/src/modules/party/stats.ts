@@ -1,4 +1,4 @@
-export type PartyCharacterId = 'lia' | 'foltan' | 'azar';
+export type PartyCharacterId = 'lia' | 'foltan' | 'azar' | 'flick' | 'kyra';
 export type CombatStats = {
   attack: number; defense: number; speed: number; move: number; attackRange: number;
   magicAttack?: number;

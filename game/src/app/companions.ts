@@ -12,7 +12,7 @@ export function companionPhase(st: WorldState): CompanionPhase {
 }
 
 export function companionObjective(phase: CompanionPhase, st: WorldState): string {
-  if (phase === 'evening') return 'Am Abend: Der Goldene Eber · Fortsetzung folgt.';
+  if (phase === 'evening') return 'Am Abend mit Foltan und Azar zum Goldenen Eber weitergehen.';
   if (phase === 'afternoon' || st.flags.companionRestTaken) return 'Foltan und Azar weiter durch den Wald folgen.';
   return 'Mit Foltan und Azar zur Mittagsrast auf die Mooslichtung gehen.';
 }

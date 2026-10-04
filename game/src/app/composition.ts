@@ -23,9 +23,24 @@ import { SCENE_CATALOG, type SceneKey } from "./sceneCatalog";
 import { ApplicationLifetime, type Disposer } from "./lifetime";
 import { installApplicationViewport } from "./viewport";
 
+import { ContinuationScene } from '../presentation/phaser/scenes/ContinuationScene';
+import { NOVEL_CONTINUATION_CHAPTERS } from '../content/chapters/continuationNovel';
+import { FILM_CONTINUATION_CHAPTERS } from '../content/chapters/continuationFilm';
+import type { ContinuationChapterDefinition } from '../modules/continuation/types';
+
 type SceneConstructor = new () => Phaser.Scene;
 export function applicationScenes(): SceneConstructor[] {
+  const continuationScene = (id: string): SceneConstructor => {
+    const chapter: ContinuationChapterDefinition | undefined = [...NOVEL_CONTINUATION_CHAPTERS, ...FILM_CONTINUATION_CHAPTERS].find(entry => entry.id === id);
+    if (!chapter) throw new Error(`Missing continuation chapter: ${id}`);
+    return class extends ContinuationScene { constructor() { super(chapter!); } };
+  };
   const constructors = {
+    'golden-boar': continuationScene('golden-boar'), 'reading-camp': continuationScene('reading-camp'),
+    brotherhood: continuationScene('brotherhood'), betrayal: continuationScene('betrayal'),
+    'rain-forest': continuationScene('rain-forest'), 'flick-trail': continuationScene('flick-trail'),
+    'shadow-camp': continuationScene('shadow-camp'), 'sisters-reunited': continuationScene('sisters-reunited'),
+    'film-one-finale': continuationScene('film-one-finale'),
     boot: BootScene, title: TitleScene, storyprologue: StoryPrologueScene, battle: BattleScene,
     break: BreakScene, flight: FlightScene, refuge: RefugeScene, lia: LiaScene, world: WorldScene,
     raid: RaidScene, aftermath: AftermathScene, journey: JourneyScene, 'companions-road': CompanionJourneyScene,

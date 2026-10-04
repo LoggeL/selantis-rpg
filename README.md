@@ -4,7 +4,7 @@ Browser-RPG mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der spielba
 
 [Spiel öffnen](https://selantis.logge.top/) · [Visuelles Konzept und Räuberlied](https://selantis.logge.top/konzept.html) · [Szenenmusik anhören](https://selantis.logge.top/musik.html) · [Asset-Viewer](https://selantis.logge.top/assets.html)
 
-Der Asset-Viewer zeigt die ausgewählten Grafiken aus dem Spielbuild mit Suche, Kategorien, Großansicht, Download und einer Einzelbildvorschau für Spritesheets. Er öffnet sich auch aus den Spieleinstellungen. Sein Katalog verwendet dieselben öffentlichen Grafikdateien, Rastermaße und Grafikpakete wie das Spiel.
+Der Asset-Viewer zeigt die Grafiken aus dem Spielbuild mit Suche, Kategorien, Großansicht, Download und einer Einzelbildvorschau für Spritesheets. [Cutscenes](https://selantis.logge.top/assets.html?category=cut) lassen sich direkt öffnen. "Weitere Fassungen anzeigen" blendet zusätzliche erhaltene Bilder und Sprites ein; die Karten kennzeichnen Spielgrafiken und weitere Fassungen. Er öffnet sich auch aus den Spieleinstellungen. Sein Katalog verwendet dieselben öffentlichen Grafikdateien, Rastermaße und Grafikpakete wie das Spiel.
 
 ## Lokal starten
 
@@ -17,6 +17,8 @@ npm run dev
 ```
 
 WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E interagiert. In der Erkundung öffnet I oder das Taschen-Icon das Inventar; Escape schließt es. Die Szenen unterstützen direkte Einstiege:
+
+Ein Klick oder Enter auf einen Gegenstand in der Tasche zeigt Lias kurzen Kommentar dazu. Er berücksichtigt zum Beispiel aufgefülltes Wasser, die Vogelrettung und den ausgebreiteten Mantel. Wenn am aktuellen Ort eine Verwendung möglich ist, erscheint die passende Aktion, etwa "Essen" beim ersten Lagerfeuer. Das Ansehen verändert keine Gegenstände und keinen Fortschritt.
 
 Auf Smartphones passt das vollständige Spielbild ins Hoch- und Querformat. Ein Steuerkreuz und große Aktionstasten unterstützen auch Halteaktionen und mehrere Finger. Tippen ins Bild bleibt möglich. Hinweise, Tasche und Einstellungen erscheinen zusätzlich in einer lesbaren Touch-Oberfläche. Auf dem Desktop bleiben Maus und Tastatur verfügbar.
 
@@ -37,6 +39,15 @@ Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. I
 | `?scene=aftermath` | Abschied, Reisevorbereitung und Aufbruch |
 | `?scene=journey` | Erste Reise, Nachtlager, Foltan und Azar |
 | `?scene=companions-road` | Gemeinsamer Waldweg, Mittagsrast und Weiterreise |
+| `?scene=golden-boar` | Craupors Schenke und die Suche nach Kyra |
+| `?scene=reading-camp` | Zweites Nachtlager, Kräuterbuch und Alanas Geschichte |
+| `?scene=brotherhood` | Lager der Freien Bruderschaft |
+| `?scene=betrayal` | Foltans verschwiegenes Wissen und Lias Aufbruch |
+| `?scene=rain-forest` | Begegnung mit Flick im Sommerregen |
+| `?scene=flick-trail` | Gemeinsame Spurensuche |
+| `?scene=shadow-camp` | Kyras Gefangenenlager und Vorbereitung der Rettung |
+| `?scene=sisters-reunited` | Rettung, Lias Magie und Wiedersehen |
+| `?scene=film-one-finale` | Vardis' Bestrafung und Ende des ersten Films |
 
 Weitere Karten: `felder`, `waldrand`, `hohlweg`, `hof`. `&debug` oder F1 zeigt in der Erkundung Kollisionen und Ausgänge.
 
@@ -44,9 +55,11 @@ Zwischen Valentus und den Schwestern steht eine Schwarzblende mit "14 Jahre spä
 
 Nach dem Überfall bleiben Hof, Hohlweg, Wiese und Felder verbunden. Hufspuren auf den Feldern erklären den Weg nach Osten. Der sichtbare Feldabzweig führt zur Hauptstraße; vor der Heimkehr hält Lia wegen des Abendbrots um, später braucht sie dort ihre Reiseausrüstung. Auf der Hauptstraße kommt sie über den begehbaren Nordpfad an und kann auf diesem Weg zu den Feldern zurückkehren.
 
-Vor dem ersten Lager erklärt Lia auf der Straße, dass es Abend wird und sie müde ist. Nach der Bestätigung blendet die Szene ins Waldlager über. Lia breitet ihren Mantel aus, sammelt Steine und Zunderholz und baut die Feuerstelle. Beim Feuerbohren treffen E oder Tippen den ruhigen Timingbereich; die Glut zeigt den Fortschritt, eine Pause erhält Holz und Fortschritt. Die Mahlzeit führt in die Tasche: Reiseproviant auswählen und "Essen" bestätigen. Erst danach legt Lia sich durch eine eigene Bettaktion schlafen.
+Vor dem ersten Lager erklärt Lia auf der Straße, dass es Abend wird und sie müde ist. Nach der Bestätigung blendet die Szene ins Waldlager über. Lia breitet ihren Mantel aus, sammelt Steine und Zunderholz und baut die Feuerstelle. Verfügbare Lagerpunkte leuchten, gesperrte sind gedimmt und mit einem Kreuz markiert. Ein Klick oder E in ihrer Nähe erklärt die fehlende Voraussetzung. Die Marker gesammelter Steine und Zweige verschwinden. Beim Feuerbohren treffen einzelne E-Eingaben oder Tippen den grünen Timingbereich; Glut, Rauch, Funken und eine wachsende Flamme zeigen den Fortschritt. Die Nahaufnahme verwendet dieselben Feuerstellen- und Holzobjekte wie das Lager. Die Einstellung für reduzierte Bewegung erlaubt ruhige Einzelbewegungen ohne Timingdruck; eine Pause erhält Holz und Fortschritt. Die Mahlzeit führt in die Tasche: Reiseproviant auswählen und "Essen" bestätigen. Erst danach legt Lia sich durch eine eigene Bettaktion schlafen.
 
-Foltan und Azar kommen sichtbar zu der schlafenden Lia. Ihre Namen bleiben "???", bis sie sich vorgestellt haben. Danach sind die Lagerpunkte gemeinsam verfügbar: Foltan bietet eine kleine Dialogauswahl, Azar schnarcht beim Ansprechen, Lia kann am Feuer sitzen oder direkt bis zum Morgen schlafen. Der Blick zu Crios ist optional und öffnet eine kurze, selbst weiterlesbare Gedankenfolge. Bewegung oder E beendet das Sitzen. Am nächsten Morgen geht es mit beiden durch den Wald zur Mittagsrast (PDF-Seiten 40 bis 44) und über einen zweiten Waldweg zum abendlichen Hinweis auf den Goldenen Eber. Die Schenke ist noch nicht spielbar.
+Foltan und Azar kommen sichtbar zu der schlafenden Lia. Ihre Namen bleiben "???", bis sie sich vorgestellt haben. Danach sind die Lagerpunkte gemeinsam verfügbar: Foltan bietet eine kleine Dialogauswahl, Azar schnarcht beim Ansprechen, Lia kann am Feuer sitzen oder direkt bis zum Morgen schlafen. Der Blick zu Crios ist optional und öffnet eine kurze, selbst weiterlesbare Gedankenfolge. Bewegung oder E beendet das Sitzen. Am nächsten Morgen geht es mit beiden durch den Wald zur Mittagsrast (PDF-Seiten 40 bis 44) und über einen zweiten Waldweg in den Goldenen Eber.
+
+Von der Schenke führt Lias Suche über ein zweites Nachtlager zur Freien Bruderschaft. Nach dem Bruch mit Foltan verlässt sie das Lager und begegnet Flick im Sommerregen. Beide verfolgen Kyras Spur, bereiten ihre Rettung vor und treffen wieder mit ihr zusammen. Lias unbewusster Magieausbruch und ihre Erholung sind inszenierte Handlungen. Der Abschnitt endet beim gemeinsamen Aufbruch zu den Rebellen, entsprechend dem Ende des ersten Films. Die Schlussansicht bietet Wiederholung und Rückkehr zum Titel. [Quellen, Übergangsadaption und Grafikprompts](docs/film-one-continuation.md) halten den Umfang fest.
 
 Beim Nest und auf Valentus' Fluchtstrecke folgt das Klettern dem Halten von E beziehungsweise der Touch-Aktion. Loslassen pausiert den Aufstieg. Während Valentus sich am Baum abstützt, bleibt er dort stehen. Erledigte Hofmarker verschwinden; das Haus bleibt betretbar. Die Lagergegenstände verwenden eigene freigestellte Grafiken für Mantel, Decke, Steine, Reisig und Feuer.
 
@@ -54,7 +67,7 @@ Beim Nest und auf Valentus' Fluchtstrecke folgt das Klettern dem Halten von E be
 
 Der kleine **Debug**-Button oben rechts oder **F2** öffnet das öffentlich zugängliche Playtest-Menü; **Escape** schließt es. Währenddessen pausieren Szenen, Tastatur und Touch-Steuerung. Das Menü ist auch auf Smartphones scrollbar und mit Tastatur bedienbar.
 
-- Warps: Schlachtutorial, Verwundung, Flucht, Zuflucht, Lias Einstieg, alle fünf Weltkarten, Überfall, Reisevorbereitung, Straße, Nachtlager, Foltan/Azar und den gemeinsamen Waldweg. Jeder Warp setzt die nötigen Kapitel-Flags und Reiseausrüstung; spätere Kapitel-Flags werden zurückgesetzt.
+- Warps: Schlachtutorial, Verwundung, Flucht, Zuflucht, Lias Einstieg, alle fünf Weltkarten, Überfall, Reisevorbereitung, Straße, Nachtlager, Foltan/Azar, gemeinsamer Waldweg und die neun Kapitel bis zum Filmende. Jeder Warp setzt die nötigen Kapitel-Flags und Reiseausrüstung; spätere Kapitel-Flags werden zurückgesetzt.
 - Flags und Inventar lassen sich kontrolliert ändern (ganze Item-Anzahlen von 0 bis 999). **Änderungen anwenden** startet die aktuelle Szene neu, damit Marker und Ziele den geänderten Zustand übernehmen. Flags dürfen für Grenzfalltests absichtlich widersprüchlich sein.
 - Live-Stats zeigen Szene/Bereich, Position, Phase/Schritt, Bewegungslocks, Fundstellen und besuchte Karten; im Kampf zusätzlich Einheiten-HP, Status und Rasterposition. Das Tutorial hat kein AP-System. Kampfwerte werden nur gelesen, nicht während geskripteter Aktionen verändert.
 - Warps verändern Fortschritt und Reiseausrüstung; laufende Dialoge werden verworfen. **Alles zurücksetzen** braucht eine eigene Bestätigung und führt zum Titel. Das Spiel hat keinen persistenten Spielstand; Einstellungen bleiben erhalten.

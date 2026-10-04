@@ -143,5 +143,113 @@
     "portrait-dialogue-lia-determined",
     "@companions-portraits"
   ],
-  "Settings": []
+  "Settings": [],
+  "golden-boar": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "foltan-walk",
+    "azar-walk",
+    "@companions-portraits",
+    "bg-golden-boar",
+    "portrait-dialogue-craupor",
+    "craupor-idle"
+  ],
+  "reading-camp": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "foltan-walk",
+    "azar-walk",
+    "@companions-portraits",
+    "bg-first-camp-night",
+    "camp-fire-detailed",
+    "camp-fire-ring-detailed",
+    "camp-logs-detailed"
+  ],
+  "brotherhood": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "foltan-walk",
+    "azar-walk",
+    "@companions-portraits",
+    "bg-brotherhood-camp",
+    "portrait-dialogue-elnon",
+    "elnon-idle"
+  ],
+  "betrayal": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "bg-brotherhood-camp",
+    "portrait-dialogue-foltan",
+    "portrait-dialogue-elnon"
+  ],
+  "rain-forest": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "bg-rain-forest",
+    "portrait-dialogue-flick",
+    "cinematic-flick-meeting",
+    "flick-walk"
+  ],
+  "flick-trail": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "bg-companion-forest-trail",
+    "portrait-dialogue-flick",
+    "flick-walk"
+  ],
+  "shadow-camp": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "bg-shadow-camp",
+    "portrait-dialogue-flick",
+    "@kyra-portraits",
+    "portrait-dialogue-vardis",
+    "story-actors",
+    "warrior",
+    "raid-spearman",
+    "flick-walk"
+  ],
+  "sisters-reunited": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "bg-shadow-camp",
+    "portrait-dialogue-flick",
+    "@kyra-portraits",
+    "portrait-dialogue-vardis",
+    "story-actors",
+    "warrior",
+    "raid-spearman",
+    "cinematic-magic-awakening",
+    "cinematic-sisters-reunion",
+    "flick-walk"
+  ],
+  "film-one-finale": [
+    "@lia-appearances",
+    "@lia-portraits",
+    "portrait-dialogue-lia-grief",
+    "portrait-dialogue-lia-determined",
+    "bg-companion-forest-trail",
+    "portrait-dialogue-flick",
+    "@kyra-portraits",
+    "story-actors",
+    "cinematic-master-rebuke",
+    "flick-walk",
+    "portrait-dialogue-vardis"
+  ]
 }

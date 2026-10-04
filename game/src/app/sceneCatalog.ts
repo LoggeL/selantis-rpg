@@ -8,6 +8,9 @@ export const CHAPTER_CATALOG = {
   farm: { title: 'Der Hof' },
   firstJourney: { title: 'Die erste Reise' },
   companions: { title: 'Mit Foltan und Azar' },
+  brotherhood: { title: 'Die Freie Bruderschaft' },
+  flick: { title: 'Flicks Hilfe' },
+  sisters: { title: 'Kyra befreien' },
 } as const;
 export type ChapterId = keyof typeof CHAPTER_CATALOG;
 
@@ -27,6 +30,15 @@ export const SCENE_CATALOG = {
   aftermath: { title: 'Hof · Reisevorbereitung', chapter: 'farm', startup: true },
   journey: { title: 'Reise', chapter: 'firstJourney', startup: true },
   'companions-road': { title: 'Reise · Aufbruch und Waldrast', chapter: 'companions', startup: true },
+  'golden-boar': { title: 'Zum Goldenen Eber', chapter: 'companions', startup: true },
+  'reading-camp': { title: 'Ein Versprechen am Feuer', chapter: 'companions', startup: true },
+  brotherhood: { title: 'Die Freie Bruderschaft', chapter: 'brotherhood', startup: true },
+  betrayal: { title: 'Das verschwiegene Wissen', chapter: 'brotherhood', startup: true },
+  'rain-forest': { title: 'Allein im Sommerregen', chapter: 'flick', startup: true },
+  'flick-trail': { title: 'Flicks Fährte', chapter: 'flick', startup: true },
+  'shadow-camp': { title: 'Das Gefangenenlager', chapter: 'sisters', startup: true },
+  'sisters-reunited': { title: 'Kyra befreien', chapter: 'sisters', startup: true },
+  'film-one-finale': { title: 'Ein gemeinsamer Weg', chapter: 'sisters', startup: true },
   Settings: { title: 'Einstellungen', startup: false },
 } as const satisfies Record<string, SceneDefinition>;
 

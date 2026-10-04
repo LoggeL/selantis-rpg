@@ -374,6 +374,39 @@
         64,
         60
       ]
+    },
+    "flick-walk": {
+      "file": "assets/sprites/flick-walk.png",
+      "frameW": 209,
+      "frameH": 209,
+      "cols": 6,
+      "rows": 6,
+      "foot": [
+        104,
+        195
+      ]
+    },
+    "craupor-idle": {
+      "file": "assets/sprites/craupor-idle.png",
+      "frameW": 1254,
+      "frameH": 1254,
+      "cols": 1,
+      "rows": 1,
+      "foot": [
+        610.5,
+        1174
+      ]
+    },
+    "elnon-idle": {
+      "file": "assets/sprites/elnon-idle.png",
+      "frameW": 1254,
+      "frameH": 1254,
+      "cols": 1,
+      "rows": 1,
+      "foot": [
+        616.0,
+        1185
+      ]
     }
   },
   "images": {
@@ -446,7 +479,12 @@
     "cut-kyra-wood": "assets/cut/kyra-wood.png",
     "cut-kyra-forest": "assets/cut/kyra-forest.png",
     "cut-kyra-discovery": "assets/cut/kyra-discovery.png",
-    "cut-crios-reflection": "assets/cut/crios-reflection.png"
+    "cut-crios-reflection": "assets/cut/crios-reflection.png",
+    "bg-golden-boar": "assets/bg/golden-boar.png",
+    "bg-brotherhood-camp": "assets/bg/brotherhood-camp.png",
+    "bg-rain-forest": "assets/bg/rain-forest.png",
+    "bg-shadow-camp": "assets/bg/shadow-camp.png",
+    "bg-ruins-night": "assets/bg/ruins-night.png"
   },
   "icons": {
     "file": "assets/ui/icons.png",

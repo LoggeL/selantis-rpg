@@ -15,6 +15,7 @@
 !deploy/nginx.conf
 !scripts/
 !scripts/assemble_site.mjs
+!scripts/asset_catalog.mjs
 !konzept.html
 !musik.html
 !assets.html
@@ -27,6 +28,7 @@
 !output/audio/
 !output/audio/rauberlied-lyria-3-5.mp3
 !output/audio/scenes/
+!output/audio/scenes/manifest.json
 !output/audio/scenes/*-lyria-3-5.mp3
 # Commit metadata only, without credentials or Git objects/history.
 !.git/

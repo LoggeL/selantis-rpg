@@ -61,15 +61,17 @@ test('the morning forest walk, noon rest and afternoon stretch preserve supplies
     return scene.areaRoot.list.filter((object: any) => ['foltan-walk', 'azar-walk'].includes(object.texture?.key)).map((object: any) => object.texture.key).sort();
   })).toEqual(['azar-walk', 'foltan-walk']);
   await clickMap(page, 600, 185);
-  await page.waitForFunction(() => (window as any).game.registry.get('world').flags.companionDayComplete, undefined, { timeout: 12000 });
+  await page.waitForFunction(() => (window as any).game.scene.getScene('companions-road').talking, undefined, { timeout: 12000 });
+  for (let line = 0; line < 4; line++) { await page.keyboard.press('KeyE', { delay: 60 }); await page.keyboard.press('KeyE', { delay: 60 }); }
+  await page.waitForFunction(() => (window as any).game.scene.isActive('golden-boar'), undefined, { timeout: 12000 });
   expect(await page.evaluate(before => {
     const game = (window as any).game, st = game.registry.get('world'), scene = game.scene.getScene('companions-road');
-    return { inv: JSON.stringify(st.inv), picked: JSON.stringify(st.picked), priorFlags: Object.entries(before.flags).filter(([key]) => !key.startsWith('companion')).every(([key, value]) => st.flags[key] === value), objective: scene.data.get('mobile:objective') };
-  }, before)).toEqual({ inv: before.inv, picked: before.picked, priorFlags: true, objective: 'Am Abend: Der Goldene Eber · Fortsetzung folgt.' });
+    return { inv: JSON.stringify(st.inv), picked: JSON.stringify(st.picked), priorFlags: Object.entries(before.flags).filter(([key]) => !key.startsWith('companion')).every(([key, value]) => st.flags[key] === value), destination: game.scene.isActive('golden-boar') };
+  }, before)).toEqual({ inv: before.inv, picked: before.picked, priorFlags: true, destination: true });
   await page.screenshot({ path: '../output/qa/companions-evening-boundary.png', fullPage: true });
   expect(await page.evaluate(() => (window as any).game.scene.getScene('companions-road').data.get('qa:max-party-gap'))).toBeLessThanOrEqual(60);
   // A saved scene re-entry resumes the second stretch without replaying rest.
-  await page.evaluate(() => (window as any).game.scene.getScene('companions-road').scene.restart());
+  await page.evaluate(() => (window as any).game.scene.getScene('golden-boar').scene.start('companions-road'));
   await page.waitForFunction(() => (window as any).game.scene.getScene('companions-road').data.get('story:companions-phase') === 'evening');
   expect(await page.evaluate(() => {
     const scene = (window as any).game.scene.getScene('companions-road');

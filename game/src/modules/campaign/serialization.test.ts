@@ -24,3 +24,17 @@ it('constructs checkpoints purely and repeats exact equipment rather than granti
   expect(() => prepareCampaignCheckpoint(st, 'unknown')).toThrow(); expect(serializeCampaign(st)).toBe(first);
   expect(st.flags.chickReturned).toBe(true); expect(st.picked.optional).toBe(true);
 });
+
+it('serializes equivalent records identically without changing their values or insertion order', () => {
+  const first = createCampaignState(), second = createCampaignState();
+  first.inv.feder = 2; first.inv.proviant = 1;
+  second.inv.proviant = 1; second.inv.feder = 2;
+  first.flags['film.flick-met'] = true; first.flags.chickReturned = false;
+  second.flags.chickReturned = false; second.flags['film.flick-met'] = true;
+  first.picked.b = true; first.picked.a = true;
+  second.picked.a = true; second.picked.b = true;
+  const before = structuredClone(first), keys = Object.keys(first.flags);
+  expect(serializeCampaign(first)).toBe(serializeCampaign(second));
+  expect(first).toEqual(before); expect(Object.keys(first.flags)).toEqual(keys);
+  expect(deserializeCampaign(serializeCampaign(first))).toEqual(first);
+});

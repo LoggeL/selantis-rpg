@@ -2,9 +2,13 @@ import { COMBAT_FIELDS, type StatsRules, type PartyCharacterId, type PartyMember
 export type { PartyCharacterId, PartyMemberState } from './stats';
 export type PartyState = { version: 1; members: Partial<Record<PartyCharacterId, PartyMemberState>> };
 export type PartyFlags = Readonly<Record<string, boolean | undefined>>;
-export const PARTY_IDS: readonly PartyCharacterId[] = ['lia', 'foltan', 'azar'];
+export const PARTY_IDS: readonly PartyCharacterId[] = ['lia', 'foltan', 'azar', 'flick', 'kyra'];
 export function availableParty(flags: PartyFlags = {}): PartyCharacterId[] {
-  return flags.metFoltanAzar ? [...PARTY_IDS] : ['lia'];
+  const present: PartyCharacterId[] = ['lia'];
+  if (flags.metFoltanAzar && !flags['novel.trust-broken']) present.push('foltan', 'azar');
+  if (flags['film.flick-met']) present.push('flick');
+  if (flags['film.sisters-reunited']) present.push('kyra');
+  return present;
 }
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

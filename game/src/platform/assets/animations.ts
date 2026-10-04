@@ -18,12 +18,18 @@ dirs.forEach((d, r) => {
     ANIMS[`${companion}-walk-${d}`] = [`${companion}-walk`, [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3], 7, true];
     ANIMS[`${companion}-idle-${d}`] = [`${companion}-walk`, [r * 4 + 1], 1, false];
   }
+  // Flick's native 6-column sheet preserves all six footfall phases per direction.
+  ANIMS[`flick-walk-${d}`] = ['flick-walk', Array.from({ length: 6 }, (_unused, frame) => r * 6 + frame), 8, true];
+  ANIMS[`flick-idle-${d}`] = ['flick-walk', [r * 6 + 1], 1, false];
   // Each authored direction has opposite foot contacts and passing phases.
   const low = [r * 4, r * 4 + 1, r * 4 + 2, r * 4 + 3];
   ANIMS[`lia-crouch-walk-${d}`] = ['lia-crouch-walk', low, 5, true];
   ANIMS[`lia-crouch-idle-${d}`] = ['lia-crouch-walk', [low[0]], 1, true];
 });
 Object.assign(ANIMS, {
+  // These NPCs have one authored standing frame and no directional walking sheet.
+  'craupor-idle': ['craupor-idle', [0], 1, false],
+  'elnon-idle': ['elnon-idle', [0], 1, false],
   'warrior-idle': ['warrior', [0], 1, false],
   'warrior-ready': ['warrior', [1], 1, false],
   'warrior-strike': ['warrior', [2, 3], 8, false],

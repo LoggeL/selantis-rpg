@@ -22,7 +22,7 @@ export type CharacterSnapshot = {
 };
 export const VALENTUS_SCENES = new Set(['battle', 'break', 'flight', 'refuge']);
 export const EQUIPMENT = new Set<ItemId>(['dolch', 'reisezeug']);
-export const PLAYABLE = new Set(['battle', 'break', 'flight', 'refuge', 'lia', 'world', 'raid', 'aftermath', 'journey', 'companions-road']);
+export const PLAYABLE = new Set(['battle', 'break', 'flight', 'refuge', 'lia', 'world', 'raid', 'aftermath', 'journey', 'companions-road', 'golden-boar', 'reading-camp', 'brotherhood', 'betrayal', 'rain-forest', 'flick-trail', 'shadow-camp', 'sisters-reunited', 'film-one-finale']);
 export type CharacterSheetCatalog = {
   identities: Record<string, { name: string; portrait: string }>;
   abilities: readonly AbilityDefinition[];
@@ -83,7 +83,9 @@ export function createCharacterSheetRules(catalog: CharacterSheetCatalog, { reso
         : 'Mit Lia unterwegs', stats: [], abilities: [], items: id === 'lia' ? carriedItems(input.inventory) : [] };
       if (member) {
         sheet.hp = member.hp; sheet.maxHp = member.maxHp; sheet.stats.push({ label: 'Lebenspunkte', value: `${member.hp} / ${member.maxHp} HP` });
-        appendCombatStats(sheet, resolvePartyUnitStats(member));
+        if (id === 'flick') sheet.stats.push({ label: 'Erfahrung', value: 'Bogenschützin und Fährtenleserin' });
+        else if (id === 'kyra') sheet.stats.push({ label: 'Rolle', value: 'Lias Schwester' });
+        else appendCombatStats(sheet, resolvePartyUnitStats(member));
       }
       if (id === 'lia' && input.scene === 'journey') sheet.stats.push({ label: 'Nachtlager', value: input.flags?.firstCampRested ? 'Ausgeruht' : 'Noch keine Nachtruhe' });
       return sheet;

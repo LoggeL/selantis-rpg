@@ -22,6 +22,7 @@ export function loadDialoguePortraits(scene: Phaser.Scene) {
 
 export const SPEAKER_PORTRAITS: Readonly<Record<string, string>> = Object.freeze({
   lia: 'lia', 'lia (gedanke)': 'lia', valentus: 'valentus', kyra: 'kyra', foltan: 'foltan', azar: 'azar',
+  flick: 'flick', craupor: 'craupor', elnon: 'elnon', vardis: 'vardis',
   'der schmale': 'foltan', 'der dicke': 'azar', vater: 'father', mutter: 'mother',
   grauhaariger: 'grey-haired', 'der grauhaarige': 'grey-haired', frau: 'woman', junge: 'boy',
   narbiger: 'scarred', kapuzenmann: 'hooded', mann: 'refuge-man',

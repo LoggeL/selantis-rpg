@@ -161,14 +161,28 @@ describe('the next day preserves the journey', () => {
     expect(st.flags.companionRestTaken).toBe(true);
   });
 
-  it('resumes completed travel at its explicit evening boundary without granting an unbuilt inn', () => {
-    const { scene, st } = sceneFixture({ companionRestTaken: true });
+  it('finishes the readable evening travel before handing off to the inn and preserves the campaign', () => {
+    const { scene, st, next } = sceneFixture({ companionRestTaken: true, metFoltanAzar: true, criosObserved: true });
+    const before = structuredClone(st);
     expect(companionPhase(st)).toBe('afternoon');
     scene.useTravelSpot('evening');
-    expect(companionPhase(st)).toBe('evening');
-    expect(scene.setObjective).toHaveBeenLastCalledWith('Am Abend: Der Goldene Eber · Fortsetzung folgt.');
+    expect(scene.setLocked).toHaveBeenCalledWith(true);
+    expect(scene.setCloseupText).toHaveBeenCalledTimes(1);
+    expect(st.flags.companionDayComplete).toBeUndefined();
     expect(scene.goTo).not.toHaveBeenCalled();
-    expect(st.inv).toEqual({ proviant: 1, wasserschlauch: 1, kupfer: 22 });
+    next();
+    expect(scene.setCloseupText).toHaveBeenCalledTimes(2);
+    expect(st.flags.companionDayComplete).toBeUndefined();
+    expect(scene.goTo).not.toHaveBeenCalled();
+    next();
+    expect(companionPhase(st)).toBe('evening');
+    expect(scene.goTo).toHaveBeenCalledExactlyOnceWith('golden-boar');
+    expect(scene.hideCloseup).toHaveBeenCalledOnce();
+    expect(st.inv).toEqual(before.inv); expect(st.picked).toEqual(before.picked);
+    expect(st.flags).toEqual({ ...before.flags, companionDayComplete: true });
+    next(); next();
+    expect(scene.goTo).toHaveBeenCalledOnce();
+    expect(st.flags).toEqual({ ...before.flags, companionDayComplete: true });
   });
 
   it('keeps breakfast a remembered shared meal rather than a second inventory grant', () => {

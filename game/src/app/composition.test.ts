@@ -37,6 +37,7 @@ vi.mock("../presentation/phaser/scenes/RaidScene", () => ({ RaidScene: runtime.s
 vi.mock("../presentation/phaser/scenes/AftermathScene", () => ({ AftermathScene: runtime.scene('aftermath') }));
 vi.mock("../presentation/phaser/scenes/JourneyScene", () => ({ JourneyScene: runtime.scene('journey') }));
 vi.mock("../presentation/phaser/scenes/CompanionJourneyScene", () => ({ CompanionJourneyScene: runtime.scene('companions-road') }));
+vi.mock('../presentation/phaser/scenes/ContinuationScene', () => ({ ContinuationScene: class { key: string; constructor(chapter: { id: string }) { this.key = chapter.id; } } }));
 vi.mock("../presentation/phaser/scenes/SettingsScene", () => ({ SettingsScene: runtime.scene('Settings') }));
 vi.mock('../platform/assets/sceneAssets', () => ({ withSceneAssets: runtime.wrap }));
 vi.mock('../platform/input/router', () => ({ installGameInput: runtime.installer('input') }));
