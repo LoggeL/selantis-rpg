@@ -222,13 +222,18 @@ export class FlightScene extends Phaser.Scene {
       const ptr = this.input.activePointer;
       if (ptr.isDown && !this.isHudPointer(ptr)) this.railTarget = this.nearestDist(ptr.worldX, ptr.worldY);
       const diff = this.railTarget - this.dist;
-      if (Math.abs(diff) < 1.5 || (st && diff > 0 && this.dist >= st.at - 0.5)) this.railTarget = undefined;
+      // Auch ein Klick hinter einer Pflichtstation endet exakt an ihr. Ein
+      // vorzeitiger Zielradius würde das Stolpern vor reachStation abbrechen.
+      if (Math.abs(diff) < 0.001) this.railTarget = undefined;
       else dot = Math.sign(diff);
     }
     const moving = (ix || iy || this.railTarget !== undefined) && Math.abs(dot) > 0.2;
 
     if (moving) {
       let nd = this.dist + Math.sign(dot) * this.speed() * dt / 1000;
+      // Den letzten Mausschritt auf das Ziel begrenzen, damit kleine Schritte
+      // die Station erreichen und große Schritte am Ziel nicht hin und her laufen.
+      if (this.railTarget !== undefined) nd = dot > 0 ? Math.min(nd, this.railTarget) : Math.max(nd, this.railTarget);
       if (st && nd >= st.at) nd = st.at;
       // Sprung und Klettern öffnen einen neuen trockenen Wegabschnitt. Rückwärts
       // darf er deren übersprungene Verbindung nicht als normalen Boden betreten.
