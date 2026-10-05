@@ -1,3 +1,4 @@
+import { voiceover } from '../audio/voiceover';
 import { advanceGate } from './advance';
 import { ctx } from './context';
 import { FLOURISH } from './chapterCard';
@@ -9,6 +10,9 @@ const MORE = '<svg viewBox="0 0 12 12"><path d="M2 3.5h8L6 9z" fill="currentColo
 /** Book narration (parchment page), card narration (over darkness) and thought lines. */
 export class NarrationUi {
   async narrate(lines: string | string[], style: 'book' | 'card' | 'thought' = 'book'): Promise<void> {
+    const token = ctx.epoch;
+    await voiceover.preload();
+    if (ctx.stale() || token !== ctx.epoch) return ctx.never();
     const beats = (Array.isArray(lines) ? lines : [lines]).filter(Boolean);
     if (!beats.length) return;
     const wrap = el('div', `narr narr-${style}`);
@@ -46,6 +50,7 @@ export class NarrationUi {
   }
 
   private beat(text: HTMLElement, more: HTMLElement, line: string, style: 'book' | 'card' | 'thought'): Promise<void> {
+    const recording = voiceover.play('narrate', 'narrator', line);
     more.classList.remove('on');
     text.classList.remove('rw-all');
     return new Promise(resolve => {
@@ -58,6 +63,7 @@ export class NarrationUi {
         if (!reveal.done) { reveal.complete(); return; }
         if (performance.now() - completedAt < 160) return;
         gate.close();
+        recording?.stop();
         resolve();
       }, { graceMs: 120 });
     });

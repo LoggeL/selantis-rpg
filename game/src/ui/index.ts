@@ -1,3 +1,4 @@
+import { bindVoiceVolume, voiceover } from '../audio/voiceover';
 import { G } from '../core/G';
 import { openBag, registerItemAction, type ItemAction } from './bag';
 import { chapterCard } from './chapterCard';
@@ -125,6 +126,12 @@ export function createUi(): UiApiExt {
       if (mounted) return;
       mounted = true;
       ctx.mount(root);
+      bindVoiceVolume(() => G.settings.voice);
+      void voiceover.preload();
+      voiceover.scene(G.currentScene);
+      G.events.on('scene:goto', ({ id }) => voiceover.scene(id));
+      G.events.on('settings:changed', () => voiceover.refreshVolume());
+      document.addEventListener('visibilitychange', () => { if (document.hidden) voiceover.stop(); });
       dialogue = new DialogueUi();
       narration = new NarrationUi();
       fx = new FxUi();
@@ -187,7 +194,12 @@ export function createUi(): UiApiExt {
     objective: text => { if (!ctx.stale()) hud.objective(text); },
     objectivePointer: pos => hud.objectivePointer(ctx.stale() ? null : pos),
     hint: h => hints.hint(ctx.stale() ? null : h),
-    bubble: (text, anchor, ms) => (ctx.stale() ? () => {} : bubbles.bubble(text, anchor, ms)),
+    bubble: (text, anchor, ms, opts) => {
+      if (ctx.stale()) return () => {};
+      const remove = bubbles.bubble(text, anchor, ms);
+      const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, text) : null;
+      return () => { voice?.stop(); remove(); };
+    },
     hold: (label, durationMs, opts) => (ctx.stale() ? ctx.never() : hold(label, durationMs, opts)),
 
     panel(className) {
@@ -240,6 +252,7 @@ export function createUi(): UiApiExt {
     },
 
     reset(opts) {
+      voiceover.stop();
       ctx.epoch++;
       dialogue.clear();
       plates.clear();
@@ -261,6 +274,7 @@ export function createUi(): UiApiExt {
     async transition(start, opts) {
       const ms = opts?.fadeMs ?? 550;
       ctx.transitioning = true;
+      voiceover.stop();
       ctx.epoch++; // scripts of the scene we leave stop at their next G.ui.wait()
       await api.fade('out', ms);
       api.reset({ keepFade: true });

@@ -1,3 +1,4 @@
+import { quotedChoiceText, voiceover } from '../audio/voiceover';
 import { speaker as speakerDef } from '../core/catalog';
 import { G } from '../core/G';
 import type { SpeakerDef } from '../core/types';
@@ -218,8 +219,11 @@ export class DialogueUi {
   }
 
   /** Dialogue line with typewriter. First press completes the line, second continues. */
-  say(id: string, text: string, opts: { portrait?: string; mood?: string } = {}): Promise<void> {
+  async say(id: string, text: string, opts: { portrait?: string; mood?: string } = {}): Promise<void> {
     if (ctx.stale()) return ctx.never();
+    const token = ctx.epoch;
+    await voiceover.preload();
+    if (ctx.stale() || token !== ctx.epoch) return ctx.never();
     const def = speakerDef(id);
     const box = this.box;
     box.show();
@@ -228,14 +232,19 @@ export class DialogueUi {
     box.setMore(false);
     return new Promise<void>(resolve => {
       let completedAt = 0;
-      const tw = new Typewriter(box.textEl, text, {
+      const typeOptions = {
         voice: id === 'narrator' ? undefined : def.voice,
         onDone: () => { completedAt = performance.now(); box.setMore(true); },
-      });
+      };
+      const originalVoice = typeOptions.voice;
+      const recording = voiceover.play('say', id, text, () => { typeOptions.voice = originalVoice; });
+      if (recording) typeOptions.voice = undefined;
+      const tw = new Typewriter(box.textEl, text, typeOptions);
       const gate = advanceGate(`say:${id}`, () => {
         if (!tw.done) { tw.complete(); return; }
         if (performance.now() - completedAt < 140) return; // a mashed double press does not skip unseen text
         gate.close();
+        recording?.stop();
         sfx('ui-move', { volume: 0.25, pitch: 1.4 });
         box.setMore(false);
         box.scheduleHide();
@@ -245,9 +254,13 @@ export class DialogueUi {
   }
 
   /** Player's thought: italic, no box chrome, soft and quiet (no blips). */
-  think(text: string): Promise<void> {
+  async think(text: string): Promise<void> {
     if (ctx.stale()) return ctx.never();
+    const token = ctx.epoch;
+    await voiceover.preload();
+    if (ctx.stale() || token !== ctx.epoch) return ctx.never();
     this.box.hideNow();
+    const recording = voiceover.play('think', 'valentus', text);
     const wrap = el('div', 'thought');
     const inner = el('div', 'thought-text');
     wrap.appendChild(el('div', 'thought-orn', '❧'));
@@ -263,6 +276,7 @@ export class DialogueUi {
         if (!tw.done) { tw.complete(); return; }
         if (performance.now() - completedAt < 140) return;
         gate.close();
+        recording?.stop();
         wrap.classList.remove('is-in');
         wrap.classList.add('is-out');
         setTimeout(() => wrap.remove(), 320);
@@ -274,6 +288,8 @@ export class DialogueUi {
   /** Choice list. With a prompt the prompt line is typed first; without one, a just-finished line stays visible. */
   choose(options: (string | ChoiceOption)[], opts: { speaker?: string; prompt?: string } = {}): Promise<number> {
     if (ctx.stale()) return ctx.never();
+    voiceover.stop();
+    const choiceEpoch = ctx.epoch;
     // Copies: the caller's option objects are never modified.
     const list: ChoiceOption[] = options.map(o => (typeof o === 'string' ? { text: o } : { ...o }));
     if (!list.some(o => !o.disabled)) list.forEach(o => { o.disabled = false; }); // never soft-lock
@@ -310,7 +326,9 @@ export class DialogueUi {
         setTimeout(() => panel.remove(), 220);
         box.setThinking(false);
         box.scheduleHide();
-        resolveFn(i);
+        void this.speakChoice(list[i].text, opts.speaker ?? 'valentus').then(() => {
+          if (ctx.epoch === choiceEpoch && !ctx.stale()) resolveFn(i);
+        });
       }, ctx.reducedMotion ? 60 : 230);
     };
 
@@ -364,8 +382,19 @@ export class DialogueUi {
     return promise;
   }
 
+  /** Only the selected quoted spoken response has a recording, and it can always be skipped. */
+  private async speakChoice(text: string, speaker: string): Promise<void> {
+    const spoken = quotedChoiceText(text);
+    if (ctx.stale() || !spoken) return;
+    const recording = voiceover.play('choice', speaker, spoken);
+    if (!recording) return;
+    const gate = advanceGate('choice:voice', () => recording.stop(), { graceMs: 200 });
+    try { await recording.done; } finally { gate.close(); }
+  }
+
   /** Immediately removes all dialogue chrome (reset). */
   clear(): void {
+    voiceover.stop();
     this.box.hideNow();
     ctx.layers.dialog.querySelectorAll('.choices, .thought, .ui-catcher, .hold').forEach(n => n.remove());
   }

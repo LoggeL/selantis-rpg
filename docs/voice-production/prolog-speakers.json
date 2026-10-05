@@ -338,7 +338,7 @@
       "emotional_range_de": "Chronik: ernst und bildhaft; Niederlage: nüchterne Trauer; Hof: sensorische Nähe; Schluss: leises Geheimnis.",
       "recognition_de": "Gleiche warme Textur für Chronik, narrate-Karten und narrator-Dialoge.",
       "exclusions_de": "kein Trailerbass, keine Werbung, keine Prophezeiungen, keine erfundene Lösung des Kinderrätsels",
-      "api_prompt_en": "Native German storyteller, smooth warm mid-low voice, clear neutral diction, intimate restrained delivery and unhurried meaningful pauses. Subtle imagery without advertising cadence or booming; practical tutorial lines are concise and friendly in the same voice.",
+      "api_prompt_en": "Native German storyteller, smooth warm mid-low voice, clear neutral diction, intimate restrained delivery and unhurried meaningful pauses. Subtle imagery without advertising cadence or booming.",
       "pronunciation_terms": [
         "Valentus",
         "Selantis",
@@ -1064,5 +1064,6 @@
     "game/src/chapters/prolog/util.ts": "3e0a6c2cc2f47897dff043cc9598beaf6dcbc7ce70563e568c39b3cf6462d9bb",
     "game/src/chapters/prolog/zuflucht.ts": "af2682341391ac4d655cfc5d864f6c21935ffe9b3a1cc370e7827ed00cf7d65a"
   },
-  "preserved_cast_note_de": "Die acht bereits gehörten Google-Presets bleiben erhalten. Der Vergleich ist nicht Bestandteil dieser Produktionsdateien."
+  "preserved_cast_note_de": "Die acht bereits gehörten Google-Presets bleiben erhalten. Der Vergleich ist nicht Bestandteil dieser Produktionsdateien.",
+  "generation_guidance": "Gemini 3.8: use google_voice for stable casting. Keep api_prompt_en as the casting description; generated requests use concise line-specific delivery and pronunciation, without repeating permanent age, gender or timbre instructions."
 }

@@ -2,19 +2,22 @@ import { events } from './events';
 
 export interface Settings {
   music: number;        // 0..1
+  voice: number;        // 0..1, recorded dialogue
   sfx: number;          // 0..1
   textSpeed: number;    // characters per second, 0 = instant
   reducedMotion: boolean;
 }
 
 const KEY = 'selantis.settings.v1';
-const defaults: Settings = { music: 0.7, sfx: 0.8, textSpeed: 45, reducedMotion: false };
+const defaults: Settings = { music: 0.7, sfx: 0.8, voice: 0.9, textSpeed: 45, reducedMotion: false };
 
 function load(): Settings {
   try {
     const raw = localStorage.getItem(KEY);
     const prefersReduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    return { ...defaults, reducedMotion: prefersReduced, ...(raw ? JSON.parse(raw) : {}) };
+    const loaded = { ...defaults, reducedMotion: prefersReduced, ...(raw ? JSON.parse(raw) : {}) };
+    loaded.voice = typeof loaded.voice === 'number' && Number.isFinite(loaded.voice) ? Math.max(0, Math.min(1, loaded.voice)) : defaults.voice;
+    return loaded;
   } catch { return { ...defaults }; }
 }
 

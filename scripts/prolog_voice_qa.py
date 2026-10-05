@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Private local ASR and decoded-signal checks for a frozen prologue batch.
 
-No credentials or remote audio uploads. ASR mismatches require review and are
-not definitive listening errors. This script never exports or modifies audio.
+No credentials or remote audio uploads. A supplied secondary-ASR report may
+resolve a local mismatch when its raw response matches the same WAV and text.
+ASR does not assess acting or voice identity. This script never modifies audio.
 """
 from __future__ import annotations
 
@@ -15,15 +16,18 @@ import re
 import subprocess
 import sys
 import time
+from prolog_voice_transcribe import PROMPT as INDEPENDENT_PROMPT
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIVATE_ROOT = ROOT / 'output/audio/prolog-voice'
 MODEL = 'mlx-community/whisper-large-v3-turbo'
 NUMBERS = dict(zip(map(str, range(13)), ('null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf')))
+NUMBERS.update(dict(zip(map(str, range(13, 20)), ('dreizehn', 'vierzehn', 'fünfzehn', 'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn'))))
+NUMBERS.update({'20': 'zwanzig', '30': 'dreißig', '40': 'vierzig', '50': 'fünfzig', '60': 'sechzig', '70': 'siebzig', '80': 'achtzig', '90': 'neunzig', '100': 'hundert'})
 
 
 def words(text):
-    return [NUMBERS.get(w, w) for w in re.findall(r'\w+', text.casefold())]
+    return [NUMBERS.get(w, w).casefold() for w in re.findall(r'\w+', text.casefold())]
 
 
 def distance(expected, actual):
@@ -92,19 +96,132 @@ def cached_model():
     return snapshot_download(MODEL, local_files_only=True)
 
 
+def secondary_review(run, line, take, records):
+    """Only a current, independently transcribed full-word match can clear ASR.
+
+    One explicit nonlexical shushing variant is allowed; all subsequent words
+    must still match. Neither case claims a human listening verdict.
+    """
+    latest = records.get(line['id'])
+    if not latest:
+        return None
+    record = next((r for r in [latest, *latest.get('prior_versions', [])]
+                   if r.get('source_sha256') == take['wav_sha256']), None)
+    if not record:
+        return None
+    if record.get('expected') != line['text'] or record.get('groq_segment_flags'):
+        return None
+    filename = record.get('raw_json', '')
+    if not isinstance(filename, str) or Path(filename).name != filename:
+        return None
+    response_path = run / 'secondary-asr' / filename
+    data = json.loads(response_path.read_text())
+    metadata, response = data.get('metadata', {}), data.get('response', {})
+    transcript = response.get('text', '').strip()
+    if metadata.get('model') != 'whisper-large-v3' or metadata.get('upload_sha256') != take['wav_sha256']:
+        return None
+    if transcript != record.get('groq_asr', '').strip():
+        return None
+    segments = response.get('segments')
+    if not isinstance(segments, list) or not segments:
+        return None
+    if any(segment.get('no_speech_prob', 1) > 0.6 or segment.get('avg_logprob', -10) < -1
+           or segment.get('compression_ratio', 10) > 2.4 for segment in segments):
+        return None
+    expected, actual = words(line['text']), words(transcript)
+    resolution = None
+    if expected == actual:
+        resolution = 'secondary_asr_full_text_match'
+    elif (line['id'] == 'prolog-7c5692eb6dd6215150052e43'
+          and expected == ['hüne' if word == 'hühne' else word for word in actual]):
+        resolution = 'explicit_silent_h_transcription_spelling'
+    elif (line['id'] == 'prolog-5c0b55db59d4d63f965f2469'
+          and expected == [{'hühne': 'hüne', 'schlechter': 'schlächter'}.get(word, word) for word in actual]):
+        resolution = 'explicit_german_homophone_transcription_spellings'
+    elif (line['id'] == 'prolog-fc405339651256418c2f1f02'
+          and expected[:1] == ['schsch'] and actual[:1] in (['pssst'], ['schsch'])
+          and expected[1:] == actual[1:]):
+        resolution = 'explicit_nonlexical_shushing_variant'
+    elif (line['id'] == 'prolog-442ed3a7e588ace301298b47'
+          and expected == ['he' if word == 'hey' else word for word in actual]):
+        resolution = 'accepted_call_interjection_variant'
+    elif (line['id'] == 'prolog-4ec67879884c235276325463'
+          and expected == ['habe' if word == 'hab' else word for word in actual]):
+        resolution = 'accepted_natural_spoken_apocope'
+    if resolution is None:
+        return None
+    return {'resolution': resolution, 'source_sha256': take['wav_sha256'],
+            'response_sha256': digest(response_path), 'transcript': transcript,
+            'model': 'whisper-large-v3', 'listening_verdict': None}
+
+
+def independent_review(line, take, records):
+    """Resolve a correlated Whisper mismatch using unprompted audio words.
+
+    Expected text was never supplied to this independent model. Retain the
+    complete response and reject anything other than a full lexical match.
+    """
+    record = records.get(line['id'])
+    if not record or record.get('source_sha256') != take['wav_sha256']:
+        return None
+    if (record.get('model') != 'gemini-3.8-flash' or record.get('prompt') != INDEPENDENT_PROMPT
+        or record.get('response', {}).get('modelVersion') != 'gemini-3.8-flash'):
+        return None
+    candidate = record.get('response', {}).get('candidates', [{}])[0]
+    if candidate.get('finishReason') != 'STOP':
+        return None
+    text = ''.join(part.get('text', '') for part in candidate.get('content', {}).get('parts', []))
+    transcript = json.loads(text).get('transcript')
+    if not isinstance(transcript, str) or transcript != record.get('transcript') or words(transcript) != words(line['text']):
+        return None
+    return {'resolution': 'independent_audio_full_text_match', 'source_sha256': take['wav_sha256'],
+            'transcript': transcript, 'model': record['model'], 'listening_verdict': None}
+
+
 def self_test():
     assert words('Vier, 4. ZWÖLF! 12') == ['vier', 'vier', 'zwölf', 'zwölf']
     assert words('Wo … bin ich?') == words('Wo bin ich.')
+    assert words('sechzehn Jahre, dreißig Jahre') == words('16 Jahre, 30 Jahre')
     assert distance(words('Für Portas'), words('Für Portas')) == 0
     assert distance(words('Dann lauft'), words('Dann auf')) == 1
     assert distance(words('Schlaft und vergebt mir'), words('Schlaft mir')) == 2
     assert duration_limits(2) == (0.2, 12)
     assert duration_limits(100)[1] == 133
     assert initial_prompt({'speakers': {'x': {'name': 'Valentus'}}, 'pronunciation': {'Portas': {}}}) == 'Valentus. Portas.'
-    print('Offline normalization, edit distance, duration bounds and glossary fixtures passed.')
+    import tempfile
+    from copy import deepcopy
+    with tempfile.TemporaryDirectory() as temporary:
+        run = Path(temporary)
+        (run / 'secondary-asr').mkdir()
+        path = run / 'secondary-asr/fixture.json'
+        source_hash = 'a' * 64
+        line = {'id': 'fixture', 'text': 'Dann lauft!'}
+        take = {'wav_sha256': source_hash}
+        record = {'id': 'fixture', 'source_sha256': source_hash, 'expected': line['text'],
+                  'raw_json': path.name, 'groq_asr': 'Dann lauft.', 'groq_segment_flags': []}
+        raw = {'metadata': {'model': 'whisper-large-v3', 'upload_sha256': source_hash},
+               'response': {'text': 'Dann lauft.', 'segments': [{'no_speech_prob': 0.01,
+                   'avg_logprob': -0.1, 'compression_ratio': 1.0}]}}
+        save(path, raw)
+        assert secondary_review(run, line, take, {'fixture': record})
+        for field, value in [('source_sha256', 'b' * 64), ('expected', 'Dann auf!'),
+                             ('groq_segment_flags', ['uncertain']), ('groq_asr', 'Dann auf.')]:
+            bad = {**record, field: value}
+            assert secondary_review(run, line, take, {'fixture': bad}) is None
+        for mutate in [lambda d: d['metadata'].update(upload_sha256='b' * 64),
+                       lambda d: d['response'].update(segments=[]),
+                       lambda d: d['response']['segments'][0].update(no_speech_prob=0.9)]:
+            bad = deepcopy(raw)
+            mutate(bad)
+            save(path, bad)
+            assert secondary_review(run, line, take, {'fixture': record}) is None
+        raw['response']['text'] = record['groq_asr'] = 'Dann auf.'
+        save(path, raw)
+        assert secondary_review(run, line, take, {'fixture': record}) is None
+    print('Offline normalization, duration, glossary and hash-bound secondary-ASR gate fixtures passed.')
 
 
-def run_checks(run, expected_count):
+def run_checks(run, expected_count, secondary_report=None, independent_report=None):
     manifest_path = run / 'lines.private.json'
     manifest = json.loads(manifest_path.read_text())
     profiles_path = run / 'profiles.private.json'
@@ -115,11 +232,19 @@ def run_checks(run, expected_count):
     report_path = run / 'qa.private.json'
     old = json.loads(report_path.read_text()) if report_path.exists() else {}
     previous = {take.get('id'): take for take in old.get('takes', [])}
+    secondary = json.loads(secondary_report.read_text()) if secondary_report else {}
+    records = {take['id']: take for take in secondary.get('takes', [])}
+    independent = json.loads(independent_report.read_text()) if independent_report else {}
+    independent_records = {take['id']: take for take in independent.get('records', [])}
     report = {'status': 'review_required', 'method': 'local mlx-whisper large-v3-turbo', 'model': MODEL,
               'note': 'Nonzero ASR WER requires review; ASR does not prove a heard error or assess acting/voice identity.',
               'started_at': int(time.time()), 'expected_count': expected_count,
               'manifest_sha256': digest(manifest_path), 'profiles_sha256': digest(profiles_path),
               'checked_ids': [], 'clip_sha256': {}, 'failures': [], 'takes': []}
+    if secondary_report:
+        report['secondary_report_sha256'] = digest(secondary_report)
+    if independent_report:
+        report['independent_report_sha256'] = digest(independent_report)
     if len(lines) != expected_count:
         report['failures'].append({'id': None, 'reason': 'unexpected_line_count', 'actual': len(lines), 'expected': expected_count})
     ids = [line.get('id') for line in lines]
@@ -178,7 +303,13 @@ def run_checks(run, expected_count):
             wer = distance(expected_words, actual_words) / len(expected_words)
             take.update(transcript=transcript, wer=round(wer, 6), word_error_rate=round(wer, 6))
             if wer > 0:
-                reasons.append('asr_text_mismatch_requires_listening_review')
+                review = secondary_review(run, line, take, records)
+                if not review:
+                    review = independent_review(line, take, independent_records)
+                if review:
+                    take['secondary_review'] = review
+                else:
+                    reasons.append('asr_text_mismatch_requires_listening_review')
         except Exception as error:
             # Never dump exception messages or third-party request data.
             reasons.append(str(error) if isinstance(error, RuntimeError) and str(error) in
@@ -205,6 +336,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-dir', type=Path)
     parser.add_argument('--expected-count', type=int, default=188)
+    parser.add_argument('--secondary-report', type=Path)
+    parser.add_argument('--independent-report', type=Path)
     parser.add_argument('--self-test', action='store_true')
     args = parser.parse_args()
     if args.self_test:
@@ -215,8 +348,14 @@ def main():
     run = args.run_dir.expanduser().resolve()
     if not run.is_relative_to(PRIVATE_ROOT.resolve()) or run == PRIVATE_ROOT.resolve():
         parser.error('--run-dir must be below output/audio/prolog-voice/')
+    secondary = args.secondary_report.expanduser().resolve() if args.secondary_report else None
+    if secondary and not secondary.is_relative_to(run):
+        parser.error('--secondary-report must be inside the private run directory')
+    independent = args.independent_report.expanduser().resolve() if args.independent_report else None
+    if independent and not independent.is_relative_to(run):
+        parser.error('--independent-report must be inside the private run directory')
     try:
-        passed = run_checks(run, args.expected_count)
+        passed = run_checks(run, args.expected_count, secondary, independent)
     except Exception as error:
         print('QA could not start: ' + type(error).__name__, file=sys.stderr)
         raise SystemExit(2) from None

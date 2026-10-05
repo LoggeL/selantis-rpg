@@ -1,0 +1,16 @@
+# Prolog vertonen
+
+Die Sprecherprofile stehen in `prolog-speakers.md`; `prolog-speakers.json` enthält die verwendbare Sprechregie. Die Inventarliste `prolog-lines.json` umfasst 188 Aufnahmen für 19 Stimmen in Rat, Schlacht, Flucht und Zuflucht. Dialoge, Gedanken, Erzählung, menschliche Rufe und ausgewählte gesprochene Antworten werden vertont. Menüs, Regieanweisungen und nichtsprachliche Geräusche gehören nicht dazu.
+
+Verwendetes Modell: `gemini-3.8-flash-tts`. Die gewählten Stimmen bleiben je Sprecher konstant, die Sprechregie variiert nach Situation und Emotion. Ausführliche Profiltexte dienen der Besetzung; neue Requests verwenden kurze Regie gemäß der [Google-Empfehlung](https://ai.google.dev/gemini-api/docs/speech-generation#prompting-guide). Acht Stimmen stammen aus der zuvor gehörten Auswahl; elf weitere Besetzungen sind im Profil als neue Castingentscheidung markiert.
+
+## Ablauf
+
+1. `node scripts/prolog_voice_inventory.mjs --check` prüft Inventar und Quelltextbindung.
+2. `scripts/prolog_voice_batch.py` bereitet Requests vor, reicht sie ein, prüft den Status und sammelt Ergebnisse. Die normale API steht über `scripts/prolog_voice_generate.py` zur Verfügung. `--retake --only-ids ...` archiviert nur die angegebenen alten Takes; `--clarity-retake` ergänzt bei Bedarf präzisere Artikulationsregie. Credentials werden aus dem Prozessspeicher, über stdin oder aus dem Schlüsselbund gelesen.
+3. `scripts/prolog_voice_qa.py` prüft WAV/MP3-Decodierung, Dauer, Stille und lokale Transkription. Ein privater `--secondary-report` kann Abweichungen durch eine zweite, an den aktuellen WAV-Hash gebundene Transkription auflösen. Beide Rohtranskripte bleiben erhalten. Bei korrelierten Whisper-Abweichungen kann `scripts/prolog_voice_transcribe.py` eine unabhängige Audio-Transkription erzeugen; `--independent-report` akzeptiert nur den aktuellen WAV-Hash, den unveränderten Prüfauftrag ohne Solltext und eine vollständige passende Wortfolge. Die wenigen erlaubten Laut-/Schreibvarianten sind ausdrücklich im Prüfcode begrenzt. ASR bewertet weder Schauspiel noch Sprecheridentität.
+4. Erst ein bestandener Bericht für alle aktuellen MP3-Hashes erlaubt den Export: `python3 scripts/prolog_voice_generate.py --run-dir output/audio/prolog-voice/<run> --export-only --public-dir game/public/audio/prolog --qa-report output/audio/prolog-voice/<run>/qa.private.json`.
+
+Rohdateien, Requests, Providerantworten, Prüfberichte und verworfene Takes bleiben unter dem ignorierten `output/audio/prolog-voice/`. Öffentlich sind nur die MP3s und das Laufzeitmanifest unter `game/public/audio/prolog/`. MP3s sind mono, 24 kHz, 128 kbit/s und auf -18 LUFS mit -1,5 dB True Peak normalisiert.
+
+Im Spiel regelt **Sprache** die Aufnahmen unabhängig von Musik und Geräuschen. Pro Zeile läuft eine Stimme. Weiterklicken, Szenenwechsel und das Verlassen des Tabs stoppen die laufende Aufnahme; fehlgeschlagene Wiedergabe blockiert den Text nicht. Eine zitierte Antwort wird erst nach ihrer Auswahl gesprochen.

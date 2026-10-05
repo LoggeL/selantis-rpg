@@ -1,0 +1,3257 @@
+{
+  "model": "gemini-3.8-flash-tts",
+  "aliases": {
+    "prolog-falke": "falke",
+    "falke": "falke",
+    "prolog-axtkaempfer": "baris-young",
+    "baris": "baris-young",
+    "prolog-stimme": "bauer",
+    "fackel-1": "fackeltraeger",
+    "fackel-2": "fackeltraeger",
+    "fackel-furt": "fackeltraeger",
+    "prolog-fackeltraeger": "fackeltraeger",
+    "abtr-r2": "loyla",
+    "abtr-r4": "rikkon",
+    "rat-l1": "burm",
+    "rat-r3": "gwynn",
+    "rat-r5": "samira",
+    "aelteste": "gira",
+    "hagere": "tholoss",
+    "wortfuehrer": "ulfbert"
+  },
+  "clips": [
+    {
+      "id": "prolog-004a5d729987d3dc2f14dc5c",
+      "speaker": "loyla",
+      "kind": "bark",
+      "text": "So ist es!",
+      "audio": "audio/prolog/prolog-004a5d729987d3dc2f14dc5c.mp3",
+      "seconds": 1.48,
+      "sha256": "f03bcfe0dfcf1a6d4dcd55b51c2730411d73b894815d771b766d3f9781c2eefb",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "loyla",
+          "text": "So ist es!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "abtr-r2",
+          "text": "So ist es!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-03350478c49f46a1f678bd6f",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Einen Verwundeten im Wald liegen lassen? So hat uns niemand erzogen. Weder in Trapas noch hier.",
+      "audio": "audio/prolog/prolog-03350478c49f46a1f678bd6f.mp3",
+      "seconds": 5.72,
+      "sha256": "144784e972ef31ce569270e98f1343dc01b254f74489d7a84861aa3a9ae367b8",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Einen Verwundeten im Wald liegen lassen? So hat uns niemand erzogen. Weder in Trapas noch hier."
+        }
+      ]
+    },
+    {
+      "id": "prolog-06745da73172ab03cefa6b82",
+      "speaker": "verschwoerer",
+      "kind": "say",
+      "text": "Ruft die Räuber, die Söldner, die hungrigen Bauern. Gebt ihnen Schwarz und Weiß – und ein Ziel.",
+      "audio": "audio/prolog/prolog-06745da73172ab03cefa6b82.mp3",
+      "seconds": 8.56,
+      "sha256": "a340f9c89563074064b9cc444d3fd87c6fc8b7590d1fcf92e00a47116ef4d242",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "verschwoerer",
+          "text": "Ruft die Räuber, die Söldner, die hungrigen Bauern. Gebt ihnen Schwarz und Weiß – und ein Ziel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-07a2e5209955de078beceb2c",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Sprecht weiter. Ich höre zu.",
+      "audio": "audio/prolog/prolog-07a2e5209955de078beceb2c.mp3",
+      "seconds": 2.64,
+      "sha256": "66703b5eca7d7a5b8d1ff8cccde1403de7298e31980f5ec096a0bee22a84ba9b",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Sprecht weiter. Ich höre zu."
+        }
+      ]
+    },
+    {
+      "id": "prolog-0ab135b851beeab15dfd1129",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Bleibt standhaft, Valentus. Wenn Ihr wankt, wanken sie alle.",
+      "audio": "audio/prolog/prolog-0ab135b851beeab15dfd1129.mp3",
+      "seconds": 5.28,
+      "sha256": "6363464ddb3e223308ccea717086fdbbdaa276c84ef9cddffda10ab5ef318ac8",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Bleibt standhaft, Valentus. Wenn Ihr wankt, wanken sie alle."
+        }
+      ]
+    },
+    {
+      "id": "prolog-0d3ddd4dc087935869629cce",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Brüder und Schwestern des Rates. Ihr habt beide Seiten gehört. Ich bitte um eure Stimmen.",
+      "audio": "audio/prolog/prolog-0d3ddd4dc087935869629cce.mp3",
+      "seconds": 8.12,
+      "sha256": "9e6b61898cb814725b8bde8e2758e609eb3fc8217b8eed1fab71e50ee0940fa6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Brüder und Schwestern des Rates. Ihr habt beide Seiten gehört. Ich bitte um eure Stimmen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-0dd1fb6a17de0f76464c8839",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "So endete die Schlacht von Dunkelhain. Die Dunkelheit hatte gesiegt.",
+      "audio": "audio/prolog/prolog-0dd1fb6a17de0f76464c8839.mp3",
+      "seconds": 5.72,
+      "sha256": "cd9e47f2d767c6a1c1abe9d48962916fcf320d0f6539e00c273bd4d1252a4330",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "So endete die Schlacht von Dunkelhain. Die Dunkelheit hatte gesiegt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-0ded8bd954a4669bfcf3ca5d",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "In Ignis sagen wir: Feuer wärmt nur, solange es im Herd bleibt.",
+      "audio": "audio/prolog/prolog-0ded8bd954a4669bfcf3ca5d.mp3",
+      "seconds": 5.2,
+      "sha256": "612ca89d8f366617aa1be6fa77a479b7c5d4f7eef7899814acd89ecaf22eab2c",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "In Ignis sagen wir: Feuer wärmt nur, solange es im Herd bleibt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-1098e7b8afb6670bd9d126f4",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Ich sage: Wer die Macht hütet, soll sie auch führen!",
+      "audio": "audio/prolog/prolog-1098e7b8afb6670bd9d126f4.mp3",
+      "seconds": 4.44,
+      "sha256": "3cd33d14dbf159420b0b84d5f90d0c89093cc65ae3fc319b6f1e9458e6d48d72",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Ich sage: Wer die Macht hütet, soll sie auch führen!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-11540145bab410a5a7f48838",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Generationen lang. Bis vier der Zehn eine Frage stellten, die niemand stellen durfte: Wozu?",
+      "audio": "audio/prolog/prolog-11540145bab410a5a7f48838.mp3",
+      "seconds": 9.4,
+      "sha256": "945586f0d27b20058cf72c622a8fd66b29eefd6529aea52464ec72a865ec0f6f",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Generationen lang. Bis vier der Zehn eine Frage stellten, die niemand stellen durfte: Wozu?"
+        },
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Generationen lang. Bis vier der Zehn eine Frage stellten, die niemand stellen durfte: *Wozu?*"
+        }
+      ]
+    },
+    {
+      "id": "prolog-1219fc180c3454ea7e373149",
+      "speaker": "samira",
+      "kind": "bark",
+      "text": "Was würde Aros sagen?",
+      "audio": "audio/prolog/prolog-1219fc180c3454ea7e373149.mp3",
+      "seconds": 1.68,
+      "sha256": "31cfe31d3a5ba79508e9a681dd33fad74d9999b2b9e0c4d9685afba283c5b428",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "samira",
+          "text": "Was würde Aros sagen?"
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-r5",
+          "text": "Was würde Aros sagen?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-13d6a047eb22b3537d611d6e",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "So entstand das Heer, das man später die Dunkelschatten nannte. Und der Rat der Zehn zerbrach, lange bevor er fiel.",
+      "audio": "audio/prolog/prolog-13d6a047eb22b3537d611d6e.mp3",
+      "seconds": 9.8,
+      "sha256": "bc05548d784334d30534bf27604f0d2ffda26e403b58505fecc2c3f810fa3f91",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "So entstand das Heer, das man später die Dunkelschatten nannte. Und der Rat der Zehn zerbrach, lange bevor er fiel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-13db50d1df88ba4376082c2c",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wo genau habt Ihr mich gefunden?",
+      "audio": "audio/prolog/prolog-13db50d1df88ba4376082c2c.mp3",
+      "seconds": 3.28,
+      "sha256": "04db9e133e074729a27eed05646d336bb0c4547288103f25a57ad953ad897c9b",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wo genau habt Ihr mich gefunden?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-1434f12c60ff236709463e54",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Das türkise Licht floss in seine Hand und verschwand. Als die ersten Dunkelschatten die Höhle erreichten, war sie leer.",
+      "audio": "audio/prolog/prolog-1434f12c60ff236709463e54.mp3",
+      "seconds": 9.96,
+      "sha256": "071d1fc9bf1fafbec2925320ae9cb8af2404c1ea85120d1ba5601918a940b9f8",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Das türkise Licht floss in seine Hand und verschwand. Als die ersten Dunkelschatten die Höhle erreichten, war sie leer."
+        }
+      ]
+    },
+    {
+      "id": "prolog-14c97b9013a96ed013eb4617",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Wer ist da?",
+      "audio": "audio/prolog/prolog-14c97b9013a96ed013eb4617.mp3",
+      "seconds": 1.08,
+      "sha256": "f3e9d332b5a302b115ce2e58f09dc883969bc7092bdcd0e0efc4eb9a2bb8dc43",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Wer ist da?"
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Wer ist da?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-14db8cf4251f5e4dd0598ff4",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Kein Kraut heilt, was dieser Pfeil geschlagen hat. Mir bleibt nicht mehr viel Zeit.",
+      "audio": "audio/prolog/prolog-14db8cf4251f5e4dd0598ff4.mp3",
+      "seconds": 6.76,
+      "sha256": "797a12b2fe2866e5fb721330ece850f3327ab3f7c95db1bc8905baa461784535",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Kein Kraut heilt, was dieser Pfeil geschlagen hat. Mir bleibt nicht mehr viel Zeit."
+        }
+      ]
+    },
+    {
+      "id": "prolog-151be14e0f4ee9d8f57dabd0",
+      "speaker": "falke",
+      "kind": "say",
+      "text": "Dann lauft! Ich halte sie auf, solange ich stehen kann. Für Portas!",
+      "audio": "audio/prolog/prolog-151be14e0f4ee9d8f57dabd0.mp3",
+      "seconds": 4.6,
+      "sha256": "c4eb1303c9717ce53b1df3f37484f63ef308dab685b5fb02c1131c2522eead83",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "falke",
+          "text": "Dann lauft! Ich halte sie auf, solange ich stehen kann. Für Portas!"
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-falke",
+          "text": "Dann lauft! Ich halte sie auf, solange ich stehen kann. Für Portas!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-16ddd3b8773eb5a87f6841d0",
+      "speaker": "loyla",
+      "kind": "bark",
+      "text": "Endlich spricht es jemand aus.",
+      "audio": "audio/prolog/prolog-16ddd3b8773eb5a87f6841d0.mp3",
+      "seconds": 2.08,
+      "sha256": "0c10f99669968340f08336841e9c4553c6af24c6cb96b1d1c0ad8c9b5bd7e1ad",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "loyla",
+          "text": "Endlich spricht es jemand aus."
+        },
+        {
+          "kind": "bark",
+          "speaker": "abtr-r2",
+          "text": "Endlich spricht es jemand aus."
+        }
+      ]
+    },
+    {
+      "id": "prolog-1748e3eb03c44aa725922213",
+      "speaker": "burm",
+      "kind": "bark",
+      "text": "Das Siegel hält seit Jahrhunderten.",
+      "audio": "audio/prolog/prolog-1748e3eb03c44aa725922213.mp3",
+      "seconds": 2.36,
+      "sha256": "dbcc41c462b12017168054df9147d63faab772271e0fa30e343a6678829e562c",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "burm",
+          "text": "Das Siegel hält seit Jahrhunderten."
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-l1",
+          "text": "Das Siegel hält seit Jahrhunderten."
+        }
+      ]
+    },
+    {
+      "id": "prolog-17a5da73b63bbc31d503036b",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Lia und Kyra. Lia schläft immer zuerst ein. Und Kyra hält sie dann am Finger fest, als wollte sie sie beschützen.",
+      "audio": "audio/prolog/prolog-17a5da73b63bbc31d503036b.mp3",
+      "seconds": 8.44,
+      "sha256": "f6748c61db0c35d1216cc39ae070ed05df081070417416109ff6cd18130a0d01",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Lia und Kyra. Lia schläft immer zuerst ein. Und Kyra hält sie dann am Finger fest, als wollte sie sie beschützen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-1bbadedba63420e962609cfa",
+      "speaker": "verwundeter-1",
+      "kind": "bark",
+      "text": "Großmeister … Hilfe!",
+      "audio": "audio/prolog/prolog-1bbadedba63420e962609cfa.mp3",
+      "seconds": 3.04,
+      "sha256": "926e4d2b00c10333471296966f0a9227c3932f14c3f2443bbe3485dd4d547174",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "verwundeter-1",
+          "text": "Großmeister … Hilfe!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-1cc462457e6b774a45f8dc32",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Zwei kleine Gesichter unter einer Decke. Sie atmen im selben Takt.",
+      "audio": "audio/prolog/prolog-1cc462457e6b774a45f8dc32.mp3",
+      "seconds": 6.8,
+      "sha256": "3bf951d6b358b79c799babc4421e15010e8946d70a8dd46dd7e775973ddd081e",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Zwei kleine Gesichter unter einer Decke. Sie atmen im selben Takt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-1e9c0c4f663eeec58e9009cc",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Verzeiht mir, ihr Zehn. Ich breche den Eid, um ihn zu halten.",
+      "audio": "audio/prolog/prolog-1e9c0c4f663eeec58e9009cc.mp3",
+      "seconds": 6.4,
+      "sha256": "ae09b9ce8e797b2aa33fb143d5330097582983c6457f8ad4309a36bbb0bdecbf",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Verzeiht mir, ihr Zehn. Ich breche den Eid, um ihn zu halten."
+        }
+      ]
+    },
+    {
+      "id": "prolog-20846b631cdd3d52ed672059",
+      "speaker": "baris-young",
+      "kind": "bark",
+      "text": "Der Alte gehört mir!",
+      "audio": "audio/prolog/prolog-20846b631cdd3d52ed672059.mp3",
+      "seconds": 2.12,
+      "sha256": "3ea8339e5546fabdb5c8836ea66d59ffbdf1d73373412fb5ac40cdca35344529",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "baris-young",
+          "text": "Der Alte gehört mir!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "baris",
+          "text": "Der Alte gehört mir!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-2223a67a7fd70a496e5f610c",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Nein … nicht jetzt …",
+      "audio": "audio/prolog/prolog-2223a67a7fd70a496e5f610c.mp3",
+      "seconds": 2.24,
+      "sha256": "c79328dace6f90099f46395541c4583a6815e48e0200f40c20888920c4705343",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Nein … nicht jetzt …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-2311ee5e41f9adf80497d009",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Was haltet Ihr von ihrem Vorschlag?",
+      "audio": "audio/prolog/prolog-2311ee5e41f9adf80497d009.mp3",
+      "seconds": 2.76,
+      "sha256": "5da8127ced5124120550c73da70c1133ba8ca3f27162e40fa4bbc004cbd7a656",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Was haltet Ihr von ihrem Vorschlag?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-2397de4059e09977cfdfe87a",
+      "speaker": "bauer",
+      "kind": "bark",
+      "text": "Langsam, Alter, langsam!",
+      "audio": "audio/prolog/prolog-2397de4059e09977cfdfe87a.mp3",
+      "seconds": 2.04,
+      "sha256": "a91bb601b5185b83a6b791bd715243c0cd8c08a232494772767a3c1b2da93170",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "bauer",
+          "text": "Langsam, Alter, langsam!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-2599f38f926da98e9e636691",
+      "speaker": "narrator",
+      "kind": "narrate",
+      "text": "Valentus floh, die Urmacht in sich und einen Pfeil in der Seite. Hinter ihm suchten Fackeln und Hunde den Wald ab.",
+      "audio": "audio/prolog/prolog-2599f38f926da98e9e636691.mp3",
+      "seconds": 8.88,
+      "sha256": "521ad65a0a97aafae2e7b04a00a2688dd84b65da34c576f18b7cceb8e8ce570b",
+      "runtime_keys": [
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Valentus floh, die Urmacht in sich und einen Pfeil in der Seite. Hinter ihm suchten Fackeln und Hunde den Wald ab."
+        },
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Valentus floh, die ~Urmacht~ in sich und einen Pfeil in der Seite. Hinter ihm suchten Fackeln und Hunde den Wald ab."
+        }
+      ]
+    },
+    {
+      "id": "prolog-25d343d9d461cc1b2197575c",
+      "speaker": "falke",
+      "kind": "say",
+      "text": "Zwei von uns schaffen den Hang nicht allein, Großmeister. Sie müssen zum Tor hinauf.",
+      "audio": "audio/prolog/prolog-25d343d9d461cc1b2197575c.mp3",
+      "seconds": 4.92,
+      "sha256": "11af0221cb19c871221626879548c1bee9022cbfb420ca701648c6fb4efc3fba",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "falke",
+          "text": "Zwei von uns schaffen den Hang nicht allein, Großmeister. Sie müssen zum Tor hinauf."
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-falke",
+          "text": "Zwei von uns schaffen den Hang nicht allein, Großmeister. Sie müssen zum Tor hinauf."
+        }
+      ]
+    },
+    {
+      "id": "prolog-27a59cf172eaf30cd32cf963",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Ich wecke niemanden. Ich … sehe sie nur an.",
+      "audio": "audio/prolog/prolog-27a59cf172eaf30cd32cf963.mp3",
+      "seconds": 4.72,
+      "sha256": "580521e2c13f1cccdfe68f0c1312d13221816917f776381075390c3361834db2",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Ich wecke niemanden. Ich … sehe sie nur an."
+        }
+      ]
+    },
+    {
+      "id": "prolog-2b9255f01779a3b223bb16cd",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Ihr werdet uns wiedersehen. Früher, als Euch lieb ist.",
+      "audio": "audio/prolog/prolog-2b9255f01779a3b223bb16cd.mp3",
+      "seconds": 4.48,
+      "sha256": "88337fff516729de8650ddd34779ba7a648442ae1dd577f6255df545f2f92abd",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Ihr werdet uns wiedersehen. Früher, als Euch lieb ist."
+        }
+      ]
+    },
+    {
+      "id": "prolog-2c6156dec94d73523010cb89",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Haltet den Hügel! Die Verwundeten brauchen jeden Augenblick.",
+      "audio": "audio/prolog/prolog-2c6156dec94d73523010cb89.mp3",
+      "seconds": 3.84,
+      "sha256": "ff373d86fba667f44ca7e41f5d2b44c6298dacd34c030fe945a27a359e04dc50",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Haltet den Hügel! Die Verwundeten brauchen jeden Augenblick."
+        }
+      ]
+    },
+    {
+      "id": "prolog-2f174d0663f2852a718474fe",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Da ist er! Der Alte!",
+      "audio": "audio/prolog/prolog-2f174d0663f2852a718474fe.mp3",
+      "seconds": 2.08,
+      "sha256": "5961239949f5396f6c8386a4702f76f27673f03f58ab43e16205a69a84680d73",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Da ist er! Der Alte!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "fackel-1",
+          "text": "Da ist er! Der Alte!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "fackel-2",
+          "text": "Da ist er! Der Alte!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "fackel-furt",
+          "text": "Da ist er! Der Alte!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-31097c93765676dd5b566fc7",
+      "speaker": "falke",
+      "kind": "say",
+      "text": "Großmeister! Die Brigaden fliehen, die Fürsten ziehen ab. Wir sind allein!",
+      "audio": "audio/prolog/prolog-31097c93765676dd5b566fc7.mp3",
+      "seconds": 4.64,
+      "sha256": "f25da4fe5ef212b4c2e06783e19abada4b1dc8e2e738aa21670a712ceb633e45",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "falke",
+          "text": "Großmeister! Die Brigaden fliehen, die Fürsten ziehen ab. Wir sind allein!"
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-falke",
+          "text": "Großmeister! Die Brigaden fliehen, die Fürsten ziehen ab. Wir sind allein!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-31bc4bd400c072e39bdd1d91",
+      "speaker": "burm",
+      "kind": "bark",
+      "text": "Ruhe, bitte!",
+      "audio": "audio/prolog/prolog-31bc4bd400c072e39bdd1d91.mp3",
+      "seconds": 1.24,
+      "sha256": "54811fa70b0dc919fadfed578d65a41c95fc1e841c607a70bb2dba871c18c0ba",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "burm",
+          "text": "Ruhe, bitte!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-l1",
+          "text": "Ruhe, bitte!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-34974248eafdaa6d51243935",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Vier. Das Siegel bleibt geschlossen. So hat der Rat entschieden.",
+      "audio": "audio/prolog/prolog-34974248eafdaa6d51243935.mp3",
+      "seconds": 5.84,
+      "sha256": "495dedd7c3fa077e48e6b64c88006a26621cbdfa803c9f7704ab4a680eeb1646",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Vier. Das Siegel bleibt geschlossen. So hat der Rat entschieden."
+        }
+      ]
+    },
+    {
+      "id": "prolog-349a3e22cc851c8d0b7c7641",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Ich gehe nicht, bevor der Rat entschieden hat.",
+      "audio": "audio/prolog/prolog-349a3e22cc851c8d0b7c7641.mp3",
+      "seconds": 3.64,
+      "sha256": "c2982b65e8d1587fcc4e180d689b4d3d2c5f69ea8a9df275f3937a3b071491f5",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Ich gehe nicht, bevor der Rat entschieden hat."
+        }
+      ]
+    },
+    {
+      "id": "prolog-34c7c89d0b34c680ae00d4b1",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Wer für das Wächteramt stimmt, hebe die Hand.",
+      "audio": "audio/prolog/prolog-34c7c89d0b34c680ae00d4b1.mp3",
+      "seconds": 4.04,
+      "sha256": "c4e5cf880d4cc73de3b4486b89a219f63d0b9901d811a895dda207d12897aaaa",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Wer für das Wächteramt stimmt, hebe die Hand."
+        },
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Wer für das Wächteramt stimmt, hebe die Hand."
+        }
+      ]
+    },
+    {
+      "id": "prolog-361f3c399845516606593f2a",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "In derselben Nacht trafen sich vier Gestalten unter dem Ratssaal, wo kein Siegel und kein Eid sie hörte.",
+      "audio": "audio/prolog/prolog-361f3c399845516606593f2a.mp3",
+      "seconds": 7.56,
+      "sha256": "b3e729991e3dc0b1d3e9650280ec22cf1478f5cba641b212b0f5bacf4509bbbc",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "In derselben Nacht trafen sich vier Gestalten unter dem Ratssaal, wo kein Siegel und kein Eid sie hörte."
+        }
+      ]
+    },
+    {
+      "id": "prolog-38a43bea52b5858f92ff1a03",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Die Hunde haben ihn gestellt. Fackeln kommen näher … Noch einmal. Wasser verwischt die Spur.",
+      "audio": "audio/prolog/prolog-38a43bea52b5858f92ff1a03.mp3",
+      "seconds": 7.72,
+      "sha256": "8cee4e2d90e9eba4586b17f15511a861102916a8dbddce3ef05313af46edb078",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Die Hunde haben ihn gestellt. Fackeln kommen näher … Noch einmal. Wasser verwischt die Spur."
+        },
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Die Hunde haben ihn gestellt. Fackeln kommen näher … Noch einmal. *Wasser verwischt die Spur.*"
+        }
+      ]
+    },
+    {
+      "id": "prolog-38e30a0aec3eb23e1f36f6a6",
+      "speaker": "verwundeter-1",
+      "kind": "bark",
+      "text": "Danke, Großmeister …",
+      "audio": "audio/prolog/prolog-38e30a0aec3eb23e1f36f6a6.mp3",
+      "seconds": 2.64,
+      "sha256": "b7f8878aaca816823123e2df6fd9a289ffe9dfc9c2c428897c41bbbb952a30d8",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "verwundeter-1",
+          "text": "Danke, Großmeister …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-3b5ca7296114ba71633645b0",
+      "speaker": "falke",
+      "kind": "say",
+      "text": "Und da kommen sie. Schwarz und weiß, wie die Krähen.",
+      "audio": "audio/prolog/prolog-3b5ca7296114ba71633645b0.mp3",
+      "seconds": 3.2,
+      "sha256": "c4154cb0639109bd4a4b32754f3eb0002a453424c3b4a6eae7b6b1bbb91c5116",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "falke",
+          "text": "Und da kommen sie. Schwarz und weiß, wie die Krähen."
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-falke",
+          "text": "Und da kommen sie. Schwarz und weiß, wie die Krähen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-3b8878249224642ac47d787c",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Sie kehrt nicht zurück in den Stein, nur weil wir es uns wünschen.",
+      "audio": "audio/prolog/prolog-3b8878249224642ac47d787c.mp3",
+      "seconds": 4.84,
+      "sha256": "57fac3e8c3a972b13ac1ae4d1e24eee3e537612399b54811e8366cd39511453e",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Sie kehrt nicht zurück in den Stein, nur weil wir es uns wünschen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-3cd19982c2fccb4b3d680a58",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Wo … bin ich?",
+      "audio": "audio/prolog/prolog-3cd19982c2fccb4b3d680a58.mp3",
+      "seconds": 3.92,
+      "sha256": "00a54d0e58007bfe7d4d4d3320c6036c4bc1d35be9efba3d48d8a3600c551224",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Wo … bin ich?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-3d0880cbe30233c72ba85de7",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Und wenn sie recht haben? Das Land leidet.",
+      "audio": "audio/prolog/prolog-3d0880cbe30233c72ba85de7.mp3",
+      "seconds": 3.72,
+      "sha256": "a96acc5b047306e5933318275985f319d9a242696dd324526ea67abdf92166f4",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Und wenn sie recht haben? Das Land leidet."
+        }
+      ]
+    },
+    {
+      "id": "prolog-428422458c5a38dd97872b05",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Hierher kommt nicht mal der Steuereintreiber. Ruht Euch aus, Alter.",
+      "audio": "audio/prolog/prolog-428422458c5a38dd97872b05.mp3",
+      "seconds": 4.28,
+      "sha256": "732e7d474dab964f328e34f9a88238ab90ee985506d2a6663e1acf26bcd6fd15",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Hierher kommt nicht mal der Steuereintreiber. Ruht Euch aus, Alter."
+        }
+      ]
+    },
+    {
+      "id": "prolog-42cf24fad873f653f9089ff9",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Ich stamme aus Trapas. Mein Vater war Händler. Lesen ist das Einzige, was ich mitgenommen habe.",
+      "audio": "audio/prolog/prolog-42cf24fad873f653f9089ff9.mp3",
+      "seconds": 5.76,
+      "sha256": "fc1ed4054de5a208689d1eea6860bcff9c648d39385b78d64315ad08a617f34f",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Ich stamme aus Trapas. Mein Vater war Händler. Lesen ist das Einzige, was ich mitgenommen habe."
+        }
+      ]
+    },
+    {
+      "id": "prolog-442ed3a7e588ace301298b47",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Bei allen Zehn … da liegt ja einer. He! Lebt Ihr noch?",
+      "audio": "audio/prolog/prolog-442ed3a7e588ace301298b47.mp3",
+      "seconds": 5.32,
+      "sha256": "d0abc75f730551b79fad4d54055df7d1eab2e7b9fd6519be3c820eea04ed9e07",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Bei allen Zehn … da liegt ja einer. He! Lebt Ihr noch?"
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-stimme",
+          "text": "Bei allen Zehn … da liegt ja einer. He! Lebt Ihr noch?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-484e47e5b48b990193f5ebe5",
+      "speaker": "loyla",
+      "kind": "bark",
+      "text": "Wächter … Türsteher, mehr nicht.",
+      "audio": "audio/prolog/prolog-484e47e5b48b990193f5ebe5.mp3",
+      "seconds": 3.4,
+      "sha256": "eac258d0edefd653bb4857a92cf8804800edd4d9f5cdc798e4573cdb54723e1d",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "loyla",
+          "text": "Wächter … Türsteher, mehr nicht."
+        },
+        {
+          "kind": "bark",
+          "speaker": "abtr-r2",
+          "text": "Wächter … Türsteher, mehr nicht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-48b6c3f13fe0bc23979d2d5d",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Was man uns verweigert, nehmen wir uns. Und dann wird niemand mehr fragen, wer die Hand gehoben hat.",
+      "audio": "audio/prolog/prolog-48b6c3f13fe0bc23979d2d5d.mp3",
+      "seconds": 7.56,
+      "sha256": "595741e38105ab41a2bee3fb5d18b7a9951b2a4bff77ee99c0d7a8e3a174e1cc",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Was man uns verweigert, nehmen wir uns. Und dann wird niemand mehr fragen, wer die Hand gehoben hat."
+        }
+      ]
+    },
+    {
+      "id": "prolog-49620271857e58c0006f758c",
+      "speaker": "baris-young",
+      "kind": "say",
+      "text": "Das … ist noch nicht vorbei, alter Mann. Merk dir mein Gesicht.",
+      "audio": "audio/prolog/prolog-49620271857e58c0006f758c.mp3",
+      "seconds": 6.6,
+      "sha256": "b178f6a0dbb0f1e744218420f5c1675741cf0897f7de3d36d333eed3378d61bc",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baris-young",
+          "text": "Das … ist noch nicht vorbei, alter Mann. Merk dir mein Gesicht."
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-axtkaempfer",
+          "text": "Das … ist noch nicht vorbei, alter Mann. Merk dir mein Gesicht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-49b0f73c619e89ed7e951017",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Kalt … Die Furt bewacht einer mit Fackel. Also flussabwärts, durchs Wasser, ans andere Ufer.",
+      "audio": "audio/prolog/prolog-49b0f73c619e89ed7e951017.mp3",
+      "seconds": 12.08,
+      "sha256": "b07889ca7983cf3467268ba13acbe0b25e31303ae43fdcbda1c6e3de40942499",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Kalt … Die Furt bewacht einer mit Fackel. Also flussabwärts, durchs Wasser, ans andere Ufer."
+        }
+      ]
+    },
+    {
+      "id": "prolog-49f8f2e26bf32c146dca9d7c",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Unser Eid ist keine Schwäche. Er ist der Grund, warum es Selantis noch gibt.",
+      "audio": "audio/prolog/prolog-49f8f2e26bf32c146dca9d7c.mp3",
+      "seconds": 6.44,
+      "sha256": "13e5dbdb51e59b8a7ece6a16222f080198477f005ac2b1cb47b88cce5f3467ab",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Unser Eid ist keine Schwäche. Er ist der Grund, warum es Selantis noch gibt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-4a9ac7ab9f13de0d67401b9b",
+      "speaker": "burm",
+      "kind": "say",
+      "text": "Meine Stimme gehört dem Siegel, Großmeister. Wie die meines Vaters vor mir.",
+      "audio": "audio/prolog/prolog-4a9ac7ab9f13de0d67401b9b.mp3",
+      "seconds": 5.24,
+      "sha256": "2c1780118b3809e3f90b01f018508386884aaa3f967e5e0f0ba1f57d2fd33bc1",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "burm",
+          "text": "Meine Stimme gehört dem Siegel, Großmeister. Wie die meines Vaters vor mir."
+        }
+      ]
+    },
+    {
+      "id": "prolog-4af884337111f10f355b04b4",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "„Cronibus großes Kräuterlexikon“. Eine Bäuerin, die liest?",
+      "audio": "audio/prolog/prolog-4af884337111f10f355b04b4.mp3",
+      "seconds": 6.76,
+      "sha256": "4d8f30cfb538ea98aa5ff197f52517a1ce18c08fd560dad9bc749a69b15ea3b8",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "„Cronibus großes Kräuterlexikon“. Eine Bäuerin, die liest?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-4aff79e7a9ac10808a42ce03",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Die Köter haben die Spur verloren!",
+      "audio": "audio/prolog/prolog-4aff79e7a9ac10808a42ce03.mp3",
+      "seconds": 2.16,
+      "sha256": "09fb5ee967d62d5d627ccdd38d25f40d68c19c2ce204ae384979bbf96af8a5e7",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Die Köter haben die Spur verloren!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "fackel-furt",
+          "text": "Die Köter haben die Spur verloren!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-4b03cb5415c13590b159b02f",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Sie sind warm. Beide. Und sie hören auf zu weinen …",
+      "audio": "audio/prolog/prolog-4b03cb5415c13590b159b02f.mp3",
+      "seconds": 7.72,
+      "sha256": "2d726e02a4e604658c9c5e3525bd66487416aed9af0a7d727da577b12a9554e0",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Sie sind warm. Beide. Und sie hören auf zu weinen …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-4c21d13fe48cdb7361e955c2",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Ich seh nach dem Vieh. Die Kuh war unruhig, als hätte sie Wölfe gerochen.",
+      "audio": "audio/prolog/prolog-4c21d13fe48cdb7361e955c2.mp3",
+      "seconds": 4.44,
+      "sha256": "0245a2d7190a2111e684d704c195c7aadf61e367d524597432bf7e84de8694e3",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Ich seh nach dem Vieh. Die Kuh war unruhig, als hätte sie Wölfe gerochen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-4e3aef48d50bc10d938eb904",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Schlaft. Und vergebt mir, was ich euch aufbürde.",
+      "audio": "audio/prolog/prolog-4e3aef48d50bc10d938eb904.mp3",
+      "seconds": 4.4,
+      "sha256": "4b86c4bb6a5b2869228c2dac2c2734104a93700d0373ff661206936787cad3d6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Schlaft. Und vergebt mir, was ich euch aufbürde."
+        }
+      ]
+    },
+    {
+      "id": "prolog-4ec67879884c235276325463",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Ich kann … nicht mehr aufstehen. Verzeih mir, Urmacht. Ich habe dich nicht weit gebracht.",
+      "audio": "audio/prolog/prolog-4ec67879884c235276325463.mp3",
+      "seconds": 9.72,
+      "sha256": "2142c85665faf3160d68e4b24d282fd3ff1e4a3db2780ddef3f3a934e65403da",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Ich kann … nicht mehr aufstehen. Verzeih mir, Urmacht. Ich habe dich nicht weit gebracht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-4ed15e0fe45b4baac8691229",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Aber die Wunde … sie schließt sich nicht. Meine Tinktur, meine Kräuter, nichts hilft.",
+      "audio": "audio/prolog/prolog-4ed15e0fe45b4baac8691229.mp3",
+      "seconds": 8.6,
+      "sha256": "fba63e871e03b4661d9bceda5c989632e7f4be30c182537a5b7339a2a61f609e",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Aber die Wunde … sie schließt sich nicht. Meine Tinktur, meine Kräuter, nichts hilft."
+        }
+      ]
+    },
+    {
+      "id": "prolog-53afe056dfe91afc0713c9b4",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Was man einmal öffnet, schließt man nicht wieder. Die Zehn wussten das. Darum haben sie gesiegelt, nicht geherrscht.",
+      "audio": "audio/prolog/prolog-53afe056dfe91afc0713c9b4.mp3",
+      "seconds": 9.4,
+      "sha256": "5cc2109e408c6616083139e2f9695e333981df698c542f429bec8071aabf2a3a",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Was man einmal öffnet, schließt man nicht wieder. Die Zehn wussten das. Darum haben sie gesiegelt, nicht geherrscht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-54d2c3759149ae2d2140e6de",
+      "speaker": "narrator",
+      "kind": "narrate",
+      "text": "Welchem der beiden Kinder? Das wusste nur das Licht. Und das Licht schwieg – sechzehn Jahre lang.",
+      "audio": "audio/prolog/prolog-54d2c3759149ae2d2140e6de.mp3",
+      "seconds": 8.08,
+      "sha256": "56af11432feacd27bd9d84717dd9ff1f49f3c953cf3e2c19fbbebc92690ac268",
+      "runtime_keys": [
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Welchem der beiden Kinder? Das wusste nur das Licht. Und das Licht schwieg – sechzehn Jahre lang."
+        }
+      ]
+    },
+    {
+      "id": "prolog-54fdb4913a818a4c4022cfb3",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Aus Büchern. Und weil man auf einem Hof jede Woche irgendwen verbindet. Meistens meinen Mann.",
+      "audio": "audio/prolog/prolog-54fdb4913a818a4c4022cfb3.mp3",
+      "seconds": 6.44,
+      "sha256": "b73a292288b2a6674b3ad296952fd15e23b3706f1ea4515bd6960907492e06a3",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Aus Büchern. Und weil man auf einem Hof jede Woche irgendwen verbindet. Meistens meinen Mann."
+        }
+      ]
+    },
+    {
+      "id": "prolog-55e3b02efa35d56c7708829d",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Vorerst würde so kein Schaden angerichtet werden.",
+      "audio": "audio/prolog/prolog-55e3b02efa35d56c7708829d.mp3",
+      "seconds": 4.72,
+      "sha256": "4d86b89933b70dda7c6dde10e5f9f7419e434847914304fdc3a8849d0dc4f340",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Vorerst würde so kein Schaden angerichtet werden."
+        }
+      ]
+    },
+    {
+      "id": "prolog-56dd8d02afba707c99e8f87f",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Warm. Wie ein Herzschlag hinter dem Stein. Sie schläft nicht. Sie wartet.",
+      "audio": "audio/prolog/prolog-56dd8d02afba707c99e8f87f.mp3",
+      "seconds": 9.32,
+      "sha256": "ab7f9033d55b43ff2f9a012db228638da60266a580bfb462877a0d33ed70d9df",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Warm. Wie ein Herzschlag hinter dem Stein. Sie schläft nicht. Sie wartet."
+        }
+      ]
+    },
+    {
+      "id": "prolog-58b3ceeb3cdcb0121c227d0b",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Woher kennt Ihr Euch mit Wunden aus?",
+      "audio": "audio/prolog/prolog-58b3ceeb3cdcb0121c227d0b.mp3",
+      "seconds": 3.0,
+      "sha256": "1034a529adfc5ca470a8a7ac0572a25f418625d2e07be94f4116055048a3c5be",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Woher kennt Ihr Euch mit Wunden aus?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-591b43c9ae194399e6aafa10",
+      "speaker": "gira",
+      "kind": "say",
+      "text": "Ich stimme mit dem Eid. Dass Ihr derselben Meinung seid, ist ein Glück für Euch.",
+      "audio": "audio/prolog/prolog-591b43c9ae194399e6aafa10.mp3",
+      "seconds": 6.28,
+      "sha256": "0864b7a083fa9b7c4846527263140c2b02c56899b9744a72b9da6eb3285cf34d",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "gira",
+          "text": "Ich stimme mit dem Eid. Dass Ihr derselben Meinung seid, ist ein Glück für Euch."
+        }
+      ]
+    },
+    {
+      "id": "prolog-59d2d2c9e860e6fc9bc24c6e",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Ein Pfeil traf ihn unter den Rippen. Er ging in die Knie. Unten im Tal floh das Heer des Lichts, Banner um Banner fiel.",
+      "audio": "audio/prolog/prolog-59d2d2c9e860e6fc9bc24c6e.mp3",
+      "seconds": 9.92,
+      "sha256": "91af2654f75115a67936a1cd15c5e370acecfc910ef218fdabd7a00372379693",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Ein Pfeil traf ihn unter den Rippen. Er ging in die Knie. Unten im Tal floh das Heer des Lichts, Banner um Banner fiel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-5b9534f6439dfe90132b7d1b",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Da! Im Farn?",
+      "audio": "audio/prolog/prolog-5b9534f6439dfe90132b7d1b.mp3",
+      "seconds": 1.84,
+      "sha256": "7f2cf72e428bf310fc07720003786e195d62070bd13b7b1591a2e71ed2302349",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Da! Im Farn?"
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Da! Im Farn?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-5c0b55db59d4d63f965f2469",
+      "speaker": "falke",
+      "kind": "say",
+      "text": "Der Hüne lebt noch. Lasst ihn liegen – wir sind keine Schlächter.",
+      "audio": "audio/prolog/prolog-5c0b55db59d4d63f965f2469.mp3",
+      "seconds": 3.52,
+      "sha256": "e76e9e58fc0c2f74bb9a57a6880fc98abd55a75f3191c5066745a8faf81427b6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "falke",
+          "text": "Der Hüne lebt noch. Lasst ihn liegen – wir sind keine Schlächter."
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-falke",
+          "text": "Der Hüne lebt noch. Lasst ihn liegen – wir sind keine Schlächter."
+        }
+      ]
+    },
+    {
+      "id": "prolog-5db15fc709caf9c9ac177811",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Auf dem Hügel von Dunkelhain, vor den Toren des Saals, sollte es aufgehalten werden.",
+      "audio": "audio/prolog/prolog-5db15fc709caf9c9ac177811.mp3",
+      "seconds": 6.52,
+      "sha256": "b9f8f25a7693ddd0a35e84075e7d21b1b595ba82a641a3cc301b012f1783e55c",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Auf dem Hügel von Dunkelhain, vor den Toren des Saals, sollte es aufgehalten werden."
+        }
+      ]
+    },
+    {
+      "id": "prolog-5ff54e5071318bee71d7d40e",
+      "speaker": "gira",
+      "kind": "say",
+      "text": "Das Land leidet unter Menschen, nicht unter einem Siegel. Gebt Menschen mehr Macht, und es leidet mehr.",
+      "audio": "audio/prolog/prolog-5ff54e5071318bee71d7d40e.mp3",
+      "seconds": 8.48,
+      "sha256": "8eec03379bc129424affa6c4addaf7215181b9b7dd2af842618af548d5f04f4a",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "gira",
+          "text": "Das Land leidet unter Menschen, nicht unter einem Siegel. Gebt Menschen mehr Macht, und es leidet mehr."
+        }
+      ]
+    },
+    {
+      "id": "prolog-61da0d9da7cceaaad3fe6490",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Sie drohen, weil sie verloren haben.",
+      "audio": "audio/prolog/prolog-61da0d9da7cceaaad3fe6490.mp3",
+      "seconds": 3.48,
+      "sha256": "1a6e1dea94f4bffd9f75d861c6710b023970e732c50cf7bcf9c701d660c34872",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Sie drohen, weil sie verloren haben."
+        }
+      ]
+    },
+    {
+      "id": "prolog-61ea2fe2ce95aec1826c2aff",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Die Zehn haben die Urmacht versiegelt, weil Macht ohne Maß zerstört.",
+      "audio": "audio/prolog/prolog-61ea2fe2ce95aec1826c2aff.mp3",
+      "seconds": 5.6,
+      "sha256": "62b731870b8258dba0da4076a1e6b61a446fee61c54fb906fa83fb45209c40f9",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Die Zehn haben die Urmacht versiegelt, weil Macht ohne Maß zerstört."
+        }
+      ]
+    },
+    {
+      "id": "prolog-699bfb4f9e1b9258500e0421",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Bewegt sich da was im Wasser?",
+      "audio": "audio/prolog/prolog-699bfb4f9e1b9258500e0421.mp3",
+      "seconds": 1.92,
+      "sha256": "d0794e192caa5f6fed587ab62b8f00575214db1772124d9a193bacc9acd5c65a",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Bewegt sich da was im Wasser?"
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Bewegt sich da was im Wasser?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-69a59766e0af807c0a6977d8",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Unsere Töchter. Zwillinge, drei Monde alt. Da drüben in der Wiege.",
+      "audio": "audio/prolog/prolog-69a59766e0af807c0a6977d8.mp3",
+      "seconds": 5.92,
+      "sha256": "67199882c8d238b2698b034e932634ba25f11e3c841bfb724a8a85f083e7679b",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Unsere Töchter. Zwillinge, drei Monde alt. Da drüben in der Wiege."
+        }
+      ]
+    },
+    {
+      "id": "prolog-6ab8f0e307ed186e125ed940",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Sie winseln am Ufer. Das Wasser hat meine Spur geschluckt. Weiter … nach Osten.",
+      "audio": "audio/prolog/prolog-6ab8f0e307ed186e125ed940.mp3",
+      "seconds": 8.76,
+      "sha256": "42da7d73febd29ec084c94d6c10f2d2c7ad89ea334ee8d682f310bbb3f5dfd04",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Sie winseln am Ufer. Das Wasser hat meine Spur geschluckt. Weiter … nach Osten."
+        }
+      ]
+    },
+    {
+      "id": "prolog-6adb840439e4f260dc3d9179",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Einen alten Mann aufgelesen. Mehr nicht. Mein Rücken weiß es noch.",
+      "audio": "audio/prolog/prolog-6adb840439e4f260dc3d9179.mp3",
+      "seconds": 5.52,
+      "sha256": "23418556aab5deca512886173e892464368c2a78fb81be1736f70a963d1653f3",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Einen alten Mann aufgelesen. Mehr nicht. Mein Rücken weiß es noch."
+        }
+      ]
+    },
+    {
+      "id": "prolog-6b0b94c09ff710f4acd84c1a",
+      "speaker": "gwynn",
+      "kind": "bark",
+      "text": "Großmeister, sagt etwas.",
+      "audio": "audio/prolog/prolog-6b0b94c09ff710f4acd84c1a.mp3",
+      "seconds": 2.16,
+      "sha256": "0749847457a504cdb65ba7cfba4fd6828d95633e5516864d5584b1fdbfbfe2d7",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "gwynn",
+          "text": "Großmeister, sagt etwas."
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-r3",
+          "text": "Großmeister, sagt etwas."
+        }
+      ]
+    },
+    {
+      "id": "prolog-6cd301859c17692fb28c01b4",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Der Stein … nass vom Tau …",
+      "audio": "audio/prolog/prolog-6cd301859c17692fb28c01b4.mp3",
+      "seconds": 3.68,
+      "sha256": "8cfbd8c04b1456d390b73a27427da9964bfe593aadb19c5a6c91b33424c3a77f",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Der Stein … nass vom Tau …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-6e24cbaca3d703efe58c72d1",
+      "speaker": "gira",
+      "kind": "say",
+      "text": "Ich habe meine Stimme schon vergeben. An das Siegel.",
+      "audio": "audio/prolog/prolog-6e24cbaca3d703efe58c72d1.mp3",
+      "seconds": 3.88,
+      "sha256": "23e57ef2821893475d70c6a68780e40fb07d3cf7ec1842da973695d457785e28",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "gira",
+          "text": "Ich habe meine Stimme schon vergeben. An das Siegel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-7026c2330e8a32029f38becb",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Hört Euch nur um. Und dann ruft zur Abstimmung, wenn Ihr den Mut habt.",
+      "audio": "audio/prolog/prolog-7026c2330e8a32029f38becb.mp3",
+      "seconds": 5.84,
+      "sha256": "4c86e7bc2e4eed92952df57d186396ba65a571c2f82d33a8ae03ff6b0e52ff8d",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Hört Euch nur um. Und dann ruft zur Abstimmung, wenn Ihr den Mut habt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-70fca83ac3bcdb4a523b574e",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Nur ein Reh.",
+      "audio": "audio/prolog/prolog-70fca83ac3bcdb4a523b574e.mp3",
+      "seconds": 1.4,
+      "sha256": "297f584702a531f0a2e210f7ffe6be3344aeb4dec53d57dadf82c17118a20759",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Nur ein Reh."
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Nur ein Reh."
+        }
+      ]
+    },
+    {
+      "id": "prolog-726a77ec1cdb21ea6cf807cf",
+      "speaker": "verwundeter-2",
+      "kind": "bark",
+      "text": "Danke, Großmeister …",
+      "audio": "audio/prolog/prolog-726a77ec1cdb21ea6cf807cf.mp3",
+      "seconds": 2.76,
+      "sha256": "94b10dce7359e16cfa4733eb23d795063b9dc3779941d8aae205bf7f8ab62fb1",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "verwundeter-2",
+          "text": "Danke, Großmeister …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-7338846cf17b2febaec9a7bd",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Hörst du das?",
+      "audio": "audio/prolog/prolog-7338846cf17b2febaec9a7bd.mp3",
+      "seconds": 1.2,
+      "sha256": "4e199a75576af857c891412e568bf91fad01b540ca7740f6bddf4b177477fb50",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Hörst du das?"
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Hörst du das?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-736d8d67478c15dea2ade301",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Er ist fort. Kein Mantel, kein Blut, nichts. Als wäre er nie hier gewesen.",
+      "audio": "audio/prolog/prolog-736d8d67478c15dea2ade301.mp3",
+      "seconds": 6.8,
+      "sha256": "377ead7a55d300815fa75aae2c407744dc5656d4eab09f9ac39d067f59f8e5d3",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Er ist fort. Kein Mantel, kein Blut, nichts. Als wäre er nie hier gewesen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-73a919408fcd95e4298ad4f4",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Verdoppelt die Wachen am Siegel. Heute noch.",
+      "audio": "audio/prolog/prolog-73a919408fcd95e4298ad4f4.mp3",
+      "seconds": 3.12,
+      "sha256": "d182b7b7739f122d7a0631d41a4479c45dea4c9e9dbf29e39459f1ed8e4b05f9",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Verdoppelt die Wachen am Siegel. Heute noch."
+        }
+      ]
+    },
+    {
+      "id": "prolog-74ae74c646d214b496625d81",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Der Alte ist längst tot.",
+      "audio": "audio/prolog/prolog-74ae74c646d214b496625d81.mp3",
+      "seconds": 2.0,
+      "sha256": "e2b5876c61bcdb024bdb87371bdcbe71fba7aefd114c40b004f6d35b58cd9211",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Der Alte ist längst tot."
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Der Alte ist längst tot."
+        }
+      ]
+    },
+    {
+      "id": "prolog-767f9fd24e5f1425c80465a8",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Ganz ruhig, Alter. Ich bring Euch nach Hause. Meine Frau weiß, was zu tun ist.",
+      "audio": "audio/prolog/prolog-767f9fd24e5f1425c80465a8.mp3",
+      "seconds": 4.36,
+      "sha256": "054a18bb3f9d90dd97bc7d87089ae72ecfe7b8dc6149f5397eecf5f433989ff9",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Ganz ruhig, Alter. Ich bring Euch nach Hause. Meine Frau weiß, was zu tun ist."
+        },
+        {
+          "kind": "say",
+          "speaker": "prolog-stimme",
+          "text": "Ganz ruhig, Alter. Ich bring Euch nach Hause. Meine Frau weiß, was zu tun ist."
+        }
+      ]
+    },
+    {
+      "id": "prolog-77ced7c594cb856d9d29971a",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Ein Küchenschrank mit doppeltem Boden. Der Bauer ist vorsichtiger, als er aussieht.",
+      "audio": "audio/prolog/prolog-77ced7c594cb856d9d29971a.mp3",
+      "seconds": 7.56,
+      "sha256": "c8f4647facf9c82b550a00b5c180621f96fdf3515a416a2eee7133c3369cb323",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Ein Küchenschrank mit doppeltem Boden. Der Bauer ist vorsichtiger, als er aussieht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-7800055a5fe522fd0ef874de",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Ich bringe es den beiden bei, sobald sie groß genug sind. Ob sie wollen oder nicht.",
+      "audio": "audio/prolog/prolog-7800055a5fe522fd0ef874de.mp3",
+      "seconds": 4.72,
+      "sha256": "f71e8a6be1e763b9dccd9e9ccbb4682fc5508f31a38a24156c4a29e861d61da7",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Ich bringe es den beiden bei, sobald sie groß genug sind. Ob sie wollen oder nicht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-7ac9ad4e2d4af3c50b1e0d01",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Crios, im Westen, wie immer. Treuer Adler … wenigstens du bleibst, wo du hingehörst.",
+      "audio": "audio/prolog/prolog-7ac9ad4e2d4af3c50b1e0d01.mp3",
+      "seconds": 10.36,
+      "sha256": "a71e264ccc6fff98dd01e70f95243b90c0a91f4184d2416bb0ac05c738052813",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Crios, im Westen, wie immer. Treuer Adler … wenigstens du bleibst, wo du hingehörst."
+        }
+      ]
+    },
+    {
+      "id": "prolog-7c54848655d68ac7c558d34e",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Weiter, weiter.",
+      "audio": "audio/prolog/prolog-7c54848655d68ac7c558d34e.mp3",
+      "seconds": 1.2,
+      "sha256": "4c9446e03c58702ba1474aa7ed8465b84b3ab75b1359c07d16d560c4150062fc",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Weiter, weiter."
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Weiter, weiter."
+        }
+      ]
+    },
+    {
+      "id": "prolog-7c5692eb6dd6215150052e43",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Irgendwo auf dem Hang lag ein junger Hüne mit einer Axt. Er lebte. Selantis sollte noch von ihm hören.",
+      "audio": "audio/prolog/prolog-7c5692eb6dd6215150052e43.mp3",
+      "seconds": 8.68,
+      "sha256": "8fbc052c10b7a96bd93a34ea1fbbbcba5b86431905a709fa46a943920b2adbb8",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Irgendwo auf dem Hang lag ein junger Hüne mit einer Axt. Er lebte. Selantis sollte noch von ihm hören."
+        }
+      ]
+    },
+    {
+      "id": "prolog-7d16e849b9c3a051a541fe45",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Entschieden. Von sechs alten Leuten, die lieber eine Tür anbeten, als die Welt zu retten.",
+      "audio": "audio/prolog/prolog-7d16e849b9c3a051a541fe45.mp3",
+      "seconds": 7.44,
+      "sha256": "9fc096696f52b480618491401e17e83e1f5628560826f1d09dc5031ae8a92291",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Entschieden. Von sechs alten Leuten, die lieber eine Tür anbeten, als die Welt zu retten."
+        }
+      ]
+    },
+    {
+      "id": "prolog-8053900eb0591e9c8f8877cf",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wer diese Tür öffnet, öffnet sie für immer.",
+      "audio": "audio/prolog/prolog-8053900eb0591e9c8f8877cf.mp3",
+      "seconds": 4.08,
+      "sha256": "b925c2c6b9bd7ffaacba8fb684c578577c71cc6bb82e671b76211f9de814cc12",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wer diese Tür öffnet, öffnet sie für immer."
+        }
+      ]
+    },
+    {
+      "id": "prolog-81faf09fbd77e0d0a44ea6d0",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Habt Ihr jemanden im Wald gesehen?",
+      "audio": "audio/prolog/prolog-81faf09fbd77e0d0a44ea6d0.mp3",
+      "seconds": 2.92,
+      "sha256": "314d97bdfda0ffd26ddd14d8ec5ddd779080931e79f7a2e80d6765bd9c176a7e",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Habt Ihr jemanden im Wald gesehen?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-82b6ccb1145d7ec76c93a6b3",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Ihre Erben bildeten den Rat der Zehn Geweihten. Sie kamen aus den großen Städten, und alle wachten über das Siegel.",
+      "audio": "audio/prolog/prolog-82b6ccb1145d7ec76c93a6b3.mp3",
+      "seconds": 9.24,
+      "sha256": "dc1d02bb5f6d9ffaeedcaaf9b5986cd49b059fe46a6490a98f7737386e8f9d15",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Ihre Erben bildeten den Rat der Zehn Geweihten. Sie kamen aus den großen Städten, und alle wachten über das Siegel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-85532543c5ba54e431a322ed",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Sie dürfen die Urmacht nicht bekommen. Niemals.",
+      "audio": "audio/prolog/prolog-85532543c5ba54e431a322ed.mp3",
+      "seconds": 4.52,
+      "sha256": "f3c5cf914799a4a2fb0d86eec7155d08999db05b7cd7f3a46d6e3567160679cf",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Sie dürfen die Urmacht nicht bekommen. Niemals."
+        },
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Sie dürfen die ~Urmacht~ nicht bekommen. Niemals."
+        }
+      ]
+    },
+    {
+      "id": "prolog-85899798fe6f9be9b74ee87a",
+      "speaker": "samira",
+      "kind": "bark",
+      "text": "Die Zehn haben geschworen.",
+      "audio": "audio/prolog/prolog-85899798fe6f9be9b74ee87a.mp3",
+      "seconds": 1.76,
+      "sha256": "3cbfde2be7d780ce7a2bd7d20c1502e0ed6175b8d6f5d66fbd1d5f893332b50a",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "samira",
+          "text": "Die Zehn haben geschworen."
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-r5",
+          "text": "Die Zehn haben geschworen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-88e0137fc6268eba003ce9b4",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Auf unserem Hof. Ich hab Euch am Bach gefunden. Im Schlaf habt Ihr von Licht geredet. Viel Licht.",
+      "audio": "audio/prolog/prolog-88e0137fc6268eba003ce9b4.mp3",
+      "seconds": 9.64,
+      "sha256": "ed0e72b88fb23cd3dda9068d07c7aa49afeeac5871252b3d4265d3f451ef4bc2",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Auf unserem Hof. Ich hab Euch am Bach gefunden. Im Schlaf habt Ihr von Licht geredet. Viel Licht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-89d0277fea3f83e54189bfb3",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Verdammter Wald.",
+      "audio": "audio/prolog/prolog-89d0277fea3f83e54189bfb3.mp3",
+      "seconds": 1.6,
+      "sha256": "2390ce66dd13348b85687acf0eb3bb222e83a0c38c031f624c2c3e3a3e301081",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Verdammter Wald."
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Verdammter Wald."
+        }
+      ]
+    },
+    {
+      "id": "prolog-8b0261199242a443f52acac8",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wie heißen eure Töchter?",
+      "audio": "audio/prolog/prolog-8b0261199242a443f52acac8.mp3",
+      "seconds": 2.52,
+      "sha256": "a89a205cbbd224fef0690a1dc28deaf3d1e741a357157ba5c19d29606ec0d231",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wie heißen eure Töchter?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-8be1c9357b18c4890ac1b990",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Die Hunde. Sie riechen das Blut. Der Bach … Wasser trägt keine Witterung.",
+      "audio": "audio/prolog/prolog-8be1c9357b18c4890ac1b990.mp3",
+      "seconds": 7.72,
+      "sha256": "5946f2b7866f161eb1ce144802fbe269275d43a490136cd7d313526f6a5db3e5",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Die Hunde. Sie riechen das Blut. Der Bach … Wasser trägt keine Witterung."
+        }
+      ]
+    },
+    {
+      "id": "prolog-8c194e179478039b00d1a8e3",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Wer sucht schon bei einem Säugling? Das Unschuldigste und Wehrloseste, was es gibt.",
+      "audio": "audio/prolog/prolog-8c194e179478039b00d1a8e3.mp3",
+      "seconds": 8.76,
+      "sha256": "d02e1e9cc90d47a06c6562002b6058b3896eb2a152ca43e9fb58d5ecd90717d0",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Wer sucht schon bei einem Säugling? Das Unschuldigste und Wehrloseste, was es gibt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-8e369462c0825238ca681130",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Wenn ihr groß seid, wird sie euch finden. Oder ihr sie. Möge das Licht euch schützen.",
+      "audio": "audio/prolog/prolog-8e369462c0825238ca681130.mp3",
+      "seconds": 7.36,
+      "sha256": "a7d1173d1b45587b9cfb59c89b3d7b3c5b19659a132cb64ddf51d0da47ea7270",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Wenn ihr groß seid, wird sie euch finden. Oder ihr sie. Möge das Licht euch schützen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-91e648f9c15e07f41c6469f8",
+      "speaker": "gira",
+      "kind": "say",
+      "text": "Großmeister. Sie reden von Hunger und Räubern, als hätten nur sie Augen im Kopf.",
+      "audio": "audio/prolog/prolog-91e648f9c15e07f41c6469f8.mp3",
+      "seconds": 5.68,
+      "sha256": "3d7449e201c8bfcf71108ac33cc4914b8f0d2939b1aa16b681fb6cc0a8962a04",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "gira",
+          "text": "Großmeister. Sie reden von Hunger und Räubern, als hätten nur sie Augen im Kopf."
+        }
+      ]
+    },
+    {
+      "id": "prolog-95baaa939ba573bd19537dd4",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Sie wurde Xenovia genommen, weil sie zerstört.",
+      "audio": "audio/prolog/prolog-95baaa939ba573bd19537dd4.mp3",
+      "seconds": 4.12,
+      "sha256": "9ccaebb255d7892ba5c1077a632821c22ac03bf0ccdf1102089d7cc644a569d4",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Sie wurde Xenovia genommen, weil sie zerstört."
+        }
+      ]
+    },
+    {
+      "id": "prolog-9773ccf394f10f6d931ed51c",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Am Bach, zwei Stunden von hier. Auf den nassen Steinen. Ihr wart so kalt, ich dachte erst, Ihr wärt tot.",
+      "audio": "audio/prolog/prolog-9773ccf394f10f6d931ed51c.mp3",
+      "seconds": 6.88,
+      "sha256": "fe5be4d75e566dfac435867e6d9e29ff842d43c41ca925f97e21c76b7f530e52",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Am Bach, zwei Stunden von hier. Auf den nassen Steinen. Ihr wart so kalt, ich dachte erst, Ihr wärt tot."
+        }
+      ]
+    },
+    {
+      "id": "prolog-97e3b693e88a968f00afe134",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wem würdet Ihr sie geben? Euch selbst?",
+      "audio": "audio/prolog/prolog-97e3b693e88a968f00afe134.mp3",
+      "seconds": 3.6,
+      "sha256": "a516b1b5e4b8c9aeeafd49300243ff42d93eee9d21420187f1c320991fa46147",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wem würdet Ihr sie geben? Euch selbst?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-99e3ebba114b7187ddb54e74",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Dem Rat. Uns allen. Oder fürchtet Ihr, dass Ihr dann nicht mehr der Größte unter uns seid?",
+      "audio": "audio/prolog/prolog-99e3ebba114b7187ddb54e74.mp3",
+      "seconds": 8.48,
+      "sha256": "2ec88cc2c39043b9cfea041b43817406833bd958996f430042538ab524cb0de9",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Dem Rat. Uns allen. Oder fürchtet Ihr, dass Ihr dann nicht mehr der Größte unter uns seid?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-99f32aacac48cec7c672e244",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wir sind Wächter. Wer das vergisst, vergisst, wofür dieser Rat steht.",
+      "audio": "audio/prolog/prolog-99f32aacac48cec7c672e244.mp3",
+      "seconds": 6.72,
+      "sha256": "4f8474a1f991c69aff3ff94a867cb6d635dc3bd43181d1597d4d7cf27790a155",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wir sind Wächter. Wer das vergisst, vergisst, wofür dieser Rat steht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-9c5d66c4a31b359117664346",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Valentus … das war eine Drohung.",
+      "audio": "audio/prolog/prolog-9c5d66c4a31b359117664346.mp3",
+      "seconds": 3.44,
+      "sha256": "9c77855dbc91be22c69a760bf18f48226ef4d720613807acdb323b2cd1b9d9df",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Valentus … das war eine Drohung."
+        }
+      ]
+    },
+    {
+      "id": "prolog-9c992a4692b5283d75fc14e5",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Also stimmt Ihr mit mir?",
+      "audio": "audio/prolog/prolog-9c992a4692b5283d75fc14e5.mp3",
+      "seconds": 2.48,
+      "sha256": "e4691fe91cb18b47c9b6ccc7782c28aef0fb3e757e6cd40e527de6bb6c91d153",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Also stimmt Ihr mit mir?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-9d435e90fe35334d978b947c",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Ruhig. Bleib ruhig, du Alte. Noch hält das Siegel.",
+      "audio": "audio/prolog/prolog-9d435e90fe35334d978b947c.mp3",
+      "seconds": 5.36,
+      "sha256": "3962c48404e762a861fc1c93d8262b139b0f0c592200cfc95812c7b81bf5acfe",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Ruhig. Bleib ruhig, du Alte. Noch hält das Siegel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-9e8150c3daa0996b65a097e8",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Nur die Strömung.",
+      "audio": "audio/prolog/prolog-9e8150c3daa0996b65a097e8.mp3",
+      "seconds": 1.48,
+      "sha256": "3a553bc4ffbe86a8b0f4019d6fea2702556e0d50084d308548d625fc962beb18",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Nur die Strömung."
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Nur die Strömung."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a17524979cff023f2d7c17d1",
+      "speaker": "verschwoerer",
+      "kind": "say",
+      "text": "Sechs Narren und ein Schloss. Schlösser kann man brechen.",
+      "audio": "audio/prolog/prolog-a17524979cff023f2d7c17d1.mp3",
+      "seconds": 5.88,
+      "sha256": "0fda6b4c117f3a60d778ca49e3c234223012c267e9c862c14f1c4e804b1b05b4",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "verschwoerer",
+          "text": "Sechs Narren und ein Schloss. Schlösser kann man brechen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a1db5be732ec2e31a852366d",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Der Rat. Mit klarem Kopf und fester Hand. Habt Ihr Angst vor Euren eigenen Brüdern?",
+      "audio": "audio/prolog/prolog-a1db5be732ec2e31a852366d.mp3",
+      "seconds": 6.44,
+      "sha256": "b1fbf1be5fd2f272db0447a7eef05c9f3cdf6bdbff5692af505da8a4beba4b61",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Der Rat. Mit klarem Kopf und fester Hand. Habt Ihr Angst vor Euren eigenen Brüdern?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-a56c563e11831e8dd39b49c8",
+      "speaker": "narrator",
+      "kind": "narrate",
+      "text": "Er übergab die Urmacht dem Unschuldigsten und Wehrlosesten, was er finden konnte. Vorerst würde so kein Schaden angerichtet werden.",
+      "audio": "audio/prolog/prolog-a56c563e11831e8dd39b49c8.mp3",
+      "seconds": 10.28,
+      "sha256": "b5622165dcfd84553cb8b70c6f29a8a95c6347379eb93ebf71454c7eb7a31649",
+      "runtime_keys": [
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Er übergab die Urmacht dem Unschuldigsten und Wehrlosesten, was er finden konnte. Vorerst würde so kein Schaden angerichtet werden."
+        },
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Er übergab die ~Urmacht~ dem Unschuldigsten und Wehrlosesten, was er finden konnte. Vorerst würde so kein Schaden angerichtet werden."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a56d79d3b3e896d0958d82c9",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Ihr seid wach! Drei Tage habt Ihr im Fieber gelegen.",
+      "audio": "audio/prolog/prolog-a56d79d3b3e896d0958d82c9.mp3",
+      "seconds": 4.36,
+      "sha256": "3cf6506d0120212e341ceb9e86e709145c358710bcf58e22a3fbdb74b9fce7d6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Ihr seid wach! Drei Tage habt Ihr im Fieber gelegen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a5f0105f4ef2bf1d4abeeacc",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Falke! … Bleib liegen. Ich mache allein weiter.",
+      "audio": "audio/prolog/prolog-a5f0105f4ef2bf1d4abeeacc.mp3",
+      "seconds": 3.88,
+      "sha256": "dae36468d516b0b599d8ac7cbaf1b17461ebd33c604fb2e06b0e796ebeedcfc6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Falke! … Bleib liegen. Ich mache allein weiter."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a6b407d4aa8ddcc704d67e4f",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Ich danke euch. Ihr wisst nicht, was ihr getan habt.",
+      "audio": "audio/prolog/prolog-a6b407d4aa8ddcc704d67e4f.mp3",
+      "seconds": 4.84,
+      "sha256": "df20d00e4d640c480341eb259d11ba49bad01a5f9d17c74192f8d01b69128467",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Ich danke euch. Ihr wisst nicht, was ihr getan habt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a7150e4bb45ec995127dbfbd",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Sie zerstört in den falschen Händen. Die Zehn waren keine Götter – und doch haben sie gesiegt.",
+      "audio": "audio/prolog/prolog-a7150e4bb45ec995127dbfbd.mp3",
+      "seconds": 8.48,
+      "sha256": "11f73c6778ae83fdc5b931949a1266602f090a401a717028c7110a450edb4876",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Sie zerstört in den falschen Händen. Die Zehn waren keine Götter – und doch haben sie gesiegt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a84bcdd69280e3443611adf8",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Die Urmacht sperrten sie in eine Höhle und versiegelten sie. Denn was eine Welt erschaffen kann, kann sie auch vernichten.",
+      "audio": "audio/prolog/prolog-a84bcdd69280e3443611adf8.mp3",
+      "seconds": 8.4,
+      "sha256": "17ef4d4f378cb572813c83562ea3927f1861f63718f4bb776c6278643a46a188",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Die Urmacht sperrten sie in eine Höhle und versiegelten sie. Denn was eine Welt erschaffen kann, kann sie auch vernichten."
+        }
+      ]
+    },
+    {
+      "id": "prolog-a95171e1352c164a01177228",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Wer dafür stimmt, die Urmacht zu nutzen …",
+      "audio": "audio/prolog/prolog-a95171e1352c164a01177228.mp3",
+      "seconds": 4.28,
+      "sha256": "f91c0023506cefa5620ef4d224130b2524facf09864c33fbb6fe34aae7877ae0",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Wer dafür stimmt, die Urmacht zu nutzen …"
+        },
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Wer dafür stimmt, die Urmacht zu nutzen …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-ab548707137bf91a16e14639",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Ein Jahr später marschierte ein schwarzes Heer auf den Ratssaal. Die Fürsten standen auf der Seite der Sechs.",
+      "audio": "audio/prolog/prolog-ab548707137bf91a16e14639.mp3",
+      "seconds": 7.92,
+      "sha256": "09efe25d7c5db31709d3312b6279c8b1d55023e5026960a9d6a3b2635ec373f7",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Ein Jahr später marschierte ein schwarzes Heer auf den Ratssaal. Die Fürsten standen auf der Seite der Sechs."
+        }
+      ]
+    },
+    {
+      "id": "prolog-ac3c320823865b99ddc5104b",
+      "speaker": "samira",
+      "kind": "say",
+      "text": "Sie reden, als gehöre ihnen die Urmacht schon. Seht nur, wie der Wortführer auf die Tür starrt.",
+      "audio": "audio/prolog/prolog-ac3c320823865b99ddc5104b.mp3",
+      "seconds": 5.64,
+      "sha256": "37b9bf224aa278b46c8400cb0ba583b12e151105f1a291d54c95990b5dc6fcce",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "samira",
+          "text": "Sie reden, als gehöre ihnen die Urmacht schon. Seht nur, wie der Wortführer auf die Tür starrt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-afe28b30486f65720f6c1d69",
+      "speaker": "narrator",
+      "kind": "narrate",
+      "text": "Ein Bauer fand ihn und nahm ihn mit sich nach Hause.",
+      "audio": "audio/prolog/prolog-afe28b30486f65720f6c1d69.mp3",
+      "seconds": 4.2,
+      "sha256": "4dccbe48259477a970628d15c096cd510ca7d00fb121c1bc4f4844cb16518971",
+      "runtime_keys": [
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Ein Bauer fand ihn und nahm ihn mit sich nach Hause."
+        }
+      ]
+    },
+    {
+      "id": "prolog-afed26c18665aaef2ccaead4",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Der zehnzackige Stern. Zehn Menschen gegen eine Göttin. Wir feiern es jeden Sommer – und vergessen, was es gekostet hat.",
+      "audio": "audio/prolog/prolog-afed26c18665aaef2ccaead4.mp3",
+      "seconds": 11.12,
+      "sha256": "d631488fb6f91a99b8dab447cae94230e08c18c56ee4f338740312dee45cd9b5",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Der zehnzackige Stern. Zehn Menschen gegen eine Göttin. Wir feiern es jeden Sommer – und vergessen, was es gekostet hat."
+        }
+      ]
+    },
+    {
+      "id": "prolog-b02b8cf73efeb51ac270a69c",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Kerzenlicht. Der Geruch von Kräutern und Rauch. Valentus erwachte.",
+      "audio": "audio/prolog/prolog-b02b8cf73efeb51ac270a69c.mp3",
+      "seconds": 6.8,
+      "sha256": "12918559265f262231e6713a1387fbacba81d178c850510bbb69b6e08de02073",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Kerzenlicht. Der Geruch von Kräutern und Rauch. Valentus erwachte."
+        }
+      ]
+    },
+    {
+      "id": "prolog-b0af7cde9911d721aab07a86",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Seit tausend Jahren sitzen wir vor dieser Tür und tun – nichts!",
+      "audio": "audio/prolog/prolog-b0af7cde9911d721aab07a86.mp3",
+      "seconds": 6.2,
+      "sha256": "f0c9a195fd0c86e6089455a4f6bbb89f6e35c6fb322fedae2094b6d045a3e9b6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Seit tausend Jahren sitzen wir vor dieser Tür und tun – nichts!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-b8e1b728101b69e4db944440",
+      "speaker": "gwynn",
+      "kind": "say",
+      "text": "Vier gegen sechs. Noch. Wenn einer von uns wankt, ist das Siegel verloren.",
+      "audio": "audio/prolog/prolog-b8e1b728101b69e4db944440.mp3",
+      "seconds": 5.52,
+      "sha256": "82d35d607fade1c3d459af02c24e09803f4e8bbbeacf27176ce5d36d74ed09f1",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "gwynn",
+          "text": "Vier gegen sechs. Noch. Wenn einer von uns wankt, ist das Siegel verloren."
+        }
+      ]
+    },
+    {
+      "id": "prolog-b92ded6eafea80681572455a",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Ihr kommt, um mich umzustimmen? Spart Euch den Atem.",
+      "audio": "audio/prolog/prolog-b92ded6eafea80681572455a.mp3",
+      "seconds": 4.32,
+      "sha256": "1da740335a7901b3b39294b185aba5aaca86d11377f59c0407eed1b304b6f886",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Ihr kommt, um mich umzustimmen? Spart Euch den Atem."
+        }
+      ]
+    },
+    {
+      "id": "prolog-b99a7e286a05c96c19afd457",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Was war das für ein Licht?! Die Kinder –",
+      "audio": "audio/prolog/prolog-b99a7e286a05c96c19afd457.mp3",
+      "seconds": 2.8,
+      "sha256": "b0d4df94f5bc973cdf2ca3f91061ed587416c974ea146b5a7742fd8228abf18f",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Was war das für ein Licht?! Die Kinder –"
+        }
+      ]
+    },
+    {
+      "id": "prolog-ba413f9ab914e1a45fb1146b",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wir sind Wächter. Keine Herrscher.",
+      "audio": "audio/prolog/prolog-ba413f9ab914e1a45fb1146b.mp3",
+      "seconds": 3.04,
+      "sha256": "425a6c340af5a89b70e39cd4b3df81ddeb4595c273eb7c8d7fac9bffa954f888",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wir sind Wächter. Keine Herrscher."
+        }
+      ]
+    },
+    {
+      "id": "prolog-ba561ae9b1facf4ff53d2af2",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Wehe, Ihr weckt sie. Es hat den halben Abend gedauert.",
+      "audio": "audio/prolog/prolog-ba561ae9b1facf4ff53d2af2.mp3",
+      "seconds": 3.72,
+      "sha256": "7b4dda49ecf7551a9442a191efdef5e33c3f04d798233e7803ba6114ef333efd",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Wehe, Ihr weckt sie. Es hat den halben Abend gedauert."
+        }
+      ]
+    },
+    {
+      "id": "prolog-bbd77990ba171b24d530543e",
+      "speaker": "bauer",
+      "kind": "say",
+      "text": "Fackeln, drüben am anderen Ufer. Die sind umgekehrt. Hierher verirrt sich keiner.",
+      "audio": "audio/prolog/prolog-bbd77990ba171b24d530543e.mp3",
+      "seconds": 6.04,
+      "sha256": "d222e7c5ed1a76b137165833159a61b0b0523e28366da3dfb872977850ceaf8b",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "bauer",
+          "text": "Fackeln, drüben am anderen Ufer. Die sind umgekehrt. Hierher verirrt sich keiner."
+        }
+      ]
+    },
+    {
+      "id": "prolog-be83801b959d07855ad69a78",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Die beiden?",
+      "audio": "audio/prolog/prolog-be83801b959d07855ad69a78.mp3",
+      "seconds": 1.32,
+      "sha256": "e6d5efb95d7d3640ef8524495e3a72ed5c199fa49cb19d9edfaab0d946662867",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Die beiden?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-befb6a48c4fc9f6c6dea8256",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Vier Stimmen. Vier von zehn. Wann sind Freunde zu Fremden geworden?",
+      "audio": "audio/prolog/prolog-befb6a48c4fc9f6c6dea8256.mp3",
+      "seconds": 8.72,
+      "sha256": "0c5d0d3ce4fae1e230478505530a820820162782abf98836d231c17338010969",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Vier Stimmen. Vier von zehn. Wann sind Freunde zu Fremden geworden?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-c14fe0812f7844e2f2b05049",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Genug gehört. Zeit, dass der Rat entscheidet.",
+      "audio": "audio/prolog/prolog-c14fe0812f7844e2f2b05049.mp3",
+      "seconds": 4.24,
+      "sha256": "452f1f42a510b846505e5582b4880fa9abfdf18e6dba477608fa616576dcaf54",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Genug gehört. Zeit, dass der Rat entscheidet."
+        }
+      ]
+    },
+    {
+      "id": "prolog-c29092a583ce1e554ea7bd3e",
+      "speaker": "rikkon",
+      "kind": "bark",
+      "text": "Die Zeit der Wächter ist vorbei.",
+      "audio": "audio/prolog/prolog-c29092a583ce1e554ea7bd3e.mp3",
+      "seconds": 2.56,
+      "sha256": "1c30128c3d3a786e6226c6a7d18a55c2f75410e9334a65a6ac3709f44a35f8c3",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "rikkon",
+          "text": "Die Zeit der Wächter ist vorbei."
+        },
+        {
+          "kind": "bark",
+          "speaker": "abtr-r4",
+          "text": "Die Zeit der Wächter ist vorbei."
+        }
+      ]
+    },
+    {
+      "id": "prolog-c4cc2b371da88a423ef59488",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Sechs Stimmen für das Siegel.",
+      "audio": "audio/prolog/prolog-c4cc2b371da88a423ef59488.mp3",
+      "seconds": 2.72,
+      "sha256": "b827d653f73655b208ef011db1d7043226a91b9783f74957e86f657205c9fe0b",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Sechs Stimmen für das Siegel."
+        }
+      ]
+    },
+    {
+      "id": "prolog-c70c039987f7e992c9cdb5cf",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Rauch über den Hügeln im Osten. Die Fürsten sagen, es seien nur Räuber.",
+      "audio": "audio/prolog/prolog-c70c039987f7e992c9cdb5cf.mp3",
+      "seconds": 5.56,
+      "sha256": "accf57f6f61345d8a79706fe91938e152c9d157aa4f8526817d6626ee9638c0f",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Rauch über den Hügeln im Osten. Die Fürsten sagen, es seien nur Räuber."
+        }
+      ]
+    },
+    {
+      "id": "prolog-c74014552f8f021ef097e1be",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Hört erst die anderen an. Dann sprechen wir von Mut.",
+      "audio": "audio/prolog/prolog-c74014552f8f021ef097e1be.mp3",
+      "seconds": 4.28,
+      "sha256": "da93f8a558a420ead21aeb1c199d03056c140b1d112082795288d6324b151808",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Hört erst die anderen an. Dann sprechen wir von Mut."
+        }
+      ]
+    },
+    {
+      "id": "prolog-c748cb05da2341dc9a9304c8",
+      "speaker": "gwynn",
+      "kind": "bark",
+      "text": "Das ist Wahnsinn.",
+      "audio": "audio/prolog/prolog-c748cb05da2341dc9a9304c8.mp3",
+      "seconds": 1.64,
+      "sha256": "6cd1c054fe5a80128de1123f2f7f45ed9e96a56692d4d9e6bd22a91abe7e194e",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "gwynn",
+          "text": "Das ist Wahnsinn."
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-r3",
+          "text": "Das ist Wahnsinn."
+        }
+      ]
+    },
+    {
+      "id": "prolog-c7e7bd8c0f08d5bc14f194c5",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Lasst die Hunde los!",
+      "audio": "audio/prolog/prolog-c7e7bd8c0f08d5bc14f194c5.mp3",
+      "seconds": 1.84,
+      "sha256": "19090401808b1d47381578b474f31185295373d4be661eb5fcec39ac255a4e25",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Lasst die Hunde los!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "fackel-1",
+          "text": "Lasst die Hunde los!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-cc6aa75a79acb68a07dea049",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Kein Mensch ist weise genug, sie zu führen. Nicht ihr, nicht ich.",
+      "audio": "audio/prolog/prolog-cc6aa75a79acb68a07dea049.mp3",
+      "seconds": 5.64,
+      "sha256": "278f4c04738e65ec40edc46ae619173b51bb57eddabd9bc7c76a4fe3ae6b3a08",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Kein Mensch ist weise genug, sie zu führen. Nicht ihr, nicht ich."
+        }
+      ]
+    },
+    {
+      "id": "prolog-d0084c17ad03246023563c9b",
+      "speaker": "gira",
+      "kind": "say",
+      "text": "Aber ich habe gesehen, was die Urmacht anrichtet, wenn nur ein Funke entweicht. Ein ganzes Tal – verdorrt.",
+      "audio": "audio/prolog/prolog-d0084c17ad03246023563c9b.mp3",
+      "seconds": 9.32,
+      "sha256": "d7714173373b434e1c5ef103f1e921754333279705d9ae0d9a22ad05cf271d79",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "gira",
+          "text": "Aber ich habe gesehen, was die Urmacht anrichtet, wenn nur ein Funke entweicht. Ein ganzes Tal – verdorrt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-d00c8165075bb9e324014c27",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Die Fürsten verlachen uns. Räuber brennen Dörfer nieder, und der Rat … hütet eine Tür.",
+      "audio": "audio/prolog/prolog-d00c8165075bb9e324014c27.mp3",
+      "seconds": 8.04,
+      "sha256": "b5e8fcd458e59db3029de80380b267e88f92381d1c02bb0a56e6b3d52e939869",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Die Fürsten verlachen uns. Räuber brennen Dörfer nieder, und der Rat … hütet eine Tür."
+        }
+      ]
+    },
+    {
+      "id": "prolog-d2fee208934f395adda44274",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Draußen brennen die Dörfer, und wir bewachen einen Schatz, den niemand anrühren darf.",
+      "audio": "audio/prolog/prolog-d2fee208934f395adda44274.mp3",
+      "seconds": 6.8,
+      "sha256": "6a32cf101bd6e80ff12cd4baeeba3a4e5b3939b5375dd6ed1a9196b34c175dd2",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Draußen brennen die Dörfer, und wir bewachen einen Schatz, den niemand anrühren darf."
+        }
+      ]
+    },
+    {
+      "id": "prolog-d38e6d01db3d2ed19906954a",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Wächter. Ein hübsches Wort für Feiglinge, die sich hinter einem Eid verstecken.",
+      "audio": "audio/prolog/prolog-d38e6d01db3d2ed19906954a.mp3",
+      "seconds": 5.48,
+      "sha256": "f24e22bebaba6caa3a238dbd05927d2b6f362e3b338080ccbf1688de42492932",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Wächter. Ein hübsches Wort für Feiglinge, die sich hinter einem Eid verstecken."
+        }
+      ]
+    },
+    {
+      "id": "prolog-d4c7c3e91b03a53ad6662db6",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Am Anfang war die Urmacht. Mit ihr schuf die Göttin Xenovia das Land Selantis – und die ersten Menschen.",
+      "audio": "audio/prolog/prolog-d4c7c3e91b03a53ad6662db6.mp3",
+      "seconds": 9.04,
+      "sha256": "4e7655cbb9831c44bcb1770c7d7d4d6122634537baed06921c7295da8d45368a",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Am Anfang war die Urmacht. Mit ihr schuf die Göttin Xenovia das Land Selantis – und die ersten Menschen."
+        },
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Am Anfang war die ~Urmacht~. Mit ihr schuf die Göttin Xenovia das Land Selantis – und die ersten Menschen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-d59865ecf8f58b4dda746dfa",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Hinter dieser Tür liegt die Kraft, mit der eine Göttin eine Welt erschuf. Und wir … bewachen sie. Wie Hunde einen Knochen.",
+      "audio": "audio/prolog/prolog-d59865ecf8f58b4dda746dfa.mp3",
+      "seconds": 11.56,
+      "sha256": "024d8010d4fc0d19ff105431849cd72507192cbd93c721b8083b8950bbaec172",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Hinter dieser Tür liegt die Kraft, mit der eine Göttin eine Welt erschuf. Und wir … bewachen sie. Wie Hunde einen Knochen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-daa8a287dc94301a918ef14e",
+      "speaker": "loyla",
+      "kind": "say",
+      "text": "Der Wortführer spricht für uns vier. Mehr habe ich Euch nicht zu sagen.",
+      "audio": "audio/prolog/prolog-daa8a287dc94301a918ef14e.mp3",
+      "seconds": 4.28,
+      "sha256": "a55947981b16e615073d5880eb1b5d4ea8ca63816d91ff3fd7f55c69b38ad0d0",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "loyla",
+          "text": "Der Wortführer spricht für uns vier. Mehr habe ich Euch nicht zu sagen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-daca6edb93457259c0d549ec",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Ich kann sie nicht ewig aufhalten …",
+      "audio": "audio/prolog/prolog-daca6edb93457259c0d549ec.mp3",
+      "seconds": 3.16,
+      "sha256": "9c1a02be3df2796f85c1e04af617ea376710298646a4b2c6e3e50a2879064f2f",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Ich kann sie nicht ewig aufhalten …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-dacb6a16988dd524c6b4a8ba",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Valentus lief, so schnell ihn seine alten Beine trugen. Durch den Saal, durch das Siegel, hinab in die Höhle.",
+      "audio": "audio/prolog/prolog-dacb6a16988dd524c6b4a8ba.mp3",
+      "seconds": 8.6,
+      "sha256": "cd62ff8a25d0e4a4ba26fecaec14c185e77314f25dbd9e65571bf61a176b3bf6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Valentus lief, so schnell ihn seine alten Beine trugen. Durch den Saal, durch das Siegel, hinab in die Höhle."
+        }
+      ]
+    },
+    {
+      "id": "prolog-de57e2a7b92c4ef63f5b95dc",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Ich muss … aufstehen.",
+      "audio": "audio/prolog/prolog-de57e2a7b92c4ef63f5b95dc.mp3",
+      "seconds": 5.16,
+      "sha256": "42540c6d7fea738df00837c424ef6c0f04b4fdd6b50fa9ecb19771e4b658d88e",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Ich muss … aufstehen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-df49d965a5f4de1fd70b77f8",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Wer entscheidet, wofür sie benutzt wird? Ihr?",
+      "audio": "audio/prolog/prolog-df49d965a5f4de1fd70b77f8.mp3",
+      "seconds": 3.88,
+      "sha256": "67a6c1789cab16b430871f36e0011a0c7cb0d0d99dff38409d6a077b79f595d9",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Wer entscheidet, wofür sie benutzt wird? Ihr?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-dfb97b3c582bc21c0b606092",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Valentus. Ich sitze seit dreißig Jahren in diesem Saal. So laut war es hier noch nie.",
+      "audio": "audio/prolog/prolog-dfb97b3c582bc21c0b606092.mp3",
+      "seconds": 6.92,
+      "sha256": "2e208ca5ed6739ab93ea6e6cdfbbdc0314cd6ba3abbb25fb542510cbca3f1a76",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Valentus. Ich sitze seit dreißig Jahren in diesem Saal. So laut war es hier noch nie."
+        }
+      ]
+    },
+    {
+      "id": "prolog-e37dec0acb27fd0d3849aa43",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Sofort. Und ich schreibe nach Ignis. Wenn sie Freunde haben, haben wir auch welche.",
+      "audio": "audio/prolog/prolog-e37dec0acb27fd0d3849aa43.mp3",
+      "seconds": 5.44,
+      "sha256": "0b8e8d90316ae776745545ba526d719d540997e5064e2077e14533d053a5af63",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Sofort. Und ich schreibe nach Ignis. Wenn sie Freunde haben, haben wir auch welche."
+        }
+      ]
+    },
+    {
+      "id": "prolog-e4a4b2b5c29a338731dc3a79",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Behaltet Euer Siegel, Valentus. Aber merkt Euch eins:",
+      "audio": "audio/prolog/prolog-e4a4b2b5c29a338731dc3a79.mp3",
+      "seconds": 4.36,
+      "sha256": "99dd54bb64291e25fab06c054100e75df914e3029ba53901216a63aa10b9ee76",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Behaltet Euer Siegel, Valentus. Aber merkt Euch eins:"
+        }
+      ]
+    },
+    {
+      "id": "prolog-e7102d421d658338d5a1958e",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Die Urmacht könnte die Ernten retten, die Räuber vertreiben, die Fürsten zur Ordnung zwingen. Und wir lassen sie schlafen.",
+      "audio": "audio/prolog/prolog-e7102d421d658338d5a1958e.mp3",
+      "seconds": 10.32,
+      "sha256": "158333c43461463b464aa79d0a4fcf3c58fea5ae13af83e4824c30aa75f1713a",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Die Urmacht könnte die Ernten retten, die Räuber vertreiben, die Fürsten zur Ordnung zwingen. Und wir lassen sie schlafen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-e777aedf122a6d824224a3a6",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Doch die ersten zehn Menschen stürzten ihre Schöpferin. Sie nahmen ihr die Urmacht und verbannten sie auf den Grund des Meeres.",
+      "audio": "audio/prolog/prolog-e777aedf122a6d824224a3a6.mp3",
+      "seconds": 8.56,
+      "sha256": "7e9d9beae699239c67d8b95a390e8eba24c60f162431e54fe81967bced40af13",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Doch die ersten zehn Menschen stürzten ihre Schöpferin. Sie nahmen ihr die Urmacht und verbannten sie auf den Grund des Meeres."
+        }
+      ]
+    },
+    {
+      "id": "prolog-e966e6775b0153d08b1f2439",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Ihr hättet mich liegen lassen sollen.",
+      "audio": "audio/prolog/prolog-e966e6775b0153d08b1f2439.mp3",
+      "seconds": 2.92,
+      "sha256": "0c57d6188a79e393094527ae57d83072456d689e868b4c21ca9f5c808d13b518",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Ihr hättet mich liegen lassen sollen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-ea529c59aab33b87a869f025",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Die Urmacht wird mit mir sterben – oder sie fällt denen in die Hände, die mich jagen.",
+      "audio": "audio/prolog/prolog-ea529c59aab33b87a869f025.mp3",
+      "seconds": 6.84,
+      "sha256": "1bb48f1c1f165632c50bd83681a1d276b956c4b31b0a39bd38abfa73e3f792ae",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Die Urmacht wird mit mir sterben – oder sie fällt denen in die Hände, die mich jagen."
+        },
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Die ~Urmacht~ wird mit mir sterben – oder sie fällt denen in die Hände, die mich jagen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-ea7024303a5b1ecb3ced00e2",
+      "speaker": "gwynn",
+      "kind": "bark",
+      "text": "Unerhört!",
+      "audio": "audio/prolog/prolog-ea7024303a5b1ecb3ced00e2.mp3",
+      "seconds": 1.28,
+      "sha256": "1bb1beb5be6e9d73e4f05652f1e9c6e81d2594ff3179bd3d523e92daf3d9a31e",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "gwynn",
+          "text": "Unerhört!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "rat-r3",
+          "text": "Unerhört!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-eaff928f48d08dfa32e48b0f",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Sitzen kann ich später. Erst muss ich wissen, wer noch zu mir steht.",
+      "audio": "audio/prolog/prolog-eaff928f48d08dfa32e48b0f.mp3",
+      "seconds": 5.32,
+      "sha256": "1212668ded7d84db3669e3e5aa317ccf39d2a7a89198a839ab03349077eb3eda",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Sitzen kann ich später. Erst muss ich wissen, wer noch zu mir steht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-eb57568eea9f8a7b221d52e1",
+      "speaker": "valentus",
+      "kind": "choice",
+      "text": "Habt Ihr Angst, Ignatius?",
+      "audio": "audio/prolog/prolog-eb57568eea9f8a7b221d52e1.mp3",
+      "seconds": 3.44,
+      "sha256": "481ae11f4e4d01d00b06bfbdc4613065bb453ab6e11c612cca4c9859d68529d0",
+      "runtime_keys": [
+        {
+          "kind": "choice",
+          "speaker": "valentus",
+          "text": "Habt Ihr Angst, Ignatius?"
+        }
+      ]
+    },
+    {
+      "id": "prolog-ec1c27272aab0395f9588111",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Und leise, bitte. Die beiden schlafen endlich.",
+      "audio": "audio/prolog/prolog-ec1c27272aab0395f9588111.mp3",
+      "seconds": 3.32,
+      "sha256": "49e2d527f1bed49a95d53ec41e2ff9da32471643041023d204c9e11a72bc8300",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Und leise, bitte. Die beiden schlafen endlich."
+        }
+      ]
+    },
+    {
+      "id": "prolog-ee9e8e839329045552d205cb",
+      "speaker": "ulfbert",
+      "kind": "say",
+      "text": "Großmeister. Ihr habt mich gehört. Wer die Macht hütet, soll sie auch führen.",
+      "audio": "audio/prolog/prolog-ee9e8e839329045552d205cb.mp3",
+      "seconds": 6.92,
+      "sha256": "b5a1b07fd2be2b68221dbd7a424de1bb433816d5a2d19c3bf68c0599b40c1449",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ulfbert",
+          "text": "Großmeister. Ihr habt mich gehört. Wer die Macht hütet, soll sie auch führen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-efc89317cf7bcb9d690e1208",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Sie sind das Beste, was wir haben. Das Einzige, wenn ich ehrlich bin.",
+      "audio": "audio/prolog/prolog-efc89317cf7bcb9d690e1208.mp3",
+      "seconds": 4.72,
+      "sha256": "c7c7bd90c0b96f24ed2ff18d2c0193eb8ce09651761f856e3613558693b699b6",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Sie sind das Beste, was wir haben. Das Einzige, wenn ich ehrlich bin."
+        }
+      ]
+    },
+    {
+      "id": "prolog-eff70cec7cf665bd56e89845",
+      "speaker": "narrator",
+      "kind": "say",
+      "text": "Der Ratssaal. Ein Abend im Spätsommer, ein Jahr vor Dunkelhain.",
+      "audio": "audio/prolog/prolog-eff70cec7cf665bd56e89845.mp3",
+      "seconds": 6.4,
+      "sha256": "4fa0394553e1da5b19180cb82e99880fe00f4343ac8e927e8f9b7afd925e386c",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "narrator",
+          "text": "Der Ratssaal. Ein Abend im Spätsommer, ein Jahr vor Dunkelhain."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f16b1ccad834d3f844ab5922",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Dann ist Dunkelhain verloren. Und hinter uns liegt der Ratssaal … und die Höhle.",
+      "audio": "audio/prolog/prolog-f16b1ccad834d3f844ab5922.mp3",
+      "seconds": 7.96,
+      "sha256": "2b32aa8f0530787b71293678dc3d432b09bcc4e1e13adbf69b396da0467a423c",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Dann ist Dunkelhain verloren. Und hinter uns liegt der Ratssaal … und die Höhle."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f2f547901b5047269d6a7549",
+      "speaker": "tholoss",
+      "kind": "say",
+      "text": "Wir haben uns nichts mehr zu sagen, Großmeister.",
+      "audio": "audio/prolog/prolog-f2f547901b5047269d6a7549.mp3",
+      "seconds": 3.76,
+      "sha256": "946b478d66cf68d6ccfe766c6bb30f14fdf7c13a5d15114a0c4ba98779044e0c",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "tholoss",
+          "text": "Wir haben uns nichts mehr zu sagen, Großmeister."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f34a55fa0a6df18448cdba41",
+      "speaker": "verwundeter-2",
+      "kind": "bark",
+      "text": "Ich … kann nicht mehr …",
+      "audio": "audio/prolog/prolog-f34a55fa0a6df18448cdba41.mp3",
+      "seconds": 3.24,
+      "sha256": "15191d8049f1f44a2ae4fef4e41bb1b2703d898d113510bfad17ef6d063e1e9f",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "verwundeter-2",
+          "text": "Ich … kann nicht mehr …"
+        }
+      ]
+    },
+    {
+      "id": "prolog-f38fa192c5635397c74325b0",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Ich hoffe, Ihr habt recht. Bei allen Zehn, ich hoffe es.",
+      "audio": "audio/prolog/prolog-f38fa192c5635397c74325b0.mp3",
+      "seconds": 4.48,
+      "sha256": "1e5db700e75d10c37b2b33c25a9e2ffe93d46b747c08f315bffefdf7e3c2b271",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Ich hoffe, Ihr habt recht. Bei allen Zehn, ich hoffe es."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f41bdada4a84fc51e1a81e69",
+      "speaker": "ignatius",
+      "kind": "say",
+      "text": "Angst? Ja. Nicht vor der Urmacht. Vor denen, die glauben, sie könnten sie zähmen.",
+      "audio": "audio/prolog/prolog-f41bdada4a84fc51e1a81e69.mp3",
+      "seconds": 7.44,
+      "sha256": "1ab8fea43477830545348b52b4cdd79158fb57293d8c702a5636c24e813fd53b",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Angst? Ja. Nicht vor der Urmacht. Vor denen, die glauben, sie könnten sie zähmen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f4916da0f2c151fd3b62e949",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Und ich hole frisches Wasser für Euren Verband. Bleibt sitzen, wenn Ihr könnt.",
+      "audio": "audio/prolog/prolog-f4916da0f2c151fd3b62e949.mp3",
+      "seconds": 4.6,
+      "sha256": "7d3040657f6df01ab35ab376e3a4cd24eaeaa5ff418c9491761673f8173342fc",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Und ich hole frisches Wasser für Euren Verband. Bleibt sitzen, wenn Ihr könnt."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f511b9e992adde447c31576e",
+      "speaker": "rikkon",
+      "kind": "bark",
+      "text": "Schwarz und weiß … wir werden sehen.",
+      "audio": "audio/prolog/prolog-f511b9e992adde447c31576e.mp3",
+      "seconds": 2.84,
+      "sha256": "a45c5b9d0ffc027248c9759a66c4c62c366f973cad26935b60c61132ef678103",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "rikkon",
+          "text": "Schwarz und weiß … wir werden sehen."
+        },
+        {
+          "kind": "bark",
+          "speaker": "abtr-r4",
+          "text": "Schwarz und weiß … wir werden sehen."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f61a9c8372b2d081e72724c0",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Hört mir zu. Man jagt mich. Wenn sie mich hier finden, töten sie euch. Alle.",
+      "audio": "audio/prolog/prolog-f61a9c8372b2d081e72724c0.mp3",
+      "seconds": 7.6,
+      "sha256": "e9dc80804a7062f23f0fdd862da1be62ea104c048496490a9010778a7f205e2f",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Hört mir zu. Man jagt mich. Wenn sie mich hier finden, töten sie euch. Alle."
+        }
+      ]
+    },
+    {
+      "id": "prolog-f909a156d4c51197974624fe",
+      "speaker": "fackeltraeger",
+      "kind": "bark",
+      "text": "Großmeister? Zeigt Euch!",
+      "audio": "audio/prolog/prolog-f909a156d4c51197974624fe.mp3",
+      "seconds": 2.2,
+      "sha256": "20c72749ede85303d89d72276ba41a9ba1558fd4783eb702e8a51b14383cdbdc",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "fackeltraeger",
+          "text": "Großmeister? Zeigt Euch!"
+        },
+        {
+          "kind": "bark",
+          "speaker": "prolog-fackeltraeger",
+          "text": "Großmeister? Zeigt Euch!"
+        }
+      ]
+    },
+    {
+      "id": "prolog-fa0a4374956837ed4b747615",
+      "speaker": "narrator",
+      "kind": "narrate",
+      "text": "Nacht. Der Wald nördlich von Dunkelhain.",
+      "audio": "audio/prolog/prolog-fa0a4374956837ed4b747615.mp3",
+      "seconds": 4.08,
+      "sha256": "017041cc191fb136a552695afd5618b4468b64e6d16ca7349b884aefec6a9844",
+      "runtime_keys": [
+        {
+          "kind": "narrate",
+          "speaker": "narrator",
+          "text": "Nacht. Der Wald nördlich von Dunkelhain."
+        }
+      ]
+    },
+    {
+      "id": "prolog-fc405339651256418c2f1f02",
+      "speaker": "baeuerin",
+      "kind": "say",
+      "text": "Schsch … alles gut. Alles gut, ihr zwei. Ich bin ja da.",
+      "audio": "audio/prolog/prolog-fc405339651256418c2f1f02.mp3",
+      "seconds": 5.36,
+      "sha256": "e04a7844639d64f439552b9314652cfad731d1a5bbdaa761fcec7be8aca9f38c",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "baeuerin",
+          "text": "Schsch … alles gut. Alles gut, ihr zwei. Ich bin ja da."
+        }
+      ]
+    },
+    {
+      "id": "prolog-fc7ab33f0f5e3ad54615a50b",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Genug. Bevor dieser Rat entscheidet, höre ich jeden an. Auch Euch.",
+      "audio": "audio/prolog/prolog-fc7ab33f0f5e3ad54615a50b.mp3",
+      "seconds": 6.36,
+      "sha256": "dbc8adc3fd6936c075c6d9ef89287a2ad156a5e8c1c1127e14aa304f44c5e4b4",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Genug. Bevor dieser Rat entscheidet, höre ich jeden an. Auch Euch."
+        }
+      ]
+    },
+    {
+      "id": "prolog-fd655ceef04da1ff061b9149",
+      "speaker": "valentus",
+      "kind": "think",
+      "text": "Jetzt bin ich allein. Mit ihnen. Und mit dem, was ich in mir trage.",
+      "audio": "audio/prolog/prolog-fd655ceef04da1ff061b9149.mp3",
+      "seconds": 11.64,
+      "sha256": "8126a8e1de941154f71d416d75efc4d88bed4ae61f7bdae38d5e8899ba7edff6",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "valentus",
+          "text": "Jetzt bin ich allein. Mit ihnen. Und mit dem, was ich in mir trage."
+        }
+      ]
+    },
+    {
+      "id": "prolog-fe69eaf77d9994aeb6f4b9ac",
+      "speaker": "rikkon",
+      "kind": "say",
+      "text": "Ihr seid alt geworden, Valentus. Die Welt dreht sich weiter, ob die Tür offen ist oder nicht.",
+      "audio": "audio/prolog/prolog-fe69eaf77d9994aeb6f4b9ac.mp3",
+      "seconds": 5.76,
+      "sha256": "1843dc5da15a2b1123df8e248ba1d50bb6bbde6378cc8f5d38211da182c6ec40",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "rikkon",
+          "text": "Ihr seid alt geworden, Valentus. Die Welt dreht sich weiter, ob die Tür offen ist oder nicht."
+        }
+      ]
+    },
+    {
+      "id": "prolog-fff91b04052141996d1e896b",
+      "speaker": "valentus",
+      "kind": "say",
+      "text": "Der Pfeil ist heraus. Die Wunde nicht. Weiter … nur weiter.",
+      "audio": "audio/prolog/prolog-fff91b04052141996d1e896b.mp3",
+      "seconds": 6.6,
+      "sha256": "c8bed43357f9fb70a834a4989f676bcf1a726dbf8b96d291e776061d5edc32f0",
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "valentus",
+          "text": "Der Pfeil ist heraus. Die Wunde nicht. Weiter … nur weiter."
+        }
+      ]
+    }
+  ]
+}

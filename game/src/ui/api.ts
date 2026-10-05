@@ -56,7 +56,7 @@ export interface UiApi {
   /** Interaction hint near a canvas-space point. null hides. */
   hint(h: { verb: string; key?: string; x: number; y: number } | null): void;
   /** Speech bubble anchored to a canvas-space position provider; auto-hides after ms. Returns a remover. */
-  bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number): () => void;
+  bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number, opts?: { speaker?: string }): () => void;
 
   /**
    * Hold-to-act prompt (e.g. „Hand heben“). Resolves when the player held the action for durationMs.

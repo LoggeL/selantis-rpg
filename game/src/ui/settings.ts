@@ -32,7 +32,7 @@ export function buildSettings(host: HTMLElement, onBack?: () => void): NavList {
   };
 
   // Volume sliders with pips
-  const slider = (label: string, key: 'music' | 'sfx') => {
+  const slider = (label: string, key: 'music' | 'sfx' | 'voice') => {
     const ctl = el('div', 'set-slider');
     const pips: HTMLElement[] = [];
     for (let i = 0; i < 10; i++) { const p = el('span', 'set-pip'); ctl.appendChild(p); pips.push(p); }
@@ -71,6 +71,7 @@ export function buildSettings(host: HTMLElement, onBack?: () => void): NavList {
   };
   slider('Musik', 'music');
   slider('Effekte', 'sfx');
+  slider('Sprache', 'voice');
 
   // Text speed (segmented) with a live sample line
   const seg = el('div', 'set-seg');

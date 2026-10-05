@@ -1192,7 +1192,7 @@ export class WorldScene extends Phaser.Scene {
   barkActor(a: Actor, text: string, ms = 2600): () => void {
     let remove: () => void = () => {};
     try {
-      remove = G.ui.bubble(text, () => (!a.destroyed && a.visible && this.alive && !this.transitioning ? this.toScreen(a.x, a.headY - 2) : null), ms);
+      remove = G.ui.bubble(text, () => (!a.destroyed && a.visible && this.alive && !this.transitioning ? this.toScreen(a.x, a.headY - 2) : null), ms, { speaker: a.speaker });
     } catch { return () => {}; }
     const r = () => { this.bubbles.delete(r); try { remove(); } catch { /* */ } };
     this.bubbles.add(r);

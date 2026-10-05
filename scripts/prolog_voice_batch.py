@@ -113,7 +113,7 @@ def api(method, url, key, body=None, headers=None, raw=False):
     if raw:
         return data, result_headers
     try:
-        return json.loads(data)
+        return json.loads(data) if data.strip() else {}
     except ValueError:
         raise SafeError('API returned invalid JSON; outcome may be unknown.') from None
 
@@ -165,15 +165,18 @@ def prepare(args, run):
     records = []
     for row in lines:
         p = cast[row['speaker']]
-        suffixes = [profiles.get(k, '') for k in ['common_prompt_en', 'sharedPromptSuffixEn', 'global_api_suffix_en']]
         pronunciation = []
         for name, guidance in profiles.get('pronunciation', {}).items():
             reading = guidance.get('german_reading') if isinstance(guidance, dict) else guidance
             if isinstance(reading, str) and re.search(r'\b' + re.escape(name) + r'\b', row['text'], re.I):
                 pronunciation.append(name + ': ' + reading)
-        style = '\n'.join([p['api_prompt_en'], *[x for x in suffixes if isinstance(x, str) and x],
+        # Gemini 3.8 anchors identity in the selected voice. Long permanent
+        # persona descriptions can increase drift; profiles remain the casting
+        # reference, while each request carries only delivery and pronunciation.
+        # https://ai.google.dev/gemini-api/docs/speech-generation#prompting-guide
+        style = '\n'.join([
                            *(['German name pronunciation: ' + '; '.join(pronunciation)] if pronunciation else []),
-                           *(['Delivery: ' + row['direction_en']] if row.get('direction_en') else [])])
+                           *([row['direction_en']] if row.get('direction_en') else ['Clear native German.'])])
         request = {
             'contents': [{'role': 'user', 'parts': [{'text': row['text'], 'speechMetadata': {'style': style}}]}],
             'generationConfig': {
@@ -258,6 +261,19 @@ def status(args, run):
     result, state = fetch_status(args, run)
     meta = result.get('metadata', result)
     print(json.dumps({'state': state, 'done': result.get('done', state in TERMINAL), 'counts': meta.get('batchStats', meta.get('batch_stats', {}))}))
+
+def cancel(args, run):
+    key = credential(args)
+    _, state = fetch_status(args, run, key)
+    if state in TERMINAL:
+        print(json.dumps({'state': state, 'cancel': 'already_terminal'}))
+        return
+    journal = read_json(run / 'job.json')
+    result = api('POST', BASE + '/v1beta/' + journal['job_name'] + ':cancel', key, {})
+    save(run / 'cancel.private.json', result)
+    journal['cancel_requested_at'] = int(time.time())
+    save(run / 'job.json', journal)
+    print(json.dumps({'state': 'CANCEL_REQUESTED', 'requests': journal['request_count']}))
 
 def command(argv):
     try:
@@ -419,7 +435,7 @@ def collect(args, run):
 def main():
     os.umask(0o077)
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('command', choices=['prepare', 'submit', 'status', 'collect'])
+    parser.add_argument('command', choices=['prepare', 'submit', 'status', 'collect', 'cancel'])
     parser.add_argument('--run-dir', default=str(PRIVATE / 'prolog-2026-10-05'))
     parser.add_argument('--profiles')
     parser.add_argument('--manifest')
