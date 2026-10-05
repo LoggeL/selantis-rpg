@@ -2,6 +2,8 @@
 import copy
 import unittest
 import tempfile
+import json
+import prolog_voice_word_cues as acoustic
 from pathlib import Path
 from unittest.mock import patch
 import story_voice_word_cues as cues
@@ -95,6 +97,51 @@ class StoryAlignmentTests(unittest.TestCase):
         report = cues.report_for([row])
         self.assertEqual(report['status'], 'needs_review')
         self.assertEqual(report['alignment_by_id'], {})
+
+
+    def test_qualified_CTC_reuse_preserves_original_flags_without_loading_model(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run=Path(directory);(run/'clips').mkdir();(run/'word-cues').mkdir();(run/'ctc-align').mkdir()
+            row=self.receipt();ident=row['id'];mp3=run/'clips'/(ident+'.mp3');mp3.write_bytes(b'offline MP3 fixture')
+            line={'id':ident,'text':row['text'],'kind':'say','speaker':'lia'}
+            (run/'lines.private.json').write_text(json.dumps({'lines':[line]}))
+            expected={'audio_sha256':acoustic.sha(mp3),'text_sha256':cues.text_sha(row['text']),
+                      'source_manifest_sha256':acoustic.sha(run/'lines.private.json'),'engine_version':cues.ENGINE}
+            model={'local_directory':directory,'revision':'a'*40,'fingerprint':'fixture'}
+            binding={**{k:v for k,v in expected.items()if k!='engine_version'},
+                     'engine':'story-german-ctc-expanded-blank-v2','script_sha256':acoustic.sha(Path(cues.__file__).with_name('story_voice_ctc_align.py')),'model':model}
+            actual={'binding':binding,'alignment':{'words':[{'word':word,**cue}for word,cue in zip(row['text'].split(),row['word_cues'])]}}
+            cp=run/'ctc-align'/(ident+'.ctc.private.json');cp.write_text(json.dumps(actual))
+            row.update(expected);row['engine_version']=cues.ENGINE+'/story-CTC-private-adoption-v1'
+            row['cues_sha256']=acoustic.cue_sha(row['word_cues'])
+            row['CTC_adoption']={'ctc_receipt_sha256':acoustic.sha(cp),'binding':binding}
+            row['all_qualification_flags']=[{'reason':'original_DTW_collapsed'}];row['raw_word_cues']=copy.deepcopy(row['word_cues'])
+            row['original_qualification_flags']=copy.deepcopy(row['all_qualification_flags'])
+            approval={k:row[k]for k in['audio_sha256','text_sha256','source_manifest_sha256','cues_sha256','engine_version']}
+            approval.update(decision='reviewed',review_note='Explicit fixture root timing review',ctc_receipt_sha256=acoustic.sha(cp),CTC_binding=binding)
+            ap=run/'qualifications.json';ap.write_text(json.dumps({'approvals':{ident:approval}}))
+            (run/'word-cues'/(ident+'.json')).write_text(json.dumps(row))
+            (run/'public-manifest.proposed.json').write_text(json.dumps({'clips':[{**line,'sha256':expected['audio_sha256'],'seconds':3.0}]}))
+            with patch('story_voice_ctc_align.model_identity',return_value=model), patch.object(cues.story,'prepared'), patch.object(acoustic,'decode',return_value=[0]*48000), patch.object(cues,'load_local_model',side_effect=AssertionError('GPU model must remain unloaded')) as load:
+                result=cues.align_run(run,run/'word-cues',ap)
+                load.assert_not_called();self.assertEqual(result['status'],'passed')
+                saved=json.loads((run/'word-cues'/(ident+'.json')).read_text())
+                self.assertEqual(saved['all_qualification_flags'],row['all_qualification_flags'])
+                self.assertEqual(saved['raw_word_cues'],row['raw_word_cues'])
+                for field in ['audio_sha256','text_sha256','source_manifest_sha256','cues_sha256']:
+                    bad=copy.deepcopy(row);bad[field]='stale'
+                    self.assertFalse(cues.qualified_CTC_cache(bad,expected,approval,run))
+                bad_approval={**approval,'decision':'unreviewed'}
+                self.assertFalse(cues.qualified_CTC_cache(row,expected,bad_approval,run))
+                with patch('story_voice_ctc_align.model_identity',return_value={'changed':'model'}):
+                    self.assertFalse(cues.qualified_CTC_cache(row,expected,approval,run))
+                original_sha=acoustic.sha
+                with patch.object(acoustic,'sha',side_effect=lambda p: 'changed-script' if Path(p).name=='story_voice_ctc_align.py' else original_sha(p)):
+                    self.assertFalse(cues.qualified_CTC_cache(row,expected,approval,run))
+                changed=copy.deepcopy(actual);changed['binding']['script_sha256']='stale';cp.write_text(json.dumps(changed))
+                self.assertFalse(cues.qualified_CTC_cache(row,expected,approval,run))
+                cp.write_text(json.dumps(actual)+' ')
+                self.assertFalse(cues.qualified_CTC_cache(row,expected,approval,run))
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@
   "language": "de-DE",
   "model": "gemini-3.8-flash-tts",
   "production_transport": "batch",
-  "status": "casting_prepared_not_generated",
+  "status": "story_audio_generated_quality_review_in_progress",
   "speakers": {
     "valentus": {
       "id": "valentus",
@@ -433,7 +433,8 @@
         "Urmacht",
         "Dunkelhain"
       ],
-      "voice_design_prompt_en": null
+      "voice_design_prompt_en": null,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "tholoss": {
       "id": "tholoss",
@@ -973,7 +974,8 @@
         "Lia"
       ],
       "voice_design_prompt_en": "A native standard-German youthful female voice, clear bright middle-high register with curious natural phrasing. Human and flexible, capable of dry humor, raw fear, grief, resolve and warm intimacy. No child caricature, celebrity imitation or accent stereotype.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "kyra": {
       "id": "kyra",
@@ -1011,7 +1013,8 @@
         "Kyra"
       ],
       "voice_design_prompt_en": "A native standard-German youthful female voice with a warmer, firmer middle register than Lia, energetic direct consonants and quick natural replies. Fierce but vulnerable, able to tease, shout, grieve and reassure without changing identity.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "foltan": {
       "id": "foltan",
@@ -1048,7 +1051,8 @@
         "Foltan"
       ],
       "voice_design_prompt_en": "A native standard-German adult male voice, dry middle baritone with concise exact consonants and restrained military precision. Understated wit, guarded care and uncomfortable remorse remain human. Distinct from a rounded warm bass.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "azar": {
       "id": "azar",
@@ -1085,7 +1089,8 @@
         "Azar"
       ],
       "voice_design_prompt_en": "A native standard-German adult male voice, full warm lower baritone with flexible everyday melody and a friendly woody grain. Open laughter, quick alarm and sincere care; never a comic fool or stereotyped regional accent.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "elnon": {
       "id": "elnon",
@@ -1121,7 +1126,8 @@
         "Elnon"
       ],
       "voice_design_prompt_en": "A native standard-German mature male voice, firm mid-low register, straight focused resonance and economical phrasing. Quiet strategic authority with human grief under control. An individual speaker, no fantastical vocal filter.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "alastir": {
       "id": "alastir",
@@ -1157,7 +1163,8 @@
         "Alastir"
       ],
       "voice_design_prompt_en": "A native standard-German mature male voice, even middle register with a tired dry grain and spare precise articulation. Sober, capable of bitter humor and restrained loss, distinct from a deep commanding bass.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "orwen": {
       "id": "orwen",
@@ -1195,7 +1202,8 @@
         "Orwen"
       ],
       "voice_design_prompt_en": "A native standard-German older adult male voice, low dry hard bass with short cutting consonants and casual coldness. Clear physical threats, offhand mockery and irritation without theatrical booming or villain laughter.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "baris": {
       "id": "baris",
@@ -1228,7 +1236,8 @@
         "Baris"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "flick": {
       "id": "flick",
@@ -1259,7 +1268,8 @@
         "Flick"
       ],
       "voice_design_prompt_en": "A native standard-German younger adult female voice, bright alert middle-high register, quick clean replies and buoyant dry wit. Mischievous yet capable of immediate serious danger, fierce care and quiet vulnerability.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "vamir": {
       "id": "vamir",
@@ -1288,7 +1298,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "craupor": {
       "id": "craupor",
@@ -1324,7 +1335,8 @@
         "Craupor"
       ],
       "voice_design_prompt_en": "A native standard-German adult male voice, smooth slightly higher middle baritone with hurried hospitable phrasing. Warm and conversational, naturally capable of anxious hesitation and embarrassed evasion without comic nasal exaggeration.",
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "mutter": {
       "id": "mutter",
@@ -1358,7 +1370,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "vater": {
       "id": "vater",
@@ -1392,7 +1405,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "algard": {
       "id": "algard",
@@ -1430,7 +1444,8 @@
         "Algard"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "maedchen": {
       "id": "maedchen",
@@ -1466,7 +1481,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "harro": {
       "id": "harro",
@@ -1495,7 +1511,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "kapuze": {
       "id": "kapuze",
@@ -1525,7 +1542,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "wache": {
       "id": "wache",
@@ -1555,7 +1573,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "schuetze": {
       "id": "schuetze",
@@ -1585,7 +1604,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "soldiers": {
       "id": "soldiers",
@@ -1646,7 +1666,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "barde": {
       "id": "barde",
@@ -1676,7 +1697,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "spielmann": {
       "id": "spielmann",
@@ -1706,7 +1728,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "gauklerin": {
       "id": "gauklerin",
@@ -1736,7 +1759,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "haendler": {
       "id": "haendler",
@@ -1765,7 +1789,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "knecht": {
       "id": "knecht",
@@ -1795,7 +1820,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "reisender": {
       "id": "reisender",
@@ -1825,7 +1851,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "reisende": {
       "id": "reisende",
@@ -1855,7 +1882,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "schankmaid": {
       "id": "schankmaid",
@@ -1884,7 +1912,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "zwerg": {
       "id": "zwerg",
@@ -1913,7 +1942,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "ilvy": {
       "id": "ilvy",
@@ -1945,7 +1975,8 @@
         "Ilvy"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "gundrik": {
       "id": "gundrik",
@@ -1977,7 +2008,8 @@
         "Gundrik"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "berta": {
       "id": "berta",
@@ -2009,7 +2041,8 @@
         "Berta"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "jorin": {
       "id": "jorin",
@@ -2041,7 +2074,8 @@
         "Jorin"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "bruderschaft-wache": {
       "id": "bruderschaft-wache",
@@ -2071,7 +2105,8 @@
       ],
       "pronunciation": [],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     },
     "faelan": {
       "id": "faelan",
@@ -2103,7 +2138,8 @@
         "Faelan"
       ],
       "voice_design_prompt_en": null,
-      "persistent_design_only": true
+      "persistent_design_only": true,
+      "story_generation_status": "generated_quality_review_pending"
     }
   },
   "story_profile_ids": [
@@ -3295,5 +3331,13 @@
     "docs/episode-03.md",
     "game/src/ui/speakers.ts"
   ],
-  "prolog_source": "docs/voice-production/prolog-speakers.json"
+  "prolog_source": "docs/voice-production/prolog-speakers.json",
+  "story_generation": {
+    "model": "gemini-3.8-flash-tts",
+    "base_takes": 1557,
+    "active_roles": 36,
+    "base_audio_minutes": 125.13,
+    "publication_status": "pending_current_audio_QA_and_word_timing_review",
+    "human_hearing_status": "not_complete"
+  }
 }

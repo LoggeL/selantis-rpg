@@ -1,3 +1,4 @@
+import { routeRecordedMedia, type RecordedMediaRoute } from './recordedMediaRouting';
 /**
  * Audio engine: implements AudioApi (audio/api.ts).
  * - The AudioContext is created lazily on unlock() (first user gesture). Earlier music/ambience
@@ -79,6 +80,9 @@ const FOCUS_MUSIC_DB = -5;
 const FOCUS_AMB_DB = -3;
 
 class AudioEngine implements AudioApi {
+  routeRecordedMedia(element: HTMLAudioElement): RecordedMediaRoute | null {
+    return routeRecordedMedia(this.ctx, element);
+  }
   private ctx: AudioContext | null = null;
   private graph: Graph | null = null;
   private readonly musicMgr = new MusicManager();

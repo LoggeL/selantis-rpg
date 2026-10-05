@@ -1,4 +1,5 @@
-import { bindVoiceVolume, voiceover } from '../audio/voiceover';
+import { screenVoicePan } from '../audio/recordedMediaRouting';
+import { bindRecordedMediaRouting, bindVoiceVolume, voiceover } from '../audio/voiceover';
 import { G } from '../core/G';
 import { openBag, registerItemAction, type ItemAction } from './bag';
 import { chapterCard } from './chapterCard';
@@ -127,6 +128,7 @@ export function createUi(): UiApiExt {
       mounted = true;
       ctx.mount(root);
       bindVoiceVolume(() => G.settings.voice);
+      bindRecordedMediaRouting(element => G.audio?.routeRecordedMedia?.(element) ?? null);
       void voiceover.preload('prolog');
       void voiceover.preload('story');
       voiceover.scene(G.currentScene);
@@ -197,7 +199,7 @@ export function createUi(): UiApiExt {
     hint: h => hints.hint(ctx.stale() ? null : h),
     bubble: (text, anchor, ms, opts) => {
       if (ctx.stale()) return () => {};
-      const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, opts.voiceText ?? text, undefined, undefined, opts.foreground) : null;
+      const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, opts.voiceText ?? text, undefined, undefined, opts.foreground, opts.foreground ? () => screenVoicePan(anchor()?.x) : undefined) : null;
       return Object.assign(bubbles.bubble(text, anchor, ms, voice, opts?.voiceText), { voiced: Boolean(voice), voiceDone: voice?.done });
     },
     hold: (label, durationMs, opts) => (ctx.stale() ? ctx.never() : hold(label, durationMs, opts)),

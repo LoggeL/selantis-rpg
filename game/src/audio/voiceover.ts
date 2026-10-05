@@ -1,3 +1,4 @@
+import { CapturedMediaRoutingError, type RecordedMediaRoute } from './recordedMediaRouting';
 import { stripMarkup } from '../ui/text';
 
 export type VoiceKind = 'say' | 'think' | 'narrate' | 'bark' | 'choice';
@@ -5,7 +6,7 @@ export type VoiceBank = 'prolog' | 'story';
 export interface VoiceKey { kind: VoiceKind; speaker: string; text: string; scene?: string; mood?: string }
 export interface WordCue { start: number; end: number }
 export type VoiceOutcome = 'playing' | 'ended' | 'failed' | 'stopped';
-export interface VoiceClip extends VoiceKey { word_cues?: WordCue[]; id: string; audio: string; seconds: number; runtime_keys: VoiceKey[] }
+export interface VoiceClip extends VoiceKey { sha256?: string; word_cues?: WordCue[]; id: string; audio: string; seconds: number; runtime_keys: VoiceKey[] }
 export interface VoiceManifest { model: string; aliases: Record<string, string>; scene_players?: Record<string, string>; clips: VoiceClip[] }
 export interface VoicePlayback { done: Promise<void>; readonly currentTime: number; readonly started: boolean; readonly wordCues?: readonly WordCue[]; readonly spokenText?: string; readonly outcome: VoiceOutcome; stop(): void }
 
@@ -59,6 +60,9 @@ interface Dependencies {
   volume: () => number;
   now: () => number;
   visible?: () => boolean;
+  routeMedia?: (element: HTMLAudioElement) => RecordedMediaRoute | null;
+  requestFrame?: (callback: FrameRequestCallback) => number;
+  cancelFrame?: (id: number) => void;
 }
 
 /** One voice at a time; all exits settle, even when play(), loading or decoding fails. */
@@ -77,7 +81,10 @@ export class Voiceover {
     if (existing) return existing;
     const pending = this.deps.fetchManifest(bank).then(manifest => {
       this.indexes.set(bank, new VoiceIndex(manifest, bank));
-    }).catch(() => { /* Each absent bank independently keeps the ordinary text path. */ });
+    }).catch(() => {
+      // Allow a later explicit preload to recover, without retry loops or replacing another load.
+      if (this.loading.get(bank) === pending) this.loading.delete(bank);
+    });
     this.loading.set(bank, pending);
     return pending;
   }
@@ -103,7 +110,7 @@ export class Voiceover {
     const value = this.deps.volume();
     return Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 0;
   }
-  play(kind: VoiceKind, speaker: string, text: string, fallback?: () => void, mood?: string, foregroundBark = false): VoicePlayback | null {
+  play(kind: VoiceKind, speaker: string, text: string, fallback?: () => void, mood?: string, foregroundBark = false, pan?: () => number): VoicePlayback | null {
     if (!this.enabled || this.volume() <= 0 || this.deps.visible?.() === false) return null;
     const bark = kind === 'bark';
     if (!bark) this.stop();
@@ -114,7 +121,10 @@ export class Voiceover {
     ))) return null;
     this.stop();
     let audio: HTMLAudioElement;
-    try { audio = this.deps.audio('/' + clip.audio.replace(/^\//, '')); }
+    try {
+      const version = typeof clip.sha256 === 'string' && /^[a-f0-9]{64}$/.test(clip.sha256) ? `?v=${clip.sha256}` : '';
+      audio = this.deps.audio('/' + clip.audio.replace(/^\//, '') + version);
+    }
     catch { fallback?.(); return null; }
     audio.volume = this.volume();
     audio.preload = 'auto';
@@ -124,11 +134,27 @@ export class Voiceover {
     let outcome: VoiceOutcome = 'playing';
     let started = false;
     let timer: ReturnType<typeof setTimeout>;
+    let route: RecordedMediaRoute | null = null;
+    let spatialFrame = 0;
+    let routingFailedAfterCapture = false;
+    if (pan) {
+      try { route = this.deps.routeMedia?.(audio) ?? null; }
+      catch (error) { routingFailedAfterCapture = error instanceof CapturedMediaRoutingError; }
+    }
+    const requestFrame = this.deps.requestFrame ?? (callback => requestAnimationFrame(callback));
+    const cancelFrame = this.deps.cancelFrame ?? (id => cancelAnimationFrame(id));
+    const updatePan = () => {
+      if (settled || !started || !route || !pan) return;
+      try { route.setPan(pan()); } catch { try { route.setPan(0); } catch { /* Optional direction must not stop media playback. */ } }
+      spatialFrame = requestFrame(updatePan);
+    };
     const finish = (reason: VoiceOutcome) => {
       if (settled) return;
       settled = true;
       outcome = reason;
       clearTimeout(timer);
+      if (spatialFrame) cancelFrame(spatialFrame);
+      try { route?.disconnect(); } catch { /* Playback completion must settle even if optional routing cleanup fails. */ }
       audio.removeEventListener('ended', ended);
       audio.removeEventListener('error', error);
       try { audio.pause(); audio.removeAttribute('src'); audio.load(); } catch { /* Already detached media. */ }
@@ -152,7 +178,8 @@ export class Voiceover {
     audio.addEventListener('ended', ended);
     audio.addEventListener('error', error);
     timer = setTimeout(error, Math.min(120000, clip.seconds * 1000 + 8000));
-    try { void audio.play().then(() => { if (!settled) started = true; }, () => { if (!settled) finish('failed'); }); }
+    if (routingFailedAfterCapture) { finish('failed'); return playback; }
+    try { void audio.play().then(() => { if (!settled) { started = true; if (route && pan) spatialFrame = requestFrame(updatePan); } }, () => { if (!settled) finish('failed'); }); }
     catch { finish('failed'); }
     return settled ? null : playback;
   }
@@ -178,7 +205,11 @@ export const voiceover = new Voiceover({
   }, fetchManifest,
   volume: () => voiceVolume(), now: () => performance.now(),
   visible: () => typeof document === 'undefined' || !document.hidden,
+  routeMedia: element => recordedMediaRoute?.(element) ?? null,
 });
 // Set at UI mount so this module remains independently testable without loading the game facade.
 let voiceVolume = () => 0.9;
 export function bindVoiceVolume(get: () => number): void { voiceVolume = get; }
+
+let recordedMediaRoute: ((element: HTMLAudioElement) => RecordedMediaRoute | null) | undefined;
+export function bindRecordedMediaRouting(route: (element: HTMLAudioElement) => RecordedMediaRoute | null): void { recordedMediaRoute = route; }

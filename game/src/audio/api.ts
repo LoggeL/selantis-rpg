@@ -1,3 +1,4 @@
+import type { RecordedMediaRoute } from './recordedMediaRouting';
 /**
  * CONTRACT for audio/. Music moods map to authored tracks; SFX and ambience are procedural (WebAudio).
  */
@@ -105,6 +106,8 @@ export interface LightningEvent { near: boolean; delayMs: number; strength: numb
 export interface AudioApi {
   /** Must be called from a user gesture once; safe to call repeatedly. */
   unlock(): void;
+  /** Spatial recorded speech using the unlocked context, bypassing music/SFX volume buses. */
+  routeRecordedMedia?(element: HTMLAudioElement): RecordedMediaRoute | null;
   /**
    * Crossfades to the mood's track (null = fade to silence). Calls before unlock() are remembered and
    * start on unlock. `restart` replays from the beginning even if the mood is already playing.

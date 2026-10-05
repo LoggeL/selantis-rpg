@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Offline fixtures: no models, accounts or remote APIs."""
 import json
+import copy
+import story_voice_vocal_qc as vocal
 import story_voice_transcribe as independent
 import math
 from pathlib import Path
@@ -39,6 +41,73 @@ class StoryQA(unittest.TestCase):
         r=self.runqa('Hey, komm her!',independent_records={self.ident:self.independent_record()})
         self.assertEqual(r['status'],'passed')
         self.assertEqual(r['takes'][0]['adjudication']['resolution'],'independent_audio_full_text_match')
+    def test_independent_clears_only_local_asr_failure(self):
+        def uncertain(path):raise ValueError('uncertain_asr_segments')
+        r=qa.qualify(self.run,asr=uncertain,decode_fn=lambda p:self.metrics,
+                     independent_records={self.ident:self.independent_record()})
+        self.assertEqual(r['status'],'passed')
+        self.assertEqual(r['takes'][0]['local_asr_failure'],'asr_check_failed_ValueError')
+        self.assertEqual(r['takes'][0]['local_asr_failure_detail'],'uncertain_asr_segments')
+    def test_independent_nonmatch_does_not_clear_asr_failure(self):
+        def uncertain(path):raise ValueError('uncertain_asr_segments')
+        record=self.independent_record();record['transcript']='He, her!'
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':record['transcript']})
+        r=qa.qualify(self.run,asr=uncertain,decode_fn=lambda p:self.metrics,independent_records={self.ident:record})
+        self.assertEqual(r['status'],'review_required')
+        self.assertIn('asr_check_failed_ValueError',r['takes'][0]['reasons'])
+    def test_independent_does_not_waive_signal_failure(self):
+        def uncertain(path):raise ValueError('uncertain_asr_segments')
+        r=qa.qualify(self.run,asr=uncertain,decode_fn=lambda p:qa.analyze_samples([0]*24000),
+                     independent_records={self.ident:self.independent_record()})
+        self.assertEqual(r['status'],'review_required')
+        self.assertIn('silent_audio',r['takes'][0]['reasons'])
+        self.assertIn('adjudication',r['takes'][0])
+    def test_independent_does_not_waive_audio_mutation(self):
+        record=self.independent_record()
+        def mutate(path):
+            path.write_bytes(b'changed');raise ValueError('uncertain_asr_segments')
+        r=qa.qualify(self.run,asr=mutate,decode_fn=lambda p:self.metrics,independent_records={self.ident:record})
+        self.assertEqual(r['status'],'review_required')
+        self.assertNotIn('adjudication',r['takes'][0])
+    def name_approval_fixture(self):
+        self.line['text']='Kyra, gefesselt.'
+        (self.run/'lines.private.json').write_text(json.dumps({'lines':[self.line]}))
+        record=self.independent_record();record['transcript']='Kira, gefesselt.'
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':record['transcript']})
+        approval={'channel':'independent','clip_sha256':qa.digest(self.clip),
+                  'text_sha256':qa.text_hash(self.line['text']),
+                  'transcript_sha256':qa.text_hash(record['transcript']),
+                  'independent_record_sha256':qa.text_hash(json.dumps(record,sort_keys=True,ensure_ascii=False)),
+                  'status':'accepted_word_variants','reviewed_by':'fixture reviewer',
+                  'reason':'Profile proposes KI-ra, Y as i; clip-specific reviewed spelling.',
+                  'accepted_word_variants':[{'expected':'Kyra','observed':'Kira'}]}
+        return record,approval
+    def test_secondary_scoped_name_clears_primary_unrelated_bad_word(self):
+        record,approval=self.name_approval_fixture()
+        r=self.runqa('Kyra, gewesselt.',independent_records={self.ident:record},adjudications={self.ident:approval})
+        self.assertEqual(r['status'],'passed')
+        a=r['takes'][0]['adjudication']
+        self.assertEqual(a['resolution'],'independent_explicit_hash_bound_word_variants')
+        self.assertEqual(a['primary_transcript'],'Kyra, gewesselt.')
+        self.assertEqual(a['transcript'],'Kira, gefesselt.')
+        self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),'Kira, gefesselt.',{self.ident:approval}))
+    def test_secondary_approval_hash_pair_and_channel_mismatch(self):
+        record,approval=self.name_approval_fixture()
+        for field in ['clip_sha256','text_sha256','transcript_sha256','independent_record_sha256','channel']:
+            bad=dict(approval);bad[field]='wrong'
+            self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'wrong',{self.ident:record},{self.ident:bad}))
+        bad=dict(approval);bad['accepted_word_variants']=[{'expected':'Kyra','observed':'Lea'}]
+        self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'wrong',{self.ident:record},{self.ident:bad}))
+    def test_secondary_spelling_channel_refuses_inflection_and_vowel_changes(self):
+        for source,observed in [('Lia','Lea'),('habe','hab'),('hatten','hat')]:
+            self.line['text']=source;record=self.independent_record();record['transcript']=observed
+            record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':observed})
+            approval={'channel':'independent','clip_sha256':qa.digest(self.clip),
+                      'text_sha256':qa.text_hash(source),'transcript_sha256':qa.text_hash(observed),
+                      'independent_record_sha256':qa.text_hash(json.dumps(record,sort_keys=True,ensure_ascii=False)),
+                      'status':'accepted_word_variants','reviewed_by':'fixture','reason':'fixture',
+                      'accepted_word_variants':[{'expected':source,'observed':observed}]}
+            self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'wrong',{self.ident:record},{self.ident:approval}))
     def test_independent_negative_bindings(self):
         for field in ['clip_sha256','source_audio_sha256','upload_sha256','source_text_sha256','prompt','model','input_mime_type','transcript']:
             record=self.independent_record();record[field]='wrong'
@@ -59,6 +128,225 @@ class StoryQA(unittest.TestCase):
         self.assertEqual(parts[0],{'text':independent.PROMPT})
         self.assertEqual(parts[1]['inlineData']['mimeType'],'audio/mpeg')
         self.assertNotIn(self.line['text'],json.dumps(request))
+    def ctc_fixture(self):
+        self.line['text']='He'
+        (self.run/'lines.private.json').write_text(json.dumps({'lines':[self.line]}))
+        vocab={'<pad>':0,'h':1,'e':2,'|':3};ids=[0,1,1,0,2,0];probs=[.9]*len(ids)
+        hashes={n:'a'*64 for n in ['config.json','vocab.json','preprocessor_config.json','pytorch_model.bin']}
+        model={'model_id':qa.CTC_MODEL_ID,'revision':qa.CTC_REVISION,'file_sha256':hashes,
+               'fingerprint':qa.text_hash(json.dumps(hashes,sort_keys=True))}
+        greedy={'method':qa.CTC_METHOD,'authored_initial_prompt':None,'unknown_tokens':[],
+                'argmax_token_ids':ids,'argmax_token_probabilities':probs,
+                'argmax_token_ids_sha256':qa.text_hash(json.dumps(ids,separators=(',',':'))),
+                'frame_evidence_sha256':qa.text_hash(json.dumps({'argmax_token_ids':ids,'argmax_token_probabilities':probs},sort_keys=True,separators=(',',':'))),
+                'blank_token_id':0,'collapsed_token_ids':[1,2],'transcript':'he',
+                'token_id_to_label':{str(i):label for label,i in vocab.items()}}
+        return {'receipt':{'id':self.ident,'binding':{'audio_sha256':qa.digest(self.clip),
+                    'text_sha256':qa.text_hash(self.line['text']),
+                    'source_manifest_sha256':qa.digest(self.run/'lines.private.json'),
+                    'engine':qa.CTC_ENGINE,'model':model,'script_sha256':'c'*64},'greedy_decode':greedy,
+                    'alignment':{'words':[{'word':'He'}]}},
+                'receipt_sha256':'b'*64,'approval':{'status':'approved_greedy_exact','receipt_sha256':'b'*64,
+                    'reviewed_by':'root fixture reviewer','reason':'Inspected independent raw greedy words'},
+                'vocab':vocab,'vocab_sha256':hashes['vocab.json'],'actual_script_sha256':'c'*64}
+    def test_ctc_greedy_exact_with_root_approval(self):
+        record=self.ctc_fixture()
+        r=self.runqa('Ach',ctc_records={self.ident:record})
+        self.assertEqual(r['status'],'passed')
+        self.assertEqual(r['takes'][0]['adjudication']['resolution'],'root_approved_unprompted_CTC_greedy_exact_words')
+    def test_ctc_never_uses_forced_alignment(self):
+        record=self.ctc_fixture();g=record['receipt']['greedy_decode'];g['transcript']='Ach'
+        self.assertIsNone(qa.ctc_review(self.line,qa.digest(self.clip),qa.digest(self.run/'lines.private.json'),{self.ident:record}))
+        record=self.ctc_fixture();record['receipt']['greedy_decode']['method']='forced_authored_alignment'
+        self.assertIsNone(qa.ctc_review(self.line,qa.digest(self.clip),qa.digest(self.run/'lines.private.json'),{self.ident:record}))
+    def test_ctc_binding_and_raw_frame_guards(self):
+        fixture=self.ctc_fixture()
+        changes=[lambda r:r['approval'].update(status='proposal'),
+                 lambda r:r['approval'].update(receipt_sha256='wrong'),
+                 lambda r:r['receipt']['binding'].update(audio_sha256='wrong'),
+                 lambda r:r['receipt']['binding'].update(text_sha256='wrong'),
+                 lambda r:r['receipt']['binding'].update(source_manifest_sha256='wrong'),
+                 lambda r:r['receipt']['binding'].update(script_sha256='wrong'),
+                 lambda r:r['receipt']['binding']['model'].update(revision='0'*40),
+                 lambda r:r['receipt']['binding']['model'].update(fingerprint='wrong'),
+                 lambda r:r['receipt']['greedy_decode'].update(authored_initial_prompt='He'),
+                 lambda r:r['receipt']['greedy_decode'].update(argmax_token_ids=[1,2]),
+                 lambda r:r['receipt']['greedy_decode'].update(frame_evidence_sha256='wrong'),
+                 lambda r:r['receipt']['greedy_decode'].update(token_id_to_label={'1':'a'}),
+                 lambda r:r.update(vocab_sha256='wrong')]
+        for change in changes:
+            record=json.loads(json.dumps(fixture));change(record)
+            self.assertIsNone(qa.ctc_review(self.line,qa.digest(self.clip),qa.digest(self.run/'lines.private.json'),{self.ident:record}))
+    def test_ctc_does_not_waive_signal(self):
+        record=self.ctc_fixture()
+        def uncertain(path):raise ValueError('uncertain_asr_segments')
+        r=qa.qualify(self.run,asr=uncertain,decode_fn=lambda p:qa.analyze_samples([0]*24000),ctc_records={self.ident:record})
+        self.assertEqual(r['status'],'review_required');self.assertIn('silent_audio',r['takes'][0]['reasons'])
+    def segmentation_fixture(self,source,actual):
+        self.line['text']=source
+        (self.run/'lines.private.json').write_text(json.dumps({'lines':[self.line]}))
+        return {'channel':'primary','clip_sha256':qa.digest(self.clip),
+                'text_sha256':qa.text_hash(source),'transcript_sha256':qa.text_hash(actual),
+                'status':'accepted_orthographic_segmentation','reviewed_by':'fixture reviewer',
+                'reason':'Identical full letters, explicitly reviewed word segmentation.',
+                'expected_tokens':qa.words(source),'observed_tokens':qa.words(actual)}
+    def test_explicit_orthographic_segmentation(self):
+        for source,actual in [('zu Hause','zuhause'),('wund gescheuert','wundgescheuert'),('so was','sowas')]:
+            record=self.segmentation_fixture(source,actual)
+            r=self.runqa(actual,adjudications={self.ident:record})
+            self.assertEqual(r['status'],'passed')
+            self.assertEqual(r['takes'][0]['adjudication']['resolution'],'explicit_hash_bound_orthographic_segmentation')
+            (self.run/'qa-asr-cache.private.json').unlink()
+    def test_segmentation_hash_token_and_channel_guards(self):
+        record=self.segmentation_fixture('zu Hause','zuhause')
+        for field in ['clip_sha256','text_sha256','transcript_sha256','channel','reviewed_by','reason']:
+            bad=dict(record);bad[field]='wrong' if field not in {'reviewed_by','reason'} else ''
+            self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),'zuhause',{self.ident:bad}))
+        for field,value in [('expected_tokens',['zu']),('observed_tokens',['haus']),('expected_tokens','zu Hause')]:
+            bad=dict(record);bad[field]=value
+            self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),'zuhause',{self.ident:bad}))
+    def test_segmentation_rejects_letters_missing_repeated_or_names(self):
+        for source,actual in [('Ich habe','Ich hab'),('Lia','Lea'),('Kyra','Kira'),
+                              ('zu Hause','zu Haus'),('zu Hause','zuhause zuhause'),
+                              ('zu Hause','zu Hause'),('zu Hause','')]:
+            record=self.segmentation_fixture(source,actual)
+            self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),actual,{self.ident:record}))
+    def test_unapproved_segmentation_stays_failed(self):
+        self.segmentation_fixture('zu Hause','zuhause')
+        self.assertEqual(self.runqa('zuhause')['status'],'review_required')
+    def vocal_fixture(self,source='Hihi! Kyra, hör auf!',actual='Kyra, hör auf!',category='laughter'):
+        self.line['text']=source;(self.run/'lines.private.json').write_text(json.dumps({'lines':[self.line]}))
+        event={'category':category,'description':'Observed brief voiced event.','vocal_sound':'','confidence':.9}
+        response={'modelVersion':vocal.MODEL,'candidates':[{'finishReason':'STOP','content':{'parts':[{'text':json.dumps({'transcript':actual,'events':[event]})}]}}]}
+        sha=qa.digest(self.clip)
+        record={'id':self.ident,'clip_sha256':sha,'source_audio_sha256':sha,'upload_sha256':sha,
+            'source_text_sha256':qa.text_hash(source),'input_mime_type':'audio/mpeg','model':vocal.MODEL,
+            'prompt':vocal.PROMPT,'transcript':actual,'response':response,**vocal.cache_metadata()}
+        approval={'channel':'vocal-qc','status':'approved_vocal_events','reviewed_by':'root fixture reviewer',
+            'reason':'One authored gesture is explicitly mapped to one observed event; all other words retained.',
+            'clip_sha256':sha,'text_sha256':qa.text_hash(source),'vocal_record_sha256':qa.canonical_record_hash(record),
+            'raw_response_sha256':qa.canonical_record_hash(response),'transcript_sha256':qa.text_hash(actual),
+            'expected_tokens':qa.words(source),'observed_tokens':qa.words(actual),**vocal.cache_metadata(),
+            'source_events':[{'source_token_index':0,'source_token':qa.words(source)[0],'category':category,
+                'event_indices':[0],'descriptions':[event['description']],'observed_token_indices':[],
+                'reason':'Root individually mapped the source token to this event.'}]}
+        return record,approval
+
+    def check_vocal(self,record,approval,**kwargs):
+        return qa.vocal_review(self.line,qa.digest(self.clip),'', {self.ident:record},{self.ident:approval},**kwargs)
+
+    def test_vocal_exact_full_other_words_and_root_mapping(self):
+        record,approval=self.vocal_fixture()
+        self.assertIsNotNone(self.check_vocal(record,approval))
+        result=self.runqa('Kyra, hör auf!',vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'passed');self.assertFalse(result['takes'][0]['adjudication']['model_timestamps_used'])
+
+    def test_vocal_all_raw_audio_source_schema_prompt_root_hash_guards(self):
+        record,approval=self.vocal_fixture()
+        for field in ['clip_sha256','text_sha256','vocal_record_sha256','raw_response_sha256','transcript_sha256','schema_sha256','prompt_sha256','qc_contract_version','status','channel','reviewed_by','reason']:
+            changed=copy.deepcopy(approval);changed[field]=''
+            self.assertIsNone(self.check_vocal(record,changed),field)
+        for field in ['clip_sha256','upload_sha256','source_audio_sha256','source_text_sha256','schema_sha256','prompt_sha256','model','prompt']:
+            changed=copy.deepcopy(record);changed[field]='wrong'
+            self.assertIsNone(self.check_vocal(changed,approval),field)
+        changed=copy.deepcopy(record);changed['response']['candidates'][0]['finishReason']='MAX_TOKENS'
+        self.assertIsNone(self.check_vocal(changed,approval))
+
+    def test_vocal_confidence_class_description_source_and_event_positions(self):
+        record,approval=self.vocal_fixture()
+        for field,value in [('source_token_index',1),('source_token','haha'),('category','scream'),('event_indices',[1]),('descriptions',['guessed']),('observed_token_indices',[0]),('reason','')]:
+            changed=copy.deepcopy(approval);changed['source_events'][0][field]=value
+            self.assertIsNone(self.check_vocal(record,changed),(field,value))
+        for value in [.79,float('nan'),True]:
+            changed=copy.deepcopy(record);body={'transcript':changed['transcript'],'events':[{'category':'laughter','description':'Observed brief voiced event.','vocal_sound':'','confidence':value}]}
+            changed['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps(body)
+            app=copy.deepcopy(approval);app['vocal_record_sha256']=qa.canonical_record_hash(changed);app['raw_response_sha256']=qa.canonical_record_hash(changed['response'])
+            self.assertIsNone(self.check_vocal(changed,app))
+
+    def test_vocal_lexical_missing_extra_changed_actor_not_excused(self):
+        for actual in ['Kyra, auf!','Kyra, hör auf jetzt!','Lia, hör auf!']:
+            record,approval=self.vocal_fixture(actual=actual)
+            self.assertIsNone(self.check_vocal(record,approval))
+        for source in ['Au! Kyra, hör auf!','He! Kyra, hör auf!','Ach! Kyra, hör auf!','Uff! Kyra, hör auf!']:
+            record,approval=self.vocal_fixture(source=source,category='groan')
+            self.assertIsNone(self.check_vocal(record,approval))
+
+    def test_vocal_one_word_scream_no_oh_hae_or_duplicate_cry(self):
+        record,approval=self.vocal_fixture(source='AAAAAAH!',actual='Ah!',category='scream')
+        approval['source_events'][0]['observed_token_indices']=[0]
+        self.assertIsNotNone(self.check_vocal(record,approval))
+        for actual in ['Oh!','Hä!','Ah! Oh!','Ah! Ah!']:
+            record,approval=self.vocal_fixture(source='AAAAAAH!',actual=actual,category='scream')
+            approval['source_events'][0]['observed_token_indices']=list(range(len(qa.words(actual))))
+            self.assertIsNone(self.check_vocal(record,approval))
+
+    def test_vocal_order_count_and_complete_event_coverage(self):
+        record,approval=self.vocal_fixture()
+        event=json.loads(record['response']['candidates'][0]['content']['parts'][0]['text'])['events'][0]
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':record['transcript'],'events':[event,event]})
+        approval.update(vocal_record_sha256=qa.canonical_record_hash(record),raw_response_sha256=qa.canonical_record_hash(record['response']))
+        self.assertIsNone(self.check_vocal(record,approval)) # extra event left unbound
+        mapping=approval['source_events'][0];mapping.update(event_indices=[0,1],descriptions=[event['description']]*2)
+        self.assertIsNone(self.check_vocal(record,approval)) # count justification missing
+        mapping['count_reason']='One written Hihi is two specifically reviewed laugh pulses.'
+        self.assertIsNotNone(self.check_vocal(record,approval))
+        mapping['event_indices']=[1,0];self.assertIsNone(self.check_vocal(record,approval))
+
+    def test_vocal_uncertain_primary_clean_signal_only_unchanged_audio(self):
+        record,approval=self.vocal_fixture()
+        def uncertain(path):raise ValueError('uncertain_asr_segments')
+        result=qa.qualify(self.run,asr=uncertain,decode_fn=lambda p:self.metrics,vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'passed')
+        result=qa.qualify(self.run,asr=uncertain,decode_fn=lambda p:qa.analyze_samples([0]*24000),vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'review_required');self.assertNotIn('adjudication',result['takes'][0])
+        def mutated(path):path.write_bytes(b'new');raise ValueError('uncertain_asr_segments')
+        result=qa.qualify(self.run,asr=mutated,decode_fn=lambda p:self.metrics,vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'review_required')
+
+    def test_vocal_never_waives_nonrecognition_primary_failure(self):
+        record,approval=self.vocal_fixture()
+        def broken(path):raise RuntimeError('cache or unrelated execution failure')
+        result=qa.qualify(self.run,asr=broken,decode_fn=lambda p:self.metrics,vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'review_required');self.assertNotIn('adjudication',result['takes'][0])
+
+    def test_vocal_invalid_scoped_approval_cannot_bypass_via_primary_exact(self):
+        record,approval=self.vocal_fixture();approval['raw_response_sha256']='wrong'
+        result=self.runqa(self.line['text'],vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'review_required');self.assertIn('vocal_adjudication_requires_review',result['takes'][0]['reasons'])
+
+    def test_vocal_separately_hash_bound_named_word_variant(self):
+        record,approval=self.vocal_fixture(actual='Kira, hör auf!')
+        lexical={'channel':'vocal-qc','status':'accepted_word_variants','reviewed_by':'root fixture reviewer','reason':'Individually reviewed KI-ra spelling.',
+            'clip_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(self.line['text']),
+            'transcript_sha256':qa.text_hash(record['transcript']),'vocal_record_sha256':qa.canonical_record_hash(record),
+            'accepted_word_variants':[{'expected':'kyra','observed':'kira'}]}
+        self.assertIsNotNone(self.check_vocal(record,approval,word_approvals={self.ident:lexical}))
+        lexical['clip_sha256']='stale';self.assertIsNone(self.check_vocal(record,approval,word_approvals={self.ident:lexical}))
+        record,approval=self.vocal_fixture(actual='Lia, hör auf!');lexical.update(clip_sha256=qa.digest(self.clip),transcript_sha256=qa.text_hash(record['transcript']),vocal_record_sha256=qa.canonical_record_hash(record),accepted_word_variants=[{'expected':'kyra','observed':'lia'}])
+        self.assertIsNone(self.check_vocal(record,approval,word_approvals={self.ident:lexical}))
+
+    def natural_independent_fixture(self,source,actual):
+        self.line['text']=source;(self.run/'lines.private.json').write_text(json.dumps({'lines':[self.line]}))
+        record=self.independent_record();record['transcript']=actual
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':actual})
+        variants=[{'expected':aa,'observed':bb} for aa,bb in zip(qa.words(source),qa.words(actual)) if aa!=bb]
+        approval={'channel':'independent','status':'accepted_natural_word_variants','reviewed_by':'root fixture reviewer','reason':'Explicit grammatical optional schwa, all remaining words exact.',
+            'clip_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(source),'transcript_sha256':qa.text_hash(actual),
+            'independent_record_sha256':qa.canonical_record_hash(record),'accepted_word_variants':variants}
+        return record,approval
+
+    def test_independent_explicit_natural_schwa_and_imperative(self):
+        for source,actual in [('Ich hab es gesagt.','Ich habe es gesagt.'),('Ich lese hier.','Ich les hier.'),('Stimm die Laute.','Stimme die Laute.')]:
+            record,approval=self.natural_independent_fixture(source,actual)
+            self.assertIsNotNone(qa.independent_review(self.line,qa.digest(self.clip),'Äh, falsch.',{self.ident:record},{self.ident:approval}))
+            self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'',{self.ident:record},{}))
+            approval['independent_record_sha256']='stale';self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'',{self.ident:record},{self.ident:approval}))
+
+    def test_independent_natural_rejects_names_actor_tense_or_multitoken(self):
+        for source,actual in [('Lia kommt.','Lea kommt.'),('Kyra kommt.','Kira kommt.'),('Ich gehe.','Du gehst.'),('Ich ging.','Ich gehe.'),('Ich hab es.','Ich habs.'),('Er habe es.','Er hab es.'),('Ich hab es.','Ich habe es Äh.')]:
+            record,approval=self.natural_independent_fixture(source,actual)
+            self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'',{self.ident:record},{self.ident:approval}),(source,actual))
+
     def test_exact_contract(self):
         r=self.runqa();self.assertEqual(r['status'],'passed');self.assertEqual(r['checked_ids'],[self.ident]);self.assertEqual(r['failures'],[])
         self.assertEqual(r['clip_sha256'][self.ident],qa.digest(self.clip))

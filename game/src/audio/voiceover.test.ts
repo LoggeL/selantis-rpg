@@ -1,3 +1,4 @@
+import { CapturedMediaRoutingError } from './recordedMediaRouting';
 import recordedProlog from '../../public/audio/prolog/manifest.json';
 import frozenStory from '../../../docs/voice-production/story-lines.json';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -234,5 +235,102 @@ describe('recorded prolog bank compatibility', () => {
       clips: [{ ...adultLine, seconds: 1, audio: `audio/story/clips/${adultLine.id}.mp3` }] } as unknown as VoiceManifest, 'story');
     const adultKey = adultLine.runtime_keys[0];
     expect(storyIndex.find(adultKey.kind as 'say' | 'think' | 'narrate' | 'bark' | 'choice', 'baris', adultKey.text, adultKey.scene, adultKey.mood)?.speaker).toBe('baris');
+  });
+});
+
+describe('foreground recorded voice direction', () => {
+  it('updates a moving pan only after actual playback starts and stops the frame/route without seeking media', async () => {
+    let begin!: () => void;
+    const audio = new FakeAudio(); audio.play.mockReturnValueOnce(new Promise(resolve => { begin = resolve; }));
+    Object.assign(audio, { currentTime: 2.5 });
+    const route = { setPan: vi.fn(), disconnect: vi.fn() };
+    let frame!: FrameRequestCallback;
+    const requestFrame = vi.fn((callback: FrameRequestCallback) => { frame = callback; return 1; });
+    const cancelFrame = vi.fn();
+    let pan = -.8;
+    const engine = new Voiceover({ audio: () => audio as unknown as HTMLAudioElement,
+      fetchManifest: async () => manifest, volume: () => .6, now: () => 1,
+      routeMedia: () => route, requestFrame, cancelFrame });
+    await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('bark', 'valentus', 'Warm.', undefined, undefined, true, () => pan)!;
+    expect(requestFrame).not.toHaveBeenCalled(); expect(route.setPan).not.toHaveBeenCalled();
+    begin(); await Promise.resolve(); frame(0); expect(route.setPan).toHaveBeenLastCalledWith(-.8);
+    pan = .6; frame(16); expect(route.setPan).toHaveBeenLastCalledWith(.6);
+    expect(playback.currentTime).toBe(2.5); expect(audio.volume).toBe(.6);
+    playback.stop(); await playback.done;
+    expect(route.disconnect).toHaveBeenCalledOnce(); expect(cancelFrame).toHaveBeenCalledWith(1);
+    frame(32); expect(route.setPan).toHaveBeenCalledTimes(2);
+  });
+  it('keeps native playback when routing is absent and never schedules a spatial frame', async () => {
+    const { engine, audios } = fixture(); await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('bark', 'valentus', 'Warm.', undefined, undefined, true, () => -1)!;
+    await Promise.resolve(); expect(audios[0].play).toHaveBeenCalledOnce(); expect(playback.started).toBe(true);
+    playback.stop(); await playback.done;
+  });
+});
+
+
+describe('recording content cache version', () => {
+  it('uses the full validated lowercase SHA so approved retakes change media URL while manifest paths stay stable', async () => {
+    const sha256 = 'a'.repeat(64);
+    const revised = { ...manifest, clips: [{ ...manifest.clips[0], sha256 }] };
+    const audio = vi.fn(() => new FakeAudio() as unknown as HTMLAudioElement);
+    const engine = new Voiceover({ audio, fetchManifest: async () => revised, volume: () => .9, now: () => 1 });
+    await engine.preload(); engine.scene('prolog-rat');
+    engine.play('say', 'valentus', manifest.clips[0].text)!.stop();
+    expect(audio).toHaveBeenCalledWith(`/audio/prolog/clips/one.mp3?v=${sha256}`);
+    expect(revised.clips[0].audio).toBe('audio/prolog/clips/one.mp3');
+  });
+  it('keeps the plain URL for missing, malformed, uppercase or injection-like hashes', async () => {
+    for (const sha256 of [undefined, '', 'a'.repeat(63), 'A'.repeat(64), 'a'.repeat(64) + '&token=private', '../other.mp3', '?v=x']) {
+      const audio = vi.fn(() => new FakeAudio() as unknown as HTMLAudioElement);
+      const engine = new Voiceover({ audio, fetchManifest: async () => ({ ...manifest, clips: [{ ...manifest.clips[0], sha256 }] }), volume: () => .9, now: () => 1 });
+      await engine.preload(); engine.scene('prolog-rat');
+      engine.play('say', 'valentus', manifest.clips[0].text)!.stop();
+      expect(audio).toHaveBeenCalledWith('/audio/prolog/clips/one.mp3');
+    }
+  });
+});
+
+
+describe('optional routing failure isolation', () => {
+  it('settles stop and native media cleanup even when optional direction/cleanup hooks throw', async () => {
+    const audio = new FakeAudio(); let frame!: FrameRequestCallback;
+    const route = { setPan: vi.fn(() => { throw new Error('unavailable direction'); }), disconnect: vi.fn(() => { throw new Error('detached graph'); }) };
+    const engine = new Voiceover({ audio: () => audio as unknown as HTMLAudioElement, fetchManifest: async () => manifest,
+      volume: () => .9, now: () => 1, routeMedia: () => route,
+      requestFrame: callback => { frame = callback; return 1; }, cancelFrame: vi.fn() });
+    await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('bark', 'valentus', 'Warm.', undefined, undefined, true, () => -1)!;
+    await Promise.resolve(); expect(() => frame(0)).not.toThrow();
+    expect(() => playback.stop()).not.toThrow(); await playback.done;
+    expect(playback.outcome).toBe('stopped'); expect(audio.pause).toHaveBeenCalledOnce(); expect(audio.remove).toHaveBeenCalledOnce();
+  });
+});
+
+
+describe('manifest and captured-route recovery', () => {
+  it('releases a failed manifest once for a later explicit preload, coalescing concurrent calls without automatic retries', async () => {
+    let reject!: (error: Error) => void;
+    const first = new Promise<VoiceManifest>((_, fail) => { reject = fail; });
+    const fetchManifest = vi.fn().mockReturnValueOnce(first).mockResolvedValue(manifest);
+    const engine = new Voiceover({ audio: () => new FakeAudio() as unknown as HTMLAudioElement, fetchManifest, volume: () => .9, now: () => 1 });
+    const load = engine.preload(); expect(engine.preload()).toBe(load); expect(fetchManifest).toHaveBeenCalledOnce();
+    reject(new Error('transient timeout')); await load; await Promise.resolve();
+    expect(fetchManifest).toHaveBeenCalledOnce();
+    const retry = engine.preload(); expect(engine.preload()).toBe(retry); await retry;
+    expect(fetchManifest).toHaveBeenCalledTimes(2);
+    await engine.preload(); expect(fetchManifest).toHaveBeenCalledTimes(2);
+    engine.scene('prolog-rat'); expect(engine.play('say', 'valentus', manifest.clips[0].text)).not.toBeNull(); engine.stop();
+  });
+  it('fails and cleans captured media instead of silently running a redirected element as native playback', async () => {
+    const audio = new FakeAudio(); const fallback = vi.fn();
+    const engine = new Voiceover({ audio: () => audio as unknown as HTMLAudioElement, fetchManifest: async () => manifest,
+      volume: () => .9, now: () => 1, routeMedia: () => { throw new CapturedMediaRoutingError(); } });
+    await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('bark', 'valentus', 'Warm.', fallback, undefined, true, () => -1)!;
+    expect(playback.outcome).toBe('failed'); await playback.done;
+    expect(audio.play).not.toHaveBeenCalled(); expect(audio.pause).toHaveBeenCalledOnce(); expect(audio.remove).toHaveBeenCalledOnce();
+    expect(fallback).toHaveBeenCalledOnce(); expect(playback.started).toBe(false);
   });
 });

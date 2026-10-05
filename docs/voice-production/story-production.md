@@ -1,10 +1,16 @@
 # Vertonung der Kapitel I bis V
 
-Für die übrigen Kapitel ist `gemini-3.8-flash-tts` mit der Google Batch API vorgesehen. Das geprüfte Inventar enthält 1.557 Takes für 36 aktive Sprecherrollen: 867 Dialogzeilen, 323 Gedanken, 113 gewählte zitierte Antworten, 203 menschliche Rufe und 51 Erzählpassagen. Alle Verzweigungen sind erfasst. Menüs, Steuerungsanweisungen, nichtsprachliche Geräusche und musikalische Gesangspassagen sind im Inventar mit ihrer Quelle ausgeschlossen. Die 188 Prologaufnahmen bleiben erhalten.
+Die übrigen Kapitel verwenden `gemini-3.8-flash-tts` mit der Google Batch API. Das geprüfte Inventar enthält 1.557 Takes für 36 aktive Sprecherrollen: 867 Dialogzeilen, 323 Gedanken, 113 gewählte zitierte Antworten, 203 menschliche Rufe und 51 Erzählpassagen. Alle Verzweigungen sind erfasst. Menüs, Steuerungsanweisungen, nichtsprachliche Geräusche und musikalische Gesangspassagen sind im Inventar mit ihrer Quelle ausgeschlossen. Die 188 Prologaufnahmen bleiben erhalten.
 
 Die Besetzung steht in [story-speakers.md](story-speakers.md), das an die Quellen gebundene Inventar in [story-lines.json](story-lines.json). Die Kapitelregie und ergänzende Rufe stehen unter [directions](directions). Jede Aufnahme besitzt eine geprüfte kurze Regie. Sorge, Trauer, Schmerz, Wut, Flüstern und Scherz werden aus dem Kontext der einzelnen Zeile abgeleitet. Die Stimme bleibt je Rolle konstant. Neue Besetzungen sind Castingentscheidungen und noch keine Hörabnahme.
 
 Lia und Kyra sprechen ihre eigenen Gedanken und gewählten Antworten. Erwachsene und junge Baris-Aufnahmen werden durch getrennte Prolog- und Story-Banken zugeordnet. Reine Buchzitate, die Lia vorliest, verwenden ihre Stimme; Erzählrahmen bleiben beim Erzähler. Sichtbare Tastatur- und Touchhinweise sowie der Steinzähler bleiben im Text erhalten und werden nicht mitgesprochen. Szenen und explizite Stimmungen unterscheiden gleiche Wörter mit unterschiedlichen Takes.
+
+## Stand der Produktion
+
+Der erste Batch hat alle 1.557 Takes erfolgreich erzeugt, insgesamt rund 125 Minuten Audio. Die gemeldeten 24.578 Eingabetoken und 187.779 Audiotoken entsprechen mit den unten genannten Batchpreisen etwa 0,85 USD. Das ist eine Berechnung aus den Antwortdaten, keine geprüfte Rechnung. Korrekturtakes und unabhängige Transkriptionsprüfungen kommen hinzu. Die Storybank wird erst nach vollständiger Prüfung der aktuellen Audiodateien und Wortzeitmarken veröffentlicht.
+
+152 gezielte Korrekturtakes sind inzwischen in die private Gesamtbank übernommen. Weitere bestätigte Wiederholungen werden separat korrigiert. Drei zusätzliche Ablenken-Rufe von Lia stehen in `TacticsScene` statt in den Kapitelskripten. Ihr eigenes eingefrorenes Inventar verwendet Zephyr und die tatsächliche Voice-Szene `rettung`. Sie werden nach ihrer eigenen Audio- und Zeitmarkenprüfung mit der Kapitelbank zusammengeführt. Die ursprünglichen 1.557 IDs und der Prolog bleiben dabei erhalten.
 
 ## Kosten und Vorbereitung
 
@@ -24,8 +30,14 @@ Prepare friert Inventar, Sprecherprofile, Originalquellen, JSONL und Hashes unte
 
 1. `story_voice_batch.py status` prüft den vorhandenen Job. `collect` bewahrt Providerantworten, normalisiert die Audiodateien und erstellt das private vorgeschlagene Laufzeitmanifest. Es veröffentlicht keine ungeprüften Clips.
 2. `story_voice_qa.py` prüft Decodierung, Signal, Dauer, Stille, mögliche abgeschnittene Enden und die gesprochenen Wörter mit dem vorhandenen lokalen MLX-Modell. Die Transkription erhält keinen Solltext. Abweichungen benötigen eine konkrete Prüfung oder einen gezielten Korrekturtake.
+   `story_voice_asr_batch.py` transkribiert ausdrücklich ausgewählte auffällige MP3s unabhängig mit Gemini, ohne Solltext im Modellprompt. Individuelle Namensschreibweisen werden nur mit Audio-, Quelltext- und Rohantwortbindung akzeptiert. `story_voice_ctc_align.py` bietet eine weitere lokale Prüfung: Der freie CTC-Decoder liefert unabhängige Wörter; die erzwungene Ausrichtung liefert ausschließlich Zeitvorschläge. Freigaben sind explizit und bleiben privat.
+   `story_voice_vocal_qc.py` untersucht ausgewählte Laute ebenfalls ohne Solltext oder Emotionsvorgabe im Prüfprompt. Lachen, Schreie, gedämpfte Laute und Schluckauf benötigen eine konkrete private Freigabe mit aktuellen Audio-, Quellen- und Rohantworthashes. Alle übrigen Wörter müssen vollständig erhalten bleiben. Diese Analyse liefert keine Wortzeitmarken.
 3. `story_voice_word_cues.py` richtet die Originalwörter an den tatsächlichen MP3s aus. Auffällige Intervalle benötigen eine an Text, Quelle, Audio und Zeitmarken gebundene private Qualifikation.
+   `story_voice_cue_review.py` vergleicht auffällige Marken mit freien Decoderwörtern und dem Audiosignal. Unterschiede über hörbarer Sprache bleiben zur Prüfung offen.
+   `story_voice_ctc_review.py` übernimmt nur ausdrücklich ausgewählte aktuelle akustische Zeitvorschläge. Originale DTW-Befunde bleiben erhalten; spätere Alignment-Durchläufe verwenden gültige Freigaben weiter. Geänderte Aufnahmen, Modellbytes oder Quellen erfordern eine erneute Prüfung.
 4. Der Export nach `game/public/audio/story/` erfordert einen bestandenen Bericht für alle aktuellen Audiohashes und die Wortzeitmarken. `--require-alignment` ist für die Spielveröffentlichung zu setzen. Die Textanzeige folgt anschließend der tatsächlichen Audiozeit und unterstützt Weiter wie der Prolog.
+
+Gezielte Retakes verwenden `story_voice_generate.py --retake --only-ids ... --delivery-overrides ...` oder `story_voice_retake_batch.py`. Die Overrides-Datei muss die ausgewählten IDs genau einmal enthalten. Alle Originalwörter und Google-Stimmen bleiben gebunden; frühere Takes werden gesichert. Die Batchvariante friert die aktuelle Bank ein und übernimmt fertige Retakes erst mit einem ausdrücklichen privaten Import. Nach Änderungen sind aktuelle Prüfberichte und Wortzeitmarken erneut erforderlich. Ein unbekannter Netzwerkstatus erlaubt keinen zweiten Submit. Tageslimits der normalen API sind kein Grund, denselben Auftrag dort wiederholt anzustoßen.
 
 Die lokale Python-Umgebung und das bereits vorhandene Modell können mit absoluten Pfaden verwendet werden:
 
@@ -39,4 +51,4 @@ Die lokale Python-Umgebung und das bereits vorhandene Modell können mit absolut
   --model-dir <lokaler-Modellordner>
 ```
 
-Automatische Prüfungen belegen Worttreue und technische Funktion. Schauspiel und Sprecheridentität brauchen zusätzlich eine Hörprüfung. Rohdateien, verworfene Takes, Prüfberichte und Providerdaten bleiben privat. Öffentlich werden nur geprüfte MP3s und das Laufzeitmanifest. Eine Veröffentlichung erfolgt durch einen geprüften Push auf `main` und den anschließenden Abgleich von `/release.json`.
+Automatische Prüfungen vergleichen die gesprochenen Wörter und prüfen die technische Funktion. Schauspiel und Sprecheridentität brauchen zusätzlich eine Hörprüfung. Rohdateien, verworfene Takes, Prüfberichte und Providerdaten bleiben privat. Öffentlich werden nur geprüfte MP3s und das Laufzeitmanifest. Eine Veröffentlichung erfolgt durch einen geprüften Push auf `main` und den anschließenden Abgleich von `/release.json`.

@@ -19,6 +19,7 @@ import subprocess
 import sys
 import time
 import unicodedata
+import story_voice_vocal_qc as vocal_qc
 from story_voice_transcribe import MODEL as INDEPENDENT_MODEL, PROMPT as INDEPENDENT_PROMPT, cached_record
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -119,12 +120,18 @@ def adjudicate(line, clip_hash, transcript, records):
     """
     expected, actual = words(line['text']), words(transcript)
     record = records.get(line['id'], {})
-    if (record.get('clip_sha256') != clip_hash or record.get('text_sha256') != text_hash(line['text'])
+    if (record.get('channel', 'primary') != 'primary' or record.get('clip_sha256') != clip_hash or record.get('text_sha256') != text_hash(line['text'])
         or record.get('transcript_sha256') != text_hash(transcript)
-        or record.get('status') != 'accepted_word_variants'
         or not isinstance(record.get('reviewed_by'), str) or not record['reviewed_by'].strip()
-        or not isinstance(record.get('reason'), str) or not record['reason'].strip()
-        or len(expected) != len(actual)):
+        or not isinstance(record.get('reason'), str) or not record['reason'].strip()):
+        return None
+    if record.get('status') == 'accepted_orthographic_segmentation':
+        if (record.get('expected_tokens') != expected or record.get('observed_tokens') != actual
+            or expected == actual or not expected or not actual
+            or ''.join(expected) != ''.join(actual)):
+            return None
+        return {'resolution':'explicit_hash_bound_orthographic_segmentation','record':record}
+    if record.get('status') != 'accepted_word_variants' or len(expected) != len(actual):
         return None
     variants = record.get('accepted_word_variants')
     if not isinstance(variants, list) or not variants: return None
@@ -139,19 +146,296 @@ def adjudicate(line, clip_hash, transcript, records):
     return {'resolution':'explicit_hash_bound_word_variants', 'record':record}
 
 
-def independent_review(line, clip_hash, transcript, records):
+NATURAL_SCHWA_STEMS={'hab','les','geh','geb','renn','lass','find','merk','seh','ergeb','stimm','verscharr','halt'}
+
+
+def natural_variant_allowed(line,index,aa,bb):
+    if aa==bb:return False
+    stem=aa[:-1] if aa.endswith('e') else aa
+    other=bb[:-1] if bb.endswith('e') else bb
+    if stem!=other or stem not in NATURAL_SCHWA_STEMS or {aa,bb}!={stem,stem+'e'}:return False
+    tokens=words(line['text'])
+    if (index>0 and tokens[index-1]=='ich') or (index+1<len(tokens) and tokens[index+1]=='ich'):return True
+    # Explicit optional imperative schwa only at a written clause boundary.
+    normalized=unicodedata.normalize('NFC',line['text']).casefold()
+    matches=list(re.finditer(r'\w+',normalized))
+    if index==0:return True
+    gap=normalized[matches[index-1].end():matches[index].start()]
+    return bool(re.search(r'[.!?:,]',gap))
+
+
+def independent_review(line, clip_hash, transcript, records, approvals=None):
     """Clear local ASR mismatch only with full unprompted independent words."""
     record = records.get(line['id'])
     if not cached_record(record, clip_hash, text_hash(line['text'])):
         return None
+    record_hash = text_hash(json.dumps(record, sort_keys=True, ensure_ascii=False))
+    approval = None
+    resolution = 'independent_audio_full_text_match'
     if words(record['transcript']) != words(line['text']):
-        return None
-    return {'resolution':'independent_audio_full_text_match',
+        candidate = (approvals or {}).get(line['id'], {})
+        if (candidate.get('channel') != 'independent'
+            or candidate.get('independent_record_sha256') != record_hash):
+            return None
+        # Reuse the strict one-token substitution validator only after verifying
+        # the secondary channel and exact canonical raw-response record hash.
+        variants = candidate.get('accepted_word_variants', [])
+        def spelling_shape(word):
+            value = word.casefold().replace('y', 'i')
+            return 'k'+value[1:] if value.startswith('c') else value
+        # This channel is restricted to individually reviewed spelling forms,
+        # not changed vowels, inflection, missing words or generic replacements.
+        # No name alias dictionary is used or applied to other clips.
+        if not isinstance(variants, list) or not variants:
+            return None
+        natural=candidate.get('status')=='accepted_natural_word_variants'
+        for variant in variants:
+            if not isinstance(variant,dict) or not isinstance(variant.get('expected'),str) or not isinstance(variant.get('observed'),str):return None
+            if not natural and spelling_shape(variant['expected'])!=spelling_shape(variant['observed']):return None
+        if natural:
+            if not isinstance(candidate.get('reviewed_by'),str) or not candidate['reviewed_by'].casefold().startswith('root'):return None
+            source_tokens,actual_tokens=words(line['text']),words(record['transcript'])
+            if len(source_tokens)!=len(actual_tokens):return None
+            if any(aa!=bb and not natural_variant_allowed(line,i,aa,bb) for i,(aa,bb) in enumerate(zip(source_tokens,actual_tokens))):return None
+        primary_form = dict(candidate, channel='primary',status='accepted_word_variants' if natural else candidate.get('status'))
+        accepted = adjudicate(line, clip_hash, record['transcript'], {line['id']:primary_form})
+        if not accepted:
+            return None
+        approval = candidate
+        resolution = 'independent_explicit_hash_bound_natural_schwa' if natural else 'independent_explicit_hash_bound_word_variants'
+    result = {'resolution':resolution,
             'clip_sha256':clip_hash,'source_audio_sha256':record['source_audio_sha256'],
             'source_text_sha256':record['source_text_sha256'],
             'transcript':record['transcript'],'model':INDEPENDENT_MODEL,
-            'record_sha256':text_hash(json.dumps(record,sort_keys=True,ensure_ascii=False)),
+            'record_sha256':record_hash,
+            'record_hash_method':'SHA256 of UTF-8 json.dumps(record, sort_keys=True, ensure_ascii=False) with default separators',
+            'primary_transcript':transcript,
             'listening_verdict':None}
+    if approval:
+        result['approval'] = approval
+        result['accepted_word_variants'] = approval['accepted_word_variants']
+    return result
+
+
+def canonical_record_hash(record):
+    return text_hash(json.dumps(record,sort_keys=True,ensure_ascii=False))
+
+
+def source_gesture_category(token):
+    # Deliberately excludes lexical interjections Au/He/Ach/Oh/Ha/Uff/Hm.
+    if re.fullmatch(r'a{2,}h',token):return 'scream'
+    if re.fullmatch(r'(?:hi){2,}|(?:ha){2,}|(?:ho){2,}',token):return 'laughter'
+    if re.fullmatch(r'm+pf',token):return 'muffled_vocalization'
+    if token == 'hicks':return 'hiccup'
+    return None
+
+
+def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approvals=None,independent_records=None):
+    """Only root-approved exact source positions and actual QC events explain sounds.
+
+    Approval fields bind the entire raw QC cache record/response, current clip,
+    source, schema and verbatim QC transcript. source_events entries contain
+    source_token_index/source_token/category/event_indices/descriptions/reason
+    and observed_token_indices (empty when QC does not transcribe the gesture).
+    Nonvocal words must remain complete and ordered. Additional QC observations
+    or transcript words cannot be dropped implicitly. No model timings are used.
+    """
+    record=records.get(line['id']);approval=approvals.get(line['id'],{})
+    if not isinstance(approval,dict) or not vocal_qc.cached_record(record,clip_hash,text_hash(line['text'])) or record.get('id')!=line['id']:
+        return None
+    metadata=vocal_qc.cache_metadata()
+    if (approval.get('status')!='approved_vocal_events' or approval.get('channel')!='vocal-qc'
+        or not isinstance(approval.get('reviewed_by'),str) or not approval['reviewed_by'].casefold().startswith('root')
+        or not isinstance(approval.get('reason'),str) or not approval['reason'].strip()
+        or approval.get('clip_sha256')!=clip_hash or approval.get('text_sha256')!=text_hash(line['text'])
+        or approval.get('vocal_record_sha256')!=canonical_record_hash(record)
+        or approval.get('raw_response_sha256')!=canonical_record_hash(record['response'])
+        or approval.get('transcript_sha256')!=text_hash(record['transcript'])
+        or any(approval.get(k)!=v for k,v in metadata.items())):
+        return None
+    observation=vocal_qc.response_observation(record['response']);events=observation['events']
+    expected,actual=words(line['text']),words(observation['transcript'])
+    if approval.get('expected_tokens')!=expected or approval.get('observed_tokens')!=actual:return None
+    mappings=approval.get('source_events')
+    if not isinstance(mappings,list) or not mappings:return None
+    source_positions=[];event_positions=[];observed_positions=[]
+    for mapping in mappings:
+        if not isinstance(mapping,dict):return None
+        index=mapping.get('source_token_index');category=mapping.get('category')
+        if not isinstance(index,int) or isinstance(index,bool) or not 0<=index<len(expected):return None
+        if mapping.get('source_token')!=expected[index] or source_gesture_category(expected[index])!=category:return None
+        if not isinstance(mapping.get('reason'),str) or not mapping['reason'].strip():return None
+        positions=mapping.get('event_indices');descriptions=mapping.get('descriptions');observed=mapping.get('observed_token_indices')
+        if (not isinstance(positions,list) or not positions or any(not isinstance(i,int) or isinstance(i,bool) or not 0<=i<len(events) for i in positions)
+            or positions!=sorted(set(positions)) or not isinstance(descriptions,list) or len(descriptions)!=len(positions)
+            or not isinstance(observed,list) or len(observed)>1
+            or any(not isinstance(i,int) or isinstance(i,bool) or not 0<=i<len(actual) for i in observed)):
+            return None
+        if len(positions)>1 and (category!='laughter' or not isinstance(mapping.get('count_reason'),str) or not mapping['count_reason'].strip()):return None
+        for i,description in zip(positions,descriptions):
+            event=events[i]
+            if event['category']!=category or event['confidence']<.8 or description!=event['description']:return None
+        for i in observed:
+            token=actual[i]
+            if category=='scream' and not re.fullmatch(r'a+h|ha',token):return None
+            if category=='laughter' and not re.fullmatch(r'(?:hi){2,}|(?:ha){2,}|(?:ho){2,}',token):return None
+            if category=='muffled_vocalization' and not re.fullmatch(r'm+pf',token):return None
+            if category=='hiccup' and token!='hicks':return None
+        source_positions.append(index);event_positions.extend(positions);observed_positions.extend(observed)
+    if (source_positions!=sorted(set(source_positions)) or event_positions!=list(range(len(events)))
+        or observed_positions!=sorted(set(observed_positions))
+        or set(source_positions)!={i for i,t in enumerate(expected) if source_gesture_category(t)}):return None
+    remaining_source=[t for i,t in enumerate(expected) if i not in source_positions]
+    remaining_actual=[t for i,t in enumerate(actual) if i not in observed_positions]
+    word_approval=None
+    if remaining_source!=remaining_actual:
+        if len(remaining_source)!=len(remaining_actual):return None
+        candidate=(word_approvals or {}).get(line['id'],{})
+        # A separately explicit QC-channel word record binds this actual transcript;
+        # existing primary/independent word records are reusable only if validated
+        # in their original full transcript channel, with current hashes.
+        eligible=False
+        if isinstance(candidate,dict) and candidate.get('channel')=='vocal-qc':
+            eligible=(candidate.get('status')=='accepted_word_variants' and candidate.get('clip_sha256')==clip_hash
+                and candidate.get('text_sha256')==text_hash(line['text']) and candidate.get('transcript_sha256')==text_hash(record['transcript'])
+                and candidate.get('vocal_record_sha256')==canonical_record_hash(record)
+                and isinstance(candidate.get('reviewed_by'),str) and candidate['reviewed_by'].casefold().startswith('root')
+                and isinstance(candidate.get('reason'),str) and bool(candidate['reason'].strip()))
+        elif isinstance(candidate,dict):
+            eligible=bool(adjudicate(line,clip_hash,primary_transcript,{line['id']:candidate}) or
+                independent_review(line,clip_hash,primary_transcript,independent_records or {},{line['id']:candidate}))
+        variants=candidate.get('accepted_word_variants') if eligible else None
+        if not isinstance(variants,list) or not variants:return None
+        pairs=set()
+        for variant in variants:
+            if not isinstance(variant,dict) or set(variant)!={'expected','observed'}:return None
+            aa,bb=words(variant['expected']),words(variant['observed'])
+            if len(aa)!=1 or len(bb)!=1 or aa==bb:return None
+            pairs.add((aa[0],bb[0]))
+        if candidate.get('channel')=='vocal-qc':
+            # New vocal-channel lexical records admit named spelling or narrow
+            # grammatical schwa only; never changed actors, tense or meaning.
+            def shape(t):
+                t=t.replace('y','i')
+                return 'k'+t[1:] if t.startswith('c') else t
+            source_indices=[i for i in range(len(expected)) if i not in source_positions]
+            if any(aa!=bb and shape(aa)!=shape(bb) and not natural_variant_allowed(line,source_indices[i],aa,bb)
+                for i,(aa,bb) in enumerate(zip(remaining_source,remaining_actual))):return None
+        if {(aa,bb) for aa,bb in zip(remaining_source,remaining_actual) if aa!=bb}!=pairs:return None
+        word_approval=candidate
+    return {'resolution':'root_hash_bound_actual_vocal_events_and_full_words','record':approval,
+        'vocal_record_sha256':canonical_record_hash(record),'raw_response_sha256':canonical_record_hash(record['response']),
+        'transcript':record['transcript'],'remaining_source_tokens':remaining_source,'remaining_observed_tokens':remaining_actual,
+        'word_approval':word_approval,'model_timestamps_used':False,'acting_approval':None}
+
+
+CTC_MODEL_ID = 'jonatasgrosman/wav2vec2-large-xlsr-53-german'
+CTC_REVISION = '4b8a02957378d0f2da2ef74091156b032c485a89'
+CTC_ENGINE = 'story-german-ctc-expanded-blank-v2'
+CTC_METHOD = 'unprompted_acoustic_argmax_CTC_blank_repeat_collapse'
+
+
+def ctc_review(line, clip_hash, manifest_hash, records):
+    """Root-approved full greedy words only; forced alignment is never evidence."""
+    envelope = records.get(line['id'], {})
+    if not isinstance(envelope,dict): return None
+    receipt, approval = envelope.get('receipt', {}), envelope.get('approval', {})
+    if not isinstance(receipt,dict) or not isinstance(approval,dict): return None
+    if (approval.get('status') != 'approved_greedy_exact'
+        or not isinstance(approval.get('reviewed_by'), str) or not approval['reviewed_by'].strip()
+        or not isinstance(approval.get('reason'), str) or not approval['reason'].strip()
+        or approval.get('receipt_sha256') != envelope.get('receipt_sha256')):
+        return None
+    binding, greedy = receipt.get('binding', {}), receipt.get('greedy_decode', {})
+    if not isinstance(binding,dict) or not isinstance(greedy,dict): return None
+    model = binding.get('model', {})
+    if not isinstance(model,dict): return None
+    hashes = model.get('file_sha256', {})
+    required = {'config.json', 'vocab.json', 'preprocessor_config.json'}
+    if (receipt.get('id') != line['id'] or binding.get('audio_sha256') != clip_hash
+        or binding.get('text_sha256') != text_hash(line['text'])
+        or binding.get('source_manifest_sha256') != manifest_hash
+        or binding.get('engine') != CTC_ENGINE or model.get('model_id') != CTC_MODEL_ID
+        or model.get('revision') != CTC_REVISION
+        or not isinstance(hashes, dict) or not required.issubset(hashes)
+        or not any(k.endswith(('.bin', '.safetensors')) for k in hashes)
+        or any(not isinstance(h, str) or not re.fullmatch('[0-9a-f]{64}', h) for h in hashes.values())
+        or model.get('fingerprint') != text_hash(json.dumps(hashes, sort_keys=True))
+        or binding.get('script_sha256') != envelope.get('actual_script_sha256')
+        or not envelope.get('actual_script_sha256')
+        or greedy.get('method') != CTC_METHOD or greedy.get('authored_initial_prompt', 'missing') is not None
+        or greedy.get('unknown_tokens') != []):
+        return None
+    ids = greedy.get('argmax_token_ids')
+    blank = greedy.get('blank_token_id')
+    vocab = envelope.get('vocab')
+    if (not isinstance(ids, list) or not ids or any(type(i) is not int or i < 0 for i in ids)
+        or type(blank) is not int or not isinstance(vocab, dict)
+        or greedy.get('argmax_token_ids_sha256') != text_hash(json.dumps(ids,separators=(',',':')))
+        or envelope.get('vocab_sha256') != hashes['vocab.json']):
+        return None
+    probabilities = greedy.get('argmax_token_probabilities')
+    if (not isinstance(probabilities,list) or len(probabilities)!=len(ids)
+        or any(type(v) not in (int,float) or not math.isfinite(v) or not 0<=v<=1 for v in probabilities)
+        or greedy.get('frame_evidence_sha256') != text_hash(json.dumps(
+            {'argmax_token_ids':ids,'argmax_token_probabilities':probabilities},sort_keys=True,separators=(',',':')))):
+        return None
+    collapsed = []
+    previous = None
+    for token in ids:
+        if token != previous and token != blank: collapsed.append(token)
+        previous = token
+    inverse = {value: key for key, value in vocab.items()}
+    if greedy.get('token_id_to_label') != {str(index):label for index,label in inverse.items()}: return None
+    labels = [inverse.get(token) for token in collapsed]
+    if any(not isinstance(label, str) or len(label) != 1 for label in labels): return None
+    reconstructed = ''.join(labels).replace('|', ' ').strip()
+    if (collapsed != greedy.get('collapsed_token_ids') or reconstructed != greedy.get('transcript')
+        or words(reconstructed) != words(line['text'])):
+        return None
+    return {'resolution':'root_approved_unprompted_CTC_greedy_exact_words',
+            'clip_sha256':clip_hash, 'source_text_sha256':text_hash(line['text']),
+            'transcript':reconstructed, 'receipt_sha256':envelope['receipt_sha256'],
+            'model':model, 'engine':CTC_ENGINE, 'method':CTC_METHOD,
+            'approval':approval, 'listening_verdict':None}
+
+
+def load_ctc_records(path):
+    report = json.loads(path.read_text())
+    records = {}
+    script_hash = digest(ROOT/'scripts/story_voice_ctc_align.py')
+    receipt_directory = Path(report.get('receipt_directory', str(path.parent))).resolve()
+    if not receipt_directory.is_relative_to(PRIVATE.resolve()): raise ValueError('ctc_receipts_outside_private_bank')
+    verified_models = set()
+    for result in report.get('results', []):
+        ident = result.get('id')
+        if not isinstance(ident, str) or not ID.fullmatch(ident) or ident in records:
+            raise ValueError('invalid_ctc_result_ids')
+        approval = result.get('approval')
+        if not isinstance(approval, dict): continue
+        receipt_file = result.get('receipt_file', ident+'.ctc.private.json')
+        if receipt_file != ident+'.ctc.private.json': raise ValueError('invalid_ctc_receipt_filename')
+        receipt_path = receipt_directory/receipt_file
+        receipt_hash = digest(receipt_path)
+        if receipt_hash != result.get('receipt_sha256'): raise ValueError('changed_ctc_receipt')
+        receipt = json.loads(receipt_path.read_text())
+        model = receipt.get('binding', {}).get('model', {})
+        if model != report.get('model') or report.get('engine') != CTC_ENGINE:
+            raise ValueError('ctc_report_model_mismatch')
+        directory = Path(model.get('local_directory', ''))
+        if not directory.is_absolute(): raise ValueError('ctc_local_vocab_path_required')
+        fingerprint = model.get('fingerprint')
+        if fingerprint not in verified_models:
+            for filename, expected in model.get('file_sha256', {}).items():
+                if Path(filename).name != filename or digest(directory/filename) != expected:
+                    raise ValueError('ctc_model_file_changed')
+            verified_models.add(fingerprint)
+        vocab_path = directory/'vocab.json'
+        vocab_hash = digest(vocab_path)
+        records[ident] = {'receipt':receipt, 'receipt_sha256':receipt_hash,
+                          'approval':approval, 'vocab':json.loads(vocab_path.read_text()),
+                          'vocab_sha256':vocab_hash, 'actual_script_sha256':script_hash}
+    return records
 
 
 class LocalASR:
@@ -184,7 +468,7 @@ class LocalASR:
         return transcript.strip()
 
 
-def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, decode_fn=decode, model_id=MODEL, independent_records=None):
+def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, decode_fn=decode, model_id=MODEL, independent_records=None, ctc_records=None, vocal_records=None, vocal_adjudications=None):
     manifest_path = run/'lines.private.json'
     manifest = json.loads(manifest_path.read_text())
     lines = manifest.get('lines')
@@ -223,27 +507,65 @@ def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, deco
             if error: reasons.append(error)
             else:
                 report['checked_ids'].append(ident); report['clip_sha256'][ident]=clip_hash
+                independent = (independent_records or {}).get(ident)
+                if isinstance(independent,dict):
+                    take['independent_asr_diagnosis'] = {
+                        'transcript':independent.get('transcript'),
+                        'bindings_valid':cached_record(independent,clip_hash,text_hash(line['text'])),
+                        'record_sha256':text_hash(json.dumps(independent,sort_keys=True,ensure_ascii=False)),
+                        'source_report_retains_raw_response':True}
+
                 reasons.extend(signal_failures(metrics,len(words(line['text']))))
                 key=text_hash(VERSION+'\0'+model_id+'\0'+clip_hash+'\0'+line['text'])
+                local_asr_in_progress = False
                 try:
                     cached=cache.get(key)
                     if isinstance(cached,dict) and cached.get('clip_sha256')==clip_hash and cached.get('text_sha256')==text_hash(line['text']) and isinstance(cached.get('transcript'),str):
                         transcript=cached['transcript']; take['asr_reused']=True
                     else:
+                        local_asr_in_progress = True
                         transcript=asr(path); take['asr_reused']=False
                         if not isinstance(transcript,str): raise ValueError('invalid_asr_text')
+                        local_asr_in_progress = False
                         if digest(path)!=clip_hash: raise ValueError('audio_changed_during_asr')
                         cache[key]={'clip_sha256':clip_hash,'text_sha256':text_hash(line['text']),'transcript':transcript}
                         save(cache_path,cache)
                     errors=distance(words(line['text']),words(transcript))
                     take.update(transcript=transcript,word_error_rate=errors/len(words(line['text'])))
-                    if errors:
-                        accepted=independent_review(line,clip_hash,transcript,independent_records or {})
-                        if not accepted: accepted=adjudicate(line,clip_hash,transcript,records)
+                    if errors or ident in (vocal_adjudications or {}):
+                        if ident in (vocal_adjudications or {}):
+                            accepted=vocal_review(line,clip_hash,transcript,vocal_records or {},vocal_adjudications or {},records,independent_records) if not reasons else None
+                        else:
+                            accepted=independent_review(line,clip_hash,transcript,independent_records or {}, records)
+                            if not accepted: accepted=ctc_review(line,clip_hash,report['manifest_sha256'],ctc_records or {})
+                            if not accepted: accepted=adjudicate(line,clip_hash,transcript,records)
                         if accepted: take['adjudication']=accepted
-                        else: reasons.append('asr_lexical_mismatch_requires_review')
+                        else: reasons.append('vocal_adjudication_requires_review' if ident in (vocal_adjudications or {}) else 'asr_lexical_mismatch_requires_review')
                 except Exception as error:
-                    reasons.append('asr_check_failed_'+type(error).__name__)
+                    diagnostic = 'asr_check_failed_'+type(error).__name__
+                    accepted = None
+                    if local_asr_in_progress:
+                        # Only the local recognition call can be replaced by
+                        # independent evidence. Never waive decoding, signal,
+                        # cache I/O, changed audio or other fatal failures.
+                        take['local_asr_failure'] = diagnostic
+                        if isinstance(error, ValueError) and str(error) in {'uncertain_asr_segments', 'invalid_asr_text'}:
+                            take['local_asr_failure_detail'] = str(error)
+                        try:
+                            unchanged = digest(path) == clip_hash
+                        except OSError:
+                            unchanged = False
+                        if unchanged:
+                            if ident in (vocal_adjudications or {}):
+                                accepted=vocal_review(line,clip_hash,'',vocal_records or {},vocal_adjudications or {},records,independent_records) if not reasons and isinstance(error,ValueError) and str(error) in {'uncertain_asr_segments','invalid_asr_text'} else None
+                            else:
+                                accepted = independent_review(line, clip_hash, '', independent_records or {}, records)
+                                if not accepted:
+                                    accepted = ctc_review(line,clip_hash,report['manifest_sha256'],ctc_records or {})
+                    if accepted:
+                        take['adjudication'] = accepted
+                    else:
+                        reasons.append(diagnostic)
             take['reasons']=reasons;report['takes'].append(take)
             report['failures'].extend({'id':ident,'reason':r} for r in reasons)
             save(report_path,report)
@@ -267,6 +589,9 @@ def main():
     parser.add_argument('--report',type=Path)
     parser.add_argument('--adjudications',type=Path,help='Private JSON mapping IDs to explicit hash-bound accepted_word_variants records')
     parser.add_argument('--independent-report',type=Path,help='Private independent story MP3 transcription report; exact full words only')
+    parser.add_argument('--vocal-report',type=Path,help='Independent actual-audio vocal QC cache report; no expected text was supplied')
+    parser.add_argument('--vocal-adjudications',type=Path,help='Private root-reviewed source-token/event-position hash bindings; never automatic approval')
+    parser.add_argument('--ctc-report',type=Path,help='Root-approved pinned local CTC greedy receipts; forced alignment never qualifies words')
     parser.add_argument('--model-dir',type=Path,help='Already cached local MLX model; never downloaded')
     parser.add_argument('--decode-workers',type=int,default=4)
     args=parser.parse_args()
@@ -284,7 +609,14 @@ def main():
             raise ValueError('invalid_independent_records')
         independent_records = {v['id']:v for v in values}
         if len(independent_records) != len(values): raise ValueError('duplicate_independent_ids')
-        result=qualify(run,report,records,args.decode_workers,LocalASR(str(args.model_dir.resolve()) if args.model_dir else None),model_id=MODEL+(':'+str(args.model_dir.resolve()) if args.model_dir else ''), independent_records=independent_records)
+        vocal = json.loads(args.vocal_report.read_text()) if args.vocal_report else {}
+        vocal_values=vocal.get('records',[])
+        if not isinstance(vocal_values,list) or any(not isinstance(v,dict) or not isinstance(v.get('id'),str) for v in vocal_values):raise ValueError('invalid_vocal_records')
+        vocal_records={v['id']:v for v in vocal_values}
+        if len(vocal_records)!=len(vocal_values):raise ValueError('duplicate_vocal_ids')
+        vocal_approvals=json.loads(args.vocal_adjudications.read_text()) if args.vocal_adjudications else {}
+        if not isinstance(vocal_approvals,dict):raise ValueError('invalid_vocal_adjudications')
+        result=qualify(run,report,records,args.decode_workers,LocalASR(str(args.model_dir.resolve()) if args.model_dir else None),model_id=MODEL+(':'+str(args.model_dir.resolve()) if args.model_dir else ''), independent_records=independent_records, ctc_records=load_ctc_records(args.ctc_report) if args.ctc_report else {}, vocal_records=vocal_records, vocal_adjudications=vocal_approvals)
         print(json.dumps({'status':result['status'],'checked':len(result['checked_ids']),'failures':len(result['failures'])}))
         return 0 if result['status']=='passed' else 1
     except Exception as error:

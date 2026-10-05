@@ -15,6 +15,46 @@ from story_voice_common import core
 import prolog_voice_generate as standard
 
 
+def load_delivery_overrides(path,selected):
+    """Reject duplicate JSON keys instead of silently keeping the last value."""
+    def unique_pairs(pairs):
+        result={}
+        for key,value in pairs:
+            if key in result:raise core.SafeError('Delivery overrides contain duplicate JSON keys.')
+            result[key]=value
+        return result
+    try:
+        with open(path,encoding='utf-8') as stream:
+            overrides=json.load(stream,object_pairs_hook=unique_pairs)
+    except (OSError,ValueError):
+        raise core.SafeError('Cannot read a valid private delivery-overrides JSON mapping.') from None
+    if not isinstance(overrides,dict) or set(overrides)!=selected:
+        raise core.SafeError('Delivery overrides must cover every selected ID exactly once, with no extra IDs.')
+    for value in overrides.values():
+        if not isinstance(value,dict) or not {'delivery_style'}.issubset(value) or not set(value).issubset({'delivery_style','retake_text'}):
+            raise core.SafeError('Each delivery override needs delivery_style and optional retake_text only.')
+        if not isinstance(value['delivery_style'],str) or ('retake_text' in value and not isinstance(value['retake_text'],str)):
+            raise core.SafeError('Delivery override styles/text must be strings.')
+    return overrides
+
+
+def apply_delivery_overrides(records,selected,overrides):
+    if set(overrides)!=selected:
+        raise core.SafeError('Delivery overrides do not match selected IDs.')
+    selected_keys=[r['key'] for r in records if r['key'] in selected]
+    if len(selected_keys)!=len(selected) or set(selected_keys)!=selected:
+        raise core.SafeError('Selected prepared requests must occur exactly once.')
+    changed=[]
+    for record in records:
+        ident=record['key']
+        if ident not in selected:
+            changed.append(record);continue
+        value=overrides[ident]
+        # A one-ID scope per entry reuses the original lexical/style safety gate.
+        changed.append(standard.delivery_record(record,{ident},value['delivery_style'],value.get('retake_text')))
+    return changed
+
+
 def main():
     os.umask(0o077);common.configure()
     parser=argparse.ArgumentParser(description=__doc__)
@@ -22,19 +62,26 @@ def main():
     parser.add_argument('--only-ids',required=True);parser.add_argument('--workers',type=int,choices=[1,2,3],default=2)
     parser.add_argument('--request-interval',type=float,default=6.2)
     parser.add_argument('--retake',action='store_true');parser.add_argument('--delivery-style');parser.add_argument('--retake-text')
+    parser.add_argument('--delivery-overrides',help='Private JSON ID -> {delivery_style, retake_text?}; exactly all selected IDs')
     parser.add_argument('--export-only',action='store_true')
     args=parser.parse_args()
     if args.request_interval<.1:parser.error('Request interval must be at least0.1seconds')
     if args.key_stdin and args.keychain_service:parser.error('Choose one credential source')
     override=args.delivery_style is not None or args.retake_text is not None
+    if args.delivery_overrides and (not args.retake or args.export_only or override):
+        parser.error('--delivery-overrides requires --retake and conflicts with export-only or single delivery-style/retake-text')
     if override and (not args.retake or args.export_only):parser.error('Delivery override requires scoped generation --retake')
     try:
         run=core.directory(args.run_dir);_operation_lock=common.run_lock(run);common.prepared(run)
         manifest=core.read_json(run/'lines.private.json');profiles=core.read_json(run/'profiles.private.json')
-        rows={r['id']:r for r in manifest['lines']};selected=set(args.only_ids.split(','))
+        rows={r['id']:r for r in manifest['lines']};selected_list=args.only_ids.split(',');selected=set(selected_list)
+        if len(selected_list)!=len(selected):raise core.SafeError('Selected story IDs must occur exactly once.')
         if not selected or not selected.issubset(rows):raise core.SafeError('Unknown or empty story ID selection.')
         records=[json.loads(s) for s in (run/'requests.jsonl').read_text().splitlines() if s.strip()]
         if override:records=[standard.delivery_record(r,selected,args.delivery_style,args.retake_text) for r in records]
+        if args.delivery_overrides:
+            overrides=load_delivery_overrides(args.delivery_overrides,selected)
+            records=apply_delivery_overrides(records,selected,overrides)
         key=None if args.export_only else core.credential(args) # Always before archival.
         if not args.retake and not args.export_only and (run/'job.json').exists():
             # A Batch owns these IDs. Default Standard mode can resume its audio,

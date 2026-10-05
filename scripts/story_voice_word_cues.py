@@ -120,6 +120,53 @@ def resolve_model_dir(model_dir=None):
     return path
 
 
+
+def qualified_CTC_cache(receipt, expected, approval, run, provenance_cache=None):
+    """Retain only explicitly adopted, currently proven independent CTC cues."""
+    if not receipt or receipt.get('engine_version') != ENGINE+'/story-CTC-private-adoption-v1':
+        return False
+    if any(receipt.get(key) != value for key,value in expected.items() if key != 'engine_version'):
+        return False
+    if not adjudicated(receipt, approval) or receipt.get('cues_sha256') != acoustic.cue_sha(receipt.get('word_cues', [])):
+        return False
+    adoption = receipt.get('CTC_adoption', {})
+    if adoption.get('ctc_receipt_sha256') != approval.get('ctc_receipt_sha256'):
+        return False
+    paths = list(run.glob('ctc*/'+receipt['id']+'.ctc.private.json'))
+    actual_path = next((path for path in paths if acoustic.sha(path) == adoption.get('ctc_receipt_sha256')), None)
+    if actual_path is None:
+        return False
+    actual = json.loads(actual_path.read_text())
+    binding = actual.get('binding', {})
+    if binding != adoption.get('binding') or binding != approval.get('CTC_binding'):
+        return False
+    if any(binding.get(key) != expected[key] for key in ['audio_sha256','text_sha256','source_manifest_sha256']):
+        return False
+    from story_voice_ctc_align import model_identity, ENGINE as ctc_engine
+    if binding.get('engine') != ctc_engine or binding.get('script_sha256') != acoustic.sha(Path(__file__).with_name('story_voice_ctc_align.py')):
+        return False
+    model = binding.get('model', {})
+    cache = provenance_cache if provenance_cache is not None else {}
+    key = json.dumps(model, sort_keys=True)
+    if key not in cache:
+        try:
+            cache[key] = model_identity(Path(model['local_directory']), model['revision']) == model
+        except (ValueError, KeyError, OSError):
+            cache[key] = False
+    if not cache[key]:
+        return False
+    words = actual.get('alignment', {}).get('words', [])
+    if [word.get('word') for word in words] != acoustic.normalized_text(receipt['text']).split():
+        return False
+    if [{'start':word.get('start'),'end':word.get('end')} for word in words] != receipt['word_cues']:
+        return False
+    try:
+        cue_words(receipt['text'], receipt['word_cues'], receipt['decoded_seconds'])
+    except RuntimeError:
+        return False
+    return True
+
+
 def load_local_model(model_dir=None):
     import mlx.core as mx
     from mlx_whisper.load_models import load_model
@@ -149,6 +196,7 @@ def align_run(run, private_dir, qualification=None, only_ids=None, model_dir=Non
         raise RuntimeError('No collected clips to align')
     approvals = json.loads(qualification.read_text()).get('approvals', {}) if qualification else {}
     receipts, before, model_pair = [], {}, None
+    provenance_cache = {}
     for clip in clips:
         ident = clip['id']
         if not STORY_ID.fullmatch(ident) or ident not in source:
@@ -167,14 +215,17 @@ def align_run(run, private_dir, qualification=None, only_ids=None, model_dir=Non
         receipt = json.loads(path.read_text()) if path.exists() else None
         expected = {'audio_sha256': before[ident], 'text_sha256': text_sha(clip['text']),
                     'source_manifest_sha256': manifest_sha, 'engine_version': ENGINE}
-        if not receipt or any(receipt.get(k) != v for k, v in expected.items()):
+        retained_CTC = qualified_CTC_cache(receipt, expected, approvals.get(ident, {}), run, provenance_cache)
+        base_cache = receipt and not receipt.get('CTC_adoption') and all(receipt.get(k) == v for k,v in expected.items())
+        if not retained_CTC and not base_cache:
             if model_pair is None:
                 model_pair = load_local_model(model_dir)
             receipt = acoustic.align(*model_pair, clip, audio)
             receipt['original_qualification_flags'] = copy.deepcopy(receipt['qualification_flags'])
             receipt = acoustic.refine_boundaries(receipt, audio)
             receipt.update(expected)
-        receipt['all_qualification_flags'] = qualification_flags(receipt)
+        if not retained_CTC:
+            receipt['all_qualification_flags'] = qualification_flags(receipt)
         receipt['cues_sha256'] = acoustic.cue_sha(receipt['word_cues'])
         receipt['authored_word_count'] = len(acoustic.normalized_text(clip['text']).split())
         acoustic.save(path, receipt)

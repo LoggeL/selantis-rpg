@@ -1,3 +1,4 @@
+import { presentTacticalBark } from './barkVoice';
 import Phaser from 'phaser';
 import type { CharAnim } from '../art/api';
 import type { SfxName } from '../audio/api';
@@ -1020,7 +1021,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   bark(unit: string, text: string, ms = 2200): void {
     const v = this.views.get(unit);
     if (!v) return;
-    G.ui.bubble(text, () => (this.scene.isActive() ? this.worldToCanvas(v.head.x, v.head.y - 4) : null), ms);
+    presentTacticalBark(G.ui, v.unit, text, () => (this.scene.isActive() ? this.worldToCanvas(v.head.x, v.head.y - 4) : null), ms);
   }
 
   pose(unit: string, anim: CharAnim): void {
