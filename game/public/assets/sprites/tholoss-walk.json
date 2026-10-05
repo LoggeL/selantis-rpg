@@ -1,0 +1,25 @@
+{
+  "character": "tholoss",
+  "height": 48,
+  "foot": [
+    32,
+    60
+  ],
+  "fps": 8,
+  "idle": [
+    2,
+    4,
+    8,
+    14
+  ],
+  "dirs": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "frameW": 64,
+  "frameH": 64,
+  "cols": 4,
+  "rows": 4
+}

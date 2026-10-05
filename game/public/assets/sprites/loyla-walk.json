@@ -1,0 +1,25 @@
+{
+  "character": "loyla",
+  "height": 43,
+  "foot": [
+    32,
+    60
+  ],
+  "fps": 8,
+  "idle": [
+    2,
+    5,
+    9,
+    12
+  ],
+  "dirs": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "frameW": 64,
+  "frameH": 64,
+  "cols": 4,
+  "rows": 4
+}

@@ -1,4 +1,4 @@
-// Code-drawn book pages of the prologue chronicle (ui/plateKit). No painted people (DESIGN.md §2).
+// Illustrated pixel-art chronicle pages come from the asset manifest; these drawings are loading fallbacks.
 import { G } from '../../core/G';
 import { DANGER, frame, GOLD, INK, INK_SOFT, inkPath, label, mountainGlyph, parchment, rng, SEPIA, treeGlyph, TURQUOISE } from '../../ui/plateKit';
 

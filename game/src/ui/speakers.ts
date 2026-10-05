@@ -15,7 +15,7 @@ export const DEFAULT_SPEAKERS: SpeakerDef[] = [
   { id: 'mutter', name: 'Mutter', portrait: 'mother', voice: { pitch: 255, wave: 'sine' }, color: '#c46a4e' },
   { id: 'vater', name: 'Vater', portrait: 'father', voice: { pitch: 140, wave: 'triangle' }, color: '#9a7a52' },
   // Prolog
-  { id: 'valentus', name: 'Valentus', voice: { pitch: 120, wave: 'sine' }, color: '#7fa6d8' },
+  { id: 'valentus', name: 'Valentus von Trapas', voice: { pitch: 120, wave: 'sine' }, color: '#7fa6d8' },
   { id: 'baeuerin', name: 'Die Bäuerin', portrait: 'mother', voice: { pitch: 250, wave: 'sine' }, color: '#c46a4e' },
   { id: 'bauer', name: 'Der Bauer', portrait: 'father', voice: { pitch: 140, wave: 'triangle' }, color: '#9a7a52' },
   { id: 'ignatius', name: 'Ignatius von Ignis', voice: { pitch: 135, wave: 'sine' }, color: '#d0904a' },

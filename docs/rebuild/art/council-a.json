@@ -1,0 +1,87 @@
+{
+  "method": "built-in image_gen__imagegen",
+  "styleReferences": [
+    "docs/rebuild/art/refs/ignatius.png",
+    "game/public/assets/portraits/ignatius.png"
+  ],
+  "characters": [
+    {
+      "id": "ulfbert",
+      "name": "Ulfbert",
+      "height": 43,
+      "prompt": "Use case: stylized-concept. Asset type: fantasy RPG pixel art character identity board, landscape 1536x1024. HARD LAYOUT: LEFT HALF x0-768 is precisely a four-column four-row walking sprite grid with 16 separated full-body figures, equal cells192x256, plain saturated magenta background, no lines/no labels/no letters. Four frames per row with visibly alternating walking legs and swinging arms; row1 facing viewer DOWN; row2 strict profile facing LEFT; row3 strict profile facing RIGHT; row4 BACK facing UP, no face visible. Every figure same size, entire head and feet intact, plenty of spacing. RIGHT HALF x768-1536 is a large square bust portrait centered between y128 and896, dark forest plain background, no frame. Style match reference only for crisp detailed 1990s hand-pixelled fantasy RPG rendering with dark outline, discrete pixels, warm face shading, rich restrained fabric shading. Reference identity must NOT be copied. Make individual described identity consistent in all 16 sprites and portrait. No text, no watermark. Subject: Ulfbert, male older powerful broad-shouldered northern man from Rogar, spokesperson of the four. Black short hair with grey temples, broad square face, short angular salt-and-pepper beard. Heavy dark navy-blue robe with slate grey collar and cuffs, simple steel clasp, brown boots. Firm seasoned dignified expression. NOT bald, not orange robes.",
+      "source": "docs/rebuild/art/refs/ulfbert-identity-board.png",
+      "divider": 768,
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c9d-a474-7b52-9ac8-8c1a85c36326/exec-6e09a988-dc52-4942-9ddf-29d681c0fda6.png",
+      "qa": "Raw image visually inspected: sixteen separated whole figures, down/left/right/up directions correct, distinctive identity consistent with portrait.",
+      "outputs": {
+        "game/public/assets/sprites/ulfbert-walk.png": "1ecf6cf6fa3dca6f",
+        "game/public/assets/portraits/ulfbert.png": "ac657170c887a510",
+        "game/public/assets/sprites/ulfbert-cast.png": "c102eeaa47f92c17"
+      },
+      "sourceSha256": "9a43cfa782305c3e"
+    },
+    {
+      "id": "loyla",
+      "name": "Loyla",
+      "height": 43,
+      "prompt": "Use case: stylized-concept. Asset type: fantasy RPG pixel art character identity board, landscape 1536x1024. HARD LAYOUT: LEFT HALF x0-768 is precisely a four-column four-row walking sprite grid with 16 separated full-body figures, equal cells192x256, plain saturated magenta background, no lines/no labels/no letters. Four frames per row with visibly alternating walking legs and swinging arms; row1 facing viewer DOWN; row2 strict profile facing LEFT; row3 strict profile facing RIGHT; row4 BACK facing UP, no face visible. Every figure same size, entire head and feet intact, plenty of spacing. RIGHT HALF x768-1536 is a large square bust portrait centered between y128 and896, dark forest plain background, no frame. Style match reference only for crisp detailed 1990s hand-pixelled fantasy RPG rendering with dark outline, discrete pixels, warm face shading, rich restrained fabric shading. Reference identity must NOT be copied. Make individual described identity consistent in all 16 sprites and portrait. No text, no watermark. Subject: Loyla, MAN from Imandur, slim meticulously groomed adult man, medium-length chestnut-brown hair swept to sides, clean short moustache and NO beard, narrow elegant face. Rich purple-red robe with muted gold narrow collar and belt, brown boots. Intelligent composed expression. Clearly masculine identity, no feminine body.",
+      "source": "docs/rebuild/art/refs/loyla-identity-board.png",
+      "divider": 768,
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c9d-a474-7b52-9ac8-8c1a85c36326/exec-2444f8cb-e532-4678-9b27-36cb299f4345.png",
+      "qa": "Raw image visually inspected: sixteen separated whole figures, down/left/right/up directions correct, distinctive identity consistent with portrait.",
+      "outputs": {
+        "game/public/assets/sprites/loyla-walk.png": "4941bc4f3b01d97f",
+        "game/public/assets/portraits/loyla.png": "0a6a4871dac8d0c3",
+        "game/public/assets/sprites/loyla-cast.png": "41ac00d306ff1573"
+      },
+      "sourceSha256": "d3bf77d96ec6ec0d"
+    },
+    {
+      "id": "gira",
+      "name": "Gira",
+      "height": 43,
+      "prompt": "Use case: stylized-concept. Asset type: fantasy RPG pixel art character identity board, landscape 1536x1024. HARD LAYOUT: LEFT HALF x0-768 is precisely a four-column four-row walking sprite grid with 16 separated full-body figures, equal cells192x256, plain saturated magenta background, no lines/no labels/no letters. Four frames per row with visibly alternating walking legs and swinging arms; row1 facing viewer DOWN; row2 strict profile facing LEFT; row3 strict profile facing RIGHT; row4 BACK facing UP, no face visible. Every figure same size, entire head and feet intact, plenty of spacing. RIGHT HALF x768-1536 is a large square bust portrait centered between y128 and896, dark forest plain background, no frame. Style match reference only for crisp detailed 1990s hand-pixelled fantasy RPG rendering with dark outline, discrete pixels, warm face shading, rich restrained fabric shading. Reference identity must NOT be copied. Make individual described identity consistent in all 16 sprites and portrait. No text, no watermark. Subject: Gira, WOMAN from Imandur, older consecrated woman with serene strikingly calm expression. Silver hair braided and pinned high in a clearly visible bun crown, lined mature face, slender but upright posture. Forest-green robe with muted gold woven edging, sage undergarment, brown boots. No beard, no hood.",
+      "source": "docs/rebuild/art/refs/gira-identity-board.png",
+      "divider": 752,
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c9d-a474-7b52-9ac8-8c1a85c36326/exec-6c9055f6-f2a7-426d-9724-fba9d055190b.png",
+      "qa": "Raw image visually inspected: sixteen separated whole figures, down/left/right/up directions correct, distinctive identity consistent with portrait.",
+      "outputs": {
+        "game/public/assets/sprites/gira-walk.png": "55a3d2b39f1bea74",
+        "game/public/assets/portraits/gira.png": "624d5fa011ca4058",
+        "game/public/assets/sprites/gira-cast.png": "c53af8946629a9e2"
+      },
+      "sourceSha256": "71cbb115bda2ab52"
+    },
+    {
+      "id": "tholoss",
+      "name": "Tholloss",
+      "height": 48,
+      "prompt": "Use case: stylized-concept. Asset type: fantasy RPG pixel art character identity board, landscape 1536x1024. HARD LAYOUT: LEFT HALF x0-768 is precisely a four-column four-row walking sprite grid with 16 separated full-body figures, equal cells192x256, plain saturated magenta background, no lines/no labels/no letters. Four frames per row with visibly alternating walking legs and swinging arms; row1 facing viewer DOWN; row2 strict profile facing LEFT; row3 strict profile facing RIGHT; row4 BACK facing UP, no face visible. Every figure same size, entire head and feet intact, plenty of spacing. RIGHT HALF x768-1536 is a large square bust portrait centered between y128 and896, dark forest plain background, no frame. Style match reference only for crisp detailed 1990s hand-pixelled fantasy RPG rendering with dark outline, discrete pixels, warm face shading, rich restrained fabric shading. Reference identity must NOT be copied. Make individual described identity consistent in all 16 sprites and portrait. No text, no watermark. Subject: Tholloss, MAN from Trapas, exceptionally TALL and GAUNT, visibly taller than ordinary adults, narrow long nose, hollow cheeks, black slicked-back hair to nape, no beard. Long narrow dark ochre robe with slate grey mantle, spare muted bronze belt, dark boots. Severe watchful expression. Elongated limbs and very lean silhouette, head relatively small, long robe.",
+      "source": "docs/rebuild/art/refs/tholoss-identity-board.png",
+      "divider": 719,
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c9d-a474-7b52-9ac8-8c1a85c36326/exec-c0b7b933-e45c-4b89-bd0a-454138d88227.png",
+      "qa": "Raw image visually inspected: sixteen separated whole figures, down/left/right/up directions correct, distinctive identity consistent with portrait.",
+      "outputs": {
+        "game/public/assets/sprites/tholoss-walk.png": "8d2be0c763a89c41",
+        "game/public/assets/portraits/tholoss.png": "67cfd780e450a991",
+        "game/public/assets/sprites/tholoss-cast.png": "a58ad613f5fe400d"
+      },
+      "sourceSha256": "99bf6835d2bc0c51"
+    }
+  ],
+  "qa": {
+    "rawVisual": "All four complete identity boards inspected; all sixteen direction frames anatomically complete and correct.",
+    "runtimeVisual": "All four final walk strips and all four portraits inspected. Distinctive designs retained, no magenta fringes or crop artifacts.",
+    "geometry": "Each of 64 frames has nonempty bbox, bottom y60, height43 except Tholloss48. Four rows down/left/right/up. Portrait256x256.",
+    "animation": "All direction rows have nonzero limb motion and alt13; no QA warning after divider crop correction.",
+    "remaining": "Manifest/cast integration and browser QA owned by root."
+  },
+  "cast": {
+    "method": "built-in image_gen__imagegen",
+    "source": "docs/rebuild/art/refs/council-a-cast-board.png",
+    "sourceSha256": "4927a770f19763d8",
+    "prompt": "Four separated full-body quiet hand-raised voting/casting poses facing right. Own identity refs ulfbert,loyla,gira,tholoss; preserve hair, faces and navy/crimson/green/ochre-slate robes. No magic effects, objects or text. Tholloss taller and gaunt. Magenta background, crisp 1990s RPG pixel art.",
+    "qa": "Raw four-character board visually inspected. Four final poses retain identities and raised hands. Exact 64x64 cells, foot32/60, heights43/43/43/48."
+  }
+}

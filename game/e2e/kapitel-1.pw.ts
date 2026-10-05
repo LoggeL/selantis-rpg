@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 /**
  * Kapitel I – „Der letzte Sommertag“: warps into every scene and plays its critical path with real inputs
- * (mouse clicks on the map, E, Ctrl for sneaking, held E for „Halte still“, number keys for choices/packing).
+ * (mouse clicks on the map, E, Ctrl for sneaking, held E for „Halte still“, number keys for choices, buttons for packing).
  *   cd game && npx playwright test e2e/kapitel-1.pw.ts
  */
 
@@ -59,11 +59,12 @@ const idle = (page: Page) => playUntil(page, async () => !(await busy(page)) && 
 
 async function clickMap(page: Page, x: number, y: number): Promise<void> {
   const c = await page.evaluate(([x, y]) => {
-    const cam = (window as any).__world.cameras.main;
+    const cam = (window as any).__world?.cameras.main;
+    if (!cam) return null;
     const r = document.querySelector('#game canvas')!.getBoundingClientRect();
     return { x: r.left + (x - cam.worldView.x) * cam.zoom * r.width / 640, y: r.top + (y - cam.worldView.y) * cam.zoom * r.height / 360 };
   }, [x, y]);
-  await page.mouse.click(c.x, c.y);
+  if (c) await page.mouse.click(c.x, c.y);
 }
 
 /** Click-to-walk towards a map point (in on-screen steps), advancing any dialogue on the way. */
@@ -77,7 +78,9 @@ async function walkTo(page: Page, x: number, y: number, tol = 14, timeout = 3000
     const p = await pos(page);
     if (p && Math.hypot(p[0] - x, p[1] - y) < tol) return;
     if (await busy(page)) { await page.keyboard.press('Enter'); await sleep(300); continue; }
-    const v = await page.evaluate(() => { const c = (window as any).__world.cameras.main.worldView; return [c.x, c.y, c.width, c.height]; });
+    const v = await page.evaluate(() => { const c = (window as any).__world?.cameras.main.worldView; return c ? [c.x, c.y, c.width, c.height] : null; });
+    // A transition can tear down the old world between the checks above.
+    if (!v) { await sleep(100); continue; }
     let tx = x, ty = y;
     if (p) {
       const m = 24;
@@ -130,13 +133,16 @@ test('wiese: Kyra, the promise, the book, the fledgling, Spurenblick', async ({ 
   expect(errors).toEqual([]);
 });
 
-test('heimweg: through the sunken lane at dusk, hoofprints and horses', async ({ page }) => {
+for (const route of ['hohlweg', 'felder'] as const) test(`heimweg: ${route} reaches the farm without locking movement`, async ({ page }) => {
   test.setTimeout(180000);
   const errors = watchErrors(page);
   await warp(page, 'heimweg');
   await idle(page);
   await page.keyboard.down('q');
-  for (const p of [[140, 340], [220, 440], [440, 532], [660, 570], [900, 590], [1100, 606], [1272, 615]] as [number, number][]) {
+  const points: [number, number][] = route === 'hohlweg'
+    ? [[140, 340], [220, 440], [440, 532], [660, 570], [900, 590], [1100, 606], [1272, 615]]
+    : [[140, 320], [300, 272], [430, 264], [700, 230], [960, 192], [1120, 176], [1272, 148]];
+  for (const p of points) {
     await walkTo(page, p[0], p[1], 16, 40000);
     await idle(page);
     if (await scene(page) !== 'heimweg') break;
@@ -144,9 +150,11 @@ test('heimweg: through the sunken lane at dusk, hoofprints and horses', async ({
   await page.keyboard.up('q');
   await page.waitForFunction(() => (window as any).G.currentScene === 'ueberfall', undefined, { timeout: 20000 });
   const st = await page.evaluate(() => (window as any).G.state.data);
-  expect(st.flags['k1-heimweg-route']).toBe('hohlweg');
+  expect(st.flags['k1-heimweg-route']).toBe(route);
   expect(st.abilities).toContain('spurenblick');
   expect(st.clues).toEqual(expect.arrayContaining(['k1-stille', 'k1-pferde']));
+  await playUntil(page, async () => (await objective(page)).includes('Böschung'));
+  await page.waitForFunction(() => (window as any).__world?.playerLocked === false, undefined, { timeout: 5000 });
   expect(errors).toEqual([]);
 });
 
@@ -202,17 +210,22 @@ test('trauer: cairns, cornflowers, the book, packing, pigs, east', async ({ page
   await use(page, [392, 196], async () => Boolean(await flag(page, 'k1-reisekleidung')));
   await idle(page);
   await walkTo(page, 60, 220, 10);
-  await page.keyboard.press('e');
+  // Click-to-walk may already interact with the bag. E would toggle its first item.
+  if (!(await page.locator('.k1-pack').count())) await page.keyboard.press('e');
   await page.waitForSelector('.k1-pack', { timeout: 15000 });
-  await sleep(700);
-  await page.keyboard.press('1'); // Kräuterlexikon (2)
-  await sleep(250);
-  await page.keyboard.press('3'); // Zunder (1)
-  await sleep(250);
-  await page.keyboard.press('2'); // Alana (2) does not fit any more
-  await sleep(250);
+  const herbs = page.locator('.k1-pack-item[data-item="book-herbs"]');
+  const tinder = page.locator('.k1-pack-item[data-item="tinder"]');
+  const alana = page.locator('.k1-pack-item[data-item="book-alana"]');
+  if (!(await herbs.evaluate(el => el.classList.contains('is-in')))) await herbs.click();
+  await expect(herbs).toHaveClass(/is-in/);
+  if (!(await tinder.evaluate(el => el.classList.contains('is-in')))) await tinder.click();
+  await expect(tinder).toHaveClass(/is-in/);
+  await expect(page.locator('.k1-pack-room')).toContainText('3 / 4');
+  await alana.click(); // The second book needs two places and cannot fit.
+  await expect(alana).not.toHaveClass(/is-in/);
+  await expect(page.locator('.k1-pack-thought')).toContainText('passt nicht mehr');
   await page.click('.k1-pack-done');
-  await idle(page);
+  await playUntil(page, async () => Boolean(await flag(page, 'k1-gepackt')) && (await objective(page)).includes('Schweine') && !(await busy(page)));
   const inv = await page.evaluate(() => (window as any).G.state.data.inventory);
   expect(inv).toMatchObject({ bread: 2, cheese: 1, bacon: 1, waterskin: 1, blanket: 1, cloak: 1, coins: 1, tincture: 1, dagger: 1, tinder: 1, 'book-herbs': 1 });
   expect(inv['book-alana']).toBeUndefined();

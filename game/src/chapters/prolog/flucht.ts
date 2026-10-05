@@ -89,7 +89,7 @@ export const fluchtMap = defineMap({
       suspiciousBarks: ['Hörst du das?', 'Großmeister? Zeigt Euch!'], calmBarks: ['Der Alte ist längst tot.', 'Verdammter Wald.'],
     },
     {
-      id: 'spuerhund', preset: 'dog', lantern: false, range: 84, fov: 120, reaction: 1.0,
+      id: 'spuerhund', preset: 'dog', lantern: false, range: 84, fov: 120, reaction: 1.4,
       path: [{ at: [560, 230], wait: 2400, face: 'down' }, { at: [520, 300], wait: 2400, face: 'left' }],
       suspiciousBarks: ['Wuff?'], calmBarks: ['…'],
     },
@@ -133,7 +133,7 @@ function houndDefs(): { id: string; at: [number, number] }[] {
 function spawnHounds(w: WorldCtx): ActorHandle[] {
   return houndDefs().map(d => {
     if (w.actor(d.id).exists) w.despawn(d.id);
-    const a = w.spawn({ id: d.id, preset: 'dog', at: d.at, dir: 'right', solid: false, speed: 150 });
+    const a = w.spawn({ id: d.id, preset: 'dog', at: d.at, dir: 'right', solid: false, speed: 100 });
     a.hold(true);
     return a;
   });
@@ -141,7 +141,7 @@ function spawnHounds(w: WorldCtx): ActorHandle[] {
 
 /** Moves the hounds along the scent trail; returns 'caught' when one reaches Valentus. */
 async function houndLoop(w: WorldCtx, chase: Chase): Promise<void> {
-  const speeds = [150, 138];
+  const speeds = [100, 90];
   const idx = [0, 0];
   let barkT = 0;
   while (w.alive) {

@@ -94,8 +94,15 @@ async function interact(page: Page, id: string, dy = 18): Promise<void> {
 /** Runs a sneaking route; if a guard spots the player (respawn at the checkpoint), waits and tries again. */
 async function sneakRoute(page: Page, route: [number, number][], done: () => Promise<boolean>, waitFor?: () => Promise<void>): Promise<void> {
   for (let attempt = 0; attempt < 5; attempt++) {
+    if (await done()) return;
+    await advance(page, { max: 6, idleMs: 600 });
+    if (await done()) return;
     if (waitFor) await waitFor();
-    for (const [x, y] of route) await walkKeys(page, x, y, 16, 15000, true);
+    if (await done()) return;
+    for (const [x, y] of route) {
+      await walkKeys(page, x, y, 16, 15000, true);
+      if (await done()) return;
+    }
     if (await done()) return;
     await advance(page, { max: 6, idleMs: 1500 });
   }
@@ -238,7 +245,20 @@ test.describe('Prolog', () => {
     await advance(page, { max: 14, idleMs: 2500 });
     await page.waitForFunction(() => (window as Win).G.state.activeObjective()?.id === 'prolog-flucht', undefined, { timeout: 15000 });
     // Wait until the first torch bearer looks away at the north end of the bend, then slip through the ferns.
-    const torchAway = () => page.waitForFunction(() => { const g = (window as Win).__world.guards.find((g: Win) => g.def.id === 'fackel-1'); return g.idx === 2 && g.state === 'wait'; }, undefined, { timeout: 40000 }).then(() => undefined);
+    const torchAway = async () => {
+      for (const started = Date.now(); Date.now() - started < 40000;) {
+        if (await flag(page, 'prolog-hunde-los')) return;
+        if (await busy(page)) { await advance(page, { max: 1, idleMs: 0 }); continue; }
+        const ready = await page.evaluate(() => {
+          const w = (window as Win).__world;
+          const g = w.guards.find((g: Win) => g.def.id === 'fackel-1');
+          return !w.playerLocked && g.idx === 2 && g.state === 'wait';
+        });
+        if (ready) return;
+        await page.waitForTimeout(100);
+      }
+      throw new Error('first torch did not reach the safe patrol position');
+    };
     await sneakRoute(page, [[200, 372], [280, 440], [440, 480]], () => flag(page, 'prolog-hunde-los'), torchAway);
     // Run to the stream with the hounds behind, wade downstream and climb out on the east bank.
     await sneakRoute(page, [[600, 560], [760, 590], [860, 560], [1000, 500]], () => flag(page, 'prolog-hunde-verloren'));
@@ -247,6 +267,9 @@ test.describe('Prolog', () => {
     await walkKeys(page, 1150, 410, 20, 20000);
     await advance(page, { max: 40, idleMs: 6000 });
     await page.waitForFunction(() => (window as Win).G.currentScene === 'prolog-zuflucht', undefined, { timeout: 60000 });
+    expect(await flag(page, 'prolog-hunde-los')).toBe(true);
+    expect(await flag(page, 'prolog-hunde-verloren')).toBe(true);
+    expect(await flag(page, 'prolog-gestuerzt')).toBe(true);
     expect(errors, errors.join('\n')).toEqual([]);
   });
 

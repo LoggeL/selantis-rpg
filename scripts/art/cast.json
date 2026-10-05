@@ -809,6 +809,110 @@
       "moods": [],
       "rawDir": "output/imagegen/raw/chars-reise/ghoul",
       "record": "chars-reise"
+    },
+    "ulfbert": {
+      "name": "Ulfbert",
+      "sex": "m",
+      "height": 43,
+      "desc": "Older strong northern man, short square black beard, grey temples, dark navy-blue and slate-grey robe.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-a"
+    },
+    "loyla": {
+      "name": "Loyla",
+      "sex": "m",
+      "height": 43,
+      "desc": "Slender groomed man, medium chestnut hair, short moustache, purple-red robe with muted gold edging.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-a"
+    },
+    "gira": {
+      "name": "Gira",
+      "sex": "f",
+      "height": 43,
+      "desc": "Elderly calm woman, braided silver hair pinned high, forest-green robe with muted gold edging.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-a"
+    },
+    "tholoss": {
+      "name": "Tholloss",
+      "sex": "m",
+      "height": 48,
+      "desc": "Exceptionally tall gaunt man, narrow long nose, hollow cheeks, slicked-back dark hair, long dark ochre robe and slate-grey mantle.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-a"
+    },
+    "burm": {
+      "name": "Burm",
+      "sex": "m",
+      "height": 43,
+      "desc": "Broad northern man, reddish full beard, short light hair, steel-grey robe and dark green edging.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-b"
+    },
+    "gwynn": {
+      "name": "Gwynn",
+      "sex": "f",
+      "height": 43,
+      "desc": "Middle-aged dark-skinned woman, long black braid, blue robe with narrow silver belt.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-b"
+    },
+    "samira": {
+      "name": "Samira",
+      "sex": "f",
+      "height": 43,
+      "desc": "Warm brown-skinned younger woman, dark curls under cream headscarf, terracotta and cream robe.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-b"
+    },
+    "rikkon": {
+      "name": "Rikkon",
+      "sex": "m",
+      "height": 43,
+      "desc": "Slender clean-shaven middle-aged man, short dark hair and sharp widows peak, burgundy robe and black cloak.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "council-b"
     }
   }
 }

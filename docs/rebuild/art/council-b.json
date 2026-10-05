@@ -1,0 +1,650 @@
+{
+  "area": "council-b",
+  "tool": "built-in image_gen",
+  "styleReferences": [
+    "docs/rebuild/art/refs/ignatius.png",
+    "game/public/assets/portraits/ignatius.png"
+  ],
+  "buildScript": "scripts/art/build_council_b.py",
+  "characters": [
+    {
+      "id": "burm",
+      "generator": "built-in image_gen",
+      "raw": "output/imagegen/raw/council-b/burm.png",
+      "rawSha256": "9190a8f8de56f3d27dc3519534d2ac137219d30a9faa6caaf2b8893d44cd35a8",
+      "portraitBox": [
+        501,
+        4,
+        752,
+        255
+      ],
+      "gridBox": [
+        0,
+        254,
+        1254,
+        1254
+      ],
+      "outputs": {
+        "portrait": "game/public/assets/portraits/burm.png",
+        "walk": "game/public/assets/sprites/burm-walk.png"
+      },
+      "metrics": {
+        "down": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            31.7,
+            31.6,
+            32.4,
+            31.8
+          ],
+          "headJitter": 0.8,
+          "lowerMotion": [
+            343,
+            302,
+            316,
+            304
+          ],
+          "alternation13": 326
+        },
+        "left": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.2,
+            31.7,
+            31.7,
+            31.9
+          ],
+          "headJitter": 0.5,
+          "lowerMotion": [
+            345,
+            343,
+            242,
+            321
+          ],
+          "alternation13": 314
+        },
+        "right": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.3,
+            31.9,
+            31.5,
+            32.3
+          ],
+          "headJitter": 0.8,
+          "lowerMotion": [
+            329,
+            362,
+            323,
+            316
+          ],
+          "alternation13": 274
+        },
+        "up": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            31.8,
+            32.5,
+            32.1,
+            31.8
+          ],
+          "headJitter": 0.7,
+          "lowerMotion": [
+            355,
+            289,
+            315,
+            328
+          ],
+          "alternation13": 261
+        }
+      },
+      "warnings": [],
+      "visualQa": "Raw identity sheet, extracted portrait and enlarged final walk sheet inspected: 16 full bodies with correct directions, dark clean contours, visible boots, robe/arm motion and consistent face/clothes.",
+      "outputSha256": {
+        "portrait": "ad48e5177b9c8e4a6eb05cffeaa83cf4235f95bcb005b269751437a0c00fc437",
+        "walk": "24ada440be7fd31bf46cc482c557da8d862ab39cd6201d0e367b561dd17f953d"
+      }
+    },
+    {
+      "id": "gwynn",
+      "generator": "built-in image_gen",
+      "raw": "output/imagegen/raw/council-b/gwynn.png",
+      "rawSha256": "390b70e178b5148eff4a7b2a26ab26cfe0b35cb3a1fdbffa1950c9b30496c8e2",
+      "portraitBox": [
+        518,
+        0,
+        734,
+        216
+      ],
+      "gridBox": [
+        0,
+        220,
+        1254,
+        1254
+      ],
+      "outputs": {
+        "portrait": "game/public/assets/portraits/gwynn.png",
+        "walk": "game/public/assets/sprites/gwynn-walk.png"
+      },
+      "metrics": {
+        "down": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            31.6,
+            32.1,
+            32.4,
+            31.9
+          ],
+          "headJitter": 0.8,
+          "lowerMotion": [
+            249,
+            247,
+            245,
+            291
+          ],
+          "alternation13": 257
+        },
+        "left": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.0,
+            31.8,
+            31.8,
+            31.8
+          ],
+          "headJitter": 0.2,
+          "lowerMotion": [
+            350,
+            371,
+            326,
+            327
+          ],
+          "alternation13": 254
+        },
+        "right": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            31.7,
+            31.7,
+            31.5,
+            31.9
+          ],
+          "headJitter": 0.4,
+          "lowerMotion": [
+            297,
+            286,
+            301,
+            305
+          ],
+          "alternation13": 143
+        },
+        "up": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.4,
+            31.9,
+            32.4,
+            31.5
+          ],
+          "headJitter": 0.9,
+          "lowerMotion": [
+            225,
+            215,
+            249,
+            263
+          ],
+          "alternation13": 141
+        }
+      },
+      "warnings": [],
+      "visualQa": "Raw identity sheet, extracted portrait and enlarged final walk sheet inspected: 16 full bodies with correct directions, dark clean contours, visible boots, robe/arm motion and consistent face/clothes.",
+      "outputSha256": {
+        "portrait": "9ecab4b7f1856b1cafbf272c2933c09e04afeb76577c987e4f95431def5a5df2",
+        "walk": "dfc1ac2f412e43857b00116975c43c44d279c71d89f38cdfa8e60bc087388ce4"
+      }
+    },
+    {
+      "id": "samira",
+      "generator": "built-in image_gen",
+      "raw": "output/imagegen/raw/council-b/samira.png",
+      "rawSha256": "86a93423885c37864b27ea69c217b735ad05726b6927e2826e6a19800269092d",
+      "portraitBox": [
+        500,
+        8,
+        754,
+        262
+      ],
+      "gridBox": [
+        0,
+        270,
+        1254,
+        1254
+      ],
+      "outputs": {
+        "portrait": "game/public/assets/portraits/samira.png",
+        "walk": "game/public/assets/sprites/samira-walk.png"
+      },
+      "metrics": {
+        "down": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.3,
+            31.8,
+            31.8,
+            31.9
+          ],
+          "headJitter": 0.5,
+          "lowerMotion": [
+            240,
+            284,
+            280,
+            239
+          ],
+          "alternation13": 275
+        },
+        "left": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            31.9,
+            32.1,
+            32.2,
+            31.9
+          ],
+          "headJitter": 0.3,
+          "lowerMotion": [
+            332,
+            314,
+            333,
+            348
+          ],
+          "alternation13": 231
+        },
+        "right": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.3,
+            32.4,
+            31.8,
+            32.1
+          ],
+          "headJitter": 0.6,
+          "lowerMotion": [
+            349,
+            334,
+            333,
+            350
+          ],
+          "alternation13": 206
+        },
+        "up": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            31.8,
+            32.3,
+            32.5,
+            32.4
+          ],
+          "headJitter": 0.7,
+          "lowerMotion": [
+            241,
+            217,
+            235,
+            235
+          ],
+          "alternation13": 280
+        }
+      },
+      "warnings": [],
+      "visualQa": "Raw identity sheet, extracted portrait and enlarged final walk sheet inspected: 16 full bodies with correct directions, dark clean contours, visible boots, robe/arm motion and consistent face/clothes.",
+      "outputSha256": {
+        "portrait": "00deeb4e4e92c915a1f1d2a2720de1933765e2c44a55d777b887f7152ba5e3bb",
+        "walk": "2c7c684d175872f60cc657d352eafe3c0d7e1d456145aa7cbb0a3040ddf185d3"
+      }
+    },
+    {
+      "id": "rikkon",
+      "generator": "built-in image_gen",
+      "raw": "output/imagegen/raw/council-b/rikkon.png",
+      "rawSha256": "9923941851de1e06986f127249dde2c7b5bcef3158be609e74ebdf0bca91578d",
+      "portraitBox": [
+        534,
+        0,
+        719,
+        185
+      ],
+      "gridBox": [
+        0,
+        190,
+        1254,
+        1254
+      ],
+      "outputs": {
+        "portrait": "game/public/assets/portraits/rikkon.png",
+        "walk": "game/public/assets/sprites/rikkon-walk.png"
+      },
+      "metrics": {
+        "down": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.2,
+            31.5,
+            31.5,
+            31.5
+          ],
+          "headJitter": 0.7,
+          "lowerMotion": [
+            190,
+            170,
+            99,
+            225
+          ],
+          "alternation13": 212
+        },
+        "left": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.0,
+            31.9,
+            31.6,
+            32.5
+          ],
+          "headJitter": 0.9,
+          "lowerMotion": [
+            318,
+            303,
+            291,
+            327
+          ],
+          "alternation13": 370
+        },
+        "right": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.1,
+            31.6,
+            32.4,
+            31.5
+          ],
+          "headJitter": 0.9,
+          "lowerMotion": [
+            241,
+            271,
+            288,
+            165
+          ],
+          "alternation13": 265
+        },
+        "up": {
+          "heights": [
+            43,
+            43,
+            43,
+            43
+          ],
+          "bottoms": [
+            60,
+            60,
+            60,
+            60
+          ],
+          "headX": [
+            32.0,
+            32.0,
+            32.0,
+            32.0
+          ],
+          "headJitter": 0.0,
+          "lowerMotion": [
+            86,
+            132,
+            73,
+            119
+          ],
+          "alternation13": 119
+        }
+      },
+      "warnings": [],
+      "visualQa": "Raw identity sheet, extracted portrait and enlarged final walk sheet inspected: 16 full bodies with correct directions, dark clean contours, visible boots, robe/arm motion and consistent face/clothes.",
+      "outputSha256": {
+        "portrait": "291d893d6052d2550acb758d30e3d4c41acc0ae6fa571f490091c40d3b8a0361",
+        "walk": "791b30caa73b37eedf211eef356724eeb05b3d12db134295d5daad89a8ad9e3f"
+      }
+    }
+  ],
+  "processing": {
+    "scale": "existing lib.scale_to area downsampling with hard alpha, per-frame visible height43",
+    "anchor": "head band center at x32 and bottom y60",
+    "corrections": {
+      "burm": "raw profile rows swapped into down,left,right,up",
+      "gwynn": "targeted built-in edit removed background and made narrow passing frames",
+      "samira": "raw row2 col3/4 wrong directions replaced with horizontally flipped matching right row frames",
+      "rikkon": "Built-in targeted edit removed brown glow; raw row2 col3/4 remained wrong-facing and were replaced by mirrored matching right row frames."
+    }
+  },
+  "promptSpec": {
+    "layout": "Square identity sheet: one centered bust portrait in top quarter, sixteen separate walking sprites below in 4 columns and 4 rows; down,left,right,up rows; alternating lead foot with narrow passing frames; true alpha around sprites, no text or effects. Style references only.",
+    "burm": "Male loyal priest of Rogar; broad shoulders, reddish full beard, short pale hair ring, steel grey robe with dark green edging, sturdy brown boots.",
+    "gwynn": "Female middle aged priestess of Portas; dark brown skin, black hair in one long single braid, determined face, blue robe, narrow plain silver belt, black shoes.",
+    "samira": "Young adult female priestess of Ignis; warm brown skin, dark curly hair visibly escaping cream head scarf, terracotta and cream robe, brown boots.",
+    "rikkon": "Slim clean shaven male renegade priest of Portas about45; short dark hair and pointed widows peak, angular face, cool scrutinizing gaze, burgundy robe and black cloak."
+  },
+  "castPoses": {
+    "generator": "built-in image_gen",
+    "raw": "output/imagegen/raw/council-b/cast.png",
+    "rawSha256": "2a77bd1352f3b26031282d1f19cc6ddbeb85ac8cb5876b61993636f7fa6571cd",
+    "buildScript": "scripts/art/build_council_b_cast.py",
+    "outputs": [
+      {
+        "id": "burm",
+        "file": "game/public/assets/sprites/burm-cast.png",
+        "sha256": "90c71efe11d53a775fc0d368f06340be66e174c91e85cb0c82e09e445b1ddcf9",
+        "visibleHeight": 43,
+        "foot": [
+          32,
+          60
+        ],
+        "facing": "right"
+      },
+      {
+        "id": "gwynn",
+        "file": "game/public/assets/sprites/gwynn-cast.png",
+        "sha256": "368371001c8e1ac59b75d9f27fc5a772077bee5e6e3f00037ab4c67fd9a3ed85",
+        "visibleHeight": 43,
+        "foot": [
+          32,
+          60
+        ],
+        "facing": "right"
+      },
+      {
+        "id": "samira",
+        "file": "game/public/assets/sprites/samira-cast.png",
+        "sha256": "2c4e24826f3a6ef9e405d14d7edd0df48b0601b95d0ed043314f3b44b8015aee",
+        "visibleHeight": 43,
+        "foot": [
+          32,
+          60
+        ],
+        "facing": "right"
+      },
+      {
+        "id": "rikkon",
+        "file": "game/public/assets/sprites/rikkon-cast.png",
+        "sha256": "2e546707b1cf2b84a576e56ebbbeea09064893e2f1832e3b22b0eada8666ff61",
+        "visibleHeight": 43,
+        "foot": [
+          32,
+          60
+        ],
+        "facing": "right"
+      }
+    ],
+    "visualQa": "Raw four-figure sheet and 4x final pose strip inspected. Each original identity and outfit retained; one open hand visibly raised for voting, all face right; no effects. Four 64x64 assets, hard alpha, height43, bottom60.",
+    "prompt": "Create one transparent pixel-art RPG pose production sheet: FOUR separate full-body characters in a single horizontal row, order LEFT TO RIGHT Burm, Gwynn, Samira, Rikkon. Reference identity sheets supply exact identities, clothing and pixel style, do not alter them. Burm broad male with reddish beard and pale hair ring, steel grey robe green edging; Gwynn dark-skinned woman single black braid, blue robe silver belt; Samira younger warm brown-skinned curly-haired woman cream headscarf terracotta/cream robe; Rikkon slim clean-shaven man dark short widow-peak hair, burgundy robe black cloak. EACH character standing calmly, facing RIGHT in three-quarter profile, both feet grounded, one forearm raised at chest-to-shoulder height with open hand in a quiet casting/voting gesture. Second hand lowered or near waist. Do not wave over head. No magical effects, no glow, no objects, no text, no portrait, no grid lines. True transparent alpha background with very generous empty margins between figures. Same equal full-body height and proportions as the walk references, dark crisp pixel contour, visible boots, entire heads and feet included. Four figures only, no extra poses."
+  }
+}

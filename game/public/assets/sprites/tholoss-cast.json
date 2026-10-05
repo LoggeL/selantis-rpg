@@ -1,0 +1,12 @@
+{
+  "character": "tholoss",
+  "pose": "cast",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ],
+  "height": 48,
+  "frames": 1,
+  "fps": 6
+}

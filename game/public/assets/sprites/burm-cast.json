@@ -1,0 +1,10 @@
+{
+  "character": "burm",
+  "pose": "cast",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ],
+  "height": 43
+}

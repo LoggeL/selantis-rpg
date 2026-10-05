@@ -11,17 +11,17 @@ const HEARD = ['ignatius', 'aelteste', 'hagere', 'wortfuehrer'] as const;
 const heardCount = () => HEARD.filter(id => G.state.is(`prolog-gehoert-${id}`)).length;
 
 /** The ten seats: where each member stands (in front of the seat) and how they look. R1 is Valentus' own seat. */
-interface Seat { id: string; preset: string; at: [number, number]; speaker: string; tint?: number; renegade?: boolean }
+interface Seat { id: string; preset: string; at: [number, number]; speaker: string; renegade?: boolean }
 const SEATS: Seat[] = [
-  { id: 'rat-l1', preset: 'council-mage-a', at: [210, 304], speaker: 'prolog-rat', tint: 0xc4d6ff },
+  { id: 'rat-l1', preset: 'burm', at: [210, 304], speaker: 'burm' },
   { id: 'ignatius', preset: 'ignatius', at: [270, 284], speaker: 'ignatius' },
-  { id: 'aelteste', preset: 'council-mage-a', at: [334, 264], speaker: 'prolog-aelteste' },
-  { id: 'hagere', preset: 'council-mage-c', at: [406, 248], speaker: 'prolog-hagere', renegade: true },
-  { id: 'wortfuehrer', preset: 'council-mage-b', at: [482, 238], speaker: 'prolog-wortfuehrer', renegade: true },
-  { id: 'abtr-r2', preset: 'council-mage-b', at: [872, 248], speaker: 'prolog-abtruenniger', tint: 0xffc2b4, renegade: true },
-  { id: 'rat-r3', preset: 'council-mage-c', at: [942, 264], speaker: 'prolog-rat', tint: 0xb4c8ff },
-  { id: 'abtr-r4', preset: 'council-mage-c', at: [1010, 284], speaker: 'prolog-abtruenniger', tint: 0x9a9aaa, renegade: true },
-  { id: 'rat-r5', preset: 'ignatius', at: [1074, 306], speaker: 'prolog-rat', tint: 0xffc8d4 },
+  { id: 'aelteste', preset: 'gira', at: [334, 264], speaker: 'gira' },
+  { id: 'hagere', preset: 'tholoss', at: [406, 248], speaker: 'tholoss', renegade: true },
+  { id: 'wortfuehrer', preset: 'ulfbert', at: [482, 238], speaker: 'ulfbert', renegade: true },
+  { id: 'abtr-r2', preset: 'loyla', at: [872, 248], speaker: 'loyla', renegade: true },
+  { id: 'rat-r3', preset: 'gwynn', at: [942, 264], speaker: 'gwynn' },
+  { id: 'abtr-r4', preset: 'rikkon', at: [1010, 284], speaker: 'rikkon', renegade: true },
+  { id: 'rat-r5', preset: 'samira', at: [1074, 306], speaker: 'samira' },
 ];
 const VALENTUS_SEAT: [number, number] = [806, 238];
 const MOSAIC: [number, number] = [640, 352];
@@ -110,16 +110,12 @@ export const ratMap = defineMap({
   resetOnEnter: true,
 });
 
-function applyTints(w: WorldCtx): void {
-  for (const s of SEATS) if (s.tint) w.actor(s.id).sprite?.setTint(s.tint);
-}
-
 function heardObjective(w: WorldCtx): void {
   const n = heardCount();
   if (n < HEARD.length) w.setObjective('prolog-anhoeren', `Höre die Ratsmitglieder an (${n}/${HEARD.length}).`, nextUnheard());
   else {
     w.completeObjective('prolog-anhoeren');
-    w.setObjective('prolog-abstimmen', 'Rufe den Rat zur Abstimmung – sprich mit dem Wortführer.', 'wortfuehrer');
+    w.setObjective('prolog-abstimmen', 'Rufe den Rat zur Abstimmung – sprich mit Ulfbert.', 'wortfuehrer');
   }
 }
 function nextUnheard(): string | null {
@@ -146,27 +142,27 @@ async function talkIgnatius(w: WorldCtx): Promise<void> {
 }
 
 async function talkAelteste(w: WorldCtx): Promise<void> {
-  if (G.state.is('prolog-gehoert-aelteste')) { await w.say('prolog-aelteste', 'Ich habe meine Stimme schon vergeben. An das Siegel.'); return; }
-  await w.say('prolog-aelteste', 'Großmeister. Sie reden von Hunger und Räubern, als hätten nur sie Augen im Kopf.', { mood: 'angry' });
-  await w.say('prolog-aelteste', 'Aber ich habe gesehen, was die Urmacht anrichtet, wenn nur ein Funke entweicht. Ein ganzes Tal – verdorrt.');
+  if (G.state.is('prolog-gehoert-aelteste')) { await w.say('gira', 'Ich habe meine Stimme schon vergeben. An das Siegel.'); return; }
+  await w.say('gira', 'Großmeister. Sie reden von Hunger und Räubern, als hätten nur sie Augen im Kopf.', { mood: 'angry' });
+  await w.say('gira', 'Aber ich habe gesehen, was die Urmacht anrichtet, wenn nur ein Funke entweicht. Ein ganzes Tal – verdorrt.');
   const i = await w.choose(['„Also stimmt Ihr mit mir?“', '„Und wenn sie recht haben? Das Land leidet.“']);
-  if (i === 0) await w.say('prolog-aelteste', 'Ich stimme mit dem Eid. Dass Ihr derselben Meinung seid, ist ein Glück für Euch.');
-  else await w.say('prolog-aelteste', 'Das Land leidet unter Menschen, nicht unter einem Siegel. Gebt Menschen mehr Macht, und es leidet mehr.', { mood: 'angry' });
+  if (i === 0) await w.say('gira', 'Ich stimme mit dem Eid. Dass Ihr derselben Meinung seid, ist ein Glück für Euch.');
+  else await w.say('gira', 'Das Land leidet unter Menschen, nicht unter einem Siegel. Gebt Menschen mehr Macht, und es leidet mehr.', { mood: 'angry' });
   heard(w, 'aelteste');
 }
 
 async function talkHagere(w: WorldCtx): Promise<void> {
-  if (G.state.is('prolog-gehoert-hagere')) { await w.say('prolog-hagere', 'Wir haben uns nichts mehr zu sagen, Großmeister.'); return; }
-  await w.say('prolog-hagere', 'Ihr kommt, um mich umzustimmen? Spart Euch den Atem.');
-  await w.say('prolog-hagere', 'Hinter dieser Tür liegt die Kraft, mit der eine Göttin eine Welt erschuf. Und wir … bewachen sie. Wie Hunde einen Knochen.');
+  if (G.state.is('prolog-gehoert-hagere')) { await w.say('tholoss', 'Wir haben uns nichts mehr zu sagen, Großmeister.'); return; }
+  await w.say('tholoss', 'Ihr kommt, um mich umzustimmen? Spart Euch den Atem.');
+  await w.say('tholoss', 'Hinter dieser Tür liegt die Kraft, mit der eine Göttin eine Welt erschuf. Und wir … bewachen sie. Wie Hunde einen Knochen.');
   const i = await w.choose(['„Sie wurde Xenovia genommen, weil sie zerstört.“', '„Wem würdet Ihr sie geben? Euch selbst?“', '„Sprecht weiter. Ich höre zu.“']);
   if (i === 0) {
-    await w.say('prolog-hagere', 'Sie zerstört in den falschen Händen. Die Zehn waren keine Götter – und doch haben sie gesiegt.');
+    await w.say('tholoss', 'Sie zerstört in den falschen Händen. Die Zehn waren keine Götter – und doch haben sie gesiegt.');
   } else if (i === 1) {
     void w.actor('hagere').emote('anger');
-    await w.say('prolog-hagere', 'Dem Rat. Uns allen. Oder fürchtet Ihr, dass Ihr dann nicht mehr der Größte unter uns seid?', { mood: 'angry' });
+    await w.say('tholoss', 'Dem Rat. Uns allen. Oder fürchtet Ihr, dass Ihr dann nicht mehr der Größte unter uns seid?', { mood: 'angry' });
   } else {
-    await w.say('prolog-hagere', 'Die Fürsten verlachen uns. Räuber brennen Dörfer nieder, und der Rat … hütet eine Tür.');
+    await w.say('tholoss', 'Die Fürsten verlachen uns. Räuber brennen Dörfer nieder, und der Rat … hütet eine Tür.');
   }
   heard(w, 'hagere');
 }
@@ -174,21 +170,21 @@ async function talkHagere(w: WorldCtx): Promise<void> {
 async function talkWortfuehrer(w: WorldCtx): Promise<void> {
   const wf = w.actor('wortfuehrer');
   if (!G.state.is('prolog-gehoert-wortfuehrer')) {
-    await w.say('prolog-wortfuehrer', 'Großmeister. Ihr habt mich gehört. Wer die Macht hütet, soll sie auch führen.');
-    await w.say('prolog-wortfuehrer', 'Die Urmacht könnte die Ernten retten, die Räuber vertreiben, die Fürsten zur Ordnung zwingen. Und wir lassen sie schlafen.');
+    await w.say('ulfbert', 'Großmeister. Ihr habt mich gehört. Wer die Macht hütet, soll sie auch führen.');
+    await w.say('ulfbert', 'Die Urmacht könnte die Ernten retten, die Räuber vertreiben, die Fürsten zur Ordnung zwingen. Und wir lassen sie schlafen.');
     const i = await w.choose(['„Wir sind Wächter. Keine Herrscher.“', '„Wer entscheidet, wofür sie benutzt wird? Ihr?“']);
     if (i === 0) {
-      await w.say('prolog-wortfuehrer', 'Wächter. Ein hübsches Wort für Feiglinge, die sich hinter einem Eid verstecken.', { mood: 'angry' });
+      await w.say('ulfbert', 'Wächter. Ein hübsches Wort für Feiglinge, die sich hinter einem Eid verstecken.', { mood: 'angry' });
     } else {
       void wf.emote('…');
-      await w.say('prolog-wortfuehrer', 'Der Rat. Mit klarem Kopf und fester Hand. Habt Ihr Angst vor Euren eigenen Brüdern?');
+      await w.say('ulfbert', 'Der Rat. Mit klarem Kopf und fester Hand. Habt Ihr Angst vor Euren eigenen Brüdern?');
     }
-    await w.say('prolog-wortfuehrer', 'Hört Euch nur um. Und dann ruft zur Abstimmung, wenn Ihr den Mut habt.');
+    await w.say('ulfbert', 'Hört Euch nur um. Und dann ruft zur Abstimmung, wenn Ihr den Mut habt.');
     heard(w, 'wortfuehrer');
     return;
   }
   if (heardCount() < HEARD.length) {
-    await w.say('prolog-wortfuehrer', 'Hört erst die anderen an. Dann sprechen wir von Mut.');
+    await w.say('ulfbert', 'Hört erst die anderen an. Dann sprechen wir von Mut.');
     return;
   }
   await vote(w);
@@ -197,11 +193,11 @@ async function talkWortfuehrer(w: WorldCtx): Promise<void> {
 async function talkMinor(w: WorldCtx, npc: ActorHandle): Promise<void> {
   const seat = SEATS.find(s => s.id === npc.id);
   if (seat?.renegade) {
-    await w.say('prolog-abtruenniger', npc.id === 'abtr-r4'
+    await w.say(seat!.speaker, npc.id === 'abtr-r4'
       ? 'Ihr seid alt geworden, Valentus. Die Welt dreht sich weiter, ob die Tür offen ist oder nicht.'
       : 'Der Wortführer spricht für uns vier. Mehr habe ich Euch nicht zu sagen.');
   } else {
-    await w.say('prolog-rat', npc.id === 'rat-l1'
+    await w.say(seat!.speaker, npc.id === 'rat-l1'
       ? 'Meine Stimme gehört dem Siegel, Großmeister. Wie die meines Vaters vor mir.'
       : npc.id === 'rat-r3'
         ? 'Vier gegen sechs. Noch. Wenn einer von uns wankt, ist das Siegel verloren.'
@@ -285,18 +281,18 @@ async function vote(w: WorldCtx): Promise<void> {
     void wf.emote('anger');
     sfx('thud', { volume: 0.8 });
     w.camera.shake(220, 0.004);
-    await w.say('prolog-wortfuehrer', 'Entschieden. Von sechs alten Leuten, die lieber eine Tür anbeten, als die Welt zu retten.', { mood: 'angry' });
+    await w.say('ulfbert', 'Entschieden. Von sechs alten Leuten, die lieber eine Tür anbeten, als die Welt zu retten.', { mood: 'angry' });
     await wf.walkTo(MOSAIC[0] - 40, MOSAIC[1] - 10);
     wf.face(dirTowards(wf, w.player));
-    await w.say('prolog-wortfuehrer', 'Behaltet Euer Siegel, Valentus. Aber merkt Euch eins:', { mood: 'angry' });
-    await w.say('prolog-wortfuehrer', 'Was man uns verweigert, nehmen wir uns. Und dann wird niemand mehr fragen, wer die Hand gehoben hat.', { mood: 'angry' });
+    await w.say('ulfbert', 'Behaltet Euer Siegel, Valentus. Aber merkt Euch eins:', { mood: 'angry' });
+    await w.say('ulfbert', 'Was man uns verweigert, nehmen wir uns. Und dann wird niemand mehr fragen, wer die Hand gehoben hat.', { mood: 'angry' });
     music(null, 2000);
     // The Four leave down the stairs.
     const four = SEATS.filter(s => s.renegade).map(s => w.actor(s.id));
     for (const a of four) a.hold(true);
     const walks = four.map((a, k) => sleep(k * 380).then(() => a.walkPath([[600 + k * 26, 470], [610 + k * 24, 700]], { speed: 52 })));
     await w.camera.pan([640, 520], 1600);
-    await w.say('prolog-hagere', 'Ihr werdet uns wiedersehen. Früher, als Euch lieb ist.');
+    await w.say('tholoss', 'Ihr werdet uns wiedersehen. Früher, als Euch lieb ist.');
     await Promise.all(walks);
     for (const a of four) a.hide();
     await sleep(500);
@@ -352,7 +348,7 @@ export function prepareRat(): void {
   G.state.setParty(['valentus']);
 }
 
-/** Book opening (code-drawn pages), then the playable hall. */
+/** Illustrated chronicle opening, then the playable hall. */
 export async function startRat(): Promise<void> {
   registerBookPlates();
   await G.ui.fade('out', 0);
@@ -372,7 +368,7 @@ export async function startRat(): Promise<void> {
   sfx('page');
   await G.ui.closePlate();
   await G.ui.plate('prolog-buch-rat', { caption: 'Der Rat der Zehn Geweihten', pan: 'left', durationMs: 22000 });
-  await G.ui.say('narrator', 'Ihre Erben bildeten den Rat der Zehn Geweihten. Jeder sprach für eine große Stadt, und alle wachten über das Siegel.');
+  await G.ui.say('narrator', 'Ihre Erben bildeten den Rat der Zehn Geweihten. Sie kamen aus den großen Städten, und alle wachten über das Siegel.');
   await G.ui.say('narrator', 'Generationen lang. Bis vier der Zehn eine Frage stellten, die niemand stellen durfte: *Wozu?*');
   await G.ui.fade('out', 900);
   await G.ui.closePlate();
@@ -380,7 +376,6 @@ export async function startRat(): Promise<void> {
 }
 
 async function ratScript(w: WorldCtx): Promise<void> {
-  applyTints(w);
   void G.ui.fade('in', 900);
   const wf = w.actor('wortfuehrer');
   if (!G.state.is('prolog-rat-intro')) {
@@ -390,10 +385,10 @@ async function ratScript(w: WorldCtx): Promise<void> {
       await sleep(600);
       await w.say('narrator', 'Der Ratssaal. Ein Abend im Spätsommer, ein Jahr vor Dunkelhain.');
       void wf.play('cast', { ms: 1600 });
-      await w.say('prolog-wortfuehrer', 'Seit tausend Jahren sitzen wir vor dieser Tür und tun – nichts!', { mood: 'angry' });
+      await w.say('ulfbert', 'Seit tausend Jahren sitzen wir vor dieser Tür und tun – nichts!', { mood: 'angry' });
       wf.face('right');
-      await w.say('prolog-wortfuehrer', 'Draußen brennen die Dörfer, und wir bewachen einen Schatz, den niemand anrühren darf.');
-      await w.say('prolog-wortfuehrer', 'Ich sage: Wer die Macht hütet, soll sie auch führen!', { mood: 'angry' });
+      await w.say('ulfbert', 'Draußen brennen die Dörfer, und wir bewachen einen Schatz, den niemand anrühren darf.');
+      await w.say('ulfbert', 'Ich sage: Wer die Macht hütet, soll sie auch führen!', { mood: 'angry' });
       w.bark('abtr-r2', 'So ist es!', 1600);
       w.bark('rat-r3', 'Unerhört!', 1600);
       sfx('suspicious', { volume: 0.4 });

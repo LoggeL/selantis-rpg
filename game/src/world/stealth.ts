@@ -18,6 +18,7 @@ export interface GuardSense {
   target: Actor | undefined;
   hidden: boolean;
   enabled: boolean;
+  paused?: boolean;
   dt: number;
   t: number;
 }
@@ -30,6 +31,8 @@ export class Guard {
   state: GuardState = 'wait';
   facing: number;
   private waitT = 0;
+  private waitFacing = 0;
+  private scanT = 0;
   private stateT = 0;
   susp: SuspicionState = newSuspicion();
   lastSeen: Vec | null = null;
@@ -53,9 +56,10 @@ export class Guard {
     this.range = def.range !== undefined ? unitPx(def.range) : 88 * wk();
     this.half = ((def.fov ?? 70) / 2) * (Math.PI / 180);
     this.facing = dirAngle(actor.dir);
-    actor.walkSpeed = def.speed ?? 34 * wk();
+    actor.walkSpeed = def.speed ?? 28 * wk();
     const first = this.waypoints[0];
     if (first?.face) this.facing = dirAngle(first.face);
+    this.waitFacing = this.facing;
     this.waitT = 0.4;
   }
 
@@ -67,6 +71,7 @@ export class Guard {
     this.actor.stopPath();
     if (first) this.actor.teleport(first.x, first.y, first.face ?? this.actor.dir);
     this.facing = dirAngle(first?.face ?? this.actor.dir);
+    this.waitFacing = this.facing; this.scanT = 0; this.stateT = 0;
     this.idx = 0; this.stepDir = 1;
     this.state = 'wait'; this.waitT = 0.6;
     this.susp = newSuspicion();
@@ -87,6 +92,13 @@ export class Guard {
   /** Returns 'spotted' once when the meter fills. */
   update(s: GuardSense): 'spotted' | null {
     const a = this.actor;
+    // Freeze patrol, perception and scan phase whenever the player cannot act.
+    if (s.paused) {
+      // Held guards belong to the chapter script, which may await their walk during a cutscene.
+      if (a.held) a.update(s.dt);
+      return null;
+    }
+    this.scanT += s.dt;
     this.stateT += s.dt;
     this.barkCooldown -= s.dt;
     if (this.alertAge !== Infinity) this.alertAge += s.dt;
@@ -136,20 +148,21 @@ export class Guard {
     switch (this.state) {
       case 'wait': {
         const wp = this.waypoints[this.idx];
-        const base = wp?.face ? dirAngle(wp.face) : this.facing;
+        const base = wp?.face ? dirAngle(wp.face) : this.waitFacing;
         // gentle look-around while standing
-        const sweep = Math.sin(s.t * 0.9 + this.idx) * 0.42;
-        this.turn(base + sweep, 2.2, s.dt);
+        const sweep = Math.sin(this.scanT * 0.55 + this.idx) * 0.30;
+        this.turn(base + sweep, 1.1, s.dt);
         this.waitT -= s.dt;
         if (this.waitT <= 0 && this.waypoints.length > 1) this.goNext(s.grid);
         break;
       }
       case 'walk':
       case 'return': {
-        if (a.moving) this.turn(Math.atan2(a.vy, a.vx), 5, s.dt);
+        if (a.moving) this.turn(Math.atan2(a.vy, a.vx), 1.8, s.dt);
         if (!a.path) {
           // arrived
           const wp = this.waypoints[this.idx];
+          this.waitFacing = this.facing;
           this.state = 'wait';
           this.waitT = (wp?.wait ?? 600) / 1000;
         }
@@ -157,7 +170,7 @@ export class Guard {
       }
       case 'suspicious': {
         if (a.path) a.stopPath();
-        if (this.lastSeen) this.turn(Math.atan2(this.lastSeen.y - a.y, this.lastSeen.x - a.x), 3.2, s.dt);
+        if (this.lastSeen) this.turn(Math.atan2(this.lastSeen.y - a.y, this.lastSeen.x - a.x), 1.8, s.dt);
         if (this.stateT > 0.9 && this.susp.value > 0.5 && this.lastSeen) {
           this.enter('investigate');
           const p = findPath(s.grid, { x: a.x, y: a.y }, this.lastSeen, { hw: FOOT_HW, hh: FOOT_HH });
@@ -166,8 +179,8 @@ export class Guard {
         break;
       }
       case 'investigate': {
-        if (a.moving) this.turn(Math.atan2(a.vy, a.vx), 4, s.dt);
-        else if (this.lastSeen) this.turn(Math.atan2(this.lastSeen.y - a.y, this.lastSeen.x - a.x), 3, s.dt);
+        if (a.moving) this.turn(Math.atan2(a.vy, a.vx), 2.0, s.dt);
+        else if (this.lastSeen) this.turn(Math.atan2(this.lastSeen.y - a.y, this.lastSeen.x - a.x), 1.8, s.dt);
         break;
       }
       case 'alert': {
@@ -214,7 +227,7 @@ export class Guard {
     const a = this.actor;
     const p = findPath(grid, { x: a.x, y: a.y }, wp, { hw: FOOT_HW, hh: FOOT_HH });
     this.enter(state);
-    if (!p || !p.length) { this.state = 'wait'; this.waitT = wp.wait / 1000; return; }
+    if (!p || !p.length) { this.waitFacing = this.facing; this.state = 'wait'; this.waitT = wp.wait / 1000; return; }
     void a.moveAlong(p, a.walkSpeed);
     this.moving = true;
   }

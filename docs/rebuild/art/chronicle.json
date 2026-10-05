@@ -1,0 +1,50 @@
+{
+  "method": "built-in image_gen__imagegen",
+  "style": "16-bit pixel art medieval illuminated chronicle",
+  "source": "sources/mythology/source.pdf",
+  "subtitles": "Existing prologue captions and narrative remain in game UI.",
+  "pages": [
+    {
+      "id": "prolog-buch-urmacht",
+      "source": "output/imagegen/raw/art/chronicle/prolog-buch-urmacht.png",
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c99-a198-7251-b75e-0bf0616621f5/exec-73e0241e-5e69-4ce9-b442-a60709d36819.png",
+      "file": "game/public/assets/cut/prolog-buch-urmacht.jpg",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "4e903929e9425d8d1f7ec77c3b82ea941e56fd9ad10f82ab9dc8444bd628b0e3",
+      "qa": "Visually verified exactly ten first humans in central panel (four women, six men), creation and banishment on left, sealed Urmacht grotto on right, no lettering.",
+      "jpegQuality": 82,
+      "processing": "Nearest-neighbor resize to 1280x720, JPEG below 400 KiB with no chroma subsampling."
+    },
+    {
+      "id": "prolog-buch-rat",
+      "source": "output/imagegen/raw/art/chronicle/prolog-buch-rat.png",
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c99-a198-7251-b75e-0bf0616621f5/exec-1c0b6d8f-255c-41bb-b308-d801da0355c4.png",
+      "file": "game/public/assets/cut/prolog-buch-rat.jpg",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "86e1b0b15d7dc18cba946e3bbf135bed1788e56d4e8e0d4da13d33c4a202963e",
+      "qa": "Generated illustration visually inspected; no lettering. Council page corrected to exactly ten visible members.",
+      "jpegQuality": 86,
+      "processing": "Nearest-neighbor resize to 1280x720, JPEG below 400 KiB with no chroma subsampling."
+    },
+    {
+      "id": "prolog-buch-dunkelhain",
+      "source": "output/imagegen/raw/art/chronicle/prolog-buch-dunkelhain.png",
+      "generatedPath": "/Users/logge/.codex/generated_images/01a10c99-a198-7251-b75e-0bf0616621f5/exec-3c5eb190-642e-497f-811f-8d3ca53c69b1.png",
+      "file": "game/public/assets/cut/prolog-buch-dunkelhain.jpg",
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "79a1e210df068df7be8a27d9c475d8f246fc92371db778861f0b7a509314b28a",
+      "qa": "Generated illustration visually inspected; no lettering. Council page corrected to exactly ten visible members.",
+      "jpegQuality": 76,
+      "processing": "Nearest-neighbor resize to 1280x720, JPEG below 400 KiB with no chroma subsampling."
+    }
+  ]
+}

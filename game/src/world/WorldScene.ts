@@ -195,6 +195,9 @@ export class WorldScene extends Phaser.Scene {
   init(data: { opts: StartWorldOptions; ready?: () => void }): void {
     this.opts = data.opts;
     this.onReady = data.ready ?? null;
+    // Phaser reuses this scene instance. A departing script may keep Lia locked
+    // through its fade and goto; that lock belongs to the previous visit.
+    this.scriptLock = 0;
   }
 
   // =============================================================================================================
@@ -1282,7 +1285,7 @@ export class WorldScene extends Phaser.Scene {
     let maxSusp = 0, nearest = Infinity;
     const enabled = this.stealthOn && !this.playerLocked;
     for (const g of this.guards) {
-      const res = g.update({ grid: this.grid, target: this.player, hidden: this.playerHidden, enabled, dt, t: this.timeSec });
+      const res = g.update({ grid: this.grid, target: this.player, hidden: this.playerHidden, enabled, paused: this.playerLocked, dt, t: this.timeSec });
       maxSusp = Math.max(maxSusp, g.susp.value);
       nearest = Math.min(nearest, Math.hypot(g.actor.x - this.player.x, g.actor.y - this.player.y));
       if (res === 'spotted') void this.spotted(g);

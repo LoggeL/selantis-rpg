@@ -345,6 +345,47 @@
    ],
    "height": 41
   },
+  "burm": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/burm-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/burm-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
   "chicken": {
    "poses": {
     "peck": {
@@ -1275,6 +1316,48 @@
    ],
    "height": 43
   },
+  "gira": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/gira-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "fps": 6,
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/gira-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     4,
+     8,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
   "guard-brotherhood": {
    "poses": {},
    "walk": {
@@ -1292,6 +1375,47 @@
     "fps": 8,
     "idle": [
      0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "gwynn": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/gwynn-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/gwynn-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
      5,
      9,
      13
@@ -1893,6 +2017,48 @@
    ],
    "height": 40
   },
+  "loyla": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/loyla-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "fps": 6,
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/loyla-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     2,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
   "maedchen": {
    "poses": {
     "attack": {
@@ -2153,6 +2319,88 @@
     60
    ],
    "height": 18
+  },
+  "rikkon": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/rikkon-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/rikkon-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "samira": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/samira-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/samira-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     7,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
   },
   "shadow-club": {
    "poses": {
@@ -2422,6 +2670,90 @@
      5,
      9,
      12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "tholoss": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/tholoss-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "fps": 6,
+     "height": 48
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/tholoss-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     2,
+     4,
+     8,
+     14
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 48
+  },
+  "ulfbert": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/ulfbert-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "fps": 6,
+     "height": 43
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/ulfbert-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     4,
+     8,
+     13
     ]
    },
    "foot": [
@@ -2754,6 +3086,9 @@
   "barmaid": {
    "neutral": "assets/portraits/barmaid.png"
   },
+  "burm": {
+   "neutral": "assets/portraits/burm.png"
+  },
   "conspirator": {
    "neutral": "assets/portraits/conspirator.png"
   },
@@ -2815,8 +3150,14 @@
    "worried": "assets/portraits/foltan-worried.png",
    "neutral": "assets/portraits/foltan.png"
   },
+  "gira": {
+   "neutral": "assets/portraits/gira.png"
+  },
   "guard-brotherhood": {
    "neutral": "assets/portraits/guard-brotherhood.png"
+  },
+  "gwynn": {
+   "neutral": "assets/portraits/gwynn.png"
   },
   "harro": {
    "angry": "assets/portraits/harro-angry.png",
@@ -2870,6 +3211,9 @@
    "thinking": "assets/portraits/lia-cloak-thinking.png",
    "neutral": "assets/portraits/lia-cloak.png"
   },
+  "loyla": {
+   "neutral": "assets/portraits/loyla.png"
+  },
   "maedchen": {
    "angry": "assets/portraits/maedchen-angry.png",
    "neutral": "assets/portraits/maedchen.png"
@@ -2891,6 +3235,12 @@
   "paladin": {
    "neutral": "assets/portraits/paladin.png"
   },
+  "rikkon": {
+   "neutral": "assets/portraits/rikkon.png"
+  },
+  "samira": {
+   "neutral": "assets/portraits/samira.png"
+  },
   "shadow-club": {
    "neutral": "assets/portraits/shadow-club.png"
   },
@@ -2902,6 +3252,12 @@
   },
   "shadow-sword": {
    "neutral": "assets/portraits/shadow-sword.png"
+  },
+  "tholoss": {
+   "neutral": "assets/portraits/tholoss.png"
+  },
+  "ulfbert": {
+   "neutral": "assets/portraits/ulfbert.png"
   },
   "valentus": {
    "angry": "assets/portraits/valentus-angry.png",
@@ -3152,6 +3508,21 @@
   },
   "k5-vamir": {
    "file": "assets/cut/k5-vamir.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-buch-dunkelhain": {
+   "file": "assets/cut/prolog-buch-dunkelhain.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-buch-rat": {
+   "file": "assets/cut/prolog-buch-rat.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-buch-urmacht": {
+   "file": "assets/cut/prolog-buch-urmacht.jpg",
    "w": 1280,
    "h": 720
   },
