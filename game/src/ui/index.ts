@@ -127,7 +127,8 @@ export function createUi(): UiApiExt {
       mounted = true;
       ctx.mount(root);
       bindVoiceVolume(() => G.settings.voice);
-      void voiceover.preload();
+      void voiceover.preload('prolog');
+      void voiceover.preload('story');
       voiceover.scene(G.currentScene);
       G.events.on('scene:goto', ({ id }) => voiceover.scene(id));
       G.events.on('settings:changed', () => voiceover.refreshVolume());
@@ -196,8 +197,8 @@ export function createUi(): UiApiExt {
     hint: h => hints.hint(ctx.stale() ? null : h),
     bubble: (text, anchor, ms, opts) => {
       if (ctx.stale()) return () => {};
-      const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, text) : null;
-      return bubbles.bubble(text, anchor, ms, voice);
+      const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, opts.voiceText ?? text, undefined, undefined, opts.foreground) : null;
+      return Object.assign(bubbles.bubble(text, anchor, ms, voice, opts?.voiceText), { voiced: Boolean(voice), voiceDone: voice?.done });
     },
     hold: (label, durationMs, opts) => (ctx.stale() ? ctx.never() : hold(label, durationMs, opts)),
 

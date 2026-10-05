@@ -105,12 +105,12 @@ export class Blindfold {
       return this.screenOf(a.x, a.y - 34);
     };
     const ms = o.ms ?? Math.max(1700, 900 + text.length * 48);
-    ui.bubble(`*${o.name}:* ${text}`, where, ms);
+    const spoken = ui.bubble(`*${o.name}:* ${text}`, where, ms, { speaker: actorId ?? 'k4-wache', voiceText: text, foreground: true });
     const pos = where();
     this.ripple(pos.x, pos.y + 18, o.color, 1);
     const letters = Math.min(40, Math.ceil(text.replace(/[^\p{L}]/gu, '').length / 2));
     const started = this.token;
-    void (async () => {
+    if (!spoken.voiced) void (async () => {
       for (let i = 0; i < letters; i++) {
         if (!ui.alive(started) || !this.alive) return;
         const a = actorId ? this.w.actor(actorId) : null;
@@ -120,7 +120,8 @@ export class Blindfold {
         await ui.wait(62);
       }
     })();
-    await ui.wait(ms);
+    if (spoken.voiceDone) await spoken.voiceDone;
+    await ui.wait(spoken.voiced ? 600 : ms);
   }
 
   /** A panned one-shot sound with rings at a world point. */

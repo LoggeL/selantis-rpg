@@ -14,6 +14,29 @@ export function validSpeechCues(text: string, cues?: readonly WordCue[]): cues i
   });
 }
 
+/** Inventory-approved display variants retain omitted parenthetical controls beside the nearest word. */
+export function speechDisplayWordGroups(displayText: string, spokenText: string): number[][] | null {
+  const display = normalizeVoiceText(displayText);
+  const spoken = normalizeVoiceText(spokenText);
+  const tokens = [...display.matchAll(/\S+/gu)];
+  if (display === spoken) return tokens.map((_, i) => [i]);
+  const omitted = [...display.matchAll(/\([^()]*\)/gu)].map(match => [match.index!, match.index! + match[0].length]);
+  if (!omitted.length) return null;
+  const kept = tokens.map((token, index) => ({ text: token[0], index, start: token.index! }))
+    .filter(token => !omitted.some(([start, end]) => token.start >= start && token.start < end));
+  // No substitutions, spoken words, or punctuation may disappear outside the exact parenthetical.
+  if (kept.map(token => token.text).join(' ') !== spoken || !kept.length) return null;
+  const groups = kept.map(token => [token.index]);
+  for (let index = 0; index < tokens.length; index++) {
+    if (kept.some(token => token.index === index)) continue;
+    let target = -1;
+    kept.forEach((token, i) => { if (token.index < index) target = i; });
+    if (target < 0) target = 0;
+    groups[target].push(index);
+  }
+  return groups.map(group => group.sort((a, b) => a - b));
+}
+
 interface RevealOptions {
   playback: VoicePlayback;
   cues: readonly WordCue[];

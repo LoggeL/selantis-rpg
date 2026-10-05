@@ -106,14 +106,21 @@ export class BubbleUi {
     ctx.onLayout(() => { for (const e of this.live) e.half = -1; });
   }
 
-  bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number, voice: VoicePlayback | null = null): () => void {
+  bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number, voice: VoicePlayback | null = null, voiceText?: string): () => void {
     const node = el('div', 'bubble');
     const inner = el('div', 'bubble-text');
+    const spoken = voiceText && text.endsWith(voiceText) ? voiceText : text;
+    const prefix = spoken !== text ? text.slice(0, -spoken.length) : '';
+    const speechHost = prefix ? el('span') : inner;
+    if (prefix) {
+      for (const seg of parseMarkup(prefix)) inner.appendChild(el('span', seg.style === 'em' ? 'tx-em' : seg.style === 'magic' ? 'tx-magic' : '', seg.text));
+      inner.appendChild(speechHost);
+    }
     const renderPlain = (): TextReveal => {
-      inner.textContent = '';
-      for (const seg of parseMarkup(text)) {
-        if (seg.style === 'br') inner.appendChild(el('br'));
-        else inner.appendChild(el('span', seg.style === 'plain' ? '' : seg.style === 'em' ? 'tx-em' : 'tx-magic', seg.text));
+      speechHost.textContent = '';
+      for (const seg of parseMarkup(spoken)) {
+        if (seg.style === 'br') speechHost.appendChild(el('br'));
+        else speechHost.appendChild(el('span', seg.style === 'plain' ? '' : seg.style === 'em' ? 'tx-em' : 'tx-magic', seg.text));
       }
       return { done: true, complete() {} };
     };
@@ -122,7 +129,7 @@ export class BubbleUi {
     let removed = false;
     let timer = 0;
     const token = ctx.epoch;
-    const reveal = revealSpeech(inner, text, voice, renderPlain, () => {},
+    const reveal = revealSpeech(speechHost, spoken, voice, renderPlain, () => {},
       () => !removed && token === ctx.epoch && inner.isConnected);
     const remove = () => {
       if (removed) return;

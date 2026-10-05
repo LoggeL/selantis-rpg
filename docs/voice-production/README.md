@@ -1,5 +1,7 @@
 # Prolog vertonen
 
+Die Vorbereitung der übrigen Kapitel steht in [story-production.md](story-production.md).
+
 Die Sprecherprofile stehen in `prolog-speakers.md`; `prolog-speakers.json` enthält die verwendbare Sprechregie. Die Inventarliste `prolog-lines.json` umfasst 188 Aufnahmen für 19 Stimmen in Rat, Schlacht, Flucht und Zuflucht. Dialoge, Gedanken, Erzählung, menschliche Rufe und ausgewählte gesprochene Antworten werden vertont. Menüs, Regieanweisungen und nichtsprachliche Geräusche gehören nicht dazu.
 
 Verwendetes Modell: `gemini-3.8-flash-tts`. Die gewählten Stimmen bleiben je Sprecher konstant, die Sprechregie variiert nach Situation und Emotion. Ausführliche Profiltexte dienen der Besetzung; neue Requests verwenden kurze Regie gemäß der [Google-Empfehlung](https://ai.google.dev/gemini-api/docs/speech-generation#prompting-guide). Acht Stimmen stammen aus der zuvor gehörten Auswahl; elf weitere Besetzungen sind im Profil als neue Castingentscheidung markiert.

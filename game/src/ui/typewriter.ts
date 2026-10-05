@@ -1,5 +1,5 @@
 import type { VoicePlayback } from '../audio/voiceover';
-import { SpeechReveal, validSpeechCues } from './speechReveal';
+import { SpeechReveal, speechDisplayWordGroups, validSpeechCues } from './speechReveal';
 import { settings } from '../core/settings';
 import { blip, el } from './dom';
 import { parseMarkup, revealSchedule, shouldBlip } from './text';
@@ -151,10 +151,13 @@ export interface TextReveal { readonly done: boolean; complete(): void; cancel?(
 /** Uses recorded word alignment when present; otherwise keeps the ordinary text rendering. */
 export function revealSpeech(host: HTMLElement, text: string, playback: VoicePlayback | null,
   fallback: () => TextReveal, onDone: () => void, alive: () => boolean, dropCap = false): TextReveal {
-  if (!playback || !validSpeechCues(text, playback.wordCues)) return fallback();
+  const spoken = playback?.spokenText ?? text;
+  const groups = speechDisplayWordGroups(text, spoken);
+  if (!playback || !groups || !validSpeechCues(spoken, playback.wordCues)) return fallback();
   host.classList.remove('rw-host', 'rw-all');
   const chars = renderChars(host, text);
-  const words = speechWordCharacterIndices(text).map(indices => indices.map(index => chars[index]));
+  const displayWords = speechWordCharacterIndices(text);
+  const words = groups.map(group => group.flatMap(index => displayWords[index]).map(index => chars[index]));
   if (dropCap) {
     const cap = words[0]?.find(char => /\p{L}/u.test(char.textContent ?? ''));
     if (cap) { cap.classList.add('drop-cap'); host.prepend(cap); }

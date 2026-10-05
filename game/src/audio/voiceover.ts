@@ -1,12 +1,13 @@
 import { stripMarkup } from '../ui/text';
 
 export type VoiceKind = 'say' | 'think' | 'narrate' | 'bark' | 'choice';
-export interface VoiceKey { kind: VoiceKind; speaker: string; text: string }
+export type VoiceBank = 'prolog' | 'story';
+export interface VoiceKey { kind: VoiceKind; speaker: string; text: string; scene?: string; mood?: string }
 export interface WordCue { start: number; end: number }
 export type VoiceOutcome = 'playing' | 'ended' | 'failed' | 'stopped';
 export interface VoiceClip extends VoiceKey { word_cues?: WordCue[]; id: string; audio: string; seconds: number; runtime_keys: VoiceKey[] }
-export interface VoiceManifest { model: string; aliases: Record<string, string>; clips: VoiceClip[] }
-export interface VoicePlayback { done: Promise<void>; readonly currentTime: number; readonly started: boolean; readonly wordCues?: readonly WordCue[]; readonly outcome: VoiceOutcome; stop(): void }
+export interface VoiceManifest { model: string; aliases: Record<string, string>; scene_players?: Record<string, string>; clips: VoiceClip[] }
+export interface VoicePlayback { done: Promise<void>; readonly currentTime: number; readonly started: boolean; readonly wordCues?: readonly WordCue[]; readonly spokenText?: string; readonly outcome: VoiceOutcome; stop(): void }
 
 /** Choice labels may include actions around a quoted response; only the words are spoken. */
 export function quotedChoiceText(text: string): string | null {
@@ -19,27 +20,42 @@ const key = (kind: VoiceKind, speaker: string, text: string) => JSON.stringify([
 
 /** Explicit runtime keys prevent a repeated sentence from borrowing another speaker's take. */
 export class VoiceIndex {
-  private clips = new Map<string, VoiceClip>();
-  constructor(private manifest: VoiceManifest) {
+  private clips = new Map<string, Array<{ clip: VoiceClip; runtime: VoiceKey }>>();
+  constructor(private manifest: VoiceManifest, bank: VoiceBank = 'prolog') {
     for (const clip of manifest.clips) {
-      if (!/^\/?audio\/prolog\/[A-Za-z0-9_./-]+\.(mp3|wav|ogg)$/.test(clip.audio) || clip.audio.includes('..')) continue;
+      if (!new RegExp(`^/?audio/${bank}/[A-Za-z0-9_./-]+\\.(mp3|wav|ogg)$`).test(clip.audio) || clip.audio.includes('..')) continue;
       if (!Number.isFinite(clip.seconds) || clip.seconds <= 0) continue;
       for (const runtime of clip.runtime_keys ?? []) {
         const k = key(runtime.kind, this.speaker(runtime.speaker), runtime.text);
-        // Generator supplies one take per runtime key; repeated keys retain the first mapping.
-        if (!this.clips.has(k)) this.clips.set(k, clip);
+        const candidates = this.clips.get(k) ?? [];
+        candidates.push({ clip, runtime });
+        this.clips.set(k, candidates);
       }
     }
   }
   private speaker(id: string): string { return this.manifest.aliases?.[id] ?? id; }
-  find(kind: VoiceKind, speaker: string, text: string): VoiceClip | undefined {
-    return this.clips.get(key(kind, this.speaker(speaker), text));
+  player(scene: string): string | undefined { return this.manifest.scene_players?.[scene]; }
+  find(kind: VoiceKind, speaker: string, text: string, scene?: string, mood?: string): VoiceClip | undefined {
+    const candidates = this.clips.get(key(kind, this.speaker(speaker), text)) ?? [];
+    let found: VoiceClip | undefined;
+    let score = -1;
+    let ambiguous = false;
+    for (const candidate of candidates) {
+      const route = candidate.runtime;
+      const scoped = Boolean(route.scene && route.scene !== '*');
+      if (scoped && route.scene !== scene) continue;
+      if (route.mood && route.mood !== (mood ?? 'neutral')) continue;
+      const rank = (scoped ? 2 : 0) + (route.mood ? 1 : 0);
+      if (rank > score) { found = candidate.clip; score = rank; ambiguous = false; }
+      else if (rank === score && found?.id !== candidate.clip.id) ambiguous = true;
+    }
+    return ambiguous ? undefined : found;
   }
 }
 
 interface Dependencies {
   audio: (url: string) => HTMLAudioElement;
-  fetchManifest: () => Promise<VoiceManifest>;
+  fetchManifest: (bank: VoiceBank) => Promise<VoiceManifest>;
   volume: () => number;
   now: () => number;
   visible?: () => boolean;
@@ -47,23 +63,34 @@ interface Dependencies {
 
 /** One voice at a time; all exits settle, even when play(), loading or decoding fails. */
 export class Voiceover {
-  private index?: VoiceIndex;
-  private loading?: Promise<void>;
+  private indexes = new Map<VoiceBank, VoiceIndex>();
+  private loading = new Map<VoiceBank, Promise<void>>();
+  private bank: VoiceBank = 'prolog';
+  private currentScene = '';
   private active?: { playback: VoicePlayback; audio: HTMLAudioElement; bark: boolean };
   private enabled = false;
   private lastBark = -Infinity;
   constructor(private deps: Dependencies) {}
 
-  preload(): Promise<void> {
-    return this.loading ??= this.deps.fetchManifest().then(manifest => {
-      this.index = new VoiceIndex(manifest);
-    }).catch(() => { /* Missing manifest keeps the ordinary text/blip path. */ });
+  preload(bank: VoiceBank = this.bank): Promise<void> {
+    const existing = this.loading.get(bank);
+    if (existing) return existing;
+    const pending = this.deps.fetchManifest(bank).then(manifest => {
+      this.indexes.set(bank, new VoiceIndex(manifest, bank));
+    }).catch(() => { /* Each absent bank independently keeps the ordinary text path. */ });
+    this.loading.set(bank, pending);
+    return pending;
   }
   scene(id: string): void {
     this.stop();
-    this.enabled = /^prolog-(rat|schlacht|flucht|zuflucht)$/.test(id);
+    this.currentScene = id;
+    this.bank = /^prolog-(rat|schlacht|flucht|zuflucht)$/.test(id) ? 'prolog' : 'story';
+    this.enabled = Boolean(id);
     this.lastBark = -Infinity;
     if (this.enabled) void this.preload();
+  }
+  playerSpeaker(): string {
+    return this.indexes.get(this.bank)?.player(this.currentScene) ?? (this.bank === 'prolog' ? 'valentus' : '');
   }
   stop(): void { this.active?.playback.stop(); }
   refreshVolume(): void {
@@ -76,12 +103,15 @@ export class Voiceover {
     const value = this.deps.volume();
     return Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : 0;
   }
-  play(kind: VoiceKind, speaker: string, text: string, fallback?: () => void): VoicePlayback | null {
+  play(kind: VoiceKind, speaker: string, text: string, fallback?: () => void, mood?: string, foregroundBark = false): VoicePlayback | null {
     if (!this.enabled || this.volume() <= 0 || this.deps.visible?.() === false) return null;
     const bark = kind === 'bark';
     if (!bark) this.stop();
-    const clip = this.index?.find(kind, speaker, text);
-    if (!clip || (bark && (this.active || this.deps.now() - this.lastBark < 6000))) return null;
+    const clip = this.indexes.get(this.bank)?.find(kind, speaker, text, this.currentScene, mood);
+    if (!clip || (bark && (
+      (this.active && (!foregroundBark || !this.active.bark))
+      || (!foregroundBark && this.deps.now() - this.lastBark < 6000)
+    ))) return null;
     this.stop();
     let audio: HTMLAudioElement;
     try { audio = this.deps.audio('/' + clip.audio.replace(/^\//, '')); }
@@ -114,6 +144,7 @@ export class Voiceover {
       get currentTime() { return audio.currentTime; },
       get started() { return started; },
       get wordCues() { return clip.word_cues; },
+      get spokenText() { return clip.text; },
       get outcome() { return outcome; },
     };
     this.active = { playback, audio, bark };
@@ -127,11 +158,11 @@ export class Voiceover {
   }
 }
 
-async function fetchManifest(): Promise<VoiceManifest> {
+async function fetchManifest(bank: VoiceBank): Promise<VoiceManifest> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 3000);
   try {
-    const response = await fetch('/audio/prolog/manifest.json', { signal: controller.signal });
+    const response = await fetch(`/audio/${bank}/manifest.json`, { signal: controller.signal });
     if (!response.ok) throw new Error('Voice manifest unavailable');
     return await response.json() as VoiceManifest;
   } finally { clearTimeout(timer); }

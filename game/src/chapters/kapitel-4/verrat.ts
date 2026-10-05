@@ -273,9 +273,10 @@ async function amBach(w: WorldCtx): Promise<void> {
     w.bark('player', '…', 1500);
     // Far away: Azar calls her name.
     const far = () => ({ x: 560, y: 60 });
-    G.ui.bubble('*Azar (fern):* Liaaa!', far, 2200);
-    for (let i = 0; i < 5; i++) { try { G.audio.blip(105, 'square', { pan: 0.6, volume: 0.35 }); } catch { /* */ } await ui.wait(70); }
-    await ui.wait(1800);
+    const spoken = G.ui.bubble('*Azar (fern):* Liaaa!', far, 2200, { speaker: 'azar', voiceText: 'Liaaa!', foreground: true });
+    if (!spoken.voiced) for (let i = 0; i < 5; i++) { try { G.audio.blip(105, 'square', { pan: 0.6, volume: 0.35 }); } catch { /* */ } await ui.wait(70); }
+    if (spoken.voiceDone) await spoken.voiceDone;
+    await ui.wait(spoken.voiced ? 600 : 1800);
     const pick = await w.choose(['Antworten', 'Schweigen']);
     if (pick === 0) await w.think('Ich öffne den Mund. Kein Ton kommt heraus. Dann ist die Stimme weg.');
     else await w.think('Azar. … Nein. Vielleicht hat er es auch gewusst.');

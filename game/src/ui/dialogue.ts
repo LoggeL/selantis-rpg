@@ -237,7 +237,7 @@ export class DialogueUi {
         onDone: () => { completedAt = performance.now(); box.setMore(true); },
       };
       const originalVoice = typeOptions.voice;
-      const recording = voiceover.play('say', id, text, () => { typeOptions.voice = originalVoice; });
+      const recording = voiceover.play('say', id, text, () => { typeOptions.voice = originalVoice; }, opts.mood);
       if (recording) typeOptions.voice = undefined;
       const tw = revealSpeech(box.textEl, text, recording,
         () => new Typewriter(box.textEl, text, typeOptions), typeOptions.onDone,
@@ -262,7 +262,7 @@ export class DialogueUi {
     await voiceover.preload();
     if (ctx.stale() || token !== ctx.epoch) return ctx.never();
     this.box.hideNow();
-    const recording = voiceover.play('think', 'valentus', text);
+    const recording = voiceover.play('think', voiceover.playerSpeaker(), text);
     const wrap = el('div', 'thought');
     const inner = el('div', 'thought-text');
     wrap.appendChild(el('div', 'thought-orn', '❧'));
@@ -291,8 +291,11 @@ export class DialogueUi {
   }
 
   /** Choice list. With a prompt the prompt line is typed first; without one, a just-finished line stays visible. */
-  choose(options: (string | ChoiceOption)[], opts: { speaker?: string; prompt?: string } = {}): Promise<number> {
+  async choose(options: (string | ChoiceOption)[], opts: { speaker?: string; prompt?: string } = {}): Promise<number> {
     if (ctx.stale()) return ctx.never();
+    const loadEpoch = ctx.epoch;
+    await voiceover.preload();
+    if (ctx.stale() || loadEpoch !== ctx.epoch) return ctx.never();
     voiceover.stop();
     const choiceEpoch = ctx.epoch;
     // Copies: the caller's option objects are never modified.
@@ -331,7 +334,7 @@ export class DialogueUi {
         setTimeout(() => panel.remove(), 220);
         box.setThinking(false);
         box.scheduleHide();
-        void this.speakChoice(list[i].text, opts.speaker ?? 'valentus').then(() => {
+        void this.speakChoice(list[i].text, opts.speaker ?? voiceover.playerSpeaker()).then(() => {
           if (ctx.epoch === choiceEpoch && !ctx.stale()) resolveFn(i);
         });
       }, ctx.reducedMotion ? 60 : 230);

@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { settings } from '../core/settings';
 import type { VoiceOutcome, VoicePlayback } from '../audio/voiceover';
-import { SpeechReveal, validSpeechCues } from './speechReveal';
+import { SpeechReveal, speechDisplayWordGroups, validSpeechCues } from './speechReveal';
 import { revealSpeech, speechWordCharacterIndices, Typewriter } from './typewriter';
 
 vi.mock('./dom', () => ({ el: (_tag: string, cls?: string, text?: string) => node(cls, text), blip: vi.fn() }));
@@ -54,6 +54,12 @@ function frames() {
 afterEach(() => { vi.unstubAllGlobals(); settings.textSpeed = 45; });
 
 describe('speech alignment', () => {
+  it('maps only exact omitted parenthetical display controls to adjacent spoken words', () => {
+    expect(speechDisplayWordGroups('Ducken, hat er gesagt. (Shift halten)', 'Ducken, hat er gesagt.')).toEqual([[0], [1], [2], [3, 4, 5]]);
+    expect(speechDisplayWordGroups('Steinkreis (E) ansehen', 'Steinkreis ansehen')).toEqual([[0, 1], [2]]);
+    expect(speechDisplayWordGroups('Die Nacht ist kalt.', 'Die Nacht ist warm.')).toBeNull();
+    expect(speechDisplayWordGroups('Drücke Shift und gehe.', 'Drücke und gehe.')).toBeNull();
+  });
   it('calls native global frame functions without passing the reveal instance as their receiver', () => {
     const raf = frames(), audio = media(), showWord = vi.fn();
     vi.stubGlobal('requestAnimationFrame', function (this: unknown, callback: FrameRequestCallback) {
