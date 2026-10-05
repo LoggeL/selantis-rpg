@@ -1,8 +1,30 @@
-import type { BattleEvent, Unit, UnitSpec } from './types';
+import type { BattleEvent, CombatStats, Unit, UnitSpec } from './types';
 
 export const EXP_PER_LEVEL = 100;
 export const MAX_LEVEL = 50;
 export const AP_TO_MASTER = 50;
+
+export function characterLevel(level = 1): number {
+  return Number.isFinite(level) ? Math.max(1, Math.min(MAX_LEVEL, Math.floor(level))) : 1;
+}
+
+function growthBetween(from: number, to: number): CombatStats {
+  const a = characterLevel(from) - 1, b = characterLevel(to) - 1;
+  return {
+    maxHp: (b - a) * 3, maxMp: (b - a) * 2, atk: b - a,
+    def: Math.floor(b / 2) - Math.floor(a / 2),
+    speed: Math.floor(b / 5) - Math.floor(a / 5),
+  };
+}
+
+/** The same curve supplies starting stats, restored saves and in-battle level growth. */
+export function statsAtLevel(base: CombatStats, level: number): CombatStats {
+  const gain = growthBetween(1, level);
+  return {
+    maxHp: base.maxHp + gain.maxHp, maxMp: base.maxMp + gain.maxMp,
+    atk: base.atk + gain.atk, def: base.def + gain.def, speed: base.speed + gain.speed,
+  };
+}
 
 export interface CharacterProgress {
   level: number;
@@ -63,18 +85,28 @@ export function restoreProgress(spec: UnitSpec, saved?: CharacterProgress): Unit
   const equipped = withEquipment(spec);
   if (!saved) return equipped;
   const p = normalizeProgress(saved);
-  const baseLevel = spec.level ?? 1;
+  const baseLevel = characterLevel(spec.level);
   const level = Math.max(baseLevel, p.level);
-  const levels = level - baseLevel;
-  return {
-    ...equipped, level, exp: p.exp,
-    hp: spec.hp + levels * 3, maxHp: (spec.maxHp ?? spec.hp) + levels * 3,
-    maxMp: (spec.maxMp ?? spec.mp ?? 24) + levels * 2,
-    atk: (spec.atk ?? 2) + levels,
-    def: (spec.def ?? 0) + Math.floor((level - 1) / 2) - Math.floor((baseLevel - 1) / 2),
-    speed: (spec.speed ?? 5) + Math.floor((level - 1) / 5) - Math.floor((baseLevel - 1) / 5),
+  const gain = growthBetween(baseLevel, level);
+  const restored = {
+    ...equipped, level, exp: level === MAX_LEVEL ? 0 : p.exp,
     weapon: p.weapon && equipped.weapons?.includes(p.weapon) ? p.weapon : equipped.weapon,
     mastered: p.mastered, abilityAp: p.abilityAp,
+  };
+  if (spec.baseStats) return {
+    ...restored,
+    hp: spec.hp === undefined ? undefined : spec.hp + gain.maxHp,
+    mp: spec.mp === undefined ? undefined : spec.mp + gain.maxMp,
+  };
+  // Older custom encounters author absolute stats at their starting level.
+  return {
+    ...restored,
+    hp: (spec.hp ?? spec.maxHp ?? 10) + gain.maxHp,
+    maxHp: (spec.maxHp ?? spec.hp ?? 10) + gain.maxHp,
+    mp: spec.mp === undefined ? undefined : spec.mp + gain.maxMp,
+    maxMp: (spec.maxMp ?? spec.mp ?? 24) + gain.maxMp,
+    atk: (spec.atk ?? 2) + gain.atk, def: (spec.def ?? 0) + gain.def,
+    speed: (spec.speed ?? 5) + gain.speed,
   };
 }
 
@@ -86,12 +118,13 @@ export function awardProgress(u: Unit, exp: number, ap = 0): BattleEvent[] {
     u.exp += exp;
     events.push({ type: 'exp', unit: u.id, amount: exp });
     while (u.exp >= EXP_PER_LEVEL && u.level < MAX_LEVEL) {
-      u.exp -= EXP_PER_LEVEL; u.level++;
-      u.maxHp += 3; u.maxMp += 2; u.atk++;
+      u.exp -= EXP_PER_LEVEL;
+      const gain = growthBetween(u.level, u.level + 1);
+      u.level++;
+      u.maxHp += gain.maxHp; u.maxMp += gain.maxMp; u.atk += gain.atk;
       // Increasing maxima preserves missing HP/MP and never revives a downed character.
-      if (!u.down) { u.hp += 3; u.mp += 2; }
-      if (u.level % 2 === 1) u.def++;
-      if (u.level % 5 === 1) u.speed++;
+      if (!u.down) { u.hp += gain.maxHp; u.mp += gain.maxMp; }
+      u.def += gain.def; u.speed += gain.speed;
       events.push({ type: 'level', unit: u.id, level: u.level });
     }
     if (u.level === MAX_LEVEL) u.exp = 0;

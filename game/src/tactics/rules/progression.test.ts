@@ -54,6 +54,31 @@ describe('speed turns', () => {
 });
 
 describe('character growth and weapons', () => {
+  const baseStats = { maxHp: 30, maxMp: 24, atk: 3, def: 2, speed: 6 };
+  it.each([
+    [1, { maxHp: 30, maxMp: 24, atk: 3, def: 2, speed: 6 }],
+    [20, { maxHp: 87, maxMp: 62, atk: 22, def: 11, speed: 9 }],
+    [21, { maxHp: 90, maxMp: 64, atk: 23, def: 12, speed: 10 }],
+    [50, { maxHp: 177, maxMp: 122, atk: 52, def: 26, speed: 15 }],
+  ] as const)('derives full starting attributes from level %i', (level, expected) => {
+    const u = makeUnit({ id: 'hero', name: 'hero', team: 'player', x: 0, y: 0, abilities: [], baseStats, level });
+    expect(u).toMatchObject({ ...expected, level, hp: expected.maxHp, mp: expected.maxMp });
+  });
+  it('matches direct starting stats after earned level-ups and repeated save hydration', () => {
+    const original: UnitSpec = { id: 'hero', name: 'hero', team: 'player', x: 0, y: 0, abilities: ['strahl'], baseStats, level: 20, hp: 70, mp: 10 };
+    const u = makeUnit(restoreProgress(original));
+    awardProgress(u, 230);
+    expect(u).toMatchObject({ level: 22, exp: 30, hp: 76, maxHp: 93, mp: 14, maxMp: 66, atk: 24, def: 12, speed: 10 });
+    const next = makeUnit(restoreProgress(original, progressOf(u)));
+    expect(next).toMatchObject({ level: u.level, exp: u.exp, hp: u.hp, maxHp: u.maxHp, mp: u.mp, maxMp: u.maxMp, atk: u.atk, def: u.def, speed: u.speed });
+    const again = makeUnit(restoreProgress(original, progressOf(next)));
+    expect(again.maxHp).toBe(93); expect(again.atk).toBe(24);
+  });
+  it('honors the campaign starting level when an old save contains a lower placeholder level', () => {
+    const original: UnitSpec = { id: 'hero', name: 'hero', team: 'player', x: 0, y: 0, abilities: ['strahl'], baseStats, level: 20 };
+    const u = makeUnit(restoreProgress(original, { level: 1, exp: 40, weapon: 'lichtfokus', mastered: ['strahl'], abilityAp: { strahl: 50 } }));
+    expect(u).toMatchObject({ level: 20, exp: 40, hp: 87, maxHp: 87, mp: 62, atk: 22, mastered: ['strahl'] });
+  });
   it('levels repeatedly, preserves EXP remainder, grows stats and stops at the cap', () => {
     const u = makeUnit(spec('hero', 'player', 5, 0));
     const events = awardProgress(u, 230);

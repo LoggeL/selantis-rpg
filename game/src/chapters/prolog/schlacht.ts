@@ -2,11 +2,12 @@
 // the wounded. The axe warrior is the young Baris: wounded, never killed. Afterwards Valentus fetches the Urmacht
 // from the cave (plate), an arrow hits him, the army of light flees, slow fade to black.
 import { G } from '../../core/G';
+import { characterStats, shadowStats } from '../common/battleCharacters';
 import type { BattleCtx, BattleDef, BattleUnitDef, Point, TacticsStartData } from '../../tactics/api';
 import { music, sfx, sleep, ui } from './util';
 
 const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'>): BattleUnitDef => ({
-  name: 'Dunkelschatten', team: 'enemy', hp: 12, atk: 2, def: 1, move: 4, jump: 2, speed: 4, abilities: ['schwerthieb'],
+  name: 'Dunkelschatten', team: 'enemy', ...shadowStats(o.preset), move: 4, jump: 2, abilities: ['schwerthieb'],
   preset: 'shadow-sword', title: 'Schwertträger', ai: 'melee', facing: 'n', ...o,
 });
 
@@ -141,24 +142,24 @@ export const dunkelhain: BattleDef = {
     ],
   },
   units: [
-    { id: 'valentus', name: 'Valentus', title: 'Großmeister des Rats der Zehn', team: 'player', x: 3, y: 3, facing: 's', hp: 32, atk: 3, def: 2, move: 4, jump: 2, speed: 6,
+    { id: 'valentus', ...characterStats('valentus'), name: 'Valentus', title: 'Großmeister des Rats der Zehn', team: 'player', x: 3, y: 3, facing: 's', move: 4, jump: 2,
       abilities: ['strahl', 'druckwelle', 'schutzwall', 'handstoss'], preset: 'valentus' },
-    { id: 'falke', name: 'Falke', title: 'Falke aus Portas, zwei Kurzschwerter', team: 'player', x: 5, y: 4, facing: 's', hp: 26, atk: 3, def: 2, move: 5, jump: 3, speed: 7,
+    { id: 'falke', ...characterStats('falke'), name: 'Falke', title: 'Falke aus Portas, zwei Kurzschwerter', team: 'player', x: 5, y: 4, facing: 's', move: 5, jump: 3,
       abilities: ['doppelhieb', 'tritt'], preset: 'falke-soldier', portrait: 'falke-soldier', nonLethal: true },
-    { id: 'verwundeter-1', name: 'Verwundeter Paladin', title: 'Kann kaum noch gehen', team: 'ally', x: 3, y: 5, facing: 'n', hp: 13, maxHp: 22, atk: 1, def: 1, move: 2, jump: 1, speed: 2,
+    { id: 'verwundeter-1', ...characterStats('paladin', 13 / 22), name: 'Verwundeter Paladin', title: 'Kann kaum noch gehen', team: 'ally', x: 3, y: 5, facing: 'n', move: 2, jump: 1,
       abilities: [], ai: 'passive', preset: 'paladin', nonLethal: true },
-    { id: 'verwundeter-2', name: 'Verwundeter Paladin', title: 'Stützt sich auf seinen Speer', team: 'ally', x: 2, y: 6, facing: 'n', hp: 12, maxHp: 22, atk: 1, def: 1, move: 2, jump: 1, speed: 2,
+    { id: 'verwundeter-2', ...characterStats('paladin', 12 / 22), name: 'Verwundeter Paladin', title: 'Stützt sich auf seinen Speer', team: 'ally', x: 2, y: 6, facing: 'n', move: 2, jump: 1,
       abilities: [], ai: 'passive', preset: 'paladin', nonLethal: true },
     shadow({ id: 'ds-1', x: 5, y: 9 }),
     shadow({ id: 'ds-2', x: 8, y: 10 }),
     shadow({ id: 'ds-3', x: 3, y: 11 }),
-    shadow({ id: 'ds-xbow', name: 'Armbrustschütze', title: 'Dunkelschatten auf dem Fels', x: 11, y: 5, hp: 9, atk: 3, def: 0, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 'w' }),
+    shadow({ id: 'ds-xbow', name: 'Armbrustschütze', title: 'Dunkelschatten auf dem Fels', x: 11, y: 5, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 'w' }),
   ],
   waves: [
     {
       round: 2, text: 'Ein Hüne mit Axt führt die nächste Welle an!',
       units: [
-        { id: 'baris', name: 'Axtkämpfer', title: 'Ein junger Hüne mit Axt', team: 'enemy', x: 6, y: 11, facing: 'n', hp: 24, atk: 4, def: 2, move: 3, jump: 1, speed: 3,
+        { id: 'baris', ...characterStats('baris-young'), name: 'Axtkämpfer', title: 'Ein junger Hüne mit Axt', team: 'enemy', x: 6, y: 11, facing: 'n', move: 3, jump: 1,
           abilities: ['axthieb', 'wuchtschlag'], nonLethal: true, preset: 'baris-young', portrait: 'baris-young', ai: 'melee' },
         shadow({ id: 'ds-4', x: 9, y: 11 }),
       ],

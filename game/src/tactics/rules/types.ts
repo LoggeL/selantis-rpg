@@ -120,6 +120,14 @@ export interface AbilityDef {
   icon?: string;
 }
 
+export interface CombatStats {
+  maxHp: number;
+  maxMp: number;
+  atk: number;
+  def: number;
+  speed: number;
+}
+
 export interface UnitSpec {
   id: string;
   name: string;
@@ -127,8 +135,11 @@ export interface UnitSpec {
   x: number;
   y: number;
   facing?: Facing;
-  hp: number;
+  /** Initial HP; omitted characters start with their full level-derived maximum. */
+  hp?: number;
   maxHp?: number;
+  /** Level-one attributes. When present, the level determines all combat attributes. */
+  baseStats?: CombatStats;
   atk?: number;
   def?: number;
   move?: number;

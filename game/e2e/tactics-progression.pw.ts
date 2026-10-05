@@ -25,6 +25,9 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     const card = page.locator('.tac-card');
     await expect(card).toContainText('HP'); await expect(card).toContainText('MP');
     await expect(card).toContainText('Lvl'); await expect(card).toContainText('Exp');
+    await expect(card).toContainText('Lvl 8');
+    await expect(card).toContainText('39 / 39');
+    await expect(card).toContainText('Angriff 10');
     await page.getByRole('button', { name: 'Jagdmesser', exact: true }).click();
     await expect(card.locator('button[data-ab="bogen"]')).toHaveAttribute('aria-disabled', 'true');
     await page.getByRole('button', { name: 'Jagdbogen', exact: true }).click();
@@ -35,6 +38,8 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     await expect(page.locator('.tac-tcard:not(.hidden)')).toContainText('Tempo');
     await page.locator('.tac-endturn').click();
     await ready(page, 'valentus');
+    await expect(card).toContainText('Lvl 20');
+    await expect(card).toContainText('Angriff 22');
     await page.locator('.tac-card button[data-ab="handstoss"]').click();
     await hoverUnit(page, 's-south');
     const forecast = page.locator('.tac-tcard.forecast:not(.hidden)');

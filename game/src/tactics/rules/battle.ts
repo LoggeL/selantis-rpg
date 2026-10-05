@@ -2,7 +2,7 @@ import { STANDARD_ABILITIES } from './abilities';
 import { DIRS, FACINGS, Grid, OPPOSITE, TERRAIN, directionTo, key, manhattan, stepFacing } from './grid';
 import { pathTo, reachable, sameSide, type ReachMap } from './movement';
 import { Rng } from './rng';
-import { WEAPONS, awardProgress, skillAvailable } from './progression';
+import { WEAPONS, awardProgress, characterLevel, skillAvailable, statsAtLevel } from './progression';
 import type {
   AbilityDef, ActionPreview, AiOverride, BattleEvent, Facing, Phase, Point, PreviewMod, PushOutcome,
   StatusId, TargetPreview, Team, Unit, UnitSpec,
@@ -39,12 +39,17 @@ export function makeUnit(spec: UnitSpec): Unit {
   for (const id of weapons) if (!Object.hasOwn(WEAPONS, id)) throw new Error(`Unknown weapon ${id}`);
   if (spec.weapon && !weapons.includes(spec.weapon)) throw new Error(`Weapon ${spec.weapon} is not owned by ${spec.id}`);
   const weaponSkills = new Set(weapons.flatMap(id => WEAPONS[id].skills));
+  const level = characterLevel(spec.level);
+  const stats = spec.baseStats ? statsAtLevel(spec.baseStats, level) : {
+    maxHp: spec.maxHp ?? spec.hp ?? 10, maxMp: spec.maxMp ?? spec.mp ?? 24,
+    atk: spec.atk ?? 2, def: spec.def ?? 0, speed: spec.speed ?? 5,
+  };
   return {
     id: spec.id, name: spec.name, team: spec.team, x: spec.x, y: spec.y, facing: spec.facing ?? 's',
-    hp: spec.hp, maxHp: spec.maxHp ?? spec.hp, atk: spec.atk ?? 2, def: spec.def ?? 0,
-    move: spec.move ?? 4, jump: spec.jump ?? 2, speed: spec.speed ?? 5,
-    mp: spec.mp ?? spec.maxMp ?? 24, maxMp: spec.maxMp ?? spec.mp ?? 24,
-    level: spec.level ?? 1, exp: spec.exp ?? 0, weapon: spec.weapon ?? weapons[0] ?? null, weapons,
+    ...stats, hp: clamp(spec.hp ?? stats.maxHp, 0, stats.maxHp),
+    move: spec.move ?? 4, jump: spec.jump ?? 2,
+    mp: clamp(spec.mp ?? stats.maxMp, 0, stats.maxMp),
+    level, exp: spec.exp ?? 0, weapon: spec.weapon ?? weapons[0] ?? null, weapons,
     innate: spec.abilities.filter(id => !weaponSkills.has(id)), mastered: [...(spec.mastered ?? [])], abilityAp: { ...(spec.abilityAp ?? {}) },
     abilities: [...new Set([...spec.abilities, ...weaponSkills, ...(spec.mastered ?? [])])], cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
     down: false, nonLethal: !!spec.nonLethal, ai: spec.ai ?? (spec.team === 'enemy' ? 'melee' : 'passive'),

@@ -4,6 +4,7 @@
 // („Jetzt ist's aus, Spitzohr!“), Lia screams, her eyes glow blue, the turquoise Urmacht throws Baris away, the
 // Dunkelschatten flee, Lia collapses. The bluff points (flag 'k5-ablenkung') shape the opening.
 import { G } from '../../core/G';
+import { characterStats, shadowStats } from '../common/battleCharacters';
 import type { AbilityDef, BattleCtx, BattleDef, BattleUnitDef, TacticsStartData } from '../../tactics/api';
 import { rescueSetup } from './bluff';
 import { ui } from './common';
@@ -21,7 +22,7 @@ export const RESCUE_ABILITIES: Record<string, AbilityDef> = {
 };
 
 const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'>): BattleUnitDef => ({
-  name: 'Dunkelschatten', team: 'enemy', hp: 11, atk: 2, def: 1, move: 4, jump: 2, speed: 4, abilities: ['schwerthieb'],
+  name: 'Dunkelschatten', team: 'enemy', ...shadowStats(o.preset), move: 4, jump: 2, abilities: ['schwerthieb'],
   preset: 'shadow-sword', ai: 'melee', facing: 'w', nonLethal: true, ...o,
 });
 
@@ -29,15 +30,15 @@ const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'
 export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1), hasDagger = G.state.has('dagger')): BattleDef {
   const setup = rescueSetup(points, hasDagger);
   const units: BattleUnitDef[] = [
-    { id: 'lia', name: 'Lia', title: 'Keine Kämpferin. Aber sie gibt nicht auf.', team: 'player', x: 5, y: 7, facing: 'e', hp: 14, atk: 1, def: 0, move: 4, jump: 2, speed: 6,
+    { id: 'lia', ...characterStats('lia'), name: 'Lia', title: 'Keine Kämpferin. Aber sie gibt nicht auf.', team: 'player', x: 5, y: 7, facing: 'e', move: 4, jump: 2,
       abilities: setup.lia, preset: 'lia-cloak', portrait: 'lia-cloak', tags: ['vip'] },
-    { id: 'flick', name: 'Flick', title: 'Die beste Fährtenleserin südlich von Trapas', team: 'player', x: setup.flick.x, y: setup.flick.y, facing: 'w', hp: 20, atk: 3, def: 1, move: 5, jump: 3, speed: 8,
+    { id: 'flick', ...characterStats('flick'), name: 'Flick', title: 'Die beste Fährtenleserin südlich von Trapas', team: 'player', x: setup.flick.x, y: setup.flick.y, facing: 'w', move: 5, jump: 3,
       abilities: setup.flickAbilities, nonLethal: true, preset: 'flick' },
-    { id: 'kyra', name: 'Kyra', title: 'Gefesselt an die Eiche, geknebelt, wütend', team: 'ally', x: 7, y: 4, facing: 's', hp: 12, atk: 2, def: 0, move: 4, jump: 2, speed: 6,
+    { id: 'kyra', ...characterStats('kyra'), name: 'Kyra', title: 'Gefesselt an die Eiche, geknebelt, wütend', team: 'ally', x: 7, y: 4, facing: 's', move: 4, jump: 2,
       abilities: ['schubsen', 'ausweichen'], statuses: { bound: Infinity }, freedTeam: 'player', preset: 'kyra', boundPreset: 'kyra-bound', tags: ['vip', 'spared'] },
-    shadow({ id: 'algard', name: 'Algard', title: 'Der Narbige, Spötter und Trinker', x: 4, y: 6, facing: 'e', preset: 'algard', portrait: 'algard' }),
-    shadow({ id: 'maedchen', name: '„Mädchen“', title: 'Kahlgeschoren, mit Spieß und verletztem Stolz', x: 6, y: 8, facing: 'n', abilities: ['speerstoss'], preset: 'maedchen', portrait: 'maedchen' }),
-    shadow({ id: 'schuetze', name: 'Armbrustschütze', title: 'Dunkelschatten mit Armbrust', x: 10, y: 1, hp: 10, def: 0, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 's' }),
+    shadow({ id: 'algard', ...characterStats('algard'), name: 'Algard', title: 'Der Narbige, Spötter und Trinker', x: 4, y: 6, facing: 'e', preset: 'algard', portrait: 'algard' }),
+    shadow({ id: 'maedchen', ...characterStats('maedchen'), name: '„Mädchen“', title: 'Kahlgeschoren, mit Spieß und verletztem Stolz', x: 6, y: 8, facing: 'n', abilities: ['speerstoss'], preset: 'maedchen', portrait: 'maedchen' }),
+    shadow({ id: 'schuetze', name: 'Armbrustschütze', title: 'Dunkelschatten mit Armbrust', x: 10, y: 1, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 's' }),
   ];
   return {
     id: 'k5-rettung',
@@ -191,9 +192,9 @@ async function barisArrives(ctx: BattleCtx): Promise<void> {
   if (ctx.hasFlag('k5-baris')) return;
   ctx.flag('k5-baris');
   await ctx.spawn([
-    { id: 'baris', name: 'Baris', title: 'Hauptmann der Dunkelschatten', team: 'enemy', x: 2, y: 1, facing: 's', hp: 34, atk: 5, def: 3, move: 4, jump: 1, speed: 5,
+    { id: 'baris', ...characterStats('baris'), name: 'Baris', title: 'Hauptmann der Dunkelschatten', team: 'enemy', x: 2, y: 1, facing: 's', move: 4, jump: 1,
       abilities: ['axthieb', 'wuchtschlag'], nonLethal: true, preset: 'baris', portrait: 'baris', ai: 'melee' },
-    shadow({ id: 'orwen', name: 'Orwen', title: 'Baris’ rechte Hand, der Grauhaarige', x: 1, y: 2, facing: 's', hp: 20, atk: 3, def: 2, move: 4, preset: 'orwen', portrait: 'orwen' }),
+    shadow({ id: 'orwen', ...characterStats('orwen'), name: 'Orwen', title: 'Baris’ rechte Hand, der Grauhaarige', x: 1, y: 2, facing: 's', move: 4, preset: 'orwen', portrait: 'orwen' }),
   ], { banner: 'Baris und Orwen kehren zurück!' });
   await ctx.say('baris', 'Was ist hier los?! Ihr Narren lasst euch von zwei Mädchen vorführen?', { mood: 'angry' });
   await ctx.say('orwen', 'Die Kleine vom Feuer. Ich wusste, dass mit der etwas faul ist.', { mood: 'smirk' });

@@ -56,6 +56,29 @@ Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spa
 - **Status:** `guarded` (Schutzwall), `stunned`, `taunt` (Ablenken: Feinde gehen auf sie los), `evasive`, `bound` (gefesselt, unangreifbar, befreibar durch `befreien`), `burning`.
 - **Einheiten-Flags:** `nonLethal: true` → „kampfunfähig“ statt tot (bleibt kniend liegen). Tag `'spared'` → Feinde dürfen die Einheit nicht verletzen. Tag `'vip'` → KI bevorzugt sie als Ziel.
 
+## Level und Figurenwerte
+
+`chapters/common/battleCharacters.ts` enthält die Ausgangslevel und Level-1-Werte aller Kampffiguren. Kapitel verwenden `...characterStats('flick')`; Dunkelschatten erhalten über `shadowStats(preset)` ihre Werte. Storykämpfe und Übungsplätze verwenden dieselben Profile.
+
+| Figur | Startlevel | HP | MP | Angriff | Rüstung | Tempo |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Valentus | 20 | 87 | 62 | 22 | 11 | 9 |
+| Falke | 12 | 59 | 26 | 14 | 7 | 9 |
+| Flick | 8 | 39 | 20 | 10 | 4 | 9 |
+| Lia | 2 | 17 | 20 | 2 | 0 | 6 |
+| Kyra | 1 | 12 | 10 | 2 | 0 | 6 |
+| Baris im Prolog | 9 | 48 | 18 | 12 | 6 | 4 |
+| Baris als Hauptmann | 16 | 69 | 32 | 19 | 9 | 8 |
+| Orwen | 10 | 47 | 24 | 12 | 6 | 5 |
+| Algard | 5 | 26 | 12 | 6 | 3 | 4 |
+| Mädchen | 4 | 21 | 10 | 5 | 2 | 5 |
+| Paladin | 8 | 43 | 22 | 9 | 5 | 3 |
+| Dunkelschatten mit Schwert | 4 | 22 | 10 | 5 | 2 | 4 |
+
+`baseStats` beschreibt maximale HP/MP, Angriff, Rüstung und Tempo auf Level 1. Pro weiterem Level steigen maximale HP um 3, maximale MP um 2 und Angriff um 1. Rüstung steigt auf Level 3, 5, 7 usw.; Tempo auf Level 6, 11, 16 usw. `statsAtLevel()` liefert die Anfangswerte. Speicherstand-Wiederherstellung und EXP-Levelaufstiege verwenden dieselbe Kurve. Bewegung und Sprung bleiben Eigenschaften der Figur.
+
+Ohne `hp` und `mp` beginnt eine Figur mit vollen Ressourcen. Explizite Werte setzen Verletzung oder erschöpfte MP am angegebenen Startlevel. Die verwundeten Paladine behalten ihren Verletzungsanteil. Erhöht ein gespeichertes Level die Maxima, bleibt die fehlende Menge erhalten. Ältere Speicherstände mit Platzhalter-Level 1 unterschreiten das neue Ausgangslevel nicht; EXP und Meisterung bleiben erhalten. Ältere eigene Begegnungen ohne `baseStats` können weiterhin absolute Werte am Startlevel angeben.
+
 ## Fähigkeiten
 
 Standardbibliothek in `rules/abilities.ts`: `handstoss`, `strahl`, `druckwelle`, `schutzwall` (Valentus) · `doppelhieb`, `tritt` (Falke) · `schwerthieb`, `speerstoss`, `bolzen`, `axthieb`, `wuchtschlag` (Dunkelschatten) · `ausweichen`, `ablenken`, `steinwurf`, `dolch` (Lia) · `bogen`, `messer` (Flick) · `befreien`, `schubsen`. Eigene oder geänderte über `BattleDef.abilities` (gleiche Struktur wie `AbilityDef`, Formen: `single`, `line`, `ring`, `cone`, `area`, `self`).
