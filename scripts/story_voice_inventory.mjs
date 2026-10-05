@@ -13,7 +13,8 @@ const program=ts.createProgram(all,{target:ts.ScriptTarget.ES2022,module:ts.Modu
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const markup={exports:{}};new Function('exports',ts.transpileModule(fs.readFileSync(path.join(root,'game/src/ui/text.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(markup.exports);
 const plain=s=>markup.exports.stripMarkup(s).replace(/\s+/gu,' ').trim();
-const proposed=path.join(root,'output/audio/story-voice/preparation/inventory.private.proposed.json');
+const outputArg=process.argv.indexOf('--output');
+const proposed=outputArg>=0?path.resolve(process.argv[outputArg+1]):path.join(root,'output/audio/story-voice/preparation/inventory.private.proposed.json');
 const target=path.join(root,'docs/voice-production/story-lines.json');
 const decisionArg=process.argv.indexOf('--decisions');
 const decisions=decisionArg>=0?JSON.parse(fs.readFileSync(process.argv[decisionArg+1],'utf8')):{};
@@ -31,7 +32,7 @@ function scenesFor(sf){return [...(sceneBindings.get(sf.fileName)??[])].sort();}
 function sceneFor(sf){const a=scenesFor(sf);return a.length===1?a[0]:'*';}
 
 function issue(n,role,reason){const k=keyFor(n)+':'+role;audit.set(k,{key:k,source:source(n),role,expression:n.getText(),reason});}
-function decl(n){let s=checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration??s?.declarations?.[0];}
+function decl(n){let s=ts.isShorthandPropertyAssignment(n.parent)&&n.parent.name===n?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration??s?.declarations?.[0];}
 function propName(n){return ts.isIdentifier(n)||ts.isStringLiteralLike(n)||ts.isNumericLiteral(n)?n.text:null;}
 function evalNode(n,env=new Map(),seen=new Set()){
  if(!n||seen.has(n))return [];seen=new Set(seen).add(n);if(env.has(n))return env.get(n);

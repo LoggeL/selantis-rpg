@@ -230,6 +230,35 @@ def source_gesture_category(token):
     return None
 
 
+def qc_fulltext_review(line,clip_hash,records,approvals):
+    """Explicit root-bound actual QC words only, with zero observed events."""
+    record=records.get(line['id']);approval=approvals.get(line['id'],{})
+    if not isinstance(approval,dict) or not vocal_qc.cached_record(record,clip_hash,text_hash(line['text'])) or record.get('id')!=line['id']:return None
+    if (approval.get('channel')!='vocal-qc-fulltext' or approval.get('status')!='approved_qc_fulltext'
+        or not isinstance(approval.get('reviewed_by'),str) or not approval['reviewed_by'].casefold().startswith('root')
+        or not isinstance(approval.get('reason'),str) or not approval['reason'].strip()
+        or approval.get('clip_sha256')!=clip_hash or approval.get('text_sha256')!=text_hash(line['text'])
+        or approval.get('vocal_record_sha256')!=canonical_record_hash(record)
+        or approval.get('raw_response_sha256')!=canonical_record_hash(record['response'])
+        or approval.get('transcript_sha256')!=text_hash(record['transcript'])
+        or any(approval.get(k)!=v for k,v in vocal_qc.cache_metadata().items())):return None
+    observation=vocal_qc.response_observation(record['response'])
+    expected,actual=words(line['text']),words(observation['transcript'])
+    if (observation['events'] or expected!=actual or approval.get('expected_tokens')!=expected
+        or approval.get('observed_tokens')!=actual):return None
+    return {'resolution':'root_hash_bound_actual_qc_fulltext_zero_events','record':approval,
+        'vocal_record_sha256':canonical_record_hash(record),'raw_response_sha256':canonical_record_hash(record['response']),
+        'transcript':record['transcript'],'model_timestamps_used':False,'acting_approval':None}
+
+
+CONTEXTUAL_GESTURES={
+    'pah':({'other'},{'pah'}),
+    'uff':({'groan'},{'uff'}),
+    'hm':({'other','groan','muffled_vocalization'},{'hm','m','mh'}),
+    'ha':({'laughter'},{'ha'}),
+}
+
+
 def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approvals=None,independent_records=None):
     """Only root-approved exact source positions and actual QC events explain sounds.
 
@@ -240,6 +269,8 @@ def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approv
     Nonvocal words must remain complete and ordered. Additional QC observations
     or transcript words cannot be dropped implicitly. No model timings are used.
     """
+    if isinstance(approvals.get(line['id']),dict) and approvals[line['id']].get('channel')=='vocal-qc-fulltext':
+        return qc_fulltext_review(line,clip_hash,records,approvals)
     record=records.get(line['id']);approval=approvals.get(line['id'],{})
     if not isinstance(approval,dict) or not vocal_qc.cached_record(record,clip_hash,text_hash(line['text'])) or record.get('id')!=line['id']:
         return None
@@ -263,7 +294,13 @@ def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approv
         if not isinstance(mapping,dict):return None
         index=mapping.get('source_token_index');category=mapping.get('category')
         if not isinstance(index,int) or isinstance(index,bool) or not 0<=index<len(expected):return None
-        if mapping.get('source_token')!=expected[index] or source_gesture_category(expected[index])!=category:return None
+        if mapping.get('source_token')!=expected[index]:return None
+        canonical_category=source_gesture_category(expected[index])
+        contextual=canonical_category is None and expected[index] in CONTEXTUAL_GESTURES
+        if contextual:
+            allowed_categories,allowed_sounds=CONTEXTUAL_GESTURES[expected[index]]
+            if category not in allowed_categories or not isinstance(mapping.get('source_context_reason'),str) or not mapping['source_context_reason'].strip():return None
+        elif canonical_category!=category:return None
         if not isinstance(mapping.get('reason'),str) or not mapping['reason'].strip():return None
         positions=mapping.get('event_indices');descriptions=mapping.get('descriptions');observed=mapping.get('observed_token_indices')
         if (not isinstance(positions,list) or not positions or any(not isinstance(i,int) or isinstance(i,bool) or not 0<=i<len(events) for i in positions)
@@ -271,12 +308,17 @@ def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approv
             or not isinstance(observed,list) or len(observed)>1
             or any(not isinstance(i,int) or isinstance(i,bool) or not 0<=i<len(actual) for i in observed)):
             return None
+        if contextual and len(positions)!=1:return None
         if len(positions)>1 and (category!='laughter' or not isinstance(mapping.get('count_reason'),str) or not mapping['count_reason'].strip()):return None
         for i,description in zip(positions,descriptions):
             event=events[i]
             if event['category']!=category or event['confidence']<.8 or description!=event['description']:return None
+            if contextual and (mapping.get('vocal_sound')!=event['vocal_sound'] or len(words(event['vocal_sound']))!=1 or words(event['vocal_sound'])[0] not in allowed_sounds):return None
         for i in observed:
             token=actual[i]
+            if contextual:
+                if token not in allowed_sounds:return None
+                continue
             if category=='scream' and not re.fullmatch(r'a+h|ha',token):return None
             if category=='laughter' and not re.fullmatch(r'(?:hi){2,}|(?:ha){2,}|(?:ho){2,}',token):return None
             if category=='muffled_vocalization' and not re.fullmatch(r'm+pf',token):return None
@@ -284,7 +326,7 @@ def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approv
         source_positions.append(index);event_positions.extend(positions);observed_positions.extend(observed)
     if (source_positions!=sorted(set(source_positions)) or event_positions!=list(range(len(events)))
         or observed_positions!=sorted(set(observed_positions))
-        or set(source_positions)!={i for i,t in enumerate(expected) if source_gesture_category(t)}):return None
+        or not {i for i,t in enumerate(expected) if source_gesture_category(t)}.issubset(source_positions)):return None
     remaining_source=[t for i,t in enumerate(expected) if i not in source_positions]
     remaining_actual=[t for i,t in enumerate(actual) if i not in observed_positions]
     word_approval=None
@@ -327,6 +369,64 @@ def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approv
         'vocal_record_sha256':canonical_record_hash(record),'raw_response_sha256':canonical_record_hash(record['response']),
         'transcript':record['transcript'],'remaining_source_tokens':remaining_source,'remaining_observed_tokens':remaining_actual,
         'word_approval':word_approval,'model_timestamps_used':False,'acting_approval':None}
+
+
+def lexical_veto_review(run,line,clip_hash,records):
+    """Root decision from exact private evidence; no decoder-string heuristic."""
+    record=records.get(line['id'])
+    if record is None:return None
+    invalid={'applicable':False,'binding_requires_review':True,'reason':'invalid_lexical_veto_binding'}
+    if (not isinstance(record,dict) or record.get('id')!=line['id'] or record.get('status')!='root_retake_required'
+        or not isinstance(record.get('reviewed_by'),str) or not record['reviewed_by'].casefold().startswith('root')
+        or not isinstance(record.get('reason'),str) or not record['reason'].strip()
+        or any(not isinstance(record.get(k),str) or not re.fullmatch(r'[0-9a-f]{64}',record[k]) for k in ['clip_sha256','text_sha256'])):
+        return invalid
+    if record['clip_sha256']!=clip_hash or record['text_sha256']!=text_hash(line['text']):
+        return {'applicable':False,'binding_requires_review':False,'reason':'stale_lexical_veto_source_or_audio',
+            'record_sha256':canonical_record_hash(record)}
+    evidence=record.get('evidence')
+    if not isinstance(evidence,list) or not evidence:return invalid
+    seen=set();checked=[]
+    for reference in evidence:
+        if (not isinstance(reference,dict) or set(reference)!={'file','sha256'}
+            or not isinstance(reference['file'],str) or not reference['file']
+            or not isinstance(reference['sha256'],str) or not re.fullmatch(r'[0-9a-f]{64}',reference['sha256'])):return invalid
+        relative=Path(reference['file'])
+        if relative.is_absolute() or '..' in relative.parts or relative.as_posix() in seen:return invalid
+        path=(run/relative).resolve()
+        if not path.is_relative_to(run.resolve()):return invalid
+        try:actual=digest(path)
+        except OSError:return {'applicable':False,'binding_requires_review':True,'reason':'lexical_veto_evidence_unavailable'}
+        if actual!=reference['sha256']:
+            return {'applicable':False,'binding_requires_review':True,'reason':'lexical_veto_evidence_changed'}
+        try:body=json.loads(path.read_text())
+        except (OSError,ValueError):return {'applicable':False,'binding_requires_review':True,'reason':'lexical_veto_evidence_not_bound_json'}
+        if not isinstance(body,dict) or body.get('id')!=line['id']:
+            return {'applicable':False,'binding_requires_review':True,'reason':'lexical_veto_evidence_id_mismatch'}
+        binding=body.get('binding',{})
+        if not isinstance(binding,dict):return invalid
+        evidence_audio=body.get('clip_sha256',binding.get('audio_sha256'))
+        evidence_text=body.get('source_text_sha256',body.get('text_sha256',binding.get('text_sha256')))
+        if evidence_audio!=clip_hash or evidence_text!=text_hash(line['text']):
+            return {'applicable':False,'binding_requires_review':True,'reason':'lexical_veto_evidence_source_or_audio_mismatch'}
+        seen.add(relative.as_posix());checked.append(reference)
+    return {'applicable':True,'binding_requires_review':False,'reason':record['reason'],'record':record,
+        'record_sha256':canonical_record_hash(record),'verified_evidence':checked,
+        'decision_source':'explicit root review, not automated repetition inference'}
+
+
+def load_lexical_veto_records(path):
+    report=json.loads(path.read_text());values=report.get('records') if isinstance(report,dict) else None
+    if not isinstance(values,list):raise ValueError('invalid_lexical_veto_report')
+    records={}
+    for record in values:
+        if (not isinstance(record,dict) or not isinstance(record.get('id'),str) or not ID.fullmatch(record['id'])
+            or record['id'] in records or record.get('status')!='root_retake_required'
+            or not isinstance(record.get('reviewed_by'),str) or not record['reviewed_by'].casefold().startswith('root')
+            or not isinstance(record.get('reason'),str) or not record['reason'].strip()):
+            raise ValueError('invalid_or_unadopted_lexical_veto')
+        records[record['id']]=record
+    return records
 
 
 CTC_MODEL_ID = 'jonatasgrosman/wav2vec2-large-xlsr-53-german'
@@ -468,7 +568,7 @@ class LocalASR:
         return transcript.strip()
 
 
-def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, decode_fn=decode, model_id=MODEL, independent_records=None, ctc_records=None, vocal_records=None, vocal_adjudications=None):
+def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, decode_fn=decode, model_id=MODEL, independent_records=None, ctc_records=None, vocal_records=None, vocal_adjudications=None, lexical_veto_records=None):
     manifest_path = run/'lines.private.json'
     manifest = json.loads(manifest_path.read_text())
     lines = manifest.get('lines')
@@ -487,6 +587,8 @@ def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, deco
               'started_at':int(time.time()),'takes':[],
               'note':'Signal and authored-word qualification only; acting and voice identity need listening review.'}
     extra = sorted(p.name for p in (run/'clips').glob('*.mp3') if p.stem not in set(ids))
+    unknown_veto=set(lexical_veto_records or {})-set(ids)
+    if unknown_veto:report['failures'].append({'id':None,'reason':'unknown_lexical_veto_ids','ids':sorted(unknown_veto)})
     if extra: report['failures'].append({'id':None,'reason':'unexpected_clip_files','files':extra})
     def inspect(line):
         path=run/'clips'/(line['id']+'.mp3')
@@ -566,6 +668,12 @@ def qualify(run, report_path=None, adjudications=None, workers=4, asr=None, deco
                         take['adjudication'] = accepted
                     else:
                         reasons.append(diagnostic)
+            if clip_hash:
+                veto=lexical_veto_review(run,line,clip_hash,lexical_veto_records or {})
+                if veto:
+                    take['lexical_veto_diagnosis']=veto
+                    if veto.get('applicable'):reasons.append('independent_audio_word_defect')
+                    elif veto.get('binding_requires_review'):reasons.append('lexical_veto_binding_requires_review')
             take['reasons']=reasons;report['takes'].append(take)
             report['failures'].extend({'id':ident,'reason':r} for r in reasons)
             save(report_path,report)
@@ -589,6 +697,7 @@ def main():
     parser.add_argument('--report',type=Path)
     parser.add_argument('--adjudications',type=Path,help='Private JSON mapping IDs to explicit hash-bound accepted_word_variants records')
     parser.add_argument('--independent-report',type=Path,help='Private independent story MP3 transcription report; exact full words only')
+    parser.add_argument('--lexical-veto-report',type=Path,help='Explicit root-retake decisions bound to current source/audio and exact private evidence files')
     parser.add_argument('--vocal-report',type=Path,help='Independent actual-audio vocal QC cache report; no expected text was supplied')
     parser.add_argument('--vocal-adjudications',type=Path,help='Private root-reviewed source-token/event-position hash bindings; never automatic approval')
     parser.add_argument('--ctc-report',type=Path,help='Root-approved pinned local CTC greedy receipts; forced alignment never qualifies words')
@@ -616,7 +725,7 @@ def main():
         if len(vocal_records)!=len(vocal_values):raise ValueError('duplicate_vocal_ids')
         vocal_approvals=json.loads(args.vocal_adjudications.read_text()) if args.vocal_adjudications else {}
         if not isinstance(vocal_approvals,dict):raise ValueError('invalid_vocal_adjudications')
-        result=qualify(run,report,records,args.decode_workers,LocalASR(str(args.model_dir.resolve()) if args.model_dir else None),model_id=MODEL+(':'+str(args.model_dir.resolve()) if args.model_dir else ''), independent_records=independent_records, ctc_records=load_ctc_records(args.ctc_report) if args.ctc_report else {}, vocal_records=vocal_records, vocal_adjudications=vocal_approvals)
+        result=qualify(run,report,records,args.decode_workers,LocalASR(str(args.model_dir.resolve()) if args.model_dir else None),model_id=MODEL+(':'+str(args.model_dir.resolve()) if args.model_dir else ''), independent_records=independent_records, ctc_records=load_ctc_records(args.ctc_report) if args.ctc_report else {}, vocal_records=vocal_records, vocal_adjudications=vocal_approvals, lexical_veto_records=load_lexical_veto_records(args.lexical_veto_report) if args.lexical_veto_report else {})
         print(json.dumps({'status':result['status'],'checked':len(result['checked_ids']),'failures':len(result['failures'])}))
         return 0 if result['status']=='passed' else 1
     except Exception as error:

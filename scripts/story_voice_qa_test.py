@@ -347,6 +347,111 @@ class StoryQA(unittest.TestCase):
             record,approval=self.natural_independent_fixture(source,actual)
             self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'',{self.ident:record},{self.ident:approval}),(source,actual))
 
+    def full_qc_fixture(self,source='Pah.',actual='Pah.'):
+        record,approval=self.vocal_fixture(source=source,actual=actual,category='other')
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':actual,'events':[]})
+        approval.update(channel='vocal-qc-fulltext',status='approved_qc_fulltext',vocal_record_sha256=qa.canonical_record_hash(record),raw_response_sha256=qa.canonical_record_hash(record['response']))
+        approval.pop('source_events')
+        return record,approval
+
+    def test_qc_fulltext_explicit_root_zero_events_not_automatic(self):
+        record,approval=self.full_qc_fixture()
+        self.assertIsNotNone(self.check_vocal(record,approval))
+        self.assertIsNone(self.check_vocal(record,{}))
+        result=self.runqa('PAM!',vocal_records={self.ident:record},vocal_adjudications={self.ident:approval})
+        self.assertEqual(result['status'],'passed');self.assertEqual(result['takes'][0]['adjudication']['resolution'],'root_hash_bound_actual_qc_fulltext_zero_events')
+
+    def test_qc_fulltext_wrong_words_extra_events_and_hashes_fail(self):
+        for actual in ['Puh.','Pah Pah.','']:
+            record,approval=self.full_qc_fixture(actual=actual);self.assertIsNone(self.check_vocal(record,approval))
+        record,approval=self.vocal_fixture(source='Pah.',actual='Pah.',category='other')
+        approval.update(channel='vocal-qc-fulltext',status='approved_qc_fulltext')
+        self.assertIsNone(self.check_vocal(record,approval))
+        record,approval=self.full_qc_fixture()
+        for field in ['clip_sha256','text_sha256','schema_sha256','prompt_sha256','qc_contract_version','vocal_record_sha256','raw_response_sha256','transcript_sha256','expected_tokens','observed_tokens','reviewed_by','reason']:
+            bad=copy.deepcopy(approval);bad[field]='';self.assertIsNone(self.check_vocal(record,bad),field)
+
+    def contextual_fixture(self,token='Uff',sound='uff',category='groan'):
+        record,approval=self.vocal_fixture(source=token+'. Ich bleib liegen.',actual='Ich bleib liegen.',category=category)
+        body=json.loads(record['response']['candidates'][0]['content']['parts'][0]['text']);body['events'][0]['vocal_sound']=sound
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps(body)
+        approval.update(vocal_record_sha256=qa.canonical_record_hash(record),raw_response_sha256=qa.canonical_record_hash(record['response']))
+        approval['source_events'][0].update(vocal_sound=sound,source_context_reason='Root checked this written effort in the current source sentence.')
+        return record,approval
+
+    def test_contextual_exact_sound_class_root_context_per_position(self):
+        for token,sound,category in [('Uff','uff','groan'),('Pah','pah','other'),('Ha','ha','laughter'),('Hm','hm','other'),('Hm','m','groan'),('Hm','mh','muffled_vocalization')]:
+            record,approval=self.contextual_fixture(token,sound,category)
+            self.assertIsNotNone(self.check_vocal(record,approval),(token,sound,category))
+            changed=copy.deepcopy(approval);changed['source_events'][0]['source_context_reason']='';self.assertIsNone(self.check_vocal(record,changed))
+            changed=copy.deepcopy(approval);changed['source_events'][0]['vocal_sound']='invented';self.assertIsNone(self.check_vocal(record,changed))
+
+    def test_contextual_no_interchange_vowels_lexical_interjections_or_extra_words(self):
+        for token,sound,category in [('Pah','pff','other'),('Pah','puh','other'),('Ha','haha','laughter'),('Ha','ah','laughter'),('Uff','ngh ff','groan'),('Hm','huh','other'),('Au','au','groan'),('He','he','other'),('Ach','ach','groan')]:
+            record,approval=self.contextual_fixture(token,sound,category)
+            self.assertIsNone(self.check_vocal(record,approval),(token,sound))
+        record,approval=self.contextual_fixture();record['transcript']='Ich bleib liegen jetzt.'
+        body=json.loads(record['response']['candidates'][0]['content']['parts'][0]['text']);body['transcript']=record['transcript']
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps(body)
+        approval.update(vocal_record_sha256=qa.canonical_record_hash(record),raw_response_sha256=qa.canonical_record_hash(record['response']),transcript_sha256=qa.text_hash(record['transcript']),observed_tokens=qa.words(record['transcript']))
+        self.assertIsNone(self.check_vocal(record,approval))
+
+    def test_contextual_does_not_merge_multiple_events_or_remove_other_source_position(self):
+        record,approval=self.contextual_fixture('Ha','ha','laughter')
+        body=json.loads(record['response']['candidates'][0]['content']['parts'][0]['text']);body['events'].append(copy.deepcopy(body['events'][0]))
+        record['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps(body)
+        approval.update(vocal_record_sha256=qa.canonical_record_hash(record),raw_response_sha256=qa.canonical_record_hash(record['response']))
+        approval['source_events'][0].update(event_indices=[0,1],descriptions=[body['events'][0]['description']]*2,count_reason='Trying to merge extra source event')
+        self.assertIsNone(self.check_vocal(record,approval))
+        record,approval=self.contextual_fixture('Pah','pah','other');approval['source_events'][0]['source_token_index']=1
+        self.assertIsNone(self.check_vocal(record,approval))
+
+    def veto_fixture(self):
+        directory=self.run/'evidence';directory.mkdir(exist_ok=True);path=directory/'decoder.private.json';path.write_text(json.dumps({'id':self.ident,'binding':{'audio_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(self.line['text'])},'actual_words':'A separately reviewed repeated phrase.'}))
+        return {'id':self.ident,'status':'root_retake_required','reviewed_by':'root fixture reviewer','reason':'Root inspected explicit repeated words in current independent evidence; no human hearing claimed.',
+            'clip_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(self.line['text']),'evidence':[{'file':'evidence/decoder.private.json','sha256':qa.digest(path)}]}
+
+    def test_root_lexical_veto_overrides_primary_exact_and_qc_approval(self):
+        record,approval=self.full_qc_fixture();veto=self.veto_fixture()
+        result=self.runqa(self.line['text'],vocal_records={self.ident:record},vocal_adjudications={self.ident:approval},lexical_veto_records={self.ident:veto})
+        self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',result['takes'][0]['reasons']);self.assertTrue(result['takes'][0]['lexical_veto_diagnosis']['applicable'])
+        self.assertIn('adjudication',result['takes'][0]) # retained as evidence, veto still overrides status
+
+    def test_lexical_veto_stale_audio_source_transparent_no_old_veto(self):
+        veto=self.veto_fixture()
+        for field in ['clip_sha256','text_sha256']:
+            bad=copy.deepcopy(veto);bad[field]='0'*64
+            result=self.runqa(lexical_veto_records={self.ident:bad})
+            self.assertEqual(result['status'],'passed');self.assertEqual(result['takes'][0]['lexical_veto_diagnosis']['reason'],'stale_lexical_veto_source_or_audio')
+
+    def test_lexical_veto_evidence_hash_path_root_identity_fail_closed(self):
+        veto=self.veto_fixture()
+        changes=[('reviewed_by','worker'),('status','proposal_root_review_required'),('reason',''),('clip_sha256','not-hash')]
+        for field,value in changes:
+            bad=copy.deepcopy(veto);bad[field]=value
+            result=self.runqa(lexical_veto_records={self.ident:bad});self.assertEqual(result['status'],'review_required')
+        for filename in ['../outside.json','/tmp/outside.json']:
+            bad=copy.deepcopy(veto);bad['evidence'][0]['file']=filename
+            self.assertTrue(qa.lexical_veto_review(self.run,self.line,qa.digest(self.clip),{self.ident:bad})['binding_requires_review'])
+        (self.run/'evidence/decoder.private.json').write_text('changed evidence')
+        result=self.runqa(lexical_veto_records={self.ident:veto});self.assertEqual(result['status'],'review_required');self.assertIn('lexical_veto_binding_requires_review',result['takes'][0]['reasons'])
+
+    def test_lexical_veto_wrong_current_evidence_id_or_audio_despite_correct_file_hash(self):
+        veto=self.veto_fixture();path=self.run/'evidence/decoder.private.json'
+        for mutate in [lambda b:b.update(id='story-'+'b'*24),lambda b:b['binding'].update(audio_sha256='0'*64),lambda b:b['binding'].update(text_sha256='0'*64)]:
+            body={'id':self.ident,'binding':{'audio_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(self.line['text'])}}
+            mutate(body);path.write_text(json.dumps(body));veto['evidence'][0]['sha256']=qa.digest(path)
+            result=self.runqa(lexical_veto_records={self.ident:veto});self.assertEqual(result['status'],'review_required');self.assertIn('lexical_veto_binding_requires_review',result['takes'][0]['reasons'])
+
+    def test_lexical_veto_loader_rejects_duplicate_proposal_or_unknown_ids(self):
+        veto=self.veto_fixture();path=self.run/'veto.private.json'
+        for records in [[veto,veto],[{**veto,'status':'proposal_root_review_required'}],[{**veto,'id':'bad'}]]:
+            path.write_text(json.dumps({'records':records}))
+            with self.assertRaises(ValueError):qa.load_lexical_veto_records(path)
+        path.write_text(json.dumps({'records':[veto]}));self.assertEqual(qa.load_lexical_veto_records(path)[self.ident],veto)
+        unknown=copy.deepcopy(veto);unknown['id']='story-'+'b'*24
+        result=self.runqa(lexical_veto_records={unknown['id']:unknown});self.assertEqual(result['status'],'review_required');self.assertEqual(result['failures'][0]['reason'],'unknown_lexical_veto_ids')
+
     def test_exact_contract(self):
         r=self.runqa();self.assertEqual(r['status'],'passed');self.assertEqual(r['checked_ids'],[self.ident]);self.assertEqual(r['failures'],[])
         self.assertEqual(r['clip_sha256'][self.ident],qa.digest(self.clip))

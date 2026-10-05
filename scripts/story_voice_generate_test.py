@@ -70,4 +70,43 @@ class DeliveryOverridePlanGates(unittest.TestCase):
         self.assertFalse((self.run/'rejected').exists())
         self.assertEqual(before,{p:p.read_bytes() for d in ['raw','clips'] for p in (self.run/d).iterdir()})
 
+    def test_vocal_events_four_cry_forms_preserve_words_flags_and_source(self):
+        frozen=(self.run/'requests.jsonl').read_bytes()
+        for cry,tag in [('AAH!','<scream>'),('AAAAH!','<shriek>'),('Aaah…','<shout>'),('„AAAAAH!“','<scream>')]:
+            record=copy.deepcopy(self.records[0]);record['request']['contents'][0]['parts'][0]['text']='Nein!  '+cry+' Lauf, Lia!'
+            record['request']['contents'][0]['parts'][0]['speechMetadata']['speaker']='lia'
+            old=copy.deepcopy(record);selected={record['key']}
+            value={'delivery_style':'Sudden sharp cry.','vocal_events':[{'word_index':1,'source_word':cry,'tag':tag}]}
+            changed=generate.apply_delivery_overrides([record,self.records[2]],selected,{record['key']:value})
+            actual=changed[0]['request']['contents'][0]['parts'][0]
+            self.assertTrue(actual['text'].startswith('Nein!  '));self.assertTrue(actual['text'].endswith(' Lauf, Lia!'))
+            self.assertIn(tag,actual['text']);self.assertEqual(actual['speechMetadata']['speaker'],'lia')
+            self.assertEqual(changed[0]['request']['generationConfig'],old['request']['generationConfig'])
+            self.assertEqual(record,old);self.assertIs(changed[1],self.records[2])
+            self.assertEqual(changed[0]['delivery_override']['source_text_sha256'],core.digest(old['request']['contents'][0]['parts'][0]['text'].encode()))
+            self.assertEqual(changed[0]['delivery_override']['parts'][0]['text'],actual['text'])
+        self.assertEqual(frozen,(self.run/'requests.jsonl').read_bytes())
+
+    def test_vocal_events_invalid_scope_words_tags_and_duplicate_indices(self):
+        record=copy.deepcopy(self.records[0]);record['request']['contents'][0]['parts'][0]['text']='AAAH! Lia Ha Au'
+        event={'word_index':0,'source_word':'AAAH!','tag':'<scream>'}
+        bad_events=[[{**event,'word_index':True}],[{**event,'word_index':-1}],[{**event,'word_index':99}],
+                    [{**event,'source_word':'AAAAH!'}],[{**event,'tag':' <shriek>'}],[{**event,'tag':'<groan>'}],
+                    [event,event],[{**event,'word_index':1,'source_word':'Lia'}],[{**event,'word_index':2,'source_word':'Ha'}],
+                    [{**event,'word_index':3,'source_word':'Au'}],[],[{**event,'extra':True}]]
+        for events in bad_events:
+            value={'delivery_style':'Sharp cry.','vocal_events':events}
+            with self.assertRaises(core.SafeError):generate.apply_delivery_overrides([record],{record['key']},{record['key']:value})
+        value={'delivery_style':'Sharp cry.','vocal_events':[event],'retake_text':'AAAH! Lia Ha Au'}
+        self.path.write_text(json.dumps({record['key']:value}))
+        with self.assertRaises(core.SafeError):generate.load_delivery_overrides(self.path,{record['key']})
+
+    def test_vocal_events_stale_token_rejected_before_credentials_or_archive(self):
+        self.plan[self.ids[0]]={'delivery_style':'Sharp cry.','vocal_events':[{'word_index':0,'source_word':'AAAH!','tag':'<scream>'}]}
+        self.path.write_text(json.dumps(self.plan))
+        argv=['story_voice_generate.py','--run-dir',str(self.run),'--only-ids',','.join(self.ids[:2]),'--retake','--delivery-overrides',str(self.path)]
+        with patch.object(sys,'argv',argv),patch.object(generate.common,'configure'),patch.object(generate.common,'prepared'),patch.object(core,'credential',side_effect=AssertionError('No key read')),contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(generate.main(),1)
+        self.assertFalse((self.run/'rejected').exists())
+
 if __name__=='__main__':unittest.main()

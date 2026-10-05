@@ -30,6 +30,70 @@ class VocalQCGates(unittest.TestCase):
 
     def prepare(self):transport.prepare(self.args,self.source,self.folder,self.run,self.rows)
 
+    def normal_args(self):
+        args=copy.copy(self.args);args.max_calls=1;return args
+    def test_normal_journal_before_http_exact_request_and_cache(self):
+        args=self.normal_args()
+        def fake_http(method,url,key,request):
+            intent=core.read_json(self.run/(self.id+'.normal-intent.private.json'))
+            self.assertEqual(intent['state'],'RECORDED_BEFORE_HTTP')
+            self.assertFalse(intent['automatic_retry'])
+            self.assertEqual(request,qc.request_for((self.source/'clips'/(self.id+'.mp3')).read_bytes()))
+            self.assertNotIn(self.rows[self.id]['text'],json.dumps(request))
+            self.assertEqual(method,'POST');self.assertIn(qc.MODEL+':generateContent',url)
+            return self.response()
+        with patch.object(core,'credential',return_value='offline fake credential'),patch.object(core,'api',side_effect=fake_http) as api:
+            self.assertEqual(qc.normal_requests(args,self.source,self.folder,self.run,self.rows),0)
+            self.assertEqual(qc.normal_requests(args,self.source,self.folder,self.run,self.rows),0)
+            self.assertEqual(api.call_count,1)
+        record=core.read_json(self.folder/'comparison.private.json')['records'][0]
+        self.assertEqual(record['transport'],'normal');self.assertIsNone(record['listening_verdict'])
+        self.assertEqual(core.read_json(self.run/(self.id+'.normal-intent.private.json'))['state'],'RESPONSE_VALIDATED')
+        self.assertEqual(core.read_json(self.folder/'report.private.json')['status'],'root_review_required')
+    def test_normal_unknown_outcome_never_retries(self):
+        args=self.normal_args()
+        with patch.object(core,'credential',return_value='offline'),patch.object(core,'api',side_effect=core.SafeError('uncertain')) as api:
+            with self.assertRaises(core.SafeError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+            with self.assertRaises(core.SafeError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+            self.assertEqual(api.call_count,1)
+            self.assertTrue((self.run/(self.id+'.normal-intent.private.json')).exists())
+    def test_normal_local_response_recovery_no_second_http(self):
+        args=self.normal_args()
+        original=core.save
+        def fail_cache(path,data):
+            if path.name.startswith(self.id) and path.parent==self.folder:raise OSError('offline simulated cache write failure')
+            return original(path,data)
+        with patch.object(core,'credential',return_value='offline'),patch.object(core,'api',return_value=self.response()) as api,patch.object(core,'save',side_effect=fail_cache):
+            with self.assertRaises(OSError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+            self.assertEqual(api.call_count,1)
+        with patch.object(core,'api',side_effect=AssertionError('recovery must be offline')):
+            self.assertEqual(qc.normal_requests(args,self.source,self.folder,self.run,self.rows),0)
+    def test_normal_bound_unknown_ids_and_duplicate_reject_before_network(self):
+        for ids,limit in [('',1),(self.id+','+self.id,2),('story-'+'9'*24,1),(self.id,0),(self.id,17)]:
+            args=self.normal_args();args.only_ids=ids;args.max_calls=limit
+            with self.assertRaises(core.SafeError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+    def test_normal_invalid_response_retained_no_paid_retry(self):
+        args=self.normal_args()
+        with patch.object(core,'credential',return_value='offline'),patch.object(core,'api',return_value=self.response(finish='MAX_TOKENS')) as api:
+            with self.assertRaises(core.SafeError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+            with self.assertRaises(core.SafeError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+            self.assertEqual(api.call_count,1)
+        self.assertTrue((self.run/(self.id+'.normal-response.private.json')).exists())
+    def test_normal_batch_reservation_blocks_duplicate_lane(self):
+        self.prepare();transport.reserve(self.source,self.run)
+        _,other=transport.locations(self.source,'normal-other')
+        with self.assertRaises(core.SafeError):qc.normal_requests(self.normal_args(),self.source,self.folder,other,self.rows)
+    def test_normal_scope_mutation_rejected(self):
+        args=self.normal_args()
+        with patch.object(core,'credential',return_value='offline'),patch.object(core,'api',return_value=self.response()):
+            qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+        args.max_calls=2
+        with self.assertRaises(core.SafeError):qc.normal_requests(args,self.source,self.folder,self.run,self.rows)
+    def test_backend_restores_after_exception(self):
+        old=transport.MODEL
+        with self.assertRaises(RuntimeError):
+            with qc.backend():raise RuntimeError('offline fixture')
+        self.assertEqual(transport.MODEL,old)
     def test_no_authored_source_or_expected_effect_only_prompt_and_exact_mp3(self):
         before=(self.source/'clips'/(self.id+'.mp3')).read_bytes();self.prepare();transport.prepared(self.run,self.source,self.rows)
         request=json.loads((self.run/'requests.jsonl').read_text())['request']

@@ -9,6 +9,9 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor,as_completed
 import json
 import os
+import re
+import copy
+import unicodedata
 import time
 import story_voice_common as common
 from story_voice_common import core
@@ -31,11 +34,47 @@ def load_delivery_overrides(path,selected):
     if not isinstance(overrides,dict) or set(overrides)!=selected:
         raise core.SafeError('Delivery overrides must cover every selected ID exactly once, with no extra IDs.')
     for value in overrides.values():
-        if not isinstance(value,dict) or not {'delivery_style'}.issubset(value) or not set(value).issubset({'delivery_style','retake_text'}):
+        if not isinstance(value,dict) or not {'delivery_style'}.issubset(value) or not set(value).issubset({'delivery_style','retake_text','vocal_events'}):
             raise core.SafeError('Each delivery override needs delivery_style and optional retake_text only.')
+        if 'vocal_events' in value:
+            if 'retake_text' in value:raise core.SafeError('vocal_events conflicts with retake_text.')
+            validate_vocal_events(value['vocal_events'])
         if not isinstance(value['delivery_style'],str) or ('retake_text' in value and not isinstance(value['retake_text'],str)):
             raise core.SafeError('Delivery override styles/text must be strings.')
     return overrides
+
+
+def validate_vocal_events(events):
+    if not isinstance(events,list) or not events:raise core.SafeError('vocal_events must be a nonempty explicit event list.')
+    seen=set()
+    for event in events:
+        if not isinstance(event,dict) or set(event)!={'word_index','source_word','tag'}:raise core.SafeError('Each vocal event requires exactly word_index/source_word/tag.')
+        index=event['word_index'];word=event['source_word']
+        if type(index) is not int or index<0 or index in seen:raise core.SafeError('Vocal event indices must be unique nonnegative integers.')
+        seen.add(index)
+        if not isinstance(word,str) or not word or any(c.isspace() for c in word):raise core.SafeError('Vocal source_word must be one exact whitespace token.')
+        letters=''.join(c for c in word if c.isalpha())
+        if not re.fullmatch(r'a{2,}h',letters,re.I) or any(not c.isalpha() and not unicodedata.category(c).startswith('P') for c in word):raise core.SafeError('Only explicit nonlexical AAH cry tokens may become vocal events.')
+        if not isinstance(event['tag'],str) or event['tag'] not in {'<scream>','<shriek>','<shout>'}:raise core.SafeError('Unsupported vocal event tag.')
+
+
+def vocal_event_record(record,value):
+    validate_vocal_events(value['vocal_events'])
+    if 'retake_text' in value:raise core.SafeError('vocal_events conflicts with retake_text.')
+    changed=standard.delivery_record(record,{record['key']},value['delivery_style'])
+    parts=[p for c in changed['request'].get('contents',[]) for p in c.get('parts',[]) if isinstance(p.get('text'),str)]
+    if len(parts)!=1:raise core.SafeError('Vocal events require one exact text part.')
+    source_text=parts[0]['text'];text=source_text;tokens=list(re.finditer(r'\S+',text));replacements=[]
+    for event in value['vocal_events']:
+        index=event['word_index']
+        if index>=len(tokens) or tokens[index].group()!=event['source_word']:raise core.SafeError('Vocal source token/index differs from frozen request.')
+        token=tokens[index];word=token.group();letters=[i for i,c in enumerate(word) if c.isalpha()]
+        replacements.append((token.start(),token.end(),word[:letters[0]]+event['tag']+word[letters[-1]+1:]))
+    for start,end,replacement in sorted(replacements,reverse=True):text=text[:start]+replacement+text[end:]
+    parts[0]['text']=text
+    changed['delivery_override'].update(type='explicit_vocal_events',vocal_events=copy.deepcopy(value['vocal_events']),source_text_sha256=core.digest(source_text.encode()))
+    changed['delivery_override']['parts']=[{'text':text,'style':parts[0]['speechMetadata']['style']}]
+    return changed
 
 
 def apply_delivery_overrides(records,selected,overrides):
@@ -51,7 +90,7 @@ def apply_delivery_overrides(records,selected,overrides):
             changed.append(record);continue
         value=overrides[ident]
         # A one-ID scope per entry reuses the original lexical/style safety gate.
-        changed.append(standard.delivery_record(record,{ident},value['delivery_style'],value.get('retake_text')))
+        changed.append(vocal_event_record(record,value) if 'vocal_events' in value else standard.delivery_record(record,{ident},value['delivery_style'],value.get('retake_text')))
     return changed
 
 

@@ -1,0 +1,135 @@
+"""Small synthetic offline receipts exercise publication boundaries without inference."""
+import copy
+import json
+from pathlib import Path
+import tempfile
+from types import SimpleNamespace
+import unittest
+from unittest.mock import patch
+import story_voice_publish as pub
+
+def save(path,data):
+    path.parent.mkdir(parents=True,exist_ok=True); path.write_text(json.dumps(data))
+
+class PublisherTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory(); self.root=Path(self.tmp.name); self.run=self.root/'private/run'
+        source=self.root/'game/src/chapter.ts'; source.parent.mkdir(parents=True); source.write_text("say('Hallo Welt');")
+        self.ident='story-'+'a'*24
+        key={'kind':'say','speaker':'lia','text':'Hallo Welt','scene':'rettung','mood':'neutral','performance_variant':'same'}
+        line={'id':self.ident,'kind':'say','speaker':'lia','text':'Hallo Welt','display_text':'Hallo Welt','direction_en':'same','performance_variant':'same','runtime_keys':[key]}
+        frozen={'model':pub.MODEL,'source_hashes':{'game/src/chapter.ts':pub.digest(source)},'lines':[line],'runtime_lookup':[{**key,'asset_id':self.ident}],'aliases':{'lia':'lia'},'scene_players':{'rettung':'lia'},'unresolved':[]}
+        profiles={'model':pub.MODEL,'speakers':{'lia':{'google_voice':'Zephyr'}}}
+        save(self.run/'lines.private.json',frozen); save(self.run/'full-inventory.private.json',frozen);save(self.run/'profiles.private.json',profiles)
+        save(self.run/'source-snapshot.private.json',{'game/src/chapter.ts':{'sha256':pub.digest(source),'text':source.read_text()}})
+        payload=json.dumps({'key':self.ident,'request':pub.common.request_for(line,profiles['speakers'])})+'\n'; (self.run/'requests.jsonl').write_text(payload)
+        info={'bank':'story','model':pub.MODEL,'request_count':1,'input_bytes':len(payload.encode())}
+        for file,keyname in [('requests.jsonl','input_sha256'),('lines.private.json','manifest_sha256'),('full-inventory.private.json','full_inventory_sha256'),('profiles.private.json','profiles_sha256'),('source-snapshot.private.json','source_snapshot_sha256')]:info[keyname]=pub.digest(self.run/file)
+        save(self.run/'prepared.json',info);save(self.run/'collection.private.json',{'collected':1,'expected':1,'failures':[]})
+        clip=self.run/'clips'/(self.ident+'.mp3');clip.parent.mkdir();clip.write_bytes(b'fixture-mp3-bytes')
+        h=pub.digest(clip);textsha=pub.sha(b'Hallo Welt');cues=[{'start':0.,'end':.5},{'start':.5,'end':1.}]
+        qa={'status':'passed','manifest_sha256':info['manifest_sha256'],'checked_ids':[self.ident],'clip_sha256':{self.ident:h},'failures':[],'takes':[{'id':self.ident,'text_sha256':textsha,'signal':{'seconds':1.},'reasons':[]}]}
+        align={'status':'passed','source_manifest_sha256':info['manifest_sha256'],'clip_sha256':{self.ident:h},'authored_text_sha256':{self.ident:textsha},'alignment_by_id':{self.ident:{'words':[{'word':w,**c}for w,c in zip(['Hallo','Welt'],cues)],'word_count':2,'text_sha256':textsha,'cues_sha256':pub.acoustic.cue_sha(cues)}},'requires_qualification':[],'failures':[]}
+        save(self.run/'qa.json',qa);save(self.run/'align.json',align)
+        current=copy.deepcopy(frozen);current['lines'][0]['runtime_keys'][0]['mood']='scared';current['runtime_lookup'][0]['mood']='scared'
+        self.inventory=self.root/'docs/voice-production/story-lines.json';save(self.inventory,current)
+        audit={'frozen_inventory_sha256':info['manifest_sha256'],'frozen_lines':1,'fixed_lines':1,'frozen_runtime_keys':1,'fixed_runtime_keys':1,'id_set_same':True,'fixed_unresolved':0,'changed_lines':1,'changed_runtime_keys':1,'changed':[{'id':self.ident,'kind':'say','speaker':'lia','text':'Hallo Welt','old_mood':'neutral','new_mood':'scared','direction_same':True,'direction_en':'same','runtime_keys_before':frozen['lines'][0]['runtime_keys'],'runtime_keys_after':current['lines'][0]['runtime_keys']}]}
+        save(self.run/'audit.json',audit)
+        self.args=SimpleNamespace(run_dir=self.run,qa_report=self.run/'qa.json',alignment_report=self.run/'align.json',current_inventory=self.inventory,routing_audit=self.run/'audit.json',root_reviewed_routing=True,supplement_run_dir=None,supplement_qa_report=None,supplement_alignment_report=None,current_supplement_inventory=None,public_dir=self.root/'game/public/audio/story')
+    def tearDown(self):self.tmp.cleanup()
+    def build(self):return pub.build(self.args,expected_count=1,expected_changes=1)
+    def test_audited_rebind_preserves_audio_cues_and_only_exports_public_material(self):
+        manifest,paths=self.build();clip=manifest['clips'][0]
+        self.assertEqual(clip['runtime_keys'][0]['mood'],'scared');self.assertEqual(clip['sha256'],pub.digest(paths[self.ident]));self.assertEqual(len(clip['word_cues']),2)
+        self.assertFalse(self.args.public_dir.exists());pub.publish(self.args.public_dir,manifest,paths)
+        self.assertEqual(set(p.name for p in self.args.public_dir.iterdir()),{'manifest.json',self.ident+'.mp3'})
+        self.assertEqual((self.args.public_dir/(self.ident+'.mp3')).read_bytes(),paths[self.ident].read_bytes())
+    def test_requires_explicit_review_and_exact_audited_mood(self):
+        self.args.root_reviewed_routing=False
+        with self.assertRaises(pub.Invalid):self.build()
+        self.args.root_reviewed_routing=True; current=pub.read(self.inventory);current['lines'][0]['runtime_keys'][0]['mood']='angry';save(self.inventory,current)
+        with self.assertRaises(pub.Invalid):self.build()
+    def test_rejects_stale_audio_qa_and_current_source(self):
+        (self.run/'clips'/(self.ident+'.mp3')).write_bytes(b'new take')
+        with self.assertRaises(pub.Invalid):self.build()
+        (self.run/'clips'/(self.ident+'.mp3')).write_bytes(b'fixture-mp3-bytes');(self.root/'game/src/chapter.ts').write_text('changed')
+        with self.assertRaises(pub.Invalid):self.build()
+    def test_rejects_partial_or_changed_cues_and_missing_reports(self):
+        alignment=pub.read(self.args.alignment_report);alignment['alignment_by_id'][self.ident]['words'][1]['start']=.7;save(self.args.alignment_report,alignment)
+        with self.assertRaises(pub.Invalid):self.build()
+        self.args.qa_report.unlink()
+        with self.assertRaises(FileNotFoundError):self.build()
+    def test_rejects_source_bound_supplement_text_or_scope_changes(self):
+        frozen=pub.read(self.run/'lines.private.json'); current=copy.deepcopy(frozen)
+        current['lines'][0]['text']='Other words'
+        with self.assertRaises(pub.Invalid):pub.validate_supplement_source(frozen,current,self.root)
+        current=copy.deepcopy(frozen)
+        with self.assertRaises(pub.Invalid):pub.validate_supplement_source(frozen,current,self.root)
+
+    def test_exact_current_supplement_literal_ast_rebind(self):
+        frozen=pub.read(self.run/'lines.private.json')
+        frozen['lines'][0]['kind']='bark'; frozen['lines'][0]['runtime_keys'][0]['kind']='bark'; frozen['runtime_lookup'][0]['kind']='bark'
+        current=copy.deepcopy(frozen); source=self.root/'game/src/chapter.ts'; source.write_text("// changed visual setup\nsay('Hallo Welt');")
+        expression="'Hallo Welt'"; start=source.read_text().index(expression)
+        current['source_hashes']['game/src/chapter.ts']=pub.digest(source)
+        current['lines'][0]['sources']=[{'file':'game/src/chapter.ts','start':start,'end':start+len(expression),'expression_sha256':pub.sha(expression.encode())}]
+        package=Path(pub.__file__).resolve().parents[1]/'game/node_modules/typescript'
+        modules=self.root/'game/node_modules';modules.mkdir();(modules/'typescript').symlink_to(package,target_is_directory=True)
+        pub.validate_supplement_source(frozen,current,self.root)
+        current['lines'][0]['sources'][0]['end']-=1
+        with self.assertRaises(pub.Invalid):pub.validate_supplement_source(frozen,current,self.root)
+
+    def test_atomic_replacement_restores_prior_bank_on_install_failure(self):
+        manifest,paths=self.build();pub.publish(self.args.public_dir,manifest,paths)
+        before=(self.args.public_dir/'manifest.json').read_bytes(); real_rename=Path.rename
+        def fail_install(path,target):
+            if path.name.startswith('.story-staging-'):raise OSError('simulated install failure')
+            return real_rename(path,target)
+        with patch.object(Path,'rename',fail_install):
+            with self.assertRaises(OSError):pub.publish(self.args.public_dir,manifest,paths)
+        self.assertEqual((self.args.public_dir/'manifest.json').read_bytes(),before)
+        self.assertFalse(list(self.args.public_dir.parent.glob('.story-staging-*')))
+
+    def test_duplicate_and_extra_report_receipts_are_rejected(self):
+        qa=pub.read(self.args.qa_report); original=copy.deepcopy(qa)
+        qa['checked_ids'].append(self.ident);save(self.args.qa_report,qa)
+        with self.assertRaises(pub.Invalid):self.build()
+        qa=copy.deepcopy(original);qa['takes'].append(copy.deepcopy(qa['takes'][0]));save(self.args.qa_report,qa)
+        with self.assertRaises(pub.Invalid):self.build()
+        qa=copy.deepcopy(original);qa['clip_sha256']['story-'+'b'*24]='0'*64;save(self.args.qa_report,qa)
+        with self.assertRaises(pub.Invalid):self.build()
+
+    def test_zero_length_cues_and_wrong_producer_are_rejected(self):
+        alignment=pub.read(self.args.alignment_report);alignment['alignment_by_id'][self.ident]['words'][0]['end']=0
+        save(self.args.alignment_report,alignment)
+        with self.assertRaises(pub.Invalid):self.build()
+        qa=pub.read(self.args.qa_report);qa['model']='unreviewed-asr';save(self.args.qa_report,qa)
+        with self.assertRaises(pub.Invalid):self.build()
+
+    def test_current_supplement_cast_scene_duplicates_and_source_hash_are_rejected(self):
+        frozen=pub.read(self.run/'lines.private.json');frozen['lines'][0]['kind']='bark';frozen['runtime_lookup'][0]['kind']='bark'
+        current=copy.deepcopy(frozen)
+        current['lines'][0]['speaker']='gira'
+        with self.assertRaises(pub.Invalid):pub.validate_supplement_source(frozen,current,self.root)
+        current=copy.deepcopy(frozen);current['runtime_lookup'][0]['scene']='other'
+        with self.assertRaises(pub.Invalid):pub.validate_supplement_source(frozen,current,self.root)
+        current=copy.deepcopy(frozen);current['source_hashes']['game/src/chapter.ts']='0'*64
+        with self.assertRaises(pub.Invalid):pub.validate_supplement_source(frozen,current,self.root)
+        current=copy.deepcopy(frozen);expr="'Hallo Welt'";start=(self.root/'game/src/chapter.ts').read_text().index(expr)
+        binding={'file':'game/src/chapter.ts','start':start,'end':start+len(expr),'expression_sha256':pub.sha(expr.encode())}
+        current['lines'][0]['sources']=[binding,binding]
+        modules=self.root/'game/node_modules';modules.mkdir();(modules/'typescript').symlink_to(Path(pub.__file__).resolve().parents[1]/'game/node_modules/typescript',target_is_directory=True)
+        with self.assertRaisesRegex(pub.Invalid,'Ambiguous supplement'):pub.validate_supplement_source(frozen,current,self.root)
+
+    def test_supplement_id_collision_is_rejected_before_publication(self):
+        self.args.supplement_run_dir=self.run;self.args.supplement_qa_report=self.args.qa_report;self.args.supplement_alignment_report=self.args.alignment_report;self.args.current_supplement_inventory=self.inventory
+        with patch.object(pub,'validate_supplement_source'):
+            with self.assertRaisesRegex(pub.Invalid,'ID collision'):pub.build(self.args,expected_count=1,expected_changes=1,supplement_count=1)
+
+    def test_refuses_unrelated_destination_and_traversal(self):
+        manifest,paths=self.build();self.args.public_dir.mkdir(parents=True);(self.args.public_dir/'KEEP.txt').write_text('keep')
+        with self.assertRaises(pub.Invalid):pub.publish(self.args.public_dir,manifest,paths)
+        self.assertEqual((self.args.public_dir/'KEEP.txt').read_text(),'keep')
+        with self.assertRaises(pub.Invalid):pub.contained(self.run,'../outside')
+
+if __name__=='__main__':unittest.main()
