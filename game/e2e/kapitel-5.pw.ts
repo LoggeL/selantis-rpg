@@ -249,14 +249,37 @@ async function battleReady(c: Ctx, timeout = 90000): Promise<'input' | 'ended'> 
   throw new Error('battleReady: timeout');
 }
 
-async function act(c: Ctx, unit: string, key: number, target?: [number, number]): Promise<void> {
-  const s = (await tac(c.page))!;
-  await clickTile(c.page, s.units[unit].x, s.units[unit].y);
+type Rescuer = 'lia' | 'flick' | 'kyra';
+
+async function act(c: Ctx, unit: Rescuer, key: number, target?: [number, number]): Promise<void> {
+  await c.page.getByRole('button', { name: { lia: 'Lia', flick: 'Flick', kyra: 'Kyra' }[unit], exact: true }).click();
+  await c.page.waitForFunction(id => (window as any).__tactics.sel.unit === id, unit);
+  await wait(300); // the unit portrait also pans the camera
   await battleReady(c);
   await c.page.keyboard.press(String(key));
   await wait(300);
   if (target) await clickTile(c.page, target[0], target[1]);
   await battleReady(c);
+}
+
+/** Move through the visible battle controls; read the movement range only to pick a legal tile. */
+async function moveToward(c: Ctx, unit: Rescuer, goal: [number, number]): Promise<void> {
+  const target = await c.page.evaluate(({ unit, goal }) => {
+    const b = (window as any).__tactics.ctrl.battle;
+    if (!b.canMove(unit)) return null;
+    const u = b.unit(unit);
+    if (u.x === goal[0] && u.y === goal[1]) return null;
+    const tiles = [...b.reach(unit).values()] as { x: number; y: number; cost: number }[];
+    return tiles.filter(p => p.x !== u.x || p.y !== u.y)
+      .sort((a, b) => (Math.abs(a.x - goal[0]) + Math.abs(a.y - goal[1])) - (Math.abs(b.x - goal[0]) + Math.abs(b.y - goal[1])) || a.cost - b.cost)[0] ?? null;
+  }, { unit, goal });
+  if (!target) return;
+  await c.page.getByRole('button', { name: { lia: 'Lia', flick: 'Flick', kyra: 'Kyra' }[unit], exact: true }).click();
+  await wait(300);
+  await clickTile(c.page, target.x, target.y);
+  await battleReady(c);
+  const moved = (await tac(c.page))!.units[unit];
+  expect([moved.x, moved.y]).toEqual([target.x, target.y]);
 }
 
 test('rettung: cut Kyra free, hold out, the Urmacht bursts out → finale', async ({ page }) => {
@@ -274,15 +297,24 @@ test('rettung: cut Kyra free, hold out, the Urmacht bursts out → finale', asyn
   await act(c, 'flick', 3, [7, 4]);
   expect((await tac(page))!.units.kyra.bound).toBe(false);
   await act(c, 'lia', 1);
+  await moveToward(c, 'kyra', [0, 4]);
+  await moveToward(c, 'lia', [2, 8]);
   await page.keyboard.press('Space');
   for (let r = 0; r < 10; r++) {
     if ((await battleReady(c)) === 'ended') break;
     const s = (await tac(page))!;
-    if (!s.units.lia.acted && !s.units.lia.down) await act(c, 'lia', s.round % 2 ? 1 : 2);
+    expect(s.units.lia.down).toBe(false);
+    await moveToward(c, 'kyra', [0, 4]);
+    const defence = await page.evaluate(() => {
+      const b = (window as any).__tactics.ctrl.battle, u = b.unit('lia');
+      return !u.acted && !u.down ? ['ausweichen', 'ablenken'].find(id => b.abilityReady(u, id)) : null;
+    });
+    if (defence) await act(c, 'lia', defence === 'ausweichen' ? 1 : 2);
     await page.keyboard.press('Space');
   }
   await until(c, async () => {
-    if (await page.evaluate(() => (window as any).__tactics?.ctrl?.isEnded && !(window as any).G.ui.busy())) await page.keyboard.press('Enter');
+    await expect(page.locator('.tac-out.show.lose')).toHaveCount(0);
+    if (await page.locator('.tac-out.show.win').count()) await page.keyboard.press('Enter');
     return (await scene(page)) === 'finale';
   }, 120000);
   const st = await page.evaluate(() => ({ urmacht: (window as any).G.state.knows('urmacht'), party: (window as any).G.state.data.party }));
