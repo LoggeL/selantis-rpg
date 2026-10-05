@@ -15784,6 +15784,7 @@
   "model": "gemini-3.8-flash-tts",
   "language": "de",
   "source_hashes": {
+    "game/src/chapters/common/battleCharacters.ts": "4d5b433dbec52a64d7c17340f9d82e8d87b1aa8e90dad7632080bbe4bf1e98c2",
     "game/src/chapters/common/index.ts": "5c0fae13c22865085bfb5279283ca0c889d9ccd1f1a6362d867ef948c38436d9",
     "game/src/chapters/kapitel-1/catalog.ts": "04473be737cdfd73b4fa1002c30a0a2d48dabe4148f5a66f322b3d527d77f6f2",
     "game/src/chapters/kapitel-1/heimweg.ts": "9339235d5a0e2aad2a6e72fad512c935af5a6a557460f2c097c86bb0ae6af182",
@@ -15838,7 +15839,7 @@
     "game/src/chapters/kapitel-5/index.ts": "132f2365f687a029f1584c006a77d9307ee0c2840971761c1bc541a30f667d6f",
     "game/src/chapters/kapitel-5/lagerGeom.ts": "c0a6de6df4f17409b2332eb66f144cc16f0a0c1dbe16a7bb20afddf97877c03d",
     "game/src/chapters/kapitel-5/regenwald.ts": "4cddef3a6266093ebd106495c558b6f7c6bd913687e2e47db75a7664252d61d4",
-    "game/src/chapters/kapitel-5/rettung.ts": "82d21e862a5e3bf56595697c9f8514691ed20945617da75eb0d6bd6ee6364f47",
+    "game/src/chapters/kapitel-5/rettung.ts": "a2a2ee9efc6911aa171217ab5b957a97fc5a3b2268c2d55483e74cd5956c70ec",
     "game/src/chapters/kapitel-5/schattenlager.ts": "1ce35e788ed94d37f92efa4f28b03786280527dc659ecedd1384c222d9a39ece",
     "game/src/chapters/kapitel-5/styles.ts": "8dae8a602dff7a26c54c907851fe3c0b4865055b6ffa98e5d925c2b47efd39b6",
     "game/src/ui/text.ts": "6711c1d67b909ad468b392ac031bcc45692b5dbf3e05d3e8b8e3789d8297f71b",
@@ -24797,10 +24798,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -24811,7 +24812,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -32606,10 +32607,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -32620,7 +32621,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -34127,10 +34128,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 145,
+          "line": 146,
           "column": 31,
-          "start": 7771,
-          "end": 7861,
+          "start": 7860,
+          "end": 7950,
           "expression": "by.id === 'lia' ? 'Mmmpf! … Lia?! Was machst du denn hier?' : 'Mmmpf! … Wer bist du denn?'",
           "expression_sha256": "2055b2b19ce85efd0741d1803ac77e4841c96c916104bd66ef15b20e778e50b3",
           "review_anchor_hashes": [
@@ -34725,10 +34726,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -34739,7 +34740,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -38189,10 +38190,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 167,
+          "line": 168,
           "column": 65,
-          "start": 9483,
-          "end": 9501,
+          "start": 9572,
+          "end": 9590,
           "expression": "'Das wird knapp …'",
           "expression_sha256": "2d2bb13580885d7fabfd5eeb33349b175b8ec832e8b11a56284d31d8937b5b34",
           "review_anchor_hashes": [
@@ -39996,10 +39997,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 200,
+          "line": 201,
           "column": 26,
-          "start": 11332,
-          "end": 11398,
+          "start": 11419,
+          "end": 11485,
           "expression": "'Die Gefangene bleibt hier. Und die Spitzohrige … die gehört mir.'",
           "expression_sha256": "895aa4ab4f5143c509c2a925d2a2c101f1d89ff39b6e5e16462afc65e644bfe1",
           "review_anchor_hashes": [
@@ -40007,7 +40008,7 @@
             "8509b0ee8beb90b8925387a87712ab9450f58a6f0391c21b95b4b32a522492c2",
             "1de7761c3298f62a068ba7f6c9ec7371d7fd6c8afc05a0d6ab80bfdb9feeefd4",
             "e0c176ae04aafce868d2ff2808c9fbcb5fc4e1ad8121299010d0de16cbb20fb4",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -41975,10 +41976,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 178,
+          "line": 179,
           "column": 31,
-          "start": 9948,
-          "end": 9974,
+          "start": 10037,
+          "end": 10063,
           "expression": "'Jetzt, Lia! Lenk sie ab!'",
           "expression_sha256": "ea695626a3bf3343f4cdf19fde68dd5c43c913a8d7443a42f5da9a4b73f72833",
           "review_anchor_hashes": [
@@ -43014,10 +43015,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 163,
+          "line": 164,
           "column": 107,
-          "start": 9247,
-          "end": 9275,
+          "start": 9336,
+          "end": 9364,
           "expression": "'Uff … ich bleib … liegen …'",
           "expression_sha256": "f77cf163e85e252530f34933246cd4e7e46fb6d1c013dfdce32c851d216144f5",
           "review_anchor_hashes": [
@@ -45259,10 +45260,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -45273,7 +45274,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -45432,10 +45433,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 166,
+          "line": 167,
           "column": 60,
-          "start": 9371,
-          "end": 9408,
+          "start": 9460,
+          "end": 9497,
           "expression": "'Normalerweise lese ich so was nur …'",
           "expression_sha256": "138a05b1d9a24c55e7b0b112ae3d256618d23897ea4c39d13e6bf1b39e2539b7",
           "review_anchor_hashes": [
@@ -45986,10 +45987,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 121,
+          "line": 122,
           "column": 30,
-          "start": 6480,
-          "end": 6500,
+          "start": 6569,
+          "end": 6589,
           "expression": "'Was … was war das?'",
           "expression_sha256": "6fe1224fd26db2e7a1c4deb0d68ed16761fe4c27c8d734164111fe96d4e68409",
           "review_anchor_hashes": [
@@ -48570,10 +48571,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -48584,7 +48585,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -49847,10 +49848,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 199,
+          "line": 200,
           "column": 26,
-          "start": 11221,
-          "end": 11285,
+          "start": 11308,
+          "end": 11372,
           "expression": "'Die Kleine vom Feuer. Ich wusste, dass mit der etwas faul ist.'",
           "expression_sha256": "f191cf2ce28064a54efd45e867f13175b937a849cce4b417356fb05d8d9f0abe",
           "review_anchor_hashes": [
@@ -49858,7 +49859,7 @@
             "cc6dc74c0d17c67f38998e512ffa91597fac5f3541be13f08139f65c15c57e7e",
             "749f9e57a138f8e4f0115ed4dd8e2b13dbece9f6986604378015615e7a697294",
             "404fab71cccb567dc551d779175e59bb4c01ea593db019810708bbf2af0406b2",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -53218,10 +53219,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 235,
+          "line": 242,
           "column": 29,
-          "start": 13008,
-          "end": 13154,
+          "start": 13204,
+          "end": 13350,
           "expression": "'Lias Augen leuchten blau. Ein ~türkises Licht~ bricht aus ihr hervor, eine Welle, die das Gras flach drückt und die Blätter von der Eiche reißt.'",
           "expression_sha256": "09ea0c035bbe155f7e55466fd67e8a296009f5d2c216c8ca7fd2cb79603244d0",
           "review_anchor_hashes": [
@@ -53229,7 +53230,7 @@
             "7304e417615103f8d1b4b2831086807ea0c8b69ea4cf487dde6731c35e4e0ae5",
             "41db070bf356d57ea5ab1fc82db4397184f738eeb076577a9a697535f4467dc9",
             "07b759178c21688f18f4bae67928b5c7b4c207db9d1ac41f6a1065e8a45f236e",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -56222,10 +56223,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 251,
+          "line": 258,
           "column": 29,
-          "start": 13916,
-          "end": 13996,
+          "start": 14112,
+          "end": 14192,
           "expression": "'Dann wird es still. Lia spürt noch, wie ihre Knie nachgeben. Dann nichts mehr.'",
           "expression_sha256": "2e963713dbaa9de1b582fd30a86ef4f4686e249b02a5e49f417d81cb32690327",
           "review_anchor_hashes": [
@@ -56233,7 +56234,7 @@
             "d073d72f887192368b2384fdb910ecfe850dfd6f0a725d6d319dae8337abbb27",
             "e62ab35532e3dd7d57215c5805ff407218e17408ee36646ab8f595f570139ae6",
             "8e0d322a5afac739fcf613d821878bee248225958e9be9cd9e45e020f081aea8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -56559,10 +56560,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 184,
+          "line": 185,
           "column": 31,
-          "start": 10310,
-          "end": 10342,
+          "start": 10399,
+          "end": 10431,
           "expression": "'Ein Hinterhalt! Ich wusste es!'",
           "expression_sha256": "b8547272491c281128a49067c3ad45c85d58410a73ea88a4f14eb764bafab4dd",
           "review_anchor_hashes": [
@@ -60264,10 +60265,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 138,
+          "line": 139,
           "column": 34,
-          "start": 7416,
-          "end": 7489,
+          "start": 7505,
+          "end": 7578,
           "expression": "info.unit.id === 'lia' ? 'Ein Strang durch!' : 'Einer durch. Noch einer!'",
           "expression_sha256": "552c62ddfd8d53b3fceddf6f215eeadf49327a801d56731a53dcaaeda3c5b1a6",
           "review_anchor_hashes": [
@@ -68305,10 +68306,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 230,
+          "line": 238,
           "column": 27,
-          "start": 12751,
-          "end": 12759,
+          "start": 12976,
+          "end": 12984,
           "expression": "'FLICK!'",
           "expression_sha256": "bcaf445b5121866c97d59d9b93da0bbf6fb5c78629f3f1f0c46658532ad7dbfd",
           "review_anchor_hashes": [
@@ -68316,7 +68317,7 @@
             "45302845308f3b137e788fd79344363099260778bf52f251d15d813b1e60285c",
             "5a9a9a76239c2ab7d138218b408b1dbe91db99bd6a186f8b5e83a2106406528b",
             "e39666604cd39deba65c7ce5d72d595f5449f824bcb5ab18ba77cf8978b07bf5",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -73836,10 +73837,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 198,
+          "line": 199,
           "column": 26,
-          "start": 11104,
-          "end": 11174,
+          "start": 11191,
+          "end": 11261,
           "expression": "'Was ist hier los?! Ihr Narren lasst euch von zwei Mädchen vorführen?'",
           "expression_sha256": "209437ba078a9cb303eeed68fb35c2992837696b63c62adce1264aa2447dd8d7",
           "review_anchor_hashes": [
@@ -73847,7 +73848,7 @@
             "a602bf0bcd1412b294fc5f68facca1ae570ce22a54d19233f0eaeb5f5cf2d1ec",
             "e2270f3d79de4cceb2c1e6a36bc165ef94aaffeca05957eb671aaca73ffa89fc",
             "b2dda43a38e8d2ea90a970b9246bb4ca0bb5efbe4743a82cafedd24278760b90",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -74103,10 +74104,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -74117,7 +74118,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -77653,10 +77654,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 177,
+          "line": 178,
           "column": 40,
-          "start": 9825,
-          "end": 9891,
+          "start": 9914,
+          "end": 9980,
           "expression": "'Ein Strang ist schon durch! Halt sie noch einen Moment hin, Lia!'",
           "expression_sha256": "5570b54853464b4652ae4be738b8a9152827e685268a0d406375535973f9fe57",
           "review_anchor_hashes": [
@@ -77776,10 +77777,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 149,
+          "line": 150,
           "column": 30,
-          "start": 8307,
-          "end": 8376,
+          "start": 8396,
+          "end": 8465,
           "expression": "'Die Gefangene! Lasst sie nicht entkommen! Und krümmt ihr kein Haar!'",
           "expression_sha256": "381ef1e0227a4e682e87700e26a63ae8fbc7c53d9b5529f2e8b11a0ed5066b0e",
           "review_anchor_hashes": [
@@ -83863,10 +83864,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 147,
+          "line": 148,
           "column": 37,
-          "start": 8036,
-          "end": 8088,
+          "start": 8125,
+          "end": 8177,
           "expression": "'Eine Freundin deiner Schwester. Lauf zum Waldrand!'",
           "expression_sha256": "06e7a2da8e6342e90a0aedc4f3987f8c3bfdc7a7f83d17a13b6f3b72cad461ff",
           "review_anchor_hashes": [
@@ -84220,10 +84221,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 138,
+          "line": 139,
           "column": 34,
-          "start": 7416,
-          "end": 7489,
+          "start": 7505,
+          "end": 7578,
           "expression": "info.unit.id === 'lia' ? 'Ein Strang durch!' : 'Einer durch. Noch einer!'",
           "expression_sha256": "552c62ddfd8d53b3fceddf6f215eeadf49327a801d56731a53dcaaeda3c5b1a6",
           "review_anchor_hashes": [
@@ -87202,10 +87203,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 182,
+          "line": 183,
           "column": 31,
-          "start": 10158,
-          "end": 10266,
+          "start": 10247,
+          "end": 10355,
           "expression": "'Die Wachen starren noch verdutzt auf Lia. Einen Augenblick lang hast du die Überraschung auf deiner Seite.'",
           "expression_sha256": "e4a4a669e7536edf793aeaca52798106c7ad1fe7cba77cfc02b6622eb533b60c",
           "review_anchor_hashes": [
@@ -88362,10 +88363,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 163,
+          "line": 164,
           "column": 107,
-          "start": 9247,
-          "end": 9275,
+          "start": 9336,
+          "end": 9364,
           "expression": "'Uff … ich bleib … liegen …'",
           "expression_sha256": "f77cf163e85e252530f34933246cd4e7e46fb6d1c013dfdce32c851d216144f5",
           "review_anchor_hashes": [
@@ -90572,10 +90573,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 236,
+          "line": 243,
           "column": 29,
-          "start": 13185,
-          "end": 13266,
+          "start": 13381,
+          "end": 13462,
           "expression": "'Baris wird davongeschleudert wie ein Kind. Seine Axt wirbelt in die Dunkelheit.'",
           "expression_sha256": "a6b9f484d2184981b144041197ee2756e9d21db4d79acd7710b6108d948e589f",
           "review_anchor_hashes": [
@@ -90583,7 +90584,7 @@
             "30fb599d90ab7fabb5b7204517b0a3b6de354b597b27818b3dd519a3f274c19f",
             "a32c49581fb5f42e75d650778df61591a01ff10af2d24c5c88ea68b18c59905b",
             "69e2ac181eaf841d163b76384b9ee0f8f1ec056e33db1e8d79c083331f652bda",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -96444,10 +96445,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 145,
+          "line": 146,
           "column": 31,
-          "start": 7771,
-          "end": 7861,
+          "start": 7860,
+          "end": 7950,
           "expression": "by.id === 'lia' ? 'Mmmpf! … Lia?! Was machst du denn hier?' : 'Mmmpf! … Wer bist du denn?'",
           "expression_sha256": "2055b2b19ce85efd0741d1803ac77e4841c96c916104bd66ef15b20e778e50b3",
           "review_anchor_hashes": [
@@ -98239,10 +98240,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 227,
+          "line": 235,
           "column": 26,
-          "start": 12617,
-          "end": 12645,
+          "start": 12842,
+          "end": 12870,
           "expression": "'Jetzt ist’s aus, Spitzohr!'",
           "expression_sha256": "fda85c07985e364c8348da766ed0e85c1cbfb4fc51f8c2ab7306dfd03c0e93c1",
           "review_anchor_hashes": [
@@ -98250,7 +98251,7 @@
             "e73dde85211a6764ba0f724773d58c1ac66063fe2bb337a96f8f614330b87af1",
             "86b7c2a29e87a74c336019f176b2136c4bde7b4fa5abf2c5ef77eca3833d643a",
             "d80162b0b6af3ac20fd6c965aae93079e6f317be40ecb70698e413070d3ca73c",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -99348,10 +99349,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 146,
+          "line": 147,
           "column": 54,
-          "start": 7940,
-          "end": 7973,
+          "start": 8029,
+          "end": 8062,
           "expression": "'Dich retten! Lauf zum Waldrand!'",
           "expression_sha256": "a820c97cbd81b722abdd608c7c069fcea9b39b764427b5ef9b775f1c4147ae9c",
           "review_anchor_hashes": [
@@ -102041,10 +102042,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -102055,7 +102056,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -105262,10 +105263,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 163,
+          "line": 164,
           "column": 107,
-          "start": 9247,
-          "end": 9275,
+          "start": 9336,
+          "end": 9364,
           "expression": "'Uff … ich bleib … liegen …'",
           "expression_sha256": "f77cf163e85e252530f34933246cd4e7e46fb6d1c013dfdce32c851d216144f5",
           "review_anchor_hashes": [
@@ -108883,10 +108884,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 246,
+          "line": 253,
           "column": 40,
-          "start": 13617,
-          "end": 13664,
+          "start": 13813,
+          "end": 13860,
           "expression": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
           "expression_sha256": "122d452f9b1155e44aafbfba66c6d5b7ab17d28e248dfd3480525237f4d1ac68",
           "review_anchor_hashes": [
@@ -108897,7 +108898,7 @@
             "3218e9f933c09630698b7ddff117b48fefd723b8b33f0952f7db7612ab8d6829",
             "099bc35a8610df94238def97d5b7344c5bd8bc65715d32ced91ad25b4cff5a9c",
             "c1e1cd42de4465185fcba2b2c94567bcdd188449ecdd864ae31ea1d79ba3a6e8",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -110462,10 +110463,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 175,
+          "line": 176,
           "column": 27,
-          "start": 9703,
-          "end": 9731,
+          "start": 9792,
+          "end": 9820,
           "expression": "'Los, raus mit der Sprache!'",
           "expression_sha256": "1e185e57e1e844aadda1614f42197bb2169939c5e98bfdb3e8285cc7698b101a",
           "review_anchor_hashes": [
@@ -132575,10 +132576,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 19,
+          "line": 20,
           "column": 54,
-          "start": 1223,
-          "end": 1248,
+          "start": 1297,
+          "end": 1322,
           "expression": "name: 'Fesseln schneiden'",
           "expression_sha256": "e4b17fbf733bfb0f4daa4d55e058094dbc3b44adaca5103e55f22e2f46f60f6b",
           "review_anchor_hashes": [
@@ -132605,10 +132606,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 19,
+          "line": 20,
           "column": 81,
-          "start": 1250,
-          "end": 1363,
+          "start": 1324,
+          "end": 1437,
           "expression": "description: 'Das nasse Hanfseil ist dick: Der erste Schnitt reicht nicht. Danach ist nur noch ein Strang übrig.'",
           "expression_sha256": "cd88304cf4826fb01b989c9c6cb6a9c2ffe9de6a80591f581cb0f66776c94846",
           "review_anchor_hashes": [
@@ -132635,10 +132636,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 20,
+          "line": 21,
           "column": 60,
-          "start": 1441,
-          "end": 1461,
+          "start": 1515,
+          "end": 1535,
           "expression": "name: 'Losschneiden'",
           "expression_sha256": "638834d69bdd5560de680e3972d4bc6fa8e90c62db6118a67206bf269b7d8f37",
           "review_anchor_hashes": [
@@ -132665,10 +132666,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 20,
+          "line": 21,
           "column": 95,
-          "start": 1476,
-          "end": 1538,
+          "start": 1550,
+          "end": 1612,
           "expression": "description: 'Den letzten Strang durchtrennen. Kyra ist frei.'",
           "expression_sha256": "95f4675471ead3ecc8efcce8d4a1827d44867ad08d695c3c52689122551ed4fc",
           "review_anchor_hashes": [
@@ -132695,16 +132696,16 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 24,
+          "line": 25,
           "column": 3,
-          "start": 1667,
-          "end": 1689,
+          "start": 1741,
+          "end": 1763,
           "expression": "name: 'Dunkelschatten'",
           "expression_sha256": "a99d5ce58ccbce8514eb711855dec3c8c485cdd4c857d9d66d17d47f8ee18536",
           "review_anchor_hashes": [
             "a99d5ce58ccbce8514eb711855dec3c8c485cdd4c857d9d66d17d47f8ee18536",
-            "9ce5c0a14bc5bde6dca27d28977de8468f7a47ec34fdfdde41ec6a3a9bb3acb7",
-            "7ffacfc35e8c996ec6f10adc66124b24002e8fab3ab9c7b5722873f59681e5d3"
+            "2a4d619e613c3295da45a2c12b87020802ef24c4105088bc42f0b15b3cd54027",
+            "8e0511e77cc5935e99578b366e89d302a5caeffa1cc917176ad2539262bfa282"
           ],
           "function": "callback",
           "chapter": "kapitel-5",
@@ -132721,20 +132722,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 32,
-          "column": 18,
-          "start": 2166,
-          "end": 2177,
+          "line": 33,
+          "column": 44,
+          "start": 2258,
+          "end": 2269,
           "expression": "name: 'Lia'",
           "expression_sha256": "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
           "review_anchor_hashes": [
             "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
-            "f7f833ad7bf733b6ac90f195f56870a4c0d7c5bc724701ca3248a80cc7942618",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "614bfdb623f75b3c304ffc37ad6066d9c213c5579b8802a28764a0ff26b30bb2",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132751,20 +132752,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 32,
-          "column": 31,
-          "start": 2179,
-          "end": 2229,
+          "line": 33,
+          "column": 57,
+          "start": 2271,
+          "end": 2321,
           "expression": "title: 'Keine Kämpferin. Aber sie gibt nicht auf.'",
           "expression_sha256": "d485226de42662cba5de4818fe0ca00156e0c48cea37a81efe22cb34c67b1595",
           "review_anchor_hashes": [
             "d485226de42662cba5de4818fe0ca00156e0c48cea37a81efe22cb34c67b1595",
-            "f7f833ad7bf733b6ac90f195f56870a4c0d7c5bc724701ca3248a80cc7942618",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "614bfdb623f75b3c304ffc37ad6066d9c213c5579b8802a28764a0ff26b30bb2",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132781,20 +132782,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 34,
-          "column": 20,
-          "start": 2432,
-          "end": 2445,
+          "line": 35,
+          "column": 48,
+          "start": 2518,
+          "end": 2531,
           "expression": "name: 'Flick'",
           "expression_sha256": "e6ef1e09e3580671f267fa1f36efe68876faf06dbdf3729c3ae3d09b8e84860c",
           "review_anchor_hashes": [
             "e6ef1e09e3580671f267fa1f36efe68876faf06dbdf3729c3ae3d09b8e84860c",
-            "f2a8b1761345baee1b3a91265a771b936ddcf20689dc8cc21de0a5a7452aad70",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "a9654d4aad6ed5730f57117cb5b5a876125b44e76a28ba3c82b7836a8c4e452f",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132811,20 +132812,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 34,
-          "column": 35,
-          "start": 2447,
-          "end": 2499,
+          "line": 35,
+          "column": 63,
+          "start": 2533,
+          "end": 2585,
           "expression": "title: 'Die beste Fährtenleserin südlich von Trapas'",
           "expression_sha256": "59c512254db1d4c48d7be19bd9fc4705ffd8b7662436ae8075419c0e09eb5fa3",
           "review_anchor_hashes": [
             "59c512254db1d4c48d7be19bd9fc4705ffd8b7662436ae8075419c0e09eb5fa3",
-            "f2a8b1761345baee1b3a91265a771b936ddcf20689dc8cc21de0a5a7452aad70",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "a9654d4aad6ed5730f57117cb5b5a876125b44e76a28ba3c82b7836a8c4e452f",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132841,20 +132842,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 36,
-          "column": 19,
-          "start": 2711,
-          "end": 2723,
+          "line": 37,
+          "column": 46,
+          "start": 2790,
+          "end": 2802,
           "expression": "name: 'Kyra'",
           "expression_sha256": "67deb0a5fe70b5e41d00dc72c7cb20ca1997a32e52906f2d4430abc96663430d",
           "review_anchor_hashes": [
             "67deb0a5fe70b5e41d00dc72c7cb20ca1997a32e52906f2d4430abc96663430d",
-            "b7114032f9e1c5ab1c2c0fdc8e4dc8043849d95338c98f7987fa8fcaba2c5f89",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "724b5bbc147edcf13d499fe60dd472b6c62db129f0e4829113028f59965e888f",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132871,20 +132872,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 36,
-          "column": 33,
-          "start": 2725,
-          "end": 2775,
+          "line": 37,
+          "column": 60,
+          "start": 2804,
+          "end": 2854,
           "expression": "title: 'Gefesselt an die Eiche, geknebelt, wütend'",
           "expression_sha256": "0e2d51fd41b0a63d8f81ad2df06bd12a4fdcdf60fc325c18e0fd669786d05389",
           "review_anchor_hashes": [
             "0e2d51fd41b0a63d8f81ad2df06bd12a4fdcdf60fc325c18e0fd669786d05389",
-            "b7114032f9e1c5ab1c2c0fdc8e4dc8043849d95338c98f7987fa8fcaba2c5f89",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "724b5bbc147edcf13d499fe60dd472b6c62db129f0e4829113028f59965e888f",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132901,21 +132902,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 38,
-          "column": 28,
-          "start": 3062,
-          "end": 3076,
+          "line": 39,
+          "column": 57,
+          "start": 3136,
+          "end": 3150,
           "expression": "name: 'Algard'",
           "expression_sha256": "2372217139771f93eebf8311b8875c9d0946d13d141bcd70372c6e6d6fbb5ea5",
           "review_anchor_hashes": [
             "2372217139771f93eebf8311b8875c9d0946d13d141bcd70372c6e6d6fbb5ea5",
-            "97a425d8418a8b8bbe3b7827f590ca2f81ae3b94b66824dcaa355c52ed5493aa",
-            "36695823773157efe7a1e24b0f72480ddc2ae6486bdbcb4bbce7fa941b7731e2",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "87968e4f3f2c8bde40b78b7674f38b33deaf155322e18d2cb16e0da82c46ad3e",
+            "c89ea43a9cafff819b96dfd8bb4138f8c582e5e921a6e7e3d34cbdb34954d672",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132932,21 +132933,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 38,
-          "column": 44,
-          "start": 3078,
-          "end": 3119,
+          "line": 39,
+          "column": 73,
+          "start": 3152,
+          "end": 3193,
           "expression": "title: 'Der Narbige, Spötter und Trinker'",
           "expression_sha256": "529952597f6feca35c00d3edbe49014e741c4e0ada06e0539814c56a1331715e",
           "review_anchor_hashes": [
             "529952597f6feca35c00d3edbe49014e741c4e0ada06e0539814c56a1331715e",
-            "97a425d8418a8b8bbe3b7827f590ca2f81ae3b94b66824dcaa355c52ed5493aa",
-            "36695823773157efe7a1e24b0f72480ddc2ae6486bdbcb4bbce7fa941b7731e2",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "87968e4f3f2c8bde40b78b7674f38b33deaf155322e18d2cb16e0da82c46ad3e",
+            "c89ea43a9cafff819b96dfd8bb4138f8c582e5e921a6e7e3d34cbdb34954d672",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132963,21 +132964,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 39,
-          "column": 30,
-          "start": 3216,
-          "end": 3233,
+          "line": 40,
+          "column": 61,
+          "start": 3321,
+          "end": 3338,
           "expression": "name: '„Mädchen“'",
           "expression_sha256": "d027335e841a7b334122bd74e2c241245cac16cf280e7d6e446d9304e8b16cbc",
           "review_anchor_hashes": [
             "d027335e841a7b334122bd74e2c241245cac16cf280e7d6e446d9304e8b16cbc",
-            "ad663e6b3a627bbb14c5e42eeaadaaa45539c5675f9508cc5bea795a1aadce39",
-            "4905b6b3b08283d8f700a215762e4a640a1f9650111efcef143cdbee42eeda38",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "9e90da6b2eab489e81d72f83a822c65037b91d1d9b48471827a356e95c298909",
+            "1bab7a88c0611cf3b4ceea37eb2c2a6647d6ee10ca054e751ee5d3f67d609443",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -132994,21 +132995,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 39,
-          "column": 49,
-          "start": 3235,
-          "end": 3289,
+          "line": 40,
+          "column": 80,
+          "start": 3340,
+          "end": 3394,
           "expression": "title: 'Kahlgeschoren, mit Spieß und verletztem Stolz'",
           "expression_sha256": "fb584f07d34cc80b568098f32de1e2d96b0a56e8ba3b90cc3d6c6fd8cacf593a",
           "review_anchor_hashes": [
             "fb584f07d34cc80b568098f32de1e2d96b0a56e8ba3b90cc3d6c6fd8cacf593a",
-            "ad663e6b3a627bbb14c5e42eeaadaaa45539c5675f9508cc5bea795a1aadce39",
-            "4905b6b3b08283d8f700a215762e4a640a1f9650111efcef143cdbee42eeda38",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "9e90da6b2eab489e81d72f83a822c65037b91d1d9b48471827a356e95c298909",
+            "1bab7a88c0611cf3b4ceea37eb2c2a6647d6ee10ca054e751ee5d3f67d609443",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -133025,21 +133026,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 40,
+          "line": 41,
           "column": 30,
-          "start": 3417,
-          "end": 3440,
+          "start": 3522,
+          "end": 3545,
           "expression": "name: 'Armbrustschütze'",
           "expression_sha256": "727d75b5bf02f493efd8a81f7b89321165820ddc10e3d0fff528025997777a55",
           "review_anchor_hashes": [
             "727d75b5bf02f493efd8a81f7b89321165820ddc10e3d0fff528025997777a55",
-            "ace50c2a91f3891b37c9948671cac604b96dd97b8b6a239b987d727d15e01938",
-            "fff8d2afa7f5f128aafc51d0d597c429b375c53053800dfe52c949e82c26b13a",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "85983daa0172d91c740a0ae65ac46cfc7900b803aa2a1dd65e5d0e96ac059c4e",
+            "ea88ecc19a5511afec332ab4de46937a6e7d91addd29998ff58b7275f9c2f120",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -133056,21 +133057,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 40,
+          "line": 41,
           "column": 55,
-          "start": 3442,
-          "end": 3478,
+          "start": 3547,
+          "end": 3583,
           "expression": "title: 'Dunkelschatten mit Armbrust'",
           "expression_sha256": "d5f25e2a53cae5995db1162224fd259be0bae16b8baca2002aff733f9662391c",
           "review_anchor_hashes": [
             "d5f25e2a53cae5995db1162224fd259be0bae16b8baca2002aff733f9662391c",
-            "ace50c2a91f3891b37c9948671cac604b96dd97b8b6a239b987d727d15e01938",
-            "fff8d2afa7f5f128aafc51d0d597c429b375c53053800dfe52c949e82c26b13a",
-            "37be3eab1c85ca817faa21762acc988ded9bfd7b4d85271b482672d66052dc1b",
-            "2cdaca04128b1013e3055c6ad2bbae92eea77729ccb2327df66c20dafe23ffa3",
-            "76ff4f1c1e85e1226b6e777eb7de3c190c7fda6746483a431a4c26a4bcffe4dd",
-            "991c68ee38d6d8e6259810a99320a3778f9978263153cdce59c5c1732b701f7b",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "85983daa0172d91c740a0ae65ac46cfc7900b803aa2a1dd65e5d0e96ac059c4e",
+            "ea88ecc19a5511afec332ab4de46937a6e7d91addd29998ff58b7275f9c2f120",
+            "b9e56bd226b84b7784aa2ac1904f373df1e48758c3427f65cae2bda203d8a589",
+            "76ceb5853791ac68289b4ac94b67bd93ba4781cc8bb4f9d1bedc6a0274b02e28",
+            "c4b4bcd7cb5143423207cb9d93dcaef7b20bc09de449d42c72c50bcf8d440cb0",
+            "dbb944484d0a31aba8acbeef35c2594f1cf0326fb7a6fb7f938cbe409b2fcce3",
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -133087,17 +133088,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 44,
+          "line": 45,
           "column": 5,
-          "start": 3640,
-          "end": 3673,
+          "start": 3729,
+          "end": 3762,
           "expression": "title: 'Am Baum über den Feldern'",
           "expression_sha256": "a6715eac3e939c9d680c94096ec4a172f57c191193337f0cf7b6a274c7e50d19",
           "review_anchor_hashes": [
             "a6715eac3e939c9d680c94096ec4a172f57c191193337f0cf7b6a274c7e50d19",
             "eaa6bf9d84d3904597512c2bd245b51284cefda7e5a0ef3688ec591a623857f2",
             "10e91d627505650cfc6748d5341f1e5214736b9dcc23cc59cdf9c06777090ee9",
-            "bb1fb3803335304fdf12431ff31329f703c6e30ba5f6535c3051099c0a3082d8"
+            "f285bfd86f34bdfd48e4eae1b5dd72e20b3249ac57e606463a99baca7ea498ff"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -133114,10 +133115,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 115,
+          "line": 116,
           "column": 17,
-          "start": 5757,
-          "end": 5986,
+          "start": 5846,
+          "end": 6075,
           "expression": "ctx.hint('Lia ist keine Kämpferin. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.', { title: 'Lia', unit: 'lia' })",
           "expression_sha256": "818f6fd988b5ec2ae3752b858714ebd5bf5c9c56501a7e07ff1ece6ee1acdbcf",
           "review_anchor_hashes": [
@@ -133143,10 +133144,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 115,
+          "line": 116,
           "column": 218,
-          "start": 5958,
-          "end": 5970,
+          "start": 6047,
+          "end": 6059,
           "expression": "title: 'Lia'",
           "expression_sha256": "f7a815ddbf658b729a550bdb0def4929e8fd60971fecf6a42e51ed4df52d9016",
           "review_anchor_hashes": [
@@ -133174,10 +133175,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 116,
+          "line": 117,
           "column": 17,
-          "start": 6004,
-          "end": 6365,
+          "start": 6093,
+          "end": 6454,
           "expression": "ctx.hint(hasDagger\n            ? 'Wer neben Kyra steht, kann die <em>Fesseln schneiden</em>. Zwei Schnitte sind nötig. Mit Vaters Dolch kann auch Lia schneiden, so geht es doppelt so schnell.'\n            : 'Flick steht neben Kyra und kann die <em>Fesseln schneiden</em>. Das nasse Seil braucht zwei Schnitte, einen pro Runde.', { title: 'Kyra', unit: 'kyra' })",
           "expression_sha256": "663faa6e800a7e05356724ab6463ab0beccd6931cd2f63973516a1cfb8a1d586",
           "review_anchor_hashes": [
@@ -133203,10 +133204,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 118,
+          "line": 119,
           "column": 139,
-          "start": 6335,
-          "end": 6348,
+          "start": 6424,
+          "end": 6437,
           "expression": "title: 'Kyra'",
           "expression_sha256": "c2fd8ed4c408fdc17da4db6ec60f2cf68cbc0993436968687d3107bb20d999e6",
           "review_anchor_hashes": [
@@ -133234,10 +133235,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 139,
+          "line": 140,
           "column": 11,
-          "start": 7508,
-          "end": 7606,
+          "start": 7597,
+          "end": 7695,
           "expression": "ctx.setObjective('Befreit Kyra', 'Noch ein Schnitt! Wer neben Kyra steht, kann sie losschneiden.')",
           "expression_sha256": "54bdc911389e27705c76fc984e89c12accabcd05c26cdbc4716f40c582f720a7",
           "review_anchor_hashes": [
@@ -133262,10 +133263,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 148,
+          "line": 149,
           "column": 9,
-          "start": 8123,
-          "end": 8276,
+          "start": 8212,
+          "end": 8365,
           "expression": "ctx.setObjective('Bringt Kyra zum Waldrand', 'Kyra muss die goldenen Felder im Westen erreichen. Wer ihr den Weg verstellt: Stein werfen oder Schubsen!')",
           "expression_sha256": "6870de8ea5a778f7e60f636cc326339639423136665ad559d7efa299345e1f54",
           "review_anchor_hashes": [
@@ -133288,10 +133289,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 152,
+          "line": 153,
           "column": 15,
-          "start": 8529,
-          "end": 8727,
+          "start": 8618,
+          "end": 8816,
           "expression": "ctx.hint('Die Wachen dürfen Kyra nichts tun, aber „Mädchen“ stellt sich ihr in den Weg. Ein <em>Stein</em> oder Kyras <em>Schubsen</em> stößt ihn beiseite.', { title: 'Zum Waldrand', unit: 'kyra' })",
           "expression_sha256": "0a9d5b230c811b68ce615bea21164822eaef4a226bd84773e9d5795c711811a5",
           "review_anchor_hashes": [
@@ -133315,10 +133316,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 152,
+          "line": 153,
           "column": 175,
-          "start": 8689,
-          "end": 8710,
+          "start": 8778,
+          "end": 8799,
           "expression": "title: 'Zum Waldrand'",
           "expression_sha256": "96ee8aab423717ff43455798b5c3414615a3bc56b965d95ade1c3e257d3cb92b",
           "review_anchor_hashes": [
@@ -133344,20 +133345,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 194,
-          "column": 20,
-          "start": 10584,
-          "end": 10597,
+          "line": 195,
+          "column": 48,
+          "start": 10701,
+          "end": 10714,
           "expression": "name: 'Baris'",
           "expression_sha256": "ed2a5e5a123cc5c5ed8974aa9f4332e6e6a2bf498b8f02022e67da90facb355c",
           "review_anchor_hashes": [
             "ed2a5e5a123cc5c5ed8974aa9f4332e6e6a2bf498b8f02022e67da90facb355c",
-            "b929f88c0930c808f34b1b37776d87f6380f22c93db4fd2d0526bb2bf38d0d3f",
-            "c07984532aeb344939df82a2a470de8f6aad35729556765b1dd6e62045ac9c78",
-            "331e7aed64c085bb44fd8f7d373449f0855cacf9eb3f42d51902c68abf4dbbd6",
-            "84a2beaa2a8b2b815c66f04b3dea14eaa93c22508cb79d27c506a20363d1f6b2",
-            "ba3b61fa6aed0a956aa0990c5dc77a27be8db9d33a860756a2c3b5dd0cba1c01",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "4bbe1da2ecc1342acdac09dd361991962e0651bb2cd5369b8b0a7c9f1ab0cd44",
+            "118605b5563ac66c200d10485ddde17b21b0942be17f37ba5a26318cce617b16",
+            "b70ff100d9c9d8298b2aca50cce1b86b50d7b3577d506cff44160c020df7ec11",
+            "e8bd622eb1f722defac5382778014c541f614a85af8de21c69ec5120cabcc3a8",
+            "01c140687f3a9cad58f1d8e3e245db02b1ec88bc66f57d13563c8b617506b7be",
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -133374,20 +133375,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 194,
-          "column": 35,
-          "start": 10599,
-          "end": 10636,
+          "line": 195,
+          "column": 63,
+          "start": 10716,
+          "end": 10753,
           "expression": "title: 'Hauptmann der Dunkelschatten'",
           "expression_sha256": "3336c9523a4bd9112c9f4133d5817d73cd48f4b9cbd1fe7618dbd2f74429b96b",
           "review_anchor_hashes": [
             "3336c9523a4bd9112c9f4133d5817d73cd48f4b9cbd1fe7618dbd2f74429b96b",
-            "b929f88c0930c808f34b1b37776d87f6380f22c93db4fd2d0526bb2bf38d0d3f",
-            "c07984532aeb344939df82a2a470de8f6aad35729556765b1dd6e62045ac9c78",
-            "331e7aed64c085bb44fd8f7d373449f0855cacf9eb3f42d51902c68abf4dbbd6",
-            "84a2beaa2a8b2b815c66f04b3dea14eaa93c22508cb79d27c506a20363d1f6b2",
-            "ba3b61fa6aed0a956aa0990c5dc77a27be8db9d33a860756a2c3b5dd0cba1c01",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "4bbe1da2ecc1342acdac09dd361991962e0651bb2cd5369b8b0a7c9f1ab0cd44",
+            "118605b5563ac66c200d10485ddde17b21b0942be17f37ba5a26318cce617b16",
+            "b70ff100d9c9d8298b2aca50cce1b86b50d7b3577d506cff44160c020df7ec11",
+            "e8bd622eb1f722defac5382778014c541f614a85af8de21c69ec5120cabcc3a8",
+            "01c140687f3a9cad58f1d8e3e245db02b1ec88bc66f57d13563c8b617506b7be",
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -133404,21 +133405,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 196,
-          "column": 27,
-          "start": 10869,
-          "end": 10882,
+          "line": 197,
+          "column": 55,
+          "start": 10980,
+          "end": 10993,
           "expression": "name: 'Orwen'",
           "expression_sha256": "70534c978bfb92e0f4c59f2104131a1aa59bc7b19e071ac8cc90009de18e2603",
           "review_anchor_hashes": [
             "70534c978bfb92e0f4c59f2104131a1aa59bc7b19e071ac8cc90009de18e2603",
-            "60bbb81cadcd09ece6761915712ac7f683ef4160e3470bc6469e0528e61e0688",
-            "f92b5724926e5b7168ccbb9636f75f2c4d4709912e1afed356e462cb213eb50f",
-            "c07984532aeb344939df82a2a470de8f6aad35729556765b1dd6e62045ac9c78",
-            "331e7aed64c085bb44fd8f7d373449f0855cacf9eb3f42d51902c68abf4dbbd6",
-            "84a2beaa2a8b2b815c66f04b3dea14eaa93c22508cb79d27c506a20363d1f6b2",
-            "ba3b61fa6aed0a956aa0990c5dc77a27be8db9d33a860756a2c3b5dd0cba1c01",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "9e69123897bd4f9dd71c1d581614e653dc39beae53f471746e3fc864f8932e5f",
+            "3c65f5a499671720734994c748c49f68c278b3a469cb1f58614217ac1eca0092",
+            "118605b5563ac66c200d10485ddde17b21b0942be17f37ba5a26318cce617b16",
+            "b70ff100d9c9d8298b2aca50cce1b86b50d7b3577d506cff44160c020df7ec11",
+            "e8bd622eb1f722defac5382778014c541f614a85af8de21c69ec5120cabcc3a8",
+            "01c140687f3a9cad58f1d8e3e245db02b1ec88bc66f57d13563c8b617506b7be",
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -133435,21 +133436,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 196,
-          "column": 42,
-          "start": 10884,
-          "end": 10928,
+          "line": 197,
+          "column": 70,
+          "start": 10995,
+          "end": 11039,
           "expression": "title: 'Baris’ rechte Hand, der Grauhaarige'",
           "expression_sha256": "731232e1a85f7a10516ee669ec39c58c293b9172e2d763ae5647850707ca562c",
           "review_anchor_hashes": [
             "731232e1a85f7a10516ee669ec39c58c293b9172e2d763ae5647850707ca562c",
-            "60bbb81cadcd09ece6761915712ac7f683ef4160e3470bc6469e0528e61e0688",
-            "f92b5724926e5b7168ccbb9636f75f2c4d4709912e1afed356e462cb213eb50f",
-            "c07984532aeb344939df82a2a470de8f6aad35729556765b1dd6e62045ac9c78",
-            "331e7aed64c085bb44fd8f7d373449f0855cacf9eb3f42d51902c68abf4dbbd6",
-            "84a2beaa2a8b2b815c66f04b3dea14eaa93c22508cb79d27c506a20363d1f6b2",
-            "ba3b61fa6aed0a956aa0990c5dc77a27be8db9d33a860756a2c3b5dd0cba1c01",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "9e69123897bd4f9dd71c1d581614e653dc39beae53f471746e3fc864f8932e5f",
+            "3c65f5a499671720734994c748c49f68c278b3a469cb1f58614217ac1eca0092",
+            "118605b5563ac66c200d10485ddde17b21b0942be17f37ba5a26318cce617b16",
+            "b70ff100d9c9d8298b2aca50cce1b86b50d7b3577d506cff44160c020df7ec11",
+            "e8bd622eb1f722defac5382778014c541f614a85af8de21c69ec5120cabcc3a8",
+            "01c140687f3a9cad58f1d8e3e245db02b1ec88bc66f57d13563c8b617506b7be",
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -133466,16 +133467,16 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 203,
+          "line": 204,
           "column": 3,
-          "start": 11506,
-          "end": 11598,
+          "start": 11593,
+          "end": 11685,
           "expression": "ctx.setObjective('Haltet stand!', 'Baris will Flick. Lenk ihn ab, weich aus, haltet durch.')",
           "expression_sha256": "b76aa1649d805ee3ed5fbb3da517d54ce25ae1850141ac7c25d9cf85b1123818",
           "review_anchor_hashes": [
             "b76aa1649d805ee3ed5fbb3da517d54ce25ae1850141ac7c25d9cf85b1123818",
             "a011a75053f9c9ba278fe8361fa3998bd28e0b562880190ab0eda0a7e17c99ac",
-            "01b16920f9d8340ba01c8f28fddb180ee1a7f48a1e8950008575cf8f8f3cfdb5"
+            "bf03d0ff8e713956fa3e12baab310ecf5cbae07fdb640480f90d927148eaebd6"
           ],
           "function": "barisArrives",
           "chapter": "kapitel-5",
@@ -133492,17 +133493,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 234,
+          "line": 241,
           "column": 9,
-          "start": 12894,
-          "end": 12978,
+          "start": 13090,
+          "end": 13174,
           "expression": "ctx.ui.plate('k5-urmacht', { caption: 'Die Urmacht', pan: 'out', durationMs: 9000 })",
           "expression_sha256": "0f165fe3fbb9fb18d696f3924dca2462464416ecf631a3121b49a92fcf4ff5d0",
           "review_anchor_hashes": [
             "0f165fe3fbb9fb18d696f3924dca2462464416ecf631a3121b49a92fcf4ff5d0",
             "ac5ece99a3fd218f625115e30c6feb8647be501e53689b6472897fb6b6e4e8d4",
             "14bae5187796c912eeb317f57d47d5732ca8da3db8d830ec094bee96b94bb8c4",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
@@ -133519,10 +133520,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 234,
+          "line": 241,
           "column": 38,
-          "start": 12923,
-          "end": 12945,
+          "start": 13119,
+          "end": 13141,
           "expression": "caption: 'Die Urmacht'",
           "expression_sha256": "737dda5ab91b54d6fea366c6367f7b6f38b31a379aa3c8403dfb3258fe71b4cb",
           "review_anchor_hashes": [
@@ -133531,7 +133532,7 @@
             "0f165fe3fbb9fb18d696f3924dca2462464416ecf631a3121b49a92fcf4ff5d0",
             "ac5ece99a3fd218f625115e30c6feb8647be501e53689b6472897fb6b6e4e8d4",
             "14bae5187796c912eeb317f57d47d5732ca8da3db8d830ec094bee96b94bb8c4",
-            "13a2cb49b8fc4eaf86c50f239a1a53c32044f103cf6a0ee82bd62c92e21d95ab"
+            "1736b6a7ac8d13f724e95ed60075b1f66081ef2b62832de6856a6cd1cac64a55"
           ],
           "function": "climax",
           "chapter": "kapitel-5",
