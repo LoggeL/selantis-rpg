@@ -1,0 +1,140 @@
+{
+  "model": "gemini-3.8-flash-tts",
+  "language": "de-DE",
+  "source_hashes": {
+    "game/src/tactics/TacticsScene.ts": "fe63e8e4d214eab0615e5daa7a1f36624f9a35ebcbf492d0f2bd032fb7d883dc",
+    "game/src/tactics/barkVoice.ts": "891663d0028a03eeb4fc8059de04e6dc1def5ed0ba2fce9f56f6beb4dc64ea5f",
+    "game/src/tactics/rules/abilities.ts": "19d3ba21d9ace67ea1c12c11156a01526144c4712917e2ef1d624752b1bd42a5",
+    "game/src/chapters/kapitel-5/rettung.ts": "a2a2ee9efc6911aa171217ab5b957a97fc5a3b2268c2d55483e74cd5956c70ec",
+    "game/src/chapters/kapitel-5/bluff.ts": "2d0397041709e80f1727223360a6c855b14df9e4d13c27aecce81557b1044c0c",
+    "game/src/chapters/kapitel-5/index.ts": "132f2365f687a029f1584c006a77d9307ee0c2840971761c1bc541a30f667d6f",
+    "game/src/ui/index.ts": "9b56aca736bb787d53889fc62dc14406feb4e43b67ca7fdd4692a57f601dd8e7"
+  },
+  "alias_map": {
+    "lia": "lia"
+  },
+  "scene_players": {
+    "rettung": "lia"
+  },
+  "lines": [
+    {
+      "id": "story-1536c48324a0e93b030398b6",
+      "scene": "rettung",
+      "chapter": "kapitel-5",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "bark",
+      "text": "Hierher, ihr Hohlköpfe!",
+      "display_text": "Hierher, ihr Hohlköpfe!",
+      "mood": "neutral",
+      "performance_variant": "Confident, cheeky battle taunt. Project clearly toward the enemies, with a sharp playful bite.",
+      "direction_en": "Confident, cheeky battle taunt. Project clearly toward the enemies, with a sharp playful bite.",
+      "sources": [
+        {
+          "file": "game/src/tactics/TacticsScene.ts",
+          "line": 1358,
+          "column": 33,
+          "start": 66481,
+          "end": 66506,
+          "expression": "'Hierher, ihr Hohlköpfe!'",
+          "expression_sha256": "96135874fd15262c51d0dfefab34970db5d307e2769d584a2397343361e7d85a",
+          "runtime_scenes": [
+            "rettung"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "story-28c42a9d5cdd231495d1be86",
+      "scene": "rettung",
+      "chapter": "kapitel-5",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "bark",
+      "text": "He! Hier drüben!",
+      "display_text": "He! Hier drüben!",
+      "mood": "neutral",
+      "performance_variant": "Urgent attention-catching call. Bright and assertive, with a clear change of pitch on the second phrase.",
+      "direction_en": "Urgent attention-catching call. Bright and assertive, with a clear change of pitch on the second phrase.",
+      "sources": [
+        {
+          "file": "game/src/tactics/TacticsScene.ts",
+          "line": 1358,
+          "column": 60,
+          "start": 66508,
+          "end": 66526,
+          "expression": "'He! Hier drüben!'",
+          "expression_sha256": "0e69e4a0e9bd504bebedb0ab290232e089d5b35b7c47e885300ac50f14550234",
+          "runtime_scenes": [
+            "rettung"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "story-bff4d7c0301ceda96669493a",
+      "scene": "rettung",
+      "chapter": "kapitel-5",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "bark",
+      "text": "Fangt mich doch!",
+      "display_text": "Fangt mich doch!",
+      "mood": "neutral",
+      "performance_variant": "Defiant playful challenge while drawing enemies away. Energetic and nimble, with a teasing finish.",
+      "direction_en": "Defiant playful challenge while drawing enemies away. Energetic and nimble, with a teasing finish.",
+      "sources": [
+        {
+          "file": "game/src/tactics/TacticsScene.ts",
+          "line": 1358,
+          "column": 80,
+          "start": 66528,
+          "end": 66546,
+          "expression": "'Fangt mich doch!'",
+          "expression_sha256": "b3569de7511810422665e11d6e1508a0c1387329f64f1bfa49a1787a4ecafb6e",
+          "runtime_scenes": [
+            "rettung"
+          ]
+        }
+      ]
+    }
+  ],
+  "runtime_lookup": [
+    {
+      "kind": "bark",
+      "speaker": "lia",
+      "text": "Hierher, ihr Hohlköpfe!",
+      "scene": "rettung",
+      "mood": "neutral",
+      "asset_id": "story-1536c48324a0e93b030398b6"
+    },
+    {
+      "kind": "bark",
+      "speaker": "lia",
+      "text": "He! Hier drüben!",
+      "scene": "rettung",
+      "mood": "neutral",
+      "asset_id": "story-28c42a9d5cdd231495d1be86"
+    },
+    {
+      "kind": "bark",
+      "speaker": "lia",
+      "text": "Fangt mich doch!",
+      "scene": "rettung",
+      "mood": "neutral",
+      "asset_id": "story-bff4d7c0301ceda96669493a"
+    }
+  ],
+  "unresolved": [],
+  "unresolved_count": 0,
+  "notes": [
+    "Three exact tactical taunt literals, Lia only, production rescue battle k5-rettung; current runtime voice scene rettung. Chapter4 teaches Ablenken but has no non-dev Tactics entry.",
+    "Root-reviewed current-source AST rebind from frozen tactical taunts; fixed Lia/Zephyr and rettung selectors unchanged."
+  ]
+}

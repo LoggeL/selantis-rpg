@@ -167,7 +167,7 @@
       "speaker": "lia",
       "text": "Ich weiß nicht, was das war. Ich weiß nur, dass ich Flick nicht verlieren wollte.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-02c4a2af7e8d411e7e83ad25"
     },
@@ -230,7 +230,7 @@
       "speaker": "lia",
       "text": "Dann helft mir. Ich erzähle euch alles. Aber nur, wenn ihr versprecht, mir zu helfen.",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-03870764af4266861c7718e6"
     },
@@ -239,7 +239,7 @@
       "speaker": "lia",
       "text": "Aber … im Lager waren doch Elfen? Ich war dort.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-03b25f633745c6f664922353"
     },
@@ -500,7 +500,7 @@
       "speaker": "lia",
       "text": "Hallo! Ich … bin auf dem Weg nach Trapas und will auf dem Markt etwas verkaufen.",
       "scene": "schattenlager",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Hold a plausible conversational front while buying time. Let only a small hesitation expose the pressure; direct the answer at the guards.",
       "asset_id": "story-087ca41dc993a16765a694bb"
     },
@@ -743,7 +743,7 @@
       "speaker": "lia",
       "text": "Ich bin nicht klein.",
       "scene": "eber",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-0c3c9ffa2631d2bfd1ebaf22"
     },
@@ -1157,7 +1157,7 @@
       "speaker": "lia",
       "text": "Und außerdem … sie haben meine Schwester mitgenommen.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "asset_id": "story-120d14eaeac489cdb133d299"
     },
@@ -1193,7 +1193,7 @@
       "speaker": "lia",
       "text": "Gute Nacht.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Give a quiet, sincere goodnight. Let the warmth be small and newly possible, with an unhurried ending.",
       "asset_id": "story-122210ea839e3f76657e8fbf"
     },
@@ -1580,7 +1580,7 @@
       "speaker": "lia",
       "text": "Versprecht ihr es mir? Nehmt ihr mich ernst, oder bin ich nur das dumme kleine Mädchen?",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-1a710909d0c3a2ef14c11ef2"
     },
@@ -1697,7 +1697,7 @@
       "speaker": "lia",
       "text": "Und er hilft uns, Kyra zu finden?",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "asset_id": "story-1cbd171f9c60cbd83c630502"
     },
@@ -1778,7 +1778,7 @@
       "speaker": "lia",
       "text": "Moment. Was soll ich denn bitte sagen?",
       "scene": "schattenlager",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "asset_id": "story-1f6c6d021d48a12e79524fa0"
     },
@@ -1787,7 +1787,7 @@
       "speaker": "lia",
       "text": "Wieso? Was genau hab ich denn gemacht?",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "asset_id": "story-1f8a8081bbce28c30e0fb7b6"
     },
@@ -1922,7 +1922,7 @@
       "speaker": "lia",
       "text": "Es ist ihres! Ich würde es unter tausend erkennen!",
       "scene": "eber",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-2185d32bd6abf3a33603a6ef"
     },
@@ -1949,7 +1949,7 @@
       "speaker": "lia",
       "text": "Ich hatte kaum Zeit zu trauern. Nur wenn ich zu viel nachdenke, merke ich, dass sie nicht mehr da sind.",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "asset_id": "story-21e7bd5cfcc521fdb29e5772"
     },
@@ -2012,7 +2012,7 @@
       "speaker": "lia",
       "text": "Und wenn sie mich zu genau ansehen?",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-2319bbda1faef047afbf7a41"
     },
@@ -2345,7 +2345,7 @@
       "speaker": "lia",
       "text": "Ich bin keine Kriegerin. Ich lese Bücher.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-29ef123f7684aa91dbc01fb7"
     },
@@ -2831,7 +2831,7 @@
       "speaker": "lia",
       "text": "Beruhig dich mal.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy.",
       "asset_id": "story-31b90dbf461194968d6bb995"
     },
@@ -3110,7 +3110,7 @@
       "speaker": "lia",
       "text": "Flick?",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-365a58a889bc7b06eb87fc8b"
     },
@@ -3182,7 +3182,7 @@
       "speaker": "lia",
       "text": "Foltan wusste, wohin sie Kyra gebracht haben. Und er hat geschwiegen.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "asset_id": "story-36d8a6062f11805ced588ded"
     },
@@ -3218,7 +3218,7 @@
       "speaker": "lia",
       "text": "Hier. Die habe ich unterwegs gefunden. Alle drei.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "asset_id": "story-377d2f8de3fdedc2afce6d75"
     },
@@ -3281,7 +3281,7 @@
       "speaker": "lia",
       "text": "Stimmt auch wieder.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy.",
       "asset_id": "story-37f00bd53947f96caffb68c8"
     },
@@ -3299,7 +3299,7 @@
       "speaker": "lia",
       "text": "Soll ich weiterlesen, oder glaubt ihr mir jetzt?",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "asset_id": "story-382749fb32d25c5d22d8890e"
     },
@@ -3452,7 +3452,7 @@
       "speaker": "lia",
       "text": "Und das hier lag im Stall vom Goldenen Eber.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "asset_id": "story-3ab31e233b410a1830eefd98"
     },
@@ -3758,7 +3758,7 @@
       "speaker": "lia",
       "text": "Für die Dunkelschatten?! Die haben meine Eltern umgebracht!",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "asset_id": "story-4063ff039df1fd900152e379"
     },
@@ -3857,7 +3857,7 @@
       "speaker": "lia",
       "text": "Echt nicht?",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Ask the companion directly with honest curiosity; leave room for the answer, and keep uncertainty small and natural.",
       "asset_id": "story-422d5ac0dc39dfa82bdfd8e9"
     },
@@ -3956,7 +3956,7 @@
       "speaker": "lia",
       "text": "Ich kann selbst reden. Ich heiße Lia.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-4390f293ef99388777dcd194"
     },
@@ -4181,7 +4181,7 @@
       "speaker": "lia",
       "text": "Ich weiß es nicht.",
       "scene": "schattenlager",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "asset_id": "story-46ab9461c352621005d42c52"
     },
@@ -4316,7 +4316,7 @@
       "speaker": "lia",
       "text": "Na gut. Aber wenn ich mir die Nase breche, trägst du mich.",
       "scene": "augenbinde",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-4834d708404df93ee608d5f3"
     },
@@ -4325,7 +4325,7 @@
       "speaker": "lia",
       "text": "Na gut. Aber wenn ich mir die Nase breche, trägst du mich.",
       "scene": "verrat",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-4834d708404df93ee608d5f3"
     },
@@ -4568,7 +4568,7 @@
       "speaker": "lia",
       "text": "Was … was ist passiert?",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "hurt",
       "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "asset_id": "story-4b78bf7994f56f879473a9da"
     },
@@ -4631,7 +4631,7 @@
       "speaker": "lia",
       "text": "Ich habe ihnen Steine aufs Grab gelegt. Jedem einen Hügel.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share.",
       "asset_id": "story-4c5988433a797c8dabf95c75"
     },
@@ -4964,7 +4964,7 @@
       "speaker": "lia",
       "text": "Meine Mutter kam aus Trapas. Aus einer Händlerfamilie.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "asset_id": "story-504d5347eb377a852a630c71"
     },
@@ -4973,7 +4973,7 @@
       "speaker": "lia",
       "text": "AAAAAH!",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-50768d861e22ac1f28d65958"
     },
@@ -5243,7 +5243,7 @@
       "speaker": "lia",
       "text": "Sie haben meine Schwester entführt! Ihr müsst …",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "asset_id": "story-539c5c3d8cd76da4e41bc304"
     },
@@ -5270,7 +5270,7 @@
       "speaker": "lia",
       "text": "Kann es nicht bitte jemand anderes machen?",
       "scene": "schattenlager",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "asset_id": "story-53f965eb6708c0df5dde9abf"
     },
@@ -5684,7 +5684,7 @@
       "speaker": "lia",
       "text": "Ihr habt geschnarcht. Beide. Laut.",
       "scene": "augenbinde",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-59e2abfe13556b0d316f3af5"
     },
@@ -5693,7 +5693,7 @@
       "speaker": "lia",
       "text": "Ihr habt geschnarcht. Beide. Laut.",
       "scene": "verrat",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-59e2abfe13556b0d316f3af5"
     },
@@ -5792,7 +5792,7 @@
       "speaker": "lia",
       "text": "Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?",
       "scene": "waldweg",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-5adeb19fc7cd73257b99eba7"
     },
@@ -6035,7 +6035,7 @@
       "speaker": "lia",
       "text": "Was ist das für ein Lager, in das ich gebracht werden soll?",
       "scene": "waldweg",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-5eeecd30b9384115e9d26824"
     },
@@ -6242,7 +6242,7 @@
       "speaker": "lia",
       "text": "Foltan wusste von Anfang an, wohin sie Kyra gebracht haben. Ich hab’s gemerkt, schon im Eber.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "asset_id": "story-634070bb97ee7db5e75c3e87"
     },
@@ -6278,7 +6278,7 @@
       "speaker": "lia",
       "text": "Ich sitze übrigens direkt neben euch. Mit Ohren. Zwei Stück.",
       "scene": "waldweg",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-648a3853a5c6927f9fb0a0c1"
     },
@@ -6386,7 +6386,7 @@
       "speaker": "lia",
       "text": "Meint ihr … meine Eltern sind auch da oben?",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "asset_id": "story-653fde9fd86f203bb224918f"
     },
@@ -6629,7 +6629,7 @@
       "speaker": "lia",
       "text": "Sie ist die Mutigere von uns beiden.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "asset_id": "story-67932589c40e5a88bf9d7eb9"
     },
@@ -6926,7 +6926,7 @@
       "speaker": "lia",
       "text": "Das leichte Bündel ist meine Schwester.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "asset_id": "story-6cf215b94552ca090d3c926c"
     },
@@ -6953,7 +6953,7 @@
       "speaker": "lia",
       "text": "Ja. Ich wäre über eine Pause wirklich dankbar.",
       "scene": "waldweg",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Help him save face with a modest admission. Offer the concession gently, without sounding patronizing.",
       "asset_id": "story-6d78f843b8887c03f2e7eb40"
     },
@@ -7223,7 +7223,7 @@
       "speaker": "lia",
       "text": "Ich … ich …",
       "scene": "schattenlager",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Let the attempted cover story fail in two short hesitations. Hold fear in the unfinished words; do not invent another sentence or cry.",
       "asset_id": "story-7294aa79efc47fb1593ddf3b"
     },
@@ -7232,7 +7232,7 @@
       "speaker": "lia",
       "text": "Als ob es noch schlimmer werden könnte. Ich habe schon alles verloren.",
       "scene": "waldweg",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-729c52c893bf51d53eb729a5"
     },
@@ -8177,7 +8177,7 @@
       "speaker": "lia",
       "text": "Hier. Die habe ich unterwegs gefunden.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "asset_id": "story-83f063a56988c8d2e5411da9"
     },
@@ -8267,7 +8267,7 @@
       "speaker": "lia",
       "text": "Sie wetten auf ihr Leben …",
       "scene": "eber",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-8547a8a3f103e12abb6a2540"
     },
@@ -8285,7 +8285,7 @@
       "speaker": "lia",
       "text": "Schwarz gekleidete Reiter. Sie haben Kyra verschleppt. Ich muss sie retten, aber ich weiß nicht einmal, wie.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "asset_id": "story-85edf3d78900931c85271f05"
     },
@@ -8600,7 +8600,7 @@
       "speaker": "lia",
       "text": "Flick? Vorhin, als der Regen … hast du gesehen, wie er …",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-8aba8cae6e2dce1531215a8e"
     },
@@ -8681,7 +8681,7 @@
       "speaker": "lia",
       "text": "Nein. Könnt Ihr nicht.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "asset_id": "story-8c5cdb36aac3aae988cb6e87"
     },
@@ -8996,7 +8996,7 @@
       "speaker": "lia",
       "text": "Ich bin nicht klein.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "asset_id": "story-91ce893c197b1aadcaf2affe"
     },
@@ -9239,7 +9239,7 @@
       "speaker": "lia",
       "text": "Lasst mich los! Ich hab euch nichts getan!",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-9559afb19ff8526d20bdfd6e"
     },
@@ -9455,7 +9455,7 @@
       "speaker": "lia",
       "text": "Ich war dort. Elfen aus Ebaril, überall.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-980aa928a8e481d6ef9a53f4"
     },
@@ -9707,7 +9707,7 @@
       "speaker": "lia",
       "text": "Dann laufen wir weiter!",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Give the practical instruction a clear destination and firm pace. Focus on what must happen next without a heroic declamation.",
       "asset_id": "story-9b358e1c88854b04c3416b7b"
     },
@@ -9725,7 +9725,7 @@
       "speaker": "lia",
       "text": "Ich habe nur noch dieses Buch dabei. Es sei denn, ihr wollt noch mehr über Kräuter erfahren?",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "asset_id": "story-9be1bde4ee5e3f01871dffff"
     },
@@ -9932,7 +9932,7 @@
       "speaker": "lia",
       "text": "Aaaah!",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-9f4b8efb398e6a2f675f65da"
     },
@@ -10076,7 +10076,7 @@
       "speaker": "lia",
       "text": "Ich hatte gehofft, dort etwas über Kyra zu erfahren. War dumm, ich weiß.",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "asset_id": "story-a1372e13b6605e38d106333d"
     },
@@ -10283,7 +10283,7 @@
       "speaker": "lia",
       "text": "Nur in Büchern. Da wart ihr größer.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-a41e7eab4aeb37d67d8b6489"
     },
@@ -10985,7 +10985,7 @@
       "speaker": "lia",
       "text": "Seid ihr fertig? Manche Leute wollen hier schlafen.",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-b1dea22f63a4415b57e84b44"
     },
@@ -11273,7 +11273,7 @@
       "speaker": "lia",
       "text": "Sie haben Kyra an den Baum gefesselt. Der Hauptmann sagt, ihr Leben sei mehr wert als das seiner Männer.",
       "scene": "schattenlager",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "asset_id": "story-b7295d32bd1712d23c020b42"
     },
@@ -11930,7 +11930,7 @@
       "speaker": "lia",
       "text": "Euch muss gar nichts an mir gefallen.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "asset_id": "story-c0db85c5941780e49db44b3b"
     },
@@ -12200,7 +12200,7 @@
       "speaker": "lia",
       "text": "Es kann nur besser werden. Indem ich meine Schwester zurückbekomme.",
       "scene": "waldweg",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "asset_id": "story-c558279aef01216d4aad9480"
     },
@@ -12236,7 +12236,7 @@
       "speaker": "lia",
       "text": "Flick? Warum machst du das?",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-c5d5910cb509010f9dde7331"
     },
@@ -12515,7 +12515,7 @@
       "speaker": "lia",
       "text": "Oh nee. Ich dachte, das war’s.",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "asset_id": "story-ca4a51dfcb8f4d4983c833ca"
     },
@@ -12542,7 +12542,7 @@
       "speaker": "lia",
       "text": "F – O – L – T – A – N. Und jetzt halt still, sonst schreibe ich „Ziegenbart“ daneben.",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "asset_id": "story-cb0e8255bc9bd2ae5ebec16e"
     },
@@ -12794,7 +12794,7 @@
       "speaker": "lia",
       "text": "Sie sind tot, okay?",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Let grief break through a defensive retort. Hit the fact plainly, then close the question sharply; avoid a sustained angry shout.",
       "asset_id": "story-cdd91e8433256de8fb8ca4dd"
     },
@@ -12812,7 +12812,7 @@
       "speaker": "lia",
       "text": "Die Bibliothek von Ebaril … ich habe davon gelesen.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Tell the remembered loss plainly and quietly; slow slightly at the painful detail, avoiding a grand recital.",
       "asset_id": "story-ce1ee877305e77382d9b77b8"
     },
@@ -12830,7 +12830,7 @@
       "speaker": "lia",
       "text": "Ich … wollte nur ehrlich sein.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "asset_id": "story-cf0c358556aebf0851ea220b"
     },
@@ -13172,7 +13172,7 @@
       "speaker": "lia",
       "text": "Ich mache keinen Spaß. Meine Mutter hat es mir beigebracht. Hört her.",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-d5109ead6cbbc755229d17db"
     },
@@ -13298,7 +13298,7 @@
       "speaker": "lia",
       "text": "Ich fühle mich allein. Mit einer Aufgabe, die ich nicht tragen kann. Aber Kyra braucht mich. Sie hat sonst niemanden.",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "asset_id": "story-d6c8bcd34e88cdda56d5f022"
     },
@@ -13388,7 +13388,7 @@
       "speaker": "lia",
       "text": "Und wann suchen wir Kyra?",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "asset_id": "story-d8a2a1d33714374a2fa6a975"
     },
@@ -13397,7 +13397,7 @@
       "speaker": "lia",
       "text": "Ich habe Neuigkeiten. Meine Schwester ist entführt worden.",
       "scene": "bruderschaft",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "asset_id": "story-d8d945efd9c2cc5652039339"
     },
@@ -13577,7 +13577,7 @@
       "speaker": "lia",
       "text": "Ich verstehe nicht, wie man so etwas freiwillig trinken kann.",
       "scene": "eber",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-dc410b8c1b207ce20bc9cb96"
     },
@@ -13739,7 +13739,7 @@
       "speaker": "lia",
       "text": "Kyra war dort, Azar. Ich weiß es. Und Foltan sagt, Craupor weiß nichts.",
       "scene": "leselager",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "asset_id": "story-dfc39fc851835d9c5c4b9b77"
     },
@@ -14000,7 +14000,7 @@
       "speaker": "lia",
       "text": "Eine Augenbinde. Wie in den Räubergeschichten.",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Play the moment with dry affection or comic pride. Pause lightly at the turn; remain in conversation, without forcing the punchline.",
       "asset_id": "story-e3fe0722d9e09c99acba98e9"
     },
@@ -14081,7 +14081,7 @@
       "speaker": "lia",
       "text": "Nichts? Gar nichts?",
       "scene": "eber",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "asset_id": "story-e56bb898cf8a7b89d9e1253c"
     },
@@ -14279,7 +14279,7 @@
       "speaker": "lia",
       "text": "Und wenn nicht?",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share.",
       "asset_id": "story-e95e25c828d03bdc46aa47df"
     },
@@ -14333,7 +14333,7 @@
       "speaker": "lia",
       "text": "Ich bin kein Kind. Und wenn ihr nicht antwortet, antworte ich auch nicht.",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-ea8076e8d752896d0ea469dc"
     },
@@ -14477,7 +14477,7 @@
       "speaker": "lia",
       "text": "Aber im Lager waren doch Elfen? Ich war dort. Elfen aus Ebaril, überall.",
       "scene": "faehrte",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "asset_id": "story-ec5c01836b8720bccc096a28"
     },
@@ -14603,7 +14603,7 @@
       "speaker": "lia",
       "text": "Ich bin nicht klein. Ich kann auch zuhören.",
       "scene": "eber",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "asset_id": "story-ef490023f71f561e6caf1666"
     },
@@ -15188,7 +15188,7 @@
       "speaker": "lia",
       "text": "Aufmuntern gehört nicht gerade zu deinen Stärken.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "asset_id": "story-f7a4e3c87fb5c9e6986bd262"
     },
@@ -15386,7 +15386,7 @@
       "speaker": "lia",
       "text": "Na super. Heute habe ich ja richtig Glück.",
       "scene": "regenwald",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "asset_id": "story-fb970cda275409fb4e901317"
     },
@@ -15656,7 +15656,7 @@
       "speaker": "lia",
       "text": "Hab ich das?",
       "scene": "finale",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "asset_id": "story-fe6216e8f24203dd4d44ffdd"
     },
@@ -15665,7 +15665,7 @@
       "speaker": "lia",
       "text": "Und meine Schwester?",
       "scene": "foltan-azar",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "asset_id": "story-fe6733d8db3e57b12c649313"
     },
@@ -15788,12 +15788,13 @@
     "game/src/chapters/common/index.ts": "5c0fae13c22865085bfb5279283ca0c889d9ccd1f1a6362d867ef948c38436d9",
     "game/src/chapters/kapitel-1/catalog.ts": "04473be737cdfd73b4fa1002c30a0a2d48dabe4148f5a66f322b3d527d77f6f2",
     "game/src/chapters/kapitel-1/heimweg.ts": "9339235d5a0e2aad2a6e72fad512c935af5a6a557460f2c097c86bb0ae6af182",
-    "game/src/chapters/kapitel-1/hofGeo.ts": "5574517c632549360566c9f0dc894e7ca704bf2e45eee3e881458bc5e8d9ab71",
+    "game/src/chapters/kapitel-1/hofGeo.ts": "0e1c342ed110d197f355152969b60cd299e571ac8d810360886bb580d04f92ad",
     "game/src/chapters/kapitel-1/index.ts": "340a4cdbb0502de6fa821e14697402192fa6143da5400c2c2cb021bdcfafa211",
     "game/src/chapters/kapitel-1/packing.ts": "42d7cbfd3ef52acf0a3c14678401887c1513ca5146454d6cd63124cbb1dd73e2",
     "game/src/chapters/kapitel-1/packingPanel.ts": "525cbd479b0bbc323780a53ab0b91515e25a02e56d41f6c58dc62aacd7a8d965",
-    "game/src/chapters/kapitel-1/shared.ts": "20040999ab9c93cb3c3963dbfd6e5e43c2592f38c8a05e83f925b8628707453e",
-    "game/src/chapters/kapitel-1/trauer.ts": "caa4d07e5bc751f00c83a6c596a348f8f661369daa44a1e944be362f9158f9a5",
+    "game/src/chapters/kapitel-1/pigpen.ts": "95b7fcb4bb12e8347f1698777546d68a3af62622591f361b43a507365dfb3c86",
+    "game/src/chapters/kapitel-1/shared.ts": "24e5b372920b6a7baf52b9c88d75a6efe35d5c20cdfff1d986b6f2caa623e03a",
+    "game/src/chapters/kapitel-1/trauer.ts": "7328cfae603580ca52a9ef4181a7c1718311a10348e1a8bb94bf17a20a58be59",
     "game/src/chapters/kapitel-1/ueberfall.ts": "e7fac608de300793ee5e07ad37e48f4a9a2ecf10c862d2d0d4f83744e136e611",
     "game/src/chapters/kapitel-1/wiese.ts": "25f6e36fe4171049c5c4ea9ee984b7dca633b58e1b1cc4493288585996e8ff97",
     "game/src/chapters/kapitel-2/catalog.ts": "26e8d08ee17cb91b9ab7a9e5b4fadf99eaf89e02bc6370211ea105b077bddbec",
@@ -16483,10 +16484,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 509,
+          "line": 513,
           "column": 57,
-          "start": 25603,
-          "end": 25607,
+          "start": 25994,
+          "end": 25998,
           "expression": "line",
           "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
           "review_anchor_hashes": [
@@ -16813,7 +16814,7 @@
       "kind": "say",
       "text": "Ich weiß nicht, was das war. Ich weiß nur, dass ich Flick nicht verlieren wollte.",
       "display_text": "Ich weiß nicht, was das war. Ich weiß nur, dass ich Flick nicht verlieren wollte.",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -16878,7 +16879,7 @@
           "speaker": "lia",
           "text": "Ich weiß nicht, was das war. Ich weiß nur, dass ich Flick nicht verlieren wollte.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -17015,10 +17016,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 197,
+          "line": 199,
           "column": 17,
-          "start": 10219,
-          "end": 10226,
+          "start": 10458,
+          "end": 10465,
           "expression": "t.place",
           "expression_sha256": "146d848cedfff7bd2ea5bf53513c9adeac843119738f5d553abbd8db9f166204",
           "review_anchor_hashes": [
@@ -17184,10 +17185,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 252,
+          "line": 254,
           "column": 19,
-          "start": 12395,
-          "end": 12461,
+          "start": 12634,
+          "end": 12700,
           "expression": "'Ich werde alles tun, um Kyra zu finden. Das verspreche ich euch.'",
           "expression_sha256": "7bae2af339295c8783d11e53a4e7705caa1e994e0f3a14e7bfd28245e3de3c80",
           "review_anchor_hashes": [
@@ -17233,7 +17234,7 @@
       "kind": "say",
       "text": "Dann helft mir. Ich erzähle euch alles. Aber nur, wenn ihr versprecht, mir zu helfen.",
       "display_text": "Dann helft mir. Ich erzähle euch alles. Aber nur, wenn ihr versprecht, mir zu helfen.",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -17292,7 +17293,7 @@
           "speaker": "lia",
           "text": "Dann helft mir. Ich erzähle euch alles. Aber nur, wenn ihr versprecht, mir zu helfen.",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -17307,7 +17308,7 @@
       "kind": "say",
       "text": "Aber … im Lager waren doch Elfen? Ich war dort.",
       "display_text": "Aber … im Lager waren doch Elfen? Ich war dort.",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -17375,7 +17376,7 @@
           "speaker": "lia",
           "text": "Aber … im Lager waren doch Elfen? Ich war dort.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -18414,10 +18415,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 509,
+          "line": 513,
           "column": 57,
-          "start": 25603,
-          "end": 25607,
+          "start": 25994,
+          "end": 25998,
           "expression": "line",
           "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
           "review_anchor_hashes": [
@@ -18832,7 +18833,7 @@
       "kind": "say",
       "text": "Hallo! Ich … bin auf dem Weg nach Trapas und will auf dem Markt etwas verkaufen.",
       "display_text": "Hallo! Ich … bin auf dem Weg nach Trapas und will auf dem Markt etwas verkaufen.",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Hold a plausible conversational front while buying time. Let only a small hesitation expose the pressure; direct the answer at the guards.",
       "direction_en": "Hold a plausible conversational front while buying time. Let only a small hesitation expose the pressure; direct the answer at the guards.",
       "sources": [
@@ -18897,7 +18898,7 @@
           "speaker": "lia",
           "text": "Hallo! Ich … bin auf dem Weg nach Trapas und will auf dem Markt etwas verkaufen.",
           "scene": "schattenlager",
-          "mood": "neutral",
+          "mood": "scared",
           "performance_variant": "Hold a plausible conversational front while buying time. Let only a small hesitation expose the pressure; direct the answer at the guards."
         }
       ]
@@ -19662,10 +19663,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 448,
+          "line": 452,
           "column": 19,
-          "start": 22683,
-          "end": 22763,
+          "start": 23074,
+          "end": 23154,
           "expression": "'Cronibus großes Kräuterlexikon. Mutters Handschrift steht neben dem Speikraut.'",
           "expression_sha256": "d2953bdca64e79621852bc0b3d5240ff2f8eae0ae6b46086fe31f781d80677aa",
           "review_anchor_hashes": [
@@ -20336,7 +20337,7 @@
       "kind": "say",
       "text": "Ich bin nicht klein.",
       "display_text": "Ich bin nicht klein.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -20399,7 +20400,7 @@
           "speaker": "lia",
           "text": "Ich bin nicht klein.",
           "scene": "eber",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -22301,10 +22302,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 481,
+          "line": 485,
           "column": 19,
-          "start": 24196,
-          "end": 24285,
+          "start": 24587,
+          "end": 24676,
           "expression": "'Erst brauche ich alles zusammen: Vaters Geheimfach, Mutters Tinktur, Mantel und Schuhe.'",
           "expression_sha256": "e3837d5518a8a77db9498d2d21aece91c0469855845002e4fa34b8afe2e661e8",
           "review_anchor_hashes": [
@@ -22605,7 +22606,7 @@
       "kind": "say",
       "text": "Und außerdem … sie haben meine Schwester mitgenommen.",
       "display_text": "Und außerdem … sie haben meine Schwester mitgenommen.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "direction_en": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "sources": [
@@ -22672,7 +22673,7 @@
           "speaker": "lia",
           "text": "Und außerdem … sie haben meine Schwester mitgenommen.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed."
         }
       ]
@@ -22854,7 +22855,7 @@
       "kind": "say",
       "text": "Gute Nacht.",
       "display_text": "Gute Nacht.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Give a quiet, sincere goodnight. Let the warmth be small and newly possible, with an unhurried ending.",
       "direction_en": "Give a quiet, sincere goodnight. Let the warmth be small and newly possible, with an unhurried ending.",
       "sources": [
@@ -22919,7 +22920,7 @@
           "speaker": "lia",
           "text": "Gute Nacht.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Give a quiet, sincere goodnight. Let the warmth be small and newly possible, with an unhurried ending."
         }
       ]
@@ -25190,7 +25191,7 @@
       "kind": "say",
       "text": "Versprecht ihr es mir? Nehmt ihr mich ernst, oder bin ich nur das dumme kleine Mädchen?",
       "display_text": "Versprecht ihr es mir? Nehmt ihr mich ernst, oder bin ich nur das dumme kleine Mädchen?",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -25253,7 +25254,7 @@
           "speaker": "lia",
           "text": "Versprecht ihr es mir? Nehmt ihr mich ernst, oder bin ich nur das dumme kleine Mädchen?",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -25949,7 +25950,7 @@
       "kind": "say",
       "text": "Und er hilft uns, Kyra zu finden?",
       "display_text": "Und er hilft uns, Kyra zu finden?",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "direction_en": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "sources": [
@@ -26014,7 +26015,7 @@
           "speaker": "lia",
           "text": "Und er hilft uns, Kyra zu finden?",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses."
         }
       ]
@@ -26506,7 +26507,7 @@
       "kind": "say",
       "text": "Moment. Was soll ich denn bitte sagen?",
       "display_text": "Moment. Was soll ich denn bitte sagen?",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "direction_en": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "sources": [
@@ -26571,7 +26572,7 @@
           "speaker": "lia",
           "text": "Moment. Was soll ich denn bitte sagen?",
           "scene": "schattenlager",
-          "mood": "neutral",
+          "mood": "surprised",
           "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical."
         }
       ]
@@ -26586,7 +26587,7 @@
       "kind": "say",
       "text": "Wieso? Was genau hab ich denn gemacht?",
       "display_text": "Wieso? Was genau hab ich denn gemacht?",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "direction_en": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "sources": [
@@ -26651,7 +26652,7 @@
           "speaker": "lia",
           "text": "Wieso? Was genau hab ich denn gemacht?",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain."
         }
       ]
@@ -27431,7 +27432,7 @@
       "kind": "say",
       "text": "Es ist ihres! Ich würde es unter tausend erkennen!",
       "display_text": "Es ist *ihres*! Ich würde es unter tausend erkennen!",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -27498,7 +27499,7 @@
           "speaker": "lia",
           "text": "Es ist ihres! Ich würde es unter tausend erkennen!",
           "scene": "eber",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -27577,7 +27578,7 @@
       "kind": "say",
       "text": "Ich hatte kaum Zeit zu trauern. Nur wenn ich zu viel nachdenke, merke ich, dass sie nicht mehr da sind.",
       "display_text": "Ich hatte kaum Zeit zu trauern. Nur wenn ich zu viel nachdenke, merke ich, dass sie nicht mehr da sind.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "direction_en": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "sources": [
@@ -27640,7 +27641,7 @@
           "speaker": "lia",
           "text": "Ich hatte kaum Zeit zu trauern. Nur wenn ich zu viel nachdenke, merke ich, dass sie nicht mehr da sind.",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing."
         }
       ]
@@ -27828,10 +27829,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 280,
+          "line": 282,
           "column": 19,
-          "start": 13456,
-          "end": 13528,
+          "start": 13695,
+          "end": 13767,
           "expression": "'Erst bekommt ihr euer Futter. Ich habe es Kyra versprochen. Ehrenwort.'",
           "expression_sha256": "d255322cc8da0472189385c893c3163f3951b259625637c2a9cf4041f88631e7",
           "review_anchor_hashes": [
@@ -27992,7 +27993,7 @@
       "kind": "say",
       "text": "Und wenn sie mich zu genau ansehen?",
       "display_text": "Und wenn sie mich zu genau ansehen?",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -28055,7 +28056,7 @@
           "speaker": "lia",
           "text": "Und wenn sie mich zu genau ansehen?",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -28131,10 +28132,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 362,
+          "line": 366,
           "column": 219,
-          "start": 18863,
-          "end": 18978,
+          "start": 19254,
+          "end": 19369,
           "expression": "'Der Ofen ist kalt. An Winterabenden saßen wir hier alle zusammen, und ich las vor, bis die Kerze herunterbrannte.'",
           "expression_sha256": "c76144dbbd2b321c5fad515ece0476e66ab7878aa6f31170877113e49d72bca6",
           "review_anchor_hashes": [
@@ -28420,10 +28421,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 509,
+          "line": 513,
           "column": 57,
-          "start": 25603,
-          "end": 25607,
+          "start": 25994,
+          "end": 25998,
           "expression": "line",
           "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
           "review_anchor_hashes": [
@@ -28673,10 +28674,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 247,
+          "line": 249,
           "column": 21,
-          "start": 12116,
-          "end": 12334,
+          "start": 12355,
+          "end": 12573,
           "expression": "[\n      'Die Sonne ging auf und tauchte den Himmel in rötliches Licht. Die ganze Nacht hatte Lia Steine getragen.',\n      'Ihre Hände waren blutig, die Füße in den Holzschuhen wundgescheuert. Es war ihr gleich.',\n    ]",
           "expression_sha256": "b4f3d5673d661a6cc26ad687d0142bb1dcf646f2a463b9c3ca960e452aec5fd8",
           "review_anchor_hashes": [
@@ -29954,7 +29955,7 @@
       "kind": "say",
       "text": "Ich bin keine Kriegerin. Ich lese Bücher.",
       "display_text": "Ich bin keine Kriegerin. Ich lese Bücher.",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -30017,7 +30018,7 @@
           "speaker": "lia",
           "text": "Ich bin keine Kriegerin. Ich lese Bücher.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -31026,10 +31027,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 87,
+          "line": 88,
           "column": 39,
-          "start": 5372,
-          "end": 5403,
+          "start": 5559,
+          "end": 5590,
           "expression": "'Nicht jetzt. Erst die Gräber.'",
           "expression_sha256": "12978d507e4c5bb8369335e2b983c9a2d620e440ff7609f04038b82e6bb86829",
           "review_anchor_hashes": [
@@ -31038,11 +31039,11 @@
             "09dfb0f63997bbebd226a3a018fafb5895eed5a1ea636c7f8114b358260035f9",
             "32724017a4446f31416b9daa1ba7691689a9f44506612259f5589fa66f13eac3",
             "b0320631e3da377b332b12d4aae24ebf8e40662b9a67f385bbace9d4d711ae4a",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -32659,7 +32660,7 @@
       "kind": "say",
       "text": "Beruhig dich mal.",
       "display_text": "Beruhig dich mal.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy.",
       "direction_en": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy.",
       "sources": [
@@ -32724,7 +32725,7 @@
           "speaker": "lia",
           "text": "Beruhig dich mal.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy."
         }
       ]
@@ -34403,7 +34404,7 @@
       "kind": "say",
       "text": "Flick?",
       "display_text": "Flick?",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -34468,7 +34469,7 @@
           "speaker": "lia",
           "text": "Flick?",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -34839,7 +34840,7 @@
       "kind": "say",
       "text": "Foltan wusste, wohin sie Kyra gebracht haben. Und er hat geschwiegen.",
       "display_text": "Foltan wusste, wohin sie Kyra gebracht haben. Und er hat geschwiegen.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "direction_en": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "sources": [
@@ -34906,7 +34907,7 @@
           "speaker": "lia",
           "text": "Foltan wusste, wohin sie Kyra gebracht haben. Und er hat geschwiegen.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume."
         }
       ]
@@ -35096,7 +35097,7 @@
       "kind": "say",
       "text": "Hier. Die habe ich unterwegs gefunden. Alle drei.",
       "display_text": "Hier. Die habe ich unterwegs gefunden. Alle drei.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "direction_en": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "sources": [
@@ -35163,7 +35164,7 @@
           "speaker": "lia",
           "text": "Hier. Die habe ich unterwegs gefunden. Alle drei.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond."
         }
       ]
@@ -35525,7 +35526,7 @@
       "kind": "say",
       "text": "Stimmt auch wieder.",
       "display_text": "Stimmt auch wieder.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy.",
       "direction_en": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy.",
       "sources": [
@@ -35590,7 +35591,7 @@
           "speaker": "lia",
           "text": "Stimmt auch wieder.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Let relief or pleasure brighten the phrasing naturally; keep the energy conversational and the consonants easy."
         }
       ]
@@ -35660,7 +35661,7 @@
       "kind": "say",
       "text": "Soll ich weiterlesen, oder glaubt ihr mir jetzt?",
       "display_text": "Soll ich weiterlesen, oder glaubt ihr mir jetzt?",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "direction_en": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "sources": [
@@ -35725,7 +35726,7 @@
           "speaker": "lia",
           "text": "Soll ich weiterlesen, oder glaubt ihr mir jetzt?",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script."
         }
       ]
@@ -36707,7 +36708,7 @@
       "kind": "say",
       "text": "Und das hier lag im Stall vom Goldenen Eber.",
       "display_text": "Und das hier lag im Stall vom Goldenen Eber.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "direction_en": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "sources": [
@@ -36774,7 +36775,7 @@
           "speaker": "lia",
           "text": "Und das hier lag im Stall vom Goldenen Eber.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond."
         }
       ]
@@ -36795,10 +36796,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 463,
+          "line": 467,
           "column": 17,
-          "start": 23322,
-          "end": 23416,
+          "start": 23713,
+          "end": 23807,
           "expression": "'Kyras Bett: glatt gezogen. Meins: ein Schlachtfeld. Ich hätte es heute Morgen machen sollen.'",
           "expression_sha256": "7f2b55d91b115f876ddaa0d18c50fd8f6d96bdc8227e86c8f5fddd3bacc80f81",
           "review_anchor_hashes": [
@@ -37267,10 +37268,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 314,
+          "line": 318,
           "column": 35,
-          "start": 15061,
-          "end": 15068,
+          "start": 15452,
+          "end": 15459,
           "expression": "missing",
           "expression_sha256": "ffa63583dfa6706b87d284b86b0d693a161e4840aad2c5cf6b5d27c3b9621f7d",
           "review_anchor_hashes": [
@@ -37789,10 +37790,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 150,
+          "line": 152,
           "column": 21,
-          "start": 7863,
-          "end": 8253,
+          "start": 8102,
+          "end": 8492,
           "expression": "[\n      'Da lagen sie. Eng beieinander, als hätten sie sich noch im Fallen gesucht. Lia hatte zwei Laken über sie gebreitet.',\n      'Warum? Warum ihr? Warum Kyra? Was hattet ihr denn getan, dass ihr das verdient habt?',\n      'Sie weinte, bis keine Tränen mehr kamen. Danach war da nur noch Leere.',\n      'Und in der Leere ein einziger Gedanke: Kyra lebt. Und ich hole sie zurück.',\n    ]",
           "expression_sha256": "76a76e84718c89a834f77696a4d8ee67a88e0de2395cb1c014e0b6769f6f9c15",
           "review_anchor_hashes": [
@@ -38473,7 +38474,7 @@
       "kind": "say",
       "text": "Für die Dunkelschatten?! Die haben meine Eltern umgebracht!",
       "display_text": "Für die Dunkelschatten?! Die haben meine Eltern umgebracht!",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "direction_en": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "sources": [
@@ -38534,7 +38535,7 @@
           "speaker": "lia",
           "text": "Für die Dunkelschatten?! Die haben meine Eltern umgebracht!",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming."
         }
       ]
@@ -38632,10 +38633,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 325,
+          "line": 329,
           "column": 21,
-          "start": 15604,
-          "end": 15724,
+          "start": 15995,
+          "end": 16115,
           "expression": "['Lia zog die Tür hinter sich zu und folgte den Hufspuren nach Osten. Das war der Morgen, an dem ihr Abenteuer begann.']",
           "expression_sha256": "2bbcd800761c9cb97fae1ab59230f93a2f7b6f2806229bc84ca3001b8f8879f4",
           "review_anchor_hashes": [
@@ -38962,10 +38963,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 314,
+          "line": 318,
           "column": 35,
-          "start": 15061,
-          "end": 15068,
+          "start": 15452,
+          "end": 15459,
           "expression": "missing",
           "expression_sha256": "ffa63583dfa6706b87d284b86b0d693a161e4840aad2c5cf6b5d27c3b9621f7d",
           "review_anchor_hashes": [
@@ -39012,7 +39013,7 @@
       "kind": "say",
       "text": "Echt nicht?",
       "display_text": "Echt nicht?",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Ask the companion directly with honest curiosity; leave room for the answer, and keep uncertainty small and natural.",
       "direction_en": "Ask the companion directly with honest curiosity; leave room for the answer, and keep uncertainty small and natural.",
       "sources": [
@@ -39075,7 +39076,7 @@
           "speaker": "lia",
           "text": "Echt nicht?",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "surprised",
           "performance_variant": "Ask the companion directly with honest curiosity; leave room for the answer, and keep uncertainty small and natural."
         }
       ]
@@ -39624,7 +39625,7 @@
       "kind": "say",
       "text": "Ich kann selbst reden. Ich heiße Lia.",
       "display_text": "Ich kann selbst reden. Ich heiße Lia.",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -39689,7 +39690,7 @@
           "speaker": "lia",
           "text": "Ich kann selbst reden. Ich heiße Lia.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -40109,10 +40110,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 320,
+          "line": 324,
           "column": 19,
-          "start": 15275,
-          "end": 15323,
+          "start": 15666,
+          "end": 15714,
           "expression": "'Unser Hof. Er fühlt sich fremd an. Unheimlich.'",
           "expression_sha256": "ed37c3bf3593c85814a5a36ebdb7e534c58dbaff620717879a914180ac82ef91",
           "review_anchor_hashes": [
@@ -41040,7 +41041,7 @@
       "kind": "say",
       "text": "Ich weiß es nicht.",
       "display_text": "Ich weiß es nicht.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "direction_en": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "sources": [
@@ -41105,7 +41106,7 @@
           "speaker": "lia",
           "text": "Ich weiß es nicht.",
           "scene": "schattenlager",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical."
         }
       ]
@@ -41353,10 +41354,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 361,
+          "line": 365,
           "column": 225,
-          "start": 18543,
-          "end": 18637,
+          "start": 18934,
+          "end": 19028,
           "expression": "'Hier hat Mutter mir das Lesen beigebracht. Kyra ist immer nach dem dritten Wort weggelaufen.'",
           "expression_sha256": "cf8da841b70afce0e827f740252935cdb386b82fb680142a78a3bd05111ab96c",
           "review_anchor_hashes": [
@@ -41816,7 +41817,7 @@
       "kind": "say",
       "text": "Na gut. Aber wenn ich mir die Nase breche, trägst du mich.",
       "display_text": "Na gut. Aber wenn ich mir die Nase breche, trägst du mich.",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -41880,7 +41881,7 @@
           "speaker": "lia",
           "text": "Na gut. Aber wenn ich mir die Nase breche, trägst du mich.",
           "scene": "augenbinde",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         },
         {
@@ -41888,7 +41889,7 @@
           "speaker": "lia",
           "text": "Na gut. Aber wenn ich mir die Nase breche, trägst du mich.",
           "scene": "verrat",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -43211,10 +43212,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 381,
+          "line": 385,
           "column": 21,
-          "start": 19767,
-          "end": 19826,
+          "start": 20158,
+          "end": 20217,
           "expression": "'Sie haben alles durchwühlt. Aber nicht alles mitgenommen.'",
           "expression_sha256": "a598787fdcef7d4d05b879df72883a379c69d784152678a2a80b4fa021dc0a9d",
           "review_anchor_hashes": [
@@ -43398,7 +43399,7 @@
       "kind": "say",
       "text": "Was … was ist passiert?",
       "display_text": "Was … was ist passiert?",
-      "mood": "neutral",
+      "mood": "hurt",
       "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "direction_en": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "sources": [
@@ -43463,7 +43464,7 @@
           "speaker": "lia",
           "text": "Was … was ist passiert?",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "hurt",
           "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain."
         }
       ]
@@ -43815,7 +43816,7 @@
       "kind": "say",
       "text": "Ich habe ihnen Steine aufs Grab gelegt. Jedem einen Hügel.",
       "display_text": "Ich habe ihnen Steine aufs Grab gelegt. Jedem einen Hügel.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share.",
       "direction_en": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share.",
       "sources": [
@@ -43880,7 +43881,7 @@
           "speaker": "lia",
           "text": "Ich habe ihnen Steine aufs Grab gelegt. Jedem einen Hügel.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share."
         }
       ]
@@ -43901,10 +43902,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 292,
+          "line": 296,
           "column": 24,
-          "start": 13932,
-          "end": 14027,
+          "start": 14259,
+          "end": 14354,
           "expression": "'Macht’s gut, ihr drei. Ihr seid jetzt auf euch gestellt. Ich hoffe, ihr kommt ohne mich klar.'",
           "expression_sha256": "d946c285c43afb12395769a25d351bea2d4ca322d69acaf69d71b592e26b2ce6",
           "review_anchor_hashes": [
@@ -43912,7 +43913,7 @@
             "9b1aee4c74ef0fdc5b253c677fdafd6706b9bc6a12d81b392f3ddbcdf9cd1e2a",
             "91db2dd9a46e2d85a781fe55b3c0d08445602a8dc530e7214bb8b23b3f9595dd",
             "16c685657c916050b9fb264027bcbf95a309ce731864f6f9ab84f15288e393d3",
-            "b21f865f8274c5b9c82a843ed27420d5554e755eba85b11823912026591880fe"
+            "59042a0586c9893e859f2d6ab501d13a45969c2515b4bba1bea21f01013f4e1c"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -44603,10 +44604,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 321,
+          "line": 325,
           "column": 19,
-          "start": 15344,
-          "end": 15402,
+          "start": 15735,
+          "end": 15793,
           "expression": "'Noch nie war ich länger als einen Tag von zu Hause fort.'",
           "expression_sha256": "942784367053a0f710a72c296d44fa16e90ab5b8844f843f8abd2ec77d1147d7",
           "review_anchor_hashes": [
@@ -44995,10 +44996,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 400,
+          "line": 404,
           "column": 17,
-          "start": 20609,
-          "end": 20692,
+          "start": 21000,
+          "end": 21083,
           "expression": "'Die Gläser sind alle umgeworfen. Aber Vater hat einen doppelten Boden eingebaut …'",
           "expression_sha256": "00564ee320af04596baab5e330f7db09d1fe08daea0640400bc77612be1c48db",
           "review_anchor_hashes": [
@@ -45829,7 +45830,7 @@
       "kind": "say",
       "text": "Meine Mutter kam aus Trapas. Aus einer Händlerfamilie.",
       "display_text": "Meine Mutter kam aus Trapas. Aus einer Händlerfamilie.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "direction_en": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "sources": [
@@ -45892,7 +45893,7 @@
           "speaker": "lia",
           "text": "Meine Mutter kam aus Trapas. Aus einer Händlerfamilie.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses."
         }
       ]
@@ -45907,7 +45908,7 @@
       "kind": "say",
       "text": "AAAAAH!",
       "display_text": "AAAAAH!",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -45966,7 +45967,7 @@
           "speaker": "lia",
           "text": "AAAAAH!",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "scared",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -47001,10 +47002,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 247,
+          "line": 249,
           "column": 21,
-          "start": 12116,
-          "end": 12334,
+          "start": 12355,
+          "end": 12573,
           "expression": "[\n      'Die Sonne ging auf und tauchte den Himmel in rötliches Licht. Die ganze Nacht hatte Lia Steine getragen.',\n      'Ihre Hände waren blutig, die Füße in den Holzschuhen wundgescheuert. Es war ihr gleich.',\n    ]",
           "expression_sha256": "b4f3d5673d661a6cc26ad687d0142bb1dcf646f2a463b9c3ca960e452aec5fd8",
           "review_anchor_hashes": [
@@ -47363,7 +47364,7 @@
       "kind": "say",
       "text": "Sie haben meine Schwester entführt! Ihr müsst …",
       "display_text": "Sie haben meine Schwester entführt! Ihr müsst …",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "direction_en": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "sources": [
@@ -47429,7 +47430,7 @@
           "speaker": "lia",
           "text": "Sie haben meine Schwester entführt! Ihr müsst …",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses."
         }
       ]
@@ -47554,7 +47555,7 @@
       "kind": "say",
       "text": "Kann es nicht bitte jemand anderes machen?",
       "display_text": "Kann es nicht bitte jemand anderes machen?",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "direction_en": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "sources": [
@@ -47619,7 +47620,7 @@
           "speaker": "lia",
           "text": "Kann es nicht bitte jemand anderes machen?",
           "scene": "schattenlager",
-          "mood": "neutral",
+          "mood": "scared",
           "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical."
         }
       ]
@@ -47845,17 +47846,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 178,
+          "line": 180,
           "column": 20,
-          "start": 9154,
-          "end": 9160,
+          "start": 9393,
+          "end": 9399,
           "expression": "t.lift",
           "expression_sha256": "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
           "review_anchor_hashes": [
             "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
             "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
             "b79ab54f5c535e35eb500a567b6fce9656df5af85a96f5038be68a2e60b1bfee",
-            "c0f614cf7ec93a748ac761b29ba824014955d3f2972c5f48b50f4384670483f6"
+            "edc283bf7784dadab49b13ce87e6ffa1ba65b657bee839e7f236cb9cc7445e0f"
           ],
           "function": "liftStone",
           "chapter": "kapitel-1",
@@ -48629,10 +48630,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 413,
+          "line": 417,
           "column": 17,
-          "start": 21254,
-          "end": 21335,
+          "start": 21645,
+          "end": 21726,
           "expression": "'Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.'",
           "expression_sha256": "0686780ed3f08dd3d5f517fc464049205ab2d3ec29b7fda5027c4eab0bfe3329",
           "review_anchor_hashes": [
@@ -50007,7 +50008,7 @@
       "kind": "say",
       "text": "Ihr habt geschnarcht. Beide. Laut.",
       "display_text": "Ihr habt geschnarcht. Beide. Laut.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -50071,7 +50072,7 @@
           "speaker": "lia",
           "text": "Ihr habt geschnarcht. Beide. Laut.",
           "scene": "augenbinde",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         },
         {
@@ -50079,7 +50080,7 @@
           "speaker": "lia",
           "text": "Ihr habt geschnarcht. Beide. Laut.",
           "scene": "verrat",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -50656,7 +50657,7 @@
       "kind": "say",
       "text": "Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?",
       "display_text": "Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -50716,7 +50717,7 @@
           "speaker": "lia",
           "text": "Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?",
           "scene": "waldweg",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -50737,10 +50738,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 425,
+          "line": 429,
           "column": 22,
-          "start": 21736,
-          "end": 21805,
+          "start": 22127,
+          "end": 22196,
           "expression": "'Au! Au, au, au … Es brennt. Aber es hilft. Hat Mutter immer gesagt.'",
           "expression_sha256": "62ebbef851c561ea5d49fdbae4fa647c195208cd6da9bc311ae8417b76ac16d8",
           "review_anchor_hashes": [
@@ -51959,7 +51960,7 @@
       "kind": "say",
       "text": "Was ist das für ein Lager, in das ich gebracht werden soll?",
       "display_text": "Was ist das für ein Lager, in das ich gebracht werden soll?",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -52018,7 +52019,7 @@
           "speaker": "lia",
           "text": "Was ist das für ein Lager, in das ich gebracht werden soll?",
           "scene": "waldweg",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -52039,10 +52040,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 251,
+          "line": 253,
           "column": 19,
-          "start": 12355,
-          "end": 12374,
+          "start": 12594,
+          "end": 12613,
           "expression": "'Danke. Für alles.'",
           "expression_sha256": "549da3fb76ee666cfcf54b48d9d834b09896b562093648dc2a1aee8d85348d26",
           "review_anchor_hashes": [
@@ -52615,10 +52616,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 197,
+          "line": 199,
           "column": 17,
-          "start": 10219,
-          "end": 10226,
+          "start": 10458,
+          "end": 10465,
           "expression": "t.place",
           "expression_sha256": "146d848cedfff7bd2ea5bf53513c9adeac843119738f5d553abbd8db9f166204",
           "review_anchor_hashes": [
@@ -53050,10 +53051,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 150,
+          "line": 152,
           "column": 21,
-          "start": 7863,
-          "end": 8253,
+          "start": 8102,
+          "end": 8492,
           "expression": "[\n      'Da lagen sie. Eng beieinander, als hätten sie sich noch im Fallen gesucht. Lia hatte zwei Laken über sie gebreitet.',\n      'Warum? Warum ihr? Warum Kyra? Was hattet ihr denn getan, dass ihr das verdient habt?',\n      'Sie weinte, bis keine Tränen mehr kamen. Danach war da nur noch Leere.',\n      'Und in der Leere ein einziger Gedanke: Kyra lebt. Und ich hole sie zurück.',\n    ]",
           "expression_sha256": "76a76e84718c89a834f77696a4d8ee67a88e0de2395cb1c014e0b6769f6f9c15",
           "review_anchor_hashes": [
@@ -53105,10 +53106,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 449,
+          "line": 453,
           "column": 19,
-          "start": 22784,
-          "end": 22884,
+          "start": 23175,
+          "end": 23275,
           "expression": "'Eigentlich brauche ich euch nicht. Aber … vielleicht doch. Es kommt in den Beutel, wenn Platz ist.'",
           "expression_sha256": "afc1d74463d944616d0352b14c296f41c91872f7c0b7a2f57830f350823b694e",
           "review_anchor_hashes": [
@@ -53326,7 +53327,7 @@
       "kind": "say",
       "text": "Foltan wusste von Anfang an, wohin sie Kyra gebracht haben. Ich hab’s gemerkt, schon im Eber.",
       "display_text": "Foltan wusste von Anfang an, wohin sie Kyra gebracht haben. Ich hab’s gemerkt, schon im Eber.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "direction_en": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "sources": [
@@ -53393,7 +53394,7 @@
           "speaker": "lia",
           "text": "Foltan wusste von Anfang an, wohin sie Kyra gebracht haben. Ich hab’s gemerkt, schon im Eber.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume."
         }
       ]
@@ -53524,10 +53525,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 411,
+          "line": 415,
           "column": 17,
-          "start": 21130,
-          "end": 21209,
+          "start": 21521,
+          "end": 21600,
           "expression": "'Zweiundzwanzig Kupfer- und sieben Silbermünzen. Das haben sie nicht gefunden.'",
           "expression_sha256": "f4be482205f78aa95ab50b52fb546b978b6ba927f1ea1cdbfcaf1695093b92ea",
           "review_anchor_hashes": [
@@ -53573,7 +53574,7 @@
       "kind": "say",
       "text": "Ich sitze übrigens direkt neben euch. Mit Ohren. Zwei Stück.",
       "display_text": "Ich sitze übrigens direkt neben euch. Mit Ohren. Zwei Stück.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -53634,7 +53635,7 @@
           "speaker": "lia",
           "text": "Ich sitze übrigens direkt neben euch. Mit Ohren. Zwei Stück.",
           "scene": "waldweg",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -54156,7 +54157,7 @@
       "kind": "say",
       "text": "Meint ihr … meine Eltern sind auch da oben?",
       "display_text": "Meint ihr … meine Eltern sind auch da oben?",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "direction_en": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "sources": [
@@ -54219,7 +54220,7 @@
           "speaker": "lia",
           "text": "Meint ihr … meine Eltern sind auch da oben?",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing."
         }
       ]
@@ -55530,7 +55531,7 @@
       "kind": "say",
       "text": "Sie ist die Mutigere von uns beiden.",
       "display_text": "Sie ist die Mutigere von uns beiden.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "direction_en": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "sources": [
@@ -55597,7 +55598,7 @@
           "speaker": "lia",
           "text": "Sie ist die Mutigere von uns beiden.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed."
         }
       ]
@@ -57444,7 +57445,7 @@
       "kind": "say",
       "text": "Das leichte Bündel ist meine Schwester.",
       "display_text": "Das leichte Bündel ist meine Schwester.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "direction_en": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "sources": [
@@ -57509,7 +57510,7 @@
           "speaker": "lia",
           "text": "Das leichte Bündel ist meine Schwester.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume."
         }
       ]
@@ -57636,7 +57637,7 @@
       "kind": "say",
       "text": "Ja. Ich wäre über eine Pause wirklich dankbar.",
       "display_text": "Ja. Ich wäre über eine Pause wirklich dankbar.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Help him save face with a modest admission. Offer the concession gently, without sounding patronizing.",
       "direction_en": "Help him save face with a modest admission. Offer the concession gently, without sounding patronizing.",
       "sources": [
@@ -57697,7 +57698,7 @@
           "speaker": "lia",
           "text": "Ja. Ich wäre über eine Pause wirklich dankbar.",
           "scene": "waldweg",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Help him save face with a modest admission. Offer the concession gently, without sounding patronizing."
         }
       ]
@@ -58890,10 +58891,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 464,
+          "line": 468,
           "column": 17,
-          "start": 23435,
-          "end": 23498,
+          "start": 23826,
+          "end": 23889,
           "expression": "'Meine Wolldecke rolle ich ein und schnalle sie an den Beutel.'",
           "expression_sha256": "af92d220d29bb9a13763be8d6b7948d40afd6709c9f2e87b868f87e4dd7f72b6",
           "review_anchor_hashes": [
@@ -59277,7 +59278,7 @@
       "kind": "say",
       "text": "Ich … ich …",
       "display_text": "Ich … ich …",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Let the attempted cover story fail in two short hesitations. Hold fear in the unfinished words; do not invent another sentence or cry.",
       "direction_en": "Let the attempted cover story fail in two short hesitations. Hold fear in the unfinished words; do not invent another sentence or cry.",
       "sources": [
@@ -59342,7 +59343,7 @@
           "speaker": "lia",
           "text": "Ich … ich …",
           "scene": "schattenlager",
-          "mood": "neutral",
+          "mood": "scared",
           "performance_variant": "Let the attempted cover story fail in two short hesitations. Hold fear in the unfinished words; do not invent another sentence or cry."
         }
       ]
@@ -59357,7 +59358,7 @@
       "kind": "say",
       "text": "Als ob es noch schlimmer werden könnte. Ich habe schon alles verloren.",
       "display_text": "Als ob es noch schlimmer werden könnte. Ich habe schon alles verloren.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -59416,7 +59417,7 @@
           "speaker": "lia",
           "text": "Als ob es noch schlimmer werden könnte. Ich habe schon alles verloren.",
           "scene": "waldweg",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -59785,10 +59786,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 150,
+          "line": 152,
           "column": 21,
-          "start": 7863,
-          "end": 8253,
+          "start": 8102,
+          "end": 8492,
           "expression": "[\n      'Da lagen sie. Eng beieinander, als hätten sie sich noch im Fallen gesucht. Lia hatte zwei Laken über sie gebreitet.',\n      'Warum? Warum ihr? Warum Kyra? Was hattet ihr denn getan, dass ihr das verdient habt?',\n      'Sie weinte, bis keine Tränen mehr kamen. Danach war da nur noch Leere.',\n      'Und in der Leere ein einziger Gedanke: Kyra lebt. Und ich hole sie zurück.',\n    ]",
           "expression_sha256": "76a76e84718c89a834f77696a4d8ee67a88e0de2395cb1c014e0b6769f6f9c15",
           "review_anchor_hashes": [
@@ -60833,17 +60834,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 178,
+          "line": 180,
           "column": 20,
-          "start": 9154,
-          "end": 9160,
+          "start": 9393,
+          "end": 9399,
           "expression": "t.lift",
           "expression_sha256": "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
           "review_anchor_hashes": [
             "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
             "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
             "b79ab54f5c535e35eb500a567b6fce9656df5af85a96f5038be68a2e60b1bfee",
-            "c0f614cf7ec93a748ac761b29ba824014955d3f2972c5f48b50f4384670483f6"
+            "edc283bf7784dadab49b13ce87e6ffa1ba65b657bee839e7f236cb9cc7445e0f"
           ],
           "function": "liftStone",
           "chapter": "kapitel-1",
@@ -61882,10 +61883,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 426,
+          "line": 430,
           "column": 17,
-          "start": 21842,
-          "end": 21929,
+          "start": 22233,
+          "end": 22320,
           "expression": "'Ein Verband aus einem alten Laken. Und die leichten Lederschuhe statt der Holzschuhe.'",
           "expression_sha256": "31fbe8f3943ab1ee1a1b7a4708cde85d3b3022d802087b918c432a3d27812348",
           "review_anchor_hashes": [
@@ -62836,10 +62837,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 220,
+          "line": 222,
           "column": 17,
-          "start": 10996,
-          "end": 11075,
+          "start": 11235,
+          "end": 11314,
           "expression": "'Die meisten bekommst du. Ein paar nehme ich mit – ich presse sie in ein Buch.'",
           "expression_sha256": "a9abc6f2728adc90cd0478e88dc9790d210df074308a9be47706b12a9972e4ba",
           "review_anchor_hashes": [
@@ -62957,10 +62958,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 157,
+          "line": 159,
           "column": 19,
-          "start": 8387,
-          "end": 8439,
+          "start": 8626,
+          "end": 8678,
           "expression": "'Steine. Am Feldrand liegt ein ganzer Haufen davon.'",
           "expression_sha256": "fcb6b8954c8c762124bb09cbd310f7bcefab43087ab78116e13a951e9ba10e82",
           "review_anchor_hashes": [
@@ -64940,7 +64941,7 @@
       "kind": "say",
       "text": "Hier. Die habe ich unterwegs gefunden.",
       "display_text": "Hier. Die habe ich unterwegs gefunden.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "direction_en": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond.",
       "sources": [
@@ -65007,7 +65008,7 @@
           "speaker": "lia",
           "text": "Hier. Die habe ich unterwegs gefunden.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Let reunion warmth shape the line. Keep jokes light and affectionate, with a small pause for your sister to respond."
         }
       ]
@@ -65527,7 +65528,7 @@
       "kind": "say",
       "text": "Sie wetten auf ihr Leben …",
       "display_text": "Sie wetten auf ihr Leben …",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -65590,7 +65591,7 @@
           "speaker": "lia",
           "text": "Sie wetten auf ihr Leben …",
           "scene": "eber",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -65660,7 +65661,7 @@
       "kind": "say",
       "text": "Schwarz gekleidete Reiter. Sie haben Kyra verschleppt. Ich muss sie retten, aber ich weiß nicht einmal, wie.",
       "display_text": "Schwarz gekleidete Reiter. Sie haben Kyra verschleppt. Ich muss sie retten, aber ich weiß nicht einmal, wie.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "direction_en": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "sources": [
@@ -65725,7 +65726,7 @@
           "speaker": "lia",
           "text": "Schwarz gekleidete Reiter. Sie haben Kyra verschleppt. Ich muss sie retten, aber ich weiß nicht einmal, wie.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed."
         }
       ]
@@ -67465,7 +67466,7 @@
       "kind": "say",
       "text": "Flick? Vorhin, als der Regen … hast du gesehen, wie er …",
       "display_text": "Flick? Vorhin, als der Regen … hast du gesehen, wie er …",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -67532,7 +67533,7 @@
           "speaker": "lia",
           "text": "Flick? Vorhin, als der Regen … hast du gesehen, wie er …",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -67831,10 +67832,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 132,
+          "line": 134,
           "column": 23,
-          "start": 7224,
-          "end": 7389,
+          "start": 7463,
+          "end": 7628,
           "expression": "[\n        'Lia wusste nicht, wie lange sie im Gras gelegen hatte.',\n        'Irgendwann wurde es still. Nur die Grillen zirpten, als wäre nichts geschehen.',\n      ]",
           "expression_sha256": "a5d4fc0215b2d3ad142e323eab44f8ce8eb51dc7a3ecf911df96f63061c8538d",
           "review_anchor_hashes": [
@@ -67995,7 +67996,7 @@
       "kind": "say",
       "text": "Nein. Könnt Ihr nicht.",
       "display_text": "Nein. Könnt Ihr nicht.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "direction_en": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "sources": [
@@ -68063,7 +68064,7 @@
           "speaker": "lia",
           "text": "Nein. Könnt Ihr nicht.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume."
         }
       ]
@@ -69017,10 +69018,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 322,
+          "line": 326,
           "column": 19,
-          "start": 15423,
-          "end": 15524,
+          "start": 15814,
+          "end": 15915,
           "expression": "'Aber die Helden in meinen Büchern kommen auch immer mit wenig aus. So schwer kann es ja nicht sein.'",
           "expression_sha256": "69e424f9ae20bbf2324567c17968dbb78e0b4526a34d4a24009cc56bac861841",
           "review_anchor_hashes": [
@@ -69331,10 +69332,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 150,
+          "line": 152,
           "column": 21,
-          "start": 7863,
-          "end": 8253,
+          "start": 8102,
+          "end": 8492,
           "expression": "[\n      'Da lagen sie. Eng beieinander, als hätten sie sich noch im Fallen gesucht. Lia hatte zwei Laken über sie gebreitet.',\n      'Warum? Warum ihr? Warum Kyra? Was hattet ihr denn getan, dass ihr das verdient habt?',\n      'Sie weinte, bis keine Tränen mehr kamen. Danach war da nur noch Leere.',\n      'Und in der Leere ein einziger Gedanke: Kyra lebt. Und ich hole sie zurück.',\n    ]",
           "expression_sha256": "76a76e84718c89a834f77696a4d8ee67a88e0de2395cb1c014e0b6769f6f9c15",
           "review_anchor_hashes": [
@@ -69859,7 +69860,7 @@
       "kind": "say",
       "text": "Ich bin nicht klein.",
       "display_text": "Ich bin nicht klein.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "direction_en": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "sources": [
@@ -69924,7 +69925,7 @@
           "speaker": "lia",
           "text": "Ich bin nicht klein.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume."
         }
       ]
@@ -70755,17 +70756,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 178,
+          "line": 180,
           "column": 20,
-          "start": 9154,
-          "end": 9160,
+          "start": 9393,
+          "end": 9399,
           "expression": "t.lift",
           "expression_sha256": "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
           "review_anchor_hashes": [
             "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
             "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
             "b79ab54f5c535e35eb500a567b6fce9656df5af85a96f5038be68a2e60b1bfee",
-            "c0f614cf7ec93a748ac761b29ba824014955d3f2972c5f48b50f4384670483f6"
+            "edc283bf7784dadab49b13ce87e6ffa1ba65b657bee839e7f236cb9cc7445e0f"
           ],
           "function": "liftStone",
           "chapter": "kapitel-1",
@@ -70809,10 +70810,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/shared.ts",
-          "line": 56,
+          "line": 59,
           "column": 22,
-          "start": 2537,
-          "end": 2558,
+          "start": 2753,
+          "end": 2774,
           "expression": "'Fortsetzung folgt …'",
           "expression_sha256": "44e66714393898874ac615c89978aa0357749743a466a50560980f0d29d7a1e4",
           "review_anchor_hashes": [
@@ -70834,10 +70835,10 @@
         },
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 327,
+          "line": 331,
           "column": 9,
-          "start": 15760,
-          "end": 15782,
+          "start": 16151,
+          "end": 16173,
           "expression": "gotoOrTitle('strasse')",
           "expression_sha256": "ab52f847c631868ebc6da3ed22e2fba40aeb9d2728111ff764866065ace3c1d8",
           "review_anchor_hashes": [
@@ -71106,7 +71107,7 @@
       "kind": "say",
       "text": "Lasst mich los! Ich hab euch nichts getan!",
       "display_text": "Lasst mich los! Ich hab euch nichts getan!",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -71165,7 +71166,7 @@
           "speaker": "lia",
           "text": "Lasst mich los! Ich hab euch nichts getan!",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -72079,10 +72080,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 82,
+          "line": 83,
           "column": 96,
-          "start": 5081,
-          "end": 5161,
+          "start": 5268,
+          "end": 5348,
           "expression": "'Sechs Pferde, den Hohlweg hinunter zur Hauptstraße. Eins trägt schwerer. Kyra.'",
           "expression_sha256": "0d400b962ab12b297aa620c4dfcef2992d68f5e6d946f16c0b1bc8182f75c2c6",
           "review_anchor_hashes": [
@@ -72091,11 +72092,11 @@
             "dfa0855d72dfe1e654ffcda2983b58cd0784fcdabd52a1f4671e55600a61c601",
             "6539c3fbe2bb99135e34fd84ccc5837fe1066ce44dcbc72f465ed7ed5f4bf321",
             "d47d1401077b62c3a9a87df27765648874c38d799999be4ca9d100869f682fba",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -72498,7 +72499,7 @@
       "kind": "say",
       "text": "Ich war dort. Elfen aus Ebaril, überall.",
       "display_text": "Ich war dort. Elfen aus Ebaril, überall.",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -72566,7 +72567,7 @@
           "speaker": "lia",
           "text": "Ich war dort. Elfen aus Ebaril, überall.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -74018,7 +74019,7 @@
       "kind": "say",
       "text": "Dann laufen wir weiter!",
       "display_text": "Dann laufen wir weiter!",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Give the practical instruction a clear destination and firm pace. Focus on what must happen next without a heroic declamation.",
       "direction_en": "Give the practical instruction a clear destination and firm pace. Focus on what must happen next without a heroic declamation.",
       "sources": [
@@ -74083,7 +74084,7 @@
           "speaker": "lia",
           "text": "Dann laufen wir weiter!",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Give the practical instruction a clear destination and firm pace. Focus on what must happen next without a heroic declamation."
         }
       ]
@@ -74156,7 +74157,7 @@
       "kind": "say",
       "text": "Ich habe nur noch dieses Buch dabei. Es sei denn, ihr wollt noch mehr über Kräuter erfahren?",
       "display_text": "Ich habe nur noch dieses Buch dabei. Es sei denn, ihr wollt noch mehr über Kräuter erfahren?",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "direction_en": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "sources": [
@@ -74222,7 +74223,7 @@
           "speaker": "lia",
           "text": "Ich habe nur noch dieses Buch dabei. Es sei denn, ihr wollt noch mehr über Kräuter erfahren?",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script."
         }
       ]
@@ -75406,7 +75407,7 @@
       "kind": "say",
       "text": "Aaaah!",
       "display_text": "Aaaah!",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -75465,7 +75466,7 @@
           "speaker": "lia",
           "text": "Aaaah!",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "scared",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -75486,10 +75487,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 197,
+          "line": 199,
           "column": 17,
-          "start": 10219,
-          "end": 10226,
+          "start": 10458,
+          "end": 10465,
           "expression": "t.place",
           "expression_sha256": "146d848cedfff7bd2ea5bf53513c9adeac843119738f5d553abbd8db9f166204",
           "review_anchor_hashes": [
@@ -76145,10 +76146,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 266,
+          "line": 268,
           "column": 24,
-          "start": 12943,
-          "end": 12987,
+          "start": 13182,
+          "end": 13226,
           "expression": "'Mein Buch … liegt es noch in der Böschung?'",
           "expression_sha256": "95d5bd6ecdd8c28b2f54dee8b2c555dc5e2af75a5cc0b4b86c484b2fdcf29a2e",
           "review_anchor_hashes": [
@@ -76253,7 +76254,7 @@
       "kind": "say",
       "text": "Ich hatte gehofft, dort etwas über Kyra zu erfahren. War dumm, ich weiß.",
       "display_text": "Ich hatte gehofft, dort etwas über Kyra zu erfahren. War dumm, ich weiß.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "direction_en": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "sources": [
@@ -76318,7 +76319,7 @@
           "speaker": "lia",
           "text": "Ich hatte gehofft, dort etwas über Kyra zu erfahren. War dumm, ich weiß.",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing."
         }
       ]
@@ -76914,10 +76915,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 197,
+          "line": 199,
           "column": 17,
-          "start": 10219,
-          "end": 10226,
+          "start": 10458,
+          "end": 10465,
           "expression": "t.place",
           "expression_sha256": "146d848cedfff7bd2ea5bf53513c9adeac843119738f5d553abbd8db9f166204",
           "review_anchor_hashes": [
@@ -77457,7 +77458,7 @@
       "kind": "say",
       "text": "Nur in Büchern. Da wart ihr größer.",
       "display_text": "Nur in Büchern. Da wart ihr größer.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -77520,7 +77521,7 @@
           "speaker": "lia",
           "text": "Nur in Büchern. Da wart ihr größer.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -78055,10 +78056,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 441,
+          "line": 445,
           "column": 22,
-          "start": 22383,
-          "end": 22474,
+          "start": 22774,
+          "end": 22865,
           "expression": "'Mein grüner Regenmantel. Und ein Haarband, damit mir die Locken nicht ins Gesicht fallen.'",
           "expression_sha256": "aa1c45bc4a994c1e4efb95ddd985db3b45e07feb9ba9c637a89e9099d55237de",
           "review_anchor_hashes": [
@@ -78481,10 +78482,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 219,
+          "line": 221,
           "column": 17,
-          "start": 10910,
-          "end": 10977,
+          "start": 11149,
+          "end": 11216,
           "expression": "'Kornblumen. Ich wollte sie dir heute Abend auf den Tisch stellen.'",
           "expression_sha256": "7606e8ed6fa051f12aa57aaa04b144c98f2f0b97bdb577acf4d7a40b4a729bbe",
           "review_anchor_hashes": [
@@ -81416,7 +81417,7 @@
       "kind": "say",
       "text": "Seid ihr fertig? Manche Leute wollen hier schlafen.",
       "display_text": "Seid ihr fertig? Manche Leute wollen hier schlafen.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -81475,7 +81476,7 @@
           "speaker": "lia",
           "text": "Seid ihr fertig? Manche Leute wollen hier schlafen.",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -82945,10 +82946,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 458,
+          "line": 462,
           "column": 17,
-          "start": 23114,
-          "end": 23212,
+          "start": 23505,
+          "end": 23603,
           "expression": "'Honig-Apfelkuchen. Vater hat ihn gestern vom Markt mitgebracht. Den letzten haben sie übersehen.'",
           "expression_sha256": "43d7f8482a66feee99db05a9c63414c0086028eb5474a86a329723b8b6a9f163",
           "review_anchor_hashes": [
@@ -83115,7 +83116,7 @@
       "kind": "say",
       "text": "Sie haben Kyra an den Baum gefesselt. Der Hauptmann sagt, ihr Leben sei mehr wert als das seiner Männer.",
       "display_text": "Sie haben Kyra an den Baum gefesselt. Der Hauptmann sagt, ihr Leben sei mehr wert als das seiner Männer.",
-      "mood": "neutral",
+      "mood": "scared",
       "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "direction_en": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical.",
       "sources": [
@@ -83180,7 +83181,7 @@
           "speaker": "lia",
           "text": "Sie haben Kyra an den Baum gefesselt. Der Hauptmann sagt, ihr Leben sei mehr wert als das seiner Männer.",
           "scene": "schattenlager",
-          "mood": "neutral",
+          "mood": "scared",
           "performance_variant": "Speak close and purposeful, as if avoiding attention. Make the rescue steps easy to follow; keep reassurance practical."
         }
       ]
@@ -84540,10 +84541,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 405,
+          "line": 409,
           "column": 17,
-          "start": 20908,
-          "end": 20960,
+          "start": 21299,
+          "end": 21351,
           "expression": "'Da ist die Kerbe. Man kann sie als Griff benutzen.'",
           "expression_sha256": "3b18577b259731e85b7c231dd98e63f5feb2a7c541874c4d37a9462793c068ae",
           "review_anchor_hashes": [
@@ -87060,7 +87061,7 @@
       "kind": "say",
       "text": "Euch muss gar nichts an mir gefallen.",
       "display_text": "Euch muss gar nichts an mir gefallen.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "direction_en": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume.",
       "sources": [
@@ -87127,7 +87128,7 @@
           "speaker": "lia",
           "text": "Euch muss gar nichts an mir gefallen.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Make the objection direct and firm, with clipped emphasis on the key accusation. Keep control of the volume."
         }
       ]
@@ -88532,10 +88533,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 138,
+          "line": 140,
           "column": 21,
-          "start": 7491,
-          "end": 7522,
+          "start": 7730,
+          "end": 7761,
           "expression": "'Ich muss … ich muss zu ihnen.'",
           "expression_sha256": "8d7bc976374400b92566b4dbb15e1b4c75fca64928165933d2de8b2ff8693d0a",
           "review_anchor_hashes": [
@@ -88822,7 +88823,7 @@
       "kind": "say",
       "text": "Es kann nur besser werden. Indem ich meine Schwester zurückbekomme.",
       "display_text": "Es kann nur besser werden. Indem ich meine Schwester zurückbekomme.",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "direction_en": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "sources": [
@@ -88881,7 +88882,7 @@
           "speaker": "lia",
           "text": "Es kann nur besser werden. Indem ich meine Schwester zurückbekomme.",
           "scene": "waldweg",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming."
         }
       ]
@@ -89062,7 +89063,7 @@
       "kind": "say",
       "text": "Flick? Warum machst du das?",
       "display_text": "Flick? Warum machst du das?",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -89127,7 +89128,7 @@
           "speaker": "lia",
           "text": "Flick? Warum machst du das?",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -90622,7 +90623,7 @@
       "kind": "say",
       "text": "Oh nee. Ich dachte, das war’s.",
       "display_text": "Oh nee. Ich dachte, das war’s.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "direction_en": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "sources": [
@@ -90687,7 +90688,7 @@
           "speaker": "lia",
           "text": "Oh nee. Ich dachte, das war’s.",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed."
         }
       ]
@@ -90812,7 +90813,7 @@
       "kind": "say",
       "text": "F – O – L – T – A – N. Und jetzt halt still, sonst schreibe ich „Ziegenbart“ daneben.",
       "display_text": "F – O – L – T – A – N. Und jetzt halt still, sonst schreibe ich „Ziegenbart“ daneben.",
-      "mood": "neutral",
+      "mood": "happy",
       "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "direction_en": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script.",
       "sources": [
@@ -90878,7 +90879,7 @@
           "speaker": "lia",
           "text": "F – O – L – T – A – N. Und jetzt halt still, sonst schreibe ich „Ziegenbart“ daneben.",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "happy",
           "performance_variant": "A small playful reply to the companions; light confidence and dry teasing, with no added laugh beyond the script."
         }
       ]
@@ -92054,10 +92055,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 422,
+          "line": 426,
           "column": 17,
-          "start": 21585,
-          "end": 21664,
+          "start": 21976,
+          "end": 22055,
           "expression": "'Mutters Wundtinktur. Meine Ferse ist ganz wundgescheuert von den Holzschuhen.'",
           "expression_sha256": "1e62db98aea966a9694095f6660a6f7600eaad18bb797643332675a4cc6a909e",
           "review_anchor_hashes": [
@@ -92220,7 +92221,7 @@
       "kind": "say",
       "text": "Sie sind tot, okay?",
       "display_text": "Sie sind tot, okay?",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Let grief break through a defensive retort. Hit the fact plainly, then close the question sharply; avoid a sustained angry shout.",
       "direction_en": "Let grief break through a defensive retort. Hit the fact plainly, then close the question sharply; avoid a sustained angry shout.",
       "sources": [
@@ -92285,7 +92286,7 @@
           "speaker": "lia",
           "text": "Sie sind tot, okay?",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Let grief break through a defensive retort. Hit the fact plainly, then close the question sharply; avoid a sustained angry shout."
         }
       ]
@@ -92355,7 +92356,7 @@
       "kind": "say",
       "text": "Die Bibliothek von Ebaril … ich habe davon gelesen.",
       "display_text": "Die Bibliothek von Ebaril … ich habe davon gelesen.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Tell the remembered loss plainly and quietly; slow slightly at the painful detail, avoiding a grand recital.",
       "direction_en": "Tell the remembered loss plainly and quietly; slow slightly at the painful detail, avoiding a grand recital.",
       "sources": [
@@ -92420,7 +92421,7 @@
           "speaker": "lia",
           "text": "Die Bibliothek von Ebaril … ich habe davon gelesen.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Tell the remembered loss plainly and quietly; slow slightly at the painful detail, avoiding a grand recital."
         }
       ]
@@ -92493,7 +92494,7 @@
       "kind": "say",
       "text": "Ich … wollte nur ehrlich sein.",
       "display_text": "Ich … wollte nur ehrlich sein.",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
       "direction_en": "Speak naturally, with clear phrasing and restrained feeling.",
       "sources": [
@@ -92558,7 +92559,7 @@
           "speaker": "lia",
           "text": "Ich … wollte nur ehrlich sein.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "surprised",
           "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
         }
       ]
@@ -92809,10 +92810,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 229,
+          "line": 231,
           "column": 17,
-          "start": 11373,
-          "end": 11443,
+          "start": 11612,
+          "end": 11682,
           "expression": "'Alana und Riccard. Gestern war das noch das Wichtigste auf der Welt.'",
           "expression_sha256": "444ca9ae3458a451aae6ae5813a26e67bdb1f70626a77e5a7b0d5bff38e56f94",
           "review_anchor_hashes": [
@@ -94497,7 +94498,7 @@
       "kind": "say",
       "text": "Ich mache keinen Spaß. Meine Mutter hat es mir beigebracht. Hört her.",
       "display_text": "Ich mache keinen Spaß. Meine Mutter hat es mir beigebracht. Hört her.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -94560,7 +94561,7 @@
           "speaker": "lia",
           "text": "Ich mache keinen Spaß. Meine Mutter hat es mir beigebracht. Hört her.",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -94581,10 +94582,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 132,
+          "line": 134,
           "column": 23,
-          "start": 7224,
-          "end": 7389,
+          "start": 7463,
+          "end": 7628,
           "expression": "[\n        'Lia wusste nicht, wie lange sie im Gras gelegen hatte.',\n        'Irgendwann wurde es still. Nur die Grillen zirpten, als wäre nichts geschehen.',\n      ]",
           "expression_sha256": "a5d4fc0215b2d3ad142e323eab44f8ce8eb51dc7a3ecf911df96f63061c8538d",
           "review_anchor_hashes": [
@@ -95252,10 +95253,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 282,
+          "line": 284,
           "column": 51,
-          "start": 13626,
-          "end": 13686,
+          "start": 13865,
+          "end": 13925,
           "expression": "'Und ausmisten wollte ich auch. Puh. Das … verschieben wir.'",
           "expression_sha256": "242fe7508e87bb08484d23506f58f2bd52f447d3450609015fb77c9634d96979",
           "review_anchor_hashes": [
@@ -95304,7 +95305,7 @@
       "kind": "say",
       "text": "Ich fühle mich allein. Mit einer Aufgabe, die ich nicht tragen kann. Aber Kyra braucht mich. Sie hat sonst niemanden.",
       "display_text": "Ich fühle mich allein. Mit einer Aufgabe, die ich nicht tragen kann. Aber Kyra braucht mich. Sie hat sonst niemanden.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "direction_en": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "sources": [
@@ -95367,7 +95368,7 @@
           "speaker": "lia",
           "text": "Ich fühle mich allein. Mit einer Aufgabe, die ich nicht tragen kann. Aber Kyra braucht mich. Sie hat sonst niemanden.",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing."
         }
       ]
@@ -95834,7 +95835,7 @@
       "kind": "say",
       "text": "Und wann suchen wir Kyra?",
       "display_text": "Und wann suchen wir Kyra?",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "direction_en": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "sources": [
@@ -95897,7 +95898,7 @@
           "speaker": "lia",
           "text": "Und wann suchen wir Kyra?",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses."
         }
       ]
@@ -95912,7 +95913,7 @@
       "kind": "say",
       "text": "Ich habe Neuigkeiten. Meine Schwester ist entführt worden.",
       "display_text": "Ich habe Neuigkeiten. Meine Schwester ist entführt worden.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "direction_en": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses.",
       "sources": [
@@ -95975,7 +95976,7 @@
           "speaker": "lia",
           "text": "Ich habe Neuigkeiten. Meine Schwester ist entführt worden.",
           "scene": "bruderschaft",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Keep the thought close and personal; affection and worry sit beneath the words, with restrained pauses."
         }
       ]
@@ -96331,10 +96332,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 509,
+          "line": 513,
           "column": 57,
-          "start": 25603,
-          "end": 25607,
+          "start": 25994,
+          "end": 25998,
           "expression": "line",
           "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
           "review_anchor_hashes": [
@@ -97017,7 +97018,7 @@
       "kind": "say",
       "text": "Ich verstehe nicht, wie man so etwas freiwillig trinken kann.",
       "display_text": "Ich verstehe nicht, wie man so etwas freiwillig trinken kann.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -97082,7 +97083,7 @@
           "speaker": "lia",
           "text": "Ich verstehe nicht, wie man so etwas freiwillig trinken kann.",
           "scene": "eber",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -98154,7 +98155,7 @@
       "kind": "say",
       "text": "Kyra war dort, Azar. Ich weiß es. Und Foltan sagt, Craupor weiß nichts.",
       "display_text": "Kyra war dort, Azar. Ich weiß es. Und Foltan sagt, Craupor weiß nichts.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "direction_en": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "sources": [
@@ -98219,7 +98220,7 @@
           "speaker": "lia",
           "text": "Kyra war dort, Azar. Ich weiß es. Und Foltan sagt, Craupor weiß nichts.",
           "scene": "leselager",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing."
         }
       ]
@@ -99745,7 +99746,7 @@
       "kind": "say",
       "text": "Eine Augenbinde. Wie in den Räubergeschichten.",
       "display_text": "Eine Augenbinde. Wie in den Räubergeschichten.",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Play the moment with dry affection or comic pride. Pause lightly at the turn; remain in conversation, without forcing the punchline.",
       "direction_en": "Play the moment with dry affection or comic pride. Pause lightly at the turn; remain in conversation, without forcing the punchline.",
       "sources": [
@@ -99804,7 +99805,7 @@
           "speaker": "lia",
           "text": "Eine Augenbinde. Wie in den Räubergeschichten.",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Play the moment with dry affection or comic pride. Pause lightly at the turn; remain in conversation, without forcing the punchline."
         }
       ]
@@ -100182,7 +100183,7 @@
       "kind": "say",
       "text": "Nichts? Gar nichts?",
       "display_text": "Nichts? Gar nichts?",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "direction_en": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing.",
       "sources": [
@@ -100247,7 +100248,7 @@
           "speaker": "lia",
           "text": "Nichts? Gar nichts?",
           "scene": "eber",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak to Azar and Foltan softly, with grief held close; let the admission take time, and keep the need for reassurance clear without sobbing."
         }
       ]
@@ -100777,17 +100778,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 178,
+          "line": 180,
           "column": 20,
-          "start": 9154,
-          "end": 9160,
+          "start": 9393,
+          "end": 9399,
           "expression": "t.lift",
           "expression_sha256": "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
           "review_anchor_hashes": [
             "3817df81598ee9e772f5625d9801a4b9d41c6149cdde6212d5f5f7d8fa6298a5",
             "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
             "b79ab54f5c535e35eb500a567b6fce9656df5af85a96f5038be68a2e60b1bfee",
-            "c0f614cf7ec93a748ac761b29ba824014955d3f2972c5f48b50f4384670483f6"
+            "edc283bf7784dadab49b13ce87e6ffa1ba65b657bee839e7f236cb9cc7445e0f"
           ],
           "function": "liftStone",
           "chapter": "kapitel-1",
@@ -101053,10 +101054,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 228,
+          "line": 230,
           "column": 17,
-          "start": 11277,
-          "end": 11354,
+          "start": 11516,
+          "end": 11593,
           "expression": "'Mein Buch. Ich habe es fallen lassen, als … Der Einband ist feucht vom Tau.'",
           "expression_sha256": "0bbdb05b6db69dd1ff4acb0ca7e4372103398f407a74e0094c8dc26fc04c1a14",
           "review_anchor_hashes": [
@@ -101438,7 +101439,7 @@
       "kind": "say",
       "text": "Und wenn nicht?",
       "display_text": "Und wenn nicht?",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share.",
       "direction_en": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share.",
       "sources": [
@@ -101505,7 +101506,7 @@
           "speaker": "lia",
           "text": "Und wenn nicht?",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Speak intimately to your sister. Let recognition or grief slow the difficult words; keep the emotion contained enough to share."
         }
       ]
@@ -101825,7 +101826,7 @@
       "kind": "say",
       "text": "Ich bin kein Kind. Und wenn ihr nicht antwortet, antworte ich auch nicht.",
       "display_text": "Ich bin kein Kind. Und wenn ihr nicht antwortet, antworte ich auch nicht.",
-      "mood": "neutral",
+      "mood": "determined",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "direction_en": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "sources": [
@@ -101886,7 +101887,7 @@
           "speaker": "lia",
           "text": "Ich bin kein Kind. Und wenn ihr nicht antwortet, antworte ich auch nicht.",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "determined",
           "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation."
         }
       ]
@@ -102673,7 +102674,7 @@
       "kind": "say",
       "text": "Aber im Lager waren doch Elfen? Ich war dort. Elfen aus Ebaril, überall.",
       "display_text": "Aber im Lager waren doch Elfen? Ich war dort. Elfen aus Ebaril, überall.",
-      "mood": "neutral",
+      "mood": "thinking",
       "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "direction_en": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity.",
       "sources": [
@@ -102740,7 +102741,7 @@
           "speaker": "lia",
           "text": "Aber im Lager waren doch Elfen? Ich war dort. Elfen aus Ebaril, überall.",
           "scene": "faehrte",
-          "mood": "neutral",
+          "mood": "thinking",
           "performance_variant": "Let the question arise as the thought changes. Pause briefly at the discovery, then finish with genuine curiosity."
         }
       ]
@@ -103491,7 +103492,7 @@
       "kind": "say",
       "text": "Ich bin nicht klein. Ich kann auch zuhören.",
       "display_text": "Ich bin nicht klein. Ich kann auch zuhören.",
-      "mood": "neutral",
+      "mood": "angry",
       "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "direction_en": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand.",
       "sources": [
@@ -103556,7 +103557,7 @@
           "speaker": "lia",
           "text": "Ich bin nicht klein. Ich kann auch zuhören.",
           "scene": "eber",
-          "mood": "neutral",
+          "mood": "angry",
           "performance_variant": "Insist on being taken seriously; firm, direct phrasing to the adults, with the hurt contained beneath the demand."
         }
       ]
@@ -105909,10 +105910,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 156,
+          "line": 158,
           "column": 24,
-          "start": 8279,
-          "end": 8342,
+          "start": 8518,
+          "end": 8581,
           "expression": "'Ich lasse euch nicht so liegen. Nicht für die Leichenfresser.'",
           "expression_sha256": "3613bf7246e3729eb28c9cc52011f76ade003d38f9efbdc9ded2080ea678472e",
           "review_anchor_hashes": [
@@ -106997,10 +106998,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 306,
+          "line": 310,
           "column": 19,
-          "start": 14661,
-          "end": 14707,
+          "start": 15052,
+          "end": 15098,
           "expression": "'Ich rede mit Schweinen. Wenn Kyra das sähe …'",
           "expression_sha256": "e466ca581ab7a4d7ddde3a49d7ef1bffee1acacc8195f64cf61e1396c73f6b34",
           "review_anchor_hashes": [
@@ -107008,7 +107009,7 @@
             "5ab7a13b928acaf0126bda3aa5c61ce41ae8e3294d1f678b8e82cdf2380d567d",
             "77c62b04a8abc415a115cd6107ef3758f22f61e1c95e521027d551bb8e680cef",
             "bf11c935403ba51a354ecfb8ce80ba5c7122b5fb2ffd0f7303aba4dacaa957ab",
-            "b21f865f8274c5b9c82a843ed27420d5554e755eba85b11823912026591880fe"
+            "59042a0586c9893e859f2d6ab501d13a45969c2515b4bba1bea21f01013f4e1c"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -107046,7 +107047,7 @@
       "kind": "say",
       "text": "Aufmuntern gehört nicht gerade zu deinen Stärken.",
       "display_text": "Aufmuntern gehört nicht gerade zu deinen Stärken.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "direction_en": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "sources": [
@@ -107111,7 +107112,7 @@
           "speaker": "lia",
           "text": "Aufmuntern gehört nicht gerade zu deinen Stärken.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed."
         }
       ]
@@ -108271,7 +108272,7 @@
       "kind": "say",
       "text": "Na super. Heute habe ich ja richtig Glück.",
       "display_text": "Na super. Heute habe ich ja richtig Glück.",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "direction_en": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed.",
       "sources": [
@@ -108336,7 +108337,7 @@
           "speaker": "lia",
           "text": "Na super. Heute habe ich ja richtig Glück.",
           "scene": "regenwald",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Let the difficult words cost a little effort. Leave a brief pause where the thought catches; keep the delivery intimate and composed."
         }
       ]
@@ -108639,10 +108640,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 452,
+          "line": 456,
           "column": 17,
-          "start": 22919,
-          "end": 22969,
+          "start": 23310,
+          "end": 23360,
           "expression": "'Mutters Bücher. Die meisten kenne ich auswendig.'",
           "expression_sha256": "ea95f964b24057756e413ec6127fa45217fde28c2ecf7e2cde94dd73fc2bc01a",
           "review_anchor_hashes": [
@@ -109964,7 +109965,7 @@
       "kind": "say",
       "text": "Hab ich das?",
       "display_text": "Hab ich das?",
-      "mood": "neutral",
+      "mood": "surprised",
       "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "direction_en": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain.",
       "sources": [
@@ -110029,7 +110030,7 @@
           "speaker": "lia",
           "text": "Hab ich das?",
           "scene": "finale",
-          "mood": "neutral",
+          "mood": "surprised",
           "performance_variant": "Speak as awareness returns, with slight fatigue and a searching pause. Keep the question clear and genuinely uncertain."
         }
       ]
@@ -110044,7 +110045,7 @@
       "kind": "say",
       "text": "Und meine Schwester?",
       "display_text": "Und meine Schwester?",
-      "mood": "neutral",
+      "mood": "sad",
       "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "direction_en": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming.",
       "sources": [
@@ -110103,7 +110104,7 @@
           "speaker": "lia",
           "text": "Und meine Schwester?",
           "scene": "foltan-azar",
-          "mood": "neutral",
+          "mood": "sad",
           "performance_variant": "Hold to the thought of your sister. Speak with fragile but growing resolve; make the hope specific and avoid declaiming."
         }
       ]
@@ -113055,19 +113056,19 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 34,
+          "line": 35,
           "column": 3,
-          "start": 2261,
-          "end": 2276,
+          "start": 2401,
+          "end": 2416,
           "expression": "name: 'Der Hof'",
           "expression_sha256": "08430aa618e763720a653098fbdbf42c5152045a910dbe679e1847926bd90ee4",
           "review_anchor_hashes": [
             "08430aa618e763720a653098fbdbf42c5152045a910dbe679e1847926bd90ee4",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113084,22 +113085,22 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 55,
+          "line": 56,
           "column": 21,
-          "start": 3285,
-          "end": 3301,
+          "start": 3468,
+          "end": 3484,
           "expression": "verb: 'Hinknien'",
           "expression_sha256": "5766a158ceac6f9bbf352766e5c977251640db882ce5b37f984e425f45f1eed1",
           "review_anchor_hashes": [
             "5766a158ceac6f9bbf352766e5c977251640db882ce5b37f984e425f45f1eed1",
             "072c50611f6ac3b19848a270d40914974a811c1de7759a7f550ff032d6e616a7",
-            "69e14411410a60f1d8e1605f1c8ea4b167e0a3167c400521cc977c01fe07e85d",
-            "c99ee2d72edf0ae2488a919ab01aa12b7e7ba9c98df62c61aa5b03ca74a82d15",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "fa4022529c09b606c6bc83ee499199703bebdd67f065396805c7dc22826b7b8c",
+            "c84b96033df1cdf21a941e91f8df0205dcd444f3853b7fa1d9ad5154a2a8e378",
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113116,22 +113117,22 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 59,
+          "line": 60,
           "column": 26,
-          "start": 3526,
-          "end": 3548,
+          "start": 3709,
+          "end": 3731,
           "expression": "verb: 'Stein aufheben'",
           "expression_sha256": "38665802c21ccc0eb42bf4e064c4485ab3995495394f1c559ffcb418ecb545c2",
           "review_anchor_hashes": [
             "38665802c21ccc0eb42bf4e064c4485ab3995495394f1c559ffcb418ecb545c2",
             "25af38048c7963877b06e847968ce67971dacc9d0724dcd0b47dcfd67ac6b476",
-            "69e14411410a60f1d8e1605f1c8ea4b167e0a3167c400521cc977c01fe07e85d",
-            "c99ee2d72edf0ae2488a919ab01aa12b7e7ba9c98df62c61aa5b03ca74a82d15",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "fa4022529c09b606c6bc83ee499199703bebdd67f065396805c7dc22826b7b8c",
+            "c84b96033df1cdf21a941e91f8df0205dcd444f3853b7fa1d9ad5154a2a8e378",
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113148,22 +113149,22 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 63,
+          "line": 64,
           "column": 19,
-          "start": 3849,
-          "end": 3870,
+          "start": 4032,
+          "end": 4053,
           "expression": "verb: 'Stein ablegen'",
           "expression_sha256": "e43050605f206887d0e05a64d6468befbcda6daa0154340500e36f914866cbd0",
           "review_anchor_hashes": [
             "e43050605f206887d0e05a64d6468befbcda6daa0154340500e36f914866cbd0",
             "9e453824a3602bbc19103f93381acdeea79c9191738627d30a490673a81839cc",
-            "69e14411410a60f1d8e1605f1c8ea4b167e0a3167c400521cc977c01fe07e85d",
-            "c99ee2d72edf0ae2488a919ab01aa12b7e7ba9c98df62c61aa5b03ca74a82d15",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "fa4022529c09b606c6bc83ee499199703bebdd67f065396805c7dc22826b7b8c",
+            "c84b96033df1cdf21a941e91f8df0205dcd444f3853b7fa1d9ad5154a2a8e378",
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113180,22 +113181,22 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 67,
+          "line": 68,
           "column": 26,
-          "start": 4091,
-          "end": 4118,
+          "start": 4274,
+          "end": 4301,
           "expression": "verb: 'Kornblumen hinlegen'",
           "expression_sha256": "e41f093ae48446f35446dcf8c0a914e9e4a762ac9e5bd4145b1a1d861ff51daf",
           "review_anchor_hashes": [
             "e41f093ae48446f35446dcf8c0a914e9e4a762ac9e5bd4145b1a1d861ff51daf",
             "00bddc5f93d68dd43010ca173a18d169c1e14d0439ee20282cbf554325f1203f",
-            "69e14411410a60f1d8e1605f1c8ea4b167e0a3167c400521cc977c01fe07e85d",
-            "c99ee2d72edf0ae2488a919ab01aa12b7e7ba9c98df62c61aa5b03ca74a82d15",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "fa4022529c09b606c6bc83ee499199703bebdd67f065396805c7dc22826b7b8c",
+            "c84b96033df1cdf21a941e91f8df0205dcd444f3853b7fa1d9ad5154a2a8e378",
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113212,22 +113213,22 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 71,
+          "line": 72,
           "column": 19,
-          "start": 4379,
-          "end": 4395,
+          "start": 4562,
+          "end": 4578,
           "expression": "verb: 'Aufheben'",
           "expression_sha256": "f1eeb43180ceb80535675ccdce3b50fec2dc638bb79572205fff86ab3e4995fd",
           "review_anchor_hashes": [
             "f1eeb43180ceb80535675ccdce3b50fec2dc638bb79572205fff86ab3e4995fd",
             "6e12315e10d16c0b807f25e25678a2a337bfe282d0158f7011d768359c239bb1",
-            "69e14411410a60f1d8e1605f1c8ea4b167e0a3167c400521cc977c01fe07e85d",
-            "c99ee2d72edf0ae2488a919ab01aa12b7e7ba9c98df62c61aa5b03ca74a82d15",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "fa4022529c09b606c6bc83ee499199703bebdd67f065396805c7dc22826b7b8c",
+            "c84b96033df1cdf21a941e91f8df0205dcd444f3853b7fa1d9ad5154a2a8e378",
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113244,22 +113245,22 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 75,
+          "line": 76,
           "column": 21,
-          "start": 4592,
-          "end": 4616,
+          "start": 4775,
+          "end": 4799,
           "expression": "verb: 'Schweine füttern'",
           "expression_sha256": "0c76b76ad52c0912d31c7b20e225234f09633fcde058ec6f07eb00a090c8cc29",
           "review_anchor_hashes": [
             "0c76b76ad52c0912d31c7b20e225234f09633fcde058ec6f07eb00a090c8cc29",
-            "d857370652ead6d1703ac0838632f8887b0c751c738b0abcbb46dd1defaf3faf",
-            "69e14411410a60f1d8e1605f1c8ea4b167e0a3167c400521cc977c01fe07e85d",
-            "c99ee2d72edf0ae2488a919ab01aa12b7e7ba9c98df62c61aa5b03ca74a82d15",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "7f28a9f3e8e542444d26f845bf289858c0acfd04e881617a66eada07ae185293",
+            "fa4022529c09b606c6bc83ee499199703bebdd67f065396805c7dc22826b7b8c",
+            "c84b96033df1cdf21a941e91f8df0205dcd444f3853b7fa1d9ad5154a2a8e378",
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113276,10 +113277,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 86,
+          "line": 87,
           "column": 127,
-          "start": 5313,
-          "end": 5330,
+          "start": 5500,
+          "end": 5517,
           "expression": "verb: 'Eintreten'",
           "expression_sha256": "c7ffbee1b7f7a7d9c1b41ee760f832701f823801b037ce3a105aeb96da8b8136",
           "review_anchor_hashes": [
@@ -113289,11 +113290,11 @@
             "09dfb0f63997bbebd226a3a018fafb5895eed5a1ea636c7f8114b358260035f9",
             "32724017a4446f31416b9daa1ba7691689a9f44506612259f5589fa66f13eac3",
             "b0320631e3da377b332b12d4aae24ebf8e40662b9a67f385bbace9d4d711ae4a",
-            "37dbf0b1617337ad0fb29c14202f8fd22b1f788c762c5c99408232edf28442d0",
-            "fb862aebfb0e1ad743600a58e6241b016cb03d7fb1ca2b4510712403cf023077",
-            "d6449403e1f9ff83392502b626932246b8b0c8a9a436e293820dc2fe86b04dc8",
-            "703f0d6f84eb7ca6efa2a306126647a35640f9e6b991d456779bdc1ac0feae67",
-            "89916d10a5480d4c1564623b71b1e21f00ac5236f8c0b97be19df91d3662cd7a"
+            "410dec731a66ee4eb5f3bb27d4d5e940edd188d54c255c9444d3f8fb24e80ae8",
+            "fdbd30c620085181a8db683c129f58ec9d969ed2b5bfe6fa1c0abb7367e8eb5e",
+            "80696fdc77fbeca9233861f35777b9d97e34b4b78d92ac9e494f5dd4bb0f12a9",
+            "9a01dfd460c65427370ea4edf0a5ed6a78daa715ae96c18ea079c186a994dcd3",
+            "410345613e3cd40c760b8d813539967637f66ed8d9c82828632577a041bcb212"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -113310,10 +113311,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 140,
+          "line": 142,
           "column": 5,
-          "start": 7537,
-          "end": 7599,
+          "start": 7776,
+          "end": 7838,
           "expression": "w.setObjective('k1-eltern', 'Geh zu deinen Eltern.', 'eltern')",
           "expression_sha256": "c3db5a69b412bf980cd68f45aa02fcfff559a3c47703236435de18e2894c46cc",
           "review_anchor_hashes": [
@@ -113338,10 +113339,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 166,
+          "line": 168,
           "column": 3,
-          "start": 8619,
-          "end": 8761,
+          "start": 8858,
+          "end": 9000,
           "expression": "w.setObjective('k1-steine', `Trag Steine für zwei Gräber zusammen (${n}/${STONES_NEEDED}).`, G.state.is('k1-traegt') ? 'grab' : 'steinhaufen')",
           "expression_sha256": "21fe7841f83c649c61cb2404b462766b952d1c4e802a7330aa67f38040c1ee23",
           "review_anchor_hashes": [
@@ -113364,10 +113365,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 208,
+          "line": 210,
           "column": 5,
-          "start": 10563,
-          "end": 10645,
+          "start": 10802,
+          "end": 10884,
           "expression": "w.setObjective('k1-blumen', 'Leg Mutter die Kornblumen aufs Grab.', 'blumen-grab')",
           "expression_sha256": "f90acd55a9e0be94db35037bbed4aba2ec9e6b37ec73fb20bec616c815896bf9",
           "review_anchor_hashes": [
@@ -113392,10 +113393,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 241,
+          "line": 243,
           "column": 11,
-          "start": 11809,
-          "end": 11843,
+          "start": 12048,
+          "end": 12082,
           "expression": "G.ui.caption('Morgengrauen', 2200)",
           "expression_sha256": "0ea00646615066c00ca2d3b9dfc041947eee3dcfc8853b11ae466d76c0980214",
           "review_anchor_hashes": [
@@ -113419,10 +113420,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 245,
+          "line": 247,
           "column": 11,
-          "start": 11968,
-          "end": 12061,
+          "start": 12207,
+          "end": 12300,
           "expression": "G.ui.plate(plate, { caption: 'Zwei Steinhügel vor dem Haus', pan: 'out', durationMs: 20000 })",
           "expression_sha256": "16fb614d07a46cdefee151e5722986e70d4dde159cecad1e1121f8e79c1cfa6d",
           "review_anchor_hashes": [
@@ -113446,10 +113447,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 245,
+          "line": 247,
           "column": 31,
-          "start": 11988,
-          "end": 12027,
+          "start": 12227,
+          "end": 12266,
           "expression": "caption: 'Zwei Steinhügel vor dem Haus'",
           "expression_sha256": "a9dba6f694b23461d109c58af023d170f35a516317b69db316998247f0bee0bb",
           "review_anchor_hashes": [
@@ -113475,10 +113476,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 263,
+          "line": 265,
           "column": 5,
-          "start": 12700,
-          "end": 12769,
+          "start": 12939,
+          "end": 13008,
           "expression": "w.setObjective('k1-packen', 'Mach dich im Haus reisefertig.', 'haus')",
           "expression_sha256": "765fe89d5f385dae79f500f08c0f44b16be0d6a2c2c1c11e447bf5b42e3b1299",
           "review_anchor_hashes": [
@@ -113503,10 +113504,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 269,
+          "line": 271,
           "column": 5,
-          "start": 13054,
-          "end": 13120,
+          "start": 13293,
+          "end": 13359,
           "expression": "w.setObjective('k1-schweine', 'Lass die Schweine frei.', 'gatter')",
           "expression_sha256": "a5e4bc2daf50f2f0df235d959da861a1de3a7b74fc0f419d39d2e070a1699b1e",
           "review_anchor_hashes": [
@@ -113532,10 +113533,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 271,
+          "line": 273,
           "column": 5,
-          "start": 13137,
-          "end": 13219,
+          "start": 13376,
+          "end": 13458,
           "expression": "w.setObjective('k1-osten', 'Folge den Hufspuren den Hohlweg hinunter.', 'osten-1')",
           "expression_sha256": "e187cab4c15c9fe484f5458cf259af00cb89ec7be82bdbee0a8f30f1c708fbed",
           "review_anchor_hashes": [
@@ -113561,16 +113562,16 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 301,
+          "line": 305,
           "column": 7,
-          "start": 14384,
-          "end": 14396,
+          "start": 14791,
+          "end": 14803,
           "expression": "p.hold(true)",
           "expression_sha256": "2760f20b92e9895ed4ef21be52f0e483fb02127eac42a6003d383da8b8a8a4da",
           "review_anchor_hashes": [
             "2760f20b92e9895ed4ef21be52f0e483fb02127eac42a6003d383da8b8a8a4da",
             "9c3b45c9cbd4d3773c2d611a6387a35730d2c5ba45606c1ccaa7aefddbde10d7",
-            "c6b99a2681d66ae6d1afd7128127b399cdc55b8c9701f1a1e5a17b8dcc326c34"
+            "27c20f210b1317ae22ff57a75c3253466fea70e7f421bef1470f875d177da432"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -113587,10 +113588,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 314,
+          "line": 318,
           "column": 35,
-          "start": 15061,
-          "end": 15068,
+          "start": 15452,
+          "end": 15459,
           "expression": "missing",
           "expression_sha256": "ffa63583dfa6706b87d284b86b0d693a161e4840aad2c5cf6b5d27c3b9621f7d",
           "review_anchor_hashes": [
@@ -113616,10 +113617,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 338,
+          "line": 342,
           "column": 3,
-          "start": 16278,
-          "end": 16295,
+          "start": 16669,
+          "end": 16686,
           "expression": "name: 'Die Stube'",
           "expression_sha256": "2c7373277d5177df478256a7cd95ac8ba26c969909a292f3168d8073014aa853",
           "review_anchor_hashes": [
@@ -113645,10 +113646,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 355,
+          "line": 359,
           "column": 21,
-          "start": 17164,
-          "end": 17178,
+          "start": 17555,
+          "end": 17569,
           "expression": "verb: 'Packen'",
           "expression_sha256": "0df3e2c3ef9bdf90dc2d9aca018d61ef759f06f56eb5a78ef848f50e8f4ab251",
           "review_anchor_hashes": [
@@ -113677,10 +113678,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 356,
+          "line": 360,
           "column": 22,
-          "start": 17323,
-          "end": 17342,
+          "start": 17714,
+          "end": 17733,
           "expression": "verb: 'Durchsuchen'",
           "expression_sha256": "b5af7238b465830663a4a77ceac8f30ddd5071b8113638762702b02524f26c65",
           "review_anchor_hashes": [
@@ -113709,10 +113710,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 357,
+          "line": 361,
           "column": 22,
-          "start": 17552,
-          "end": 17566,
+          "start": 17943,
+          "end": 17957,
           "expression": "verb: 'Öffnen'",
           "expression_sha256": "cfb96b9bf4e5af20c05a9a93d0a1949339fc381d9b145783bfd7246528cea6ab",
           "review_anchor_hashes": [
@@ -113741,10 +113742,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 358,
+          "line": 362,
           "column": 21,
-          "start": 17763,
-          "end": 17779,
+          "start": 18154,
+          "end": 18170,
           "expression": "verb: 'Anziehen'",
           "expression_sha256": "59893a49aae0b47b7eaebcf4b54254583a8d73d60ddd850a2ea6c4309228851d",
           "review_anchor_hashes": [
@@ -113773,10 +113774,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 359,
+          "line": 363,
           "column": 22,
-          "start": 17994,
-          "end": 18009,
+          "start": 18385,
+          "end": 18400,
           "expression": "verb: 'Ansehen'",
           "expression_sha256": "97fa0151e183255106df83cd26e03046f120340d3bacab015eec456a9fdafcdb",
           "review_anchor_hashes": [
@@ -113805,10 +113806,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 360,
+          "line": 364,
           "column": 19,
-          "start": 18162,
-          "end": 18179,
+          "start": 18553,
+          "end": 18570,
           "expression": "verb: 'Nachsehen'",
           "expression_sha256": "baa7584f2ff04a59fd768329ff0387f7a66cfde56851ab469adbe0f75808edc9",
           "review_anchor_hashes": [
@@ -113837,10 +113838,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 361,
+          "line": 365,
           "column": 20,
-          "start": 18338,
-          "end": 18354,
+          "start": 18729,
+          "end": 18745,
           "expression": "verb: 'Erinnern'",
           "expression_sha256": "65ea640f89dcfe64584b205c92d637e5281fcbe4e1cb302553175015ee4451fa",
           "review_anchor_hashes": [
@@ -113869,10 +113870,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 362,
+          "line": 366,
           "column": 19,
-          "start": 18663,
-          "end": 18679,
+          "start": 19054,
+          "end": 19070,
           "expression": "verb: 'Erinnern'",
           "expression_sha256": "65ea640f89dcfe64584b205c92d637e5281fcbe4e1cb302553175015ee4451fa",
           "review_anchor_hashes": [
@@ -113901,10 +113902,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 363,
+          "line": 367,
           "column": 21,
-          "start": 19006,
-          "end": 19022,
+          "start": 19397,
+          "end": 19413,
           "expression": "verb: 'Erinnern'",
           "expression_sha256": "65ea640f89dcfe64584b205c92d637e5281fcbe4e1cb302553175015ee4451fa",
           "review_anchor_hashes": [
@@ -113933,10 +113934,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 387,
+          "line": 391,
           "column": 35,
-          "start": 19924,
-          "end": 19988,
+          "start": 20315,
+          "end": 20379,
           "expression": "w.setObjective('k1-schweine', 'Lass die Schweine frei.', 'raus')",
           "expression_sha256": "28fd585cdf6cdcfdc6aa6e72c0280b8f99abfe6231b3a3e067861d54e3aed0c6",
           "review_anchor_hashes": [
@@ -113961,10 +113962,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 395,
+          "line": 399,
           "column": 5,
-          "start": 20356,
-          "end": 20437,
+          "start": 20747,
+          "end": 20828,
           "expression": "w.setObjective('k1-packen', `Mach dich reisefertig: ${todo.join(', ')}.`, target)",
           "expression_sha256": "0d22472fac75af30b553cd4b67711d02eb71ba745601e50f6393bb3a11d102f9",
           "review_anchor_hashes": [
@@ -113989,10 +113990,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 396,
+          "line": 400,
           "column": 10,
-          "start": 20448,
-          "end": 20525,
+          "start": 20839,
+          "end": 20916,
           "expression": "w.setObjective('k1-packen', 'Pack den Lederbeutel neben dem Ofen.', 'beutel')",
           "expression_sha256": "3e8117cf57a0c20cc7d91d41ad875d89a3849aaaca923089c209d98672196a8b",
           "review_anchor_hashes": [
@@ -114016,10 +114017,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 401,
+          "line": 405,
           "column": 28,
-          "start": 20722,
-          "end": 20785,
+          "start": 21113,
+          "end": 21176,
           "expression": "['Die Kräutergläser beiseiteschieben', 'Lieber nicht. Später.']",
           "expression_sha256": "c17259e4032d4069fb14b25a85bab190dbbcbe4b4f7d7b31f8ce362c9e7a6521",
           "review_anchor_hashes": [
@@ -114046,10 +114047,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 401,
+          "line": 405,
           "column": 28,
-          "start": 20722,
-          "end": 20785,
+          "start": 21113,
+          "end": 21176,
           "expression": "['Die Kräutergläser beiseiteschieben', 'Lieber nicht. Später.']",
           "expression_sha256": "c17259e4032d4069fb14b25a85bab190dbbcbe4b4f7d7b31f8ce362c9e7a6521",
           "review_anchor_hashes": [
@@ -114076,10 +114077,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/trauer.ts",
-          "line": 406,
+          "line": 410,
           "column": 28,
-          "start": 20990,
-          "end": 21011,
+          "start": 21381,
+          "end": 21402,
           "expression": "['Den Boden anheben']",
           "expression_sha256": "e0c3b96f65b61ace59646b937bbdf5554569b5f4747021bcd53b8396cc81c815",
           "review_anchor_hashes": [
