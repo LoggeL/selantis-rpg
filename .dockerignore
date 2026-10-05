@@ -11,6 +11,10 @@
 !game/src/**
 !game/public/
 !game/public/**
+# The runtime compatibility test checks the frozen authored voice routes.
+!docs/
+!docs/voice-production/
+!docs/voice-production/story-lines.json
 !deploy/
 !deploy/nginx.conf
 !scripts/
