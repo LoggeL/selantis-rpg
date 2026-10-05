@@ -111,6 +111,22 @@ def signal_failures(metrics, word_count):
     return reasons
 
 
+def named_spelling_equivalent(expected,observed):
+    """Validation only: explicit whole-name pair or existing y/i, initial c/k.
+
+    Never rewrites text or supplies an approval. German ai/ei is admitted only
+    for the exact named place Dunkelhain/Dunkelhein, not other words or names.
+    """
+    aa,bb=words(expected),words(observed)
+    if len(aa)!=1 or len(bb)!=1:return False
+    aa,bb=aa[0],bb[0]
+    if {aa,bb}=={'dunkelhain','dunkelhein'}:return True
+    def shape(value):
+        value=value.replace('y','i')
+        return 'k'+value[1:] if value.startswith('c') else value
+    return shape(aa)==shape(bb)
+
+
 def adjudicate(line, clip_hash, transcript, records):
     """Only explicit source/audio/transcript-bound word substitutions may clear ASR.
 
@@ -140,6 +156,7 @@ def adjudicate(line, clip_hash, transcript, records):
         if not isinstance(value,dict) or set(value) != {'expected','observed'}: return None
         aa, bb = words(value['expected']), words(value['observed'])
         if len(aa)!=1 or len(bb)!=1 or aa==bb: return None
+        if (record.get('variant_scope')=='named_spelling' or aa[0] in {'dunkelhain','dunkelhein'}) and not named_spelling_equivalent(aa[0],bb[0]):return None
         pairs.add((aa[0],bb[0]))
     required = {(aa,bb) for aa,bb in zip(expected,actual) if aa!=bb}
     if required != pairs: return None
@@ -180,9 +197,6 @@ def independent_review(line, clip_hash, transcript, records, approvals=None):
         # Reuse the strict one-token substitution validator only after verifying
         # the secondary channel and exact canonical raw-response record hash.
         variants = candidate.get('accepted_word_variants', [])
-        def spelling_shape(word):
-            value = word.casefold().replace('y', 'i')
-            return 'k'+value[1:] if value.startswith('c') else value
         # This channel is restricted to individually reviewed spelling forms,
         # not changed vowels, inflection, missing words or generic replacements.
         # No name alias dictionary is used or applied to other clips.
@@ -191,7 +205,7 @@ def independent_review(line, clip_hash, transcript, records, approvals=None):
         natural=candidate.get('status')=='accepted_natural_word_variants'
         for variant in variants:
             if not isinstance(variant,dict) or not isinstance(variant.get('expected'),str) or not isinstance(variant.get('observed'),str):return None
-            if not natural and spelling_shape(variant['expected'])!=spelling_shape(variant['observed']):return None
+            if not natural and not named_spelling_equivalent(variant['expected'],variant['observed']):return None
         if natural:
             if not isinstance(candidate.get('reviewed_by'),str) or not candidate['reviewed_by'].casefold().startswith('root'):return None
             source_tokens,actual_tokens=words(line['text']),words(record['transcript'])
@@ -357,11 +371,8 @@ def vocal_review(line,clip_hash,primary_transcript,records,approvals,word_approv
         if candidate.get('channel')=='vocal-qc':
             # New vocal-channel lexical records admit named spelling or narrow
             # grammatical schwa only; never changed actors, tense or meaning.
-            def shape(t):
-                t=t.replace('y','i')
-                return 'k'+t[1:] if t.startswith('c') else t
             source_indices=[i for i in range(len(expected)) if i not in source_positions]
-            if any(aa!=bb and shape(aa)!=shape(bb) and not natural_variant_allowed(line,source_indices[i],aa,bb)
+            if any(aa!=bb and not named_spelling_equivalent(aa,bb) and not natural_variant_allowed(line,source_indices[i],aa,bb)
                 for i,(aa,bb) in enumerate(zip(remaining_source,remaining_actual))):return None
         if {(aa,bb) for aa,bb in zip(remaining_source,remaining_actual) if aa!=bb}!=pairs:return None
         word_approval=candidate

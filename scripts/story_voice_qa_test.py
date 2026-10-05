@@ -452,6 +452,50 @@ class StoryQA(unittest.TestCase):
         unknown=copy.deepcopy(veto);unknown['id']='story-'+'b'*24
         result=self.runqa(lexical_veto_records={unknown['id']:unknown});self.assertEqual(result['status'],'review_required');self.assertEqual(result['failures'][0]['reason'],'unknown_lexical_veto_ids')
 
+    def test_named_spelling_helper_only_exact_dunkelhain_pair_and_existing_shapes(self):
+        for aa,bb in [('Dunkelhain','Dunkelhein'),('Dunkelhein','Dunkelhain'),('Kyra','Kira'),('Crios','Krios')]:
+            self.assertTrue(qa.named_spelling_equivalent(aa,bb))
+        for aa,bb in [('Fol tan','Foltan'),('Foltan','Foltern'),('Lia','Lea'),('Ebaril','Eberil'),('Dunkelhain','Dunkelheim'),('Dunkelhain','Dunkelheit'),('Dunkelhains','Dunkelheins'),('sage','sagte'),('Rain','Rein')]:
+            self.assertFalse(qa.named_spelling_equivalent(aa,bb),(aa,bb))
+
+    def test_primary_named_scope_dunkelhain_requires_complete_current_approval(self):
+        self.line['text']='Seit Dunkelhain sind wir hier.';(self.run/'lines.private.json').write_text(json.dumps({'lines':[self.line]}))
+        actual='Seit Dunkelhein sind wir hier.'
+        approval={'channel':'primary','status':'accepted_word_variants','variant_scope':'named_spelling','reviewed_by':'root named fixture reviewer',
+            'reason':'Explicit place ai/ei same German diphthong.', 'clip_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(self.line['text']),
+            'transcript_sha256':qa.text_hash(actual),'accepted_word_variants':[{'expected':'Dunkelhain','observed':'Dunkelhein'}]}
+        self.assertIsNotNone(qa.adjudicate(self.line,qa.digest(self.clip),actual,{self.ident:approval}))
+        self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),actual,{}))
+        for field in ['clip_sha256','text_sha256','transcript_sha256']:
+            changed=copy.deepcopy(approval);changed[field]='stale';self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),actual,{self.ident:changed}))
+        for source,observed in [('Foltan','Foltern'),('Lia','Lea'),('Ebaril','Eberil'),('sage','sagte')]:
+            self.line['text']=source;bad=copy.deepcopy(approval);bad.update(text_sha256=qa.text_hash(source),transcript_sha256=qa.text_hash(observed),accepted_word_variants=[{'expected':source,'observed':observed}])
+            self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),observed,{self.ident:bad}))
+        self.line['text']='Dunkelhain';bad=copy.deepcopy(approval);bad.pop('variant_scope');bad.update(text_sha256=qa.text_hash('Dunkelhain'),transcript_sha256=qa.text_hash('Dunkelheit'),accepted_word_variants=[{'expected':'Dunkelhain','observed':'Dunkelheit'}])
+        self.assertIsNone(qa.adjudicate(self.line,qa.digest(self.clip),'Dunkelheit',{self.ident:bad}))
+
+    def test_independent_dunkelhain_exact_rest_and_raw_hash_binding(self):
+        record,approval=self.natural_independent_fixture('Seit Dunkelhain sind wir hier.','Seit Dunkelhein sind wir hier.')
+        approval['status']='accepted_word_variants'
+        result=qa.independent_review(self.line,qa.digest(self.clip),'wrong primary',{self.ident:record},{self.ident:approval})
+        self.assertIsNotNone(result)
+        self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'wrong primary',{self.ident:record},{}))
+        changed=copy.deepcopy(approval);changed['independent_record_sha256']='stale';self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'',{self.ident:record},{self.ident:changed}))
+        for source,actual in [('Seit Dunkelhain sind wir hier.','Seit Dunkelhein sind sie hier.'),('Foltan kommt.','Foltern kommt.'),('Lia kommt.','Lea kommt.'),('Ebaril steht.','Eberil steht.'),('Ich sage es.','Ich sagte es.')]:
+            record,approval=self.natural_independent_fixture(source,actual);approval['status']='accepted_word_variants'
+            self.assertIsNone(qa.independent_review(self.line,qa.digest(self.clip),'',{self.ident:record},{self.ident:approval}),(source,actual))
+
+    def test_vocal_named_dunkelhain_pair_requires_separate_bound_word_record(self):
+        record,approval=self.vocal_fixture(source='Hihi! Seit Dunkelhain sind wir hier.',actual='Seit Dunkelhein sind wir hier.')
+        lexical={'channel':'vocal-qc','status':'accepted_word_variants','variant_scope':'named_spelling','reviewed_by':'root fixture reviewer',
+            'reason':'Exact source place name diphthong, other words unchanged.','clip_sha256':qa.digest(self.clip),'text_sha256':qa.text_hash(self.line['text']),
+            'transcript_sha256':qa.text_hash(record['transcript']),'vocal_record_sha256':qa.canonical_record_hash(record),
+            'accepted_word_variants':[{'expected':'Dunkelhain','observed':'Dunkelhein'}]}
+        self.assertIsNotNone(self.check_vocal(record,approval,word_approvals={self.ident:lexical}))
+        self.assertIsNone(self.check_vocal(record,approval))
+        for field in ['clip_sha256','text_sha256','transcript_sha256','vocal_record_sha256']:
+            changed=copy.deepcopy(lexical);changed[field]='stale';self.assertIsNone(self.check_vocal(record,approval,word_approvals={self.ident:changed}))
+
     def test_exact_contract(self):
         r=self.runqa();self.assertEqual(r['status'],'passed');self.assertEqual(r['checked_ids'],[self.ident]);self.assertEqual(r['failures'],[])
         self.assertEqual(r['clip_sha256'][self.ident],qa.digest(self.clip))

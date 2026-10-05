@@ -2,6 +2,8 @@
 """Offline frozen Batch retake and full-parent merge tests. No TTS/API inference."""
 import base64
 import copy
+import contextlib
+import sys
 import io
 import json
 import math
@@ -150,5 +152,25 @@ class RetakeBatchGates(unittest.TestCase):
         snapshot_path=runs[0][1]/'parent-snapshot.private.json';snapshot=core.read_json(snapshot_path)
         snapshot['selected_ids'].append(self.ids[1]);core.save(snapshot_path,snapshot)
         with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+
+    def test_readonly_status_allows_audio_drift_but_keeps_frozen_contract(self):
+        self.prepare();core.save(self.run/'job.json',{'job_name':'batches/offline'})
+        (self.parent/'clips'/(self.ids[2]+'.mp3')).write_bytes(b'new unrelated audio')
+        def invoke(command):
+            argv=['story_voice_retake_batch.py',command,'--run-dir',str(self.parent),'--batch-name',self.args.batch_name]
+            with patch.object(sys,'argv',argv),patch.object(common,'configure'),patch.object(common,'run_lock'),patch.object(core,'directory',side_effect=lambda p:Path(p).resolve()),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):return batch.main()
+        def readonly(method,url,key,*args,**kwargs):
+            self.assertEqual(method,'GET');self.assertTrue(url.endswith('/batches/offline'))
+            return {'metadata':{'state':'BATCH_STATE_RUNNING'},'done':False}
+        with patch.object(core,'credential',return_value='offline'),patch.object(core,'api',side_effect=readonly) as api:
+            self.assertEqual(invoke('status'),0);self.assertEqual(api.call_count,1)
+            for command in ['submit','collect','import']:
+                self.assertEqual(invoke(command),1)
+            self.assertEqual(api.call_count,1)
+            original=self.parent/'requests.jsonl';data=original.read_bytes();original.write_bytes(data+b' ')
+            self.assertEqual(invoke('status'),1);self.assertEqual(api.call_count,1)
+            original.write_bytes(data)
+            payload=self.run/'requests.jsonl';payload.write_bytes(payload.read_bytes()+b' ')
+            self.assertEqual(invoke('status'),1);self.assertEqual(api.call_count,1)
 
 if __name__=='__main__':unittest.main()

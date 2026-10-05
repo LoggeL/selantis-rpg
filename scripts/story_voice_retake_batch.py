@@ -261,7 +261,7 @@ def main():
         run=locations(parent,args.batch_name);_lock=common.run_lock(run)
         if args.command=='prepare':prepare(args,parent,run);return 0
         if args.command=='import':return import_audio(args,parent,run)
-        prepared(run,parent,allow_completed_disjoint=args.allow_completed_disjoint_retakes)
+        prepared(run,parent,verify_bank=args.command!='status',allow_completed_disjoint=args.allow_completed_disjoint_retakes)
         if args.command=='submit':submit(args,parent,run);return 0
         if args.command=='status':core.status(args,run);return 0
         if args.command=='reconcile':

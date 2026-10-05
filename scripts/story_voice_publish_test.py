@@ -38,6 +38,38 @@ class PublisherTests(unittest.TestCase):
         self.args=SimpleNamespace(run_dir=self.run,qa_report=self.run/'qa.json',alignment_report=self.run/'align.json',current_inventory=self.inventory,routing_audit=self.run/'audit.json',root_reviewed_routing=True,supplement_run_dir=None,supplement_qa_report=None,supplement_alignment_report=None,current_supplement_inventory=None,public_dir=self.root/'game/public/audio/story')
     def tearDown(self):self.tmp.cleanup()
     def build(self):return pub.build(self.args,expected_count=1,expected_changes=1)
+    def add_unarchived_reviews(self,names):
+        frozen=pub.read(self.run/'lines.private.json');current=pub.read(self.inventory)
+        for name in names:
+            path=self.root/name;save(path,{'review':'approved fixture'})
+            frozen['source_hashes'][name]=current['source_hashes'][name]=pub.digest(path)
+        save(self.run/'lines.private.json',frozen);save(self.run/'full-inventory.private.json',frozen);save(self.inventory,current)
+        info=pub.read(self.run/'prepared.json');info['manifest_sha256']=pub.digest(self.run/'lines.private.json');info['full_inventory_sha256']=pub.digest(self.run/'full-inventory.private.json');save(self.run/'prepared.json',info)
+        qa=pub.read(self.args.qa_report);qa['manifest_sha256']=info['manifest_sha256'];save(self.args.qa_report,qa)
+        alignment=pub.read(self.args.alignment_report);alignment['source_manifest_sha256']=info['manifest_sha256'];save(self.args.alignment_report,alignment)
+        audit=pub.read(self.args.routing_audit);audit['frozen_inventory_sha256']=info['manifest_sha256'];save(self.args.routing_audit,audit)
+
+    def test_prepare_compatible_game_archives_plus_exact_six_live_review_bindings(self):
+        self.add_unarchived_reviews(sorted(pub.NONARCHIVED_REVIEWS))
+        manifest,paths=self.build();self.assertEqual(len(paths),1)
+        self.assertEqual(manifest['clips'][0]['runtime_keys'][0]['mood'],'scared')
+        with self.assertRaisesRegex(pub.Invalid,'source root required'):
+            pub.validate_run(self.run,self.args.qa_report,self.args.alignment_report,1)
+
+    def test_known_nonarchived_review_changed_bytes_are_rejected(self):
+        self.add_unarchived_reviews(sorted(pub.NONARCHIVED_REVIEWS))
+        (self.root/'docs/voice-production/directions/kapitel-1.json').write_text('changed')
+        with self.assertRaisesRegex(pub.Invalid,'Nonarchived frozen review changed'):self.build()
+
+    def test_unknown_nonarchived_source_is_never_accepted_as_review(self):
+        self.add_unarchived_reviews(['docs/voice-production/other.json'])
+        with self.assertRaisesRegex(pub.Invalid,'unknown archived sources'):self.build()
+
+    def test_missing_game_source_archive_remains_rejected(self):
+        save(self.run/'source-snapshot.private.json',{})
+        info=pub.read(self.run/'prepared.json');info['source_snapshot_sha256']=pub.digest(self.run/'source-snapshot.private.json');save(self.run/'prepared.json',info)
+        with self.assertRaisesRegex(pub.Invalid,'unknown archived sources'):self.build()
+
     def test_audited_rebind_preserves_audio_cues_and_only_exports_public_material(self):
         manifest,paths=self.build();clip=manifest['clips'][0]
         self.assertEqual(clip['runtime_keys'][0]['mood'],'scared');self.assertEqual(clip['sha256'],pub.digest(paths[self.ident]));self.assertEqual(len(clip['word_cues']),2)

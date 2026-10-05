@@ -42,7 +42,9 @@ def validate_sources(manifest, root):
     for name, expected in manifest['source_hashes'].items():
         require(digest(contained(root, name)) == expected, 'Current source hash differs: ' + name)
 
-def validate_run(run, qa_path, alignment_path, expected_count):
+NONARCHIVED_REVIEWS = {f'docs/voice-production/directions/kapitel-{i}.json' for i in range(1,6)} | {'docs/voice-production/directions/supplemental.json'}
+
+def validate_run(run, qa_path, alignment_path, expected_count, review_source_root=None):
     info = read(run / 'prepared.json')
     for file, key in [('requests.jsonl','input_sha256'), ('profiles.private.json','profiles_sha256'), ('lines.private.json','manifest_sha256'), ('full-inventory.private.json','full_inventory_sha256'), ('source-snapshot.private.json','source_snapshot_sha256')]:
         require(digest(contained(run, file)) == info.get(key), 'Prepared input changed: ' + file)
@@ -56,7 +58,13 @@ def validate_run(run, qa_path, alignment_path, expected_count):
     records = [json.loads(row) for row in payload.splitlines() if row.strip()]
     require(info.get('input_bytes') == len(payload) and records == [{'key':line['id'], 'request':common.request_for(line, profiles['speakers'])} for line in lines], 'Frozen requests/cast differ')
     snapshot = read(run / 'source-snapshot.private.json')
-    require(set(snapshot) == set(frozen.get('source_hashes', {})), 'Incomplete archived sources')
+    bound_sources=set(frozen.get('source_hashes', {})); archived=set(snapshot)
+    missing=bound_sources-archived
+    require(not(archived-bound_sources) and missing <= NONARCHIVED_REVIEWS, 'Incomplete or unknown archived sources')
+    if missing:
+        require(review_source_root is not None, 'Current source root required for nonarchived reviews')
+        for name in missing:
+            require(digest(contained(review_source_root,name)) == frozen['source_hashes'][name], 'Nonarchived frozen review changed: '+name)
     for name, entry in snapshot.items():
         require(entry.get('sha256') == frozen['source_hashes'][name] == sha(entry['text'].encode()), 'Archived source changed')
     collection = read(run / 'collection.private.json')
@@ -154,8 +162,9 @@ def validate_supplement_source(frozen, current, root):
 
 def build(args, expected_count=1557, expected_changes=85, supplement_count=3):
     run = args.run_dir.resolve(); inventory_path = args.current_inventory.resolve()
-    frozen, clips, paths = validate_run(run,args.qa_report,args.alignment_report,expected_count)
-    current = read(inventory_path); root = source_root(inventory_path); validate_sources(current,root)
+    root=source_root(inventory_path)
+    frozen, clips, paths = validate_run(run,args.qa_report,args.alignment_report,expected_count,root)
+    current = read(inventory_path); validate_sources(current,root)
     require(args.public_dir.resolve() == (root/'game/public/audio/story').resolve(), 'Public destination must belong to the reviewed current source workspace')
     require(args.root_reviewed_routing, 'Explicit --root-reviewed-routing required')
     audit = read(args.routing_audit)
@@ -166,7 +175,7 @@ def build(args, expected_count=1557, expected_changes=85, supplement_count=3):
     result.update(model=MODEL,clips=clips)
     if args.supplement_run_dir:
         require(args.supplement_qa_report and args.supplement_alignment_report, 'Supplement needs independent final reports')
-        mini, extra, extra_paths = validate_run(args.supplement_run_dir.resolve(),args.supplement_qa_report,args.supplement_alignment_report,supplement_count)
+        mini, extra, extra_paths = validate_run(args.supplement_run_dir.resolve(),args.supplement_qa_report,args.supplement_alignment_report,supplement_count,root)
         require(args.current_supplement_inventory, 'Explicit current supplement inventory required')
         current_mini=read(args.current_supplement_inventory)
         require(source_root(args.current_supplement_inventory)==root, 'Supplement belongs to another source workspace')
