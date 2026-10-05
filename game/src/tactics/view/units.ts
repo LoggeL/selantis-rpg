@@ -115,6 +115,7 @@ export class UnitView {
   selected = false;
   active = false;
   hiddenInBush = false;
+  private cinematic = false;
 
   constructor(private scene: Phaser.Scene, private iso: IsoView, readonly unit: Unit, readonly def: BattleUnitDef, battleId: string, z: number) {
     this.charKey = resolveCharacter(scene, def, battleId, !!unit.statuses.bound);
@@ -279,13 +280,21 @@ export class UnitView {
       this.icons.forEach(i => i.destroy());
       this.icons = want.map(s => this.scene.add.image(0, 0, `tac-st-${s}`).setOrigin(0.5, 0.5).setData('s', s));
     }
-    this.ring.setVisible(!u.down && !u.statuses.bound);
-    this.arrow.setVisible(!u.down && !u.statuses.bound);
+    this.ring.setVisible(!this.cinematic && !u.down && !u.statuses.bound);
+    this.arrow.setVisible(!this.cinematic && !u.down && !u.statuses.bound);
+    this.hp.setVisible(!this.cinematic);
+    this.icons.forEach(ic => ic.setVisible(!this.cinematic));
     this.ring.setTexture(this.selected ? 'tac-ring-active' : `tac-ring-${u.team}`);
     this.applyTint();
     this.layout();
   }
   private wasDone = false;
+
+  /** Keep only the character and its shadow during a story tableau. */
+  setCinematic(on: boolean): void {
+    this.cinematic = on;
+    this.refresh(this.unit);
+  }
 
   setDown(kind: 'dead' | 'wounded'): void {
     this.down = kind;

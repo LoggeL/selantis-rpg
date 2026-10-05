@@ -1,7 +1,7 @@
 import type { CharAnim } from '../art/api';
 import type { UiApi } from '../ui/api';
 import type {
-  AiOverride, BattleCtx, BattleDef, BattleResult, BattleUnitDef, HintOptions,
+  AiOverride, BattleActor, BattleCtx, BattleDef, BattleResult, BattleUnitDef, HintOptions,
 } from './api';
 import { executePlanSteps } from './aiRunner';
 import { Battle } from './rules/battle';
@@ -25,6 +25,8 @@ export interface Presenter {
   clearHint(): void;
   bark(unit: string, text: string, ms?: number): void;
   pose(unit: string, anim: CharAnim): void;
+  tableau(actors: BattleActor[], focus: string): Promise<void>;
+  magicBurst(unit: string, thrown?: string): Promise<void>;
   shake(intensity: number): void;
   setObjective(text: string, detail?: string): void;
   /** Called whenever the state changed (UI refresh). */
@@ -327,6 +329,8 @@ export class BattleController {
       },
       face(unit, facing: Facing) { void p.play(b.face(unit, facing)); },
       pose: (unit, anim) => p.pose(unit, anim),
+      tableau: (actors, focus) => p.tableau(actors, focus),
+      magicBurst: (unit, thrown) => p.magicBurst(unit, thrown),
       async damage(unit, amount) { await c.apply(b.applyDamage(b.unit(unit), amount, 'script')); },
       async heal(unit, amount) { await c.apply(b.heal(b.unit(unit), amount)); },
       async setStatus(unit, status: StatusId, turns) {

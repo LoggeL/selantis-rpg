@@ -193,6 +193,14 @@ export interface HintOptions {
   until?: 'click' | 'select' | 'move' | 'act' | 'endTurn' | ((e: { type: string; unit?: string; ability?: string }) => boolean);
 }
 
+/** Visual staging for a closing story scene; combat positions and HP stay intact. */
+export interface BattleActor {
+  unit: string;
+  at: Point;
+  facing: Facing;
+  pose?: CharAnim;
+}
+
 /** Context handed to hooks. All async calls pause the battle until they resolve. */
 export interface BattleCtx {
   readonly ui: UiApi;
@@ -221,6 +229,10 @@ export interface BattleCtx {
   face(unit: string, facing: Facing): void;
   /** Plays a character pose (e.g. 'kneel', 'cast'); 'idle' returns to normal. */
   pose(unit: string, anim: CharAnim): void;
+  /** Arranges the cast and frames them together, hiding combat markers and controls. */
+  tableau(actors: BattleActor[], focus: string): Promise<void>;
+  /** Blue energy builds around a unit and explodes; an optional unit is thrown away. */
+  magicBurst(unit: string, thrown?: string): Promise<void>;
   damage(unit: string, amount: number): Promise<void>;
   heal(unit: string, amount: number): Promise<void>;
   setStatus(unit: string, status: StatusId, turns: number): Promise<void>;

@@ -207,6 +207,16 @@ async function barisArrives(ctx: BattleCtx): Promise<void> {
 async function climax(ctx: BattleCtx): Promise<void> {
   if (ctx.hasFlag('k5-urmacht-start')) return;
   ctx.flag('k5-urmacht-start');
+  await ctx.tableau([
+    { unit: 'lia', at: { x: 5, y: 6 }, facing: 's' },
+    { unit: 'kyra', at: { x: 4, y: 6 }, facing: 'e' },
+    { unit: 'flick', at: { x: 7, y: 6 }, facing: 'w' },
+    { unit: 'baris', at: { x: 8, y: 6 }, facing: 'w' },
+    { unit: 'orwen', at: { x: 5, y: 4 }, facing: 's' },
+    { unit: 'algard', at: { x: 3, y: 6 }, facing: 'e' },
+    { unit: 'maedchen', at: { x: 5, y: 9 }, facing: 'n' },
+    { unit: 'schuetze', at: { x: 8, y: 4 }, facing: 'w' },
+  ], 'lia');
   const flick = ctx.unit('flick')!;
   if (!flick.down) {
     await ctx.focus('baris', 300);
@@ -215,22 +225,18 @@ async function climax(ctx: BattleCtx): Promise<void> {
     await ctx.damage('flick', flick.hp);
   }
   await ctx.focus('flick', 400);
-  // Baris steps up to the defenceless Flick.
+  ctx.pose('flick', 'fall');
+  // Baris is already beside Flick in the tableau. Keep combat positions intact.
   const b = ctx.unit('baris');
   if (b && !b.down) {
-    const around = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([dx, dy]) => ({ x: flick.x + dx, y: flick.y + dy }));
-    const free = around.find(p => ctx.battle.grid.standable(p.x, p.y) && !ctx.battle.unitAt(p.x, p.y));
-    if (free && Math.abs(b.x - flick.x) + Math.abs(b.y - flick.y) > 1) await ctx.move('baris', free);
-    ctx.face('baris', flick.x > b.x ? 'e' : flick.x < b.x ? 'w' : flick.y > b.y ? 's' : 'n');
     ctx.pose('baris', 'attack');
   }
   await ctx.say('baris', 'Jetzt ist’s aus, Spitzohr!', { mood: 'smirk' });
   await ctx.focus('lia', 250);
   ctx.pose('lia', 'cast');
   await ctx.say('k5-lia', 'FLICK!', { mood: 'scared' });
-  G.audio.sfx('urmacht', { volume: 1.2 });
-  G.audio.sfx('shockwave', { volume: 1.2 });
-  ctx.shake(3);
+  await ctx.magicBurst('lia', 'baris');
+  ctx.flag('k5-urmacht-exploded');
   await ctx.ui.plate('k5-urmacht', { caption: 'Die Urmacht', pan: 'out', durationMs: 9000 });
   await ctx.say('narrator', 'Lias Augen leuchten blau. Ein ~türkises Licht~ bricht aus ihr hervor, eine Welle, die das Gras flach drückt und die Blätter von der Eiche reißt.');
   await ctx.say('narrator', 'Baris wird davongeschleudert wie ein Kind. Seine Axt wirbelt in die Dunkelheit.');

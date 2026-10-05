@@ -5,7 +5,7 @@ import { G } from '../core/G';
 import { inputLock } from '../core/input';
 import { settings } from '../core/settings';
 import { GAME_H, GAME_W, canvasRect } from '../core/viewport';
-import type { BattleResult, HintOptions, TacticsStartData } from './api';
+import type { BattleActor, BattleResult, HintOptions, TacticsStartData } from './api';
 import { BattleController, type Presenter } from './controller';
 import { key, TERRAIN } from './rules/grid';
 import { pathTo } from './rules/movement';
@@ -21,6 +21,7 @@ import { isoProp, isTacticsPropId, sharedProp, type IsoProp } from './view/props
 import { buildTerrainAtlas, surfaceOf, WATER_DROP, WATER_FRAMES, type Surface, type TerrainAtlas } from './view/terrain';
 import { ensureTacticsTextures } from './view/textures';
 import { characterIdsOf, UnitView } from './view/units';
+import { playMagicBurst } from './view/magicBurst';
 
 type Mode = 'none' | 'move' | 'target';
 interface PropView { img: Phaser.GameObjects.Sprite | Phaser.GameObjects.Image; x: number; y: number; info: IsoProp; glow?: Phaser.GameObjects.Image; baseDepth: number; rules: boolean }
@@ -64,6 +65,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private autoEndTimer: Phaser.Time.TimerEvent | null = null;
   private keyHandler?: (e: KeyboardEvent) => void;
   private finished = false;
+  private tableauActive = false;
 
   constructor() { super('Tactics'); }
 
@@ -72,6 +74,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.tileImgs = new Map(); this.waterTiles = []; this.props = []; this.views = new Map(); this.overlays = new Map();
     this.sel = { unit: null, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null };
     this.hover = null; this.drag = null; this.animating = 0; this.beamHandle = null; this.lastAct = null; this.hintTarget = null; this.finished = false;
+    this.tableauActive = false;
   }
 
   private ready = false;
@@ -275,7 +278,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
 
   private rotate(dir: 1 | -1): void {
-    if (this.animating > 0 || this.finished) return;
+    if (this.animating > 0 || this.finished || this.tableauActive) return;
     G.audio.sfx('whoosh', { volume: 0.4 });
     const cam = this.cameras.main;
     const center = this.screenToGridCenter();
@@ -434,6 +437,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private setupInput(): void {
     this.input.mouse?.disableContextMenu();
     this.input.on('pointermove', (p: Phaser.Input.Pointer) => {
+      if (this.tableauActive) return;
       if (this.drag && p.isDown) {
         const dx = p.x - this.drag.x, dy = p.y - this.drag.y;
         if (!this.drag.moved && Math.hypot(dx, dy) > (this.drag.touch ? 8 : 5)) this.drag.moved = true;
@@ -453,11 +457,13 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       this.setHover(t);
     });
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+      if (this.tableauActive) return;
       if (p.rightButtonDown()) { this.back(); return; }
       const cam = this.cameras.main;
       this.drag = { x: p.x, y: p.y, sx: cam.scrollX, sy: cam.scrollY, moved: false, touch: p.wasTouch };
     });
     this.input.on('pointerup', (p: Phaser.Input.Pointer) => {
+      if (this.tableauActive) return;
       const d = this.drag;
       this.drag = null;
       if (!d || d.moved || p.rightButtonReleased()) return;
@@ -468,6 +474,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       this.click(t, d.touch);
     });
     this.input.on('wheel', (p: Phaser.Input.Pointer, _o: unknown, _dx: number, dy: number) => {
+      if (this.tableauActive) return;
       const cam = this.cameras.main;
       const z = dy > 0 ? 1 : 2;
       if (z === cam.zoom) return;
@@ -487,6 +494,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const k = e.key;
     if (this.ui.hintOpenWithButton() && (k === 'Enter' || k === ' ' || k === 'e' || k === 'E')) { e.preventDefault(); this.ui.confirmHint(); return; }
     if (this.finished || this.ctrl.isEnded) { if (k === 'Enter' || k === ' ' || k === 'e' || k === 'E') { e.preventDefault(); this.ui.confirmOutcome(); } return; }
+    if (this.tableauActive) return;
     if (inputLock.locked || G.ui.busy()) return;
     const dirs: Record<string, 'up' | 'down' | 'left' | 'right'> = { ArrowUp: 'up', w: 'up', W: 'up', ArrowDown: 'down', s: 'down', S: 'down', ArrowLeft: 'left', a: 'left', A: 'left', ArrowRight: 'right', d: 'right', D: 'right' };
     if (k === 'q' || k === 'Q') { this.rotate(-1); return; }
@@ -846,6 +854,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
 
   private refreshPanels(): void {
     if (!this.ui) return;
+    if (this.tableauActive) return;
     const b = this.ctrl.battle;
     const s = this.sel;
     const hovered = this.unitAtPoint(this.hover);
@@ -1006,6 +1015,51 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const v = this.views.get(unit);
     if (!v) return;
     if (anim === 'idle') v.idle(); else v.play(anim);
+  }
+
+  async tableau(actors: BattleActor[], focus: string): Promise<void> {
+    this.select(null, true);
+    this.tableauActive = true;
+    this.drag = null;
+    this.hover = null;
+    this.clearHint();
+    this.ui.hideAllPanels(true);
+    this.ui.unitCard(null); this.ui.inspectCard(null); this.ui.previewCard(null);
+    for (const layer of [...this.overlays.keys()]) this.clearOverlay(layer);
+    this.showPathSteps([]);
+    for (const prop of this.props) if (prop.info.key.startsWith('tac-flag')) prop.img.setVisible(false);
+    for (const v of this.views.values()) v.setCinematic(true);
+    this.cursor.setVisible(false); this.pointerArrow.setVisible(false);
+    const cam = this.cameras.main;
+    cam.fadeOut(180, 5, 9, 18);
+    await this.wait(200);
+    for (const actor of actors) {
+      const v = this.views.get(actor.unit);
+      if (!v) continue;
+      v.gx = actor.at.x; v.gy = actor.at.y;
+      v.z = this.ctrl.battle.grid.height(actor.at.x, actor.at.y);
+      v.ox = 0; v.oy = 0;
+      v.setFacing(actor.facing);
+      v.setCinematic(true);
+      v.play(actor.pose ?? (v.unit.down ? 'fall' : 'idle'));
+      v.layout();
+    }
+    const cast = actors.flatMap(a => { const v = this.views.get(a.unit); return v ? [v] : []; });
+    const lead = this.views.get(focus);
+    if (lead && cast.length) {
+      const extentX = Math.max(...cast.map(v => Math.abs(v.feet.x - lead.chest.x) + 40));
+      const extentY = Math.max(...cast.map(v => Math.max(Math.abs(v.head.y - lead.chest.y), Math.abs(v.feet.y - lead.chest.y)) + 35));
+      cam.setZoom(Math.min(1.65, GAME_W / (extentX * 2), (GAME_H - 60) / (extentY * 2)));
+      cam.centerOn(lead.chest.x, lead.chest.y);
+    }
+    cam.fadeIn(420, 5, 9, 18);
+    await this.wait(600);
+  }
+
+  async magicBurst(unit: string, thrown?: string): Promise<void> {
+    const caster = this.views.get(unit);
+    if (!caster) return;
+    await playMagicBurst(this, this.fx, caster, [...this.views.values()], thrown);
   }
 
   shake(intensity: number): void {
