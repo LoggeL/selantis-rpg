@@ -1,84 +1,126 @@
 # Selantis
 
-Browser-RPG mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der spielbare Prolog beginnt mit Valentus. Aktuell ist es ein Prototyp.
+Ein Story-RPG im Browser mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der Prolog folgt Valentus; fünf Kapitel erzählen von Lia und Kyras letztem Sommertag am Hof bis zu Kyras Rettung. Aktuell ist das Spiel ein Prototyp.
 
-[Spiel öffnen](https://selantis.logge.top/) · [Visuelles Konzept und Räuberlied](https://selantis.logge.top/konzept.html) · [Szenenmusik anhören](https://selantis.logge.top/musik.html) · [Asset-Viewer](https://selantis.logge.top/assets.html)
+[Spiel öffnen](https://selantis.logge.top/) · [Szenenmusik anhören](https://selantis.logge.top/musik.html)
 
-Der Asset-Viewer zeigt die Grafiken aus dem Spielbuild mit Suche, Kategorien, Großansicht, Download und einer Einzelbildvorschau für Spritesheets. [Cutscenes](https://selantis.logge.top/assets.html?category=cut) lassen sich direkt öffnen. "Weitere Fassungen anzeigen" blendet zusätzliche erhaltene Bilder und Sprites ein; die Karten kennzeichnen Spielgrafiken und weitere Fassungen. Er öffnet sich auch aus den Spieleinstellungen. Sein Katalog verwendet dieselben öffentlichen Grafikdateien, Rastermaße und Grafikpakete wie das Spiel.
+Die Spielwelt verwendet gemalte Pixelgrafiken, Licht, Wetter und Partikel. Dialoge, Tagebuch, Tasche und Menüs liegen als HTML/CSS-Oberfläche über der Leinwand. Die interne Spielauflösung beträgt 640 × 360 Pixel; die Darstellung passt sich mit erhaltenem Seitenverhältnis an das Fenster an.
+
+## Screenshots
+
+| Titelbildschirm | Erkundung auf dem Heimweg | Taktischer Kampf im Prolog |
+| --- | --- | --- |
+| ![Titelbildschirm unter dem Sternenhimmel](docs/screenshots/title.jpg) | ![Lia und Kyra auf dem Heimweg zwischen den Feldern](docs/screenshots/exploration.jpg) | ![Valentus im isometrischen Kampf bei Dunkelhain](docs/screenshots/battle.jpg) |
+
+Die Aufnahmen stammen vom lokalen Spiel auf Basis von [Commit cd86f90](https://github.com/LoggeL/selantis-rpg/commit/cd86f9012eaa79734662d5e16dc8b1b75767bf0d).
 
 ## Lokal starten
 
-Node.js 22 und npm:
+Voraussetzungen: Node.js 22 und npm. Im Projektstamm:
+
+```sh
+npm ci --prefix game
+npm run dev --prefix game
+```
+
+Vite zeigt die lokale Adresse im Terminal an, normalerweise `http://127.0.0.1:5173/`.
+
+## Architektur
+
+Selantis ist ein modularer, szenenbasierter Monolith, der vollständig im Browser läuft. TypeScript beschreibt die Spielsysteme, Phaser 3.90 zeichnet die Welt mit WebGL, Vite baut die Anwendung. Der Produktionsserver liefert statische Dateien mit Nginx aus.
+
+| Bereich unter `game/src/` | Aufgabe |
+| --- | --- |
+| [`main.ts`](game/src/main.ts) | Erstellt Art, Audio, UI und Phaser und bindet die Kapitel ein |
+| [`core/`](game/src/core/) | Spielzustand, Einstellungen, Event-Bus, Kapitelregistrierung, Eingaben und Bildschirmkoordinaten |
+| [`chapters/`](game/src/chapters/) | Karten, Dialoge, Skripte und Minispiele je Kapitel; gemeinsame Kataloge und Entwicklungsdemos |
+| [`world/`](game/src/world/) | Erkundung mit Figuren, Pfadfindung, Interaktionen, Begleitern, Schleichen, Spurenblick, Licht und Wetter |
+| [`tactics/`](game/src/tactics/) | Kampfregeln, KI, Ablaufsteuerung, isometrische Darstellung und Kampfoberfläche |
+| [`ui/`](game/src/ui/) | DOM/CSS-Oberfläche für Dialoge, Erzähler, Tafeln, HUD, Tagebuch, Tasche, Menüs und Touch-Steuerung |
+| [`art/`](game/src/art/) | Asset-Manifest, Grafikladen, Figuren, Posen, Porträts, Requisiten und Effekte |
+| [`audio/`](game/src/audio/) | Musik mit Überblendungen, prozedurale Geräusche, Atmosphäre und Prolog-Sprachausgabe |
+| [`scenes/`](game/src/scenes/) | Boot und Titelbildschirm |
+
+Die zentrale Fassade [`G`](game/src/core/G.ts) hält das Phaser-Spiel, den Kampagnenzustand und die APIs für UI, Audio und Grafik. Kapitel verwenden beispielsweise `G.state`, `G.ui.say()` und `G.goto(sceneId)`. Der [Event-Bus](game/src/core/events.ts) meldet Zustandsänderungen und Ereignisse wie gefundene Gegenstände oder abgeschlossene Ziele.
+
+Kapitel registrieren ihre Szenen über [`defineChapter()`](game/src/core/registry.ts). `main.ts` importiert alle `chapters/*/index.ts` automatisch mit `import.meta.glob(..., { eager: true })`. Eine Szene stellt `start(params?)` bereit; ihr optionales `prepare()` erzeugt den nötigen Zustand für einen direkten Einstieg. Karten und Kämpfe werden über `MapDef` und `BattleDef` beschrieben, Handlung und Sonderfälle über Skripte und Hooks.
+
+Im Kampf sind Regeln, Ablauf und Darstellung getrennt: [`tactics/rules/`](game/src/tactics/rules/) enthält die deterministische Zustandsmaschine ohne Phaser oder DOM. Aktionen erzeugen `BattleEvent`-Ergebnisse. Der [`BattleController`](game/src/tactics/controller.ts) koordiniert Züge, KI, Ziele und Kapitel-Hooks; [`TacticsScene`](game/src/tactics/TacticsScene.ts) und die Kampfoberfläche animieren und zeigen die Ergebnisse. Andere Systeme greifen direkt auf `G` zu; die Modulgrenzen sind dort stärker gekoppelt.
+
+## Steuerung
+
+| Eingabe | Erkundung und Oberfläche |
+| --- | --- |
+| WASD oder Pfeiltasten | Bewegen |
+| Mausklick oder Tippen in die Welt | Laufziel oder Interaktion auswählen |
+| E, Leertaste oder Enter | Interagieren und Dialoge bestätigen |
+| Shift halten | Rennen |
+| C oder Strg halten | Schleichen, wenn verfügbar |
+| Q halten | Spurenblick, wenn verfügbar |
+| Tab oder J | Tagebuch |
+| I | Tasche |
+| Escape | Menü öffnen oder offene Ansicht schließen |
+| F2 | Debug-Szenenwahl |
+
+Auf Touch-Geräten stehen ein virtueller Stick, eine Aktionstaste und kontextabhängige Zusatzknöpfe zur Verfügung. Einstellungen für Musik, Geräusche, Sprache, Textgeschwindigkeit und reduzierte Bewegung sind über den Titelbildschirm und das Pausenmenü erreichbar.
+
+Im Kampf steuern WASD und Pfeile den Rastercursor. Enter oder E bestätigt, 1 bis 9 wählt eine Fähigkeit, Tab wechselt die ausgewählte Figur. Leertaste beendet den Zug, F wählt Warten, M den Bewegungsmodus, Z nimmt eine Bewegung zurück, solange noch nicht gehandelt wurde. Q und R drehen die Ansicht. Rücktaste, Rechtsklick oder Escape gehen zurück; Escape öffnet das Menü, sobald Zielwahl und Auswahl geschlossen sind. Auf Touch-Geräten zeigt der erste Tipp die Vorschau, der zweite bestätigt.
+
+Der Kampf wechselt zwischen Spieler-, Verbündeten- und Gegnerphasen. In der Spielerphase hat jede Figur eine Bewegung und eine Aktion in beliebiger Reihenfolge. KI-Figuren handeln innerhalb ihrer Phase nach Tempo. Höhen, Gelände, Blickrichtung und Status beeinflussen die Möglichkeiten. Einzelheiten stehen im [Taktikleitfaden](docs/rebuild/tactics-guide.md).
+
+## Kapitel und direkte Einstiege
+
+Ohne URL-Parameter startet der Titelbildschirm. `?scene=<id>` springt über `G.warp()` in eine registrierte Szene. Dabei wird der Kampagnenzustand zurückgesetzt und mit dem jeweiligen `prepare()` vorbereitet. Beispiel: `http://127.0.0.1:5173/?scene=prolog-schlacht`.
+
+| Kapitel | Szenen-IDs in Reihenfolge |
+| --- | --- |
+| Prolog: Die Urmacht | `prolog-rat`, `prolog-schlacht`, `prolog-flucht`, `prolog-zuflucht` |
+| I: Der letzte Sommertag | `wiese`, `heimweg`, `ueberfall`, `trauer` |
+| II: Die Straße nach Osten | `strasse`, `erstes-lager`, `foltan-azar`, `waldweg` |
+| III: Der Goldene Eber | `eber`, `leselager`, `kyra` |
+| IV: Die Freie Bruderschaft | `augenbinde`, `bruderschaft`, `verrat` |
+| V: Regen | `regenwald`, `faehrte`, `schattenlager`, `rettung`, `finale` |
+
+Lias Weg verbindet Erkundung, Gespräche, das Packen der Reiseausrüstung, Feuermachen, Spurensuche und Schleichen. Valentus kämpft im Prolog; Lia nutzt bei Kyras Rettung zusammen mit Flick ihre verfügbaren Fähigkeiten und Gegenstände. Kapitelentscheidungen und Funde werden im gemeinsamen Kampagnenzustand geführt.
+
+## Spielstände und Debug
+
+[`GameState`](game/src/core/state.ts) verwaltet Flags, Inventar, Ziele, Erinnerungen, Wissen, Hinweise, Fähigkeiten und Gruppe. `G.goto()` speichert beim Einstieg in eine reguläre Storyszene Kapitel, Szenen-ID, Parameter und Zustand im `localStorage` unter `selantis.save.v1`. "Fortsetzen" im Titel lädt diesen Stand und startet die gespeicherte Szene erneut. Änderungen innerhalb einer laufenden Szene werden beim nächsten Szenenwechsel gesichert. Einstellungen liegen getrennt unter `selantis.settings.v1`.
+
+F2 öffnet eine filterbare Szenenwahl mit den Storykapiteln und versteckten Entwicklungsdemos. Sie zeigt die aktuelle Szene sowie Anzahlen von Flags, Gegenständen und Zielen. Ein Sprung setzt den Zustand wie ein URL-Einstieg zurück. Versteckte Dev-Kapitel schreiben keinen Spielstand.
+
+| Entwicklungsbereich | Szenen-IDs |
+| --- | --- |
+| Welt | `world-demo`, `world-demo-2`, `world-stress` |
+| Kampf | `tactics-demo`, `tactics-rescue-demo`, `tactics-sandbox` |
+| Oberfläche | `ui-demo`, `ui-sandbox` |
+| Audio | `audio-demo` |
+| Grafik | `art-gallery` |
+
+F1 oder `&debug` aktiviert in der Erkundung die Geometrieansicht. Für Diagnosen sind `window.G` und im Kampf `window.__tactics` verfügbar.
+
+## Prüfen
+
+Nach `npm ci --prefix game`:
 
 ```sh
 cd game
-npm ci
-npm run dev
+npx playwright install chromium
+npm run verify
 ```
 
-WASD oder Pfeiltasten bewegen die Figur, ein Mausklick setzt ein Laufziel. E interagiert. In der Erkundung öffnet I oder das Taschen-Icon das Inventar; Escape schließt es. Die Szenen unterstützen direkte Einstiege:
+`verify` führt die TypeScript-Prüfung, Vitest-Tests, den Produktionsbuild und Playwright-Browserregressionen aus. Die Typprüfung umfasst `src/` und `e2e/`. Ein Fehler stoppt den Lauf. GitHub Actions verwendet denselben Prüfbefehl.
 
-Ein Klick oder Enter auf einen Gegenstand in der Tasche zeigt Lias kurzen Kommentar dazu. Er berücksichtigt zum Beispiel aufgefülltes Wasser, die Vogelrettung und den ausgebreiteten Mantel. Wenn am aktuellen Ort eine Verwendung möglich ist, erscheint die passende Aktion, etwa "Essen" beim ersten Lagerfeuer. Das Ansehen verändert keine Gegenstände und keinen Fortschritt.
+Einzelne Prüfungen vom Projektstamm:
 
-Auf Smartphones passt das vollständige Spielbild ins Hoch- und Querformat. Ein Steuerkreuz und große Aktionstasten unterstützen auch Halteaktionen und mehrere Finger. Tippen ins Bild bleibt möglich. Hinweise, Tasche und Einstellungen erscheinen zusätzlich in einer lesbaren Touch-Oberfläche. Auf dem Desktop bleiben Maus und Tastatur verfügbar.
+```sh
+npm run check --prefix game
+npm test --prefix game
+npm run build --prefix game
+npm run test:e2e --prefix game
+```
 
-Im Schlachtutorial hat Valentus pro Zug eine Bewegung bis zu vier Feldern und eine Aktion, in beliebiger Reihenfolge. Q wählt den Strahl, R die Druckwelle; Enter oder ein Rasterklick bestätigt das Ziel. Leertaste wählt Warten oder beendet den restlichen Zug. Vor den Gegneraktionen die Blickrichtung mit Pfeilen oder einem Nachbarfeld wählen und Enter beziehungsweise „Zug beenden“ drücken. Ein ausgeführter Schritt lässt sich nicht zurücknehmen. Warten schützt vorne, wenn die Aktion noch frei war; seitliche und rückwärtige Treffer verursachen mehr Schaden. Die Gegner handeln nach dem angezeigten Tempo innerhalb ihrer Zugphase. Valentus hat echte LP, der Tutorialschutz hält ihn bei mindestens einem LP.
-
-Cutscenes zeigen eine Aktionstaste, deren Funktion zum aktuellen Moment passt. In der Zuflucht übernimmt E das Aufrichten, die Schritte zur Wiege und das Handheben. Beim Überfall beobachtet Lia das Gespräch und die Gefangennahme aus der Böschung; jede kurze Dialogzeile wartet auf Weiter. Handlungsbeschreibungen haben kein Charakterportrait. Mutters Sturz, ihr letztes "Kyra ..." und ihr Tod sind einzelne Schritte. Während dieser Szene ist die Tasche geschlossen.
-
-| Parameter | Szene |
-| --- | --- |
-| `?scene=title` | Startbildschirm |
-| `?scene=battle` | Valentus' Schlachtutorial |
-| `?scene=break` | Verwundung |
-| `?scene=flight` | Flucht |
-| `?scene=refuge` | Zuflucht |
-| `?scene=lia` | Lias Einstieg |
-| `?scene=world&map=wiese` | Freie Erkundung |
-| `?scene=raid` | Überfall auf den Hof und Kyras Entführung |
-| `?scene=aftermath` | Abschied, Reisevorbereitung und Aufbruch |
-| `?scene=journey` | Erste Reise, Nachtlager, Foltan und Azar |
-| `?scene=companions-road` | Gemeinsamer Waldweg, Mittagsrast und Weiterreise |
-| `?scene=golden-boar` | Craupors Schenke und die Suche nach Kyra |
-| `?scene=reading-camp` | Zweites Nachtlager, Kräuterbuch und Alanas Geschichte |
-| `?scene=brotherhood` | Lager der Freien Bruderschaft |
-| `?scene=betrayal` | Foltans verschwiegenes Wissen und Lias Aufbruch |
-| `?scene=rain-forest` | Begegnung mit Flick im Sommerregen |
-| `?scene=flick-trail` | Gemeinsame Spurensuche |
-| `?scene=shadow-camp` | Kyras Gefangenenlager und Vorbereitung der Rettung |
-| `?scene=sisters-reunited` | Rettung, Lias Magie und Wiedersehen |
-| `?scene=film-one-finale` | Vardis' Bestrafung und Ende des ersten Films |
-
-Weitere Karten: `felder`, `waldrand`, `hohlweg`, `hof`. `&debug` oder F1 zeigt in der Erkundung Kollisionen und Ausgänge.
-
-Zwischen Valentus und den Schwestern steht eine Schwarzblende mit "14 Jahre später". Kyras Holzsammeln, Waldweg und Entdecken Lias führen zum Gespräch unter dem Baum (Roman, PDF-Seiten 6 bis 10). Danach führt eine einzige Hauptquest, "Nach Hause", über markierte Wege zum Hof. Optionale Fundstücke und die Vogelrettung ersetzen dieses Ziel nicht. Beim Betreten des Hofs schließt die Ankunft die Quest ab und beginnt sofort der Überfall; Kyras Versprechen erklärt den Heimweg, ohne einen Sammelauftrag zu starten. Nach dem Überfall folgen selbst weiterlesbare Trauerkarten, die Nacht des Steinetragens und der Morgen an den Gräbern, bevor Lia packt und aufbricht (PDF-Seiten 13 bis 32). Kleine markierte Interaktionen führen weiter; Lia erhält noch keine Kampf- oder Magiefähigkeiten. Die Reiseausrüstung liegt in ihrer Tasche.
-
-Nach dem Überfall bleiben Hof, Hohlweg, Wiese und Felder verbunden. Hufspuren auf den Feldern erklären den Weg nach Osten. Der sichtbare Feldabzweig führt zur Hauptstraße; vor der Heimkehr hält Lia wegen des Abendbrots um, später braucht sie dort ihre Reiseausrüstung. Auf der Hauptstraße kommt sie über den begehbaren Nordpfad an und kann auf diesem Weg zu den Feldern zurückkehren.
-
-Vor dem ersten Lager erklärt Lia auf der Straße, dass es Abend wird und sie müde ist. Nach der Bestätigung blendet die Szene ins Waldlager über. Lia breitet ihren Mantel aus, sammelt Steine und Zunderholz und baut die Feuerstelle. Verfügbare Lagerpunkte leuchten, gesperrte sind gedimmt und mit einem Kreuz markiert. Ein Klick oder E in ihrer Nähe erklärt die fehlende Voraussetzung. Die Marker gesammelter Steine und Zweige verschwinden. Beim Feuerbohren treffen einzelne E-Eingaben oder Tippen den grünen Timingbereich; Glut, Rauch, Funken und eine wachsende Flamme zeigen den Fortschritt. Die Nahaufnahme verwendet dieselben Feuerstellen- und Holzobjekte wie das Lager. Die Einstellung für reduzierte Bewegung erlaubt ruhige Einzelbewegungen ohne Timingdruck; eine Pause erhält Holz und Fortschritt. Die Mahlzeit führt in die Tasche: Reiseproviant auswählen und "Essen" bestätigen. Erst danach legt Lia sich durch eine eigene Bettaktion schlafen.
-
-Foltan und Azar kommen sichtbar zu der schlafenden Lia. Ihre Namen bleiben "???", bis sie sich vorgestellt haben. Danach sind die Lagerpunkte gemeinsam verfügbar: Foltan bietet eine kleine Dialogauswahl, Azar schnarcht beim Ansprechen, Lia kann am Feuer sitzen oder direkt bis zum Morgen schlafen. Der Blick zu Crios ist optional und öffnet eine kurze, selbst weiterlesbare Gedankenfolge. Bewegung oder E beendet das Sitzen. Am nächsten Morgen geht es mit beiden durch den Wald zur Mittagsrast (PDF-Seiten 40 bis 44) und über einen zweiten Waldweg in den Goldenen Eber.
-
-Von der Schenke führt Lias Suche über ein zweites Nachtlager zur Freien Bruderschaft. Nach dem Bruch mit Foltan verlässt sie das Lager und begegnet Flick im Sommerregen. Beide verfolgen Kyras Spur, bereiten ihre Rettung vor und treffen wieder mit ihr zusammen. Lias unbewusster Magieausbruch und ihre Erholung sind inszenierte Handlungen. Der Abschnitt endet beim gemeinsamen Aufbruch zu den Rebellen, entsprechend dem Ende des ersten Films. Die Schlussansicht bietet Wiederholung und Rückkehr zum Titel. [Quellen, Übergangsadaption und Grafikprompts](docs/film-one-continuation.md) halten den Umfang fest.
-
-Auf Flicks Fährte untersucht der Spieler Hufabdrücke und Rindenabrieb und entscheidet, welcher Weg zur Spur passt. Ein falscher Weg führt zurück zur Wurzel; ohne untersuchte Hinweise bleibt die Richtung offen. Die Kartenpunkte und Schaltflächen funktionieren mit Maus, Touch und Tastatur.
-
-Kyras Befreiung ist ein eigener taktischer Kampf. Lia und Flick haben jeweils eine Bewegung und eine Aktion pro Runde. Flick löst neben Kyra die Fesseln und kann mit ihrem Bogen die Wachen treffen. Lia lenkt Gegner ab, warnt Kyra oder deckt sie aus einem benachbarten Feld. E wechselt die Figur, Q deckt, R wählt ein Ziel, Enter bestätigt ein Feld und Leertaste beendet die Runde. Die Schaltflächen bieten dieselben Aktionen. Das Ziel ist, die befreite Kyra mit beiden Figuren zu schützen und einen Gegnerzug zu überstehen. Scheitern und Abbruch lassen die Geschichte offen und erlauben einen neuen Versuch. Einsatz-LP bleiben auf diesen Kampf begrenzt. Erst danach folgen Lias unbewusster Magieausbruch und das Wiedersehen.
-
-[Visueller Playtest und spielerische Abnahme](docs/visual-playtest-2026-10-04.md) unterscheiden Dialogpassagen, echte Herausforderungen und verbleibende Grenzen.
-
-Beim Nest und auf Valentus' Fluchtstrecke folgt das Klettern dem Halten von E beziehungsweise der Touch-Aktion. Loslassen pausiert den Aufstieg. Während Valentus sich am Baum abstützt, bleibt er dort stehen. Erledigte Hofmarker verschwinden; das Haus bleibt betretbar. Die Lagergegenstände verwenden eigene freigestellte Grafiken für Mantel, Decke, Steine, Reisig und Feuer.
-
-## Playtest-Debug
-
-Der kleine **Debug**-Button oben rechts oder **F2** öffnet das öffentlich zugängliche Playtest-Menü; **Escape** schließt es. Währenddessen pausieren Szenen, Tastatur und Touch-Steuerung. Das Menü ist auch auf Smartphones scrollbar und mit Tastatur bedienbar.
-
-- Warps: Schlachtutorial, Verwundung, Flucht, Zuflucht, Lias Einstieg, alle fünf Weltkarten, Überfall, Reisevorbereitung, Straße, Nachtlager, Foltan/Azar, gemeinsamer Waldweg und die neun Kapitel bis zum Filmende. Jeder Warp setzt die nötigen Kapitel-Flags und Reiseausrüstung; spätere Kapitel-Flags werden zurückgesetzt.
-- Flags und Inventar lassen sich kontrolliert ändern (ganze Item-Anzahlen von 0 bis 999). **Änderungen anwenden** startet die aktuelle Szene neu, damit Marker und Ziele den geänderten Zustand übernehmen. Flags dürfen für Grenzfalltests absichtlich widersprüchlich sein.
-- Live-Stats zeigen Szene/Bereich, Position, Phase/Schritt, Bewegungslocks, Fundstellen und besuchte Karten; im Kampf zusätzlich Einheiten-HP, Status und Rasterposition. Das Tutorial hat kein AP-System. Kampfwerte werden nur gelesen, nicht während geskripteter Aktionen verändert.
-- Warps verändern Fortschritt und Reiseausrüstung; laufende Dialoge werden verworfen. **Alles zurücksetzen** braucht eine eigene Bestätigung und führt zum Titel. Das Spiel hat keinen persistenten Spielstand; Einstellungen bleiben erhalten.
-
-Der vollständige lokale Prüflauf ist `cd game && npx playwright install chromium && npm run verify` nach `npm ci`. Er umfasst Architekturgrenzen, Asset-Verträge, die separate Typprüfung des Browserharness, Modultests, Build und Browserregressionen. Jeder Fehler stoppt den Lauf; der CI-Workflow führt dieselben Prüfungen aus. Einzelne Regressionen: `npm test --prefix game` oder `npm run test:e2e --prefix game`. Playwright startet einen eigenen lokalen Vite-Server auf Port 5187 und verwendet keine bereits laufende Instanz. `SELANTIS_E2E_PORT` wählt bei Bedarf einen anderen freien Port.
+Playwright startet einen eigenen Vite-Server auf Port 5187 mit `--strictPort` und verwendet keine laufende Instanz. `SELANTIS_E2E_PORT` wählt einen anderen Port; `SELANTIS_E2E_OUTPUT` bestimmt das Verzeichnis für Testergebnisse. Bei Fehlern bleiben Browser-Traces erhalten. Karten lassen sich zusätzlich mit `node scripts/map_tool.mjs all` prüfen.
 
 ## Build und Deployment
 
@@ -87,16 +129,20 @@ npm run build --prefix game
 node scripts/assemble_site.mjs
 ```
 
-Der Dockerfile baut aus dem Quellcode und liefert das Spiel mit Nginx aus. Dokploy verwendet `main`; Pushes werden automatisch veröffentlicht. Einzelheiten stehen in [docs/deployment.md](docs/deployment.md).
+Vite schreibt nach `game/dist/`. Das Assemble-Skript stellt unter `output/site/` den Spielbuild, die Musikseite, die ausgewählten Musikdateien und `release.json` mit Release-Metadaten und Dateihashes zusammen. Die Commit-ID wird aus den Git-Metadaten für `main` ermittelt; außerhalb dieses Branches oder ohne passende Metadaten kann `gitCommit` den Wert `null` haben. Der mehrstufige [Dockerfile](Dockerfile) führt Modultests und Build aus und liefert das Ergebnis mit Nginx auf Port 80; `/healthz` dient als Healthcheck.
 
-## Dateien
+Veröffentlicht wird durch das Pushen geprüfter Änderungen auf `main` in `LoggeL/selantis-rpg`. Dokploys GitHub-Integration baut und deployt jeden Push automatisch. Vor einer Freigabe als live muss das automatische Deployment erfolgreich sein und die Commit-ID in [`/release.json`](https://selantis.logge.top/release.json) mit dem gepushten Git-Commit übereinstimmen. `python3 scripts/dokploy_release.py status` liest den Deploymentstatus. Einzelheiten stehen im [Deploymentleitfaden](docs/deployment.md).
 
-`game/src/` trennt reine Regeln in `modules/`, geschriebene Inhalte in `content/`, technische Adapter in `platform/` und die Anwendungskomposition in `app/`. Phaser-Szenen liegen unter `presentation/phaser/scenes/`, DOM-Ansichten unter `presentation/dom/` und übergreifende Regressionen unter `tests/`. Die Architekturprüfung schützt die Abhängigkeiten. [Architektur und Erweiterungen](docs/architecture.md) beschreibt die Verträge, Lebensdauern und die Registrierung von Konstruktoren und Asset-Paketen für neue Kapitel oder Begegnungen.
+## Grafiken, Audio und Quellen
 
-`game/public/assets/` enthält die vorbereiteten Spielassets und deren Produktionsmanifest. Der Build erzeugt daraus einen validierten Laufzeitkatalog und den Asset-Viewer-Katalog; Szenen laden ihre zugeordneten Grafikpakete nach Bedarf. Die beiden finalen Konzeptbilder und das Räuberlied liegen unter `output/`. `design/` und `docs/` enthalten Entwürfe und Spielregeln.
+`game/public/assets/` enthält die vorbereiteten Spielgrafiken. [`manifest.json`](game/public/assets/manifest.json) beschreibt Figuren, Laufblätter, Posen, Porträts, Hintergründe, Tafeln, Requisiten und Symbole. Die Art-Laufzeit liest das Manifest und lädt benötigte Grafiken nach; die Welt- und Kampfszenen verwenden dieselben Figurenassets. `?scene=art-gallery` öffnet die Galerie.
 
-Sechs Szenenstücke von Lyria 3.5 liegen unter `output/audio/scenes/`. [Prompts und Produktionsnachweis](docs/scene-music-production.md) dokumentieren ihre Entstehung in Google AI Studio. O öffnet die Einstellungen für Musik, Effekte und Bewegung.
+Die Grafikpipeline liegt unter `scripts/art/`, ihre Produktionsdaten unter `docs/rebuild/art/`. Gemalte Grafiken bilden die Welt und Figuren ab; Code ergänzt unter anderem Licht, Wetter und Partikel. Figuren folgen den Romanbeschreibungen oder eigenen Entwürfen. Die [Designgrundlage](docs/rebuild/DESIGN.md) legt Geschichte, Aussehen und Stil fest.
 
-Originalfilme, PDFs, Transkripte, Rechercheframes, verworfene Grafikvarianten und temporäre Builddateien sind ausgeschlossen. Links in den Recherchedokumenten auf `sources/` beziehen sich auf die lokale Quellensammlung. Die Asset-Verarbeitungsskripte benötigen die lokal archivierten Originalbilder; ein normaler Spielbuild benötigt sie nicht.
+Sechs Szenenstücke und ihr Manifest liegen unter `output/audio/scenes/`, das Räuberlied unter `output/audio/`. Vite stellt die Szenenstücke auch lokal bereit und nimmt sie in den Build auf. [Prompts und Produktionsnachweis](docs/scene-music-production.md) dokumentieren die Musik. Prolog-Sprachclips werden aus `game/public/audio/prolog/` geladen, wenn dort ein passendes Manifest und die Clips vorhanden sind.
 
-Der Roman hat Vorrang bis zu seinem ausgearbeiteten Ende. Die Spielfigur heißt Lia. Lia und Kyra folgen auch im Aussehen dem Roman und sind eigenständige gezeichnete Figuren. Buch, Reiseausrüstung, Mantel und Schlafpose wechseln sichtbar mit der Handlung. Die übrigen Figuren behalten die jeweils gewählten Referenzen; Spielmechanik und optionale Begegnungen sind Adaptionen. Details stehen in [Figuren und sichtbare Ausrüstung](docs/character-novel-appearance.md).
+Originalfilme, PDFs, Transkripte, Rechercheframes und temporäre Produktionsdateien gehören zur lokalen Quellensammlung und sind vom Docker-Build-Kontext ausgeschlossen. Verweise auf `sources/` in Recherchedokumenten beziehen sich auf diese lokale Sammlung. Für einen normalen Spielbuild werden die vorbereiteten öffentlichen Assets verwendet.
+
+## Entwicklung
+
+Der [Kapitel-Leitfaden](docs/rebuild/chapter-authoring.md) beschreibt Registrierung, Zustandsvorbereitung, Szenenwechsel und Skripte. Fachliche Schnittstellen und Beispiele stehen im [Weltleitfaden](docs/rebuild/world-guide.md), [Taktikleitfaden](docs/rebuild/tactics-guide.md), [UI-Leitfaden](docs/rebuild/ui-guide.md) und in der [Grafikpipeline](docs/rebuild/art-pipeline.md). Die Dev-Kapitel unter `game/src/chapters/dev-*/` dienen als ausführbare Beispiele.
