@@ -8,11 +8,11 @@ Die Spielwelt verwendet gemalte Pixelgrafiken, Licht, Wetter und Partikel. Dialo
 
 ## Screenshots
 
-| Titelbildschirm | Erkundung auf dem Heimweg | Taktischer Kampf im Prolog |
+| Titelbildschirm | Erkundung auf dem Heimweg | Taktik-Demo |
 | --- | --- | --- |
-| ![Titelbildschirm unter dem Sternenhimmel](docs/screenshots/title.jpg) | ![Lia und Kyra auf dem Heimweg zwischen den Feldern](docs/screenshots/exploration.jpg) | ![Valentus im isometrischen Kampf bei Dunkelhain](docs/screenshots/battle.jpg) |
+| ![Titelbildschirm unter dem Sternenhimmel](docs/screenshots/title.jpg) | ![Lia und Kyra auf dem Heimweg zwischen den Feldern](docs/screenshots/exploration.jpg) | ![Isometrischer Übungsplatz mit ausgewählter Figur und Bewegungsfeldern](docs/screenshots/battle.jpg) |
 
-Die Aufnahmen stammen vom lokalen Spiel auf Basis von [Commit cd86f90](https://github.com/LoggeL/selantis-rpg/commit/cd86f9012eaa79734662d5e16dc8b1b75767bf0d).
+Die Aufnahmen zeigen den lokalen Titelbildschirm, den Heimweg (`heimweg`) und den taktischen Übungsplatz (`tactics-sandbox`).
 
 ## Lokal starten
 

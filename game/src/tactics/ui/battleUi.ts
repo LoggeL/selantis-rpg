@@ -196,6 +196,13 @@ export class BattleUi {
     s.setProperty('--fs', `${fs}px`);
     this.root.classList.toggle('compact', r.width < 900);
     this.root.classList.toggle('reduced', settings.reducedMotion);
+    this.layoutHint();
+  }
+
+  private layoutHint(): void {
+    const r = this.root.getBoundingClientRect();
+    const objective = this.els.obj.getBoundingClientRect();
+    this.els.hint.style.top = `${Math.round(objective.bottom - r.top + 12)}px`;
   }
 
   // ------------------------------------------------------------ objective + phase
@@ -207,6 +214,7 @@ export class BattleUi {
     prog.innerHTML = progress ? Array.from({ length: progress.total }, (_, i) => `<i class="${i < progress.done ? 'on' : ''}" title="Runde ${i + 1}"></i>`).join('') : '';
     prog.style.display = progress ? 'flex' : 'none';
     if (flash) { o.classList.remove('flash'); void o.offsetWidth; o.classList.add('flash'); }
+    this.layoutHint();
   }
 
   setPhase(phase: Phase, round: number): void {
@@ -417,6 +425,11 @@ export class BattleUi {
     const mr = e.getBoundingClientRect();
     const k = r.width / GAME_W;
     const avoid = (m.avoid ?? []).map(a => ({ x: (a.x / GAME_W) * r.width, y: (a.y / GAME_H) * r.height }));
+    const panels = ['obj', 'hint', 'phase', 'order', 'card', 'tcard', 'end', 'rot', 'tip']
+      .map(name => this.els[name])
+      .filter(panel => !panel.classList.contains('hidden'))
+      .map(panel => panel.getBoundingClientRect())
+      .filter(panel => panel.width > 0 && panel.height > 0);
     const clampTop = (t: number) => Math.max(mr.height / 2 + 8, Math.min(r.height - mr.height / 2 - 8, t));
     const cands = [
       { left: px + 16 * k, top: clampTop(py) },
@@ -425,12 +438,20 @@ export class BattleUi {
       { left: px - mr.width - 14 * k, top: clampTop(py + mr.height / 2 + 6 * k) },
       { left: px + 14 * k, top: clampTop(py - mr.height / 2 - 10 * k) },
       { left: px - mr.width - 14 * k, top: clampTop(py - mr.height / 2 - 10 * k) },
+      { left: r.width - mr.width - 12, top: clampTop(py) },
+      { left: 12, top: clampTop(py) },
     ];
     let best = cands[0], bestScore = Infinity;
     cands.forEach((c, i) => {
       const l = Math.max(8, Math.min(r.width - mr.width - 8, c.left));
       const t0 = c.top - mr.height / 2;
       let score = i * 0.1 + Math.abs(l - c.left) * 0.02;
+      for (const panel of panels) {
+        const left = panel.left - r.left - 8, top = panel.top - r.top - 8;
+        const width = Math.max(0, Math.min(l + mr.width, left + panel.width + 16) - Math.max(l, left));
+        const height = Math.max(0, Math.min(t0 + mr.height, top + panel.height + 16) - Math.max(t0, top));
+        score += (width * height) / Math.max(1, mr.width * mr.height) * 1000;
+      }
       for (const a of avoid) {
         const pad = 10 * k;
         if (a.x > l - pad && a.x < l + mr.width + pad && a.y > t0 - pad * 2 && a.y < t0 + mr.height + pad) score += 10;
@@ -461,6 +482,8 @@ export class BattleUi {
     this.hintResolve?.();
     e.innerHTML = `<div class="h">${ICONS.quill}<span>${esc(opts.title ?? 'Hinweis')}</span></div><div class="b">${text}</div>${withButton ? '<div class="row"><button type="button" class="tac-btn small">Verstanden <kbd>Enter</kbd></button></div>' : '<div class="wait">Probiere es aus …</div>'}`;
     e.classList.remove('hidden');
+    this.root.classList.add('has-hint');
+    this.layoutHint();
     return new Promise(resolve => {
       this.hintResolve = () => { this.hintResolve = null; resolve(); };
       e.querySelector('button')?.addEventListener('click', ev => { ev.stopPropagation(); this.hintResolve?.(); });
@@ -475,6 +498,8 @@ export class BattleUi {
   hintOpenWithButton(): boolean { return !!this.hintResolve && !!this.els.hint.querySelector('button') && !this.els.hint.classList.contains('hidden'); }
   clearHint(): void {
     this.els.hint.classList.add('hidden');
+    this.root.classList.remove('has-hint');
+    this.layoutHint();
     this.hintResolve?.();
   }
 

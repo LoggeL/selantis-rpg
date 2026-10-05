@@ -13,11 +13,12 @@ export const TACTICS_CSS = `
 .tac-panel::after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-bottom-right-radius:.45em}
 
 /* objective */
-.tac-obj{left:.8em;top:.8em;max-width:19em;padding:.45em .8em .55em;pointer-events:auto}
+.tac-obj{left:.8em;top:.8em;max-width:min(19em,calc(30% - .8em));padding:.45em .8em .55em;pointer-events:auto;overflow-wrap:break-word}
 .tac-obj .lbl{font-family:'Alegreya Sans SC',sans-serif;font-size:.72em;letter-spacing:.16em;color:var(--gold);display:flex;align-items:center;gap:.4em}
 .tac-obj .lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(216,178,90,.6),transparent)}
 .tac-obj .txt{font-family:Cinzel,serif;font-weight:700;font-size:1em;color:#f4e6c4;margin-top:.1em}
 .tac-obj .det{font-size:.82em;color:#cbbd98;font-style:italic;margin-top:.1em}
+.tac.has-hint .tac-obj .det{display:none}
 .tac-obj .prog{display:flex;gap:.25em;margin-top:.35em}
 .tac-obj .prog i{width:.9em;height:.32em;border-radius:1px;background:rgba(216,178,90,.22);border:1px solid rgba(216,178,90,.45)}
 .tac-obj .prog i.on{background:var(--gold2);box-shadow:0 0 .4em rgba(243,210,122,.6)}
@@ -25,10 +26,13 @@ export const TACTICS_CSS = `
 @keyframes tacObjFlash{0%{box-shadow:0 0 0 0 rgba(243,210,122,.0)}30%{box-shadow:0 0 0 .3em rgba(243,210,122,.5)}100%{box-shadow:0 0 0 0 rgba(243,210,122,0)}}
 
 /* phase pill + order */
-.tac-phase{left:50%;top:.75em;transform:translateX(-50%);padding:.25em .9em .3em;font-family:Cinzel,serif;font-weight:700;font-size:.9em;letter-spacing:.06em;white-space:nowrap;display:flex;gap:.6em;align-items:center}
+.tac-phase{left:50%;top:.75em;transform:translateX(-50%);padding:.25em .9em .3em;font-family:Cinzel,serif;font-weight:700;font-size:.9em;letter-spacing:.06em;white-space:nowrap;display:flex;gap:.6em;align-items:center;max-width:44%}
+.tac-phase>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.tac-phase .rd{flex-shrink:0}
 .tac-phase .rd{font-family:'Alegreya Sans SC',sans-serif;font-weight:500;font-size:.8em;color:#bfb08c;letter-spacing:.12em}
 .tac-phase.enemy{color:#ffb4a0}.tac-phase.player{color:#f3e2b0}.tac-phase.ally{color:#bdf0c8}
-.tac-order{position:absolute;left:50%;top:3.1em;transform:translateX(-50%);display:flex;gap:.22em;pointer-events:auto}
+.tac-order{position:absolute;left:50%;top:3.1em;transform:translateX(-50%);display:flex;gap:.22em;pointer-events:auto;max-width:48%;overflow-x:auto;padding:2px}
+.tac-order .o{flex-shrink:0}
 .tac-order .o{width:1.9em;height:1.9em;border-radius:.3em;border:1px solid rgba(216,178,90,.5);background:#0e131d;overflow:hidden;position:relative;cursor:pointer;padding:0}
 .tac-order .o img{width:100%;height:100%;image-rendering:pixelated;display:block}
 .tac-order .o.player{border-color:#8ebcff}.tac-order .o.enemy{border-color:#e0705a}.tac-order .o.ally{border-color:#8ae0a0}
