@@ -212,12 +212,12 @@ test('schattenlager: scout three vantage points unseen, the tree, the plan, the 
 });
 
 // --------------------------------------------------------------------------------------------------------------
-type TacState = { input: boolean; ended: boolean; round: number; units: Record<string, { x: number; y: number; down: unknown; bound: boolean; acted: boolean }> };
+type TacState = { input: boolean; ended: boolean; round: number; active: string; units: Record<string, { x: number; y: number; down: unknown; bound: boolean; acted: boolean }> };
 const tac = (page: Page) => page.evaluate(() => {
   const t = (window as any).__tactics; if (!t?.ctrl) return null;
   const b = t.ctrl.battle;
   return {
-    input: t.ctrl.inputEnabled(), ended: t.ctrl.isEnded, round: b.round,
+    input: t.ctrl.inputEnabled(), ended: t.ctrl.isEnded, round: b.round, active: b.activeUnit,
     units: Object.fromEntries(b.units.map((u: any) => [u.id, { x: u.x, y: u.y, down: u.down, bound: Boolean(u.statuses.bound), acted: u.acted }])),
   } as TacState;
 });
@@ -290,25 +290,25 @@ test('rettung: cut Kyra free, hold out, the Urmacht bursts out → finale', asyn
   // Round 1: Flick cuts the first strand (ability 3), Lia distracts (2).
   await act(c, 'flick', 3, [7, 4]);
   expect((await tac(page))!.units.kyra.bound).toBe(true);
+  await page.keyboard.press('Space');
+  await battleReady(c);
   await act(c, 'lia', 2);
   await page.keyboard.press('Space');
   await battleReady(c);
   // Round 2: the last strand.
   await act(c, 'flick', 3, [7, 4]);
   expect((await tac(page))!.units.kyra.bound).toBe(false);
-  await act(c, 'lia', 1);
-  await moveToward(c, 'kyra', [0, 4]);
-  await moveToward(c, 'lia', [2, 8]);
   await page.keyboard.press('Space');
-  for (let r = 0; r < 10; r++) {
+  for (let r = 0; r < 24; r++) {
     if ((await battleReady(c)) === 'ended') break;
     const s = (await tac(page))!;
     expect(s.units.lia.down).toBe(false);
-    await moveToward(c, 'kyra', [0, 4]);
-    const defence = await page.evaluate(() => {
+    if (s.active === 'kyra') await moveToward(c, 'kyra', [0, 4]);
+    if (s.active === 'lia') await moveToward(c, 'lia', [2, 8]);
+    const defence = s.active === 'lia' ? await page.evaluate(() => {
       const b = (window as any).__tactics.ctrl.battle, u = b.unit('lia');
       return !u.acted && !u.down ? ['ausweichen', 'ablenken'].find(id => b.abilityReady(u, id)) : null;
-    });
+    }) : null;
     if (defence) await act(c, 'lia', defence === 'ausweichen' ? 1 : 2);
     await page.keyboard.press('Space');
   }

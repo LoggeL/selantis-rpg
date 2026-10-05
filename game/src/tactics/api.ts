@@ -106,7 +106,7 @@ export interface CustomTrigger {
 export interface BattleHooks {
   /** After the battlefield is visible, before the first player phase. */
   onStart?(ctx: BattleCtx): void | Promise<void>;
-  /** At the start of every phase (after the turn banner). */
+  /** Once per team per round, before that team's first character turn (after the turn banner). */
   onRound?(ctx: BattleCtx, round: number, phase: Phase): void | Promise<void>;
   onUnitDown?(ctx: BattleCtx, unit: Unit, kind: DownKind): void | Promise<void>;
   onHpBelow?: HpTrigger[];

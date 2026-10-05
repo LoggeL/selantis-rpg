@@ -13,7 +13,7 @@ export const TACTICS_CSS = `
 .tac-panel::after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-bottom-right-radius:.45em}
 
 /* objective */
-.tac-obj{left:.8em;top:.8em;max-width:min(19em,calc(30% - .8em));padding:.45em .8em .55em;pointer-events:auto;overflow-wrap:break-word}
+.tac-obj{left:.8em;top:.8em;max-width:min(19em,calc(28% - 1em));padding:.45em .8em .55em;pointer-events:auto;overflow-wrap:break-word}
 .tac-obj .lbl{font-family:'Alegreya Sans SC',sans-serif;font-size:.72em;letter-spacing:.16em;color:var(--gold);display:flex;align-items:center;gap:.4em}
 .tac-obj .lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(216,178,90,.6),transparent)}
 .tac-obj .txt{font-family:Cinzel,serif;font-weight:700;font-size:1em;color:#f4e6c4;margin-top:.1em}
@@ -26,13 +26,13 @@ export const TACTICS_CSS = `
 @keyframes tacObjFlash{0%{box-shadow:0 0 0 0 rgba(243,210,122,.0)}30%{box-shadow:0 0 0 .3em rgba(243,210,122,.5)}100%{box-shadow:0 0 0 0 rgba(243,210,122,0)}}
 
 /* phase pill + order */
-.tac-phase{left:50%;top:.75em;transform:translateX(-50%);padding:.25em .9em .3em;font-family:Cinzel,serif;font-weight:700;font-size:.9em;letter-spacing:.06em;white-space:nowrap;display:flex;gap:.6em;align-items:center;max-width:44%}
+.tac-phase{left:50%;top:.75em;transform:translateX(-50%);padding:.25em .9em .3em;font-family:Cinzel,serif;font-weight:700;font-size:.9em;letter-spacing:.06em;white-space:nowrap;display:flex;gap:.6em;align-items:center}
+.tac-phase .rd{font-family:'Alegreya Sans SC',sans-serif;font-weight:500;font-size:.8em;color:#bfb08c;letter-spacing:.12em}
+.tac-phase{max-width:44%;letter-spacing:.03em;gap:.4em}
 .tac-phase>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
 .tac-phase .rd{flex-shrink:0}
-.tac-phase .rd{font-family:'Alegreya Sans SC',sans-serif;font-weight:500;font-size:.8em;color:#bfb08c;letter-spacing:.12em}
 .tac-phase.enemy{color:#ffb4a0}.tac-phase.player{color:#f3e2b0}.tac-phase.ally{color:#bdf0c8}
-.tac-order{position:absolute;left:50%;top:3.1em;transform:translateX(-50%);display:flex;gap:.22em;pointer-events:auto;max-width:48%;overflow-x:auto;padding:2px}
-.tac-order .o{flex-shrink:0}
+.tac-order{position:absolute;left:50%;top:3.1em;transform:translateX(-50%);display:flex;gap:.22em;pointer-events:auto}
 .tac-order .o{width:1.9em;height:1.9em;border-radius:.3em;border:1px solid rgba(216,178,90,.5);background:#0e131d;overflow:hidden;position:relative;cursor:pointer;padding:0}
 .tac-order .o img{width:100%;height:100%;image-rendering:pixelated;display:block}
 .tac-order .o.player{border-color:#8ebcff}.tac-order .o.enemy{border-color:#e0705a}.tac-order .o.ally{border-color:#8ae0a0}
@@ -40,9 +40,12 @@ export const TACTICS_CSS = `
 .tac-order .o.down{filter:grayscale(1) brightness(.35)}
 .tac-order .o.cur{box-shadow:0 0 0 2px var(--gold2),0 0 .6em rgba(243,210,122,.6)}
 .tac-order .sep{width:1px;background:rgba(216,178,90,.4);margin:0 .2em}
+.tac-order{max-width:48%;overflow-x:auto;padding:3px;top:3.1em}
+.tac-order .o{flex-shrink:0}
+.tac-order .order-number{position:absolute;left:0;bottom:0;padding:0 .2em;background:#0e131de6;color:#fff2cc;font:700 .55em sans-serif}
 
 /* rotate */
-.tac-rot{position:absolute;right:.8em;top:max(3.6em,66px);display:flex;gap:.3em;pointer-events:auto}
+.tac-rot{position:absolute;right:.8em;top:var(--tac-controls-top,66px);display:flex;gap:.3em;pointer-events:auto}
 .tac-rot button{width:2em;height:2em;border-radius:50%;background:rgba(20,26,38,.85);border:1px solid rgba(216,178,90,.55);display:grid;place-items:center;padding:0}
 .tac-rot button:hover{border-color:var(--gold2);background:rgba(36,46,66,.95)}
 .tac-rot svg{width:1.1em;height:1.1em}
@@ -68,6 +71,20 @@ export const TACTICS_CSS = `
 .tac-hp .bar s{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,rgba(255,240,200,.85) 0 3px,rgba(255,200,150,.55) 3px 6px);animation:tacGhost .8s ease-in-out infinite alternate}
 @keyframes tacGhost{from{opacity:.45}to{opacity:1}}
 .tac-hp .num{font-family:'Alegreya Sans SC',sans-serif;font-size:.85em;color:#efe3c8;min-width:3.6em;text-align:right}
+.tac-hp .resource-label{width:1.6em;font:700 .72em 'Alegreya Sans SC',sans-serif;color:var(--green)}
+.tac-mp{margin-top:.2em}
+.tac-mp .resource-label{color:var(--blue)}
+.tac-mp .bar b{background:linear-gradient(180deg,#8abfff,#4467c9)}
+.tac-growth{display:flex;gap:.7em;justify-content:space-between;margin-top:.3em;font:.78em 'Alegreya Sans SC',sans-serif;color:#c9bb96}
+.tac-growth b{color:#fff0c9;font-variant-numeric:tabular-nums}
+.tac-expbar{height:3px;background:#080e18;margin-top:.15em;overflow:hidden}
+.tac-expbar b{display:block;height:100%;background:var(--gold2)}
+.tac-equipment{border-top:1px solid #d8b25a33;margin-top:.4em;padding-top:.3em}
+.tac-weapon-name{font:.78em 'Alegreya Sans SC',sans-serif;color:#cdbb91;margin-top:.2em}
+.tac-equip-buttons{display:flex;gap:.25em;margin-top:.25em}
+.tac-equip-buttons button{border:1px solid #d8b25a55;border-radius:.2em;background:#172034;font:.76em 'Alegreya Sans SC',sans-serif;padding:.2em .5em}
+.tac-equip-buttons button.on{border-color:var(--gold);color:var(--gold2)}
+.tac-equip-buttons button:disabled{opacity:.5;cursor:default}
 .tac-stats{display:flex;flex-wrap:wrap;gap:.3em .7em;margin-top:.3em;font-family:'Alegreya Sans SC',sans-serif;font-size:.78em;color:#c9bb96;letter-spacing:.04em}
 .tac-stats b{color:#f3e2b0;font-weight:700}
 .tac-chip{display:inline-flex;align-items:center;gap:.25em;font-family:'Alegreya Sans SC',sans-serif;font-size:.74em;letter-spacing:.05em;padding:.06em .45em;border-radius:.6em;border:1px solid rgba(216,178,90,.4);color:#efe3c8;background:rgba(216,178,90,.1)}
@@ -97,6 +114,19 @@ export const TACTICS_CSS = `
 .tac-tcard .nm{font-family:Cinzel,serif;font-weight:700;font-size:.95em;color:#f6e8c6}
 .tac-tcard .ab{font-family:'Alegreya Sans SC',sans-serif;font-size:.72em;letter-spacing:.1em;color:var(--gold)}
 .tac-tcard .ab.magic{color:var(--turq)}
+.tac-tcard.forecast{left:50%;right:auto;transform:translateX(-50%);bottom:3.6em;width:min(39em,calc(100% - 1.6em));padding:.6em .8em;z-index:2}
+.tac.has-forecast .tac-card{visibility:hidden}
+.forecast-title{display:flex;justify-content:space-between;gap:1em;border-bottom:1px solid #d8b25a44;padding-bottom:.3em;font:.72em 'Alegreya Sans SC',sans-serif;color:#c9bb96}
+.tac-versus{display:grid;grid-template-columns:minmax(0,1fr) 1.5em minmax(0,1fr);align-items:center;gap:.6em;margin-top:.4em}
+.tac-combatant{min-width:0;padding:.25em .4em;border-left:2px solid var(--blue);background:#27375433}
+.tac-combatant.enemy{border-color:var(--danger);background:#54322733}
+.tac-combatant.ally{border-color:var(--green)}
+.tac-combatant .ab{letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:14em}
+.tac-versus-arrow{text-align:center;font-size:1.6em;color:var(--gold2)}
+.tac-forecast-note{font:.7em 'Alegreya Sans SC',sans-serif;color:#c9bb96;margin-top:.2em}
+.forecast .tac-big{justify-content:center;gap:2em;margin-top:.4em}
+.forecast .tac-chips{justify-content:center}
+.forecast .tac-push{justify-content:center}
 .tac-big{display:flex;gap:.9em;margin-top:.35em;align-items:baseline}
 .tac-big div{display:flex;flex-direction:column}
 .tac-big .v{font-family:Cinzel,serif;font-weight:700;font-size:1.45em;line-height:1;color:#fff2cc}
@@ -134,6 +164,7 @@ export const TACTICS_CSS = `
 /* action menu */
 .tac-menu{position:absolute;z-index:4;padding:.3em;display:flex;flex-direction:column;gap:.18em;pointer-events:auto;min-width:8.6em;transform:translate(0,-50%)}
 .tac-menu.hidden{display:none}
+.tac-menu:not(.targeting){max-height:calc(100% - var(--tac-header,64px) - var(--tac-footer,40px));overflow-y:auto}
 .tac-menu button{display:flex;align-items:center;gap:.45em;text-align:left;padding:.28em .55em .3em;border-radius:.3em;background:transparent;border:1px solid transparent;font-size:.9em;color:#efe3c8}
 .tac-menu button:hover:not(:disabled):not(.dis),.tac-menu button.on{background:rgba(216,178,90,.14);border-color:rgba(216,178,90,.5)}
 .tac-menu button:disabled,.tac-menu button.dis{opacity:.38;cursor:default}
@@ -142,10 +173,13 @@ export const TACTICS_CSS = `
 .tac-menu .sub{padding-left:.6em;border-left:1px solid rgba(216,178,90,.3);margin-left:.6em;display:flex;flex-direction:column;gap:.1em}
 .tac-menu .sub button{font-size:.84em}
 .tac-menu .sub .magic svg{color:var(--turq)}
+.tac-menu.targeting{transform:none;min-width:8em;max-width:12em}
+.tac-target-name{padding:.2em .5em;font:.75em 'Alegreya Sans SC',sans-serif;color:var(--gold2)}
 
 /* tooltip */
-.tac-tip{position:absolute;max-width:17em;padding:.5em .65em .55em;font-size:.82em;pointer-events:none;z-index:5}
+.tac-tip{position:absolute;width:min(17em,calc(100% - 1.6em));max-height:calc(100% - 1.6em);overflow-y:auto;padding:.5em .65em .55em;font-size:.82em;pointer-events:none;z-index:5}
 .tac-tip.hidden{display:none}
+.tac-menu,.tac-hint,.tac-tip{overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#8d744a #141a26}
 .tac-tip h4{margin:0 0 .15em;font-family:Cinzel,serif;font-size:1em;color:#f6e8c6}
 .tac-tip p{margin:0 0 .35em;color:#d8caa6;font-style:italic;line-height:1.25}
 .tac-tip .meta{display:flex;flex-wrap:wrap;gap:.25em}
@@ -188,7 +222,11 @@ export const TACTICS_CSS = `
 
 /* hint */
 .tac-hint{z-index:3;left:.8em;top:6.6em;width:min(21em,44%);padding:.6em .85em .65em;pointer-events:auto;transition:opacity .25s,transform .25s}
-.tac-hint.hidden{opacity:0;transform:translateY(-.6em);pointer-events:none}
+.tac-hint.hidden{opacity:0;transform:translateY(-.6em);pointer-events:none;visibility:hidden;transition:opacity .25s,transform .25s,visibility 0s .25s}
+.tac-hint{max-height:calc(100% - var(--tac-header,64px) - var(--tac-footer,40px));overflow-y:auto;overscroll-behavior:contain}
+.tac.has-hint .tac-card,.tac.has-hint .tac-tcard:not(.forecast){visibility:hidden}
+.tac.has-forecast .tac-hint{visibility:hidden;pointer-events:none}
+.tac.has-tip .tac-hint,.tac.has-tip .tac-tcard:not(.forecast){visibility:hidden;pointer-events:none}
 .tac-hint .h{font-family:'Alegreya Sans SC',sans-serif;font-size:.72em;letter-spacing:.16em;color:var(--gold);display:flex;gap:.4em;align-items:center}
 .tac-hint .h svg{width:1.1em;height:1.1em}
 .tac-hint .b{margin-top:.2em;font-size:.95em;color:#f0e4c6;line-height:1.3}
@@ -213,16 +251,25 @@ export const TACTICS_CSS = `
 .tac.compact .tac-abil{margin-top:.35em;gap:.2em}
 .tac.compact .tac-abil button{min-height:1.9em;padding:.2em .35em}
 .tac.compact .tac-abil .an{font-size:.8em}
-.tac.compact .tac-obj{max-width:13em;padding:.3em .55em .4em}
+.tac.compact .tac-obj{max-width:calc(28% - 1em);padding:.3em .55em .4em}
 .tac.compact .tac-obj .det{display:none}
 .tac.compact .tac-hint{width:14.5em;top:5em;font-size:.88em}
 .tac.compact .tac-tcard{width:14em;bottom:3.6em}
+.tac.compact .tac-tcard.forecast{width:calc(100% - 1.2em);bottom:3.3em;font-size:.9em}
+.tac.compact .tac-versus{gap:.3em;grid-template-columns:minmax(0,1fr) 1em minmax(0,1fr)}
+.tac.compact .tac-combatant{padding:.15em .25em}
+.tac.compact .tac-combatant .por{width:2em;height:2em}
+.tac.compact .tac-combatant .ab{display:none}
+.tac.compact .tac-equipment .tac-chips{display:none}
+.tac.compact .tac-growth{gap:.3em}
 .tac.compact .tac-tcard .tac-stats{display:none}
 .tac.compact .tac-tile{display:none}
 .tac.compact .tac-btn{font-size:.85em;padding:.35em .6em}
 .tac.compact .tac-btn kbd{display:none}
 .tac.compact .tac-menu{min-width:7.5em}
 .tac.compact .tac-menu kbd{display:none}
+.tac.compact .tac-menu.targeting{left:.8em!important;right:auto!important;top:auto!important;bottom:.8em;min-width:0}
+.tac.compact .tac-menu.targeting .tac-target-name{display:none}
 .tac.compact .tac-banner .rib{font-size:1.8em}
 .tac.compact .tac-order .o{width:1.6em;height:1.6em}
 `;

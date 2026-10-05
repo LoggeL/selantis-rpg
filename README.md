@@ -66,7 +66,7 @@ Auf Touch-Geräten stehen ein virtueller Stick, eine Aktionstaste und kontextabh
 
 Im Kampf steuern WASD und Pfeile den Rastercursor. Enter oder E bestätigt, 1 bis 9 wählt eine Fähigkeit, Tab wechselt die ausgewählte Figur. Leertaste beendet den Zug, F wählt Warten, M den Bewegungsmodus, Z nimmt eine Bewegung zurück, solange noch nicht gehandelt wurde. Q und R drehen die Ansicht. Rücktaste, Rechtsklick oder Escape gehen zurück; Escape öffnet das Menü, sobald Zielwahl und Auswahl geschlossen sind. Auf Touch-Geräten zeigt der erste Tipp die Vorschau, der zweite bestätigt.
 
-Der Kampf wechselt zwischen Spieler-, Verbündeten- und Gegnerphasen. In der Spielerphase hat jede Figur eine Bewegung und eine Aktion in beliebiger Reihenfolge. KI-Figuren handeln innerhalb ihrer Phase nach Tempo. Höhen, Gelände, Blickrichtung und Status beeinflussen die Möglichkeiten. Einzelheiten stehen im [Taktikleitfaden](docs/rebuild/tactics-guide.md).
+Im Kampf teilen sich alle Teams eine Zugreihenfolge nach Tempo. Die aktive Figur hat eine Bewegung und eine Aktion in beliebiger Reihenfolge. Charakterkarten zeigen HP, MP, Level und EXP; Fähigkeiten kommen von Waffen und bleiben nach ihrer Meisterung verfügbar. Höhen, Gelände, Blickrichtung und Status beeinflussen die Möglichkeiten. Einzelheiten stehen im [Taktikleitfaden](docs/rebuild/tactics-guide.md).
 
 ## Kapitel und direkte Einstiege
 

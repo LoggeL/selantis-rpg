@@ -2,6 +2,7 @@ import { STANDARD_ABILITIES } from './abilities';
 import { DIRS, FACINGS, Grid, OPPOSITE, TERRAIN, directionTo, key, manhattan, stepFacing } from './grid';
 import { pathTo, reachable, sameSide, type ReachMap } from './movement';
 import { Rng } from './rng';
+import { WEAPONS, awardProgress, skillAvailable } from './progression';
 import type {
   AbilityDef, ActionPreview, AiOverride, BattleEvent, Facing, Phase, Point, PreviewMod, PushOutcome,
   StatusId, TargetPreview, Team, Unit, UnitSpec,
@@ -28,16 +29,24 @@ export interface BattleSetup {
   seed?: number;
   /** Phase order; teams without living units are skipped automatically. */
   phases?: Phase[];
+  turnMode?: 'phases' | 'speed';
 }
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
 export function makeUnit(spec: UnitSpec): Unit {
+  const weapons = [...(spec.weapons ?? (spec.weapon ? [spec.weapon] : []))];
+  for (const id of weapons) if (!Object.hasOwn(WEAPONS, id)) throw new Error(`Unknown weapon ${id}`);
+  if (spec.weapon && !weapons.includes(spec.weapon)) throw new Error(`Weapon ${spec.weapon} is not owned by ${spec.id}`);
+  const weaponSkills = new Set(weapons.flatMap(id => WEAPONS[id].skills));
   return {
     id: spec.id, name: spec.name, team: spec.team, x: spec.x, y: spec.y, facing: spec.facing ?? 's',
     hp: spec.hp, maxHp: spec.maxHp ?? spec.hp, atk: spec.atk ?? 2, def: spec.def ?? 0,
     move: spec.move ?? 4, jump: spec.jump ?? 2, speed: spec.speed ?? 5,
-    abilities: [...spec.abilities], cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
+    mp: spec.mp ?? spec.maxMp ?? 24, maxMp: spec.maxMp ?? spec.mp ?? 24,
+    level: spec.level ?? 1, exp: spec.exp ?? 0, weapon: spec.weapon ?? weapons[0] ?? null, weapons,
+    innate: spec.abilities.filter(id => !weaponSkills.has(id)), mastered: [...(spec.mastered ?? [])], abilityAp: { ...(spec.abilityAp ?? {}) },
+    abilities: [...new Set([...spec.abilities, ...weaponSkills, ...(spec.mastered ?? [])])], cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
     down: false, nonLethal: !!spec.nonLethal, ai: spec.ai ?? (spec.team === 'enemy' ? 'melee' : 'passive'),
     guardRadius: spec.guardRadius ?? 4, freedTeam: spec.freedTeam ?? 'player', tags: [...(spec.tags ?? [])],
     moved: false, acted: false, undo: null,
@@ -54,6 +63,9 @@ export class Battle {
   readonly abilities: Record<string, AbilityDef>;
   readonly rng: Rng;
   readonly phases: Phase[];
+  readonly turnMode: 'phases' | 'speed';
+  activeUnit: string | null = null;
+  private turnQueue: string[] = [];
   round = 1;
   phase: Phase = 'player';
   /** Rounds fully completed (after the last phase of a round). */
@@ -67,6 +79,7 @@ export class Battle {
     this.units = setup.units.map(makeUnit);
     this.rng = new Rng(setup.seed ?? 7);
     this.phases = setup.phases ?? ['player', 'ally', 'enemy'];
+    this.turnMode = setup.turnMode ?? 'phases';
     for (const u of this.units) {
       for (const a of u.abilities) if (!this.abilities[a]) throw new Error(`Unit ${u.id}: unknown ability ${a}`);
       if (!this.grid.standable(u.x, u.y)) throw new Error(`Unit ${u.id} placed on blocked tile ${u.x},${u.y}`);
@@ -97,15 +110,26 @@ export class Battle {
 
   canMove(id: string): boolean {
     const u = this.unit(id);
-    return !u.down && !u.moved && u.team === this.phase && !this.has(u, 'bound') && !this.has(u, 'stunned');
+    return !u.down && !u.moved && this.isCurrent(u) && !this.has(u, 'bound') && !this.has(u, 'stunned');
   }
   canAct(id: string): boolean {
     const u = this.unit(id);
-    return !u.down && !u.acted && u.team === this.phase && !this.has(u, 'bound') && !this.has(u, 'stunned');
+    return !u.down && !u.acted && this.isCurrent(u) && !this.has(u, 'bound') && !this.has(u, 'stunned');
   }
-  canUndo(id: string): boolean { const u = this.unit(id); return u.moved && !u.acted && !!u.undo; }
+  isCurrent(u: Unit): boolean { return u.team === this.phase && (this.turnMode !== 'speed' || u.id === this.activeUnit); }
+  canUndo(id: string): boolean { const u = this.unit(id); return this.isCurrent(u) && !u.down && u.moved && !u.acted && !!u.undo; }
   isDone(id: string): boolean { const u = this.unit(id); return !!u.down || (u.moved && u.acted) || this.has(u, 'bound'); }
-  abilityReady(u: Unit, abilityId: string): boolean { return (u.cooldowns[abilityId] ?? 0) <= 0; }
+  abilityReady(u: Unit, abilityId: string): boolean {
+    return u.abilities.includes(abilityId) && skillAvailable(u, abilityId) &&
+      (u.cooldowns[abilityId] ?? 0) <= 0 && u.mp >= (this.ability(abilityId).mpCost ?? 0);
+  }
+
+  equip(id: string, weapon: string): BattleEvent[] {
+    const u = this.unit(id);
+    if (!this.canAct(id) || u.moved || !u.weapons.includes(weapon)) throw new Error('Equipment can only change before moving or acting on your turn');
+    u.weapon = weapon;
+    return [{ type: 'equip', unit: id, weapon }];
+  }
 
   /** Hidden in a bush: only visible to observers within 2 tiles. */
   visibleTo(target: Unit, observer: Unit): boolean {
@@ -373,6 +397,7 @@ export class Battle {
 
   wait(id: string): BattleEvent[] {
     const u = this.unit(id);
+    if (!this.isCurrent(u) || u.down || this.has(u, 'bound')) throw new Error(`${id} cannot wait now`);
     u.moved = true; u.acted = true; u.undo = null;
     return [{ type: 'wait', unit: id }];
   }
@@ -388,7 +413,7 @@ export class Battle {
     const u = this.unit(id);
     const a = this.ability(abilityId);
     if (!u.abilities.includes(abilityId)) throw new Error(`${id} does not know ${abilityId}`);
-    if (!this.abilityReady(u, abilityId)) throw new Error(`${abilityId} is on cooldown`);
+    if (!this.abilityReady(u, abilityId)) throw new Error(`${abilityId} is unavailable (weapon, MP or cooldown)`);
     if (!this.validTarget(id, abilityId, cell)) throw new Error(`invalid target ${cell.x},${cell.y} for ${abilityId}`);
 
     const events: BattleEvent[] = [];
@@ -402,6 +427,7 @@ export class Battle {
     u.acted = true;
     u.undo = null;
     if (a.cooldown) u.cooldowns[abilityId] = a.cooldown;
+    if (a.mpCost) { u.mp -= a.mpCost; events.push({ type: 'mp', unit: id, amount: -a.mpCost, mp: u.mp }); }
 
     // Resolve far targets first so ring pushes do not chain into each other unexpectedly.
     for (const t of targets) {
@@ -438,6 +464,9 @@ export class Battle {
       if (a.push) events.push(...this.applyPush(t, directionTo(u, t), a.push));
     }
     for (const e of a.effects ?? []) if (e.on === 'self') events.push(...this.addStatus(u, e.status, e.turns));
+    const useful = a.kind === 'interact' || events.some(e => e.type === 'strike' && e.hit || e.type === 'heal' && e.amount > 0 || e.type === 'status' && e.on || e.type === 'free');
+    const defeated = events.some(e => e.type === 'down' && this.isEnemy(u, this.unit(e.unit)));
+    if (useful) events.push(...awardProgress(u, defeated ? 20 : 10, 10));
     return events;
   }
 
@@ -504,7 +533,7 @@ export class Battle {
     const cell = this.freeCellNear(spec);
     if (!cell) return [];
     const u = makeUnit({ ...spec, x: cell.x, y: cell.y });
-    if (u.team === this.phase) { u.moved = true; u.acted = true; } // arrives exhausted
+    if (this.turnMode === 'speed' || u.team === this.phase) { u.moved = true; u.acted = true; } // arrives exhausted
     this.units.push(u);
     return [{ type: 'spawn', unit: u.id }];
   }
@@ -533,13 +562,57 @@ export class Battle {
     return this.units.some(u => u.team === p && !u.down && !this.has(u, 'bound'));
   }
 
+  /** All teams share one speed-sorted round. Reinforcements and newly freed units join the next round. */
+  private nextRoundOrder(): Unit[] {
+    return this.units.filter(u => !u.down && !this.has(u, 'bound') && u.x > -50)
+      .sort((a, b) => b.speed - a.speed || a.id.localeCompare(b.id));
+  }
+
+  startTurns(): BattleEvent[] {
+    if (this.turnMode !== 'speed') return this.startPhase('player');
+    this.turnQueue = this.nextRoundOrder().map(u => u.id);
+    for (const u of this.units) { u.moved = true; u.acted = true; u.undo = null; }
+    return this.beginNextUnit();
+  }
+
+  private beginNextUnit(): BattleEvent[] {
+    while (this.turnQueue.length) {
+      const u = this.findUnit(this.turnQueue.shift()!);
+      if (!u || u.down || this.has(u, 'bound')) continue;
+      this.activeUnit = u.id;
+      return this.startPhase(u.team);
+    }
+    this.activeUnit = null;
+    return [];
+  }
+
+  advanceTurn(): BattleEvent[] {
+    if (this.turnMode !== 'speed') return this.endPhase();
+    if (this.activeUnit) {
+      const u = this.unit(this.activeUnit);
+      u.moved = true; u.acted = true; u.undo = null;
+    }
+    const events = this.beginNextUnit();
+    if (this.activeUnit) return events;
+    this.round++; this.completedRounds++;
+    return this.startTurns();
+  }
+
+  turnOrder(): Unit[] {
+    const current = this.activeUnit ? this.findUnit(this.activeUnit) : undefined;
+    const next = this.turnQueue.map(id => this.findUnit(id)).filter((u): u is Unit => !!u && !u.down && !this.has(u, 'bound'));
+    return [...(current && !current.down ? [current] : []), ...next];
+  }
+
   /** Begins a phase: resets turn flags, ticks cooldowns and statuses of that team. */
   startPhase(phase: Phase): BattleEvent[] {
     this.phase = phase;
     const events: BattleEvent[] = [{ type: 'phase', phase, round: this.round }];
     for (const u of this.units) {
-      if (u.team !== phase || u.down) continue;
+      if (u.team !== phase || u.down || this.turnMode === 'speed' && u.id !== this.activeUnit) continue;
       u.moved = false; u.acted = false; u.undo = null;
+      const restoredMp = Math.min(2, u.maxMp - u.mp);
+      if (restoredMp > 0) { u.mp += restoredMp; events.push({ type: 'mp', unit: u.id, amount: restoredMp, mp: u.mp }); }
       for (const k of Object.keys(u.cooldowns)) u.cooldowns[k] = Math.max(0, u.cooldowns[k] - 1);
       for (const s of Object.keys(u.statuses) as StatusId[]) {
         if (s === 'bound' || s === 'stunned') continue;
@@ -572,6 +645,6 @@ export class Battle {
 
   /** Units of the current phase that still have something to do. */
   pending(): Unit[] {
-    return this.units.filter(u => u.team === this.phase && !u.down && !this.has(u, 'bound') && !(u.moved && u.acted));
+    return this.units.filter(u => this.isCurrent(u) && !u.down && !this.has(u, 'bound') && !(u.moved && u.acted));
   }
 }

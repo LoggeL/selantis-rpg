@@ -98,6 +98,7 @@ export interface AbilityDef {
   heal?: number;
   /** Phases until usable again after use. */
   cooldown?: number;
+  mpCost?: number;
   /** Ranged: +1 max range per 2 levels the user stands above the target. */
   heightRange?: boolean;
   /** Needs a free line of fire (projectiles). */
@@ -133,6 +134,14 @@ export interface UnitSpec {
   move?: number;
   jump?: number;
   speed?: number;
+  mp?: number;
+  maxMp?: number;
+  level?: number;
+  exp?: number;
+  weapon?: string;
+  weapons?: string[];
+  mastered?: string[];
+  abilityAp?: Record<string, number>;
   abilities: string[];
   /** Becomes "kampfunfähig" (wounded, stays on the field) instead of dying. */
   nonLethal?: boolean;
@@ -159,6 +168,15 @@ export interface Unit {
   move: number;
   jump: number;
   speed: number;
+  mp: number;
+  maxMp: number;
+  level: number;
+  exp: number;
+  weapon: string | null;
+  weapons: string[];
+  innate: string[];
+  mastered: string[];
+  abilityAp: Record<string, number>;
   abilities: string[];
   cooldowns: Record<string, number>;
   statuses: StatusMap;
@@ -220,6 +238,11 @@ export interface ActionPreview {
 }
 
 export type BattleEvent =
+  | { type: 'mp'; unit: string; amount: number; mp: number }
+  | { type: 'exp'; unit: string; amount: number }
+  | { type: 'level'; unit: string; level: number }
+  | { type: 'master'; unit: string; ability: string }
+  | { type: 'equip'; unit: string; weapon: string }
   | { type: 'move'; unit: string; path: Point[] }
   | { type: 'undo'; unit: string; to: Point; facing: Facing }
   | { type: 'face'; unit: string; facing: Facing }

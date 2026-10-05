@@ -1,12 +1,13 @@
 import { events } from './events';
 import type { FlagValue, Objective, SaveData } from './types';
+import { normalizeProgress, type CharacterProgress } from '../tactics/rules/progression';
 
 const SAVE_KEY = 'selantis.save.v1';
 
 function blank(): SaveData {
   return {
     version: 1, chapter: 'prolog', scene: 'prolog-rat', flags: {}, inventory: {}, objectives: [],
-    memories: [], lore: [], clues: [], abilities: [], party: [], playtimeSec: 0, savedAt: new Date().toISOString(),
+    memories: [], lore: [], clues: [], abilities: [], party: [], characters: {}, playtimeSec: 0, savedAt: new Date().toISOString(),
   };
 }
 
@@ -77,6 +78,15 @@ export class GameState {
 
   setParty(ids: string[]): void { this.data.party = [...ids]; this.changed('party', ids); }
 
+  character(id: string): CharacterProgress | undefined {
+    const p = this.data.characters[id];
+    return p ? normalizeProgress(p) : undefined;
+  }
+  setCharacter(id: string, progress: CharacterProgress): void {
+    this.data.characters[id] = normalizeProgress(progress);
+    this.changed('character', { id });
+  }
+
   // ---- persistence ----
   save(chapter: string, scene: string, params?: Record<string, unknown>): void {
     this.data.chapter = chapter;
@@ -95,6 +105,7 @@ export class GameState {
       const parsed = JSON.parse(raw) as SaveData;
       if (parsed.version !== 1) return false;
       this.data = { ...blank(), ...parsed };
+      this.data.characters = Object.fromEntries(Object.entries(parsed.characters ?? {}).map(([id, p]) => [id, normalizeProgress(p)]));
       this.changed('load');
       return true;
     } catch { return false; }

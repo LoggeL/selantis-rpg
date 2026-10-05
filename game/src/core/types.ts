@@ -1,3 +1,4 @@
+import type { CharacterProgress } from '../tactics/rules/progression';
 export type FlagValue = boolean | number | string;
 export type Dir = 'down' | 'up' | 'left' | 'right';
 
@@ -16,6 +17,7 @@ export interface SaveData {
   clues: string[];
   abilities: string[];
   party: string[];
+  characters: Record<string, CharacterProgress>;
   playtimeSec: number;
   savedAt: string;
 }

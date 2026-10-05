@@ -145,8 +145,10 @@ async function cursorTo(page: Page, t: { x: number; y: number }) {
     await page.waitForTimeout(60);
   }
 }
-/** One player phase: each unit is planned with the rules AI (melee profile) and executed with Tab/M/arrows/Enter/digits. */
+/** The active player's turn, planned by the rules AI and executed with visible controls. */
 async function playPhase(page: Page, ids: string[]): Promise<void> {
+  const active = await page.evaluate(() => (window as Win).__tactics.ctrl.battle.activeUnit as string | null);
+  ids = ids.filter(id => id === active);
   for (const id of ids) {
     let st = await settle(page);
     if (!st || st.out || !st.input) return;

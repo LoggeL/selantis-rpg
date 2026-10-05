@@ -38,3 +38,4 @@ game/test-results/
 game/playwright-report/
 game/e2e/scratch-*/
 output/imagegen/
+output/references/ffta/*.mp4

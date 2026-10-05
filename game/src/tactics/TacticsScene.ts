@@ -9,6 +9,7 @@ import type { BattleActor, BattleResult, HintOptions, TacticsStartData } from '.
 import { BattleController, type Presenter } from './controller';
 import { key, TERRAIN } from './rules/grid';
 import { pathTo } from './rules/movement';
+import { WEAPONS, skillAvailable } from './rules/progression';
 import { surviveProgress } from './rules/objectives';
 import type { BattleEvent, Facing, Phase, Point, Tile, Unit } from './rules/types';
 import type { UiApiExt } from '../ui';
@@ -109,7 +110,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.tint = BACKDROP_TINT[backdrop];
     buildBackdrop(this, backdrop);
 
-    this.ctrl = new BattleController(def, this, G.ui, r => this.onFinish(r), this.startData.retries ?? 0);
+    this.ctrl = new BattleController(def, this, G.ui, r => this.onFinish(r), this.startData.retries ?? 0, {
+      get: id => G.state.character(id), set: (id, value) => G.state.setCharacter(id, value),
+    });
     const g = this.ctrl.battle.grid;
     this.iso = new IsoView(g.cols, g.rows);
     this.iso.rot = (def.rotation ?? 0) & 3;
@@ -133,6 +136,12 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       rotate: d => this.rotate(d),
       selectUnit: id => this.clickUnitFromUi(id),
       hoverAbility: id => { this.hoverAbility = id; this.refreshOverlays(); },
+      equip: weapon => {
+        const id = this.sel.unit;
+        if (!id || !this.ctrl.inputEnabled()) return;
+        void this.ctrl.perform(() => this.ctrl.battle.equip(id, weapon)).then(() => { if (!this.ctrl.isEnded) this.select(id, true); });
+      },
+      back: () => { this.back(); },
     });
     this.ui.mount(document.getElementById('ui')!);
     this.ui.setObjective(this.ctrl.objectiveText, this.ctrl.objectiveDetail, surviveProgress(this.ctrl.battle, def.objective.win));
@@ -604,7 +613,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
 
   // =================================================================== selection logic
   private controllable(u: Unit | undefined): boolean {
-    return !!u && u.team === 'player' && !u.down && !this.ctrl.battle.has(u, 'bound') && this.ctrl.battle.phase === 'player';
+    return !!u && u.team === 'player' && !u.down && !this.ctrl.battle.has(u, 'bound') && this.ctrl.battle.isCurrent(u);
   }
 
   private select(id: string | null, silent = false): void {
@@ -826,7 +835,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (!this.ui) return;
     const b = this.ctrl.battle;
     for (const v of this.views.values()) v.refresh(b.findUnit(v.unit.id) ?? v.unit, b.phase === 'player' && b.isDone(v.unit.id));
-    this.ui.setOrder(this.ctrl.turnOrder(), this.ctrl.unitDefs, b.phase, u => b.isDone(u.id) && u.team === b.phase, this.sel.unit);
+    this.ui.setOrder(this.ctrl.turnOrder(), this.ctrl.unitDefs, b.phase, () => false, b.activeUnit);
     this.ui.setObjective(this.ctrl.objectiveText, this.ctrl.objectiveDetail, surviveProgress(b, this.startData.battle.objective.win));
     const enabled = this.ctrl.inputEnabled();
     this.ui.setEndTurn(enabled, enabled && b.pending().length === 0);
@@ -842,13 +851,15 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       let usable = true;
       let reason: string | undefined;
       if (!this.ctrl.inputEnabled() || u.team !== 'player') { usable = false; }
+      else if (!skillAvailable(u, id)) { usable = false; reason = 'Passende Waffe ausrüsten oder die Fähigkeit mit AP meistern.'; }
       else if (!b.canAct(u.id)) { usable = false; reason = 'Diese Einheit hat in dieser Runde schon gehandelt.'; }
       else if (cd > 0) { usable = false; reason = `Bereit in ${cd} ${cd === 1 ? 'Runde' : 'Runden'}.`; }
+      else if (u.mp < (def.mpCost ?? 0)) { usable = false; reason = `Benötigt ${def.mpCost} MP, vorhanden: ${u.mp}.`; }
       else if (!(def.target === 'self' && def.shape.type === 'self') && !b.targetCells(u.id, id).some(c => b.validTarget(u.id, id, c))) {
         usable = false;
         reason = def.target === 'bound' ? 'Niemand Gefesseltes in der Nähe.' : def.shape.type === 'ring' ? 'Kein Feind direkt daneben.' : def.shape.type === 'line' ? 'Kein Feind in gerader Linie.' : def.target === 'ally' ? 'Kein Verbündeter in Reichweite.' : 'Kein Ziel in Reichweite – erst bewegen.';
       }
-      return { def, cooldown: cd, usable, reason };
+      return { def, cooldown: cd, usable, reason, mastered: u.mastered.includes(id) };
     });
   }
 
@@ -875,7 +886,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       if (tgt && b.validTarget(s.unit, s.ability, tgt)) {
         const pv = b.preview(s.unit, s.ability, tgt);
         this.ui.previewCard({
-          ability: a, user: b.unit(s.unit),
+          ability: a, user: b.unit(s.unit), userDef: this.ctrl.unitDefs.get(s.unit),
           targets: pv.targets.map(p => ({ unit: b.unit(p.unit), def: this.ctrl.unitDefs.get(p.unit)!, p })),
           empty: a.shape.type === 'line' ? 'Kein Feind in dieser Linie.' : 'Kein Ziel.',
         });
@@ -906,7 +917,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const p = this.worldToCanvas(v.chest.x, v.chest.y);
     this.ui.menu({
       x: p.x, y: p.y, canMove: b.canMove(u.id), canAct: b.canAct(u.id), canUndo: b.canUndo(u.id),
-      moveOn: s.mode === 'move', actOpen: s.actOpen || s.mode === 'target', abilities: this.slots(u), selected: s.ability,
+      moveOn: s.mode === 'move', actOpen: s.actOpen || s.mode === 'target', targeting: s.mode === 'target', abilities: this.slots(u), selected: s.ability,
       avoid: [...this.views.values()].filter(o => o !== v && o.unit.down !== 'dead').flatMap(o => [this.worldToCanvas(o.chest.x, o.chest.y), this.worldToCanvas(o.feet.x, o.feet.y)]),
     });
   }
@@ -923,7 +934,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
   debugState(): unknown {
     const b = this.ctrl.battle;
-    return { round: b.round, phase: b.phase, input: this.ctrl.inputEnabled(), sel: this.sel, units: b.units.map(u => ({ id: u.id, x: u.x, y: u.y, hp: u.hp, down: u.down, team: u.team, moved: u.moved, acted: u.acted })) };
+    return { round: b.round, phase: b.phase, activeUnit: b.activeUnit, input: this.ctrl.inputEnabled(), sel: this.sel, units: b.units.map(u => ({ id: u.id, x: u.x, y: u.y, hp: u.hp, mp: u.mp, level: u.level, exp: u.exp, speed: u.speed, weapon: u.weapon, down: u.down, team: u.team, moved: u.moved, acted: u.acted })) };
   }
 
   private worldToCanvas(x: number, y: number): { x: number; y: number } {
@@ -956,7 +967,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   async phaseBanner(phase: Phase, round: number): Promise<void> {
     this.select(null, true);
     G.audio.sfx(phase === 'player' ? 'objective' : 'alert', { volume: 0.45 });
-    await this.ui.turnBanner(phase, round);
+    const u = this.ctrl.battle.activeUnit ? this.ctrl.battle.unit(this.ctrl.battle.activeUnit) : undefined;
+    await this.ui.turnBanner(phase, round, u);
     this.refresh();
   }
 
@@ -1146,6 +1158,24 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private async playOne(e: BattleEvent, all: BattleEvent[], idx: number): Promise<void> {
     const b = this.ctrl.battle;
     switch (e.type) {
+      case 'mp': break;
+      case 'equip': G.audio.sfx('ui-confirm', { volume: 0.4 }); break;
+      case 'exp': {
+        const p = this.canvasOf(this.view(e.unit));
+        this.ui.float(p.x, p.y - 14, `+${e.amount} Exp`, 'info');
+        break;
+      }
+      case 'level': {
+        const p = this.canvasOf(this.view(e.unit));
+        this.ui.float(p.x, p.y - 30, `Lvl ${e.level}!`, 'heal');
+        G.audio.sfx('objective', { volume: 0.6 });
+        break;
+      }
+      case 'master': {
+        const p = this.canvasOf(this.view(e.unit));
+        this.ui.float(p.x, p.y - 45, `${b.ability(e.ability).name} gemeistert`, 'magic');
+        break;
+      }
       case 'move': await this.animateMove(e.unit, e.path); break;
       case 'undo': {
         const v = this.view(e.unit);

@@ -13,17 +13,17 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   },
   strahl: {
     id: 'strahl', name: 'Strahl', kind: 'magic', target: 'tile', range: [1, 1], shape: { type: 'line', length: 5 },
-    power: 3, accuracy: 96, cooldown: 2, vfx: 'beam', ignoresCover: true,
+    power: 3, accuracy: 96, cooldown: 2, mpCost: 6, vfx: 'beam', ignoresCover: true,
     description: 'Ein türkiser Lichtstrahl aus der Hand. Trifft alle Feinde in einer Linie (5 Felder).',
   },
   druckwelle: {
     id: 'druckwelle', name: 'Druckwelle', kind: 'magic', target: 'self', range: [0, 0], shape: { type: 'ring', radius: 1 },
-    power: 1, accuracy: 100, alwaysHits: true, push: 1, cooldown: 3, vfx: 'shockwave', noFlank: true,
+    power: 1, accuracy: 100, alwaysHits: true, push: 1, cooldown: 3, mpCost: 8, vfx: 'shockwave', noFlank: true,
     description: 'Stößt alle angrenzenden Einheiten 1 Feld weg. Aufprall und Sturz verursachen Zusatzschaden.',
   },
   schutzwall: {
     id: 'schutzwall', name: 'Schutzwall', kind: 'support', target: 'ally', range: [0, 3], shape: { type: 'single' },
-    power: 0, accuracy: 100, alwaysHits: true, cooldown: 3, vfx: 'ward',
+    power: 0, accuracy: 100, alwaysHits: true, cooldown: 3, mpCost: 4, vfx: 'ward',
     effects: [{ status: 'guarded', turns: 1, on: 'target' }],
     description: 'Ein schimmernder Wall: Der Verbündete erleidet bis zu seinem nächsten Zug halben Schaden und kann nicht gestoßen werden.',
   },

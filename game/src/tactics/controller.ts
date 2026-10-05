@@ -8,6 +8,7 @@ import { Battle } from './rules/battle';
 import { Grid, manhattan } from './rules/grid';
 import { evaluate, type Outcome } from './rules/objectives';
 import type { BattleEvent, Facing, Phase, Point, StatusId, Unit } from './rules/types';
+import { awardProgress, progressOf, restoreProgress, type CharacterProgress } from './rules/progression';
 
 /** Everything the controller needs from the presentation (scene + DOM UI). */
 export interface Presenter {
@@ -58,6 +59,7 @@ export class BattleController {
   private firedWaves = new Set<number>();
   private firedHp = new Set<number>();
   private firedTriggers = new Set<string>();
+  private roundHooks = new Set<string>();
   private hintWaiters: { test: (e: PlayerSignal) => boolean; resolve: () => void }[] = [];
   private hookDepth = 0;
   readonly ctx: BattleCtx;
@@ -66,12 +68,14 @@ export class BattleController {
   /** Unit definitions by id (look, portrait, title). */
   readonly unitDefs = new Map<string, BattleUnitDef>();
 
-  constructor(def: BattleDef, private presenter: Presenter, private ui: UiApi, private onFinish: (r: BattleResult | 'retry') => void, private retries = 0) {
+  constructor(def: BattleDef, private presenter: Presenter, private ui: UiApi, private onFinish: (r: BattleResult | 'retry') => void, private retries = 0,
+    private progress?: { get(id: string): CharacterProgress | undefined; set(id: string, value: CharacterProgress): void }) {
     this.def = def;
     const grid = Grid.parse(def.map.height, def.map.terrain, def.map.legend);
     for (const u of def.units) this.unitDefs.set(u.id, u);
     for (const w of def.waves ?? []) for (const u of w.units) this.unitDefs.set(u.id, u);
-    this.battle = new Battle({ grid, units: def.units, abilities: def.abilities, seed: def.seed ?? 7 });
+    const units = def.units.map(u => restoreProgress(u, u.team !== 'enemy' ? progress?.get(u.id) : undefined));
+    this.battle = new Battle({ grid, units, abilities: def.abilities, seed: def.seed ?? 7, turnMode: 'speed' });
     this.objectiveText = def.objective.text;
     this.objectiveDetail = def.objective.detail;
     this.ctx = this.makeCtx();
@@ -90,7 +94,7 @@ export class BattleController {
       await this.presenter.startBanner(this.def.title, this.def.subtitle);
       await this.hook(() => this.def.hooks?.onStart?.(this.ctx));
     } finally { this.unlock(); }
-    let events = this.battle.startPhase('player');
+    let events = this.battle.startTurns();
     while (!this.ended) {
       if (await this.checkOutcome()) return;
       const phase = this.battle.phase;
@@ -101,8 +105,12 @@ export class BattleController {
         await this.afterEvents(events);
         if (await this.checkOutcome()) return;
         if (phase === 'player') { this.turnDone = deferred(); this.turnEnding = false; }
-        await this.spawnWaves();
-        await this.hook(() => this.def.hooks?.onRound?.(this.ctx, this.battle.round, phase));
+        const hookKey = `${this.battle.round}:${phase}`;
+        if (!this.roundHooks.has(hookKey)) {
+          this.roundHooks.add(hookKey);
+          await this.spawnWaves();
+          await this.hook(() => this.def.hooks?.onRound?.(this.ctx, this.battle.round, phase));
+        }
         await this.runTriggers();
         if (await this.checkOutcome()) return;
       } finally { this.unlock(); }
@@ -110,6 +118,7 @@ export class BattleController {
       if (phase === 'player') {
         if (!this.turnEnding) this.presenter.beginPlayerPhase();
         this.presenter.refresh();
+        if (!this.battle.pending().length) this.endTurn();
         await this.turnDone!.promise;
         this.turnDone = null;
         this.presenter.endPlayerPhase();
@@ -118,7 +127,7 @@ export class BattleController {
       }
       if (this.ended) return;
       if (await this.checkOutcome()) return;
-      events = this.battle.endPhase();
+      events = this.battle.advanceTurn();
       this.presenter.refresh();
     }
   }
@@ -171,9 +180,7 @@ export class BattleController {
 
   private async aiPhase(): Promise<void> {
     const phase = this.battle.phase;
-    const order = this.battle.units
-      .filter(u => u.team === phase && !u.down && !this.battle.has(u, 'bound'))
-      .sort((a, b) => b.speed - a.speed || a.id.localeCompare(b.id));
+    const order = this.battle.pending();
     for (const u of order) {
       if (this.ended) return;
       if (u.down || u.team !== phase || this.battle.isDone(u.id)) continue;
@@ -260,6 +267,10 @@ export class BattleController {
       flags: [...b.flags],
     };
     if (o === 'win') {
+      const rewards = b.units.filter(u => u.team !== 'enemy' && u.down !== 'dead')
+        .flatMap(u => awardProgress(u, 20, 20));
+      await this.presenter.play(rewards);
+      for (const u of b.units) if (u.team !== 'enemy' && u.down !== 'dead') this.progress?.set(u.id, progressOf(u));
       await this.presenter.outcome('win', false);
       await this.hook(() => this.def.onWin?.(this.ctx));
       this.onFinish(result);
@@ -313,19 +324,20 @@ export class BattleController {
         if (opts?.banner) await p.banner(opts.banner);
         for (const u of list) {
           c.unitDefs.set(u.id, u);
-          const ev = b.spawn(u);
+          const ev = b.spawn(restoreProgress(u, u.team !== 'enemy' ? c.progress?.get(u.id) : undefined));
           if (ev.length) { await p.focus(u.id, 300); await c.apply(ev); }
         }
       },
       async remove(unit) { await c.apply(b.remove(unit)); },
       async move(unit, to) {
         const u = b.unit(unit);
-        const saved = { move: u.move, moved: u.moved, team: u.team, phase: b.phase, undo: u.undo };
+        const saved = { move: u.move, moved: u.moved, team: u.team, phase: b.phase, active: b.activeUnit, undo: u.undo };
         u.move = 99; u.moved = false;
         b.phase = u.team;
+        b.activeUnit = u.id;
         try { await c.apply(b.move(unit, to)); }
         catch (err) { console.warn('[tactics] scripted move failed', err); }
-        finally { u.move = saved.move; u.moved = saved.moved; b.phase = saved.phase; u.undo = saved.undo; }
+        finally { u.move = saved.move; u.moved = saved.moved; b.phase = saved.phase; b.activeUnit = saved.active; u.undo = saved.undo; }
       },
       face(unit, facing: Facing) { void p.play(b.face(unit, facing)); },
       pose: (unit, anim) => p.pose(unit, anim),
@@ -350,10 +362,7 @@ export class BattleController {
 
   /** Units sorted for the turn-order strip: current phase first. */
   turnOrder(): Unit[] {
-    const b = this.battle;
-    const alive = b.units.filter(u => u.down !== 'dead' && u.x > -50);
-    const rank = (u: Unit) => (u.team === b.phase ? 0 : u.team === 'player' ? 1 : u.team === 'ally' ? 2 : 3);
-    return alive.sort((a, c) => rank(a) - rank(c) || Number(!!a.down) - Number(!!c.down) || c.speed - a.speed || a.id.localeCompare(c.id));
+    return this.battle.turnOrder();
   }
 
   /** Nearest enemy distance (for UI hints). */

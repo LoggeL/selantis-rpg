@@ -5,6 +5,8 @@ import type { BattleUnitDef, HintOptions } from '../api';
 import type { AbilityDef, Phase, TargetPreview, Unit } from '../rules/types';
 import { ICONS, abilityIcon } from './icons';
 import { TACTICS_CSS } from './style';
+import { AP_TO_MASTER, EXP_PER_LEVEL, MAX_LEVEL, WEAPONS } from '../rules/progression';
+import { STANDARD_ABILITIES } from '../rules/abilities';
 
 export interface UiHandlers {
   endTurn(): void;
@@ -17,9 +19,11 @@ export interface UiHandlers {
   selectUnit(id: string): void;
   /** Hovering an ability button previews its range. */
   hoverAbility(id: string | null): void;
+  equip(weapon: string): void;
+  back(): void;
 }
 
-export interface AbilitySlot { def: AbilityDef; cooldown: number; usable: boolean; reason?: string }
+export interface AbilitySlot { def: AbilityDef; cooldown: number; usable: boolean; reason?: string; mastered?: boolean }
 
 export interface CardModel {
   unit: Unit;
@@ -34,6 +38,7 @@ export interface CardModel {
 export interface PreviewModel {
   ability: AbilityDef;
   user: Unit;
+  userDef?: BattleUnitDef;
   targets: { unit: Unit; def: BattleUnitDef; p: TargetPreview }[];
   /** Line ability with no unit in it, etc. */
   empty?: string;
@@ -49,6 +54,7 @@ export interface MenuModel {
   actOpen: boolean;
   abilities: AbilitySlot[];
   selected?: string | null;
+  targeting?: boolean;
   /** Canvas points (other units) the menu should not cover. */
   avoid?: { x: number; y: number }[];
 }
@@ -103,6 +109,20 @@ export function portraitFor(def: BattleUnitDef | undefined, unit: Unit): string 
 const esc = (s: string) => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]!));
 const pct = (x: number, total: number) => `${(x / total) * 100}%`;
 
+function resources(u: Unit, afterHp?: number, afterMp?: number): string {
+  const row = (label: string, value: number, max: number, cls: string, after?: number) => {
+    const remaining = after ?? value;
+    const width = max > 0 ? remaining / max * 100 : 0;
+    const ghost = max > 0 ? Math.max(0, value - remaining) / max * 100 : 0;
+    return `<div class="tac-hp ${cls}"><span class="resource-label">${label}</span><div class="bar"><b class="${label === 'HP' && u.team === 'enemy' ? 'foe' : ''}" style="width:${width}%"></b>${ghost ? `<s style="left:${width}%;width:${ghost}%"></s>` : ''}</div><span class="num">${value}${after !== undefined && after !== value ? ` → ${after}` : ''} / ${max}</span></div>`;
+  };
+  return `${row('HP', u.hp, u.maxHp, '', afterHp)}${row('MP', u.mp, u.maxMp, 'tac-mp', afterMp)}<div class="tac-growth"><span>Lvl <b>${u.level}</b></span><span>Exp <b>${u.level === MAX_LEVEL ? 'MAX' : `${u.exp} / ${EXP_PER_LEVEL}`}</b></span><span>Tempo <b>${u.speed}</b></span></div><div class="tac-expbar" aria-label="Erfahrung"><b style="width:${u.level === MAX_LEVEL ? 100 : u.exp}%"></b></div>`;
+}
+
+function combatant(u: Unit, def?: BattleUnitDef, hp?: number, mp?: number): string {
+  return `<div class="tac-combatant ${u.team}"><div class="hd"><div class="por"><img alt="" src="${portraitFor(def, u)}"></div><div><div class="nm">${esc(u.name)}</div><div class="ab">${esc(def?.title ?? (u.team === 'enemy' ? 'Feind' : 'Verbündet'))}</div></div></div>${resources(u, hp, mp)}<div class="tac-weapon-name">${u.weapon ? esc(WEAPONS[u.weapon].name) : 'Ohne Waffe'}</div></div>`;
+}
+
 function shapeText(a: AbilityDef): string {
   switch (a.shape.type) {
     case 'line': return `Linie, ${a.shape.length} Felder`;
@@ -125,12 +145,19 @@ export class BattleUi {
   private style: HTMLStyleElement;
   private els: Record<string, HTMLElement> = {};
   private resizeObs: () => void;
+  private canvasObserver: ResizeObserver | null = null;
   private hintResolve: (() => void) | null = null;
   private outcomeResolve: ((v: 'retry' | 'continue') => void) | null = null;
   private lastCard = '';
   private lastMenu = '';
   private lastPreview = '';
   private lastOrder = '';
+  private tipBlockedAbility: string | null = null;
+  private dismissTip = (event: Event) => {
+    this.hideTip();
+    this.tipBlockedAbility = event.type === 'pointerdown' && event.target instanceof Element
+      ? event.target.closest<HTMLButtonElement>('button[data-ab]')?.dataset.ab ?? null : null;
+  };
 
   constructor(private h: UiHandlers) {
     this.root = document.createElement('div');
@@ -176,12 +203,23 @@ export class BattleUi {
     host.appendChild(this.style);
     host.appendChild(this.root);
     window.addEventListener('resize', this.resizeObs);
+    document.addEventListener('pointerdown', this.dismissTip, true);
+    window.addEventListener('keydown', this.dismissTip, true);
+    // Phaser resizes its canvas after the window event; observe the final canvas dimensions.
+    const canvas = document.querySelector<HTMLCanvasElement>('#game canvas');
+    if (canvas) {
+      this.canvasObserver = new ResizeObserver(() => this.layout());
+      this.canvasObserver.observe(canvas);
+    }
     this.layout();
     requestAnimationFrame(() => this.layout());
   }
 
   destroy(): void {
     window.removeEventListener('resize', this.resizeObs);
+    document.removeEventListener('pointerdown', this.dismissTip, true);
+    window.removeEventListener('keydown', this.dismissTip, true);
+    this.canvasObserver?.disconnect();
     this.root.remove();
     this.style.remove();
     this.hintResolve?.();
@@ -196,13 +234,77 @@ export class BattleUi {
     s.setProperty('--fs', `${fs}px`);
     this.root.classList.toggle('compact', r.width < 900);
     this.root.classList.toggle('reduced', settings.reducedMotion);
-    this.layoutHint();
+    this.layoutChrome();
   }
 
-  private layoutHint(): void {
+  /** Reserve space for the actual HUD controls, including Escape outside the battle layer. */
+  private layoutChrome(): void {
     const r = this.root.getBoundingClientRect();
-    const objective = this.els.obj.getBoundingClientRect();
-    this.els.hint.style.top = `${Math.round(objective.bottom - r.top + 12)}px`;
+    if (!r.width) return;
+    const menuButton = document.querySelector<HTMLElement>('.hud-btn-menu');
+    const escape = menuButton?.getBoundingClientRect();
+    const keyBottom = menuButton?.querySelector('.hud-btn-key')?.getBoundingClientRect().bottom ?? 0;
+    const escapeInField = escape && escape.bottom > r.top && escape.top < r.bottom;
+    const controlsTop = escapeInField ? Math.max(escape.bottom, keyBottom) - r.top + 8 : 8;
+    this.root.style.setProperty('--tac-controls-top', `${controlsTop}px`);
+    this.root.style.setProperty('--tac-target-top', `${controlsTop + this.els.rot.getBoundingClientRect().height + 8}px`);
+    const phase = this.els.phase.getBoundingClientRect();
+    if (phase.height) this.els.order.style.top = `${phase.bottom - r.top + 6}px`;
+    const header = Math.max(...['obj', 'phase', 'order'].map(k => this.els[k].getBoundingClientRect().bottom - r.top), 0) + 12;
+    this.root.style.setProperty('--tac-header', `${header}px`);
+    this.root.style.setProperty('--tac-footer', `${this.els.end.getBoundingClientRect().height + 16}px`);
+    this.els.hint.style.top = `${header}px`;
+  }
+
+  private occupied(exclude?: HTMLElement): DOMRect[] {
+    const nodes = ['obj', 'phase', 'order', 'rot', 'card', 'tcard', 'end', 'hint', 'tile', 'menu'].map(k => this.els[k]);
+    const escape = document.querySelector<HTMLElement>('.hud-btn-menu');
+    if (escape) nodes.push(escape);
+    const key = escape?.querySelector<HTMLElement>('.hud-btn-key');
+    if (key) nodes.push(key);
+    return nodes.filter(e => e !== exclude && !e.classList.contains('hidden') && !e.classList.contains('hidden-init'))
+      .filter(e => {
+        const s = getComputedStyle(e);
+        // A tooltip must not make its own action menu jump when it temporarily hides another panel.
+        const reserveHint = exclude === this.els.menu && e === this.els.hint && this.root.classList.contains('has-hint') && !this.root.classList.contains('has-forecast');
+        const reserveInspect = exclude === this.els.menu && e === this.els.tcard && this.root.classList.contains('has-tip') && !this.root.classList.contains('has-hint');
+        return s.display !== 'none' && (s.visibility !== 'hidden' || reserveHint || reserveInspect);
+      })
+      .map(e => e.getBoundingClientRect()).filter(r => r.width > 0 && r.height > 0);
+  }
+
+  private overlap(left: number, top: number, width: number, height: number, occupied: DOMRect[], padding = 6): number {
+    return occupied.reduce((area, r) => area + Math.max(0, Math.min(left + width, r.right + padding) - Math.max(left, r.left - padding)) *
+      Math.max(0, Math.min(top + height, r.bottom + padding) - Math.max(top, r.top - padding)), 0);
+  }
+
+  private placeTip(anchor: HTMLElement): void {
+    const t = this.els.tip, r = this.root.getBoundingClientRect(), a = anchor.getBoundingClientRect(), p = t.getBoundingClientRect();
+    const occupied = this.occupied(t);
+    const parent = anchor.closest('.tac-panel')?.getBoundingClientRect() ?? a;
+    const candidates = [
+      { left: parent.left, top: parent.top - p.height - 8 },
+      { left: parent.right + 8, top: a.bottom - p.height },
+      { left: parent.left - p.width - 8, top: a.bottom - p.height },
+      { left: a.left, top: a.top - p.height - 8 },
+      { left: a.right + 8, top: a.bottom - p.height },
+      { left: a.left - p.width - 8, top: a.bottom - p.height },
+      { left: a.left, top: a.bottom + 8 },
+      { left: r.left + 8, top: r.top + 8 },
+      { left: r.right - p.width - 8, top: r.top + 8 },
+      { left: r.left + (r.width - p.width) / 2, top: r.top + (r.height - p.height) / 2 },
+    ];
+    const xs = [r.left + 6, r.right - p.width - 6, ...occupied.flatMap(o => [o.right + 8, o.left - p.width - 8])];
+    const ys = [r.top + 6, r.bottom - p.height - 6, ...occupied.flatMap(o => [o.bottom + 8, o.top - p.height - 8])];
+    for (const left of xs) for (const top of ys) candidates.push({ left, top });
+    let best = candidates[0], score = Infinity;
+    candidates.forEach((c, i) => {
+      const left = Math.max(r.left + 6, Math.min(r.right - p.width - 6, c.left));
+      const top = Math.max(r.top + 6, Math.min(r.bottom - p.height - 6, c.top));
+      const value = this.overlap(left, top, p.width, p.height, occupied) + i * .01 + Math.hypot(left - a.left, top + p.height - a.top) * .001;
+      if (value < score) { best = { left, top }; score = value; }
+    });
+    t.style.left = `${best.left - r.left}px`; t.style.top = `${best.top - r.top}px`;
   }
 
   // ------------------------------------------------------------ objective + phase
@@ -214,20 +316,21 @@ export class BattleUi {
     prog.innerHTML = progress ? Array.from({ length: progress.total }, (_, i) => `<i class="${i < progress.done ? 'on' : ''}" title="Runde ${i + 1}"></i>`).join('') : '';
     prog.style.display = progress ? 'flex' : 'none';
     if (flash) { o.classList.remove('flash'); void o.offsetWidth; o.classList.add('flash'); }
-    this.layoutHint();
+    this.layoutChrome();
   }
 
-  setPhase(phase: Phase, round: number): void {
+  setPhase(phase: Phase, round: number, unit?: Unit): void {
     const p = this.els.phase;
     p.style.display = '';
     p.className = `tac-panel tac-phase ${phase}`;
-    p.innerHTML = `<span>${PHASE_LABEL[phase]}</span><span class="rd">Runde ${round}</span>`;
+    p.innerHTML = `<span>${unit ? esc(unit.name) : PHASE_LABEL[phase]}</span><span class="rd">Runde ${round}${unit ? ` · Tempo ${unit.speed}` : ''}</span>`;
     this.els.end.querySelector('button')!.toggleAttribute('disabled', phase !== 'player');
+    this.layoutChrome();
   }
 
-  async turnBanner(phase: Phase, round: number): Promise<void> {
-    this.setPhase(phase, round);
-    await this.banner(PHASE_LABEL[phase], `Runde ${round}`, phase, 1250);
+  async turnBanner(phase: Phase, round: number, unit?: Unit): Promise<void> {
+    this.setPhase(phase, round, unit);
+    await this.banner(unit ? `${unit.name} ist am Zug` : PHASE_LABEL[phase], `Runde ${round}${unit ? ` · Tempo ${unit.speed}` : ''}`, phase, 650);
   }
 
   banner(text: string, sub = '', kind: string = 'player', ms = 1500): Promise<void> {
@@ -253,35 +356,35 @@ export class BattleUi {
 
   // ------------------------------------------------------------ turn order
   setOrder(units: Unit[], defs: Map<string, BattleUnitDef>, phase: Phase, done: (u: Unit) => boolean, current: string | null): void {
-    const sig = units.map(u => `${u.id}:${u.team}:${u.down}:${done(u)}:${u.hp <= 0}`).join('|') + phase + current;
+    const sig = units.map(u => `${u.id}:${u.team}:${u.down}:${u.speed}:${done(u)}:${u.hp <= 0}`).join('|') + phase + current;
     if (sig === this.lastOrder) return;
     this.lastOrder = sig;
     const o = this.els.order;
     o.innerHTML = '';
-    let lastTeam: string | null = null;
-    for (const u of units) {
-      if (lastTeam && u.team !== lastTeam) { const s = document.createElement('div'); s.className = 'sep'; o.appendChild(s); }
-      lastTeam = u.team;
+    o.setAttribute('aria-label', 'Zugreihenfolge nach Tempo');
+    for (const [i, u] of units.entries()) {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = `o ${u.team}${u.down ? ' down' : done(u) ? ' done' : ''}${current === u.id ? ' cur' : ''}`;
-      b.title = `${u.name}${u.down === 'wounded' ? ' (kampfunfähig)' : ''}`;
-      b.innerHTML = `<img alt="" src="${portraitFor(defs.get(u.id), u)}">`;
+      b.title = `${i === 0 ? 'Am Zug' : `Zug ${i + 1}`}: ${u.name} · Tempo ${u.speed}`;
+      b.setAttribute('aria-label', u.name);
+      b.dataset.unit = u.id;
+      b.innerHTML = `<img alt="" src="${portraitFor(defs.get(u.id), u)}"><span class="order-number">${i + 1}</span>`;
       b.addEventListener('click', e => { e.stopPropagation(); this.h.selectUnit(u.id); });
       o.appendChild(b);
     }
+    this.layoutChrome();
   }
 
   // ------------------------------------------------------------ unit card
   unitCard(m: CardModel | null): void {
     const c = this.els.card;
-    if (!m) { c.classList.add('hidden'); this.lastCard = ''; return; }
+    if (!m) { c.classList.add('hidden'); this.lastCard = ''; this.hideTip(); return; }
     const u = m.unit;
-    const sig = JSON.stringify([u.id, u.hp, u.team, u.down, u.statuses, m.abilities.map(a => [a.def.id, a.cooldown, a.usable]), m.selected, m.canAct, m.canMove, m.controllable]);
+    const sig = JSON.stringify([u, m.abilities.map(a => [a.def.id, a.cooldown, a.usable, a.reason]), m.selected, m.canAct, m.canMove, m.controllable]);
     if (sig === this.lastCard) { c.classList.remove('hidden'); return; }
     this.lastCard = sig;
-    const ratio = u.hp / u.maxHp;
-    const hpCls = u.team === 'enemy' ? 'foe' : ratio > 0.5 ? '' : ratio > 0.25 ? 'mid' : 'low';
+    this.hideTip();
     const teamLabel = u.team === 'player' ? 'Verbündet' : u.team === 'enemy' ? 'Feind' : 'Begleitung';
     const statuses = Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip ${k === 'guarded' ? 'magic' : k === 'stunned' || k === 'bound' ? 'bad' : ''}">${STATUS_LABEL[k] ?? k}</span>`);
     if (u.down === 'wounded') statuses.unshift('<span class="tac-chip bad">Kampfunfähig</span>');
@@ -294,22 +397,34 @@ export class BattleUi {
     const title = m.def.title ? `<div class="ttl">${esc(m.def.title)}</div>` : '';
     c.innerHTML = `<div class="top"><div class="por"><img alt="" src="${portraitFor(m.def, u)}"></div><div style="flex:1;min-width:0">
       <div class="nm">${esc(u.name)}<span class="team ${u.team}">${teamLabel}</span></div>${title}
-      <div class="tac-hp"><div class="bar"><b class="${hpCls}" style="width:${Math.max(0, ratio) * 100}%"></b></div><span class="num">${u.hp} / ${u.maxHp}</span></div>
+      ${resources(u)}
       <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Angriff <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>
       ${statuses.length ? `<div class="tac-chips">${statuses.join('')}</div>` : ''}
-      </div></div>${abil}${doneLine}`;
+      </div></div>${this.equipment(u, m.controllable && m.canAct && !u.moved)}${abil}${doneLine}`;
     c.classList.remove('hidden');
+    c.querySelectorAll<HTMLButtonElement>('button[data-weapon]').forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation(); this.h.equip(b.dataset.weapon!);
+    }));
     c.querySelectorAll<HTMLButtonElement>('button[data-ab]').forEach(b => {
       const id = b.dataset.ab!;
       const slot = m.abilities.find(a => a.def.id === id)!;
       b.addEventListener('click', e => { e.stopPropagation(); if (slot.usable) this.h.ability(id); });
       b.addEventListener('pointerenter', () => { this.showTip(b, slot); this.h.hoverAbility(slot.usable ? id : null); });
-      b.addEventListener('pointerleave', () => { this.hideTip(); this.h.hoverAbility(null); });
+      b.addEventListener('pointerleave', () => { this.leaveTip(id); this.h.hoverAbility(null); });
     });
+  }
+
+  private equipment(u: Unit, canEquip: boolean): string {
+    if (!u.weapon) return '';
+    const w = WEAPONS[u.weapon];
+    const skills = w.skills.map(id => `<span class="tac-chip ${u.mastered.includes(id) ? 'good' : ''}">${esc(STANDARD_ABILITIES[id]?.name ?? id)}: ${u.mastered.includes(id) ? 'Gemeistert' : `${u.abilityAp[id] ?? 0} / ${AP_TO_MASTER} AP`}</span>`).join('');
+    return `<div class="tac-equipment"><div class="tac-weapon-name">${esc(w.name)}</div>${u.weapons.length > 1 ? `<div class="tac-equip-buttons" aria-label="Waffe ausrüsten">${u.weapons.map(id => `<button type="button" data-weapon="${id}" class="${u.weapon === id ? 'on' : ''}" ${canEquip ? '' : 'disabled'}>${esc(WEAPONS[id].name)}</button>`).join('')}</div>` : ''}<div class="tac-chips">${skills}</div></div>`;
   }
 
   private showTip(anchor: HTMLElement, slot: AbilitySlot): void {
     const a = slot.def;
+    if (anchor.classList.contains('on') || this.tipBlockedAbility === a.id) return;
+    this.tipBlockedAbility = null;
     const t = this.els.tip;
     const meta: string[] = [];
     const rt = rangeText(a);
@@ -319,28 +434,28 @@ export class BattleUi {
     if (!a.alwaysHits && a.kind !== 'support') meta.push(`Treffer ${a.accuracy} %`);
     if (a.push) meta.push(`Stoß ${a.push}`);
     if (a.cooldown) meta.push(`Abklingzeit ${a.cooldown}`);
+    if (a.mpCost) meta.push(`${a.mpCost} MP`);
+    if (slot.mastered) meta.push('Gemeistert, dauerhaft verfügbar');
     const magic = a.kind === 'magic' || a.vfx === 'ward';
     t.innerHTML = `<h4>${esc(a.name)}</h4><p>${esc(a.description)}</p><div class="meta">${meta.map(x => `<span class="tac-chip${magic ? ' magic' : ''}">${esc(x)}</span>`).join('')}</div>${slot.reason ? `<div class="meta" style="margin-top:.35em"><span class="tac-chip bad">${esc(slot.reason)}</span></div>` : ''}`;
     t.classList.remove('hidden');
-    const rr = this.root.getBoundingClientRect();
-    const ar = anchor.getBoundingClientRect();
-    const tr = t.getBoundingClientRect();
-    t.style.left = `${Math.max(4, Math.min(rr.width - tr.width - 4, ar.left - rr.left))}px`;
-    t.style.top = `${Math.max(4, ar.top - rr.top - tr.height - 6)}px`;
+    this.root.classList.add('has-tip');
+    this.placeTip(anchor);
   }
-  private hideTip(): void { this.els.tip.classList.add('hidden'); }
+  private hideTip(): void { this.els.tip.classList.add('hidden'); this.root.classList.remove('has-tip'); }
+  private leaveTip(id: string): void { if (this.tipBlockedAbility === id) this.tipBlockedAbility = null; this.hideTip(); }
 
   // ------------------------------------------------------------ target / preview card
   inspectCard(u: Unit | null, def?: BattleUnitDef, note?: string): void {
     const c = this.els.tcard;
     if (!u) { if (!this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
-    const sig = 'I' + JSON.stringify([u.id, u.hp, u.statuses, u.down, note]);
+    const sig = 'I' + JSON.stringify([u, note]);
     if (sig === this.lastPreview) return;
     this.lastPreview = sig;
-    const ratio = u.hp / u.maxHp;
+    c.classList.remove('forecast'); this.root.classList.remove('has-forecast');
     const statuses = Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip">${STATUS_LABEL[k] ?? k}</span>`).join('');
     c.innerHTML = `<div class="hd"><div class="por"><img alt="" src="${portraitFor(def, u)}"></div><div style="flex:1"><div class="nm">${esc(u.name)}</div>
-      <div class="tac-hp"><div class="bar"><b class="${u.team === 'enemy' ? 'foe' : ''}" style="width:${ratio * 100}%"></b></div><span class="num">${u.hp} / ${u.maxHp}</span></div></div></div>
+      </div></div>${resources(u)}<div class="tac-weapon-name">${u.weapon ? esc(WEAPONS[u.weapon].name) : 'Ohne Waffe'}</div>
       <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Angriff <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>
       ${statuses || u.down ? `<div class="tac-chips">${u.down === 'wounded' ? '<span class="tac-chip bad">Kampfunfähig</span>' : ''}${statuses}</div>` : ''}
       ${note ? `<div class="tac-push" style="margin-top:.4em"><span>${note}</span></div>` : ''}`;
@@ -349,10 +464,12 @@ export class BattleUi {
 
   previewCard(m: PreviewModel | null): void {
     const c = this.els.tcard;
-    if (!m) { if (this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
-    const sig = 'P' + JSON.stringify([m.ability.id, m.user.id, m.targets.map(t => [t.unit.id, t.p]), m.empty]);
+    if (!m) { this.root.classList.remove('has-forecast'); c.classList.remove('forecast'); if (this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
+    const sig = 'P' + JSON.stringify([m.ability.id, m.user, m.targets.map(t => [t.unit, t.p]), m.empty]);
     if (sig === this.lastPreview) { c.classList.remove('hidden'); return; }
     this.lastPreview = sig;
+    c.classList.toggle('forecast', m.targets.length > 0);
+    this.root.classList.toggle('has-forecast', m.targets.length > 0);
     const magic = m.ability.kind === 'magic' || m.ability.vfx === 'ward' ? ' magic' : '';
     if (!m.targets.length) {
       c.innerHTML = `<div class="ab${magic}">${esc(m.ability.name)}</div><div class="tac-push" style="margin-top:.3em"><span>${esc(m.empty ?? 'Kein Ziel in Reichweite.')}</span></div>`;
@@ -364,10 +481,8 @@ export class BattleUi {
     const u = main.unit;
     const offensive = p.damage > 0 || p.relation !== 'none';
     const total = p.damage * p.hits;
-    const extra = p.push ? (p.push.collide?.damage ?? 0) + p.push.fallDamage : 0;
-    const after = Math.max(0, u.hp - total - extra);
-    const ratio = u.hp / u.maxHp;
-    const ghostL = (after / u.maxHp) * 100, ghostW = Math.max(0, ratio * 100 - ghostL);
+    const extra = p.push ? (p.push.collide?.damage ?? 0) + p.push.fallDamage + (p.push.intoFire ? 3 : 0) : 0;
+    const after = offensive ? Math.max(0, u.hp - total - extra) : Math.min(u.maxHp, u.hp + p.heal);
     const mods = p.mods.map(md => `<span class="tac-chip ${md.kind === 'good' ? 'good' : md.kind === 'bad' ? 'bad' : ''}">${esc(md.label)} ${esc(md.text)}</span>`).join('');
     let pushLine = '';
     if (p.push) {
@@ -387,9 +502,8 @@ export class BattleUi {
       : p.frees ? '<div class="tac-push">Die Fesseln lösen. Sie kämpft danach an deiner Seite.</div>'
         : `<div class="tac-chips">${p.statuses.map(s => `<span class="tac-chip magic">${STATUS_LABEL[s] ?? s}</span>`).join('')}${p.heal ? `<span class="tac-chip good">+${p.heal} LP</span>` : ''}</div>`;
     const others = m.targets.slice(1).map(t => `<div class="tac-row"><span class="n">${esc(t.unit.name)}</span><span class="c">${t.p.chance} %</span><span class="d">${t.p.damage}${t.p.hits > 1 ? `×${t.p.hits}` : ''}</span></div>`).join('');
-    c.innerHTML = `<div class="hd"><div class="por"><img alt="" src="${portraitFor(main.def, u)}"></div><div style="flex:1;min-width:0"><div class="ab${magic}">${esc(m.ability.name)}</div><div class="nm">${esc(u.name)}</div></div></div>
-      ${big}
-      ${offensive ? `<div class="tac-hp"><div class="bar"><b class="${u.team === 'enemy' ? 'foe' : ''}" style="width:${ghostL}%"></b><s style="left:${ghostL}%;width:${ghostW}%"></s></div><span class="num">${u.hp} → ${after}</span></div>` : ''}
+    c.innerHTML = `<div class="forecast-title"><span class="ab${magic}">${esc(m.ability.name)}${m.ability.mpCost ? ` · ${m.ability.mpCost} MP` : ''}</span><span>Aktionsvorschau</span></div><div class="tac-versus">${combatant(m.user, m.userDef, undefined, m.user.mp - (m.ability.mpCost ?? 0))}<div class="tac-versus-arrow">→</div>${combatant(u, main.def, after)}</div>
+      ${big}${offensive ? '<div class="tac-forecast-note">HP nach Treffer · jeder Schlag würfelt einzeln</div>' : ''}
       ${mods ? `<div class="tac-chips">${mods}</div>` : ''}${pushLine}${others}`;
     c.classList.remove('hidden');
   }
@@ -397,40 +511,47 @@ export class BattleUi {
   // ------------------------------------------------------------ action menu
   menu(m: MenuModel | null): void {
     const e = this.els.menu;
-    if (!m) { e.classList.add('hidden'); this.lastMenu = ''; return; }
-    const sig = JSON.stringify([m.canMove, m.canAct, m.canUndo, m.moveOn, m.actOpen, m.selected, m.abilities.map(a => [a.def.id, a.usable, a.cooldown])]);
+    if (!m) { e.classList.add('hidden'); this.lastMenu = ''; this.hideTip(); return; }
+    const sig = JSON.stringify([m.targeting, m.canMove, m.canAct, m.canUndo, m.moveOn, m.actOpen, m.selected, m.abilities.map(a => [a.def.id, a.usable, a.cooldown])]);
     const r = this.root.getBoundingClientRect();
     const px = (m.x / GAME_W) * r.width, py = (m.y / GAME_H) * r.height;
     if (sig !== this.lastMenu) {
       this.lastMenu = sig;
+      this.hideTip();
       const btn = (id: string, icon: string, label: string, key: string, enabled: boolean, on = false) =>
         `<button type="button" data-m="${id}" class="${on ? 'on' : ''}" ${enabled ? '' : 'disabled'}>${icon}<span>${label}</span><kbd>${key}</kbd></button>`;
       const sub = m.actOpen ? `<div class="sub">${m.abilities.map((a, i) => `<button type="button" data-ab="${a.def.id}" class="${a.def.kind === 'magic' || a.def.vfx === 'ward' ? 'magic' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>${abilityIcon(a.def.vfx)}<span>${esc(a.def.name)}</span><kbd>${a.cooldown > 0 ? `⧗${a.cooldown}` : i + 1}</kbd></button>`).join('')}</div>` : '';
       e.innerHTML = btn('move', ICONS.move, 'Bewegen', 'M', m.canMove, m.moveOn) + btn('act', ICONS.act, 'Handeln', '1–4', m.canAct, m.actOpen) + sub +
         btn('wait', ICONS.wait, 'Warten', 'F', true) + (m.canUndo ? btn('undo', ICONS.undo, 'Rückgängig', 'Z', true) : '');
+      if (m.targeting) e.innerHTML = `<div class="tac-target-name">${esc(m.abilities.find(a => a.def.id === m.selected)?.def.name ?? 'Ziel wählen')}</div>` + btn('back', ICONS.undo, 'Abbrechen', 'Esc', true);
       e.querySelectorAll<HTMLButtonElement>('button[data-m]').forEach(b => b.addEventListener('click', ev => {
         ev.stopPropagation();
         const id = b.dataset.m;
-        if (id === 'move') this.h.moveMode(); else if (id === 'act') this.h.actMenu(); else if (id === 'wait') this.h.wait(); else if (id === 'undo') this.h.undo();
+        if (id === 'move') this.h.moveMode(); else if (id === 'act') this.h.actMenu(); else if (id === 'wait') this.h.wait(); else if (id === 'undo') this.h.undo(); else if (id === 'back') this.h.back();
       }));
       e.querySelectorAll<HTMLButtonElement>('button[data-ab]').forEach(b => {
         const id = b.dataset.ab!;
         const slot = m.abilities.find(a => a.def.id === id)!;
         b.addEventListener('click', ev => { ev.stopPropagation(); if (slot.usable) this.h.ability(id); });
         b.addEventListener('pointerenter', () => { this.showTip(b, slot); this.h.hoverAbility(slot.usable ? id : null); });
-        b.addEventListener('pointerleave', () => { this.hideTip(); this.h.hoverAbility(null); });
+        b.addEventListener('pointerleave', () => { this.leaveTip(id); this.h.hoverAbility(null); });
       });
     }
     e.classList.remove('hidden');
+    e.classList.toggle('targeting', !!m.targeting);
+    if (m.targeting) {
+      e.style.left = 'auto'; e.style.right = '.8em'; e.style.top = 'var(--tac-target-top)';
+      return;
+    }
+    e.style.right = 'auto';
     const mr = e.getBoundingClientRect();
     const k = r.width / GAME_W;
     const avoid = (m.avoid ?? []).map(a => ({ x: (a.x / GAME_W) * r.width, y: (a.y / GAME_H) * r.height }));
-    const panels = ['obj', 'hint', 'phase', 'order', 'card', 'tcard', 'end', 'rot', 'tip']
-      .map(name => this.els[name])
-      .filter(panel => !panel.classList.contains('hidden'))
-      .map(panel => panel.getBoundingClientRect())
-      .filter(panel => panel.width > 0 && panel.height > 0);
-    const clampTop = (t: number) => Math.max(mr.height / 2 + 8, Math.min(r.height - mr.height / 2 - 8, t));
+    const styles = getComputedStyle(this.root);
+    const header = parseFloat(styles.getPropertyValue('--tac-header')) || 8;
+    const footer = parseFloat(styles.getPropertyValue('--tac-footer')) || 8;
+    const clampTop = (t: number) => Math.max(header + mr.height / 2, Math.min(r.height - footer - mr.height / 2, t));
+    const panels = this.occupied(e);
     const cands = [
       { left: px + 16 * k, top: clampTop(py) },
       { left: px - mr.width - 16 * k, top: clampTop(py) },
@@ -438,20 +559,15 @@ export class BattleUi {
       { left: px - mr.width - 14 * k, top: clampTop(py + mr.height / 2 + 6 * k) },
       { left: px + 14 * k, top: clampTop(py - mr.height / 2 - 10 * k) },
       { left: px - mr.width - 14 * k, top: clampTop(py - mr.height / 2 - 10 * k) },
-      { left: r.width - mr.width - 12, top: clampTop(py) },
-      { left: 12, top: clampTop(py) },
+      { left: 8, top: clampTop(py) },
+      { left: r.width - mr.width - 8, top: clampTop(py) },
     ];
     let best = cands[0], bestScore = Infinity;
     cands.forEach((c, i) => {
       const l = Math.max(8, Math.min(r.width - mr.width - 8, c.left));
       const t0 = c.top - mr.height / 2;
       let score = i * 0.1 + Math.abs(l - c.left) * 0.02;
-      for (const panel of panels) {
-        const left = panel.left - r.left - 8, top = panel.top - r.top - 8;
-        const width = Math.max(0, Math.min(l + mr.width, left + panel.width + 16) - Math.max(l, left));
-        const height = Math.max(0, Math.min(t0 + mr.height, top + panel.height + 16) - Math.max(t0, top));
-        score += (width * height) / Math.max(1, mr.width * mr.height) * 1000;
-      }
+      score += this.overlap(r.left + l, r.top + t0, mr.width, mr.height, panels) / Math.max(1, mr.width * mr.height) * 1000;
       for (const a of avoid) {
         const pad = 10 * k;
         if (a.x > l - pad && a.x < l + mr.width + pad && a.y > t0 - pad * 2 && a.y < t0 + mr.height + pad) score += 10;
@@ -479,11 +595,12 @@ export class BattleUi {
   // ------------------------------------------------------------ hint
   hint(text: string, opts: HintOptions, withButton: boolean): Promise<void> {
     const e = this.els.hint;
+    this.hideTip();
     this.hintResolve?.();
     e.innerHTML = `<div class="h">${ICONS.quill}<span>${esc(opts.title ?? 'Hinweis')}</span></div><div class="b">${text}</div>${withButton ? '<div class="row"><button type="button" class="tac-btn small">Verstanden <kbd>Enter</kbd></button></div>' : '<div class="wait">Probiere es aus …</div>'}`;
     e.classList.remove('hidden');
     this.root.classList.add('has-hint');
-    this.layoutHint();
+    this.layoutChrome();
     return new Promise(resolve => {
       this.hintResolve = () => { this.hintResolve = null; resolve(); };
       e.querySelector('button')?.addEventListener('click', ev => { ev.stopPropagation(); this.hintResolve?.(); });
@@ -499,7 +616,6 @@ export class BattleUi {
   clearHint(): void {
     this.els.hint.classList.add('hidden');
     this.root.classList.remove('has-hint');
-    this.layoutHint();
     this.hintResolve?.();
   }
 

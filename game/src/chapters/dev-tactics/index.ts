@@ -16,13 +16,12 @@ const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'
 // Demo 1: Der Hügel von Dunkelhain
 // ---------------------------------------------------------------------------------------------
 async function tutorialRound1(ctx: BattleCtx): Promise<void> {
-  await ctx.hint('Wähle <em>Valentus</em> mit einem Klick – oder drücke <strong>Tab</strong>.', { title: 'Bewegung', unit: 'valentus', until: 'select' });
-  await ctx.hint('<em>Blaue Felder</em> zeigen, wohin er gehen kann. Höhe kostet Kraft: Valentus klettert höchstens <strong>2 Ebenen</strong>. Klicke ein blaues Feld – ein Fehler lässt sich mit <strong>Rückgängig</strong> zurücknehmen.', { title: 'Bewegung', until: 'move' });
-  await ctx.hint('Jetzt <em>Handeln</em>: Fähigkeit wählen (Tasten <strong>1–4</strong>), dann ein Ziel. Die Vorschau rechts zeigt Trefferchance und Schaden. Ist kein Feind in Reichweite, wähle <strong>Warten</strong>.', {
-    title: 'Handeln', until: e => e.type === 'act' || e.type === 'wait',
-  });
-  await ctx.hint('Die kleinen Pfeile unter den Figuren zeigen ihre <em>Blickrichtung</em>. Ein Hieb von der Seite trifft <strong>×1,25</strong>, in den Rücken <strong>×1,5</strong> – und wer höher steht, trifft öfter und härter.', { title: 'Flanken und Höhe' });
-  await ctx.hint('Bewege auch den Falken. Wenn alle gehandelt haben, endet die Runde – oder klicke <em>Zug beenden</em> (Sanduhr, <strong>Leertaste</strong>).', { title: 'Runde beenden', unit: 'falke', until: 'endTurn' });
+  const active = ctx.battle.activeUnit ? ctx.unit(ctx.battle.activeUnit) : undefined;
+  await ctx.hint(`Wähle <em>${active?.name ?? 'die aktive Einheit'}</em> mit einem Klick oder drücke <strong>Tab</strong>. Das <em>Tempo</em> bestimmt die Zugreihenfolge oben.`, { title: 'Zugreihenfolge', unit: active?.id, until: 'select' });
+  await ctx.hint('<em>Blaue Felder</em> zeigen die Bewegung. Klicke ein blaues Feld. <strong>Rückgängig</strong> nimmt den Schritt zurück, solange du noch nicht gehandelt hast.', { title: 'Bewegung', until: 'move' });
+  await ctx.hint('Wähle <em>Handeln</em> und eine Fähigkeit, dann ein Ziel. Die Vorschau stellt beide Figuren gegenüber und zeigt <em>Schaden und Trefferchance</em>. Ist niemand in Reichweite, wähle <strong>Warten</strong>.', { title: 'Handeln', until: e => e.type === 'act' || e.type === 'wait' });
+  await ctx.hint('Ein Hieb von der Seite trifft <strong>×1,25</strong>, in den Rücken <strong>×1,5</strong>. Fähigkeiten kommen von der Waffe. Mit <em>AP</em> meisterst du sie dauerhaft; <em>Exp</em> erhöht dein Level.', { title: 'Flanken und Lernen' });
+  await ctx.hint('<em>Zug beenden</em> (Leertaste) gibt an die nächste Figur weiter. Jede Figur darf pro Zug einmal bewegen und einmal handeln.', { title: 'Zug beenden', until: 'endTurn' });
 }
 
 export const dunkelhainBattle: BattleDef = {

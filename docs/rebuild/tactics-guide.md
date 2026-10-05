@@ -45,7 +45,9 @@ Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spa
 
 ## Regeln in Kürze
 
-- **Runde:** Spielerphase → Verbündete (KI) → Feindphase. Jede Einheit: einmal bewegen + einmal handeln, beliebige Reihenfolge. Bewegung lässt sich zurücknehmen, bis gehandelt wurde.
+- **Runde:** Alle Teams teilen sich eine Zugreihenfolge nach `speed` (höchster Wert zuerst, Gleichstand nach Einheiten-ID). Nur die aktive Figur darf bewegen oder handeln. Jede Einheit: einmal bewegen + einmal handeln, beliebige Reihenfolge. Bewegung lässt sich zurücknehmen, bis gehandelt wurde. Verstärkung und befreite Figuren kommen nächste Runde hinzu.
+- **Fortschritt:** HP, MP, Level, Exp und Tempo erscheinen auf Figurenkarten. Erfolgreiche Aktionen geben 10 Exp und 10 AP, ein besiegtes Ziel 20 Exp pro Aktion. Sieg gibt zusätzlich 20 Exp und 20 AP. 100 Exp erhöhen das Level, 50 AP meistern die Fähigkeiten der ausgerüsteten Waffe. Level, Exp, Ausrüstung und gemeisterte Fähigkeiten werden nach dem Sieg in den Kampagnenzustand übernommen und am nächsten Speicherpunkt gespeichert. Details und Referenzbilder: `docs/ffta-battle-reference.md`.
+- **Waffen und MP:** `weapon` und `weapons` setzen Ausrüstung und Wechselmöglichkeiten. Ohne Angaben ergibt sich die Startausrüstung aus den Fähigkeiten. Wechsel ist vor Bewegung/Aktion im eigenen Zug möglich. Gemeisterte Fähigkeiten bleiben ohne die ursprüngliche Waffe verfügbar. `mpCost` kostet MP pro Aktion, 2 MP regenerieren am Beginn des eigenen Zuges. `mp`, `maxMp`, `level` und `exp` können an `BattleUnitDef` gesetzt werden.
 - **Bewegung:** `move` Punkte; Klettern um mehr als 1 Stufe kostet +1 je Stufe; höchstens `jump` Stufen hinauf, `jump + 1` hinab. Verbündete kann man durchqueren, Feinde nicht.
 - **Treffer:** Chance = Genauigkeit ± 5 % je Höhenstufe (max. ±3) + Seite +10 / Rücken +20 − Deckung 30 − Ausweichen 45. Schaden = Stärke + Angriff − Rüstung, × Seite 1,25 / Rücken 1,5 × Höhe ±10 % je Stufe × Schutzwall 0,5.
 - **Blickrichtung** folgt automatisch der letzten Bewegung/Aktion (Pfeil unter jeder Figur).

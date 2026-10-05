@@ -49,6 +49,10 @@ export class HudUi {
   setMode(mode: HudMode): void {
     const r = ctx.root;
     for (const m of ['explore', 'battle', 'cinematic', 'none']) r.classList.toggle(`hud-${m}`, m === mode);
+    // The visible Esc label already explains this control; a native tooltip would cover battle controls.
+    const menu = this.root.querySelector<HTMLButtonElement>('.hud-btn-menu')!;
+    if (mode === 'battle') menu.removeAttribute('title');
+    else menu.title = 'Menü (Esc)';
   }
 
   /** Sets the objective text with a write-in animation; null hides. Calls are serialised. */
