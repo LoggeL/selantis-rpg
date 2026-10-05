@@ -196,9 +196,8 @@ export function createUi(): UiApiExt {
     hint: h => hints.hint(ctx.stale() ? null : h),
     bubble: (text, anchor, ms, opts) => {
       if (ctx.stale()) return () => {};
-      const remove = bubbles.bubble(text, anchor, ms);
       const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, text) : null;
-      return () => { voice?.stop(); remove(); };
+      return bubbles.bubble(text, anchor, ms, voice);
     },
     hold: (label, durationMs, opts) => (ctx.stale() ? ctx.never() : hold(label, durationMs, opts)),
 

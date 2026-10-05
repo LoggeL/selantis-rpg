@@ -1,3 +1,5 @@
+import type { VoicePlayback } from '../audio/voiceover';
+import { revealSpeech, type TextReveal } from './typewriter';
 import { virtualInput } from '../core/input';
 import { canvasToPage } from '../core/viewport';
 import { ctx } from './context';
@@ -93,7 +95,7 @@ export class HintUi {
   }
 }
 
-interface BubbleEntry { node: HTMLElement; anchor: () => { x: number; y: number } | null; half: number; }
+interface BubbleEntry { node: HTMLElement; anchor: () => { x: number; y: number } | null; half: number; remove(): void; voiced: boolean; }
 
 /** Speech bubbles anchored to moving canvas points (followed every frame). */
 export class BubbleUi {
@@ -104,37 +106,51 @@ export class BubbleUi {
     ctx.onLayout(() => { for (const e of this.live) e.half = -1; });
   }
 
-  bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number): () => void {
+  bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number, voice: VoicePlayback | null = null): () => void {
     const node = el('div', 'bubble');
     const inner = el('div', 'bubble-text');
-    for (const seg of parseMarkup(text)) {
-      if (seg.style === 'br') inner.appendChild(el('br'));
-      else inner.appendChild(el('span', seg.style === 'plain' ? '' : seg.style === 'em' ? 'tx-em' : 'tx-magic', seg.text));
-    }
+    const renderPlain = (): TextReveal => {
+      inner.textContent = '';
+      for (const seg of parseMarkup(text)) {
+        if (seg.style === 'br') inner.appendChild(el('br'));
+        else inner.appendChild(el('span', seg.style === 'plain' ? '' : seg.style === 'em' ? 'tx-em' : 'tx-magic', seg.text));
+      }
+      return { done: true, complete() {} };
+    };
     node.appendChild(inner);
     ctx.layers.world.appendChild(node);
-    const entry: BubbleEntry = { node, anchor, half: -1 };
-    this.live.add(entry);
-    this.follow(entry);
-    requestAnimationFrame(() => node.classList.add('on'));
-    if (!this.raf) this.raf = requestAnimationFrame(this.tick);
     let removed = false;
+    let timer = 0;
+    const token = ctx.epoch;
+    const reveal = revealSpeech(inner, text, voice, renderPlain, () => {},
+      () => !removed && token === ctx.epoch && inner.isConnected);
     const remove = () => {
       if (removed) return;
       removed = true;
       clearTimeout(timer);
+      reveal.cancel?.();
+      voice?.stop();
       node.classList.remove('on');
       node.classList.add('is-out');
       setTimeout(() => { this.live.delete(entry); node.remove(); }, 260);
     };
-    const timer = window.setTimeout(remove, ms ?? bubbleDuration(text));
+    const entry: BubbleEntry = { node, anchor, half: -1, remove, voiced: Boolean(voice) };
+    this.live.add(entry);
+    this.follow(entry);
+    requestAnimationFrame(() => { if (!removed) node.classList.add('on'); });
+    if (!this.raf) this.raf = requestAnimationFrame(this.tick);
+    if (voice) {
+      void voice.done.then(() => {
+        if (!removed) timer = window.setTimeout(remove, voice.outcome === 'ended' ? 600 : (ms ?? bubbleDuration(text)));
+      });
+    } else timer = window.setTimeout(remove, ms ?? bubbleDuration(text));
     return remove;
   }
 
   private follow(entry: BubbleEntry): void {
     let pos: { x: number; y: number } | null = null;
     try { pos = entry.anchor(); } catch { pos = null; }
-    if (!pos) { entry.node.style.visibility = 'hidden'; return; }
+    if (!pos) { entry.node.style.visibility = 'hidden'; if (entry.voiced) entry.remove(); return; }
     entry.node.style.visibility = '';
     const p = canvasToPage(pos.x, pos.y);
     // Keep bubbles on screen horizontally.
@@ -152,7 +168,9 @@ export class BubbleUi {
   };
 
   clear(): void {
-    for (const e of this.live) e.node.remove();
+    for (const e of this.live) { e.remove(); e.node.remove(); }
     this.live.clear();
+    cancelAnimationFrame(this.raf);
+    this.raf = 0;
   }
 }

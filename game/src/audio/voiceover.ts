@@ -2,9 +2,11 @@ import { stripMarkup } from '../ui/text';
 
 export type VoiceKind = 'say' | 'think' | 'narrate' | 'bark' | 'choice';
 export interface VoiceKey { kind: VoiceKind; speaker: string; text: string }
-export interface VoiceClip extends VoiceKey { id: string; audio: string; seconds: number; runtime_keys: VoiceKey[] }
+export interface WordCue { start: number; end: number }
+export type VoiceOutcome = 'playing' | 'ended' | 'failed' | 'stopped';
+export interface VoiceClip extends VoiceKey { word_cues?: WordCue[]; id: string; audio: string; seconds: number; runtime_keys: VoiceKey[] }
 export interface VoiceManifest { model: string; aliases: Record<string, string>; clips: VoiceClip[] }
-export interface VoicePlayback { done: Promise<void>; stop(): void }
+export interface VoicePlayback { done: Promise<void>; readonly currentTime: number; readonly started: boolean; readonly wordCues?: readonly WordCue[]; readonly outcome: VoiceOutcome; stop(): void }
 
 /** Choice labels may include actions around a quoted response; only the words are spoken. */
 export function quotedChoiceText(text: string): string | null {
@@ -65,7 +67,10 @@ export class Voiceover {
   }
   stop(): void { this.active?.playback.stop(); }
   refreshVolume(): void {
-    if (this.active) this.active.audio.volume = this.volume();
+    if (this.active) {
+      this.active.audio.volume = this.volume();
+      if (this.volume() <= 0) this.active.playback.stop();
+    }
   }
   private volume(): number {
     const value = this.deps.volume();
@@ -86,29 +91,38 @@ export class Voiceover {
     let resolve!: () => void;
     const done = new Promise<void>(r => { resolve = r; });
     let settled = false;
+    let outcome: VoiceOutcome = 'playing';
+    let started = false;
     let timer: ReturnType<typeof setTimeout>;
-    const finish = (failed = false) => {
+    const finish = (reason: VoiceOutcome) => {
       if (settled) return;
       settled = true;
+      outcome = reason;
       clearTimeout(timer);
       audio.removeEventListener('ended', ended);
       audio.removeEventListener('error', error);
       try { audio.pause(); audio.removeAttribute('src'); audio.load(); } catch { /* Already detached media. */ }
       audio.remove?.();
       if (this.active?.audio === audio) this.active = undefined;
-      if (failed) fallback?.();
+      if (reason === 'failed') fallback?.();
       resolve();
     };
-    const ended = () => finish();
-    const error = () => finish(true);
-    const playback = { done, stop: () => finish() };
+    const ended = () => finish('ended');
+    const error = () => finish('failed');
+    const playback: VoicePlayback = {
+      done, stop: () => finish('stopped'),
+      get currentTime() { return audio.currentTime; },
+      get started() { return started; },
+      get wordCues() { return clip.word_cues; },
+      get outcome() { return outcome; },
+    };
     this.active = { playback, audio, bark };
     if (bark) this.lastBark = this.deps.now();
     audio.addEventListener('ended', ended);
     audio.addEventListener('error', error);
     timer = setTimeout(error, Math.min(120000, clip.seconds * 1000 + 8000));
-    try { void audio.play().catch(() => { if (!settled) finish(true); }); }
-    catch { finish(true); }
+    try { void audio.play().then(() => { if (!settled) started = true; }, () => { if (!settled) finish('failed'); }); }
+    catch { finish('failed'); }
     return settled ? null : playback;
   }
 }

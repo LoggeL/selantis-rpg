@@ -3,7 +3,7 @@ import { advanceGate } from './advance';
 import { ctx } from './context';
 import { FLOURISH } from './chapterCard';
 import { dialogueFocus, el, html, sfx, wait } from './dom';
-import { revealWords, Typewriter } from './typewriter';
+import { revealSpeech, revealWords, Typewriter } from './typewriter';
 
 const MORE = '<svg viewBox="0 0 12 12"><path d="M2 3.5h8L6 9z" fill="currentColor"/></svg>';
 
@@ -50,15 +50,18 @@ export class NarrationUi {
   }
 
   private beat(text: HTMLElement, more: HTMLElement, line: string, style: 'book' | 'card' | 'thought'): Promise<void> {
+    const token = ctx.epoch;
     const recording = voiceover.play('narrate', 'narrator', line);
     more.classList.remove('on');
     text.classList.remove('rw-all');
     return new Promise(resolve => {
       let completedAt = 0;
       const onDone = () => { completedAt = performance.now(); more.classList.add('on'); };
-      const reveal = style === 'thought'
-        ? new Typewriter(text, line, { onDone })
-        : revealWords(text, line, onDone, style === 'card' ? 95 : 60, style === 'book');
+      const reveal = revealSpeech(text, line, recording,
+        () => style === 'thought'
+          ? new Typewriter(text, line, { onDone })
+          : revealWords(text, line, onDone, style === 'card' ? 95 : 60, style === 'book'),
+        onDone, () => token === ctx.epoch && !ctx.stale() && text.isConnected, style === 'book');
       const gate = advanceGate(`narrate:${style}`, () => {
         if (!reveal.done) { reveal.complete(); return; }
         if (performance.now() - completedAt < 160) return;

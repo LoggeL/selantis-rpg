@@ -69,6 +69,20 @@ describe('voice playback lifecycle', () => {
     expect(audios[0].remove).toHaveBeenCalledOnce();
     expect(engine.play('say', 'valentus', manifest.clips[0].text)).toBeNull();
   });
+  it('exposes actual playback start only after native play resolves and never restarts a skipped pending clip', async () => {
+    let begin!: () => void;
+    const pending = new Promise<void>(resolve => { begin = resolve; });
+    const audio = new FakeAudio(); audio.play.mockReturnValueOnce(pending);
+    const engine = new Voiceover({ audio: () => audio as unknown as HTMLAudioElement, fetchManifest: async () => manifest, volume: () => .9, now: () => 1 });
+    await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('say', 'valentus', manifest.clips[0].text)!;
+    expect(playback.started).toBe(false);
+    playback.stop(); begin(); await playback.done; await Promise.resolve();
+    expect(playback.started).toBe(false); expect(playback.outcome).toBe('stopped');
+    const next = engine.play('say', 'valentus', manifest.clips[0].text)!;
+    await Promise.resolve(); expect(next.started).toBe(true);
+    audio.dispatchEvent(new Event('ended')); await next.done; expect(next.outcome).toBe('ended');
+  });
   it('stops even when the next line has no recording; barks cannot interrupt dialogue', async () => {
     const { engine, audios } = fixture(); await engine.preload(); engine.scene('prolog-rat');
     const line = engine.play('say', 'valentus', manifest.clips[0].text)!;

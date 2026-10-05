@@ -7,7 +7,7 @@ import type { ChoiceOption } from './api';
 import { ctx, isConfirm } from './context';
 import { dialogueFocus, el, sfx } from './dom';
 import { NavList, type NavItem } from './nav';
-import { renderChars, Typewriter } from './typewriter';
+import { renderChars, revealSpeech, Typewriter } from './typewriter';
 
 const portraitCache = new Map<string, string>();
 
@@ -239,7 +239,9 @@ export class DialogueUi {
       const originalVoice = typeOptions.voice;
       const recording = voiceover.play('say', id, text, () => { typeOptions.voice = originalVoice; });
       if (recording) typeOptions.voice = undefined;
-      const tw = new Typewriter(box.textEl, text, typeOptions);
+      const tw = revealSpeech(box.textEl, text, recording,
+        () => new Typewriter(box.textEl, text, typeOptions), typeOptions.onDone,
+        () => token === ctx.epoch && !ctx.stale() && box.textEl.isConnected);
       const gate = advanceGate(`say:${id}`, () => {
         if (!tw.done) { tw.complete(); return; }
         if (performance.now() - completedAt < 140) return; // a mashed double press does not skip unseen text
@@ -271,7 +273,10 @@ export class DialogueUi {
     requestAnimationFrame(() => wrap.classList.add('is-in'));
     return new Promise<void>(resolve => {
       let completedAt = 0;
-      const tw = new Typewriter(inner, text, { cps: Math.max(0, G.settings.textSpeed * 0.8), onDone: () => { completedAt = performance.now(); more.classList.add('on'); } });
+      const onDone = () => { completedAt = performance.now(); more.classList.add('on'); };
+      const tw = revealSpeech(inner, text, recording,
+        () => new Typewriter(inner, text, { cps: Math.max(0, G.settings.textSpeed * 0.8), onDone }),
+        onDone, () => token === ctx.epoch && !ctx.stale() && inner.isConnected);
       const gate = advanceGate('think', () => {
         if (!tw.done) { tw.complete(); return; }
         if (performance.now() - completedAt < 140) return;
