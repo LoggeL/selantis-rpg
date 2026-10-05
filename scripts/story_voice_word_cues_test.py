@@ -144,5 +144,14 @@ class StoryAlignmentTests(unittest.TestCase):
                 self.assertFalse(cues.qualified_CTC_cache(row,expected,approval,run))
 
 
+    def test_partial_adoption_cache_requires_explicit_current_qualification(self):
+        row=self.receipt();row['engine_version']=cues.ENGINE+'/story-partial-dual-CTC-private-adoption-v1'
+        row['cues_sha256']=acoustic.cue_sha(row['word_cues'])
+        expected={key:row[key]for key in ['audio_sha256','text_sha256','source_manifest_sha256']}
+        expected['engine_version']=cues.ENGINE
+        with tempfile.TemporaryDirectory() as directory:
+            self.assertFalse(cues.qualified_CTC_cache(row,expected,{},Path(directory)))
+
+
 if __name__ == '__main__':
     unittest.main()

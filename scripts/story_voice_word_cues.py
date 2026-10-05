@@ -123,7 +123,13 @@ def resolve_model_dir(model_dir=None):
 
 def qualified_CTC_cache(receipt, expected, approval, run, provenance_cache=None):
     """Retain only explicitly adopted, currently proven independent CTC cues."""
-    if not receipt or receipt.get('engine_version') != ENGINE+'/story-CTC-private-adoption-v1':
+    if not receipt:
+        return False
+    if receipt.get('engine_version') == ENGINE+'/story-partial-dual-CTC-private-adoption-v1':
+        from story_voice_partial_cue_review import validate_cached_adoption
+        return validate_cached_adoption(receipt, expected, approval, run, provenance_cache)
+    secondary_adoption = receipt.get('engine_version') == ENGINE+'/story-secondary-CTC-private-adoption-v1'
+    if not secondary_adoption and receipt.get('engine_version') != ENGINE+'/story-CTC-private-adoption-v1':
         return False
     if any(receipt.get(key) != value for key,value in expected.items() if key != 'engine_version'):
         return False
@@ -132,7 +138,8 @@ def qualified_CTC_cache(receipt, expected, approval, run, provenance_cache=None)
     adoption = receipt.get('CTC_adoption', {})
     if adoption.get('ctc_receipt_sha256') != approval.get('ctc_receipt_sha256'):
         return False
-    paths = list(run.glob('ctc*/'+receipt['id']+'.ctc.private.json'))
+    suffix = '.secondary-ctc.private.json' if secondary_adoption else '.ctc.private.json'
+    paths = list(run.glob('ctc*/'+receipt['id']+suffix))
     actual_path = next((path for path in paths if acoustic.sha(path) == adoption.get('ctc_receipt_sha256')), None)
     if actual_path is None:
         return False
@@ -142,9 +149,18 @@ def qualified_CTC_cache(receipt, expected, approval, run, provenance_cache=None)
         return False
     if any(binding.get(key) != expected[key] for key in ['audio_sha256','text_sha256','source_manifest_sha256']):
         return False
-    from story_voice_ctc_align import model_identity, ENGINE as ctc_engine
-    if binding.get('engine') != ctc_engine or binding.get('script_sha256') != acoustic.sha(Path(__file__).with_name('story_voice_ctc_align.py')):
-        return False
+    if secondary_adoption:
+        from story_voice_secondary_ctc import model_identity, ENGINE as ctc_engine
+        from story_voice_secondary_ctc_review import runtime_matches
+        if (binding.get('engine') != ctc_engine
+                or binding.get('script_sha256') != acoustic.sha(Path(__file__).with_name('story_voice_secondary_ctc.py'))
+                or binding.get('parent_ctc_script_sha256') != acoustic.sha(Path(__file__).with_name('story_voice_ctc_align.py'))
+                or not runtime_matches(actual, binding.get('model', {}))):
+            return False
+    else:
+        from story_voice_ctc_align import model_identity, ENGINE as ctc_engine
+        if binding.get('engine') != ctc_engine or binding.get('script_sha256') != acoustic.sha(Path(__file__).with_name('story_voice_ctc_align.py')):
+            return False
     model = binding.get('model', {})
     cache = provenance_cache if provenance_cache is not None else {}
     key = json.dumps(model, sort_keys=True)
@@ -216,7 +232,7 @@ def align_run(run, private_dir, qualification=None, only_ids=None, model_dir=Non
         expected = {'audio_sha256': before[ident], 'text_sha256': text_sha(clip['text']),
                     'source_manifest_sha256': manifest_sha, 'engine_version': ENGINE}
         retained_CTC = qualified_CTC_cache(receipt, expected, approvals.get(ident, {}), run, provenance_cache)
-        base_cache = receipt and not receipt.get('CTC_adoption') and all(receipt.get(k) == v for k,v in expected.items())
+        base_cache = receipt and not receipt.get('CTC_adoption') and not receipt.get('Partial_CTC_adoption') and all(receipt.get(k) == v for k,v in expected.items())
         if not retained_CTC and not base_cache:
             if model_pair is None:
                 model_pair = load_local_model(model_dir)
