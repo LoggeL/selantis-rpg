@@ -1,0 +1,1068 @@
+{
+  "version": 1,
+  "date": "2026-10-05",
+  "language": "de-DE",
+  "model": "gemini-3.8-flash-tts",
+  "production_transport": "batch",
+  "status": "profiles_prepared_before_generation",
+  "scope_de": "Gesamter aktueller Prolog einschließlich Verzweigungen, Gedanken, menschlichen NPC-Barks, menschlichen Guard-Barks, Kampfausrufen und Erzählkarten. Bedienhinweise, Menüs und nichtsprachliche Laute werden nicht als TTS gesprochen. Keine Dialogänderungen.",
+  "voice_source": {
+    "url": "https://ai.google.dev/gemini-api/docs/speech-generation#voice-options",
+    "checked_date": "2026-10-05",
+    "note_de": "Elf zusätzliche unterschiedliche Presets aus Googles offizieller Liste. Beschriebene Rollenklänge sind Castingziele, keine garantierten Eigenschaften der Presets."
+  },
+  "speakers": {
+    "valentus": {
+      "id": "valentus",
+      "name": "Valentus von Trapas",
+      "google": "Charon",
+      "google_voice": "Charon",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "valentus",
+        "valentus-cloak"
+      ],
+      "casting_age_de": "älterer Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "tiefer warmer Bariton, runde dunkle Resonanz, leicht verbrauchte Körnung",
+      "tempo_de": "bedächtig; unter Gefahr kurze entschlossene Impulse",
+      "articulation_de": "klare deutsche Konsonanten, natürliche offene Vokale",
+      "baseline_de": "ruhige Verantwortung, Nähe statt Predigt",
+      "emotional_range_de": "Rat: feste Autorität; Schlacht: Entschlossenheit; Flucht: akuter Schmerz und Atemnot; Hof: Erschöpfung; Wiege: Reue, Zärtlichkeit, Stimme nahe am Brechen",
+      "recognition_de": "Derselbe runde Bariton vom Rat bis zur Wiege. Verletzung verändert Kraft und Atem, nicht Stimmalter oder Resonanz. Gedanken näher und leiser als Außenrede.",
+      "exclusions_de": "kein dauerndes Flüstern, keine pompöse Magierstimme, kein Röcheln über verständliche Wörter",
+      "api_prompt_en": "Older male native German speaker, low rounded warm baritone, slightly worn grain, measured phrasing, quiet authority and human intimacy. Preserve this vocal identity through pain, battle urgency and tender regret.",
+      "pronunciation_terms": [
+        "Valentus",
+        "Urmacht",
+        "Dunkelhain",
+        "Selantis",
+        "Crios",
+        "Cronibus",
+        "Xenovia"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 247
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 187
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 314
+        },
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 152
+        }
+      ],
+      "canon_de": "Großmeister; im Spiel verwundet, auf der Flucht und an der Wiege. Romananalyse belegt den gejagten, schwer kranken Valentus; sein endgültiges Schicksal bleibt offen.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "ignatius": {
+      "id": "ignatius",
+      "name": "Ignatius von Ignis",
+      "google": "Algenib",
+      "google_voice": "Algenib",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "ignatius"
+      ],
+      "casting_age_de": "älterer Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "mittlere bis tiefe Lage, trocken, leicht nasal und rau",
+      "tempo_de": "kompakt, bedacht, klare Pausen bei Zahlen und Beschlüssen",
+      "articulation_de": "präzise Konsonanten, keine gedehnten Amtsformeln",
+      "baseline_de": "erfahrene Wachsamkeit und Loyalität zum Siegel",
+      "emotional_range_de": "Gespräch: Sorge und offen eingeräumte Angst; Abstimmung: förmliche Endgültigkeit; nach Drohung: dringliche Sorge",
+      "recognition_de": "Die trockene Nasalität und knappen Satzenden bleiben auch bei Angst hörbar. Klar anders als Valentus: weniger rund, weniger weich.",
+      "exclusions_de": "keine Karikatur, kein nuschelnder Greis, keine späteren Inquisitor-Eigenschaften vorwegnehmen",
+      "api_prompt_en": "Older male native German speaker, dry mid-low voice, slight nasal rasp, precise consonants and compact deliberate phrasing. Concern is restrained and honest; formal decisions are clear and final.",
+      "pronunciation_terms": [
+        "Valentus",
+        "Ignatius",
+        "Ignis",
+        "Urmacht"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 133
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 138
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 278
+        },
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 8
+        }
+      ],
+      "canon_de": "Er sagt im Spiel, er sitze seit dreißig Jahren im Rat. Das ist keine exakte Altersangabe. Spätere widersprüchliche Biografien bestimmen diese Prologstimme nicht.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "gira": {
+      "id": "gira",
+      "name": "Gira von Imandur",
+      "google": "Kore",
+      "google_voice": "Kore",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "gira",
+        "aelteste"
+      ],
+      "casting_age_de": "reife Frau (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "tiefe Mezzo-Lage, feste Brustresonanz, trocken fokussiert",
+      "tempo_de": "gleichmäßig, wenig Nachgeben, kurze harte Schlusswörter",
+      "articulation_de": "scharfe klare Konsonanten, präzise Betonung statt Lautstärke",
+      "baseline_de": "unbeirrbare Eidtreue",
+      "emotional_range_de": "Rat: beherrschte Wut; Erinnerung an verdorrtes Tal: erschütterte kurze Pause; Antwort auf Valentus: nüchterne Klarheit",
+      "recognition_de": "Tiefes festes Zentrum bleibt in der schrecklichen Erinnerung erhalten; kein Wechsel zur weichen Bäuerinnenstimme.",
+      "exclusions_de": "kein pauschales Schreien, keine gefühllose Roboterrede, keine erfundenen adeligen Akzente",
+      "api_prompt_en": "Mature female native German speaker, firm lower mezzo with focused chest resonance, crisp consonants and steady unhurried pace. Controlled anger and disturbing memories remain grounded and intelligible.",
+      "pronunciation_terms": [
+        "Urmacht"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 146
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 147
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 149
+        },
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 9
+        }
+      ],
+      "canon_de": "Ratsmitglied und Gegnerin der Öffnung; das erinnerte Tal ist eine Zeile der Spieladaption.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "ulfbert": {
+      "id": "ulfbert",
+      "name": "Ulfbert von Rogar",
+      "google": "Orus",
+      "google_voice": "Orus",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "ulfbert",
+        "wortfuehrer"
+      ],
+      "casting_age_de": "Mann mittleren stimmlichen Alters (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "tiefer grober Bass, harte Kanten, nach vorn gerichtete Resonanz",
+      "tempo_de": "drängend, abgehackt; Drohung langsamer und kälter",
+      "articulation_de": "harte Konsonanten, scharfes Satzende, jedes Wort vollständig",
+      "baseline_de": "selbstgewisser Machtanspruch",
+      "emotional_range_de": "Eröffnung: aufgebrachte Anklage; Werben: überzeugend; Abstimmung: bitterer Spott; Abgang: konkrete kalte Drohung",
+      "recognition_de": "Grobe Basskante bleibt im leisen Drohen ebenso hörbar wie im Wortführer-Ruf.",
+      "exclusions_de": "kein cartoonhaftes Bösewichtlachen, kein Dämonfilter, keine künstliche Tiefenverschiebung",
+      "api_prompt_en": "Adult male native German speaker, deep coarse bass, hard-edged consonants, forward forceful resonance and clipped phrasing. Persuasive certainty turns into bitter anger or a quiet concrete threat without cartoon villainy.",
+      "pronunciation_terms": [
+        "Valentus",
+        "Urmacht"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 173
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 284
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 288
+        },
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 5
+        }
+      ],
+      "canon_de": "Einer der vier Abtrünnigen aus Rogar. Seine politische Rolle ist belegt; die genaue Tonfarbe ist Casting.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "falke": {
+      "id": "falke",
+      "name": "Falke aus Portas",
+      "google": "Fenrir",
+      "google_voice": "Fenrir",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "falke",
+        "prolog-falke"
+      ],
+      "casting_age_de": "jüngerer erwachsener Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "heller hoher Bariton, direkte Platzierung, etwas Luft im Klang",
+      "tempo_de": "schnell und wach, klare Atempausen zwischen Meldung und Ruf",
+      "articulation_de": "verständliche militärische Ansprache, Namen und letzte Silben vollständig",
+      "baseline_de": "mutig und aufmerksam trotz Angst",
+      "emotional_range_de": "Schlacht: Warnung und Atemlosigkeit; Rückzug: Fürsorge; Schluss: kräftiger Kampfruf; Baris: beherrschte Menschlichkeit",
+      "recognition_de": "Helle Jugendlichkeit bleibt beim Rufen erhalten, keine Übernahme von Ulfberts Bass.",
+      "exclusions_de": "keine pubertäre Stimme, kein dauerhaftes Schreien, kein patriotischer Werbespot",
+      "api_prompt_en": "Younger adult male native German soldier, bright high baritone, clear forward placement, quick energetic rhythm and slight breathiness. Fear is held by discipline; commands and battle cries are forceful, humane and fully intelligible.",
+      "pronunciation_terms": [
+        "Portas"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 71
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 75
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 233
+        },
+        {
+          "path": "game/src/chapters/prolog/catalog.ts",
+          "line": 7
+        }
+      ],
+      "canon_de": "Benannter Falke aus Portas. Ein exaktes Alter oder eigener Vorname wird im aktuellen Prolog nicht genannt.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "baeuerin": {
+      "id": "baeuerin",
+      "name": "Bäuerin",
+      "google": "Aoede",
+      "google_voice": "Aoede",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "baeuerin"
+      ],
+      "casting_age_de": "erwachsene Frau (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "warme mittlere bis höhere Lage, weiche runde Vokale, sanfter Atem",
+      "tempo_de": "natürliche Alltagssprache, lebendig ohne Hast",
+      "articulation_de": "klar und ungeziert, kleine selbstverständliche Betonungen",
+      "baseline_de": "Fürsorge und praktische Zuversicht",
+      "emotional_range_de": "Erwachen: Erleichterung; Verband: Hilflosigkeit; Kinder: Stolz und müder Humor; Licht: erschrockener Ausruf; Beruhigen: nah und weich",
+      "recognition_de": "Wärme und gerundete Vokale bleiben bei Angst erhalten; scharfes Erschrecken bricht kurz aus der Alltagssprache aus.",
+      "exclusions_de": "kein Babysingsang außerhalb des Beruhigens, kein Landdialekt, keine naive oder ungebildete Karikatur",
+      "api_prompt_en": "Adult female native German speaker, warm mid-high voice, soft rounded vowels, everyday conversational melody and gentle breath. Practical caring warmth can become helplessness, sudden fear or intimate soothing without losing identity.",
+      "pronunciation_terms": [
+        "Trapas",
+        "Lia",
+        "Kyra"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 77
+        },
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 97
+        },
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 176
+        },
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 180
+        }
+      ],
+      "canon_de": "Im aktuellen Spiel Mutter der Zwillinge, aus Trapas, Händlerstochter, liest und versorgt Wunden. Die Romananalyse hält die Gleichsetzung der Prologretterin mit der späteren Mutter als nicht ausdrücklich im Roman belegt fest.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "bauer": {
+      "id": "bauer",
+      "name": "Bauer",
+      "google": "Iapetus",
+      "google_voice": "Iapetus",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "bauer",
+        "prolog-stimme"
+      ],
+      "casting_age_de": "erwachsener Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "mittlerer Bariton, warmer holziger Klang, ungezwungen",
+      "tempo_de": "gelassen, feste einfache Satzbögen",
+      "articulation_de": "alltägliche deutsche Aussprache, Verkürzungen im Original erhalten",
+      "baseline_de": "bodenständige Hilfsbereitschaft und trockener Humor",
+      "emotional_range_de": "Fund im Wald: überraschter Ruf und beruhigendes Zupacken; Hof: praktische Erklärung; Rücken: trockener Humor; Verschwinden: echte erschrockene Leere",
+      "recognition_de": "Schon Eine Stimme im Wald benutzt dieselbe Hofstimme; Dunkelheit darf keine geheimnisvolle neue Person erzeugen.",
+      "exclusions_de": "kein Bauerntölpel, kein hinzugefügter Dialekt, keine Umdeutung zur mystischen Stimme",
+      "api_prompt_en": "Adult male native German speaker, medium baritone with warm woody grain, relaxed rhythm and plain everyday diction. Grounded kindness, understated dry humor, practical reassurance and honest alarm; keep the same voice for the unseen rescue and farmhouse.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 267
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 280
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 282
+        },
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 227
+        }
+      ],
+      "canon_de": "Der Sprecher prolog-stimme wird beim Fund von einem gespawnten Bauern gesprochen; anschließend nennt die Erzählkarte den Retter Bauer. Kein eigener Name ist belegt.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "narrator": {
+      "id": "narrator",
+      "name": "Erzählstimme",
+      "google": "Sulafat",
+      "google_voice": "Sulafat",
+      "voice_status": "heard_preserved",
+      "aliases": [
+        "narrator"
+      ],
+      "casting_age_de": "erwachsene Erzählstimme (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "glatte warme mittlere bis tiefe Lage, nah und klar",
+      "tempo_de": "ruhig mit sinntragenden Pausen",
+      "articulation_de": "neutrales Standarddeutsch, lesbare Bilder und klare Anweisungen",
+      "baseline_de": "zurückhaltendes Erzählen, keine wissende Vorwegnahme",
+      "emotional_range_de": "Chronik: ernst und bildhaft; Niederlage: nüchterne Trauer; Hof: sensorische Nähe; Schluss: leises Geheimnis.",
+      "recognition_de": "Gleiche warme Textur für Chronik, narrate-Karten und narrator-Dialoge.",
+      "exclusions_de": "kein Trailerbass, keine Werbung, keine Prophezeiungen, keine erfundene Lösung des Kinderrätsels",
+      "api_prompt_en": "Native German storyteller, smooth warm mid-low voice, clear neutral diction, intimate restrained delivery and unhurried meaningful pauses. Subtle imagery without advertising cadence or booming; practical tutorial lines are concise and friendly in the same voice.",
+      "pronunciation_terms": [
+        "Valentus",
+        "Selantis",
+        "Xenovia",
+        "Urmacht",
+        "Dunkelhain"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 365
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 406
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 270
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 310
+        },
+        {
+          "path": "game/src/chapters/prolog/zuflucht.ts",
+          "line": 189
+        }
+      ],
+      "canon_de": "Erzähltexte, Karten und explizite narrator-Zeilen sind eine Produktionserzählstimme. Abstimmungsaufrufe sind im Source narrator zugewiesen; für genau diese zwei Zeilen moderiert die Valentus-Stimme, während der Laufzeit-Lookup narrator bleibt.",
+      "uncertainty_de": "Das Google-Preset wurde bereits im Vergleich verwendet. Das erweiterte Gesamtprofil ist eine Regiefestlegung, keine zusätzliche Kanonbiografie."
+    },
+    "tholoss": {
+      "id": "tholoss",
+      "name": "Tholloss von Trapas",
+      "google": "Enceladus",
+      "google_voice": "Enceladus",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "tholoss",
+        "hagere",
+        "Tholloss",
+        "Tholoss"
+      ],
+      "casting_age_de": "reifer Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "schmaler mitteltiefer Tenor-Bariton, luftiger trockener Rand",
+      "tempo_de": "langsam kalkuliert, rhetorische Pausen, dann kurze Spitzen",
+      "articulation_de": "feine schneidende Konsonanten, deutliches s und t",
+      "baseline_de": "spöttische Ungeduld und Anspruch",
+      "emotional_range_de": "Gespräch: gönnerhafter Spott; Gegenfrage: persönlich gereizt; Abgang: leise Vorwarnung",
+      "recognition_de": "Schmaler Atemklang bleibt beim Ärger erhalten; anders als Ulfberts grober Bass und Ignatius trockene Nasalität.",
+      "exclusions_de": "kein permanent geflüsterter Schurke, kein Vamir-Name im Prolog, kein übernatürlicher Stimmfilter",
+      "api_prompt_en": "Mature male native German speaker, narrow mid-low tenor-baritone with a breathy dry edge, calculated pacing and fine cutting consonants. Sardonic confidence, personal irritation and a quiet warning; preserve the slim airy timbre.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 10
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 156
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 163
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 295
+        }
+      ],
+      "canon_de": "Einer der vier Abtrünnigen. Code-ID tholoss, angezeigter Schriftname Tholloss. Die spätere Vamir-Identität ist in der Mythologie mit soll versehen und kein Prolog-Sprecherwechsel.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "loyla": {
+      "id": "loyla",
+      "name": "Loyla von Imandur",
+      "google": "Algieba",
+      "google_voice": "Algieba",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "loyla",
+        "abtr-r2"
+      ],
+      "casting_age_de": "erwachsener Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "glatter heller mittlerer Bariton, saubere Resonanz",
+      "tempo_de": "geschmeidig, kurze zustimmende Einwürfe",
+      "articulation_de": "runde klare Vokale, leichte abschätzige Schlussbetonung",
+      "baseline_de": "selbstgefällige Gefolgschaft der Vier",
+      "emotional_range_de": "Eröffnung: zustimmender Ruf; Alltag: Verachtung für Wächter; Gespräch: abweisende Geschlossenheit",
+      "recognition_de": "Glatter Klang und höherer Schwerpunkt unterscheiden ihn von Ulfbert und Tholloss auch in Barks.",
+      "exclusions_de": "keine weibliche Besetzung wegen des Namens, kein luxuriöser Adel-Akzent, kein eigener Verschwörermonolog ohne Beleg",
+      "api_prompt_en": "Adult male native German speaker, smooth bright middle baritone, clean resonance, fluid pacing and rounded clear vowels. Self-satisfied allegiance, quick approving interjections and dismissive certainty without a sneer on every word.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 6
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 29
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 196
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 392
+        }
+      ],
+      "canon_de": "Männliches Ratsmitglied laut council.ts und council.test.ts, aus Imandur, einer der vier Abtrünnigen.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "burm": {
+      "id": "burm",
+      "name": "Burm von Rogar",
+      "google": "Schedar",
+      "google_voice": "Schedar",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "burm",
+        "rat-l1"
+      ],
+      "casting_age_de": "reifer Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "mittlere tiefe Lage, gleichmäßiger kompakter Klang ohne Rauheit",
+      "tempo_de": "langsam verlässlich, wenig Schwankung",
+      "articulation_de": "gerade klare Konsonanten, schlichtes Satzende",
+      "baseline_de": "ruhige Traditionsbindung",
+      "emotional_range_de": "Siegel-Bark: sachliche Gewissheit; Ruhe-Ruf: bestimmt; Gespräch: Loyalität mit persönlichem Familienbezug",
+      "recognition_de": "Gleichmäßiger Rhythmus und unraue Resonanz bilden die Wiedererkennung in kurzen Zeilen.",
+      "exclusions_de": "kein Rogar-Dialekt aus Herkunft ableiten, keine erfundene Schiffsbiografie, keine zweite Valentus-Stimme",
+      "api_prompt_en": "Mature male native German speaker, even compact mid-low tone, unrough resonance, dependable slow rhythm and plain precise articulation. Calm traditional conviction; requests for order are firm rather than aggressive.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 7
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 28
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 200
+        }
+      ],
+      "canon_de": "Ratsmitglied aus Rogar; im Spiel gehört seine Stimme dem Siegel, wie die seines Vaters. Weitere Biografie ist nicht festgelegt.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "gwynn": {
+      "id": "gwynn",
+      "name": "Gwynn von Portas",
+      "google": "Erinome",
+      "google_voice": "Erinome",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "gwynn",
+        "rat-r3"
+      ],
+      "casting_age_de": "erwachsene Frau (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "klare mittlere Mezzo-Lage, heller fokussiert als Gira",
+      "tempo_de": "wach und knapp, Angst beschleunigt leicht",
+      "articulation_de": "präzise Vokale, deutliches Wortende",
+      "baseline_de": "aufmerksame Besorgnis um das Siegel",
+      "emotional_range_de": "Eröffnung: empörter Ausruf; Barks: Drängen an Großmeister; Gespräch: fragile politische Rechnung vier gegen sechs",
+      "recognition_de": "Heller klarer Mittelpunkt bleibt im empörten Ruf erhalten, ohne Giras tiefe Brustresonanz.",
+      "exclusions_de": "keine spätere Folter vorwegnehmen, keine pauschale Opferstimme, kein ständiger Tremor",
+      "api_prompt_en": "Adult female native German speaker, clear middle mezzo, bright focused resonance, alert compact rhythm and precise vowels. Concern, indignation and urgent political caution remain steady and distinct from a lower firm council voice.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 12
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 30
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 202
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 393
+        }
+      ],
+      "canon_de": "Ratsmitglied aus Portas auf Seite der Sechs. Späteres Schicksal in der Mythologie bestimmt keine schon verwundete Prologstimme.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "samira": {
+      "id": "samira",
+      "name": "Samira von Ignis",
+      "google": "Leda",
+      "google_voice": "Leda",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "samira",
+        "rat-r5"
+      ],
+      "casting_age_de": "jüngere erwachsene Frau (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "helle leichte höhere Lage, feiner klarer Klang",
+      "tempo_de": "kurze wache Sätze, etwas schneller als Gwynn",
+      "articulation_de": "helle deutliche Konsonanten, kein kindlicher Singsang",
+      "baseline_de": "ernste Eidtreue und aufmerksames Beobachten",
+      "emotional_range_de": "Barks: aufrichtige Berufung auf die Zehn und Aros; Gespräch: wachsame Skepsis gegenüber dem Wortführer",
+      "recognition_de": "Leichte hohe Resonanz und knappe ernsthafte Phrasen bleiben konstant.",
+      "exclusions_de": "kein Kinder-Casting, keine südliche Exotik aus Ignis ableiten, keine naive Fröhlichkeit",
+      "api_prompt_en": "Younger adult female native German speaker, light bright higher register, fine clear tone, quick compact phrasing and distinct consonants. Earnest commitment to the oath and observant skepticism, never childish or sing-song.",
+      "pronunciation_terms": [
+        "Aros"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 13
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 32
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 204
+        }
+      ],
+      "canon_de": "Ratsmitglied aus Ignis. Das jüngere stimmliche Alter ist ein Castingkontrast; die Quelle gibt ihr kein genaues Lebensalter.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "rikkon": {
+      "id": "rikkon",
+      "name": "Rikkon von Portas",
+      "google": "Alnilam",
+      "google_voice": "Alnilam",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "rikkon",
+        "abtr-r4"
+      ],
+      "casting_age_de": "erwachsener Mann (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "feste mittlere Lage, metallischer gerader Kern",
+      "tempo_de": "kurz, trocken und nüchtern, wenig Atemschmuck",
+      "articulation_de": "scharfe gleichmäßige Konsonanten, klare zäsurenlose Einwürfe",
+      "baseline_de": "ungeduldige Gewissheit der Vier",
+      "emotional_range_de": "Barks: Abkehr vom Wächteramt; Gespräch: geringschätzige Altersprovokation gegen Valentus",
+      "recognition_de": "Gerader metallischer Ton und geringe Melodie bleiben in allen kurzen Auftritten.",
+      "exclusions_de": "kein Ulfbert-Bassduplikat, keine späteren Kriegstaten hineinspielen, kein robotischer Soldat",
+      "api_prompt_en": "Adult male native German speaker, firm middle register with a straight metallic core, clipped dry pacing and crisp even consonants. Impatient certainty and understated contempt; minimal pitch ornament while retaining natural human speech.",
+      "pronunciation_terms": [
+        "Valentus"
+      ],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/council.ts",
+          "line": 14
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 31
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 196
+        }
+      ],
+      "canon_de": "Ratsmitglied aus Portas, einer der Vier. Spätere Gefangennahme Gwynns ist keine zusätzliche Prologzeile.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "baris-young": {
+      "id": "baris-young",
+      "name": "Axtkämpfer (junger Baris)",
+      "google": "Sadaltager",
+      "google_voice": "Sadaltager",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "baris-young",
+        "baris",
+        "prolog-axtkaempfer"
+      ],
+      "casting_age_de": "jüngerer erwachsener Mann mit kräftigem Klang (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "tiefer Brustbariton, breit und körperlich, körniger Druck",
+      "tempo_de": "kurze explosive Rufe; verwundet stockend mit Atempausen",
+      "articulation_de": "breite verständliche Vokale, kräftige Konsonanten ohne Verschlucken",
+      "baseline_de": "aggressives Besitzdenken und verletzter Stolz",
+      "emotional_range_de": "Angriff: Der Alte gehört mir als kurzer Ruf; nach Niederlage: schmerzhafter Groll und persönliche Drohung",
+      "recognition_de": "Breite körperliche Brustresonanz bleibt unter Schmerz, jünger und gröber im Gestus als Ratsmitglieder.",
+      "exclusions_de": "kein Dämon, kein Zaubermeister, nicht als sterbend spielen, kein erwachsener Hauptmann-Titel im gesprochenen Prolog",
+      "api_prompt_en": "Young adult male native German fighter, broad deep chest baritone, physical grain and forceful consonants. Short explosive aggression becomes wounded pride and broken-breath resentment; still alive, never a supernatural voice.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 1
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 162
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 196
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 232
+        }
+      ],
+      "canon_de": "Die aktuelle Spieladaption benennt den jungen Axtkämpfer als Baris und lässt ihn verwundet überleben. Der spätere Romanhauptmann Baris ist belegt; diese frühe Begegnung ist Adaption.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "verschwoerer": {
+      "id": "verschwoerer",
+      "name": "Verschwörer (anonym)",
+      "google": "Umbriel",
+      "google_voice": "Umbriel",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "verschwoerer"
+      ],
+      "casting_age_de": "erwachsener Mann als Castingentscheidung (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "mittlere dunkle trockene Lage, unspektakulär nah",
+      "tempo_de": "langsam beiläufig, kurze taktische Imperative",
+      "articulation_de": "leise aber vollständig klare Konsonanten",
+      "baseline_de": "alltägliche Kälte einer konkreten Planung",
+      "emotional_range_de": "Schloss-Zeile: verächtliche Gelassenheit; Anwerbung: nüchterne Entschlossenheit",
+      "recognition_de": "Unaufgeregter dunkler Mittelton statt Ulfberts Bass oder Tholloss luftiger Spitze. Beide Zeilen derselbe anonyme Sprecher.",
+      "exclusions_de": "keine unbelegte Identifikation mit einem Ratsmitglied, kein extra Name, kein Dämonchor oder Stimmverzerrer",
+      "api_prompt_en": "Adult male native German speaker, subdued dark middle register, dry close tone, unhurried casual phrasing and clear quiet consonants. Cold practical planning and calm contempt; ordinary human speech, not a theatrical villain.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 329
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 330
+        },
+        {
+          "path": "game/src/chapters/prolog/rat.ts",
+          "line": 331
+        }
+      ],
+      "canon_de": "Vier Gestalten sind gezeigt; die beiden Zeilen heißen verschwoerer. Der Source nennt keinen individuellen Urheber. Separate Produktionsstimme erhält diese Unbestimmtheit.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "fackeltraeger": {
+      "id": "fackeltraeger",
+      "name": "Fackelträger",
+      "google": "Puck",
+      "google_voice": "Puck",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "fackeltraeger",
+        "prolog-fackeltraeger",
+        "fackel-1",
+        "fackel-2",
+        "fackel-furt"
+      ],
+      "casting_age_de": "erwachsener Mann als Castingentscheidung (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "mittlere hohe rau-direkte Lage, nach vorn sprechend",
+      "tempo_de": "kurze wache Rufe, Verdacht mit kleiner Pause, Befehle abrupt",
+      "articulation_de": "deutliche Rufkonsonanten, kein Slangzusatz",
+      "baseline_de": "suchend, gereizt und zweckgerichtet",
+      "emotional_range_de": "Verdacht: horchende Frage; Fehlalarm: trockene Entwarnung; Sichtkontakt: aufgeregter Ruf; Hunde: Befehl; verlorene Spur: Frust",
+      "recognition_de": "Ein Guard-Stimmtyp für den bestehenden gemeinsamen Sprecher. Lautstärke und räumliche Position dürfen je Wache wechseln, Profil bleibt gleich.",
+      "exclusions_de": "kein komischer Wachmann, kein kompletter Satz im Schreien bei Fehlalarm, kein tiefer Baris-Klang",
+      "api_prompt_en": "Adult male native German guard, forward rough mid-high voice, quick alert pacing and distinct calling consonants. Suspicious questions, blunt orders, discovery shouts and frustrated relief; restrained ordinary lines between alerts.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 82
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 84
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 89
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 99
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 220
+        },
+        {
+          "path": "game/src/chapters/prolog/flucht.ts",
+          "line": 326
+        }
+      ],
+      "canon_de": "Drei menschliche Wachen teilen in der aktuellen Karte prolog-fackeltraeger. Unterschiedliche Individuen sind sichtbar; ein gemeinsamer Cast folgt der vorhandenen Sprecherzuordnung.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "verwundeter-1": {
+      "id": "verwundeter-1",
+      "name": "Verwundeter Paladin 1",
+      "google": "Achird",
+      "google_voice": "Achird",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "verwundeter-1"
+      ],
+      "casting_age_de": "erwachsener Mann als Castingentscheidung (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "mittlerer warmer enger Bariton, kraftarm mit hörbarem Atem",
+      "tempo_de": "langsam, Ruf nutzt einen kurzen Kraftstoß",
+      "articulation_de": "verständliche weiche Konsonanten trotz Erschöpfung",
+      "baseline_de": "hilfsbedürftiger Kämpfer, dankbar bei Rettung",
+      "emotional_range_de": "Schwelle: Großmeister Hilfe als mühsamer Ruf; sicherer Rückzug: echte leise Dankbarkeit",
+      "recognition_de": "Warmer enger Bariton bleibt bei Hilfe und Danke identisch. Weniger tief und rund als Valentus.",
+      "exclusions_de": "kein Todesröcheln, keine neue Paladin-Biografie, kein Falke-Duplikat",
+      "api_prompt_en": "Adult male native German wounded paladin, narrow warm middle baritone, weak breath and slow phrasing. A brief effort carries the plea for help; gratitude is quiet and sincere. Keep every word intelligible without death rattles.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 46
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 149
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 221
+        }
+      ],
+      "canon_de": "Erster verwundeter Verbündeter, kann kaum noch gehen. Die gemeinsam implementierte Danke-Zeile gilt für beide Paladine.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    },
+    "verwundeter-2": {
+      "id": "verwundeter-2",
+      "name": "Verwundeter Paladin 2",
+      "google": "Sadachbia",
+      "google_voice": "Sadachbia",
+      "voice_status": "new_casting_unheard",
+      "aliases": [
+        "verwundeter-2"
+      ],
+      "casting_age_de": "jüngerer erwachsener Mann als Castingentscheidung (stimmliches Casting, keine feste Kanonaltersangabe)",
+      "register_timbre_de": "hellere mittlere Lage, dünner nach vorn gesetzter Klang",
+      "tempo_de": "stockend, knappe Atemgruppen, wenig verbleibende Kraft",
+      "articulation_de": "klare kleine Vokale, schmale Konsonanten statt verschluckter Wörter",
+      "baseline_de": "körperlich am Ende, durch Rettung erleichtert",
+      "emotional_range_de": "Schwelle: Ich kann nicht mehr als gebrochene Ausatmung; sicherer Rückzug: leise Erleichterung und Danke",
+      "recognition_de": "Heller dünner Kern bleibt in Erschöpfung und Dankbarkeit, deutlich getrennt vom wärmeren ersten Paladin.",
+      "exclusions_de": "kein Kinder-Casting, kein dauerndes Weinen, kein neues Sterben, keine übertriebene Luft bis zur Unverständlichkeit",
+      "api_prompt_en": "Younger adult male native German wounded paladin, thin forward brighter middle register, short broken breath groups and clear small vowels. Exhaustion nearly stops the sentence; rescued gratitude is soft and relieved in the same voice.",
+      "pronunciation_terms": [],
+      "source_evidence": [
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 46
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 151
+        },
+        {
+          "path": "game/src/chapters/prolog/schlacht.ts",
+          "line": 222
+        }
+      ],
+      "canon_de": "Zweiter verwundeter Verbündeter, stützt sich auf den Speer. Stimmliches Alter und Klangkontrast sind Casting, keine Romanangabe.",
+      "uncertainty_de": "Stimmlage, Tempo, Klang und Regie sind Produktionsentscheidungen; neu ergänzte Presets wurden noch nicht angehört."
+    }
+  },
+  "line_voice_overrides": [
+    {
+      "source": "game/src/chapters/prolog/rat.ts",
+      "source_line": 254,
+      "runtime_speaker": "narrator",
+      "voice_speaker": "valentus",
+      "text": "Wer für das Wächteramt stimmt, hebe die Hand.",
+      "direction_de": "Valentus moderiert ruhig und förmlich die Abstimmung."
+    },
+    {
+      "source": "game/src/chapters/prolog/rat.ts",
+      "source_line": 270,
+      "runtime_speaker": "narrator",
+      "voice_speaker": "valentus",
+      "text": "Wer dafür stimmt, die Urmacht zu nutzen …",
+      "direction_de": "Valentus moderiert ruhig und förmlich die Abstimmung, endet an der vorhandenen Auslassung."
+    }
+  ],
+  "speaker_aliases": {
+    "valentus": "valentus",
+    "valentus-cloak": "valentus",
+    "ignatius": "ignatius",
+    "gira": "gira",
+    "aelteste": "gira",
+    "ulfbert": "ulfbert",
+    "wortfuehrer": "ulfbert",
+    "falke": "falke",
+    "prolog-falke": "falke",
+    "baeuerin": "baeuerin",
+    "bauer": "bauer",
+    "prolog-stimme": "bauer",
+    "narrator": "narrator",
+    "tholoss": "tholoss",
+    "hagere": "tholoss",
+    "Tholloss": "tholoss",
+    "Tholoss": "tholoss",
+    "loyla": "loyla",
+    "abtr-r2": "loyla",
+    "burm": "burm",
+    "rat-l1": "burm",
+    "gwynn": "gwynn",
+    "rat-r3": "gwynn",
+    "samira": "samira",
+    "rat-r5": "samira",
+    "rikkon": "rikkon",
+    "abtr-r4": "rikkon",
+    "baris-young": "baris-young",
+    "baris": "baris-young",
+    "prolog-axtkaempfer": "baris-young",
+    "verschwoerer": "verschwoerer",
+    "fackeltraeger": "fackeltraeger",
+    "prolog-fackeltraeger": "fackeltraeger",
+    "fackel-1": "fackeltraeger",
+    "fackel-2": "fackeltraeger",
+    "fackel-furt": "fackeltraeger",
+    "verwundeter-1": "verwundeter-1",
+    "verwundeter-2": "verwundeter-2"
+  },
+  "pronunciation": {
+    "Valentus": {
+      "german_reading": "va-LEN-tus",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Lateinisch wirkende deutsche Lesung; Betonungsvorschlag, kein belegtes Audio."
+    },
+    "Ignatius": {
+      "german_reading": "ig-NA-tsi-us",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Deutsche Lesung, ti als zi; Castingvorschlag."
+    },
+    "Gira": {
+      "german_reading": "GI-ra",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "G wie in Garten; Castingvorschlag."
+    },
+    "Ulfbert": {
+      "german_reading": "ULF-bert",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Beide Wortteile klar, kein zusätzlicher Laut."
+    },
+    "Tholloss": {
+      "german_reading": "TOL-los",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Th als deutsches t, Doppelkonsonant ohne zusätzliche Silbe; Castingvorschlag."
+    },
+    "Loyla": {
+      "german_reading": "LOI-la",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "oy wie deutsches eu/oi; Castingvorschlag."
+    },
+    "Burm": {
+      "german_reading": "BURM",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Eine Silbe; Castingvorschlag."
+    },
+    "Gwynn": {
+      "german_reading": "GWIN",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Eine Silbe, w deutsch, y als i; Castingvorschlag."
+    },
+    "Samira": {
+      "german_reading": "sa-MI-ra",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Rikkon": {
+      "german_reading": "RI-kon",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Baris": {
+      "german_reading": "BA-ris",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Urmacht": {
+      "german_reading": "UR-macht",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Deutsches Kompositum, ch wie in Nacht; nicht in fremde Silben zerlegen."
+    },
+    "Selantis": {
+      "german_reading": "se-LAN-tis",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Xenovia": {
+      "german_reading": "kse-NO-vi-a",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "X als ks, v als deutsches w; Castingvorschlag."
+    },
+    "Dunkelhain": {
+      "german_reading": "DUN-kel-hain",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "hain wie in Hain; deutschen Ortsnamen zusammenhalten."
+    },
+    "Trapas": {
+      "german_reading": "TRA-pas",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Schriftform Trapas, keine zusätzliche Silbe; Castingvorschlag."
+    },
+    "Portas": {
+      "german_reading": "POR-tas",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Ignis": {
+      "german_reading": "IG-nis",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Imandur": {
+      "german_reading": "i-MAN-dur",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Rogar": {
+      "german_reading": "RO-gar",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Ebaril": {
+      "german_reading": "e-BA-ril",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Aros": {
+      "german_reading": "A-ros",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Castingvorschlag."
+    },
+    "Crios": {
+      "german_reading": "KRI-os",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Zwei Silben, C als k; Castingvorschlag."
+    },
+    "Cronibus": {
+      "german_reading": "KRO-ni-bus",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "C als k; Titelname aus dem Kräuterlexikon, keine zusätzliche Figur."
+    },
+    "Lia": {
+      "german_reading": "LI-a",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Zwei Silben; Schreibweise des vorhandenen Dialogs unverändert."
+    },
+    "Kyra": {
+      "german_reading": "KI-ra",
+      "status": "production_proposal_not_canonical_audio",
+      "note_de": "Y als i; Castingvorschlag."
+    }
+  },
+  "global_api_suffix_en": "Speak only the supplied German dialogue verbatim, once. Use native standard German pronunciation. Do not read directions, markup, speaker labels or metadata. No added words, music or effects. Keep the selected voice identity stable; apply line-specific emotion without changing the actor. Do not imitate a real person.",
+  "performance_rules_de": [
+    "Stabiles Rollenprofil und Aussprachehinweise werden in jeder Zeile gleich wiederverwendet; Szenenregie kommt ergänzend hinzu.",
+    "Schmerz verändert Atem, Kraft und Rhythmus; Rufe erhöhen Einsatz, nicht künstlich die Tonhöhe. Nähe und Trauer bleiben verständlich.",
+    "Gedanken gehören Valentus. Auswahlantworten gehören dem gerade spielbaren Valentus, sofern die Laufzeit sie tatsächlich als Äußerung ausgibt; keine neue Rolle für Auswahl-UI.",
+    "Alle Erzähltexte behalten die Erzählstimme. Genau die zwei Abstimmungsaufforderungen werden durch Valentus moderiert; runtime narrator bleibt im zeilenbezogenen Lookup erhalten. Dies ist eine Produktionsregieentscheidung, keine Änderung des Dialogcodes.",
+    "Guard-Akteure teilen gemäß bestehender Speaker-ID einen Stimmtyp. Keine zusätzlichen Sprecheridentitäten aus automatischen Actor-IDs erfinden.",
+    "Säuglingsweinen, Hundegebell und reines Auslassungszeichen sind keine Textrollen für Google-TTS. Schsch der Bäuerin ist dagegen ein vorhandener gesprochener Beruhigungslaut."
+  ],
+  "nonverbal_roles": [
+    {
+      "id": "twins",
+      "names": [
+        "Lia",
+        "Kyra"
+      ],
+      "source": "game/src/chapters/prolog/zuflucht.ts",
+      "line": 168,
+      "kind": "infant_cry",
+      "treatment_de": "Vorhandene Uäääh/Uääh/Wääh-Bubbles als Säuglingslaut, keine erwachsenen Google-Stimmen und keine zusätzlichen Dialogwörter. Individuelle Zuordnung der Bubbles ist nicht festgelegt."
+    },
+    {
+      "id": "dogs",
+      "aliases": [
+        "spuerhund",
+        "hund-1",
+        "hund-2"
+      ],
+      "source": "game/src/chapters/prolog/flucht.ts",
+      "line": 93,
+      "kind": "dog_bark",
+      "treatment_de": "Vorhandene Hunde-SFX und Bark-Bubbles bleiben Tierlaute. Keine menschliche Sprecherstimme."
+    }
+  ],
+  "open_cast_questions_de": [
+    "Elf neue Presets sind noch ungehört; die geplante Trennung muss bei erzeugten Zeilen hörend geprüft werden.",
+    "Der anonyme Verschwörer hat keinen namentlichen Urheber. Standard ist ein eigenes anonymes Profil; eine Gleichsetzung mit Ulfbert, Tholloss, Loyla oder Rikkon wäre eine neue Regieentscheidung.",
+    "Drei Fackelträger teilen im Code eine Sprecher-ID. Standard ist ein Profil für alle drei; individuelle Stimmen wären ein zusätzlicher Produktionswunsch.",
+    "Namensbetonungen sind bislang schriftliche Castingvorschläge, keine durch Sprecheraufnahme belegte kanonische Aussprache.",
+    "Die acht gehörten Google-Presets bleiben erhalten; die vollständigen neuen Profile sind noch keine Hörabnahme."
+  ],
+  "canon_sources": [
+    "docs/novel-analysis.md",
+    "docs/mythology-analysis.md",
+    "docs/character-novel-appearance.md",
+    "docs/dialogue-cast-portraits.md"
+  ],
+  "historical_design_note_de": "docs/tutorial-valentus.md enthält frühere Prolog-Regie und andere Zeilen. Die aktuell ausgeführten Dateien unter game/src/chapters/prolog sind für Text und Rollen maßgeblich; ältere Entwurfszeilen werden nicht hinzugefügt.",
+  "scanned_sources": {
+    "game/src/chapters/prolog/book.ts": "677fbfb960bbb03959f7f3de1059591131ee3d1778255392e5686b50adc9a309",
+    "game/src/chapters/prolog/catalog.ts": "c15da723d3121b726226c6964f8c569309324e343b307fc6c471ff4994bbeaa1",
+    "game/src/chapters/prolog/council.test.ts": "76c54a1ca2b147fa145f40b7095b93f6665eadce9d4eb7cec829fceaaeace361",
+    "game/src/chapters/prolog/council.ts": "cd93fdd3976e104098c7fdda71166a4ee33d1095914a3aa75e1c32c61e071dbc",
+    "game/src/chapters/prolog/flucht.ts": "ea89fcfe98bdff68df26fbd5df7f5ef0d92ade5738dd6ec84842efd76c777bac",
+    "game/src/chapters/prolog/index.ts": "2b2bfe6aaa13f36b6aa577bb99a89493422a8027f845494367715ec97e2462cc",
+    "game/src/chapters/prolog/rat.ts": "0dc3aa955c974406d9b94b29f0ab6cf0eb87205ffccd666358ca4033dec85832",
+    "game/src/chapters/prolog/schlacht.ts": "0b62e14682e35b629c7033f600ebda514a71e160c4be1e9f4b0e4f57dc97754b",
+    "game/src/chapters/prolog/util.ts": "3e0a6c2cc2f47897dff043cc9598beaf6dcbc7ce70563e568c39b3cf6462d9bb",
+    "game/src/chapters/prolog/zuflucht.ts": "af2682341391ac4d655cfc5d864f6c21935ffe9b3a1cc370e7827ed00cf7d65a"
+  },
+  "preserved_cast_note_de": "Die acht bereits gehörten Google-Presets bleiben erhalten. Der Vergleich ist nicht Bestandteil dieser Produktionsdateien."
+}
