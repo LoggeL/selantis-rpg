@@ -1,3 +1,4 @@
+import { G } from '../core/G';
 import { ctx } from './context';
 import { el, sfx, wait } from './dom';
 import { frame, label, parchment } from './plateKit';
@@ -7,7 +8,13 @@ type Pan = 'left' | 'right' | 'in' | 'out' | 'none';
 
 interface Rendered { url: string; w: number; h: number; pixel: boolean; }
 
-/** Book plates: code-drawn pictures in an ornate frame with slow pan, letterbox and caption. */
+/**
+ * Book plates in an ornate frame with slow pan, letterbox and caption. Sources, in this order:
+ * 1. a painted plate image from the asset manifest (G.art.hasAsset('plate', id) → G.art.plateUrl(id), 1280x720),
+ * 2. a code-drawn plate registered with registerPlate(id, draw),
+ * 3. the image at G.art.plateUrl(id) even if the manifest does not list it yet,
+ * 4. a neutral parchment placeholder (with a console warning).
+ */
 export class PlateUi {
   private registry = new Map<string, PlateDraw>();
   private cache = new Map<string, Rendered>();
@@ -24,24 +31,39 @@ export class PlateUi {
   has(id: string): boolean { return this.registry.has(id); }
   ids(): string[] { return [...this.registry.keys()]; }
 
-  private render(id: string): Rendered {
-    const cached = this.cache.get(id);
-    if (cached) return cached;
-    let out: Rendered;
+  private renderDrawn(id: string): Rendered | null {
     const draw = this.registry.get(id);
+    if (!draw) return null;
     try {
-      const res = draw ? draw() : fallback(id);
-      if (typeof res === 'string') out = { url: res, w: 1600, h: 900, pixel: false };
-      else out = { url: res.toDataURL('image/png'), w: res.width, h: res.height, pixel: res.width < 800 };
+      const res = draw();
+      if (typeof res === 'string') return { url: res, w: 1600, h: 900, pixel: false };
+      return { url: res.toDataURL('image/png'), w: res.width, h: res.height, pixel: res.width < 800 };
     } catch (err) {
       console.error(`[ui] plate ${id} failed to draw`, err);
+      return null;
+    }
+  }
+
+  private async resolve(id: string): Promise<Rendered> {
+    const cached = this.cache.get(id);
+    if (cached) return cached;
+    let out: Rendered | null = null;
+    let hasImage = false;
+    try { hasImage = Boolean(G.art?.hasAsset?.('plate', id)); } catch { hasImage = false; }
+    if (hasImage) out = await loadImage(plateUrl(id));
+    if (!out) out = this.renderDrawn(id);
+    if (!out && !hasImage) out = await loadImage(plateUrl(id), true);
+    if (!out) {
+      console.warn(`[ui] plate "${id}" has no image and is not registered (registerPlate)`);
       const c = fallback(id);
       out = { url: c.toDataURL(), w: c.width, h: c.height, pixel: false };
     }
-    if (!draw) console.warn(`[ui] plate "${id}" is not registered (registerPlate)`);
     this.cache.set(id, out);
     return out;
   }
+
+  /** Starts loading a plate ahead of time (e.g. while a dialogue runs), so plate() opens without delay. */
+  prefetch(id: string): void { void this.resolve(id); }
 
   async show(id: string, opts: { caption?: string; pan?: Pan; durationMs?: number } = {}): Promise<void> {
     // Plates draw text with the UI fonts: make sure they are loaded before the first render.
@@ -49,7 +71,7 @@ export class PlateUi {
       const f = document.fonts;
       if (f) await Promise.race([Promise.all(['700 32px Cinzel', '500 32px Cinzel', '500 32px Alegreya', 'italic 500 32px Alegreya'].map(spec => f.load(spec))), new Promise(r => setTimeout(r, 1500))]);
     } catch { /* fonts optional */ } }
-    const r = this.render(id);
+    const r = await this.resolve(id);
     const previous = this.current;
     const root = el('div', 'plate');
     const frameEl = el('div', 'plate-frame');
@@ -186,6 +208,29 @@ function applyPan(img: HTMLImageElement, pan: Pan, dur: number, portrait: boolea
     frames = [{ transform: set[pan][0], objectPosition: '50% 50%' }, { transform: set[pan][1], objectPosition: '50% 50%' }];
   }
   img.animate(frames, { duration: dur, easing: ease, fill: 'forwards' });
+}
+
+function plateUrl(id: string): string {
+  try { return G.art?.plateUrl?.(id) ?? `assets/cut/${id}.jpg`; } catch { return `assets/cut/${id}.jpg`; }
+}
+
+/** Loads and decodes a plate image (null when missing). `quiet`: a miss is expected (no warning). */
+function loadImage(url: string, quiet = false): Promise<Rendered | null> {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.decoding = 'async';
+    let done = false;
+    const finish = (r: Rendered | null) => { if (!done) { done = true; resolve(r); } };
+    img.onload = () => {
+      const ok = img.naturalWidth > 0;
+      if (!ok && !quiet) console.warn(`[ui] plate image ${url} is empty`);
+      const ready = () => finish(ok ? { url, w: img.naturalWidth, h: img.naturalHeight, pixel: img.naturalWidth < 800 } : null);
+      img.decode().then(ready, ready);
+    };
+    img.onerror = () => { if (!quiet) console.warn(`[ui] plate image ${url} failed to load`); finish(null); };
+    setTimeout(() => finish(null), 8000);
+    img.src = url;
+  });
 }
 
 function fallback(id: string): HTMLCanvasElement {

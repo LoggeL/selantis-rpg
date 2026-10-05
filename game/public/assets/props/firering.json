@@ -1,0 +1,15 @@
+{
+  "height": 14,
+  "frames": 1,
+  "anchor": [
+    11,
+    15
+  ],
+  "desc": "an unlit fire pit: a ring of grey stones around a few charred black logs and grey ash, no fire, no smoke",
+  "footprint": {
+    "x": -10,
+    "y": -5,
+    "w": 20,
+    "h": 5
+  }
+}

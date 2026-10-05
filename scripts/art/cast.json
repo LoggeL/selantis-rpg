@@ -1,0 +1,814 @@
+{
+  "_doc": "Character registry for scripts/art/characters.py. desc = English look description from DESIGN.md §3 Figuren-Referenz (original designs, never film looks). height = visible sprite height in px (adults 42-44, teens 40, Baris ~52, children smaller). base = another id whose reference sheet is attached as identity reference (outfit variants). poses/moods = what `characters.py pose|portrait <id>` generates by default. build = per-character processing overrides (see docs/rebuild/art-pipeline.md). Batch fields: rawDir = folder of this character's raw images (default output/imagegen/raw/art/characters/<id>), record = provenance/build file docs/rebuild/art/<record>.json, sex (m/f) or portraitStyle (male/female) = which portrait style reference of a clearly different person is attached, styleAnchor = reference sheet attached as style anchor for the turnaround (default lia), portraitFrom = derive the neutral portrait from another character's portrait ({id, edit}), builder = 'rider' for the mounted rider (scripts/art/rider.py), build.magentaAllow = leftover magenta pixels accepted (violet magic). Animals: scripts/art/creatures.json.",
+  "characters": {
+    "lia": {
+      "name": "Lia",
+      "height": 40,
+      "desc": "Lia, a slender 16-year-old farm girl from a medieval fantasy village (youthful teenage proportions: not a small child, not a grown woman; natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair, the curls loosely pinned up at the back of her head, a few loose curls framing her face. Fair skin with a few light freckles, grey-green eyes, a dreamy, thoughtful, slightly wry expression. Simple white linen blouse with sleeves rolled to the elbows and a small drawstring neckline, plain mid-brown calf-length skirt with a darker narrow waistband, simple pale carved wooden clogs.",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie",
+        "crouch",
+        "hurt",
+        "read",
+        "sit-read",
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "determined",
+        "hurt",
+        "thinking",
+        "scared"
+      ]
+    },
+    "lia-cloak": {
+      "name": "Lia (Reise)",
+      "height": 40,
+      "base": "lia",
+      "desc": "Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. A long moss-green hooded rain cloak (hood DOWN, resting on her back) reaching to mid-calf, fastened at the throat, open at the front over a white linen blouse and a plain mid-brown calf-length skirt. A large brown leather satchel on a strap worn diagonally across her body (strap over her RIGHT shoulder, the bag hanging at her LEFT hip). Light brown leather shoes with laces wound around her ankles.",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie",
+        "crouch",
+        "hurt",
+        "read",
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "determined",
+        "hurt",
+        "thinking",
+        "scared"
+      ]
+    },
+    "kyra": {
+      "name": "Kyra",
+      "height": 40,
+      "desc": "Kyra, a 16-year-old farm girl from a medieval fantasy village, twin sister of the red-haired Lia (fraternal twin: similar age and build, but clearly different colouring), slender but sturdy, energetic and confident posture (youthful teenage proportions, natural proportions, not chibi). Long nut-brown (warm chestnut) hair worn loose and open down to mid-back, brown eyes, fair lightly sun-tanned skin, a lively, quick-witted expression. Plain beige (oatmeal linen) ankle-length dress with long sleeves pushed up to the forearms, a simple brown cord belt, a small necklace of tiny honey-coloured wooden beads close around her throat, simple brown leather shoes.",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie",
+        "crouch",
+        "hurt"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "determined",
+        "hurt",
+        "scared"
+      ]
+    },
+    "kyra-bound": {
+      "name": "Kyra (gefangen)",
+      "height": 40,
+      "base": "kyra",
+      "desc": "Kyra, a 16-year-old girl from a medieval fantasy village held CAPTIVE (youthful teenage proportions, natural proportions, not chibi). Long nut-brown (warm chestnut) hair now tied back roughly with a plain cord, a few strands loose, brown eyes, a small cut with dried blood above her LEFT eyebrow, defiant expression. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads at her throat, simple brown leather shoes. Her WRISTS are bound together IN FRONT of her body with a coarse rope, a short rope end hanging down from the knot.",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie",
+        "crouch",
+        "hurt"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "sad",
+        "surprised",
+        "determined",
+        "hurt",
+        "scared"
+      ]
+    },
+    "valentus": {
+      "name": "Valentus",
+      "height": 44,
+      "desc": "Valentus, an elderly grand master mage of a high council (about 65 years old), tall, lean and dignified, upright posture. Shoulder-length straight silver-grey hair, a full neatly trimmed grey beard, a kind but stern weathered face, bright blue-grey eyes. A long flowing floor-length robe in deep royal blue with broad white front panels and white trim at the hem and wide sleeves, a white cloth sash at the waist, simple soft dark leather boots. NO staff, NO wand, NO hat: his hands are empty (his magic comes from his bare hands).",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie",
+        "crouch",
+        "hurt",
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "determined",
+        "hurt",
+        "pained"
+      ]
+    },
+    "valentus-cloak": {
+      "name": "Valentus (Flucht)",
+      "height": 44,
+      "base": "valentus",
+      "desc": "Valentus, an elderly grand master mage (about 65) FLEEING WOUNDED, tall and lean but slightly hunched from pain. Shoulder-length straight silver-grey hair and a full grey beard visible under the hood. A thick, heavy, frayed and torn dark grey-brown hooded travel cloak, hood UP over his head, worn over his long deep royal-blue robe with white front panels and white trim (the blue-and-white robe clearly visible at the open front and at the hem). A dark red blood stain on the robe at his RIGHT side just below the ribs; he presses his RIGHT hand against the wound. Simple dark leather boots. NO staff, NO weapon.",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie",
+        "crouch",
+        "hurt",
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "sad",
+        "angry",
+        "surprised",
+        "determined",
+        "hurt",
+        "pained"
+      ]
+    },
+    "mother": {
+      "name": "Mutter",
+      "height": 41,
+      "sex": "f",
+      "styleAnchor": "lia",
+      "desc": "The mother of the twin girls Lia and Kyra: a farmer's wife in her late thirties from a medieval fantasy village, slender, with fine delicate features and a graceful upright posture (she grew up in a wealthy merchant family in the city). Long reddish auburn-copper CURLY hair, the curls loosely gathered at the back with a simple cream cloth band, a few curls framing her face. Clear bright GREEN eyes, fair skin, a warm but careworn face. A long plain warm-brown linen dress reaching to the ankles with long sleeves pushed slightly up, a cream-coloured linen apron tied over the skirt, a small leather herb pouch at her waist, simple brown leather shoes.",
+      "poses": [
+        "kneel",
+        "lie",
+        "hurt"
+      ],
+      "moods": [
+        "neutral",
+        "sad",
+        "scared",
+        "determined"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/mother",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "father": {
+      "name": "Vater",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "The father of the twin girls Lia and Kyra: a farmer in his early forties from a medieval fantasy village, strong and broad-shouldered, a friendly weathered face, short greying brown hair (brown streaked with grey) and a short trimmed brown beard flecked with grey, warm brown eyes. An off-white linen shirt with the sleeves rolled up to the forearms, a sleeveless BROWN vest (waistcoat) laced at the front, dark brown trousers, worn brown leather boots, a plain leather belt with a small dagger in a brown sheath at his left hip.",
+      "poses": [
+        "kneel",
+        "lie",
+        "hurt"
+      ],
+      "moods": [
+        "neutral",
+        "sad",
+        "scared",
+        "determined"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/father",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "orwen": {
+      "name": "Orwen",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "Orwen, the cold and cruel second-in-command of a dark army's raiding party: an OLD man around 60, clearly older than his soldiers, lean and wiry with a slightly stooped neck, a gaunt hard face with sharp cheekbones and deep lines, thin lips in a contemptuous sneer showing yellowish teeth, cold pale grey eyes. Lank, STRINGY, shoulder-length GREY hair hanging in thin greasy strands, clean-shaven with grey stubble. A LONG DARK charcoal-black coat reaching below the knees, high collar, fastened with a round GOLD BROOCH at the chest, black leather gloves, a dark grey tunic underneath, dark trousers, black boots, a sword in a black scabbard with metal studs at his left hip.",
+      "poses": [
+        "attack",
+        "talk"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "smirk"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/orwen",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "algard": {
+      "name": "Algard",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "Algard, a soldier of the dark army (Dunkelschatten): a coarse, mocking drunkard around 35, stocky, a big ugly SCAR across his RIGHT cheek, brown rotten teeth in a crooked grin, unshaven dark stubble, greasy dark-brown hair tied back in a short tail, bloodshot eyes. Wears a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters, like a chessboard of four) over a dark chain-mail shirt, a brown leather belt with a leather drinking flask, dark trousers, worn boots, leather bracers. Armed with a one-handed bearded battle AXE.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/algard",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "maedchen": {
+      "name": "„Mädchen“",
+      "height": 46,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A young soldier of the dark army (Dunkelschatten) nicknamed 'Maedchen': about 22, tall and lanky, completely BALD shaved head, a smooth beardless boyish face with rosy cheeks that blush easily, small vain proud smirk, light brown eyes. Wears a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over a brown padded gambeson, leather belt, dark trousers, boots. Armed with a long SPEAR (a plain wooden shaft with an iron spearhead), held slanted.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/maedchen",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "harro": {
+      "name": "Harro",
+      "height": 42,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "Harro, a plain, simple soldier of the dark army (Dunkelschatten): about 30, a bit chubby and round-shouldered, a round sullen face with a long-suffering, put-upon expression, messy straw-blond hair, a sparse fair beard. Wears a dented open iron skull cap, a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over a brown padded jerkin, leather belt, dark trousers, muddy boots. Armed with a short SWORD.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/harro",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "shadow-sword": {
+      "name": "Dunkelschatten (Schwert)",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A generic foot soldier of the dark army (Dunkelschatten), an ordinary rough mercenary around 30 with a stubbled hard face. Wears a round steel helmet with a NOSE GUARD (nasal helm), a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over a dark chain-mail shirt, leather belt, dark trousers, boots. Armed with a straight steel SWORD in the right hand and a small round shield painted black and white on the left arm.",
+      "poses": [
+        "attack",
+        "hurt",
+        "fall"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/shadow-sword",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "shadow-spear": {
+      "name": "Dunkelschatten (Spieß)",
+      "height": 47,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A generic foot soldier of the dark army (Dunkelschatten), an ordinary lean man around 25 with a narrow grim face. Wears a CHAIN-MAIL COIF (mail hood) covering head and neck, a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over a grey padded gambeson, leather belt, dark trousers, boots. Armed with a long SPEAR (wooden shaft, iron spearhead), held slanted forward.",
+      "poses": [
+        "attack",
+        "hurt",
+        "fall"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/shadow-spear",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "shadow-crossbow": {
+      "name": "Dunkelschatten (Armbrust)",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A generic soldier of the dark army (Dunkelschatten), a crossbowman around 35 with a thin moustache and a squinting face. Wears a wide-brimmed iron KETTLE HAT, a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over a brown padded gambeson, a quiver of crossbow bolts at his right hip, leather belt, dark trousers, boots. Armed with a wooden CROSSBOW held in both hands.",
+      "poses": [
+        "attack",
+        "hurt",
+        "fall"
+      ],
+      "build": {
+        "mirror": {
+          "left": "right"
+        },
+        "widePoses": []
+      },
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/shadow-crossbow",
+      "record": "chars-prolog-hof"
+    },
+    "shadow-club": {
+      "name": "Dunkelschatten (Knüppel)",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A generic soldier of the dark army (Dunkelschatten), a brawny armed peasant thug around 40, unshaven, broken nose, bare muscular forearms. NO helmet: a black cloth headscarf tied over his head. Wears a sleeveless knee-length tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over a rough brown wool shirt, rope belt, patched trousers, boots. Armed with a heavy wooden CLUB studded with iron nails.",
+      "poses": [
+        "attack",
+        "hurt",
+        "fall"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/shadow-club",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "shadow-rider": {
+      "name": "Dunkelschatten (Reiter)",
+      "height": 52,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "colors": 48,
+      "desc": "A mounted soldier of the dark army (Dunkelschatten) riding a big DARK warhorse (black-brown coat, black mane and tail, black leather saddle and bridle, a black-and-white saddle blanket). The rider wears a dark iron helmet, a sleeveless tabard QUARTERED in BLACK and WHITE (two black and two white quarters) over chain mail, a short dark cloak, dark boots in the stirrups, holding the reins, a sword sheathed at his hip.",
+      "poses": [],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/shadow-rider",
+      "record": "chars-prolog-hof",
+      "builder": "rider",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "baris-young": {
+      "name": "Baris (jung)",
+      "height": 50,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "Baris as a YOUNG warrior of the dark army (about 25): HUGE, very tall, broad-shouldered and heavily muscled, a hard square face with a fixed, unblinking stare, CLOSE-CROPPED BLACK hair, a short thick black beard. Wears a black leather and chain-mail hauberk with a sleeveless tabard QUARTERED in BLACK and WHITE (two black and two white quarters), heavy black leather bracers and a wide black belt, dark trousers, heavy black boots, bare head (no helmet). Wields a big two-handed double-bladed battle AXE with a long dark wooden haft.",
+      "poses": [
+        "attack",
+        "hurt",
+        "kneel"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/baris-young",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "conspirator": {
+      "name": "Verschwörer",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A sinister conspirator: a tall figure in a heavy floor-length BLACK hooded robe with a thin dark-red trim, the deep hood pulled far forward so the face is COMPLETELY hidden in black shadow, only two small faintly glowing RED eyes visible in the darkness of the hood, long wide sleeves hiding the hands, a plain black cord belt. No visible face, no skin, no weapon.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "build": {
+        "idle": "turnaround",
+        "widePoses": []
+      },
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/conspirator",
+      "record": "chars-prolog-hof"
+    },
+    "falke-soldier": {
+      "name": "Falke aus Portas",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A soldier of the Falcons of Portas (an elite unit of the army of light): about 30, athletic and agile, short cropped dark-blond hair, clean-shaven, a determined honest face, blue eyes. Wears a sleeveless tabard divided vertically in BLUE and YELLOW over a light chain-mail shirt, brown leather bracers, a brown leather belt with two scabbards, blue trousers, brown boots, no helmet. Fights with TWO SHORT SWORDS, one in each hand.",
+      "poses": [
+        "attack",
+        "hurt"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/falke-soldier",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "paladin": {
+      "name": "Paladin des Lichts",
+      "height": 47,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A Paladin of the Light (army of light from the city of Ebaril), a tall stalwart soldier: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue-and-white bird-of-prey emblem shape on the chest (no letters), a short white cape, an open-faced white-and-gold helmet showing a stern bearded face, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead), held slanted.",
+      "poses": [
+        "attack"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/paladin",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "council-mage-a": {
+      "name": "Ratsmagierin",
+      "height": 42,
+      "sex": "f",
+      "styleAnchor": "valentus",
+      "desc": "A member of the high council of mages: a stern, dignified ELDERLY WOMAN around 60, upright and thin, silver-white hair pulled back into a tight bun, sharp grey eyes, a narrow face with high cheekbones. A long floor-length robe in deep EMERALD GREEN with broad GOLD trim and wide sleeves, a gold-embroidered stole over the shoulders, a gold cord belt, soft dark shoes. NO staff, empty hands (council magic comes from the hands).",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/council-mage-a",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "council-mage-b": {
+      "name": "Ratsmagier",
+      "height": 44,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A member of the high council of mages: a heavyset, powerful man around 50, completely BALD, a trimmed black goatee, heavy brows, dark calculating eyes, a proud ambitious expression. A long floor-length robe in SLATE GREY with SILVER trim and black inner panels, wide sleeves, a silver chain of office across the chest, soft black shoes. NO staff, empty hands.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/council-mage-b",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "council-mage-c": {
+      "name": "Ratsmagier",
+      "height": 44,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A member of the high council of mages: a tall GAUNT man around 55, long straight BLACK hair streaked with grey at the temples, a thin hooked nose, hollow cheeks, a narrow clean-shaven face, piercing dark eyes. A long floor-length robe in OCHRE YELLOW (mustard gold) with dark BROWN panels and trim, wide sleeves, a brown leather belt with a small bronze clasp, soft brown shoes. NO staff, empty hands.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "angry"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/council-mage-c",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "ignatius": {
+      "name": "Ignatius von Ignis",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "Ignatius of Ignis, a loyal member of the high council of mages: an elderly man around 65, kind and thoughtful, slightly round, a BALD crown with a fringe of short white hair, a short neat WHITE beard, warm brown eyes with crow's feet, bushy white eyebrows. A long floor-length robe in RED-ORANGE (flame colour) with GOLD trim and wide sleeves, a dark red sash, soft brown shoes. NO staff, empty hands.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "worried"
+      ],
+      "rawDir": "output/imagegen/raw/chars-prolog-hof/ignatius",
+      "record": "chars-prolog-hof",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "foltan": {
+      "name": "Foltan",
+      "height": 43,
+      "portraitStyle": "male",
+      "desc": "Foltan, a lean, wiry former city-guard lieutenant around 40 years old, upright soldierly posture, a stern, slightly lecturing look. Short brown hair, a neat pointed brown goatee (chin beard joined to a short moustache), sharp hazel eyes, a weathered lightly tanned face with a straight nose. A flat soft brown leather beret worn tilted to one side. A short-sleeved padded tabard quartered in royal blue and mustard yellow (blue upper left and lower right, yellow upper right and lower left) reaching mid-thigh, worn over a dark brown long-sleeved shirt; a wide brown leather belt with a straight sword in a dark brown scabbard on his LEFT hip and a small quiver of crossbow bolts at his RIGHT hip; dark brown trousers, knee-high brown leather boots, brown leather gloves. A compact wooden crossbow slung on his back (strap diagonally across his chest).",
+      "poses": [
+        "sit",
+        "kneel",
+        "attack",
+        "shoot",
+        "hurt",
+        "lie"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "worried",
+        "ashamed"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/foltan",
+      "record": "chars-reise"
+    },
+    "azar": {
+      "name": "Azar",
+      "height": 42,
+      "portraitStyle": "male",
+      "desc": "Azar, a stout, corpulent, good-natured blacksmith around 45 years old: big round belly, broad shoulders and thick strong forearms, a little shorter than average. A round friendly face with rosy cheeks, a short neatly trimmed black full beard, bushy black eyebrows, warm dark brown eyes, warm olive-tan skin. A soft rounded RED cloth cap (a snug red coif-like hat covering the top of his head, a little black hair showing at the temples). A long saffron-yellow tunic reaching below the knees with sleeves rolled up to the forearms, belted under the belly with a broad brown leather belt; a curved scimitar in a brown leather scabbard on his LEFT hip and a small leather pouch at the belt; baggy dark brown trousers, sturdy brown leather boots.",
+      "poses": [
+        "sit",
+        "kneel",
+        "attack",
+        "hurt",
+        "lie"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "worried"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/azar",
+      "record": "chars-reise"
+    },
+    "craupor": {
+      "name": "Craupor",
+      "height": 44,
+      "portraitStyle": "male",
+      "desc": "Craupor, a gaunt, very skinny tavern keeper around 55 years old, tall and bony with a long thin neck and slightly stooped shoulders. Completely BALD shiny head, a long thin clean-shaven face with hollow cheeks, a long hooked nose, small grey eyes under thin grey eyebrows, large ears, a nervous obliging smile. A long off-white linen apron with a few ale stains, tied at the waist, over a plain mustard-brown long-sleeved shirt with the sleeves rolled to the elbows, a white cloth rag tucked into the apron string at his hip, dark grey trousers, simple brown leather shoes.",
+      "poses": [
+        "interact"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "worried"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/craupor",
+      "record": "chars-reise"
+    },
+    "elnon": {
+      "name": "Elnon",
+      "height": 46,
+      "portraitStyle": "male",
+      "desc": "Elnon, a tall, muscular male elf, the elected leader of a rebel brotherhood and former guard captain, broad-shouldered, upright, cool and composed. Long straight jet-black hair pulled back and tied into one long braid hanging down his back, long pointed elven ears, an angular face with high cheekbones and a strong jaw, clean-shaven, fair skin, cool green eyes. A fitted forest-green tunic reaching mid-thigh, richly embroidered with golden-yellow leaf and vine patterns at the collar, down the chest and along the hem, long sleeves with brown leather bracers; a brown leather belt with a single-bladed hand axe hanging at his RIGHT hip; dark brown leggings, tall brown leather boots.",
+      "poses": [
+        "talk"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "grim"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/elnon",
+      "record": "chars-reise"
+    },
+    "alastir": {
+      "name": "Alastir",
+      "height": 45,
+      "portraitStyle": "male",
+      "desc": "Alastir, a slender male elf of grave, serious bearing, ageless but mature. Long straight silver-white hair falling past his shoulders, long pointed elven ears, a narrow refined face with grey eyes, clean-shaven. The RIGHT half of his face (his own right side: cheek, jaw, temple and around the right eye) is covered by a large old healed BURN SCAR of mottled, puckered reddish-pink skin; the other half of his face is smooth. A long plain brown wool cape fastened at the throat with a small bronze clasp, falling to his calves, over a plain olive-green tunic (no embroidery) with a brown leather belt, dark brown trousers, brown leather boots. No weapon visible.",
+      "poses": [
+        "talk"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "grim"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/alastir",
+      "record": "chars-reise"
+    },
+    "flick": {
+      "name": "Flick",
+      "height": 41,
+      "portraitStyle": "female",
+      "desc": "Flick, a slender, agile young half-elf woman around 20, a confident, mocking half-smile. Short, tousled, messy almost-black hair (a choppy uneven pixie cut) with ONE single pale ash-blonde streak at the front, falling over her forehead; pointed elven ears (a little shorter than a full elf's) sticking out of the hair; freckles across nose and cheeks, amber-brown eyes, light olive skin. An olive-green hip-length hunter's coat with a hood (hood DOWN, lying on her shoulders) worn open over a laced dark-brown leather vest and a cream linen shirt; brown leather bracers on both forearms; a brown leather belt with a long hunting knife in a sheath at her RIGHT hip; a brown leather quiver with grey-feathered arrows on her back (arrow fletchings showing over her RIGHT shoulder); a plain wooden longbow carried in her LEFT hand; dark brown leggings, soft brown leather boots to the knee.",
+      "poses": [
+        "shoot",
+        "attack",
+        "crouch",
+        "sit",
+        "hurt",
+        "lie"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "smirk",
+        "angry",
+        "surprised",
+        "sad",
+        "determined"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/flick",
+      "record": "chars-reise"
+    },
+    "baris": {
+      "name": "Baris",
+      "height": 52,
+      "colors": 40,
+      "portraitStyle": "male",
+      "desc": "Baris, captain of the Dark Shadows: a HUGE, towering, massively built man around 40, much taller and broader than an ordinary man, thick neck, enormous shoulders. Black hair buzz-cut very short, a big bushy full black beard, a hard brutal square face, a fixed unblinking cold stare from dark eyes under heavy brows, weathered pale skin. Heavy BLACK plate armour of an original design: blackened steel layered pauldrons, a black breastplate with dark iron-grey edging and rivets, black plated gauntlets, black tassets over a short dark chain-mail skirt, black armoured greaves and sabatons. NO helmet (head bare), no cape, no emblem. A large single-bladed battle axe with a long dark wooden haft held in his RIGHT hand. Only black, iron grey and a little dark brown leather.",
+      "poses": [
+        "attack",
+        "hurt",
+        "kneel"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "smirk"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/baris",
+      "record": "chars-reise"
+    },
+    "baris-scarred": {
+      "name": "Baris (vernarbt)",
+      "height": 52,
+      "base": "baris",
+      "portraitStyle": "male",
+      "portraitFrom": {
+        "id": "baris",
+        "edit": "He has just been burnt by a magic blast: the RIGHT half of his face (the side nearest the viewer: cheek, temple, around the eye, down to the jaw) is now covered by a raw, fresh BURN SCAR of red, mottled, blistered and puckered skin, part of his beard on that side is burnt away to stubble, and his RIGHT eye is milky white, clouded and blind. The rest of the face, hair, beard, armour, framing and background stay exactly the same."
+      },
+      "desc": "Baris, a HUGE, towering, massively built man around 40 in heavy black plate armour, buzz-cut black hair, big bushy full black beard, hard brutal square face. The RIGHT half of his face is covered by a raw fresh burn scar (red, mottled, blistered skin), part of his beard on that side burnt away, his RIGHT eye milky white and blind.",
+      "poses": [],
+      "moods": [
+        "neutral",
+        "pained"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/baris-scarred",
+      "record": "chars-reise"
+    },
+    "vamir": {
+      "name": "Vamir",
+      "height": 46,
+      "portraitStyle": "male",
+      "desc": "Vamir, 'the Master', a tall, gaunt, menacing sorcerer completely shrouded in a long flowing hooded BLACK robe that reaches the ground and hides the feet; a deep pointed hood pulled far forward so the face is COMPLETELY hidden in pitch-black shadow (no face, no eyes, only darkness inside the hood); long wide sleeves that hide the hands except for pale bony fingertips; thin wisps of black smoke curling from the hem and the sleeves. The robe is pure black with very dark charcoal-violet highlights on the folds. No weapon, no staff, no jewellery, no emblem.",
+      "poses": [
+        "cast"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/vamir",
+      "record": "chars-reise",
+      "build": {
+        "magentaAllow": 40
+      }
+    },
+    "barmaid": {
+      "name": "Schankmaid",
+      "height": 41,
+      "portraitStyle": "female",
+      "desc": "A young tavern maid around 22, friendly, rosy-cheeked, a little tired. Chestnut-brown hair in one thick braid hanging forward over her right shoulder, a few loose strands, brown eyes. A laced dark green bodice over a white blouse with short puffed sleeves, a long rust-red skirt, a white apron tied at the waist, simple brown shoes. Hands empty.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/barmaid",
+      "record": "chars-reise"
+    },
+    "bard": {
+      "name": "Barde",
+      "height": 42,
+      "portraitStyle": "male",
+      "desc": "A travelling bard (minstrel) around 30, slim and cheerful, a charming grin. Shoulder-length wavy dark-blond hair, a short trimmed blond beard, blue eyes. A floppy burgundy velvet cap with one long white feather, a puffed and slashed doublet in burgundy and mustard yellow, a short dark green half-cape over one shoulder, brown hose, brown ankle boots, a wooden lute slung on his back on a leather strap.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/bard",
+      "record": "chars-reise"
+    },
+    "juggler": {
+      "name": "Gaukler",
+      "height": 42,
+      "portraitStyle": "male",
+      "desc": "A travelling juggler and acrobat around 25, wiry and lean, a playful grin, short curly black hair, clean-shaven, tanned skin. A tight-fitting tunic in a red and yellow diamond (harlequin) pattern, a soft two-pointed red-and-yellow cap WITHOUT bells, red and yellow striped leggings, soft brown pointed slippers, a small leather pouch at the belt with three coloured wooden juggling balls (red, blue, yellow) peeking out.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/juggler",
+      "record": "chars-reise"
+    },
+    "merchant": {
+      "name": "Händler",
+      "height": 42,
+      "portraitStyle": "male",
+      "desc": "A travelling merchant around 50, portly and well-fed, a shrewd appraising smile. Grey-streaked brown hair under a wide-brimmed brown felt hat, a trimmed grey goatee, small sharp eyes. A long deep maroon wool coat with a brown fur collar, a heavy leather coin purse and a few pouches at his belt, brown trousers, sturdy boots; a wooden pack frame loaded with tied cloth bundles on his back and a wooden walking stick in his RIGHT hand.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/merchant",
+      "record": "chars-reise"
+    },
+    "dwarf": {
+      "name": "Zwerg",
+      "height": 34,
+      "portraitStyle": "male",
+      "desc": "A dwarf warrior around 120 years old: SHORT (about four heads tall) but very broad and barrel-chested, sturdy short legs, big hands. A long red-brown beard braided into two thick braids reaching his belt, with small bronze beard rings; bald on top with a fringe of red-brown hair, bushy eyebrows, a big round nose, small fierce eyes, ruddy skin. A chain-mail shirt under a sleeveless tabard in dark red and gold (the colours of the dwarf city Moneda), a broad leather belt with a big brass buckle and a war hammer hanging at his side, thick brown leather boots.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/dwarf",
+      "record": "chars-reise"
+    },
+    "villager-m": {
+      "name": "Dorfbewohner",
+      "height": 42,
+      "portraitStyle": "male",
+      "desc": "A simple male villager (farmer) around 35, sturdy, short tousled brown hair and stubble, a plain friendly weathered face. A plain undyed beige linen tunic tied with a rope belt, a short brown hooded shoulder cape (hood down), brown trousers, simple brown leather shoes.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/villager-m",
+      "record": "chars-reise"
+    },
+    "villager-f": {
+      "name": "Dorfbewohnerin",
+      "height": 40,
+      "portraitStyle": "female",
+      "desc": "A female villager around 35, sturdy and kind-faced. Light-brown hair mostly covered by a white headscarf tied at the nape, a long faded blue-grey wool dress with long sleeves, a brown apron, simple brown shoes, a small wicker basket with bread carried on her LEFT forearm.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/villager-f",
+      "record": "chars-reise"
+    },
+    "elf-m": {
+      "name": "Elf",
+      "height": 44,
+      "portraitStyle": "male",
+      "desc": "A male elf warrior from the elven city Ebaril, slender and tall, calm and watchful. Long straight light-brown hair to the shoulders with two thin braids at the temples, long pointed elven ears, a fine calm face, clean-shaven. A leaf-green and silver-grey tunic over light brown leather armour, a slim sword at his LEFT hip, a longbow and quiver on his back, grey-green leggings, soft brown boots.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/elf-m",
+      "record": "chars-reise"
+    },
+    "elf-f": {
+      "name": "Elfe",
+      "height": 42,
+      "portraitStyle": "female",
+      "desc": "A female elf from the elven city Ebaril, slender and graceful. Long straight pale golden-blonde hair falling down her back, long pointed elven ears, a fine calm face, green eyes. A long fitted moss-green tunic-dress with silver-grey embroidery, split at the sides over light grey leggings, a brown leather belt with a small dagger, a short dark green cloak, soft grey boots.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/elf-f",
+      "record": "chars-reise"
+    },
+    "guard-brotherhood": {
+      "name": "Wache der Bruderschaft",
+      "height": 43,
+      "portraitStyle": "male",
+      "desc": "A human sentry of the Free Brotherhood (a rebel camp), a sturdy man around 30 with a short brown beard. A rounded open steel helmet with a nose guard, a brown padded gambeson under a sleeveless tabard split vertically in dark red and white (the colours of the city Trapas), a brown leather belt with a short sword, brown trousers, brown boots; a tall spear held upright in his RIGHT hand and a round wooden shield on his back.",
+      "poses": [],
+      "moods": [
+        "neutral"
+      ],
+      "rawDir": "output/imagegen/raw/chars-reise/guard-brotherhood",
+      "record": "chars-reise"
+    },
+    "ghoul": {
+      "name": "Leichenfresser",
+      "height": 43,
+      "portraitStyle": "male",
+      "desc": "A 'corpse-eater' (ghoul-like masked marauder): a gaunt, hunched, sinister human figure in a tattered, filthy dark grey-brown hooded cloak with the hood UP, the face completely hidden behind a crude pale bone-white leather MASK with two dark eye holes and a stitched slit for a mouth; long thin grey-skinned arms wrapped in dirty bandage strips, ragged dark trousers, bare grey feet wrapped in rags; a rusty notched woodcutter's axe held in his RIGHT hand. Hunched, predatory posture.",
+      "poses": [
+        "attack",
+        "hurt",
+        "lie"
+      ],
+      "moods": [],
+      "rawDir": "output/imagegen/raw/chars-reise/ghoul",
+      "record": "chars-reise"
+    }
+  }
+}

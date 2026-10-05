@@ -1,0 +1,22 @@
+{
+  "height": 26,
+  "frames": 6,
+  "anchor": [
+    13,
+    27
+  ],
+  "desc": "a small campfire: a ring of grey stones around crossed burning logs with bright orange-yellow flames and glowing embers",
+  "frameW": 26,
+  "fps": 10,
+  "footprint": {
+    "x": -9,
+    "y": -6,
+    "w": 18,
+    "h": 6
+  },
+  "light": {
+    "radius": 72,
+    "color": "#ffb060",
+    "flicker": true
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "area": "props",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/art/props/barrel.png": {
+      "kind": "prop",
+      "id": "barrel",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: an old wooden barrel with iron hoops, standing upright\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 41,
+      "attempts": 1,
+      "time": "2026-10-05T02:34:33"
+    },
+    "output/imagegen/raw/art/props/campfire.png": {
+      "kind": "prop",
+      "id": "campfire",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a small campfire: burning logs inside a ring of grey stones, bright orange-yellow flames ANIMATION STRIP: draw exactly 4 frames of this object side by side in one row, evenly spaced with wide gaps, identical size and position, only the animated part changes from frame to frame.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 53,
+      "attempts": 1,
+      "time": "2026-10-05T02:34:45"
+    },
+    "output/imagegen/raw/art/props/oak-tree.png": {
+      "kind": "prop",
+      "id": "oak-tree",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a large old summer oak tree with a broad round leafy crown and a thick gnarled trunk, roots visible at the base\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 40,
+      "attempts": 1,
+      "time": "2026-10-05T02:34:32"
+    }
+  }
+}

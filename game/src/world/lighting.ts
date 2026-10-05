@@ -117,6 +117,23 @@ export class Lighting {
     }
   }
 
+  /** Time of day painted into the background (MapDef.baked): its grade is applied only lightly. */
+  private baked: TimeOfDay | undefined;
+  setBaked(t: TimeOfDay | undefined): void { this.baked = t; }
+
+  /** The mood for a time, softened when the background already shows that time. */
+  private mood(time: TimeOfDay): (typeof MOODS)[TimeOfDay] {
+    const m = MOODS[time];
+    if (this.baked !== time) return m;
+    const k = 0.72; // keep 28% of the grade (a touch of cool contrast) — the painting is already dark/warm
+    return {
+      ...m,
+      grade: m.grade.map(v => v + (1 - v) * k) as [number, number, number],
+      add: m.add.map(v => v * 0.3) as [number, number, number],
+      dusk: m.dusk * 0.35, dawn: m.dawn * 0.35,
+    };
+  }
+
   /** 0..1: long evening/morning shadows. */
   get longShadow(): number { return this.grad.long; }
 
@@ -129,7 +146,7 @@ export class Lighting {
 
   setImmediate(time: TimeOfDay): void {
     this.time = time;
-    const m = MOODS[time];
+    const m = this.mood(time);
     this.grade = [...m.grade];
     this.add_ = [...m.add];
     this.toAdd = [...m.add];
@@ -147,7 +164,7 @@ export class Lighting {
     this.time = time;
     this.from = { grade: [...this.grade], lights: this.lightsFactor };
     this.fromAdd = [...this.add_];
-    const m = MOODS[time];
+    const m = this.mood(time);
     this.to = { grade: [...m.grade], lights: m.lights };
     this.toAdd = [...m.add];
     this.fromGrad = { ...this.grad };

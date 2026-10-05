@@ -10,10 +10,14 @@ function dismissed(): boolean {
 
 /**
  * Portrait phones: a dismissable hint that the game is nicest in landscape. Remembered in localStorage
- * once closed; disappears by itself when the phone is turned.
+ * once closed; disappears by itself when the phone is turned, and steps aside after a while (it comes
+ * back on the next visit until it was closed once).
  */
 export class RotateHint {
   private node: HTMLElement | null = null;
+  /** Shown long enough this session: stays away until the next page load. */
+  private retired = false;
+  private timer = 0;
 
   mount(): void {
     ctx.onLayout(() => this.sync());
@@ -21,7 +25,7 @@ export class RotateHint {
   }
 
   private wanted(): boolean {
-    return ctx.portrait && Math.min(window.innerWidth, window.innerHeight) < 820 && !dismissed();
+    return !this.retired && ctx.portrait && Math.min(window.innerWidth, window.innerHeight) < 820 && !dismissed();
   }
 
   private sync(): void {
@@ -52,6 +56,8 @@ export class RotateHint {
     ctx.layers.toast.appendChild(node);
     this.node = node;
     requestAnimationFrame(() => node.classList.add('is-in'));
+    clearTimeout(this.timer);
+    this.timer = window.setTimeout(() => { this.retired = true; this.hide(); }, 12000);
   }
 
   private hide(): void {

@@ -196,6 +196,18 @@ export function ensureWorldTextures(scene: Phaser.Scene): void {
     g.putImageData(img, 0, 0);
     addCanvas(scene, 'w-glow', c, true);
   }
+  // Flame tongue (white, tinted by the emitter) and a tiny ember for painted fire pits (world/flame.ts).
+  {
+    const rows = ['..#..', '.###.', '.###.', '#####', '#####', '#####', '.###.', '..#..'];
+    const { c, g } = canvas(5, 8);
+    rows.forEach((r, y) => [...r].forEach((ch, x) => { if (ch === '#') { g.fillStyle = y < 3 ? 'rgba(255,255,255,0.75)' : '#ffffff'; g.fillRect(x, y, 1, 1); } }));
+    addCanvas(scene, 'w-flame', c);
+  }
+  {
+    const { c, g } = canvas(2, 2);
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, 2, 2); g.clearRect(1, 1, 1, 1);
+    addCanvas(scene, 'w-ember', c);
+  }
   // Character shadows: hard two-tone pixel ellipses (crisp next to the sprites), small and large.
   for (const [key, W, H] of [['w-shadow', 12, 5], ['w-shadow-l', 18, 6]] as [string, number, number][]) {
     const { c, g } = canvas(W, H);

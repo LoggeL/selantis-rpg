@@ -74,6 +74,7 @@ export class CollisionGrid {
   }
 }
 
-/** The player/NPC foot collision box (half extents). */
-export const FOOT_HW = 3.5;
-export const FOOT_HH = 2;
+/** The player/NPC foot collision box (half extents). Scales with the world scale (painted maps: bigger figures). */
+export let FOOT_HW = 3.5;
+export let FOOT_HH = 2;
+export function setFootScale(k: number): void { FOOT_HW = Math.round(3.5 * k * 2) / 2; FOOT_HH = Math.round(2 * k * 2) / 2; }

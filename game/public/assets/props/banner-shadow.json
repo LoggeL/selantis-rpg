@@ -1,0 +1,15 @@
+{
+  "height": 64,
+  "frames": 1,
+  "anchor": [
+    15,
+    65
+  ],
+  "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth quartered in BLACK and WHITE (four quarters like a chessboard, top-left black, top-right white, bottom-left white, bottom-right black), with a pointed iron spear tip on top, pole stuck upright in the ground",
+  "footprint": {
+    "x": -3,
+    "y": -2,
+    "w": 6,
+    "h": 2
+  }
+}

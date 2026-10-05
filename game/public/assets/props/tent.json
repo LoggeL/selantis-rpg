@@ -1,0 +1,15 @@
+{
+  "height": 34,
+  "frames": 1,
+  "anchor": [
+    20,
+    35
+  ],
+  "desc": "a small A-frame travel tent of weathered beige canvas on wooden poles with guy ropes and pegs, the front flap open showing a dark inside",
+  "footprint": {
+    "x": -16,
+    "y": -10,
+    "w": 32,
+    "h": 10
+  }
+}

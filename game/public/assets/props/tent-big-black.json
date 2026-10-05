@@ -1,0 +1,15 @@
+{
+  "height": 72,
+  "frames": 1,
+  "anchor": [
+    40,
+    73
+  ],
+  "desc": "a large imposing black military command tent (a captain's pavilion) of heavy black canvas with a tall central pole, a black-and-white quartered pennant on top, white trim along the roof edge, front flaps tied open showing a dim inside, guy ropes and pegs",
+  "footprint": {
+    "x": -32,
+    "y": -16,
+    "w": 64,
+    "h": 16
+  }
+}

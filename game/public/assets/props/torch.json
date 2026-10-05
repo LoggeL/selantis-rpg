@@ -1,0 +1,22 @@
+{
+  "height": 40,
+  "frames": 4,
+  "anchor": [
+    6,
+    41
+  ],
+  "desc": "a tall standing torch: a wooden pole stuck in the ground with a pitch-soaked rag head burning with a bright orange flame at the top",
+  "frameW": 18,
+  "fps": 8,
+  "footprint": {
+    "x": -2,
+    "y": -2,
+    "w": 4,
+    "h": 2
+  },
+  "light": {
+    "radius": 80,
+    "color": "#ff9a40",
+    "flicker": true
+  }
+}

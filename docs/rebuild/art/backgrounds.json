@@ -1,0 +1,42 @@
+{
+  "area": "backgrounds",
+  "images": {
+    "output/imagegen/raw/art/bg/art-gallery-meadow.png": {
+      "kind": "bg",
+      "id": "art-gallery-meadow",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: a calm open summer meadow with short grass, a few wildflowers and a light sandy footpath crossing horizontally through the middle, a low hedge and the edge of a wood along the top edge, a single small rock or two; mostly open walkable grass so many small characters can stand on it; soft late-afternoon light\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 41,
+      "attempts": 1,
+      "time": "2026-10-05T02:32:56"
+    },
+    "output/imagegen/raw/art/cut/proof-lia-reading.png": {
+      "kind": "plate",
+      "id": "wiese-lia-liest",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: late summer afternoon at the edge of a golden meadow: Lia (the girl from the attached reference sheet, strawberry-blonde curls pinned up, white blouse, brown skirt) sits barefoot in the shade under a huge old oak tree, absorbed in reading an old blue storybook on her lap, her wooden clogs beside her; wheat fields and a small farmstead far in the background; a few fireflies-like motes of faint turquoise light drift around her unnoticed\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-05T02:36:53",
+      "output": "game/public/assets/cut/wiese-lia-liest.jpg"
+    }
+  },
+  "builds": {
+    "bg:art-gallery-meadow": {
+      "desc": "a calm open summer meadow with short grass, a few wildflowers and a light sandy footpath crossing horizontally through the middle, a low hedge and the edge of a wood along the top edge, a single small rock or two; mostly open walkable grass so many small characters can stand on it; soft late-afternoon light",
+      "size": "640x360"
+    },
+    "plate:wiese-lia-liest": {
+      "desc": "late summer afternoon at the edge of a golden meadow: Lia (the girl from the attached reference sheet, strawberry-blonde curls pinned up, white blouse, brown skirt) sits barefoot in the shade under a huge old oak tree, absorbed in reading an old blue storybook on her lap, her wooden clogs beside her; wheat fields and a small farmstead far in the background; a few fireflies-like motes of faint turquoise light drift around her unnoticed",
+      "chars": "lia",
+      "note": "promoted from pipeline proof plate proof-lia-reading (integrator) — Kapitel I, Szene wiese"
+    }
+  }
+}

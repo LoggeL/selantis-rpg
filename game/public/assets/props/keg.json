@@ -1,0 +1,15 @@
+{
+  "height": 15,
+  "frames": 1,
+  "anchor": [
+    8,
+    16
+  ],
+  "desc": "a small wooden keg lying on its side on a little wooden cradle stand, with a wooden tap at the front",
+  "footprint": {
+    "x": -7,
+    "y": -4,
+    "w": 14,
+    "h": 4
+  }
+}

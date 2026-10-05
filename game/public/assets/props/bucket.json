@@ -1,0 +1,15 @@
+{
+  "height": 11,
+  "frames": 1,
+  "anchor": [
+    6,
+    12
+  ],
+  "desc": "a wooden water bucket with iron bands and a rope handle, filled with water",
+  "footprint": {
+    "x": -4,
+    "y": -3,
+    "w": 8,
+    "h": 3
+  }
+}

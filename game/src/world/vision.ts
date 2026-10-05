@@ -67,6 +67,8 @@ export interface SightQuery {
   hidden?: boolean;
   /** Within this distance a non-sneaking target is noticed regardless of facing (px). */
   closeSense?: number;
+  /** Height of the target's chest above the feet (px, default 8). */
+  chest?: number;
 }
 
 export interface SightResult { visible: boolean; /** 1 = right in front, 0 = at the edge of range */ closeness: number; distance: number }
@@ -86,7 +88,7 @@ export function canSee(grid: CollisionGrid, q: SightQuery): SightResult {
   const close = !q.sneaking && distance <= (q.closeSense ?? 14);
   if (!close && !inCone(q.origin, q.facing, q.halfAngle, range, q.target)) return none;
   // Check sight to the target's chest (a bit above the feet) and the feet; either counts.
-  const chest = { x: q.target.x, y: q.target.y - 8 };
+  const chest = { x: q.target.x, y: q.target.y - (q.chest ?? 8) };
   if (!lineOfSight(grid, q.origin, q.target) && !lineOfSight(grid, q.origin, chest)) return none;
   return { visible: true, closeness: Math.max(0, Math.min(1, 1 - distance / range)), distance };
 }

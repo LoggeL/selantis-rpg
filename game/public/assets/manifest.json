@@ -1,0 +1,4330 @@
+{
+ "version": 1,
+ "characters": {
+  "alastir": {
+   "poses": {
+    "talk": {
+     "file": "assets/sprites/alastir-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/alastir-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 45
+  },
+  "algard": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/algard-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/algard-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "azar": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/azar-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/azar-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/azar-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/azar-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/azar-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/azar-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "bard": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/bard-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     2,
+     7,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "baris": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/baris-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/baris-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/baris-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/baris-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 52
+  },
+  "baris-young": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/baris-young-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/baris-young-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/baris-young-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/baris-young-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 50
+  },
+  "barmaid": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/barmaid-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
+  "chicken": {
+   "poses": {
+    "peck": {
+     "file": "assets/sprites/chicken-peck.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/chicken-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     4,
+     8,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 13
+  },
+  "conspirator": {
+   "poses": {
+    "idle": {
+     "dirs": {
+      "down": {
+       "file": "assets/sprites/conspirator-idle-down.png",
+       "w": 64,
+       "h": 64,
+       "frames": 1,
+       "foot": [
+        32,
+        60
+       ],
+       "facing": "down"
+      },
+      "left": {
+       "file": "assets/sprites/conspirator-idle-left.png",
+       "w": 64,
+       "h": 64,
+       "frames": 1,
+       "foot": [
+        32,
+        60
+       ],
+       "facing": "left"
+      },
+      "right": {
+       "file": "assets/sprites/conspirator-idle-right.png",
+       "w": 64,
+       "h": 64,
+       "frames": 1,
+       "foot": [
+        32,
+        60
+       ],
+       "facing": "right"
+      },
+      "up": {
+       "file": "assets/sprites/conspirator-idle-up.png",
+       "w": 64,
+       "h": 64,
+       "frames": 1,
+       "foot": [
+        32,
+        60
+       ],
+       "facing": "up"
+      }
+     },
+     "file": "assets/sprites/conspirator-idle-down.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "down"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/conspirator-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "council-mage-a": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/council-mage-a-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/council-mage-a-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "council-mage-b": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/council-mage-b-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/council-mage-b-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     11,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "council-mage-c": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/council-mage-c-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/council-mage-c-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     11,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "craupor": {
+   "poses": {
+    "interact": {
+     "file": "assets/sprites/craupor-interact.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/craupor-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "crow": {
+   "poses": {
+    "fly": {
+     "file": "assets/sprites/crow-fly.png",
+     "w": 64,
+     "h": 64,
+     "frames": 4,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right",
+     "fps": 10,
+     "loop": true
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/crow-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     4,
+     8,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 10
+  },
+  "deer": {
+   "poses": {
+    "alert": {
+     "file": "assets/sprites/deer-alert.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "graze": {
+     "file": "assets/sprites/deer-graze.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/deer-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     11,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "dog": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/dog-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/dog-lie.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/dog-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/dog-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 22
+  },
+  "dwarf": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/dwarf-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     14
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 34
+  },
+  "elf-f": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/elf-f-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "elf-m": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/elf-m-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "elnon": {
+   "poses": {
+    "talk": {
+     "file": "assets/sprites/elnon-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/elnon-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     11,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 46
+  },
+  "falke-soldier": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/falke-soldier-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/falke-soldier-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/falke-soldier-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     11,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "father": {
+   "poses": {
+    "hurt": {
+     "file": "assets/sprites/father-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/father-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/father-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/father-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "flick": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/flick-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/flick-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/flick-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/flick-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "shoot": {
+     "file": "assets/sprites/flick-shoot.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/flick-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/flick-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
+  "foltan": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/foltan-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/foltan-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/foltan-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/foltan-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "shoot": {
+     "file": "assets/sprites/foltan-shoot.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/foltan-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/foltan-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "ghoul": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/ghoul-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/ghoul-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/ghoul-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/ghoul-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "guard-brotherhood": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/guard-brotherhood-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "hare": {
+   "poses": {
+    "sit": {
+     "file": "assets/sprites/hare-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/hare-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     4,
+     8,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 13
+  },
+  "harro": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/harro-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/harro-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "horse": {
+   "poses": {
+    "graze": {
+     "file": "assets/sprites/horse-graze.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "rear": {
+     "file": "assets/sprites/horse-rear.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/horse-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 46
+  },
+  "ignatius": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/ignatius-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/ignatius-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "juggler": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/juggler-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "kyra-bound": {
+   "poses": {
+    "crouch": {
+     "file": "assets/sprites/kyra-bound-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/kyra-bound-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/kyra-bound-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/kyra-bound-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/kyra-bound-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/kyra-bound-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "kyra": {
+   "poses": {
+    "crouch": {
+     "file": "assets/sprites/kyra-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/kyra-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/kyra-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/kyra-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/kyra-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/kyra-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     11,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "lia": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/lia-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/lia-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/lia-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/lia-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/lia-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "read": {
+     "file": "assets/sprites/lia-read.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit-read": {
+     "file": "assets/sprites/lia-sit-read.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/lia-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/lia-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "lia-cloak": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/lia-cloak-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/lia-cloak-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/lia-cloak-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/lia-cloak-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/lia-cloak-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "read": {
+     "file": "assets/sprites/lia-cloak-read.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/lia-cloak-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/lia-cloak-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "maedchen": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/maedchen-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/maedchen-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 46
+  },
+  "merchant": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/merchant-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  },
+  "mother": {
+   "poses": {
+    "hurt": {
+     "file": "assets/sprites/mother-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/mother-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/mother-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/mother-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
+  "orwen": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/orwen-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/orwen-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/orwen-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     11,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "paladin": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/paladin-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/paladin-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 47
+  },
+  "pig": {
+   "poses": {
+    "lie": {
+     "file": "assets/sprites/pig-lie.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/pig-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     10,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 18
+  },
+  "shadow-club": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/shadow-club-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "fall": {
+     "file": "assets/sprites/shadow-club-fall.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/shadow-club-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/shadow-club-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     2,
+     5,
+     11,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "shadow-crossbow": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/shadow-crossbow-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "fall": {
+     "file": "assets/sprites/shadow-crossbow-fall.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/shadow-crossbow-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/shadow-crossbow-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "shadow-rider": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/shadow-rider-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 7,
+    "idle": [
+     0,
+     7,
+     10,
+     14
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 52
+  },
+  "shadow-spear": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/shadow-spear-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "fall": {
+     "file": "assets/sprites/shadow-spear-fall.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/shadow-spear-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/shadow-spear-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     11,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 47
+  },
+  "shadow-sword": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/shadow-sword-attack.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "fall": {
+     "file": "assets/sprites/shadow-sword-fall.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/shadow-sword-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/shadow-sword-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "valentus": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/valentus-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/valentus-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/valentus-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/valentus-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/valentus-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/valentus-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/valentus-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "valentus-cloak": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/valentus-cloak-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/valentus-cloak-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/valentus-cloak-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/valentus-cloak-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/valentus-cloak-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/valentus-cloak-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/valentus-cloak-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "vamir": {
+   "poses": {
+    "cast": {
+     "file": "assets/sprites/vamir-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/vamir-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 46
+  },
+  "villager-f": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/villager-f-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "villager-m": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/villager-m-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     11,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 42
+  }
+ },
+ "portraits": {
+  "alastir": {
+   "angry": "assets/portraits/alastir-angry.png",
+   "grim": "assets/portraits/alastir-grim.png",
+   "neutral": "assets/portraits/alastir.png"
+  },
+  "algard": {
+   "angry": "assets/portraits/algard-angry.png",
+   "neutral": "assets/portraits/algard.png"
+  },
+  "azar": {
+   "angry": "assets/portraits/azar-angry.png",
+   "happy": "assets/portraits/azar-happy.png",
+   "sad": "assets/portraits/azar-sad.png",
+   "surprised": "assets/portraits/azar-surprised.png",
+   "worried": "assets/portraits/azar-worried.png",
+   "neutral": "assets/portraits/azar.png"
+  },
+  "bard": {
+   "neutral": "assets/portraits/bard.png"
+  },
+  "baris": {
+   "angry": "assets/portraits/baris-angry.png",
+   "smirk": "assets/portraits/baris-smirk.png",
+   "neutral": "assets/portraits/baris.png"
+  },
+  "baris-scarred": {
+   "pained": "assets/portraits/baris-scarred-pained.png",
+   "neutral": "assets/portraits/baris-scarred.png"
+  },
+  "baris-young": {
+   "angry": "assets/portraits/baris-young-angry.png",
+   "neutral": "assets/portraits/baris-young.png"
+  },
+  "barmaid": {
+   "neutral": "assets/portraits/barmaid.png"
+  },
+  "conspirator": {
+   "neutral": "assets/portraits/conspirator.png"
+  },
+  "council-mage-a": {
+   "angry": "assets/portraits/council-mage-a-angry.png",
+   "neutral": "assets/portraits/council-mage-a.png"
+  },
+  "council-mage-b": {
+   "angry": "assets/portraits/council-mage-b-angry.png",
+   "neutral": "assets/portraits/council-mage-b.png"
+  },
+  "council-mage-c": {
+   "angry": "assets/portraits/council-mage-c-angry.png",
+   "neutral": "assets/portraits/council-mage-c.png"
+  },
+  "craupor": {
+   "happy": "assets/portraits/craupor-happy.png",
+   "worried": "assets/portraits/craupor-worried.png",
+   "neutral": "assets/portraits/craupor.png"
+  },
+  "dwarf": {
+   "neutral": "assets/portraits/dwarf.png"
+  },
+  "elf-f": {
+   "neutral": "assets/portraits/elf-f.png"
+  },
+  "elf-m": {
+   "neutral": "assets/portraits/elf-m.png"
+  },
+  "elnon": {
+   "angry": "assets/portraits/elnon-angry.png",
+   "grim": "assets/portraits/elnon-grim.png",
+   "neutral": "assets/portraits/elnon.png"
+  },
+  "falke-soldier": {
+   "neutral": "assets/portraits/falke-soldier.png"
+  },
+  "father": {
+   "determined": "assets/portraits/father-determined.png",
+   "sad": "assets/portraits/father-sad.png",
+   "scared": "assets/portraits/father-scared.png",
+   "neutral": "assets/portraits/father.png"
+  },
+  "flick": {
+   "angry": "assets/portraits/flick-angry.png",
+   "determined": "assets/portraits/flick-determined.png",
+   "happy": "assets/portraits/flick-happy.png",
+   "sad": "assets/portraits/flick-sad.png",
+   "smirk": "assets/portraits/flick-smirk.png",
+   "surprised": "assets/portraits/flick-surprised.png",
+   "neutral": "assets/portraits/flick.png"
+  },
+  "foltan": {
+   "angry": "assets/portraits/foltan-angry.png",
+   "ashamed": "assets/portraits/foltan-ashamed.png",
+   "happy": "assets/portraits/foltan-happy.png",
+   "sad": "assets/portraits/foltan-sad.png",
+   "surprised": "assets/portraits/foltan-surprised.png",
+   "worried": "assets/portraits/foltan-worried.png",
+   "neutral": "assets/portraits/foltan.png"
+  },
+  "guard-brotherhood": {
+   "neutral": "assets/portraits/guard-brotherhood.png"
+  },
+  "harro": {
+   "angry": "assets/portraits/harro-angry.png",
+   "neutral": "assets/portraits/harro.png"
+  },
+  "ignatius": {
+   "worried": "assets/portraits/ignatius-worried.png",
+   "neutral": "assets/portraits/ignatius.png"
+  },
+  "juggler": {
+   "neutral": "assets/portraits/juggler.png"
+  },
+  "kyra": {
+   "angry": "assets/portraits/kyra-angry.png",
+   "determined": "assets/portraits/kyra-determined.png",
+   "happy": "assets/portraits/kyra-happy.png",
+   "hurt": "assets/portraits/kyra-hurt.png",
+   "sad": "assets/portraits/kyra-sad.png",
+   "scared": "assets/portraits/kyra-scared.png",
+   "surprised": "assets/portraits/kyra-surprised.png",
+   "neutral": "assets/portraits/kyra.png"
+  },
+  "kyra-bound": {
+   "angry": "assets/portraits/kyra-bound-angry.png",
+   "determined": "assets/portraits/kyra-bound-determined.png",
+   "hurt": "assets/portraits/kyra-bound-hurt.png",
+   "sad": "assets/portraits/kyra-bound-sad.png",
+   "scared": "assets/portraits/kyra-bound-scared.png",
+   "surprised": "assets/portraits/kyra-bound-surprised.png",
+   "neutral": "assets/portraits/kyra-bound.png"
+  },
+  "lia": {
+   "angry": "assets/portraits/lia-angry.png",
+   "determined": "assets/portraits/lia-determined.png",
+   "happy": "assets/portraits/lia-happy.png",
+   "hurt": "assets/portraits/lia-hurt.png",
+   "sad": "assets/portraits/lia-sad.png",
+   "scared": "assets/portraits/lia-scared.png",
+   "surprised": "assets/portraits/lia-surprised.png",
+   "thinking": "assets/portraits/lia-thinking.png",
+   "neutral": "assets/portraits/lia.png"
+  },
+  "lia-cloak": {
+   "angry": "assets/portraits/lia-cloak-angry.png",
+   "determined": "assets/portraits/lia-cloak-determined.png",
+   "happy": "assets/portraits/lia-cloak-happy.png",
+   "hurt": "assets/portraits/lia-cloak-hurt.png",
+   "sad": "assets/portraits/lia-cloak-sad.png",
+   "scared": "assets/portraits/lia-cloak-scared.png",
+   "surprised": "assets/portraits/lia-cloak-surprised.png",
+   "thinking": "assets/portraits/lia-cloak-thinking.png",
+   "neutral": "assets/portraits/lia-cloak.png"
+  },
+  "maedchen": {
+   "angry": "assets/portraits/maedchen-angry.png",
+   "neutral": "assets/portraits/maedchen.png"
+  },
+  "merchant": {
+   "neutral": "assets/portraits/merchant.png"
+  },
+  "mother": {
+   "determined": "assets/portraits/mother-determined.png",
+   "sad": "assets/portraits/mother-sad.png",
+   "scared": "assets/portraits/mother-scared.png",
+   "neutral": "assets/portraits/mother.png"
+  },
+  "orwen": {
+   "angry": "assets/portraits/orwen-angry.png",
+   "smirk": "assets/portraits/orwen-smirk.png",
+   "neutral": "assets/portraits/orwen.png"
+  },
+  "paladin": {
+   "neutral": "assets/portraits/paladin.png"
+  },
+  "shadow-club": {
+   "neutral": "assets/portraits/shadow-club.png"
+  },
+  "shadow-crossbow": {
+   "neutral": "assets/portraits/shadow-crossbow.png"
+  },
+  "shadow-spear": {
+   "neutral": "assets/portraits/shadow-spear.png"
+  },
+  "shadow-sword": {
+   "neutral": "assets/portraits/shadow-sword.png"
+  },
+  "valentus": {
+   "angry": "assets/portraits/valentus-angry.png",
+   "determined": "assets/portraits/valentus-determined.png",
+   "happy": "assets/portraits/valentus-happy.png",
+   "hurt": "assets/portraits/valentus-hurt.png",
+   "pained": "assets/portraits/valentus-pained.png",
+   "sad": "assets/portraits/valentus-sad.png",
+   "surprised": "assets/portraits/valentus-surprised.png",
+   "neutral": "assets/portraits/valentus.png"
+  },
+  "valentus-cloak": {
+   "angry": "assets/portraits/valentus-cloak-angry.png",
+   "determined": "assets/portraits/valentus-cloak-determined.png",
+   "hurt": "assets/portraits/valentus-cloak-hurt.png",
+   "pained": "assets/portraits/valentus-cloak-pained.png",
+   "sad": "assets/portraits/valentus-cloak-sad.png",
+   "surprised": "assets/portraits/valentus-cloak-surprised.png",
+   "neutral": "assets/portraits/valentus-cloak.png"
+  },
+  "vamir": {
+   "neutral": "assets/portraits/vamir.png"
+  },
+  "villager-f": {
+   "neutral": "assets/portraits/villager-f.png"
+  },
+  "villager-m": {
+   "neutral": "assets/portraits/villager-m.png"
+  }
+ },
+ "backgrounds": {
+  "art-gallery-meadow": {
+   "file": "assets/bg/art-gallery-meadow.png",
+   "w": 640,
+   "h": 360
+  },
+  "dev-clearing": {
+   "file": "assets/bg/dev-clearing.png",
+   "w": 640,
+   "h": 360
+  },
+  "dev-meadow": {
+   "file": "assets/bg/dev-meadow.png",
+   "w": 1280,
+   "h": 720
+  }
+ },
+ "plates": {
+  "wiese-lia-liest": {
+   "file": "assets/cut/wiese-lia-liest.jpg",
+   "w": 1280,
+   "h": 720
+  }
+ },
+ "props": {
+  "alana-book": {
+   "file": "assets/props/alana-book.png",
+   "w": 11,
+   "h": 7,
+   "frames": 1,
+   "anchor": [
+    5,
+    7
+   ],
+   "footprint": null,
+   "height": 6,
+   "desc": "a worn closed storybook bound in dark blue leather with a small golden star on the cover, lying in a little patch of green grass"
+  },
+  "anvil": {
+   "file": "assets/props/anvil.png",
+   "w": 19,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    9,
+    19
+   ],
+   "footprint": {
+    "x": -8,
+    "y": -5,
+    "w": 16,
+    "h": 5
+   },
+   "height": 18,
+   "desc": "a black iron blacksmith anvil on a thick tree stump, a hammer leaning against it"
+  },
+  "banner-falcon": {
+   "file": "assets/props/banner-falcon.png",
+   "w": 30,
+   "h": 64,
+   "frames": 1,
+   "anchor": [
+    15,
+    64
+   ],
+   "footprint": {
+    "x": -3,
+    "y": -2,
+    "w": 6,
+    "h": 2
+   },
+   "height": 64,
+   "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth in royal BLUE and golden YELLOW (vertical halves, blue left, yellow right) with a stylised white falcon emblem in the centre, golden fringe, pole stuck upright in the ground"
+  },
+  "banner-shadow": {
+   "file": "assets/props/banner-shadow.png",
+   "w": 30,
+   "h": 65,
+   "frames": 1,
+   "anchor": [
+    15,
+    65
+   ],
+   "footprint": {
+    "x": -3,
+    "y": -2,
+    "w": 6,
+    "h": 2
+   },
+   "height": 64,
+   "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth quartered in BLACK and WHITE (four quarters like a chessboard, top-left black, top-right white, bottom-left white, bottom-right black), with a pointed iron spear tip on top, pole stuck upright in the ground"
+  },
+  "barrel": {
+   "file": "assets/props/barrel.png",
+   "w": 18,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    9,
+    22
+   ],
+   "footprint": {
+    "x": -6,
+    "y": -4,
+    "w": 12,
+    "h": 4
+   },
+   "height": 21,
+   "desc": "an old upright wooden barrel with dark iron hoops and a closed lid"
+  },
+  "bench": {
+   "file": "assets/props/bench.png",
+   "w": 31,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    15,
+    16
+   ],
+   "footprint": {
+    "x": -16,
+    "y": -4,
+    "w": 32,
+    "h": 4
+   },
+   "height": 15,
+   "desc": "a long rustic wooden bench made of a thick plank on four splayed legs, oriented left to right"
+  },
+  "bird-nest-chick": {
+   "file": "assets/props/bird-nest-chick.png",
+   "w": 7,
+   "h": 7,
+   "frames": 1,
+   "anchor": [
+    3,
+    7
+   ],
+   "footprint": null,
+   "height": 6,
+   "desc": "a single tiny fluffy grey-brown fledgling bird sitting alone on the ground, small yellow beak, scruffy downy feathers"
+  },
+  "bird-nest-fledgling": {
+   "file": "assets/props/bird-nest-fledgling.png",
+   "w": 13,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    6,
+    10
+   ],
+   "footprint": null,
+   "height": 9,
+   "desc": "the same small round bird nest of woven twigs and moss now with THREE fluffy grey-brown fledglings sitting in it, beaks open"
+  },
+  "bird-nest": {
+   "file": "assets/props/bird-nest.png",
+   "w": 13,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    6,
+    10
+   ],
+   "footprint": null,
+   "height": 9,
+   "desc": "a small round bird nest of woven twigs and moss with TWO fluffy grey-brown fledglings sitting in it with their yellow beaks open"
+  },
+  "blanket": {
+   "file": "assets/props/blanket.png",
+   "w": 32,
+   "h": 23,
+   "frames": 1,
+   "anchor": [
+    16,
+    23
+   ],
+   "footprint": null,
+   "height": 22,
+   "desc": "a rumpled brown-and-cream wool blanket lying spread on the ground, folded back at one corner"
+  },
+  "bookstack": {
+   "file": "assets/props/bookstack.png",
+   "w": 14,
+   "h": 13,
+   "frames": 1,
+   "anchor": [
+    7,
+    13
+   ],
+   "footprint": {
+    "x": -5,
+    "y": -3,
+    "w": 10,
+    "h": 3
+   },
+   "height": 12,
+   "desc": "a stack of four old leather-bound books of different colours (brown, green, red, dark blue) lying on top of each other"
+  },
+  "broken-spear": {
+   "file": "assets/props/broken-spear.png",
+   "w": 38,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    19,
+    12
+   ],
+   "footprint": null,
+   "height": 11,
+   "desc": "a broken wooden spear lying flat on the ground in two pieces, the iron tip on one piece, splintered break"
+  },
+  "bucket": {
+   "file": "assets/props/bucket.png",
+   "w": 12,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    6,
+    12
+   ],
+   "footprint": {
+    "x": -4,
+    "y": -3,
+    "w": 8,
+    "h": 3
+   },
+   "height": 11,
+   "desc": "a wooden water bucket with iron bands and a rope handle, filled with water"
+  },
+  "campfire": {
+   "file": "assets/props/campfire.png",
+   "w": 26,
+   "h": 27,
+   "frames": 6,
+   "anchor": [
+    13,
+    27
+   ],
+   "footprint": {
+    "x": -9,
+    "y": -6,
+    "w": 18,
+    "h": 6
+   },
+   "height": 26,
+   "desc": "a small campfire: a ring of grey stones around crossed burning logs with bright orange-yellow flames and glowing embers",
+   "fps": 10,
+   "light": {
+    "radius": 72,
+    "color": "#ffb060",
+    "flicker": true
+   }
+  },
+  "candle-unlit": {
+   "file": "assets/props/candle-unlit.png",
+   "w": 14,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    7,
+    10
+   ],
+   "footprint": null,
+   "height": 9,
+   "desc": "a short thick beeswax candle in a simple brass dish holder, NOT lit, the black wick showing, a thin wisp of smoke"
+  },
+  "candle": {
+   "file": "assets/props/candle.png",
+   "w": 11,
+   "h": 10,
+   "frames": 4,
+   "anchor": [
+    5,
+    10
+   ],
+   "footprint": null,
+   "height": 9,
+   "desc": "a short thick beeswax candle in a simple brass dish holder, burning with a small flame",
+   "fps": 6,
+   "light": {
+    "radius": 36,
+    "color": "#ffcf80",
+    "flicker": true
+   }
+  },
+  "cart": {
+   "file": "assets/props/cart.png",
+   "w": 43,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    21,
+    31
+   ],
+   "footprint": {
+    "x": -20,
+    "y": -8,
+    "w": 40,
+    "h": 8
+   },
+   "height": 30,
+   "desc": "a medieval two-wheeled wooden farm cart with high slatted sides, two big spoked wooden wheels and two long shafts resting on the ground, seen three-quarter from the front-left, empty"
+  },
+  "cloak-spread": {
+   "file": "assets/props/cloak-spread.png",
+   "w": 36,
+   "h": 27,
+   "frames": 1,
+   "anchor": [
+    18,
+    27
+   ],
+   "footprint": null,
+   "height": 26,
+   "desc": "a long moss-green hooded wool rain cloak laid out completely FLAT on the ground as a bedroll, seen from high above: the cloak fully opened and spread out like a blanket (a long rounded rectangle of green cloth), the flattened hood at the top end, a small bronze clasp, no person, not standing, not worn"
+  },
+  "cradle-twins": {
+   "file": "assets/props/cradle-twins.png",
+   "w": 24,
+   "h": 24,
+   "frames": 1,
+   "anchor": [
+    12,
+    24
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -5,
+    "w": 20,
+    "h": 5
+   },
+   "height": 23,
+   "desc": "a wooden farmhouse rocking cradle seen from above at three-quarter angle, with TWO sleeping newborn babies lying side by side, swaddled in cream linen with only their tiny faces visible, eyes closed, a soft wool blanket"
+  },
+  "crate": {
+   "file": "assets/props/crate.png",
+   "w": 19,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    9,
+    18
+   ],
+   "footprint": {
+    "x": -8,
+    "y": -5,
+    "w": 16,
+    "h": 5
+   },
+   "height": 17,
+   "desc": "a sturdy wooden crate made of planks with corner battens, closed lid"
+  },
+  "fallen-banner": {
+   "file": "assets/props/fallen-banner.png",
+   "w": 38,
+   "h": 23,
+   "frames": 1,
+   "anchor": [
+    19,
+    23
+   ],
+   "footprint": null,
+   "height": 22,
+   "desc": "a fallen, torn blue-and-white war banner with a white bird-of-prey emblem lying crumpled on the ground, its broken pole beside it, mud stains"
+  },
+  "firering": {
+   "file": "assets/props/firering.png",
+   "w": 23,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    11,
+    15
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -5,
+    "w": 20,
+    "h": 5
+   },
+   "height": 14,
+   "desc": "an unlit fire pit: a ring of grey stones around a few charred black logs and grey ash, no fire, no smoke"
+  },
+  "grave-cairn-v2": {
+   "file": "assets/props/grave-cairn-v2.png",
+   "w": 41,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    20,
+    22
+   ],
+   "footprint": {
+    "x": -17,
+    "y": -8,
+    "w": 34,
+    "h": 8
+   },
+   "height": 21,
+   "desc": "a second fresh grave cairn of piled grey fieldstones over dark earth, slightly shorter and rounder than a normal grave, a few larger flat stones on top, oriented left to right"
+  },
+  "grave-cairn": {
+   "file": "assets/props/grave-cairn.png",
+   "w": 51,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    25,
+    19
+   ],
+   "footprint": {
+    "x": -21,
+    "y": -9,
+    "w": 42,
+    "h": 9
+   },
+   "height": 18,
+   "desc": "a fresh grave mound: an elongated low cairn of grey and brown fieldstones piled over fresh dark earth, about two metres long, oriented left to right"
+  },
+  "haystack": {
+   "file": "assets/props/haystack.png",
+   "w": 48,
+   "h": 38,
+   "frames": 1,
+   "anchor": [
+    24,
+    38
+   ],
+   "footprint": {
+    "x": -17,
+    "y": -8,
+    "w": 34,
+    "h": 8
+   },
+   "height": 38,
+   "desc": "a big rounded haystack of golden dry hay, loose straws sticking out"
+  },
+  "iso-banner-dark-0": {
+   "file": "assets/props/iso-banner-dark-0.png",
+   "w": 25,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    12,
+    71
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -12,
+    "w": 20,
+    "h": 12
+   }
+  },
+  "iso-banner-dark-1": {
+   "file": "assets/props/iso-banner-dark-1.png",
+   "w": 26,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    13,
+    71
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -12,
+    "w": 21,
+    "h": 12
+   }
+  },
+  "iso-banner-light-0": {
+   "file": "assets/props/iso-banner-light-0.png",
+   "w": 27,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    13,
+    71
+   ],
+   "footprint": {
+    "x": -11,
+    "y": -12,
+    "w": 22,
+    "h": 12
+   }
+  },
+  "iso-banner-light-1": {
+   "file": "assets/props/iso-banner-light-1.png",
+   "w": 29,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    14,
+    71
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-bush-0": {
+   "file": "assets/props/iso-bush-0.png",
+   "w": 33,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "footprint": {
+    "x": -13,
+    "y": -8,
+    "w": 26,
+    "h": 8
+   }
+  },
+  "iso-bush-1": {
+   "file": "assets/props/iso-bush-1.png",
+   "w": 34,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "footprint": {
+    "x": -14,
+    "y": -8,
+    "w": 27,
+    "h": 8
+   }
+  },
+  "iso-bush-2": {
+   "file": "assets/props/iso-bush-2.png",
+   "w": 34,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "footprint": {
+    "x": -14,
+    "y": -8,
+    "w": 27,
+    "h": 8
+   }
+  },
+  "iso-bush-3": {
+   "file": "assets/props/iso-bush-3.png",
+   "w": 33,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "footprint": {
+    "x": -13,
+    "y": -8,
+    "w": 26,
+    "h": 8
+   }
+  },
+  "iso-campfire-0": {
+   "file": "assets/props/iso-campfire-0.png",
+   "w": 40,
+   "h": 27,
+   "frames": 1,
+   "anchor": [
+    20,
+    27
+   ],
+   "footprint": {
+    "x": -16,
+    "y": -7,
+    "w": 32,
+    "h": 7
+   }
+  },
+  "iso-crate-0": {
+   "file": "assets/props/iso-crate-0.png",
+   "w": 29,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -8,
+    "w": 23,
+    "h": 8
+   }
+  },
+  "iso-crate-1": {
+   "file": "assets/props/iso-crate-1.png",
+   "w": 24,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    12,
+    31
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -8,
+    "w": 19,
+    "h": 8
+   }
+  },
+  "iso-deadtree-0": {
+   "file": "assets/props/iso-deadtree-0.png",
+   "w": 60,
+   "h": 85,
+   "frames": 1,
+   "anchor": [
+    30,
+    85
+   ],
+   "footprint": {
+    "x": -24,
+    "y": -12,
+    "w": 48,
+    "h": 12
+   }
+  },
+  "iso-deadtree-1": {
+   "file": "assets/props/iso-deadtree-1.png",
+   "w": 72,
+   "h": 80,
+   "frames": 1,
+   "anchor": [
+    36,
+    80
+   ],
+   "footprint": {
+    "x": -29,
+    "y": -12,
+    "w": 58,
+    "h": 12
+   }
+  },
+  "iso-deadtree-2": {
+   "file": "assets/props/iso-deadtree-2.png",
+   "w": 72,
+   "h": 71,
+   "frames": 1,
+   "anchor": [
+    36,
+    71
+   ],
+   "footprint": {
+    "x": -29,
+    "y": -12,
+    "w": 58,
+    "h": 12
+   }
+  },
+  "iso-pine-0": {
+   "file": "assets/props/iso-pine-0.png",
+   "w": 62,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    31,
+    97
+   ],
+   "footprint": {
+    "x": -25,
+    "y": -12,
+    "w": 50,
+    "h": 12
+   }
+  },
+  "iso-pine-1": {
+   "file": "assets/props/iso-pine-1.png",
+   "w": 60,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    30,
+    97
+   ],
+   "footprint": {
+    "x": -24,
+    "y": -12,
+    "w": 48,
+    "h": 12
+   }
+  },
+  "iso-pine-2": {
+   "file": "assets/props/iso-pine-2.png",
+   "w": 63,
+   "h": 97,
+   "frames": 1,
+   "anchor": [
+    31,
+    97
+   ],
+   "footprint": {
+    "x": -25,
+    "y": -12,
+    "w": 50,
+    "h": 12
+   }
+  },
+  "iso-rock-0": {
+   "file": "assets/props/iso-rock-0.png",
+   "w": 36,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    18,
+    31
+   ],
+   "footprint": {
+    "x": -14,
+    "y": -8,
+    "w": 29,
+    "h": 8
+   }
+  },
+  "iso-rock-1": {
+   "file": "assets/props/iso-rock-1.png",
+   "w": 29,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    14,
+    31
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -8,
+    "w": 23,
+    "h": 8
+   }
+  },
+  "iso-rock-2": {
+   "file": "assets/props/iso-rock-2.png",
+   "w": 32,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    16,
+    31
+   ],
+   "footprint": {
+    "x": -13,
+    "y": -8,
+    "w": 26,
+    "h": 8
+   }
+  },
+  "iso-rock-3": {
+   "file": "assets/props/iso-rock-3.png",
+   "w": 34,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    17,
+    31
+   ],
+   "footprint": {
+    "x": -14,
+    "y": -8,
+    "w": 27,
+    "h": 8
+   }
+  },
+  "iso-ruin-0": {
+   "file": "assets/props/iso-ruin-0.png",
+   "w": 54,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    27,
+    45
+   ],
+   "footprint": {
+    "x": -22,
+    "y": -11,
+    "w": 43,
+    "h": 11
+   }
+  },
+  "iso-ruin-1": {
+   "file": "assets/props/iso-ruin-1.png",
+   "w": 54,
+   "h": 46,
+   "frames": 1,
+   "anchor": [
+    27,
+    46
+   ],
+   "footprint": {
+    "x": -22,
+    "y": -12,
+    "w": 43,
+    "h": 12
+   }
+  },
+  "iso-ruin-2": {
+   "file": "assets/props/iso-ruin-2.png",
+   "w": 54,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    27,
+    45
+   ],
+   "footprint": {
+    "x": -22,
+    "y": -11,
+    "w": 43,
+    "h": 11
+   }
+  },
+  "iso-stake-0": {
+   "file": "assets/props/iso-stake-0.png",
+   "w": 26,
+   "h": 37,
+   "frames": 1,
+   "anchor": [
+    13,
+    37
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -9,
+    "w": 21,
+    "h": 9
+   }
+  },
+  "iso-stake-1": {
+   "file": "assets/props/iso-stake-1.png",
+   "w": 26,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    13,
+    41
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -10,
+    "w": 21,
+    "h": 10
+   }
+  },
+  "iso-stump-0": {
+   "file": "assets/props/iso-stump-0.png",
+   "w": 28,
+   "h": 21,
+   "frames": 1,
+   "anchor": [
+    14,
+    21
+   ],
+   "footprint": {
+    "x": -11,
+    "y": -5,
+    "w": 22,
+    "h": 5
+   }
+  },
+  "iso-stump-1": {
+   "file": "assets/props/iso-stump-1.png",
+   "w": 27,
+   "h": 21,
+   "frames": 1,
+   "anchor": [
+    13,
+    21
+   ],
+   "footprint": {
+    "x": -11,
+    "y": -5,
+    "w": 22,
+    "h": 5
+   }
+  },
+  "iso-stump-2": {
+   "file": "assets/props/iso-stump-2.png",
+   "w": 29,
+   "h": 21,
+   "frames": 1,
+   "anchor": [
+    14,
+    21
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -5,
+    "w": 23,
+    "h": 5
+   }
+  },
+  "iso-tree-0": {
+   "file": "assets/props/iso-tree-0.png",
+   "w": 90,
+   "h": 93,
+   "frames": 1,
+   "anchor": [
+    45,
+    93
+   ],
+   "footprint": {
+    "x": -36,
+    "y": -12,
+    "w": 72,
+    "h": 12
+   }
+  },
+  "iso-tree-1": {
+   "file": "assets/props/iso-tree-1.png",
+   "w": 92,
+   "h": 93,
+   "frames": 1,
+   "anchor": [
+    46,
+    93
+   ],
+   "footprint": {
+    "x": -37,
+    "y": -12,
+    "w": 74,
+    "h": 12
+   }
+  },
+  "iso-tree-2": {
+   "file": "assets/props/iso-tree-2.png",
+   "w": 94,
+   "h": 90,
+   "frames": 1,
+   "anchor": [
+    47,
+    90
+   ],
+   "footprint": {
+    "x": -38,
+    "y": -12,
+    "w": 75,
+    "h": 12
+   }
+  },
+  "keg": {
+   "file": "assets/props/keg.png",
+   "w": 17,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    8,
+    16
+   ],
+   "footprint": {
+    "x": -7,
+    "y": -4,
+    "w": 14,
+    "h": 4
+   },
+   "height": 15,
+   "desc": "a small wooden keg lying on its side on a little wooden cradle stand, with a wooden tap at the front"
+  },
+  "kyra-bead": {
+   "file": "assets/props/kyra-bead.png",
+   "w": 7,
+   "h": 4,
+   "frames": 1,
+   "anchor": [
+    3,
+    4
+   ],
+   "footprint": null,
+   "height": 3,
+   "desc": "two tiny honey-coloured round wooden beads lying on a bit of dark earth, catching the light"
+  },
+  "kyra-ribbon": {
+   "file": "assets/props/kyra-ribbon.png",
+   "w": 9,
+   "h": 5,
+   "frames": 1,
+   "anchor": [
+    4,
+    5
+   ],
+   "footprint": null,
+   "height": 5,
+   "desc": "a short faded red cloth hair ribbon lying tangled in a few golden straws"
+  },
+  "lantern": {
+   "file": "assets/props/lantern.png",
+   "w": 8,
+   "h": 13,
+   "frames": 4,
+   "anchor": [
+    3,
+    13
+   ],
+   "footprint": null,
+   "height": 12,
+   "desc": "an old iron lantern with glass panes and a ring handle on top, standing on the ground, a warm candle flame glowing inside",
+   "fps": 6,
+   "light": {
+    "radius": 48,
+    "color": "#ffd27a",
+    "flicker": true
+   }
+  },
+  "oak-tree": {
+   "file": "assets/props/oak-tree.png",
+   "w": 127,
+   "h": 119,
+   "frames": 1,
+   "anchor": [
+    67,
+    119
+   ],
+   "footprint": {
+    "x": -10,
+    "y": -8,
+    "w": 20,
+    "h": 8
+   },
+   "height": 118,
+   "desc": "a large old summer oak tree with a broad round leafy crown and a thick gnarled trunk, roots visible at the base",
+   "sway": true
+  },
+  "pigpen-gate": {
+   "file": "assets/props/pigpen-gate.png",
+   "w": 49,
+   "h": 19,
+   "frames": 1,
+   "anchor": [
+    24,
+    19
+   ],
+   "footprint": {
+    "x": -18,
+    "y": -3,
+    "w": 36,
+    "h": 3
+   },
+   "height": 18,
+   "desc": "a rustic wooden pigpen gate: a short section of split-rail fence with a simple swing gate of rough planks between two posts, a rope loop as latch, front view"
+  },
+  "sack": {
+   "file": "assets/props/sack.png",
+   "w": 15,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    7,
+    15
+   ],
+   "footprint": {
+    "x": -5,
+    "y": -3,
+    "w": 10,
+    "h": 3
+   },
+   "height": 14,
+   "desc": "a full burlap grain sack tied at the top with a cord, standing upright and slightly slumped"
+  },
+  "shield-on-ground": {
+   "file": "assets/props/shield-on-ground.png",
+   "w": 20,
+   "h": 16,
+   "frames": 1,
+   "anchor": [
+    10,
+    16
+   ],
+   "footprint": null,
+   "height": 15,
+   "desc": "a dented round wooden shield with a black-and-white painted front and an iron boss lying flat on the ground, slightly tilted"
+  },
+  "signpost": {
+   "file": "assets/props/signpost.png",
+   "w": 33,
+   "h": 45,
+   "frames": 1,
+   "anchor": [
+    16,
+    45
+   ],
+   "footprint": {
+    "x": -4,
+    "y": -3,
+    "w": 8,
+    "h": 3
+   },
+   "height": 44,
+   "desc": "a weathered wooden signpost at a crossroads: one tall post with two blank arrow-shaped wooden boards, one pointing LEFT and one pointing RIGHT, the boards are completely EMPTY and blank (no writing, no symbols), a small stone pile at the foot"
+  },
+  "stones-pile": {
+   "file": "assets/props/stones-pile.png",
+   "w": 20,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    10,
+    12
+   ],
+   "footprint": {
+    "x": -8,
+    "y": -4,
+    "w": 16,
+    "h": 4
+   },
+   "height": 11,
+   "desc": "a small loose pile of about eight rounded grey fieldstones of different sizes"
+  },
+  "stool": {
+   "file": "assets/props/stool.png",
+   "w": 12,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    6,
+    12
+   ],
+   "footprint": {
+    "x": -4,
+    "y": -3,
+    "w": 8,
+    "h": 3
+   },
+   "height": 11,
+   "desc": "a simple three-legged round wooden milking stool"
+  },
+  "table": {
+   "file": "assets/props/table.png",
+   "w": 36,
+   "h": 22,
+   "frames": 1,
+   "anchor": [
+    18,
+    22
+   ],
+   "footprint": {
+    "x": -17,
+    "y": -6,
+    "w": 34,
+    "h": 6
+   },
+   "height": 21,
+   "desc": "a rustic rectangular farmhouse table of heavy oak planks on sturdy legs, empty top, oriented left to right"
+  },
+  "tent-big-black": {
+   "file": "assets/props/tent-big-black.png",
+   "w": 81,
+   "h": 73,
+   "frames": 1,
+   "anchor": [
+    40,
+    73
+   ],
+   "footprint": {
+    "x": -32,
+    "y": -16,
+    "w": 64,
+    "h": 16
+   },
+   "height": 72,
+   "desc": "a large imposing black military command tent (a captain's pavilion) of heavy black canvas with a tall central pole, a black-and-white quartered pennant on top, white trim along the roof edge, front flaps tied open showing a dim inside, guy ropes and pegs"
+  },
+  "tent": {
+   "file": "assets/props/tent.png",
+   "w": 40,
+   "h": 35,
+   "frames": 1,
+   "anchor": [
+    20,
+    35
+   ],
+   "footprint": {
+    "x": -16,
+    "y": -10,
+    "w": 32,
+    "h": 10
+   },
+   "height": 34,
+   "desc": "a small A-frame travel tent of weathered beige canvas on wooden poles with guy ropes and pegs, the front flap open showing a dark inside"
+  },
+  "torch": {
+   "file": "assets/props/torch.png",
+   "w": 18,
+   "h": 41,
+   "frames": 4,
+   "anchor": [
+    6,
+    41
+   ],
+   "footprint": {
+    "x": -2,
+    "y": -2,
+    "w": 4,
+    "h": 2
+   },
+   "height": 40,
+   "desc": "a tall standing torch: a wooden pole stuck in the ground with a pitch-soaked rag head burning with a bright orange flame at the top",
+   "fps": 8,
+   "light": {
+    "radius": 80,
+    "color": "#ff9a40",
+    "flicker": true
+   }
+  },
+  "training-dummy": {
+   "file": "assets/props/training-dummy.png",
+   "w": 29,
+   "h": 39,
+   "frames": 1,
+   "anchor": [
+    14,
+    39
+   ],
+   "footprint": {
+    "x": -5,
+    "y": -3,
+    "w": 10,
+    "h": 3
+   },
+   "height": 38,
+   "desc": "a straw training dummy: a wooden post with a crossbar as arms, a body of bound straw wrapped in a torn sackcloth, a sack head, standing in the ground, a few cuts in the straw"
+  },
+  "twigs": {
+   "file": "assets/props/twigs.png",
+   "w": 20,
+   "h": 10,
+   "frames": 1,
+   "anchor": [
+    10,
+    10
+   ],
+   "footprint": null,
+   "height": 9,
+   "desc": "a small bundle of dry brown twigs and brushwood for a campfire lying on the ground"
+  },
+  "weapon-rack": {
+   "file": "assets/props/weapon-rack.png",
+   "w": 30,
+   "h": 31,
+   "frames": 1,
+   "anchor": [
+    15,
+    31
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -4,
+    "w": 24,
+    "h": 4
+   },
+   "height": 30,
+   "desc": "a wooden weapon rack with two spears, a sword and a wooden shield leaning in it"
+  },
+  "well": {
+   "file": "assets/props/well.png",
+   "w": 35,
+   "h": 41,
+   "frames": 1,
+   "anchor": [
+    17,
+    41
+   ],
+   "footprint": {
+    "x": -14,
+    "y": -9,
+    "w": 28,
+    "h": 9
+   },
+   "height": 40,
+   "desc": "a round village well of grey fieldstones with a small wooden roof of shingles on two posts, a wooden crank winch with rope and a bucket hanging"
+  }
+ },
+ "icons": {
+  "atlas": "assets/ui/items.png",
+  "cell": 32,
+  "cols": 8,
+  "ids": {
+   "bead": 0,
+   "map": 1,
+   "key": 2,
+   "stone": 3,
+   "twig": 4,
+   "rope": 5,
+   "letter": 6,
+   "bag": 7,
+   "book-alana": 8,
+   "book-herbs": 9,
+   "journal": 10,
+   "dagger": 11,
+   "coins": 12,
+   "tincture": 13,
+   "bread": 14,
+   "cheese": 15,
+   "bacon": 16,
+   "waterskin": 17,
+   "blanket": 18,
+   "cloak": 19,
+   "tinder": 20,
+   "flowers": 21,
+   "apple": 22,
+   "ribbon": 23,
+   "honey-cake": 24,
+   "chain-pastry": 25
+  }
+ },
+ "images": {
+  "tactics/sky-day": {
+   "file": "assets/tactics/sky-day.png",
+   "w": 640,
+   "h": 360
+  },
+  "tactics/sky-dusk": {
+   "file": "assets/tactics/sky-dusk.png",
+   "w": 640,
+   "h": 360
+  },
+  "tactics/sky-forest": {
+   "file": "assets/tactics/sky-forest.png",
+   "w": 640,
+   "h": 360
+  },
+  "tactics/sky-night": {
+   "file": "assets/tactics/sky-night.png",
+   "w": 640,
+   "h": 360
+  },
+  "tactics/tex-cliff": {
+   "file": "assets/tactics/tex-cliff.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-cliffgrass": {
+   "file": "assets/tactics/tex-cliffgrass.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-dirt": {
+   "file": "assets/tactics/tex-dirt.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-drygrass": {
+   "file": "assets/tactics/tex-drygrass.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-forest": {
+   "file": "assets/tactics/tex-forest.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-grass": {
+   "file": "assets/tactics/tex-grass.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-mud": {
+   "file": "assets/tactics/tex-mud.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-sand": {
+   "file": "assets/tactics/tex-sand.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-stone": {
+   "file": "assets/tactics/tex-stone.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-wall": {
+   "file": "assets/tactics/tex-wall.png",
+   "w": 256,
+   "h": 256
+  },
+  "tactics/tex-water": {
+   "file": "assets/tactics/tex-water.png",
+   "w": 256,
+   "h": 256
+  },
+  "ui/title": {
+   "file": "assets/ui/title.png",
+   "w": 1280,
+   "h": 720
+  }
+ }
+}

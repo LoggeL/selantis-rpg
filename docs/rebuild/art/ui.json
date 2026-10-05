@@ -1,0 +1,34 @@
+{
+  "area": "ui",
+  "tool": "scripts/art/codex_image.sh (Codex CLI image generation)",
+  "assets": [
+    {
+      "id": "title",
+      "use": "Title screen backdrop (ui/titleBackdrop.ts), animated in the DOM",
+      "prompt": "Title-screen illustration for a fantasy story RPG, wide cinematic 16:9 landscape (1672x941 or similar 16:9), NIGHT scene of a peaceful rural fantasy valley. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, soft natural moonless starlight. Side-on panoramic view, NOT top-down.\nComposition: the upper 55% is a deep night sky in night-blue and violet with many small stars and a faint milky band; slightly left of center, in the WEST (left third), one exceptionally bright large star (Crios) with soft cross-shaped rays and a gentle TURQUOISE shimmer/halo around it (turquoise #49e0c8 only here). Below: layered rolling hills fading into blue haze in the distance; in the middle distance on a gentle hill a small half-timbered farmhouse with a thatched roof and ONE warm orange-yellow glowing window, a thin wisp of chimney smoke, a wooden fence, a big old tree beside it; a field of ripe wheat silvered by starlight. On the right side a dark forest edge with tall deciduous trees and pines. Foreground (bottom 15%): dark tall grass, wildflowers and ferns in silhouette, a few softly glowing yellow-green fireflies scattered near the grass. Calm, wistful, magical, late summer. The center of the sky is fairly empty and calm (space for a game logo).\nPalette: night blue, deep violet, dark summer green, wheat gold in moonless starlight, warm orange window light, a touch of turquoise only around the star.\nAbsolutely NO people, no animals in focus, no text, no letters, no logo, no watermark, no frame, no border, no UI.\nMatch the painted pixel-art style of the attached reference images (detailed SNES-style landscapes).",
+      "variants": [
+        {
+          "raw": "output/imagegen/raw/ui/title-a.png",
+          "refs": [
+            "output/imagegen/style-refs/selantis-rain-forest.png",
+            "output/imagegen/style-refs/selantis-road-east.png",
+            "output/imagegen/style-refs/insel-cut-epilog.png"
+          ],
+          "chosen": false,
+          "note": "beautiful too; the wheat field is smaller and the sky centre busier"
+        },
+        {
+          "raw": "output/imagegen/raw/ui/title-b.png",
+          "refs": [
+            "output/imagegen/style-refs/selantis-rain-forest.png",
+            "output/imagegen/style-refs/selantis-map-felder.png"
+          ],
+          "chosen": true,
+          "note": "calm sky for the logo, Crios in the west, warm window, wheat, forest edge; the walled town on the western hill reads as Trapas"
+        }
+      ],
+      "processing": "python3 scripts/art/ui_title.py output/imagegen/raw/ui/title-b.png (16:9 crop, Lanczos to 1280x720, star detection -> game/src/ui/titleData.ts)",
+      "output": "game/public/assets/ui/title.png"
+    }
+  ]
+}

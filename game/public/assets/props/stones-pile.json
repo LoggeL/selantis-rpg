@@ -1,0 +1,15 @@
+{
+  "height": 11,
+  "frames": 1,
+  "anchor": [
+    10,
+    12
+  ],
+  "desc": "a small loose pile of about eight rounded grey fieldstones of different sizes",
+  "footprint": {
+    "x": -8,
+    "y": -4,
+    "w": 16,
+    "h": 4
+  }
+}

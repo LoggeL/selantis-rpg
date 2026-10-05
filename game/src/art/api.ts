@@ -3,20 +3,21 @@ import type { Dir } from '../core/types';
 
 /**
  * CONTRACT between art/ (producer) and world/, tactics/, ui/, chapters/ (consumers).
- * All graphics are generated procedurally into canvases and registered as Phaser textures once.
+ * Graphics are Codex-generated painted assets listed in public/assets/manifest.json (DESIGN.md §3, pipeline in
+ * docs/rebuild/art-pipeline.md); FX textures are procedural; ids without an asset get neutral placeholders.
  * The art agent owns the implementation in art/index.ts and may ADD members; it must not remove or rename these.
  */
 
+/** World grid unit (px) for tile-based coordinates (world `units: 'tiles'`, collision cells). */
 export const TILE = 16;
 /**
- * Standard character body size. Huge characters (Baris) have a 24x32 body. Origin is bottom-center (feet) at (0.5, 1).
- * NOTE (art): the generated frames are wider/taller than the body so weapons, bows and lying poses fit —
- * 24x24 for normal characters, 32x32 for huge ones. Always use characterSize(key) for the real frame size;
- * with origin (0.5, 1) the feet stay exactly at the sprite position.
+ * Character frames: painted 64x64 cells (lying poses 128x64, weapon poses 96x64) with the feet at (32, 60) — use
+ * characterSize(key) for the frame size and characterAnchor(key) as sprite origin (= (0.5, 0.9375)). Figures are
+ * 38–44 px tall (Baris ~52).
  */
-export const CHAR_W = 16;
-export const CHAR_H = 24;
+export const CHAR_FRAME = 64;
 
+/** Ground materials of painted maps (world SurfaceDef.kind): footsteps, speed, dust, wading/hiding. */
 export type TerrainId =
   | 'grass' | 'meadow' | 'darkgrass' | 'forest'      // greens (forest = dark forest floor with leaf litter)
   | 'dirt' | 'path' | 'road' | 'mud' | 'sand'        // ground (path = trodden footpath, road = wide cart road)
@@ -24,16 +25,6 @@ export type TerrainId =
   | 'water' | 'shallow'                              // water (animated), shallow is wadeable ford
   | 'stone' | 'cobble' | 'wood' | 'rug' | 'carpet'   // floors (wood = plank floor, stone = flagstones)
   | 'cliff' | 'void';                                // impassable
-
-export interface GroundSpec {
-  cols: number;
-  rows: number;
-  /** terrain[row][col] */
-  terrain: TerrainId[][];
-  seed: number;
-  /** Optional tint mood baked into tiles (e.g. autumn later). */
-  palette?: 'summer' | 'night';
-}
 
 export type CharAnim =
   | 'idle' | 'walk' | 'run' | 'sneak' | 'interact' | 'kneel' | 'sit' | 'lie'
@@ -43,10 +34,16 @@ export type CharAnim =
  * (art extension) Additional animations every human character also has, same key scheme via animKey():
  * 'sit-read' (sitting with an open book), 'crouch' (static hiding crouch), 'sleep' (lying, eyes closed),
  * 'struggle' (hands tied behind the back, tugging), 'wave', 'point', 'talk' (gesturing), 'cheer'.
- * Animals map every key onto idle/walk/run.
+ * Keys without a painted pose fall back along a chain ending in idle (e.g. sit → kneel → idle). Every other pose
+ * listed in the manifest (animal poses such as 'graze', 'peck', 'fly', or 'hurt') is playable under its own name:
+ * animKey(key, '<pose>' as CharAnimExtra, dir). See (G.art as ArtApi & ArtExtras).poseIds(id).
  */
 export type CharAnimExtra = 'sit-read' | 'crouch' | 'sleep' | 'struggle' | 'wave' | 'point' | 'talk' | 'cheer';
 
+/**
+ * Legacy look description from the procedural era. Characters are painted manifest ids now; a spec only tints the
+ * placeholder silhouette (cloak/top colour) so unknown figures stay distinguishable until their sheets exist.
+ */
 export interface CharacterSpec {
   body?: 'slim' | 'normal' | 'broad' | 'huge' | 'child';
   skin: string;             // palette color name or hex
@@ -115,9 +112,6 @@ export interface ArtApi {
   /** Whether the manifest contains an asset (for content fallbacks). */
   hasAsset(kind: 'character' | 'prop' | 'background' | 'plate' | 'portrait', id: string): boolean;
 
-  /** Builds the ground layer (autotiled, varied, animated water) for a map. Returns a container at (0,0). */
-  buildGround(scene: Phaser.Scene, spec: GroundSpec): Phaser.GameObjects.Container;
-
   /** Ensures a prop texture exists and returns its info. `variant` picks a deterministic visual variant. */
   prop(scene: Phaser.Scene, id: string, variant?: number): PropInfo;
   /** All available prop ids (for galleries and validation). */
@@ -125,7 +119,8 @@ export interface ArtApi {
 
   /**
    * Ensures textures + animations for a character and returns the texture key.
-   * `idOrSpec` is a preset id (see characterIds()) or a custom spec.
+   * `idOrSpec` is a manifest character id (see characterIds()) or a custom spec (→ placeholder silhouette tinted
+   * with the spec's cloak/top colour; unknown ids → neutral silhouette, both with the same 64x64 geometry).
    * Animation keys: animKey(key, anim, dir). Left is usually right mirrored by the art layer itself.
    */
   character(scene: Phaser.Scene, idOrSpec: string | CharacterSpec, customKey?: string): string;
@@ -137,14 +132,14 @@ export interface ArtApi {
   /**
    * Dialogue portrait URL: the Codex-generated 256x256 painting from public/assets/portraits/<id>[-<mood>].png
    * when present (mood falls back to neutral), otherwise a generated fallback data URL.
-   * Derived from the same character spec as the sprite so they match. Original designs only —
+   * Original designs only —
    * never modelled on film actors (DESIGN.md §2). Moods at least: neutral, happy, sad, angry, surprised,
    * determined, hurt, thinking, scared. Unknown ids fall back to a hooded silhouette.
    */
   portrait(id: string, mood?: string): string;
   portraitIds(): string[];
 
-  /** Small 16x16 item/UI icons as Phaser texture keys and as data URLs (for DOM UI). */
+  /** Item/UI icons (32x32 from the painted atlas ui/items.png, else 16x16 procedural) as texture keys and data URLs. */
   icon(scene: Phaser.Scene, id: string): string;
   iconDataUrl(id: string): string;
   iconIds(): string[];

@@ -1,0 +1,15 @@
+{
+  "height": 14,
+  "frames": 1,
+  "anchor": [
+    7,
+    15
+  ],
+  "desc": "a full burlap grain sack tied at the top with a cord, standing upright and slightly slumped",
+  "footprint": {
+    "x": -5,
+    "y": -3,
+    "w": 10,
+    "h": 3
+  }
+}

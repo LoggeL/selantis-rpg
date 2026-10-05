@@ -17,6 +17,7 @@ import { PlateUi } from './plate';
 import { registerDefaultSpeakers } from './speakers';
 import { RotateHint } from './rotate';
 import { showTitle } from './title';
+import { preloadBackdrop } from './titleBackdrop';
 import { ToastUi } from './toast';
 import { TouchUi } from './touch';
 import type { UiApi } from './api';
@@ -39,8 +40,10 @@ export interface UiApiExt extends UiApi {
   transition(start: () => void | Promise<void>, opts?: { fadeMs?: number }): Promise<void>;
   /** Contextual touch buttons (Schleichen / Spurenblick). */
   setTouchExtras(opts: { sneak?: boolean; look?: boolean }): void;
-  /** Ids of registered plates. */
+  /** Ids of registered (code-drawn) plates. */
   plateIds(): string[];
+  /** Loads a plate (painted image or code-drawn) ahead of time, so a later plate(id) opens without delay. */
+  prefetchPlate(id: string): void;
   /** Current HUD mode. */
   hudMode(): HudMode;
 
@@ -59,6 +62,11 @@ export interface UiApiExt extends UiApi {
    * `closeBag` (default true) closes the bag before `run`.
    */
   registerItemAction(itemId: string, action: ItemAction): void;
+  /**
+   * Lets the running gameplay scene claim Escape before the menu opens (battle: cancel targeting/selection first).
+   * The handler returns true when it used the key. Only asked while no modal UI is open. Pass null to clear.
+   */
+  setEscapeHandler(fn: (() => boolean) | null): void;
 }
 
 export type { ItemAction } from './bag';
@@ -79,6 +87,7 @@ function forwardTapToCanvas(x: number, y: number): void {
 }
 
 export function createUi(): UiApiExt {
+  let escapeHandler: (() => boolean) | null = null;
   registerDefaultSpeakers();
   let dialogue!: DialogueUi;
   let narration!: NarrationUi;
@@ -132,6 +141,7 @@ export function createUi(): UiApiExt {
       touch = new TouchUi();
       touch.mount();
       new RotateHint().mount();
+      preloadBackdrop(); // the title painting loads while Phaser boots
       hints.onChange = h => touch.setVerb(h?.verb ?? null);
       touch.onTap = (x, y) => { if (!hints.tapAt(x, y)) forwardTapToCanvas(x, y); };
       // A new scene is running: story UI may draw again.
@@ -144,7 +154,7 @@ export function createUi(): UiApiExt {
         if (ctx.has('title')) return false;
         const top = ctx.top();
         const explore = ctx.hudMode === 'explore' || Boolean(top?.allowJournal);
-        if (k === 'Escape') { api.openMenu(); return true; }
+        if (k === 'Escape') { if (!top && escapeHandler?.()) return true; api.openMenu(); return true; }
         if ((k === 'Tab' || k === 'j' || k === 'J') && explore) { api.openJournal(); return true; }
         if ((k === 'i' || k === 'I') && explore) { api.openBag(); return true; }
         return false;
@@ -166,6 +176,7 @@ export function createUi(): UiApiExt {
       if (plates) plates.register(id, draw); else pendingPlates.push([id, draw]);
     },
     plateIds: () => (plates ? plates.ids() : pendingPlates.map(p => p[0])),
+    prefetchPlate: id => plates?.prefetch(id),
 
     chapterCard: (numeral, title, subtitle) => (ctx.stale() ? ctx.never() : chapterCard(numeral, title, subtitle)),
     fade(dir, ms, color) { fadeGen++; return fx.fade(dir, ms, color); },
@@ -221,6 +232,7 @@ export function createUi(): UiApiExt {
     token: () => ctx.epoch,
     alive: token => token === ctx.epoch && !ctx.stale(),
     registerItemAction,
+    setEscapeHandler(fn) { escapeHandler = fn; },
 
     busy: () => ctx.busy(),
     async whenIdle() {
@@ -238,7 +250,7 @@ export function createUi(): UiApiExt {
       if (overlay && !overlay.handle.closed) overlay.handle.close();
       overlay = null;
       for (const name of ['dialog', 'card', 'overlay', 'debug', 'title'] as const) ctx.layers[name].textContent = '';
-      ctx.root.classList.remove('title-active');
+      ctx.root.classList.remove('title-active', 'title-subpage');
       const game = document.getElementById('game');
       if (game) game.style.background = '';
       fx.letterbox(false);

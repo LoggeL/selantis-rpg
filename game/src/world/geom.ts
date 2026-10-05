@@ -5,20 +5,43 @@ import type { Area, At } from './api';
 export interface Vec { x: number; y: number }
 export interface Rect { x: number; y: number; w: number; h: number }
 
-/** Converts an At (tiles by default, tile CENTER) to pixels. */
+/**
+ * Coordinate units of the running map: painted maps use pixels, ASCII maps tiles (16 px, At = tile CENTER).
+ * Set by the world scene when a map is built (one world scene at a time).
+ */
+let pxUnits = false;
+export function setMapUnits(units: 'px' | 'tiles'): void { pxUnits = units === 'px'; }
+export function mapUnits(): 'px' | 'tiles' { return pxUnits ? 'px' : 'tiles'; }
+/**
+ * World scale: how big characters are relative to the 16 px tile world (1 on ASCII maps, ~1.75 on painted maps with
+ * ~42 px figures). Speeds, radii, follow distances and the foot box scale with it.
+ */
+let worldK = 1;
+export function setWorldScale(k: number): void { worldK = k; }
+export function wk(): number { return worldK; }
+
+/** A distance in map units → px. */
+export function unitPx(n: number): number { return pxUnits ? n : n * TILE; }
+
+/** Converts an At (map units; tiles = tile CENTER) to pixels. */
 export function toPx(at: At): Vec {
-  if (Array.isArray(at)) return { x: at[0] * TILE + TILE / 2, y: at[1] * TILE + TILE / 2 };
+  if (Array.isArray(at)) return pxUnits ? { x: at[0], y: at[1] } : { x: at[0] * TILE + TILE / 2, y: at[1] * TILE + TILE / 2 };
   const o = at as { x: number; y: number; px?: boolean };
-  return o.px ? { x: o.x, y: o.y } : { x: o.x * TILE + TILE / 2, y: o.y * TILE + TILE / 2 };
+  return o.px || pxUnits ? { x: o.x, y: o.y } : { x: o.x * TILE + TILE / 2, y: o.y * TILE + TILE / 2 };
 }
 
 export function isAt(v: unknown): v is At {
   return Array.isArray(v) ? v.length === 2 && typeof v[0] === 'number' : typeof v === 'object' && v !== null && 'x' in v && 'y' in v;
 }
 
-/** Converts an Area (tiles by default) to a pixel rect. */
+/** Converts an Area (map units) to a pixel rect. */
 export function areaPx(a: Area): Rect {
-  return a.px ? { x: a.x, y: a.y, w: a.w, h: a.h } : { x: a.x * TILE, y: a.y * TILE, w: a.w * TILE, h: a.h * TILE };
+  return a.px || pxUnits ? { x: a.x, y: a.y, w: a.w, h: a.h } : { x: a.x * TILE, y: a.y * TILE, w: a.w * TILE, h: a.h * TILE };
+}
+
+/** Converts px back to an At in map units (for handles and tools). */
+export function fromPx(x: number, y: number): [number, number] {
+  return pxUnits ? [x, y] : [(x - TILE / 2) / TILE, (y - TILE / 2) / TILE];
 }
 
 export function pxToTile(x: number, y: number): Vec { return { x: (x - TILE / 2) / TILE, y: (y - TILE / 2) / TILE }; }

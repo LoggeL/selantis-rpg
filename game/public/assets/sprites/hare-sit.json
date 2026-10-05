@@ -1,0 +1,9 @@
+{
+  "character": "hare",
+  "pose": "sit",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ]
+}

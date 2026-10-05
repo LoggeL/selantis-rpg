@@ -1,0 +1,17 @@
+{
+  "height": 12,
+  "frames": 4,
+  "anchor": [
+    3,
+    13
+  ],
+  "desc": "an old iron lantern with glass panes and a ring handle on top, standing on the ground, a warm candle flame glowing inside",
+  "frameW": 8,
+  "fps": 6,
+  "footprint": null,
+  "light": {
+    "radius": 48,
+    "color": "#ffd27a",
+    "flicker": true
+  }
+}

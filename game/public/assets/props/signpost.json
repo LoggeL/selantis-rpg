@@ -1,0 +1,15 @@
+{
+  "height": 44,
+  "frames": 1,
+  "anchor": [
+    16,
+    45
+  ],
+  "desc": "a weathered wooden signpost at a crossroads: one tall post with two blank arrow-shaped wooden boards, one pointing LEFT and one pointing RIGHT, the boards are completely EMPTY and blank (no writing, no symbols), a small stone pile at the foot",
+  "footprint": {
+    "x": -4,
+    "y": -3,
+    "w": 8,
+    "h": 3
+  }
+}

@@ -9,11 +9,13 @@ import type { Dir } from '../core/types';
  *
  * A chapter scene is a map definition plus a few async functions:
  *
- *   const farm = defineMap({ id: 'farm', ground: [...], legend: {...}, props: [...], spawns: {...} });
- *   start: () => startWorld({ map: farm, spawn: 'start', script: async w => { ... } })
+ *   const wiese = defineMap({ id: 'wiese', background: 'wiese', walk: [[[40, 300], …]], spawns: {...}, … });
+ *   start: () => startWorld({ map: wiese, spawn: 'start', script: async w => { ... } })
  *
- * Coordinates are TILES unless noted (16 px per tile). Fractions are fine: [10.5, 4] is between two tiles.
- * A tile position means the CENTER of that tile. Use { x, y, px: true } for raw pixel positions.
+ * Maps are PAINTED (DESIGN.md §3/§6.2): `background` names a Codex-painted image (assets/bg/<id>.png, 640x360 or
+ * 1280x720 scrolling) and the geometry is drawn on top as polygons in MAP PIXELS. Every coordinate and distance
+ * (At, Area, wander, guard range, waitForNear radius) is in PIXELS: [312, 240] is a pixel. `units: 'tiles'` switches
+ * At/Area/distances to 16 px tiles (a tile position = the tile's centre); polygons are always pixels.
  *
  * The world agent owns this file and may ADD members; it must not remove or rename these.
  */
@@ -22,9 +24,9 @@ import type { Dir } from '../core/types';
 // Basics
 // ---------------------------------------------------------------------------------------------------------------
 
-/** A position: [tileX, tileY] or { x, y } in tiles, or { x, y, px: true } in pixels. */
+/** A position: [x, y] or { x, y } in map units (pixels by default, see MapDef.units); { x, y, px: true } is always pixels. */
 export type At = readonly [number, number] | { x: number; y: number; px?: boolean };
-/** A rectangle in tiles (x, y = top-left tile, w/h in tiles), or pixels with px: true. */
+/** A rectangle in map units (x, y = top-left corner), or pixels with px: true. */
 export interface Area { x: number; y: number; w: number; h: number; px?: boolean }
 
 export type TimeOfDay = 'day' | 'dusk' | 'night' | 'dawn' | 'storm';
@@ -33,6 +35,49 @@ export type EmoteKind = '!' | '?' | '…' | 'heart' | 'drop' | 'anger' | 'note';
 export type LightKind = 'fire' | 'lantern' | 'candle' | 'window' | 'urmacht' | 'moon' | 'plain';
 export type HideKind = 'bush' | 'grass' | 'crate';
 export type ClueKind = 'footprint' | 'hoof' | 'branch' | 'bead' | 'glint' | 'blood' | 'rope' | 'mark';
+
+/** A polygon in MAP PIXELS, closed implicitly: [[x, y], [x, y], …]. Author with the debug overlay (F1 / ?debug). */
+export type Polygon = readonly (readonly [number, number])[];
+
+/** A walkable area with optional holes (ponds, rocks inside a meadow). */
+export interface WalkArea { poly: Polygon; holes?: Polygon[] }
+
+/** An obstacle inside the walkable area. Blocks movement and (by default) guard vision. */
+export interface BlockDef {
+  id?: string;
+  poly: Polygon;
+  /** Blocks guard vision (default true). Ponds and low fences: false. */
+  sight?: boolean;
+  /** Blocks movement (default true). false + sight = a see-through-proof hedge you can walk around in. */
+  move?: boolean;
+}
+
+/**
+ * A part of the background that is redrawn ABOVE actors whose feet are above (smaller y than) its baseline:
+ * tree crowns and trunks, roofs, arches, hedges, foreground bushes. The baseline is where the object meets the
+ * ground (default: the lowest point of the polygon).
+ */
+export interface OccluderDef {
+  id?: string;
+  poly: Polygon;
+  baseline?: number;
+  /** Alpha while it covers the player (e.g. 0.55 for big crowns so Lia stays visible). Default 1 (opaque). */
+  fade?: number;
+}
+
+/** Ground material inside a polygon: footstep sound, dust/splash, speed, wading (wheat hides the legs). */
+export interface SurfaceDef {
+  id?: string;
+  poly: Polygon;
+  kind: TerrainId;
+  /** Speed factor (default from the kind: wheat 0.82, shallow 0.55, mud 0.72 …). */
+  speed?: number;
+  /** A crouching player is hidden here (default: kind is in MapDef.hideTerrain, i.e. wheat). */
+  hide?: boolean;
+}
+
+/** Perspective: characters get smaller towards the back (y0, scale s0) and bigger at the front (y1, scale s1). */
+export interface DepthScaleDef { y0: number; s0: number; y1: number; s1: number }
 
 /** Handlers receive the world context. They may be async; while one runs the same object cannot re-trigger. */
 export type WorldHandler = (w: WorldCtx) => void | Promise<void>;
@@ -46,20 +91,43 @@ export interface MapDef {
   /** German place name, shown as a small toast when entering via an exit (optional). */
   name?: string;
 
-  /** Ground as ASCII rows (one char per tile). See DEFAULT_LEGEND; `legend` overrides/extends it. */
-  ground: string[];
-  legend?: Record<string, TerrainId>;
-  /** Terrain for unknown chars and short rows. Default 'grass'. */
-  fill?: TerrainId;
-  seed?: number;
-  palette?: 'summer' | 'night';
-
   /**
-   * Optional ASCII prop layer with the same size as `ground` (spaces and '.' are empty). Each char maps to a prop
-   * id or a full placement (without `at`). Decor props get a deterministic variant per position, and with
-   * `jitter` a small seeded offset so forests look natural.
+   * Painted background id (game/public/assets/bg/<id>.png, from the asset manifest via G.art). 640x360 = one
+   * screen, 1280x720 = scrolling (the camera follows within the bounds). Required.
    */
-  decor?: { rows: string[]; legend: Record<string, string | Omit<PropDef, 'at'>>; jitter?: number };
+  background: string;
+  /** Explicit URL for the background (default: the manifest, then 'assets/bg/<id>.png'). */
+  backgroundUrl?: string;
+  /** Map size in px (default: the background's size). */
+  size?: { w: number; h: number };
+  /** Coordinate units for At/Area/distances. Default 'px'. */
+  units?: 'px' | 'tiles';
+  /**
+   * Time of day already painted into the background (a night clearing): the engine grades it only lightly for that
+   * time, so it is not darkened twice. Lights, darkness-driven effects and transitions to other times still work.
+   */
+  baked?: TimeOfDay;
+  /** Walkable polygons (union). Everything outside is blocked. Holes and `block` polygons cut obstacles out. */
+  walk?: (Polygon | WalkArea)[];
+  /** Obstacles (trunks, walls, the pond). */
+  block?: (Polygon | BlockDef)[];
+  /** Parts of the background drawn in front of actors standing behind them (see OccluderDef). */
+  occluders?: (Polygon | OccluderDef)[];
+  /** Ground materials (footsteps, speed, wading/hiding). Later entries win. */
+  surfaces?: SurfaceDef[];
+  /** Material outside all surfaces (default 'grass'). */
+  surface?: TerrainId;
+  /** Optional y-based character scale for perspective. */
+  depthScale?: DepthScaleDef;
+  /**
+   * World scale: character size relative to the 16 px tile world. Default 1.75 (~42 px figures). Walk speeds, interaction radii, follow distances, guard range and the foot box scale with it.
+   */
+  worldScale?: number;
+  /**
+   * Base scale for character sprites. Default 1 for the 64x64 Codex sheets (~42 px figures); the small procedural
+   * fallback sprites are shown at 2 on painted maps so placeholder art has the right size.
+   */
+  spriteScale?: number;
 
   props?: PropDef[];
   npcs?: NpcDef[];
@@ -83,7 +151,7 @@ export interface MapDef {
   music?: MusicMood | null;
 
   camera?: {
-    /** Camera bounds in tiles (default: whole map). */
+    /** Camera bounds in map units (default: whole map). */
     bounds?: Area;
     zoom?: number;
     /** Look-ahead in px in movement direction (default 18). */
@@ -156,7 +224,7 @@ export interface NpcDef {
   speaker?: string;
   /** Idle animation (default 'idle'). */
   idle?: CharAnim;
-  /** Wander radius in tiles around the start position. */
+  /** Wander radius around the start position (map units, px by default). */
   wander?: number;
   /** Talk handler. Without it the NPC is not interactable. */
   talk?: (w: WorldCtx, npc: ActorHandle) => void | Promise<void>;
@@ -176,14 +244,17 @@ export interface NpcDef {
 
 export interface InteractableDef {
   id: string;
-  at: At;
+  /** Anchor point (feet/ground). Optional when `poly` is given (then: bottom centre of the polygon). */
+  at?: At;
   /** Verb shown in the hint, e.g. „Untersuchen“, „Aufheben“, „Öffnen“. */
   verb?: string;
   /** Optional visual: prop id rendered at `at`. */
   prop?: string;
   variant?: number;
-  /** Interaction radius in px (default 18). */
+  /** Interaction radius in px (default 18 × world scale; with `poly`: distance to the polygon outline). */
   radius?: number;
+  /** Hotspot polygon in map px (painted maps: the drawn object itself). Clickable; `at` defaults to its base. */
+  poly?: Polygon;
   /** Size of the clickable/hover area in px (default 16x16, centered above `at`). */
   size?: { w: number; h: number };
   onInteract?: WorldHandler;
@@ -211,8 +282,11 @@ export interface InteractableDef {
 
 export interface ExitDef {
   id: string;
-  /** Walking into this area triggers the transition. */
-  area: Area;
+  /** Walking into this area (or `poly`) triggers the transition. */
+  area?: Area;
+  poly?: Polygon;
+  /** Fade duration in ms (default 420). */
+  fade?: number;
   to: string;
   spawn?: string;
   /** Direction the player keeps walking while fading out (auto-detected from the area at the map edge). */
@@ -226,7 +300,9 @@ export interface ExitDef {
 
 export interface TriggerDef {
   id: string;
-  area: Area;
+  /** Rectangle (map units) or `poly` (px). */
+  area?: Area;
+  poly?: Polygon;
   /** Default true. */
   once?: boolean;
   onEnter?: WorldHandler;
@@ -244,7 +320,7 @@ export interface GuardDef {
   /** 'loop' (default) or 'pingpong'. */
   mode?: 'loop' | 'pingpong';
   speed?: number;
-  /** View range in tiles (default 5.5) and full cone angle in degrees (default 70). */
+  /** View range in map units (default 5.5 tiles = 88 px) and full cone angle in degrees (default 70). */
   range?: number;
   fov?: number;
   /** Carries a lantern (adds a moving light, also drawn at night). */
@@ -270,9 +346,11 @@ export interface LightDef {
   flicker?: number;
   /** Lights fade in with darkness. Set true to show even at full day. */
   always?: boolean;
+  /** Flame particles at the light (campfire over a painted fire pit). Number = size factor (default 1). */
+  flame?: boolean | number;
 }
 
-export interface HidingSpotDef { id?: string; area: Area; kind?: HideKind }
+export interface HidingSpotDef { id?: string; area?: Area; /** Polygon in px (painted bushes). */ poly?: Polygon; kind?: HideKind }
 
 export interface ClueDef {
   id: string;
@@ -411,7 +489,7 @@ export interface WorldCtx {
 
   waitForInteract(id: string): Promise<void>;
   waitForTrigger(id: string): Promise<void>;
-  /** Resolves when the player is within `radius` tiles of the target. */
+  /** Resolves when the player is within `radius` (map units; default 1.5 tiles = 24 px) of the target. */
   waitForNear(target: At | string, radius?: number): Promise<void>;
   /**
    * Subscribes to world events. Returns an unsubscriber.
@@ -503,13 +581,3 @@ export interface WorldCtx {
 export type ControlName = 'sneak' | 'look' | 'interact' | 'run' | 'move';
 
 export type WorldEvent = 'interact' | 'trigger' | 'triggerExit' | 'clue' | 'spotted' | 'exit' | 'map';
-
-/** Default ASCII legend for MapDef.ground. */
-export const DEFAULT_LEGEND: Readonly<Record<string, TerrainId>> = {
-  '.': 'grass', ',': 'meadow', ';': 'darkgrass', 'F': 'forest',
-  'd': 'dirt', 'p': 'path', 'r': 'road', 'm': 'mud', 's': 'sand',
-  'w': 'wheat', 'c': 'crops', 'x': 'stubble',
-  '~': 'water', '-': 'shallow',
-  'S': 'stone', 'o': 'cobble', '#': 'wood', 'R': 'rug', 'C': 'carpet',
-  '^': 'cliff', ' ': 'void',
-};

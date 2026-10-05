@@ -1,0 +1,15 @@
+{
+  "height": 18,
+  "frames": 1,
+  "anchor": [
+    9,
+    19
+  ],
+  "desc": "a black iron blacksmith anvil on a thick tree stump, a hammer leaning against it",
+  "footprint": {
+    "x": -8,
+    "y": -5,
+    "w": 16,
+    "h": 5
+  }
+}

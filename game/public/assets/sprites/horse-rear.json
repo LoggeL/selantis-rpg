@@ -1,0 +1,9 @@
+{
+  "character": "horse",
+  "pose": "rear",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ]
+}

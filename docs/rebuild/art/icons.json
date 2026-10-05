@@ -1,0 +1,121 @@
+{
+  "area": "icons",
+  "sheets": {
+    "story-2": {
+      "ids": [
+        "bead",
+        "map",
+        "key",
+        "stone",
+        "twig",
+        "rope",
+        "letter",
+        "bag"
+      ],
+      "descs": [
+        "three small honey-coloured wooden beads on a broken cord",
+        "a folded old paper map",
+        "an old iron key",
+        "a fist-sized grey throwing stone",
+        "a dry forked twig",
+        "a coiled hemp rope",
+        "a sealed letter with a red wax seal",
+        "a large brown leather satchel bag"
+      ],
+      "cols": 4,
+      "rows": 2
+    },
+    "story-1": {
+      "ids": [
+        "book-alana",
+        "book-herbs",
+        "journal",
+        "dagger",
+        "coins",
+        "tincture",
+        "bread",
+        "cheese",
+        "bacon",
+        "waterskin",
+        "blanket",
+        "cloak",
+        "tinder",
+        "flowers",
+        "apple",
+        "ribbon"
+      ],
+      "descs": [
+        "a worn storybook bound in dark blue leather with a small golden star on the cover",
+        "a thick heavy herbal encyclopedia in green leather with pressed leaves sticking out",
+        "a small brown leather diary with a ribbon bookmark",
+        "a small dagger in a brown leather sheath",
+        "a little stack of copper and silver coins",
+        "a small glass bottle with a cork holding a dark green herbal tincture",
+        "a round loaf of rustic bread",
+        "half a wheel of yellow cheese",
+        "a slab of smoked bacon",
+        "a leather waterskin with a cord",
+        "a rolled grey wool blanket tied with string",
+        "a folded moss-green rain cloak",
+        "a small round tin with dry tinder fungus",
+        "a small bunch of blue cornflowers",
+        "a red apple with a leaf",
+        "a dark green hair ribbon tied in a bow"
+      ],
+      "cols": 4,
+      "rows": 4
+    },
+    "story-3": {
+      "ids": [
+        "honey-cake",
+        "chain-pastry",
+        "ribbon"
+      ],
+      "descs": [
+        "a small round golden honey-sweetened apple cake with a glossy honey glaze and baked apple slices on top",
+        "a braided golden yeast pastry shaped like a short chain of three interlocking rings, sprinkled with sugar",
+        "a short faded red cloth hair ribbon tied in a loose bow"
+      ],
+      "cols": 3,
+      "rows": 1
+    }
+  },
+  "images": {
+    "output/imagegen/raw/art/icons/story-1.png": {
+      "kind": "icons",
+      "id": "story-1",
+      "prompt": "Inventory item icon sheet for a fantasy RPG: a strict grid of 4 columns x 4 rows of separate item icons, each item centred in its own invisible square cell with wide empty gaps, nothing touching, every icon drawn large and bold so it stays readable at 32x32 pixels, slight three-quarter view, chunky pixels with a bold dark outline, warm soft lighting. Items in reading order (left to right, top to bottom): 1. a worn storybook bound in dark blue leather with a small golden star on the cover; 2. a thick heavy herbal encyclopedia in green leather with pressed leaves sticking out; 3. a small brown leather diary with a ribbon bookmark; 4. a small dagger in a brown leather sheath; 5. a little stack of copper and silver coins; 6. a small glass bottle with a cork holding a dark green herbal tincture; 7. a round loaf of rustic bread; 8. half a wheel of yellow cheese; 9. a slab of smoked bacon; 10. a leather waterskin with a cord; 11. a rolled grey wool blanket tied with string; 12. a folded moss-green rain cloak; 13. a small round tin with dry tinder fungus; 14. a small bunch of blue cornflowers; 15. a red apple with a leaf; 16. a dark green hair ribbon tied in a bow. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-05T02:33:00"
+    },
+    "output/imagegen/raw/art/icons/story-2.png": {
+      "kind": "icons",
+      "id": "story-2",
+      "prompt": "Inventory item icon sheet for a fantasy RPG: a strict grid of 4 columns x 2 rows of separate item icons, each item centred in its own invisible square cell with wide empty gaps, nothing touching, every icon drawn large and bold so it stays readable at 32x32 pixels, slight three-quarter view, chunky pixels with a bold dark outline, warm soft lighting. Items in reading order (left to right, top to bottom): 1. three small honey-coloured wooden beads on a broken cord; 2. a folded old paper map; 3. an old iron key; 4. a fist-sized grey throwing stone; 5. a dry forked twig; 6. a coiled hemp rope; 7. a sealed letter with a red wax seal; 8. a large brown leather satchel bag. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T02:32:53"
+    },
+    "output/imagegen/raw/art/icons/story-3.png": {
+      "kind": "icons",
+      "id": "story-3",
+      "prompt": "Inventory item icon sheet for a fantasy RPG: a strict grid of 3 columns x 1 rows of separate item icons, each item centred in its own invisible square cell with wide empty gaps, nothing touching, every icon drawn large and bold so it stays readable at 32x32 pixels, slight three-quarter view, chunky pixels with a bold dark outline, warm soft lighting. Items in reading order (left to right, top to bottom): 1. a small round golden honey-sweetened apple cake with a glossy honey glaze and baked apple slices on top; 2. a braided golden yeast pastry shaped like a short chain of three interlocking rings, sprinkled with sugar; 3. a short faded red cloth hair ribbon tied in a loose bow. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-05T03:07:56"
+    }
+  }
+}

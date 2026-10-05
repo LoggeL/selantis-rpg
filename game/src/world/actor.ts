@@ -26,6 +26,12 @@ export interface ActorHost {
   readonly wind: number;
   /** 0..1: how long shadows are (dusk/dawn sun from the top-left). */
   readonly longShadow: number;
+  /** Perspective scale at a feet y (MapDef.depthScale), 1 = none. */
+  scaleAt(y: number): number;
+  /** World scale (1 on ASCII maps, ~1.75 on painted maps): strides, hops. */
+  readonly worldK: number;
+  /** Base sprite scale for a character texture on this map (MapDef.spriteScale, procedural fallbacks ×2). */
+  spriteScale(charKey: string, frame: { w: number; h: number }): number;
 }
 
 export type ActorKind = 'player' | 'npc' | 'companion' | 'guard';
@@ -53,6 +59,8 @@ export class Actor {
   visible = true;
   /** Scripted path following. */
   path: Vec[] | null = null;
+  /** The current path is an idle wander step (NPC logic may cancel it; scripted walks are never cancelled). */
+  wandering = false;
   private pathSpeed = 45;
   private pathRun = false;
   private pathResolve: (() => void) | null = null;
@@ -64,7 +72,13 @@ export class Actor {
   private emoteImg: Phaser.GameObjects.Image | null = null;
   private emoteTween: Phaser.Tweens.Tween | null = null;
   private playingKey = '';
-  readonly size: { w: number; h: number };
+  /** Frame size of the character texture (64x64 for Codex sheets, 24x24/32x32 for procedural fallbacks). */
+  size: { w: number; h: number };
+  /** Visible figure size inside the frame (unscaled). */
+  private fig = { w: 16, h: 24 };
+  /** Base sprite scale (map) × perspective scale; updated in sync(). */
+  scale = 1;
+  private baseScale = 1;
   /** Extra alpha multiplier (hidden in bush). */
   fade = 1;
 
@@ -92,9 +106,10 @@ export class Actor {
     this.charKey = Actor.makeKey(scene, id, look);
     this.size = safeSize(this.charKey);
     this.x = at.x; this.y = at.y; this.dir = dir;
-    // Crisp pixel shadows at integer scale: a small and a large variant instead of stretching one texture.
-    this.shadow = host.addWorld(scene.add.image(at.x, at.y, this.size.w > 18 ? 'w-shadow-l' : 'w-shadow').setOrigin(0.5, 0.5).setDepth(SHADOW_DEPTH));
-    this.sprite = host.addWorld(scene.add.sprite(at.x, at.y, this.charKey).setOrigin(0.5, 1));
+    // Crisp pixel shadows: a small and a large variant instead of stretching one texture.
+    this.shadow = host.addWorld(scene.add.image(at.x, at.y, 'w-shadow').setOrigin(0.5, 0.5).setDepth(SHADOW_DEPTH));
+    this.sprite = host.addWorld(scene.add.sprite(at.x, at.y, this.charKey));
+    this.applyLook();
     this.applyAnim(true);
     this.sync();
   }
@@ -111,13 +126,30 @@ export class Actor {
   setLook(look: string | CharacterSpec): void {
     this.charKey = Actor.makeKey(this.host.scene, this.id, look);
     this.sprite.setTexture(this.charKey);
+    this.size = safeSize(this.charKey);
+    this.applyLook();
     this.playingKey = '';
     this.applyAnim(true);
   }
 
+  /** Origin from the art anchor (feet), figure size and base scale for the current texture. */
+  private applyLook(): void {
+    let anchor = { x: 0.5, y: 1 };
+    try { anchor = G.art.characterAnchor(this.charKey) ?? anchor; } catch { /* default */ }
+    this.sprite.setOrigin(anchor.x, anchor.y);
+    const { w, h } = this.size;
+    // Codex sheets: 64x64 frames, ~42 px figure; procedural fallbacks: the frame is the figure (plus weapon room).
+    this.fig = h >= 48 ? { w: Math.round(w * 0.34), h: Math.round(h * anchor.y * 0.74) } : { w: Math.round(w * 0.67), h: Math.round(h * anchor.y) };
+    this.baseScale = this.host.spriteScale(this.charKey, this.size);
+    this.shadow.setTexture(this.fig.w * this.baseScale > 15 ? 'w-shadow-l' : 'w-shadow');
+  }
+
   get speed(): number { return Math.hypot(this.vx, this.vy); }
   get moving(): boolean { return this.speed > 4; }
-  get headY(): number { return this.y - this.size.h; }
+  /** Visible figure size in world px (scaled). */
+  get figureW(): number { return this.fig.w * this.scale; }
+  get figureH(): number { return this.fig.h * this.scale; }
+  get headY(): number { return this.y - this.figureH; }
 
   teleport(x: number, y: number, dir?: Dir): void {
     this.x = x; this.y = y; this.vx = this.vy = 0;
@@ -141,6 +173,7 @@ export class Actor {
   /** Follows a list of px waypoints. Resolves on arrival (or when replaced/stopped). */
   moveAlong(points: Vec[], speed: number, run = false, face?: Dir): Promise<void> {
     this.finishPath();
+    this.wandering = false;
     if (!points.length) { if (face) this.face(face); return Promise.resolve(); }
     this.path = points.slice();
     this.pathSpeed = speed;
@@ -181,7 +214,7 @@ export class Actor {
       const o = { t: 0 };
       this.host.scene.tweens.add({
         targets: o, t: 1, duration: 260, ease: 'Linear',
-        onUpdate: () => { this.hopY = -Math.sin(o.t * Math.PI) * 5; },
+        onUpdate: () => { this.hopY = -Math.sin(o.t * Math.PI) * 5 * this.host.worldK; },
         onComplete: () => { this.hopY = 0; resolve(); },
       });
     });
@@ -230,7 +263,7 @@ export class Actor {
     if (this.moving && target > 0) this.rustle = Math.min(1, this.rustle + dt * 4);
     else this.rustle = Math.max(0, this.rustle - dt * 2.5);
     if (this.sink > 0.6 && !this.front) {
-      this.front = this.host.addWorld(this.host.scene.add.image(this.x, this.y, this.size.w > 18 ? 'w-wheat-front-l' : 'w-wheat-front').setOrigin(0.5, 1));
+      this.front = this.host.addWorld(this.host.scene.add.image(this.x, this.y, this.fig.w > 12 ? 'w-wheat-front-l' : 'w-wheat-front').setOrigin(0.5, 1));
     }
   }
 
@@ -282,7 +315,7 @@ export class Actor {
     const s = this.speed;
     const sprite = this.sprite;
     if (anim === 'walk' || anim === 'run' || anim === 'sneak') {
-      const nominal = anim === 'run' ? this.runSpeed : anim === 'sneak' ? 34 : this.walkSpeed;
+      const nominal = anim === 'run' ? this.runSpeed : anim === 'sneak' ? 34 * this.host.worldK : this.walkSpeed;
       if (anim === 'sneak' && s < 4) { if (!sprite.anims.isPaused) sprite.anims.pause(); }
       else {
         if (sprite.anims.isPaused) sprite.anims.resume();
@@ -308,7 +341,7 @@ export class Actor {
     if (s < 4 || !this.visible) { this.stepAcc = Math.min(this.stepAcc, 6); return; }
     const moved = s * dt;
     this.stepAcc += moved;
-    const stride = this.sneaking ? 11 : this.running || s > this.walkSpeed * 1.3 ? 19 : 14;
+    const stride = (this.sneaking ? 11 : this.running || s > this.walkSpeed * 1.3 ? 19 : 14) * this.host.worldK;
     const terrain = this.host.terrainAt(this.x, this.y);
     if (this.stepAcc >= stride) {
       this.stepAcc -= stride;
@@ -319,7 +352,7 @@ export class Actor {
     const fast = this.running || s > this.walkSpeed * 1.3;
     if (puff && (fast || (puff === 'splash' && s > 10)) && this.host.onScreen(this.x, this.y, 16)) {
       this.puffAcc += moved;
-      const every = puff === 'grass' ? 14 : 9;
+      const every = (puff === 'grass' ? 14 : 9) * this.host.worldK;
       if (this.puffAcc >= every) {
         this.puffAcc = 0;
         this.host.puff(this.x - Math.sign(this.vx) * 3, this.y, puff, fast ? 1 : 0.6);
@@ -346,13 +379,17 @@ export class Actor {
   /** Writes position/depth to the sprite and its attachments. */
   sync(): void {
     const x = this.x, y = this.y;
+    const sc = this.baseScale * this.host.scaleAt(y);
+    if (Math.abs(sc - this.scale) > 0.001 || this.sprite.scaleX !== sc) { this.scale = sc; this.sprite.setScale(sc); }
     this.sprite.setPosition(x, y + this.hopY);
     this.sprite.setDepth(y + this.depthBias);
     this.sprite.setAlpha(this.fade);
     // Sinking into wheat: crop the bottom rows of the frame (the sprite keeps its feet origin, so the legs vanish).
     const k = Math.round(this.sink);
     const fr = this.sprite.frame;
-    if (k > 0 && fr) this.sprite.setCrop(0, 0, fr.realWidth, Math.max(1, fr.realHeight - k));
+    // The sink is in world px; the crop works in frame px (minus the transparent rows under the feet anchor).
+    const below = fr ? fr.realHeight * (1 - this.sprite.originY) : 0;
+    if (k > 0 && fr) this.sprite.setCrop(0, 0, fr.realWidth, Math.max(1, Math.round(fr.realHeight - below - k / this.scale)));
     else if (this.sprite.isCropped) this.sprite.setCrop();
     if (this.front) {
       const on = this.sink > 0.6 && this.visible;
@@ -360,15 +397,16 @@ export class Actor {
       if (on) {
         const t = this.host.timeSec;
         const sway = Math.sin(t * 1.7 + this.frontPhase) * (0.4 + this.host.wind) + Math.sin(t * 31) * 1.2 * this.rustle;
-        this.front.setPosition(Math.round(x + sway), Math.round(y + 2 - Math.max(0, 7 - this.sink) * 0.5))
+        this.front.setScale(this.scale).setPosition(Math.round(x + sway), Math.round(y + 2 - Math.max(0, 7 - this.sink) * 0.5))
           .setDepth(this.sprite.depth + 0.5).setAlpha(Math.min(1, this.sink / 4) * Math.max(this.fade, 0.85));
       }
     }
     // Long evening shadows fall to the bottom-right (light from the top-left, DESIGN.md §3).
     const ls = this.host.longShadow;
-    const sw = 1 + ls * 0.6;
-    if (Math.abs(sw - this.shadowW) > 0.01) { this.shadowW = sw; this.shadow.setScale(sw, 1); }
-    this.shadow.setPosition(Math.round(x + ls * 4), y - 0.5);
+    const shScale = Math.max(1, this.figureW / (this.shadow.texture.key === 'w-shadow-l' ? 15 : 10));
+    const sw = (1 + ls * 0.6) * shScale;
+    if (Math.abs(sw - this.shadowW) > 0.01 || this.shadow.scaleY !== shScale) { this.shadowW = sw; this.shadow.setScale(sw, shScale); }
+    this.shadow.setPosition(Math.round(x + ls * 4 * shScale), y - 0.5);
     this.shadow.setAlpha((this.hopY < 0 ? 0.7 : 1) * (k > 3 ? 0 : 1) * (this.fade < 1 ? 0.6 : 1));
     if (this.emoteImg) this.emoteImg.setPosition(x, this.headY - 3 + this.hopY + Math.sin(this.host.timeSec * 6) * 0.6);
   }

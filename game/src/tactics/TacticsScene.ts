@@ -11,24 +11,21 @@ import { key, TERRAIN } from './rules/grid';
 import { pathTo } from './rules/movement';
 import { surviveProgress } from './rules/objectives';
 import type { BattleEvent, Facing, Phase, Point, Tile, Unit } from './rules/types';
+import type { UiApiExt } from '../ui';
 import { BattleUi, type AbilitySlot } from './ui/battleUi';
 import { BACKDROP_TINT, buildBackdrop, type Backdrop } from './view/backdrop';
 import { Fx } from './view/fx';
-import { BASE, IsoView, LEVEL, TH, TW } from './view/iso';
-import { isoProp, sharedProp, type IsoProp } from './view/props';
-import { buildTerrainAtlas, surfaceOf, WATER_DROP, WATER_FRAMES, type TerrainAtlas } from './view/terrain';
+import { loadTacticsArt } from './view/assets';
+import { BASE, IsoView, LEVEL, TH, TW, inDiamond, topEdgeY } from './view/iso';
+import { isoProp, isTacticsPropId, sharedProp, type IsoProp } from './view/props';
+import { buildTerrainAtlas, surfaceOf, WATER_DROP, WATER_FRAMES, type Surface, type TerrainAtlas } from './view/terrain';
 import { ensureTacticsTextures } from './view/textures';
-import { UnitView } from './view/units';
+import { characterIdsOf, UnitView } from './view/units';
 
 type Mode = 'none' | 'move' | 'target';
 interface PropView { img: Phaser.GameObjects.Sprite | Phaser.GameObjects.Image; x: number; y: number; info: IsoProp; glow?: Phaser.GameObjects.Image; baseDepth: number; rules: boolean }
 
-const topEdgeY = (x: number) => 8 + Math.floor(Math.min(x, TW - 1 - x) / 2);
-const inDiamond = (x: number, y: number) => {
-  if (y < 0 || y >= TH) return false;
-  const half = y < 8 ? (y + 1) * 2 : (16 - y) * 2;
-  return x >= 16 - half && x <= 15 + half;
-};
+const PAINT: Record<string, Surface> = { g: 'grass', y: 'drygrass', f: 'forest', d: 'dirt', s: 'stone', a: 'sand', m: 'mud' };
 
 const STEP_SFX: Partial<Record<string, SfxName>> = { grass: 'step-grass', bush: 'step-grass', dirt: 'step-dirt', mud: 'step-water', water: 'step-water', stone: 'step-stone', sand: 'step-dirt', fire: 'step-dirt' };
 const STATUS_TEXT: Record<string, string> = { guarded: 'Schutzwall', stunned: 'Betäubt', taunt: 'Lenkt ab', evasive: 'Ausweichen', bound: 'Gefesselt', burning: 'Brennt' };
@@ -64,7 +61,6 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private lastAct: Extract<BattleEvent, { type: 'act' }> | null = null;
   private hintTarget: { unit?: string; tile?: Point } | null = null;
   private waterFrame = 0;
-  private time0 = 0;
   private autoEndTimer: Phaser.Time.TimerEvent | null = null;
   private keyHandler?: (e: KeyboardEvent) => void;
   private finished = false;
@@ -78,13 +74,35 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.hover = null; this.drag = null; this.animating = 0; this.beamHandle = null; this.lastAct = null; this.hintTarget = null; this.finished = false;
   }
 
+  private ready = false;
+
   create(): void {
     const def = this.startData.battle;
+    this.ready = false;
     ensureTacticsTextures(this);
     G.ui.setHud('battle');
     G.ui.objective(null);
-    this.fx = new Fx(this);
+    this.cameras.main.setAlpha(0);
     const backdrop: Backdrop = def.backdrop ?? 'dusk';
+    // Painted art (terrain textures, iso props, sky) and the generated character sheets load first.
+    const props = [...new Set((def.map.props ?? []).map(p => p.prop).filter(id => !isTacticsPropId(id)))];
+    const characters = characterIdsOf([...def.units, ...(def.waves ?? []).flatMap(w => w.units)]);
+    const loads = [
+      loadTacticsArt(this, backdrop),
+      Promise.resolve().then(() => G.art.preload(this, { characters, props })).catch(err => console.warn('[tactics] art preload failed', err)),
+    ];
+    const token = (this.bootToken = {});
+    void Promise.all(loads).then(() => {
+      if (this.bootToken !== token || !this.sys.isActive()) return;
+      this.cameras.main.setAlpha(1);
+      this.boot(backdrop);
+    });
+  }
+  private bootToken: object = {};
+
+  private boot(backdrop: Backdrop): void {
+    const def = this.startData.battle;
+    this.fx = new Fx(this);
     this.tint = BACKDROP_TINT[backdrop];
     buildBackdrop(this, backdrop);
 
@@ -123,13 +141,17 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.time.addEvent({ delay: 180, loop: true, callback: () => this.tickWater() });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanup());
     this.refresh();
+    this.ready = true;
     void this.ctrl.run();
     (window as unknown as Record<string, unknown>).__tactics = this; // e2e / debugging
   }
 
   private cleanup(): void {
+    this.bootToken = {};
+    this.ready = false;
     this.ui?.destroy();
     if (this.keyHandler) window.removeEventListener('keydown', this.keyHandler);
+    (G.ui as UiApiExt).setEscapeHandler?.(null);
     this.autoEndTimer?.remove();
     this.input.removeAllListeners();
   }
@@ -140,7 +162,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     for (const p of this.props) { p.img.destroy(); p.glow?.destroy(); }
     this.tileImgs.clear(); this.waterTiles = []; this.props = [];
     const b = this.ctrl.battle, g = b.grid, def = this.startData.battle;
-    this.atlas = buildTerrainAtlas(this, def.id, g, this.iso);
+    this.atlas = buildTerrainAtlas(this, def.id, g, this.iso, this.surfaceResolver());
     for (const t of g.all()) {
       if (!surfaceOf(t.terrain)) continue;
       const top = this.iso.top(t.x, t.y, t.h);
@@ -162,15 +184,34 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.pickOrder = g.all().filter(t => surfaceOf(t.terrain)).slice().sort((a, c) => this.iso.depthKey(c.x, c.y) - this.iso.depthKey(a.x, a.y) || c.h - a.h);
   }
 
+  /** Visual surface per tile: rules terrain, the map's ground style and its optional paint layer. */
+  private surfaceResolver(): (x: number, y: number) => Surface | null {
+    const def = this.startData.battle.map;
+    const g = this.ctrl.battle.grid;
+    const ground: Surface = def.ground === 'dry' ? 'drygrass' : def.ground === 'forest' ? 'forest' : 'grass';
+    const paint = (def.paint ?? []).map(row => row.replace(/\s+/g, ''));
+    return (x, y) => {
+      const t = g.tile(x, y);
+      if (!t) return null;
+      const base = surfaceOf(t.terrain);
+      if (!base) return null;
+      const over = PAINT[paint[y]?.[x] ?? ''];
+      if (over && base !== 'water') return over;
+      if (base === 'grass') return t.terrain === 'tree' && ground === 'grass' && def.trees === 'pine' ? 'forest' : ground;
+      return base;
+    };
+  }
+
   private addProp(id: string, x: number, y: number, variant: number, dx: number, dy: number, rules: boolean): void {
     const t = this.ctrl.battle.grid.tile(x, y);
     if (!t) return;
-    const info = (id.startsWith('tree') ? sharedProp(this, id, variant) : null) ?? isoProp(this, id, variant);
+    const info = (!isTacticsPropId(id) ? sharedProp(this, id, variant) : null) ?? isoProp(this, id, variant);
     const c = this.iso.center(x, y, t.h);
     const depthBase = this.iso.depthKey(x, y) * 100;
-    const img = info.frames ? this.add.sprite(0, 0, info.key, info.frames[0]) : this.add.image(0, 0, info.key, isoPropFrame(info));
-    img.setOrigin(info.ox / info.w, info.oy / info.h).setPosition(Math.round(c.x + dx), Math.round(c.y + 2 + dy));
-    const flip = rules && (x + y) % 2 === 1 && id !== 'ruin';
+    const img = info.frames ? this.add.sprite(0, 0, info.key, info.frames[0]) : info.anim ? this.add.sprite(0, 0, info.key) : this.add.image(0, 0, info.key, isoPropFrame(info));
+    const px = Math.round(c.x + dx), py = Math.round(c.y + 3 + dy);
+    img.setOrigin(info.ox / info.w, info.oy / info.h).setPosition(px, py).setScale(info.scale ?? 1);
+    const flip = rules && (x + y) % 2 === 1 && id !== 'ruin' && !id.startsWith('banner');
     img.setFlipX(flip);
     const depth = depthBase + (info.overUnit ? 60 : 40);
     img.setDepth(depth).setTint(this.tint);
@@ -178,10 +219,25 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       const animKey = `${info.key}-anim`;
       if (!this.anims.exists(animKey)) this.anims.create({ key: animKey, frames: info.frames.map(f => ({ key: info.key, frame: f })), frameRate: info.fps ?? 6, repeat: -1 });
       img.play({ key: animKey, startFrame: (x + y) % info.frames.length });
-    }
+    } else if (info.anim && img instanceof Phaser.GameObjects.Sprite && this.anims.exists(info.anim)) img.play(info.anim);
     let glow: Phaser.GameObjects.Image | undefined;
-    if (info.light) glow = this.fx.glow(Math.round(c.x + dx), Math.round(c.y - 4 + dy), info.light.color, info.light.radius, depth + 1);
+    if (info.light) glow = this.fx.glow(px, py - 8, info.light.color, info.light.radius, depth + 1);
+    if (info.key.startsWith('tac-iso-') && !info.flame) {
+      // Painted props carry no ground shadow; a soft contact shadow seats them on the tile.
+      const w = Math.min(info.tall ? 40 : info.w * 0.9, 44);
+      const sh = this.add.image(px, py - 1, 'tac-shadow').setScale(w / 26, Math.max(0.7, w / 40)).setDepth(depthBase + 3).setAlpha(0.8);
+      this.props.push({ img: sh, x, y, info: { key: 'tac-shadow', w: 26, h: 12, ox: 13, oy: 6 }, baseDepth: depthBase + 3, rules: false });
+    }
     this.props.push({ img, x, y, info, glow, baseDepth: depth, rules });
+    if (info.flame) {
+      // Painted campfire: code-drawn flames on top (effects stay procedural, DESIGN §2).
+      const fl = isoProp(this, 'flames', 0);
+      const f = this.add.sprite(px, py - 3, fl.key, fl.frames![0]).setOrigin(fl.ox / fl.w, fl.oy / fl.h).setDepth(depth + 0.5);
+      const animKey = `${fl.key}-anim`;
+      if (!this.anims.exists(animKey)) this.anims.create({ key: animKey, frames: fl.frames!.map(fr => ({ key: fl.key, frame: fr })), frameRate: fl.fps ?? 8, repeat: -1 });
+      f.play(animKey).setBlendMode(Phaser.BlendModes.NORMAL);
+      this.props.push({ img: f, x, y, info: { ...fl, tall: false }, baseDepth: depth + 0.5, rules: false });
+    }
   }
 
   private tickWater(): void {
@@ -198,10 +254,10 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     for (const t of b.all()) {
       const top = this.iso.top(t.x, t.y, t.h);
       minX = Math.min(minX, top.x - TW / 2); maxX = Math.max(maxX, top.x + TW / 2);
-      minY = Math.min(minY, top.y - 40); maxY = Math.max(maxY, top.y + TH + t.h * LEVEL + BASE);
+      minY = Math.min(minY, top.y - 60); maxY = Math.max(maxY, top.y + TH + t.h * LEVEL + BASE);
     }
     const cam = this.cameras.main;
-    const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2 + 10;
+    const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2 + 14;
     this.bounds = { minX: minX - 80, maxX: maxX + 80, minY: minY - 80, maxY: maxY + 80 };
     if (instant) cam.centerOn(Math.round(cx), Math.round(cy));
     else cam.pan(cx, cy, 300, 'Sine.easeInOut');
@@ -211,7 +267,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private addUnitView(u: Unit): UnitView {
     const def = this.ctrl.unitDefs.get(u.id) ?? { ...u, abilities: u.abilities } as never;
     const v = new UnitView(this, this.iso, u, def, this.startData.battle.id, this.ctrl.battle.grid.height(u.x, u.y));
-    v.sprite.setTint(this.tint);
+    v.setLight(this.tint);
     this.views.set(u.id, v);
     if (u.down) v.setDown(u.down);
     v.idle();
@@ -275,8 +331,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       const t = this.ctrl.battle.grid.tile(gp.x, gp.y);
       if (!t) return;
       const c = this.iso.center(gp.x, gp.y, t.h);
-      const img = this.add.image(Math.round(c.x + 6), Math.round(c.y + 2), 'tac-flag').setOrigin(0.2, 0.95).setDepth(this.iso.depthKey(gp.x, gp.y) * 100 + 45);
-      this.props.push({ img, x: gp.x, y: gp.y, info: { key: 'tac-flag', w: 12, h: 18, ox: 2, oy: 17 }, baseDepth: img.depth, rules: false });
+      const img = this.add.image(Math.round(c.x + 9), Math.round(c.y + 3), 'tac-flag').setOrigin(0.2, 0.95).setDepth(this.iso.depthKey(gp.x, gp.y) * 100 + 45);
+      this.props.push({ img, x: gp.x, y: gp.y, info: { key: 'tac-flag', w: 16, h: 26, ox: 3, oy: 25 }, baseDepth: img.depth, rules: false });
     });
   }
 
@@ -364,8 +420,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     for (const v of this.views.values()) {
       const u = v.unit;
       if (u.down === 'dead' || !v.sprite.visible) continue;
-      const bnd = v.sprite.getBounds();
-      if (!Phaser.Geom.Rectangle.Contains(bnd, wx, wy)) continue;
+      // Hit box around the visible figure (sheet frames are larger than the figure).
+      const f = v.feet;
+      if (Math.abs(wx - f.x) > 11 || wy > f.y + 2 || wy < f.y - v.frameH) continue;
       const d = v.sprite.depth;
       if (!best || d > best.d) best = { u, d };
     }
@@ -410,13 +467,19 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       this.setHover(t);
       this.click(t, d.touch);
     });
-    this.input.on('wheel', (_p: unknown, _o: unknown, _dx: number, dy: number) => {
+    this.input.on('wheel', (p: Phaser.Input.Pointer, _o: unknown, _dx: number, dy: number) => {
       const cam = this.cameras.main;
       const z = dy > 0 ? 1 : 2;
-      if (z !== cam.zoom) this.tweens.add({ targets: cam, zoom: z, duration: 180, ease: 'Sine.easeOut' });
+      if (z === cam.zoom) return;
+      // Zoom in toward the pointer (half way, so the selection stays in view), out around the centre.
+      const wp = p.positionToCamera(cam) as Phaser.Math.Vector2;
+      this.tweens.add({ targets: cam, zoom: z, duration: 180, ease: 'Sine.easeOut' });
+      if (z > 1) cam.pan((cam.midPoint.x + wp.x) / 2, (cam.midPoint.y + wp.y) / 2, 180, 'Sine.easeOut');
     });
     this.keyHandler = (e: KeyboardEvent) => this.onKey(e);
     window.addEventListener('keydown', this.keyHandler);
+    // The UI routes Escape (capture phase) to the menu; in battle it first cancels targeting / the selection.
+    (G.ui as UiApiExt).setEscapeHandler?.(() => this.ready && !this.finished && !this.ctrl.isEnded && this.ctrl.inputEnabled() && this.back());
   }
 
   private onKey(e: KeyboardEvent): void {
@@ -439,7 +502,6 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     }
     if (!this.ctrl.inputEnabled()) return;
     if (k === 'Enter' || k === 'e' || k === 'E') { e.preventDefault(); if (this.hover) this.click(this.hover, false); return; }
-    if (k === 'Escape') { e.preventDefault(); this.back(); return; }
     if (k === ' ') { e.preventDefault(); this.requestEndTurn(); return; }
     if (k === 'Tab') { e.preventDefault(); this.cycleUnit(e.shiftKey ? -1 : 1); return; }
     if (k === 'Backspace') { e.preventDefault(); if (this.sel.mode === 'target' || this.sel.pending || this.sel.inspect || !this.sel.unit || !this.ctrl.battle.canUndo(this.sel.unit)) this.back(); else this.undo(); return; }
@@ -485,7 +547,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       if (t && cursorAnchor && pd > this.iso.depthKey(t.x, t.y) && Phaser.Geom.Rectangle.Contains(bnd, cursorAnchor.x, cursorAnchor.y)) hide = true;
       if (!hide) for (const v of this.views.values()) {
         if (v.unit.down === 'dead' || pd <= this.iso.depthKey(Math.round(v.gx), Math.round(v.gy))) continue;
-        const sb = v.sprite.getBounds();
+        const sb = v.figureRect();
         if (Phaser.Geom.Intersects.RectangleToRectangle(bnd, sb)) {
           const overlap = Phaser.Geom.Rectangle.Intersection(bnd, sb);
           if (overlap.width * overlap.height > sb.width * sb.height * 0.25) { hide = true; break; }
@@ -512,7 +574,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
 
   update(time: number): void {
-    this.time0 = time;
+    if (!this.ready) return;
     for (const v of this.views.values()) v.layout();
     const pulse = 0.78 + Math.sin(time / 260) * 0.22;
     for (const img of this.overlays.get('range') ?? []) if (img.visible) img.setAlpha(pulse);
@@ -615,19 +677,21 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.setHover({ x: u.x, y: u.y });
   }
 
-  private back(): void {
+  /** Steps back one level (pending action → targeting → inspect → selection). False when there was nothing to undo. */
+  private back(): boolean {
     const s = this.sel;
-    if (s.pending) { s.pending = null; this.refresh(); return; }
+    if (s.pending) { s.pending = null; this.refresh(); return true; }
     if (s.mode === 'target') {
       G.audio.sfx('ui-cancel', { volume: 0.4 });
       s.mode = s.unit && this.ctrl.battle.canMove(s.unit) ? 'move' : 'none';
       s.ability = null;
       s.actOpen = true;
       this.refresh();
-      return;
+      return true;
     }
-    if (s.inspect) { s.inspect = null; this.refresh(); return; }
-    if (s.unit) { G.audio.sfx('ui-cancel', { volume: 0.4 }); this.select(null, true); }
+    if (s.inspect) { s.inspect = null; this.refresh(); return true; }
+    if (s.unit) { G.audio.sfx('ui-cancel', { volume: 0.4 }); this.select(null, true); return true; }
+    return false;
   }
 
   private toggleMoveMode(): void {
@@ -1075,6 +1139,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
           const r = this.add.image(v.chest.x, v.chest.y, 'tac-rope').setDepth(v.depth() + 5).setRotation(Math.random() * 3);
           this.tweens.add({ targets: r, x: r.x + (Math.random() - 0.5) * 30, y: r.y + 10 + Math.random() * 8, rotation: r.rotation + 4, alpha: 0, duration: 600, ease: 'Quad.easeOut', onComplete: () => r.destroy() });
         }
+        v.unbind(this.startData.battle.id);
         v.setTeam(e.team);
         v.refresh(b.unit(e.unit));
         v.play('idle');
@@ -1212,8 +1277,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       case 'dodge': {
         G.audio.sfx('dodge', { volume: 0.6 });
         for (let i = 0; i < 3; i++) {
-          const ghost = this.add.sprite(v.sprite.x, v.sprite.y, v.sprite.texture.key, v.sprite.frame.name).setOrigin(0.5, 1).setDepth(v.depth() - 1).setAlpha(0.45).setTint(0xd8dce4);
-          this.tweens.add({ targets: ghost, x: ghost.x + (i - 1) * 7, alpha: 0, duration: 380, delay: i * 60, onComplete: () => ghost.destroy() });
+          const ghost = this.add.sprite(v.sprite.x, v.sprite.y, v.sprite.texture.key, v.sprite.frame.name).setOrigin(v.sprite.originX, v.sprite.originY).setScale(v.sprite.scaleX).setFlipX(v.sprite.flipX).setDepth(v.depth() - 1).setAlpha(0.45).setTint(0xd8dce4);
+          this.tweens.add({ targets: ghost, x: ghost.x + (i - 1) * 10, alpha: 0, duration: 380, delay: i * 60, onComplete: () => ghost.destroy() });
         }
         this.tweens.add({ targets: v, ox: 4, duration: 90, yoyo: true, repeat: 1 });
         await this.wait(260);

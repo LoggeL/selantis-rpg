@@ -1,0 +1,15 @@
+{
+  "height": 21,
+  "frames": 1,
+  "anchor": [
+    18,
+    22
+  ],
+  "desc": "a rustic rectangular farmhouse table of heavy oak planks on sturdy legs, empty top, oriented left to right",
+  "footprint": {
+    "x": -17,
+    "y": -6,
+    "w": 34,
+    "h": 6
+  }
+}

@@ -6,7 +6,7 @@ function startGallery(): void {
   G.stopGameplayScenes();
   G.ui.setHud('none');
   const want = new URLSearchParams(location.search).get('page') as GalleryPage | null;
-  const page = PAGES.some(p => p.id === want) ? want! : 'landscape';
+  const page = PAGES.some(p => p.id === want) ? want! : 'walk';
   G.game.scene.start(GalleryScene.KEY, { page });
 }
 
@@ -15,7 +15,7 @@ defineChapter({
   order: 901,
   numeral: 'Dev',
   title: 'Kunstgalerie',
-  subtitle: 'Prozedurale Pixelkunst',
+  subtitle: 'Gemalte Pixelkunst aus dem Manifest',
   hidden: true,
   phaserScenes: [GalleryScene],
   scenes: [{ id: 'art-gallery', title: 'Kunstgalerie', start: startGallery }],

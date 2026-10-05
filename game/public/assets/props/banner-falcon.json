@@ -1,0 +1,15 @@
+{
+  "height": 64,
+  "frames": 1,
+  "anchor": [
+    15,
+    64
+  ],
+  "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth in royal BLUE and golden YELLOW (vertical halves, blue left, yellow right) with a stylised white falcon emblem in the centre, golden fringe, pole stuck upright in the ground",
+  "footprint": {
+    "x": -3,
+    "y": -2,
+    "w": 6,
+    "h": 2
+  }
+}

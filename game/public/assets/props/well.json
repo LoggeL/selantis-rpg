@@ -1,0 +1,15 @@
+{
+  "height": 40,
+  "frames": 1,
+  "anchor": [
+    17,
+    41
+  ],
+  "desc": "a round village well of grey fieldstones with a small wooden roof of shingles on two posts, a wooden crank winch with rope and a bucket hanging",
+  "footprint": {
+    "x": -14,
+    "y": -9,
+    "w": 28,
+    "h": 9
+  }
+}

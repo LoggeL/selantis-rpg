@@ -1,0 +1,15 @@
+{
+  "height": 38,
+  "frames": 1,
+  "anchor": [
+    24,
+    38
+  ],
+  "desc": "a big rounded haystack of golden dry hay, loose straws sticking out",
+  "footprint": {
+    "x": -17,
+    "y": -8,
+    "w": 34,
+    "h": 8
+  }
+}

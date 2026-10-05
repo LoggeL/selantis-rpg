@@ -1,0 +1,9 @@
+{
+  "character": "deer",
+  "pose": "graze",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ]
+}

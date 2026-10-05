@@ -1,0 +1,15 @@
+{
+  "height": 12,
+  "frames": 1,
+  "anchor": [
+    7,
+    13
+  ],
+  "desc": "a stack of four old leather-bound books of different colours (brown, green, red, dark blue) lying on top of each other",
+  "footprint": {
+    "x": -5,
+    "y": -3,
+    "w": 10,
+    "h": 3
+  }
+}

@@ -28,9 +28,10 @@ export interface UiApi {
   think(text: string): Promise<void>;
 
   /**
-   * Shows a book plate full screen with slow pan: a picture drawn in code and registered via
+   * Shows a book plate full screen with slow pan: the painted plate image from the asset manifest
+   * (G.art.plateUrl(id), 1280x720) when present, otherwise a picture drawn in code and registered via
    * registerPlate(id, draw) (map of Selantis, constellation, letter, book page, vignette...).
-   * NO painted images of people (actor privacy — see DESIGN.md §2). Story climaxes are staged in-world instead.
+   * Never modelled on film frames or actors (actor privacy — see DESIGN.md §2).
    * Resolves once it is visible (fade-in done). It stays until closePlate(); dialogue can run on top.
    */
   plate(id: string, opts?: { caption?: string; pan?: 'left' | 'right' | 'in' | 'out' | 'none'; durationMs?: number }): Promise<void>;
@@ -49,7 +50,7 @@ export interface UiApi {
   toast(text: string, kind?: ToastKind): void;
   /** HUD objective line (top left). null hides it. */
   objective(text: string | null): void;
-  /** Screen-space (canvas coords 0..480/0..270) objective direction indicator; null hides. */
+  /** Screen-space (canvas coords 0..640/0..360) objective direction indicator; null hides. */
   objectivePointer(pos: { x: number; y: number } | null): void;
 
   /** Interaction hint near a canvas-space point. null hides. */

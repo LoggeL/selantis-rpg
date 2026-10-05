@@ -1,4 +1,4 @@
-import type { Vec } from './geom';
+import { wk, type Vec } from './geom';
 
 /**
  * Breadcrumb trail of the leader's positions, newest first. Followers ask for the point `d` px behind the
@@ -64,19 +64,19 @@ export function followerSpeed(distToSlot: number, leaderSpeed: number, walkSpeed
 }
 
 /** Follower spacing along the trail (px) for follower index i. */
-export function followDistance(i: number): number { return 24 + i * 20; }
+export function followDistance(i: number, k = wk()): number { return (24 + i * 20) * k; }
 
 /**
  * Standing formation: when the leader stops, followers step beside (not behind) it so the three sprites do not
  * stack into one column. side = +1 right of the facing direction, -1 left.
  */
-export function formationSlot(x: number, y: number, facing: Vec, side: 1 | -1, i: number): Vec {
+export function formationSlot(x: number, y: number, facing: Vec, side: 1 | -1, i: number, k = wk()): Vec {
   const fl = Math.hypot(facing.x, facing.y) || 1;
   const fx = facing.x / fl, fy = facing.y / fl;
   // perpendicular (right-hand side of the facing direction in screen coords)
   const rx = -fy, ry = fx;
-  const sideDist = 14 + i * 6;
-  const back = 6 + i * 14;
+  const sideDist = (14 + i * 6) * k;
+  const back = (6 + i * 14) * k;
   // Vertical facing needs less back offset (sprites are taller than wide); keep feet clear of each other.
   return { x: x + rx * side * sideDist - fx * back, y: y + ry * side * sideDist * 0.8 - fy * back };
 }

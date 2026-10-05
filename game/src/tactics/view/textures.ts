@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import { mix, pal } from './palette';
 import { Pix } from './pixels';
-import { TH, TW } from './iso';
+import { TH, TW, diamondHalf } from './iso';
 
 /** Small generated textures for overlays, cursor, facing arrows, status icons, projectiles. */
 export function ensureTacticsTextures(scene: Phaser.Scene): void {
@@ -10,12 +10,13 @@ export function ensureTacticsTextures(scene: Phaser.Scene): void {
 
   const diamond = (fill: number, edge: number, fa: number, ea: number, inset = 0) => {
     const p = new Pix(TW, TH);
+    const C = TW / 2;
     for (let y = 0; y < TH; y++) {
-      const half = y < 8 ? (y + 1) * 2 : (16 - y) * 2;
-      for (let x = 16 - half; x <= 15 + half; x++) {
-        const edgeRow = y === 0 || y === TH - 1 || x === 16 - half || x === 15 + half || x === 16 - half + 1 || x === 14 + half;
+      const half = diamondHalf(y);
+      for (let x = C - half; x <= C - 1 + half; x++) {
+        const edgeRow = y === 0 || y === TH - 1 || x === C - half || x === C - 1 + half || x === C - half + 1 || x === C - 2 + half;
         if (edgeRow) p.set(x, y, edge, ea);
-        else if (inset && (x === 16 - half + 2 || x === 13 + half)) p.set(x, y, edge, ea * 0.4);
+        else if (inset && (x === C - half + 2 || x === C - 3 + half || x === C - half + 3 || x === C - 4 + half)) p.set(x, y, edge, ea * 0.35);
         else p.set(x, y, fill, fa);
       }
     }
@@ -36,61 +37,63 @@ export function ensureTacticsTextures(scene: Phaser.Scene): void {
     const p = new Pix(TW + 4, TH + 4);
     const gold = 0xf3d27a, dark = pal('ink', 0);
     const pts: [number, number][] = [];
-    for (let i = 0; i <= 16; i++) { pts.push([2 + i, 10 - Math.floor(i / 2)]); pts.push([2 + 16 + i, 2 + Math.floor(i / 2)]); }
-    for (let i = 0; i <= 16; i++) { pts.push([2 + i, 10 + Math.floor(i / 2)]); pts.push([2 + 16 + i, 18 - Math.floor(i / 2)]); }
+    const C = TW / 2, M = TH / 2;
+    for (let i = 0; i <= C; i++) { pts.push([2 + i, 2 + M - Math.floor(i / 2)]); pts.push([2 + C + i, 2 + Math.floor(i / 2)]); }
+    for (let i = 0; i <= C; i++) { pts.push([2 + i, 2 + M + Math.floor(i / 2)]); pts.push([2 + C + i, 2 + TH - Math.floor(i / 2)]); }
     for (const [x, y] of pts) {
-      const cornerish = Math.min(Math.abs(x - 2), Math.abs(x - 34), Math.abs(x - 18)) < 6;
+      const cornerish = Math.min(Math.abs(x - 2), Math.abs(x - 2 - TW), Math.abs(x - 2 - C)) < 9;
       if (!cornerish) continue;
       p.set(x, y + 1, dark, 0.8);
       p.set(x, y, gold);
+      p.set(x, y - 1, gold, 0.55);
     }
     add('tac-cursor', p);
   }
   // Pointer arrow (bobbing above the hovered tile/unit).
   {
-    const p = new Pix(9, 9);
-    for (let y = 0; y < 6; y++) for (let x = y; x < 9 - y; x++) p.set(x, y + 1, y === 0 ? 0xfff3c0 : x === y || x === 8 - y ? 0xb08020 : 0xf3d27a);
+    const p = new Pix(13, 10);
+    for (let y = 0; y < 7; y++) for (let x = y; x < 13 - y; x++) p.set(x, y + 1, y === 0 ? 0xfff3c0 : x === y || x === 12 - y ? 0xb08020 : 0xf3d27a);
     p.outline(pal('ink', 0), 0.9);
     add('tac-pointer', p);
   }
   // Facing arrow, pointing screen down-right (flip for other diagonals).
   for (const [key, c] of [['tac-face-player', 0xf3e2b0], ['tac-face-enemy', 0xff8a6a], ['tac-face-ally', 0x9ae8b0]] as const) {
-    const p = new Pix(12, 8);
+    const p = new Pix(16, 10);
     // simple chevron: an iso-flattened triangle
-    const tri: [number, number][] = [[2, 1], [10, 4], [3, 7]];
-    for (let y = 0; y < 8; y++) for (let x = 0; x < 12; x++) {
+    const tri: [number, number][] = [[2, 1], [14, 5], [3, 9]];
+    for (let y = 0; y < 10; y++) for (let x = 0; x < 16; x++) {
       const [a, b, d] = tri;
       const s = (p1: number[], p2: number[], p3: number[]) => (p1[0] - p3[0]) * (p2[1] - p3[1]) - (p2[0] - p3[0]) * (p1[1] - p3[1]);
       const pt = [x + 0.5, y + 0.5];
       const d1 = s(pt, a, b), d2 = s(pt, b, d), d3 = s(pt, d, a);
       const neg = d1 < 0 || d2 < 0 || d3 < 0, pos = d1 > 0 || d2 > 0 || d3 > 0;
-      if (!(neg && pos)) p.set(x, y, y < 4 ? c : mix(c, 0x000000, 0.25));
+      if (!(neg && pos)) p.set(x, y, y < 5 ? c : mix(c, 0x000000, 0.25));
     }
     p.outline(pal('ink', 0), 0.85);
     add(key, p);
   }
   // Team rings under units (iso ellipse outline).
   for (const [key, c] of [['tac-ring-player', 0x7fb8ff], ['tac-ring-enemy', 0xff6a50], ['tac-ring-ally', 0x8ae0a0], ['tac-ring-active', 0xffe08a]] as const) {
-    const p = new Pix(22, 12);
-    for (let y = 0; y < 12; y++) for (let x = 0; x < 22; x++) {
-      const nx = (x + 0.5 - 11) / 10.5, ny = (y + 0.5 - 6) / 5.5;
+    const p = new Pix(32, 16);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 32; x++) {
+      const nx = (x + 0.5 - 16) / 15.5, ny = (y + 0.5 - 8) / 7.5;
       const d = nx * nx + ny * ny;
-      if (d <= 1 && d > 0.6) p.set(x, y, c, y > 6 ? 0.95 : 0.55);
+      if (d <= 1 && d > 0.66) p.set(x, y, c, y > 8 ? 0.95 : 0.55);
     }
     add(key, p);
   }
   // Soft shadow.
   {
-    const p = new Pix(18, 8);
-    p.ellipse(9, 4, 8.5, 3.6, pal('ink', 0), 0.45);
-    p.ellipse(9, 4, 6, 2.4, pal('ink', 0), 0.25);
+    const p = new Pix(26, 12);
+    p.ellipse(13, 6, 12.5, 5.2, pal('ink', 0), 0.4);
+    p.ellipse(13, 6, 8.5, 3.4, pal('ink', 0), 0.25);
     add('tac-shadow', p);
   }
   // Path step marker.
   {
-    const p = new Pix(10, 6);
-    p.ellipse(5, 3, 4.5, 2.5, 0xfff0b8, 1);
-    p.ellipse(5, 3, 3, 1.5, 0xf3c45a, 1);
+    const p = new Pix(12, 8);
+    p.ellipse(6, 4, 5.5, 3.2, 0xfff0b8, 1);
+    p.ellipse(6, 4, 3.6, 2, 0xf3c45a, 1);
     p.outline(pal('ink', 0), 0.6);
     add('tac-step', p);
   }
@@ -179,10 +182,10 @@ export function ensureTacticsTextures(scene: Phaser.Scene): void {
   }
   // Flag for goal tiles.
   {
-    const p = new Pix(12, 18);
-    p.rect(2, 1, 1, 16, pal('wood', 3));
-    for (let y = 0; y < 6; y++) for (let x = 0; x < 8 - Math.floor(y / 2); x++) p.set(3 + x, 2 + y, y < 3 ? 0xf3d27a : 0xd8b25a);
-    p.ellipse(2.5, 16.5, 2, 1, pal('ink', 0), 0.5);
+    const p = new Pix(16, 26);
+    p.rect(2, 1, 2, 24, pal('wood', 3)); p.rect(3, 1, 1, 24, pal('wood', 1));
+    for (let y = 0; y < 9; y++) for (let x = 0; x < 11 - Math.floor(y / 2); x++) p.set(4 + x, 2 + y, y < 4 ? 0xf3d27a : 0xd8b25a);
+    p.ellipse(3, 24.5, 3, 1.2, pal('ink', 0), 0.5);
     p.outline(pal('ink', 0), 0.85);
     add('tac-flag', p);
   }

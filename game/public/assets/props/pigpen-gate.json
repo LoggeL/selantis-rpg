@@ -1,0 +1,15 @@
+{
+  "height": 18,
+  "frames": 1,
+  "anchor": [
+    24,
+    19
+  ],
+  "desc": "a rustic wooden pigpen gate: a short section of split-rail fence with a simple swing gate of rough planks between two posts, a rope loop as latch, front view",
+  "footprint": {
+    "x": -18,
+    "y": -3,
+    "w": 36,
+    "h": 3
+  }
+}

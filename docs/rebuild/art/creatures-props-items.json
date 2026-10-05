@@ -1,0 +1,1024 @@
+{
+  "area": "creatures-props-items",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh (driver: output/imagegen/raw/creatures-props-items/tools/cpi.py + spec.json, built on scripts/art lib/gen/props/qa)",
+  "images": {
+    "output/imagegen/raw/creatures-props-items/animals/chicken/pose-peck.png": {
+      "kind": "pose:peck",
+      "id": "chicken",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): pecking at the ground: body tipped forward, beak touching the ground, tail raised, facing RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a plump medieval brown farm hen: warm chestnut-brown feathers with darker speckled wing feathers and a golden neck, red comb and wattles, yellow beak, yellow legs and feet, short upturned tail.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/chicken.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 39,
+      "attempts": 1,
+      "time": "2026-10-05T03:05:02"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/chicken/turnaround.png": {
+      "kind": "turnaround",
+      "id": "chicken",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a plump medieval brown farm hen: warm chestnut-brown feathers with darker speckled wing feathers and a golden neck, red comb and wattles, yellow beak, yellow legs and feet, short upturned tail. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T02:56:32"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/chicken/walk.png": {
+      "kind": "walk",
+      "id": "chicken",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nBIRD WALK cycle (hen strutting on two legs): frame 1 = left foot forward, head pushed forward, frame 2 = right foot lifted mid-step, head pulled back, frame 3 = right foot forward, head pushed forward, frame 4 = left foot lifted, head pulled back. Strong head bob, tail flicks. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a plump medieval brown farm hen: warm chestnut-brown feathers with darker speckled wing feathers and a golden neck, red comb and wattles, yellow beak, yellow legs and feet, short upturned tail. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/chicken.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 57,
+      "attempts": 1,
+      "time": "2026-10-05T03:00:25"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/crow/fly.png": {
+      "kind": "fly",
+      "id": "crow",
+      "prompt": "Game sprite ANIMATION STRIP: exactly 4 frames of the SAME bird in flight side by side in ONE row, evenly spaced with wide gaps, identical scale, the body at the same height in every frame, strict side view flying toward the RIGHT edge of the image (beak points RIGHT). Wing-flap cycle: frame 1 = wings raised high in a V above the body, frame 2 = wings level and spread wide, frame 3 = wings pushed fully down below the body, frame 4 = wings level again on the way up. Compact readable game sprite, chunky pixels, bold dark outline. The bird must match the attached reference sheet.\nANIMAL: a glossy black carrion crow: solid black plumage with a faint blue-violet sheen, strong black beak, black legs and feet, dark eye.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/crow.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 35,
+      "attempts": 1,
+      "time": "2026-10-05T03:05:49"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/crow/turnaround.png": {
+      "kind": "turnaround",
+      "id": "crow",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a glossy black carrion crow: solid black plumage with a faint blue-violet sheen, strong black beak, black legs and feet, dark eye. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 84,
+      "attempts": 1,
+      "time": "2026-10-05T02:57:56"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/crow/walk.png": {
+      "kind": "walk",
+      "id": "crow",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nBIRD WALK cycle (crow walking/hopping on the ground): frame 1 = left foot forward, frame 2 = right foot lifted mid-step, frame 3 = right foot forward, frame 4 = left foot lifted. Head bobs forward with every step, wings folded. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a glossy black carrion crow: solid black plumage with a faint blue-violet sheen, strong black beak, black legs and feet, dark eye. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/crow.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 84,
+      "attempts": 1,
+      "time": "2026-10-05T03:01:50"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/deer/pose-alert.png": {
+      "kind": "pose:alert",
+      "id": "deer",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): standing completely still and alert, head raised high, ears turned forward, looking toward the RIGHT, one foreleg lifted, ready to flee.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a red deer stag of the forest: reddish-brown summer coat, slightly darker neck with a light mane, pale cream rump patch and short tail, slender long legs with dark hooves, a proud head with a modest symmetrical eight-point antler crown, dark eyes and nose.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/deer.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 81,
+      "attempts": 1,
+      "time": "2026-10-05T03:06:24"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/deer/pose-graze.png": {
+      "kind": "pose:graze",
+      "id": "deer",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): grazing: head lowered to the ground eating grass, antlers pointing forward, side profile facing RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a red deer stag of the forest: reddish-brown summer coat, slightly darker neck with a light mane, pale cream rump patch and short tail, slender long legs with dark hooves, a proud head with a modest symmetrical eight-point antler crown, dark eyes and nose.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/deer.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 40,
+      "attempts": 1,
+      "time": "2026-10-05T03:05:34"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/deer/turnaround.png": {
+      "kind": "turnaround",
+      "id": "deer",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a red deer stag of the forest: reddish-brown summer coat, slightly darker neck with a light mane, pale cream rump patch and short tail, slender long legs with dark hooves, a proud head with a modest symmetrical eight-point antler crown, dark eyes and nose. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-05T02:57:09"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/deer/walk.png": {
+      "kind": "walk",
+      "id": "deer",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nQuadruped WALK cycle (deer walking carefully): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Elegant high steps, head held up. Legs alternate clearly in all rows. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a red deer stag of the forest: reddish-brown summer coat, slightly darker neck with a light mane, pale cream rump patch and short tail, slender long legs with dark hooves, a proud head with a modest symmetrical eight-point antler crown, dark eyes and nose. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/deer.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 79,
+      "attempts": 1,
+      "time": "2026-10-05T03:02:02"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/dog/pose-attack.png": {
+      "kind": "pose:attack",
+      "id": "dog",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): barking aggressively: front legs braced wide, head low and forward, mouth open showing teeth, hackles raised, tail stiff, facing RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/dog.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-05T03:03:38"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/dog/pose-lie.png": {
+      "kind": "pose:lie",
+      "id": "dog",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): lying flat on its belly asleep, head resting on its stretched front paws, eyes closed, tail curled around, body along the ground facing RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/dog.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 74,
+      "attempts": 1,
+      "time": "2026-10-05T03:04:14"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/dog/pose-sit.png": {
+      "kind": "pose:sit",
+      "id": "dog",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): sitting on its haunches, front legs straight, head raised and alert, ears hanging, body turned three-quarter toward the RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/dog.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T03:03:39"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/dog/turnaround.png": {
+      "kind": "turnaround",
+      "id": "dog",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-05T02:44:48"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/dog/walk.png": {
+      "kind": "walk",
+      "id": "dog",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nQuadruped WALK cycle (dog trotting calmly): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing under the body, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Legs move in diagonal pairs with clearly visible stride in the side rows; in the front and back rows the legs alternate visibly. Head slightly lowered, tail swaying. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/dog.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-05T02:56:13"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/hare/pose-sit.png": {
+      "kind": "pose:sit",
+      "id": "hare",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): sitting upright on its hind legs, alert and listening, ears straight up, front paws hanging, body turned three-quarter toward the RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a wild European brown hare: tawny grizzled brown fur with a pale belly, very long ears with black tips, long powerful hind legs, large amber eyes, short tail black on top and white below.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/hare.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 39,
+      "attempts": 1,
+      "time": "2026-10-05T03:05:14"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/hare/turnaround.png": {
+      "kind": "turnaround",
+      "id": "hare",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a wild European brown hare: tawny grizzled brown fur with a pale belly, very long ears with black tips, long powerful hind legs, large amber eyes, short tail black on top and white below. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 39,
+      "attempts": 1,
+      "time": "2026-10-05T02:56:52"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/hare/walk.png": {
+      "kind": "walk",
+      "id": "hare",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nHOPPING cycle (hare hopping slowly along): frame 1 = crouched with all four feet together, ears up, frame 2 = pushing off with the hind legs, body stretching long, front paws reaching forward, frame 3 = front paws landing while the hind legs swing past them, frame 4 = gathering back into a crouch. Ears stay upright. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a wild European brown hare: tawny grizzled brown fur with a pale belly, very long ears with black tips, long powerful hind legs, large amber eyes, short tail black on top and white below. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/hare.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 74,
+      "attempts": 1,
+      "time": "2026-10-05T03:00:42"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/horse/pose-graze.png": {
+      "kind": "pose:graze",
+      "id": "horse",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): grazing: standing with the head lowered all the way to the ground eating grass, neck stretched down, side profile facing RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a strong medieval riding horse: dark bay coat (rich reddish-brown body) with a black mane, black tail and black lower legs, a small white star on the forehead. Tack: a simple dark brown leather saddle with stirrups and a dull grey saddle blanket edge, a dark leather bridle with reins resting on the neck. Realistic horse proportions (long legs, long neck), no rider.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/horse.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-05T03:04:23"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/horse/pose-rear.png": {
+      "kind": "pose:rear",
+      "id": "horse",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): rearing up on its hind legs in panic, front legs kicking in the air, head thrown back, mane flying, facing RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a strong medieval riding horse: dark bay coat (rich reddish-brown body) with a black mane, black tail and black lower legs, a small white star on the forehead. Tack: a simple dark brown leather saddle with stirrups and a dull grey saddle blanket edge, a dark leather bridle with reins resting on the neck. Realistic horse proportions (long legs, long neck), no rider.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/horse.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-05T03:04:34"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/horse/turnaround.png": {
+      "kind": "turnaround",
+      "id": "horse",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a strong medieval riding horse: dark bay coat (rich reddish-brown body) with a black mane, black tail and black lower legs, a small white star on the forehead. Tack: a simple dark brown leather saddle with stirrups and a dull grey saddle blanket edge, a dark leather bridle with reins resting on the neck. Realistic horse proportions (long legs, long neck), no rider. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 48,
+      "attempts": 1,
+      "time": "2026-10-05T02:44:41"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/horse/walk.png": {
+      "kind": "walk",
+      "id": "horse",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nQuadruped WALK cycle (horse walking calmly, four-beat walk): frame 1 = left foreleg and right hind leg stepping forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg stepping forward, frame 4 = legs passing. Clearly visible hoof steps in the side rows; head nods slightly; tail swings. In the front and back rows the legs alternate visibly. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a strong medieval riding horse: dark bay coat (rich reddish-brown body) with a black mane, black tail and black lower legs, a small white star on the forehead. Tack: a simple dark brown leather saddle with stirrups and a dull grey saddle blanket edge, a dark leather bridle with reins resting on the neck. Realistic horse proportions (long legs, long neck), no rider. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/horse.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 79,
+      "attempts": 1,
+      "time": "2026-10-05T02:56:32"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/pig/pose-lie.png": {
+      "kind": "pose:lie",
+      "id": "pig",
+      "prompt": "Two full-body game sprites of the SAME animal side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the animal standing still in strict side profile facing RIGHT (scale reference); RIGHT = the same animal in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite with chunky pixels and bold dark outline, natural anatomy. Nothing cut off. Pose (RIGHT figure): lying on its side asleep in the dirt, legs stretched out, eyes closed, belly up slightly, head on the RIGHT.\nThe animal must match the attached animal reference sheet exactly.\nANIMAL: a stout medieval farm pig: pinkish skin with sparse bristly light hair and a few dark grey patches on the back and rump, upright pointed ears slightly folded forward, round snout, short legs with dark little trotters, small curly tail.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/pig.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T03:04:53"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/pig/turnaround.png": {
+      "kind": "turnaround",
+      "id": "pig",
+      "prompt": "Animal turnaround reference sheet for a 2D pixel-art RPG: the SAME animal shown three times side by side in one row — LEFT: front view (head and chest facing the viewer), MIDDLE: strict side profile facing RIGHT, RIGHT: back view (rear and tail toward the viewer). Full body, standing naturally, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Wide landscape image. Natural, realistic animal anatomy and proportions (not cartoonish, not chibi), correct number of legs, ears, eyes. ANIMAL: a stout medieval farm pig: pinkish skin with sparse bristly light hair and a few dark grey patches on the back and rump, upright pointed ears slightly folded forward, round snout, short legs with dark little trotters, small curly tail. The attached girl character sheet / walk sheet are STYLE references only (pixel density, outline, shading, palette, sprite scale) — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 40,
+      "attempts": 1,
+      "time": "2026-10-05T02:55:53"
+    },
+    "output/imagegen/raw/creatures-props-items/animals/pig/walk.png": {
+      "kind": "walk",
+      "id": "pig",
+      "prompt": "Game animal WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME animal (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one direction with a 4-frame cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view, the animal walks toward the viewer (we see its face and chest).\nROW 2: facing WEST — strict side profile moving toward the LEFT edge of the image (head points LEFT).\nROW 3: facing EAST — strict side profile moving toward the RIGHT edge of the image (head points RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see its back, rump and tail).\nQuadruped WALK cycle (pig trotting): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Short quick steps, belly swaying slightly, snout bobbing. Legs alternate clearly in all rows. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk small. Identical markings, colours and tack in all 16 frames. The animal must match the attached animal reference sheet exactly.\nANIMAL: a stout medieval farm pig: pinkish skin with sparse bristly light hair and a few dark grey patches on the back and rump, upright pointed ears slightly folded forward, round snout, short legs with dark little trotters, small curly tail. The attached girl walk sheet is only a LAYOUT/STYLE reference — do NOT draw any person.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/pig.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 76,
+      "attempts": 1,
+      "time": "2026-10-05T03:00:44"
+    },
+    "output/imagegen/raw/creatures-props-items/props/campfire.png": {
+      "kind": "prop-anim",
+      "id": "campfire",
+      "prompt": "Single game prop sprite ANIMATION STRIP for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference: exactly 6 frames of the SAME object side by side in ONE row, evenly spaced with wide gaps, identical size and identical position of the static parts in every frame, only the animated part changes (the flames flicker and change shape from frame to frame, sparks rise). Nothing cut off. Object: a small campfire: a ring of grey stones around crossed burning logs with bright orange-yellow flames and glowing embers\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 36,
+      "attempts": 1,
+      "time": "2026-10-05T03:02:42"
+    },
+    "output/imagegen/raw/creatures-props-items/props/candle.png": {
+      "kind": "prop-anim",
+      "id": "candle",
+      "prompt": "Single game prop sprite ANIMATION STRIP for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference: exactly 4 frames of the SAME object side by side in ONE row, evenly spaced with wide gaps, identical size and identical position of the static parts in every frame, only the animated part changes (the small flame sways and flickers slightly). Nothing cut off. Object: a short thick beeswax candle in a simple brass dish holder, burning with a small flame\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T03:06:48"
+    },
+    "output/imagegen/raw/creatures-props-items/props/lantern.png": {
+      "kind": "prop-anim",
+      "id": "lantern",
+      "prompt": "Single game prop sprite ANIMATION STRIP for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference: exactly 4 frames of the SAME object side by side in ONE row, evenly spaced with wide gaps, identical size and identical position of the static parts in every frame, only the animated part changes (the candle flame inside flickers and the warm glow pulses gently). Nothing cut off. Object: an old iron lantern with glass panes and a ring handle on top, standing on the ground, a warm candle flame glowing inside\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 35,
+      "attempts": 1,
+      "time": "2026-10-05T03:06:10"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-battle.png": {
+      "kind": "prop-sheet",
+      "id": "battle",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 3 columns x 3 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth quartered in BLACK and WHITE (four quarters like a chessboard, top-left black, top-right white, bottom-left white, bottom-right black), with a pointed iron spear tip on top, pole stuck upright in the ground; 2. a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth in royal BLUE and golden YELLOW (vertical halves, blue left, yellow right) with a stylised white falcon emblem in the centre, golden fringe, pole stuck upright in the ground; 3. a fallen, torn blue-and-white war banner with a white bird-of-prey emblem lying crumpled on the ground, its broken pole beside it, mud stains; 4. a broken wooden spear lying flat on the ground in two pieces, the iron tip on one piece, splintered break; 5. a dented round wooden shield with a black-and-white painted front and an iron boss lying flat on the ground, slightly tilted; 6. a fresh grave mound: an elongated low cairn of grey and brown fieldstones piled over fresh dark earth, about two metres long, oriented left to right; 7. a second fresh grave cairn of piled grey fieldstones over dark earth, slightly shorter and rounder than a normal grave, a few larger flat stones on top, oriented left to right; 8. a small loose pile of about eight rounded grey fieldstones of different sizes; 9. a small bundle of dry brown twigs and brushwood for a campfire lying on the ground.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "ok": true,
+      "seconds": 81,
+      "attempts": 1,
+      "time": "2026-10-05T03:02:05"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-birds.png": {
+      "kind": "prop-sheet",
+      "id": "birds",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 3 columns x 1 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. a small round bird nest of woven twigs and moss with TWO fluffy grey-brown fledglings sitting in it with their yellow beaks open; 2. the same small round bird nest of woven twigs and moss now with THREE fluffy grey-brown fledglings sitting in it, beaks open; 3. a single tiny fluffy grey-brown fledgling bird sitting alone on the ground, small yellow beak, scruffy downy feathers.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 35,
+      "attempts": 1,
+      "time": "2026-10-05T03:02:37"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-camp.png": {
+      "kind": "prop-sheet",
+      "id": "camp",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 3 columns x 2 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. a small A-frame travel tent of weathered beige canvas on wooden poles with guy ropes and pegs, the front flap open showing a dark inside; 2. a large imposing black military command tent (a captain's pavilion) of heavy black canvas with a tall central pole, a black-and-white quartered pennant on top, white trim along the roof edge, front flaps tied open showing a dim inside, guy ropes and pegs; 3. a wooden weapon rack with two spears, a sword and a wooden shield leaning in it; 4. a straw training dummy: a wooden post with a crossbar as arms, a body of bound straw wrapped in a torn sackcloth, a sack head, standing in the ground, a few cuts in the straw; 5. a black iron blacksmith anvil on a thick tree stump, a hammer leaning against it; 6. a weathered wooden signpost at a crossroads: one tall post with two blank arrow-shaped wooden boards, one pointing LEFT and one pointing RIGHT, the boards are completely EMPTY and blank (no writing, no symbols), a small stone pile at the foot.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 78,
+      "attempts": 1,
+      "time": "2026-10-05T02:58:28"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-farm.png": {
+      "kind": "prop-sheet",
+      "id": "farm",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 3 columns x 3 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. an old upright wooden barrel with dark iron hoops and a closed lid; 2. a sturdy wooden crate made of planks with corner battens, closed lid; 3. a full burlap grain sack tied at the top with a cord, standing upright and slightly slumped; 4. a wooden water bucket with iron bands and a rope handle, filled with water; 5. a small wooden keg lying on its side on a little wooden cradle stand, with a wooden tap at the front; 6. a simple three-legged round wooden milking stool; 7. a long rustic wooden bench made of a thick plank on four splayed legs, oriented left to right; 8. a rustic rectangular farmhouse table of heavy oak planks on sturdy legs, empty top, oriented left to right; 9. a big rounded haystack of golden dry hay, loose straws sticking out.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-05T02:44:48"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-fix1.png": {
+      "kind": "prop-sheet",
+      "id": "fix1",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 1 columns x 1 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. a long moss-green hooded wool rain cloak laid out completely FLAT on the ground as a bedroll, seen from high above: the cloak fully opened and spread out like a blanket (a long rounded rectangle of green cloth), the flattened hood at the top end, a small bronze clasp, no person, not standing, not worn.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 35,
+      "attempts": 1,
+      "time": "2026-10-05T03:07:54"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-small.png": {
+      "kind": "prop-sheet",
+      "id": "small",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 3 columns x 3 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. a wooden farmhouse rocking cradle seen from above at three-quarter angle, with TWO sleeping newborn babies lying side by side, swaddled in cream linen with only their tiny faces visible, eyes closed, a soft wool blanket; 2. a long moss-green hooded wool cloak spread out flat on the ground like a bedroll, the hood at the top, seen from above; 3. a rumpled brown-and-cream wool blanket lying spread on the ground, folded back at one corner; 4. a stack of four old leather-bound books of different colours (brown, green, red, dark blue) lying on top of each other; 5. a worn closed storybook bound in dark blue leather with a small golden star on the cover, lying in a little patch of green grass; 6. a short faded red cloth hair ribbon lying tangled in a few golden straws; 7. two tiny honey-coloured round wooden beads lying on a bit of dark earth, catching the light; 8. an unlit fire pit: a ring of grey stones around a few charred black logs and grey ash, no fire, no smoke; 9. a short thick beeswax candle in a simple brass dish holder, NOT lit, the black wick showing, a thin wisp of smoke.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-05T03:02:36"
+    },
+    "output/imagegen/raw/creatures-props-items/props/sheet-yard.png": {
+      "kind": "prop-sheet",
+      "id": "yard",
+      "prompt": "Game PROP SPRITE SHEET for a 2D pixel-art RPG: a strict grid of 3 columns x 1 rows of separate, isolated objects, every object centred in its own invisible cell with wide empty magenta gaps, nothing touching, nothing overlapping, nothing cut off at the image edges. All objects are seen from the same high three-quarter top-down camera as the attached landscape reference (we see the tops and the front sides), soft light from the upper left, painted the way objects look in that map. Each object stands on its own, no ground patch, no grass tufts, no cast shadow unless stated. Objects in reading order (left to right, top to bottom): 1. a medieval two-wheeled wooden farm cart with high slatted sides, two big spoked wooden wheels and two long shafts resting on the ground, seen three-quarter from the front-left, empty; 2. a round village well of grey fieldstones with a small wooden roof of shingles on two posts, a wooden crank winch with rope and a bucket hanging; 3. a rustic wooden pigpen gate: a short section of split-rail fence with a simple swing gate of rough planks between two posts, a rope loop as latch, front view.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T02:57:31"
+    },
+    "output/imagegen/raw/creatures-props-items/props/torch.png": {
+      "kind": "prop-anim",
+      "id": "torch",
+      "prompt": "Single game prop sprite ANIMATION STRIP for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference: exactly 4 frames of the SAME object side by side in ONE row, evenly spaced with wide gaps, identical size and identical position of the static parts in every frame, only the animated part changes (the fire at the top flickers and changes shape, a few sparks). Nothing cut off. Object: a tall standing torch: a wooden pole stuck in the ground with a pitch-soaked rag head burning with a bright orange flame at the top\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 39,
+      "attempts": 1,
+      "time": "2026-10-05T03:06:29"
+    },
+    "output/imagegen/raw/art/icons/story-3.png": {
+      "kind": "icons",
+      "id": "story-3",
+      "prompt": "Inventory item icon sheet for a fantasy RPG: a strict grid of 3 columns x 1 rows of separate item icons, each item centred in its own invisible square cell with wide empty gaps, nothing touching, every icon drawn large and bold so it stays readable at 32x32 pixels, slight three-quarter view, chunky pixels with a bold dark outline, warm soft lighting. Items in reading order (left to right, top to bottom): 1. a small round golden honey-sweetened apple cake with a glossy honey glaze and baked apple slices on top; 2. a braided golden yeast pastry shaped like a short chain of three interlocking rings, sprinkled with sugar; 3. a short faded red cloth hair ribbon tied in a loose bow. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-05T03:07:56",
+      "note": "generated via scripts/art/icons.py gen story-3 (registry: docs/rebuild/art/icons.json)"
+    }
+  },
+  "spec": {
+    "animals": {
+      "dog": {
+        "height": 22,
+        "desc": "a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers.",
+        "gait": "Quadruped WALK cycle (dog trotting calmly): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing under the body, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Legs move in diagonal pairs with clearly visible stride in the side rows; in the front and back rows the legs alternate visibly. Head slightly lowered, tail swaying.",
+        "poses": {
+          "sit": "sitting on its haunches, front legs straight, head raised and alert, ears hanging, body turned three-quarter toward the RIGHT.",
+          "lie": "lying flat on its belly asleep, head resting on its stretched front paws, eyes closed, tail curled around, body along the ground facing RIGHT.",
+          "attack": "barking aggressively: front legs braced wide, head low and forward, mouth open showing teeth, hackles raised, tail stiff, facing RIGHT."
+        }
+      },
+      "horse": {
+        "height": 46,
+        "colors": 44,
+        "desc": "a strong medieval riding horse: dark bay coat (rich reddish-brown body) with a black mane, black tail and black lower legs, a small white star on the forehead. Tack: a simple dark brown leather saddle with stirrups and a dull grey saddle blanket edge, a dark leather bridle with reins resting on the neck. Realistic horse proportions (long legs, long neck), no rider.",
+        "gait": "Quadruped WALK cycle (horse walking calmly, four-beat walk): frame 1 = left foreleg and right hind leg stepping forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg stepping forward, frame 4 = legs passing. Clearly visible hoof steps in the side rows; head nods slightly; tail swings. In the front and back rows the legs alternate visibly.",
+        "poses": {
+          "graze": "grazing: standing with the head lowered all the way to the ground eating grass, neck stretched down, side profile facing RIGHT.",
+          "rear": "rearing up on its hind legs in panic, front legs kicking in the air, head thrown back, mane flying, facing RIGHT."
+        }
+      },
+      "pig": {
+        "height": 18,
+        "colors": 32,
+        "desc": "a stout medieval farm pig: pinkish skin with sparse bristly light hair and a few dark grey patches on the back and rump, upright pointed ears slightly folded forward, round snout, short legs with dark little trotters, small curly tail.",
+        "gait": "Quadruped WALK cycle (pig trotting): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Short quick steps, belly swaying slightly, snout bobbing. Legs alternate clearly in all rows.",
+        "poses": {
+          "lie": "lying on its side asleep in the dirt, legs stretched out, eyes closed, belly up slightly, head on the RIGHT."
+        }
+      },
+      "chicken": {
+        "height": 13,
+        "colors": 30,
+        "desc": "a plump medieval brown farm hen: warm chestnut-brown feathers with darker speckled wing feathers and a golden neck, red comb and wattles, yellow beak, yellow legs and feet, short upturned tail.",
+        "gait": "BIRD WALK cycle (hen strutting on two legs): frame 1 = left foot forward, head pushed forward, frame 2 = right foot lifted mid-step, head pulled back, frame 3 = right foot forward, head pushed forward, frame 4 = left foot lifted, head pulled back. Strong head bob, tail flicks.",
+        "poses": {
+          "peck": "pecking at the ground: body tipped forward, beak touching the ground, tail raised, facing RIGHT."
+        }
+      },
+      "hare": {
+        "height": 13,
+        "colors": 30,
+        "desc": "a wild European brown hare: tawny grizzled brown fur with a pale belly, very long ears with black tips, long powerful hind legs, large amber eyes, short tail black on top and white below.",
+        "gait": "HOPPING cycle (hare hopping slowly along): frame 1 = crouched with all four feet together, ears up, frame 2 = pushing off with the hind legs, body stretching long, front paws reaching forward, frame 3 = front paws landing while the hind legs swing past them, frame 4 = gathering back into a crouch. Ears stay upright.",
+        "poses": {
+          "sit": "sitting upright on its hind legs, alert and listening, ears straight up, front paws hanging, body turned three-quarter toward the RIGHT."
+        }
+      },
+      "crow": {
+        "height": 10,
+        "colors": 24,
+        "desc": "a glossy black carrion crow: solid black plumage with a faint blue-violet sheen, strong black beak, black legs and feet, dark eye.",
+        "gait": "BIRD WALK cycle (crow walking/hopping on the ground): frame 1 = left foot forward, frame 2 = right foot lifted mid-step, frame 3 = right foot forward, frame 4 = left foot lifted. Head bobs forward with every step, wings folded.",
+        "poses": {},
+        "fly": {
+          "frames": 4,
+          "height": 9,
+          "fps": 10,
+          "centerY": 30,
+          "cycle": "frame 1 = wings raised high in a V above the body, frame 2 = wings level and spread wide, frame 3 = wings pushed fully down below the body, frame 4 = wings level again on the way up."
+        }
+      },
+      "deer": {
+        "height": 40,
+        "colors": 40,
+        "desc": "a red deer stag of the forest: reddish-brown summer coat, slightly darker neck with a light mane, pale cream rump patch and short tail, slender long legs with dark hooves, a proud head with a modest symmetrical eight-point antler crown, dark eyes and nose.",
+        "gait": "Quadruped WALK cycle (deer walking carefully): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Elegant high steps, head held up. Legs alternate clearly in all rows.",
+        "poses": {
+          "graze": "grazing: head lowered to the ground eating grass, antlers pointing forward, side profile facing RIGHT.",
+          "alert": "standing completely still and alert, head raised high, ears turned forward, looking toward the RIGHT, one foreleg lifted, ready to flee."
+        }
+      }
+    },
+    "sheets": {
+      "farm": {
+        "cols": 3,
+        "rows": 3,
+        "refs": [
+          "selantis-map-hof.png"
+        ],
+        "items": [
+          {
+            "id": "barrel",
+            "height": 21,
+            "desc": "an old upright wooden barrel with dark iron hoops and a closed lid",
+            "footprint": "-6,-4,12,4"
+          },
+          {
+            "id": "crate",
+            "height": 17,
+            "desc": "a sturdy wooden crate made of planks with corner battens, closed lid",
+            "footprint": "-8,-5,16,5"
+          },
+          {
+            "id": "sack",
+            "height": 14,
+            "desc": "a full burlap grain sack tied at the top with a cord, standing upright and slightly slumped",
+            "footprint": "-5,-3,10,3"
+          },
+          {
+            "id": "bucket",
+            "height": 11,
+            "desc": "a wooden water bucket with iron bands and a rope handle, filled with water",
+            "footprint": "-4,-3,8,3"
+          },
+          {
+            "id": "keg",
+            "height": 15,
+            "desc": "a small wooden keg lying on its side on a little wooden cradle stand, with a wooden tap at the front",
+            "footprint": "-7,-4,14,4"
+          },
+          {
+            "id": "stool",
+            "height": 11,
+            "desc": "a simple three-legged round wooden milking stool",
+            "footprint": "-4,-3,8,3"
+          },
+          {
+            "id": "bench",
+            "height": 15,
+            "desc": "a long rustic wooden bench made of a thick plank on four splayed legs, oriented left to right",
+            "footprint": "-16,-4,32,4"
+          },
+          {
+            "id": "table",
+            "height": 21,
+            "desc": "a rustic rectangular farmhouse table of heavy oak planks on sturdy legs, empty top, oriented left to right",
+            "footprint": "-17,-6,34,6"
+          },
+          {
+            "id": "haystack",
+            "height": 38,
+            "desc": "a big rounded haystack of golden dry hay, loose straws sticking out",
+            "footprint": "-17,-8,34,8"
+          }
+        ]
+      },
+      "yard": {
+        "cols": 3,
+        "rows": 1,
+        "refs": [
+          "selantis-map-hof.png"
+        ],
+        "items": [
+          {
+            "id": "cart",
+            "height": 30,
+            "desc": "a medieval two-wheeled wooden farm cart with high slatted sides, two big spoked wooden wheels and two long shafts resting on the ground, seen three-quarter from the front-left, empty",
+            "footprint": "-20,-8,40,8"
+          },
+          {
+            "id": "well",
+            "height": 40,
+            "desc": "a round village well of grey fieldstones with a small wooden roof of shingles on two posts, a wooden crank winch with rope and a bucket hanging",
+            "footprint": "-14,-9,28,9"
+          },
+          {
+            "id": "pigpen-gate",
+            "height": 18,
+            "desc": "a rustic wooden pigpen gate: a short section of split-rail fence with a simple swing gate of rough planks between two posts, a rope loop as latch, front view",
+            "footprint": "-18,-3,36,3"
+          }
+        ]
+      },
+      "camp": {
+        "cols": 3,
+        "rows": 2,
+        "refs": [
+          "selantis-first-camp.png"
+        ],
+        "items": [
+          {
+            "id": "tent",
+            "height": 34,
+            "desc": "a small A-frame travel tent of weathered beige canvas on wooden poles with guy ropes and pegs, the front flap open showing a dark inside",
+            "footprint": "-16,-10,32,10"
+          },
+          {
+            "id": "tent-big-black",
+            "height": 72,
+            "desc": "a large imposing black military command tent (a captain's pavilion) of heavy black canvas with a tall central pole, a black-and-white quartered pennant on top, white trim along the roof edge, front flaps tied open showing a dim inside, guy ropes and pegs",
+            "footprint": "-32,-16,64,16"
+          },
+          {
+            "id": "weapon-rack",
+            "height": 30,
+            "desc": "a wooden weapon rack with two spears, a sword and a wooden shield leaning in it",
+            "footprint": "-12,-4,24,4"
+          },
+          {
+            "id": "training-dummy",
+            "height": 38,
+            "desc": "a straw training dummy: a wooden post with a crossbar as arms, a body of bound straw wrapped in a torn sackcloth, a sack head, standing in the ground, a few cuts in the straw",
+            "footprint": "-5,-3,10,3"
+          },
+          {
+            "id": "anvil",
+            "height": 18,
+            "desc": "a black iron blacksmith anvil on a thick tree stump, a hammer leaning against it",
+            "footprint": "-8,-5,16,5"
+          },
+          {
+            "id": "signpost",
+            "height": 44,
+            "desc": "a weathered wooden signpost at a crossroads: one tall post with two blank arrow-shaped wooden boards, one pointing LEFT and one pointing RIGHT, the boards are completely EMPTY and blank (no writing, no symbols), a small stone pile at the foot",
+            "footprint": "-4,-3,8,3"
+          }
+        ]
+      },
+      "battle": {
+        "cols": 3,
+        "rows": 3,
+        "refs": [
+          "selantis-map-hohlweg.png"
+        ],
+        "items": [
+          {
+            "id": "banner-shadow",
+            "height": 64,
+            "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth quartered in BLACK and WHITE (four quarters like a chessboard, top-left black, top-right white, bottom-left white, bottom-right black), with a pointed iron spear tip on top, pole stuck upright in the ground",
+            "footprint": "-3,-2,6,2"
+          },
+          {
+            "id": "banner-falcon",
+            "height": 64,
+            "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth in royal BLUE and golden YELLOW (vertical halves, blue left, yellow right) with a stylised white falcon emblem in the centre, golden fringe, pole stuck upright in the ground",
+            "footprint": "-3,-2,6,2"
+          },
+          {
+            "id": "fallen-banner",
+            "height": 12,
+            "desc": "a fallen, torn blue-and-white war banner with a white bird-of-prey emblem lying crumpled on the ground, its broken pole beside it, mud stains",
+            "footprint": "none",
+            "width": 36
+          },
+          {
+            "id": "broken-spear",
+            "height": 9,
+            "desc": "a broken wooden spear lying flat on the ground in two pieces, the iron tip on one piece, splintered break",
+            "footprint": "none",
+            "width": 36
+          },
+          {
+            "id": "shield-on-ground",
+            "height": 10,
+            "desc": "a dented round wooden shield with a black-and-white painted front and an iron boss lying flat on the ground, slightly tilted",
+            "footprint": "none",
+            "width": 18
+          },
+          {
+            "id": "grave-cairn",
+            "height": 16,
+            "desc": "a fresh grave mound: an elongated low cairn of grey and brown fieldstones piled over fresh dark earth, about two metres long, oriented left to right",
+            "footprint": "-21,-9,42,9",
+            "width": 48
+          },
+          {
+            "id": "grave-cairn-v2",
+            "height": 16,
+            "desc": "a second fresh grave cairn of piled grey fieldstones over dark earth, slightly shorter and rounder than a normal grave, a few larger flat stones on top, oriented left to right",
+            "footprint": "-17,-8,34,8",
+            "width": 40
+          },
+          {
+            "id": "stones-pile",
+            "height": 11,
+            "desc": "a small loose pile of about eight rounded grey fieldstones of different sizes",
+            "footprint": "-8,-4,16,4",
+            "width": 18
+          },
+          {
+            "id": "twigs",
+            "height": 7,
+            "desc": "a small bundle of dry brown twigs and brushwood for a campfire lying on the ground",
+            "footprint": "none",
+            "width": 18
+          }
+        ]
+      },
+      "small": {
+        "cols": 3,
+        "rows": 3,
+        "refs": [
+          "selantis-first-camp.png"
+        ],
+        "items": [
+          {
+            "id": "cradle-twins",
+            "height": 18,
+            "desc": "a wooden farmhouse rocking cradle seen from above at three-quarter angle, with TWO sleeping newborn babies lying side by side, swaddled in cream linen with only their tiny faces visible, eyes closed, a soft wool blanket",
+            "footprint": "-10,-5,20,5",
+            "width": 22
+          },
+          {
+            "id": "cloak-spread",
+            "height": 12,
+            "desc": "a long moss-green hooded wool rain cloak laid out completely FLAT on the ground as a bedroll, seen from high above: the cloak fully opened and spread out like a blanket (a long rounded rectangle of green cloth), the flattened hood at the top end, a small bronze clasp, no person, not standing, not worn",
+            "footprint": "none",
+            "width": 34,
+            "skip": true
+          },
+          {
+            "id": "blanket",
+            "height": 11,
+            "desc": "a rumpled brown-and-cream wool blanket lying spread on the ground, folded back at one corner",
+            "footprint": "none",
+            "width": 30
+          },
+          {
+            "id": "bookstack",
+            "height": 12,
+            "desc": "a stack of four old leather-bound books of different colours (brown, green, red, dark blue) lying on top of each other",
+            "footprint": "-5,-3,10,3"
+          },
+          {
+            "id": "alana-book",
+            "height": 6,
+            "desc": "a worn closed storybook bound in dark blue leather with a small golden star on the cover, lying in a little patch of green grass",
+            "footprint": "none",
+            "width": 9
+          },
+          {
+            "id": "kyra-ribbon",
+            "height": 5,
+            "desc": "a short faded red cloth hair ribbon lying tangled in a few golden straws",
+            "footprint": "none",
+            "width": 9
+          },
+          {
+            "id": "kyra-bead",
+            "height": 4,
+            "desc": "two tiny honey-coloured round wooden beads lying on a bit of dark earth, catching the light",
+            "footprint": "none",
+            "width": 6
+          },
+          {
+            "id": "firering",
+            "height": 9,
+            "desc": "an unlit fire pit: a ring of grey stones around a few charred black logs and grey ash, no fire, no smoke",
+            "footprint": "-10,-5,20,5",
+            "width": 22
+          },
+          {
+            "id": "candle-unlit",
+            "height": 9,
+            "desc": "a short thick beeswax candle in a simple brass dish holder, NOT lit, the black wick showing, a thin wisp of smoke",
+            "footprint": "none"
+          }
+        ]
+      },
+      "birds": {
+        "cols": 3,
+        "rows": 1,
+        "refs": [
+          "selantis-first-camp.png"
+        ],
+        "items": [
+          {
+            "id": "bird-nest",
+            "height": 9,
+            "desc": "a small round bird nest of woven twigs and moss with TWO fluffy grey-brown fledglings sitting in it with their yellow beaks open",
+            "footprint": "none",
+            "width": 11
+          },
+          {
+            "id": "bird-nest-fledgling",
+            "height": 9,
+            "desc": "the same small round bird nest of woven twigs and moss now with THREE fluffy grey-brown fledglings sitting in it, beaks open",
+            "footprint": "none",
+            "width": 11
+          },
+          {
+            "id": "bird-nest-chick",
+            "height": 5,
+            "desc": "a single tiny fluffy grey-brown fledgling bird sitting alone on the ground, small yellow beak, scruffy downy feathers",
+            "footprint": "none",
+            "width": 5
+          }
+        ]
+      },
+      "fix1": {
+        "cols": 1,
+        "rows": 1,
+        "refs": [
+          "selantis-first-camp.png"
+        ],
+        "items": [
+          {
+            "id": "cloak-spread",
+            "height": 12,
+            "desc": "a long moss-green hooded wool rain cloak laid out completely FLAT on the ground as a bedroll, seen from high above: the cloak fully opened and spread out like a blanket (a long rounded rectangle of green cloth), the flattened hood at the top end, a small bronze clasp, no person, not standing, not worn",
+            "footprint": "none",
+            "width": 34
+          }
+        ]
+      }
+    },
+    "anims": {
+      "campfire": {
+        "frames": 6,
+        "fps": 10,
+        "height": 26,
+        "footprint": "-9,-6,18,6",
+        "light": "72,#ffb060,flicker",
+        "motion": "the flames flicker and change shape from frame to frame, sparks rise",
+        "desc": "a small campfire: a ring of grey stones around crossed burning logs with bright orange-yellow flames and glowing embers"
+      },
+      "lantern": {
+        "frames": 4,
+        "fps": 6,
+        "height": 12,
+        "footprint": "none",
+        "light": "48,#ffd27a,flicker",
+        "motion": "the candle flame inside flickers and the warm glow pulses gently",
+        "desc": "an old iron lantern with glass panes and a ring handle on top, standing on the ground, a warm candle flame glowing inside"
+      },
+      "torch": {
+        "frames": 4,
+        "fps": 8,
+        "height": 40,
+        "footprint": "-2,-2,4,2",
+        "light": "80,#ff9a40,flicker",
+        "motion": "the fire at the top flickers and changes shape, a few sparks",
+        "desc": "a tall standing torch: a wooden pole stuck in the ground with a pitch-soaked rag head burning with a bright orange flame at the top"
+      },
+      "candle": {
+        "frames": 4,
+        "fps": 6,
+        "height": 9,
+        "footprint": "none",
+        "light": "36,#ffcf80,flicker",
+        "motion": "the small flame sways and flickers slightly",
+        "desc": "a short thick beeswax candle in a simple brass dish holder, burning with a small flame"
+      }
+    }
+  },
+  "outputs": {
+    "dog": {
+      "ref": "docs/rebuild/art/refs/dog.png",
+      "sprites": [
+        "game/public/assets/sprites/dog-attack.png",
+        "game/public/assets/sprites/dog-lie.png",
+        "game/public/assets/sprites/dog-sit.png",
+        "game/public/assets/sprites/dog-walk.png"
+      ]
+    },
+    "horse": {
+      "ref": "docs/rebuild/art/refs/horse.png",
+      "sprites": [
+        "game/public/assets/sprites/horse-graze.png",
+        "game/public/assets/sprites/horse-rear.png",
+        "game/public/assets/sprites/horse-walk.png"
+      ]
+    },
+    "pig": {
+      "ref": "docs/rebuild/art/refs/pig.png",
+      "sprites": [
+        "game/public/assets/sprites/pig-lie.png",
+        "game/public/assets/sprites/pig-walk.png"
+      ]
+    },
+    "chicken": {
+      "ref": "docs/rebuild/art/refs/chicken.png",
+      "sprites": [
+        "game/public/assets/sprites/chicken-peck.png",
+        "game/public/assets/sprites/chicken-walk.png"
+      ]
+    },
+    "hare": {
+      "ref": "docs/rebuild/art/refs/hare.png",
+      "sprites": [
+        "game/public/assets/sprites/hare-sit.png",
+        "game/public/assets/sprites/hare-walk.png"
+      ]
+    },
+    "crow": {
+      "ref": "docs/rebuild/art/refs/crow.png",
+      "sprites": [
+        "game/public/assets/sprites/crow-fly.png",
+        "game/public/assets/sprites/crow-walk.png"
+      ]
+    },
+    "deer": {
+      "ref": "docs/rebuild/art/refs/deer.png",
+      "sprites": [
+        "game/public/assets/sprites/deer-alert.png",
+        "game/public/assets/sprites/deer-graze.png",
+        "game/public/assets/sprites/deer-walk.png"
+      ]
+    },
+    "props": [
+      "game/public/assets/props/alana-book.png",
+      "game/public/assets/props/anvil.png",
+      "game/public/assets/props/banner-falcon.png",
+      "game/public/assets/props/banner-shadow.png",
+      "game/public/assets/props/barrel.png",
+      "game/public/assets/props/bench.png",
+      "game/public/assets/props/bird-nest-chick.png",
+      "game/public/assets/props/bird-nest-fledgling.png",
+      "game/public/assets/props/bird-nest.png",
+      "game/public/assets/props/blanket.png",
+      "game/public/assets/props/bookstack.png",
+      "game/public/assets/props/broken-spear.png",
+      "game/public/assets/props/bucket.png",
+      "game/public/assets/props/campfire.png",
+      "game/public/assets/props/candle-unlit.png",
+      "game/public/assets/props/candle.png",
+      "game/public/assets/props/cart.png",
+      "game/public/assets/props/cloak-spread.png",
+      "game/public/assets/props/cradle-twins.png",
+      "game/public/assets/props/crate.png",
+      "game/public/assets/props/fallen-banner.png",
+      "game/public/assets/props/firering.png",
+      "game/public/assets/props/grave-cairn-v2.png",
+      "game/public/assets/props/grave-cairn.png",
+      "game/public/assets/props/haystack.png",
+      "game/public/assets/props/keg.png",
+      "game/public/assets/props/kyra-bead.png",
+      "game/public/assets/props/kyra-ribbon.png",
+      "game/public/assets/props/lantern.png",
+      "game/public/assets/props/pigpen-gate.png",
+      "game/public/assets/props/sack.png",
+      "game/public/assets/props/shield-on-ground.png",
+      "game/public/assets/props/signpost.png",
+      "game/public/assets/props/stones-pile.png",
+      "game/public/assets/props/stool.png",
+      "game/public/assets/props/table.png",
+      "game/public/assets/props/tent-big-black.png",
+      "game/public/assets/props/tent.png",
+      "game/public/assets/props/torch.png",
+      "game/public/assets/props/training-dummy.png",
+      "game/public/assets/props/twigs.png",
+      "game/public/assets/props/weapon-rack.png",
+      "game/public/assets/props/well.png"
+    ],
+    "icons": [
+      "honey-cake",
+      "chain-pastry",
+      "ribbon (replaced: faded red, matches prop kyra-ribbon)"
+    ]
+  },
+  "notes": [
+    "Animal walk sheets use the standard 256x256 / 4x4 x 64x64 layout (runtime + build_manifest hard-code 64px cells), so the horse is 46 px tall (ears) and fits a 64 cell; no larger cell size.",
+    "Animal horizontal anchor = centre of mass (not head centre); one common scale for the side rows; sidecar walk.json has kind=animal.",
+    "Poses face right (runtime mirrors): dog sit/lie/attack, horse graze/rear, pig lie, chicken peck, hare sit, deer graze/alert. crow-fly = 4-frame strip of 64x64 cells, 10 fps, loop, bird body centred at y=30 (28 px above the foot anchor (32,60)).",
+    "Flat ground props are sized by width (spec 'width'), standing props by height; single-frame anchors = bottom centre of the bbox."
+  ]
+}

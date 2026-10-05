@@ -21,12 +21,12 @@ export const G = {
   art: undefined as unknown as ArtApi,
   currentScene: '' as string,
 
-  /** Switches to a story scene by id. Autosaves at the scene start. */
+  /** Switches to a story scene by id. Autosaves at the scene start (not in hidden dev chapters). */
   async goto(id: string, params?: Record<string, unknown>): Promise<void> {
     const found = findScene(id);
     if (!found) throw new Error(`Unknown scene ${id}`);
     G.currentScene = id;
-    G.state.save(found.chapter.id, id, params);
+    if (!found.chapter.hidden) G.state.save(found.chapter.id, id, params);
     events.emit('scene:goto', { id, chapter: found.chapter.id });
     await found.scene.start(params);
   },

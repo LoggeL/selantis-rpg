@@ -1,0 +1,437 @@
+{
+ "animals": {
+  "dog": {
+   "height": 22,
+   "desc": "a lean medium-sized medieval tracking hound (scent hound): short smooth coat in warm grey-brown with a lighter tan chest, muzzle and legs, long floppy dark brown ears, deep chest, long thin tail, a plain dark leather collar. Alert, sniffing, a working dog of hunters and soldiers.",
+   "gait": "Quadruped WALK cycle (dog trotting calmly): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing under the body, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Legs move in diagonal pairs with clearly visible stride in the side rows; in the front and back rows the legs alternate visibly. Head slightly lowered, tail swaying.",
+   "poses": {
+    "sit": "sitting on its haunches, front legs straight, head raised and alert, ears hanging, body turned three-quarter toward the RIGHT.",
+    "lie": "lying flat on its belly asleep, head resting on its stretched front paws, eyes closed, tail curled around, body along the ground facing RIGHT.",
+    "attack": "barking aggressively: front legs braced wide, head low and forward, mouth open showing teeth, hackles raised, tail stiff, facing RIGHT."
+   }
+  },
+  "horse": {
+   "height": 46,
+   "colors": 44,
+   "desc": "a strong medieval riding horse: dark bay coat (rich reddish-brown body) with a black mane, black tail and black lower legs, a small white star on the forehead. Tack: a simple dark brown leather saddle with stirrups and a dull grey saddle blanket edge, a dark leather bridle with reins resting on the neck. Realistic horse proportions (long legs, long neck), no rider.",
+   "gait": "Quadruped WALK cycle (horse walking calmly, four-beat walk): frame 1 = left foreleg and right hind leg stepping forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg stepping forward, frame 4 = legs passing. Clearly visible hoof steps in the side rows; head nods slightly; tail swings. In the front and back rows the legs alternate visibly.",
+   "poses": {
+    "graze": "grazing: standing with the head lowered all the way to the ground eating grass, neck stretched down, side profile facing RIGHT.",
+    "rear": "rearing up on its hind legs in panic, front legs kicking in the air, head thrown back, mane flying, facing RIGHT."
+   }
+  },
+  "pig": {
+   "height": 18,
+   "colors": 32,
+   "desc": "a stout medieval farm pig: pinkish skin with sparse bristly light hair and a few dark grey patches on the back and rump, upright pointed ears slightly folded forward, round snout, short legs with dark little trotters, small curly tail.",
+   "gait": "Quadruped WALK cycle (pig trotting): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Short quick steps, belly swaying slightly, snout bobbing. Legs alternate clearly in all rows.",
+   "poses": {
+    "lie": "lying on its side asleep in the dirt, legs stretched out, eyes closed, belly up slightly, head on the RIGHT."
+   }
+  },
+  "chicken": {
+   "height": 13,
+   "colors": 30,
+   "desc": "a plump medieval brown farm hen: warm chestnut-brown feathers with darker speckled wing feathers and a golden neck, red comb and wattles, yellow beak, yellow legs and feet, short upturned tail.",
+   "gait": "BIRD WALK cycle (hen strutting on two legs): frame 1 = left foot forward, head pushed forward, frame 2 = right foot lifted mid-step, head pulled back, frame 3 = right foot forward, head pushed forward, frame 4 = left foot lifted, head pulled back. Strong head bob, tail flicks.",
+   "poses": {
+    "peck": "pecking at the ground: body tipped forward, beak touching the ground, tail raised, facing RIGHT."
+   }
+  },
+  "hare": {
+   "height": 13,
+   "colors": 30,
+   "desc": "a wild European brown hare: tawny grizzled brown fur with a pale belly, very long ears with black tips, long powerful hind legs, large amber eyes, short tail black on top and white below.",
+   "gait": "HOPPING cycle (hare hopping slowly along): frame 1 = crouched with all four feet together, ears up, frame 2 = pushing off with the hind legs, body stretching long, front paws reaching forward, frame 3 = front paws landing while the hind legs swing past them, frame 4 = gathering back into a crouch. Ears stay upright.",
+   "poses": {
+    "sit": "sitting upright on its hind legs, alert and listening, ears straight up, front paws hanging, body turned three-quarter toward the RIGHT."
+   }
+  },
+  "crow": {
+   "height": 10,
+   "colors": 24,
+   "desc": "a glossy black carrion crow: solid black plumage with a faint blue-violet sheen, strong black beak, black legs and feet, dark eye.",
+   "gait": "BIRD WALK cycle (crow walking/hopping on the ground): frame 1 = left foot forward, frame 2 = right foot lifted mid-step, frame 3 = right foot forward, frame 4 = left foot lifted. Head bobs forward with every step, wings folded.",
+   "poses": {},
+   "fly": {
+    "frames": 4,
+    "height": 9,
+    "fps": 10,
+    "centerY": 30,
+    "cycle": "frame 1 = wings raised high in a V above the body, frame 2 = wings level and spread wide, frame 3 = wings pushed fully down below the body, frame 4 = wings level again on the way up."
+   }
+  },
+  "deer": {
+   "height": 40,
+   "colors": 40,
+   "desc": "a red deer stag of the forest: reddish-brown summer coat, slightly darker neck with a light mane, pale cream rump patch and short tail, slender long legs with dark hooves, a proud head with a modest symmetrical eight-point antler crown, dark eyes and nose.",
+   "gait": "Quadruped WALK cycle (deer walking carefully): frame 1 = left foreleg and right hind leg forward, frame 2 = legs passing, frame 3 = right foreleg and left hind leg forward, frame 4 = legs passing. Elegant high steps, head held up. Legs alternate clearly in all rows.",
+   "poses": {
+    "graze": "grazing: head lowered to the ground eating grass, antlers pointing forward, side profile facing RIGHT.",
+    "alert": "standing completely still and alert, head raised high, ears turned forward, looking toward the RIGHT, one foreleg lifted, ready to flee."
+   }
+  }
+ },
+ "sheets": {
+  "farm": {
+   "cols": 3,
+   "rows": 3,
+   "refs": [
+    "selantis-map-hof.png"
+   ],
+   "items": [
+    {
+     "id": "barrel",
+     "height": 21,
+     "desc": "an old upright wooden barrel with dark iron hoops and a closed lid",
+     "footprint": "-6,-4,12,4"
+    },
+    {
+     "id": "crate",
+     "height": 17,
+     "desc": "a sturdy wooden crate made of planks with corner battens, closed lid",
+     "footprint": "-8,-5,16,5"
+    },
+    {
+     "id": "sack",
+     "height": 14,
+     "desc": "a full burlap grain sack tied at the top with a cord, standing upright and slightly slumped",
+     "footprint": "-5,-3,10,3"
+    },
+    {
+     "id": "bucket",
+     "height": 11,
+     "desc": "a wooden water bucket with iron bands and a rope handle, filled with water",
+     "footprint": "-4,-3,8,3"
+    },
+    {
+     "id": "keg",
+     "height": 15,
+     "desc": "a small wooden keg lying on its side on a little wooden cradle stand, with a wooden tap at the front",
+     "footprint": "-7,-4,14,4"
+    },
+    {
+     "id": "stool",
+     "height": 11,
+     "desc": "a simple three-legged round wooden milking stool",
+     "footprint": "-4,-3,8,3"
+    },
+    {
+     "id": "bench",
+     "height": 15,
+     "desc": "a long rustic wooden bench made of a thick plank on four splayed legs, oriented left to right",
+     "footprint": "-16,-4,32,4"
+    },
+    {
+     "id": "table",
+     "height": 21,
+     "desc": "a rustic rectangular farmhouse table of heavy oak planks on sturdy legs, empty top, oriented left to right",
+     "footprint": "-17,-6,34,6"
+    },
+    {
+     "id": "haystack",
+     "height": 38,
+     "desc": "a big rounded haystack of golden dry hay, loose straws sticking out",
+     "footprint": "-17,-8,34,8"
+    }
+   ]
+  },
+  "yard": {
+   "cols": 3,
+   "rows": 1,
+   "refs": [
+    "selantis-map-hof.png"
+   ],
+   "items": [
+    {
+     "id": "cart",
+     "height": 30,
+     "desc": "a medieval two-wheeled wooden farm cart with high slatted sides, two big spoked wooden wheels and two long shafts resting on the ground, seen three-quarter from the front-left, empty",
+     "footprint": "-20,-8,40,8"
+    },
+    {
+     "id": "well",
+     "height": 40,
+     "desc": "a round village well of grey fieldstones with a small wooden roof of shingles on two posts, a wooden crank winch with rope and a bucket hanging",
+     "footprint": "-14,-9,28,9"
+    },
+    {
+     "id": "pigpen-gate",
+     "height": 18,
+     "desc": "a rustic wooden pigpen gate: a short section of split-rail fence with a simple swing gate of rough planks between two posts, a rope loop as latch, front view",
+     "footprint": "-18,-3,36,3"
+    }
+   ]
+  },
+  "camp": {
+   "cols": 3,
+   "rows": 2,
+   "refs": [
+    "selantis-first-camp.png"
+   ],
+   "items": [
+    {
+     "id": "tent",
+     "height": 34,
+     "desc": "a small A-frame travel tent of weathered beige canvas on wooden poles with guy ropes and pegs, the front flap open showing a dark inside",
+     "footprint": "-16,-10,32,10"
+    },
+    {
+     "id": "tent-big-black",
+     "height": 72,
+     "desc": "a large imposing black military command tent (a captain's pavilion) of heavy black canvas with a tall central pole, a black-and-white quartered pennant on top, white trim along the roof edge, front flaps tied open showing a dim inside, guy ropes and pegs",
+     "footprint": "-32,-16,64,16"
+    },
+    {
+     "id": "weapon-rack",
+     "height": 30,
+     "desc": "a wooden weapon rack with two spears, a sword and a wooden shield leaning in it",
+     "footprint": "-12,-4,24,4"
+    },
+    {
+     "id": "training-dummy",
+     "height": 38,
+     "desc": "a straw training dummy: a wooden post with a crossbar as arms, a body of bound straw wrapped in a torn sackcloth, a sack head, standing in the ground, a few cuts in the straw",
+     "footprint": "-5,-3,10,3"
+    },
+    {
+     "id": "anvil",
+     "height": 18,
+     "desc": "a black iron blacksmith anvil on a thick tree stump, a hammer leaning against it",
+     "footprint": "-8,-5,16,5"
+    },
+    {
+     "id": "signpost",
+     "height": 44,
+     "desc": "a weathered wooden signpost at a crossroads: one tall post with two blank arrow-shaped wooden boards, one pointing LEFT and one pointing RIGHT, the boards are completely EMPTY and blank (no writing, no symbols), a small stone pile at the foot",
+     "footprint": "-4,-3,8,3"
+    }
+   ]
+  },
+  "battle": {
+   "cols": 3,
+   "rows": 3,
+   "refs": [
+    "selantis-map-hohlweg.png"
+   ],
+   "items": [
+    {
+     "id": "banner-shadow",
+     "height": 64,
+     "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth quartered in BLACK and WHITE (four quarters like a chessboard, top-left black, top-right white, bottom-left white, bottom-right black), with a pointed iron spear tip on top, pole stuck upright in the ground",
+     "footprint": "-3,-2,6,2"
+    },
+    {
+     "id": "banner-falcon",
+     "height": 64,
+     "desc": "a tall war banner on a wooden pole with a crossbar: a long rectangular hanging cloth in royal BLUE and golden YELLOW (vertical halves, blue left, yellow right) with a stylised white falcon emblem in the centre, golden fringe, pole stuck upright in the ground",
+     "footprint": "-3,-2,6,2"
+    },
+    {
+     "id": "fallen-banner",
+     "height": 12,
+     "desc": "a fallen, torn blue-and-white war banner with a white bird-of-prey emblem lying crumpled on the ground, its broken pole beside it, mud stains",
+     "footprint": "none",
+     "width": 36
+    },
+    {
+     "id": "broken-spear",
+     "height": 9,
+     "desc": "a broken wooden spear lying flat on the ground in two pieces, the iron tip on one piece, splintered break",
+     "footprint": "none",
+     "width": 36
+    },
+    {
+     "id": "shield-on-ground",
+     "height": 10,
+     "desc": "a dented round wooden shield with a black-and-white painted front and an iron boss lying flat on the ground, slightly tilted",
+     "footprint": "none",
+     "width": 18
+    },
+    {
+     "id": "grave-cairn",
+     "height": 16,
+     "desc": "a fresh grave mound: an elongated low cairn of grey and brown fieldstones piled over fresh dark earth, about two metres long, oriented left to right",
+     "footprint": "-21,-9,42,9",
+     "width": 48
+    },
+    {
+     "id": "grave-cairn-v2",
+     "height": 16,
+     "desc": "a second fresh grave cairn of piled grey fieldstones over dark earth, slightly shorter and rounder than a normal grave, a few larger flat stones on top, oriented left to right",
+     "footprint": "-17,-8,34,8",
+     "width": 40
+    },
+    {
+     "id": "stones-pile",
+     "height": 11,
+     "desc": "a small loose pile of about eight rounded grey fieldstones of different sizes",
+     "footprint": "-8,-4,16,4",
+     "width": 18
+    },
+    {
+     "id": "twigs",
+     "height": 7,
+     "desc": "a small bundle of dry brown twigs and brushwood for a campfire lying on the ground",
+     "footprint": "none",
+     "width": 18
+    }
+   ]
+  },
+  "small": {
+   "cols": 3,
+   "rows": 3,
+   "refs": [
+    "selantis-first-camp.png"
+   ],
+   "items": [
+    {
+     "id": "cradle-twins",
+     "height": 18,
+     "desc": "a wooden farmhouse rocking cradle seen from above at three-quarter angle, with TWO sleeping newborn babies lying side by side, swaddled in cream linen with only their tiny faces visible, eyes closed, a soft wool blanket",
+     "footprint": "-10,-5,20,5",
+     "width": 22
+    },
+    {
+     "id": "cloak-spread",
+     "height": 12,
+     "desc": "a long moss-green hooded wool rain cloak laid out completely FLAT on the ground as a bedroll, seen from high above: the cloak fully opened and spread out like a blanket (a long rounded rectangle of green cloth), the flattened hood at the top end, a small bronze clasp, no person, not standing, not worn",
+     "footprint": "none",
+     "width": 34,
+     "skip": true
+    },
+    {
+     "id": "blanket",
+     "height": 11,
+     "desc": "a rumpled brown-and-cream wool blanket lying spread on the ground, folded back at one corner",
+     "footprint": "none",
+     "width": 30
+    },
+    {
+     "id": "bookstack",
+     "height": 12,
+     "desc": "a stack of four old leather-bound books of different colours (brown, green, red, dark blue) lying on top of each other",
+     "footprint": "-5,-3,10,3"
+    },
+    {
+     "id": "alana-book",
+     "height": 6,
+     "desc": "a worn closed storybook bound in dark blue leather with a small golden star on the cover, lying in a little patch of green grass",
+     "footprint": "none",
+     "width": 9
+    },
+    {
+     "id": "kyra-ribbon",
+     "height": 5,
+     "desc": "a short faded red cloth hair ribbon lying tangled in a few golden straws",
+     "footprint": "none",
+     "width": 9
+    },
+    {
+     "id": "kyra-bead",
+     "height": 4,
+     "desc": "two tiny honey-coloured round wooden beads lying on a bit of dark earth, catching the light",
+     "footprint": "none",
+     "width": 6
+    },
+    {
+     "id": "firering",
+     "height": 9,
+     "desc": "an unlit fire pit: a ring of grey stones around a few charred black logs and grey ash, no fire, no smoke",
+     "footprint": "-10,-5,20,5",
+     "width": 22
+    },
+    {
+     "id": "candle-unlit",
+     "height": 9,
+     "desc": "a short thick beeswax candle in a simple brass dish holder, NOT lit, the black wick showing, a thin wisp of smoke",
+     "footprint": "none"
+    }
+   ]
+  },
+  "birds": {
+   "cols": 3,
+   "rows": 1,
+   "refs": [
+    "selantis-first-camp.png"
+   ],
+   "items": [
+    {
+     "id": "bird-nest",
+     "height": 9,
+     "desc": "a small round bird nest of woven twigs and moss with TWO fluffy grey-brown fledglings sitting in it with their yellow beaks open",
+     "footprint": "none",
+     "width": 11
+    },
+    {
+     "id": "bird-nest-fledgling",
+     "height": 9,
+     "desc": "the same small round bird nest of woven twigs and moss now with THREE fluffy grey-brown fledglings sitting in it, beaks open",
+     "footprint": "none",
+     "width": 11
+    },
+    {
+     "id": "bird-nest-chick",
+     "height": 5,
+     "desc": "a single tiny fluffy grey-brown fledgling bird sitting alone on the ground, small yellow beak, scruffy downy feathers",
+     "footprint": "none",
+     "width": 5
+    }
+   ]
+  },
+  "fix1": {
+   "cols": 1,
+   "rows": 1,
+   "refs": [
+    "selantis-first-camp.png"
+   ],
+   "items": [
+    {
+     "id": "cloak-spread",
+     "height": 12,
+     "desc": "a long moss-green hooded wool rain cloak laid out completely FLAT on the ground as a bedroll, seen from high above: the cloak fully opened and spread out like a blanket (a long rounded rectangle of green cloth), the flattened hood at the top end, a small bronze clasp, no person, not standing, not worn",
+     "footprint": "none",
+     "width": 34
+    }
+   ]
+  }
+ },
+ "anims": {
+  "campfire": {
+   "frames": 6,
+   "fps": 10,
+   "height": 26,
+   "footprint": "-9,-6,18,6",
+   "light": "72,#ffb060,flicker",
+   "motion": "the flames flicker and change shape from frame to frame, sparks rise",
+   "desc": "a small campfire: a ring of grey stones around crossed burning logs with bright orange-yellow flames and glowing embers"
+  },
+  "lantern": {
+   "frames": 4,
+   "fps": 6,
+   "height": 12,
+   "footprint": "none",
+   "light": "48,#ffd27a,flicker",
+   "motion": "the candle flame inside flickers and the warm glow pulses gently",
+   "desc": "an old iron lantern with glass panes and a ring handle on top, standing on the ground, a warm candle flame glowing inside"
+  },
+  "torch": {
+   "frames": 4,
+   "fps": 8,
+   "height": 40,
+   "footprint": "-2,-2,4,2",
+   "light": "80,#ff9a40,flicker",
+   "motion": "the fire at the top flickers and changes shape, a few sparks",
+   "desc": "a tall standing torch: a wooden pole stuck in the ground with a pitch-soaked rag head burning with a bright orange flame at the top"
+  },
+  "candle": {
+   "frames": 4,
+   "fps": 6,
+   "height": 9,
+   "footprint": "none",
+   "light": "36,#ffcf80,flicker",
+   "motion": "the small flame sways and flickers slightly",
+   "desc": "a short thick beeswax candle in a simple brass dish holder, burning with a small flame"
+  }
+ }
+}

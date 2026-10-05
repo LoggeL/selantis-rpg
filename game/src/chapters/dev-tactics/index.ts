@@ -1,27 +1,15 @@
-import type { CharacterSpec } from '../../art/api';
 import { G } from '../../core/G';
 import { defineChapter } from '../../core/registry';
 import type { BattleCtx, BattleDef, BattleUnitDef, TacticsStartData } from '../../tactics/api';
 
 // ---------------------------------------------------------------------------------------------
-// Looks. All original designs (DESIGN.md §2/§3) — never modelled on the film actors.
-// Presets are used when the art layer knows them; the spec is the fallback.
+// Units use painted character presets from the asset manifest (G.art.characterIds()); all original designs
+// (DESIGN.md §2/§3), never modelled on the film actors.
 // ---------------------------------------------------------------------------------------------
-const LOOK: Record<string, CharacterSpec> = {
-  valentus: { body: 'normal', skin: 'skin', hair: { style: 'shoulder', color: 'ash' }, beard: { style: 'full', color: 'ash' }, top: { style: 'robe', color: 'blue', trim: 'white' }, weapon: 'none', extra: ['glow'] },
-  falke: { body: 'normal', skin: 'skinTan', hair: { style: 'short', color: 'nut' }, top: { style: 'tabard', color: 'white', trim: 'blue' }, bottom: { style: 'pants', color: 'blue' }, head: { style: 'helmet', color: 'steel' }, weapon: 'sword', extra: ['pauldrons'] },
-  shadowSword: { body: 'normal', skin: 'skin', hair: { style: 'short', color: 'black' }, top: { style: 'tabard', color: 'black', trim: 'white' }, bottom: { style: 'pants', color: 'coal' }, head: { style: 'coif', color: 'steel' }, weapon: 'sword', shield: 'round-bw' },
-  shadowSpear: { body: 'normal', skin: 'skinPale', hair: { style: 'bald', color: 'black' }, top: { style: 'tabard', color: 'white', trim: 'black' }, bottom: { style: 'pants', color: 'coal' }, weapon: 'spear' },
-  shadowCrossbow: { body: 'slim', skin: 'skin', hair: { style: 'short', color: 'nut' }, top: { style: 'tunic', color: 'black', trim: 'white' }, bottom: { style: 'pants', color: 'coal' }, head: { style: 'helmet', color: 'iron' }, weapon: 'crossbow', extra: ['quiver'] },
-  barisYoung: { body: 'huge', skin: 'skin', hair: { style: 'buzz', color: 'black' }, beard: { style: 'full', color: 'black' }, top: { style: 'plate', color: 'iron', trim: 'black' }, bottom: { style: 'pants', color: 'black' }, weapon: 'axe' },
-  lia: { body: 'slim', skin: 'skinPale', hair: { style: 'long-curly', color: 'ginger' }, top: { style: 'blouse', color: 'white' }, bottom: { style: 'skirt', color: 'earth' }, cloak: { style: 'raincoat', color: 'green' }, extra: ['satchel'] },
-  flick: { body: 'slim', skin: 'skinTan', hair: { style: 'short-messy', color: 'black' }, ears: 'elf', top: { style: 'vest', color: 'leather' }, cloak: { style: 'hooded', color: 'olive' }, bottom: { style: 'pants', color: 'leather' }, weapon: 'bow', extra: ['quiver', 'bracers', 'freckles', 'streak'] },
-  kyra: { body: 'slim', skin: 'skin', hair: { style: 'long', color: 'nut' }, top: { style: 'dress', color: 'linen' }, extra: ['necklace'] },
-};
 
 const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'>): BattleUnitDef => ({
   name: 'Dunkelschatten', team: 'enemy', hp: 13, atk: 2, def: 1, move: 4, jump: 2, speed: 4, abilities: ['schwerthieb'],
-  preset: 'shadow-sword', spec: LOOK.shadowSword, title: 'Schwertträger', ai: 'melee', facing: 'n', ...o,
+  preset: 'shadow-sword', title: 'Schwertträger', ai: 'melee', facing: 'n', ...o,
 });
 
 // ---------------------------------------------------------------------------------------------
@@ -75,6 +63,21 @@ export const dunkelhainBattle: BattleDef = {
       '..b..,,...~.',
       'T...,,.b..~T',
     ],
+    // Trodden path up the hill (visual only).
+    paint: [
+      '............',
+      '............',
+      '............',
+      '....d.......',
+      '....d.......',
+      '....dd......',
+      '.....d......',
+      '.....dd.....',
+      '......d.....',
+      '......d.....',
+      '......d.....',
+      '......d.....',
+    ],
     props: [
       { x: 1, y: 0, prop: 'banner-light' },
       { x: 0, y: 2, prop: 'banner-light', variant: 1 },
@@ -84,19 +87,19 @@ export const dunkelhainBattle: BattleDef = {
   },
   units: [
     { id: 'valentus', name: 'Valentus', title: 'Großmeister des Rats der Zehn', team: 'player', x: 3, y: 3, facing: 's', hp: 30, atk: 3, def: 2, move: 4, jump: 2, speed: 6,
-      abilities: ['handstoss', 'strahl', 'druckwelle', 'schutzwall'], preset: 'valentus', spec: LOOK.valentus },
+      abilities: ['handstoss', 'strahl', 'druckwelle', 'schutzwall'], preset: 'valentus' },
     { id: 'falke', name: 'Falke', title: 'Falke aus Portas, zwei Kurzschwerter', team: 'player', x: 4, y: 4, facing: 's', hp: 26, atk: 3, def: 2, move: 5, jump: 3, speed: 7,
-      abilities: ['doppelhieb', 'tritt'], preset: 'falke-soldier', spec: LOOK.falke },
+      abilities: ['doppelhieb', 'tritt'], preset: 'falke-soldier' },
     shadow({ id: 'ds-1', x: 5, y: 7, facing: 'n' }),
     shadow({ id: 'ds-2', x: 7, y: 9, facing: 'n' }),
-    shadow({ id: 'ds-spear', name: 'Spießträger', title: 'Dunkelschatten mit Spieß', x: 4, y: 10, abilities: ['speerstoss'], spec: LOOK.shadowSpear, preset: 'shadow-spear' }),
-    shadow({ id: 'ds-xbow', name: 'Armbrustschütze', title: 'Dunkelschatten auf dem Fels', x: 10, y: 7, hp: 10, atk: 3, def: 0, move: 3, abilities: ['bolzen'], ai: 'archer', spec: LOOK.shadowCrossbow, preset: 'shadow-crossbow', facing: 'w' }),
+    shadow({ id: 'ds-spear', name: 'Spießträger', title: 'Dunkelschatten mit Spieß', x: 4, y: 10, abilities: ['speerstoss'], preset: 'shadow-spear' }),
+    shadow({ id: 'ds-xbow', name: 'Armbrustschütze', title: 'Dunkelschatten auf dem Fels', x: 10, y: 7, hp: 10, atk: 3, def: 0, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 'w' }),
     { id: 'baris-young', name: 'Axtkämpfer', title: 'Ein junger Hüne mit Axt', team: 'enemy', x: 7, y: 8, facing: 'n', hp: 24, atk: 4, def: 2, move: 3, jump: 1, speed: 3,
-      abilities: ['axthieb', 'wuchtschlag'], nonLethal: true, preset: 'baris-young', spec: LOOK.barisYoung, ai: 'melee' },
+      abilities: ['axthieb', 'wuchtschlag'], nonLethal: true, preset: 'baris-young', ai: 'melee' },
   ],
   waves: [{
     round: 3, text: 'Weitere Dunkelschatten stürmen den Hang!',
-    units: [shadow({ id: 'ds-3', x: 2, y: 11 }), shadow({ id: 'ds-4', name: 'Spießträger', x: 5, y: 11, abilities: ['speerstoss'], spec: LOOK.shadowSpear, preset: 'shadow-spear' })],
+    units: [shadow({ id: 'ds-3', x: 2, y: 11 }), shadow({ id: 'ds-4', name: 'Spießträger', x: 5, y: 11, abilities: ['speerstoss'], preset: 'shadow-spear' })],
   }],
   objective: {
     text: 'Deckt den Rückzug',
@@ -146,6 +149,7 @@ export const rescueBattle: BattleDef = {
   seed: 77,
   map: {
     trees: 'mixed',
+    ground: 'dry',
     height: [
       '22211111000',
       '22111100000',
@@ -181,15 +185,15 @@ export const rescueBattle: BattleDef = {
   },
   units: [
     { id: 'lia', name: 'Lia', title: 'Keine Kämpferin – aber sie gibt nicht auf', team: 'player', x: 2, y: 9, facing: 'n', hp: 14, atk: 1, def: 0, move: 4, jump: 2, speed: 6,
-      abilities: ['ausweichen', 'ablenken', 'steinwurf', 'dolch', 'befreien'], preset: 'lia', spec: LOOK.lia, tags: ['vip'] },
+      abilities: ['ausweichen', 'ablenken', 'steinwurf', 'dolch', 'befreien'], preset: 'lia', tags: ['vip'] },
     { id: 'flick', name: 'Flick', title: 'Die beste Fährtenleserin südlich von Trapas', team: 'player', x: 1, y: 8, facing: 'n', hp: 18, atk: 3, def: 1, move: 5, jump: 3, speed: 8,
-      abilities: ['bogen', 'messer', 'befreien'], nonLethal: true, preset: 'flick', spec: LOOK.flick },
+      abilities: ['bogen', 'messer', 'befreien'], nonLethal: true, preset: 'flick' },
     { id: 'kyra', name: 'Kyra', title: 'Gefesselt an den Baum', team: 'ally', x: 5, y: 6, facing: 's', hp: 12, atk: 2, def: 0, move: 4, jump: 2, speed: 6,
-      abilities: ['schubsen', 'ausweichen'], statuses: { bound: Infinity }, freedTeam: 'player', preset: 'kyra', spec: LOOK.kyra, tags: ['vip', 'spared'] },
+      abilities: ['schubsen', 'ausweichen'], statuses: { bound: Infinity }, freedTeam: 'player', preset: 'kyra', boundPreset: 'kyra-bound', tags: ['vip', 'spared'] },
     shadow({ id: 'w-1', name: 'Wache', x: 6, y: 5, facing: 'w', ai: 'guard', guardRadius: 4 }),
-    shadow({ id: 'w-2', name: 'Spießträger', x: 7, y: 7, facing: 's', ai: 'guard', guardRadius: 4, abilities: ['speerstoss'], spec: LOOK.shadowSpear, preset: 'shadow-spear' }),
+    shadow({ id: 'w-2', name: 'Spießträger', x: 7, y: 7, facing: 's', ai: 'guard', guardRadius: 4, abilities: ['speerstoss'], preset: 'shadow-spear' }),
     shadow({ id: 'w-3', name: 'Wache', x: 4, y: 3, facing: 'n', ai: 'guard', guardRadius: 3 }),
-    shadow({ id: 'w-xbow', name: 'Armbrustschütze', x: 1, y: 1, hp: 10, def: 0, move: 3, abilities: ['bolzen'], ai: 'archer', spec: LOOK.shadowCrossbow, preset: 'shadow-crossbow', facing: 's' }),
+    shadow({ id: 'w-xbow', name: 'Armbrustschütze', x: 1, y: 1, hp: 10, def: 0, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 's' }),
   ],
   goalTiles: [{ x: 0, y: 4 }, { x: 0, y: 5 }, { x: 0, y: 6 }, { x: 0, y: 7 }],
   objective: {
@@ -257,11 +261,11 @@ export const sandboxBattle: BattleDef = {
     ],
   },
   units: [
-    { id: 'valentus', name: 'Valentus', team: 'player', x: 3, y: 2, facing: 's', hp: 30, atk: 3, def: 2, move: 4, jump: 2, abilities: ['druckwelle', 'handstoss', 'strahl', 'schutzwall'], preset: 'valentus', spec: LOOK.valentus },
-    { id: 'flick', name: 'Flick', team: 'player', x: 1, y: 5, facing: 'n', hp: 18, atk: 3, def: 1, move: 5, jump: 3, abilities: ['bogen', 'messer'], preset: 'flick', spec: LOOK.flick },
+    { id: 'valentus', name: 'Valentus', team: 'player', x: 3, y: 2, facing: 's', hp: 30, atk: 3, def: 2, move: 4, jump: 2, abilities: ['druckwelle', 'handstoss', 'strahl', 'schutzwall'], preset: 'valentus' },
+    { id: 'flick', name: 'Flick', team: 'player', x: 1, y: 5, facing: 'n', hp: 18, atk: 3, def: 1, move: 5, jump: 3, abilities: ['bogen', 'messer'], preset: 'flick' },
     shadow({ id: 's-north', x: 3, y: 1, facing: 's' }),
     shadow({ id: 's-east', x: 4, y: 2, facing: 'w' }),
-    { id: 'baris-young', name: 'Axtkämpfer', team: 'enemy', x: 2, y: 2, facing: 'e', hp: 6, atk: 4, def: 2, move: 3, jump: 1, abilities: ['axthieb'], nonLethal: true, preset: 'baris-young', spec: LOOK.barisYoung },
+    { id: 'baris-young', name: 'Axtkämpfer', team: 'enemy', x: 2, y: 2, facing: 'e', hp: 6, atk: 4, def: 2, move: 3, jump: 1, abilities: ['axthieb'], nonLethal: true, preset: 'baris-young' },
     shadow({ id: 's-south', x: 3, y: 3, facing: 'n', hp: 4 }),
   ],
   objective: { text: 'Übung', detail: 'Stoße die Feinde von der Klippe.', win: [{ type: 'defeatAll' }] },

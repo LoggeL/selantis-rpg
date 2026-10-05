@@ -1,0 +1,15 @@
+{
+  "height": 23,
+  "frames": 1,
+  "anchor": [
+    12,
+    24
+  ],
+  "desc": "a wooden farmhouse rocking cradle seen from above at three-quarter angle, with TWO sleeping newborn babies lying side by side, swaddled in cream linen with only their tiny faces visible, eyes closed, a soft wool blanket",
+  "footprint": {
+    "x": -10,
+    "y": -5,
+    "w": 20,
+    "h": 5
+  }
+}

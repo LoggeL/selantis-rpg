@@ -3,7 +3,7 @@ import { G } from '../core/G';
 import type { Dir } from '../core/types';
 import type { At, GuardDef, GuardWaypoint } from './api';
 import type { Actor } from './actor';
-import { dirAngle, dirFromVector, toPx, type Vec } from './geom';
+import { dirAngle, dirFromVector, toPx, unitPx, wk, type Vec } from './geom';
 import { FOOT_HH, FOOT_HW, type CollisionGrid } from './grid';
 import { findPath } from './pathfind';
 import { DEFAULT_SUSPICION, newSuspicion, stepSuspicion, type SuspicionState } from './suspicion';
@@ -50,17 +50,17 @@ export class Guard {
       const px = toPx(wp.at);
       return { x: px.x, y: px.y, wait: wp.wait ?? (def.path.length === 1 ? Infinity : 600), face: wp.face };
     });
-    this.range = (def.range ?? 5.5) * 16;
+    this.range = def.range !== undefined ? unitPx(def.range) : 88 * wk();
     this.half = ((def.fov ?? 70) / 2) * (Math.PI / 180);
     this.facing = dirAngle(actor.dir);
-    actor.walkSpeed = def.speed ?? 34;
+    actor.walkSpeed = def.speed ?? 34 * wk();
     const first = this.waypoints[0];
     if (first?.face) this.facing = dirAngle(first.face);
     this.waitT = 0.4;
   }
 
   /** Eye position used for vision (a bit above the feet). */
-  get eye(): Vec { return { x: this.actor.x, y: this.actor.y - 3 }; }
+  get eye(): Vec { return { x: this.actor.x, y: this.actor.y - 3 * wk() }; }
 
   reset(): void {
     const first = this.waypoints[0];
@@ -97,7 +97,7 @@ export class Guard {
       const sight = canSee(s.grid, {
         origin: this.eye, facing: this.facing, halfAngle: this.half, range: this.range,
         target: { x: s.target.x, y: s.target.y }, sneaking: s.target.sneaking, running: s.target.running && s.target.moving,
-        hidden: s.hidden,
+        hidden: s.hidden, closeSense: 14 * wk(), chest: 8 * wk(),
       });
       if (sight.visible) this.lastSeen = { x: s.target.x, y: s.target.y };
       const evs = stepSuspicion(this.susp, { visible: sight.visible, closeness: sight.closeness, sneaking: s.target.sneaking, running: s.target.running, dt: s.dt },

@@ -5,7 +5,7 @@ import { canvasRect, GAME_H, GAME_W } from '../core/viewport';
 import { blurActive, el } from './dom';
 
 /** Stacking layers inside #ui (bottom → top). */
-export const LAYERS = ['hud', 'world', 'touch', 'letterbox', 'plate', 'toast', 'fade', 'dialog', 'card', 'title', 'overlay', 'debug'] as const;
+export const LAYERS = ['backdrop', 'hud', 'world', 'touch', 'letterbox', 'plate', 'toast', 'fade', 'dialog', 'card', 'title', 'overlay', 'debug'] as const;
 export type LayerName = typeof LAYERS[number];
 
 export interface Modal {
@@ -191,7 +191,7 @@ export class UiContext {
     this.held.add(e.code);
     const top = this.top();
     const typing = (e.target as HTMLElement | null)?.tagName === 'INPUT' && (e.target as HTMLInputElement).type === 'text';
-    if (typing && e.key !== 'Escape' && e.key !== 'Enter' && !e.key.startsWith('Arrow')) return;
+    if (typing && e.key !== 'Escape' && e.key !== 'Enter' && !e.key.startsWith('Arrow') && !/^F\d+$/.test(e.key)) return;
     if (top?.onKey && top.onKey(e)) { this.swallow(e); return; }
     if (e.key === 'Tab') e.preventDefault(); // never move browser focus
     if ((!top || top.allowMenu || top.allowJournal || e.key === 'F2') && this.globalKeys(e)) { this.swallow(e); return; }

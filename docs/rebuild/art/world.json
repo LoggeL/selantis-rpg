@@ -1,0 +1,41 @@
+{
+  "area": "world",
+  "assets": [
+    {
+      "id": "dev-meadow",
+      "kind": "background",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height, a farmhouse door about one eleventh of the image height. Scene: a late-summer meadow on a quiet farm, dry golden-green grass after days without rain. LEFT-CENTRE: one big, old, broad deciduous tree (a lone oak) with a thick gnarled trunk and a wide round dense crown; the trunk stands on open grass with free ground all around it, the crown is about one third of the image height across. A trodden light-brown dirt footpath enters at the bottom edge slightly left of centre, curves past the tree on its right side, continues to the right and leaves the image at the right edge at about two thirds height. TOP-LEFT and along the top edge: the edge of a golden wheat field (tall wheat rows), with a clear field border to the meadow. TOP-RIGHT corner: the corner of a small half-timbered farmhouse with a red brick-tile roof and a wooden door facing south, a little wooden bench beside it, packed earth yard in front of it; the house is cut off by the top and right image edges. BOTTOM-LEFT: a small round pond with reeds and lily pads, surrounded by grass. CENTRE-RIGHT: a dense green hedge row running horizontally from the middle to the right side below the farmhouse, with a clear gap where the path passes through it. Some scattered wild flowers (cornflowers, poppies), a few small bushes at the edges, a fallen log. Warm late-afternoon sunlight from the upper left, long soft shadows to the lower right. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-felder.png",
+        "output/imagegen/style-refs/selantis-map-hof.png",
+        "output/imagegen/style-refs/insel-bg-dorf.png"
+      ],
+      "raw": "output/imagegen/raw/world/dev-meadow.png",
+      "output": "game/public/assets/bg/dev-meadow.png",
+      "size": [
+        1280,
+        720
+      ],
+      "colors": 96,
+      "tool": "scripts/art/codex_image.sh (Codex CLI image generation)"
+    },
+    {
+      "id": "dev-clearing",
+      "kind": "background",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: a standing adult human would be about one eighth of the image height. Scene: a small forest clearing at NIGHT. Dense dark pine and oak forest frames all four edges with large tree crowns overhanging the top edge and big tree trunks at the left and right edges. In the CENTRE of the clearing a large open area of mossy grass and bare earth. Slightly left of centre a ring of stones around a fire pit with a few unlit logs and ash (the fire is NOT burning, only faint glowing embers). A fallen tree trunk lying horizontally above the fire pit as a seat. A narrow dirt path leaves the clearing at the BOTTOM edge near the centre and another one at the RIGHT edge at middle height. Clumps of ferns and dense bushes along the left and lower right border. A flat mossy boulder on the right side of the clearing. Night mood: deep blue-violet moonlight from the upper left, cool shadows, the ground still clearly readable, small warm orange ember glow only at the fire pit. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/insel-bg-lager.png"
+      ],
+      "raw": "output/imagegen/raw/world/dev-clearing.png",
+      "output": "game/public/assets/bg/dev-clearing.png",
+      "size": [
+        640,
+        360
+      ],
+      "colors": 80,
+      "tool": "scripts/art/codex_image.sh (Codex CLI image generation)"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ Das magische Leitmotiv ist **türkises Licht – die Urmacht**. Es taucht im Pro
 - Phaser 3.90 + TypeScript + Vite (vorhanden). Interne Auflösung **640×360**, `pixelArt: true`, ganzzahlige Skalierung, wenn möglich. Die Leinwand füllt das Fenster im 16:9-Format (Letterbox).
 - **Grafik kommt aus der Codex-Bildgenerierung** (Vorgabe des Nutzers, Stil wie InselRPG bzw. der ursprüngliche Selantis-Stil): gemalte, detailreiche Pixel-Art. Die harte, simple Code-Pixel-Art ist verworfen. Code zeichnet nur noch Effekte (Partikel, Licht, Wetter) und, wo nötig, Hilfsgrafiken. Pipeline siehe §3.
 - **Privatsphäre der Darsteller (verbindlich):** Figuren dürfen **nicht** wie die Schauspieler der Filme aussehen. Keine 1:1-Übernahme von Gesichtern, Frisuren oder Kostümen aus Filmbildern. Aussehen kommt aus dem Roman oder ist ein eigener Entwurf. Deshalb verwendet das Spiel **keine** der alten gemalten Porträts und Tafeln (`public/assets/portraits`, `public/assets/cut`), denn mehrere wurden mit Film-Standbildern als Vorlage erzeugt. Film-Standbilder in `sources/frames/` sind nur für Handlung und Ablauf da, nie als Bildvorlage für Personen.
-- **Wiederverwendet wird nur die Musik** (`output/audio/scenes/*.mp3` + Räuberlied). Alles Visuelle entsteht neu im Code: Welt, Figuren, **Pixel-Porträts** (aus demselben Figuren-Baukasten, mit Stimmungen) und große Story-Momente als **im Spiel inszenierte Tableaus** (Kamera, Letterbox, Licht, Partikel, Nahaufnahme-Zoom).
+- **Wiederverwendet wird nur die Musik** (`output/audio/scenes/*.mp3` + Räuberlied). Alles Visuelle entsteht neu: Karten, Figuren, Porträts (mit Stimmungen) und Tafeln kommen aus der Codex-Bildgenerierung (§3); große Story-Momente werden **im Spiel als Tableau inszeniert** (Kamera, Letterbox, Licht, Partikel, Nahaufnahme-Zoom) oder als gemalte Tafel gezeigt.
 - **UI ist DOM/CSS** über der Leinwand (`#ui`), gestochen scharf und responsiv. Phaser zeichnet nur die Spielwelt.
 - Textsprache: Deutsch, mit korrekten Umlauten (ä, ö, ü, ß) und Anführungszeichen „…“. Code-Bezeichner Englisch.
 - Keine Bibliotheken außer Phaser (Fonts von Google Fonts sind erlaubt).
@@ -33,7 +33,7 @@ Das magische Leitmotiv ist **türkises Licht – die Urmacht**. Es taucht im Pro
 | Ordner | Inhalt | Besitzer (Phase 1) |
 | --- | --- | --- |
 | `core/` | Spielzustand, Speichern, Events, Registry, Einstellungen, Eingabe-Grundlagen, `G`-Fassade | Kern (vorgegeben) |
-| `art/` | Palette, prozedurale Tiles, Requisiten, Figuren-Baukasten, Effekte, Galerie | Art-Agent |
+| `art/` | Laufzeit der gemalten Assets (Manifest, Figuren, Posen, Porträts, Requisiten, Hintergründe, Tafeln, Symbole), prozedurale Effekte, Galerie | Art-Agent |
 | `ui/` | DOM-UI-Kit: Dialog, Erzähler, Tafeln, Kapitelkarte, HUD, Tagebuch, Tasche, Menüs, Titel, Touch-Steuerung | UI-Agent |
 | `audio/` | Musik-Manager (Crossfade), prozedurale SFX und Ambience | UI-Agent (oder Audio) |
 | `world/` | Erkundungs-Engine: Karten, Spieler, NPCs, Begleiter, Interaktion, Wachen/Schleichen, Licht, Wetter, Kamera, Trigger | Welt-Agent |
@@ -99,14 +99,14 @@ Ein **einziges** visuelles System für alles. Kein Stilmix.
 - Paneele: tiefes Nachtblau (#141a26-ähnlich) mit feiner Pergament-/Goldlinie, leichte Körnung, abgerundete Ecken mit kleinen Zierwinkeln (CSS, kein Bildmaterial nötig). Lesetexte (Erzähler, Tagebuch, Tafel-Unterschriften) stehen auf **Pergament** mit dunkler Tinte.
 - Schriften: Überschriften **„Cinzel“** (Kapitelkarten, Titel), Fließtext **„Alegreya“**, kleine Labels/Tasten **„Alegreya Sans SC“**. Keine Pixel-Schrift in der UI.
 - Farben: Pergament #efe3c8, Tinte #2b2119, Gold #d8b25a, Türkis #49e0c8 (nur Magie/Urmacht/aktive Ziele), Gefahr #d4573b.
-- **Dialogbox** unten: **Pixel-Porträt** (`G.art.portrait(id, mood)`, eigene Entwürfe, keine Film-Ähnlichkeit) mit Namensband, Schreibmaschinen-Text mit Stimmen-Blips je Sprecher (Tonhöhe), Weiter-Indikator, Klick/E/Space/Enter überspringt bzw. weiter. Auswahlantworten als Liste (Maus, Tasten 1–4, Pfeile). Erzählerzeilen ohne Porträt in kursiver Buchschrift.
+- **Dialogbox** unten: **gemaltes Porträt** (`G.art.portrait(id, mood)`, eigene Entwürfe, keine Film-Ähnlichkeit) mit Namensband, Schreibmaschinen-Text mit Stimmen-Blips je Sprecher (Tonhöhe), Weiter-Indikator, Klick/E/Space/Enter überspringt bzw. weiter. Auswahlantworten als Liste (Maus, Tasten 1–4, Pfeile). Erzählerzeilen ohne Porträt in kursiver Buchschrift.
 - **Kapitelkarte:** Buchseite schlägt auf, römische Ziffer, Titel, Untertitel, Zierlinie.
-- **Buchtafel:** im Code gezeichnete Bilder (Karte von Selantis, Sternbild Crios, Briefe, Buchseiten, Siegel, Vignetten) im Rahmen mit langsamem Schwenk, Letterbox und Bildunterschrift. Darüber laufen Dialogzeilen. Story-Höhepunkte werden in der Spielwelt als Tableau inszeniert, nicht als gemaltes Bild.
+- **Buchtafel:** gemalte Tafeln (Codex, 1280×720, §3) oder im Code gezeichnete Bilder (Karte von Selantis, Sternbild Crios, Briefe, Buchseiten, Siegel, Vignetten) im Rahmen mit langsamem Schwenk, Letterbox und Bildunterschrift. Darüber laufen Dialogzeilen. Story-Höhepunkte werden in der Spielwelt als Tableau inszeniert oder als gemalte Tafel gezeigt (Figuren nach der Figuren-Referenz, nie nach Filmbildern).
 - **Interaktions-Hinweis:** großes, deutliches Tastensymbol („E“ bzw. Touch-Hand) mit Verb („Untersuchen“, „Reden“, „Aufheben“) über dem Objekt. Feedback aus dem Playtest: Das E muss groß und klar sein.
 - **HUD:** oben links aktuelles Ziel (Tagebuch-Notiz, wechselt mit kleiner Animation), am Bildschirmrand ein dezenter Zielpfeil, wenn das Ziel außerhalb liegt. Oben rechts Symbole für Tagebuch, Tasche und Menü (auch klickbar). Toasts für Funde („Erinnerung gefunden“, „Neues Wissen“).
 - **Tagebuch (Tab/J):** Ziele, erledigte Ziele, Erinnerungen (Sammelstücke), Wissen (Lore), Figuren. **Tasche (I):** Gegenstände mit Lias Kommentar, Benutzen.
 - **Menü (Esc):** Fortsetzen, Einstellungen (Musik, Effekte, Textgeschwindigkeit, reduzierte Bewegung, Vollbild), Kapitelwahl, Zum Titel.
-- **Titelbildschirm:** atmosphärisch, prozedurale Nachtlandschaft mit Crios-Stern und Glühwürmchen oder ein langsam gleitendes Panorama; „Neues Spiel“, „Fortsetzen“ (wenn Spielstand), „Kapitel“, „Einstellungen“.
+- **Titelbildschirm:** atmosphärisch, gemalte Nachtlandschaft mit Crios-Stern (animiert: Sterne, Glühwürmchen, Rauch, langsames Gleiten); „Neues Spiel“, „Fortsetzen“ (wenn Spielstand), „Kapitel“, „Einstellungen“.
 - **Touch:** virtueller Stick (links, frei platzierbar) + Aktionsknopf (rechts) + kontextuelle Zusatzknöpfe; Tippen in die Welt setzt ein Laufziel. Desktop: Maus-Klick setzt Laufziel (mit Pfadfindung), Tastatur WASD/Pfeile.
 
 ## 5. Steuerung (überall gleich)

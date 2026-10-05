@@ -80,23 +80,3 @@ export const BAYER4 = [
 export function bayer(x: number, y: number): number {
   return BAYER4[y & 3][x & 3];
 }
-
-/** Precomputed value-noise lattice: same look as valueNoise() but much cheaper for dense sampling. */
-export class NoiseField {
-  private readonly lat: Float32Array;
-  private readonly lw: number;
-  constructor(w: number, h: number, private readonly scale: number, seed: number) {
-    this.lw = Math.ceil(w / scale) + 3;
-    const lh = Math.ceil(h / scale) + 3;
-    this.lat = new Float32Array(this.lw * lh);
-    for (let y = 0; y < lh; y++) for (let x = 0; x < this.lw; x++) this.lat[y * this.lw + x] = hash2(x - 1, y - 1, seed);
-  }
-  sample(x: number, y: number): number {
-    const fx = x / this.scale + 1, fy = y / this.scale + 1;
-    const x0 = Math.max(0, Math.floor(fx)), y0 = Math.max(0, Math.floor(fy));
-    const tx = smooth(Math.min(1, Math.max(0, fx - x0))), ty = smooth(Math.min(1, Math.max(0, fy - y0)));
-    const i = y0 * this.lw + x0, L = this.lat;
-    const a = L[i] ?? 0, b = L[i + 1] ?? 0, c = L[i + this.lw] ?? 0, d = L[i + this.lw + 1] ?? 0;
-    return (a + (b - a) * tx) * (1 - ty) + (c + (d - c) * tx) * ty;
-  }
-}

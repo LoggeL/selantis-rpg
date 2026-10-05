@@ -1,5 +1,20 @@
 import type { TerrainId } from '../art/api';
-import { DEFAULT_LEGEND } from './api';
+
+/**
+ * Terrain helpers: material properties (speed, footstep sound, dust) used by painted-map surfaces, plus a tiny ASCII
+ * grid parser for logic tests (pathfinding, collision). Maps themselves are painted backgrounds with polygons.
+ */
+
+/** ASCII legend for terrain grids (pathfinding tests, quick collision grids). */
+export const DEFAULT_LEGEND: Readonly<Record<string, TerrainId>> = {
+  '.': 'grass', ',': 'meadow', ';': 'darkgrass', 'F': 'forest',
+  'd': 'dirt', 'p': 'path', 'r': 'road', 'm': 'mud', 's': 'sand',
+  'w': 'wheat', 'c': 'crops', 'x': 'stubble',
+  '~': 'water', '-': 'shallow',
+  'S': 'stone', 'o': 'cobble', '#': 'wood', 'R': 'rug', 'C': 'carpet',
+  '^': 'cliff', ' ': 'void',
+};
+
 
 export interface ParsedGround {
   cols: number;

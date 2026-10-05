@@ -1,0 +1,15 @@
+{
+  "height": 38,
+  "frames": 1,
+  "anchor": [
+    14,
+    39
+  ],
+  "desc": "a straw training dummy: a wooden post with a crossbar as arms, a body of bound straw wrapped in a torn sackcloth, a sack head, standing in the ground, a few cuts in the straw",
+  "footprint": {
+    "x": -5,
+    "y": -3,
+    "w": 10,
+    "h": 3
+  }
+}

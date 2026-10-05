@@ -1,0 +1,15 @@
+{
+  "height": 30,
+  "frames": 1,
+  "anchor": [
+    21,
+    31
+  ],
+  "desc": "a medieval two-wheeled wooden farm cart with high slatted sides, two big spoked wooden wheels and two long shafts resting on the ground, seen three-quarter from the front-left, empty",
+  "footprint": {
+    "x": -20,
+    "y": -8,
+    "w": 40,
+    "h": 8
+  }
+}

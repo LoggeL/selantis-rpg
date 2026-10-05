@@ -1,0 +1,15 @@
+{
+  "height": 17,
+  "frames": 1,
+  "anchor": [
+    9,
+    18
+  ],
+  "desc": "a sturdy wooden crate made of planks with corner battens, closed lid",
+  "footprint": {
+    "x": -8,
+    "y": -5,
+    "w": 16,
+    "h": 5
+  }
+}

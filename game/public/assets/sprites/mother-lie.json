@@ -1,0 +1,9 @@
+{
+  "facing": "right",
+  "foot": [
+    64,
+    60
+  ],
+  "character": "mother",
+  "pose": "lie"
+}

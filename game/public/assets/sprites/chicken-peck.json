@@ -1,0 +1,9 @@
+{
+  "character": "chicken",
+  "pose": "peck",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ]
+}

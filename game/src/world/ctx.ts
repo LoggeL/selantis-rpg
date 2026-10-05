@@ -7,7 +7,7 @@ import type {
   ActorHandle, At, ControlName, EmoteKind, LightDef, LightHandle, MapDef, NpcDef, PropDef, PropHandle, TimeOfDay, WalkOptions, WeatherKind, WorldCtx, WorldEvent,
 } from './api';
 import type { Actor } from './actor';
-import { isAt, pxToTile, toPx, type Vec } from './geom';
+import { isAt, pxToTile, toPx, unitPx, wk, type Vec } from './geom';
 import { FOOT_HH, FOOT_HW } from './grid';
 import { MapMemory } from './memory';
 import { findPath } from './pathfind';
@@ -79,7 +79,7 @@ export function createCtx(scene: WorldScene): WorldCtx {
       // Anchors on props (seats) lie inside the footprint: finish with a short straight step.
       const last = path[path.length - 1];
       const gap = last ? Math.hypot(last.x - to.x, last.y - to.y) : 0;
-      if (gap > 0.5 && gap < 18) path.push(to);
+      if (gap > 0.5 && gap < 18 * wk()) path.push(to);
       return path;
     }
     const h: ActorHandle = {
@@ -104,7 +104,7 @@ export function createCtx(scene: WorldScene): WorldCtx {
         // Stop a bit before other actors instead of walking into them.
         if (typeof a === 'string' && scene.actors.has(a)) {
           const dx = actor.x - to.x, dy = actor.y - to.y, d = Math.hypot(dx, dy) || 1;
-          to = { x: to.x + (dx / d) * 14, y: to.y + (dy / d) * 6 };
+          to = { x: to.x + (dx / d) * 14 * wk(), y: to.y + (dy / d) * 6 * wk() };
         }
         return walk(route(actor, to, opts?.straight), opts);
       },
@@ -178,7 +178,7 @@ export function createCtx(scene: WorldScene): WorldCtx {
         if (!l) return Promise.resolve();
         return guard(new Promise<void>(resolve => scene.tweens.add({ targets: l, intensity, duration: ms, onComplete: () => resolve() })));
       },
-      remove() { scene.lighting.remove(id); },
+      remove() { scene.removeLight(id); },
     };
   }
 
@@ -226,13 +226,13 @@ export function createCtx(scene: WorldScene): WorldCtx {
 
     waitForInteract: (id: string) => once('interact', id),
     waitForTrigger: (id: string) => once('trigger', id),
-    waitForNear(target: At | string, radius = 1.5) {
+    waitForNear(target: At | string, radius?: number) {
       return guard(new Promise<void>(resolve => {
         const check = () => {
           if (!scene.alive) return;
           const p = targetPx(target);
           const pl = scene.player;
-          if (p && pl && Math.hypot(p.x - pl.x, p.y - pl.y) <= radius * 16) { scene.events.off('update', check); resolve(); }
+          if (p && pl && Math.hypot(p.x - pl.x, p.y - pl.y) <= (radius !== undefined ? unitPx(radius) : 24 * wk())) { scene.events.off('update', check); resolve(); }
         };
         scene.events.on('update', check);
       }));

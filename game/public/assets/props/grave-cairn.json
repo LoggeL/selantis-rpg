@@ -1,0 +1,15 @@
+{
+  "height": 18,
+  "frames": 1,
+  "anchor": [
+    25,
+    19
+  ],
+  "desc": "a fresh grave mound: an elongated low cairn of grey and brown fieldstones piled over fresh dark earth, about two metres long, oriented left to right",
+  "footprint": {
+    "x": -21,
+    "y": -9,
+    "w": 42,
+    "h": 9
+  }
+}

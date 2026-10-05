@@ -1,0 +1,13 @@
+{
+  "character": "crow",
+  "pose": "fly",
+  "facing": "right",
+  "frames": 4,
+  "frameW": 64,
+  "fps": 10,
+  "loop": true,
+  "foot": [
+    32,
+    60
+  ]
+}

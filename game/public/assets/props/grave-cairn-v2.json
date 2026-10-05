@@ -1,0 +1,15 @@
+{
+  "height": 21,
+  "frames": 1,
+  "anchor": [
+    20,
+    22
+  ],
+  "desc": "a second fresh grave cairn of piled grey fieldstones over dark earth, slightly shorter and rounder than a normal grave, a few larger flat stones on top, oriented left to right",
+  "footprint": {
+    "x": -17,
+    "y": -8,
+    "w": 34,
+    "h": 8
+  }
+}

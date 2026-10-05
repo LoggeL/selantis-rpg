@@ -18,7 +18,7 @@ export function dock(): HTMLElement {
   return dockEl;
 }
 
-/** Portrait data URL via the art API (cached). Returns '' when unavailable. */
+/** Portrait URL via the art API (cached). Returns '' when unavailable. */
 export function portraitUrl(id: string, mood?: string): string {
   const key = `${id}|${mood ?? 'neutral'}`;
   let url = portraitCache.get(key);
@@ -29,34 +29,68 @@ export function portraitUrl(id: string, mood?: string): string {
   return url;
 }
 /** Drops cached portraits (e.g. after the art layer regenerated them). */
-export function clearPortraitCache(): void { portraitCache.clear(); }
+export function clearPortraitCache(): void { portraitCache.clear(); loaded.clear(); }
+
+/** Decoded portrait images by URL: a mood change shows the new face without a blank frame. */
+const loaded = new Map<string, Promise<HTMLImageElement | null>>();
+function loadPortrait(url: string): Promise<HTMLImageElement | null> {
+  let p = loaded.get(url);
+  if (!p) {
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = url;
+    p = img.decode().then(() => img, () => (img.complete && img.naturalWidth ? img : null));
+    loaded.set(url, p);
+  }
+  return p;
+}
+const MOODS = ['neutral', 'happy', 'sad', 'angry', 'surprised', 'determined', 'hurt', 'thinking', 'scared'];
+const warmed = new Set<string>();
+/** Loads the other moods of a speaker in the background once they first speak. */
+function warmMoods(portraitId: string): void {
+  if (warmed.has(portraitId)) return;
+  warmed.add(portraitId);
+  const idle = (fn: () => void) => ((window as unknown as { requestIdleCallback?: (f: () => void) => void }).requestIdleCallback ?? ((f: () => void) => setTimeout(f, 400)))(fn);
+  idle(() => { for (const m of MOODS) { const u = portraitUrl(portraitId, m); if (u) void loadPortrait(u); } });
+}
+/** Painted portraits (Codex, 256x256) are scaled smoothly; small pixel portraits (fallbacks) stay crisp. */
+const isPainted = (img: HTMLImageElement | null) => Boolean(img && img.naturalWidth >= 128);
 
 /**
  * The dialogue box (bottom). One persistent element reused across consecutive lines, so a conversation
  * does not flicker; it hides shortly after the last line unless another line or choices follow.
+ *
+ * Portrait: two stacked images. A new speaker cuts in with a small pop; a new mood of the same speaker
+ * cross-fades (with a tiny breath), so expressions change softly. Missing images fall back to the
+ * neutral portrait, then to a hooded silhouette.
  */
 class DialogueBox {
   readonly el: HTMLElement;
   private frame: HTMLElement;
-  private img: HTMLImageElement;
+  private inner: HTMLElement;
+  private imgs: [HTMLImageElement, HTMLImageElement];
+  private front = 0;
+  private wanted = '';
   private name: HTMLElement;
   private text: HTMLElement;
   private more: HTMLElement;
   private visible = false;
   private hideTimer = 0;
   private currentSpeaker = '';
+  private natural = 256;
 
   constructor() {
     this.el = el('div', 'dlg ch-panel');
     this.el.setAttribute('role', 'dialog');
     this.el.setAttribute('aria-live', 'polite');
     this.frame = el('div', 'dlg-portrait');
-    const inner = el('div', 'dlg-portrait-inner');
-    this.img = el('img', 'px');
-    this.img.alt = '';
-    this.img.draggable = false;
-    inner.appendChild(this.img);
-    this.frame.appendChild(inner);
+    this.inner = el('div', 'dlg-portrait-inner');
+    const mk = () => { const i = el('img', 'dlg-por'); i.alt = ''; i.draggable = false; return i; };
+    this.imgs = [mk(), mk()];
+    const sil = el('div', 'dlg-por-sil');
+    sil.innerHTML = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 9c-9 0-15 7-15.5 16-.3 5 1.3 9.5 4.3 12.6C12 40.5 7 47 6 56h52c-1-9-6-15.5-14.8-18.4 3-3.1 4.6-7.6 4.3-12.6C47 16 41 9 32 9z" fill="currentColor"/><path d="M19.5 24c2-6.5 7-10 12.5-10s10.5 3.5 12.5 10c-3.5-3-8-4.5-12.5-4.5S23 21 19.5 24z" fill="#000" opacity=".25"/></svg>';
+    this.inner.append(sil, ...this.imgs);
+    this.frame.appendChild(this.inner);
     this.name = el('div', 'dlg-name');
     this.text = el('div', 'dlg-text');
     this.more = el('div', 'dlg-more');
@@ -104,31 +138,71 @@ class DialogueBox {
     this.el.style.setProperty('--accent', def.color ?? '#d8b25a');
     this.name.textContent = narrator ? '' : def.name;
     this.name.hidden = narrator || !def.name;
-    const url = narrator ? '' : portraitUrl(opts.portrait ?? def.portrait ?? id, opts.mood);
+    const portraitId = opts.portrait ?? def.portrait ?? id;
+    const url = narrator ? '' : portraitUrl(portraitId, opts.mood);
     this.frame.hidden = !url;
     this.el.classList.toggle('has-portrait', Boolean(url));
-    if (url) {
-      if (this.img.src !== url) {
-        this.img.onload = () => this.sizePortrait();
-        this.img.src = url;
-        if (this.img.complete) this.sizePortrait();
-      }
-      if (this.currentSpeaker !== id) {
-        this.frame.classList.remove('pop');
-        void this.frame.offsetWidth;
-        this.frame.classList.add('pop');
-      }
-    }
+    const newSpeaker = this.currentSpeaker !== id;
     this.currentSpeaker = id;
+    if (!url) { this.wanted = ''; return; }
+    if (newSpeaker) {
+      this.frame.classList.remove('pop');
+      void this.frame.offsetWidth;
+      this.frame.classList.add('pop');
+    }
+    this.setPortrait(url, portraitId, newSpeaker);
+    warmMoods(portraitId);
+  }
+
+  private setPortrait(url: string, portraitId: string, cut: boolean): void {
+    const front = this.imgs[this.front];
+    if (this.wanted === url && front.classList.contains('on')) return;
+    this.wanted = url;
+    if (cut) {
+      // A different face must never flash in: hide the old one right away.
+      for (const i of this.imgs) { i.classList.remove('on'); i.classList.add('no-fade'); }
+    }
+    void loadPortrait(url).then(async img => {
+      if (this.wanted !== url) return;
+      if (!img) {
+        // Broken mood image: try the neutral portrait, then the silhouette.
+        const neutral = portraitUrl(portraitId);
+        const alt = neutral && neutral !== url ? await loadPortrait(neutral) : null;
+        if (this.wanted !== url) return;
+        if (!alt) { this.frame.classList.add('is-missing'); for (const i of this.imgs) i.classList.remove('on'); return; }
+        img = alt;
+      }
+      this.frame.classList.remove('is-missing');
+      const back = this.imgs[1 - this.front];
+      const prev = this.imgs[this.front];
+      back.src = img.src;
+      back.classList.toggle('px', !isPainted(img));
+      this.natural = img.naturalWidth || 64;
+      this.sizePortrait();
+      back.classList.toggle('no-fade', cut);
+      back.classList.remove('breath');
+      if (!cut && prev.classList.contains('on')) { void back.offsetWidth; back.classList.add('breath'); }
+      back.classList.add('on');
+      prev.classList.remove('on');
+      this.front = 1 - this.front;
+      if (cut) requestAnimationFrame(() => { for (const i of this.imgs) i.classList.remove('no-fade'); });
+    });
   }
 
   sizePortrait(): void {
-    const n = this.img.naturalWidth || 64;
+    const n = this.natural;
     const small = Math.min(window.innerWidth, window.innerHeight) < 560;
-    const target = ctx.portrait ? 4.6 : small ? 4.2 : 6.4;
-    const scale = ctx.pixelScale(n, target);
-    this.img.style.width = `${n * scale}px`;
-    this.img.style.height = `${(this.img.naturalHeight || n) * scale}px`;
+    let size: number;
+    if (n >= 128) {
+      // Painted: a fixed size in em, smooth scaling.
+      const em = ctx.portrait ? 5.2 : small ? 5 : 7.2;
+      size = Math.round(ctx.fontPx * em);
+    } else {
+      const target = ctx.portrait ? 4.6 : small ? 4.2 : 6.4;
+      size = n * ctx.pixelScale(n, target);
+    }
+    this.inner.style.width = `${size}px`;
+    this.inner.style.height = `${size}px`;
   }
 
   get textEl(): HTMLElement { return this.text; }

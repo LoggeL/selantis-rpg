@@ -23,6 +23,8 @@ export type { AbilityDef, AiOverride, BattleEvent, Facing, Phase, Point, StatusI
 export interface BattleUnitDef extends UnitSpec {
   /** Character preset id for G.art.character() (e.g. 'valentus', 'lia'). */
   preset?: string;
+  /** Preset shown while the unit is bound (e.g. 'kyra-bound'); switches to `preset` once freed. */
+  boundPreset?: string;
   /** Look used when the preset is unknown to the art layer (always original designs, never film-derived). */
   spec?: CharacterSpec;
   /** Portrait id for G.art.portrait() on the unit card (defaults to preset, then a crest). */
@@ -62,6 +64,17 @@ export interface BattleMapDef {
   props?: BattlePropDef[];
   /** Which tree prop 'T' tiles use (default mix of oak and pine). */
   trees?: 'oak' | 'pine' | 'mixed' | 'dead';
+  /**
+   * Painted look of grass tiles ('.', 'b', 'T'): 'lush' summer meadow (default), 'dry' late-summer grass,
+   * 'forest' floor with moss and leaves. Visual only.
+   */
+  ground?: 'lush' | 'dry' | 'forest';
+  /**
+   * Optional per-tile repaint (visual only, rules unchanged), same size as `terrain`. Chars:
+   * 'g' grass · 'y' dry grass · 'f' forest floor · 'd' dirt path · 's' stone flags · 'a' sand · 'm' mud ·
+   * any other char keeps the default look. Use it for paths, worn ground around a camp, flagstones under ruins.
+   */
+  paint?: string[];
 }
 
 /** Reinforcements that arrive at the start of a phase. */

@@ -1,12 +1,27 @@
 import type { Dir } from '../../core/types';
 import type { Facing, Point } from '../rules/types';
 
-/** Iso tile footprint (2:1 diamond) and the pixel height of one height level. */
-export const TW = 32;
-export const TH = 16;
-export const LEVEL = 8;
+/**
+ * Iso tile footprint (2:1 diamond) and the pixel height of one height level. Sized for the 640x360 internal
+ * resolution and the generated character sheets (64x64 frames, ~42 px figures): a figure is a bit shorter
+ * than a tile is wide, like FFTA.
+ */
+export const TW = 48;
+export const TH = 24;
+export const LEVEL = 12;
 /** Thickness of the ground slab below height 0 (diorama look). */
-export const BASE = 10;
+export const BASE = 16;
+
+/** Half width (in px) of the diamond row y: 2:1 pixel-art staircase. */
+export const diamondHalf = (y: number) => (y < TH / 2 ? (y + 1) * 2 : (TH - y) * 2);
+/** Whether local pixel (x, y) of a TWxTH cell lies on the diamond top face. */
+export const inDiamond = (x: number, y: number) => {
+  if (y < 0 || y >= TH) return false;
+  const half = diamondHalf(y);
+  return x >= TW / 2 - half && x <= TW / 2 - 1 + half;
+};
+/** Row of the diamond's lower edge at column x (the top row of the side faces is just below). */
+export const topEdgeY = (x: number) => TH / 2 + Math.floor(Math.min(x, TW - 1 - x) / 2);
 
 /**
  * Camera rotation in 90° steps. All grid → screen conversion goes through this view so rules stay

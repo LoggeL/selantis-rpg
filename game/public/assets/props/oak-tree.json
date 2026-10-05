@@ -1,0 +1,16 @@
+{
+  "height": 118,
+  "frames": 1,
+  "anchor": [
+    67,
+    119
+  ],
+  "desc": "a large old summer oak tree with a broad round leafy crown and a thick gnarled trunk, roots visible at the base",
+  "footprint": {
+    "x": -10,
+    "y": -8,
+    "w": 20,
+    "h": 8
+  },
+  "sway": true
+}

@@ -19,9 +19,9 @@ function registerCatalog(): void {
   if (catalogRegistered) return;
   catalogRegistered = true;
   registerItems([
-    { id: 'demo-alana', name: 'Die Geschichten der Magierin Alana', icon: 'book', description: 'Ein abgegriffenes Buch mit Goldprägung. Vater hat es vom Markt in Trapas mitgebracht.', comment: 'Ich habe es schon dreimal gelesen. Beim vierten Mal merke ich mir vielleicht endlich alle Namen.' },
-    { id: 'demo-lexikon', name: 'Cronibus großes Kräuterlexikon', icon: 'herb-book', description: 'Schwer, dick und voller gepresster Blätter. Mutters wertvollstes Buch.', comment: 'Speikraut gegen Entzündungen. Ich wusste, dass das irgendwann nützlich wird.' },
-    { id: 'demo-kuchen', name: 'Honig-Apfelkuchen', icon: 'cake', description: 'Noch warm, in ein Tuch geschlagen.', comment: 'Mein Lieblingskuchen. Kyra bekommt die Hälfte. Vielleicht.' },
+    { id: 'demo-alana', name: 'Die Geschichten der Magierin Alana', icon: 'book-alana', description: 'Ein abgegriffenes Buch mit Goldprägung. Vater hat es vom Markt in Trapas mitgebracht.', comment: 'Ich habe es schon dreimal gelesen. Beim vierten Mal merke ich mir vielleicht endlich alle Namen.' },
+    { id: 'demo-lexikon', name: 'Cronibus großes Kräuterlexikon', icon: 'book-herbs', description: 'Schwer, dick und voller gepresster Blätter. Mutters wertvollstes Buch.', comment: 'Speikraut gegen Entzündungen. Ich wusste, dass das irgendwann nützlich wird.' },
+    { id: 'demo-kuchen', name: 'Honig-Apfelkuchen', icon: 'honey-cake', description: 'Noch warm, in ein Tuch geschlagen.', comment: 'Mein Lieblingskuchen. Kyra bekommt die Hälfte. Vielleicht.' },
     { id: 'demo-zunder', name: 'Zunder', icon: 'tinder', description: 'Getrockneter Baumschwamm in einer kleinen Dose.', comment: 'Ohne den wird das mit dem Feuer schwierig.' },
     { id: 'demo-muenzen', name: 'Kupfermünzen', icon: 'coins', description: 'Ein paar Münzen aus dem Geheimfach im Küchenschrank.' },
   ]);
@@ -82,8 +82,14 @@ const STEPS: Step[] = [
     await sleep(600);
     await G.ui.narrate([
       'Es war der letzte Tag des Sommers. Seit Tagen war kein Regen gefallen, und über den Feldern flirrte die Hitze.',
-      'Lia saß unter dem alten Apfelbaum und las. Die Welt in ihren Büchern war immer größer gewesen als die echte – *bis heute*.',
+      'Lia saß unter der alten Eiche und las. Die Welt in ihren Büchern war immer größer gewesen als die echte – *bis heute*.',
     ]);
+  }],
+  ['tableau', async () => {
+    // Painted plate from the asset manifest (Codex, 1280x720): game/public/assets/cut/wiese-lia-liest.jpg
+    await G.ui.plate('wiese-lia-liest', { caption: 'Der letzte Sommertag', pan: 'in', durationMs: 16000 });
+    await G.ui.say('lia', '„Und Alana hob die Hand, und das Licht gehorchte ihr …“ Wenn das doch nur echt wäre.', { mood: 'happy' });
+    await G.ui.closePlate();
   }],
   ['plate', async () => {
     await G.ui.plate('dev-selantis-karte', { caption: 'Selantis, wie Mutter es zeichnete', pan: 'right', durationMs: 22000 });

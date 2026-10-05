@@ -9,10 +9,6 @@ import { buildSettings } from './settings';
 
 export type TitleChoice = 'new' | 'continue' | { warp: string };
 
-/** Colours of the title backdrop (scenes/TitleScene) for the letterbox bars, so they blend in. */
-const SKY: [number, string][] = [[0, '#060a1a'], [0.32, '#0b1130'], [0.58, '#18204c'], [0.72, '#2a2a5c'], [0.8, '#3b3060'], [0.875, '#2a2348']];
-const GROUND = '#06080f';
-
 /**
  * The save offered as „Fortsetzen“. Saves made in hidden dev chapters (?scene=…, F2 warps) are ignored
  * unless dev mode is on, so a test visit never poses as the player's campaign.
@@ -30,41 +26,7 @@ export function savedScene(): { scene: string; label: string; hidden: boolean } 
   } catch { return null; }
 }
 
-let starCache: { key: string; url: string } | null = null;
-
-/** A faint star field for the black bars above the canvas (portrait phones), so the sky continues. */
-function starField(w: number, h: number): string {
-  const key = `${w}x${h}`;
-  if (starCache?.key === key) return starCache.url;
-  const c = document.createElement('canvas');
-  c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h));
-  const g = c.getContext('2d')!;
-  let seed = 1337;
-  const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-  const n = Math.round((w * h) / 900);
-  for (let i = 0; i < n; i++) {
-    const x = rnd() * w, y = rnd() * h;
-    const fade = Math.min(1, (h - y) / (h * 0.35) + 0.25); // denser/brighter towards the canvas
-    const a = (0.15 + rnd() * 0.55) * fade;
-    const s = rnd() > 0.97 ? 2 : 1;
-    g.fillStyle = `rgba(${rnd() < 0.3 ? '200,212,255' : '168,180,232'},${a.toFixed(2)})`;
-    g.fillRect(Math.round(x), Math.round(y), s, s);
-  }
-  starCache = { key, url: c.toDataURL() };
-  return starCache.url;
-}
-
-function paintBackdrop(): void {
-  const game = document.getElementById('game');
-  if (!game) return;
-  const { y, h } = ctx.stage;
-  const stops = SKY.map(([p, c]) => `${c} ${Math.round(y + p * h)}px`);
-  const gradient = `linear-gradient(to bottom, ${SKY[0][1]} 0px, ${stops.join(', ')}, ${GROUND} ${Math.round(y + 0.885 * h)}px, ${GROUND} 100%)`;
-  const stars = y > 40 ? `url(${starField(window.innerWidth, y)}) 0 0 / ${window.innerWidth}px ${Math.round(y)}px no-repeat, ` : '';
-  game.style.background = stars + gradient;
-}
-
-/** Title screen over the Phaser backdrop. Resolves with the player's choice. */
+/** Title screen over the painted backdrop (ui/titleBackdrop.ts). Resolves with the player's choice. */
 export function showTitle(): Promise<TitleChoice> {
   return new Promise(resolve => {
     const root = el('div', 'title');
@@ -80,8 +42,6 @@ export function showTitle(): Promise<TitleChoice> {
     root.append(logo, menu, foot);
     ctx.layers.title.appendChild(root);
     ctx.root.classList.add('title-active');
-    paintBackdrop();
-    const offLayout = ctx.onLayout(paintBackdrop);
     requestAnimationFrame(() => root.classList.add('is-in'));
     try { G.audio?.music('refuge', { fadeMs: 2500 }); G.audio?.ambience(['night', 'crickets'], { fadeMs: 2500, volume: { crickets: 0.6 } }); } catch { /* audio optional */ }
 
@@ -102,14 +62,11 @@ export function showTitle(): Promise<TitleChoice> {
       done = true;
       sfx('ui-confirm', { volume: 0.9 });
       closeModal();
-      offLayout();
       root.classList.add('is-out');
       try { G.audio?.ambience([], { fadeMs: 1200 }); } catch { /* audio optional */ }
       setTimeout(() => {
         root.remove();
-        ctx.root.classList.remove('title-active');
-        const game = document.getElementById('game');
-        if (game) game.style.background = '';
+        ctx.root.classList.remove('title-active', 'title-subpage');
       }, 700);
       resolve(choice);
     };
@@ -117,6 +74,7 @@ export function showTitle(): Promise<TitleChoice> {
     function showMain(): void {
       page = 'main';
       root.classList.remove('is-sub');
+      ctx.root.classList.remove('title-subpage');
       menu.textContent = '';
       const list = el('div', 'title-list');
       const items: NavItem[] = [];
@@ -160,6 +118,7 @@ export function showTitle(): Promise<TitleChoice> {
       page = 'chapters';
       sfx('ui-open', { volume: 0.6 });
       root.classList.add('is-sub');
+      ctx.root.classList.add('title-subpage');
       menu.textContent = '';
       const panel = el('div', 'title-panel ch-panel');
       panel.appendChild(el('h2', 'title-panel-head', 'Kapitel'));
@@ -180,6 +139,7 @@ export function showTitle(): Promise<TitleChoice> {
       page = 'settings';
       sfx('ui-open', { volume: 0.6 });
       root.classList.add('is-sub');
+      ctx.root.classList.add('title-subpage');
       menu.textContent = '';
       const panel = el('div', 'title-panel ch-panel');
       panel.appendChild(el('h2', 'title-panel-head', 'Einstellungen'));

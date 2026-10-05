@@ -1,16 +1,17 @@
 import type Phaser from 'phaser';
 import type { Grid } from '../rules/grid';
 import type { TerrainKind, Tile } from '../rules/types';
-import { BASE, IsoView, LEVEL, TH, TW } from './iso';
-import { mix, pal } from './palette';
-import { Pix, bayer, hash } from './pixels';
+import { BASE, IsoView, LEVEL, TH, TW, inDiamond, topEdgeY } from './iso';
+import { getTex, sample, sample2, vnoise, type Tex, type TexId } from './paint';
+import { hash } from './pixels';
 
-export type Surface = 'grass' | 'dirt' | 'stone' | 'sand' | 'water' | 'mud' | 'forest' | 'scorched';
+/** Visual ground of a tile (rules terrain → painted surface; maps can repaint tiles via BattleMapDef.paint). */
+export type Surface = 'grass' | 'drygrass' | 'forest' | 'dirt' | 'stone' | 'sand' | 'water' | 'mud' | 'scorched';
 
+/** Default surface for a rules terrain (null = no tile). */
 export function surfaceOf(t: TerrainKind): Surface | null {
   switch (t) {
-    case 'grass': case 'bush': return 'grass';
-    case 'tree': return 'forest';
+    case 'grass': case 'bush': case 'tree': return 'grass';
     case 'dirt': case 'rock': return 'dirt';
     case 'stone': case 'wall': return 'stone';
     case 'sand': return 'sand';
@@ -21,215 +22,38 @@ export function surfaceOf(t: TerrainKind): Surface | null {
   }
 }
 
-/** Water surface sits a little below the tile top. */
-export const WATER_DROP = 3;
+/** Water surface sits a little below the tile top (the bank shows). */
+export const WATER_DROP = 4;
 export const WATER_FRAMES = 4;
 
-const topEdgeY = (x: number) => 8 + Math.floor(Math.min(x, TW - 1 - x) / 2);
-const inDiamond = (x: number, y: number) => {
-  if (y < 0 || y >= TH) return false;
-  const half = y < 8 ? (y + 1) * 2 : (16 - y) * 2;
-  return x >= 16 - half && x <= 15 + half;
+interface SurfaceDef {
+  top: TexId;
+  /** Texels per tile edge (bigger = finer pattern). */
+  scale: number;
+  /** Colour multiplier for the top texture. */
+  mul?: [number, number, number];
+  /** Pulls the texture toward its average colour (0..1) to calm busy patterns at game scale. */
+  soft?: number;
+  /** Overhanging fringe on the side faces (grass hangs over the lip). */
+  lip?: TexId;
+  soil?: TexId;
+  soilDepth: number;
+  rock: TexId;
+  /** Edge blending: a higher priority surface spills over a lower one at the same height. */
+  priority: number;
+}
+
+const SURF: Record<Surface, SurfaceDef> = {
+  grass: { top: 'grass', scale: 34, mul: [0.84, 1.0, 0.74], soft: 0.3, lip: 'grass', soil: 'cliffgrass', soilDepth: 9, rock: 'cliff', priority: 6 },
+  drygrass: { top: 'drygrass', scale: 34, soft: 0.2, lip: 'drygrass', soil: 'cliffgrass', soilDepth: 9, rock: 'cliff', priority: 5 },
+  forest: { top: 'forest', scale: 34, soft: 0.15, lip: 'forest', soil: 'cliffgrass', soilDepth: 8, rock: 'cliff', priority: 5 },
+  dirt: { top: 'dirt', scale: 34, soil: 'cliffgrass', soilDepth: 7, rock: 'cliff', priority: 3 },
+  scorched: { top: 'dirt', scale: 34, mul: [0.5, 0.42, 0.4], soil: 'cliff', soilDepth: 4, rock: 'cliff', priority: 4 },
+  mud: { top: 'mud', scale: 34, soil: 'cliffgrass', soilDepth: 7, rock: 'cliff', priority: 2 },
+  sand: { top: 'sand', scale: 34, soil: 'sand', soilDepth: 6, rock: 'cliff', priority: 2 },
+  stone: { top: 'stone', scale: 44, rock: 'wall', soilDepth: 0, priority: 1 },
+  water: { top: 'water', scale: 30, rock: 'water', soilDepth: 0, priority: 0 },
 };
-
-interface Neigh { front: { l: number; r: number }; back: { l: number; r: number } }
-
-/** Value noise in [0,1] with bilinear smoothing, seeded. */
-function vnoise(x: number, y: number, s: number, salt: number): number {
-  const xi = Math.floor(x / s), yi = Math.floor(y / s);
-  const fx = x / s - xi, fy = y / s - yi;
-  const a = hash(xi, yi, salt), b = hash(xi + 1, yi, salt), c = hash(xi, yi + 1, salt), d = hash(xi + 1, yi + 1, salt);
-  const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
-  return a + (b - a) * sx + (c - a) * sy + (a - b - c + d) * sx * sy;
-}
-
-function topColor(s: Surface, u: number, v: number, wx: number, wy: number, frame: number): number {
-  const n = vnoise(wx, wy, 6, 11) * 0.65 + vnoise(wx, wy, 2.5, 12) * 0.35;
-  const d = bayer(wx, wy);
-  switch (s) {
-    case 'grass': {
-      const t = n + (d - 0.5) * 0.18;
-      return t < 0.3 ? pal('grass', 2) : t < 0.66 ? pal('grass', 3) : t < 0.86 ? pal('grass', 4) : mix(pal('grass', 4), pal('meadow', 3), 0.45);
-    }
-    case 'forest': {
-      const t = n + (d - 0.5) * 0.2;
-      return t < 0.35 ? pal('grass', 1) : t < 0.7 ? pal('grass', 2) : mix(pal('grass', 2), pal('earth', 3), 0.35);
-    }
-    case 'dirt': {
-      const t = n + (d - 0.5) * 0.22;
-      return t < 0.3 ? pal('earth', 2) : t < 0.72 ? pal('earth', 3) : pal('earth', 4);
-    }
-    case 'scorched': {
-      const t = n + (d - 0.5) * 0.25;
-      return t < 0.4 ? pal('ink', 2) : t < 0.75 ? pal('earth', 1) : pal('earth', 2);
-    }
-    case 'mud': {
-      const t = n + (d - 0.5) * 0.2;
-      return t < 0.35 ? pal('mud', 1) : t < 0.75 ? pal('mud', 2) : pal('mud', 3);
-    }
-    case 'sand': {
-      const ripple = Math.sin((u * 0.9 + v * 0.35) + n * 3) > 0.82;
-      const t = n + (d - 0.5) * 0.15;
-      if (ripple) return pal('sand', 2);
-      return t < 0.3 ? pal('sand', 2) : t < 0.8 ? pal('sand', 3) : pal('sand', 4);
-    }
-    case 'stone': {
-      // Flagstones in tile space: offset rows, mortar lines.
-      const row = Math.floor(v / 8);
-      const uu = u + (row % 2) * 4;
-      const mortar = v % 8 < 1 || uu % 8 < 1;
-      if (mortar) return pal('warmstone', 1);
-      const id = hash(Math.floor(uu / 8) + Math.floor(wx / 16) * 7, row + Math.floor(wy / 16) * 5, 3);
-      const base = id < 0.33 ? 2 : id < 0.8 ? 3 : 4;
-      const t = n + (d - 0.5) * 0.3;
-      return t > 0.82 ? pal('warmstone', Math.min(5, base + 1)) : pal('warmstone', base);
-    }
-    case 'water': {
-      const t = vnoise(wx + frame * 1.5, wy, 5, 21) + (d - 0.5) * 0.25;
-      const glint = vnoise(wx * 1.3 - frame * 2.2, wy * 2.2, 3, 22);
-      if (glint > 0.84) return pal('water', 6);
-      if (glint > 0.76) return pal('water', 5);
-      return t < 0.4 ? pal('water', 2) : t < 0.75 ? pal('water', 3) : pal('water', 4);
-    }
-  }
-}
-
-function sideMaterial(s: Surface): { soil: string; rock: string; soilDepth: number } {
-  switch (s) {
-    case 'grass': case 'forest': return { soil: 'earth', rock: 'warmstone', soilDepth: 5 };
-    case 'dirt': case 'scorched': return { soil: 'earth', rock: 'warmstone', soilDepth: 6 };
-    case 'mud': return { soil: 'mud', rock: 'warmstone', soilDepth: 6 };
-    case 'sand': return { soil: 'sand', rock: 'warmstone', soilDepth: 7 };
-    case 'stone': return { soil: 'stone', rock: 'stone', soilDepth: 0 };
-    case 'water': return { soil: 'water', rock: 'water', soilDepth: 99 };
-  }
-}
-
-/**
- * Draws one iso block (top face + two visible side faces) into `p` at (ox, oy) = top vertex - (16, 0).
- */
-export function drawBlock(p: Pix, ox: number, oy: number, tile: Tile, surface: Surface, nb: Neigh, gx: number, gy: number, frame = 0): void {
-  const h = tile.h;
-  const sideH = h * LEVEL + BASE;
-  const topOff = surface === 'water' ? WATER_DROP : 0;
-  const mat = sideMaterial(surface);
-  const seed = gx * 31 + gy * 17;
-
-  // ---- side faces
-  for (let x = 0; x < TW; x++) {
-    const left = x < 16;
-    const ey = topEdgeY(x);
-    const s = left ? x : TW - 1 - x; // 0 at outer corner, 15 at front corner
-    for (let d = 0; d < sideH; d++) {
-      const y = oy + ey + 1 + d;
-      const fromBottom = sideH - 1 - d;
-      const levelLine = (d + (h * LEVEL) % LEVEL) % LEVEL === LEVEL - 1 && fromBottom > BASE - 1;
-      let c: number;
-      if (surface === 'water') {
-        const t = d / Math.max(1, sideH);
-        c = left ? mix(pal('water', 3), pal('water', 1), t) : mix(pal('water', 2), pal('water', 0), t);
-        if (d < 1) c = pal('water', 5);
-        else if ((x + d * 3 + frame) % 11 === 0 && d < sideH - 2) c = mix(c, pal('water', 5), 0.4);
-      } else if (d < mat.soilDepth) {
-        // Topsoil band with roots and grass drips.
-        const r = hash(gx * 32 + x, gy * 32 + d, 5);
-        const idx = left ? 3 : 2;
-        c = pal(mat.soil, idx - (d === mat.soilDepth - 1 ? 1 : 0) - (r < 0.15 ? 1 : 0));
-        if (d === 0) c = pal(mat.soil, idx - 1);
-      } else {
-        // Rock strata: shaded per level, cracks, embedded stones.
-        const band = Math.floor((d - mat.soilDepth) / 4);
-        const r = hash(gx * 32 + x + band * 7, gy * 32 + d, 9);
-        let idx = left ? 3 : 1;
-        if (hash(band + seed, x >> 2, 4) > 0.6) idx += 1;
-        if (r < 0.08) idx -= 1;
-        if (fromBottom < BASE) idx -= 1;
-        c = pal(mat.rock, idx);
-        if (mat.rock === 'stone') {
-          // Ashlar bricks for stone surfaces.
-          const by = d % 6, bx = (s + (Math.floor(d / 6) % 2) * 4) % 8;
-          if (by === 5 || bx === 0) c = pal('stone', left ? 2 : 1);
-          else if (by === 0) c = pal('stone', left ? 5 : 3);
-        } else if (levelLine) c = pal(mat.rock, Math.max(0, idx - 2));
-        else if ((d + s) % 7 === 0 && r > 0.85) c = pal(mat.rock, Math.min(5, idx + 2));
-      }
-      // Grass and moss drip over the lip where the face is exposed.
-      if ((surface === 'grass' || surface === 'forest') && d < 4) {
-        const drip = 1 + Math.floor(hash(gx * 32 + x, gy, 7) * 3.2);
-        if (d < drip) c = pal('grass', d === drip - 1 ? (left ? 2 : 1) : left ? 3 : 2);
-      }
-      // Front corner highlight and AO toward the bottom.
-      if (left && s === 15 && d > 0) c = mix(c, 0xffffff, 0.12);
-      if (!left && s === 15 && d > 0) c = mix(c, 0x000000, 0.12);
-      if (fromBottom < 3) c = mix(c, pal('ink', 0), 0.25 + (2 - fromBottom) * 0.12);
-      if (fromBottom === 0) c = pal('ink', 1);
-      p.set(ox + x, y, c);
-    }
-  }
-
-  // ---- top face
-  for (let y = 0; y < TH; y++) for (let x = 0; x < TW; x++) {
-    if (!inDiamond(x, y)) continue;
-    const u = y + (x - 16) / 2, v = y - (x - 16) / 2;
-    const wx = gx * 16 + Math.floor(u), wy = gy * 16 + Math.floor(v);
-    let c = topColor(surface, u, v, wx, wy, frame);
-    const ey = topEdgeY(x);
-    const isFront = y === ey;
-    const half = y < 8 ? (y + 1) * 2 : (16 - y) * 2;
-    const isBackEdge = y < 8 && (x === 16 - half || x === 15 + half);
-    const leftSide = x < 16;
-    // Gentle light gradient from the back-left.
-    if (u < 2.5 && surface !== 'water') c = mix(c, 0xfff2c0, 0.1);
-    if (isBackEdge) {
-      const higher = leftSide ? nb.back.l > h : nb.back.r > h;
-      c = higher ? mix(c, pal('ink', 0), 0.35) : mix(c, 0xffffff, 0.14);
-    } else if (isFront) {
-      const lower = leftSide ? nb.front.l < h : nb.front.r < h;
-      c = lower ? mix(c, 0xfff6d0, surface === 'water' ? 0.35 : 0.22) : mix(c, pal('ink', 0), 0.22);
-    }
-    // Shadow cast from a higher neighbour behind.
-    if (!isBackEdge && (leftSide ? nb.back.l > h && v < 3 : nb.back.r > h && u < 3) && surface !== 'water') c = mix(c, pal('night', 1), 0.22);
-    p.set(ox + x, oy + y + topOff, c);
-  }
-
-  // ---- surface details
-  const rnd = (i: number) => hash(gx * 97 + i, gy * 89 + i * 3, 13);
-  const plot = (lx: number, ly: number, c: number, a = 1) => { if (inDiamond(lx, ly)) p.set(ox + lx, oy + ly + topOff, c, a); };
-  if (surface === 'grass' || surface === 'forest') {
-    const n = 4 + Math.floor(rnd(0) * 4);
-    for (let i = 0; i < n; i++) {
-      const tx = 5 + Math.floor(rnd(i + 1) * 22), ty = 3 + Math.floor(rnd(i + 20) * 10);
-      if (!inDiamond(tx - 1, ty) || !inDiamond(tx + 1, ty + 1)) continue;
-      const light = surface === 'grass' ? pal('grass', 5) : pal('grass', 3);
-      const mid = surface === 'grass' ? pal('grass', 4) : pal('grass', 2);
-      plot(tx, ty - 1, light); plot(tx - 1, ty, mid); plot(tx + 1, ty, mid); plot(tx, ty, light);
-      plot(tx - 1, ty + 1, pal('grass', 1)); plot(tx, ty + 1, pal('grass', 1), 0.6); plot(tx + 1, ty + 1, pal('grass', 1));
-    }
-    if (surface === 'grass' && rnd(40) < 0.45) {
-      const fx = 7 + Math.floor(rnd(41) * 18), fy = 4 + Math.floor(rnd(42) * 8);
-      const fc = [pal('cream', 5), pal('yellow', 3), pal('pink', 3), pal('blue', 5)][Math.floor(rnd(43) * 4)];
-      plot(fx, fy, fc); plot(fx, fy + 1, pal('grass', 1));
-      if (rnd(44) < 0.5) { plot(fx + 3, fy + 2, fc); plot(fx + 3, fy + 3, pal('grass', 1)); }
-    }
-    if (surface === 'forest') {
-      for (let i = 0; i < 5; i++) {
-        const lx = 5 + Math.floor(rnd(60 + i) * 22), ly = 3 + Math.floor(rnd(70 + i) * 10);
-        plot(lx, ly, [pal('orange', 2), pal('earth', 4), pal('yellow', 1)][i % 3]);
-      }
-    }
-  } else if (surface === 'dirt' || surface === 'mud' || surface === 'scorched') {
-    for (let i = 0; i < 4; i++) {
-      const lx = 5 + Math.floor(rnd(i + 1) * 22), ly = 3 + Math.floor(rnd(i + 30) * 10);
-      if (surface === 'mud') { plot(lx, ly, pal('water', 4), 0.55); plot(lx + 1, ly, pal('water', 5), 0.4); continue; }
-      if (surface === 'scorched') { plot(lx, ly, pal('fire', 1), 0.8); continue; }
-      plot(lx, ly, pal('stone', 4)); plot(lx + 1, ly, pal('stone', 3)); plot(lx, ly + 1, pal('earth', 1));
-    }
-  } else if (surface === 'sand') {
-    for (let i = 0; i < 3; i++) plot(5 + Math.floor(rnd(i) * 22), 3 + Math.floor(rnd(i + 9) * 10), pal('cream', 5));
-  } else if (surface === 'stone') {
-    if (rnd(5) < 0.6) for (let i = 0; i < 3; i++) plot(6 + Math.floor(rnd(i + 50) * 20), 3 + Math.floor(rnd(i + 51) * 10), pal('grass', 2));
-  }
-}
 
 export interface TerrainAtlas {
   key: string;
@@ -237,40 +61,203 @@ export interface TerrainAtlas {
   cellH: number;
 }
 
+export type SurfaceResolver = (x: number, y: number) => Surface | null;
+
+interface Ctx {
+  grid: Grid;
+  iso: IsoView;
+  surf: SurfaceResolver;
+  tex: (id: TexId) => Tex;
+  W: number;
+  buf: Uint8ClampedArray;
+}
+
+const clamp = (v: number, a = 0, b = 255) => (v < a ? a : v > b ? b : v);
+
+/** Rotated continuous coordinates → world (grid) coordinates. */
+function toWorld(iso: IsoView, RX: number, RY: number): [number, number] {
+  const C = iso.cols, R = iso.rows;
+  switch (iso.rot & 3) {
+    case 0: return [RX, RY];
+    case 1: return [RY, R - RX];
+    case 2: return [C - RX, R - RY];
+    default: return [C - RY, RX];
+  }
+}
+
+function heightAt(c: Ctx, x: number, y: number): number {
+  if (!c.grid.inBounds(x, y)) return -1;
+  return c.surf(x, y) ? c.grid.height(x, y) : -1;
+}
+
+/**
+ * Paints one iso block (top face + two side faces) into the atlas buffer at (ox, oy) = top-left of the cell.
+ * Everything is sampled in world space from the painted textures, so adjacent tiles continue seamlessly.
+ */
+function drawBlock(c: Ctx, ox: number, oy: number, t: Tile, frame: number): void {
+  const { iso, buf, W } = c;
+  const s0 = c.surf(t.x, t.y)!;
+  const S = SURF[s0];
+  const h = t.h;
+  const r = iso.toRot(t.x, t.y);
+  const nb = (rx: number, ry: number) => { const q = iso.fromRot(rx, ry); return heightAt(c, q.x, q.y); };
+  const frontL = nb(r.x, r.y + 1), frontR = nb(r.x + 1, r.y), backL = nb(r.x - 1, r.y), backR = nb(r.x, r.y - 1);
+  const water = s0 === 'water';
+  const topOff = water ? WATER_DROP : 0;
+  const sideH = h * LEVEL + BASE;
+  const rgb = [0, 0, 0];
+  const put = (x: number, y: number, rr: number, gg: number, bb: number) => {
+    const i = ((oy + y) * W + ox + x) * 4;
+    buf[i] = clamp(rr); buf[i + 1] = clamp(gg); buf[i + 2] = clamp(bb); buf[i + 3] = 255;
+  };
+
+  // ---------------------------------------------------------------- side faces
+  for (let x = 0; x < TW; x++) {
+    const left = x < TW / 2;
+    const tcol = left ? (x + 0.5) / (TW / 2) : (x + 0.5 - TW / 2) / (TW / 2);
+    // Texture u runs continuously along each screen-diagonal row of faces.
+    const u = left ? (r.x + tcol) * 32 : 4096 - (r.y + 1 - tcol) * 32;
+    const ey = topEdgeY(x) + 1;
+    const hn = left ? frontL : frontR;
+    const visible = hn < 0 ? sideH : hn >= h ? 0 : (h - hn) * LEVEL;
+    const lipD = S.lip ? 2 + Math.floor(vnoise(u, 0, 3, 41) * 4.2) : 0;
+    const soilD = S.soil ? S.soilDepth + Math.floor(vnoise(u, 0, 5, 42) * 5) : 0;
+    for (let d = 0; d < sideH; d++) {
+      const y = ey + d;
+      const v = d - h * LEVEL;   // absolute height, so strata line up across tiles of different height
+      let mul = left ? 0.94 : 0.66;
+      if (water) {
+        sample(c.tex('water'), u, v * 0.7, rgb);
+        const k = 0.75 - Math.min(0.45, d / 60);
+        rgb[0] *= k * 0.8; rgb[1] *= k * 0.9; rgb[2] *= k;
+        if (d === 0) { rgb[0] = rgb[0] * 0.5 + 110; rgb[1] = rgb[1] * 0.5 + 140; rgb[2] = rgb[2] * 0.5 + 150; }
+      } else if (d < lipD) {
+        sample(c.tex(S.lip!), u, (v + 40) * 2, rgb);
+        if (S.mul) { rgb[0] *= S.mul[0]; rgb[1] *= S.mul[1]; rgb[2] *= S.mul[2]; }
+        mul *= d === lipD - 1 ? 0.72 : 0.9;
+      } else if (d < soilD) {
+        sample(c.tex(S.soil!), u, v, rgb);
+        if (d === lipD && lipD > 0) mul *= 0.55;   // shadow under the grass fringe
+      } else {
+        sample(c.tex(S.rock), u, v, rgb);
+        if (d === soilD && soilD > 0) mul *= 0.8;
+      }
+      // Deeper is darker; the front vertical edge catches light.
+      mul *= 1 - Math.min(0.2, d / 160);
+      if (left && x === TW / 2 - 1) mul *= 1.12;
+      if (!left && x === TW / 2) mul *= 0.85;
+      // Contact shadow where the face meets the lower ground in front.
+      if (visible < sideH && d < visible) {
+        const k = visible - d;
+        if (k <= 5) mul *= 0.62 + k * 0.07;
+      }
+      const fromBottom = sideH - 1 - d;
+      if (fromBottom < 4) mul *= 0.55 + fromBottom * 0.1;
+      if (fromBottom === 0) mul *= 0.6;
+      // cool shade on the right face, warm light on the left
+      if (left) put(x, y, rgb[0] * mul * 1.04, rgb[1] * mul, rgb[2] * mul * 0.94);
+      else put(x, y, rgb[0] * mul * 0.92, rgb[1] * mul * 0.96, rgb[2] * mul * 1.06);
+    }
+  }
+
+  // ---------------------------------------------------------------- top face
+  const tex0 = c.tex(S.top);
+  const lowF = (l: boolean) => (l ? frontL : frontR) < h;
+  const highB = (l: boolean) => (l ? backL : backR) > h;
+  const sameB = (l: boolean) => (l ? backL : backR) === h;
+  const wobU = [0, 1, 2, 1][frame % 4], wobV = [0, 1, 0, -1][frame % 4];
+  for (let y = 0; y < TH; y++) for (let x = 0; x < TW; x++) {
+    if (!inDiamond(x, y)) continue;
+    const sx = x + 0.5 - TW / 2, sy = y + 0.5;
+    const ru = sx / TW + sy / TH, rv = sy / TH - sx / TW;
+    const [Px, Py] = toWorld(iso, r.x + ru, r.y + rv);
+    // Which surface paints this pixel (edge blending into same-height neighbours).
+    let surf = s0;
+    if (!water) {
+      const fu = Px - t.x, fv = Py - t.y;
+      const n = vnoise(Px * 34, Py * 34, 5, 77);
+      const reach = 0.3 * (0.2 + 0.8 * n);
+      const sides: [number, number, number][] = [[fu, t.x - 1, t.y], [1 - fu, t.x + 1, t.y], [fv, t.x, t.y - 1], [1 - fv, t.x, t.y + 1]];
+      let best = SURF[s0].priority;
+      for (const [dist, nx, ny] of sides) {
+        if (dist >= reach || !c.grid.inBounds(nx, ny)) continue;
+        const o = c.surf(nx, ny);
+        if (!o || o === 'water' || c.grid.height(nx, ny) !== h) continue;
+        if (SURF[o].priority > best) { best = SURF[o].priority; surf = o; }
+      }
+    }
+    const D = SURF[surf];
+    const tx = surf === s0 ? tex0 : c.tex(D.top);
+    const U = Px * D.scale, V = Py * D.scale;
+    if (water) sample2(tx, U + wobU, V + wobV, 0.5, 0.5, rgb);
+    else sample2(tx, U, V, D.scale / TH / 2, D.scale / TH / 2, rgb);
+    let mul = 1;
+    if (D.soft) { const k = D.soft, a = tx.avg; rgb[0] += (a[0] - rgb[0]) * k; rgb[1] += (a[1] - rgb[1]) * k; rgb[2] += (a[2] - rgb[2]) * k; }
+    if (D.mul) { rgb[0] *= D.mul[0]; rgb[1] *= D.mul[1]; rgb[2] *= D.mul[2]; }
+    // Large-scale variation breaks texture repetition.
+    mul *= 0.93 + vnoise(Px, Py, 2.6, 9) * 0.14;
+    const leftHalf = x < TW / 2;
+    const ey = topEdgeY(x);
+    const half = y < TH / 2;
+    const backEdge = half && (x === TW / 2 - (y + 1) * 2 || x === TW / 2 - 1 + (y + 1) * 2 || x === TW / 2 - (y + 1) * 2 + 1 || x === TW / 2 - 2 + (y + 1) * 2);
+    if (y === ey || y === ey - 1) {
+      // Front lip: lit when it drops to lower ground, otherwise a faint seam.
+      if (lowF(leftHalf)) mul *= y === ey ? 1.22 : 1.08;
+      else if (y === ey) mul *= 0.96;
+    }
+    if (backEdge) {
+      if (highB(leftHalf)) mul *= 0.6;
+      else if (sameB(leftHalf)) mul *= 0.84;   // faint grid so tiles can be counted (FFTA readability)
+      else mul *= 1.12;
+    }
+    // Ambient occlusion from a higher neighbour behind.
+    if (!water) {
+      if (backL > h && ru < 0.22) mul *= 0.7 + (ru / 0.22) * 0.3;
+      if (backR > h && rv < 0.22) mul *= 0.7 + (rv / 0.22) * 0.3;
+    }
+    if (water) {
+      const g = hash(Math.floor(Px * 30 + frame * 3), Math.floor(Py * 30 - frame), 5);
+      if (g > 0.985) { rgb[0] = 220; rgb[1] = 245; rgb[2] = 250; mul = 1; }
+    } else if (surf === 'scorched' && hash(Math.floor(Px * 24), Math.floor(Py * 24), 6) > 0.96) {
+      rgb[0] = 240; rgb[1] = 120; rgb[2] = 40; mul = 1;
+    }
+    put(x, y + topOff, rgb[0] * mul, rgb[1] * mul, rgb[2] * mul);
+  }
+}
+
 /**
  * Renders every tile for the current rotation into one canvas texture (frames 't<x>_<y>' and
  * 't<x>_<y>_f<n>' for animated water). Cached per (battle, rotation, version).
  */
-export function buildTerrainAtlas(scene: Phaser.Scene, id: string, grid: Grid, iso: IsoView, version = 0): TerrainAtlas {
+export function buildTerrainAtlas(scene: Phaser.Scene, id: string, grid: Grid, iso: IsoView, surf: SurfaceResolver, version = 0): TerrainAtlas {
   const key = `tac-terrain-${id}-r${iso.rot}-v${version}`;
   const cellH = TH + grid.maxHeight() * LEVEL + BASE + 2;
   const atlas: TerrainAtlas = { key, cellH, frame: (x, y, f = 0) => (f ? `t${x}_${y}_f${f}` : `t${x}_${y}`) };
   if (scene.textures.exists(key)) return atlas;
 
-  const tiles = grid.all().filter(t => surfaceOf(t.terrain));
+  const tiles = grid.all().filter(t => surf(t.x, t.y));
   const cells: { t: Tile; f: number }[] = [];
   for (const t of tiles) {
     cells.push({ t, f: 0 });
-    if (t.terrain === 'water') for (let f = 1; f < WATER_FRAMES; f++) cells.push({ t, f });
+    if (surf(t.x, t.y) === 'water') for (let f = 1; f < WATER_FRAMES; f++) cells.push({ t, f });
   }
   const perRow = 16;
-  const W = perRow * TW, H = Math.ceil(cells.length / perRow) * cellH;
-  const p = new Pix(W, Math.max(1, H));
-  const hAt = (x: number, y: number) => (grid.inBounds(x, y) && surfaceOf(grid.tile(x, y)!.terrain) ? grid.height(x, y) : -1);
+  const W = perRow * TW, H = Math.max(1, Math.ceil(cells.length / perRow) * cellH);
+  const texCache = new Map<TexId, Tex>();
+  const ctx: Ctx = {
+    grid, iso, surf, W, buf: new Uint8ClampedArray(W * H * 4),
+    tex: tid => { let tx = texCache.get(tid); if (!tx) { tx = getTex(scene, tid); texCache.set(tid, tx); } return tx; },
+  };
   const place: { name: string; x: number; y: number; h: number }[] = [];
   cells.forEach((cell, i) => {
     const cx = (i % perRow) * TW, cy = Math.floor(i / perRow) * cellH;
-    const { t, f } = cell;
-    const r = iso.toRot(t.x, t.y);
-    const g = (rx: number, ry: number) => { const q = iso.fromRot(rx, ry); return hAt(q.x, q.y); };
-    const nb: Neigh = {
-      front: { l: g(r.x, r.y + 1), r: g(r.x + 1, r.y) },
-      back: { l: g(r.x - 1, r.y), r: g(r.x, r.y - 1) },
-    };
-    drawBlock(p, cx, cy, t, surfaceOf(t.terrain)!, nb, t.x, t.y, f);
-    place.push({ name: atlas.frame(t.x, t.y, f), x: cx, y: cy, h: TH + t.h * LEVEL + BASE });
+    drawBlock(ctx, cx, cy, cell.t, cell.f);
+    place.push({ name: atlas.frame(cell.t.x, cell.t.y, cell.f), x: cx, y: cy, h: TH + cell.t.h * LEVEL + BASE });
   });
-  const tex = scene.textures.addCanvas(key, p.toCanvas())!;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  canvas.getContext('2d')!.putImageData(new ImageData(new Uint8ClampedArray(ctx.buf.buffer as ArrayBuffer), W, H), 0, 0);
+  const tex = scene.textures.addCanvas(key, canvas)!;
   for (const pl of place) tex.add(pl.name, 0, pl.x, pl.y, TW, pl.h);
   return atlas;
 }

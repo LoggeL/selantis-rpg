@@ -1,0 +1,15 @@
+{
+  "height": 21,
+  "frames": 1,
+  "anchor": [
+    9,
+    22
+  ],
+  "desc": "an old upright wooden barrel with dark iron hoops and a closed lid",
+  "footprint": {
+    "x": -6,
+    "y": -4,
+    "w": 12,
+    "h": 4
+  }
+}

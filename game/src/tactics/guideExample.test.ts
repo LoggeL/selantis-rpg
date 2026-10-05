@@ -23,6 +23,14 @@ export const hofKampf: BattleDef = {
       '. . b , . T',
       '. . . , . .',
     ],
+    ground: 'dry',
+    paint: [
+      '. . . d . .',
+      '. . . d . .',
+      '. . . d . .',
+      '. . . . . .',
+      '. . . . . .',
+    ],
     props: [{ x: 0, y: 0, prop: 'banner-light' }],
   },
   units: [

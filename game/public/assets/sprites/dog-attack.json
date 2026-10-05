@@ -1,0 +1,9 @@
+{
+  "character": "dog",
+  "pose": "attack",
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ]
+}

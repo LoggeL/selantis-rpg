@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import type { CharacterSpec, TerrainId } from '../art/api';
-import { TILE } from '../art/api';
 import { items as itemCatalog } from '../core/catalog';
 import { G } from '../core/G';
 import { consumeAction, inputLock, isTouch, virtualInput } from '../core/input';
@@ -11,11 +10,14 @@ import type {
   At, ClueDef, ExitDef, InteractableDef, LightDef, MapDef, NpcDef, PropDef, StartWorldOptions, TriggerDef, WorldCtx, WorldEvent,
 } from './api';
 import { Actor, type ActorHost } from './actor';
-import { parseGround, scanLayer, terrainSpeed } from './ascii';
 import { createCtx, WorldStopped } from './ctx';
 import type { UiApiExt } from '../ui';
-import { areaPx, clamp, damp, dirFromVector, dirVector, hash01, inRect, isAt, rng, toPx, type Rect, type Vec } from './geom';
-import { CollisionGrid, FOOT_HH, FOOT_HW } from './grid';
+import { areaPx, clamp, damp, dirFromVector, dirVector, inRect, isAt, setMapUnits, setWorldScale, toPx, unitPx, wk, type Rect, type Vec } from './geom';
+import { DebugOverlay } from './debug';
+import { Flame } from './flame';
+import { buildPaintedGrid, buildSurfaceGrid, normOccluders, type SurfaceGrid } from './navgrid';
+import { closestOnPoly, distToPoly, pointInPoly, polyBounds, type Poly } from './poly';
+import { CollisionGrid, FOOT_HH, FOOT_HW, setFootScale } from './grid';
 import { Lighting, type LightRuntime } from './lighting';
 import { getMap } from './maps';
 import { normalizeInput, stepVelocity } from './motion';
@@ -38,6 +40,14 @@ export interface Interactive {
   radius: number;
   /** Anchor (feet / ground point) in px. */
   pos(): Vec;
+  /** Distance from a point to the object (default: to pos()). Hotspot polygons measure to their outline. */
+  dist?(x: number, y: number): number;
+  /** Precise click test (hotspot polygons); bounds() is used otherwise. */
+  hit?(x: number, y: number): boolean;
+  /** Hotspot polygon (painted objects). */
+  hotPoly?: Poly;
+  /** Brightening cut-out of the painted object, pulsing while focused (the 'outline' of painted hotspots). */
+  glow?: Phaser.GameObjects.Image;
   /** Hint anchor (top of the object) in px. */
   top(): Vec;
   /** Clickable area in px. */
@@ -58,10 +68,16 @@ export interface Interactive {
 /** A spot the player walks to before an interaction (sit, kneel, door). `over`: draw the player above this depth. */
 export interface StandPoint { x: number; y: number; face?: Dir; over?: number }
 
-interface TriggerRt { def: TriggerDef; rect: Rect; inside: boolean; done: boolean; enabled: boolean }
-interface ExitRt { def: ExitDef; rect: Rect; armed: boolean; enabled: boolean; blockedShown: boolean }
+interface TriggerRt { def: TriggerDef; rect: Rect; poly?: Poly; inside: boolean; done: boolean; enabled: boolean }
+interface ExitRt { def: ExitDef; rect: Rect; poly?: Poly; armed: boolean; enabled: boolean; blockedShown: boolean }
+/** A cut-out of the painted background drawn above actors standing behind it. */
+interface OccluderRt { id: string; poly: Poly; baseline: number; fade: number; img: Phaser.GameObjects.Image; alpha: number; box: Rect }
 interface ClueRt { def: ClueDef; x: number; y: number; img: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Image; revealed: boolean; found: boolean; phase: number }
-interface HideRt { rect: Rect; prop?: PropObj; kind: string }
+interface HideRt { rect: Rect; poly?: Poly; prop?: PropObj; kind: string }
+
+/** Rect or polygon area test. */
+const inArea = (a: { rect: Rect; poly?: Poly }, x: number, y: number): boolean => (a.poly ? pointInPoly(x, y, a.poly) : inRect(a.rect, x, y));
+const polyRect = (p: Poly): Rect => polyBounds(p);
 interface Puff { img: Phaser.GameObjects.Image; t: number; life: number; vx: number; vy: number; s0: number; s1: number; a0: number; active: boolean; gravity: number; spin: number }
 interface CompanionDef { id: string; preset: string | CharacterSpec; speaker?: string }
 
@@ -81,10 +97,16 @@ export class WorldScene extends Phaser.Scene {
   // ---- map runtime ----
   map!: MapDef;
   grid!: CollisionGrid;
-  terrain: TerrainId[][] = [];
   mapW = 0;
   mapH = 0;
-  private ground: Phaser.GameObjects.GameObject | null = null;
+  /** Painted map: background image, occluders, surface materials. */
+  private bgImage: Phaser.GameObjects.Image | null = null;
+  bgKey = '';
+  occluders: OccluderRt[] = [];
+  surfaces: SurfaceGrid | null = null;
+  private flames: Flame[] = [];
+  private hotGlows: Phaser.GameObjects.Image[] = [];
+  debug!: DebugOverlay;
   props = new Map<string, PropObj>();
   private propList: PropObj[] = [];
   actors = new Map<string, Actor>();
@@ -97,8 +119,6 @@ export class WorldScene extends Phaser.Scene {
   guards: Guard[] = [];
   private npcDefs = new Map<string, NpcDef>();
   private npcTimers = new Map<string, { wander: number; bark: number; origin: Vec; barkIdx: number }>();
-  private spawnUsed: Vec = { x: 0, y: 0 };
-  private hideTerrain = new Set<TerrainId>(['wheat']);
   private sparkles: { img: Phaser.GameObjects.Image; it: Interactive; t: number }[] = [];
   private mapLights: string[] = [];
   /** What the current map remembers between visits (see MapDef.resetOnEnter). */
@@ -206,14 +226,43 @@ export class WorldScene extends Phaser.Scene {
       get wind() { return self.weather?.wind ?? 0.3; },
       get longShadow() { return self.lighting?.longShadow ?? 0; },
       get mapRect() { return { x: 0, y: 0, w: self.mapW, h: self.mapH }; },
+      scaleAt: y => self.scaleAt(y),
+      get worldK() { return wk(); },
+      spriteScale: (key, frame) => self.spriteScale(key, frame),
     };
   }
 
-  /** Wheat swallows the legs (hide terrain); everything else keeps actors on top of the ground. */
-  sinkAt(x: number, y: number): number {
-    const t = this.terrainAt(x, y);
-    return t && this.hideTerrain.has(t) ? 8 : 0;
+  /** Perspective scale (MapDef.depthScale) at a feet y. */
+  scaleAt(y: number): number {
+    const d = this.map?.depthScale;
+    if (!d) return 1;
+    const t = clamp((y - d.y0) / Math.max(1, d.y1 - d.y0), 0, 1);
+    return d.s0 + (d.s1 - d.s0) * t;
   }
+
+  /** Base scale of character sprites: MapDef.spriteScale, or ×2 for small (≤32 px) fallback frames. */
+  spriteScale(_key: string, frame: { w: number; h: number }): number {
+    if (this.map?.spriteScale !== undefined) return this.map.spriteScale;
+    return frame.h <= 32 ? 2 : 1;
+  }
+
+  /** Wheat swallows the legs (hide terrain / hiding surfaces); everything else keeps actors on top of the ground. */
+  sinkAt(x: number, y: number): number {
+    return this.hideAt(x, y) ? Math.round(8 * this.spriteScaleNominal()) : 0;
+  }
+
+  /** A crouching player is hidden on this ground (wheat, tall grass surfaces). */
+  hideAt(x: number, y: number): boolean {
+    return this.surfaces ? this.surfaces.hideAt(x, y) : false;
+  }
+
+  /** Movement speed factor of the ground. */
+  speedAt(x: number, y: number): number {
+    return this.surfaces ? this.surfaces.speedAt(x, y) : 1;
+  }
+
+  /** Scale of a regular figure on this map (wheat sink, small fx). */
+  private spriteScaleNominal(): number { return this.player ? this.player.scale : 1; }
   get playerPos(): Vec | undefined { return this.player ? { x: this.player.x, y: this.player.y } : undefined; }
 
   addWorld<T extends Phaser.GameObjects.GameObject>(obj: T): T {
@@ -238,8 +287,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   terrainAt(x: number, y: number): TerrainId | undefined {
-    const tx = Math.floor(x / TILE), ty = Math.floor(y / TILE);
-    return this.terrain[ty]?.[tx];
+    return this.surfaces?.kindAt(x, y);
   }
   isWater(x: number, y: number): boolean { const t = this.terrainAt(x, y); return t === 'water' || t === 'shallow'; }
   isBlocked(x: number, y: number): boolean { return this.grid ? this.grid.solidAt(x, y) : false; }
@@ -279,8 +327,52 @@ export class WorldScene extends Phaser.Scene {
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.onShutdown());
 
+    this.debug = new DebugOverlay(this);
     const map = typeof this.opts.map === 'string' ? getMap(this.opts.map) : this.opts.map;
-    this.startMap(map);
+    void this.loadAssets(map).then(bg => { if (this.alive) this.startMap(map, bg); });
+  }
+
+  /**
+   * Loads what a map needs before it is built: characters, props and the painted background through G.art.preload
+   * (Codex assets from the manifest), with a direct 'assets/bg/<id>.png' load as fallback for backgrounds that are
+   * not in the manifest yet. Never throws; missing art falls back to placeholders.
+   */
+  async loadAssets(def: MapDef): Promise<BgInfo | null> {
+    const chars = new Set<string>();
+    const add = (p: unknown) => { if (typeof p === 'string') chars.add(p); };
+    add(def.player ?? this.opts.player ?? 'lia');
+    for (const c of this.companionDefs) add(c.preset);
+    for (const n of def.npcs ?? []) add(n.preset);
+    for (const g of def.guards ?? []) add(g.preset);
+    const props = new Set<string>();
+    for (const p of def.props ?? []) props.add(p.prop);
+    for (const i of def.interactables ?? []) if (i.prop) props.add(i.prop);
+    try {
+      await withTimeout(G.art.preload(this, { characters: [...chars], props: [...props], backgrounds: def.background ? [def.background] : [] }), 15000);
+    } catch (e) { console.warn('[world] asset preload failed', e); }
+    if (!def.background || !this.alive) return null;
+    const id = def.background;
+    let fromArt = false;
+    try { fromArt = !def.backgroundUrl && G.art.hasAsset('background', id); } catch { /* */ }
+    if (fromArt) {
+      try { const b = G.art.background(this, id); if (this.textures.exists(b.key)) return { key: b.key, w: b.width, h: b.height }; } catch { /* fall through */ }
+    }
+    const key = `world-bg-${id}`;
+    if (!this.textures.exists(key)) {
+      await new Promise<void>(resolve => {
+        const url = def.backgroundUrl ?? `assets/bg/${id}.png`;
+        const done = () => { this.load.off(Phaser.Loader.Events.COMPLETE, done); resolve(); };
+        this.load.image(key, url);
+        this.load.once(Phaser.Loader.Events.COMPLETE, done);
+        this.load.once(Phaser.Loader.Events.FILE_LOAD_ERROR, () => console.warn(`[world] background '${id}' not found at ${url}`));
+        this.load.start();
+      });
+    }
+    if (this.textures.exists(key)) {
+      const src = this.textures.get(key).getSourceImage() as { width: number; height: number };
+      return { key, w: src.width, h: src.height };
+    }
+    try { const b = G.art.background(this, id); return { key: b.key, w: b.width, h: b.height }; } catch { return null; }
   }
 
   private onKeyDown(e: KeyboardEvent): void {
@@ -289,8 +381,8 @@ export class WorldScene extends Phaser.Scene {
     if ((e.code === 'KeyE' || e.code === 'Space' || e.code === 'Enter' || e.code === 'NumpadEnter') && !e.repeat) this.actionQueuedAt = performance.now();
   }
 
-  private startMap(map: MapDef): void {
-    this.buildMap(map, this.opts.spawn);
+  private startMap(map: MapDef, bg: BgInfo | null): void {
+    this.buildMap(map, this.opts.spawn, bg);
     this.drawDebug();
     this.snapCamera();
     try { G.ui.setHud('explore'); } catch { /* */ }
@@ -322,6 +414,10 @@ export class WorldScene extends Phaser.Scene {
     if (this.openDialogs > 0) { try { (G.ui as Partial<UiApiExt>).reset?.({ keepFade: true }); } catch { /* */ } this.openDialogs = 0; }
     try { (G.ui as Partial<UiApiExt>).setTouchExtras?.({ sneak: false, look: false }); } catch { /* */ }
     this.teardownMap();
+    // Phaser restarts this same scene object for the next map: until it is built, update() must not touch the
+    // destroyed actors of this visit.
+    this.player = undefined as unknown as Actor;
+    this.debug?.destroy();
     this.lighting.destroy();
     this.weather.destroy();
     this.listeners.clear();
@@ -345,42 +441,35 @@ export class WorldScene extends Phaser.Scene {
   // Map building
   // =============================================================================================================
 
-  buildMap(def: MapDef, spawnName?: string): void {
+  buildMap(def: MapDef, spawnName?: string, bg: BgInfo | null = null): void {
     this.map = def;
-    const parsed = parseGround(def.ground, def.legend, def.fill);
-    if (parsed.warnings.length) console.warn(`[world] map '${def.id}':`, parsed.warnings.join('; '));
-    this.terrain = parsed.terrain;
-    this.mapW = parsed.cols * TILE;
-    this.mapH = parsed.rows * TILE;
-    this.grid = CollisionGrid.fromTerrain(parsed.terrain, TILE);
-    this.hideTerrain = new Set(def.hideTerrain ?? ['wheat']);
+    setMapUnits(def.units ?? 'px');
+    const k = def.worldScale ?? 1.75;
+    setWorldScale(k);
+    setFootScale(k);
+    // Painted map: background image + polygon geometry rasterized into the fine grid.
+    const w = def.size?.w ?? bg?.w ?? GAME_W, h = def.size?.h ?? bg?.h ?? GAME_H;
+    this.mapW = w; this.mapH = h;
+    this.grid = buildPaintedGrid(def, w, h);
+    this.surfaces = buildSurfaceGrid(def, w, h);
+    if (bg) {
+      this.bgKey = bg.key;
+      this.bgImage = this.addWorld(this.add.image(0, 0, bg.key).setOrigin(0).setDepth(-1000).setDisplaySize(w, h));
+      this.buildOccluders(def, bg);
+    }
+    const meadowy = (def.surface ?? 'grass') === 'grass' || (def.surface ?? 'grass') === 'meadow';
     // Map memory: what the player changed on earlier visits (or in a save game).
     this.mem = MapMemory.load(def.id, stateStore);
     if (def.resetOnEnter && !this.mem.empty) this.mem.clear();
     // Auto ids ('prop-N') must be stable across visits so remembered removals hit the same props.
     this.propSeq = 0;
 
-    const ground = G.art.buildGround(this, { cols: parsed.cols, rows: parsed.rows, terrain: parsed.terrain, seed: def.seed ?? hashString(def.id), palette: def.palette });
-    ground.setDepth(-1000);
-    this.addWorld(ground);
-    this.ground = ground;
-
-    // Props: decor layer first, then explicit props.
-    if (def.decor) {
-      const jitter = def.decor.jitter ?? 0;
-      const r = rng(def.seed ?? hashString(def.id + 'decor'));
-      scanLayer(def.decor.rows, (ch, x, y) => {
-        const entry = def.decor!.legend[ch];
-        if (!entry) return;
-        const base: Omit<PropDef, 'at'> = typeof entry === 'string' ? { prop: entry } : entry;
-        const jx = jitter ? (r() - 0.5) * 2 * jitter : 0, jy = jitter ? (r() - 0.5) * 2 * jitter : 0;
-        const variant = base.variant ?? Math.floor(hash01(x, y, 7) * 8);
-        this.addProp({ ...base, at: { x: x * TILE + TILE / 2 + jx, y: y * TILE + TILE / 2 + jy, px: true } }, variant);
-      });
-    }
     for (const p of def.props ?? []) this.addProp(p);
 
-    for (const h of def.hidingSpots ?? []) this.hides.push({ rect: areaPx(h.area), kind: h.kind ?? 'bush' });
+    for (const h of def.hidingSpots ?? []) {
+      if (h.poly) this.hides.push({ rect: polyRect(h.poly), poly: h.poly, kind: h.kind ?? 'bush' });
+      else if (h.area) this.hides.push({ rect: areaPx(h.area), kind: h.kind ?? 'bush' });
+    }
 
     // Lights
     for (const l of def.lights ?? []) this.addLight(l);
@@ -393,7 +482,6 @@ export class WorldScene extends Phaser.Scene {
     const sp = spawns[spawnName ?? ''] ?? spawns.default ?? Object.values(spawns)[0];
     if (!sp) throw new Error(`[world] map '${def.id}' has no spawns`);
     const spPx = toPx(sp.at);
-    this.spawnUsed = spPx;
     this.checkpoint = { ...spPx };
     this.checkpointDir = sp.dir ?? 'down';
     if (def.stealth?.checkpoint && spawns[def.stealth.checkpoint]) {
@@ -402,8 +490,8 @@ export class WorldScene extends Phaser.Scene {
     }
     const playerLook = def.player ?? this.opts.player ?? 'lia';
     this.player = new Actor(this.host, 'player', 'player', playerLook, spPx, sp.dir ?? 'down', typeof playerLook === 'string' ? playerLook : 'lia');
-    this.player.walkSpeed = 64;
-    this.player.runSpeed = 108;
+    this.player.walkSpeed = 64 * k;
+    this.player.runSpeed = 108 * k;
     this.player.depthBias = 2; // Lia wins y-ties against followers walking right behind her
     this.actors.set('player', this.player);
     const dv = dirVector(sp.dir ?? 'down');
@@ -417,7 +505,7 @@ export class WorldScene extends Phaser.Scene {
       if (this.actors.has(c.id)) return;
       const slot = this.trail.pointBehind(spPx.x, spPx.y, followDistance(i));
       const a = new Actor(this.host, c.id, 'companion', c.preset, slot, sp.dir ?? 'down', c.speaker ?? c.id);
-      a.walkSpeed = 60; a.solid = false;
+      a.walkSpeed = 60 * k; a.solid = false;
       this.actors.set(c.id, a);
     });
 
@@ -438,17 +526,20 @@ export class WorldScene extends Phaser.Scene {
 
     // Triggers / exits
     for (const t of def.triggers ?? []) {
-      const rect = areaPx(t.area);
-      this.triggers.push({ def: t, rect, inside: inRect(rect, spPx.x, spPx.y), done: this.mem.has('triggers', t.id), enabled: !this.mem.has('off', t.id) });
+      const rect = t.poly ? polyRect(t.poly) : areaPx(t.area ?? { x: 0, y: 0, w: 0, h: 0 });
+      const rt: TriggerRt = { def: t, rect, poly: t.poly, inside: false, done: this.mem.has('triggers', t.id), enabled: !this.mem.has('off', t.id) };
+      rt.inside = inArea(rt, spPx.x, spPx.y);
+      this.triggers.push(rt);
     }
     for (const e of def.exits ?? []) {
-      const rect = areaPx(e.area);
-      const rt: ExitRt = { def: e, rect, armed: !inRect(rect, spPx.x, spPx.y), enabled: !this.mem.has('off', e.id), blockedShown: false };
+      const rect = e.poly ? polyRect(e.poly) : areaPx(e.area ?? { x: 0, y: 0, w: 0, h: 0 });
+      const rt: ExitRt = { def: e, rect, poly: e.poly, armed: true, enabled: !this.mem.has('off', e.id), blockedShown: false };
+      rt.armed = !inArea(rt, spPx.x, spPx.y);
       this.exits.push(rt);
       if (e.door) {
         const pos = toPx(e.door.at);
         this.interactives.push({
-          id: e.id, kind: 'door', verb: e.door.verb ?? 'Betreten', radius: 20,
+          id: e.id, kind: 'door', verb: e.door.verb ?? 'Betreten', radius: 20 * k,
           pos: () => pos, top: () => ({ x: pos.x, y: pos.y - 18 }), bounds: () => ({ x: pos.x - 10, y: pos.y - 24, w: 20, h: 28 }),
           enabled: () => rt.enabled,
           run: async () => {
@@ -469,9 +560,9 @@ export class WorldScene extends Phaser.Scene {
     this.syncTouchExtras();
     const time = this.mem.time ?? def.time ?? 'day';
     const weather = this.mem.weather ?? def.weather ?? 'none';
+    this.lighting.setBaked(def.baked);
     this.lighting.setImmediate(time);
     this.weather.set(weather, { ms: 0 });
-    const meadowy = parsed.terrain.flat().filter(t => t === 'meadow' || t === 'grass').length > parsed.cols * parsed.rows * 0.3;
     this.weather.setCritters(def.critters ?? (meadowy && time === 'day' && weather !== 'rain' && weather !== 'storm'));
     if (def.playerLight) {
       this.playerLight = this.lighting.add({ id: 'player-light', at: [0, 0], kind: 'plain', color: 0xd8e0ff, radius: def.playerLight, intensity: 0.42, follow: () => (this.player ? { x: this.player.x, y: this.player.y - 2 } : null) }, spPx);
@@ -487,6 +578,58 @@ export class WorldScene extends Phaser.Scene {
     this.cam.setZoom(zoom); this.overlayCam.setZoom(zoom);
     this.applyBounds();
     this.camMode = { kind: 'follow', id: 'player' };
+  }
+
+  /**
+   * Cuts every occluder polygon out of the painted background into its own texture and draws it at the depth of its
+   * baseline: actors whose feet are above the baseline (smaller y) are drawn behind it.
+   */
+  private buildOccluders(def: MapDef, bg: BgInfo): void {
+    normOccluders(def).forEach((o, i) => {
+      const cut = this.cutBackground(o.poly, `occ-${def.id}-${bg.key}-${i}`);
+      if (!cut) return;
+      const img = this.addWorld(this.add.image(cut.x, cut.y, cut.key).setOrigin(0).setDepth(o.baseline));
+      this.occluders.push({ id: o.id ?? `occ-${i}`, poly: o.poly, baseline: o.baseline, fade: o.fade ?? 1, img, alpha: 1, box: { x: cut.x, y: cut.y, w: cut.w, h: cut.h } });
+    });
+  }
+
+  /** Cuts a polygon out of the painted background into a cached texture (top-left at x/y). */
+  private cutBackground(poly: Poly, key: string): { key: string; x: number; y: number; w: number; h: number } | null {
+    if (!this.bgKey || !this.textures.exists(this.bgKey)) return null;
+    const b = polyBounds(poly);
+    const x0 = Math.max(0, Math.floor(b.x)), y0 = Math.max(0, Math.floor(b.y));
+    const x1 = Math.min(this.mapW, Math.ceil(b.x + b.w)), y1 = Math.min(this.mapH, Math.ceil(b.y + b.h));
+    if (x1 - x0 < 1 || y1 - y0 < 1) return null;
+    if (!this.textures.exists(key)) {
+      const src = this.textures.get(this.bgKey).getSourceImage() as HTMLImageElement | HTMLCanvasElement;
+      const sx = src.width / this.mapW, sy = src.height / this.mapH;
+      const c = document.createElement('canvas');
+      c.width = x1 - x0; c.height = y1 - y0;
+      const g = c.getContext('2d')!;
+      g.imageSmoothingEnabled = false;
+      g.beginPath();
+      poly.forEach(([px, py], k) => (k ? g.lineTo(px - x0, py - y0) : g.moveTo(px - x0, py - y0)));
+      g.closePath();
+      g.clip();
+      g.drawImage(src, x0 * sx, y0 * sy, (x1 - x0) * sx, (y1 - y0) * sy, 0, 0, x1 - x0, y1 - y0);
+      this.textures.addCanvas(key, c);
+    }
+    return { key, x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+  }
+
+  /** Occluders with `fade` turn see-through while they cover the player. */
+  private updateOccluders(dt: number): void {
+    const p = this.player;
+    if (!p) return;
+    const midY = p.y - p.figureH * 0.5;
+    for (const o of this.occluders) {
+      if (o.fade >= 1) continue;
+      const covers = p.y < o.baseline && p.visible && (pointInPoly(p.x, midY, o.poly) || pointInPoly(p.x, p.headY + 3, o.poly) || pointInPoly(p.x, p.y - 2, o.poly));
+      const target = covers ? o.fade : 1;
+      o.alpha += (target - o.alpha) * Math.min(1, dt * 7);
+      if (Math.abs(o.alpha - target) < 0.01) o.alpha = target;
+      o.img.setAlpha(o.alpha);
+    }
   }
 
   /** Re-applies remembered changes after the map objects were created. */
@@ -537,8 +680,15 @@ export class WorldScene extends Phaser.Scene {
     this.mapLights = [];
     this.playerLight = null;
     this.focusLight = null;
-    this.ground?.destroy();
-    this.ground = null;
+    this.bgImage?.destroy();
+    this.bgImage = null;
+    for (const o of this.occluders) o.img.destroy();
+    this.occluders = [];
+    for (const f of this.flames) f.destroy();
+    this.flames = [];
+    for (const g of this.hotGlows) g.destroy();
+    this.hotGlows = [];
+    this.surfaces = null;
     this.clearOutline();
     this.focus = null;
     this.cancelClick();
@@ -597,7 +747,7 @@ export class WorldScene extends Phaser.Scene {
     const fp = p.footprint();
     if (fp && !p.def.hide) this.grid.clearRect(fp.x, fp.y, fp.w, fp.h, { move: p.def.collide ?? true, sight: p.def.blocksView ?? true });
     this.hides = this.hides.filter(h => h.prop !== p);
-    this.lighting.remove(`${id}-light`);
+    this.removeLight(`${id}-light`);
     p.info.lights?.forEach((_, i) => this.lighting.remove(`${id}-light-${i}`));
     p.destroy();
     this.props.delete(id);
@@ -605,24 +755,41 @@ export class WorldScene extends Phaser.Scene {
   }
 
   addLight(def: LightDef & { follow?: () => Vec | null }): LightRuntime {
-    const l = this.lighting.add(def, toPx(def.at));
+    const pos = toPx(def.at);
+    const l = this.lighting.add(def, pos);
     this.mapLights.push(l.id);
+    if (def.flame) {
+      this.flames = this.flames.filter(f => { if (f.lightId === l.id) { f.destroy(); return false; } return true; });
+      this.flames.push(new Flame(this, l, typeof def.flame === 'number' ? def.flame : 1, o => this.addWorld(o)));
+    }
     return l;
+  }
+
+  /** Removes a light and its flame. */
+  removeLight(id: string): void {
+    this.lighting.remove(id);
+    this.flames = this.flames.filter(f => { if (f.lightId === id) { f.destroy(); return false; } return true; });
   }
 
   // ---- interactables ----
   addInteractable(def: InteractableDef, existingProp?: PropObj): Interactive {
-    const pos = toPx(def.at);
+    const hot = def.poly;
+    const hb = hot ? polyBounds(hot) : null;
+    // A hotspot polygon without `at`: its base (bottom centre) is the ground anchor.
+    const pos = def.at ? toPx(def.at) : hb ? { x: hb.x + hb.w / 2, y: hb.y + hb.h } : { x: 0, y: 0 };
     let prop = existingProp;
-    if (!prop && def.prop) prop = this.addProp({ prop: def.prop, at: def.at, variant: def.variant, id: `${def.id}-prop` });
+    if (!prop && def.prop) prop = this.addProp({ prop: def.prop, at: def.at ?? { x: pos.x, y: pos.y, px: true }, variant: def.variant, id: `${def.id}-prop` });
     const size = def.size ?? { w: 16, h: 16 };
     const once = def.once ?? Boolean(def.item);
     const removeOnUse = def.removeOnUse ?? Boolean(def.item);
     const it: Interactive = {
-      id: def.id, kind: 'object', verb: def.verb ?? (def.item ? 'Aufheben' : 'Untersuchen'), radius: def.radius ?? 18,
+      id: def.id, kind: 'object', verb: def.verb ?? (def.item ? 'Aufheben' : 'Untersuchen'), radius: def.radius ?? 18 * wk(),
       pos: () => pos,
-      top: () => (prop ? { x: pos.x, y: prop.bounds().y } : { x: pos.x, y: pos.y - size.h + 4 }),
-      bounds: () => (prop ? prop.bounds() : { x: pos.x - size.w / 2, y: pos.y - size.h + 6, w: size.w, h: size.h }),
+      hotPoly: hot,
+      dist: hot ? (x, y) => distToPoly(x, y, hot) : undefined,
+      hit: hot ? (x, y) => pointInPoly(x, y, hot) : undefined,
+      top: () => (hb ? { x: hb.x + hb.w / 2, y: hb.y } : prop ? { x: pos.x, y: prop.bounds().y } : { x: pos.x, y: pos.y - size.h + 4 }),
+      bounds: () => (hb ? { ...hb } : prop ? prop.bounds() : { x: pos.x - size.w / 2, y: pos.y - size.h + 6, w: size.w, h: size.h }),
       enabled: () => !it.disabled && !it.removed && !(once && it.used) && (def.when ? def.when() : true),
       outline: () => (prop && this.props.has(prop.id) ? prop.image : undefined),
       stand: def.standAt ? () => this.resolveStand(def.standAt!, def.face, prop, pos) : undefined,
@@ -631,7 +798,7 @@ export class WorldScene extends Phaser.Scene {
         if (removeOnUse && once) { it.removed = true; if (prop) this.removeProp(prop.id); }
       },
       run: async () => {
-        if (!def.standAt) this.player.faceTowards(pos.x, pos.y);
+        if (!def.standAt) { const q = hot ? closestOnPoly(this.player.x, this.player.y, hot) : pos; this.player.faceTowards(q.x, q.y === this.player.y ? q.y - 1 : q.y); }
         if (def.item) {
           void this.player.playOnce('interact', 380);
           // Register a catalog entry on the fly so the UI toast shows a proper name.
@@ -649,6 +816,13 @@ export class WorldScene extends Phaser.Scene {
         await this.runHandler(def.onInteract);
       },
     };
+    if (hot && !prop) {
+      const cut = this.cutBackground(hot, `hot-${this.map.id}-${this.bgKey}-${def.id}`);
+      if (cut) {
+        it.glow = this.addWorld(this.add.image(cut.x, cut.y, cut.key).setOrigin(0).setDepth(-999).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0));
+        this.hotGlows.push(it.glow);
+      }
+    }
     this.interactives.push(it);
     if (def.sparkle ?? Boolean(def.item)) {
       const img = this.addOverlay(this.add.image(pos.x, pos.y, 'w-sparkle').setDepth(4800).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0));
@@ -690,7 +864,7 @@ export class WorldScene extends Phaser.Scene {
     this.despawn(def.id);
     const pos = toPx(def.at);
     const a = new Actor(this.host, def.id, 'npc', def.preset, pos, def.dir ?? 'down', def.speaker ?? def.id);
-    a.walkSpeed = def.speed ?? 42;
+    a.walkSpeed = def.speed ?? 42 * wk();
     a.idleAnim = def.idle ?? 'idle';
     a.solid = def.solid ?? true;
     if (def.hidden) a.setVisible(false);
@@ -699,7 +873,7 @@ export class WorldScene extends Phaser.Scene {
     this.npcTimers.set(def.id, { wander: 1 + Math.random() * 3, bark: (def.barkEvery ?? 7000) / 1000 * (0.4 + Math.random() * 0.8), origin: pos, barkIdx: Math.floor(Math.random() * 10) });
     if (def.talk) {
       const it: Interactive = {
-        id: def.id, kind: 'npc', verb: def.verb ?? 'Reden', radius: 22,
+        id: def.id, kind: 'npc', verb: def.verb ?? 'Reden', radius: 22 * wk(),
         pos: () => ({ x: a.x, y: a.y }),
         top: () => ({ x: a.x, y: a.headY }),
         bounds: () => ({ x: a.x - a.size.w / 2 - 2, y: a.headY - 2, w: a.size.w + 4, h: a.size.h + 4 }),
@@ -740,12 +914,12 @@ export class WorldScene extends Phaser.Scene {
       this.interactives = this.interactives.filter(it => !(it.id === id && it.kind === 'npc'));
       Object.assign(existing, { solid: false });
       existing.kind = 'companion';
-      existing.walkSpeed = 60;
+      existing.walkSpeed = 60 * wk();
       return existing;
     }
     const slot = this.trail.pointBehind(this.player.x, this.player.y, followDistance(this.companionDefs.length - 1));
     const a = new Actor(this.host, id, 'companion', preset ?? id, slot, this.player.dir, speaker ?? id);
-    a.walkSpeed = 60; a.solid = false;
+    a.walkSpeed = 60 * wk(); a.solid = false;
     this.actors.set(id, a);
     return a;
   }
@@ -773,7 +947,7 @@ export class WorldScene extends Phaser.Scene {
     const rt: ClueRt = { def, x: pos.x, y: pos.y, img, glow, revealed: false, found: (def.clue ? G.state.hasClue(def.clue) : false) || this.mem.has('clues', def.id), phase: Math.random() * 6 };
     this.clues.push(rt);
     this.interactives.push({
-      id: def.id, kind: 'clue', verb: def.verb ?? 'Untersuchen', radius: 16,
+      id: def.id, kind: 'clue', verb: def.verb ?? 'Untersuchen', radius: 16 * wk(),
       pos: () => pos, top: () => ({ x: pos.x, y: pos.y - 8 }), bounds: () => ({ x: pos.x - 9, y: pos.y - 8, w: 18, h: 14 }),
       enabled: () => (rt.revealed || this.look.amt > 0.5) && !rt.found,
       run: async () => {
@@ -848,6 +1022,8 @@ export class WorldScene extends Phaser.Scene {
     this.updateFocus();
     this.updateLook(dt);
     for (const p of this.propList) p.update(t, dt, this.weather.wind);
+    this.updateOccluders(dt);
+    for (const f of this.flames) f.update(dt, this.weather.wind);
     this.updateCamera(dt);
     this.lighting.update(dt, this.cam);
     this.lighting.setWeather(this.weather.kind);
@@ -856,6 +1032,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateSparkles(dt);
     this.updateObjective();
     this.drawCones();
+    this.debug.update();
   }
 
   // ---- player ----
@@ -883,27 +1060,27 @@ export class WorldScene extends Phaser.Scene {
       if (d < 3) {
         this.clickPath.shift();
         if (!this.clickPath.length) { this.clickPath = null; this.clickMarker.setVisible(false); } // keep clickTarget for the check below
-      } else { ix = dx / d; iy = dy / d; if (this.clickPath.length === 1 && d < 14) { ix *= d / 14; iy *= d / 14; } }
+      } else { ix = dx / d; iy = dy / d; const slow = 14 * wk(); if (this.clickPath.length === 1 && d < slow) { ix *= d / slow; iy *= d / slow; } }
     }
     if (this.clickTarget && !locked) {
-      const tp = this.clickTarget.pos();
-      if (Math.hypot(tp.x - p.x, tp.y - p.y) <= this.clickTarget.radius - 2 && this.clickTarget.enabled()) {
+      if (this.distTo(this.clickTarget) <= this.clickTarget.radius - 2 && this.clickTarget.enabled()) {
         const target = this.clickTarget;
         this.cancelClick();
         void this.interact(target);
       } else if (!this.clickPath) this.clickTarget = null;
     }
     const inp = normalizeInput(ix, iy);
-    const terrainK = terrainSpeed(this.terrainAt(p.x, p.y));
-    const max = (sneaking ? 34 : running ? p.runSpeed : p.walkSpeed) * terrainK;
-    const v = stepVelocity(p.vx, p.vy, inp.x, inp.y, max, running ? 520 : 640, 820, dt);
-    const wasRunning = p.running && p.speed > 70;
+    const terrainK = this.speedAt(p.x, p.y);
+    const K = wk();
+    const max = (sneaking ? 34 * K : running ? p.runSpeed : p.walkSpeed) * terrainK;
+    const v = stepVelocity(p.vx, p.vy, inp.x, inp.y, max, (running ? 520 : 640) * K, 820 * K, dt);
+    const wasRunning = p.running && p.speed > 70 * K;
     p.vx = v.vx; p.vy = v.vy;
     p.running = running; p.sneaking = sneaking;
     this.moveWithCollision(p, dt);
     if (inp.x !== 0 || inp.y !== 0) p.dir = dirFromVector(inp.x, inp.y, p.dir);
     // Skid puff when stopping from a run
-    if (wasRunning && inp.x === 0 && inp.y === 0 && p.speed < 40) this.puff(p.x, p.y, 'dust', 1.2);
+    if (wasRunning && inp.x === 0 && inp.y === 0 && p.speed < 40 * K) this.puff(p.x, p.y, 'dust', 1.2);
     p.update(dt, false);
     this.trail.push(p.x, p.y);
     // Stuck detection for click paths
@@ -955,7 +1132,7 @@ export class WorldScene extends Phaser.Scene {
       if (a === p || !a.solid || !a.visible || a.kind === 'companion') continue;
       const dx = p.x - a.x, dy = (p.y - a.y) * 1.6;
       const d = Math.hypot(dx, dy);
-      const min = 8;
+      const min = 8 * wk();
       if (d < min && d > 0.001) {
         const push = (min - d);
         const nx = p.x + (dx / d) * push, ny = p.y + (dy / d) * push / 1.6;
@@ -974,20 +1151,20 @@ export class WorldScene extends Phaser.Scene {
         tm.wander -= dt;
         if (tm.wander <= 0) {
           tm.wander = 2.5 + Math.random() * 4;
-          const r = def.wander * TILE;
+          const r = unitPx(def.wander);
           const ang = Math.random() * Math.PI * 2, rad = Math.random() * r;
           const target = { x: tm.origin.x + Math.cos(ang) * rad, y: tm.origin.y + Math.sin(ang) * rad };
           const path = findPath(this.grid, { x: a.x, y: a.y }, target, { hw: FOOT_HW, hh: FOOT_HH, maxNodes: 4000 });
-          if (path && path.length) void a.moveAlong(path, a.walkSpeed * 0.7);
+          if (path && path.length) { void a.moveAlong(path, a.walkSpeed * 0.7); a.wandering = true; }
         }
       }
       // Don't walk into the player: pause when close.
-      if (a.path && Math.hypot(a.x - this.player.x, a.y - this.player.y) < 12 && !a.held) { a.stopPath(); a.faceTowards(this.player.x, this.player.y); }
+      if (a.path && a.wandering && Math.hypot(a.x - this.player.x, a.y - this.player.y) < 12 * wk() && !a.held) { a.stopPath(); a.faceTowards(this.player.x, this.player.y); }
       if (def.barks?.length && a.visible && !a.held) {
         tm.bark -= dt;
         if (tm.bark <= 0) {
           tm.bark = (def.barkEvery ?? 7000) / 1000 * (0.8 + Math.random() * 0.5);
-          const near = Math.hypot(a.x - this.player.x, a.y - this.player.y) < 150;
+          const near = Math.hypot(a.x - this.player.x, a.y - this.player.y) < 150 * wk();
           if (near && this.onScreen(a.x, a.y, -8) && !inputLock.locked) {
             const text = def.barks[tm.barkIdx++ % def.barks.length];
             this.barkActor(a, text);
@@ -1051,12 +1228,12 @@ export class WorldScene extends Phaser.Scene {
       const dx = slot.x - a.x, dy = slot.y - a.y, d = Math.hypot(dx, dy);
       // Teleport catch-up when far away and off-screen (e.g. after a long run).
       if (d > 160 && !this.onScreen(a.x, a.y, 8) && !this.onScreen(slot.x, slot.y, -8)) {
-        const behind = this.trail.pointBehind(p.x, p.y, followDistance(i) + 24);
+        const behind = this.trail.pointBehind(p.x, p.y, followDistance(i) + 24 * wk());
         a.teleport(behind.x, behind.y);
         return;
       }
       if (d > 220) { a.teleport(slot.x, slot.y); return; }
-      const sp = hold && d < 80 ? 0 : formation ? (d > 2 ? Math.max(28, a.walkSpeed * 0.6) : 0) : followerSpeed(d, p.speed, a.walkSpeed, 2.5);
+      const sp = hold && d < 80 * wk() ? 0 : formation ? (d > 2 ? Math.max(28 * wk(), a.walkSpeed * 0.6) : 0) : followerSpeed(d, p.speed, a.walkSpeed, 2.5);
       if (sp === 0) { a.vx *= 0.6; a.vy *= 0.6; if (Math.abs(a.vx) + Math.abs(a.vy) < 1) { a.vx = 0; a.vy = 0; } }
       else {
         const s = Math.min(sp, d / dt);
@@ -1068,12 +1245,12 @@ export class WorldScene extends Phaser.Scene {
           a.dir = dirFromVector(a.vx, a.vy, a.dir);
         } else { a.vx = 0; a.vy = 0; }
       }
-      a.running = p.running && a.speed > 70;
+      a.running = p.running && a.speed > 70 * wk();
       a.sneaking = p.sneaking;
       if (!a.moving && !p.moving) {
         // idle: look where Lia looks, glance at her now and then
         if (formation && Math.random() < dt * 0.8) a.face(p.dir);
-        else if (Math.hypot(p.x - a.x, p.y - a.y) < 40 && Math.random() < dt * 0.35) a.faceTowards(p.x, p.y);
+        else if (Math.hypot(p.x - a.x, p.y - a.y) < 40 * wk() && Math.random() < dt * 0.35) a.faceTowards(p.x, p.y);
       }
       a.update(dt, false);
     });
@@ -1084,8 +1261,8 @@ export class WorldScene extends Phaser.Scene {
     const p = this.player;
     let spot: HideRt | null = null;
     if (p.sneaking) {
-      for (const h of this.hides) if (inRect(h.rect, p.x, p.y)) { spot = h; break; }
-      if (!spot && this.hideTerrain.has(this.terrainAt(p.x, p.y) as TerrainId)) spot = { rect: { x: 0, y: 0, w: 0, h: 0 }, kind: 'grass' };
+      for (const h of this.hides) if (inArea(h, p.x, p.y)) { spot = h; break; }
+      if (!spot && this.hideAt(p.x, p.y)) spot = { rect: { x: 0, y: 0, w: 0, h: 0 }, kind: 'grass' };
     }
     const was = this.playerHidden;
     this.playerHidden = Boolean(spot);
@@ -1111,7 +1288,7 @@ export class WorldScene extends Phaser.Scene {
       if (res === 'spotted') void this.spotted(g);
     }
     // Heartbeat when danger is close.
-    const proximity = this.guards.length ? clamp(1 - (nearest - 30) / 90, 0, 1) : 0;
+    const proximity = this.guards.length ? clamp(1 - (nearest - 30 * wk()) / (90 * wk()), 0, 1) : 0;
     const danger = this.stealthOn ? Math.max(maxSusp, proximity * (this.playerHidden ? 0.5 : 0.75)) : 0;
     if (danger > 0.12 && !this.spotting) {
       const interval = 0.95 - danger * 0.5;
@@ -1204,7 +1381,9 @@ export class WorldScene extends Phaser.Scene {
       const pulse = age < 0.5 ? Math.sin((age / 0.5) * Math.PI) : 0;
       const range = gd.range * (1 + pulse * 0.16);
       const active = this.stealthOn ? 1 : 0.4;
-      const base = (night ? 0.2 + dark * 0.1 : 0.2) * active * lookK * (1 + pulse * 0.8) * (lvl === 'suspicious' ? 1.15 : 1);
+      // Painted backgrounds are bright and busy: the cone needs body by day to stay readable.
+      const dayA = 0.4;
+      const base = (night ? dayA * 0.75 + dark * 0.12 : dayA) * active * lookK * (1 + pulse * 0.8) * (lvl === 'suspicious' ? 1.15 : 1);
       const rim = conePolygon(this.grid, gd.eye, gd.facing, gd.half, range, 30);
       const o = rim[0];
       const n = rim.length - 1;
@@ -1213,7 +1392,7 @@ export class WorldScene extends Phaser.Scene {
         const t = Math.min(1, Math.hypot(p.x - o.x, p.y - o.y) / range);
         const u = (i - 1) / Math.max(1, n - 1);
         const edge = 0.45 + 0.55 * smooth(Math.min(u, 1 - u) / 0.14);
-        return base * Math.pow(1 - t, 1.25) * edge;
+        return base * Math.pow(1 - t, 0.9) * edge;
       };
       for (let i = 1; i < n; i++) {
         const p1 = rim[i], p2 = rim[i + 1];
@@ -1243,7 +1422,7 @@ export class WorldScene extends Phaser.Scene {
   private updateTriggers(): void {
     const p = this.player;
     for (const t of this.triggers) {
-      const inside = inRect(t.rect, p.x, p.y);
+      const inside = inArea(t, p.x, p.y);
       if (inside && !t.inside) {
         t.inside = true;
         // Cutscenes (scriptLock) walk through triggers without firing them.
@@ -1264,7 +1443,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.playerLocked) return;
     for (const e of this.exits) {
       if (e.def.door) continue;
-      const inside = inRect(e.rect, p.x, p.y);
+      const inside = inArea(e, p.x, p.y);
       if (!inside) { e.armed = true; e.blockedShown = false; continue; }
       if (!e.armed || !e.enabled) continue;
       if (e.def.when && !e.def.when()) {
@@ -1279,10 +1458,10 @@ export class WorldScene extends Phaser.Scene {
   private exitDir(e: ExitRt): Dir {
     if (e.def.dir) return e.def.dir;
     const r = e.rect;
-    if (r.x <= 0) return 'left';
-    if (r.x + r.w >= this.mapW) return 'right';
-    if (r.y <= 0) return 'up';
-    if (r.y + r.h >= this.mapH) return 'down';
+    if (r.x <= 2) return 'left';
+    if (r.x + r.w >= this.mapW - 2) return 'right';
+    if (r.y <= 2) return 'up';
+    if (r.y + r.h >= this.mapH - 2) return 'down';
     return dirFromVector(this.player.vx, this.player.vy, this.player.dir);
   }
 
@@ -1291,8 +1470,8 @@ export class WorldScene extends Phaser.Scene {
     this.emit('exit', e.def.id);
     const dir = this.exitDir(e);
     const dv = dirVector(dir);
-    void this.player.moveAlong([{ x: this.player.x + dv.x * 30, y: this.player.y + dv.y * 30 }], this.player.running ? 90 : 60, this.player.running);
-    await this.changeMap(e.def.to, e.def.spawn, { fadeMs: 420 });
+    void this.player.moveAlong([{ x: this.player.x + dv.x * 30 * wk(), y: this.player.y + dv.y * 30 * wk() }], (this.player.running ? 90 : 60) * wk(), this.player.running);
+    await this.changeMap(e.def.to, e.def.spawn, { fadeMs: e.def.fade ?? 420 });
   }
 
   async changeMap(mapOrId: string | MapDef, spawn?: string, opts: { fadeMs?: number } = {}): Promise<void> {
@@ -1304,11 +1483,12 @@ export class WorldScene extends Phaser.Scene {
     this.clearBubbles();
     try { G.ui.hint(null); G.ui.objectivePointer(null); } catch { /* */ }
     this.hintKey = '';
-    await this.fadeCams('out', ms);
+    // Load the next map's art while the screen fades (both must finish before the rebuild).
+    const [bg] = await Promise.all([this.loadAssets(def), this.fadeCams('out', ms)]);
     if (!this.alive) return;
     this.player.stopPath();
     this.teardownMap();
-    this.buildMap(def, spawn);
+    this.buildMap(def, spawn, bg);
     this.drawDebug();
     this.snapCamera();
     this.weather.rescatter();
@@ -1317,10 +1497,11 @@ export class WorldScene extends Phaser.Scene {
     const fadeIn = this.fadeCams('in', ms);
     if (sp?.dir) {
       const dv = dirVector(sp.dir);
-      const target = { x: this.player.x + dv.x * 14, y: this.player.y + dv.y * 14 };
+      const K = wk();
+      const target = { x: this.player.x + dv.x * 14 * K, y: this.player.y + dv.y * 14 * K };
       if (this.grid.boxFree(target.x, target.y, FOOT_HW, FOOT_HH)) {
-        this.player.teleport(this.player.x - dv.x * 10, this.player.y - dv.y * 10, sp.dir);
-        await this.player.moveAlong([target], 60);
+        this.player.teleport(this.player.x - dv.x * 10 * K, this.player.y - dv.y * 10 * K, sp.dir);
+        await this.player.moveAlong([target], 60 * K);
       }
     }
     await fadeIn;
@@ -1351,9 +1532,9 @@ export class WorldScene extends Phaser.Scene {
       const facing = dirVector(p.dir);
       for (const it of this.interactives) {
         if (!it.enabled()) continue;
-        const pos = it.pos();
+        const pos = it.dist ? closestOnPoly(p.x, p.y, it.hotPoly!) : it.pos();
         const dx = pos.x - p.x, dy = pos.y - p.y;
-        const d = Math.hypot(dx, dy);
+        const d = this.distTo(it);
         if (d > it.radius) continue;
         const front = d > 0.1 ? (dx * facing.x + dy * facing.y) / d : 1;
         const score = d - front * 6;
@@ -1364,6 +1545,14 @@ export class WorldScene extends Phaser.Scene {
       this.focus = best;
       this.setOutline(best?.outline?.());
       if (best) sfx('ui-move', 0.15);
+    }
+    // Painted hotspots brighten softly while focused.
+    for (const it of this.interactives) {
+      if (!it.glow) continue;
+      const target = it === best ? 0.16 + 0.1 * Math.sin(this.timeSec * 5) : 0;
+      const a = it.glow.alpha + (target - it.glow.alpha) * 0.25;
+      it.glow.setAlpha(a < 0.005 ? 0 : a);
+      if (!it.enabled()) it.glow.setAlpha(0);
     }
     // A soft light on the focused object keeps it readable at dusk/night.
     if (best) {
@@ -1402,6 +1591,14 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
+  /** Distance from the player to an interactive (hotspot polygons: to the outline). */
+  distTo(it: Interactive): number {
+    const p = this.player;
+    if (it.dist) return it.dist(p.x, p.y);
+    const q = it.pos();
+    return Math.hypot(q.x - p.x, q.y - p.y);
+  }
+
   async interact(it: Interactive): Promise<void> {
     if (this.busyInteract || !it.enabled()) return;
     this.busyInteract = true;
@@ -1423,7 +1620,7 @@ export class WorldScene extends Phaser.Scene {
     } finally {
       // Off the seat again (stand points on props lie inside their footprint).
       if (back && this.alive && !this.transitioning && !this.grid.boxFree(this.player.x, this.player.y, FOOT_HW, FOOT_HH)) {
-        await this.player.moveAlong([back], 60).catch(() => {});
+        await this.player.moveAlong([back], 60 * wk()).catch(() => {});
       }
       if (this.player) { this.player.depthBias = 2; this.player.clearOverride(); }
       this.partyHold = false;
@@ -1443,16 +1640,16 @@ export class WorldScene extends Phaser.Scene {
     const target = { x: st.x, y: st.y };
     const path = findPath(this.grid, { x: p.x, y: p.y }, target, { hw: FOOT_HW, hh: FOOT_HH }) ?? [];
     const last = path.length ? path[path.length - 1] : { x: p.x, y: p.y };
-    if (Math.hypot(last.x - target.x, last.y - target.y) > 0.5 && Math.hypot(last.x - target.x, last.y - target.y) < 18) path.push(target);
+    if (Math.hypot(last.x - target.x, last.y - target.y) > 0.5 && Math.hypot(last.x - target.x, last.y - target.y) < 18 * wk()) path.push(target);
     // Companions near the stand point step two tiles aside.
     for (const c of this.companionDefs) {
       const a = this.actors.get(c.id);
-      if (!a || Math.hypot(a.x - target.x, a.y - target.y) > 26) continue;
-      const away = this.freeSpotNear(target, 30, { x: a.x - target.x, y: a.y - target.y });
-      if (away) { const ap = findPath(this.grid, { x: a.x, y: a.y }, away, { hw: FOOT_HW, hh: FOOT_HH }); if (ap) void a.moveAlong(ap, 60); }
+      if (!a || Math.hypot(a.x - target.x, a.y - target.y) > 26 * wk()) continue;
+      const away = this.freeSpotNear(target, 30 * wk(), { x: a.x - target.x, y: a.y - target.y });
+      if (away) { const ap = findPath(this.grid, { x: a.x, y: a.y }, away, { hw: FOOT_HW, hh: FOOT_HH }); if (ap) void a.moveAlong(ap, 60 * wk()); }
     }
     const dist = path.reduce((acc, q, i) => acc + Math.hypot(q.x - (i ? path[i - 1].x : p.x), q.y - (i ? path[i - 1].y : p.y)), 0);
-    if (dist > 0.5) await p.moveAlong(path, Math.max(64, Math.min(110, dist / 0.35)));
+    if (dist > 0.5) await p.moveAlong(path, Math.max(64 * wk(), Math.min(110 * wk(), dist / 0.35)));
     if (st.over !== undefined) p.depthBias = Math.max(2, st.over - p.y + 0.5);
     if (st.face) p.face(st.face);
     return last;
@@ -1494,26 +1691,29 @@ export class WorldScene extends Phaser.Scene {
     const offs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
     this.outline.forEach((o, i) => {
       o.setTexture(src.texture.key, src.frame.name);
+      o.setOrigin(src.originX, src.originY).setScale(src.scaleX, src.scaleY);
       o.setPosition(src.x + offs[i][0], src.y + offs[i][1]).setDepth(src.depth - 0.002).setAlpha(pulse * src.alpha).setFlipX(src.flipX);
     });
   }
 
   private onPointer(p: Phaser.Input.Pointer): void {
-    if (!this.alive || this.playerLocked || p.button !== 0) return;
+    if (!this.alive || !this.player || !this.grid || this.playerLocked || p.button !== 0) return;
     const wp = this.cam.getWorldPoint(p.x, p.y);
     // Clicked an interactive?
     let hit: Interactive | null = null;
+    if (this.debug.consumeClick(wp.x, wp.y, p)) return;
     for (const it of this.interactives) {
       if (!it.enabled()) continue;
       const b = it.bounds();
-      if (wp.x >= b.x - 3 && wp.x <= b.x + b.w + 3 && wp.y >= b.y - 3 && wp.y <= b.y + b.h + 3) {
+      const inside = it.hit ? it.hit(wp.x, wp.y) : wp.x >= b.x - 3 && wp.x <= b.x + b.w + 3 && wp.y >= b.y - 3 && wp.y <= b.y + b.h + 3;
+      if (inside) {
         if (!hit || it.pos().y > hit.pos().y) hit = it;
       }
     }
     const pl = this.player;
     if (hit) {
-      const pos = hit.pos();
-      if (Math.hypot(pos.x - pl.x, pos.y - pl.y) <= hit.radius - 2) { void this.interact(hit); return; }
+      const pos = hit.hotPoly ? closestOnPoly(pl.x, pl.y, hit.hotPoly) : hit.pos();
+      if (this.distTo(hit) <= hit.radius - 2) { void this.interact(hit); return; }
       this.clickTarget = hit;
       const path = findPath(this.grid, { x: pl.x, y: pl.y }, pos, { hw: FOOT_HW, hh: FOOT_HH });
       this.clickPath = path && path.length ? path : null;
@@ -1530,24 +1730,8 @@ export class WorldScene extends Phaser.Scene {
     } else this.showMarker(wp.x, wp.y, true); // the click registered, but there is no way there
   }
 
-  private debugGfx: Phaser.GameObjects.Graphics | null = null;
-
-  /** `?worlddebug` in the URL draws collision (red), sight blockers (purple), triggers (blue), exits (green) and hiding spots (yellow). */
-  drawDebug(): void {
-    if (typeof location === 'undefined' || !new URLSearchParams(location.search).has('worlddebug')) return;
-    this.debugGfx?.destroy();
-    const g = this.debugGfx = this.addOverlay(this.add.graphics().setDepth(6000));
-    const grid = this.grid;
-    for (let r = 0; r < grid.rows; r++) for (let c = 0; c < grid.cols; c++) {
-      const i = r * grid.cols + c;
-      if (grid.solid[i]) { g.fillStyle(0xff3030, 0.28); g.fillRect(c * 4, r * 4, 4, 4); }
-      else if (grid.sight[i]) { g.fillStyle(0xa040ff, 0.28); g.fillRect(c * 4, r * 4, 4, 4); }
-    }
-    const rect = (rc: Rect, col: number) => { g.lineStyle(1, col, 0.9); g.strokeRect(rc.x + 0.5, rc.y + 0.5, rc.w - 1, rc.h - 1); g.fillStyle(col, 0.12); g.fillRect(rc.x, rc.y, rc.w, rc.h); };
-    for (const t of this.triggers) rect(t.rect, 0x3a8cff);
-    for (const e of this.exits) rect(e.rect, 0x3adc6a);
-    for (const h of this.hides) if (h.rect.w > 0) rect(h.rect, 0xffd23a);
-  }
+  /** Refreshes the debug overlay geometry (F1 / ?debug). */
+  drawDebug(): void { this.debug?.rebuild(); }
 
   /** Tells the touch UI which contextual buttons to show. */
   syncTouchExtras(): void {
@@ -1712,7 +1896,7 @@ export class WorldScene extends Phaser.Scene {
     const inside = s.x > 12 && s.x < GAME_W - 12 && s.y > 12 && s.y < GAME_H - 12
       && !(s.y < 70 && s.x < 170) && !(s.y < 34 && s.x > GAME_W - 130);
     if (inside) {
-      const near = Math.hypot(target.x - this.player.x, target.y - this.player.y) < 20;
+      const near = Math.hypot(target.x - this.player.x, target.y - this.player.y) < 20 * wk();
       this.objMarker.setVisible(!near).setPosition(target.x, target.y - 4 + Math.sin(this.timeSec * 3) * 1.5).setAlpha(0.9);
       if (this.pointerShown) { this.pointerShown = false; try { G.ui.objectivePointer(null); } catch { /* */ } }
     } else {
@@ -1788,10 +1972,11 @@ export class WorldScene extends Phaser.Scene {
   }
 }
 
-function hashString(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-  return h >>> 0;
+/** Loaded painted background (texture key + size in px). */
+export interface BgInfo { key: string; w: number; h: number }
+
+function withTimeout<T>(p: Promise<T>, ms: number): Promise<T | undefined> {
+  return Promise.race([p, new Promise<undefined>(resolve => setTimeout(() => resolve(undefined), ms))]);
 }
 
 export function sfx(name: Parameters<typeof G.audio.sfx>[0], volume = 1): void {

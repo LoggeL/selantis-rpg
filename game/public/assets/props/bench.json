@@ -1,0 +1,15 @@
+{
+  "height": 15,
+  "frames": 1,
+  "anchor": [
+    15,
+    16
+  ],
+  "desc": "a long rustic wooden bench made of a thick plank on four splayed legs, oriented left to right",
+  "footprint": {
+    "x": -16,
+    "y": -4,
+    "w": 32,
+    "h": 4
+  }
+}

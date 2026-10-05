@@ -1,0 +1,17 @@
+{
+  "height": 9,
+  "frames": 4,
+  "anchor": [
+    5,
+    10
+  ],
+  "desc": "a short thick beeswax candle in a simple brass dish holder, burning with a small flame",
+  "frameW": 11,
+  "fps": 6,
+  "footprint": null,
+  "light": {
+    "radius": 36,
+    "color": "#ffcf80",
+    "flicker": true
+  }
+}
