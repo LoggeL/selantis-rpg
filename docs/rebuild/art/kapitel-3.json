@@ -1,0 +1,186 @@
+{
+  "area": "kapitel-3",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/kapitel-3/bg/k3-eber.png": {
+      "kind": "bg",
+      "id": "k3-eber",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Match the pixel-art style, detail density and rendering of the attached reference images. Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no creatures. Scale: this is a LARGE scrolling map seen from far away; a standing adult human would be only about one sixteenth of the image height, a door about one tenth of the image height, a table about as long as two people are tall. Scene: the interior of a big, busy roadside tavern at evening, seen from above with the front wall removed, like a classic 16-bit RPG interior. Warm candlelight everywhere, dark wooden plank floor. TOP: the back wall across the full width, half-timbered plaster with dark oak beams, small leaded windows showing deep dusk blue, iron candle sconces, bundles of dried herbs, a pair of antlers. TOP-LEFT: a big stone fireplace with a burning log fire and a stack of firewood. In the back wall slightly RIGHT of the centre: a heavy closed wooden plank door with iron fittings (the back door to the stable yard), with free floor in front of it. RIGHT SIDE: a long wooden bar counter that starts at the top-right and runs straight down along the right side to about two thirds of the image height, with a narrow walkway behind it; against the right wall behind the counter: shelves full of mugs, jugs and bottles and three big barrels with taps. CENTRE: one single thick square wooden support pillar standing free on the floor in the middle of the room (it holds the ceiling), with open floor all around it. LEFT HALF: about five rustic wooden tables with benches and stools in loose rows, mugs, wooden plates and candles on them; one long table near the fireplace in the upper-left with a big drum and a bagpipe lying on it; one small table in the far lower-left corner. Wide open aisles of plank floor between all tables, from the bottom edge to the counter and to the back door. BOTTOM EDGE: open floor, the main entrance threshold (worn planks and a doormat) at the bottom edge a little left of the centre. Cosy, warm, lively mood (but empty of people).\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-golden-boar.png",
+        "output/imagegen/style-refs/insel-bg-dorf.png"
+      ],
+      "ok": true,
+      "seconds": 84,
+      "attempts": 1,
+      "time": "2026-10-05T05:48:26"
+    },
+    "output/imagegen/raw/kapitel-3/bg/k3-leselager.png": {
+      "kind": "bg",
+      "id": "k3-leselager",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Match the pixel-art style, detail density and rendering of the attached reference images. Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no creatures. Scale: a standing adult human would be about one eighth of the image height. Scene: a small hidden campsite deep inside a dense thicket at NIGHT. In the CENTRE an oval clearing of soft moss, short grass and bare earth, completely enclosed by dense dark thorny bushes and hazel thicket on all sides; the bushes along the bottom edge are dark foreground bushes. In the middle of the clearing a round bare patch of dark earth with old ash marks where a fire will be laid (NO stones, NO fire, NO logs on it). A fallen mossy tree trunk lies horizontally above (north of) the bare patch, usable as a bench. A flat mossy rock to the right of the bare patch. A few loose fist-sized stones scattered at the edges of the clearing. Two big old tree trunks with roots at the upper-left and upper-right corners. A narrow gap in the thicket at the bottom edge slightly left of the centre where a small trail enters. Night mood: deep blue-violet moonlight from above, cool shadows, the ground clearly readable.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/insel-bg-lager.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:13"
+    },
+    "output/imagegen/raw/kapitel-3/bg/k3-stall.png": {
+      "kind": "bg",
+      "id": "k3-stall",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Match the pixel-art style, detail density and rendering of the attached reference images. Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no creatures. Scale: a standing adult human would be about one eighth of the image height. Scene: inside an old wooden stable at NIGHT, seen from above with the front wall removed like a classic RPG interior. Weathered dark plank walls. The roof is rotten: pale blue moonlight falls through gaps and lies as soft light patches on the floor. TOP: the back wall with three empty horse stalls (wooden partitions, low half doors, hay racks), no horses. CENTRE-LEFT: one single thick wooden support post standing free on the straw floor, an iron ring nailed to it; at its foot a rumpled, empty, torn burlap grain sack in trampled straw. RIGHT: a big heap of loose golden hay against the right wall, a wooden saddle rack with an old saddle, a wooden water trough. LEFT WALL: a dim iron lantern hanging from a hook, a pitchfork leaning against the wall. Floor: packed earth covered with scattered golden straw, open and walkable. BOTTOM EDGE in the centre: the wide open stable doorway with the dark night yard beyond. Night mood: deep blue-violet moonlight, a little warm lantern light on the left, readable ground.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-golden-boar.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 87,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:33"
+    },
+    "output/imagegen/raw/kapitel-3/bg/k3-weiher.png": {
+      "kind": "bg",
+      "id": "k3-weiher",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Match the pixel-art style, detail density and rendering of the attached reference images. Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no creatures. Scale: this is a LARGE scrolling map seen from far away; a standing adult human would be only about one sixteenth of the image height, a small tent about one ninth of the image height wide. Scene: the war camp of a gang of brutish soldiers on a forest clearing beside a small pond, at NIGHT. RIGHT THIRD: a small dark pond with reeds and lily pads, its left shore curving from the top-right area down to the bottom-right corner, a few big flat shore rocks, the moon reflected in the water. TOP EDGE and LEFT EDGE: dense dark forest, big tree crowns overhanging the edges, thick trunks. TOP, right of the centre, close to the forest edge and the pond: one large black command tent (a captain's pavilion) with a black canopy awning on two poles over its entrance, the entrance facing south (towards the viewer), warm candlelight glowing from inside; a narrow strip of grass and bushes between the back of the black tent and the forest edge. In an arc from the top-left to the centre-left: five smaller grey-brown canvas tents with guy ropes, with walkable gaps between them; between the two left-most tents a thick man-high wooden stake rammed into the ground with an iron chain coiled at its foot. CENTRE: an open camp square of trampled earth with a dug fire pit full of glowing embers, surrounded by four tree-trunk logs used as benches, a tree stump used as a dice table, empty mugs and gnawed bones lying around. Stacks of wooden crates and barrels beside several tents (hiding spots), a weapon rack with spears, a long wooden rail with saddles at the bottom-left. A dirt trail leaves the camp at the bottom edge left of the centre. Night mood: deep blue-violet moonlight, warm orange glow only at the fire pit and at the black tent entrance, the ground clearly readable.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/insel-bg-lager.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png"
+      ],
+      "ok": true,
+      "seconds": 64,
+      "attempts": 1,
+      "time": "2026-10-05T05:48:06"
+    },
+    "output/imagegen/raw/kapitel-3/cut/k3-audienz-v2.png": {
+      "kind": "plate",
+      "id": "k3-audienz",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Inside a dark black command tent lit by candles on tall iron candle stands; crates and weapon racks along the canvas walls; a giant suit of black iron plate armour on a stand in the background, almost twice as tall as the girl. In the foreground the girl from the first reference sheet (long nut-brown hair tied back with a cord, beige ankle-length dress, small necklace) stands on a big bear-fur rug, back straight, chin raised defiantly, fists clenched, seen from behind three-quarter so her face is in profile. Behind a heavy wooden table sits the huge man from the second reference sheet (close-cropped black hair, bushy full beard, laced black shirt with leather cuffs) in a carved wooden chair, chin resting on his folded hands, staring at her without blinking, a thin cold smile. At the side stands the grey-haired older man from the third reference sheet (long dark coat with a gold brooch, black leather gloves) with a contemptuous look. Menacing, tense mood, warm candlelight against deep shadow.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: The soldiers belong to the Dunkelschatten: they wear black-and-white tabards; the ONLY emblem anywhere is a plain black-and-white QUARTERED banner (like a chessboard of four fields); NO animal emblems, NO lions, NO wolves, NO red banners, NO castle, NO buildings in the background, only forest, grey-brown canvas tents and night sky.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/baris.png",
+        "docs/rebuild/art/refs/orwen.png",
+        "output/imagegen/style-refs/selantis-golden-boar.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-05T05:55:28"
+    },
+    "output/imagegen/raw/kapitel-3/cut/k3-audienz.png": {
+      "kind": "plate",
+      "id": "k3-audienz",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Inside a dark black command tent lit by candles on tall iron candle stands; crates and weapon racks along the canvas walls; a giant suit of black iron plate armour on a stand in the background, almost twice as tall as the girl. In the foreground the girl from the first reference sheet (long nut-brown hair tied back with a cord, beige ankle-length dress, small necklace) stands on a big bear-fur rug, back straight, chin raised defiantly, fists clenched, seen from behind three-quarter so her face is in profile. Behind a heavy wooden table sits the huge man from the second reference sheet (close-cropped black hair, bushy full beard, laced black shirt with leather cuffs) in a carved wooden chair, chin resting on his folded hands, staring at her without blinking, a thin cold smile. At the side stands the grey-haired older man from the third reference sheet (long dark coat with a gold brooch, black leather gloves) with a contemptuous look. Menacing, tense mood, warm candlelight against deep shadow.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/baris.png",
+        "docs/rebuild/art/refs/orwen.png",
+        "output/imagegen/style-refs/selantis-golden-boar.png"
+      ],
+      "ok": true,
+      "seconds": 79,
+      "attempts": 1,
+      "time": "2026-10-05T05:50:33"
+    },
+    "output/imagegen/raw/kapitel-3/cut/k3-craupor.png": {
+      "kind": "plate",
+      "id": "k3-craupor",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: A humorous flashback in a ransacked tavern by candlelight: overturned benches, smashed stools and broken mugs on the plank floor. In the centre a skinny bald innkeeper with an apron (the first reference sheet) hangs UPSIDE DOWN from a thick ceiling crossbeam, a rope tied around his ankles, arms dangling, face red and indignant. In the open doorway on the right, backlit, a younger version of the man from the second reference sheet (brown hair, goatee, leather beret, blue-and-yellow tabard) strides in with his sword drawn, followed by the silhouettes of four city guards. Three scruffy bandits with stubble and ragged clothes turn around in surprise, one still holding a stolen ham. Warm, slightly comic storybook mood, no gore.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/craupor.png",
+        "docs/rebuild/art/refs/foltan.png",
+        "output/imagegen/style-refs/selantis-golden-boar.png"
+      ],
+      "ok": true,
+      "seconds": 110,
+      "attempts": 1,
+      "time": "2026-10-05T05:53:22"
+    },
+    "output/imagegen/raw/kapitel-3/cut/k3-schwur-v2.png": {
+      "kind": "plate",
+      "id": "k3-schwur",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night at the edge of a soldiers' war camp. The girl from the reference sheet (long nut-brown hair tied back with a cord, beige ankle-length dress, now dirty, a bruise on her cheek) sits on the ground with her back against a thick man-high wooden stake, an iron chain running from the stake to a shackle around her ankle, an old ragged blanket around her shoulders. She looks up at the night sky with fierce, determined eyes, jaw set. Above her one very bright white star shines among many stars. In the blurred background, far away, dark silhouettes of drunken soldiers around a big orange campfire between canvas tents, one playing a lute. Cool blue moonlight on her, warm firelight far behind. Proud, defiant mood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: The soldiers belong to the Dunkelschatten: they wear black-and-white tabards; the ONLY emblem anywhere is a plain black-and-white QUARTERED banner (like a chessboard of four fields); NO animal emblems, NO lions, NO wolves, NO red banners, NO castle, NO buildings in the background, only forest, grey-brown canvas tents and night sky.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-05T05:55:28"
+    },
+    "output/imagegen/raw/kapitel-3/cut/k3-schwur.png": {
+      "kind": "plate",
+      "id": "k3-schwur",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night at the edge of a soldiers' war camp. The girl from the reference sheet (long nut-brown hair tied back with a cord, beige ankle-length dress, now dirty, a bruise on her cheek) sits on the ground with her back against a thick man-high wooden stake, an iron chain running from the stake to a shackle around her ankle, an old ragged blanket around her shoulders. She looks up at the night sky with fierce, determined eyes, jaw set. Above her one very bright white star shines among many stars. In the blurred background, far away, dark silhouettes of drunken soldiers around a big orange campfire between canvas tents, one playing a lute. Cool blue moonlight on her, warm firelight far behind. Proud, defiant mood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 57,
+      "attempts": 1,
+      "time": "2026-10-05T05:51:31"
+    },
+    "output/imagegen/raw/kapitel-3/cut/k3-sterne.png": {
+      "kind": "plate",
+      "id": "k3-sterne",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night campfire in a dense thicket, seen from slightly above. A small crackling fire in a ring of stones in the centre. Left of the fire the girl from the first reference sheet (long red-blonde curls with a hair band, long green cloak) sits cross-legged with a closed old book on her knees, looking up at the sky with glassy, moist eyes. Next to her the stout man from the second reference sheet (red cap, yellow robe, short black beard) lies on his back, hands folded on his round belly, gazing dreamily up at the stars. Opposite, the man from the third reference sheet (leather beret, goatee, blue-and-yellow tabard) lies propped on one elbow, also looking up. Above them a gap in the dark canopy shows a deep blue starry sky with one very bright white star low in the west. Warm orange firelight on the faces, cool blue night around. Quiet, tender mood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "docs/rebuild/art/refs/azar.png",
+        "docs/rebuild/art/refs/foltan.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 124,
+      "attempts": 1,
+      "time": "2026-10-05T05:51:38"
+    }
+  },
+  "builds": {
+    "game/public/assets/bg/k3-eber.png": {
+      "from": "output/imagegen/raw/kapitel-3/bg/k3-eber.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/bg/k3-stall.png": {
+      "from": "output/imagegen/raw/kapitel-3/bg/k3-stall.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/bg/k3-leselager.png": {
+      "from": "output/imagegen/raw/kapitel-3/bg/k3-leselager.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/bg/k3-weiher.png": {
+      "from": "output/imagegen/raw/kapitel-3/bg/k3-weiher.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/cut/k3-craupor.jpg": {
+      "from": "output/imagegen/raw/kapitel-3/cut/k3-craupor.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/cut/k3-sterne.jpg": {
+      "from": "output/imagegen/raw/kapitel-3/cut/k3-sterne.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/cut/k3-audienz.jpg": {
+      "from": "output/imagegen/raw/kapitel-3/cut/k3-audienz-v2.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    },
+    "game/public/assets/cut/k3-schwur.jpg": {
+      "from": "output/imagegen/raw/kapitel-3/cut/k3-schwur-v2.png",
+      "focus": 0.5,
+      "script": "output/imagegen/raw/kapitel-3/k3_art.py (untracked helper, same processing as scripts/art/backgrounds.py)"
+    }
+  }
+}

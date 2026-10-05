@@ -1,0 +1,180 @@
+{
+  "area": "kapitel-1",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/kapitel-1/k1-graeber-blumen.png": {
+      "kind": "plate",
+      "id": "k1-graeber-blumen",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting. Characters must match the attached character reference sheets (same hair, clothing, colours) and must not resemble any real person or actor; their faces are original designs. Use the FIRST attached image as the exact base: keep the same composition, girl, farmhouse, cairns, light and style unchanged. Only addition: a small bouquet of bright blue cornflowers lies on top of the left stone cairn.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/raw/kapitel-1/k1-graeber.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-05T05:59:33"
+    },
+    "output/imagegen/raw/kapitel-1/k1-graeber-v2.png": {
+      "kind": "plate",
+      "id": "k1-graeber",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting. Characters must match the attached character reference sheets (same hair, clothing, colours) and must not resemble any real person or actor; their faces are original designs. Scene: sunrise over a small lonely farm. In front of a small thatched half-timbered farmhouse two fresh cairns of piled grey field stones rise side by side in the dirt yard. A slender girl with long red-blonde curly hair loosely pinned up, white blouse and brown skirt, kneels before the cairns, seen from behind at three-quarter, her head bowed, her hands dirty and scraped. Pink and gold dawn sky, soft mist over the fields, the first sun rays touching the stones. Quiet grief, stillness, hope in the light.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 56,
+      "attempts": 1,
+      "time": "2026-10-05T05:55:17"
+    },
+    "output/imagegen/raw/kapitel-1/k1-graeber-v3.png": {
+      "kind": "plate",
+      "id": "k1-graeber",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting. Characters must match the attached character reference sheets (same hair, clothing, colours) and must not resemble any real person or actor; their faces are original designs. Scene: sunrise over a small lonely farm. In front of a small thatched half-timbered farmhouse two fresh cairns of piled grey field stones rise side by side in the dirt yard. A slender girl with long red-blonde curly hair loosely pinned up, white blouse and brown skirt, kneels before the cairns, seen from behind at three-quarter, her head bowed, her hands dirty and scraped. Pink and gold dawn sky, soft mist over the fields, the first sun rays touching the stones. Quiet grief, stillness, hope in the light.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.\nCORRECTION: No smoke from the chimney (the house is abandoned now), no flowers at all on or around the cairns, bare grey stones only. No well.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 59,
+      "attempts": 1,
+      "time": "2026-10-05T05:57:39"
+    },
+    "output/imagegen/raw/kapitel-1/k1-heimweg.png": {
+      "kind": "bg",
+      "id": "k1-heimweg",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height, a farmhouse door about one eleventh of the image height. Scene: farmland in the early evening, warm low golden sun from the left, long shadows to the right. A dirt path enters at the LEFT edge at mid height and forks into two routes a short way in. UPPER ROUTE (fields): a narrow trodden field path winds through the UPPER HALF of the image between golden wheat fields and a short row of fruit trees, passes a wooden scarecrow standing in the wheat, crosses a small plank bridge over a dry ditch, and leaves the image at the RIGHT edge at about 35% height. LOWER ROUTE (sunken lane): a deep sunken lane (hollow way) cut down into the earth runs through the LOWER HALF from the fork to the RIGHT edge at about 75% height; steep earthen banks overgrown with grass, hazel bushes and brambles on both sides, the lane floor is dry trodden light dust about as wide as a cart. BETWEEN the two routes a long raised strip of tall wheat and a hedge separates them across the whole width. BOTTOM EDGE: a strip of bushes and tall grass. No buildings.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hohlweg.png",
+        "output/imagegen/style-refs/selantis-map-felder.png"
+      ],
+      "ok": true,
+      "seconds": 86,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:30"
+    },
+    "output/imagegen/raw/kapitel-1/k1-hof.png": {
+      "kind": "bg",
+      "id": "k1-hof",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height, a farmhouse door about one eleventh of the image height. Scene: a small lonely farmstead at the end of a sunken lane in warm early-evening light, long shadows. A sunken lane (hollow way, dry dust floor about as wide as a cart) enters at the BOTTOM-LEFT corner and climbs diagonally up and to the right into an open trampled dirt farmyard in the upper middle of the image. Along the LEFT side of the lane runs a raised earthen embankment thickly overgrown with tall grass, dense bushes and a hedge row; this green embankment-and-hedge strip continues from the bottom-left corner all the way up to the left side of the farmyard. The right side of the lane is a lower grassy bank. FARMHOUSE: a small half-timbered cottage with a thatched roof in the upper centre-left, its wooden front door facing down toward the yard and standing wide open. BARN: right of the house a clearly bigger wooden barn with a thatched roof and large double doors facing the yard. TOP-LEFT behind the house: a wooden fenced pig pen with a gate, and directly behind it a small grove of leafy trees along the top edge. YARD: open dirt in front of the house and barn, a woodpile with a chopping block against the house wall, a stone water trough beside the barn. RIGHT side and BOTTOM-RIGHT: dry meadow with a low field-stone wall and a heap of loose grey field stones.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png",
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "ok": true,
+      "seconds": 57,
+      "attempts": 1,
+      "time": "2026-10-05T05:47:53"
+    },
+    "output/imagegen/raw/kapitel-1/k1-reiter-v2.png": {
+      "kind": "plate",
+      "id": "k1-reiter",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting. Characters must match the attached character reference sheets (same hair, clothing, colours) and must not resemble any real person or actor; their faces are original designs. Scene, seen from inside a dense hedge on an embankment above a sunken lane at dusk, looking down through dark leaves and branches that frame the image: a band of rough raiders gallops past along the dusty lane below on dark horses, dust swirling in the orange evening light. The raiders are NOT knights: mismatched gear, leather jerkins, chain hoods, one bald with a spear, all wearing black-and-white quartered tabards. The leading rider is a gaunt older man with long stringy grey hair, bare-headed, in a long dark coat with a gold brooch (see his reference sheet). Across the saddle in front of him lies a young woman with long loose nut-brown hair and a beige ankle-length dress, dress dusty but intact, wrists tied with rope, her face turned toward the hedge, eyes glistening with grief and fury. Motion, dust, urgency. No blood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra-bound.png",
+        "docs/rebuild/art/refs/orwen.png",
+        "docs/rebuild/art/refs/shadow-spear.png"
+      ],
+      "ok": true,
+      "seconds": 83,
+      "attempts": 1,
+      "time": "2026-10-05T05:55:45"
+    },
+    "output/imagegen/raw/kapitel-1/k1-reiter.png": {
+      "kind": "plate",
+      "id": "k1-reiter",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting. Characters must match the attached character reference sheets (same hair, clothing, colours) and must not resemble any real person or actor; their faces are original designs. Scene, seen from inside a dense hedge on an embankment above a sunken lane at dusk, looking down through dark leaves and branches that frame the image: dark riders in black-and-white quartered tabards gallop past along the dusty lane below on dark horses, dust swirling in the orange evening light. Across the saddle of the leading horse lies a young woman with long loose nut-brown hair and a beige ankle-length dress, wrists tied with rope, her face turned toward the hedge, eyes glistening with grief and fury. Motion, dust, urgency. No blood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra-bound.png",
+        "docs/rebuild/art/refs/shadow-rider.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-05T05:52:48"
+    },
+    "output/imagegen/raw/kapitel-1/k1-stube.png": {
+      "kind": "bg",
+      "id": "k1-stube",
+      "prompt": "Wide 16:9 game map background for a 2D adventure RPG: the INTERIOR of a small medieval farmhouse seen from a high three-quarter top-down camera as a cutaway (no front wall, no ceiling, back walls visible), plank floor. Completely EMPTY: no people, no animals. A standing adult would be about one eighth of the image height. Soft cool dawn light falls through two small windows in the back wall. The room has been ransacked by raiders: an overturned stool, scattered pots and spoons on the floor, open drawers, a broken clay jar, but the furniture still stands. LEFT TWO THIRDS = kitchen and living room: a large stone hearth oven against the LEFT wall with an iron hook beside it on which hangs a big brown leather shoulder bag; a heavy wooden table with a bench in the centre of the room; against the BACK wall a tall wooden kitchen cupboard with clay herb jars on its open shelves, next to it a small wall cabinet with little medicine bottles, and a narrow bookshelf with a few thick books. The front doorway is an open gap in the BOTTOM wall at the centre. RIGHT THIRD = a small bedroom separated by a timber partition wall with an open doorway: two simple wooden beds side by side against the back wall, the LEFT bed neatly made, the RIGHT bed a mess of tangled blankets; a long green cloak hangs on a peg on the partition wall. Open floor between the furniture so characters can walk.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/insel-bg-dorf.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:03"
+    },
+    "output/imagegen/raw/kapitel-1/k1-verhoer.png": {
+      "kind": "plate",
+      "id": "k1-verhoer",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting. Characters must match the attached character reference sheets (same hair, clothing, colours) and must not resemble any real person or actor; their faces are original designs. Scene, seen from a hiding place low inside tall grass and hazel leaves on an embankment at dusk (blurred dark grass blades and leaves frame the foreground edges): further away, in front of a small thatched half-timbered farmhouse with a wide open door, a sturdy farmer with greying brown hair and a brown vest and his wife with long reddish curls and a long brown dress kneel side by side in the dirt yard. Over them stands a gaunt older man with long stringy grey hair in a long dark coat with a gold brooch, black leather gloves; around them three men in black-and-white quartered tabards: one bald with a spear, one in a black hood with a club, one with a dented helmet and an axe. Horses tethered by a barn. Ominous red-orange sky, long shadows, menace and dread. No blood, no violence shown.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/orwen.png",
+        "docs/rebuild/art/refs/father.png",
+        "docs/rebuild/art/refs/mother.png"
+      ],
+      "ok": true,
+      "seconds": 110,
+      "attempts": 1,
+      "time": "2026-10-05T05:53:38"
+    },
+    "output/imagegen/raw/kapitel-1/k1-wiese.png": {
+      "kind": "bg",
+      "id": "k1-wiese",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height, a farmhouse door about one eleventh of the image height. Scene: a late-summer meadow on the edge of a light deciduous forest, warm late-afternoon sun from the right, dry golden-green grass after many days without rain. TOP-LEFT: the edge of a light leafy forest forms a band of trees across the top-left third of the image; a small trodden footpath comes out of the wood at the top edge about one fifth from the left. Directly below the forest edge, slightly right of that footpath, stands one small young birch tree with a low fork in its branches. LEFT OF CENTRE: one single huge, old, broad oak tree with a thick gnarled trunk and roots and a wide round dense crown; the trunk base stands on open grass at about 45% of the image height and 35% of the width, with free ground all around it and soft shade below. TOP-RIGHT: a golden wheat field behind a low wooden rail fence that runs diagonally from the top centre to the right edge at about one third height; along the meadow side of this fence grows a strip of bright blue cornflowers. RIGHT, MID HEIGHT: two small round apple trees with red apples, a few fallen red apples in the grass below them. A trodden light dirt footpath starts near the oak and runs across the meadow to the BOTTOM-RIGHT corner, where the meadow ends at a low grassy bank that drops down out of the picture. BOTTOM-LEFT: a few low round bushes and wildflowers. Everything else is open meadow with small wildflowers.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise only for magic. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-felder.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-05T05:47:52"
+    }
+  },
+  "builds": {
+    "k1-hof": {
+      "from": "output/imagegen/raw/kapitel-1/k1-hof.png",
+      "focus": 0.5,
+      "out": "game/public/assets/bg/k1-hof.png"
+    },
+    "k1-wiese": {
+      "from": "output/imagegen/raw/kapitel-1/k1-wiese.png",
+      "focus": 0.5,
+      "out": "game/public/assets/bg/k1-wiese.png"
+    },
+    "k1-heimweg": {
+      "from": "output/imagegen/raw/kapitel-1/k1-heimweg.png",
+      "focus": 0.5,
+      "out": "game/public/assets/bg/k1-heimweg.png"
+    },
+    "k1-stube": {
+      "from": "output/imagegen/raw/kapitel-1/k1-stube.png",
+      "focus": 0.5,
+      "out": "game/public/assets/bg/k1-stube.png"
+    },
+    "k1-verhoer": {
+      "from": "output/imagegen/raw/kapitel-1/k1-verhoer.png",
+      "focus": 0.5,
+      "out": "game/public/assets/cut/k1-verhoer.jpg"
+    },
+    "k1-reiter": {
+      "from": "output/imagegen/raw/kapitel-1/k1-reiter.png",
+      "focus": 0.5,
+      "out": "game/public/assets/cut/k1-reiter.jpg"
+    },
+    "k1-graeber": {
+      "from": "output/imagegen/raw/kapitel-1/k1-graeber.png",
+      "focus": 0.5,
+      "out": "game/public/assets/cut/k1-graeber.jpg"
+    },
+    "k1-graeber-blumen": {
+      "from": "output/imagegen/raw/kapitel-1/k1-graeber-blumen.png",
+      "focus": 0.5,
+      "out": "game/public/assets/cut/k1-graeber-blumen.jpg"
+    }
+  }
+}

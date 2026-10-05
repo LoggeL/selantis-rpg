@@ -1,0 +1,89 @@
+{
+  "area": "kapitel-4",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/kapitel-4/k4-azar-foltan.png": {
+      "kind": "plate",
+      "id": "k4-azar-foltan",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night at a campfire inside a forest rebel camp with dark tents and a log palisade in the background. On the left Azar - a stout, corpulent blacksmith with a short black beard, a round red cloth cap and a long saffron-yellow tunic with a broad belt - stands furious, leaning forward and jabbing his finger towards the other man, mouth open in reproach. On the right Foltan - a lean man with a brown pointed goatee, a tilted brown leather beret and a blue-and-yellow quartered tabard over a brown shirt, a sword at his hip - stands with his head lowered and his eyes turned away, ashamed, one hand rubbing his neck. Orange firelight from the low campfire between them, long shadows, a few embers rising. Medium-wide shot, both full figures. Characters must match the attached reference sheets (first sheet Azar, second sheet Foltan).\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/azar.png",
+        "docs/rebuild/art/refs/foltan.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 79,
+      "attempts": 1,
+      "time": "2026-10-05T05:59:23"
+    },
+    "output/imagegen/raw/kapitel-4/k4-bach.png": {
+      "kind": "bg",
+      "id": "k4-bach",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: a standing adult human would be about one eighth of the image height. Scene: a small hidden forest rest place beside a clear brook in EARLY MORNING. LEFT THIRD: a clear, shallow, pebbly brook flows from the TOP edge (at about one quarter of the width) down through the left third of the image and leaves through the BOTTOM edge near the left corner; it is about one sixth of the image width wide, with gentle ripples. On its RIGHT bank, at middle height, a broad flat grey rock slab lies at the water's edge (a place to kneel and wash), with a few flat stepping stones in the water next to it. RIGHT TWO THIRDS: an open, mostly flat mossy clearing with patches of packed earth, free to walk on. Slightly right of the centre: a ring of stones with a burnt-out campfire (grey ash, a thin wisp of smoke), two rolled-up bedrolls and a folded blanket lying on the ground near it, and a fallen mossy tree trunk lying horizontally just above (north of) the fire ring as a seat. A narrow dirt footpath leaves the clearing through a gap in the trees at the TOP-RIGHT edge. Dense forest (big oak and beech trunks, ferns, bushes) frames the top edge, the right edge and the bottom edge; big leafy crowns overhang the top edge; a few ferns and bushes in the bottom corners. Morning mood: soft golden sunbeams slanting through the trees from the upper right, a little pale mist hanging over the brook, dew sparkling on the grass, fresh greens. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/insel-bg-lager.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-05T05:54:13"
+    },
+    "output/imagegen/raw/kapitel-4/k4-elnon-zelt.png": {
+      "kind": "plate",
+      "id": "k4-elnon-zelt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Inside a large dark-green canvas command tent in the evening, lit only by three candles. In the centre, Elnon - a tall, muscular male elf with long jet-black hair in one long braid, long pointed ears, an embroidered forest-green tunic with golden leaf patterns and a hand axe at his belt - bends over a rough wooden table with both hands planted on a large hand-drawn map of forests and rivers (only lines and small drawn trees, no readable writing). On the right, in the background, Alastir - a slender male elf with long silver-white hair, a large old burn scar covering the right half of his face, a long plain brown cape over an olive tunic - leans with crossed arms against a tall dark wooden cabinet. Warm golden candlelight, deep shadows, the canvas walls glow faintly, a hanging sword and a rolled banner on the tent pole. Seen from just inside the entrance flap, eye level, medium-wide shot, both full figures visible. Characters must match the attached reference sheets (first sheet Elnon, second sheet Alastir).\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/elnon.png",
+        "docs/rebuild/art/refs/alastir.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 127,
+      "attempts": 1,
+      "time": "2026-10-05T05:55:18"
+    },
+    "output/imagegen/raw/kapitel-4/k4-flucht.png": {
+      "kind": "plate",
+      "id": "k4-flucht",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night in a dense dark forest. Lia - a slender 16-year-old girl with long strawberry-blonde curly hair tied back with a dark green ribbon, a long moss-green hooded cloak (hood down) over a white blouse and brown skirt, a big brown leather satchel across her body - runs from left to right through the undergrowth, seen from the side, three-quarter view, her cloak and curls flying behind her, tears glistening on her cheek, her face distraught. Branches and ferns whip past in the foreground. Far behind her on the left, between the black tree trunks, the tiny warm orange glow of campfires of a palisade camp. Cold blue-violet moonlight falling through the crowns, mist on the ground. Lia must match the attached reference sheet exactly.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 76,
+      "attempts": 1,
+      "time": "2026-10-05T05:59:21"
+    },
+    "output/imagegen/raw/kapitel-4/k4-lager.png": {
+      "kind": "bg",
+      "id": "k4-lager",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height, a tent about one eighth of the image height. Scene: the hidden camp of a rebel brotherhood in a big forest clearing, late-summer afternoon. A tall palisade wall of vertical sharpened logs runs along the TOP of the image (about one sixth from the top edge, the forest visible beyond it) and down the LEFT and RIGHT sides near the image edges, enclosing the camp. Two small square wooden watchtowers on four stilts with little plank roofs stand inside the palisade at the top-left and top-right corners. At the BOTTOM edge the palisade is only visible in the two bottom corners; between them a wide gateway with two thick gate posts and an opened log gate leads in at the BOTTOM CENTRE, where a dirt path enters. TOP CENTRE, just below the palisade: one large command tent of dark-green canvas (clearly bigger than the others) with its entrance flap facing the viewer, a tall pole with a long plain green-and-silver pennant beside it. CENTRE: a big campfire ring of stones with three log benches around it and a large iron cooking cauldron on a tripod next to it. LEFT SIDE (middle height, against the left palisade): a training ground of trampled sandy earth with three straw training dummies on posts, a wooden weapon rack with practice swords and spears, and a straw archery target. RIGHT SIDE (middle height, against the right palisade): an open smithy under a lean-to roof of wooden shingles on posts: a stone forge with glowing coals, an anvil on a tree stump, a water barrel, a rack with chain-mail shirts. Scattered between these areas, leaving wide open walkable ground: six smaller canvas tents (beige, faded red-and-white, dark red-and-gold, green), stacks of crates, barrels, sacks and firewood, a long trestle table with benches. Packed-earth paths connect the gate, the campfire, the command tent, the smithy and the training ground; the rest is trampled grass. A few plain banners on poles near the tents: one red-and-white, one dark-red-and-gold, one green-and-silver (plain cloth, no symbols). Warm afternoon sunlight from the upper left. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/insel-bg-lager.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 58,
+      "attempts": 1,
+      "time": "2026-10-05T05:47:21"
+    },
+    "output/imagegen/raw/kapitel-4/k4-waldpfad.png": {
+      "kind": "bg",
+      "id": "k4-waldpfad",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height. Scene: a dense, old, mysterious deciduous forest (huge oaks and beeches, a few dark pines) in daylight with dappled light. A narrow winding light-brown dirt footpath (about one twentieth of the image height wide) enters at the BOTTOM edge at about one fifth of the width, winds up and to the right in wide S-curves between thick tree trunks, and leaves the image at the TOP edge at about four fifths of the width. Roughly through the CENTRE a small clear stream crosses the whole image from the top edge to the bottom edge, gently meandering; where the path meets the stream, it crosses it on a row of five flat grey stepping stones. In the RIGHT half, on the path, an enormous fallen tree trunk lies across the path from lower-left to upper-right, its one end resting on a mossy boulder, raised clearly above the ground so there is a low dark gap under it where the path passes through (one would have to duck). Everywhere else: big tree trunks with exposed roots, ferns, mossy boulders, thick undergrowth and bushes, with a strip of open leafy forest floor on both sides of the path. Big dark tree crowns overhang the top edge and the corners. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-05T05:47:12"
+    }
+  }
+}

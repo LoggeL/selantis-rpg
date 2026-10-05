@@ -1,0 +1,132 @@
+{
+  "area": "kapitel-5",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/kapitel-5/k5-aufbruch.png": {
+      "kind": "plate",
+      "id": "k5-aufbruch",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: A wide, calm night landscape: rolling moonlit fields and a dark forest on the horizon under a vast starry sky; in the sky to the left ONE single star shines much brighter than all others, with a soft glow (the star Crios). Three young women walk away from the viewer side by side along a faint path through the grass, seen from behind at a medium distance: in the middle LIA (exactly as on her reference sheet: strawberry-blonde curls, long moss-green cloak, leather satchel), on the left her twin KYRA (exactly as on her reference sheet: long chestnut-brown hair, beige dress), on the right the half-elf FLICK (exactly as on her reference sheet: short dark hair, olive-green coat, bow and quiver on her back). Hopeful, quiet, bittersweet ending mood, deep blue-violet night with silver moonlight.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/flick.png",
+        "output/imagegen/style-refs/selantis-map-felder.png"
+      ],
+      "ok": true,
+      "seconds": 110,
+      "attempts": 1,
+      "time": "2026-10-05T05:55:15"
+    },
+    "output/imagegen/raw/kapitel-5/k5-erwachen.png": {
+      "kind": "plate",
+      "id": "k5-erwachen",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night at the edge of a forest, warm light of a small campfire. Seen from slightly above: a 16-year-old girl (LIA, exactly as on her reference sheet: strawberry-blonde curls, moss-green cloak) lies on her back in the grass, just waking up, dazed and confused. Kneeling at her left side, her twin sister (KYRA, exactly as on her reference sheet: long chestnut-brown hair, beige ankle-length dress) holds her hand, relieved and smiling with wet eyes; kneeling at her right side, the half-elf FLICK (exactly as on her reference sheet) leans on her bow with a crooked, relieved grin. A faint turquoise shimmer still lingers on Lia's fingertips. Gentle, warm, tender mood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/flick.png"
+      ],
+      "ok": true,
+      "seconds": 119,
+      "attempts": 1,
+      "time": "2026-10-05T05:54:06"
+    },
+    "output/imagegen/raw/kapitel-5/k5-faehrte.png": {
+      "kind": "bg",
+      "id": "k5-faehrte",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height. Scene: a sunlit mixed deciduous forest in late afternoon, warm golden low sunlight slanting from the left, long soft shadows. A system of narrow trodden dirt TRAILS through grass and forest floor, everything else is dense forest with trees, bushes and ferns between the trails: (1) The main trail enters at the BOTTOM-LEFT corner and runs right to a first FORK in the lower middle of the image. (2) From that fork one branch goes UP-LEFT and ends at a small rocky stream bank near the top-left (a dead end: a narrow brook with stones, no bridge). (3) The other branch goes RIGHT to a second FORK near the right side of the image at middle height. (4) From the second fork one branch goes DOWN to the bottom-right corner and ends in a dense impassable bramble thicket (dead end); (5) the other branch goes UP to a small round grassy CLEARING near the top-right: in it a ring of stones for a fire (unlit, just a ring of stones), a fallen log next to it as a seat, a large old tree beside it. Between the trails: groups of tall trees with broad crowns (trunks clearly standing on the ground), thick bushes, ferns, a few mossy rocks. The trails are clearly visible as light-brown paths. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "game/public/assets/bg/dev-clearing.png",
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-map-felder.png"
+      ],
+      "ok": true,
+      "seconds": 59,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:48"
+    },
+    "output/imagegen/raw/kapitel-5/k5-flick.png": {
+      "kind": "plate",
+      "id": "k5-flick",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night in a dark wet forest in pouring summer rain (visible rain streaks, puddles). A slender young half-elf woman (FLICK, exactly as on her reference sheet: short messy almost-black hair with one pale streak, pointed ears, freckles, olive-green hunter's coat, longbow) sits casually on a thick low tree branch above a muddy path, one leg dangling, grinning mockingly down. Below her on the path stands a soaked 16-year-old girl (LIA, exactly as on her reference sheet: long strawberry-blonde curls tied back, long moss-green rain cloak, leather satchel), looking up at her with a defiant, stubborn face, arms crossed. Medium-wide shot, both full figures visible, cold blue night light with a little warm light on the faces.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/flick.png",
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-05T05:52:07"
+    },
+    "output/imagegen/raw/kapitel-5/k5-regenwald.png": {
+      "kind": "bg",
+      "id": "k5-regenwald",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height. Scene: a dense, old, wild summer forest at NIGHT under heavy dark rain clouds, everything soaking wet. A muddy, winding forest path (dark brown wet earth with many small glistening puddles) enters at the BOTTOM-LEFT corner, winds up and to the right through the whole image, passes a small open clearing in the CENTRE-RIGHT and leaves the image at the RIGHT edge at about half height. LEFT HALF: thick dark tree trunks with big overhanging crowns along the top edge and the left edge, dense ferns and dark bushes between them; one huge ancient tree with a HOLLOW at the base of its trunk (a dark opening big enough to shelter in) stands beside the path in the upper-left area. CENTRE: an old moss-covered standing stone (a weathered boundary stone with a faint carved stag relief, no letters) beside the path. CENTRE-RIGHT clearing: open muddy grass, a large flat mossy boulder on its upper side and a fallen tree trunk on its lower side; a big old tree with one thick LOW horizontal branch reaching over the clearing from the top. BOTTOM-RIGHT: a dense thicket of dark bushes and brambles. Along the bottom edge: dark foreground ferns. Night mood: deep cold blue-violet and dark green tones, no moon visible, wet highlights on leaves, stones and puddles, the ground of the path and clearing still clearly readable. Do NOT draw falling rain streaks (the game adds rain), only the wet ground and puddles. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "game/public/assets/bg/dev-clearing.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 44,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:33"
+    },
+    "output/imagegen/raw/kapitel-5/k5-ruinen.png": {
+      "kind": "bg",
+      "id": "k5-ruinen",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: a standing adult human would be about one eighth of the image height. Scene: the overgrown ruins of an ancient stone shrine deep in a dark forest at NIGHT, cold moonlight and thin ground mist. In the CENTRE an open cracked flagstone floor (a round plaza) with weeds between the stones. Around it broken grey stone columns and fragments of crumbling walls with arches (a broken archway at the TOP centre, column stumps left and right), ivy and moss on the stones. Dark forest trees frame the left, right and top edges. A narrow overgrown path enters from the BOTTOM edge in the middle and leads onto the plaza. Cold blue-violet night tones, eerie and silent, the plaza floor clearly readable. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "game/public/assets/bg/dev-clearing.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-05T05:50:38"
+    },
+    "output/imagegen/raw/kapitel-5/k5-schattenlager.png": {
+      "kind": "bg",
+      "id": "k5-schattenlager",
+      "prompt": "Wide 16:9 landscape game map background for a 2D adventure RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map, the camera is far away; a standing adult human would be only about one sixteenth of the image height. Scene: open countryside at golden evening (low warm orange sun from the right, long shadows). CENTRE-RIGHT: a gentle grassy rise with ONE very large, old, lone oak tree with a thick trunk and a huge broad crown; under it a trodden bare earth patch with a small ring of stones for a campfire (unlit), a few saddles and bedrolls lying on the ground and a wooden hitching rail. RIGHT and BOTTOM-RIGHT: wide open golden fields of tall dry grass and wheat stretching away down the slope. LEFT EDGE and BOTTOM-LEFT CORNER: the dark edge of a forest with tree trunks, dense hazel bushes and ferns. UPPER-LEFT: a rocky outcrop with a few boulders on a small hill. BETWEEN the forest and the oak: meadow with several separate PATCHES of tall grass and three or four round hazel BUSHES spread out as cover, and one long fallen tree trunk lying horizontally in the middle-left. A faint cart track runs from the bottom edge (middle) up to the oak. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no numbers, no signs with writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-felder.png",
+        "output/imagegen/style-refs/selantis-map-hof.png",
+        "game/public/assets/bg/dev-meadow.png"
+      ],
+      "ok": true,
+      "seconds": 47,
+      "attempts": 1,
+      "time": "2026-10-05T05:50:21"
+    },
+    "output/imagegen/raw/kapitel-5/k5-urmacht.png": {
+      "kind": "plate",
+      "id": "k5-urmacht",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Climax at dusk on a grassy field beside a huge lone oak. A 16-year-old girl (LIA, exactly as on her reference sheet: strawberry-blonde curls, moss-green cloak) stands in the centre with arms flung out, screaming, her eyes glowing bright blue; a gigantic expanding ring-shaped shockwave of brilliant TURQUOISE light bursts out of her, flattening the grass and tearing leaves away. A huge man in heavy black plate armour with a black beard (BARIS, exactly as on his reference sheet) is hurled backwards through the air by the blast, his raised battle axe flying from his hands. On the ground in front of Lia lies a young half-elf woman (FLICK, exactly as on her reference sheet), shielding her face. Turquoise is the dominant magic colour, dramatic but not gory.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "docs/rebuild/art/refs/baris.png",
+        "docs/rebuild/art/refs/flick.png"
+      ],
+      "ok": true,
+      "seconds": 77,
+      "attempts": 1,
+      "time": "2026-10-05T05:52:25"
+    },
+    "output/imagegen/raw/kapitel-5/k5-vamir.png": {
+      "kind": "plate",
+      "id": "k5-vamir",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night in overgrown ancient stone ruins (broken columns, a crumbling archway, cold moonlight, ground mist). Out of a swirling column of thick BLACK SMOKE steps a tall hooded figure in a long black robe (VAMIR, exactly as on his reference sheet: the face completely hidden in the black hood, no face visible), one pale hand raised, cold VIOLET magic light crackling around the fingers. Before him the huge armoured man (BARIS, exactly as on his reference sheet) has fallen to his knees on the flagstones, head bowed in fear, his axe lying beside him, the violet glow falling on one side of his face. Menacing, cold, ominous, no blood, no gore. Violet and black dominate; no turquoise.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/vamir.png",
+        "docs/rebuild/art/refs/baris.png",
+        "game/public/assets/bg/k5-ruinen.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-05T05:53:25"
+    }
+  }
+}

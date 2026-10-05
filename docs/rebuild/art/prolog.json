@@ -1,0 +1,102 @@
+{
+  "area": "prolog",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/prolog/prolog-buendnis.png": {
+      "kind": "plate",
+      "id": "prolog-buendnis",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting, crisp visible pixels like a modern SNES-inspired adventure. Characters must match the attached character reference sheets exactly (face, hair, beard, clothing, colours) and must not resemble any real person or actor. Scene: THE SECRET ALLIANCE. In a dark underground stone vault, FOUR identical hooded conspirators (exactly as the attached reference sheet: heavy floor-length black hooded robes with thin dark-red trim, faces COMPLETELY hidden in the black shadow of the deep hoods, only two small glowing RED eyes each) stand in a close circle around a large glowing RED magic sigil (a circle with an abstract angular four-pointed sign, no letters) drawn on the stone floor. The red glow lights the folds of their robes from below; everything else is deep black and dark violet. Slightly elevated camera, the sigil in the centre, the four figures at the four sides of it, two seen from the front, two from behind. Ominous, quiet, conspiratorial. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/conspirator.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 53,
+      "attempts": 1,
+      "time": "2026-10-05T05:46:43"
+    },
+    "output/imagegen/raw/prolog/prolog-flucht.png": {
+      "kind": "bg",
+      "id": "prolog-flucht",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable floor areas kept free of clutter. Scale: LARGE scrolling map, camera far away; a standing adult would be only about one sixteenth of the image height. Scene: a deep old forest at NIGHT under moonlight, a long winding escape route. A narrow, trampled dirt FOOTPATH (about one twentieth of the image height wide) enters at the LEFT edge in the lower third, winds to the right and then curves UP to a small mossy clearing in the upper left quarter, then runs to the right along the upper third of the image. A forest STREAM flows from the TOP edge down to the BOTTOM edge, meandering, slightly right of the centre (roughly at 55-62 percent of the width), about one fifteenth of the image width wide, dark shimmering water with moonlight reflections, reeds and stones on both banks. Where the path meets the stream in the upper third there is a shallow FORD with a line of flat stepping stones across the water. EAST of the stream the path continues and DESCENDS towards the lower right: a mossy slope with scattered flat grey rocks and slick dewy wet stones, and it leaves the image at the RIGHT edge in the lower quarter. Along the whole path: big old oak and beech trunks with gnarled roots, dense dark FERN and BUSH thickets (clearly separate clumps right next to the path, good for hiding), fallen logs. Large tree crowns overhang the top edge and the corners. Between path, clearing and stream banks the forest floor (moss, leaves, short undergrowth) stays open and walkable; dense impassable woods only at the very edges. Night mood: deep blue-violet moonlight from the upper left, silver highlights on leaves and water, cool shadows, the ground still clearly readable. No fire, no lights, no houses. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/insel-bg-lager.png"
+      ],
+      "ok": true,
+      "seconds": 52,
+      "attempts": 1,
+      "time": "2026-10-05T05:45:42"
+    },
+    "output/imagegen/raw/prolog/prolog-hoehle.png": {
+      "kind": "plate",
+      "id": "prolog-hoehle",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting, crisp visible pixels like a modern SNES-inspired adventure. Characters must match the attached character reference sheets exactly (face, hair, beard, clothing, colours) and must not resemble any real person or actor. Scene: THE CAVE OF THE PRIMORDIAL POWER. Valentus (exactly as the attached reference sheet: an elderly mage with shoulder-length silver-grey hair and a grey beard, long royal-blue robe with white front panels, white sash, NO staff) stands in a natural rock cave at the end of a sealed passage. In front of him, above an ancient plain stone pedestal, floats a radiant orb of TURQUOISE light with soft swirling tendrils. Valentus reaches out with his bare open right hand; thin threads of turquoise light flow from the orb into his palm. The turquoise glow lights his face and robe from the front; the cave walls are dark grey-blue, a broken round stone seal lies behind him; faint smoke and the orange glow of fire far behind in the passage. Seen from a slight side angle, full figure. Determined, urgent, sacred mood. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/valentus.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png"
+      ],
+      "ok": true,
+      "seconds": 80,
+      "attempts": 1,
+      "time": "2026-10-05T05:48:03"
+    },
+    "output/imagegen/raw/prolog/prolog-pfeil.png": {
+      "kind": "plate",
+      "id": "prolog-pfeil",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting, crisp visible pixels like a modern SNES-inspired adventure. Characters must match the attached character reference sheets exactly (face, hair, beard, clothing, colours) and must not resemble any real person or actor. Scene: THE LOST BATTLE OF DUNKELHAIN at dusk. In the foreground on a grassy hilltop, Valentus (exactly as the attached reference sheet: elderly mage, shoulder-length silver-grey hair, grey beard, royal-blue robe with white front panels, white sash, NO staff) has sunk onto one knee; a black-fletched arrow is stuck in his RIGHT side just below the ribs, he presses one hand against the wound, his other hand is clenched against his chest with a faint turquoise glow leaking between his fingers. His face is pained but defiant. In the BACKGROUND, down the slope, the army of light flees: small distant soldiers in white and blue-white tabards, white-silver armour, with spears and fallen blue-and-white banners with a white bird of prey (no letters), running away; over the far ridge a black-clad army with black-and-white quartered banners advances. Smoke rises, the sky is a burning orange-red dusk fading into violet. Trampled grass, a broken spear and a dropped shield near Valentus. Tragic, heroic, melancholic. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/valentus.png",
+        "docs/rebuild/art/refs/paladin.png",
+        "output/imagegen/style-refs/selantis-map-felder.png"
+      ],
+      "ok": true,
+      "seconds": 109,
+      "attempts": 1,
+      "time": "2026-10-05T05:48:57"
+    },
+    "output/imagegen/raw/prolog/prolog-rat.png": {
+      "kind": "bg",
+      "id": "prolog-rat",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable floor areas kept free of clutter. Scale: LARGE scrolling map, camera far away; a standing adult would be only about one sixteenth of the image height. Scene: the INTERIOR of a grand, solemn council hall of ten mages, built of pale grey stone, at evening. We look down into the hall; the back (north) wall runs along the TOP of the image, the side walls along the left and right edges; there is no front wall (the floor runs out of the bottom edge). CENTRE: TEN large carved stone seats (high-backed thrones, all the same size) standing on a low round dais, arranged in a wide SEMICIRCLE (horseshoe) that is OPEN TOWARDS THE BOTTOM; five seats on the left arc, five on the right arc, the middle of the arc at the top. Inside the semicircle an open polished floor with a large round inlaid mosaic of a ten-pointed star in blue, white and gold. Behind every seat, hanging on the walls/pillars, a tall cloth banner of a different city colour (blue-white, red-orange, green-gold, ochre-brown, slate-silver, purple, crimson, sky blue, black-white, wine red) with simple plain stripes or a single simple shape, no writing. TOP CENTRE, in the back wall directly behind the middle of the semicircle: a massive round-arched stone door to a sealed passage, closed by a huge circular stone seal; turquoise light seeps through the cracks and the seam of the seal and glows softly on the floor in front of it. Two short steps lead up to it. Along the left and right walls: rows of tall stone columns with burning bronze braziers between them, tall arched windows high in the walls with warm orange evening light falling across the floor in long beams. BOTTOM CENTRE: the main entrance: broad stone steps going DOWN out of the hall and out of the bottom edge, flanked by two columns. The whole floor between the seats, the columns and the entrance is open and walkable (large flagstones and a long blue carpet runner from the entrance steps to the mosaic). Mood: solemn, warm golden evening light with deep cool shadows, a hint of turquoise only at the sealed door. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-golden-boar.png",
+        "output/imagegen/style-refs/selantis-map-hof.png",
+        "output/imagegen/style-refs/insel-bg-dorf.png"
+      ],
+      "ok": true,
+      "seconds": 59,
+      "attempts": 1,
+      "time": "2026-10-05T05:45:49"
+    },
+    "output/imagegen/raw/prolog/prolog-wiege.png": {
+      "kind": "plate",
+      "id": "prolog-wiege",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic lighting, crisp visible pixels like a modern SNES-inspired adventure. Characters must match the attached character reference sheets exactly (face, hair, beard, clothing, colours) and must not resemble any real person or actor. Scene: THE GIFT. Inside a humble candle-lit farmhouse parlour at night. Valentus (exactly as the attached reference sheet: elderly mage with shoulder-length silver-grey hair and a grey beard; here WITHOUT his cloak, wearing his royal-blue robe with white front panels, the robe opened at the belly where clean linen bandages are wrapped around his waist) stands tall beside a simple wooden cradle (like the attached cradle sprite) in which TWO tiny sleeping BABIES lie under one woollen blanket, faces peaceful. He holds his bare right hand open, palm down, above the cradle; a soft shimmering TURQUOISE light flows from his palm down over both babies, sparkles drift in the air. Warm orange candle light from a table on the left mixes with the cool turquoise glow on his calm, sad, tender face. Wooden beams, herbs hanging, a window with night outside. Quiet, tender, sacred, bittersweet. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/valentus.png",
+        "game/public/assets/props/cradle-twins.png",
+        "output/imagegen/style-refs/selantis-golden-boar.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-05T05:48:59"
+    },
+    "output/imagegen/raw/prolog/prolog-zuflucht.png": {
+      "kind": "bg",
+      "id": "prolog-zuflucht",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, seen from a high three-quarter top-down oblique camera (about 45 degrees, the same perspective as the attached map references: ground plane seen from above, fronts of objects facing the viewer/south). Completely EMPTY scene: absolutely no people, no characters, no figures, no animals. Large connected open walkable floor areas kept free of clutter. Scale: one screen; a standing adult would be about one seventh of the image height. Scene: the INTERIOR of a small, humble medieval farmhouse parlour at NIGHT, seen from above; the back wall along the TOP, side walls at the left and right edges, no front wall. Warm wooden floorboards, rough plastered walls with dark timber beams, bundles of dried herbs hanging from a beam. LEFT: a simple wooden bed along the left wall, with a rumpled woollen blanket and a straw pillow (EMPTY, nobody in it), a small stool beside it with a bowl and folded linen bandages. TOP-LEFT on the back wall: a small window with wooden shutters showing the dark blue night outside. TOP-CENTRE on the back wall: a tall wooden kitchen cupboard with plates, a shelf with jars. TOP-RIGHT: a stone hearth/fireplace in the back wall with low glowing embers and a black iron pot. CENTRE: a sturdy wooden table with two benches, an earthenware jug and a single burning candle on the table. RIGHT: a wooden door in the right wall. BOTTOM-RIGHT and BOTTOM-CENTRE: open free floor (a woven rag rug) where a cradle will be placed later — keep that area empty. Mood: warm, intimate candle and ember light with soft orange glow, deep cosy brown shadows, night blue at the window. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (match the pixel-art style, detail density and rendering of the attached reference images), crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic. No text, no letters, no numbers, no runes that look like writing, no logo, no watermark, no border, no frame, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-golden-boar.png",
+        "output/imagegen/style-refs/insel-bg-dorf.png",
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 85,
+      "attempts": 1,
+      "time": "2026-10-05T05:47:08"
+    }
+  }
+}

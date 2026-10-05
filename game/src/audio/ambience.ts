@@ -646,4 +646,3 @@ const LAYER_TRIM: Partial<Record<AmbienceLayer, number>> = {
 export const layerTrim = (layer: AmbienceLayer): number => LAYER_TRIM[layer] ?? 1;
 
 export const AMBIENCE_LAYERS = Object.keys(LAYERS) as AmbienceLayer[];
-

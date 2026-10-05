@@ -1,0 +1,200 @@
+{
+  "area": "kapitel-2",
+  "tool": "Codex CLI imagegen via scripts/art/codex_image.sh",
+  "images": {
+    "output/imagegen/raw/art/props/k2-gauklerwagen.png": {
+      "kind": "prop",
+      "id": "k2-gauklerwagen",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a travelling performers' covered wagon (a small medieval caravan for jugglers and minstrels) with a rounded canvas roof in faded red and mustard-yellow stripes, painted wooden sides decorated with simple suns and stars, four big wooden spoked wheels, a small door at the back with a tiny wooden step, a string of small colourful cloth pennants along the roof edge, wooden shafts resting on the ground, no horse, the long side faces the viewer\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 42,
+      "attempts": 1,
+      "time": "2026-10-05T05:58:41"
+    },
+    "output/imagegen/raw/art/props/k2-haendlerkarren.png": {
+      "kind": "prop",
+      "id": "k2-haendlerkarren",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a merchant's sturdy two-wheeled wooden cart loaded high with tied cloth bundles, a small barrel, wooden crates and sacks, partly covered with a brown canvas tarp tied down with ropes, two long wooden shafts resting on the ground at the front, no horse, the long side faces the viewer\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-05T06:09:53"
+    },
+    "output/imagegen/raw/art/props/k2-pfanne.png": {
+      "kind": "prop",
+      "id": "k2-pfanne",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a small black cast-iron frying pan with four fried quail eggs and two strips of crispy bacon in it, resting on three small stones\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T06:09:54"
+    },
+    "output/imagegen/raw/art/props/k2-speikraut.png": {
+      "kind": "prop",
+      "id": "k2-speikraut",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a small low clump of a wild meadow herb (spignel) with very fine feathery thread-like green leaves and a few tiny white flower umbels on thin stems, growing from a little patch of moss\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 40,
+      "attempts": 1,
+      "time": "2026-10-05T06:22:02"
+    },
+    "output/imagegen/raw/kapitel-2/k2-geweckt.png": {
+      "kind": "plate",
+      "id": "k2-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night in a small forest clearing, a nearly burnt-down campfire with glowing embers. Lia (first reference sheet, travel outfit with the long moss-green cloak) lies on her spread-out green cloak on the ground and has just been woken, pushing herself up on one elbow, eyes wide, startled. Standing over her on the right: Foltan (second reference sheet: lean man with leather beret, neat brown goatee, blue-and-yellow quartered tabard) holding a loaded crossbow lowered towards the ground, stern and suspicious. Slightly behind him: Azar (third reference sheet: stout bearded smith with red cap and long saffron-yellow tunic, curved sword at his belt) holding up a small lantern, curious and a bit worried. Warm lantern light on the faces against a cold blue night forest. Low camera at ground level near Lia. Exactly three people.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "docs/rebuild/art/refs/foltan.png",
+        "docs/rebuild/art/refs/azar.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 57,
+      "attempts": 1,
+      "time": "2026-10-05T05:53:14"
+    },
+    "output/imagegen/raw/kapitel-2/k2-kyra-stall.png": {
+      "kind": "plate",
+      "id": "k2-kyra-stall",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Night inside a dilapidated old stable of a roadside tavern. Kyra (reference sheet: captive girl with nut-brown hair tied with a cord, beige dress, wrists bound with rope, small cut above the left eyebrow) sits in the straw leaning against a wooden support beam, an empty grain sack pulled over her legs like a blanket; a short iron chain runs from an iron cuff around her ankle to an iron ring on the beam. She looks up through a ragged hole in the rotten thatched roof, where ONE single bright silver-white star shines alone in the night sky. Pale moonlight falls through the hole onto her face: tired, sad and defiant. Dark horse stalls in the background. Exactly one person.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra-bound.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 110,
+      "attempts": 1,
+      "time": "2026-10-05T05:50:57"
+    },
+    "output/imagegen/raw/kapitel-2/k2-lager-morgen.png": {
+      "kind": "bg",
+      "id": "k2-lager-morgen",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: EDIT of the FIRST attached image: repaint exactly the same forest clearing with IDENTICAL composition, camera, layout and objects (same huge oak with its roots at the upper right, same fallen mossy trunk at the left, same footpath entering at the bottom-left, same bushes framing the edges, same empty open ground in the centre; nothing added, nothing moved, no people), but now in fresh early MORNING light: soft golden sunbeams falling through the canopy from the upper left, light morning mist between the trees in the background, dew sparkling on the ferns, pale blue sky behind the far trees instead of the sunset, warm green and golden tones, the ground bright and clearly readable.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/kapitel-2/k2-lager.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png"
+      ],
+      "ok": true,
+      "seconds": 47,
+      "attempts": 1,
+      "time": "2026-10-05T07:07:36"
+    },
+    "output/imagegen/raw/kapitel-2/k2-lager.png": {
+      "kind": "bg",
+      "id": "k2-lager",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no carts, no tents. Large connected open walkable ground areas kept free of clutter. Scale: one screen; a standing adult human would be about one eighth of the image height. Scene: a small hidden clearing in a mixed deciduous forest at late DUSK, a hundred steps away from a road. Dense dark trees and bushes frame ALL four edges; big tree crowns overhang the top edge, bushes and ferns line the bottom edge. A narrow trodden footpath enters the clearing from the BOTTOM-LEFT corner. CENTRE: a wide, open, flat area of bare earth and short moss, completely EMPTY (no fire pit, no ring of stones, no logs, no branches lying there). UPPER-RIGHT inside the clearing: the foot of a huge old oak with thick mossy roots forming a sheltered nook between two big roots (a place to sleep). LEFT side: a large fallen moss-covered tree trunk lying horizontally at the edge of the clearing. Cool blue-violet dusk light with a last faint warm glow from the left, the ground still clearly readable.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/insel-bg-lager.png"
+      ],
+      "ok": true,
+      "seconds": 80,
+      "attempts": 1,
+      "time": "2026-10-05T05:46:19"
+    },
+    "output/imagegen/raw/kapitel-2/k2-strasse.png": {
+      "kind": "bg",
+      "id": "k2-strasse",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no carts, no tents. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map seen from far away; a standing adult human would be only about one sixteenth of the image height. Scene: the old paved MAIN ROAD of the country at golden evening. A wide road of worn grey-brown cobblestones crosses the WHOLE image horizontally: it enters at the LEFT edge at about 42% of the image height and leaves at the RIGHT edge at about 45% height, almost straight, about one ninth of the image height wide, with narrow trodden grass verges on both sides. BOTTOM-LEFT: a narrow sandy dirt farm lane between low grassy banks comes up from the BOTTOM edge at about 18% from the left and joins the cobbled road from below at about 20% from the left (a T-junction). On the UPPER side of the road right at that junction: a small open grassy patch with ONE old wooden signpost (a single post with two plain blank wooden arrow boards pointing left and right, absolutely no writing). TOP-LEFT above the road: gently rolling golden stubble fields with a few hedges, far in the background. TOP-CENTRE above the road: a roadside meadow with ONE big old linden tree on the left side of the meadow and a large open flat grassy area to its right (room for travellers to camp). BOTTOM-CENTRE: golden wheat field behind a low wooden rail fence that runs along the lower verge of the road with one gap. RIGHT HALF below the road: a wide flat lay-by of packed earth beside the road where carts can stop, then shrubs. A small grey stone milestone stands at the lower roadside in the right half. TOP-RIGHT corner: the dark edge of a deciduous forest; the road runs into a gap between the trees at the right edge. Low warm evening sun from the LEFT (west), long soft shadows to the right, golden-orange light, the ground clearly readable.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-road-east.png",
+        "output/imagegen/style-refs/selantis-map-felder.png",
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "ok": true,
+      "seconds": 47,
+      "attempts": 1,
+      "time": "2026-10-05T05:45:46"
+    },
+    "output/imagegen/raw/kapitel-2/k2-waldweg.png": {
+      "kind": "bg",
+      "id": "k2-waldweg",
+      "prompt": "Wide 16:9 game map background for a 2D story RPG, high three-quarter top-down oblique camera (about 45 degrees, like the attached landscape references), painted pixel art. The ground area must be open and readable so small characters can walk on it; no characters, no people, no animals unless stated. Scene: Completely EMPTY scene: absolutely no people, no characters, no figures, no animals, no carts, no tents. Large connected open walkable ground areas kept free of clutter. Scale: this is a LARGE scrolling map seen from far away; a standing adult human would be only about one sixteenth of the image height. Scene: a sunny MORNING forest path through an old beech and oak forest. A trodden light-brown dirt footpath enters at the LEFT edge at about 70% of the image height, winds gently to the right and up, and leaves at the RIGHT edge at about 40% height. Near the middle of the image a narrower, overgrown side path branches off the main path and runs up to the TOP edge (a fork). RIGHT THIRD: a clear shallow brook flows from the top edge to the bottom edge; the main path crosses it on a few flat stepping stones. Just LEFT of the brook, below the path: a small sunny glade with short grass, a flat mossy boulder and a fallen log as a natural resting place. Big old mossy tree trunks along the edges with dense crowns overhanging the top edge, clumps of ferns, mushrooms and small herb plants with tiny white flowers near the brook. Bright morning sunbeams falling through the canopy from the upper left, fresh green and golden light, dappled shadows, the ground clearly readable.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-rain-forest.png",
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-05T05:49:53"
+    },
+    "output/imagegen/raw/kapitel-2/k2-wegweiser-v2.png": {
+      "kind": "plate",
+      "id": "k2-wegweiser",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Golden evening at a lonely crossroads: an old cobbled main road stretches from left to right through golden harvested fields, completely empty. Lia (reference sheet: travel outfit with the long moss-green cloak and a big leather satchel) stands at the roadside next to an old wooden signpost with two plain blank arrow boards (no writing at all), seen from behind in three-quarter view, looking east down the long empty road towards a distant dark forest; her long shadow falls to the right. Warm low sun from the left. Exactly one person.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: The two arrow boards of the signpost must point in OPPOSITE directions: the upper board points LEFT (west, towards the setting sun), the lower board points RIGHT (east, down the road). The far distance in the east shows only forest and hills, no castle, no town.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 59,
+      "attempts": 1,
+      "time": "2026-10-05T05:58:58"
+    },
+    "output/imagegen/raw/kapitel-2/k2-wegweiser.png": {
+      "kind": "plate",
+      "id": "k2-wegweiser",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Golden evening at a lonely crossroads: an old cobbled main road stretches from left to right through golden harvested fields, completely empty. Lia (reference sheet: travel outfit with the long moss-green cloak and a big leather satchel) stands at the roadside next to an old wooden signpost with two plain blank arrow boards (no writing at all), seen from behind in three-quarter view, looking east down the long empty road towards a distant dark forest; her long shadow falls to the right. Warm low sun from the left. Exactly one person.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "ok": true,
+      "seconds": 52,
+      "attempts": 1,
+      "time": "2026-10-05T05:53:08"
+    }
+  },
+  "builds": {
+    "game/public/assets/bg/k2-strasse.png": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-strasse.png",
+      "kind": "bg",
+      "focus": 0.5
+    },
+    "game/public/assets/bg/k2-lager.png": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-lager.png",
+      "kind": "bg",
+      "focus": 0.5
+    },
+    "game/public/assets/bg/k2-waldweg.png": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-waldweg.png",
+      "kind": "bg",
+      "focus": 0.5
+    },
+    "game/public/assets/cut/k2-kyra-stall.jpg": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-kyra-stall.png",
+      "kind": "plate",
+      "focus": 0.5
+    },
+    "game/public/assets/cut/k2-geweckt.jpg": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-geweckt.png",
+      "kind": "plate",
+      "focus": 0.5
+    },
+    "game/public/assets/cut/k2-wegweiser.jpg": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-wegweiser-v2.png",
+      "kind": "plate",
+      "focus": 0.5
+    },
+    "game/public/assets/bg/k2-lager-morgen.png": {
+      "raw": "output/imagegen/raw/kapitel-2/k2-lager-morgen.png",
+      "kind": "bg",
+      "focus": 0.5
+    }
+  }
+}

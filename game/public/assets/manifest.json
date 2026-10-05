@@ -2947,9 +2947,234 @@
    "file": "assets/bg/dev-meadow.png",
    "w": 1280,
    "h": 720
+  },
+  "k1-heimweg": {
+   "file": "assets/bg/k1-heimweg.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k1-hof": {
+   "file": "assets/bg/k1-hof.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k1-stube": {
+   "file": "assets/bg/k1-stube.png",
+   "w": 640,
+   "h": 360
+  },
+  "k1-wiese": {
+   "file": "assets/bg/k1-wiese.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k2-lager-morgen": {
+   "file": "assets/bg/k2-lager-morgen.png",
+   "w": 640,
+   "h": 360
+  },
+  "k2-lager": {
+   "file": "assets/bg/k2-lager.png",
+   "w": 640,
+   "h": 360
+  },
+  "k2-strasse": {
+   "file": "assets/bg/k2-strasse.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k2-waldweg": {
+   "file": "assets/bg/k2-waldweg.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k3-eber": {
+   "file": "assets/bg/k3-eber.png",
+   "w": 640,
+   "h": 360
+  },
+  "k3-leselager": {
+   "file": "assets/bg/k3-leselager.png",
+   "w": 640,
+   "h": 360
+  },
+  "k3-stall": {
+   "file": "assets/bg/k3-stall.png",
+   "w": 640,
+   "h": 360
+  },
+  "k3-weiher": {
+   "file": "assets/bg/k3-weiher.png",
+   "w": 640,
+   "h": 360
+  },
+  "k4-bach": {
+   "file": "assets/bg/k4-bach.png",
+   "w": 640,
+   "h": 360
+  },
+  "k4-lager": {
+   "file": "assets/bg/k4-lager.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k4-waldpfad": {
+   "file": "assets/bg/k4-waldpfad.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-faehrte": {
+   "file": "assets/bg/k5-faehrte.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-regenwald": {
+   "file": "assets/bg/k5-regenwald.png",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-ruinen": {
+   "file": "assets/bg/k5-ruinen.png",
+   "w": 640,
+   "h": 360
+  },
+  "k5-schattenlager": {
+   "file": "assets/bg/k5-schattenlager.png",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-flucht": {
+   "file": "assets/bg/prolog-flucht.png",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-rat": {
+   "file": "assets/bg/prolog-rat.png",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-zuflucht": {
+   "file": "assets/bg/prolog-zuflucht.png",
+   "w": 640,
+   "h": 360
   }
  },
  "plates": {
+  "k1-graeber-blumen": {
+   "file": "assets/cut/k1-graeber-blumen.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k1-graeber": {
+   "file": "assets/cut/k1-graeber.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k1-reiter": {
+   "file": "assets/cut/k1-reiter.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k1-verhoer": {
+   "file": "assets/cut/k1-verhoer.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k2-geweckt": {
+   "file": "assets/cut/k2-geweckt.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k2-kyra-stall": {
+   "file": "assets/cut/k2-kyra-stall.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k2-wegweiser": {
+   "file": "assets/cut/k2-wegweiser.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k3-audienz": {
+   "file": "assets/cut/k3-audienz.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k3-craupor": {
+   "file": "assets/cut/k3-craupor.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k3-schwur": {
+   "file": "assets/cut/k3-schwur.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k3-sterne": {
+   "file": "assets/cut/k3-sterne.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k4-azar-foltan": {
+   "file": "assets/cut/k4-azar-foltan.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k4-elnon-zelt": {
+   "file": "assets/cut/k4-elnon-zelt.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k4-flucht": {
+   "file": "assets/cut/k4-flucht.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-aufbruch": {
+   "file": "assets/cut/k5-aufbruch.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-erwachen": {
+   "file": "assets/cut/k5-erwachen.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-flick": {
+   "file": "assets/cut/k5-flick.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-urmacht": {
+   "file": "assets/cut/k5-urmacht.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "k5-vamir": {
+   "file": "assets/cut/k5-vamir.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-buendnis": {
+   "file": "assets/cut/prolog-buendnis.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-hoehle": {
+   "file": "assets/cut/prolog-hoehle.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-pfeil": {
+   "file": "assets/cut/prolog-pfeil.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "prolog-wiege": {
+   "file": "assets/cut/prolog-wiege.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "wiese-lia-liest": {
    "file": "assets/cut/wiese-lia-liest.jpg",
    "w": 1280,
@@ -3880,6 +4105,65 @@
     "w": 75,
     "h": 12
    }
+  },
+  "k2-gauklerwagen": {
+   "file": "assets/props/k2-gauklerwagen.png",
+   "w": 85,
+   "h": 59,
+   "frames": 1,
+   "anchor": [
+    42,
+    57
+   ],
+   "footprint": {
+    "x": -36,
+    "y": -12,
+    "w": 74,
+    "h": 11
+   },
+   "height": 58
+  },
+  "k2-haendlerkarren": {
+   "file": "assets/props/k2-haendlerkarren.png",
+   "w": 68,
+   "h": 47,
+   "frames": 1,
+   "anchor": [
+    39,
+    43
+   ],
+   "footprint": {
+    "x": -30,
+    "y": -11,
+    "w": 60,
+    "h": 11
+   },
+   "height": 46
+  },
+  "k2-pfanne": {
+   "file": "assets/props/k2-pfanne.png",
+   "w": 15,
+   "h": 12,
+   "frames": 1,
+   "anchor": [
+    7,
+    11
+   ],
+   "footprint": null,
+   "height": 11
+  },
+  "k2-speikraut": {
+   "file": "assets/props/k2-speikraut.png",
+   "w": 15,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    7,
+    17
+   ],
+   "footprint": null,
+   "height": 16,
+   "sway": true
   },
   "keg": {
    "file": "assets/props/keg.png",
