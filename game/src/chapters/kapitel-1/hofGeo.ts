@@ -1,6 +1,8 @@
 // Shared geometry of the farmstead (assets/bg/k1-hof.png, 1280×720): the sunken lane from the bottom-left up to the
 // yard, the overgrown embankment on its left (Lia's hiding place), house, barn, pig pen, meadow and the stone heap.
 import type { BlockDef, HidingSpotDef, OccluderDef, Polygon, SurfaceDef, WalkArea } from '../../world';
+import { CELL, type CollisionGrid } from '../../world/grid';
+import { rasterizePoly } from '../../world/poly';
 
 /** Lane + embankment band + yard + meadow (one connected area). */
 export const HOF_WALK: Polygon = [
@@ -43,8 +45,28 @@ export const HOF_SURFACES: SurfaceDef[] = [
   { id: 'hof', kind: 'dirt', poly: [[436, 198], [760, 206], [1130, 206], [1120, 300], [900, 330], [700, 330], [600, 300], [520, 262], [436, 220]] },
 ];
 
-/** The pig pen behind the house (only walkable in the morning, when Lia frees the pigs). */
-export const PEN_WALK: WalkArea = { poly: [[200, 112], [280, 100], [400, 108], [406, 150], [418, 152], [422, 206], [400, 206], [402, 166], [340, 176], [260, 170], [200, 150]] };
+/** Pig pen and the path outside its front gate, aligned with the painted fence. */
+export const PEN_WALK: WalkArea = { poly: [[194, 150], [204, 136], [300, 106], [410, 118], [408, 156], [350, 190], [312, 198], [264, 188], [212, 174], [188, 160]] };
+export const PEN_APPROACH: WalkArea = { poly: [[316, 184], [347, 175], [376, 191], [436, 202], [458, 228], [432, 246], [357, 226], [316, 224]] };
+export const PEN_FENCE: BlockDef[] = [
+  { id: 'zaun-hinten-links', poly: [[184, 150], [296, 96], [304, 102], [194, 158]] },
+  { id: 'zaun-hinten-rechts', poly: [[298, 98], [418, 110], [420, 120], [298, 108]] },
+  { id: 'zaun-rechts', poly: [[408, 112], [420, 114], [418, 160], [354, 190], [348, 182], [406, 152]] },
+  { id: 'zaun-vorne-links', poly: [[184, 156], [314, 188], [314, 200], [182, 166]] },
+];
+export const PEN_GATE: BlockDef = { id: 'schweinegatter', poly: [[314, 188], [350, 178], [354, 188], [314, 200]] };
+export const PEN_GATE_INSIDE: [number, number] = [332, 170];
+export const PEN_GATE_OUTSIDE: [number, number] = [338, 210];
+export const PEN_GATE_STAND: [number, number] = [338, 216];
+
+/** Only the gate's cells change; the surrounding fence remains solid. */
+export function clearPigpenGate(grid: CollisionGrid): void {
+  rasterizePoly(PEN_GATE.poly, CELL, grid.cols, grid.rows, (r, c0, c1) => {
+    grid.solid.fill(0, r * grid.cols + c0, r * grid.cols + c1 + 1);
+    grid.sight.fill(0, r * grid.cols + c0, r * grid.cols + c1 + 1);
+  });
+  grid.version++;
+}
 
 /** Yard positions used by the raid and the graves. */
 export const AT = {

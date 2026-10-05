@@ -4,9 +4,10 @@
 // three pigs set free, and the way east along the hoofprints – from here on Lia travels as `lia-cloak`.
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
-import { AT, HOF_BLOCK, HOF_HIDING, HOF_OCCLUDERS, HOF_SURFACES, HOF_WALK, PEN_WALK } from './hofGeo';
+import { AT, HOF_BLOCK, HOF_HIDING, HOF_OCCLUDERS, HOF_SURFACES, HOF_WALK, PEN_APPROACH, PEN_FENCE, PEN_GATE, PEN_GATE_INSIDE, PEN_GATE_OUTSIDE, PEN_GATE_STAND, PEN_WALK } from './hofGeo';
 import { EXTRAS, settle, type Selection } from './packing';
 import { openPacking, packingVerdict } from './packingPanel';
+import { pigpenGate, restorePigpen } from './pigpen';
 import { ambience, carry, gotoOrTitle, music, sfx, ui } from './shared';
 
 const STONES_NEEDED = 4;
@@ -33,8 +34,8 @@ export const trauerMap: MapDef = defineMap({
   id: 'k1-hof-trauer',
   name: 'Der Hof',
   background: 'k1-hof',
-  walk: [HOF_WALK, PEN_WALK],
-  block: HOF_BLOCK,
+  walk: [HOF_WALK, PEN_WALK, PEN_APPROACH],
+  block: [...HOF_BLOCK, ...PEN_FENCE, PEN_GATE],
   occluders: HOF_OCCLUDERS,
   surfaces: HOF_SURFACES,
   hidingSpots: HOF_HIDING,
@@ -72,7 +73,7 @@ export const trauerMap: MapDef = defineMap({
       when: () => G.state.is('k1-buch-verloren') && !G.state.is('k1-buch-gefunden'), onInteract: findBook,
     },
     {
-      id: 'gatter', verb: 'Schweine füttern', radius: 26, once: false, poly: [[396, 150], [424, 150], [424, 206], [396, 206]], standAt: [420, 214], face: 'up',
+      id: 'gatter', verb: 'Schweine füttern', radius: 26, once: false, poly: [[310, 158], [354, 158], [354, 198], [310, 198]], standAt: PEN_GATE_STAND, face: 'up',
       when: () => G.state.is('k1-gepackt') && !G.state.is('k1-schweine-frei'), onInteract: freePigs,
     },
   ],
@@ -106,6 +107,7 @@ export const trauerMap: MapDef = defineMap({
 
 /** Runtime props/state the map memory does not keep: cairns, freed pigs, the outfit. */
 function restoreFarm(w: WorldCtx): void {
+  restorePigpen(w, G.state.is('k1-schweine-frei'));
   const n = stones();
   if (n >= 1) w.prop('laken-vater').setVisible(n < 2);
   if (n >= 3) w.prop('laken-mutter').setVisible(n < 4);
@@ -172,7 +174,7 @@ async function liftStone(w: WorldCtx): Promise<void> {
   sfx('stone-place', { volume: 0.5, pitch: 1.2 });
   G.state.set('k1-traegt');
   dropStone?.();
-  dropStone = await carry(w, 'player', 'stones-pile', -30, 0.7);
+  dropStone = await carry(w, 'player', 'iso-rock-0', -14, 0.35);
   w.player.setSpeed(40);
   w.setObjectiveTarget('grab');
   w.bark('player', t.lift, 3200);
@@ -285,22 +287,24 @@ async function freePigs(w: WorldCtx): Promise<void> {
 }
 
 async function openGate(w: WorldCtx): Promise<void> {
-  G.state.set('k1-schweine-frei');
-  w.completeObjective('k1-schweine');
-  sfx('door', { volume: 0.6 });
   await w.cutscene(async () => {
+    await w.player.play('interact', { ms: 350 });
+    sfx('door', { volume: 0.6 });
+    await pigpenGate(w).open();
+    G.state.set('k1-schweine-frei');
+    w.completeObjective('k1-schweine');
     await w.say('lia', 'Macht’s gut, ihr drei. Ihr seid jetzt auf euch gestellt. Ich hoffe, ihr kommt ohne mich klar.', { mood: 'sad' });
     const exits: [number, number][][] = [
-      [[412, 196], [700, 300], [1300, 300]],
-      [[412, 196], [600, 360], [1000, 420], [1300, 380]],
-      [[412, 196], [520, 420], [300, 600], [-60, 740]],
+      [PEN_GATE_INSIDE, PEN_GATE_OUTSIDE, [446, 236], [700, 300], [1080, 250]],
+      [PEN_GATE_INSIDE, PEN_GATE_OUTSIDE, [446, 236], [600, 360], [1000, 420]],
+      [PEN_GATE_INSIDE, PEN_GATE_OUTSIDE, [446, 236], [520, 420], [240, 640]],
     ];
     ['schwein-1', 'schwein-2', 'schwein-3'].forEach((id, i) => {
       const p = w.actor(id);
       if (!p.exists) return;
       p.hold(true);
       sfx('pig', { volume: 0.7, pitch: 0.9 + i * 0.1 });
-      void (async () => { await w.wait(i * 350); await p.walkPath(exits[i], { speed: 70, run: true, straight: true }); w.despawn(id); })().catch(() => {});
+      void (async () => { await w.wait(i * 350); await p.walkPath(exits[i], { speed: 70, run: true }); w.despawn(id); })().catch(() => {});
     });
     await w.wait(1600);
     await w.think('Ich rede mit Schweinen. Wenn Kyra das sähe …');

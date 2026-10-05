@@ -20,21 +20,24 @@ export function music(mood: Parameters<typeof G.audio.music>[0]): void {
 }
 
 /**
- * Draws a prop texture above an actor's head/hands while it walks (a stone in Lia's arms, Kyra's firewood).
- * Returns a remover. The image follows the sprite every frame and sorts just in front of it.
+ * Draws a prop in an actor's hands while it walks (a stone in Lia's arms, Kyra's firewood).
+ * Returns a remover. Position, scale and depth follow the actor, including when facing away.
  */
 export async function carry(w: WorldCtx, actorId: string, propId: string, dy = -14, scale = 1): Promise<() => void> {
   const scene = w.scene;
   await G.art.preload(scene, { props: [propId] });
   if (!w.alive) return () => {};
   const info = G.art.prop(scene, propId);
-  const img = scene.add.image(0, 0, info.key).setOrigin(0.5, 1).setScale(scale);
+  const img = scene.add.image(0, 0, info.key).setOrigin(info.originX / info.width, info.originY / info.height);
   const actor = w.actor(actorId);
   const update = () => {
     const s = actor.sprite;
     if (!s || !img.active) return;
-    img.setPosition(Math.round(s.x), Math.round(s.y + dy * s.scaleY));
-    img.setDepth(s.depth + 0.6);
+    const dx = actor.dir === 'left' ? -5 : actor.dir === 'right' ? 5 : 0;
+    img.setPosition(Math.round(s.x + dx * s.scaleX), Math.round(s.y + dy * s.scaleY));
+    img.setScale(scale * s.scaleX, scale * s.scaleY);
+    img.setDepth(s.depth + (actor.dir === 'up' ? -0.6 : 0.6));
+    img.setAlpha(s.alpha);
     img.setVisible(s.visible);
   };
   update();

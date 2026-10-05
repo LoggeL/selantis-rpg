@@ -549,7 +549,7 @@ export interface WorldCtx {
   stealth: {
     /** Where the player respawns when spotted (spawn name or position, optional facing). */
     checkpoint(spawnOrAt: string | At, dir?: Dir): void;
-    /** Replaces the default reaction (fade + respawn). Return value ignored. */
+    /** Replaces the default reaction for this map visit (fade + respawn). Cleared on map change. Return value ignored. */
     onSpotted(handler: ((guard: ActorHandle) => void | Promise<void>) | null): void;
     /** Disables/enables all guard detection (cutscenes). */
     enable(on: boolean): void;

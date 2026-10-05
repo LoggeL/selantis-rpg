@@ -158,6 +158,45 @@ for (const route of ['hohlweg', 'felder'] as const) test(`heimweg: ${route} reac
   expect(errors).toEqual([]);
 });
 
+test('ueberfall: Harro uses the farm checkpoint after the prologue', async ({ page }) => {
+  test.setTimeout(60000);
+  const errors = watchErrors(page);
+  await warp(page, 'prolog-flucht');
+  await page.waitForFunction(() => Boolean((window as any).__world?.spottedHandler));
+  // Reuse the same Phaser scene as the campaign does, with the actual prologue
+  // capture handler installed. Skip only the riders' introduction on the farm.
+  await page.evaluate(async () => {
+    const worldModule = '/src/world/index.ts';
+    const { startWorld, getMap } = await import(worldModule);
+    await (window as any).G.ui.transition(() => startWorld({
+      map: { ...getMap('k1-hof-harro'), onEnter: undefined }, spawn: 'versteck',
+    }), { fadeMs: 10 });
+  });
+  await page.waitForFunction(() => !(window as any).__world?.playerLocked);
+  expect(await page.evaluate(() => (window as any).__world.spottedHandler)).toBeNull();
+  // The prologue's east-bank checkpoint lands inside the farm's stone heap.
+  expect(await page.evaluate(() => (window as any).__world.grid.boxFree(1012, 470, 6, 3.5))).toBe(false);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await page.evaluate(() => {
+      const w = (window as any).__world;
+      w.ctx.stealth.resetGuards();
+      w.ctx.player.teleport([640, 240]);
+    });
+    await page.waitForFunction(() => (window as any).__world?.spotting === true);
+    await playUntil(page, async () => !(await page.evaluate(() => (window as any).__world?.playerLocked)));
+    expect(await pos(page)).toEqual([510, 292]);
+    expect(await page.evaluate(() => {
+      const w = (window as any).__world;
+      return w.grid.boxFree(w.player.x, w.player.y, 6, 3.5);
+    })).toBe(true);
+    // Move with actual keyboard input after each capture.
+    await page.keyboard.down('ArrowDown');
+    await page.waitForFunction(() => (window as any).__world.player.y > 310);
+    await page.keyboard.up('ArrowDown');
+  }
+  expect(errors).toEqual([]);
+});
+
 test('ueberfall: sneak along the embankment, hold still, slip past Harro', async ({ page }) => {
   test.setTimeout(420000);
   const errors = watchErrors(page);
@@ -185,6 +224,185 @@ test('ueberfall: sneak along the embankment, hold still, slip past Harro', async
   await clickMap(page, 96, 594); // the old field gate: Lia slips through, Harro gives up and rides off
   await page.keyboard.up('Control');
   await playUntil(page, async () => (await scene(page)) === 'trauer', 120000);
+  expect(errors).toEqual([]);
+});
+
+test('trauer: carry a stone at arm height without rectangular light edges', async ({ page }) => {
+  test.setTimeout(60000);
+  const errors = watchErrors(page);
+  await warp(page, 'trauer');
+  await page.evaluate(async () => {
+    const worldModule = '/src/world/index.ts';
+    const { startWorld, getMap } = await import(worldModule);
+    const G = (window as any).G;
+    await G.ui.transition(() => {
+      G.state.set('k1-eltern');
+      return startWorld({ map: { ...getMap('k1-hof-trauer'), weather: 'none' }, spawn: 'start' });
+    }, { fadeMs: 10 });
+  });
+  await page.waitForFunction(() => (window as any).__world?.map.id === 'k1-hof-trauer' && !(window as any).__world.playerLocked);
+  await page.evaluate(() => (window as any).__world.ctx.player.teleport([1010, 432], 'down'));
+  await page.keyboard.press('e');
+  await playUntil(page, async () => Boolean(await flag(page, 'k1-traegt')) && !(await busy(page)));
+  await page.waitForFunction(() => !(window as any).__world.playerLocked);
+  await page.evaluate(() => (window as any).__world.ctx.player.teleport([700, 330], 'right'));
+
+  const carried = () => page.evaluate(() => {
+    const w = (window as any).__world;
+    const stone = w.children.list.find((o: any) => o.texture?.key === 'prop:iso-rock-0');
+    return stone ? { dx: stone.x - w.player.sprite.x, dy: stone.y - w.player.sprite.y,
+      depth: stone.depth - w.player.sprite.depth, width: stone.displayWidth } : null;
+  });
+  await expect.poll(carried).toMatchObject({ dx: 5, dy: -14 });
+  expect((await carried())!.width).toBeLessThan(15);
+  expect((await carried())!.depth).toBeGreaterThan(0);
+  await page.evaluate(() => (window as any).__world.ctx.player.face('up'));
+  await expect.poll(carried).toMatchObject({ dx: 0, dy: -14 });
+  expect((await carried())!.depth).toBeLessThan(0);
+  await page.evaluate(() => (window as any).__world.ctx.player.face('left'));
+  await expect.poll(carried).toMatchObject({ dx: -5, dy: -14 });
+
+  // Read the rendered WebGL light mask. Corners inside the light's square quad
+  // but outside its circle must match the surrounding night grade.
+  const lightMask = () => page.evaluate(() => new Promise<{ center: number[]; corner: number[]; outside: number[] }>(resolve => {
+    const w = (window as any).__world;
+    const light = w.lighting.get('player-light');
+    const cam = w.cameras.main;
+    const cx = Math.round(light.x - cam.worldView.centerX + 320);
+    const cy = Math.round(light.y - cam.worldView.centerY + 180);
+    w.lighting.rt.snapshot((image: HTMLImageElement) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width; canvas.height = image.height;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(image, 0, 0);
+      const pixel = (x: number, y: number) => Array.from(ctx.getImageData(x, y, 1, 1).data);
+      resolve({ center: pixel(cx, cy), corner: pixel(cx + 60, cy + 60), outside: pixel(cx + 80, cy + 80) });
+    });
+  }));
+  const mask = await lightMask();
+  expect(mask.corner).toEqual(mask.outside);
+  expect(mask.outside).toEqual([56, 71, 127, 255]);
+  expect(mask.center[0]).toBeGreaterThan(mask.outside[0]);
+  expect(mask.center[1]).toBeGreaterThan(mask.outside[1]);
+  expect(mask.center[2]).toBeGreaterThan(mask.outside[2]);
+  const clip = await page.evaluate(() => {
+    const w = (window as any).__world;
+    const cam = w.cameras.main;
+    const r = document.querySelector('#game canvas')!.getBoundingClientRect();
+    const x = r.left + (w.player.x - cam.worldView.x) * cam.zoom * r.width / 640;
+    const y = r.top + (w.player.y - cam.worldView.y) * cam.zoom * r.height / 360;
+    return { x: x - 140, y: y - 180, width: 280, height: 280 };
+  });
+  await page.screenshot({ path: test.info().outputPath('stone-carry.png'), clip });
+
+  // A multiply gradient with no active lights must still produce an opaque,
+  // visible mask, without carrying the previous frame's blend mode into the blit.
+  for (const mood of ['dusk', 'dawn']) {
+    await page.evaluate(async mood => {
+      const w = (window as any).__world;
+      w.lighting.get('player-light').intensity = 0;
+      await w.ctx.lighting.set(mood, 0);
+    }, mood);
+    await expect.poll(async () => (await lightMask()).outside.slice(0, 3).every(v => v > 100)).toBe(true);
+    expect((await lightMask()).outside[3]).toBe(255);
+  }
+  await page.evaluate(async () => (window as any).__world.ctx.lighting.set('day', 0));
+  await page.waitForFunction(() => (window as any).__world.lighting.rt.visible === false);
+
+  // Placing the stone removes the carried image and advances the grave counter.
+  await page.evaluate(() => (window as any).__world.ctx.player.teleport([586, 256], 'up'));
+  await page.keyboard.press('e');
+  await playUntil(page, async () => Number(await flag(page, 'k1-steine')) === 1 && !(await busy(page)));
+  expect(await carried()).toBeNull();
+  expect(await flag(page, 'k1-traegt')).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test('trauer: pigs stay behind the fence and leave through the opening gate', async ({ page }) => {
+  test.setTimeout(90000);
+  const errors = watchErrors(page);
+  await warp(page, 'trauer');
+  await page.evaluate(async () => {
+    const worldModule = '/src/world/index.ts';
+    const { startWorld, getMap } = await import(worldModule);
+    const G = (window as any).G;
+    await G.ui.transition(() => {
+      G.state.set('k1-morgen'); G.state.set('k1-gepackt');
+      return startWorld({ map: getMap('k1-hof-trauer'), spawn: 'start' });
+    }, { fadeMs: 10 });
+  });
+  await page.waitForFunction(() => (window as any).__world?.map.id === 'k1-hof-trauer' && !(window as any).__world.playerLocked);
+  await page.evaluate(() => {
+    const win = window as any;
+    const w = win.__world;
+    w.ctx.player.teleport([338, 216], 'up');
+    win.__pigTrace = [];
+    const record = () => {
+      for (const id of ['schwein-1', 'schwein-2', 'schwein-3']) {
+        const p = w.actors.get(id);
+        if (p) win.__pigTrace.push({ id, x: p.x, y: p.y, open: Boolean(win.G.state.is('k1-schweine-frei')),
+          blocked: !w.grid.boxFree(p.x, p.y, 6, 3.5) });
+      }
+    };
+    w.events.on('postupdate', record);
+    win.__stopPigTrace = () => w.events.off('postupdate', record);
+  });
+  expect(await page.evaluate(() => (window as any).__world.grid.boxFree(332, 188, 6, 3.5))).toBe(false);
+  // Try walking into the closed gate, then allow the pigs to wander for several seconds.
+  await page.keyboard.down('ArrowUp');
+  await sleep(1500);
+  await page.keyboard.up('ArrowUp');
+  expect((await pos(page))![1]).toBeGreaterThan(192);
+  await sleep(6500);
+  const confined = await page.evaluate(() => (window as any).__pigTrace as { id: string; x: number; y: number; open: boolean; blocked: boolean }[]);
+  expect(confined.length).toBeGreaterThan(100);
+  expect(confined.every(p => !p.open && !p.blocked && p.y < 198)).toBe(true);
+  await page.evaluate(() => (window as any).__world.ctx.player.teleport([338, 216], 'up'));
+  await page.keyboard.press('e');
+  await playUntil(page, async () => Boolean(await flag(page, 'k1-schweine-frei')));
+  expect(await page.evaluate(() => (window as any).__world.children.getByName('pigpen-gate-leaf').getData('open'))).toBe(true);
+  expect(await page.evaluate(() => (window as any).__world.grid.boxFree(332, 188, 6, 3.5))).toBe(true);
+  // The baked upper rail must be covered by ground when the leaf swings away.
+  const gatePatch = await page.evaluate(() => {
+    const texture = (window as any).__world.textures.get('k1-pigpen-gate-floor');
+    return [[322, 169], [332, 165], [342, 161], [317, 180], [349, 175]]
+      .map(([x, y]) => texture.context.getImageData(x - 314, y - 150, 1, 1).data[3]);
+  });
+  expect(gatePatch).toEqual([255, 255, 255, 0, 0]);
+  await playUntil(page, async () => page.evaluate(() => {
+    const w = (window as any).__world;
+    return !w.playerLocked && ['schwein-1', 'schwein-2', 'schwein-3'].every(id => !w.actors.has(id));
+  }), 45000);
+  const trace = await page.evaluate(() => {
+    const win = window as any;
+    win.__stopPigTrace();
+    return win.__pigTrace as { id: string; x: number; y: number; open: boolean; blocked: boolean }[];
+  });
+  expect(trace.every(p => !p.blocked)).toBe(true);
+  for (const id of ['schwein-1', 'schwein-2', 'schwein-3']) {
+    const firstOutside = trace.find(p => p.id === id && p.y > 200);
+    expect(firstOutside).toBeDefined();
+    expect(firstOutside!.open).toBe(true);
+    expect(firstOutside!.x).toBeGreaterThan(320);
+    expect(firstOutside!.x).toBeLessThan(350);
+  }
+  const fence = await page.evaluate(() => {
+    const grid = (window as any).__world.grid;
+    return [[224, 173], [274, 187], [379, 172], [302, 104]].map(([x, y]) => grid.solidAt(x, y));
+  });
+  expect(fence).toEqual([true, true, true, true]);
+  await page.screenshot({ path: test.info().outputPath('pigpen-open.png') });
+  // Returning from the house restores the open gate and keeps the freed pigs absent.
+  await page.evaluate(async () => {
+    const w = (window as any).__world;
+    await w.ctx.changeMap('k1-stube', 'tuer', { fadeMs: 10 });
+    await w.ctx.changeMap('k1-hof-trauer', 'tuer', { fadeMs: 10 });
+  });
+  expect(await page.evaluate(() => {
+    const w = (window as any).__world;
+    return { open: w.children.getByName('pigpen-gate-leaf').getData('open'),
+      free: w.grid.boxFree(332, 188, 6, 3.5), pigs: [...w.actors.keys()].filter((id: string) => id.startsWith('schwein-')) };
+  })).toEqual({ open: true, free: true, pigs: [] });
   expect(errors).toEqual([]);
 });
 
@@ -233,7 +451,7 @@ test('trauer: cairns, cornflowers, the book, packing, pigs, east', async ({ page
   // Out, free the pigs, follow the hoofprints east.
   await walkTo(page, 268, 345, 16);
   await page.waitForFunction(() => (window as any).__world?.map?.id === 'k1-hof-trauer', undefined, { timeout: 15000 });
-  await use(page, [420, 214], async () => Boolean(await flag(page, 'k1-schweine-frei')));
+  await use(page, [338, 216], async () => Boolean(await flag(page, 'k1-schweine-frei')));
   for (const p of [[520, 330], [420, 470], [300, 560], [160, 640], [50, 690]] as [number, number][]) await walkTo(page, p[0], p[1], 18, 40000);
   await playUntil(page, async () => (await scene(page)) !== 'trauer', 60000);
   expect(await scene(page)).toBe('strasse');

@@ -260,8 +260,15 @@ export class Lighting {
       return;
     }
     this.rt.setVisible(true);
-    this.rt.fill(Phaser.Display.Color.GetColor(r * 255, g * 255, b * 255), 1);
+    this.rt.clear();
     this.rt.beginDraw();
+    // Compose the opaque grade and lights in the same batch. A separate fill
+    // leaves alpha in the light quads, which darkens their rectangular bounds on blit.
+    this.rt.stamp('w-white', undefined, GAME_W / 2, GAME_H / 2, {
+      scaleX: GAME_W / 4, scaleY: GAME_H / 4,
+      tint: Phaser.Display.Color.GetColor(r * 255, g * 255, b * 255),
+      blendMode: Phaser.BlendModes.NORMAL, skipBatch: true,
+    });
     // Two-part evening/morning grade: the flat colour sets the luminance, the gradient adds warm → cool contrast.
     for (const k of ['dusk', 'dawn'] as const) {
       const amt = this.grad[k] * (1 - f);
@@ -291,6 +298,10 @@ export class Lighting {
       l.glow.setPosition(l.x, l.y).setTint(l.color).setScale((radius * 1.3) / 64)
         .setAlpha(clamp(0.28 * intensity, 0, 0.6));
     }
+    // endDraw blits with the renderer's current blend mode. Flush the last
+    // additive light or multiply gradient before copying the completed mask.
+    const renderer = this.scene.game.renderer;
+    if (renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer) renderer.setBlendMode(Phaser.BlendModes.NORMAL);
     this.rt.endDraw();
   }
 

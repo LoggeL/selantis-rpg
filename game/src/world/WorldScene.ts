@@ -661,6 +661,9 @@ export class WorldScene extends Phaser.Scene {
 
   teardownMap(): void {
     this.clearBubbles();
+    // Scripted capture reactions belong to this map visit. Phaser reuses the scene
+    // across chapters, so retaining one would respawn the player at an old map's coordinates.
+    this.spottedHandler = null;
     // Listeners registered with w.onMap() end with the visit.
     for (const set of this.listeners.values()) for (const l of [...set]) if (l.map) set.delete(l);
     for (const a of this.actors.values()) a.destroy();
