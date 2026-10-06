@@ -192,8 +192,8 @@ describe('frozen production inventory compatibility', () => {
     }));
     const index = new VoiceIndex({ model: frozenStory.model, aliases: frozenStory.aliases,
       scene_players: frozenStory.scene_players, clips } as unknown as VoiceManifest, 'story');
-    expect(frozenStory.lines).toHaveLength(1557);
-    expect(frozenStory.runtime_lookup).toHaveLength(1751);
+    expect(frozenStory.lines).toHaveLength(1580);
+    expect(frozenStory.runtime_lookup).toHaveLength(1774);
     expect(Object.keys(frozenStory.aliases)).toHaveLength(67);
     for (const route of frozenStory.runtime_lookup) {
       const mood = route.mood === 'neutral' ? undefined : route.mood;
