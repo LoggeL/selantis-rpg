@@ -61,3 +61,7 @@ Die lokale Python-Umgebung und das bereits vorhandene Modell können mit absolut
 ```
 
 Automatische Prüfungen vergleichen die gesprochenen Wörter und prüfen die technische Funktion. Schauspiel und Sprecheridentität brauchen zusätzlich eine Hörprüfung. Rohdateien, verworfene Takes, Prüfberichte und Providerdaten bleiben privat. Öffentlich werden nur geprüfte MP3s und das Laufzeitmanifest. Eine Veröffentlichung erfolgt durch einen geprüften Push auf `main` und den anschließenden Abgleich von `/release.json`.
+
+Der Zusatzprüfer `story_voice_a681_evidence.py` prüft ausschließlich die Aufnahme "Mmh … Bei allen Zehn". Er bindet die vollständigen ursprünglichen Large-v3-Wörter, das freie deutsche CTC-Ergebnis und eine tatsächlich beobachtete `mmmh`-Geste. Die QC-Erkennung "Zehen" bleibt als Diagnose erhalten und dient nicht als Wortbeleg. Eine vollständige, aktuelle Rootprüfung ist über `--a681-root-evidence` erforderlich; Zeitmarken oder Hörurteile werden dadurch nicht freigegeben.
+
+Der aktuelle vollständige Prüfstand umfasst 1557 Kapitelaufnahmen nach 348 übernommenen Korrekturaktionen sowie dem gesonderten Pff-Schnitt. 27 Wortstellen und 39 Zeitfälle sind noch offen. Die zusätzliche Bank mit drei Kampfrufen besteht ihre Wort-, Signal- und Zeitprüfung. Die 188 Prologaufnahmen bleiben erhalten. 410 Pipeline-Tests bestehen; die vollständige Kapitelbank ist noch nicht veröffentlicht.

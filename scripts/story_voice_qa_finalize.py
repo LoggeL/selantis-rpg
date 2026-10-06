@@ -17,6 +17,7 @@ import story_voice_orthographic_segments as orthographic
 import story_voice_expressive_events as expressive
 import story_voice_meta_name_evidence as meta_name
 import story_voice_native625_evidence as native625
+import story_voice_a681_evidence as a681
 
 REMOVABLE={'asr_lexical_mismatch_requires_review','asr_check_failed_ValueError'}
 LEXICAL_ONLY={'asr_lexical_mismatch_requires_review'}
@@ -171,8 +172,26 @@ def native625_root_proof(run,line,base_path,audio_sha,bindings,approval):
         'provider_timestamps_used':False,'timing_approval':None,'acting_approval':None,'listening_verdict':None}
 
 
+def a681_root_proof(run,line,base_path,audio_sha,bindings,approval):
+    require(Path(bindings['qa_report_path']).resolve()==base_path.resolve(),'A681 proof must use this exact current base QA.')
+    a681.words(line,a681.TEXT.replace('Mmh','Mhh').replace('hab ich','habe ich'),True)
+    proof=a681.review(run,line,bindings,approval)
+    require(isinstance(proof,dict) and proof.get('id')==line['id'] and proof.get('method')==a681.VERSION
+        and proof.get('clip_sha256')==audio_sha and proof.get('source_text_sha256')==qa.text_hash(line['text'])
+        and proof.get('proof',{}).get('source_row')==line,'Actual complete current root-reviewed A681 proof required.')
+    return proof
+
+
+def scoped_proof_function(module):
+    return {meta_name:meta_name_root_proof,native625:native625_root_proof,a681:a681_root_proof}[module]
+
+
+def scoped_proof_method(module):
+    return native625.CONTRACT if module is native625 else module.VERSION
+
+
 def recheck_scoped_proof_files(module,proof):
-    template=proof['proof'] if module is meta_name else proof
+    template=proof if module is native625 else proof['proof']
     require(qa.digest(Path(module.__file__))==template['helper_script_sha256'],'Scoped word helper changed before write.')
     for key in ['protected_script_sha256','provenance_files_sha256']:
         files=template.get(key,{})
@@ -180,12 +199,13 @@ def recheck_scoped_proof_files(module,proof):
             'Scoped raw/helper/protected evidence changed before write.')
 
 
-def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None,pff_qc_path=None,meta_name_root_evidence_path=None,native625_root_evidence_path=None):
+def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None,pff_qc_path=None,meta_name_root_evidence_path=None,native625_root_evidence_path=None,a681_root_evidence_path=None):
     run=run.resolve();common.prepared(run)
-    scoped_driver_hashes={str(Path(m.__file__).resolve()):qa.digest(Path(m.__file__)) for m in [sys.modules[__name__],qa,common,core,*([meta_name] if meta_name_root_evidence_path else []),*([native625,native625.qc] if native625_root_evidence_path else [])]} if meta_name_root_evidence_path or native625_root_evidence_path else {}
+    scoped_driver_hashes={str(Path(m.__file__).resolve()):qa.digest(Path(m.__file__)) for m in [sys.modules[__name__],qa,common,core,*([meta_name] if meta_name_root_evidence_path else []),*([native625,native625.qc] if native625_root_evidence_path else []),*([a681] if a681_root_evidence_path else [])]} if meta_name_root_evidence_path or native625_root_evidence_path or a681_root_evidence_path else {}
     if native625_root_evidence_path:
         driver=Path(native625.__file__).with_name('story_voice_ctc_align.py').resolve();scoped_driver_hashes[str(driver)]=qa.digest(driver)
-    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path,pff_qc_path,meta_name_root_evidence_path,native625_root_evidence_path] if p]]
+    if a681_root_evidence_path:scoped_driver_hashes.update(a681.protected_scripts())
+    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path,pff_qc_path,meta_name_root_evidence_path,native625_root_evidence_path,a681_root_evidence_path] if p]]
     require(not output_path.exists() and output_path.resolve() not in {p.resolve() for p in inputs},'Choose a new private final report, never overwrite evidence.')
     require(output_path.resolve().is_relative_to(run) and all(p.resolve().is_relative_to(run) for p in inputs),'Reports must stay within the frozen private run.')
     complementary_requested=any([complementary_approvals_path,complementary_ctc_path,complementary_qa_path])
@@ -281,6 +301,9 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
     if native625_root_evidence_path:
         bindings,approval=scoped_root_envelope(run,native625_root_evidence_path,{'native625_document_path'},native625.ID,rows,input_hashes)
         scoped[native625.ID]=(native625,bindings,approval)
+    if a681_root_evidence_path:
+        bindings,approval=scoped_root_envelope(run,a681_root_evidence_path,a681.KEYS,a681.ID,rows,input_hashes)
+        scoped[a681.ID]=(a681,bindings,approval)
     result=copy.deepcopy(base);result['base_decoder_evidence']={'file':str(base_path.resolve().relative_to(run)),'sha256':input_hashes[str(base_path.resolve().relative_to(run))],'version':base['version'],'model':base['model']}
     removed={};extra_failures=[]
     for take in result['takes']:
@@ -307,7 +330,7 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         legacy_word_proof=any(p.get('method')!=expressive.VERSION for p in proofs)
         if ident in scoped:
             module,bindings,approval=scoped[ident]
-            proof=(meta_name_root_proof if module is meta_name else native625_root_proof)(run,line,base_path,audio[ident],bindings,approval)
+            proof=scoped_proof_function(module)(run,line,base_path,audio[ident],bindings,approval)
             proofs.append(proof)
         if proofs:
             take['extra_word_proof']=proofs;take['original_decoder_reasons']=copy.deepcopy(take['reasons']);take['original_decoder_transcript']=copy.deepcopy(take.get('transcript'))
@@ -346,8 +369,8 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         require(repeated==stored and qa.digest(Path(expressive.__file__))==stored['helper_sha256'],'Expressive source/raw/root proof changed before write.')
         require(all(qa.digest(Path(expressive.__file__).parent/name)==h for name,h in stored['proof_drivers_sha256'].items()),'Expressive driver changed before write.')
     for ident,(module,bindings,approval) in scoped.items():
-        repeated=(meta_name_root_proof if module is meta_name else native625_root_proof)(run,rows[ident],base_path,audio[ident],bindings,approval)
-        stored=next(p for take in result['takes'] if take['id']==ident for p in take.get('extra_word_proof',[]) if p.get('method')==(meta_name.VERSION if module is meta_name else native625.CONTRACT))
+        repeated=scoped_proof_function(module)(run,rows[ident],base_path,audio[ident],bindings,approval)
+        stored=next(p for take in result['takes'] if take['id']==ident for p in take.get('extra_word_proof',[]) if p.get('method')==scoped_proof_method(module))
         require(repeated==stored,'Scoped current source/raw/root proof changed before write.')
         recheck_scoped_proof_files(module,stored)
     require(all(qa.digest(Path(p))==h for p,h in scoped_driver_hashes.items()),'Scoped finalizer/helper/protected driver changed before write.')
@@ -357,10 +380,10 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
 def main():
     common.configure();p=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','output']:p.add_argument('--'+name,type=Path,required=True)
-    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison','pff-qc-response','meta-name-root-evidence','native625-root-evidence']:p.add_argument('--'+name,type=Path)
+    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison','pff-qc-response','meta-name-root-evidence','native625-root-evidence','a681-root-evidence']:p.add_argument('--'+name,type=Path)
     a=p.parse_args()
     try:
-        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison,pff_qc_path=a.pff_qc_response,meta_name_root_evidence_path=a.meta_name_root_evidence,native625_root_evidence_path=a.native625_root_evidence)
+        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison,pff_qc_path=a.pff_qc_response,meta_name_root_evidence_path=a.meta_name_root_evidence,native625_root_evidence_path=a.native625_root_evidence,a681_root_evidence_path=a.a681_root_evidence)
         print(json.dumps({'status':result['status'],'failures':len(result['failures']),'checked':len(result['checked_ids'])}));return 0 if result['status']=='passed' else 2
     except (core.SafeError,OSError,ValueError,KeyError,TypeError) as e:
         print(str(e) if isinstance(e,core.SafeError) else 'Invalid bound final-QA evidence; no reports overwritten.',file=sys.stderr);return 1

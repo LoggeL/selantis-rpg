@@ -448,4 +448,67 @@ class ScopedRootFinalizerGates(unittest.TestCase):
             with self.assertRaises(f.core.SafeError):self.finish()
         self.assertEqual(calls,2);self.assertFalse((self.run/'final-scoped.json').exists())
 
+class A681FinalizerGates(unittest.TestCase):
+    def setUp(self):
+        self.fixture=ScopedRootFinalizerGates();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups)
+        self.run=self.fixture.run;self.rows=copy.deepcopy(self.fixture.rows);old=self.rows[0]['id']
+        self.rows[0].update(id=f.a681.ID,text=f.a681.TEXT,speaker='algard')
+        for folder,ext in [('clips','.mp3'),('raw','.wav'),('raw','.receipt.json')]:
+            (self.run/folder/(old+ext)).rename(self.run/folder/(f.a681.ID+ext))
+        receipt=self.run/'raw'/(f.a681.ID+'.receipt.json');self.fixture.mutate(receipt,lambda d:d.update(id=f.a681.ID))
+        f.core.save(self.run/'lines.private.json',{'model':f.core.MODEL,'lines':self.rows})
+        self.base=copy.deepcopy(self.fixture.base);self.base['manifest_sha256']=f.qa.digest(self.run/'lines.private.json')
+        self.base['checked_ids'][0]=f.a681.ID;self.base['clip_sha256'][f.a681.ID]=self.base['clip_sha256'].pop(old)
+        self.base['takes'][0].update(id=f.a681.ID,text_sha256=f.qa.text_hash(f.a681.TEXT),transcript='Bei allen Zehen. So was habe ich seit Jahren nicht gegessen.')
+        self.base['takes'][1]['reasons']=[];self.base['failures']=[{'id':f.a681.ID,'reason':'asr_lexical_mismatch_requires_review'}]
+        self.base_path=self.fixture.base_path;f.core.save(self.base_path,self.base)
+        self.template={'id':f.a681.ID,'method':f.a681.VERSION,'status':'root_review_required','reviewed_by':'','reason':'',
+            'clip_sha256':self.base['clip_sha256'][f.a681.ID],'source_text_sha256':f.qa.text_hash(f.a681.TEXT),'source_row':self.rows[0],
+            'helper_script_sha256':f.qa.digest(Path(f.a681.__file__)),'protected_script_sha256':f.a681.protected_scripts(),
+            'provenance_files_sha256':{str(self.fixture.raw):f.qa.digest(self.fixture.raw)},
+            'QC_diagnosis_only':{'transcript':'Bei allen Zehen sowas hab ich seit Jahren nicht gegessen','QC_words_used_as_body_proof':False}}
+        self.approval=dict(copy.deepcopy(self.template),status=f.a681.APPROVED,reviewed_by='root synthetic test',reason='Explicit complete synthetic A681 source review.')
+        self.bindings={key:str(self.base_path if key=='qa_report_path' else self.fixture.raw) for key in f.a681.KEYS}
+        self.envelope=self.run/'a681-root.json';f.core.save(self.envelope,{'bindings':self.bindings,'approval':self.approval})
+        self.patch=patch.object(f.a681,'proof_template',side_effect=lambda *args:copy.deepcopy(self.template));self.patch.start();self.addCleanup(self.patch.stop)
+    def finish(self,**kwargs):
+        return f.finalize(self.run,self.base_path,self.run/'final-a681.json',expected_count=2,a681_root_evidence_path=self.envelope,**kwargs)
+    def test_only_a681_mismatch_removed_and_original_zehen_remains(self):
+        old=self.base_path.read_bytes();result=self.finish();self.assertEqual(result['status'],'passed');self.assertEqual(self.base_path.read_bytes(),old)
+        take=result['takes'][0];self.assertEqual(take['transcript'],self.base['takes'][0]['transcript']);self.assertIn('Zehen',take['original_decoder_transcript'])
+        proof=take['extra_word_proof'][0];self.assertEqual(proof['method'],f.a681.VERSION);self.assertFalse(proof['proof']['QC_diagnosis_only']['QC_words_used_as_body_proof'])
+        self.assertEqual(result['finalizer']['removed_reasons'],{f.a681.ID:['asr_lexical_mismatch_requires_review']})
+    def test_source_id_missing_root_stale_template_and_outside_binding_refused(self):
+        old=self.envelope.read_bytes()
+        for fn in [lambda d:d.update(approval=None),lambda d:d['approval'].update(id=f.native625.ID),lambda d:d['approval'].update(reviewed_by='agent'),
+                   lambda d:d['approval'].update(source_text_sha256='changed'),lambda d:d['bindings'].update(free_record_path='/etc/hosts'),
+                   lambda d:d['bindings'].pop('ctc_record_path')]:
+            self.fixture.mutate(self.envelope,fn)
+            with self.assertRaises(f.core.SafeError):self.finish()
+            self.assertFalse((self.run/'final-a681.json').exists());self.envelope.write_bytes(old)
+        self.fixture.mutate(self.run/'lines.private.json',lambda d:d['lines'][0].update(text=f.a681.TEXT+' Extra.'))
+        self.base['manifest_sha256']=f.qa.digest(self.run/'lines.private.json');self.base['takes'][0]['text_sha256']=f.qa.text_hash(f.a681.TEXT+' Extra.');f.core.save(self.base_path,self.base)
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_asr_failures_signal_and_root_veto_cannot_disappear(self):
+        ident=f.a681.ID;take=self.base['takes'][0];take['signal']['peak']=1.3
+        for reason in ['asr_check_failed_ValueError','asr_check_failed_RuntimeError','possible_clipping']:
+            take['reasons'].append(reason);self.base['failures'].append({'id':ident,'reason':reason})
+        f.core.save(self.base_path,self.base)
+        evidence=self.run/'a681-veto-evidence.json';f.core.save(evidence,{'id':ident,'clip_sha256':self.base['clip_sha256'][ident],'source_text_sha256':f.qa.text_hash(f.a681.TEXT)})
+        veto=self.run/'a681-veto.json';f.core.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root synthetic test',
+            'reason':'Other actual independently documented word defect.','clip_sha256':self.base['clip_sha256'][ident],'text_sha256':f.qa.text_hash(f.a681.TEXT),
+            'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required')
+        self.assertEqual(set(result['takes'][0]['reasons']),{'asr_check_failed_ValueError','asr_check_failed_RuntimeError','possible_clipping','independent_audio_word_defect'})
+    def test_repeated_current_proof_and_all_hashes_checked_before_write(self):
+        real=f.a681.review;calls=0
+        def changed(*args):
+            nonlocal calls
+            value=real(*args);calls+=1
+            if calls==2:self.fixture.raw.write_text('changed actual raw proof')
+            return value
+        with patch.object(f.a681,'review',side_effect=changed):
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertEqual(calls,2);self.assertFalse((self.run/'final-a681.json').exists())
+
 if __name__=='__main__':unittest.main()
