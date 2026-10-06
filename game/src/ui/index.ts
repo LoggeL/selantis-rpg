@@ -198,7 +198,7 @@ export function createUi(): UiApiExt {
     objectivePointer: pos => hud.objectivePointer(ctx.stale() ? null : pos),
     hint: h => hints.hint(ctx.stale() ? null : h),
     bubble: (text, anchor, ms, opts) => {
-      if (ctx.stale()) return () => {};
+      if (ctx.stale() || (!opts?.foreground && ctx.busy())) return () => {};
       const voice = opts?.speaker && !ctx.busy() ? voiceover.play('bark', opts.speaker, opts.voiceText ?? text, undefined, undefined, opts.foreground, opts.foreground ? () => screenVoicePan(anchor()?.x) : undefined) : null;
       return Object.assign(bubbles.bubble(text, anchor, ms, voice, opts?.voiceText), { voiced: Boolean(voice), voiceDone: voice?.done });
     },

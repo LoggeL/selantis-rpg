@@ -130,16 +130,20 @@ export class BubbleUi {
     let timer = 0;
     const token = ctx.epoch;
     const reveal = revealSpeech(speechHost, spoken, voice, renderPlain, () => {},
-      () => !removed && token === ctx.epoch && inner.isConnected);
-    const remove = () => {
+      () => !removed && voice?.outcome !== 'stopped' && token === ctx.epoch && inner.isConnected);
+    const remove = (immediate = false) => {
       if (removed) return;
       removed = true;
       clearTimeout(timer);
       reveal.cancel?.();
       voice?.stop();
-      node.classList.remove('on');
-      node.classList.add('is-out');
-      setTimeout(() => { this.live.delete(entry); node.remove(); }, 260);
+      const detach = () => { this.live.delete(entry); node.remove(); };
+      if (immediate) detach();
+      else {
+        node.classList.remove('on');
+        node.classList.add('is-out');
+        setTimeout(detach, 260);
+      }
     };
     const entry: BubbleEntry = { node, anchor, half: -1, remove, voiced: Boolean(voice) };
     this.live.add(entry);
@@ -148,7 +152,9 @@ export class BubbleUi {
     if (!this.raf) this.raf = requestAnimationFrame(this.tick);
     if (voice) {
       void voice.done.then(() => {
-        if (!removed) timer = window.setTimeout(remove, voice.outcome === 'ended' ? 600 : (ms ?? bubbleDuration(text)));
+        if (removed) return;
+        if (voice.outcome === 'stopped') remove(true);
+        else timer = window.setTimeout(remove, voice.outcome === 'ended' ? 600 : (ms ?? bubbleDuration(text)));
       });
     } else timer = window.setTimeout(remove, ms ?? bubbleDuration(text));
     return remove;
