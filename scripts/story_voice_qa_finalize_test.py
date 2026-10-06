@@ -679,4 +679,117 @@ class ChildSourceFinalizerGates(unittest.TestCase):
         self.assertFalse((self.run/'final-child-source.json').exists())
 
 
+class Child51CasesFinalizerGates(unittest.TestCase):
+    """Synthetic adapter tests; complete original Child/raw validation is separate."""
+    def setUp(self):
+        self.fixture=fixtures.SpecialistTests();self.fixture.setUp();self.addCleanup(self.fixture.tearDown)
+        self.run=self.fixture.source;self.rows=[]
+        for prior,(ident,case) in zip(self.fixture.ids,f.child51.CASES.items()):
+            row=dict(self.fixture.rows[len(self.rows)],id=ident,text=case['text'],speaker=case['speaker']);self.rows.append(row)
+            for folder,ext in [('clips','.mp3'),('raw','.wav'),('raw','.receipt.json')]:
+                (self.run/folder/(prior+ext)).rename(self.run/folder/(ident+ext))
+            p=self.run/'raw'/(ident+'.receipt.json');receipt=f.core.read_json(p);receipt.update(id=ident,model=f.core.MODEL);f.core.save(p,receipt)
+        f.core.save(self.run/'lines.private.json',{'model':f.core.MODEL,'lines':self.rows});self.ids=[r['id'] for r in self.rows]
+        signal={'silent':False,'seconds':2.,'clipped_fraction':0.,'peak':.4,'trailing_silence_seconds':.1,'leading_silence_seconds':.1,'last_frame_rms':0.,'rms':.1}
+        self.base={'version':f.qa.VERSION,'model':f.qa.MODEL,'manifest_sha256':f.qa.digest(self.run/'lines.private.json'),'checked_ids':self.ids,
+            'clip_sha256':{i:f.qa.digest(self.run/'clips'/(i+'.mp3')) for i in self.ids},
+            'takes':[{'id':r['id'],'text_sha256':f.qa.text_hash(r['text']),'signal':copy.deepcopy(signal),
+                'transcript':'Original Hey Foltern or Volltan diagnosis retained.','reasons':['asr_lexical_mismatch_requires_review']} for r in self.rows],
+            'failures':[{'id':i,'reason':'asr_lexical_mismatch_requires_review'} for i in self.ids]}
+        self.base_path=self.run/'current-parent-base-child.json';f.core.save(self.base_path,self.base)
+        self.raw=self.run/'original-child-raw-fixture.json';f.core.save(self.raw,{'synthetic':True,'source_run':'original-child'})
+        self.records=[]
+        for row in self.rows:
+            bindings={k:str(self.base_path if k=='qa_report_path' else self.raw) for k in f.child51.KEYS}
+            template=self.template(self.run,row,bindings)
+            self.records.append({'bindings':bindings,'approval':dict(template,status=f.child51.APPROVED,
+                reviewed_by='root explicit synthetic fixture',reason='Complete original child and actual import evidence reviewed individually.')})
+        self.envelope=self.run/'child51-cases-root.json';f.core.save(self.envelope,{'records':self.records})
+        for obj,name,value in [(f.common,'prepared',lambda run:None),(f.child51,'proof_template',self.template)]:
+            p=patch.object(obj,name,side_effect=value);p.start();self.addCleanup(p.stop)
+    def template(self,run,line,bindings):
+        return {'status':'root_review_required','reviewed_by':'','reason':'','method':f.child51.VERSION,'id':line['id'],
+            'clip_sha256':self.base['clip_sha256'][line['id']],'source_text_sha256':f.qa.text_hash(line['text']),
+            'source_row':copy.deepcopy(line),'source_run':'original-child','base_qa_sha256':f.qa.digest(self.base_path),
+            'provenance_files_sha256':{str(self.raw):f.qa.digest(self.raw)},'helper_script_sha256':f.qa.digest(Path(f.child51.__file__)),
+            'protected_script_sha256':{str(Path(f.qa.__file__)):f.qa.digest(Path(f.qa.__file__))}}
+    def finish(self,**kwargs):
+        return f.finalize(self.run,self.base_path,self.run/'final-child51-cases.json',expected_count=2,
+            child51_cases_root_evidence_path=self.envelope,**kwargs)
+    def reset_approvals(self):
+        records=copy.deepcopy(self.records)
+        for row,record in zip(self.rows,records):
+            record['approval']=dict(self.template(self.run,row,record['bindings']),status=f.child51.APPROVED,
+                reviewed_by='root explicit synthetic fixture',reason='Complete original child and actual import evidence reviewed individually.')
+        f.core.save(self.envelope,{'records':records})
+    def test_both_individual_approvals_remove_only_lexical_diagnosis(self):
+        original=self.base_path.read_bytes();result=self.finish();self.assertEqual(result['status'],'passed')
+        self.assertEqual(original,self.base_path.read_bytes())
+        for take in result['takes']:
+            self.assertEqual(take['transcript'],take['original_decoder_transcript'])
+            self.assertEqual(take['original_decoder_reasons'],['asr_lexical_mismatch_requires_review'])
+            self.assertEqual(take['signal'],self.base['takes'][0]['signal'])
+            self.assertEqual(take['extra_word_proof'][0]['proof']['source_run'],'original-child')
+            self.assertIsNone(take['extra_word_proof'][0]['listening_verdict'])
+    def test_one_record_scopes_clearance_to_one_source(self):
+        f.core.save(self.envelope,{'records':self.records[:1]});result=self.finish()
+        self.assertEqual(result['status'],'review_required');self.assertEqual(result['takes'][1]['reasons'],['asr_lexical_mismatch_requires_review'])
+    def test_other_word_proof_cannot_widen_child_clearance_to_decoder_errors(self):
+        ident=self.ids[0];self.base['takes'][0]['reasons'].append('asr_check_failed_ValueError')
+        self.base['failures'].append({'id':ident,'reason':'asr_check_failed_ValueError'})
+        f.core.save(self.base_path,self.base);self.reset_approvals()
+        comparison=self.run/'additional-synthetic-specialist.json';f.core.save(comparison,{'records':[{'id':ident}]})
+        with patch.object(f.specialist,'exact_text_match_proof',return_value={'id':ident,'method':'synthetic_existing_word_proof'}):
+            result=self.finish(specialist_path=comparison)
+        self.assertEqual(result['status'],'review_required');self.assertEqual(result['takes'][0]['reasons'],['asr_check_failed_ValueError'])
+    def test_asr_errors_signal_global_failures_and_current_root_veto_persist(self):
+        self.base['takes'][0]['reasons']+=['asr_check_failed_ValueError','possible_clipping']
+        self.base['takes'][0]['signal']['peak']=1.3
+        self.base['failures'] += [{'id':self.ids[0],'reason':'asr_check_failed_ValueError'},
+            {'id':self.ids[0],'reason':'possible_clipping'},{'id':None,'reason':'unexpected_clip_files'}]
+        f.core.save(self.base_path,self.base);self.reset_approvals()
+        ident=self.ids[1];sha=self.base['clip_sha256'][ident];row=self.rows[1]
+        evidence=self.run/'child-veto-evidence.json';f.core.save(evidence,{'id':ident,'clip_sha256':sha,'source_text_sha256':f.qa.text_hash(row['text'])})
+        veto=self.run/'child-veto.json';f.core.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root explicit fixture',
+            'reason':'Current independently observed word defect.','clip_sha256':sha,'text_sha256':f.qa.text_hash(row['text']),
+            'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required')
+        self.assertEqual(result['takes'][0]['reasons'],['asr_check_failed_ValueError','possible_clipping'])
+        self.assertIn('independent_audio_word_defect',result['takes'][1]['reasons'])
+        self.assertTrue(any(x['reason']=='unexpected_clip_files' for x in result['failures']))
+    def test_empty_duplicate_other_source_and_root_failure_envelopes_block(self):
+        for records in [[],self.records+[self.records[0]],[self.records[0],self.records[0]]]:
+            f.core.save(self.envelope,{'records':records})
+            with self.assertRaises(f.core.SafeError):self.finish()
+        for change in [{'id':f.meta_name.ID},{'status':'root_review_required'},{'reviewed_by':'worker'},
+            {'reason':'ok'},{'clip_sha256':'stale'},{'source_row':dict(self.rows[0],text='Changed source.')}]:
+            records=copy.deepcopy(self.records);records[0]['approval'].update(change);f.core.save(self.envelope,{'records':records})
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-child51-cases.json').exists())
+    def test_duplicate_json_keys_and_extra_envelope_fields_block(self):
+        self.envelope.write_text('{"records":[],"records":'+json.dumps(self.records)+'}')
+        with self.assertRaises(f.core.SafeError):self.finish()
+        body={'records':copy.deepcopy(self.records)};body['records'][0]['extra']='unapproved field'
+        f.core.save(self.envelope,body)
+        with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-child51-cases.json').exists())
+    def test_exact_qa_file_raw_path_and_approval_hash_bound(self):
+        other=self.run/'same-bytes-other-base.json';other.write_bytes(self.base_path.read_bytes())
+        for key,value in [('qa_report_path',str(other)),('child_qc_record_path',str(Path(f.__file__)))]:
+            records=copy.deepcopy(self.records);records[0]['bindings'][key]=value;f.core.save(self.envelope,{'records':records})
+            with self.assertRaises(f.core.SafeError):self.finish()
+        records=copy.deepcopy(self.records);records[0]['approval']['base_qa_sha256']='wrong';f.core.save(self.envelope,{'records':records})
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_current_source_audio_and_evidence_changed_during_recheck_block(self):
+        calls=0
+        def changed(run,line,bindings):
+            nonlocal calls
+            calls+=1
+            if calls==3:f.core.save(self.raw,{'changed':True})
+            return self.template(run,line,bindings)
+        with patch.object(f.child51,'proof_template',side_effect=changed):
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-child51-cases.json').exists())
+
+
 if __name__=='__main__':unittest.main()

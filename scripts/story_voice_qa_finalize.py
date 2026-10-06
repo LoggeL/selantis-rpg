@@ -20,6 +20,7 @@ import story_voice_native625_evidence as native625
 import story_voice_a681_evidence as a681
 import story_voice_meta_foltan_cases as foltan_cases
 import story_voice_child_source_evidence as child_source
+import story_voice_child51_cases as child51
 
 REMOVABLE={'asr_lexical_mismatch_requires_review','asr_check_failed_ValueError'}
 LEXICAL_ONLY={'asr_lexical_mismatch_requires_review'}
@@ -248,8 +249,39 @@ def child_source_envelopes(run,path,rows,input_hashes):
         result[ident]=(child_source,paths,approval)
     return result
 
+def child51_root_proof(run,line,base_path,audio_sha,bindings,approval):
+    require(Path(bindings['qa_report_path']).resolve()==base_path.resolve(),'Child51 source proof must use exact current base QA.')
+    child51.case(line)
+    proof=child51.review(run,line,bindings,approval)
+    require(isinstance(proof,dict) and proof.get('id')==line['id'] and proof.get('method')==child51.VERSION
+        and proof.get('clip_sha256')==audio_sha and proof.get('source_text_sha256')==qa.text_hash(line['text'])
+        and proof.get('proof',{}).get('source_row')==line,'Actual individual current Child/Parent full-word proof required.')
+    return proof
+
+
+def child51_envelopes(run,path,rows,input_hashes):
+    payload=unique_approval_json(path)
+    require(set(payload)=={'records'} and isinstance(payload['records'],list) and 0<len(payload['records'])<=2,
+        'Explicit one/two Child51 source root envelope records required.')
+    result={}
+    for envelope in payload['records']:
+        require(isinstance(envelope,dict) and set(envelope)=={'bindings','approval'},'Complete Child bindings/approval required.')
+        approval=envelope['approval'];bindings=envelope['bindings']
+        require(isinstance(approval,dict) and approval.get('id') in child51.CASES
+            and approval['id'] not in result and isinstance(bindings,dict) and set(bindings)==child51.KEYS,
+            'Duplicate/unsupported Child51 source or missing original binding.')
+        ident=approval['id'];require(ident in rows,'Child51 source absent from current inventory.');child51.case(rows[ident])
+        paths={}
+        for key,value in bindings.items():
+            require(isinstance(value,str) and bool(value),'Original Child evidence path required.')
+            p=Path(value);p=(p if p.is_absolute() else run/p).resolve()
+            require(p.is_relative_to(run) and p.is_file(),'Child proof inputs must stay inside private run.')
+            paths[key]=str(p);input_hashes[str(p.relative_to(run))]=qa.digest(p)
+        result[ident]=(child51,paths,approval)
+    return result
+
 def scoped_proof_function(module):
-    return {meta_name:meta_name_root_proof,native625:native625_root_proof,a681:a681_root_proof,foltan_cases:foltan_cases_root_proof,child_source:child_source_root_proof}[module]
+    return {meta_name:meta_name_root_proof,native625:native625_root_proof,a681:a681_root_proof,foltan_cases:foltan_cases_root_proof,child_source:child_source_root_proof,child51:child51_root_proof}[module]
 
 
 def scoped_proof_method(module):
@@ -265,13 +297,13 @@ def recheck_scoped_proof_files(module,proof):
             'Scoped raw/helper/protected evidence changed before write.')
 
 
-def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None,pff_qc_path=None,meta_name_root_evidence_path=None,native625_root_evidence_path=None,a681_root_evidence_path=None,meta_foltan_cases_root_evidence_path=None,child_source_root_evidence_path=None):
+def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None,pff_qc_path=None,meta_name_root_evidence_path=None,native625_root_evidence_path=None,a681_root_evidence_path=None,meta_foltan_cases_root_evidence_path=None,child_source_root_evidence_path=None,child51_cases_root_evidence_path=None):
     run=run.resolve();common.prepared(run)
-    scoped_driver_hashes={str(Path(m.__file__).resolve()):qa.digest(Path(m.__file__)) for m in [sys.modules[__name__],qa,common,core,*([meta_name] if meta_name_root_evidence_path else []),*([native625,native625.qc] if native625_root_evidence_path else []),*([a681] if a681_root_evidence_path else []),*([foltan_cases,foltan_cases.native] if meta_foltan_cases_root_evidence_path else []),*([child_source,child_source.native,child_source.qc,child_source.expressive,child_source.retake] if child_source_root_evidence_path else [])]} if meta_name_root_evidence_path or native625_root_evidence_path or a681_root_evidence_path or meta_foltan_cases_root_evidence_path or child_source_root_evidence_path else {}
+    scoped_driver_hashes={str(Path(m.__file__).resolve()):qa.digest(Path(m.__file__)) for m in [sys.modules[__name__],qa,common,core,*([meta_name] if meta_name_root_evidence_path else []),*([native625,native625.qc] if native625_root_evidence_path else []),*([a681] if a681_root_evidence_path else []),*([foltan_cases,foltan_cases.native] if meta_foltan_cases_root_evidence_path else []),*([child_source,child_source.native,child_source.qc,child_source.expressive,child_source.retake] if child_source_root_evidence_path else []),*([child51,child51.native,child51.qc,child51.expressive,child51.retake] if child51_cases_root_evidence_path else [])]} if meta_name_root_evidence_path or native625_root_evidence_path or a681_root_evidence_path or meta_foltan_cases_root_evidence_path or child_source_root_evidence_path or child51_cases_root_evidence_path else {}
     if native625_root_evidence_path:
         driver=Path(native625.__file__).with_name('story_voice_ctc_align.py').resolve();scoped_driver_hashes[str(driver)]=qa.digest(driver)
     if a681_root_evidence_path:scoped_driver_hashes.update(a681.protected_scripts())
-    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path,pff_qc_path,meta_name_root_evidence_path,native625_root_evidence_path,a681_root_evidence_path,meta_foltan_cases_root_evidence_path,child_source_root_evidence_path] if p]]
+    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path,pff_qc_path,meta_name_root_evidence_path,native625_root_evidence_path,a681_root_evidence_path,meta_foltan_cases_root_evidence_path,child_source_root_evidence_path,child51_cases_root_evidence_path] if p]]
     require(not output_path.exists() and output_path.resolve() not in {p.resolve() for p in inputs},'Choose a new private final report, never overwrite evidence.')
     require(output_path.resolve().is_relative_to(run) and all(p.resolve().is_relative_to(run) for p in inputs),'Reports must stay within the frozen private run.')
     complementary_requested=any([complementary_approvals_path,complementary_ctc_path,complementary_qa_path])
@@ -376,6 +408,10 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         extra=child_source_envelopes(run,child_source_root_evidence_path,rows,input_hashes)
         require(not set(extra)&set(scoped),'Duplicate scoped source proof cannot replace another proof.')
         scoped.update(extra)
+    if child51_cases_root_evidence_path:
+        extra=child51_envelopes(run,child51_cases_root_evidence_path,rows,input_hashes)
+        require(not set(extra)&set(scoped),'Duplicate scoped source proof cannot replace another proof.')
+        scoped.update(extra)
     result=copy.deepcopy(base);result['base_decoder_evidence']={'file':str(base_path.resolve().relative_to(run)),'sha256':input_hashes[str(base_path.resolve().relative_to(run))],'version':base['version'],'model':base['model']}
     removed={};extra_failures=[]
     for take in result['takes']:
@@ -406,7 +442,7 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
             proofs.append(proof)
         if proofs:
             take['extra_word_proof']=proofs;take['original_decoder_reasons']=copy.deepcopy(take['reasons']);take['original_decoder_transcript']=copy.deepcopy(take.get('transcript'))
-            child_source_proof=any(p.get('method')==child_source.VERSION for p in proofs)
+            child_source_proof=any(p.get('method') in {child_source.VERSION,child51.VERSION} for p in proofs)
             removable=set(take['reasons'])&(REMOVABLE if legacy_word_proof and not child_source_proof else LEXICAL_ONLY);take['reasons']=[r for r in take['reasons'] if r not in removable];removed[ident]=removable
         diagnosis=qa.lexical_veto_review(run,line,audio[ident],veto)
         if diagnosis:
@@ -453,10 +489,10 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
 def main():
     common.configure();p=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','output']:p.add_argument('--'+name,type=Path,required=True)
-    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison','pff-qc-response','meta-name-root-evidence','native625-root-evidence','a681-root-evidence','meta-foltan-cases-root-evidence','child-source-root-evidence']:p.add_argument('--'+name,type=Path)
+    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison','pff-qc-response','meta-name-root-evidence','native625-root-evidence','a681-root-evidence','meta-foltan-cases-root-evidence','child-source-root-evidence','child51-cases-root-evidence']:p.add_argument('--'+name,type=Path)
     a=p.parse_args()
     try:
-        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison,pff_qc_path=a.pff_qc_response,meta_name_root_evidence_path=a.meta_name_root_evidence,native625_root_evidence_path=a.native625_root_evidence,a681_root_evidence_path=a.a681_root_evidence,meta_foltan_cases_root_evidence_path=a.meta_foltan_cases_root_evidence,child_source_root_evidence_path=a.child_source_root_evidence)
+        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison,pff_qc_path=a.pff_qc_response,meta_name_root_evidence_path=a.meta_name_root_evidence,native625_root_evidence_path=a.native625_root_evidence,a681_root_evidence_path=a.a681_root_evidence,meta_foltan_cases_root_evidence_path=a.meta_foltan_cases_root_evidence,child_source_root_evidence_path=a.child_source_root_evidence,child51_cases_root_evidence_path=a.child51_cases_root_evidence)
         print(json.dumps({'status':result['status'],'failures':len(result['failures']),'checked':len(result['checked_ids'])}));return 0 if result['status']=='passed' else 2
     except (core.SafeError,OSError,ValueError,KeyError,TypeError) as e:
         print(str(e) if isinstance(e,core.SafeError) else 'Invalid bound final-QA evidence; no reports overwritten.',file=sys.stderr);return 1
