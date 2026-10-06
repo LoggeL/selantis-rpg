@@ -22,29 +22,71 @@ def indexed(values,ids,label):
     require(isinstance(values,list) and all(isinstance(x,dict) and x.get('id') in ids for x in values),label+' contains unknown IDs.')
     result={x['id']:x for x in values};require(len(result)==len(values),label+' contains duplicate IDs.');return result
 
-def pro_word_proof(run,line,audio_sha,record):
+def load_pro_approvals(path):
+    def unique(pairs):
+        result={}
+        for key,value in pairs:
+            require(key not in result,'Duplicate Pro approval JSON key.');result[key]=value
+        return result
+    with path.open(encoding='utf-8') as stream:body=json.load(stream,object_pairs_hook=unique)
+    require(isinstance(body,dict),'Pro approvals must be a private mapping.')
+    result=body.get('approvals',body)
+    require(isinstance(result,dict) and all(isinstance(v,dict) and v.get('id')==k for k,v in result.items()),'Pro approval ID mapping invalid.')
+    return result
+
+
+def pro_variant_template(run,line,audio_sha,record):
+    require(record.get('source_run')==str(run) and pro.cached_record(record,audio_sha,qa.text_hash(line['text'])),'Current raw Pro provenance required for word variants.')
+    transcript=pro.response_transcript(record['response']);expected,observed=qa.words(line['text']),qa.words(transcript)
+    require(len(expected)==len(observed),'Pro variants cannot insert, drop or reorder tokens.')
+    variants=[]
+    for index,(aa,bb) in enumerate(zip(expected,observed)):
+        if aa==bb:continue
+        kind='named_spelling' if qa.named_spelling_equivalent(aa,bb) else 'natural_schwa' if qa.natural_variant_allowed(line,index,aa,bb) else None
+        require(kind is not None,'Pro substitution is outside the existing explicit spelling/schwa rules.')
+        variants.append({'word_index':index,'expected':aa,'observed':bb,'kind':kind})
+    require(variants,'Exact Pro matches need no variant approval.')
+    return {'id':line['id'],'status':'root_review_required','reviewed_by':'','reason':'','model':pro.MODEL,'contract':pro.metadata(),
+        'clip_sha256':audio_sha,'source_text_sha256':qa.text_hash(line['text']),'source_manifest_sha256':qa.digest(run/'lines.private.json'),
+        'record_sha256':pro.object_hash(record),'raw_response_sha256':pro.object_hash(record['response']),
+        'transcript_sha256':qa.text_hash(transcript),'scope_sha256':record['scope_sha256'],
+        'pro_driver_sha256':qa.digest(Path(pro.__file__)),'qa_driver_sha256':qa.digest(Path(qa.__file__)),
+        'expected_tokens':expected,'observed_tokens':observed,'variants':variants,'listening_verdict':None}
+
+
+def pro_word_proof(run,line,audio_sha,record,approval=None):
     require(record.get('source_run')==str(run),'Pro comparison belongs to a different source run.')
     require(pro.cached_record(record,audio_sha,qa.text_hash(line['text'])),'Pro raw model/request/source/response/journal provenance is invalid or stale.')
     transcript=pro.response_transcript(record['response'])
     expected,observed=qa.words(line['text']),qa.words(transcript)
-    if expected!=observed:return None
+    adopted=None
+    if expected!=observed:
+        if approval is None:return None
+        template=pro_variant_template(run,line,audio_sha,record)
+        require(set(approval)==set(template) and approval.get('status')=='approved_pro_word_variants'
+            and isinstance(approval.get('reviewed_by'),str) and approval['reviewed_by'].casefold().startswith('root')
+            and isinstance(approval.get('reason'),str) and bool(approval['reason'].strip()),'Explicit complete root Pro word-variant approval required.')
+        require(all(approval.get(k)==v for k,v in template.items() if k not in {'status','reviewed_by','reason'}),'Pro word-variant approval pairs/source/raw provenance differ.')
+        require(all(type(pair.get('word_index')) is int for pair in approval['variants']),'Pro variant word positions must be integers.')
+        adopted=copy.deepcopy(approval)
+    else:require(approval is None,'Unexpected variant approval for an already exact Pro response.')
     evidence={}
     for name in [record['batch_scope_file'],record['batch_response_file']]:evidence[name]=qa.digest(pro.private_path(run,name))
     batch=pro.private_path(run,record['batch_scope_file']).parent
     for name in ['prepared.json','audio-snapshot.private.json','requests.jsonl','submit-intent.private.json','job.json']:
         evidence[str((batch/name).relative_to(run))]=qa.digest(batch/name)
     ledger=run/pro.FOLDER/'batch-reservations.private.json';evidence[str(ledger.relative_to(run))]=qa.digest(ledger)
-    return {'id':line['id'],'resolution':'pro_unprompted_verbatim_full_exact_words','model':pro.MODEL,
+    return {'id':line['id'],'resolution':'root_approved_pro_explicit_full_word_variants' if adopted else 'pro_unprompted_verbatim_full_exact_words','model':pro.MODEL,
         'contract':pro.metadata(),'expected_tokens':expected,'observed_tokens':observed,
         'clip_sha256':audio_sha,'source_text_sha256':qa.text_hash(line['text']),
         'record_sha256':pro.object_hash(record),'raw_response_sha256':pro.object_hash(record['response']),
         'request_sha256':record['request_sha256'],'provenance_files_sha256':evidence,
-        'provider_timestamps_used':False,'acting_approval':None,'listening_verdict':None}
+        **({'approval':adopted} if adopted else {}),'provider_timestamps_used':False,'acting_approval':None,'listening_verdict':None}
 
 
-def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None):
+def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None):
     run=run.resolve();common.prepared(run)
-    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path] if p]]
+    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path] if p]]
     require(not output_path.exists() and output_path.resolve() not in {p.resolve() for p in inputs},'Choose a new private final report, never overwrite evidence.')
     require(output_path.resolve().is_relative_to(run) and all(p.resolve().is_relative_to(run) for p in inputs),'Reports must stay within the frozen private run.')
     input_hashes={str(p.resolve().relative_to(run)):qa.digest(p) for p in inputs}
@@ -82,6 +124,9 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         require(set(signal_reasons)<=set(take['reasons']),'Base signal failures were omitted.')
     specialists=indexed(core.read_json(specialist_path).get('records'),ids,'Specialist records') if specialist_path else {}
     pro_records=indexed(core.read_json(pro_path).get('records'),ids,'Pro records') if pro_path else {}
+    pro_approvals=load_pro_approvals(pro_approvals_path) if pro_approvals_path else {}
+    require(not pro_approvals_path or pro_path is not None,'Pro root approvals require actual Pro comparison.')
+    require(set(pro_approvals)<=set(pro_records),'Pro approvals outside supplied current Pro records.')
     if ctc_path:
         require(approvals_path is not None,'CTC variants require explicit root approvals.')
         loader=output_path.parent/(output_path.stem+'.ctc-loader');require(not loader.exists(),'CTC loader directory exists; use a fresh final report.');loader.mkdir(parents=True)
@@ -100,7 +145,7 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
             proof=specialist.exact_text_match_proof(run,specialists[ident])
             if proof:proofs.append(proof)
         if ident in pro_records:
-            proof=pro_word_proof(run,line,audio[ident],pro_records[ident])
+            proof=pro_word_proof(run,line,audio[ident],pro_records[ident],pro_approvals.get(ident))
             if proof:proofs.append(proof)
         if proofs:
             take['extra_word_proof']=proofs;take['original_decoder_reasons']=copy.deepcopy(take['reasons']);take['original_decoder_transcript']=copy.deepcopy(take.get('transcript'))
@@ -129,10 +174,10 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
 def main():
     common.configure();p=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','output']:p.add_argument('--'+name,type=Path,required=True)
-    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison']:p.add_argument('--'+name,type=Path)
+    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals']:p.add_argument('--'+name,type=Path)
     a=p.parse_args()
     try:
-        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison)
+        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals)
         print(json.dumps({'status':result['status'],'failures':len(result['failures']),'checked':len(result['checked_ids'])}));return 0 if result['status']=='passed' else 2
     except (core.SafeError,OSError,ValueError,KeyError,TypeError) as e:
         print(str(e) if isinstance(e,core.SafeError) else 'Invalid bound final-QA evidence; no reports overwritten.',file=sys.stderr);return 1

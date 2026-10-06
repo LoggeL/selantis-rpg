@@ -69,7 +69,7 @@ class FinalizeGates(unittest.TestCase):
         receipt=copy.deepcopy(original);receipt.pop('model');f.core.save(path,receipt);f.core.save(self.run/'status.private.json',{'metadata':{'model':'wrong-model'}})
         with self.assertRaises(f.core.SafeError):self.finish()
 
-    def pro_comparison(self,translation=False):
+    def pro_comparison(self,translation=False,first_text=None):
         pro=f.pro;rows={r['id']:r for r in self.fixture.rows}
         args=SimpleNamespace(only_ids=','.join(self.ids),max_calls=2)
         with patch.object(pro.transport,'source_rows',return_value=rows),pro.backend():
@@ -80,7 +80,7 @@ class FinalizeGates(unittest.TestCase):
             pro.core.save(run/'job.json',{'model':pro.MODEL,'request_count':2,'job_name':'batches/offline'})
             responses=[]
             for row in self.fixture.rows:
-                text='This is translated.' if translation else row['text']
+                text=first_text if first_text is not None and row['id']==self.ids[0] else 'This is translated.' if translation else row['text']
                 responses.append({'key':row['id'],'response':{'modelVersion':pro.MODEL,'candidates':[{'finishReason':'STOP','content':{'role':'model','parts':[{'text':json.dumps({'transcript':text})}]}}]}})
             with patch.object(pro.core,'credential',return_value='offline'),patch.object(pro.core,'fetch_status',return_value=({'response':{'inlinedResponses':responses}},'JOB_STATE_SUCCEEDED')):
                 self.assertEqual(pro.collect(args,self.run,folder,run,rows),0)
@@ -107,5 +107,50 @@ class FinalizeGates(unittest.TestCase):
             f.core.save(path,report)
             with self.assertRaises(f.core.SafeError):self.finish(pro_path=path)
             self.assertFalse((self.run/'final.json').exists())
+
+    def pro_variant_fixture(self,observed='Ich hab Kira gesehen.'):
+        row=self.fixture.rows[0];row['text']='Ich habe Kyra gesehen.'
+        f.core.save(self.run/'lines.private.json',{'lines':self.fixture.rows})
+        requests=[{'key':r['id'],'request':f.common.request_for(r,self.fixture.profiles['speakers'])} for r in self.fixture.rows]
+        (self.run/'requests.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in requests))
+        self.base['manifest_sha256']=f.qa.digest(self.run/'lines.private.json');self.base['takes'][0]['text_sha256']=f.qa.text_hash(row['text']);f.core.save(self.path,self.base)
+        path=self.pro_comparison(first_text=observed);record=f.core.read_json(path)['records'][0]
+        return path,record
+
+    def test_explicit_combined_safe_pro_variants_full_accounting(self):
+        path,record=self.pro_variant_fixture();approval=f.pro_variant_template(self.run,self.fixture.rows[0],self.base['clip_sha256'][self.ids[0]],record)
+        self.assertEqual([v['kind'] for v in approval['variants']],['natural_schwa','named_spelling'])
+        approval.update(status='approved_pro_word_variants',reviewed_by='root offline review',reason='Reviewed both exact positions.')
+        approvals=self.run/'pro-approval.json';f.core.save(approvals,{'approvals':{self.ids[0]:approval}})
+        result=self.finish(pro_path=path,pro_approvals_path=approvals);self.assertEqual(result['status'],'passed')
+        self.assertEqual(result['takes'][0]['extra_word_proof'][0]['approval'],approval)
+
+    def test_pro_variants_missing_extra_duplicate_stale_and_unapproved_refused(self):
+        path,record=self.pro_variant_fixture();template=f.pro_variant_template(self.run,self.fixture.rows[0],self.base['clip_sha256'][self.ids[0]],record)
+        self.assertIsNone(f.pro_word_proof(self.run,self.fixture.rows[0],self.base['clip_sha256'][self.ids[0]],record))
+        approved=copy.deepcopy(template);approved.update(status='approved_pro_word_variants',reviewed_by='root offline',reason='Two reviewed safe changes.')
+        cases=[template,{**approved,'variants':approved['variants'][:1]}, {**approved,'variants':approved['variants']+approved['variants'][:1]}, {**approved,'record_sha256':'a'*64}, {**approved,'reason':''}, {**approved,'unexpected':True}]
+        for approval in cases:
+            with self.assertRaises(f.core.SafeError):f.pro_word_proof(self.run,self.fixture.rows[0],self.base['clip_sha256'][self.ids[0]],record,approval)
+        duplicate=self.run/'duplicate-pro.json';duplicate.write_text('{"approvals":{'+json.dumps(self.ids[0])+':'+json.dumps(approved)+','+json.dumps(self.ids[0])+':'+json.dumps(approved)+'}}')
+        with self.assertRaises(f.core.SafeError):f.load_pro_approvals(duplicate)
+
+    def test_unsafe_vowel_name_aliases_and_fv_are_never_approved(self):
+        # Schema validation is real in the fixture. Unsafe lexical differences
+        # still cannot obtain a proposal despite valid raw Pro provenance.
+        path,record=self.pro_variant_fixture(observed='Ich hab Lea gesehen.')
+        with self.assertRaises(f.core.SafeError):f.pro_variant_template(self.run,self.fixture.rows[0],self.base['clip_sha256'][self.ids[0]],record)
+        self.assertFalse(f.qa.named_spelling_equivalent('Lia','Lea'))
+        self.assertFalse(f.qa.named_spelling_equivalent('Foltan','Voltan'))
+        self.assertFalse(f.qa.named_spelling_equivalent('Hand','Hund'))
+
+    def test_current_root_veto_blocks_approved_pro_variant_words(self):
+        path,record=self.pro_variant_fixture();ident=self.ids[0];line=self.fixture.rows[0];sha=self.base['clip_sha256'][ident]
+        approval=f.pro_variant_template(self.run,line,sha,record);approval.update(status='approved_pro_word_variants',reviewed_by='root offline',reason='Both individual variants reviewed.')
+        approvals=self.run/'variants-approved.json';f.core.save(approvals,{ident:approval})
+        evidence=self.run/'active-veto-evidence.json';f.core.save(evidence,{'id':ident,'clip_sha256':sha,'source_text_sha256':f.qa.text_hash(line['text'])})
+        veto=self.run/'active-veto.json';f.core.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Repeated audible sequence remains defective.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        result=self.finish(pro_path=path,pro_approvals_path=approvals,veto_path=veto)
+        self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',result['takes'][0]['reasons'])
 
 if __name__=='__main__':unittest.main()
