@@ -150,4 +150,64 @@ class DeliveryOverridePlanGates(unittest.TestCase):
                 with self.assertRaises(core.SafeError):generate.vocal_event_record(record,{'delivery_style':'German.','vocal_events':[bad]})
             with self.assertRaises(core.SafeError):generate.vocal_event_record(record,{'delivery_style':'German.','vocal_events':[event],'retake_text':record['request']['contents'][0]['parts'][0]['text']})
 
+
+class PronunciationBreakExperiments(unittest.TestCase):
+    def setUp(self):
+        self.ident='story-'+'a'*24
+        self.source='„Foltan!“  Orwen, hilft Foltan?'
+        self.record={'key':self.ident,'request':{'model':'gemini-3.8-flash-tts','contents':[{'parts':[{'text':self.source,'speechMetadata':{'style':'Original style','speaker':'azar'}}]}],'generationConfig':{'speechConfig':{'voiceConfig':{'voice':'Zubenelgenubi'},'languageCode':'de-DE'}}}}
+        self.value={'delivery_style':'German, natural delivery.','pronunciation_breaks':[{'word_index':0,'source_word':'„Foltan!“','split_after_letters':3},{'word_index':1,'source_word':'Orwen,','split_after_letters':2}]}
+    def test_exact_tags_full_body_unicode_whitespace_and_payload_preservation(self):
+        original=copy.deepcopy(self.record)
+        out=generate.pronunciation_break_record(self.record,self.value)
+        part=out['request']['contents'][0]['parts'][0]
+        self.assertEqual(part['text'],'„Fol<short pause>tan!“  Or<short pause>wen, hilft Foltan?')
+        self.assertEqual(part['text'].replace('<short pause>',''),self.source)
+        self.assertEqual(part['speechMetadata'],{'style':self.value['delivery_style'],'speaker':'azar'})
+        self.assertEqual(out['request']['model'],original['request']['model'])
+        self.assertEqual(out['request']['generationConfig'],original['request']['generationConfig'])
+        self.assertEqual(out['delivery_override']['source_text_sha256'],core.digest(self.source.encode()))
+        self.assertEqual(out['delivery_override']['parts'][0]['text'],part['text'])
+        self.assertEqual(out['delivery_override']['pronunciation_breaks'],self.value['pronunciation_breaks'])
+        self.assertEqual(self.record,original)
+    def test_wrong_names_letters_index_tag_schema_and_split_fail_closed(self):
+        event=self.value['pronunciation_breaks'][0]
+        changes=[{'word_index':True},{'word_index':-1},{'word_index':100},{'word_index':1},{'source_word':'Foltan!'},
+                 {'source_word':'Lia'},{'source_word':'Fol-tan'},{'source_word':'Foltans'},{'source_word':'Fol2tan'},
+                 {'split_after_letters':True},{'split_after_letters':0},{'split_after_letters':6},{'split_after_letters':7},
+                 {'split_after_letters':2.5},{'tag':'<pause>'},{'source_word':'Ｆoltan'}]
+        for change in changes:
+            with self.subTest(change=change),self.assertRaises(core.SafeError):
+                generate.pronunciation_break_record(self.record,{'delivery_style':'German.','pronunciation_breaks':[{**event,**change}]})
+        for events in [[],[event,event],None]:
+            with self.assertRaises(core.SafeError):generate.pronunciation_break_record(self.record,{'delivery_style':'German.','pronunciation_breaks':events})
+    def test_conflicts_rejected_via_loader_and_direct_application(self):
+        for field,value in [('retake_text',self.source),('vocal_events',[]),('other',True)]:
+            plan={**self.value,field:value}
+            with self.assertRaises(core.SafeError):generate.apply_delivery_overrides([self.record],{self.ident},{self.ident:plan})
+            with tempfile.TemporaryDirectory() as folder:
+                path=Path(folder)/'plan.json';path.write_text(json.dumps({self.ident:plan}))
+                with self.assertRaises(core.SafeError):generate.load_delivery_overrides(path,{self.ident})
+    def test_existing_types_are_byte_identical_and_unselected_identity_retained(self):
+        original=json.dumps(self.record,sort_keys=True)
+        style={'delivery_style':'German.'}
+        expected=generate.standard.delivery_record(self.record,{self.ident},style['delivery_style'])
+        actual=generate.apply_delivery_overrides([self.record],{self.ident},{self.ident:style})[0]
+        self.assertEqual(json.dumps(actual,sort_keys=True),json.dumps(expected,sort_keys=True))
+        other={'key':'story-'+'b'*24,'request':self.record['request']}
+        changed=generate.apply_delivery_overrides([self.record,other],{self.ident},{self.ident:self.value})
+        self.assertIs(changed[1],other);self.assertEqual(json.dumps(self.record,sort_keys=True),original)
+    def test_multiple_text_parts_and_preexisting_tag_refused(self):
+        record=copy.deepcopy(self.record);record['request']['contents'][0]['parts'].append({'text':'Body'})
+        with self.assertRaises(core.SafeError):generate.pronunciation_break_record(record,self.value)
+        record=copy.deepcopy(self.record);record['request']['contents'][0]['parts'][0]['text']+='<short pause>'
+        with self.assertRaises(core.SafeError):generate.pronunciation_break_record(record,self.value)
+    def test_loader_valid_exact_plan_and_frozen_repeated_name_positions(self):
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder)/'plan.json';p.write_text(json.dumps({self.ident:self.value}))
+            self.assertEqual(generate.load_delivery_overrides(p,{self.ident}),{self.ident:self.value})
+        value={'delivery_style':'German.','pronunciation_breaks':[{'word_index':3,'source_word':'Foltan?','split_after_letters':3}]}
+        out=generate.pronunciation_break_record(self.record,value)
+        self.assertEqual(out['request']['contents'][0]['parts'][0]['text'],'„Foltan!“  Orwen, hilft Fol<short pause>tan?')
+
 if __name__=='__main__':unittest.main()

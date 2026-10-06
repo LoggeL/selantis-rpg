@@ -34,8 +34,12 @@ def load_delivery_overrides(path,selected):
     if not isinstance(overrides,dict) or set(overrides)!=selected:
         raise core.SafeError('Delivery overrides must cover every selected ID exactly once, with no extra IDs.')
     for value in overrides.values():
-        if not isinstance(value,dict) or not {'delivery_style'}.issubset(value) or not set(value).issubset({'delivery_style','retake_text','vocal_events'}):
-            raise core.SafeError('Each delivery override needs delivery_style and optional retake_text only.')
+        if not isinstance(value,dict) or not {'delivery_style'}.issubset(value) or not set(value).issubset({'delivery_style','retake_text','vocal_events','pronunciation_breaks'}):
+            raise core.SafeError('Each delivery override needs delivery_style and a supported exclusive optional experiment.')
+        if 'pronunciation_breaks' in value:
+            if 'retake_text' in value or 'vocal_events' in value:
+                raise core.SafeError('pronunciation_breaks conflicts with text/vocal overrides.')
+            validate_pronunciation_breaks(value['pronunciation_breaks'])
         if 'vocal_events' in value:
             if 'retake_text' in value:raise core.SafeError('vocal_events conflicts with retake_text.')
             validate_vocal_events(value['vocal_events'])
@@ -82,6 +86,68 @@ def vocal_event_record(record,value):
     return changed
 
 
+
+PRONUNCIATION_PAUSE = '<short pause>'
+
+
+def validate_pronunciation_breaks(breaks):
+    """Private name-spacing experiment, not phonemes/SSML or pronunciation approval."""
+    if not isinstance(breaks, list) or not breaks:
+        raise core.SafeError('pronunciation_breaks needs a nonempty explicit list.')
+    seen = set()
+    for item in breaks:
+        if not isinstance(item, dict) or set(item) != {'word_index', 'source_word', 'split_after_letters'}:
+            raise core.SafeError('A pronunciation break requires exactly index/source_word/split_after_letters.')
+        index, word, split = item['word_index'], item['source_word'], item['split_after_letters']
+        if type(index) is not int or index < 0 or index in seen:
+            raise core.SafeError('Pronunciation indices must be unique nonnegative integers.')
+        seen.add(index)
+        if not isinstance(word, str) or not word or any(c.isspace() for c in word):
+            raise core.SafeError('Name source_word must be an exact whitespace token.')
+        positions = [j for j, c in enumerate(word) if c.isalpha()]
+        if not positions or positions != list(range(positions[0], positions[-1] + 1)):
+            raise core.SafeError('Name letters must be contiguous.')
+        if any(not c.isalpha() and not unicodedata.category(c).startswith('P') for c in word):
+            raise core.SafeError('Name token allows only original letters and punctuation.')
+        name = word[positions[0]:positions[-1] + 1]
+        if name not in {'Foltan', 'Orwen'}:
+            raise core.SafeError('This private experiment is scoped to Foltan and Orwen only.')
+        if type(split) is not int or not 0 < split < len(name):
+            raise core.SafeError('Name split must lie strictly between its letters.')
+
+
+def pronunciation_break_record(record, value):
+    if set(value) != {'delivery_style', 'pronunciation_breaks'}:
+        raise core.SafeError('Pronunciation breaks cannot combine with other override types.')
+    validate_pronunciation_breaks(value['pronunciation_breaks'])
+    changed = standard.delivery_record(record, {record['key']}, value['delivery_style'])
+    parts = [p for c in changed['request'].get('contents', []) for p in c.get('parts', []) if isinstance(p.get('text'), str)]
+    if len(parts) != 1:
+        raise core.SafeError('Pronunciation breaks require one frozen text part.')
+    source = parts[0]['text']
+    if PRONUNCIATION_PAUSE in source:
+        raise core.SafeError('Source already contains the experimental pause tag.')
+    words = list(re.finditer(r'\S+', source))
+    insertions = []
+    for item in value['pronunciation_breaks']:
+        index = item['word_index']
+        if index >= len(words) or words[index].group() != item['source_word']:
+            raise core.SafeError('Name index/token differs from frozen source request.')
+        token = words[index]; word = token.group()
+        first_letter = next(j for j, c in enumerate(word) if c.isalpha())
+        insertions.append(token.start() + first_letter + item['split_after_letters'])
+    text = source
+    for position in sorted(insertions, reverse=True):
+        text = text[:position] + PRONUNCIATION_PAUSE + text[position:]
+    if text.replace(PRONUNCIATION_PAUSE, '') != source:
+        raise core.SafeError('Experimental tag removal does not restore the entire frozen source.')
+    parts[0]['text'] = text
+    changed['delivery_override'].update(type='experimental_pronunciation_breaks',
+        pronunciation_breaks=copy.deepcopy(value['pronunciation_breaks']),
+        source_text_sha256=core.digest(source.encode()),
+        parts=[{'text': text, 'style': parts[0]['speechMetadata']['style']}])
+    return changed
+
 def apply_delivery_overrides(records,selected,overrides):
     if set(overrides)!=selected:
         raise core.SafeError('Delivery overrides do not match selected IDs.')
@@ -95,7 +161,10 @@ def apply_delivery_overrides(records,selected,overrides):
             changed.append(record);continue
         value=overrides[ident]
         # A one-ID scope per entry reuses the original lexical/style safety gate.
-        changed.append(vocal_event_record(record,value) if 'vocal_events' in value else standard.delivery_record(record,{ident},value['delivery_style'],value.get('retake_text')))
+        if 'pronunciation_breaks' in value:
+            changed.append(pronunciation_break_record(record, value))
+        else:
+            changed.append(vocal_event_record(record,value) if 'vocal_events' in value else standard.delivery_record(record,{ident},value['delivery_style'],value.get('retake_text')))
     return changed
 
 
@@ -106,7 +175,7 @@ def main():
     parser.add_argument('--only-ids',required=True);parser.add_argument('--workers',type=int,choices=[1,2,3],default=2)
     parser.add_argument('--request-interval',type=float,default=6.2)
     parser.add_argument('--retake',action='store_true');parser.add_argument('--delivery-style');parser.add_argument('--retake-text')
-    parser.add_argument('--delivery-overrides',help='Private JSON ID -> {delivery_style, retake_text?}; exactly all selected IDs')
+    parser.add_argument('--delivery-overrides',help='Private per-ID exclusive delivery/text/vocal/pronunciation experiment; exactly all selected IDs')
     parser.add_argument('--export-only',action='store_true')
     args=parser.parse_args()
     if args.request_interval<.1:parser.error('Request interval must be at least0.1seconds')
