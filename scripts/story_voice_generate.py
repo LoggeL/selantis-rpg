@@ -56,7 +56,10 @@ def validate_vocal_events(events):
         letters=''.join(c for c in word if c.isalpha())
         if any(not c.isalpha() and not unicodedata.category(c).startswith('P') for c in word):raise core.SafeError('Vocal source token may contain letters and punctuation only.')
         allowed={'<scream>','<shriek>','<shout>'} if re.fullmatch(r'a{2,}h',letters,re.I) else {'<pff>'} if re.fullmatch(r'p+f+',letters,re.I) else set()
-        if not allowed:raise core.SafeError('Only explicit nonlexical AAH or PFF tokens may become vocal events.')
+        if not allowed:
+            families=[(r'hmpf','<grunt>'),(r'ugh','<groan>'),(r'm+pf','<grunt>'),(r'm+h','<moan>'),(r'(?:ho){2,}','<laugh>')]
+            allowed={tag for pattern,tag in families if re.fullmatch(pattern,letters,re.I)}
+        if not allowed:raise core.SafeError('Only explicitly supported nonlexical source tokens may become vocal events.')
         if not isinstance(event['tag'],str) or event['tag'] not in allowed:raise core.SafeError('Unsupported vocal event tag for this exact source token.')
 
 

@@ -127,4 +127,27 @@ class DeliveryOverridePlanGates(unittest.TestCase):
         for word,tag in [('Pof.','<pff>'),('Puh!','<pff>'),('Pfeffer','<pff>'),('Pf2','<pff>'),('AAAH!','<pff>'),('Pfff.','<shriek>')]:
             with self.assertRaises(core.SafeError):generate.validate_vocal_events([{'word_index':0,'source_word':word,'tag':tag}])
 
+    def test_five_native_families_preserve_exact_body_punctuation_style_and_voice(self):
+        cases=[('Hmpf.','<grunt>'),('Ugh!','<groan>'),('„Mmmpf!“','<grunt>'),('Mmh…','<moan>'),('Hohoho!','<laugh>')]
+        for word,tag in cases:
+            record=copy.deepcopy(self.records[0]);record['request']['contents'][0]['parts'][0]['text']='Dann  '+word+' Dann, bleib hier.';old=copy.deepcopy(record)
+            value={'delivery_style':'German, original feeling.','vocal_events':[{'word_index':1,'source_word':word,'tag':tag}]}
+            actual=generate.apply_delivery_overrides([record],{record['key']},{record['key']:value})[0]
+            part=actual['request']['contents'][0]['parts'][0];self.assertTrue(part['text'].startswith('Dann  '));self.assertTrue(part['text'].endswith(' Dann, bleib hier.'));self.assertIn(tag,part['text']);self.assertEqual(part['speechMetadata']['style'],value['delivery_style'])
+            self.assertEqual(record,old);self.assertEqual(actual['request']['generationConfig'],old['request']['generationConfig']);self.assertEqual(actual['delivery_override']['vocal_events'],value['vocal_events'])
+            self.assertEqual(part['text'].count(tag),1)
+        self.assertEqual(generate.vocal_event_record({**self.records[0],'request':{'contents':[{'parts':[{'text':'„Mmmpf!“'}]}]}},{'delivery_style':'Brief.','vocal_events':[{'word_index':0,'source_word':'„Mmmpf!“','tag':'<grunt>'}]})['request']['contents'][0]['parts'][0]['text'],'„<grunt>!“')
+
+    def test_native_families_no_lexical_rewrite_wrong_tags_token_index_or_conflict(self):
+        for word in ['He!','Ach.','Hm','Oh','Ha!','Ho','Lia','Foltan','Hmpfer','Ugh2','Mmmpfa','Mmhmm','Hahaha']:
+            with self.assertRaises(core.SafeError):generate.validate_vocal_events([{'word_index':0,'source_word':word,'tag':'<grunt>'}])
+        for word,allowed in [('Hmpf','<grunt>'),('Ugh','<groan>'),('Mmmpf','<grunt>'),('Mmh','<moan>'),('Hohoho','<laugh>')]:
+            for wrong in {'<grunt>','<groan>','<moan>','<laugh>','<pff>','<scream>'}-{allowed}:
+                with self.assertRaises(core.SafeError):generate.validate_vocal_events([{'word_index':0,'source_word':word,'tag':wrong}])
+            record=copy.deepcopy(self.records[0]);record['request']['contents'][0]['parts'][0]['text']=word+' Dann dann.'
+            event={'word_index':0,'source_word':word,'tag':allowed}
+            for bad in [{**event,'word_index':1},{**event,'source_word':word+'!'},{**event,'word_index':True}]:
+                with self.assertRaises(core.SafeError):generate.vocal_event_record(record,{'delivery_style':'German.','vocal_events':[bad]})
+            with self.assertRaises(core.SafeError):generate.vocal_event_record(record,{'delivery_style':'German.','vocal_events':[event],'retake_text':record['request']['contents'][0]['parts'][0]['text']})
+
 if __name__=='__main__':unittest.main()
