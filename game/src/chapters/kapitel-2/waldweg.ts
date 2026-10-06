@@ -6,6 +6,7 @@ import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { addCampfire, LAGER_OCCLUDERS, LAGER_WALK, SPOT } from './lager';
 import { bg, gotoNext, sfx, sleep } from './shared';
+import { forestEncounter, playEncounter, saveEncounterReturn } from '../common/encounters';
 
 const lia = (w: WorldCtx, text: string, mood?: string) => w.say('k2-lia', text, { mood });
 
@@ -140,6 +141,26 @@ export const waldweg: MapDef = defineMap({
   npcs: [],
   props: [{ prop: 'k2-speikraut', id: 'speikraut-prop', at: [952, 432], collide: false }],
   interactables: [
+    {
+      id: 'wegelagerer', verb: 'Weg am Bach prüfen', at: [972, 330], radius: 32, sparkle: true,
+      when: () => G.state.is('k2-rast-fertig') && !G.state.is('k2-wegelagerer-besiegt') && !G.state.is('k2-wegelagerer-umgangen'),
+      onInteract: async w => {
+        await w.say('foltan', 'Zwei Wegelagerer am anderen Ufer. Sie tragen zusammengeklaubte Rüstung. Wir können sie vertreiben oder den Bach weiter unten queren.');
+        const pick = await w.choose(['„Gehen wir ihnen aus dem Weg.“', '„Ich komme mit. Aber bleibt bei mir.“']);
+        if (pick === 0) {
+          G.state.set('k2-wegelagerer-umgangen');
+          saveEncounterReturn(w);
+          await w.say('foltan', 'Vernünftig. Die Suche nach deiner Schwester geht vor.');
+          return;
+        }
+        await w.say('foltan', 'Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.');
+        const result = await playEncounter(w, forestEncounter(), 'k2-wegelagerer-besiegt');
+        if (result.outcome === 'win') {
+          await w.think('Meine Hände zittern noch. Aber wir sind durchgekommen.');
+          await w.say('azar', 'Für heute reicht mir das. Beim nächsten Bach wünsche ich mir wieder Eichhörnchen.');
+        }
+      },
+    },
     {
       id: 'speikraut', verb: 'Untersuchen', at: [952, 432], radius: 24, once: false, sparkle: true,
       when: () => !G.state.is('k2-speikraut-gepflueckt'),
@@ -366,6 +387,7 @@ async function rest(w: WorldCtx): Promise<void> {
   w.companions.add('foltan', 'foltan', 'foltan');
   w.companions.add('azar', 'azar', 'azar');
   w.setObjective('k2-osten', 'Weiter nach Osten, über die Trittsteine.', [1270, 274]);
+  w.bark('foltan', 'Am Bach stehen Fremde. Sieh dir den Weg an, bevor wir hinübergehen.', 4200);
 }
 
 async function onSpeikraut(w: WorldCtx): Promise<void> {

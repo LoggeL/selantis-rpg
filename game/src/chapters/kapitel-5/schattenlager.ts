@@ -168,7 +168,9 @@ async function treeScene(w: WorldCtx): Promise<void> {
     await w.player.emote('anger', 700);
     await w.camera.zoom(1, 700);
     await w.camera.pan('player', 600);
-    await G.ui.hold('Halte still', 2600, { struggle: true, onRelease: () => sfx('branch-snap', { volume: 0.5 }) });
+    await G.ui.stealthGame('listen', 'Im Schatten lauschen', {
+      onNoise: () => { void w.player.emote('drop', 600); },
+    });
     await w.think('Ihr Leben ist mehr wert? Mehr wert als was? Was wollen die von Kyra?');
     await w.camera.pan([900, 340], 600);
     await w.say('baris', 'Orwen. Wir reiten voraus und sehen uns den Weg zur Grotte an. Ihr drei haltet Wache.');

@@ -7,8 +7,8 @@ describe('Sanft pusten', () => {
     let s = blowStart();
     let caught = false;
     for (let i = 0; i < 600 && !caught; i++) {
-      const holding = s.breath < (cfg.lo + cfg.hi) / 2 + s.drift; // hold to the middle of the drifting zone
-      const r = blowStep(s, 1 / 60, holding, cfg);
+      const adjustment = Math.abs(s.breath - ((cfg.lo + cfg.hi) / 2 + s.drift)) < 0.025 ? 0 : s.breath < (cfg.lo + cfg.hi) / 2 + s.drift ? 1 : -1;
+      const r = blowStep(s, 1 / 60, adjustment, cfg);
       s = r.state;
       caught = r.event === 'catch';
     }
@@ -19,7 +19,7 @@ describe('Sanft pusten', () => {
     const cfg = blowConfig(false);
     let s = { ...blowStart(), ember: 0.6 };
     let puffed = false;
-    for (let i = 0; i < 240 && !puffed; i++) { const r = blowStep(s, 1 / 60, true, cfg); s = r.state; puffed = r.event === 'puff'; }
+    for (let i = 0; i < 240 && !puffed; i++) { const r = blowStep(s, 1 / 60, 1, cfg); s = r.state; puffed = r.event === 'puff'; }
     expect(puffed).toBe(true);
     expect(s.ember).toBeLessThan(0.6);
   });
@@ -28,6 +28,12 @@ describe('Sanft pusten', () => {
     const a = blowConfig(false), b = blowConfig(true);
     expect(b.hi - b.lo).toBeGreaterThan(a.hi - a.lo);
     expect(b.needSec).toBeLessThan(a.needSec);
+  });
+
+  it('no adjustment does not produce fire, and lowering the airflow weakens it', () => {
+    const cfg = blowConfig(false);
+    expect(blowStep(blowStart(), 30, 0, cfg).state.ember).toBe(0);
+    expect(blowStep({ ...blowStart(), breath: 0.8 }, 0.2, -1, cfg).state.breath).toBeLessThan(0.8);
   });
 });
 

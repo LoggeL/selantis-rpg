@@ -3399,6 +3399,11 @@
    "w": 1280,
    "h": 720
   },
+  "minigame-forge": {
+   "file": "assets/bg/minigame-forge.png",
+   "w": 640,
+   "h": 360
+  },
   "prolog-flucht": {
    "file": "assets/bg/prolog-flucht.png",
    "w": 1280,

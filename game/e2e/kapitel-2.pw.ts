@@ -1,4 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
+import { playSceneAction } from './sceneActions';
+import { disableReloads } from './noReloads';
 
 /**
  * Kapitel II – „Die Straße nach Osten“: warps into every scene and drives its critical path with real inputs
@@ -7,6 +9,7 @@ import { expect, test, type Page } from '@playwright/test';
  */
 
 test.use({ viewport: { width: 1280, height: 720 } });
+test.beforeEach(async ({ page }) => disableReloads(page));
 test.describe.configure({ mode: 'parallel' });
 
 type Chooser = (options: string[]) => number;
@@ -23,6 +26,7 @@ const objective = (page: Page) => page.evaluate(() => (window as any).G.state.ac
 
 /** Answers whatever UI is open: choices (via `choose`), hold prompts, dialogue/narration (Enter). */
 async function answer(page: Page, choose?: Chooser): Promise<void> {
+  if (await playSceneAction(page)) return;
   const ui = await page.evaluate(() => {
     const vis = (el: Element | null) => !!el && getComputedStyle(el).display !== 'none' && !el.classList.contains('is-closing');
     const choices = [...document.querySelectorAll('.choices .choice')].filter(vis).map(b => ({ text: b.querySelector('.choice-text')?.textContent ?? '', disabled: (b as HTMLButtonElement).disabled || b.classList.contains('is-disabled') }));
@@ -49,7 +53,7 @@ async function answer(page: Page, choose?: Chooser): Promise<void> {
 }
 
 /** Advances dialogue until `done` is true. */
-async function advance(page: Page, done: () => Promise<boolean>, choose?: Chooser, timeout = 60000): Promise<void> {
+async function advance(page: Page, done: () => Promise<boolean>, choose?: Chooser, timeout = 120000): Promise<void> {
   const t0 = Date.now();
   while (Date.now() - t0 < timeout) {
     if (await done()) return;

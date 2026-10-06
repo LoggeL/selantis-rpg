@@ -7,7 +7,8 @@ import { foltanAzarSkript, lagerNacht } from './foltanAzar';
 import { erstesLagerSkript, lager } from './lager';
 import { prepareAfterFoltanAzar, prepareAfterLager, prepareAfterStrasse, prepareKapitel2Base, ui } from './shared';
 import { strasse, strasseSkript } from './strasse';
-import { lagerMorgen, waldwegSkript } from './waldweg';
+import { lagerMorgen, waldweg, waldwegSkript } from './waldweg';
+import { startEncounterWorld } from '../common/encounters';
 
 defineChapter({
   id: 'kapitel-2',
@@ -52,6 +53,11 @@ defineChapter({
       prepare: prepareAfterFoltanAzar,
       start: async () => {
         G.state.setParty(['foltan', 'azar']);
+        if (G.state.is('k2-waldweg-start')) {
+          await startEncounterWorld({ map: waldweg, spawn: 'west', player: 'lia-cloak' });
+          await G.ui.fade('in', 600);
+          return;
+        }
         await startWorld({ map: lagerMorgen, spawn: 'bett', player: 'lia-cloak', script: waldwegSkript });
         await G.ui.fade('in', 1400);
       },

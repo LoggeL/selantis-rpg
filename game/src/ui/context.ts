@@ -10,6 +10,8 @@ export type LayerName = typeof LAYERS[number];
 
 export interface Modal {
   id: string;
+  /** Directional interactions keep gameplay locked until their movement keys are released. */
+  releaseKeys?: readonly string[];
   /** Return true when the key was handled (it is then swallowed and never reaches Phaser). */
   onKey?(e: KeyboardEvent): boolean;
   onKeyUp?(e: KeyboardEvent): boolean;
@@ -142,21 +144,22 @@ export class UiContext {
       if (i < 0) return; // already dropped by clearModals() (its lock was released there)
       this.stack.splice(i, 1);
       this.syncModalClass();
-      this.releaseLock();
+      this.releaseLock(modal.releaseKeys);
     };
   }
 
   /** Releases one lock, but only after confirm keys are released (no carry-over into gameplay). */
-  private releaseLock(): void {
+  private releaseLock(extraKeys: readonly string[] = []): void {
     const gen = this.generation;
     const release = () => { if (gen === this.generation && this.locks > 0) { this.locks--; inputLock.pop(); } };
-    const anyHeld = [...this.held].some(code => CONFIRM_CODES.has(code));
+    const waitsFor = (code: string) => CONFIRM_CODES.has(code) || extraKeys.includes(code);
+    const anyHeld = [...this.held].some(waitsFor);
     if (!anyHeld) { setTimeout(release, 40); return; }
     this.pendingRelease++;
     const started = performance.now();
     const check = () => {
-      const still = [...this.held].some(code => CONFIRM_CODES.has(code));
-      if (!still || performance.now() - started > 900) { this.pendingRelease--; release(); return; }
+      const still = [...this.held].some(waitsFor);
+      if (!still || (!extraKeys.length && performance.now() - started > 900)) { this.pendingRelease--; release(); return; }
       requestAnimationFrame(check);
     };
     requestAnimationFrame(check);

@@ -8,7 +8,7 @@ import { Battle } from './rules/battle';
 import { Grid, manhattan } from './rules/grid';
 import { evaluate, type Outcome } from './rules/objectives';
 import type { BattleEvent, Facing, Phase, Point, StatusId, Unit } from './rules/types';
-import { awardProgress, progressOf, restoreProgress, type CharacterProgress } from './rules/progression';
+import { progressOf, restoreProgress, type CharacterProgress } from './rules/progression';
 
 /** Everything the controller needs from the presentation (scene + DOM UI). */
 export interface Presenter {
@@ -75,7 +75,7 @@ export class BattleController {
     for (const u of def.units) this.unitDefs.set(u.id, u);
     for (const w of def.waves ?? []) for (const u of w.units) this.unitDefs.set(u.id, u);
     const units = def.units.map(u => restoreProgress(u, u.team !== 'enemy' ? progress?.get(u.id) : undefined));
-    this.battle = new Battle({ grid, units, abilities: def.abilities, seed: def.seed ?? 7, turnMode: 'speed' });
+    this.battle = new Battle({ grid, units, abilities: def.abilities, seed: def.seed ?? 7, turnMode: 'speed', progression: def.progression });
     this.objectiveText = def.objective.text;
     this.objectiveDetail = def.objective.detail;
     this.ctx = this.makeCtx();
@@ -143,7 +143,8 @@ export class BattleController {
       await this.afterEvents(events);
       await this.checkOutcome();
     } finally { this.unlock(); }
-    this.presenter.refresh();
+    // onFinish may already have stopped tactics and restored the exploration scene.
+    if (!this.ended) this.presenter.refresh();
     return true;
   }
 
@@ -268,7 +269,7 @@ export class BattleController {
     };
     if (o === 'win') {
       const rewards = b.units.filter(u => u.team !== 'enemy' && u.down !== 'dead')
-        .flatMap(u => awardProgress(u, 20, 20));
+        .flatMap(u => b.rewardVictory(u.id));
       await this.presenter.play(rewards);
       for (const u of b.units) if (u.team !== 'enemy' && u.down !== 'dead') this.progress?.set(u.id, progressOf(u));
       await this.presenter.outcome('win', false);

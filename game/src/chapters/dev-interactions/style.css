@@ -1,0 +1,7 @@
+.interaction-preview-nav.ui-panel { pointer-events: none; z-index: 10; padding: .6em; }
+.interaction-preview-picker { pointer-events: auto; display: flex; align-items: center; gap: .7em; width: max-content; max-width: 100%; margin: 0 auto; padding: .45em .65em; font-size: .85em; }
+.interaction-preview-picker span { color: var(--gold-hi); font-family: var(--f-label); }
+.interaction-preview-picker select { min-width: 0; max-width: 23em; min-height: 2.4em; padding: .3em 1.8em .3em .6em; font: inherit; color: var(--parch); background: #141d2b; border: 1px solid var(--gold-line); border-radius: .3em; cursor: pointer; }
+.interaction-preview-picker optgroup, .interaction-preview-picker option { background: #141d2b; color: var(--parch); }
+.interaction-preview-nav ~ .k3-blow .k3-veil, .interaction-preview-nav ~ .k3-stake .k3-veil { animation: none; }
+@media (max-width: 480px) { .interaction-preview-picker { width: 100%; } .interaction-preview-picker select { flex: 1; width: 0; } }

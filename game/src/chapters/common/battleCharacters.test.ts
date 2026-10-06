@@ -17,7 +17,7 @@ describe('campaign character levels', () => {
     const stats = (def: typeof dunkelhain, id: string) => makeUnit(def.units.find(u => u.id === id)!);
     expect(stats(dunkelhain, 'valentus')).toMatchObject({ level: 20, hp: 87, maxMp: 62, atk: 22, def: 11, speed: 9 });
     expect(stats(sandboxBattle, 'valentus')).toMatchObject({ level: 20, hp: 87, maxMp: 62, atk: 22, def: 11, speed: 9 });
-    expect(stats(dunkelhain, 'falke')).toMatchObject({ level: 12, hp: 59, maxMp: 26, atk: 14, def: 7, speed: 9 });
+    expect(stats(dunkelhain, 'falke')).toMatchObject({ level: 7, hp: 44, maxMp: 16, atk: 9, def: 5, speed: 8 });
     expect(stats(rescue, 'flick')).toMatchObject({ level: 8, hp: 39, maxMp: 20, atk: 10, def: 4, speed: 9 });
     expect(stats(rescue, 'lia')).toMatchObject({ level: 2, hp: 17, maxMp: 20, atk: 2, def: 0, speed: 6 });
     expect(stats(rescue, 'kyra')).toMatchObject({ level: 1, hp: 12, maxMp: 10, atk: 2, def: 0, speed: 6 });
@@ -28,7 +28,7 @@ describe('campaign character levels', () => {
     expect(paladin).toMatchObject({ level: 8, hp: 25, maxHp: 43 });
     const young = makeUnit({ ...characterStats('baris-young'), id: 'young', name: 'Baris', team: 'enemy', x: 0, y: 0, abilities: [] });
     const captain = makeUnit({ ...characterStats('baris'), id: 'captain', name: 'Baris', team: 'enemy', x: 0, y: 0, abilities: [] });
-    expect(young).toMatchObject({ level: 9, hp: 48, atk: 12, def: 6 });
+    expect(young).toMatchObject({ level: 14, hp: 63, atk: 17, def: 8 });
     expect(captain).toMatchObject({ level: 16, hp: 69, atk: 19, def: 9 });
   });
 });

@@ -35,4 +35,5 @@ registerAbilities([
   { id: 'ausweichen', name: 'Ausweichen', description: 'Im Kampf: Lia weicht dem nächsten Angriff aus.' },
   { id: 'ablenken', name: 'Ablenken', description: 'Im Kampf: Lia zieht die Aufmerksamkeit der Gegner auf sich.' },
   { id: 'urmacht', name: 'Urmacht', description: 'Eine Kraft, die Lia nicht versteht und nicht beherrscht.' },
+  { id: 'lichtstoss', name: 'Lichtstoß', description: 'Nach Kyras Rettung lernt Lia auf der gemeinsamen Weiterreise, einen kleinen Teil des Lichts gezielt zu lenken.' },
 ]);

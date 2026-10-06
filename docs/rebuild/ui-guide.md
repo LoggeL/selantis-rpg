@@ -20,7 +20,8 @@ await G.ui.think('Irgendwann sehe ich mehr von der Welt.');            // Lias G
 await G.ui.plate('karte', { caption: 'Selantis', pan: 'right' });       // bleibt, Dialoge laufen darüber
 await G.ui.closePlate();
 G.ui.letterbox(true);
-await G.ui.hold('Halte still', 2500, { struggle: true, onRelease: () => G.audio.sfx('branch-snap') });
+await G.ui.storyAction('lift', 'Die Hand heben');
+await G.ui.stealthGame('cover', 'In der Böschung verstecken', { onNoise: () => G.audio.sfx('rustle') });
 await G.ui.fade('out', 900); await G.ui.caption('Sechzehn Jahre später'); // Caption lässt die Blende, wie sie war
 ```
 
@@ -31,12 +32,54 @@ await G.ui.fade('out', 900); await G.ui.caption('Sechzehn Jahre später'); // Ca
 - `choose(…, { speaker })` wirkt nur zusammen mit `prompt` (Namensband + Porträt über der Frage). Ohne `prompt`
   bleibt die zuletzt gesprochene Zeile samt Sprecher stehen.
 
+## Story-Aktionen und Challenges
+
+`storyAction(kind, label, opts?)` bietet Bewegungen ohne Zeitdruck und ohne Fehlerzustand. Pfeile/WASD,
+der ziehbare Griff und Bildschirm-Pfeiltasten steuern dieselbe Bewegung. Die Welt bleibt bis zum Abschluss
+gesperrt. `onStroke(n)` meldet abgeschlossene Bewegungen, `onProgress(p)` den Fortschritt von 0 bis 1.
+
+| Art | Bewegung | Szene |
+| --- | --- | --- |
+| `reach` | Hand nach rechts ins Licht führen | Prolog, Höhle |
+| `lift` | Hand nach oben zur Wiege heben | Prolog, Zuflucht |
+| `open-eyes` | Lider nach oben schieben | Foltan und Azar |
+| `tend` | Tinktur dreimal hin und her auftragen | Ferse am Bach |
+| `bellows` | Großen Holzgriff ziehen: Faltenkörper zusammendrücken und öffnen, drei Pumpbewegungen | Azars Schmiede |
+
+`stealthGame(kind, label, { onNoise? })` startet erst mit „Bereit“ oder E/Enter. Es dauert bei fehlerfreiem
+Spiel etwa sechs bis sieben Sekunden. Ein Fehler wiederholt nur den aktuellen Abschnitt; abgeschlossene
+Abschnitte bleiben erhalten. Das Ergebnis ist die Anzahl der Geräusche, damit das Kapitel darauf reagieren kann.
+
+| Art | Challenge |
+| --- | --- |
+| `cover` | Zum markierten Busch wechseln, solange die Wache wegsieht. Während der Suche stillbleiben. |
+| `duck` | Unter zwei Reitergruppen abtauchen und dazwischen kurz nach Kyra sehen. |
+| `listen` | Zwischen den Schatten zweier Baumstämme wechseln, bevor die Fackel herüberschwenkt. |
+
+Die Vorführung `?scene=interaction-demo&kind=cover` unterstützt alle acht Arten aus diesen Tabellen.
+Die Auswahl „Vorschau“ wechselt direkt zwischen ihnen sowie Feuerbohren (`fire`), Atemregler (`blow`) und
+Pflockziehen (`stake`), ohne einen Kapitelweg vorzuspielen.
+Beim Blasebalg folgt der Griff direkt dem Ziehen. W/S oder Hoch/Runter bewegen ihn mit 2,8 Hüben pro Sekunde.
+Der Atemregler im Leselager verwendet Links/Rechts oder Ziehen. Feuerbohren und Pflockziehen haben eigene
+Zeitfenster, die übrigen Challenges behalten ihre jeweiligen Regeln für Erkundung, Rätsel und Training.
+`hold()` bleibt als UI-Baustein für die Entwicklungsdemo verfügbar; die Storykapitel verwenden ihn nicht.
+
+Die Karten folgen den dunklen Flächen und Goldrahmen des Feuerbohrens. Die Versteckspiele verwenden Lias
+Lauf- und Duckposen sowie die echten Wachen und Reiter. Büsche und Baumstämme werden vor Lia gezeichnet
+und verdecken sie tatsächlich. Story-Aktionen, Atemregler und Pflockziehen zeigen jeweils passende
+Charaktere, Requisiten und Bildausschnitte. Die Schmiede verwendet den Hintergrund `minigame-forge`,
+der mit dem eingebauten Imagegen-Werkzeug erstellt wurde; der Prompt steht in `art/minigames.json`.
+
+Die neuen Interaktionen pausieren bei Fokusverlust oder im Hintergrund. Szenenwechsel entfernen Eingaben
+und Oberflächen und verhindern, dass alte Abschlussversprechen die Geschichte fortsetzen. Gehaltene
+Richtungstasten geben die Welteingabe erst nach dem Loslassen frei.
+
 ## Skripte, die die Szene überleben (wichtig)
 
 Verlässt der Spieler eine Szene (Titel, Warp, `transition`), laufen alte Skripte sonst weiter. Deshalb:
 - `await (G.ui as UiApiExt).wait(ms)` statt `setTimeout`/eigener Sleeps – kehrt **nie** zurück, wenn die Szene inzwischen
   verlassen wurde; das Skript bleibt an seinem nächsten `await` stehen.
-- Alle Story-Aufrufe (`say/choose/narrate/think/plate/chapterCard/caption/hold`) aus einer verlassenen Szene zeichnen nichts
+- Alle Story-Aufrufe (`say/choose/narrate/think/plate/chapterCard/caption/hold/storyAction/stealthGame`) aus einer verlassenen Szene zeichnen nichts
   und lösen nie auf. `letterbox(true)`, `bubble`, `hint` und Belohnungs-Toasts werden dann ignoriert.
 - Für eigene Schleifen: `const t = ui.token(); … if (!ui.alive(t)) return;`
 

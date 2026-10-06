@@ -1,4 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
+import { playSceneAction } from './sceneActions';
+import { disableReloads } from './noReloads';
+
+test.beforeEach(async ({ page }) => disableReloads(page));
 
 /**
  * Kapitel V „Regen“: warps into every scene and drives the critical path to its end with real inputs (clicks on the
@@ -33,6 +37,7 @@ const pos = (page: Page) => page.evaluate(() => {
 /** One dialogue step: a choice gets a deliberate number key (next of c.picks, default 1); text gets Enter; a hold prompt is held. */
 async function step(c: Ctx): Promise<void> {
   const { page } = c;
+  if (await playSceneAction(page)) return;
   const state = await page.evaluate(() => ({
     hold: Boolean(document.querySelector('.hold:not(.is-complete)')),
     choice: document.querySelectorAll('.choices .choice').length,

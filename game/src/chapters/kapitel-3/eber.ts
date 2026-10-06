@@ -7,6 +7,7 @@ import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { contradictsFoltan, FINAL } from './deduce';
 import { bg, boardCount, lia, sfx, ui, until, walk } from './k3';
 import { openClueBoard } from './panels';
+import { escortEncounter, playEncounter } from '../common/encounters';
 
 // ---------------------------------------------------------------------------------------------------------------
 // Map: the taproom
@@ -387,13 +388,33 @@ async function talkJuggler(w: WorldCtx): Promise<void> {
 
 async function talkMerchant(w: WorldCtx): Promise<void> {
   const m = w.actor('haendler');
-  if (G.state.is('k3-haendler')) { await m.say('Bleib auf der Straße, Mädchen, und reise nicht allein.'); return; }
+  if (G.state.is('k3-haendler')) { await offerEscort(w); return; }
   G.state.set('k3-haendler');
   await m.say('Die Straße nach Portas ist leer wie nie. Wer reist, reist in Gruppen. Oder gar nicht.');
   await m.say('Und der Rat der Drei? Hockt in Trapas. Ihr Großmeister soll verrückt sein. Jagt fremde Kulte statt Räuber.');
   G.state.addLore('k3-lore-rat-der-drei');
   await lia(w, 'Und wer schützt die Höfe?');
   await m.say('Niemand, Kind. Niemand.');
+  await offerEscort(w);
+}
+
+async function offerEscort(w: WorldCtx): Promise<void> {
+  if (G.state.is('k3-begleitung-erledigt')) {
+    await w.say('haendler', 'Mein Reisegefährte ist sicher angekommen. Gute Reise euch, und danke noch einmal.');
+    return;
+  }
+  await w.say('haendler', 'Mein Reisegefährte wartet im Stall. Seine Gruppe steht am nächsten Wegzeichen, aber da treiben sich Räuber herum. Begleitet ihr ihn? Ich gebe euch Brot und eine Wundtinktur für die Reise. Nur ein kurzes Stück.');
+  const pick = await w.choose(['„Wir suchen meine Schwester. Heute nicht.“', '„Foltan, Azar, helft ihr mir dabei?“']);
+  if (pick === 0) return;
+  await w.say('foltan', 'Bis zum Wegzeichen. Danach gehen wir unserer eigenen Sache nach.');
+  await w.narrate('Zu viert treten sie vor die Schenke. Hinter der Wegbiegung stehen drei Gestalten auf der Straße.', { style: 'card' });
+  const result = await playEncounter(w, escortEncounter(), 'k3-begleitung-erledigt', () => {
+    G.state.give('bread'); G.state.give('tincture');
+  });
+  if (result.outcome === 'win') {
+    await w.say('haendler', 'Er ist bei den anderen. Hier, wie versprochen. Und danke.');
+    await w.think('Ich musste nicht jeden Räuber besiegen. Wir mussten nur zusammen durchkommen.');
+  }
 }
 
 async function talkTravellers(w: WorldCtx): Promise<void> {
@@ -619,6 +640,7 @@ export async function eberScript(w: WorldCtx): Promise<void> {
     await intro(w);
   } else {
     w.player.setIdle('idle');
+    void ui().fade('in', 400);
   }
   if (!G.state.is('k3-azar-geschichte')) w.setObjective('k3-umhoeren', 'Hör dich im Goldenen Eber um: War Kyra hier?', G.state.hasClue('k3-seilfasern') ? null : 'pfeiler');
   updateObjective();

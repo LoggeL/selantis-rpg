@@ -9,6 +9,8 @@ import { finaleScript, lagerNachtMap } from './finale';
 import { regenwaldMap, regenwaldScript } from './regenwald';
 import { startRescue } from './rettung';
 import { schattenlagerMap, schattenlagerScript } from './schattenlager';
+import { startEncounterWorld } from '../common/encounters';
+import { weiterreiseMap } from './weiterreise';
 
 defineChapter({
   id: 'kapitel-5',
@@ -46,6 +48,11 @@ defineChapter({
       id: 'finale', title: 'Unter Crios',
       prepare: () => prepareStage('finale'),
       start: () => startWorld({ map: lagerNachtMap, spawn: 'erwachen', player: 'lia-cloak', script: finaleScript, fadeIn: false }),
+    },
+    {
+      id: 'weiterreise', title: 'Zu dritt nach Süden',
+      prepare: () => prepareStage('finale'),
+      start: () => startEncounterWorld({ map: weiterreiseMap, spawn: 'start', player: 'lia-cloak', companions: ['flick', 'kyra'] }),
     },
   ],
 });

@@ -1,5 +1,5 @@
 // Pure rules of the two Kapitel III minigames (tested in games.test.ts):
-//  * „Sanft pusten“ (leselager): hold to blow on Azar's glowing tinder; keep the breath inside the glow zone.
+//  * „Sanft pusten“ (leselager): adjust airflow over Azar's glowing tinder; keep it inside the glow zone.
 //  * „Der Pflock“ (kyra): rock the stake in time with the soldiers' drum; off-beat tugs make noise.
 
 // ------------------------------------------------------------------------------------------------ Sanft pusten
@@ -33,11 +33,11 @@ export const blowStart = (): BlowState => ({ breath: 0, ember: 0, over: 0, drift
 
 export type BlowEvent = 'puff' | 'catch' | null;
 
-/** Advances the blow game by dt seconds. Holding raises the breath, releasing lets it sink. */
-export function blowStep(s: BlowState, dt: number, holding: boolean, cfg: BlowConfig): { state: BlowState; event: BlowEvent } {
+/** Directional airflow adjustment. With no adjustment the breath slowly weakens. */
+export function blowStep(s: BlowState, dt: number, adjustment: number, cfg: BlowConfig): { state: BlowState; event: BlowEvent } {
   const time = s.time + dt;
   const drift = Math.sin(time * 0.9) * 0.06 + Math.sin(time * 2.3) * 0.025; // gusts move the zone a little
-  const breath = Math.max(0, Math.min(1, s.breath + (holding ? 0.62 : -0.8) * dt));
+  const breath = Math.max(0, Math.min(1, s.breath + (adjustment === 0 ? -0.065 : adjustment * 0.7) * dt));
   const lo = cfg.lo + drift, hi = cfg.hi + drift;
   let ember = s.ember;
   let over = breath > hi ? s.over + dt : 0;

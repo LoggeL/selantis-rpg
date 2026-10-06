@@ -79,9 +79,13 @@ Ohne URL-Parameter startet der Titelbildschirm. `?scene=<id>` springt über `G.w
 | II: Die Straße nach Osten | `strasse`, `erstes-lager`, `foltan-azar`, `waldweg` |
 | III: Der Goldene Eber | `eber`, `leselager`, `kyra` |
 | IV: Die Freie Bruderschaft | `augenbinde`, `bruderschaft`, `verrat` |
-| V: Regen | `regenwald`, `faehrte`, `schattenlager`, `rettung`, `finale` |
+| V: Regen | `regenwald`, `faehrte`, `schattenlager`, `rettung`, `finale`, optional `weiterreise` |
 
 Lias Weg verbindet Erkundung, Gespräche, das Packen der Reiseausrüstung, Feuermachen, Spurensuche und Schleichen. Valentus kämpft im Prolog; Lia nutzt bei Kyras Rettung zusammen mit Flick ihre verfügbaren Fähigkeiten und Gegenstände. Kapitelentscheidungen und Funde werden im gemeinsamen Kampagnenzustand geführt.
+
+Am Waldweg und beim Händler im Goldenen Eber kann Lia mit Foltan und Azar je eine freiwillige Begegnung bestehen. Beide sind einmalig und geben Lia nur wenig Erfahrung. Nach der Rettung öffnet die optionale Weiterreise Kämpfe und stärkere Progression für Lia, Flick und Kyra. Ablauf und Belohnungen stehen in [Kämpfe und Progression](docs/combat-progression.md).
+
+Story-Aktionen wie Handheben, Augenöffnen, Wundpflege und Blasebalgtreten lassen sich ohne Zeitdruck mit Pfeiltasten, WASD oder einem ziehbaren Griff ausführen. Challenges haben eigene Regeln: Deckung wechseln und während der Suche stillbleiben, unter Reitern abtauchen, im Schatten von Fackeln lauschen, Feuer im richtigen Moment bohren, die Atemstärke regeln oder am Pflock im Trommeltakt ziehen. Fehler beim Verstecken wiederholen nur den aktuellen kurzen Abschnitt.
 
 ## Spielstände und Debug
 
@@ -94,6 +98,7 @@ F2 öffnet eine filterbare Szenenwahl mit den Storykapiteln und versteckten Entw
 | Welt | `world-demo`, `world-demo-2`, `world-stress` |
 | Kampf | `tactics-demo`, `tactics-rescue-demo`, `tactics-sandbox` |
 | Oberfläche | `ui-demo`, `ui-sandbox` |
+| Interaktionen | `interaction-demo` (Art mit `&kind=cover\|duck\|listen\|reach\|lift\|open-eyes\|tend\|bellows`) |
 | Audio | `audio-demo` |
 | Grafik | `art-gallery` |
 

@@ -1,5 +1,5 @@
 // prolog-zuflucht: candle-lit farmhouse parlour. Valentus wakes, the couple has nursed him. He cannot be healed and
-// fears for his rescuers. The cradle with two sleeping babies; hold to raise the hand, turquoise shimmer, glaring
+// fears for his rescuers. The cradle with two sleeping babies; raise the hand, turquoise shimmer, glaring
 // light, a bang: Valentus is gone, the babies cry. „Sechzehn Jahre später.“ Which child? Stays open.
 // Map: assets/bg/prolog-zuflucht.png (640×360, Codex).
 import { G } from '../../core/G';
@@ -141,7 +141,7 @@ async function gift(w: WorldCtx): Promise<void> {
     w.player.play('cast');
     let hum: { stop(ms?: number): void } | null = null;
     try { hum = G.audio.loop('urmacht', { interval: 1.6, volume: 0.35 }); } catch { hum = null; }
-    await G.ui.hold('Die Hand heben', 3000);
+    await G.ui.storyAction('lift', 'Die Hand heben');
     shimmer.remove(false);
     hum?.stop(400);
     void glow.fadeTo(1.5, 600);

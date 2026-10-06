@@ -10,6 +10,7 @@ import { el, nextFrame, sfx, wait } from './dom';
 import { FxUi } from './fx';
 import { BubbleUi, HintUi } from './hint';
 import { hold } from './hold';
+import { storyAction, stealthGame } from './interactions';
 import { HudUi } from './hud';
 import { openJournal } from './journal';
 import { openMenu } from './menu';
@@ -203,6 +204,8 @@ export function createUi(): UiApiExt {
       return Object.assign(bubbles.bubble(text, anchor, ms, voice, opts?.voiceText), { voiced: Boolean(voice), voiceDone: voice?.done });
     },
     hold: (label, durationMs, opts) => (ctx.stale() ? ctx.never() : hold(label, durationMs, opts)),
+    storyAction,
+    stealthGame,
 
     panel(className) {
       const node = el('div', `ui-panel${className ? ` ${className}` : ''}`);

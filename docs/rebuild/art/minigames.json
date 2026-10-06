@@ -1,0 +1,15 @@
+{
+  "area": "minigames",
+  "tool": "built-in image_gen.imagegen",
+  "images": {
+    "game/public/assets/bg/minigame-forge.png": {
+      "kind": "bg",
+      "id": "minigame-forge",
+      "prompt": "Use case: stylized-concept. Asset type: background raster for an interactive fantasy RPG bellows mini game. Primary request: an empty medieval blacksmith workshop inside a forest camp, matching the detailed hand-painted pixel art of the reference game backgrounds. Scene: dark weathered timber shelter, stone forge hearth on the right with small orange coals, soot, a few hanging tongs and tools, low wooden workbench in the back, packed earth floor. Slightly elevated three-quarter game camera, wide horizontal composition, usable clear open foreground. Warm subtle forge light against dark desaturated blue and brown shadows. Style: polished 1990s fantasy RPG environment, crisp visible pixel clusters, richly textured materials, atmospheric painted pixel art, no smooth vector shapes, no photorealism. No people, no bellows, no anvil in the foreground because those interactive objects are drawn separately by the game. Keep the central foreground and left foreground clear. No lettering, no UI, no frame, no watermark. Landscape 16:9 composition.",
+      "refs": [],
+      "source": "output/imagegen/minigame-forge.png",
+      "runtimeSize": [640, 360],
+      "ok": true
+    }
+  }
+}

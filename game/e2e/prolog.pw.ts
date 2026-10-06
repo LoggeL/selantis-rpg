@@ -1,8 +1,12 @@
 import { expect, test, type Page } from '@playwright/test';
+import { playSceneAction } from './sceneActions';
+import { disableReloads } from './noReloads';
+
+test.beforeEach(async ({ page }) => disableReloads(page));
 
 /**
  * Prolog („Die Urmacht“): warps into each scene and drives its critical path to the next scene with real inputs
- * (keyboard for walking, talking, dialogue, hold prompts and the whole tactics battle).
+ * (keyboard for walking, talking, dialogue, story gestures and the whole tactics battle).
  *   cd game && SELANTIS_E2E_PORT=5322 npx playwright test e2e/prolog.pw.ts
  */
 
@@ -28,13 +32,15 @@ const busy = (page: Page) => page.evaluate(() => (window as Win).G.ui.busy() as 
 const scene = (page: Page) => page.evaluate(() => (window as Win).G.currentScene as string);
 const flag = (page: Page, k: string) => page.evaluate(k => (window as Win).G.state.is(k) as boolean, k);
 
-/** Advances dialogue/narration with Enter, answers choices with digit keys and holds E through hold prompts. */
+/** Advances dialogue, choices and story gestures with real keys. */
 async function advance(page: Page, { max = 80, idleMs = 1500, pick = 1 } = {}): Promise<void> {
   let idle = 0, n = 0;
   while (n < max && idle <= idleMs) {
     if (await busy(page)) {
       idle = 0;
-      if (await page.locator('.hold.is-in').count()) {
+      if (await playSceneAction(page)) {
+        continue;
+      } else if (await page.locator('.hold.is-in').count()) {
         await page.waitForTimeout(300);
         await page.keyboard.down('e'); await page.waitForTimeout(3800); await page.keyboard.up('e');
       } else {
@@ -275,7 +281,7 @@ test.describe('Prolog', () => {
     expect(errors, errors.join('\n')).toEqual([]);
   });
 
-  test('prolog-zuflucht: wake, the cradle, hold to raise the hand, light and bang, „Sechzehn Jahre später“', async ({ page }) => {
+  test('prolog-zuflucht: wake, the cradle, raise the hand, light and bang, „Sechzehn Jahre später“', async ({ page }) => {
     test.setTimeout(600_000);
     const errors = watchErrors(page);
     await warp(page, 'prolog-zuflucht');
@@ -286,7 +292,7 @@ test.describe('Prolog', () => {
     await advance(page, { max: 40, idleMs: 3000 });
     await page.waitForFunction(() => (window as Win).G.state.activeObjective()?.id === 'prolog-geschenk', undefined, { timeout: 30000 });
     await interact(page, 'wiege-ansehen', 6);
-    await expect(page.locator('.hold.is-in')).toBeVisible({ timeout: 20000 }).catch(() => {});
+    await expect(page.locator('.action-lift')).toBeVisible({ timeout: 20000 }).catch(() => {});
     await advance(page, { max: 60, idleMs: 9000 });
     expect(await flag(page, 'prolog-geschenk')).toBe(true);
     // The prologue hands over to Kapitel I.

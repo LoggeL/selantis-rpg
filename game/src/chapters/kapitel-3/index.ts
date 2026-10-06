@@ -10,6 +10,7 @@ import { startKyra } from './kyra';
 import { leselagerMap, leselagerScript } from './leselager';
 import { openClueBoard } from './panels';
 import { registerK3Plates } from './plates';
+import { startEncounterWorld } from '../common/encounters';
 
 void stallMap; // registered via defineMap (the taproom's back door leads there)
 
@@ -36,7 +37,7 @@ defineChapter({
     {
       id: 'eber', title: 'Der Goldene Eber',
       prepare: () => { prepareKapitel3(); },
-      start: async () => { registerActions(); await (G.ui as UiApiExt).fade('out', 0); return startWorld({ map: eberMap, spawn: 'eingang', player: 'lia-cloak', companions: [], script: eberScript }); },
+      start: async () => { registerActions(); await (G.ui as UiApiExt).fade('out', 0); return startEncounterWorld({ map: eberMap, spawn: 'eingang', player: 'lia-cloak', companions: [], script: eberScript }); },
     },
     {
       id: 'leselager', title: 'Lagerfeuer im Dickicht',

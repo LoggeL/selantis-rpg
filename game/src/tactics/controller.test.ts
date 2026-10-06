@@ -44,4 +44,26 @@ describe('speed battle flow', () => {
     }, p, {} as UiApi, r => { result = r; }, 0, { get: () => undefined, set: () => { commits++; } });
     await c.run(); expect(result).toBe('retry'); expect(commits).toBe(0);
   });
+
+  it('does not refresh a disposed view after an action ends the encounter', async () => {
+    let finished = false, action: Promise<boolean> | undefined;
+    let c: BattleController;
+    const p = {
+      startBanner: async () => {}, phaseBanner: async () => {}, play: async () => {},
+      endPlayerPhase: () => {}, clearHint: () => {}, wait: async () => {}, outcome: async () => 'continue',
+      refresh: () => { expect(finished).toBe(false); },
+      beginPlayerPhase: () => { action = c.perform(() => c.battle.act('hero', 'finish', { x: 1, y: 0 })); },
+    } as unknown as Presenter;
+    c = new BattleController({
+      id: 'return', title: 'Return', map: { height: ['00'], terrain: ['..'] },
+      abilities: { finish: { id: 'finish', name: 'Finish', description: '', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' }, power: 100, accuracy: 100, alwaysHits: true, vfx: 'slash' } },
+      units: [
+        { id: 'hero', name: 'Hero', team: 'player', x: 0, y: 0, hp: 10, speed: 9, abilities: ['finish'] },
+        { id: 'foe', name: 'Foe', team: 'enemy', x: 1, y: 0, hp: 1, speed: 1, abilities: [] },
+      ],
+      objective: { text: 'Win', win: [{ type: 'defeatAll' }] },
+    }, p, {} as UiApi, () => { finished = true; });
+    await c.run(); await action;
+    expect(finished).toBe(true);
+  });
 });
