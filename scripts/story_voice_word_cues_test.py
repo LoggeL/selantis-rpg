@@ -152,6 +152,14 @@ class StoryAlignmentTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             self.assertFalse(cues.qualified_CTC_cache(row,expected,{},Path(directory)))
 
+    def test_single_vocal_event_cache_uses_strict_current_validator(self):
+        row=self.receipt();row['engine_version']=cues.ENGINE+'/single-root-qualified-scream-waveform-v1'
+        with patch('story_voice_vocal_cues.validate_cached_adoption',return_value=True) as validator:
+            self.assertTrue(cues.qualified_CTC_cache(row,{}, {},Path('/offline-fixture')))
+            validator.assert_called_once()
+        with patch('story_voice_vocal_cues.validate_cached_adoption',return_value=False):
+            self.assertFalse(cues.qualified_CTC_cache(row,{}, {},Path('/offline-fixture')))
+
 
 if __name__ == '__main__':
     unittest.main()

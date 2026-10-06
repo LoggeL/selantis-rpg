@@ -125,6 +125,9 @@ def qualified_CTC_cache(receipt, expected, approval, run, provenance_cache=None)
     """Retain only explicitly adopted, currently proven independent CTC cues."""
     if not receipt:
         return False
+    if receipt.get('engine_version') == ENGINE+'/single-root-qualified-scream-waveform-v1':
+        from story_voice_vocal_cues import validate_cached_adoption
+        return validate_cached_adoption(receipt, expected, approval, run, provenance_cache)
     if receipt.get('engine_version') == ENGINE+'/story-partial-dual-CTC-private-adoption-v1':
         from story_voice_partial_cue_review import validate_cached_adoption
         return validate_cached_adoption(receipt, expected, approval, run, provenance_cache)
@@ -232,7 +235,7 @@ def align_run(run, private_dir, qualification=None, only_ids=None, model_dir=Non
         expected = {'audio_sha256': before[ident], 'text_sha256': text_sha(clip['text']),
                     'source_manifest_sha256': manifest_sha, 'engine_version': ENGINE}
         retained_CTC = qualified_CTC_cache(receipt, expected, approvals.get(ident, {}), run, provenance_cache)
-        base_cache = receipt and not receipt.get('CTC_adoption') and not receipt.get('Partial_CTC_adoption') and all(receipt.get(k) == v for k,v in expected.items())
+        base_cache = receipt and not receipt.get('CTC_adoption') and not receipt.get('Partial_CTC_adoption') and not receipt.get('Vocal_event_adoption') and all(receipt.get(k) == v for k,v in expected.items())
         if not retained_CTC and not base_cache:
             if model_pair is None:
                 model_pair = load_local_model(model_dir)

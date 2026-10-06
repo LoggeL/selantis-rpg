@@ -42,9 +42,83 @@ def validate_sources(manifest, root):
     for name, expected in manifest['source_hashes'].items():
         require(digest(contained(root, name)) == expected, 'Current source hash differs: ' + name)
 
+VARIANT_SOURCE='story-d2dfa57bf2ba5cd1750a6a23'
+VARIANT_TARGET='story-59a013e852c0a30868258880'
+
+def validate_variant_target_qc(run,target,receipt,qc_path,adjudications_path):
+    require(receipt.get('vocal_qc_required') is True,'Derived target must require actual vocal QC')
+    require(qc_path is not None and adjudications_path is not None,'Derived target requires current QC and root adjudications')
+    for path in [qc_path,adjudications_path]:
+        require(Path(path).resolve().is_relative_to(run.resolve()) and Path(path).is_file(),'Target QC/adjudication must be an existing private run snapshot')
+    import story_voice_qa as qa
+    import story_voice_vocal_qc as qc
+    raw_records=read(qc_path).get('records',[])
+    require(isinstance(raw_records,list) and all(isinstance(record,dict) for record in raw_records),'Invalid actual target QC snapshot')
+    records={record.get('id'):record for record in raw_records}
+    require(len(records)==len(raw_records),'Duplicate target QC records')
+    record=records.get(VARIANT_TARGET);audio_sha=digest(contained(run,f'clips/{VARIANT_TARGET}.mp3'))
+    require(qc.cached_record(record,audio_sha,qa.text_hash(target['text'])) and record.get('id')==VARIANT_TARGET,'Target actual QC is missing or stale')
+    observation=qc.response_observation(record['response']);events=observation['events']
+    require(len(events)==1 and events[0]['category']=='scream' and events[0]['confidence']>=.8,'Target actual QC must observe one confident scream')
+    require(all(re.fullmatch(r'a{2,}h',word) for word in qa.words(observation['transcript'])),'Derived target QC contains lexical or laughter tokens')
+    accepted=qa.vocal_review(target,audio_sha,'',records,read(adjudications_path))
+    require(accepted and not accepted['remaining_source_tokens'] and not accepted['remaining_observed_tokens'],'Target actual scream lacks hash-bound root approval')
+
+def validate_vocal_variant(run,frozen,profiles,receipt,plan_path,target_qc_path=None,target_adjudications_path=None):
+    require(plan_path is not None,'Derived event requires explicit --vocal-variant-plan')
+    plan=read(plan_path);journal=read(contained(run,'vocal-variants/azar-first-cry.private.json'))
+    require(plan.get('source_id')==journal.get('source_id')==VARIANT_SOURCE and plan.get('target_id')==journal.get('target_id')==receipt.get('id')==VARIANT_TARGET,'Only reviewed Azar cry pair may be derived')
+    require(journal.get('plan_sha256')==digest(plan_path) and journal.get('state')=='IMPORTED_REQUIRES_FRESH_QA' and journal.get('rate')==1.12,'Derivation journal/plan incomplete')
+    archive=Path(journal.get('archive','')).resolve()
+    require(archive.is_relative_to(run.resolve()) and archive.is_dir(),'Unsafe/missing original target archive')
+    artifacts=plan.get('artifacts',{})
+    required={'prepared.json','profiles.private.json','lines.private.json','requests.jsonl'}
+    required.update(f'{folder}/{ident}{suffix}' for ident in [VARIANT_SOURCE,VARIANT_TARGET] for folder,suffix in [('raw','.wav'),('raw','.receipt.json'),('clips','.mp3')])
+    for key in ['source_qa_file','source_qc_file','source_vocal_adjudications_file','root_approval_file']:
+        require(isinstance(plan.get(key),str),'Missing reviewed derivation evidence')
+        required.add(plan[key])
+    require(required<=set(artifacts),'Incomplete derivation artifact bindings')
+    for name,expected in artifacts.items():
+        # Only old target artifacts moved into the immutable rejected archive.
+        if name in {f'raw/{VARIANT_TARGET}.wav',f'raw/{VARIANT_TARGET}.receipt.json',f'clips/{VARIANT_TARGET}.mp3'}:
+            path=contained(archive,Path(name).name)
+        else:path=contained(run,name)
+        require(digest(path)==expected,'Derivation plan artifact changed')
+    rows={line['id']:line for line in frozen['lines']};source=rows[VARIANT_SOURCE];target=rows[VARIANT_TARGET]
+    require(all(re.fullmatch(r'[Aa]{2,}[Hh][!?.…]*',row['text']) for row in [source,target]),'Derived event must be a single nonlexical cry')
+    require(source['speaker']=='azar' and all(source.get(k)==target.get(k) for k in ['speaker','kind','scene','mood']),'Derived role/scene/mood differs')
+    voice=profiles['speakers']['azar']['google_voice']
+    require(receipt.get('model')==MODEL and receipt.get('google_voice')==voice and receipt.get('source_id')==VARIANT_SOURCE and 'request_sha256' not in receipt,'Invalid derived model/voice/API provenance')
+    require(receipt.get('transform')=={'filter':'atempo=1.12','pitch_preserved':True},'Unapproved derivation transform')
+    source_receipt_path=contained(run,f'raw/{VARIANT_SOURCE}.receipt.json');source_receipt=read(source_receipt_path)
+    require(source_receipt.get('status')=='complete' and source_receipt.get('model')==MODEL and re.fullmatch(r'[a-f0-9]{64}',source_receipt.get('request_sha256','')),'Missing source TTS provenance')
+    for field,name in [('source_receipt_sha256',f'raw/{VARIANT_SOURCE}.receipt.json'),('source_wav_sha256',f'raw/{VARIANT_SOURCE}.wav'),('source_mp3_sha256',f'clips/{VARIANT_SOURCE}.mp3')]:
+        require(receipt.get(field)==artifacts[name]==digest(contained(run,name)),'Derived source hash differs')
+    require(source_receipt.get('wav_sha256')==receipt['source_wav_sha256'] and source_receipt.get('mp3_sha256')==receipt['source_mp3_sha256'],'Source receipt/audio differs')
+    request=common.request_for(source,profiles['speakers'])
+    parts=[part for content in request['contents'] for part in content['parts'] if isinstance(part.get('text'),str)]
+    overrides=source_receipt.get('delivery_override',{}).get('parts')
+    if overrides is not None:
+        require(isinstance(overrides,list) and len(overrides)==len(parts),'Bad source delivery override')
+        for part,override in zip(parts,overrides):part['text']=override['text'];part.setdefault('speechMetadata',{})['style']=override['style']
+    request_sha=sha(json.dumps(request,sort_keys=True).encode())
+    require(request_sha==source_receipt['request_sha256']==receipt.get('source_tts_request_sha256'),'Actual source TTS request differs')
+    current_mp3=digest(contained(run,f'clips/{VARIANT_TARGET}.mp3'));current_wav=digest(contained(run,f'raw/{VARIANT_TARGET}.wav'))
+    require(receipt.get('status')=='complete' and receipt.get('mp3_sha256')==journal.get('new_mp3_sha256')==current_mp3 and receipt.get('wav_sha256')==current_wav and receipt.get('target_original_text_sha256')==sha(target['text'].encode()),'Current derived files/text differ')
+    approval=read(contained(run,plan['root_approval_file']))
+    require(approval.get('approved') is True and approval.get('source_id')==VARIANT_SOURCE and approval.get('target_id')==VARIANT_TARGET and approval.get('source_mp3_sha256')==receipt['source_mp3_sha256'] and approval.get('target_mp3_sha256')==artifacts[f'clips/{VARIANT_TARGET}.mp3'],'Missing original hash-bound derivation approval')
+    import story_voice_vocal_cues as vocal
+    proof=vocal.proof(run,source,{'qa_report':contained(run,plan['source_qa_file']),'vocal_report':contained(run,plan['source_qc_file']),'vocal_adjudications':contained(run,plan['source_vocal_adjudications_file'])})
+    require(proof==receipt.get('source_vocal_proof'),'Current source vocal proof differs')
+    validate_variant_target_qc(run,target,receipt,target_qc_path,target_adjudications_path)
+    # Recompute PCM in memory, without creating/changing audio or invoking models.
+    source_pcm=subprocess.run(['ffmpeg','-nostdin','-v','error','-i',str(contained(run,f'raw/{VARIANT_SOURCE}.wav')),'-af','atempo=1.12','-ar','24000','-ac','1','-f','s16le','pipe:1'],capture_output=True,timeout=60)
+    target_pcm=subprocess.run(['ffmpeg','-nostdin','-v','error','-i',str(contained(run,f'raw/{VARIANT_TARGET}.wav')),'-ar','24000','-ac','1','-f','s16le','pipe:1'],capture_output=True,timeout=60)
+    require(source_pcm.returncode==target_pcm.returncode==0 and source_pcm.stdout and source_pcm.stdout==target_pcm.stdout,'Derived waveform does not equal approved pitch-preserved transform')
+
 NONARCHIVED_REVIEWS = {f'docs/voice-production/directions/kapitel-{i}.json' for i in range(1,6)} | {'docs/voice-production/directions/supplemental.json'}
 
-def validate_run(run, qa_path, alignment_path, expected_count, review_source_root=None):
+def validate_run(run, qa_path, alignment_path, expected_count, review_source_root=None, vocal_variant_plan=None, vocal_variant_target_qc=None, vocal_variant_target_adjudications=None):
     info = read(run / 'prepared.json')
     for file, key in [('requests.jsonl','input_sha256'), ('profiles.private.json','profiles_sha256'), ('lines.private.json','manifest_sha256'), ('full-inventory.private.json','full_inventory_sha256'), ('source-snapshot.private.json','source_snapshot_sha256')]:
         require(digest(contained(run, file)) == info.get(key), 'Prepared input changed: ' + file)
@@ -57,6 +131,16 @@ def validate_run(run, qa_path, alignment_path, expected_count, review_source_roo
     payload = (run / 'requests.jsonl').read_bytes()
     records = [json.loads(row) for row in payload.splitlines() if row.strip()]
     require(info.get('input_bytes') == len(payload) and records == [{'key':line['id'], 'request':common.request_for(line, profiles['speakers'])} for line in lines], 'Frozen requests/cast differ')
+    derived=[]
+    for line in lines:
+        receipt_path=run/'raw'/(line['id']+'.receipt.json')
+        if receipt_path.is_file():
+            receipt=read(contained(run,'raw/'+line['id']+'.receipt.json'))
+            if str(receipt.get('backend','')).startswith('derived'):
+                require(receipt.get('backend')=='derived_single_nonlexical_event' and line['id']==VARIANT_TARGET,'Unsupported derived recording')
+                derived.append(receipt)
+    require(len(derived)<=1,'Multiple derived events forbidden')
+    for receipt in derived:validate_vocal_variant(run,frozen,profiles,receipt,vocal_variant_plan,vocal_variant_target_qc,vocal_variant_target_adjudications)
     snapshot = read(run / 'source-snapshot.private.json')
     bound_sources=set(frozen.get('source_hashes', {})); archived=set(snapshot)
     missing=bound_sources-archived
@@ -163,7 +247,7 @@ def validate_supplement_source(frozen, current, root):
 def build(args, expected_count=1557, expected_changes=85, supplement_count=3):
     run = args.run_dir.resolve(); inventory_path = args.current_inventory.resolve()
     root=source_root(inventory_path)
-    frozen, clips, paths = validate_run(run,args.qa_report,args.alignment_report,expected_count,root)
+    frozen, clips, paths = validate_run(run,args.qa_report,args.alignment_report,expected_count,root,getattr(args,'vocal_variant_plan',None),getattr(args,'vocal_variant_target_qc',None),getattr(args,'vocal_variant_target_adjudications',None))
     current = read(inventory_path); validate_sources(current,root)
     require(args.public_dir.resolve() == (root/'game/public/audio/story').resolve(), 'Public destination must belong to the reviewed current source workspace')
     require(args.root_reviewed_routing, 'Explicit --root-reviewed-routing required')
@@ -229,6 +313,9 @@ def main():
         parser.add_argument('--'+name,type=Path,required=True)
     for name in ['supplement-run-dir','supplement-qa-report','supplement-alignment-report','current-supplement-inventory']:
         parser.add_argument('--'+name,type=Path)
+    parser.add_argument('--vocal-variant-plan',type=Path)
+    parser.add_argument('--vocal-variant-target-qc',type=Path)
+    parser.add_argument('--vocal-variant-target-adjudications',type=Path)
     parser.add_argument('--root-reviewed-routing',action='store_true')
     mode=parser.add_mutually_exclusive_group(required=True);mode.add_argument('--dry-run',action='store_true');mode.add_argument('--apply',action='store_true')
     args=parser.parse_args()

@@ -158,6 +158,93 @@ class PublisherTests(unittest.TestCase):
         with patch.object(pub,'validate_supplement_source'):
             with self.assertRaisesRegex(pub.Invalid,'ID collision'):pub.build(self.args,expected_count=1,expected_changes=1,supplement_count=1)
 
+    def derived_fixture(self):
+        source={'id':pub.VARIANT_SOURCE,'kind':'say','speaker':'azar','scene':'ueberfall','mood':'scared','text':'AAAH!','direction_en':'cry'}
+        target={**source,'id':pub.VARIANT_TARGET,'text':'AAAAH!'}
+        frozen={'model':pub.MODEL,'lines':[source,target]};profiles={'speakers':{'azar':{'google_voice':'Charon'}}}
+        request=pub.common.request_for(source,profiles['speakers']);request_sha=pub.sha(json.dumps(request,sort_keys=True).encode())
+        for ident,data in [(pub.VARIANT_SOURCE,b'source'),(pub.VARIANT_TARGET,b'derived')]:
+            (self.run/'raw').mkdir(exist_ok=True);(self.run/'raw'/(ident+'.wav')).write_bytes(data+b'wave');(self.run/'clips'/(ident+'.mp3')).write_bytes(data+b'mp3')
+        source_receipt={'status':'complete','model':pub.MODEL,'request_sha256':request_sha,'wav_sha256':pub.digest(self.run/'raw'/(pub.VARIANT_SOURCE+'.wav')),'mp3_sha256':pub.digest(self.run/'clips'/(pub.VARIANT_SOURCE+'.mp3'))}
+        save(self.run/'raw'/(pub.VARIANT_SOURCE+'.receipt.json'),source_receipt)
+        archive=self.run/'rejected/variant';archive.mkdir(parents=True)
+        for suffix in ['.wav','.mp3','.receipt.json']:(archive/(pub.VARIANT_TARGET+suffix)).write_bytes(b'original'+suffix.encode())
+        proof={'proof':'source-vocal-proof'}
+        plan={'source_id':pub.VARIANT_SOURCE,'target_id':pub.VARIANT_TARGET,'source_qa_file':'sourceQA.json','source_qc_file':'sourceQC.json','source_vocal_adjudications_file':'sourceApproval.json','root_approval_file':'rootApproval.json','artifacts':{}}
+        for file in ['sourceQA.json','sourceQC.json','sourceApproval.json']:save(self.run/file,{'evidence':file})
+        approval={'approved':True,'source_id':pub.VARIANT_SOURCE,'target_id':pub.VARIANT_TARGET,'source_mp3_sha256':source_receipt['mp3_sha256'],'target_mp3_sha256':pub.digest(archive/(pub.VARIANT_TARGET+'.mp3'))};save(self.run/'rootApproval.json',approval)
+        files=['prepared.json','profiles.private.json','lines.private.json','requests.jsonl','sourceQA.json','sourceQC.json','sourceApproval.json','rootApproval.json']
+        for name in files:plan['artifacts'][name]=pub.digest(self.run/name)
+        for ident in [pub.VARIANT_SOURCE,pub.VARIANT_TARGET]:
+            for folder,suffix in [('raw','.wav'),('raw','.receipt.json'),('clips','.mp3')]:
+                path=archive/(ident+suffix) if ident==pub.VARIANT_TARGET else self.run/folder/(ident+suffix)
+                plan['artifacts'][folder+'/'+ident+suffix]=pub.digest(path)
+        plan_path=self.run/'variant-plan.json';save(plan_path,plan)
+        receipt={'id':pub.VARIANT_TARGET,'status':'complete','backend':'derived_single_nonlexical_event','model':pub.MODEL,'google_voice':'Charon','source_id':pub.VARIANT_SOURCE,'source_tts_request_sha256':request_sha,'source_receipt_sha256':plan['artifacts']['raw/'+pub.VARIANT_SOURCE+'.receipt.json'],'source_wav_sha256':source_receipt['wav_sha256'],'source_mp3_sha256':source_receipt['mp3_sha256'],'target_original_text_sha256':pub.sha(target['text'].encode()),'transform':{'filter':'atempo=1.12','pitch_preserved':True},'source_vocal_proof':proof,'vocal_qc_required':True,'mp3_sha256':pub.digest(self.run/'clips'/(pub.VARIANT_TARGET+'.mp3')),'wav_sha256':pub.digest(self.run/'raw'/(pub.VARIANT_TARGET+'.wav'))}
+        save(self.run/'vocal-variants/azar-first-cry.private.json',{'state':'IMPORTED_REQUIRES_FRESH_QA','plan_sha256':pub.digest(plan_path),'archive':str(archive),'source_id':pub.VARIANT_SOURCE,'target_id':pub.VARIANT_TARGET,'rate':1.12,'new_mp3_sha256':receipt['mp3_sha256']})
+        self.variant_qc,self.variant_adjudications=self.target_qc_fixture(target,receipt)
+        return frozen,profiles,receipt,plan_path,proof
+
+    def target_qc_fixture(self,target,receipt,category='scream',confidence=.92,transcript=''):
+        import story_voice_qa as qa
+        import story_voice_vocal_qc as qc
+        event={'category':category,'description':'One observed vocal event','vocal_sound':'aaah','confidence':confidence}
+        response={'modelVersion':qc.MODEL,'candidates':[{'finishReason':'STOP','content':{'parts':[{'text':json.dumps({'transcript':transcript,'events':[event]})}]}}]}
+        clipsha=receipt['mp3_sha256'];textsha=qa.text_hash(target['text'])
+        record={'id':pub.VARIANT_TARGET,'clip_sha256':clipsha,'source_audio_sha256':clipsha,'upload_sha256':clipsha,'source_text_sha256':textsha,'input_mime_type':'audio/mpeg','model':qc.MODEL,'prompt':qc.PROMPT,'transcript':transcript,'response':response,**qc.cache_metadata()}
+        approval={'channel':'vocal-qc','status':'approved_vocal_events','reviewed_by':'root fixture reviewer','reason':'Explicit current target event binding',
+            'clip_sha256':clipsha,'text_sha256':textsha,'vocal_record_sha256':qa.canonical_record_hash(record),'raw_response_sha256':qa.canonical_record_hash(response),'transcript_sha256':qa.text_hash(transcript),
+            'expected_tokens':qa.words(target['text']),'observed_tokens':qa.words(transcript),**qc.cache_metadata(),
+            'source_events':[{'source_token_index':0,'source_token':qa.words(target['text'])[0],'category':category,'event_indices':[0],'descriptions':[event['description']],'reason':'Reviewed one event','observed_token_indices':list(range(len(qa.words(transcript))))}]}
+        qcpath=self.run/'target-current-QC.json';adjpath=self.run/'target-current-adjudications.json'
+        save(qcpath,{'records':[record]});save(adjpath,{pub.VARIANT_TARGET:approval})
+        return qcpath,adjpath
+
+    def test_target_actual_scream_qc_is_required_separately_from_source_proof(self):
+        frozen,profiles,receipt,plan,proof=self.derived_fixture();target=frozen['lines'][1]
+        pub.validate_variant_target_qc(self.run,target,receipt,self.variant_qc,self.variant_adjudications)
+        for category,confidence,transcript in [('laughter',.85,'ha'),('scream',.79,''),('scream',.99,'Hallo'),('scream',.99,'ha')]:
+            qc,adj=self.target_qc_fixture(target,receipt,category,confidence,transcript)
+            with self.assertRaises(pub.Invalid):pub.validate_variant_target_qc(self.run,target,receipt,qc,adj)
+        qc,adj=self.target_qc_fixture(target,receipt)
+        save(adj,{})
+        with self.assertRaises(pub.Invalid):pub.validate_variant_target_qc(self.run,target,receipt,qc,adj)
+        with self.assertRaises(pub.Invalid):pub.validate_variant_target_qc(self.run,target,receipt,None,None)
+        receipt['vocal_qc_required']=False
+        with self.assertRaises(pub.Invalid):pub.validate_variant_target_qc(self.run,target,receipt,qc,adj)
+
+    def test_target_qc_cannot_be_stale_or_duplicate_even_with_approval(self):
+        frozen,profiles,receipt,plan,proof=self.derived_fixture();target=frozen['lines'][1]
+        report=pub.read(self.variant_qc);report['records'][0]['clip_sha256']='0'*64;save(self.variant_qc,report)
+        with self.assertRaises(pub.Invalid):pub.validate_variant_target_qc(self.run,target,receipt,self.variant_qc,self.variant_adjudications)
+        qc,adj=self.target_qc_fixture(target,receipt);report=pub.read(qc);report['records'].append(copy.deepcopy(report['records'][0]));save(qc,report)
+        with self.assertRaises(pub.Invalid):pub.validate_variant_target_qc(self.run,target,receipt,qc,adj)
+
+    def test_only_bound_nonlexical_variant_accepted_with_verified_transform(self):
+        frozen,profiles,receipt,plan,proof=self.derived_fixture()
+        import story_voice_vocal_cues as vocal
+        result=SimpleNamespace(returncode=0,stdout=b'identical PCM')
+        with patch.object(vocal,'proof',return_value=proof),patch.object(pub.subprocess,'run',return_value=result) as command:
+            pub.validate_vocal_variant(self.run,frozen,profiles,receipt,plan,self.variant_qc,self.variant_adjudications)
+            self.assertIn('atempo=1.12',command.call_args_list[0].args[0]);self.assertEqual(command.call_args_list[1].args[0][-1],'pipe:1')
+            for field,value in [('source_id','story-'+'f'*24),('model','other'),('transform',{'filter':'atempo=1.2','pitch_preserved':True}),('source_tts_request_sha256','0'*64)]:
+                changed=copy.deepcopy(receipt);changed[field]=value
+                with self.assertRaises(pub.Invalid):pub.validate_vocal_variant(self.run,frozen,profiles,changed,plan,self.variant_qc,self.variant_adjudications)
+            fake_api=copy.deepcopy(receipt);fake_api['request_sha256']='0'*64
+            with self.assertRaises(pub.Invalid):pub.validate_vocal_variant(self.run,frozen,profiles,fake_api,plan,self.variant_qc,self.variant_adjudications)
+        with self.assertRaises(pub.Invalid):pub.validate_vocal_variant(self.run,frozen,profiles,receipt,None)
+
+    def test_derived_waveform_or_bound_proof_changes_are_rejected(self):
+        frozen,profiles,receipt,plan,proof=self.derived_fixture();import story_voice_vocal_cues as vocal
+        with patch.object(vocal,'proof',return_value=proof),patch.object(pub.subprocess,'run',side_effect=[SimpleNamespace(returncode=0,stdout=b'correct'),SimpleNamespace(returncode=0,stdout=b'wrong')]):
+            with self.assertRaisesRegex(pub.Invalid,'waveform'):pub.validate_vocal_variant(self.run,frozen,profiles,receipt,plan,self.variant_qc,self.variant_adjudications)
+        (self.run/'raw'/(pub.VARIANT_SOURCE+'.wav')).write_bytes(b'changed source')
+        with self.assertRaisesRegex(pub.Invalid,'artifact changed'):pub.validate_vocal_variant(self.run,frozen,profiles,receipt,plan,self.variant_qc,self.variant_adjudications)
+
+    def test_other_derived_recordings_are_rejected_even_with_passing_qa(self):
+        save(self.run/'raw'/(self.ident+'.receipt.json'),{'backend':'derived_single_nonlexical_event','id':self.ident})
+        with self.assertRaisesRegex(pub.Invalid,'Unsupported derived'):self.build()
+
     def test_refuses_unrelated_destination_and_traversal(self):
         manifest,paths=self.build();self.args.public_dir.mkdir(parents=True);(self.args.public_dir/'KEEP.txt').write_text('keep')
         with self.assertRaises(pub.Invalid):pub.publish(self.args.public_dir,manifest,paths)
