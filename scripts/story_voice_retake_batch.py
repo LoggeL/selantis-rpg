@@ -120,7 +120,15 @@ def validated_disjoint_imports(run,parent,snapshot,current):
         if journal.get('state')!='IMPORTED':continue
         other_snapshot=core.read_json(other/'parent-snapshot.private.json')
         ids=set(other_snapshot['selected_ids'])
-        if not ids & changed:continue
+        affected=ids & changed
+        if not affected:continue
+        # A historical import cannot explain a delta once all its relevant
+        # outputs were superseded. Ignore it before scope/overlap checks.
+        # Any candidate still claiming current bytes must pass every gate;
+        # multi-hop ancestry is deliberately not inferred.
+        after=journal.get('new_mp3_sha256',{})
+        if not isinstance(after,dict):raise core.SafeError('Completed retake import journal hashes are invalid.')
+        if not any(after.get(i)==current[i] for i in affected):continue
         if ids & selected:raise core.SafeError('Completed retake overlaps selected IDs.')
         prepared(other,parent,verify_bank=False)
         if set(journal.get('selected_ids',[]))!=ids or set(journal.get('new_mp3_sha256',{}))!=ids:raise core.SafeError('Completed retake import journal scope is invalid.')

@@ -173,4 +173,24 @@ class RetakeBatchGates(unittest.TestCase):
             payload=self.run/'requests.jsonl';payload.write_bytes(payload.read_bytes()+b' ')
             self.assertEqual(invoke('status'),1);self.assertEqual(api.call_count,1)
 
+    def test_superseded_historical_overlap_cannot_block_current_disjoint_proof(self):
+        # Historical job spans both IDs, but neither affected output remains
+        # authoritative after a later disjoint import. Its frozen input is valid.
+        self.prepare()
+        snapshot=core.read_json(self.run/'parent-snapshot.private.json')
+        core.save(self.run/'import.private.json',{'state':'IMPORTED','selected_ids':self.ids[:2],
+                  'new_mp3_sha256':{i:snapshot['bank_mp3_sha256'][i] for i in self.ids[:2]}})
+        runs=self.disjoint_fixture();args,target=runs[1];args.allow_completed_disjoint_retakes=True
+        self.assertEqual(batch.import_audio(args,self.parent,target),0)
+        validated=core.read_json(target/'import.private.json')['validated_disjoint_import_journal_sha256']
+        self.assertEqual(set(validated),{str(runs[0][1]/'import.private.json')})
+        self.assertEqual(len(core.read_json(self.parent/'public-manifest.proposed.json')['clips']),3)
+
+    def test_current_matching_proof_with_unverified_multihop_ancestry_rejected(self):
+        runs=self.disjoint_fixture();args,target=runs[1];args.allow_completed_disjoint_retakes=True
+        other=runs[0][1];p=other/'parent-snapshot.private.json';snapshot=core.read_json(p)
+        snapshot['bank_mp3_sha256'][self.ids[0]]='a'*64;core.save(p,snapshot)
+        info=core.read_json(other/'prepared.json');info['frozen_sha256']['parent-snapshot.private.json']=core.digest(p.read_bytes());core.save(other/'prepared.json',info)
+        with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,target)
+
 if __name__=='__main__':unittest.main()
