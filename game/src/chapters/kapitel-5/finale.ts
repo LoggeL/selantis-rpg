@@ -1,8 +1,8 @@
-// Kapitel V, Szene 5 „finale“ (order as in the film): Lia wakes with Kyra and Flick („Was ist passiert?“). Cut: Baris
-// drags himself to the ruins, the Master steps out of black smoke („Du hast versagt, Baris. Du hattest von Anfang an
-// die Falsche.“) and punishes him (violet magic, one half of his face burned, an eye lost; staged tastefully). Back to
-// the three: Flick will take them to the rebels, Kyra is thrilled, Lia sighs and hesitates (Foltan). They walk off
-// together under Crios. Book-style credits „Ende des ersten Buches“, then back to the title.
+// Kapitel V, Szene 5 „finale“ (order as in the film, wording our own): Lia wakes with Kyra and Flick („Wo sind die
+// alle hin?“). Cut: Baris drags himself to the ruins, the Master steps out of black smoke („Du hast die Falsche an den
+// Baum gebunden. Die Richtige stand an deinem Feuer.“) and punishes him (violet magic, one half of his face burned, an
+// eye lost; staged tastefully). Back to the three: Flick will take them to the rebels, Kyra is thrilled, Lia sighs and
+// hesitates (Foltan). They walk off together under Crios. Book-style credits „Ende des ersten Buches“, then back to the title.
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { ambience, lia, sfx, ui } from './common';
@@ -90,14 +90,14 @@ async function awakening(w: WorldCtx): Promise<void> {
   await w.cutscene(async () => {
     await w.camera.zoom(1.4, 0);
     await G.ui.fade('in', 1600);
-    await w.say('kyra', 'Lia? Lia! Geht’s dir gut?', { mood: 'scared' });
+    await w.say('kyra', 'Lia! Mach die Augen auf, sonst kipp ich dir deinen Wasserschlauch übern Kopf. Ich mein’s ernst.', { mood: 'scared' });
     await G.ui.plate('k5-erwachen', { caption: 'Unter der Eiche', pan: 'in', durationMs: 30000 });
-    await lia('Was … was ist passiert?', 'hurt');
-    await w.say('flick', 'Na, wie’s aussieht, hast du sie in die Flucht geschlagen.', { mood: 'smirk' });
-    await lia('Hab ich das?', 'surprised');
-    await w.say('flick', 'Ja. Und das war zugegebenermaßen ziemlich beeindruckend.', { mood: 'happy' });
-    await lia('Wieso? Was genau hab ich denn gemacht?', 'thinking');
-    await w.say('kyra', 'Also, das war so …', { mood: 'happy' });
+    await lia('Mein Kopf … Wo sind die alle hin?', 'hurt');
+    await w.say('flick', 'Weg. Gerannt. Und zwar vor dir.', { mood: 'smirk' });
+    await lia('Vor mir?', 'surprised');
+    await w.say('flick', 'Ich hab schon einiges gesehen, Leseratte. So was noch nicht. Und das sag ich nicht gern.', { mood: 'happy' });
+    await lia('Ich seh nur noch die Axt über Flick. Danach ist alles weiß.', 'thinking');
+    await w.say('kyra', 'Pass auf. Das glaubst du mir nie.', { mood: 'happy' });
     await G.ui.closePlate();
     await G.ui.fade('out', 900);
   });
@@ -128,21 +128,22 @@ async function masterScene(w: WorldCtx): Promise<void> {
     if (vamir.sprite) { vamir.sprite.setAlpha(0); w.scene.tweens.add({ targets: vamir.sprite, alpha: 1, duration: 900 }); }
     G.audio.duck(-10, 4000);
     await w.wait(900);
-    await w.say('vamir', 'Du hast versagt, Baris.');
-    await w.say('baris', 'Ja, Meister.');
-    await w.say('vamir', 'Du hattest von Anfang an die Falsche.');
-    await w.say('baris', 'Ja … Meister.');
-    await w.say('vamir', 'Ich habe sie gespürt, heute Nacht. Die Urmacht. Sie stand vor dir, und du hast sie laufen lassen.');
+    await w.say('vamir', 'Sechzehn Jahre, Baris. Und du schleppst mir tagelang ein Bauernmädchen durch die Wälder.');
+    await w.say('baris', 'Sie war vom richtigen Hof, Meister.');
+    await w.say('vamir', 'Du hast die Falsche an den Baum gebunden. Die Richtige stand an deinem Feuer.');
+    await w.say('baris', 'Die Kleine vom Feuer …');
+    await w.say('vamir', 'Ich habe sie heute Nacht gespürt. Bis hierher. Und du warst nah genug, um sie anzufassen.');
     await G.ui.plate('k5-vamir', { caption: 'Der Meister', pan: 'in', durationMs: 14000 });
-    await w.say('narrator', 'Der Meister hebt die Hand. Kaltes, violettes Licht kriecht über seine Finger.');
+    await w.say('narrator', 'Der Meister hebt die Hand, ohne Eile. Violettes Licht sammelt sich darin wie Rauch in einer Schale.');
     sfx('magic', { volume: 1 });
     w.lighting.flash(VIOLET, 500);
     w.camera.shake(500, 0.006);
     sfx('hit-heavy', { volume: 0.7 });
-    await w.say('narrator', 'Es brennt sich in Baris’ Gesicht. Er schreit nicht. Als das Licht erlischt, ist eine Hälfte seines Gesichts verbrannt, ein Auge erblindet.');
+    await w.say('narrator', 'Er legt die Hand auf Baris’ Gesicht, beinahe sanft. Es zischt. Baris schreit nicht.');
+    await w.say('narrator', 'Als der Meister sie zurückzieht, ist eine Gesichtshälfte verbrannt. Das Auge darin ist trüb wie Milch.');
     await G.ui.closePlate();
-    await w.say('k5-baris-scarred', 'Ja … Meister.', { mood: 'pained' });
-    await w.say('vamir', 'Beim nächsten Mal bin ich nicht so nachsichtig.');
+    await w.say('k5-baris-scarred', '… Danke, Meister.', { mood: 'pained' });
+    await w.say('vamir', 'Das andere Auge darfst du behalten. Such sie damit.');
     sfx('whoosh', { volume: 0.6 });
     w.fx.burst([336, 150], 'smoke', 16);
     if (vamir.sprite) w.scene.tweens.add({ targets: vamir.sprite, alpha: 0, duration: 700 });
@@ -168,11 +169,11 @@ async function afterwards(w: WorldCtx): Promise<void> {
   await G.ui.fade('in', 1200);
   await w.cutscene(async () => {
     kyra.face('player'); flick.face('player');
-    if (G.state.is('k5-kyra-spaet-befreit')) await w.say('kyra', 'Flick hat mich losgeschnitten, als die Kerle weg waren. Und dich habe ich bis hierher getragen.', { mood: 'happy' });
-    await w.say('kyra', '… und dann sind sie gerannt wie die Hasen! Sogar der Riese!', { mood: 'happy' });
-    await lia('Ich weiß nicht, was das war. Ich weiß nur, dass ich Flick nicht verlieren wollte.', 'thinking');
-    await w.say('flick', 'Sehr freundlich. Ich hatte die Lage übrigens völlig im Griff.', { mood: 'smirk' });
-    await w.say('kyra', 'Klar. Am Boden liegend, mit einer Axt über dem Kopf.', { mood: 'happy' });
+    if (G.state.is('k5-kyra-spaet-befreit')) await w.say('kyra', 'Flick hat mich losgeschnitten, als die Kerle weg waren. Dich hab ich hergeschleppt. Du bist schwerer, als du aussiehst.', { mood: 'happy' });
+    await w.say('kyra', '… und dann sind sie los wie Hühner vorm Fuchs. Und der Riese ist hinterhergekrochen. Ohne Axt!', { mood: 'happy' });
+    await lia('Ich hab gar nichts gemacht. Ich hab nur gedacht: nicht Flick.', 'thinking');
+    await w.say('flick', 'Rührend. Und nur damit das klar ist: Ich hatte alles im Griff.', { mood: 'smirk' });
+    await w.say('kyra', 'Sicher. Auf dem Rücken, mit ’ner Axt überm Kopf. Sah sehr nach Griff aus.', { mood: 'happy' });
   });
   G.state.setParty(['flick', 'kyra']);
   w.setObjective('k5-reden', 'Sprich mit Kyra und Flick.', 'flick');
@@ -182,11 +183,11 @@ async function talkKyra(w: WorldCtx): Promise<void> {
   const beads = G.state.count('bead');
   if (beads > 0 && !G.state.is('k5-perlen-zurueck')) {
     G.state.set('k5-perlen-zurueck');
-    await lia(beads >= 3 ? 'Hier. Die habe ich unterwegs gefunden. Alle drei.' : 'Hier. Die habe ich unterwegs gefunden.', 'happy');
+    await lia(beads >= 3 ? 'Hier. Die lagen auf dem Weg. Alle drei.' : 'Hier. Die lagen auf dem Weg.', 'happy');
     G.state.take('bead', beads);
-    await w.say('kyra', 'Meine Perlen! Ich hab sie fallen lassen, damit du mich findest. Ich wusste, du kommst.', { mood: 'happy' });
-    await lia('Und wenn nicht?', 'sad');
-    await w.say('kyra', 'Dann hätte ich dem Riesen so lange auf die Nerven getan, bis er mich freiwillig gehen lässt.', { mood: 'happy' });
+    await w.say('kyra', 'Meine Perlen! Gestreut wie im Märchen. Hätt nie gedacht, dass dein ewiges Lesen mal was nützt.', { mood: 'happy' });
+    await lia('Und wenn ich sie übersehen hätte?', 'sad');
+    await w.say('kyra', 'Dann hätt ich dem Riesen so lang in die Waden gebissen, bis er mich freiwillig laufen lässt.', { mood: 'happy' });
     G.state.addMemory('k5-mem-perlen');
     return;
   }
@@ -194,45 +195,44 @@ async function talkKyra(w: WorldCtx): Promise<void> {
     G.state.set('k5-band-zurueck');
     await lia('Und das hier lag im Stall vom Goldenen Eber.', 'happy');
     G.state.take('ribbon');
-    await w.say('kyra', 'Mein Haarband! Du bist mir wirklich den ganzen Weg gefolgt …', { mood: 'sad' });
+    await w.say('kyra', 'Mein Haarband … Den ganzen Weg bist du mir nach. Du. Die beim Holzholen nach drei Scheiten schnauft.', { mood: 'sad' });
     return;
   }
-  await w.say('kyra', 'Mutter und Vater … Ich habe die ganze Zeit an sie gedacht. Und an dich.', { mood: 'sad' });
-  await lia('Ich habe ihnen Steine aufs Grab gelegt. Jedem einen Hügel.', 'sad');
-  await w.say('kyra', 'Wir bringen ihnen Blumen. Wenn das alles vorbei ist.', { mood: 'determined' });
+  await w.say('kyra', 'Nachts am Pflock hab ich an den Hof gedacht. Ob jemand die Schweine füttert. Dumm, oder?', { mood: 'sad' });
+  await lia('Die Schweine hab ich laufen lassen. Mutter und Vater liegen vorm Haus. Ich hab ihnen versprochen, dass wir zu zweit wiederkommen.', 'sad');
+  await w.say('kyra', 'Dann halten wir das. Ich pflück die Blumen, und du weißt, wie sie heißen.', { mood: 'determined' });
 }
 
 async function talkFlick(w: WorldCtx): Promise<void> {
-  if (G.state.is('k5-weiter')) { await w.say('flick', 'Na los, Spurenleserin. Ab nach Süden, über die Felder.', { mood: 'smirk' }); return; }
+  if (G.state.is('k5-weiter')) { await w.say('flick', 'Na los, Leseratte. Nach Süden, über die Felder. Der Wind steht gut.', { mood: 'smirk' }); return; }
   const kyra = w.actor('kyra');
   await w.cutscene(async () => {
     kyra.face('player');
-    await lia('Und was machen wir jetzt?');
-    await w.say('flick', 'Ich bringe euch zu den Rebellen. Die wissen bestimmt, was für eine Kraft in dir wohnt.', { mood: 'determined' });
-    await w.say('kyra', 'Das klingt nach Abenteuer!', { mood: 'happy' });
-    await lia('Oh nee. Ich dachte, das war’s.', 'sad');
-    await w.say('kyra', 'Hey, das wird bestimmt spannend!', { mood: 'happy' });
-    await lia('Wahnsinnig spannend.');
-    await w.say('flick', 'Da muss ich ihr recht geben.', { mood: 'smirk' });
-    await w.say('kyra', 'Lia, denk doch mal, was du mit deinen neuen Kräften alles anstellen kannst!', { mood: 'happy' });
-    await w.say('flick', 'Und vielleicht nehmen mich die Rebellen jetzt auf. Mit euch beiden im Gepäck …', { mood: 'happy' });
-    await w.think('Die Rebellen. Elnon, der über mich hinwegsah. Alastir. Und Foltan, der mir ins Gesicht gelogen hat.');
+    await lia('Und jetzt? Weiter als bis zu Kyra hab ich nie gedacht.');
+    await w.say('flick', 'Zu den Rebellen. Wenn irgendwer weiß, was da eben aus dir rausgebrochen ist, dann die.', { mood: 'determined' });
+    await w.say('kyra', 'Rebellen? Mit Lagerfeuer und Geheimzeichen? Ich bin dabei.', { mood: 'happy' });
+    await lia('In Büchern ist die Geschichte aus, wenn man die Schwester gefunden hat.', 'sad');
+    await w.say('kyra', 'Dann ist das eben ein dickes Buch. Du magst doch dicke Bücher.', { mood: 'happy' });
+    await lia('Am Ofen. Nicht zu Fuß.');
+    await w.say('flick', 'Bei den Rebellen sitzt man auf Wurzeln. Nur damit du’s weißt.', { mood: 'smirk' });
+    await w.say('kyra', 'Und du kannst jetzt Riesen umpusten! Weißt du, wie schnell wir damit Holz hacken?', { mood: 'happy' });
+    await w.say('flick', 'Und wer weiß. Mit euch zwei im Schlepptau lassen sie mich vielleicht doch noch ans Feuer.', { mood: 'happy' });
+    await w.think('Die Rebellen. Elnon, der über meinen Kopf hinweg geredet hat. Alastir. Und Foltan, der mich angesehen und geschwiegen hat.');
     const pick = await w.choose([
-      '„Ich kenne diese Rebellen. Sie haben mich belogen.“',
-      '(Seufzen.) „Na gut. Gehen wir.“',
+      '„Ich kenne diese Rebellen. Ich trau ihnen nicht.“',
+      '(Seufzen.) „Na gut. Aber ich lauf nicht vorneweg.“',
     ]);
     if (pick === 0) {
-      await lia(G.state.is('k3-luege-bemerkt') ? 'Foltan wusste von Anfang an, wohin sie Kyra gebracht haben. Ich hab’s gemerkt, schon im Eber.' : 'Foltan wusste, wohin sie Kyra gebracht haben. Und er hat geschwiegen.', 'angry');
-      await w.say('kyra', 'Wer ist Foltan?', { mood: 'surprised' });
-      await lia('Erzähl ich dir unterwegs.');
-      await w.say('flick', 'Dann gehen wir eben zu dritt hin. Und lassen uns diesmal nicht abwimmeln.', { mood: 'determined' });
+      await lia(G.state.is('k3-luege-bemerkt') ? 'Foltan wusste, wohin sie dich bringen. Seit dem Goldenen Eber. Ich hab’s ihm angesehen.' : 'Foltan wusste, wohin sie dich bringen. Und er hat kein Wort gesagt.', 'angry');
+      await w.say('kyra', 'Wer ist Foltan? Soll ich ihn beißen?', { mood: 'surprised' });
+      await lia('Vielleicht. Ich erzähl’s dir unterwegs.');
+      await w.say('flick', 'Dann gehen wir zu dritt hin. Und diesmal stellen wir die Fragen.', { mood: 'determined' });
     } else {
-      await w.say('flick', 'So gefällt mir das.', { mood: 'happy' });
+      await w.say('flick', 'Musst du nicht. Vorne lauf ich. Ich seh im Dunkeln besser als ihr zwei zusammen.', { mood: 'happy' });
     }
-    await w.say('kyra', 'Wir sind so ein tolles Team, und überhaupt …', { mood: 'happy' });
-    await lia('Kyra?');
-    await w.say('kyra', 'Ja?', { mood: 'happy' });
-    await lia('Beruhig dich mal.', 'happy');
+    await w.say('kyra', 'Wir drei. Eine leuchtet, eine schießt, und ich beiße. Über uns singen die Leute mal Lieder …', { mood: 'happy' });
+    await lia('Mir reicht, dass du da bist. Der Rest kann warten.', 'happy');
+    await w.say('kyra', 'Jetzt wird sie rührselig. Los, bevor sie heult.', { mood: 'happy' });
   });
   G.state.set('k5-weiter');
   w.completeObjective('k5-reden');
@@ -242,8 +242,8 @@ async function talkFlick(w: WorldCtx): Promise<void> {
 
 async function scorchRing(w: WorldCtx): Promise<void> {
   w.fx.burst([640, 440], 'urmacht', 6);
-  await w.think('Das Gras ist in einem perfekten Kreis versengt. Genau hier habe ich gestanden.');
-  await w.think('Flick sagt, das Licht war türkis. Wie in den Geschichten über Alana.');
+  await w.think('Ein Kreis aus verbranntem Gras, so rund wie mit dem Zirkel gezogen. Und ich stand in der Mitte.');
+  await w.think('Türkis, sagt Flick. Wie bei Alana. Nur dass Alana in einem Buch steht. Und ich hier.');
   G.state.addLore('k5-lore-tuerkis');
 }
 
@@ -256,9 +256,9 @@ async function departure(w: WorldCtx): Promise<void> {
   await G.ui.fade('out', 900);
   await G.ui.plate('k5-aufbruch', { caption: 'Drei unter Crios', pan: 'in', durationMs: 22000 });
   await G.ui.fade('in', 900);
-  await w.say('narrator', 'So zogen sie los, zu dritt, über die nächtlichen Felder. Über ihnen stand Crios, wie immer im Westen.');
+  await w.say('narrator', 'Sie gingen zu dritt über die nächtlichen Felder. Kyra redete, Flick horchte in den Wind. Im Westen stand Crios, wie immer.');
   await w.say('narrator', 'Ein treuer Gefährte, hatte Lia sich gewünscht. Jetzt hatte sie zwei.');
-  await w.say('narrator', 'Und tief in ihr schlief etwas, das ~türkis~ leuchtete und auf seine Stunde wartete.');
+  await w.say('narrator', 'Und tief in Lia schlief etwas ~Türkises~. Es hatte Zeit.');
   await G.ui.closePlate();
   await G.ui.fade('out', 1000);
   G.audio.music('refuge', { fadeMs: 1500 });

@@ -151,7 +151,7 @@ async function ankunft(w: WorldCtx): Promise<void> {
     void ui.fade('in', 1600);
     w.player.face('up');
     await w.wait(500);
-    await w.think('Licht! Alles ist so grell, ich muss die Augen zusammenkneifen.');
+    await w.think('Licht. Viel zu viel davon. Ich blinzle wie ein Maulwurf.');
     await w.think('Menschen. Nein, nicht nur Menschen. Spitze Ohren unter langem Haar … Elfen! Und Zwerge, kleiner als ich.');
     w.bark('k4-jorin', 'Ein Mädchen?', 1800);
     await w.wait(500);
@@ -171,13 +171,13 @@ async function ankunft(w: WorldCtx): Promise<void> {
     await foltan.say('Entschuldige, Elnon. Wir haben unterwegs etwas gefunden, das uns aufgehalten hat.');
     await w.think('Etwas? Ich bin doch kein Fundstück.');
     await elnon.say('Ein Mädchen. Wo habt ihr das denn aufgegabelt?');
-    await foltan.say('Ihr Hof wurde von Dunkelschatten überfallen. Wir fanden sie verängstigt im Wald.');
+    await foltan.say('Dunkelschatten haben ihren Hof überfallen. Sie saß verängstigt im Wald.');
     await w.think('Verängstigt? Übertreib mal nicht.');
     const pick = await w.choose(['„Ich kann selbst reden. Ich heiße Lia.“', '„Sie haben meine Schwester entführt! Ihr müsst …“', 'Schweigen und Alastirs Blick erwidern']);
     if (pick === 0) {
       await lia(w, 'Ich kann selbst reden. Ich heiße Lia.', 'determined');
       elnon.face('foltan');
-      await elnon.say('Löblich, euer Einsatz. Ganz nach unserem Grundsatz, den Schwachen zu helfen.');
+      await elnon.say('Löblich. Den Schwachen helfen, so will es der Kodex.');
       await w.think('Er sieht einfach durch mich hindurch.');
     } else if (pick === 1) {
       await lia(w, 'Sie haben meine Schwester entführt! Ihr müsst …', 'angry');
@@ -189,9 +189,9 @@ async function ankunft(w: WorldCtx): Promise<void> {
       bg(alastir.emote('…'));
       await w.think('Die Hälfte seines Gesichts ist verbrannt. Er mustert mich, als läse er ein Buch, das ihm nicht gefällt.');
       await w.think('Ich halte stand. Drei Atemzüge. Dann schaue ich doch weg.');
-      await elnon.say('Löblich, euer Einsatz. Ganz nach unserem Grundsatz, den Schwachen zu helfen.');
+      await elnon.say('Löblich. Den Schwachen helfen, so will es der Kodex.');
     }
-    await elnon.say('Dennoch erwarte ich deinen Bericht, Foltan. Komm. Azar, zeig der Kleinen einen Platz zum Schlafen.');
+    await elnon.say('Foltan, in mein Zelt. Azar, die Kleine braucht einen Schlafplatz.');
     bg(elnon.walkTo(636, 228));
     bg(alastir.walkTo(666, 230));
     await foltan.walkTo(650, 240);
@@ -316,7 +316,7 @@ async function talkAzar(w: WorldCtx): Promise<void> {
     await azar.say('Bevor die Dunkelschatten die Stadt niedergebrannt haben. Seitdem lacht er nicht mehr. Na ja. Selten.');
     await lia(w, 'Und er hilft uns, Kyra zu finden?', 'thinking');
     await azar.say('Bestimmt! Foltan erzählt ihm gerade alles. Elnon schickt sicher einen Spähtrupp los.', { mood: 'happy' });
-    await w.think('Vielleicht wird doch noch alles gut.');
+    await w.think('Ein Spähtrupp. Für Kyra. Ich trau mich kaum, daran zu glauben.');
     G.state.set('k4-t-azar');
     return;
   }
@@ -388,7 +388,7 @@ async function talkBerta(w: WorldCtx): Promise<void> {
   if (G.state.is('k4-t-k4-berta')) { await s('Probier ruhig vom Kessel, Kind. Aber nicht verraten, dass der Lorbeer fehlt.'); return; }
   await s('Na, du bist also Foltans Fundstück. Hunger?');
   await lia(w, 'Ein bisschen. Warum hat er mich überhaupt mitgenommen?');
-  await s('Der Kodex. Niemand wird zurückgelassen, den Schwachen wird geholfen. Das hält uns zusammen.');
+  await s('Der Kodex. Keiner bleibt zurück, und wer schwach ist, kriegt Hilfe. Sonst wären wir bloß Leute mit Messern im Wald.');
   await s('Menschen, Zwerge, Elfen. Alle aus einem Grund hier. Elnon sagt: Damit es kein zweites Ebaril gibt.');
   G.state.addLore('k4-lore-bruderschaft');
   markTalked(w, 'k4-berta');
@@ -397,7 +397,7 @@ async function talkBerta(w: WorldCtx): Promise<void> {
 async function talkJorin(w: WorldCtx): Promise<void> {
   const s = (t: string) => w.say('k4-jorin', t);
   if (G.state.is('k4-t-k4-jorin')) { await s('Hast du gesehen? Ich hab der Puppe fast den Kopf abgehauen. Fast.'); return; }
-  await s('Hallo! Ich bin Jorin, aus Trapas. Der Lichterorden predigt, die Fürsten hocken hinter ihren Mauern.');
+  await s('Ich bin Jorin, aus Trapas! Der Lichterorden predigt, und die Fürsten verriegeln die Tore.');
   await s('Da dachte ich: Wenn keiner rausgeht, geh ich eben selbst.');
   await lia(w, 'Meine Mutter kam aus Trapas. Aus einer Händlerfamilie.', 'sad');
   await s('Dann sind wir ja fast verwandt! … Kam? Oh. Tut mir leid.');

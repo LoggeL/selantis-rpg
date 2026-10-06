@@ -18,30 +18,30 @@ export const lagerAbend = defineMap({
   name: 'Das Lager am Abend',
   hidingSpots: CAMP_HIDING,
   npcs: [
-    { id: 'k4-berta', preset: 'villager-f', at: [604, 376], dir: 'up', idle: 'sit', barks: ['Nachschlag gibt’s nur für Helfer!', 'Wer hat schon wieder Salz verschüttet?'], barkEvery: 8000 },
-    { id: 'k4-ilvy', preset: 'elf-f', at: [676, 374], dir: 'up', idle: 'sit', barks: ['… und dann fiel die Brücke.', 'Gib mir das Brot.'], barkEvery: 9500 },
+    { id: 'k4-berta', preset: 'villager-f', at: [604, 376], dir: 'up', idle: 'sit', barks: ['Nachschlag kriegt nur, wer abwäscht.', 'Wer hat schon wieder ins Salz gegriffen?'], barkEvery: 8000 },
+    { id: 'k4-ilvy', preset: 'elf-f', at: [676, 374], dir: 'up', idle: 'sit', barks: ['… und dann brannte die Brücke.', 'Reich mal das Brot rüber.'], barkEvery: 9500 },
     { id: 'k4-faelan-sitz', preset: 'elf-m', at: [526, 356], dir: 'right', idle: 'sit' },
   ],
   guards: [
     guard({
       id: 'azar', preset: 'azar', speaker: 'azar', speed: 30,
       path: [{ at: [572, 292], wait: 3600, face: 'up' }, { at: [500, 384], wait: 1800, face: 'left' }, { at: [640, 448], wait: 1800, face: 'down' }, { at: [744, 392], wait: 1800, face: 'right' }],
-      suspiciousBarks: ['Lia? Bist du das?', 'Hm? Wo ist sie hin?'], calmBarks: ['Ach, nur ein Schatten.', 'Sie kommt schon wieder.'],
+      suspiciousBarks: ['Lia? Warst du das?', 'Wo steckt sie denn jetzt?'], calmBarks: ['Mein eigener Schatten. Ha.', 'Die kommt schon, wenn sie Hunger hat.'],
     }),
     guard({
       id: 'k4-jorin', preset: 'villager-m', speaker: 'k4-jorin', mode: 'pingpong', lantern: true,
       path: [{ at: [150, 318], wait: 1700, face: 'up' }, { at: [336, 318], wait: 1700, face: 'up' }],
-      suspiciousBarks: ['Wer da?', 'Hat da was geraschelt?'], calmBarks: ['Nur eine Katze.', 'Ich seh schon Gespenster.'],
+      suspiciousBarks: ['Wer da?', 'Da hat doch was geraschelt.'], calmBarks: ['Bloß eine Maus.', 'Zu lange Wache. Ich seh Gespenster.'],
     }),
     guard({
       id: 'k4-gundrik', preset: 'dwarf', speaker: 'k4-gundrik', speed: 26,
       path: [{ at: [852, 380], wait: 2200, face: 'left' }, { at: [884, 292], wait: 1800, face: 'down' }, { at: [780, 254], wait: 2000, face: 'left' }],
-      suspiciousBarks: ['Hä?', 'Wer schleicht da rum?'], calmBarks: ['Pah. Einbildung.'],
+      suspiciousBarks: ['Hä?', 'Wer drückt sich da rum?'], calmBarks: ['Pah. Zu viel Bier.'],
     }),
     guard({
       id: 'k4-faelan', preset: 'elf-m', speaker: 'k4-faelan', mode: 'pingpong', speed: 24, range: 84, fov: 64, reaction: 1.6,
       path: [{ at: [430, 238], wait: 2000, face: 'right' }, { at: [862, 242], wait: 2000, face: 'left' }],
-      suspiciousBarks: ['…?'], calmBarks: ['Der Wind.'],
+      suspiciousBarks: ['…?'], calmBarks: ['Nur der Wind.'],
     }),
     guard({ id: 'k4-wache', preset: 'guard-brotherhood', speaker: 'k4-wache', path: [{ at: [634, 560], face: 'down' }] }),
   ],
@@ -73,7 +73,7 @@ export const lagerAbend = defineMap({
   ],
   exits: [{
     id: 'tor-flucht', poly: [[588, 704], [680, 704], [680, 720], [588, 720]], to: 'k4-nachtwald', spawn: 'flucht', fade: 700,
-    when: () => G.state.is('k4-gehoert'), blocked: 'Erst rede ich mit Elnon. Selbst.',
+    when: () => G.state.is('k4-gehoert'), blocked: 'Erst Elnon. Ich frag ihn selbst.',
   }],
   spawns: { feuer: { at: [556, 392], dir: 'up' } },
   stealth: { checkpoint: 'feuer' },
@@ -92,11 +92,11 @@ function checkpoint(w: WorldCtx, at: [number, number]): void {
 }
 
 const SPOTTED: Record<string, [string, string]> = {
-  azar: ['azar', 'Lia? Da bist du ja! Komm, setz dich, der Eintopf wird kalt.'],
-  'k4-jorin': ['k4-jorin', 'Lia! Willst du mit Wache schieben? Das Essen ist am Feuer!'],
-  'k4-gundrik': ['k4-gundrik', 'He, Kleine! Hier wird nicht rumgeschlichen. Ab ans Feuer.'],
-  'k4-faelan': ['k4-faelan', 'Elnon wünscht keine Störung. Geh zurück zum Feuer.'],
-  'k4-wache': ['k4-wache', 'Hier geht keiner raus. Zurück, Mädchen.'],
+  azar: ['azar', 'Lia! Da steckst du. Setz dich hin, sonst ess ich deinen Eintopf auch noch.'],
+  'k4-jorin': ['k4-jorin', 'Lia? Hier steht die Wache, nicht der Kessel. Das Essen ist am Feuer.'],
+  'k4-gundrik': ['k4-gundrik', 'Na, Kleine? Schleichen übst du woanders. Ab ans Feuer.'],
+  'k4-faelan': ['k4-faelan', 'Elnon will keine Störung. Geh zum Feuer zurück.'],
+  'k4-wache': ['k4-wache', 'Nach Einbruch der Nacht geht keiner raus. Zurück mit dir.'],
 };
 
 export async function verratSkript(w: WorldCtx): Promise<void> {
@@ -104,7 +104,7 @@ export async function verratSkript(w: WorldCtx): Promise<void> {
   const azar = w.actor('azar');
   void ui.fade('in', 600);
   w.stealth.onSpotted(async g => {
-    const [speaker, line] = SPOTTED[g.id] ?? ['azar', 'Zurück ans Feuer!'];
+    const [speaker, line] = SPOTTED[g.id] ?? ['azar', 'Ab ans Feuer, Lia.'];
     w.lockPlayer();
     try {
       await w.say(speaker, line);
@@ -124,17 +124,17 @@ export async function verratSkript(w: WorldCtx): Promise<void> {
       azar.setIdle('sit');
       w.player.setIdle('sit');
       await w.wait(600);
-      await azar.say('Und? Schmeckt’s? Bertas Eintopf ist der zweitbeste im Lager. Nach meinem natürlich.', { mood: 'happy' });
-      await lia(w, 'Wo ist Foltan?');
-      await azar.say('Immer noch bei Elnon. Die zwei reden, als gäbe es kein Morgen.');
-      await w.think('Seit Stunden. Und keiner sagt mir etwas.');
-      await w.think('Ich frage Elnon selbst. Jetzt. Azar würde mich nie lassen.');
-      await azar.say('Ich hol mir Nachschlag. Willst du auch? Nein? Mehr für mich!', { mood: 'happy' });
+      await azar.say('Bertas Eintopf. Der zweitbeste im ganzen Lager. Den besten koch ich, aber mich lässt ja keiner an den Kessel.', { mood: 'happy' });
+      await lia(w, 'Und Foltan? Isst der nicht?');
+      await azar.say('Sitzt noch bei Elnon. Seit Mittag. Wenn der feine Herr Foltan so lange redet, hat er morgen Halsweh.');
+      await w.think('Seit Mittag. Und mir erzählt keiner ein Wort.');
+      await w.think('Dann frage ich Elnon eben selbst. Azar darf es nur nicht merken, sonst hält er mich am Ärmel fest.');
+      await azar.say('Ich hol mir noch eine Kelle. Du auch? … Nein? Dann nehm ich deine gleich mit.', { mood: 'happy' });
       azar.setIdle('idle');
       await azar.walkTo(572, 292, { face: 'up' });
       w.player.setIdle('idle');
-      await w.say('narrator', `Schleiche zu Elnons Zelt. Halte ${w.controlHint('sneak')} gedrückt: Hinter Kisten und Fässern bist du geduckt unsichtbar.`);
-      await w.say('narrator', 'Sichtkegel zeigen, wohin jemand schaut. Läufst du Azar in die Arme, schickt er dich zurück ans Feuer.');
+      await w.say('narrator', `Schleich dich zu Elnons Zelt. Halte ${w.controlHint('sneak')} gedrückt: Hinter Kisten und Fässern duckst du dich und bleibst ungesehen.`);
+      await w.say('narrator', 'Die Sichtkegel zeigen, wohin jemand schaut. Erwischt dich Azar, schickt er dich zurück ans Feuer.');
     });
     G.state.set('k4-verrat-intro');
   }
@@ -158,40 +158,40 @@ async function lauschen(w: WorldCtx): Promise<void> {
     w.stealth.enable(false);
     w.player.play('crouch' as CharAnim);
     G.audio.music(null, { fadeMs: 1500 });
-    await w.say('narrator', 'Das Zelt ist unbewacht. Durch einen Spalt in der Plane fällt Kerzenlicht.');
+    await w.say('narrator', 'Vor dem Zelt steht niemand. Ein schmaler Streifen Kerzenlicht fällt durch die Plane.');
     ui.prefetchPlate('k4-elnon-zelt');
     await G.ui.plate('k4-elnon-zelt', { caption: 'Elnons Zelt', pan: 'in' });
-    await w.think('Elnon beugt sich über eine Karte. Der Narbige lehnt am Schrank. Und Foltan …');
-    await w.say('foltan', 'Nach allem, was wir herausgefunden haben, sind sie hinter dem Geweih her.');
-    await w.say('elnon', 'Und da bist du dir sicher?', { mood: 'grim' });
-    await w.say('foltan', 'Craupor ist verlässlich. Ich würde ihm mein Leben anvertrauen.');
-    await w.say('alastir', 'Das Geweih Regas. Erst nehmen sie uns die Heimat, und jetzt das. Unverzeihlich.', { mood: 'angry' });
-    if (G.state.data.lore.includes('k4-lore-destar')) await w.think('Regas Geweih … Ilvy hat gesagt, kein Elf würde es auch nur berühren.');
-    await w.say('elnon', 'Ein Trupp von fünf Mann, sagst du?');
-    await w.say('foltan', 'Fünf. Und sie hatten eine Gefangene. Ich denke, es ist die Schwester des Mädchens.');
+    await w.think('Elnon über einer Karte von halb Selantis. Der Elf mit der Brandnarbe am Schrank. Und Foltan, die Arme verschränkt.');
+    await w.say('foltan', 'Sie suchen eine Grotte. Und darin das Geweih.');
+    await w.say('elnon', 'Woher weißt du das?', { mood: 'grim' });
+    await w.say('foltan', 'Von Craupor. Der schuldet mir mehr als einen Gefallen. Der lügt mich nicht an.');
+    await w.say('alastir', 'Erst Ebaril. Jetzt greifen sie nach Regas Geweih. … Unverzeihlich.', { mood: 'angry' });
+    if (G.state.data.lore.includes('k4-lore-destar')) await w.think('Ilvy hat von dem Geweih erzählt. Kein Elf würde es anfassen. Die Dunkelschatten schon.');
+    await w.say('elnon', 'Wie viele?');
+    await w.say('foltan', 'Fünf. Dazu ein Mädchen an der Kette. Craupors Beschreibung passt auf die Schwester der Kleinen.');
     try { heartbeat = G.audio.loop('heartbeat', { interval: 0.75, volume: 0.9 }); } catch { heartbeat = null; }
     await w.think('Kyra.');
-    await w.think('Er … weiß es? Er weiß, wo sie ist?');
-    await w.say('elnon', 'Weiß sie davon?');
-    await w.say('foltan', 'Nein. Ich habe ihr nichts erzählt.', { mood: 'ashamed' });
+    await w.think('Er weiß, wo sie ist. Er hat es die ganze Zeit gewusst.');
+    await w.say('elnon', 'Und die, die du hergebracht hast? Weiß sie es?');
+    await w.say('foltan', 'Nein. Von mir nicht.', { mood: 'ashamed' });
     heartbeat?.set({ interval: 0.5 });
-    await w.say('elnon', 'Weshalb hast du es ihr verschwiegen?');
-    await w.say('foltan', 'Dass ihre Schwester lange genug lebt, damit wir sie retten können? Zu unwahrscheinlich. Ich wollte ihr keine Hoffnung machen.');
-    await w.say('foltan', 'Sie soll sich hier nützlich machen und darüber hinwegkommen. Der Krieg fordert solche Opfer.');
-    await w.say('elnon', 'Nicht sonderlich nobel von dir.', { mood: 'grim' });
-    await w.say('elnon', 'Aber ich verstehe es. Zu dritt gegen fünf Dunkelschatten? Ihr wärt gestorben, und deine Nachricht mit euch.');
-    await w.say('elnon', 'Sie ist eine von tausenden Kriegswaisen. Dem Schicksal vieler muss man manchmal ein einzelnes unterordnen.');
+    await w.say('elnon', 'Warum nicht?');
+    await w.say('foltan', 'Bis wir die Grotte finden, ist die Schwester tot. Oder Schlimmeres. Soll ich der Kleinen Hoffnung verkaufen, die ich selbst nicht habe?');
+    await w.say('foltan', 'Hier ist sie sicher. Soll sie Kessel schrubben und Pfeile schnitzen, bis sie aufhört zu warten.');
+    await w.say('elnon', 'Ehrenhaft ist das nicht.', { mood: 'grim' });
+    await w.say('elnon', 'Aber klug. Drei gegen fünf Dunkelschatten, und eine davon ein Kind. Ich hätte nie von der Grotte erfahren.');
+    await w.say('elnon', 'Eine Waise mehr. Nach dem Brand habe ich tausende gezählt.');
     await w.say('elnon', 'Damit es kein zweites Ebaril gibt.');
-    if (G.state.is('k3-luege-bemerkt')) await w.think('„Craupor weiß nichts.“ Ich wusste es. Ich habe es die ganze Zeit gewusst.');
-    await w.think('Sie haben es versprochen. Am Lagerfeuer haben sie es mir versprochen. Beide.');
+    if (G.state.is('k3-luege-bemerkt')) await w.think('Im Goldenen Eber hat er mir ins Gesicht gesehen und gesagt, Craupor wüsste nichts. Ich hab’s geahnt. Und ihm trotzdem geglaubt.');
+    await w.think('Am Lagerfeuer hat er es mir versprochen. Da wusste er es schon.');
     G.state.addClue('k4-clue-fuenf');
     await G.ui.closePlate();
     heartbeat?.set({ interval: 0.42 });
-    const pick = await w.choose(['Hineinstürmen und ihn anschreien', 'Weg. Einfach nur weg.']);
+    const pick = await w.choose(['Reingehen und es ihm ins Gesicht sagen', 'Gehen, bevor sie mich hören']);
     if (pick === 0) {
-      await w.think('Meine Hand liegt schon an der Plane. … Nein. Er würde mich nur wieder belehren. Wie ein dummes kleines Mädchen.');
+      await w.think('Meine Finger sind schon an der Plane. … Und dann? Er erklärt mir, warum er recht hat, und Elnon nickt dazu.');
     }
-    await w.think('Er hält Kyra für tot. Dann suche ich sie eben allein.');
+    await w.think('Für ihn ist Kyra schon tot. Für mich nicht.');
     heartbeat?.stop(600);
     heartbeat = null;
     G.state.set('k4-gehoert');
@@ -204,7 +204,7 @@ async function flucht(w: WorldCtx): Promise<void> {
   G.audio.music('grief', { fadeMs: 1200 });
   w.setObjective('k4-weg', 'Lauf. Weg von hier, raus aus dem Lager.', 'tor-flucht');
   await w.wait(1800);
-  w.bark('k4-berta', 'Kind? Wohin so schnell?', 2200);
+  w.bark('k4-berta', 'Kind? Wo brennt’s denn?', 2200);
   await w.wait(2400);
   w.bark('k4-ilvy', 'Lia?', 1600);
 }
@@ -236,13 +236,13 @@ export const nachtwald = defineMap({
       G.state.set('k4-flucht-tafel');
       await w.cutscene(async () => {
         await G.ui.plate('k4-flucht', { caption: 'Hinaus in die Nacht', pan: 'right' });
-        await w.think('Weg. Weg vom Lager. Weg von meinen falschen Freunden.');
+        await w.think('Nicht umdrehen. Wenn ich mich umdrehe, gehe ich zurück.');
         await G.ui.closePlate();
       });
     }
     w.setObjective('k4-flucht', 'Lauf. Den Pfad hinunter, weg vom Lager.', [660, 360]);
     await w.wait(500);
-    await w.think(G.state.is('k4-blinzeln') ? 'Der Pfad von heute Morgen. Ich habe ihn unter der Binde gesehen. Nur kurz. Es reicht.' : 'Irgendwo hier sind wir heute Morgen entlanggekommen. Ich höre den Bach.');
+    await w.think(G.state.is('k4-blinzeln') ? 'Heute Morgen hab ich unter der Binde durchgeblinzelt. Moos, Farn, dieser Pfad. Das muss reichen.' : 'Heute Morgen hab ich hier nur Schritte und Wasser gehört. Da ist er, der Bach. Ihm nach.');
   },
 });
 
@@ -252,7 +252,7 @@ async function stolpern(w: WorldCtx): Promise<void> {
     w.camera.shake(220, 0.006);
     await w.player.play('hit', { ms: 500 });
     w.player.setIdle('kneel');
-    await w.think('Der umgestürzte Baum. Heute Morgen hat Azar mich gewarnt. Jetzt warnt mich niemand mehr.');
+    await w.think('Der umgestürzte Stamm. Heute Morgen hat Azar „Kopf runter“ gerufen. Jetzt ruft keiner.');
     w.player.setIdle('idle');
   });
 }
@@ -266,9 +266,9 @@ async function amBach(w: WorldCtx): Promise<void> {
     w.player.setIdle('kneel');
     sfx('splash', { volume: 0.6, pitch: 0.8 });
     await w.wait(700);
-    await w.think('Sie haben es versprochen. Beide.');
-    await w.think('Foltan hat es die ganze Zeit gewusst. Seit dem Goldenen Eber. Fünf Dunkelschatten, eine Gefangene, ein Geweih.');
-    if (G.state.has('ribbon')) await w.think('Kyras Haarband. Ich halte es so fest, dass meine Finger wehtun.');
+    await w.think('Das Wasser ist eiskalt. Gut. Dann hat das Zittern wenigstens einen Grund.');
+    await w.think('Fünf Dunkelschatten. Eine Gefangene. Ein Geweih. Ich sage es mir vor wie Vokabeln, damit nichts verloren geht.');
+    if (G.state.has('ribbon')) await w.think('Kyras Haarband. Ich wickle es mir um die Finger, bis sie weiß werden.');
     await w.wait(500);
     w.bark('player', '…', 1500);
     // Far away: Azar calls her name.
@@ -277,23 +277,23 @@ async function amBach(w: WorldCtx): Promise<void> {
     if (!spoken.voiced) for (let i = 0; i < 5; i++) { try { G.audio.blip(105, 'square', { pan: 0.6, volume: 0.35 }); } catch { /* */ } await ui.wait(70); }
     if (spoken.voiceDone) await spoken.voiceDone;
     await ui.wait(spoken.voiced ? 600 : 1800);
-    const pick = await w.choose(['Antworten', 'Schweigen']);
-    if (pick === 0) await w.think('Ich öffne den Mund. Kein Ton kommt heraus. Dann ist die Stimme weg.');
-    else await w.think('Azar. … Nein. Vielleicht hat er es auch gewusst.');
-    await w.think('Dann eben allein. Fünf Dunkelschatten und eine Grotte. So schwer kann das nicht sein.');
+    const pick = await w.choose(['Zurückrufen', 'Stillhalten']);
+    if (pick === 0) await w.think('Ich hole Luft. Es kommt nichts. Dann ist der Wald wieder still.');
+    else await w.think('Azar. Der hat mir Wachteleier gebraten. … Vielleicht wusste er es trotzdem.');
+    await w.think('Allein also. Fünf Dunkelschatten, eine Grotte und ein Mädchen, das zu viel liest. In Büchern geht so was gut aus. Meistens.');
   });
   await ui.fade('out', 1200);
-  await G.ui.narrate('Im Lager brannten die Feuer herunter.', { style: 'card' });
+  await G.ui.narrate('Im Lager fielen die Feuer in sich zusammen.', { style: 'card' });
   ui.prefetchPlate('k4-azar-foltan');
   await G.ui.plate('k4-azar-foltan', { caption: 'Am Feuer der Bruderschaft', pan: 'in' });
   await ui.fade('in', 600);
-  await G.ui.say('azar', 'Du hast es ihr versprochen! Du hast ihr versprochen, ihr zu helfen, ihre Schwester zu finden!', { mood: 'angry' });
-  await G.ui.say('foltan', 'Ich helfe ihr. Glaub mir, eines Tages wird sie es verstehen.', { mood: 'ashamed' });
-  await G.ui.say('azar', 'Gefühlloser Holzklotz. Ich gehe sie suchen.', { mood: 'angry' });
-  await G.ui.say('foltan', 'Azar! Du darfst ihr nichts sagen. Hörst du? Versprich es!');
-  await G.ui.say('azar', 'Versprechen gelten hier anscheinend sowieso nichts mehr.', { mood: 'sad' });
-  await G.ui.narrate(['Azar suchte bis tief in die Nacht. Er rief ihren Namen in den Wald, wieder und wieder. Niemand antwortete.',
-    'Foltan blieb allein am Feuer zurück und starrte in die Glut. Er wusste nicht mehr, ob er das Richtige getan hatte.']);
+  await G.ui.say('azar', 'Ich saß daneben, als du es ihr versprochen hast. Ich hab dich sogar dazu gezwungen, ich Esel.', { mood: 'angry' });
+  await G.ui.say('foltan', 'Ich halte sie am Leben. Eine andere Hilfe habe ich nicht.', { mood: 'ashamed' });
+  await G.ui.say('azar', 'Du hast ein Herz wie ein Amboss. Kalt, und man haut sich die Hand dran kaputt. Ich geh sie suchen.', { mood: 'angry' });
+  await G.ui.say('foltan', 'Azar. Kein Wort von Craupor, wenn du sie findest. Versprich mir das.');
+  await G.ui.say('azar', 'Ein Versprechen. Was sind die hier denn noch wert, Foltan?', { mood: 'sad' });
+  await G.ui.narrate(['Azar nahm eine Fackel und suchte bis weit nach Mitternacht. Sein Rufen wurde mit jeder Stunde heiserer.',
+    'Foltan blieb am Feuer sitzen und legte kein Holz nach. Als die Glut grau wurde, saß er immer noch da.']);
   await G.ui.closePlate();
   G.state.setParty([]);
   G.state.set('k4-verrat-done');

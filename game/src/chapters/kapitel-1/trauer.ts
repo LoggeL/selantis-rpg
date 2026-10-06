@@ -151,9 +151,9 @@ async function kneelAtParents(w: WorldCtx): Promise<void> {
     await w.wait(900);
     await w.narrate([
       'Da lagen sie. Eng beieinander, als hätten sie sich noch im Fallen gesucht. Lia hatte zwei Laken über sie gebreitet.',
-      'Warum? Warum ihr? Warum Kyra? Was hattet ihr denn getan, dass ihr das verdient habt?',
-      'Sie weinte, bis keine Tränen mehr kamen. Danach war da nur noch Leere.',
-      'Und in der Leere ein einziger Gedanke: Kyra lebt. Und ich hole sie zurück.',
+      'Seit Tagen hatte Vater jeden Abend nach Regen Ausschau gehalten. Morgen würde es keiner mehr tun.',
+      'Lia weinte, bis nichts mehr kam. Dann saß sie einfach da.',
+      'Irgendwann war da ein Gedanke, klein und hart wie ein Kiesel: Kyra lebt.',
     ]);
     await w.say('lia', 'Ich lasse euch nicht so liegen. Nicht für die Leichenfresser.', { mood: 'determined' });
     await w.think('Steine. Am Feldrand liegt ein ganzer Haufen davon.');
@@ -251,7 +251,7 @@ async function dawn(w: WorldCtx): Promise<void> {
       'Ihre Hände waren blutig, die Füße in den Holzschuhen wundgescheuert. Es war ihr gleich.',
     ]);
     await w.think('Danke. Für alles.');
-    await w.think('Ich werde alles tun, um Kyra zu finden. Das verspreche ich euch.');
+    await w.think('Ich hole Kyra zurück. Und dann kommen wir zu zweit her und erzählen euch alles.');
     await G.ui.closePlate();
     w.player.setIdle('idle');
     music('refuge');
@@ -293,7 +293,7 @@ async function openGate(w: WorldCtx): Promise<void> {
     await pigpenGate(w).open();
     G.state.set('k1-schweine-frei');
     w.completeObjective('k1-schweine');
-    await w.say('lia', 'Macht’s gut, ihr drei. Ihr seid jetzt auf euch gestellt. Ich hoffe, ihr kommt ohne mich klar.', { mood: 'sad' });
+    await w.say('lia', 'Macht’s gut, ihr drei. Ab jetzt sucht ihr euch euer Futter selbst. Und lasst euch nicht fangen.', { mood: 'sad' });
     const exits: [number, number][][] = [
       [PEN_GATE_INSIDE, PEN_GATE_OUTSIDE, [446, 236], [700, 300], [1080, 250]],
       [PEN_GATE_INSIDE, PEN_GATE_OUTSIDE, [446, 236], [600, 360], [1000, 420]],
@@ -326,7 +326,7 @@ async function leave(w: WorldCtx): Promise<void> {
     await w.think('Aber die Helden in meinen Büchern kommen auch immer mit wenig aus. So schwer kann es ja nicht sein.');
     w.camera.follow();
     await G.ui.fade('out', 1600);
-    await w.narrate(['Lia zog die Tür hinter sich zu und folgte den Hufspuren nach Osten. Das war der Morgen, an dem ihr Abenteuer begann.'], { style: 'card' });
+    await w.narrate(['Lia zog die Tür hinter sich zu und folgte den Hufspuren nach Osten. Sie sah sich nicht um.'], { style: 'card' });
   });
   await gotoOrTitle('strasse');
 }

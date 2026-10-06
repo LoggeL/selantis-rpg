@@ -400,7 +400,7 @@ async function tellRiders(w: WorldCtx, who: string): Promise<void> {
   await w.say('k2-lia', 'Kyra.', { mood: 'surprised' });
   await w.say('k2-lia', 'Sie lebt. Und sie wehrt sich. Natürlich wehrt sie sich.', { mood: 'determined' });
   G.state.addClue('k2-gaukler-reiter');
-  await g.say('Sie ritten nach Osten. Wer immer sie für dich ist, Mädchen: Pass auf dich auf.');
+  await g.say('Sie ritten nach Osten. Und, Mädchen … lauf denen nicht allein hinterher. Bitte.');
 }
 
 async function talkBarde(w: WorldCtx): Promise<void> {

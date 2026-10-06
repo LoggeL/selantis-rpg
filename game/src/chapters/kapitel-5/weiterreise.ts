@@ -20,9 +20,9 @@ export const weiterreiseMap = defineMap({
     w.setObjective('k5-weiterreise', 'Sichert gemeinsam den Weg. Am Rastplatz könnt ihr euren Fortschritt ansehen.', 'reiseweg');
     if (!G.state.is('k5-weiterreise-start')) {
       G.state.set('k5-weiterreise-start');
-      await w.say('flick', 'Wir bleiben zusammen. Wenn auf dem Weg Räuber stehen, halten wir einander den Rücken frei.');
-      await w.say('kyra', 'Und diesmal bin ich auch dabei. Ohne Seil.');
-      await w.think('Kyra ist frei. Zum ersten Mal seit Tagen kann ich weiter als bis zum nächsten Schritt denken.');
+      await w.say('flick', 'Eine Regel: Keiner läuft mehr allein in den Wald. Ich schau dabei übrigens niemanden an. Schon gar nicht dich.');
+      await w.say('kyra', 'Und ich lauf diesmal freiwillig mit. Ganz ohne Strick.');
+      await w.think('Kyra redet seit Stunden ohne Pause. Ich hab nie etwas Schöneres gehört.');
       saveEncounterReturn(w);
     }
   },
@@ -40,18 +40,18 @@ async function nextEncounter(w: WorldCtx): Promise<void> {
   if (result.outcome !== 'win') return;
   const wins = Number(G.state.flag('k5-reisekaempfe'));
   if (learnsLight) {
-    await w.say('flick', 'Eben war wieder dieses Licht um deine Hand. Du hast es diesmal gehalten.');
-    await w.think('Nicht die Welle von damals. Nur ein kleiner Stoß. Aber diesmal weiß ich, was ich tue.');
+    await w.say('flick', 'Da war’s wieder, dein Licht. Nur hattest du es diesmal an der Leine.');
+    await w.think('Keine Welle. Ein Stoß, nicht größer als eine Faust. Und ich hab ihn gewollt … glaube ich.');
     G.ui.toast('Lia lernt Lichtstoß.', 'ability');
   } else if (wins === 1) {
-    await w.say('kyra', 'Du hast gleich gesehen, wo wir hinmüssen.');
-    await w.think('Ich hatte immer noch Angst. Aber ich konnte dabei nachdenken.');
+    await w.say('kyra', 'Woher wusstest du, wo die stehen? Steht das auch in deinen Büchern?');
+    await w.think('Angst hatte ich trotzdem. Sie war nur leiser als meine Gedanken.');
   }
   saveEncounterReturn(w);
 }
 
 async function rest(w: WorldCtx): Promise<void> {
-  await w.say('flick', 'Wir versorgen uns vor jedem neuen Wegabschnitt. Alle kommen mit, niemand bleibt zurück.');
+  await w.say('flick', 'Erst Wunden verbinden, dann weiter. Und keiner bleibt liegen, verstanden?');
   const lines = ['lia', 'flick', 'kyra'].map(id => {
     const p = G.state.character(id);
     const name = id === 'lia' ? 'Lia' : id === 'flick' ? 'Flick' : 'Kyra';

@@ -168,10 +168,10 @@ async function opening(w: WorldCtx): Promise<void> {
 
     await w.say('lia', 'Was sollte das denn?', { mood: 'surprised' });
     await kyra.say('Wer faulenzt, hat es nicht anders verdient.', { mood: 'happy' });
-    await kyra.say('Weißt du, was ich interessant finde? Dass ich das ganze Feuerholz gesammelt habe, während du hier rumgesessen und gelesen hast.', { mood: 'angry' });
+    await kyra.say('Ich schlepp seit Mittag Feuerholz durch den Wald. Und du? Du blätterst um. Muss anstrengend sein.', { mood: 'angry' });
     const a = await w.choose([
       '„Ich wollte gleich nachkommen. Ehrlich.“',
-      '„Es war gerade so spannend! Alana wollte nämlich …“',
+      '„Aber Alana war gerade an der besten Stelle! Sie wollte nämlich …“',
       '„Holz sammeln kannst du eben besser. Jeder hat seine Talente.“',
     ]);
     if (a === 0) {
@@ -181,17 +181,17 @@ async function opening(w: WorldCtx): Promise<void> {
       await kyra.say('So wie immer.');
     } else if (a === 1) {
       G.state.set('k1-wiese-ton', 'schwaermerisch');
-      await kyra.say('Verschon mich mit deinen Geschichten. Komm mal im echten Leben an.', { mood: 'angry' });
+      await kyra.say('Verschon mich mit deiner Alana. Die mistet keinen Stall aus.', { mood: 'angry' });
     } else {
       G.state.set('k1-wiese-ton', 'frech');
       void kyra.emote('anger');
       await kyra.say('Und deins ist Rumsitzen? Pass auf, sonst kitzle ich dich gleich noch mal.', { mood: 'angry' });
       await w.say('lia', 'Bloß nicht! Ich ergebe mich!', { mood: 'happy' });
     }
-    await kyra.say('Sieh dich mal um. Das hier ist das wahre Leben. Nicht das da.');
-    await w.say('lia', 'Aber hier ist es so öde. Da drin gibt es mutige Helden, Magierinnen und fahrende Ritter.', { mood: 'thinking' });
-    await kyra.say('Sei froh, dass es hier so öde ist. Seit Dunkelhain ist man nirgends mehr sicher.', { mood: 'sad' });
-    await kyra.say('Die Fürsten schützen nur noch ihre Städte. Ein Wunder, dass Räuber und Dunkelschatten uns bisher verschont haben.');
+    await kyra.say('Leg das Ding weg und guck dich um. Hier passiert auch was. Die Schweine zum Beispiel. Die wollen fressen.');
+    await w.say('lia', 'Schweine. Genau. Da drin gibt es Magierinnen und fahrende Ritter. Hier gibt es Schweine.', { mood: 'thinking' });
+    await kyra.say('Sei froh drum. Seit Dunkelhain ist man nirgends mehr sicher.', { mood: 'sad' });
+    await kyra.say('Die Fürsten hocken hinter ihren Mauern. Wer draußen wohnt, betet, dass keine Räuber vorbeireiten. Oder Dunkelschatten.');
     G.state.addLore('lore-nach-dunkelhain');
     const b = await w.choose([
       '„Siehst du? Selbst denen ist es hier zu langweilig.“',
@@ -213,7 +213,7 @@ async function opening(w: WorldCtx): Promise<void> {
       void kyra.emote('heart');
       await kyra.say('Ausmisten? Du? Das will ich sehen!', { mood: 'happy' });
     }
-    await kyra.say('Gut. Das hoffe ich für dich. Sonst werde ich wirklich böse.');
+    await kyra.say('Will ich dir auch geraten haben.');
     G.state.set('k1-versprochen');
     await kyra.say('Kommst du mit? Mutter macht sich Sorgen, wenn wir nicht pünktlich zum Abendbrot sind.');
     await w.say('lia', 'Geh schon vor. Ich bleibe noch kurz hier und …');

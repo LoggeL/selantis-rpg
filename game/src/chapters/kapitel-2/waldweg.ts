@@ -145,12 +145,12 @@ export const waldweg: MapDef = defineMap({
       id: 'wegelagerer', verb: 'Weg am Bach prüfen', at: [972, 330], radius: 32, sparkle: true,
       when: () => G.state.is('k2-rast-fertig') && !G.state.is('k2-wegelagerer-besiegt') && !G.state.is('k2-wegelagerer-umgangen'),
       onInteract: async w => {
-        await w.say('foltan', 'Zwei Wegelagerer am anderen Ufer. Sie tragen zusammengeklaubte Rüstung. Wir können sie vertreiben oder den Bach weiter unten queren.');
+        await w.say('foltan', 'Zwei Kerle am anderen Ufer. Rostige Helme, geflickte Röcke. Wegelagerer. Wir jagen sie weg, oder wir queren weiter unten.');
         const pick = await w.choose(['„Gehen wir ihnen aus dem Weg.“', '„Ich komme mit. Aber bleibt bei mir.“']);
         if (pick === 0) {
           G.state.set('k2-wegelagerer-umgangen');
           saveEncounterReturn(w);
-          await w.say('foltan', 'Vernünftig. Die Suche nach deiner Schwester geht vor.');
+          await w.say('foltan', 'Vernünftig. Wir sind wegen deiner Schwester unterwegs, nicht wegen zwei Strauchdieben.');
           return;
         }
         await w.say('foltan', 'Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.');
@@ -356,15 +356,15 @@ async function rest(w: WorldCtx): Promise<void> {
     await foltan.walkTo([754, 570]);
     foltan.face('player');
     await w.say('foltan', 'Das hat sie gestern Abend schon gemerkt, glaub mir.');
-    await w.say('foltan', 'Lass sie. Das Schicksal hat sie schwer erwischt. Sie muss das erst einmal verarbeiten.');
+    await w.say('foltan', 'Lass sie. Die hat mehr verloren als wir beide zusammen. Gib ihr Zeit.');
     await w.say('azar', 'Immerhin hat sie mir ihren Namen verraten. Sie heißt Lia.', { mood: 'happy' });
     await w.say('foltan', 'Schön. Dann wissen wir wenigstens, wen wir ins Lager befördern.');
-    await lia(w, 'Was ist das für ein Lager, in das ich gebracht werden soll?', 'thinking');
+    await lia(w, 'Was ist das für ein Lager, in das ihr mich bringt?', 'thinking');
     await w.say('azar', 'Ein ganzer Satz! Nicht schlecht.');
-    await w.say('foltan', 'Wir beide gehören zu einer Gruppe, die Dunkelschatten jagt. Unser Hauptlager liegt etwa einen Tagesmarsch entfernt.');
-    await w.say('foltan', 'Dort beraten wir über deinen Fall. Vielleicht hat ein anderer Spähtrupp die Entführer deiner Schwester gesehen.');
-    await w.say('foltan', 'Mach dir aber keine großen Hoffnungen. Die Dunkelschatten schrecken auch vor einem Mädchen nicht zurück.', { mood: 'sad' });
-    await w.say('azar', 'Gerade sagst du, sie muss das alles erst verarbeiten, und jetzt sowas!', { mood: 'angry' });
+    await w.say('foltan', 'Wir sind Späher. Unsere Leute jagen Dunkelschatten. Wo das Lager liegt, musst du nicht wissen.');
+    await w.say('foltan', 'Dort wird entschieden, was aus dir wird. Vielleicht hat ein anderer Trupp die Entführer deiner Schwester gesehen.');
+    await w.say('foltan', 'Mach dir aber keine großen Hoffnungen. Dunkelschatten fragen nicht, wie alt jemand ist.', { mood: 'sad' });
+    await w.say('azar', 'Eben noch „gib ihr Zeit“, und jetzt so was? Du hast das Feingefühl eines Ambosses!', { mood: 'angry' });
     await w.say('foltan', 'Ich will ihr nichts vormachen. Ich bin nur ehrlich.');
     const p = await w.choose([
       '„Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?“',
@@ -373,8 +373,8 @@ async function rest(w: WorldCtx): Promise<void> {
     if (p === 0) await lia(w, 'Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?', 'angry');
     else { G.state.inc('k2-azar-mag'); await lia(w, 'Ich sitze übrigens direkt neben euch. Mit Ohren. Zwei Stück.', 'angry'); }
     bg(azar.emote('!', 800)); bg(foltan.emote('!', 800));
-    await lia(w, 'Als ob es noch schlimmer werden könnte. Ich habe schon alles verloren.', 'sad');
-    await lia(w, 'Es kann nur besser werden. Indem ich meine Schwester zurückbekomme.', 'determined');
+    await lia(w, 'Schlimmer kann es nicht mehr werden. Ich hab schon alles verloren. Bis auf Kyra.', 'sad');
+    await lia(w, 'Also kann es nur besser werden. Spätestens, wenn ich sie zurückhabe.', 'determined');
     await w.say('azar', 'Interessante Form von Optimismus.');
     await w.say('foltan', 'Wir werden sehen, was sich machen lässt. Reden können wir heute Abend am Feuer. Los.');
     await w.say('azar', 'Man soll aufhören, wenn’s am schönsten ist …', { mood: 'sad' });

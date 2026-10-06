@@ -220,7 +220,7 @@ export async function throwStone(w: WorldCtx, good: boolean): Promise<void> {
       await jorin.walkTo(112, 250, { run: true });
       sfx('pickup', { volume: 0.7 });
       bg(jorin.emote('note'));
-      await jorin.say('Hab sie! Das Banner ist unser!');
+      await jorin.say('Hab’s! Das Banner gehört uns!');
       gundrik.face('k4-jorin');
       bg(gundrik.emote('anger'));
       await gundrik.say('Bei meinem Bart! Hinterhältig. Gut gemacht, Kleine.');
@@ -228,7 +228,7 @@ export async function throwStone(w: WorldCtx, good: boolean): Promise<void> {
     } else {
       bg(gundrik.emote('!'));
       gundrik.face('k4-jorin');
-      await gundrik.say('Und wen sehe ich da? Jorin, du Hasenfuß! Zurück an den Start!');
+      await gundrik.say('Und wen seh ich da? Jorin, du Hasenfuß! Zurück auf deinen Platz!');
       bg(jorin.emote('drop'));
       await foltan.say('Er hat genau dorthin geschaut, wo Jorin steht. Lenk ihn WEG von deinem Freund.');
     }
@@ -265,7 +265,7 @@ export async function gundrikAblenken(w: WorldCtx): Promise<void> {
     }
     await jorin.walkTo(112, 250, { run: true });
     sfx('pickup', { volume: 0.7 });
-    await jorin.say('Hab sie!');
+    await jorin.say('Hab’s!');
     gundrik.face('k4-jorin');
     bg(gundrik.emote('…'));
     await gundrik.say('… Ach, verflucht. Mit Worten, ja? Das merk ich mir.');

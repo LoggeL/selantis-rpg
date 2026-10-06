@@ -110,7 +110,7 @@ export async function foltanAzarSkript(w: WorldCtx): Promise<void> {
   await w.say('foltan', 'Und du hältst jetzt auch die Klappe, ja?', { mood: 'angry' });
   await w.say('azar', '’Tschuldige. Du weißt doch, dass ich schreckhaft bin.', { mood: 'worried' });
   await w.say('foltan', 'Dank dir weiß jetzt der halbe Wald, wo wir sind.');
-  await w.say('azar', 'Kann ja nicht jeder so professionell sein wie der feine Herr Foltan.', { mood: 'angry' });
+  await w.say('azar', 'Kann ja nicht jeder Nerven aus Draht haben wie der feine Herr Foltan.', { mood: 'angry' });
   await G.ui.closePlate();
 
   // A short playable beat while they bicker: sneak away … or stay.
@@ -230,12 +230,12 @@ async function interrogation(w: WorldCtx): Promise<void> {
     bg(foltan.emote('?', 1000));
     await w.say('foltan', 'Wer weiß. Vielleicht spionierst du für den Lichterorden in Trapas. Oder … für die Dunkelschatten.');
     const p2 = await w.choose([
-      '„Für die Dunkelschatten?! Die haben meine Eltern umgebracht!“',
+      '„Für die Dunkelschatten? Die haben meine Eltern umgebracht.“',
       '„Seh ich aus wie ein Spion? Ich hab nicht mal Schuhe an.“',
       '„Moment. Ihr seid gegen die Dunkelschatten?“',
     ]);
     if (p2 === 0) {
-      await lia(w, 'Für die Dunkelschatten?! Die haben meine Eltern umgebracht!', 'angry');
+      await lia(w, 'Für die? Die haben meine Eltern umgebracht. Ich hab die ganze Nacht Steine für ihre Gräber geschleppt.', 'angry');
       bg(azar.emote('drop', 1000));
       await w.say('foltan', '… Deine Eltern?', { mood: 'sad' });
     } else if (p2 === 1) {
@@ -247,7 +247,7 @@ async function interrogation(w: WorldCtx): Promise<void> {
       G.state.inc('k2-foltan-respekt');
       await w.say('foltan', 'Was denn sonst? Sehen wir etwa aus wie welche? Die Dunkelschatten sind aller Welt Feind.');
     }
-    await lia(w, 'Dann helft mir. Ich erzähle euch alles. Aber nur, wenn ihr versprecht, mir zu helfen.', 'determined');
+    await lia(w, 'Ich erzähle euch alles. Aber erst, wenn ihr versprecht, mir zu helfen.', 'determined');
     bg(foltan.emote('?', 900)); bg(azar.emote('?', 900));
     await sleep(700);
     await w.say('foltan', 'Bitte, warum nicht gleich so. Erzähl erst einmal.');
@@ -261,12 +261,12 @@ async function interrogation(w: WorldCtx): Promise<void> {
       G.state.inc('k2-foltan-respekt');
       await w.say('foltan', 'Du hast herumgefragt. Nicht dumm. Gar nicht dumm.', { mood: 'surprised' });
     }
-    await w.say('azar', 'Nein … wie tragisch.', { mood: 'sad' });
-    await w.say('foltan', 'Du bist nicht die Einzige mit diesem Schicksal. Witwen und Waisen, wohin man sieht.', { mood: 'sad' });
+    await w.say('azar', 'Ach, du armes Ding …', { mood: 'sad' });
+    await w.say('foltan', 'Und du bist nicht die Einzige. Witwen und Waisen, wohin man sieht.', { mood: 'sad' });
     await w.say('foltan', 'Kein Fürst schützt mehr seine Höfe. Und den Rat der Drei kannst du vergessen.');
-    await w.say('foltan', 'Ihr Großmeister soll dem Wahnsinn verfallen sein. Führt Krieg gegen fremde Kulte, statt Dörfer zu schützen.', { mood: 'angry' });
+    await w.say('foltan', 'Ihr Großmeister soll den Verstand verloren haben. Jagt fremde Kulte, während die Höfe brennen.', { mood: 'angry' });
     G.state.addLore('k2-lore-rat-der-drei');
-    await w.say('foltan', 'Aber sei’s drum. Deine Geschichte klingt glaubhaft. Wir nehmen dich mit.');
+    await w.say('foltan', 'Aber sei’s drum. Ich glaube dir. Du kommst mit uns.');
     const p3 = await w.choose(['„Mit? Wohin?“', '„Und wenn ich nicht will?“']);
     if (p3 === 1) await w.say('foltan', 'Dann liegst du schneller erschlagen im Straßengraben, als du glaubst. Dich hier zu lassen, verbietet der Kodex.');
     else await w.say('foltan', 'In unser Lager. Dich allein in der Wildnis zu lassen, verbietet der Kodex.');
@@ -283,7 +283,7 @@ async function interrogation(w: WorldCtx): Promise<void> {
     }
     await w.say('foltan', 'Noch etwas. Sobald wir in die Nähe unseres Lagers kommen, verbinden wir dir die Augen.');
     await lia(w, 'Eine Augenbinde. Wie in den Räubergeschichten.', 'thinking');
-    await w.say('foltan', 'Zu unserer Sicherheit. Und jetzt schlaf. Morgen wird ein langer Marsch. Wir halten abwechselnd Wache.');
+    await w.say('foltan', 'Zu unserer Sicherheit. Und jetzt schlaf. Wir halten abwechselnd Wache.');
     await w.say('azar', 'Ich schlafe als Erster!', { mood: 'happy' });
     await w.say('foltan', 'Das dachte ich mir.');
     await w.camera.zoom(1, 800);
@@ -314,7 +314,7 @@ async function night(w: WorldCtx): Promise<void> {
     await w.player.walkTo([SPOT.bed[0] - 4, SPOT.bed[1] + 2]);
     w.player.teleport(SPOT.bed, 'right');
     w.player.setIdle('lie');
-    await w.say('foltan', 'Na los, leg dich schon hin. Der morgige Tag wird anstrengend.');
+    await w.say('foltan', 'Na los, leg dich hin. Ich nehme die erste Wache. Und die zweite, wie es aussieht.');
     await sleep(800);
     snore(w);
     await sleep(1200);

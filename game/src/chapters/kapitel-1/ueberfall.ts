@@ -91,7 +91,7 @@ export async function ueberfallScript(w: WorldCtx): Promise<void> {
     await w.wait(500);
     await w.think('Die Haustür steht sperrangelweit offen. Vor ihr knien Mutter und Vater …');
     await w.think('Und um sie herum: Männer in Schwarz und Weiß. Bewaffnet.');
-    w.bark('grauhaarige', 'Wo ist euer Balg?', 2400);
+    w.bark('grauhaarige', 'Wo ist das Kind?', 2400);
     await w.wait(1300);
     await w.camera.pan([420, 470], 900);
     w.bark('wache', 'Alles ruhig am Weg.', 2000);
@@ -137,14 +137,14 @@ async function confrontation(w: WorldCtx): Promise<void> {
     gr.face('up');
 
     await G.ui.plate('k1-verhoer', { caption: 'Der Hof am Ende des Hohlwegs', pan: 'in', durationMs: 20000 });
-    await w.think('Schwarz-weiße Wappenröcke … Dunkelschatten. Ich habe über sie gelesen. Nie hätte ich gedacht, welche zu sehen.');
+    await w.think('Schwarz-weiße Wappenröcke. Dunkelschatten. In meinen Büchern waren die immer weit weg.');
     G.state.addLore('lore-dunkelschatten');
     if (G.state.hasClue('k1-hufspuren')) await w.think('Sechs Pferde, sechs Männer. Die Spuren auf dem Weg … sie waren schon die ganze Zeit hier.');
-    await w.say('grauhaarige', 'Na, wo ist euer Balg?', { mood: 'smirk' });
+    await w.say('grauhaarige', 'Noch einmal, ganz freundlich: Wo ist das Kind?', { mood: 'smirk' });
     await w.say('vater', 'Wir sind allein. Hier gibt es kein Kind.', { mood: 'scared' });
-    await w.say('grauhaarige', 'Wollt wohl nicht reden, was? Selbst schuld.', { mood: 'angry' });
-    await w.say('grauhaarige', 'Und nun zu dir, meine Liebe. Ist es dieses Balg wirklich wert?', { mood: 'smirk' });
-    await w.say('mutter', 'Es gibt kein Balg. Nur uns zwei und ein paar Schweine.', { mood: 'determined' });
+    await w.say('grauhaarige', 'Schade. Ich hatte gehofft, wir bleiben höflich.', { mood: 'angry' });
+    await w.say('grauhaarige', 'Und du, Bäuerin? Ein Hof ohne Kinder? Wer mistet euch dann die Schweine aus?', { mood: 'smirk' });
+    await w.say('mutter', 'Wir zwei. Für drei Schweine braucht es keine Kinder.', { mood: 'determined' });
     await G.ui.closePlate();
 
     // Kyra is dragged out of the house.
@@ -155,7 +155,7 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await Promise.all([narbige.walkTo(570, 232), kyra.walkTo(600, 238)]);
     kyra.setIdle('kneel');
     kyra.face('left');
-    await w.say('k1-narbige', 'Seht mal, wen ich gefunden habe.', { mood: 'angry' });
+    await w.say('k1-narbige', 'Hockte unterm Bett. Hat mich gebissen, das Biest.', { mood: 'angry' });
     void w.player.emote('!', 900);
     await w.think('Kyra! Aus ihrer Augenbraue läuft Blut …');
     gr.face('vater');
@@ -187,7 +187,7 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await w.say('grauhaarige', 'Der Hauptmann braucht eine neue Dienstmagd. Was für ein passender Zufall.', { mood: 'smirk' });
     w.bark('kahle', 'Ich wette, die hält keine Woche durch.', 2400);
     await w.wait(900);
-    await w.say('vater', 'Lasst sie in Ruhe!', { mood: 'determined' });
+    await w.say('vater', 'Nehmt die Finger von ihr.', { mood: 'determined' });
     gr.face('vater');
     await w.say('grauhaarige', 'Dummer Bauer.', { mood: 'angry' });
 
@@ -211,7 +211,7 @@ async function confrontation(w: WorldCtx): Promise<void> {
     mutter.face('vater');
     kyra.bark('Vater!', 1600);
     await Promise.all([kahle.walkTo(592, 244), narbige.walkTo(612, 244)]);
-    await w.say('grauhaarige', 'Ups. Wie ungeschickt von mir.', { mood: 'smirk' });
+    await w.say('grauhaarige', 'Na so was. Da ist mir die Hand ausgerutscht.', { mood: 'smirk' });
     await w.say('grauhaarige', 'Weint nicht, meine Liebe. Wenn ihr euch so allein fühlt, dann folgt ihm doch.', { mood: 'smirk' });
 
     // The mother: darkness, her last word.
@@ -226,8 +226,8 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await w.camera.pan([590, 236], 800);
     kyra.setIdle('idle');
     void kyra.play('hurt' as CharAnim, { ms: 700 });
-    await w.say('kyra', 'Ich werde euch töten! Das schwöre ich bei allen Göttern!', { mood: 'angry' });
-    await w.say('grauhaarige', 'Oh, das wollen viele Mädchen. Stell dich hinten an.', { mood: 'smirk' });
+    await w.say('kyra', 'Ich merk mir eure Fratzen. Jede einzelne. Ihr werdet nicht alt.', { mood: 'angry' });
+    await w.say('grauhaarige', 'Das sagen sie alle, Mädel. Stell dich hinten an.', { mood: 'smirk' });
 
     // Find cover (2): a Dunkelschatten comes closer when a twig snaps.
     await w.think('Ich halte das nicht aus. Ich renne einfach hin, ich –');
@@ -246,8 +246,8 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await w.narrate('Kyra wehrte sich so heftig, dass es drei Männer brauchte, um sie auf ein Pferd zu hieven.', { style: 'card' });
     kyra.hide();
     narbige.hide();
-    await w.say('grauhaarige', 'Harro! Du bleibst. Verscharr die beiden, bevor die Leichenfresser kommen.');
-    await w.say('harro', 'Immer darf ich alles machen … Ich bin hier wohl der Depp vom Dienst.', { mood: 'angry' });
+    await w.say('grauhaarige', 'Harro. Schaufel. Die zwei kommen unter die Erde, bevor die Leichenfresser sie riechen.');
+    await w.say('harro', 'Natürlich Harro. Wer sonst. Harro gräbt, die anderen saufen.', { mood: 'angry' });
     await w.say('grauhaarige', 'Aufsitzen!');
     await G.ui.fade('out', 700);
   });
@@ -304,14 +304,14 @@ export const harroMap: MapDef = defineMap({
 });
 
 const HARRO_BARKS = [
-  'Immer darf ich alles machen …',
-  'Verscharr die beiden, Harro. Hol Wasser, Harro.',
+  'Harro hier, Harro da …',
+  'Grab, Harro. Hol Wasser, Harro.',
   'Wo ist die verfluchte Schaufel?',
   'Die anderen saufen heut Abend, und ich?',
 ];
 
 async function spottedByHarro(w: WorldCtx): Promise<void> {
-  await w.say('harro', 'Hey, du! Du siehst aber nicht aus wie ein Leichenfresser …', { mood: 'angry' });
+  await w.say('harro', 'He! Wer kriecht denn da im Gras rum?', { mood: 'angry' });
   await G.ui.fade('out', 420);
   w.player.teleport(AT.hide, 'right');
   w.stealth.resetGuards();
@@ -353,7 +353,7 @@ async function harroPhase(w: WorldCtx): Promise<void> {
     harro.show();
     w.stealth.resetGuards();
     await w.camera.pan([640, 262], 700);
-    await w.say('harro', 'Immer darf ich alles machen. Erst Reisig fürs Feuer, dann die Gräber. Und morgen hol ich euch nie wieder ein.', { mood: 'angry' });
+    await w.say('harro', 'Erst Reisig fürs Feuer, jetzt Gräber. Bis ich fertig bin, sitzen die längst im nächsten Wirtshaus.', { mood: 'angry' });
     await w.camera.pan(AT.hide, 600);
     w.camera.follow();
   });

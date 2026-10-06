@@ -287,7 +287,7 @@ async function eavesdrop(w: WorldCtx): Promise<void> {
     await w.say('k3-orwen-zelt', 'Herr, das sind zwei Tagesritte. Sollen wir das ganze Lager abschlagen?');
     await w.say('k3-baris-zelt', 'Nein. Nur wir. Du, ich und drei deiner Männer. Und das Mädchen.');
     await w.say('k3-orwen-zelt', 'Das Mädchen? Sie ist nur ein Klotz am Bein.');
-    await w.say('k3-baris-zelt', 'Mir egal. Mein neues Spielzeug gebe ich nicht so schnell wieder her.');
+    await w.say('k3-baris-zelt', 'Mir egal. Was mir gehört, lasse ich nicht bei deinen Säufern.');
     G.state.addLore('k3-lore-geweih');
     await w.think('Fünf Reiter und ich. Zu einer Grotte, die keiner findet. Lia … wo bist du?');
   });
@@ -362,7 +362,7 @@ async function vow(w: WorldCtx): Promise<void> {
       'Aber Kyra beschloss, dass jetzt keine Zeit für Trauer oder Selbstmitleid war. Wenn sie aufgab, würde sie sterben.',
     ], { style: 'book' });
     await w.say('k3-kyra-bound', 'Ich werde kämpfen. Und ich werde leben.', { mood: 'determined' });
-    await w.say('k3-kyra-bound', 'Und dann, Baris … dann rechnen wir ab.', { mood: 'angry' });
+    await w.say('k3-kyra-bound', 'Und irgendwann beiß ich dich auch, Baris. Und dann lass ich nicht mehr los.', { mood: 'angry' });
     await w.say('narrator', 'Über ihr leuchtete Crios, der hellste Stern im Westen.');
     await G.ui.closePlate();
   });

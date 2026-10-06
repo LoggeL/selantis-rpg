@@ -171,7 +171,7 @@ async function fireplace(w: WorldCtx): Promise<void> {
     void foltan.emote('?');
     await foltan.say('Aus Büchern? Kannst du etwa lesen?', { mood: 'surprised' });
     await lia(w, 'Ja. Was soll man denn sonst mit Büchern machen?');
-    await azar.say('Natürlich! Du kannst lesen, und ich lasse ein gutes Essen verkommen! Hohoho!', { mood: 'happy' });
+    await azar.say('Natürlich! Und ich lasse freiwillig einen Teller Eintopf stehen! Ha!', { mood: 'happy' });
     await lia(w, 'Ich mache keinen Spaß. Meine Mutter hat es mir beigebracht. Hört her.', 'angry');
     G.state.addMemory('k3-mem-lesestunde');
     azar.setIdle('sit');
@@ -239,7 +239,7 @@ async function reading(w: WorldCtx): Promise<void> {
   G.state.addLore('k3-lore-alana');
   w.player.setIdle('sit');
   await azar.say('Eine schöne Geschichte …', { mood: 'happy' });
-  await foltan.say('Wenn es im Leben doch auch so ginge. Die Guten gewinnen, die Bösen werden bestraft. Mumpitz.');
+  await foltan.say('Schön wär’s. Die Guten gewinnen, die Bösen kriegen ihre Strafe. So läuft das draußen nicht.');
   await lia(w, 'Vorne im Buch steht, dass die Geschichte auf wahren Tatsachen beruht.');
   await foltan.say('Alana und Riccard gab es wirklich. Aber all die Abenteuer? Ich halte das für Mumpitz.');
 }
@@ -255,8 +255,8 @@ async function stars(w: WorldCtx): Promise<void> {
   await lia(w, 'Meint ihr … meine Eltern sind auch da oben?', 'sad');
   await azar.say('Ja. Da bin ich mir sicher. Vielleicht auf dem Stern direkt neben Alana und Riccard. Sie wachen über dich.', { mood: 'sad' });
   await lia(w, 'Ich hatte kaum Zeit zu trauern. Nur wenn ich zu viel nachdenke, merke ich, dass sie nicht mehr da sind.', 'sad');
-  await lia(w, 'Ich fühle mich allein. Mit einer Aufgabe, die ich nicht tragen kann. Aber Kyra braucht mich. Sie hat sonst niemanden.', 'sad');
-  await azar.say('Wir verstehen dich. Wir haben doch gesagt, dass wir dir helfen, deine Schwester zu finden.', { mood: 'sad' });
+  await lia(w, 'Heute früh wollte ich Mutter fragen, wie ein Kraut am Weg heißt. Ich hatte den Mund schon offen. Und Kyra hat jetzt nur noch mich.', 'sad');
+  await azar.say('Wir haben gesagt, wir helfen dir, deine Schwester zu finden. Das gilt.', { mood: 'sad' });
   await lia(w, 'Versprecht ihr es mir? Nehmt ihr mich ernst, oder bin ich nur das dumme kleine Mädchen?', 'determined');
   await azar.say('Wir nehmen dich ernst. Ich verspreche es dir.');
   await foltan.say('Ich habe doch bereits versichert, dass …');
@@ -271,7 +271,7 @@ async function stars(w: WorldCtx): Promise<void> {
     await w.think('Er hält meinem Blick nicht stand.');
   }
   void azar.emote('anger');
-  await azar.say('Verspreche es!', { mood: 'angry' });
+  await azar.say('Foltan. Versprich es ihr.', { mood: 'angry' });
   await foltan.say('… Schön. Ich verspreche es dir auch.', { mood: 'ashamed' });
   G.state.set('k3-versprechen');
   await azar.say('Da siehst du, Kleine … ich meine: Lia. Du bist nicht mehr allein.', { mood: 'happy' });
@@ -291,7 +291,7 @@ export async function leselagerScript(w: WorldCtx): Promise<void> {
     foltan.show();
     foltan.teleport([300, 300], 'up');
     await foltan.say('Ich suche trockenes Holz. Azar, du machst Feuer. Du hast doch den Feuerstein.');
-    await azar.say('Feuer machen ist meine leichteste Übung!', { mood: 'happy' });
+    await azar.say('Feuer machen ist meine leichteste Übung. Gleich nach Essen.', { mood: 'happy' });
     foltan.hold(true);
     await foltan.walkTo([266, 352]);
     foltan.hide();

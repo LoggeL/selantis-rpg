@@ -304,7 +304,7 @@ async function azarStory(w: WorldCtx): Promise<void> {
     await azar.say('Ich habe dir das natürlich nicht erzählt.', { mood: 'worried' });
     const pick = await w.choose(['„Ich weiß gar nicht, wovon du sprichst.“', '„Warum erzählst du es mir dann?“', '„Danke, Azar.“']);
     if (pick === 0) await azar.say('Sehr gut. Du lernst schnell.', { mood: 'happy' });
-    else if (pick === 1) await azar.say('Weil du wissen sollst, dass er ein guter Mann ist. Auch wenn er ein Stock im Hintern hat.', { mood: 'happy' });
+    else if (pick === 1) await azar.say('Weil du wissen sollst, dass er ein guter Mann ist. Auch wenn er einen Stock im Hintern hat.', { mood: 'happy' });
     else await azar.say('Wofür? Ich hab nichts gesagt. Ich esse nur Eintopf.', { mood: 'happy' });
     w.player.setIdle('idle');
     w.player.teleport(TABLE_STAND, 'down');
@@ -317,8 +317,8 @@ async function talkFoltanCounter(w: WorldCtx): Promise<void> {
   const n = G.state.inc('k3-foltan-theke');
   if (n === 1) {
     await foltan.say('Gleich, Lia. Craupor und ich haben noch zu reden. Setz dich zu Azar.');
-    await lia(w, 'Ich bin nicht klein. Ich kann auch zuhören.', 'angry');
-    await foltan.say('Und ich kann auch allein fragen. Geh schon.');
+    await lia(w, 'Es geht um meine Schwester. Ich kann still danebensitzen.', 'angry');
+    await foltan.say('Du? Still? Geh schon.');
   } else {
     await foltan.say(['Gleich, habe ich gesagt.', 'Lia. Bitte.', 'Geduld ist eine Tugend. Azar hat davon auch keine.'][(n - 2) % 3]);
   }
@@ -376,7 +376,7 @@ async function talkJuggler(w: WorldCtx): Promise<void> {
   if (G.state.is('k3-gaukler')) { await j.say('Iss das Kettengebäck, bevor es hart wird! Hopp!'); return; }
   G.state.set('k3-gaukler');
   await j.say('Na, Kleine? Auch auf dem Weg nach Trapas? Das Verbannungsfest! Tempel, Tanz und Kettengebäck!', { mood: 'happy' });
-  await lia(w, 'Ich bin nicht klein. Und … nein. Ich war noch nie auf dem Fest.');
+  await lia(w, 'Klein? Ich bin sechzehn. Und nein, ich war noch nie auf dem Fest.');
   await j.say('Nie? Dann weißt du ja gar nicht, warum die Kringel Ketten sind!');
   await j.say('Die Zehn Götter brachen die Ketten der Xenovia und verbannten sie auf den Meeresgrund. Und wir essen die Ketten auf!');
   G.state.addLore('k3-lore-verbannungsfest');
@@ -403,7 +403,7 @@ async function offerEscort(w: WorldCtx): Promise<void> {
     await w.say('haendler', 'Mein Reisegefährte ist sicher angekommen. Gute Reise euch, und danke noch einmal.');
     return;
   }
-  await w.say('haendler', 'Mein Reisegefährte wartet im Stall. Seine Gruppe steht am nächsten Wegzeichen, aber da treiben sich Räuber herum. Begleitet ihr ihn? Ich gebe euch Brot und eine Wundtinktur für die Reise. Nur ein kurzes Stück.');
+  await w.say('haendler', 'Mein Reisegefährte wartet im Stall. Bringt ihr ihn bis zum Wegzeichen? Dort lungern Räuber. Ich zahle mit Brot und Wundtinktur.');
   const pick = await w.choose(['„Wir suchen meine Schwester. Heute nicht.“', '„Foltan, Azar, helft ihr mir dabei?“']);
   if (pick === 0) return;
   await w.say('foltan', 'Bis zum Wegzeichen. Danach gehen wir unserer eigenen Sache nach.');
@@ -413,7 +413,7 @@ async function offerEscort(w: WorldCtx): Promise<void> {
   });
   if (result.outcome === 'win') {
     await w.say('haendler', 'Er ist bei den anderen. Hier, wie versprochen. Und danke.');
-    await w.think('Ich musste nicht jeden Räuber besiegen. Wir mussten nur zusammen durchkommen.');
+    await w.think('Wir haben nicht jeden Räuber erwischt. Mussten wir auch nicht. Hauptsache, er ist durchgekommen.');
   }
 }
 
@@ -421,7 +421,7 @@ async function talkTravellers(w: WorldCtx): Promise<void> {
   if (G.state.is('k3-reisende')) { await w.say('k3-reisende', 'Gute Reise. Und Augen auf.'); return; }
   G.state.set('k3-reisende');
   await w.say('k3-reisender', 'Wir sind auf dem Weg nach Trapas. Hinter den Mauern ist man sicher. Sagt man.');
-  await w.say('k3-reisende', 'Seit Dunkelhain verkriechen sich die Fürsten in ihren Städten. Und draußen? Da sind wir allein.');
+  await w.say('k3-reisende', 'Seit Dunkelhain machen die Fürsten abends die Tore zu. Wer dann noch draußen steht, hat eben Pech.');
   G.state.addLore('k3-lore-nach-dunkelhain');
   await w.say('k3-reisender', 'Die Kerle gestern … die saßen genau hier. Wir haben kein Wort gesagt. Kein einziges.');
 }
@@ -439,7 +439,7 @@ async function talkDwarf(w: WorldCtx): Promise<void> {
   }
   await lia(w, 'Gestern war ein Mädchen hier. Am Pfeiler festgebunden. Du hast sie gesehen.');
   void z.emote('drop');
-  await z.say('… Ja. Sie hat mir ein Bein gestellt, als ich raus wollte. Hat mich angefleht, ihr zu helfen.', { mood: 'neutral' });
+  await z.say('… Ja. Hat mir ein Bein gestellt, als ich raus wollte. Und mir dann ins Ohr gezischt: „Hilf mir, oder du bist kein Zwerg.“', { mood: 'neutral' });
   await z.say('Und ich hab gesagt: „Geht mich nen Dreck an.“ Fünf Kerle in Schwarz-Weiß. Ich bin ein Zwerg, kein Narr.');
   await z.say('Im Morgengrauen sind sie los. Nach Osten, den Waldweg. Sie musste hinter den Pferden herlaufen.');
   G.state.addClue('k3-zwerg');
@@ -490,7 +490,7 @@ async function intro(w: WorldCtx): Promise<void> {
     await walk(w, 'schankmaid', [150, 178], { face: 'up' }, 1500);
     await w.say('schankmaid', 'Was darf’s sein?');
     await foltan.say('Zwei Metbier und ein Dünnbier für die Kleine.');
-    await lia(w, 'Ich bin nicht klein.', 'angry');
+    await lia(w, 'Die Kleine kann ihr Getränk auch selbst bestellen.', 'angry');
     await foltan.say('Und dreimal Eintopf.');
     await azar.say('Bei mir bitte mit extra viel Speck!', { mood: 'happy' });
     await w.say('schankmaid', 'Wie immer umsonst, nehme ich an?');
@@ -517,7 +517,7 @@ async function intro(w: WorldCtx): Promise<void> {
       await azar.say('Da sieh mal an! Da hat jemand gerade seinen ersten Schluck Alkohol getrunken!', { mood: 'happy' });
       await lia(w, 'Ich verstehe nicht, wie man so etwas freiwillig trinken kann.', 'angry');
       await azar.say('Nach dem dritten schmeckt’s!', { mood: 'happy' });
-      await foltan.say('Soweit wollen wir es nicht kommen lassen.');
+      await foltan.say('So weit lassen wir es nicht kommen.');
       G.state.set('k3-duennbier');
     } else {
       await azar.say('Nicht durstig? Dann trinke ich es. Wäre doch schade drum.', { mood: 'happy' });
@@ -535,9 +535,9 @@ async function intro(w: WorldCtx): Promise<void> {
       G.state.addLore('k3-lore-nach-dunkelhain');
       G.state.addLore('k3-lore-bruderschaft');
     } else {
-      await foltan.say('Die Kurzfassung: Ich bin von der Garde desertiert. Azar hat Schulden gemacht. Die Details ersparen wir dir.');
-      await lia(w, 'Welchem Befehl hast du dich verweigert?');
-      await foltan.say('Ich sagte: Die Details sparen wir.', { mood: 'angry' });
+      await foltan.say('Kurzfassung: Ich habe einen Befehl verweigert und die Garde verlassen. Azar hat Schulden. Den Rest ersparen wir dir.');
+      await lia(w, 'Welchen Befehl?');
+      await foltan.say('Kurzfassung, sagte ich.', { mood: 'angry' });
       G.state.addLore('k3-lore-bruderschaft');
     }
     await foltan.say('Haltet hier die Stellung.');
@@ -580,7 +580,7 @@ async function foltanReturns(w: WorldCtx): Promise<void> {
     if (!knows) {
       await lia(w, 'Nichts? Gar nichts?', 'sad');
       await w.think('Ich hätte schwören können, dass hier … Nein. Hoffnung ist dumm.');
-      await foltan.say('Es tut mir leid, Lia.');
+      await foltan.say('Iss auf. Wir haben noch ein gutes Stück Weg vor uns.');
     } else {
       sfx('heartbeat', { volume: 0.6 });
       await w.think('Er lügt. Kyra war hier. Ich habe es schwarz auf weiß in meinen Notizen.');

@@ -294,7 +294,7 @@ export async function blindSkript(w: WorldCtx): Promise<void> {
     me(lines[(st.bumps - 1) % lines.length]);
     if (st.bumps === 2) void say('Oh je! Alles heil? Hier lang, zu mir!');
     else if (st.bumps === 4) void fsay('Langsamer. Hör hin, bevor du gehst.');
-    else if (st.bumps === 6) void say('Die Bäume werden dich vermissen. Folge meiner Stimme!');
+    else if (st.bumps === 6) void say('Lia, das war ein Baum. Ich bin der, der redet!');
   };
 
   // Continuous senses: the brook, Azar's footsteps, wet feet, the dead-end branch, ducking, straying.

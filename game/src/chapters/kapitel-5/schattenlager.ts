@@ -1,6 +1,6 @@
 // Kapitel V, Szene 3 „schattenlager“: Baris' troop rests at a lone oak above open fields. Lia scouts three vantage
 // points while Flick waits at the forest edge (stealth: patrols with view cones, bushes and tall grass). From the
-// closest bush she watches Kyra provoke a guard and Baris stop him („Ihr verdammtes Leben ist mehr wert …“). Back
+// closest bush she watches Kyra provoke a guard and Baris stop him („Die ist mehr wert als ihr drei zusammen.“). Back
 // with Flick: the plan. Then Lia walks into the camp and bluffs; the choices decide how long the distraction holds.
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
@@ -30,12 +30,12 @@ export const schattenlagerMap: MapDef = defineMap({
     {
       id: 'maedchen', preset: 'maedchen', speaker: 'maedchen', range: 96, fov: 70,
       path: [{ at: [776, 330], wait: 3200, face: 'left' }, { at: [742, 352], wait: 2600, face: 'down' }],
-      mode: 'pingpong', suspiciousBarks: ['Was war das?', 'Ist da jemand im Gras?'], calmBarks: ['Nur ein Hase.', 'Verdammte Grillen.'],
+      mode: 'pingpong', suspiciousBarks: ['He. Was war’n das?', 'Kriecht da wer im Gras?'], calmBarks: ['Bloß’n Hase.', 'Elende Grillen.'],
     },
     {
       id: 'schuetze', preset: 'shadow-crossbow', speaker: 'k5-schuetze', range: 110, fov: 64, mode: 'pingpong',
       path: [{ at: [770, 420], wait: 1800, face: 'down' }, { at: [720, 520], wait: 1200 }, { at: [690, 640], wait: 2200, face: 'left' }],
-      suspiciousBarks: ['Hm?', 'Wer da?'], calmBarks: ['Nichts.', 'Hab mich wohl verguckt.'],
+      suspiciousBarks: ['Hm?', 'Wer da?'], calmBarks: ['Nichts.', 'Ich seh schon Gespenster.'],
     },
   ],
   props: [{ prop: 'campfire', at: [FIRE_AT[0], FIRE_AT[1] + 4], id: 'feuer', collide: false }],
@@ -76,17 +76,17 @@ function scoutObjective(w: WorldCtx): void {
 }
 
 async function scoutRocks(w: WorldCtx): Promise<void> {
-  if (G.state.is('k5-sp-felsen')) { await w.think('Sechs Pferde, drei Wachen, der Hüne und der Grauhaarige. Ich habe genug gesehen.'); return; }
+  if (G.state.is('k5-sp-felsen')) { await w.think('Sechs Pferde, drei Wachen, der Hüne, der Grauhaarige. Mehr gibt der Felsen nicht her.'); return; }
   await w.cutscene(async () => {
     w.player.face('up');
     await w.player.play('interact', { ms: 600 });
     w.player.setIdle(CROUCH);
     await w.camera.pan([880, 330], 1400);
-    await w.think('Von hier oben sehe ich alles. Sechs Pferde an einer Stange …');
+    await w.think('Sechs Pferde an einer Stange. Gesattelt. Die wollen schnell wegkönnen.');
     await w.camera.pan([800, 360], 700);
-    await w.think('Einer am Feuer, einer mit Spieß am Baum, ein Armbrustschütze auf dem Weg.');
+    await w.think('Einer döst am Feuer, einer lehnt mit dem Spieß am Baum. Der mit der Armbrust läuft den Weg ab. Der döst nicht.');
     await w.camera.pan([900, 350], 700);
-    await w.think('Und der Riese in der schwarzen Rüstung. Das muss ihr Hauptmann sein. Neben ihm der Grauhaarige vom Hof.');
+    await w.think('Und der Hüne in der schwarzen Rüstung. Wo er hingeht, machen ihm die anderen Platz. Daneben der Grauhaarige. Der vom Hof.');
     G.state.addClue('k5-lager-wachen');
     w.camera.follow();
     await w.wait(500);
@@ -97,14 +97,14 @@ async function scoutRocks(w: WorldCtx): Promise<void> {
 }
 
 async function scoutLog(w: WorldCtx): Promise<void> {
-  if (G.state.is('k5-sp-stamm')) { await w.think('Kyra sitzt immer noch am Baum. Halte durch.'); return; }
+  if (G.state.is('k5-sp-stamm')) { await w.think('Kyra sitzt immer noch da. Halt durch. Ich komme.'); return; }
   await w.cutscene(async () => {
     w.player.setIdle(CROUCH);
     await w.camera.pan([852, 330], 1200);
     await w.camera.zoom(1.4, 700);
-    await w.think('Da! Am Stamm der Eiche … Kyra. Gefesselt, aber sie lebt.');
-    w.bark('kyra', 'Pah.', 1600);
-    await w.think('Hohes Gras und Büsche reichen fast bis ans Lager. Im Süden, im Feld, käme ich ganz nah heran.');
+    await w.think('Da, an der Eiche. Kyra. Die Hände hinter den Stamm gebunden … aber sie bewegt sich. Sie lebt.');
+    w.bark('kyra', 'Mistkerle.', 1600);
+    await w.think('Das Gras reicht fast bis ans Feuer. Wenn ich unten durchs Feld krieche, komme ich ganz nah ran.');
     G.state.addClue('k5-lager-kyra');
     G.state.addClue('k5-lager-weg');
     await w.camera.zoom(1, 600);
@@ -121,7 +121,7 @@ async function listenPost(w: WorldCtx): Promise<void> {
   const inBush = () => w.player.x > 856 && w.player.x < 922 && w.player.y > 472 && w.player.y < 512;
   let told = false;
   while (w.alive && inBush() && !w.stealth.hidden) {
-    if (!told) { told = true; w.bark('player', 'Ducken, sonst sehen sie mich …', 1800); }
+    if (!told) { told = true; w.bark('player', 'Runter. Ganz flach machen …', 1800); }
     await w.wait(150);
   }
   if (!w.alive || !inBush() || G.state.is('k5-lauschen')) return;
@@ -137,33 +137,33 @@ async function treeScene(w: WorldCtx): Promise<void> {
     w.player.setIdle(CROUCH);
     await w.camera.pan([830, 352], 1200);
     await w.camera.zoom(1.5, 800);
-    await w.say('algard', 'Was gäb ich jetzt für einen richtig schönen Braten.');
-    await w.say('k5-kyra-bound', 'Dann fang dir halt was.', { mood: 'angry' });
-    await w.say('algard', 'Pah! Seh ich etwa aus wie ein gewöhnlicher Strauchdieb?', { mood: 'angry' });
-    await w.say('k5-kyra-bound', 'Wenn ihr mich fragt: schon.', { mood: 'determined' });
+    await w.say('algard', 'Den dritten Abend Dörrfleisch. Bald kau ich auf meinem Gürtel rum.');
+    await w.say('k5-kyra-bound', 'Da drüben hoppeln Hasen. Oder fängst du nur Sachen, die festgebunden sind?', { mood: 'angry' });
+    await w.say('algard', 'Ich? Hasen hetzen wie ein Wilddieb? Ich bin Soldat, Kleine.', { mood: 'angry' });
+    await w.say('k5-kyra-bound', 'Soldat. So nennt man das jetzt.', { mood: 'determined' });
     await maedchen.walkTo(818, 340);
     maedchen.face('kyra');
-    await w.say('maedchen', 'Was hast du gerade gesagt?', { mood: 'angry' });
-    await w.say('k5-kyra-bound', 'Dass ihr ein verfluchter Bastard seid. Das hab ich gesagt.', { mood: 'angry' });
-    await w.say('maedchen', 'Na warte. Dir werd ich Manieren beibringen!', { mood: 'angry' });
+    await w.say('maedchen', 'Noch ein Wort, Gör.', { mood: 'angry' });
+    await w.say('k5-kyra-bound', 'Gern. Was macht dein Schenkel, Mädchen? Heulst du nachts noch?', { mood: 'angry' });
+    await w.say('maedchen', 'Das zweite Veilchen kriegst du umsonst!', { mood: 'angry' });
     void maedchen.play('attack', { ms: 900 });
     await w.wait(250);
     baris.face('maedchen');
-    await w.say('baris', 'Fass sie nicht an.', { mood: 'angry' });
+    await w.say('baris', 'Wer sie anfasst, verliert die Hand.');
     await maedchen.emote('drop', 600);
-    await w.say('maedchen', 'Aber dieses Rotzgör hat mich beleidigt!', { mood: 'angry' });
-    await w.say('baris', 'Und dennoch wird ihr kein Haar gekrümmt.');
-    await w.say('maedchen', 'Aber, Hauptmann …');
+    await w.say('maedchen', 'Hauptmann, die Kröte hat mich …', { mood: 'angry' });
+    await w.say('baris', 'Ich hab’s gehört. Es war komisch.');
+    await w.say('maedchen', 'Komisch?');
     await baris.walkTo(836, 330);
-    await w.say('baris', 'Kein Aber. Ihr verdammtes Leben ist mehr wert als euer mickriges Dasein.', { mood: 'angry' });
-    await w.say('baris', 'Wer ihr etwas antut, bereut es bei lebendigem Leib. Hab ich mich klar ausgedrückt?');
-    await w.say('maedchen', 'Ja, Hauptmann.');
+    await w.say('baris', 'Die ist mehr wert als ihr drei zusammen. Ein Kratzer an ihr, und ich hol ihn mir doppelt von dir.');
+    await w.say('baris', 'Also. Wie viel ist sie wert?');
+    await w.say('maedchen', 'Mehr als ich, Hauptmann.');
     baris.face('kyra');
-    await w.say('baris', 'Und du: Hüte deine Zunge, oder ich helfe dir, sie im Zaum zu halten.');
+    await w.say('baris', 'Und du. Wer zu laut bellt, kriegt einen Maulkorb.');
     await orwen.walkTo(868, 340);
-    await w.say('narrator', 'Der Grauhaarige stopft Kyra einen Knebel zwischen die Zähne.');
+    await w.say('narrator', 'Der Grauhaarige drückt Kyra einen schmutzigen Lappen zwischen die Zähne und knotet ihn im Nacken fest.');
     sfx('rustle', { volume: 0.4 });
-    await w.say('orwen', 'So ist es besser. Sonst schneidet sie dir noch einer meiner Männer heraus.', { mood: 'smirk' });
+    await w.say('orwen', 'Schon besser. Unser Geschenk soll ja in einem Stück ankommen, Mädel.', { mood: 'smirk' });
     void kyra.emote('anger', 1200);
     await w.player.emote('anger', 700);
     await w.camera.zoom(1, 700);
@@ -171,10 +171,10 @@ async function treeScene(w: WorldCtx): Promise<void> {
     await G.ui.stealthGame('listen', 'Im Schatten lauschen', {
       onNoise: () => { void w.player.emote('drop', 600); },
     });
-    await w.think('Ihr Leben ist mehr wert? Mehr wert als was? Was wollen die von Kyra?');
+    await w.think('Mehr wert als drei Soldaten. Kyra. Ein Mädchen vom Hof, genau wie ich. Was wollen die von ihr?');
     await w.camera.pan([900, 340], 600);
-    await w.say('baris', 'Orwen. Wir reiten voraus und sehen uns den Weg zur Grotte an. Ihr drei haltet Wache.');
-    await w.say('orwen', 'Wie Ihr befehlt, Hauptmann.');
+    await w.say('baris', 'Orwen. Wir sehen uns den Weg zur Grotte an. Ihr drei bleibt bei ihr.');
+    await w.say('orwen', 'Sofort, Hauptmann. Und du, Algard: Finger weg vom Weinschlauch.');
     const barisGone = baris.walkPath([[1000, 380], [1270, 420]], { speed: 60 }).catch(() => {});
     await orwen.walkPath([[1010, 390], [1270, 430]], { speed: 60 });
     await barisGone;
@@ -198,26 +198,26 @@ async function plan(w: WorldCtx): Promise<void> {
     w.stealth.enable(false);
     flick.face('player');
     w.player.face('flick');
-    await w.say('flick', 'Und?', { mood: 'determined' });
-    await lia('Sie haben Kyra an den Baum gefesselt. Der Hauptmann sagt, ihr Leben sei mehr wert als das seiner Männer.', 'scared');
-    await w.say('flick', 'Mehr wert? Seltsam. Wozu brauchen die ein Bauernmädchen so dringend?', { mood: 'surprised' });
-    await lia('Ich weiß es nicht.', 'sad');
-    await w.say('flick', 'Der Hauptmann und der Grauhaarige sind weg. Nur noch drei Wachen. Besser wird es nicht.', { mood: 'determined' });
-    await w.say('flick', 'Okay. Allein schaff ich das nicht. Du musst mir helfen.');
-    await w.say('flick', 'Wir müssen deine Schwester befreien. Dann haben sie wenigstens nichts gegen uns in der Hand.');
-    await w.say('flick', 'Ich schleiche mich zum Baum und schneide sie los. Du lenkst die Wachen ab.');
-    await lia('Kann es nicht bitte jemand anderes machen?', 'scared');
-    await w.say('flick', 'Siehst du hier noch jemanden außer uns?', { mood: 'smirk' });
-    await lia('Nein. Aber gut, dann los.');
-    await lia('Moment. Was soll ich denn bitte sagen?', 'surprised');
-    await w.say('flick', 'Ach, dir wird schon irgendwas einfallen.', { mood: 'happy' });
+    await w.say('flick', 'Und? Lebt sie?', { mood: 'determined' });
+    await lia('Sie ist an die Eiche gebunden. Der Hüne sagt, sie ist mehr wert als drei von seinen Männern.', 'scared');
+    await w.say('flick', 'Ein Bauernmädchen, auf das so einer aufpasst wie auf seinen Geldbeutel? Das riecht faul.', { mood: 'surprised' });
+    await lia('Ich weiß es nicht. Daheim hat sie Feuerholz geschleppt und mich ausgelacht, weil ich lese. Mehr war da nie.', 'sad');
+    await w.say('flick', 'Der Hüne und der Grauhaarige sind eben weggeritten. Bleiben drei Wachen. Günstiger wird’s nicht.', { mood: 'determined' });
+    await w.say('flick', 'Ich würd’s ja allein machen. Aber drei Kerle, ein Seil, zwei Hände. Die Rechnung geht nicht auf.');
+    await w.say('flick', 'Erst holen wir deine Schwester da raus. Solange die sie haben, haben die auch dich.');
+    await w.say('flick', 'Ich kriech durchs Gras zum Baum und schneide sie los. Du sorgst dafür, dass keiner zum Baum schaut.');
+    await lia('Ich? Such dir lieber jemand Mutigeren.', 'scared');
+    await w.say('flick', 'Ich hab mich umgesehen. Hier sind du, ich und ein Hase. Der Hase hat abgelehnt.', { mood: 'smirk' });
+    await lia('Na schön. Mir schlottern die Knie. Aber ich mach’s.');
+    await lia('Warte. Ich geh da einfach hin und … und was dann?', 'surprised');
+    await w.say('flick', 'Du hast hundert Bücher gelesen, Leseratte. Irgendwer darin hat bestimmt mal gelogen.', { mood: 'happy' });
     if (G.state.has('dagger')) {
-      await w.say('flick', 'Hast du ein Messer?');
+      await w.say('flick', 'Hast du was Scharfes dabei? Außer deiner Zunge?');
       await lia('Vaters Dolch.');
-      await w.say('flick', 'Gut. Wenn es eng wird: Seile schneiden, nicht Leute. Zu zweit sind die Fesseln schneller durch.', { mood: 'determined' });
+      await w.say('flick', 'Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.', { mood: 'determined' });
       G.state.set('k5-dolch-plan');
     } else {
-      await w.say('flick', 'Kein Messer? Dann muss ich die Fesseln allein durchschneiden. Das dauert. Halt sie lange genug hin.', { mood: 'determined' });
+      await w.say('flick', 'Kein Messer? Dann säg ich allein an dem Seil, und das dauert. Halt sie lange genug bei Laune.', { mood: 'determined' });
     }
     flick.hold(true);
     flick.setIdle(CROUCH);
@@ -254,9 +254,9 @@ export async function schattenlagerScript(w: WorldCtx): Promise<void> {
   await w.narrate(['Am nächsten Abend sahen sie den Rauch. Unter einer einsamen Eiche über den Feldern rastete der Trupp.'], { style: 'card' });
   await w.cutscene(async () => {
     await w.say('flick', 'Da sind sie. Runter!', { mood: 'determined' });
-    await w.say('flick', 'Ich bin zu groß und zu grün für das Gras da draußen. Du bist kleiner. Sieh dir das Lager an. Ich warte hier.', { mood: 'smirk' });
-    await lia('Ich bin nicht klein.');
-    await w.say('flick', 'Heute schon. Und heute ist das gut so.', { mood: 'smirk' });
+    await w.say('flick', 'Mich sieht man in dem Gras meilenweit, ich bin zu lang. Du bist kleiner. Schau dir das Lager an, ich warte hier.', { mood: 'smirk' });
+    await lia('Nicht klein. Unfertig. Das ist ein Unterschied.');
+    await w.say('flick', 'Dann sei heute ausnahmsweise klein. Steht dir.', { mood: 'smirk' });
   });
   await w.say('narrator', `Halte ${w.controlHint('sneak')} gedrückt, um zu schleichen. Geduckt in Büschen und hohem Gras sehen dich die Wachen nicht. Achte auf ihre Sichtkegel.`);
   scoutObjective(w);

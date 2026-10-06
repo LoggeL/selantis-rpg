@@ -17,43 +17,43 @@ export interface BluffOption {
 
 /** Beat 1: „Du bist aber noch viel zu jung.“ */
 export const BEAT_YOUNG: BluffOption[] = [
-  { text: '„Frühreif.“', delta: 1, reply: [['algard', 'Frühreif! Hahaha! Die gefällt mir.', 'neutral'], ['maedchen', 'Mir nicht.', 'angry']] },
-  { text: '„Ich bin sechzehn! Fast siebzehn.“', delta: 0, reply: [['algard', 'Sechzehn. Und schon so vorlaut.']] },
-  { text: '„Meine Mutter wartet am Waldrand.“', delta: -1, reply: [['maedchen', 'Am Waldrand? Dann holen wir sie doch dazu.', 'angry'], ['k5-lia', 'Nein! Sie … ist schüchtern.', 'scared']] },
+  { text: '„Jung genug, um noch keinen Weinbauch zu haben.“', delta: 1, reply: [['algard', 'Hahaha! Die hat Haare auf den Zähnen. Gefällt mir.', 'neutral'], ['maedchen', 'Mir nicht.', 'angry']] },
+  { text: '„Ich bin sechzehn! Fast siebzehn.“', delta: 0, reply: [['algard', 'Fast siebzehn. Mein Gaul ist älter als du.']] },
+  { text: '„Meine Mutter wartet am Waldrand.“', delta: -1, reply: [['maedchen', 'Am Waldrand, so. Dann hol ich sie mal her.', 'angry'], ['k5-lia', 'Nicht nötig! Sie … mag keine Fremden.', 'scared']] },
 ];
 
 /** Beat 2: „Du hast aber gar nichts zum Verkaufen dabei?“ — options depend on the bag. */
 export function beatGoods(has: (item: string) => boolean): BluffOption[] {
   const out: BluffOption[] = [];
   if (has('book-herbs')) out.push({
-    text: '„Kräuter. Ich kenne jedes einzelne aus Cronibus’ Lexikon.“', tag: 'Kräuterlexikon', delta: 1,
-    reply: [['algard', 'Kräuter, ja? Hast du was gegen Kopfweh?'], ['k5-lia', 'Speikraut. Kauen, nicht schlucken. Und nicht so viel trinken.', 'happy'], ['algard', 'Hörst du, Mädchen? Die Kleine weiß was.']],
+    text: '„Rat gegen jedes Zipperlein. Ich hab Cronibus’ Kräuterlexikon im Kopf.“', tag: 'Kräuterlexikon', delta: 1,
+    reply: [['algard', 'Was gegen Brummschädel? Nicht für mich. Für einen … Kameraden.'], ['k5-lia', 'Speikraut. Kauen, nicht schlucken. Und dem Kameraden den Wein wegnehmen.', 'happy'], ['algard', 'Hörst du, Mädchen? Die Kleine ist gebildet.']],
   });
   if (has('honey-cake')) out.push({
-    text: '„Honig-Apfelkuchen! Probiert mal.“', tag: 'Honig-Apfelkuchen', delta: 1, take: 'honey-cake',
-    reply: [['algard', 'Mmh … Bei allen Zehn. So was hab ich seit Jahren nicht gegessen.'], ['maedchen', 'Gib her, ich will auch!']],
+    text: '„Honig-Apfelkuchen. Kostet ruhig ein Stück.“', tag: 'Honig-Apfelkuchen', delta: 1, take: 'honey-cake',
+    reply: [['algard', 'Mmh … bei allen Zehn. Schmeckt wie bei meiner Mutter. Nur besser.'], ['maedchen', 'Lass mir was übrig, du Vielfraß!']],
   });
   if (has('cheese')) out.push({
-    text: '„Käse vom Hof meiner Eltern.“', tag: 'Käse', delta: 1, take: 'cheese',
+    text: '„Käse. Vom Hof meiner Eltern.“', tag: 'Käse', delta: 1, take: 'cheese',
     reply: [['algard', 'Käse! Endlich was anderes als Dörrfleisch.'], ['maedchen', 'Der riecht wie deine Stiefel, Algard.']],
   });
   out.push(has('book-alana')
     ? { text: '„Geschichten. Für ein Kupferstück lese ich euch vor.“', tag: 'Alana-Buch', delta: 1,
-      reply: [['maedchen', 'Vorlesen? Du kannst lesen?', 'neutral'], ['k5-lia', '„Und Alana hob die Hand, und das Licht gehorchte ihr …“'], ['algard', 'Weiter! Was passiert dann?']] }
-    : { text: '„Geschichten. Ich erzähle sie euch für ein Kupferstück.“', delta: 0,
+      reply: [['maedchen', 'Vorlesen? Du kannst lesen?', 'neutral'], ['k5-lia', '„Und Alana hob die Hand, und das Licht gehorchte ihr …“'], ['algard', 'Und dann? Lies weiter, verdammt!']] }
+    : { text: '„Geschichten. Ein Kupferstück pro Geschichte.“', delta: 0,
       reply: [['algard', 'Geschichten haben wir selber. Meistens schlechte.']] });
-  out.push({ text: '„Das … geht euch nichts an.“', delta: -1, reply: [['maedchen', 'Ach nein? Und was ist in dem Beutel?', 'angry']] });
+  out.push({ text: '„Das … ist ein Händlergeheimnis.“', delta: -1, reply: [['maedchen', 'Geheimnis, so. Dann zeig mal her, was im Beutel ist.', 'angry']] });
   return out;
 }
 
 /** Beat 3: a noise at the tree. Lia must keep their eyes on her. */
 export const BEAT_NOISE: BluffOption[] = [
-  { text: '„Ich hab gehört, euer Hauptmann sucht ein neues Dienstmädchen?“', delta: 1,
-    reply: [['algard', 'Hahaha! Das letzte hat er … na, sagen wir, es war nicht lange im Dienst.'], ['maedchen', 'Die da hält keinen Tag durch. Ich wette drei Silberne.']] },
-  { text: '(Ohnmacht vortäuschen.) „Mir ist … so schwindlig …“', delta: 1,
-    reply: [['maedchen', 'He! He, nicht umfallen! Algard, Wasser!'], ['algard', 'Wasser? Ich hab nur Wein.']] },
-  { text: '„Da ist nichts. Nur der Wind.“', delta: -1,
-    reply: [['maedchen', 'Seit wann weiß ein Marktmädchen, was hinter meinem Rücken ist?', 'angry']] },
+  { text: '„In der Schenke heißt es, euer Hauptmann sucht ein Dienstmädchen?“', delta: 1,
+    reply: [['algard', 'Hahaha! Das letzte war … sagen wir, nicht lange im Dienst.'], ['maedchen', 'Die hält keinen Tag. Drei Silberne, Algard. Schlag ein.']] },
+  { text: '(Ohnmacht vortäuschen.) „Mir ist … so komisch …“', delta: 1,
+    reply: [['maedchen', 'He! Nicht umkippen! Algard, Wasser!'], ['algard', 'Wasser? Ich hab nur Wein.']] },
+  { text: '„Ach, das ist nur ein Igel. Die sind hier überall.“', delta: -1,
+    reply: [['maedchen', 'Ein Igel, so. Für ein Marktmädchen hast du verdammt schnelle Augen.', 'angry']] },
 ];
 
 export const clampPoints = (n: number): number => Math.max(0, Math.min(3, Math.round(n)));

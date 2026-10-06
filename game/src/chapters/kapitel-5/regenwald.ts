@@ -79,13 +79,13 @@ async function clouds(w: WorldCtx): Promise<void> {
   void w.lighting.get('mond').fadeTo(0.04, 5000);
   w.weather.set('leaves', { intensity: 0.5, ms: 1500 });
   sfx('rustle', { volume: 0.6 });
-  w.bark('player', 'Der Mond ist weg …');
+  w.bark('player', 'Jetzt ist auch der Mond weg.');
 }
 
 async function drizzle(w: WorldCtx): Promise<void> {
   w.weather.set('rain', { intensity: 0.22, ms: 2500 });
   ambience(['wind', 'rain', 'night'], { rain: 0.35, wind: 1 });
-  await w.think('Nieselregen. Natürlich. Was auch sonst.');
+  await w.think('Nieselregen. Der Himmel hat wohl auf mich gewartet.');
 }
 
 async function pouring(w: WorldCtx): Promise<void> {
@@ -96,7 +96,7 @@ async function pouring(w: WorldCtx): Promise<void> {
   w.lighting.flash(0xdfe9ff, 220);
   sfx('thunder', { volume: 0.8, distance: 0.4 });
   w.camera.shake(220, 0.002);
-  await w.think('Rauschender Sommerregen. Und ich habe nicht einmal mehr eine Decke über dem Kopf.');
+  await w.think('Zu Hause hätte ich jetzt dem Regen auf dem Dach zugehört. Unter zwei Decken.');
   w.setObjective('k5-osten', 'Weiter nach Osten. Irgendwo dort ist Kyra.', [770, 300]);
 }
 
@@ -112,7 +112,7 @@ async function rainRetreats(w: WorldCtx): Promise<void> {
     w.fx.burst('player', 'urmacht', 9);
     sfx('urmacht', { volume: 0.35 });
     await w.player.emote('?', 900);
-    await w.think('Der Regen … hört auf? Nur hier, genau um mich herum?');
+    await w.think('Kein Tropfen trifft mich. Eine Armlänge weiter schüttet es wie vorher.');
     await w.wait(700);
     void glow.fadeTo(0, 500);
     w.weather.set('rain', { intensity: 1, ms: 400 });
@@ -121,7 +121,7 @@ async function rainRetreats(w: WorldCtx): Promise<void> {
     sfx('thunder', { volume: 0.7 });
     await w.wait(400);
     glow.remove();
-    await w.think('Ich bilde mir Dinge ein. Ich bin nass, müde und allein. Das ist alles.');
+    await w.think('Wieder klatschnass. Ich bin müde, sonst nichts. Müde Augen sehen Dinge, die nicht da sind.');
   });
   G.state.set('k5-regen-wich');
 }
@@ -136,33 +136,33 @@ async function meetFlick(w: WorldCtx): Promise<void> {
     await w.player.emote('!', 700);
     w.player.face([930, 206]);
     await w.camera.pan([880, 250], 700);
-    await w.say('flick', 'Na, wen haben wir denn da? Ganz schön gefährlich für so ein kleines Mädchen, allein im Wald.', { mood: 'smirk' });
+    await w.say('flick', 'Sieh an. Ein nasses Küken, mutterseelenallein im Wald. Hast du dich verlaufen, Kleine?', { mood: 'smirk' });
     await G.ui.plate('k5-flick', { caption: 'Eine Fremde im Regen', pan: 'in', durationMs: 26000 });
-    await lia('Ich bin nicht klein.', 'angry');
-    await w.say('flick', 'Na, wenn das so ist: Was macht dann so ein großes Mädchen allein im Wald?', { mood: 'smirk' });
+    await lia('Ich bin nicht klein. Ich bin nur noch nicht fertig.', 'angry');
+    await w.say('flick', 'Verzeihung, die Dame. Und was führt die Dame nachts in den Regen?', { mood: 'smirk' });
     const pick = await w.choose([
-      '„Das geht Euch überhaupt nichts an.“',
-      '„Spazieren. Bei dem herrlichen Wetter.“',
-      '„Ich suche jemanden.“',
+      '„Das ist meine Sache, nicht Eure.“',
+      '„Baden. Sieht man doch.“',
+      '„Jemanden suchen. Nicht Euch.“',
     ]);
     if (pick === 1) {
-      await w.say('flick', 'Ha! Trocken wie der Regen. Gefällt mir.', { mood: 'happy' });
-      await lia('Euch muss gar nichts an mir gefallen.', 'angry');
+      await w.say('flick', 'Ha. Wenigstens dein Witz ist trocken geblieben.', { mood: 'happy' });
+      await lia('Spart Euch das. Ich bin nicht zum Lachen hier.', 'angry');
     } else if (pick === 2) {
-      await w.say('flick', 'Ach ja? Wen denn? Vielleicht kann ich …', { mood: 'surprised' });
-      await lia('Nein. Könnt Ihr nicht.', 'angry');
+      await w.say('flick', 'Ach? Und wen? Ich kenn mich hier aus, vielleicht …', { mood: 'surprised' });
+      await lia('Nein. Danke.', 'angry');
     } else {
-      await w.say('flick', 'Uh. Bissig.', { mood: 'smirk' });
+      await w.say('flick', 'Oh. Sie beißt.', { mood: 'smirk' });
     }
-    await w.say('flick', 'Jetzt sei bloß nicht zu freundlich zu mir.', { mood: 'smirk' });
-    await lia('Danke. Das habe ich auch nicht vor.');
-    await w.say('flick', 'Na dann. Viel Spaß. Allein. In der Wildnis.', { mood: 'smirk' });
-    await lia('Danke. Ich komme schon klar.');
+    await w.say('flick', 'Du bist ja ein richtiger Sonnenschein. Passt zum Wetter.', { mood: 'smirk' });
+    await lia('Wenn Ihr fertig seid, würde ich gern weitergehen.');
+    await w.say('flick', 'Bitte sehr. Der Wald gehört dir. Mit allem, was drin wohnt.', { mood: 'smirk' });
+    await lia('Gute Nacht.');
     await G.ui.closePlate();
     await flick.walkTo(944, 262, { straight: true, speed: 120 });
     const gone = flick.walkPath([[1080, 268], [1270, 280]], { run: true }).catch(() => {});
     await w.wait(900);
-    await w.think('Spitze Ohren. Eine Elfe, hier draußen? Soll sie doch ihrer Wege gehen.');
+    await w.think('Spitze Ohren. In Mutters Büchern waren Elfen höflicher.');
     await gone;
   });
   w.despawn('flick');
@@ -185,8 +185,8 @@ async function ghoulAttack(w: WorldCtx): Promise<void> {
     ghoul.face('player');
     w.player.face('ghoul');
     w.camera.punch(0.6);
-    await w.say('narrator', 'Eine Gestalt mit bleicher Knochenmaske bricht aus dem Gestrüpp, eine schartige Axt in der Faust.');
-    await w.say('narrator', 'Ein *Leichenfresser*. Weich seinen Hieben aus!');
+    await w.say('narrator', 'Das Gestrüpp reißt auf. Eine bleiche Knochenmaske, dahinter ein Keuchen, in der Faust eine schartige Axt.');
+    await w.say('narrator', 'Ein *Leichenfresser*, und er holt schon aus. Weich seinen Hieben aus!');
     let hits = 0;
     await dodgeQte({
       need: 3,
@@ -202,7 +202,7 @@ async function ghoulAttack(w: WorldCtx): Promise<void> {
           sfx('hit', { volume: 0.8 });
           w.camera.shake(220, 0.004);
           await w.player.play('hit', { ms: 520 });
-          if (hits === 2) w.bark('player', 'Au! Hör auf!');
+          if (hits === 2) w.bark('player', 'Weg! Weg von mir!');
         }
       },
     });
@@ -219,48 +219,48 @@ async function ghoulAttack(w: WorldCtx): Promise<void> {
     flick.face('player');
     w.player.face('flick');
     G.audio.music('refuge', { fadeMs: 2500 });
-    await w.say('flick', 'Nichts zu danken.', { mood: 'smirk' });
-    if (hits > 0) await w.say('flick', 'Hat er dich erwischt? Zeig mal … Nur ein Kratzer. Du hast Glück gehabt.');
+    await w.say('flick', 'Du darfst ruhig ‚danke‘ sagen. Wenn du wieder Luft kriegst.', { mood: 'smirk' });
+    if (hits > 0) await w.say('flick', 'Zeig mal her. … Ein Kratzer. Bis du heiratest, ist der weg.');
     await storyTold(w);
   });
 }
 
 async function storyTold(w: WorldCtx): Promise<void> {
-  await w.say('flick', 'Hey. Willst du mir jetzt nicht endlich sagen, was los ist?');
-  const ask = await w.choose(['„Was … war das für ein Ding?“', '(Schweigen.)']);
+  await w.say('flick', 'So. Jetzt, wo du mir was schuldest: Was treibst du hier draußen?');
+  const ask = await w.choose(['„Erst Ihr. Was war das für ein Ding?“', '(Schweigen.)']);
   if (ask === 0) {
-    await w.say('flick', 'Ein Leichenfresser. Seit Dunkelhain streunen sie durch die Wälder und fleddern, was liegen bleibt.', { mood: 'determined' });
-    await w.say('flick', 'Leute, die allein im Wald herumirren, zum Beispiel.', { mood: 'smirk' });
+    await w.say('flick', 'Ein Leichenfresser. Die ziehen hinter jedem Krieg her und fleddern, was liegen bleibt. Hier bleibt seit Jahren viel liegen.', { mood: 'determined' });
+    await w.say('flick', 'Und wer allein durch den Wald stolpert, ist für die nur ein bisschen früh dran.', { mood: 'smirk' });
     G.state.addLore('k5-lore-leichenfresser');
   }
-  await w.say('flick', 'Na schön, dann halt nicht. Trotzdem finde ich, wir sollten besser deine Eltern suchen.');
-  await lia('Sie sind tot, okay?', 'angry');
-  await w.say('flick', 'Das … wusste ich nicht. Tut mir leid.', { mood: 'sad' });
-  await w.say('flick', 'Weißt du, in dieser finsteren Welt müssen viele sterben. Nur ist es besonders schlimm, wenn es einen selbst trifft.', { mood: 'sad' });
-  await lia('Aufmuntern gehört nicht gerade zu deinen Stärken.', 'sad');
-  await w.say('flick', 'Ach, sind wir jetzt schon beim Du? Na dann: Ich bin Flick.', { mood: 'happy' });
-  await lia('Na, herzlichen Glückwunsch.');
+  await w.say('flick', 'Gut, du redest nicht gern. Dann bring ich dich wenigstens heim. Wo sind deine Eltern?');
+  await lia('Unter zwei Steinhügeln vor unserem Haus. Die Steine hab ich selbst getragen.', 'sad');
+  await w.say('flick', 'Oh. Ich … Verdammt. Tut mir leid.', { mood: 'sad' });
+  await w.say('flick', 'Ich bin schlecht in so was. Mit Bäumen red ich besser als mit Leuten.', { mood: 'sad' });
+  await lia('Merkt man. Dann geh doch zurück zu deinen Bäumen.', 'sad');
+  await w.say('flick', 'Jetzt bin ich also ‚du‘. Immerhin ein Fortschritt. Flick heiß ich.', { mood: 'happy' });
+  await lia('Flick. Klingt wie ein Geräusch, nicht wie ein Name.');
   await lia('… Lia.');
-  await w.say('flick', 'Hör zu, Lia. Ich kann dir helfen, von hier wegzukommen. In eine der großen Reichsstädte. Da bist du besser aufgehoben.');
-  const city = await w.choose(['„Ich kann hier nicht weg. Sie haben meine Schwester.“', '„In eine Stadt, die sich hinter ihren Mauern verkriecht? Nein danke.“']);
+  await w.say('flick', 'Hör zu, Lia. Ich bring dich in eine der Reichsstädte. Mauern, Wachen, warme Suppe. Da bist du sicher.');
+  const city = await w.choose(['„Ohne meine Schwester gehe ich nirgendwohin.“', '„Damit ich hinter Mauern sitze und warte? Nein.“']);
   if (city === 1) {
-    await w.say('flick', 'Ha. Da hast du nicht ganz unrecht.', { mood: 'smirk' });
-    await lia('Und außerdem … sie haben meine Schwester mitgenommen.', 'sad');
+    await w.say('flick', 'Ha. Das hätte ich auch gesagt.', { mood: 'smirk' });
+    await lia('Außerdem wartet jemand auf mich. Nur nicht hinter Mauern.', 'sad');
   }
-  await lia('Schwarz gekleidete Reiter. Sie haben Kyra verschleppt. Ich muss sie retten, aber ich weiß nicht einmal, wie.', 'sad');
-  await w.say('flick', 'Schwarz? Oh nein. Das waren bestimmt Dunkelschatten.', { mood: 'surprised' });
-  await lia('Dunkel was?');
-  await w.say('flick', 'Dunkelschatten. Die Diener des Bösen. Sie verbreiten Angst und Schrecken, seit das Böse in der großen Schlacht gesiegt hat.');
-  await lia('Na super. Heute habe ich ja richtig Glück.', 'sad');
-  await w.say('flick', 'Aber das klingt doch nach Abenteuer!', { mood: 'happy' });
-  await lia('Normalerweise lese ich Abenteuer nur.');
-  await w.say('flick', 'Dann wird es Zeit. Die haben sicher schon einen großen Vorsprung …', { mood: 'determined' });
-  await w.say('flick', '… aber zum Glück kennst du jetzt die beste Fährtenleserin südlich von Trapas.', { mood: 'smirk' });
-  await lia('Na, das kann ja was werden.');
+  await lia('Reiter in Schwarz haben Kyra geholt. Meine Zwillingsschwester. Ich hol sie zurück. Ich weiß nur noch nicht, wie.', 'sad');
+  await w.say('flick', 'In Schwarz, sagst du? Dann waren’s Dunkelschatten. Verflucht.', { mood: 'surprised' });
+  await lia('Das klingt wie aus einem Schauermärchen.');
+  await w.say('flick', 'Schön wär’s. Seit Dunkelhain nehmen die sich, was sie wollen. Und keiner hält sie auf.');
+  await lia('Wunderbar. Und ich habe nicht mal einen Plan.', 'sad');
+  await w.say('flick', 'Klingt nach einer Geschichte, die man später gern erzählt. Wenn man sie überlebt.', { mood: 'smirk' });
+  await lia('In meinen Büchern kann man an solchen Stellen umblättern.');
+  await w.say('flick', 'Reiter sind schnell. Aber Pferde hinterlassen Spuren, und der Regen macht den Boden weich.', { mood: 'determined' });
+  await w.say('flick', 'Und zufällig liest südlich von Trapas niemand Spuren so gut wie ich.', { mood: 'smirk' });
+  await lia('Und bescheiden ist sie auch noch.');
   if (G.state.is('k5-regen-wich')) {
-    await lia('Flick? Vorhin, als der Regen … hast du gesehen, wie er …', 'thinking');
-    await w.say('flick', 'Wie er was? Nass war? Ja, das hab ich bemerkt.', { mood: 'smirk' });
-    await lia('Ach, nichts.');
+    await lia('Flick? Vorhin, im Regen … ist dir da was aufgefallen?', 'thinking');
+    await w.say('flick', 'Am Regen? Er war nass. Ich hab genau hingesehen.', { mood: 'smirk' });
+    await lia('Vergiss es.');
   }
   G.state.setParty(['flick']);
   G.state.set('k5-flick-dabei');
@@ -275,25 +275,25 @@ async function storyTold(w: WorldCtx): Promise<void> {
 
 async function shelter(w: WorldCtx): Promise<void> {
   if (G.state.is('k5-weide')) {
-    await w.think(w.weather.kind === 'rain' ? 'Drinnen ist es trocken. Aber Kyra ist da draußen.' : 'Ein guter Unterschlupf. Ich hoffe, ich brauche ihn nicht.');
+    await w.think(w.weather.kind === 'rain' ? 'Trocken hier drin. Kyra hat es nicht so gut.' : 'Hier könnte man sich verkriechen. Später vielleicht.');
     return;
   }
   G.state.set('k5-weide');
   w.player.setIdle('sit');
   await w.wait(500);
-  await w.think('Der Baum ist hohl wie die alte Weide am Bach.');
-  await w.think('Damals hat Kyra meine Hand gehalten, bis das Gewitter vorbei war.');
+  await w.think('Hohl, wie die alte Weide am Bach. Da haben wir uns früher versteckt.');
+  await w.think('Beim Gewitter hat Kyra behauptet, die Götter rücken nur Möbel. Und meine Hand gehalten, bis es vorbei war.');
   G.state.addMemory('k5-mem-gewitter');
   await w.wait(300);
   w.player.setIdle('idle');
-  await w.think('Diesmal halte ich deine Hand, Kyra. Versprochen.');
+  await w.think('Diesmal bin ich dran mit Handhalten, Kyra.');
 }
 
 async function stagStone(w: WorldCtx): Promise<void> {
-  if (G.state.is('k5-regastein')) { await w.think('Der Hirsch sieht aus, als würde er lauschen.'); return; }
+  if (G.state.is('k5-regastein')) { await w.think('Der Hirsch lauscht. Auf den Regen oder auf mich.'); return; }
   G.state.set('k5-regastein');
-  await w.think('Ein alter Stein mit einem Hirsch, das Geweih wie Äste. Keine Schrift, nur das Bild.');
-  await w.think('In Mutters Büchern stand so etwas: Rega, der Hirsch des Elfengottes Destar. Hier begann früher das Land der Elfen.');
+  await w.think('Ein Hirsch, in den Stein gehauen. Das Geweih verzweigt sich wie eine Baumkrone.');
+  await w.think('Rega, der Hirsch des Elfengottes Destar. Das Bild stand in einem von Mutters Büchern. Dann war das hier früher Elfenland.');
   G.state.addLore('k5-lore-rega');
 }
 
@@ -313,9 +313,9 @@ export async function regenwaldScript(w: WorldCtx): Promise<void> {
   }
   await w.wait(600);
   await w.narrate([
-    'Lia rannte, bis die Feuer des Lagers hinter den Bäumen verschwunden waren.',
-    'Foltan hatte es gewusst. Die ganze Zeit. Und geschwiegen.',
+    'Lia lief, bis kein Feuerschein mehr durch die Bäume drang.',
+    'Foltan hatte es gewusst. Er hatte ihr Brot gereicht und dabei geschwiegen.',
   ], { style: 'card' });
-  await w.think('Dann eben allein. Ich finde dich, Kyra. Ganz egal, wie.');
+  await w.think('Dann eben allein. Halt durch, Kyra.');
   w.setObjective('k5-osten', 'Folge dem Pfad nach Osten. Irgendwo dort ist Kyra.', [770, 300]);
 }
