@@ -45,4 +45,6 @@ export function sceneMusicAssets() {
 
 export default defineConfig({
   plugins: [sceneMusicAssets()],
+  // A running browser regression must not restart when another task edits the shared checkout.
+  server: { hmr: process.env.SELANTIS_E2E ? false : undefined },
 });

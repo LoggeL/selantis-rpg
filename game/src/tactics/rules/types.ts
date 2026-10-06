@@ -128,6 +128,16 @@ export interface CombatStats {
   speed: number;
 }
 
+/** Encounter rewards. Budgets limit farming within one battle, including support actions. */
+export interface BattleProgression {
+  actionExp?: number;
+  defeatExp?: number;
+  actionAp?: number;
+  victoryExp?: number;
+  victoryAp?: number;
+  budgets?: Record<string, { exp: number; ap: number; maxLevel?: number }>;
+}
+
 export interface UnitSpec {
   id: string;
   name: string;

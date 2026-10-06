@@ -2,9 +2,9 @@ import { STANDARD_ABILITIES } from './abilities';
 import { DIRS, FACINGS, Grid, OPPOSITE, TERRAIN, directionTo, key, manhattan, stepFacing } from './grid';
 import { pathTo, reachable, sameSide, type ReachMap } from './movement';
 import { Rng } from './rng';
-import { WEAPONS, awardProgress, characterLevel, skillAvailable, statsAtLevel } from './progression';
+import { EXP_PER_LEVEL, WEAPONS, awardProgress, characterLevel, skillAvailable, statsAtLevel } from './progression';
 import type {
-  AbilityDef, ActionPreview, AiOverride, BattleEvent, Facing, Phase, Point, PreviewMod, PushOutcome,
+  AbilityDef, ActionPreview, AiOverride, BattleEvent, BattleProgression, Facing, Phase, Point, PreviewMod, PushOutcome,
   StatusId, TargetPreview, Team, Unit, UnitSpec,
 } from './types';
 
@@ -30,6 +30,7 @@ export interface BattleSetup {
   /** Phase order; teams without living units are skipped automatically. */
   phases?: Phase[];
   turnMode?: 'phases' | 'speed';
+  progression?: BattleProgression;
 }
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
@@ -77,6 +78,8 @@ export class Battle {
   completedRounds = 0;
   flags = new Set<string>();
   aiOverrides = new Map<string, AiOverride>();
+  private readonly progression: BattleProgression;
+  private earned = new Map<string, { exp: number; ap: number }>();
 
   constructor(setup: BattleSetup) {
     this.grid = setup.grid;
@@ -85,10 +88,28 @@ export class Battle {
     this.rng = new Rng(setup.seed ?? 7);
     this.phases = setup.phases ?? ['player', 'ally', 'enemy'];
     this.turnMode = setup.turnMode ?? 'phases';
+    this.progression = setup.progression ?? {};
     for (const u of this.units) {
       for (const a of u.abilities) if (!this.abilities[a]) throw new Error(`Unit ${u.id}: unknown ability ${a}`);
       if (!this.grid.standable(u.x, u.y)) throw new Error(`Unit ${u.id} placed on blocked tile ${u.x},${u.y}`);
     }
+  }
+
+  private reward(id: string, exp: number, ap: number): BattleEvent[] {
+    const u = this.unit(id), earned = this.earned.get(id) ?? { exp: 0, ap: 0 };
+    const budget = this.progression.budgets?.[id];
+    if (budget) {
+      exp = Math.min(exp, Math.max(0, budget.exp - earned.exp));
+      ap = Math.min(ap, Math.max(0, budget.ap - earned.ap));
+      if (budget.maxLevel !== undefined) exp = Math.min(exp, Math.max(0, (budget.maxLevel - u.level) * EXP_PER_LEVEL - u.exp));
+    }
+    earned.exp += exp; earned.ap += ap;
+    this.earned.set(id, earned);
+    return awardProgress(u, exp, ap);
+  }
+
+  rewardVictory(id: string): BattleEvent[] {
+    return this.reward(id, this.progression.victoryExp ?? 20, this.progression.victoryAp ?? 20);
   }
 
   // ---------------------------------------------------------------- queries
@@ -471,7 +492,7 @@ export class Battle {
     for (const e of a.effects ?? []) if (e.on === 'self') events.push(...this.addStatus(u, e.status, e.turns));
     const useful = a.kind === 'interact' || events.some(e => e.type === 'strike' && e.hit || e.type === 'heal' && e.amount > 0 || e.type === 'status' && e.on || e.type === 'free');
     const defeated = events.some(e => e.type === 'down' && this.isEnemy(u, this.unit(e.unit)));
-    if (useful) events.push(...awardProgress(u, defeated ? 20 : 10, 10));
+    if (useful) events.push(...this.reward(u.id, defeated ? (this.progression.defeatExp ?? 20) : (this.progression.actionExp ?? 10), this.progression.actionAp ?? 10));
     return events;
   }
 

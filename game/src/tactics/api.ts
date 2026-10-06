@@ -15,7 +15,7 @@ import type { UiApi } from '../ui/api';
 import type { Battle } from './rules/battle';
 import type { LoseCondition, WinCondition } from './rules/objectives';
 import type {
-  AbilityDef, AiOverride, BattleEvent, DownKind, Facing, Phase, Point, StatusId, TerrainKind, Unit, UnitSpec,
+  AbilityDef, AiOverride, BattleEvent, BattleProgression, DownKind, Facing, Phase, Point, StatusId, TerrainKind, Unit, UnitSpec,
 } from './rules/types';
 
 export type { AbilityDef, AiOverride, BattleEvent, Facing, Phase, Point, StatusId, TerrainKind, Unit, UnitSpec, WinCondition, LoseCondition };
@@ -148,6 +148,8 @@ export interface BattleDef {
   /** Tiles marked as goals on the field (defaults to the tiles of reach/escort conditions). */
   goalTiles?: Point[];
   seed?: number;
+  /** Encounter-specific pace of EXP and weapon mastery. */
+  progression?: BattleProgression;
   /** Initial camera rotation in 90° steps (0..3). */
   rotation?: number;
   /** On defeat: 'retry' (default) offers „Erneut versuchen“; 'end' finishes with outcome 'lose'. */

@@ -262,6 +262,10 @@ async function departure(w: WorldCtx): Promise<void> {
   await G.ui.closePlate();
   await G.ui.fade('out', 1000);
   G.audio.music('refuge', { fadeMs: 1500 });
+  await G.ui.fade('in', 500);
+  const next = await w.choose(['Das erste Buch abschließen.', 'Mit Kyra und Flick weiterreisen.']);
+  await G.ui.fade('out', 500);
+  if (next === 1) { await G.goto('weiterreise'); return; }
   await showCredits();
   const m = await import('../../scenes/BootScene');
   await m.showTitle();

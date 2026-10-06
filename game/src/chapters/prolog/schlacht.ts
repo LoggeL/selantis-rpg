@@ -7,7 +7,7 @@ import type { BattleCtx, BattleDef, BattleUnitDef, Point, TacticsStartData } fro
 import { music, sfx, sleep, ui } from './util';
 
 const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'>): BattleUnitDef => ({
-  name: 'Dunkelschatten', team: 'enemy', ...shadowStats(o.preset), move: 4, jump: 2, abilities: ['schwerthieb'],
+  name: 'Dunkelschatten', team: 'enemy', ...shadowStats(o.preset), level: 7, move: 4, jump: 2, abilities: ['schwerthieb'],
   preset: 'shadow-sword', title: 'Schwertträger', ai: 'melee', facing: 'n', ...o,
 });
 
@@ -150,16 +150,16 @@ export const dunkelhain: BattleDef = {
       abilities: [], ai: 'passive', preset: 'paladin', nonLethal: true },
     { id: 'verwundeter-2', ...characterStats('paladin', 12 / 22), name: 'Verwundeter Paladin', title: 'Stützt sich auf seinen Speer', team: 'ally', x: 2, y: 6, facing: 'n', move: 2, jump: 1,
       abilities: [], ai: 'passive', preset: 'paladin', nonLethal: true },
-    shadow({ id: 'ds-1', x: 5, y: 9 }),
-    shadow({ id: 'ds-2', x: 8, y: 10 }),
-    shadow({ id: 'ds-3', x: 3, y: 11 }),
+    shadow({ id: 'ds-1', x: 5, y: 7 }),
+    shadow({ id: 'ds-2', x: 8, y: 8 }),
+    shadow({ id: 'ds-3', x: 3, y: 9 }),
     shadow({ id: 'ds-xbow', name: 'Armbrustschütze', title: 'Dunkelschatten auf dem Fels', x: 11, y: 5, move: 3, abilities: ['bolzen'], ai: 'archer', preset: 'shadow-crossbow', facing: 'w' }),
   ],
   waves: [
     {
       round: 2, text: 'Ein Hüne mit Axt führt die nächste Welle an!',
       units: [
-        { id: 'baris', ...characterStats('baris-young'), name: 'Axtkämpfer', title: 'Ein junger Hüne mit Axt', team: 'enemy', x: 6, y: 11, facing: 'n', move: 3, jump: 1,
+        { id: 'baris', ...characterStats('baris-young'), name: 'Axtkämpfer', title: 'Ein junger Hüne mit Axt', team: 'enemy', x: 6, y: 8, facing: 'n', move: 4, jump: 2,
           abilities: ['axthieb', 'wuchtschlag'], nonLethal: true, preset: 'baris-young', portrait: 'baris-young', ai: 'melee' },
         shadow({ id: 'ds-4', x: 9, y: 11 }),
       ],

@@ -50,6 +50,7 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
     ambience: ['wind', 'fire', 'crickets'],
     music: 'battle',
     seed: 516,
+    progression: { budgets: { lia: { exp: 30, ap: 8, maxLevel: 3 } } },
     abilities: RESCUE_ABILITIES,
     map: {
       trees: 'mixed',

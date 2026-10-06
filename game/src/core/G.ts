@@ -42,8 +42,8 @@ export const G = {
 
   /** Stops all running gameplay Phaser scenes (except persistent ones). Call before starting a new one. */
   stopGameplayScenes(): void {
-    for (const scene of G.game.scene.getScenes(true)) {
-      if (scene.scene.key !== 'Boot') G.game.scene.stop(scene.scene.key);
+    for (const scene of G.game.scene.getScenes(false)) {
+      if (scene.scene.key !== 'Boot' && (scene.sys.isActive() || scene.sys.isSleeping() || scene.sys.isPaused())) G.game.scene.stop(scene.scene.key);
     }
   },
 };

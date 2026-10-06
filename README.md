@@ -79,9 +79,11 @@ Ohne URL-Parameter startet der Titelbildschirm. `?scene=<id>` springt über `G.w
 | II: Die Straße nach Osten | `strasse`, `erstes-lager`, `foltan-azar`, `waldweg` |
 | III: Der Goldene Eber | `eber`, `leselager`, `kyra` |
 | IV: Die Freie Bruderschaft | `augenbinde`, `bruderschaft`, `verrat` |
-| V: Regen | `regenwald`, `faehrte`, `schattenlager`, `rettung`, `finale` |
+| V: Regen | `regenwald`, `faehrte`, `schattenlager`, `rettung`, `finale`, optional `weiterreise` |
 
 Lias Weg verbindet Erkundung, Gespräche, das Packen der Reiseausrüstung, Feuermachen, Spurensuche und Schleichen. Valentus kämpft im Prolog; Lia nutzt bei Kyras Rettung zusammen mit Flick ihre verfügbaren Fähigkeiten und Gegenstände. Kapitelentscheidungen und Funde werden im gemeinsamen Kampagnenzustand geführt.
+
+Am Waldweg und beim Händler im Goldenen Eber kann Lia mit Foltan und Azar je eine freiwillige Begegnung bestehen. Beide sind einmalig und geben Lia nur wenig Erfahrung. Nach der Rettung öffnet die optionale Weiterreise Kämpfe und stärkere Progression für Lia, Flick und Kyra. Ablauf und Belohnungen stehen in [Kämpfe und Progression](docs/combat-progression.md).
 
 ## Spielstände und Debug
 

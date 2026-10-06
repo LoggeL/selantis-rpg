@@ -13,6 +13,7 @@ export default defineConfig({
   workers: 2,
   use: { baseURL, trace: 'retain-on-failure' },
   webServer: {
+    env: { SELANTIS_E2E: '1' },
     command: `npm run dev -- --port ${port} --strictPort`,
     url: baseURL,
     reuseExistingServer: false,
