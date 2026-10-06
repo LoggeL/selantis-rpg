@@ -111,12 +111,29 @@ def review(run,line,current_base_qa,current_qc,rootapproval=None):
     require(all(json.dumps(rootapproval[k],sort_keys=True)==json.dumps(v,sort_keys=True) for k,v in expected.items() if k not in {'status','reviewed_by','reason'}),'Expressive approval stale or differs from complete raw evidence.')
     return {'id':line['id'],'method':VERSION,'resolution':'root_approved_fixed_source_gesture_full_literal_body','approval':copy.deepcopy(rootapproval),'provenance_files_sha256':expected['provenance_files_sha256'],'proof_drivers_sha256':expected['proof_drivers_sha256'],'helper_sha256':expected['helper_sha256'],'provider_timestamps_used':False,'timing_approval':None,'acting_approval':None,'listening_verdict':None}
 
+def comparison_records(payload,pff_response=None):
+    # Standard QC caches are never a direct Pff response, even with the same ID.
+    if isinstance(payload,dict) and 'binding' in payload:
+        require(pff_response is None and payload.get('binding',{}).get('id')==pff.ID and isinstance(payload.get('response'),dict),'Only the original direct Pff response envelope is supported.')
+        return {pff.ID:payload}
+    records=payload.get('records') if isinstance(payload,dict) else None
+    require(isinstance(records,list) and all(isinstance(r,dict) and isinstance(r.get('id'),str) for r in records),'Invalid standard QC comparison.')
+    mapping={r['id']:r for r in records};require(len(mapping)==len(records),'Duplicate QC records.')
+    mapping.pop(pff.ID,None)
+    if pff_response is not None:
+        require(isinstance(pff_response,dict) and pff_response.get('binding',{}).get('id')==pff.ID and isinstance(pff_response.get('response'),dict) and 'records' not in pff_response,'Pff requires the original direct response envelope, never a standard cache.')
+        mapping[pff.ID]=pff_response
+    return mapping
+
+
 def main():
     common.configure();parser=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','vocal-comparison','output']:parser.add_argument('--'+name,type=Path,required=True)
+    parser.add_argument('--pff-qc-response',type=Path,help='Original direct pff-edited-pass14/qc-raw.private.json, separate from standard comparison.')
     args=parser.parse_args();run=core.directory(str(args.run_dir));require(args.output.resolve().is_relative_to(run) and not args.output.exists(),'Choose a new private proposal output.')
-    payload=core.read_json(private(run,args.vocal_comparison));records=payload.get('records',[]);mapping={r['id']:r for r in records};require(len(mapping)==len(records),'Duplicate QC records.')
-    if payload.get('binding',{}).get('id')==pff.ID and 'response' in payload:mapping[pff.ID]=payload
+    payload=core.read_json(private(run,args.vocal_comparison))
+    direct=core.read_json(private(run,args.pff_qc_response)) if args.pff_qc_response else None
+    mapping=comparison_records(payload,direct)
     rows={r['id']:r for r in core.read_json(run/'lines.private.json')['lines']}
     proposals={i:template(run,rows[i],args.base_qa_report,mapping[i]) for i in CASES if i in mapping}
     require(bool(proposals),'No fixed-case actual QC supplied.')

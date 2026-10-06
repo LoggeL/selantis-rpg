@@ -91,16 +91,18 @@ def pro_word_proof(run,line,audio_sha,record,approval=None):
         **({'approval':adopted} if adopted else {}),'provider_timestamps_used':False,'acting_approval':None,'listening_verdict':None}
 
 
-def expressive_record_mapping(payload,approvals,ids):
-    if isinstance(payload,dict) and 'binding' in payload:
-        require(payload.get('binding',{}).get('id')==expressive.pff.ID and 'response' in payload and set(approvals)=={expressive.pff.ID},'Direct Pff QC can qualify only the one exact source case.')
-        return {expressive.pff.ID:payload}
-    return indexed(payload.get('records'),ids,'Vocal records')
+def expressive_record_mapping(payload,approvals,ids,pff_response=None):
+    if 'binding' not in payload:indexed(payload.get('records'),ids,'Vocal records')
+    mapping=expressive.comparison_records(payload,pff_response)
+    require(not (pff_response is not None) or expressive.pff.ID in approvals,'Separate Pff evidence requires an explicit Pff root approval.')
+    require(expressive.pff.ID not in approvals or expressive.pff.ID in mapping,'Pff approval requires original direct --pff-qc-response; stale standard Pff cache cannot qualify.')
+    require('binding' not in payload or set(approvals)=={expressive.pff.ID},'Direct Pff-only comparison cannot qualify other source IDs.')
+    return mapping
 
 
-def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None):
+def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None,pff_qc_path=None):
     run=run.resolve();common.prepared(run)
-    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path] if p]]
+    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path,pff_qc_path] if p]]
     require(not output_path.exists() and output_path.resolve() not in {p.resolve() for p in inputs},'Choose a new private final report, never overwrite evidence.')
     require(output_path.resolve().is_relative_to(run) and all(p.resolve().is_relative_to(run) for p in inputs),'Reports must stay within the frozen private run.')
     complementary_requested=any([complementary_approvals_path,complementary_ctc_path,complementary_qa_path])
@@ -108,7 +110,7 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
     orthographic_requested=any([orthographic_approvals_path,orthographic_qa_path])
     require(not orthographic_requested or all([orthographic_approvals_path,orthographic_qa_path,flash_path,pro_path]),'Orthographic proof requires root approvals, separate current QA and actual Flash/Pro comparisons.')
     require(flash_path is None or complementary_requested or orthographic_requested,'Flash comparison needs a scoped complementary or orthographic proof.')
-    expressive_requested=any([expressive_approvals_path,expressive_qa_path,vocal_path])
+    expressive_requested=any([expressive_approvals_path,expressive_qa_path,vocal_path,pff_qc_path])
     require(not expressive_requested or all([expressive_approvals_path,expressive_qa_path,vocal_path]),'Expressive proof requires explicit root approvals, current physical QA and actual vocal comparison.')
     input_hashes={str(p.resolve().relative_to(run)):qa.digest(p) for p in inputs}
     manifest=core.read_json(run/'lines.private.json');manifest_sha=qa.digest(run/'lines.private.json');rows={r['id']:r for r in manifest['lines']};ids=set(rows)
@@ -187,7 +189,7 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         expressive_approvals=envelope.get('approvals',envelope.get('proposals',envelope))
         require(isinstance(expressive_approvals,dict) and bool(expressive_approvals) and set(expressive_approvals)<=set(expressive.CASES)&ids,'Expressive approvals exceed three fixed source cases.')
         vocal_payload=core.read_json(vocal_path)
-        expressive_records=expressive_record_mapping(vocal_payload,expressive_approvals,ids)
+        expressive_records=expressive_record_mapping(vocal_payload,expressive_approvals,ids,core.read_json(pff_qc_path) if pff_qc_path else None)
         require(set(expressive_approvals)<=set(expressive_records),'Actual expressive raw records missing.')
     result=copy.deepcopy(base);result['base_decoder_evidence']={'file':str(base_path.resolve().relative_to(run)),'sha256':input_hashes[str(base_path.resolve().relative_to(run))],'version':base['version'],'model':base['model']}
     removed={};extra_failures=[]
@@ -254,10 +256,10 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
 def main():
     common.configure();p=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','output']:p.add_argument('--'+name,type=Path,required=True)
-    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison']:p.add_argument('--'+name,type=Path)
+    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison','pff-qc-response']:p.add_argument('--'+name,type=Path)
     a=p.parse_args()
     try:
-        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison)
+        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison,pff_qc_path=a.pff_qc_response)
         print(json.dumps({'status':result['status'],'failures':len(result['failures']),'checked':len(result['checked_ids'])}));return 0 if result['status']=='passed' else 2
     except (core.SafeError,OSError,ValueError,KeyError,TypeError) as e:
         print(str(e) if isinstance(e,core.SafeError) else 'Invalid bound final-QA evidence; no reports overwritten.',file=sys.stderr);return 1

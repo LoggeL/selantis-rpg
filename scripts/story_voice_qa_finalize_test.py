@@ -238,6 +238,13 @@ class ExpressiveFinalizerGates(unittest.TestCase):
         self.assertEqual(f.expressive_record_mapping(envelope,{ident:{}},{ident}),{ident:envelope})
         for bad,scope in [({'binding':{'id':self.fixture.rows.keys().__iter__().__next__()},'response':{}},{ident:{}}),(envelope,{ident:{},next(iter(self.fixture.rows)): {}}),({'binding':{'id':ident}},{ident:{}})]:
             with self.assertRaises(f.core.SafeError):f.expressive_record_mapping(bad,scope,{ident})
+    def test_three_plus_one_loader_requires_separate_original_direct_qc(self):
+        ident=f.expressive.pff.ID;classic=list(self.fixture.records.values());payload={'records':classic+[{'id':ident,'transcript':'stale standard cache'}]};direct={'binding':{'id':ident},'response':{'original':'raw'}}
+        approvals={i:{} for i in self.fixture.rows};approvals[ident]={};ids=set(approvals)
+        records=f.expressive_record_mapping(payload,approvals,ids,direct);self.assertEqual(set(records),ids);self.assertIs(records[ident],direct)
+        with self.assertRaises(f.core.SafeError):f.expressive_record_mapping(payload,approvals,ids)
+        with self.assertRaises(f.core.SafeError):f.expressive_record_mapping(payload,approvals,ids,{'id':ident,'response':{}})
+        self.assertEqual(set(f.expressive_record_mapping(payload,{i:{} for i in self.fixture.rows},ids)),set(self.fixture.rows))
     def test_exact_three_root_proofs_only_remove_lexical_reason(self):
         old=self.fixture.qa.read_bytes();result=self.finish();self.assertEqual(result['status'],'passed');self.assertEqual(self.fixture.qa.read_bytes(),old)
         self.assertTrue(all(t['transcript']=='Original uncertain source gesture.' for t in result['takes']))

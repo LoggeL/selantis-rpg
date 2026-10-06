@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Offline exact-source, raw-provider and explicit-root gesture gate tests."""
 import copy
+import io
+from contextlib import redirect_stdout
+import sys
 import json
 from pathlib import Path
 import tempfile
@@ -80,6 +83,17 @@ class Gates(unittest.TestCase):
   self.assertTrue(e.template(self.run,self.rows[i],self.qa,self.records[i]))
   wav.write_bytes(b'changed')
   with self.assertRaises(e.core.SafeError):e.template(self.run,self.rows[i],self.qa,self.records[i])
+ def test_standard_cli_prepares_three_despite_stale_pff_cache(self):
+  comparison=self.run/'comparison.json';e.qa.save(comparison,{'records':list(self.records.values())+[{'id':e.pff.ID,'transcript':'old stale standard cache'}]});output=self.run/'proposals.json'
+  args=['expressive','--run-dir',str(self.run),'--base-qa-report',str(self.qa),'--vocal-comparison',str(comparison),'--output',str(output)]
+  with patch.object(sys,'argv',args),patch.object(e.core,'directory',return_value=self.run),redirect_stdout(io.StringIO()):self.assertEqual(e.main(),0)
+  proposals=e.core.read_json(output)['proposals'];self.assertEqual(set(proposals),set(self.rows));self.assertTrue(all(a['status']=='root_review_required' for a in proposals.values()))
+ def test_separate_direct_pff_overrides_only_stale_pff_record(self):
+  stale={'id':e.pff.ID,'transcript':'stale'};payload={'records':list(self.records.values())+[stale]};direct={'binding':{'id':e.pff.ID},'response':{'original':'raw'}}
+  result=e.comparison_records(payload,direct);self.assertEqual(set(result),set(self.rows)|{e.pff.ID});self.assertIs(result[e.pff.ID],direct);self.assertEqual({i:result[i] for i in self.rows},self.records)
+  self.assertNotIn(e.pff.ID,e.comparison_records(payload))
+  for bad in [stale,{'records':[stale]}, {'binding':{'id':next(iter(self.rows))},'response':{}}]:
+   with self.assertRaises(e.core.SafeError):e.comparison_records(payload,bad)
  def test_audio_receipt_signal_and_whole_row_refused(self):
   i=next(iter(self.rows));a=self.approved(i)
   for p in [self.run/'clips'/(i+'.mp3'),self.run/'raw'/(i+'.receipt.json')]:
