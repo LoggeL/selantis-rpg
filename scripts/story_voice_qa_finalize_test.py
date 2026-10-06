@@ -511,4 +511,66 @@ class A681FinalizerGates(unittest.TestCase):
             with self.assertRaises(f.core.SafeError):self.finish()
         self.assertEqual(calls,2);self.assertFalse((self.run/'final-a681.json').exists())
 
+
+class FoltanTwoCaseFinalizerGates(unittest.TestCase):
+    def setUp(self):
+        self.fixture=fixtures.SpecialistTests();self.fixture.setUp();self.addCleanup(self.fixture.tearDown)
+        self.run=self.fixture.source;old=self.fixture.ids;self.rows=[]
+        for prior,(ident,case) in zip(old,f.foltan_cases.CASES.items()):
+            row=dict(self.fixture.rows[len(self.rows)],id=ident,text=case['text'],speaker='azar');self.rows.append(row)
+            for folder,ext in [('clips','.mp3'),('raw','.wav'),('raw','.receipt.json')]:
+                (self.run/folder/(prior+ext)).rename(self.run/folder/(ident+ext))
+            p=self.run/'raw'/(ident+'.receipt.json');receipt=f.core.read_json(p);receipt.update(id=ident,model=f.core.MODEL);f.core.save(p,receipt)
+        f.core.save(self.run/'lines.private.json',{'model':f.core.MODEL,'lines':self.rows});self.ids=[r['id'] for r in self.rows]
+        self.signal={'silent':False,'seconds':2.,'clipped_fraction':0.,'peak':.4,'trailing_silence_seconds':.1,'leading_silence_seconds':.1,'last_frame_rms':0.,'rms':.1}
+        self.base={'version':f.qa.VERSION,'model':f.qa.MODEL,'manifest_sha256':f.qa.digest(self.run/'lines.private.json'),'checked_ids':self.ids,
+            'clip_sha256':{i:f.qa.digest(self.run/'clips'/(i+'.mp3')) for i in self.ids},'takes':[{'id':r['id'],'text_sha256':f.qa.text_hash(r['text']),'signal':copy.deepcopy(self.signal),'transcript':'Original Foltern diagnosis retained.','reasons':['asr_lexical_mismatch_requires_review']} for r in self.rows],
+            'failures':[{'id':i,'reason':'asr_lexical_mismatch_requires_review'} for i in self.ids]}
+        self.base_path=self.run/'base-foltan.json';f.core.save(self.base_path,self.base);self.raw=self.run/'actual-fixture-raw.json';f.core.save(self.raw,{'synthetic':True})
+        self.envelopes=[]
+        for row in self.rows:
+            bindings={k:str(self.base_path if k=='qa_report_path' else self.raw) for k in f.foltan_cases.KEYS};template=self.template(self.run,row,bindings)
+            self.envelopes.append({'bindings':bindings,'approval':dict(template,status=f.foltan_cases.APPROVED,reviewed_by='root explicit fixture review',reason='Complete synthetic source and native evidence reviewed individually.')})
+        self.envelope=self.run/'foltan-root.json';f.core.save(self.envelope,{'records':self.envelopes})
+        patcher=patch.object(f.common,'prepared');patcher.start();self.addCleanup(patcher.stop)
+        patcher=patch.object(f.foltan_cases,'proof_template',side_effect=self.template);patcher.start();self.addCleanup(patcher.stop)
+    def template(self,run,line,bindings):
+        return {'status':'root_review_required','reviewed_by':'','reason':'','method':f.foltan_cases.VERSION,'id':line['id'],'clip_sha256':self.base['clip_sha256'][line['id']],
+            'source_text_sha256':f.qa.text_hash(line['text']),'source_row':copy.deepcopy(line),'provenance_files_sha256':{str(self.raw):f.qa.digest(self.raw)},
+            'helper_script_sha256':f.qa.digest(Path(f.foltan_cases.__file__)),'protected_script_sha256':{str(Path(f.qa.__file__)):f.qa.digest(Path(f.qa.__file__))}}
+    def finish(self,**kwargs):
+        return f.finalize(self.run,self.base_path,self.run/'final-foltan.json',expected_count=2,meta_foltan_cases_root_evidence_path=self.envelope,**kwargs)
+    def test_two_actual_root_envelopes_clear_only_lexical_preserve_diagnoses(self):
+        prior=self.base_path.read_bytes();r=self.finish();self.assertEqual(r['status'],'passed');self.assertEqual(prior,self.base_path.read_bytes())
+        for take in r['takes']:
+            self.assertEqual(take['transcript'],'Original Foltern diagnosis retained.');self.assertEqual(take['original_decoder_transcript'],take['transcript']);self.assertEqual(take['extra_word_proof'][0]['method'],f.foltan_cases.VERSION)
+    def test_lexical_clearance_never_removes_asr_failed_or_signal_reasons(self):
+        for take in self.base['takes']:take['reasons'].append('asr_check_failed_ValueError')
+        self.base['failures'] += [{'id':i,'reason':'asr_check_failed_ValueError'} for i in self.ids];f.core.save(self.base_path,self.base)
+        r=self.finish();self.assertEqual(r['status'],'review_required')
+        for take in r['takes']:self.assertEqual(take['reasons'],['asr_check_failed_ValueError'])
+    def test_missing_duplicate_other_ID_or_review_rejected(self):
+        for records in [[],self.envelopes+[self.envelopes[0]],[self.envelopes[0],self.envelopes[0]]]:
+            f.core.save(self.envelope,{'records':records})
+            with self.assertRaises(f.core.SafeError):self.finish()
+        for change in [{'id':f.meta_name.ID},{'reviewed_by':'worker'},{'reason':'ok'},{'status':'root_review_required'},{'clip_sha256':'stale'}]:
+            records=copy.deepcopy(self.envelopes);records[0]['approval'].update(change);f.core.save(self.envelope,{'records':records})
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-foltan.json').exists())
+    def test_different_base_QA_and_outside_private_paths_blocked(self):
+        other=self.run/'other-base.json';f.core.save(other,self.base)
+        for key,path in [('qa_report_path',str(other)),('meta_observation_path',str(Path(f.__file__)) )]:
+            records=copy.deepcopy(self.envelopes);records[0]['bindings'][key]=path;f.core.save(self.envelope,{'records':records})
+            with self.assertRaises(f.core.SafeError):self.finish()
+    def test_changed_evidence_during_second_review_blocks_write(self):
+        count=0
+        def changed(run,line,bindings):
+            nonlocal count
+            count+=1
+            if count==3:f.core.save(self.raw,{'changed':True})
+            return self.template(run,line,bindings)
+        with patch.object(f.foltan_cases,'proof_template',side_effect=changed):
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-foltan.json').exists())
+
 if __name__=='__main__':unittest.main()
