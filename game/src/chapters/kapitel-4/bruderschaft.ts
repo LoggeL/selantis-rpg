@@ -297,7 +297,14 @@ async function talkAzar(w: WorldCtx): Promise<void> {
   if (!G.state.is('k4-t-azar')) {
     await azar.say('Willkommen in meinem Reich! Merk dir eins: Ein Schmied ist unentbehrlich.', { mood: 'happy' });
     await azar.say('Jeder Kämpfer braucht einen guten Schmied. Sonst kämpft er bald im Hemd. Tritt mal den Blasebalg, ja?');
-    await G.ui.hold('Blasebalg treten', 1500);
+    await G.ui.storyAction('bellows', 'Blasebalg treten', {
+      onStroke: stroke => {
+        if (stroke % 2 === 1) {
+          sfx('whoosh', { volume: 0.5 });
+          w.fx.burst([1024, 236], 'sparkle', 4);
+        }
+      },
+    });
     sfx('fire-ignite', { volume: 0.8 });
     w.fx.burst([1024, 236], 'sparkle', 12);
     try { bg(w.lighting.get('esse').fadeTo(1.4, 300)); } catch { /* */ }

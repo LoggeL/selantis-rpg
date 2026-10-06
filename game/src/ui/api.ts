@@ -1,3 +1,6 @@
+import type { StoryActionKind, StealthKind } from './interactionRules';
+import type { StoryActionOptions, StealthOptions } from './interactions';
+
 /**
  * CONTRACT between ui/ (producer) and everyone else. The UI is DOM/CSS layered over the canvas (#ui).
  * All awaitable calls lock gameplay input (core/input inputLock) while active and are safe against
@@ -61,10 +64,16 @@ export interface UiApi {
   bubble(text: string, anchor: () => { x: number; y: number } | null, ms?: number, opts?: { speaker?: string; voiceText?: string; foreground?: boolean }): BubbleHandle;
 
   /**
-   * Hold-to-act prompt (e.g. „Hand heben“). Resolves when the player held the action for durationMs.
+   * Legacy progress prompt for the UI demo. Story chapters use storyAction or stealthGame.
+   * Resolves when the player held the action for durationMs.
    * If `struggle` is set, the bar drains when released (used for „Halte still“).
    */
   hold(label: string, durationMs: number, opts?: { struggle?: boolean; onRelease?: () => void }): Promise<void>;
+
+  /** Untimed story gesture, driven by directional keys, dragging or the on-screen arrows. */
+  storyAction(kind: StoryActionKind, label: string, opts?: StoryActionOptions): Promise<void>;
+  /** Short hiding challenge. Mistakes retry the current beat; resolves with the number of noises. */
+  stealthGame(kind: StealthKind, label: string, opts?: StealthOptions): Promise<number>;
 
   /** Generic full-screen panel for minigames that need DOM (returns the element; remove() when done). */
   panel(className?: string): HTMLElement;

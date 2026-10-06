@@ -7,6 +7,7 @@ import { ctx, isConfirm } from '../../ui/context';
 import { BOARD_CLUES, combine, complete, FINAL } from './deduce';
 import { blowConfig, blowStart, blowStep, stakeStart, stakeStep, stakeTug, type StakeState } from './games';
 import type { Song } from './song';
+import { createMiniIllustration } from '../../ui/miniIllustration';
 
 const ui = () => G.ui as UiApiExt;
 const sfx = (name: Parameters<typeof G.audio.sfx>[0], opts?: Parameters<typeof G.audio.sfx>[1]) => { try { G.audio.sfx(name, opts); } catch { /* audio optional */ } };
@@ -37,7 +38,9 @@ const STYLE = `
 .k3-done div::before { content: '❖ '; color: var(--gold); }
 .k3-done .is-final { color: var(--gold-hi, #f1d48a); font-weight: 700; }
 .k3-keys { margin-top: .6em; font-family: var(--f-label); font-size: .8em; opacity: .75; letter-spacing: .05em; }
-.k3-play { width: min(30em, 90%); padding: 1em 1.3em 1.1em; text-align: center; border-radius: var(--radius, .6em); }
+.k3-play { width: min(34em, 90%); padding: .9em 1.3em 1em; text-align: center; border-radius: var(--radius, .6em); }
+.k3-illustration { position: relative; height: 8em; margin: .4em 0 .7em; border-radius: .5em; border: 1px solid var(--gold-line); background: linear-gradient(#0b0f17, #1b2231); overflow: hidden; box-shadow: inset 0 .15em .4em rgba(0,0,0,.6); }
+.k3-illustration.is-puff { filter: saturate(.45); }
 .k3-play .ch-title { font-size: 1.25em; }
 .k3-sub { font-family: var(--f-body); font-style: italic; opacity: .9; margin: .25em 0 .7em; min-height: 1.3em; }
 .k3-ember { width: 5.5em; height: 5.5em; margin: .2em auto .6em; border-radius: 50%; background: radial-gradient(circle, #fff3c4 0%, #ffb24a 28%, #e0562a 55%, rgba(120,30,10,0) 72%);
@@ -47,6 +50,7 @@ const STYLE = `
 .k3-meter { position: relative; height: 1.1em; border-radius: .55em; background: rgba(0,0,0,.45); border: 1px solid rgba(216,178,90,.35); overflow: hidden; margin: 0 .4em; }
 .k3-zone { position: absolute; top: 0; bottom: 0; background: linear-gradient(90deg, rgba(255,176,74,.25), rgba(255,176,74,.6), rgba(255,176,74,.25)); border-left: 1px solid #ffcf80; border-right: 1px solid #ffcf80; }
 .k3-needle { position: absolute; top: -2px; bottom: -2px; width: 4px; margin-left: -2px; background: var(--parch); box-shadow: 0 0 .4em #fff; border-radius: 2px; }
+.k3-airflow { display: block; width: calc(100% - .8em); margin: .7em .4em .2em; min-height: 2em; accent-color: #f1d48a; cursor: ew-resize; }
 .k3-bar { height: .7em; border-radius: .35em; background: rgba(0,0,0,.45); border: 1px solid rgba(216,178,90,.3); overflow: hidden; margin: .25em .4em .45em; }
 .k3-bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #b8913c, #f1d48a); transition: width .12s; }
 .k3-bar.is-noise > i { background: linear-gradient(90deg, #8a3a32, #d4573b); }
@@ -69,6 +73,7 @@ const STYLE = `
 .is-small .k3-play { padding: .6em 1em .7em; }
 .is-small .k3-ring { width: 3.4em; height: 3.4em; margin-bottom: .3em; }
 .is-small .k3-ember { width: 4em; height: 4em; }
+.is-small .k3-illustration { height: 6em; }
 `;
 
 function injectStyle(): void {
@@ -226,54 +231,62 @@ export function blowGame(withTinder: boolean): Promise<void> {
   root.innerHTML = `<div class="k3-veil k3-bottom"><div class="k3-play ch-panel">
     <div class="ch-title">Sanft pusten</div>
     <div class="k3-sub">${withTinder ? 'Mein Zunder ist trocken. Ganz vorsichtig …' : 'Nicht zu fest, sonst ist die Glut wieder aus.'}</div>
-    <div class="k3-ember"></div>
+    <div class="k3-illustration"></div>
     <div class="k3-meter"><div class="k3-zone"></div><div class="k3-needle"></div></div>
-    <div class="k3-keys">${keyHint('E · Leertaste · Maus gedrückt halten = pusten', 'Gedrückt halten = pusten')}</div>
+    <input class="k3-airflow" type="range" min="0" max="100" value="0" aria-label="Atemstärke">
+    <div class="k3-keys">${keyHint('← / → oder A / D: Atemstärke ändern · Regler ziehen', 'Regler ziehen: Atemstärke im hellen Feld halten')}</div>
   </div></div>`;
-  const ember = root.querySelector('.k3-ember') as HTMLElement;
+  const ember = root.querySelector('.k3-illustration') as HTMLElement;
+  const illustration = createMiniIllustration(ember, 'blow');
   const zone = root.querySelector('.k3-zone') as HTMLElement;
   const needle = root.querySelector('.k3-needle') as HTMLElement;
   const sub = root.querySelector('.k3-sub') as HTMLElement;
-  const sources = new Set<string>();
+  const airflow = root.querySelector<HTMLInputElement>('.k3-airflow')!;
   let state = blowStart();
   return new Promise<void>(resolve => {
     let last = performance.now();
     let finished = false;
+    let puffUntil = 0;
+    const epoch = ctx.epoch;
+    const alive = () => root.isConnected && epoch === ctx.epoch && !ctx.stale();
+    const setBreath = (value: number) => { state = { ...state, breath: Math.max(0, Math.min(1, value)) }; };
+    airflow.addEventListener('input', () => setBreath(Number(airflow.value) / 100));
     let breathLoop: { stop(ms?: number): void; set(o: { volume?: number }): void } | null = null;
     const closeModal = ctx.open({
       id: 'k3-blow',
-      onKey: e => { if (isConfirm(e)) { if (!e.repeat) sources.add(e.code || e.key); return true; } return e.key !== 'Escape'; },
-      onKeyUp: e => { if (isConfirm(e)) { sources.delete(e.code || e.key); return true; } return false; },
+      releaseKeys: ['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD'],
+      onKey: e => {
+        if (['ArrowLeft', 'KeyA', 'ArrowRight', 'KeyD'].includes(e.code)) {
+          setBreath(state.breath + (['ArrowLeft', 'KeyA'].includes(e.code) ? -0.13 : 0.13));
+          return true;
+        }
+        return e.key !== 'Escape';
+      },
     });
-    const down = (e: PointerEvent) => { e.preventDefault(); sources.add(`p${e.pointerId}`); };
-    const up = (e: PointerEvent) => sources.delete(`p${e.pointerId}`);
-    root.addEventListener('pointerdown', down);
-    root.addEventListener('pointerup', up);
-    root.addEventListener('pointercancel', up);
-    root.addEventListener('pointerleave', up);
     const frame = (now: number) => {
       if (finished) return;
-      if (!root.isConnected) { closeModal(); breathLoop?.stop(); return; }
+      if (!alive()) { closeModal(); breathLoop?.stop(); return; }
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
-      const holding = sources.size > 0;
-      const r = blowStep(state, dt, holding, cfg);
+      if (document.hidden || !document.hasFocus() || ctx.top()?.id !== 'k3-blow') { breathLoop?.stop(100); breathLoop = null; requestAnimationFrame(frame); return; }
+      const r = blowStep(state, dt, 0, cfg);
       state = r.state;
-      if (holding && !breathLoop) { try { breathLoop = G.audio.loop('whoosh', { interval: 0.42, volume: 0.25 }); } catch { breathLoop = null; } }
-      if (!holding && breathLoop) { breathLoop.stop(150); breathLoop = null; }
+      if (state.breath > 0.08 && !breathLoop) { try { breathLoop = G.audio.loop('whoosh', { interval: 0.42, volume: 0.25 }); } catch { breathLoop = null; } }
+      if (state.breath <= 0.08 && breathLoop) { breathLoop.stop(150); breathLoop = null; }
       breathLoop?.set({ volume: 0.15 + state.breath * 0.35 });
+      airflow.value = String(state.breath * 100);
       zone.style.left = `${(cfg.lo + state.drift) * 100}%`;
       zone.style.width = `${(cfg.hi - cfg.lo) * 100}%`;
       needle.style.left = `${state.breath * 100}%`;
-      ember.style.setProperty('--s', String(0.35 + state.ember * 0.85));
-      ember.style.setProperty('--o', String(0.45 + state.ember * 0.55));
+      illustration.render({ progress: state.ember, breath: state.breath, puff: now < puffUntil }, dt);
+      ember.classList.toggle('is-puff', now < puffUntil);
       root.dataset.ember = state.ember.toFixed(3);
       root.dataset.breath = state.breath.toFixed(3);
       root.dataset.lo = (cfg.lo + state.drift).toFixed(3);
       root.dataset.hi = (cfg.hi + state.drift).toFixed(3);
       if (r.event === 'puff') {
         sfx('whoosh', { volume: 0.6, pitch: 0.7 });
-        ember.classList.remove('is-puff'); void ember.offsetWidth; ember.classList.add('is-puff');
+        puffUntil = now + 600;
         sub.textContent = 'Zu fest! Die Glut wäre fast ausgegangen.';
       } else if (state.ember > 0.55) sub.textContent = 'Es qualmt … weiter so!';
       if (r.event === 'catch') {
@@ -281,7 +294,7 @@ export function blowGame(withTinder: boolean): Promise<void> {
         breathLoop?.stop(100);
         sfx('fire-ignite');
         sub.textContent = 'Eine Flamme!';
-        setTimeout(() => { closeModal(); root.remove(); resolve(); }, 650);
+        setTimeout(() => { const current = alive(); closeModal(); root.remove(); if (current) resolve(); }, 650);
         return;
       }
       requestAnimationFrame(frame);
@@ -302,6 +315,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
   root.innerHTML = `<div class="k3-veil k3-bottom"><div class="k3-play ch-panel">
     <div class="ch-title">Der Pflock</div>
     <div class="k3-lyric">…</div>
+    <div class="k3-illustration"></div>
     <div class="k3-ring">♪</div>
     <div class="k3-barlabel"><span>Pflock locker</span><span>Lärm</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4em"><div class="k3-bar"><i class="k3-loose"></i></div><div class="k3-bar is-noise"><i class="k3-noise"></i></div></div>
@@ -313,6 +327,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
   const loose = root.querySelector('.k3-loose') as HTMLElement;
   const noise = root.querySelector('.k3-noise') as HTMLElement;
   const watch = root.querySelector('.k3-watch') as HTMLElement;
+  const illustration = createMiniIllustration(root.querySelector<HTMLElement>('.k3-illustration')!, 'stake');
   let state: StakeState = stakeStart();
   let rest = false;
   let lastBeatAt = performance.now();
@@ -361,6 +376,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
       if (r.event === 'look') { watch.textContent = 'Ein Kerl dreht sich um! Stillhalten!'; watch.classList.add('is-on'); sfx('suspicious'); onLook?.(true); }
       if (r.event === 'away') { watch.textContent = ''; watch.classList.remove('is-on'); onLook?.(false); }
       if (state.watch <= 0 && watch.classList.contains('is-on')) watch.classList.remove('is-on');
+      illustration.render({ progress: state.loose, noise: state.noise, watch: state.watch > 0, beat: !rest && now - lastBeatAt < 150 }, dt);
       loose.style.width = `${state.loose * 100}%`;
       noise.style.width = `${state.noise * 100}%`;
       root.dataset.next = String(song.nextBeatAt);

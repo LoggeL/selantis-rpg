@@ -85,6 +85,8 @@ Lias Weg verbindet Erkundung, Gespräche, das Packen der Reiseausrüstung, Feuer
 
 Am Waldweg und beim Händler im Goldenen Eber kann Lia mit Foltan und Azar je eine freiwillige Begegnung bestehen. Beide sind einmalig und geben Lia nur wenig Erfahrung. Nach der Rettung öffnet die optionale Weiterreise Kämpfe und stärkere Progression für Lia, Flick und Kyra. Ablauf und Belohnungen stehen in [Kämpfe und Progression](docs/combat-progression.md).
 
+Story-Aktionen wie Handheben, Augenöffnen, Wundpflege und Blasebalgtreten lassen sich ohne Zeitdruck mit Pfeiltasten, WASD oder einem ziehbaren Griff ausführen. Challenges haben eigene Regeln: Deckung wechseln und während der Suche stillbleiben, unter Reitern abtauchen, im Schatten von Fackeln lauschen, Feuer im richtigen Moment bohren, die Atemstärke regeln oder am Pflock im Trommeltakt ziehen. Fehler beim Verstecken wiederholen nur den aktuellen kurzen Abschnitt.
+
 ## Spielstände und Debug
 
 [`GameState`](game/src/core/state.ts) verwaltet Flags, Inventar, Ziele, Erinnerungen, Wissen, Hinweise, Fähigkeiten und Gruppe. `G.goto()` speichert beim Einstieg in eine reguläre Storyszene Kapitel, Szenen-ID, Parameter und Zustand im `localStorage` unter `selantis.save.v1`. "Fortsetzen" im Titel lädt diesen Stand und startet die gespeicherte Szene erneut. Änderungen innerhalb einer laufenden Szene werden beim nächsten Szenenwechsel gesichert. Einstellungen liegen getrennt unter `selantis.settings.v1`.
@@ -96,6 +98,7 @@ F2 öffnet eine filterbare Szenenwahl mit den Storykapiteln und versteckten Entw
 | Welt | `world-demo`, `world-demo-2`, `world-stress` |
 | Kampf | `tactics-demo`, `tactics-rescue-demo`, `tactics-sandbox` |
 | Oberfläche | `ui-demo`, `ui-sandbox` |
+| Interaktionen | `interaction-demo` (Art mit `&kind=cover\|duck\|listen\|reach\|lift\|open-eyes\|tend\|bellows`) |
 | Audio | `audio-demo` |
 | Grafik | `art-gallery` |
 

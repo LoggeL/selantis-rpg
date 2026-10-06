@@ -186,7 +186,11 @@ Alles Weitere: tactics-guide.
   am Ende `G.goto(…)` oder zurück in die Welt (`startWorld({ map, spawn: 'nach-minispiel' })`).
 - **Minispiel als DOM-Paneel** (Packen, Rätsel): `const el = G.ui.panel('k1-packen')` liefert ein Vollbild-Element im
   Chronik-Stil (CSS-Klassen: ui-guide); es verschwindet beim nächsten `G.goto` von selbst, sonst `el.remove()`.
-- **Halten-Mechanik** („Halte still“): `G.ui.hold('Halte still', 2500, { struggle: true, onRelease })`.
+- **Story-Aktion ohne Zeitdruck:** `await G.ui.storyAction('lift', 'Die Hand heben')`. Arten: `reach`, `lift`,
+  `open-eyes`, `tend`, `bellows`. Tastatur, Ziehen und Bildschirm-Pfeile bewegen den Griff; E-Halten ist nicht nötig.
+- **Kurze Versteck-Challenge:** `await G.ui.stealthGame('cover', 'In der Böschung verstecken', { onNoise })`.
+  `cover` verlangt Deckung und Stillhalten, `duck` wechselt zwischen Abtauchen und Hochsehen, `listen` nutzt
+  Schatten hinter Baumstämmen. Fehler wiederholen nur den aktuellen Abschnitt. Einzelheiten: ui-guide.
 - **Audio:** Musikstimmung an der Karte (`music: 'exploration' | 'dread' | 'grief' | 'flight' | 'refuge' | 'battle' |
   'tavern'`, `null` blendet aus) oder `G.audio.music(mood)`; Ambience-Schichten (`ambience: ['wind', 'birds',
   'crickets', 'rain', 'fire', 'tavern', 'stream', 'night', 'camp', 'battle-far', 'room', 'farm', …]`);

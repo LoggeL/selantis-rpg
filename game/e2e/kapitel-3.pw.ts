@@ -1,4 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
+import { disableReloads } from './noReloads';
+
+test.beforeEach(async ({ page }) => disableReloads(page));
 
 /**
  * Kapitel III „Der Goldene Eber“: warps into each scene and drives the critical path with real inputs
@@ -148,16 +151,14 @@ test('leselager: stones, blowing on the tinder, reading aloud, the promise', asy
   }
   await click(page, 312, 204, () => busy(page));
   await until(page, () => Boolean(document.querySelector('.k3-blow')));
-  // Keep the breath inside the glow zone by holding/releasing E.
-  let held = false;
+  // Adjust the breath towards the moving glow zone using the arrow keys.
   for (let i = 0; i < 500; i++) {
     const d = await page.evaluate(() => { const r = document.querySelector<HTMLElement>('.k3-blow'); return r ? { b: +r.dataset.breath!, lo: +r.dataset.lo!, hi: +r.dataset.hi! } : null; });
     if (!d) break;
-    const want = d.b < (d.lo + d.hi) / 2;
-    if (want !== held) { if (want) await page.keyboard.down('e'); else await page.keyboard.up('e'); held = want; }
-    await wait(page, 40);
+    const mid = (d.lo + d.hi) / 2;
+    if (Math.abs(d.b - mid) > 0.07) await page.keyboard.press(d.b < mid ? 'ArrowRight' : 'ArrowLeft');
+    await wait(page, 60);
   }
-  if (held) await page.keyboard.up('e');
   expect(await flag(page, 'k3-feuer')).toBe(true);
   await until(page, () => (window as any).G.currentScene === 'kyra', { max: 400 });
   expect(await flag(page, 'k3-gelesen')).toBe('kraeuter');

@@ -1,8 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
+import { completeSceneAction, playSceneAction } from './sceneActions';
 
 /**
  * Kapitel IV „Die Freie Bruderschaft“: warps into each scene and plays its critical path with real inputs
- * (clicks to walk, keys for dialogue, holds, sneaking and the dodge drill).
+ * (clicks to walk, keys for dialogue and story gestures, sneaking and the dodge drill).
  *   cd game && SELANTIS_E2E_PORT=5325 npx playwright test e2e/kapitel-4.pw.ts
  */
 
@@ -53,6 +54,7 @@ async function waitWorld(page: Page): Promise<void> {
 async function advanceUntil(page: Page, pred: () => Promise<boolean>, max = 120): Promise<void> {
   for (let i = 0; i < max; i++) {
     if (await pred()) return;
+    if (await playSceneAction(page)) continue;
     if (await busy(page)) await page.keyboard.press('Enter');
     await page.waitForTimeout(280);
   }
@@ -61,6 +63,7 @@ async function advanceUntil(page: Page, pred: () => Promise<boolean>, max = 120)
 
 async function settle(page: Page): Promise<void> {
   for (let i = 0; i < 40; i++) {
+    if (await playSceneAction(page)) continue;
     if (!(await busy(page))) { await page.waitForTimeout(250); if (!(await busy(page))) return; }
     await page.keyboard.press('Enter');
     await page.waitForTimeout(260);
@@ -138,10 +141,10 @@ test.describe('Kapitel IV', () => {
 
     await clickWorld(page, 420, 116);
     await advanceToChoices(page);
-    await page.keyboard.press('1'); // Mutters Tinktur → hold still
-    await page.waitForSelector('.hold', { timeout: 15000 });
+    await page.keyboard.press('1'); // Mutters Tinktur: gently apply it back and forth
+    await page.waitForSelector('.action-tend', { timeout: 15000 });
     await page.waitForTimeout(300);
-    await page.keyboard.down('e'); await page.waitForTimeout(2700); await page.keyboard.up('e');
+    await completeSceneAction(page);
     await advanceUntil(page, () => flag(page, 'k4-ferse'));
 
     // Azar and Foltan wake up; the blindfold question.
@@ -186,9 +189,9 @@ test.describe('Kapitel IV', () => {
     await page.waitForFunction(() => { const a = (window as any).__world.actors.get('azar'); return a && Math.hypot(a.x - 968, a.y - 292) < 8; }, undefined, { timeout: 30000 });
     await goWorld(page, 968, 304, 60);
     await clickWorld(page, 968, 282);
-    await advanceUntil(page, () => page.locator('.hold').first().isVisible().catch(() => false));
+    await advanceUntil(page, () => page.locator('.action-bellows').first().isVisible().catch(() => false));
     await page.waitForTimeout(300);
-    await page.keyboard.down('e'); await page.waitForTimeout(1900); await page.keyboard.up('e');
+    await completeSceneAction(page);
     await advanceUntil(page, () => flag(page, 'k4-t-azar'));
     await settle(page);
 

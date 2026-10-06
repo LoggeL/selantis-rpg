@@ -1,6 +1,6 @@
 // Scene `ueberfall` (DESIGN.md §7.4, Kapitel I/3): the Dunkelschatten are already at the farm when Lia arrives.
 // She hides in the embankment, sneaks along it past the lookout, watches the interrogation (canon beats, violence
-// only through camera, cuts and darkness), must hold still three times (no game over), the riders pass right by her
+// only through camera, cuts and darkness), must find cover twice (no game over), the riders pass right by her
 // hiding place, and Harro stays behind to bury the dead – Lia has to slip away from him through the old field gate.
 import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
@@ -107,19 +107,14 @@ export async function ueberfallScript(w: WorldCtx): Promise<void> {
   w.setObjective('k1-naeher', 'Schleich dich in der Böschung näher an den Hof heran.', 'versteck');
 }
 
-/** Holds the hold-still prompt; every release snaps a twig and makes a Dunkelschatten look over. Returns the releases. */
-async function holdStill(w: WorldCtx, label: string, ms: number, onSnap: (n: number) => void): Promise<number> {
-  let snaps = 0;
-  await G.ui.hold(label, ms, {
-    struggle: true,
-    onRelease: () => {
-      snaps++;
-      sfx('branch-snap', { volume: 1.1 });
+/** Find a bush while the guard looks away, then stay still. A noise retries only that search. */
+async function hideFromGuard(w: WorldCtx, onSnap: (n: number) => void): Promise<number> {
+  return G.ui.stealthGame('cover', 'In der Böschung verstecken', {
+    onNoise: snaps => {
       w.camera.shake(140, 0.003);
       onSnap(snaps);
     },
   });
-  return snaps;
 }
 
 async function confrontation(w: WorldCtx): Promise<void> {
@@ -168,9 +163,9 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await w.say('vater', 'Ich kenne sie nicht. Sie ist sicher nur ein neugieriges Kind. Lasst sie doch laufen.', { mood: 'scared' });
     await w.think('Vater … er verleugnet sie. Um sie zu schützen. Um *uns* zu schützen.');
 
-    // Hold still (1)
+    // Find cover (1)
     await w.think('Ich muss zu ihr! Ich muss –');
-    const s1 = await holdStill(w, 'Halte still', 2600, n => {
+    const s1 = await hideFromGuard(w, n => {
       kapuze.face('player');
       void kapuze.emote('?', 900);
       if (n === 1) w.bark('kapuze', 'Was war das?', 1600);
@@ -234,9 +229,9 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await w.say('kyra', 'Ich werde euch töten! Das schwöre ich bei allen Göttern!', { mood: 'angry' });
     await w.say('grauhaarige', 'Oh, das wollen viele Mädchen. Stell dich hinten an.', { mood: 'smirk' });
 
-    // Hold still (2): longer, a Dunkelschatten comes closer when she gives in.
+    // Find cover (2): a Dunkelschatten comes closer when a twig snaps.
     await w.think('Ich halte das nicht aus. Ich renne einfach hin, ich –');
-    const s2 = await holdStill(w, 'Halte still', 3400, n => {
+    const s2 = await hideFromGuard(w, n => {
       kahle.face('player');
       void kahle.emote(n > 1 ? '!' : '?', 900);
       w.bark('kahle', n > 1 ? 'Da ist doch was!' : 'Hm?', 1500);
@@ -344,10 +339,8 @@ async function harroPhase(w: WorldCtx): Promise<void> {
       await r.walkPath([[620, 330], [500, 446], [300, 566], [60, 700], [-60, 760]], { speed: 150, run: true, straight: true });
       w.despawn(id);
     })().catch(() => {}));
-    const held = holdStill(w, 'Tiefer ducken!', 2600, () => {
-      void w.player.emote('drop', 600);
-    });
-    await Promise.all([held, ...rides]);
+    const hidden = G.ui.stealthGame('duck', 'Unter den Reitern abtauchen', { onNoise: () => { void w.player.emote('drop', 600); } });
+    await Promise.all([hidden, ...rides]);
     hooves?.stop(1600);
     await w.wait(400);
     await G.ui.plate('k1-reiter', { caption: 'Der Hohlweg', pan: 'right', durationMs: 16000 });

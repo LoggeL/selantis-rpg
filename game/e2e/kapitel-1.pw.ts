@@ -1,12 +1,15 @@
 import { expect, test, type Page } from '@playwright/test';
+import { playSceneAction } from './sceneActions';
+import { disableReloads } from './noReloads';
 
 /**
  * Kapitel I – „Der letzte Sommertag“: warps into every scene and plays its critical path with real inputs
- * (mouse clicks on the map, E, Ctrl for sneaking, held E for „Halte still“, number keys for choices, buttons for packing).
+ * (mouse clicks on the map, E, Ctrl for sneaking, directional hiding games, number keys for choices, buttons for packing).
  *   cd game && npx playwright test e2e/kapitel-1.pw.ts
  */
 
 test.use({ viewport: { width: 1280, height: 720 } });
+test.beforeEach(async ({ page }) => disableReloads(page));
 test.describe.configure({ mode: 'parallel' });
 
 const NOISE = /GPU stall|GL Driver Message|Automatic fallback to software WebGL|WebGL.*(performance|software)/i;
@@ -36,11 +39,12 @@ const pos = (page: Page) => page.evaluate(() => {
   return p ? [Math.round(p.x), Math.round(p.y)] as [number, number] : null;
 });
 
-/** Advances dialogue (Enter), picks the first choice (1) and holds E through „Halte still“ until cond() holds. */
+/** Advances dialogue, choices and directional scene interactions until cond() holds. */
 async function playUntil(page: Page, cond: () => Promise<boolean>, timeout = 120000): Promise<void> {
   const t0 = Date.now();
   while (Date.now() - t0 < timeout) {
     if (await cond()) return;
+    if (await playSceneAction(page)) continue;
     if (await holdOpen(page)) {
       await sleep(250);
       await page.keyboard.down('e');
@@ -197,7 +201,7 @@ test('ueberfall: Harro uses the farm checkpoint after the prologue', async ({ pa
   expect(errors).toEqual([]);
 });
 
-test('ueberfall: sneak along the embankment, hold still, slip past Harro', async ({ page }) => {
+test('ueberfall: sneak along the embankment, find cover, slip past Harro', async ({ page }) => {
   test.setTimeout(420000);
   const errors = watchErrors(page);
   await warp(page, 'ueberfall');
@@ -208,7 +212,7 @@ test('ueberfall: sneak along the embankment, hold still, slip past Harro', async
   for (const p of [[240, 525], [350, 465], [430, 375]] as [number, number][]) await walkTo(page, p[0], p[1]);
   await clickMap(page, 505, 290);
   await page.keyboard.up('Control');
-  // The confrontation: three hold-still moments, the riders, Harro stays behind.
+  // The confrontation: two cover challenges, duck under the riders, Harro stays behind.
   await playUntil(page, async () => (await mapId(page)) === 'k1-hof-harro' && (await objective(page)).includes('Feldgatter'), 300000);
   expect(await flag(page, 'k1-buch-verloren')).toBe(true);
   // Slip from bush to bush down to the old field gate while Harro is busy in the yard.
