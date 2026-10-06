@@ -8,6 +8,7 @@ from unittest.mock import patch
 import story_voice_qa_finalize as f
 import story_voice_specialist_asr_test as fixtures
 import story_voice_complementary_names_test as complementary_fixtures
+import story_voice_orthographic_segments_test as orthographic_fixtures
 
 class FinalizeGates(unittest.TestCase):
     def setUp(self):
@@ -193,5 +194,28 @@ class ComplementaryFinalizerGates(unittest.TestCase):
         f.core.save(self.fixture.veto_path,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Actual duplicated words.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
         with self.assertRaises(f.core.SafeError):self.finish()
         self.assertFalse((self.run/'final-complementary.json').exists())
+
+class OrthographicFinalizerGates(unittest.TestCase):
+    def setUp(self):
+        self.fixture=orthographic_fixtures.OrthographicGates();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups);self.run=self.fixture.run
+        (self.run/'raw').mkdir();(self.run/'requests.jsonl').write_text('')
+        for ident in self.fixture.rows:
+            f.qa.save(self.run/'raw'/(ident+'.receipt.json'),{'status':'complete','model':f.core.MODEL,'mp3_sha256':f.qa.digest(self.run/'clips'/(ident+'.mp3'))})
+        self.flash=self.run/'flash.json';f.qa.save(self.flash,{'records':[channels['Flash'] for channels in self.fixture.records.values() if 'Flash' in channels]})
+        self.pro=self.run/'pro.json';f.qa.save(self.pro,{'records':[channels['Pro'] for channels in self.fixture.records.values() if 'Pro' in channels]})
+        self.approvals=self.run/'approved-segments.json';f.qa.save(self.approvals,{'proposals':{i:self.fixture.approved(i) for i in self.fixture.rows}})
+    def finish(self,**changes):
+        args={'pro_path':self.pro,'flash_path':self.flash,'orthographic_qa_path':self.fixture.qa_path,'orthographic_approvals_path':self.approvals};args.update(changes)
+        return f.finalize(self.run,self.fixture.qa_path,self.run/'final-segments.json',expected_count=3,**args)
+    def test_actual_three_proofs_additive_original_transcript_preserved(self):
+        base=f.core.read_json(self.fixture.qa_path);result=self.finish();self.assertEqual(result['status'],'passed')
+        self.assertEqual([t['transcript'] for t in result['takes']],[t['transcript'] for t in base['takes']])
+        self.assertEqual(len(result['finalizer']['removed_reasons']),3)
+    def test_missing_arguments_and_current_root_veto_block(self):
+        with self.assertRaises(f.core.SafeError):self.finish(flash_path=None)
+        ident=next(iter(self.fixture.rows));line=self.fixture.rows[ident];sha=f.qa.digest(self.run/'clips'/(ident+'.mp3'));evidence=self.run/'veto-evidence.json'
+        f.qa.save(evidence,{'id':ident,'clip_sha256':sha,'source_text_sha256':f.qa.text_hash(line['text'])});veto=self.run/'veto.json'
+        f.qa.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Actual repeated words.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',next(t for t in result['takes'] if t['id']==ident)['reasons'])
 
 if __name__=='__main__':unittest.main()
