@@ -34,6 +34,11 @@ def load_delivery_overrides(path,selected):
     if not isinstance(overrides,dict) or set(overrides)!=selected:
         raise core.SafeError('Delivery overrides must cover every selected ID exactly once, with no extra IDs.')
     for value in overrides.values():
+        if isinstance(value,dict) and 'text_part_styles' in value:
+            if set(value)!={'text_part_styles'}:
+                raise core.SafeError('text_part_styles is exclusive with all other delivery overrides.')
+            validate_text_part_styles(value['text_part_styles'])
+            continue
         if not isinstance(value,dict) or not {'delivery_style'}.issubset(value) or not set(value).issubset({'delivery_style','retake_text','vocal_events','pronunciation_breaks'}):
             raise core.SafeError('Each delivery override needs delivery_style and a supported exclusive optional experiment.')
         if 'pronunciation_breaks' in value:
@@ -46,6 +51,49 @@ def load_delivery_overrides(path,selected):
         if not isinstance(value['delivery_style'],str) or ('retake_text' in value and not isinstance(value['retake_text'],str)):
             raise core.SafeError('Delivery override styles/text must be strings.')
     return overrides
+
+
+def validate_text_part_styles(ranges):
+    """Validate an experimental complete whitespace-word partition, not phonemes."""
+    if not isinstance(ranges,list) or not ranges:
+        raise core.SafeError('text_part_styles requires a nonempty list.')
+    expected=0
+    for row in ranges:
+        if not isinstance(row,dict) or set(row)!={'start_word','end_word','style'}:
+            raise core.SafeError('Text part ranges require exactly start_word/end_word/style.')
+        start,end,style=row['start_word'],row['end_word'],row['style']
+        if type(start)is not int or type(end)is not int or start!=expected or end<start:
+            raise core.SafeError('Text part ranges must be ordered, inclusive and gap-free from word zero.')
+        if not isinstance(style,str) or not style.strip() or len(style)>=200 or '\n' in style or '\r' in style:
+            raise core.SafeError('Each text part style must be one nonempty line under200 characters.')
+        expected=end+1
+
+
+def text_part_style_record(record,value):
+    """Split exact source substrings; actual provider acceptance remains unqualified."""
+    if set(value)!={'text_part_styles'}:
+        raise core.SafeError('text_part_styles conflicts with other delivery experiments.')
+    ranges=value['text_part_styles'];validate_text_part_styles(ranges)
+    contents=record['request'].get('contents',[])
+    if (len(contents)!=1 or len(contents[0].get('parts',[]))!=1
+        or not isinstance(contents[0]['parts'][0].get('text'),str)):
+        raise core.SafeError('Text part styles require exactly one original content and text part.')
+    original=contents[0]['parts'][0];source=original['text'];tokens=list(re.finditer(r'\S+',source))
+    if not tokens or ranges[-1]['end_word']!=len(tokens)-1:
+        raise core.SafeError('Text part ranges must cover every original whitespace word exactly once.')
+    changed=copy.deepcopy(record);parts=[];audit=[]
+    for row in ranges:
+        start=0 if row['start_word']==0 else tokens[row['start_word']].start()
+        end=len(source) if row['end_word']==len(tokens)-1 else tokens[row['end_word']+1].start()
+        part=copy.deepcopy(original);part['text']=source[start:end]
+        part.setdefault('speechMetadata',{})['style']=row['style'];parts.append(part)
+        audit.append({**copy.deepcopy(row),'start_char':start,'end_char':end,'text':part['text']})
+    if ''.join(part['text'] for part in parts)!=source:
+        raise core.SafeError('Text part concatenation differs from original source.')
+    changed['request']['contents'][0]['parts']=parts
+    changed['delivery_override']={'type':'experimental_text_part_styles',
+        'source_text_sha256':core.digest(source.encode()),'text_part_styles':copy.deepcopy(ranges),'parts':audit}
+    return changed
 
 
 def validate_vocal_events(events):
@@ -161,7 +209,9 @@ def apply_delivery_overrides(records,selected,overrides):
             changed.append(record);continue
         value=overrides[ident]
         # A one-ID scope per entry reuses the original lexical/style safety gate.
-        if 'pronunciation_breaks' in value:
+        if 'text_part_styles' in value:
+            changed.append(text_part_style_record(record,value))
+        elif 'pronunciation_breaks' in value:
             changed.append(pronunciation_break_record(record, value))
         else:
             changed.append(vocal_event_record(record,value) if 'vocal_events' in value else standard.delivery_record(record,{ident},value['delivery_style'],value.get('retake_text')))

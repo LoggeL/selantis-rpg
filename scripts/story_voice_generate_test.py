@@ -28,6 +28,84 @@ class DeliveryOverridePlanGates(unittest.TestCase):
             (self.run/'clips'/(ident+'.mp3')).write_bytes(b'KEEP ORIGINAL MP3')
             core.save(self.run/'raw'/(ident+'.receipt.json'),{'status':'complete'})
 
+    def test_text_part_styles_exact_whitespace_quotes_tags_and_other_fields(self):
+        record=copy.deepcopy(self.records[0])
+        source=' \t„Foltan,“  und\nAzar. <short pause> Ende!  '
+        part=record['request']['contents'][0]['parts'][0]
+        part.update(text=source,custom='retained')
+        part['speechMetadata'].update(speaker='lia',custom='same')
+        record['request']['contents'][0]['role']='user'
+        record['request']['other']={'preserve':True}
+        old=copy.deepcopy(record)
+        ranges=[{'start_word':0,'end_word':0,'style':'Clear name.'},
+                {'start_word':1,'end_word':1,'style':'Quiet link.'},
+                {'start_word':2,'end_word':2,'style':'Second name.'},
+                {'start_word':3,'end_word':5,'style':'Warm continuation.'}]
+        changed=generate.text_part_style_record(record,{'text_part_styles':ranges})
+        actual=changed['request']['contents'][0]['parts']
+        self.assertEqual([p['text']for p in actual],[' \t„Foltan,“  ','und\n','Azar. ','<short pause> Ende!  '])
+        self.assertEqual(''.join(p['text']for p in actual).encode(),source.encode())
+        for p,row in zip(actual,ranges):
+            self.assertEqual(p['speechMetadata'],{'style':row['style'],'speaker':'lia','custom':'same'})
+            self.assertEqual(p['custom'],'retained')
+        other=copy.deepcopy(changed);other['request']['contents'][0]['parts']=copy.deepcopy(old['request']['contents'][0]['parts'])
+        other.pop('delivery_override');self.assertEqual(other,old)
+        self.assertEqual(record,old)
+        self.assertEqual(changed['delivery_override']['source_text_sha256'],core.digest(source.encode()))
+        for row in changed['delivery_override']['parts']:
+            self.assertEqual(source[row['start_char']:row['end_char']],row['text'])
+
+    def test_text_part_styles_load_and_selected_scope(self):
+        selected={self.ids[0]};value={'text_part_styles':[{'start_word':0,'end_word':2,'style':'x'*199}]}
+        self.path.write_text(json.dumps({self.ids[0]:value}))
+        plan=generate.load_delivery_overrides(self.path,selected)
+        changed=generate.apply_delivery_overrides(self.records,selected,plan)
+        self.assertEqual(changed[0]['request']['contents'][0]['parts'][0]['text'],'in seine Hand')
+        self.assertIs(changed[1],self.records[1]);self.assertIs(changed[2],self.records[2])
+
+    def test_text_part_styles_ranges_reject_gaps_overlap_duplicate_and_nonintegers(self):
+        one={'start_word':0,'end_word':0,'style':'Clear.'}
+        cases=[[],None,[{}],[{**one,'extra':True}],[{**one,'start_word':True}],
+               [{**one,'end_word':False}],[{**one,'end_word':float('inf')}],
+               [{**one,'end_word':float('nan')}],[{**one,'start_word':-1}],
+               [{**one,'end_word':-1}],[{**one,'start_word':1}],
+               [one,one],[one,{'start_word':2,'end_word':2,'style':'Gap.'}],
+               [{'start_word':0,'end_word':1,'style':'First.'},{'start_word':1,'end_word':2,'style':'Overlap.'}],
+               [{'start_word':0,'end_word':99,'style':'Outside.'}],[one]]
+        for ranges in cases:
+            with self.subTest(ranges=ranges),self.assertRaises(core.SafeError):
+                generate.text_part_style_record(self.records[0],{'text_part_styles':ranges})
+
+    def test_text_part_styles_style_and_exclusive_experiment_guards(self):
+        base={'start_word':0,'end_word':2,'style':'Quiet.'}
+        for style in ['', '  ',None,42,'x'*200,'line\nbreak','line\rbreak']:
+            with self.subTest(style=style),self.assertRaises(core.SafeError):
+                generate.text_part_style_record(self.records[0],{'text_part_styles':[{**base,'style':style}]})
+        for field,value in [('delivery_style','Global.'),('retake_text','in seine Hand'),('vocal_events',[]),('pronunciation_breaks',[])]:
+            plan={self.ids[0]:{'text_part_styles':[base],field:value}}
+            self.path.write_text(json.dumps(plan))
+            with self.assertRaises(core.SafeError):generate.load_delivery_overrides(self.path,{self.ids[0]})
+            with self.assertRaises(core.SafeError):generate.apply_delivery_overrides(self.records,{self.ids[0]},plan)
+
+    def test_text_part_styles_require_single_exact_source_part(self):
+        value={'text_part_styles':[{'start_word':0,'end_word':2,'style':'Quiet.'}]}
+        for contents in [[],[{'parts':[]}],[{'parts':[{'text':' ' }]}],
+                         [{'parts':[{'text':'in seine Hand'},{'text':'Extra'}]}],
+                         [{'parts':[{'text':'in seine Hand'}]},{'parts':[{'text':'Extra'}]}],
+                         [{'parts':[{'inlineData':{}}]}]]:
+            record=copy.deepcopy(self.records[0]);record['request']['contents']=contents
+            with self.assertRaises(core.SafeError):generate.text_part_style_record(record,value)
+
+    def test_invalid_text_part_scope_fails_before_credentials_archive_or_audio(self):
+        self.plan[self.ids[0]]={'text_part_styles':[{'start_word':0,'end_word':99,'style':'Clear.'}]}
+        self.path.write_text(json.dumps(self.plan))
+        before={p:p.read_bytes()for d in ['raw','clips']for p in(self.run/d).iterdir()}
+        argv=['script','--run-dir',str(self.run),'--only-ids',','.join(self.selected),'--retake','--delivery-overrides',str(self.path)]
+        with patch.object(sys,'argv',argv),patch.object(core,'directory',return_value=self.run),patch.object(generate.common,'prepared'),patch.object(core,'credential',side_effect=AssertionError('No key'))as keys,contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(generate.main(),1);self.assertEqual(keys.call_count,0)
+        self.assertFalse((self.run/'rejected').exists())
+        self.assertEqual(before,{p:p.read_bytes()for d in ['raw','clips']for p in(self.run/d).iterdir()})
+
     def test_selected_individual_styles_original_voice_and_frozen_jsonl_unchanged(self):
         old=copy.deepcopy(self.records);before=(self.run/'requests.jsonl').read_bytes()
         plan=generate.load_delivery_overrides(self.path,self.selected)
