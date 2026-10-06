@@ -193,4 +193,55 @@ class RetakeBatchGates(unittest.TestCase):
         info=core.read_json(other/'prepared.json');info['frozen_sha256']['parent-snapshot.private.json']=core.digest(p.read_bytes());core.save(other/'prepared.json',info)
         with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,target)
 
+    def collected_three(self,name='three'):
+        plan=self.parent/('plan-'+name+'.json');core.save(plan,{i:{'delivery_style':'Clear, emotional.'} for i in self.ids})
+        args=SimpleNamespace(only_ids=','.join(self.ids),delivery_overrides=str(plan),batch_name=name,public_dir=None,import_audio=False,allow_completed_disjoint_retakes=False,import_only_ids=None)
+        run=batch.locations(self.parent,name);batch.prepare(args,self.parent,run);core.save(run/'job.json',{'job_name':'batches/offline'})
+        body={'modelVersion':batch.MODEL,'candidates':[{'content':{'parts':[{'inlineData':{'mimeType':'audio/wav','data':base64.b64encode(self.wave_bytes(350)).decode()}}]}}]}
+        result={'response':{'inlinedResponses':[{'key':i,'response':body} for i in self.ids]}}
+        with patch.object(core,'credential',return_value='offline'),patch.object(core,'fetch_status',return_value=(result,'JOB_STATE_SUCCEEDED')):batch.collect(args,self.parent,run)
+        return args,run
+
+    def test_three_collected_one_imported_once_preserves_other_private_takes_and_scope(self):
+        before={i:(self.parent/'clips'/(i+'.mp3')).read_bytes() for i in self.ids};args,run=self.collected_three();frozen=(run/'requests.jsonl').read_bytes()
+        args.import_only_ids=self.ids[0];self.assertEqual(batch.import_audio(args,self.parent,run),0)
+        journal=core.read_json(run/'import.private.json');self.assertEqual(journal['selected_ids'],self.ids[:1]);self.assertEqual(journal['original_scope_selected_ids'],self.ids)
+        self.assertEqual((run/'requests.jsonl').read_bytes(),frozen);self.assertEqual(core.read_json(run/'collection.private.json')['collected'],3)
+        for ident in self.ids[1:]:self.assertEqual((self.parent/'clips'/(ident+'.mp3')).read_bytes(),before[ident]);self.assertTrue((run/'clips'/(ident+'.mp3')).exists())
+        self.assertEqual(len(core.read_json(self.parent/'public-manifest.proposed.json')['clips']),3)
+        archives=list((self.parent/'rejected').iterdir());self.assertEqual(len(archives),1);self.assertEqual(len(list(archives[0].iterdir())),3)
+        self.assertEqual(batch.import_audio(args,self.parent,run),0);self.assertEqual(len(list((self.parent/'rejected').iterdir())),1)
+        args.import_only_ids=self.ids[1]
+        with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+        args.import_only_ids=None
+        with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+
+    def test_invalid_subset_or_tampered_scope_never_archives(self):
+        args,run=self.collected_three()
+        for value in ['',self.ids[0]+','+self.ids[0],'story-'+'f'*24]:
+            args.import_only_ids=value
+            with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+        self.assertFalse((self.parent/'rejected').exists())
+        args.import_only_ids=self.ids[0];batch.import_audio(args,self.parent,run)
+        path=run/'import.private.json';journal=core.read_json(path);journal['original_scope_selected_ids']=self.ids[:1];core.save(path,journal)
+        with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+
+    def test_disjoint_import_uses_actual_subset_not_unimported_original_scope(self):
+        first,run1=self.collected_three('subset-one');second,run2=self.collected_three('subset-two')
+        first.import_only_ids=self.ids[0];batch.import_audio(first,self.parent,run1)
+        second.import_only_ids=self.ids[1];second.allow_completed_disjoint_retakes=True
+        self.assertEqual(batch.import_audio(second,self.parent,run2),0)
+        journals=core.read_json(run2/'import.private.json')['validated_disjoint_import_journal_sha256'];self.assertEqual(len(journals),1)
+        self.assertEqual(core.read_json(run1/'import.private.json')['selected_ids'],self.ids[:1]);self.assertEqual(core.read_json(run2/'import.private.json')['selected_ids'],self.ids[1:2])
+        path=run1/'import.private.json';journal=core.read_json(path);journal['selected_ids'].append(self.ids[0]);core.save(path,journal)
+        with self.assertRaises(core.SafeError):batch.validated_disjoint_imports(run2,self.parent,core.read_json(run2/'parent-snapshot.private.json'),batch.bank(self.parent,{i:None for i in self.ids})[0],self.ids[2:])
+
+    def test_subset_repeat_rejects_changed_wav_or_receipt_and_legacy_subset_unbound(self):
+        args,run=self.collected_three();args.import_only_ids=self.ids[0];batch.import_audio(args,self.parent,run)
+        wav=self.parent/'raw'/(self.ids[0]+'.wav');old=wav.read_bytes();wav.write_bytes(b'changed')
+        with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+        wav.write_bytes(old)
+        journal=core.read_json(run/'import.private.json');journal.pop('original_scope_selected_ids');journal.pop('parent_snapshot_sha256');core.save(run/'import.private.json',journal)
+        with self.assertRaises(core.SafeError):batch.import_audio(args,self.parent,run)
+
 if __name__=='__main__':unittest.main()

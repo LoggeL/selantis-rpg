@@ -81,7 +81,7 @@ def prepare(args,parent,run):
     print(json.dumps({'state':'RETAKE_PREPARED','requests':len(requests),'input_bytes':len(payload),'parent_clips':len(rows)}))
 
 
-def prepared(run,parent=None,verify_bank=True,allow_completed_disjoint=False):
+def prepared(run,parent=None,verify_bank=True,allow_completed_disjoint=False,import_ids=None):
     info=core.read_json(run/'prepared.json');snapshot=core.read_json(run/'parent-snapshot.private.json')
     if info.get('bank')!='story-retake' or info.get('model')!=MODEL or snapshot.get('model')!=MODEL:raise core.SafeError('Retake model/frozen bank mismatch.')
     parent=parent or Path(snapshot['parent']).resolve()
@@ -105,21 +105,39 @@ def prepared(run,parent=None,verify_bank=True,allow_completed_disjoint=False):
         hashes,h=bank(parent,rows)
         if hashes!=snapshot['bank_mp3_sha256'] or h!=snapshot['bank_sha256']:
             if not allow_completed_disjoint:raise core.SafeError('Parent MP3 bank changed since retake freeze; no import or paid submit allowed.')
-            validated_disjoint_imports(run,parent,snapshot,hashes)
+            validated_disjoint_imports(run,parent,snapshot,hashes,import_ids)
     return info
 
 
-def validated_disjoint_imports(run,parent,snapshot,current):
+def requested_import_ids(args,snapshot):
+    value=getattr(args,'import_only_ids',None)
+    ids=snapshot['selected_ids'] if value is None else value.split(',')
+    if not ids or any(not i for i in ids) or len(ids)!=len(set(ids)) or not set(ids)<=set(snapshot['selected_ids']):raise core.SafeError('Import IDs must be an explicit nonempty unique subset of frozen collected Batch IDs.')
+    return [i for i in snapshot['selected_ids'] if i in set(ids)]
+
+
+def journal_import_ids(journal,snapshot,snapshot_sha):
+    ids=journal.get('selected_ids');scope=snapshot['selected_ids']
+    if not isinstance(ids,list) or not ids or any(not isinstance(i,str) for i in ids) or len(ids)!=len(set(ids)) or not set(ids)<=set(scope):raise core.SafeError('Imported subset journal scope is invalid.')
+    bound='original_scope_selected_ids' in journal or 'parent_snapshot_sha256' in journal
+    if bound:
+        if journal.get('original_scope_selected_ids')!=scope or journal.get('parent_snapshot_sha256')!=snapshot_sha:raise core.SafeError('Imported subset journal differs from the original frozen Batch scope.')
+    elif set(ids)!=set(scope):raise core.SafeError('Legacy full-import journal cannot claim an unbound subset.')
+    if set(journal.get('new_mp3_sha256',{}))!=set(ids):raise core.SafeError('Imported journal audio hash scope differs.')
+    return ids
+
+
+def validated_disjoint_imports(run,parent,snapshot,current,selected_ids=None):
     """Explain every changed unselected byte through completed, frozen imports."""
     changed={i for i,h in current.items() if h!=snapshot['bank_mp3_sha256'].get(i)}
-    selected=set(snapshot['selected_ids']);explained=set();journals={}
+    selected=set(snapshot['selected_ids'] if selected_ids is None else selected_ids);explained=set();journals={}
     if changed & selected:raise core.SafeError('Selected retake audio changed since freeze.')
     for other in sorted((parent/'retake-batches').iterdir()):
         if not other.is_dir() or other==run or not (other/'import.private.json').exists():continue
         journal=core.read_json(other/'import.private.json')
         if journal.get('state')!='IMPORTED':continue
         other_snapshot=core.read_json(other/'parent-snapshot.private.json')
-        ids=set(other_snapshot['selected_ids'])
+        ids=set(journal_import_ids(journal,other_snapshot,core.digest((other/'parent-snapshot.private.json').read_bytes())))
         affected=ids & changed
         if not affected:continue
         # A historical import cannot explain a delta once all its relevant
@@ -131,7 +149,6 @@ def validated_disjoint_imports(run,parent,snapshot,current):
         if not any(after.get(i)==current[i] for i in affected):continue
         if ids & selected:raise core.SafeError('Completed retake overlaps selected IDs.')
         prepared(other,parent,verify_bank=False)
-        if set(journal.get('selected_ids',[]))!=ids or set(journal.get('new_mp3_sha256',{}))!=ids:raise core.SafeError('Completed retake import journal scope is invalid.')
         for ident in ids:
             if other_snapshot['bank_mp3_sha256'].get(ident)!=snapshot['bank_mp3_sha256'].get(ident):raise core.SafeError('Disjoint retake does not originate from this frozen audio snapshot.')
             receipt=core.read_json(other/'raw'/(ident+'.receipt.json'))
@@ -178,7 +195,8 @@ def submit(args,parent,run):
 
 
 def collect(args,parent,run):
-    prepared(run,parent,allow_completed_disjoint=getattr(args,'allow_completed_disjoint_retakes',False))
+    subset=requested_import_ids(args,core.read_json(run/'parent-snapshot.private.json')) if args.import_audio else None
+    prepared(run,parent,allow_completed_disjoint=getattr(args,'allow_completed_disjoint_retakes',False),import_ids=subset)
     # Qualified Batch decoding, two-pass normalization and receipt/request hashes.
     common.collect(args,run)
     snapshot=core.read_json(run/'parent-snapshot.private.json');overrides=core.read_json(run/'delivery-overrides.private.json')
@@ -195,29 +213,37 @@ def collect(args,parent,run):
 
 def import_audio(args,parent,run):
     # Repeat-safe import completes parent reconstruction, never archives twice.
+    snapshot=core.read_json(run/'parent-snapshot.private.json');selected=requested_import_ids(args,snapshot)
     done=run/'import.private.json'
     if done.exists():
         journal=core.read_json(done)
         if journal.get('state')=='IMPORTED':
-            for ident,h in journal['new_mp3_sha256'].items():
-                if core.digest((parent/'clips'/(ident+'.mp3')).read_bytes())!=h:raise core.SafeError('Previously imported retake changed; manual review required.')
-            rebuild(parent,args);return 0
+            with common.run_lock(parent):
+                prepared(run,parent,verify_bank=False)
+                imported=journal_import_ids(journal,snapshot,core.digest((run/'parent-snapshot.private.json').read_bytes()))
+                if set(imported)!=set(selected):raise core.SafeError('Completed import may only be repeated with the exact same subset.')
+                for ident,h in journal['new_mp3_sha256'].items():
+                    receipt=core.read_json(run/'raw'/(ident+'.receipt.json'))
+                    if receipt.get('status')!='complete' or receipt.get('model')!=MODEL or receipt.get('request_sha256')!=snapshot['modified_request_sha256'][ident]:raise core.SafeError('Previously imported receipt differs from frozen actual request.')
+                    for bank_run in [run,parent]:
+                        wav=bank_run/'raw'/(ident+'.wav');mp3=bank_run/'clips'/(ident+'.mp3')
+                        if core.read_json(bank_run/'raw'/(ident+'.receipt.json'))!=receipt or standard.valid_audio(wav) is None or core.digest(wav.read_bytes())!=receipt.get('wav_sha256') or core.digest(mp3.read_bytes())!=h or receipt.get('mp3_sha256')!=h:raise core.SafeError('Previously imported retake changed; manual review required.')
+                rebuild(parent,args);return 0
         raise core.SafeError('Import journal is incomplete. Do not repeat archive/import automatically; inspect preserved private files.')
-    prepared(run,parent,allow_completed_disjoint=getattr(args,'allow_completed_disjoint_retakes',False))
+    prepared(run,parent,allow_completed_disjoint=getattr(args,'allow_completed_disjoint_retakes',False),import_ids=selected)
     result=core.read_json(run/'collection.private.json');snapshot=core.read_json(run/'parent-snapshot.private.json')
-    selected=snapshot['selected_ids']
-    if result.get('failures') or result.get('collected')!=len(selected):raise core.SafeError('Retake collection incomplete; no parent clips changed.')
+    if result.get('failures') or result.get('collected')!=len(snapshot['selected_ids']) or result.get('expected')!=len(snapshot['selected_ids']):raise core.SafeError('Retake collection incomplete; no parent clips changed.')
     receipts={}
-    for ident in selected:
+    for ident in snapshot['selected_ids']:
         r=core.read_json(run/'raw'/(ident+'.receipt.json'));wav=run/'raw'/(ident+'.wav');mp3=run/'clips'/(ident+'.mp3')
         if r.get('status')!='complete' or r.get('model')!=MODEL or r.get('request_sha256')!=snapshot['modified_request_sha256'][ident] or standard.valid_audio(wav) is None or r.get('wav_sha256')!=core.digest(wav.read_bytes()) or r.get('mp3_sha256')!=core.digest(mp3.read_bytes()):raise core.SafeError('A collected normalized retake/receipt is invalid; import refused before mutation.')
         receipts[ident]=r
     with common.run_lock(parent):
-        prepared(run,parent,allow_completed_disjoint=getattr(args,'allow_completed_disjoint_retakes',False)) # Final full bank/source freeze check under mutation lock.
+        prepared(run,parent,allow_completed_disjoint=getattr(args,'allow_completed_disjoint_retakes',False),import_ids=selected) # Final full bank/source freeze check under mutation lock.
         current,_=bank(parent,{r['id']:r for r in core.read_json(parent/'lines.private.json')['lines']})
-        validated=validated_disjoint_imports(run,parent,snapshot,current) if getattr(args,'allow_completed_disjoint_retakes',False) else {}
+        validated=validated_disjoint_imports(run,parent,snapshot,current,selected) if getattr(args,'allow_completed_disjoint_retakes',False) else {}
         archive=parent/'rejected'/('batch-retake-'+args.batch_name+'-'+str(time.time_ns()))
-        journal={'state':'IMPORT_INTENT_RECORDED','archive':str(archive),'selected_ids':selected,'new_mp3_sha256':{i:r['mp3_sha256'] for i,r in receipts.items()},'validated_disjoint_import_journal_sha256':validated}
+        journal={'state':'IMPORT_INTENT_RECORDED','archive':str(archive),'selected_ids':selected,'original_scope_selected_ids':snapshot['selected_ids'],'parent_snapshot_sha256':core.digest((run/'parent-snapshot.private.json').read_bytes()),'new_mp3_sha256':{i:receipts[i]['mp3_sha256'] for i in selected},'validated_disjoint_import_journal_sha256':validated}
         core.save(done,journal);archive.mkdir(parents=True)
         for ident in selected:
             for relative in ['raw/'+ident+'.wav','raw/'+ident+'.receipt.json','clips/'+ident+'.mp3']:
@@ -256,9 +282,11 @@ def main():
     parser.add_argument('command',choices=['prepare','submit','status','reconcile','collect','import'])
     parser.add_argument('--run-dir',required=True);parser.add_argument('--batch-name',required=True)
     parser.add_argument('--only-ids');parser.add_argument('--delivery-overrides');parser.add_argument('--import',dest='import_audio',action='store_true')
+    parser.add_argument('--import-only-ids',help='Once-only explicit import subset of fully collected frozen Batch IDs')
     parser.add_argument('--allow-completed-disjoint-retakes',action='store_true')
     parser.add_argument('--key-stdin',action='store_true');parser.add_argument('--keychain-service');parser.add_argument('--keychain-account')
     args=parser.parse_args();args.public_dir=None
+    if args.import_only_ids is not None and not (args.command=='import' or args.command=='collect' and args.import_audio):parser.error('import-only-ids requires import or collect --import')
     if args.allow_completed_disjoint_retakes and args.command not in ['collect','import']:parser.error('Disjoint completion allowance is restricted to collect/import')
     if args.key_stdin and args.keychain_service:parser.error('Choose one credential source')
     if args.command=='prepare' and (not args.only_ids or not args.delivery_overrides):parser.error('prepare requires only-ids and delivery-overrides')
@@ -269,7 +297,8 @@ def main():
         run=locations(parent,args.batch_name);_lock=common.run_lock(run)
         if args.command=='prepare':prepare(args,parent,run);return 0
         if args.command=='import':return import_audio(args,parent,run)
-        prepared(run,parent,verify_bank=args.command!='status',allow_completed_disjoint=args.allow_completed_disjoint_retakes)
+        subset=requested_import_ids(args,core.read_json(run/'parent-snapshot.private.json')) if args.command=='collect' and args.import_audio else None
+        prepared(run,parent,verify_bank=args.command!='status',allow_completed_disjoint=args.allow_completed_disjoint_retakes,import_ids=subset)
         if args.command=='submit':submit(args,parent,run);return 0
         if args.command=='status':core.status(args,run);return 0
         if args.command=='reconcile':
