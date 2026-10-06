@@ -109,4 +109,22 @@ class DeliveryOverridePlanGates(unittest.TestCase):
             self.assertEqual(generate.main(),1)
         self.assertFalse((self.run/'rejected').exists())
 
+    def test_explicit_pfff_native_event_preserves_all_other_text_and_voice(self):
+        record=copy.deepcopy(self.records[0]);record['request']['contents'][0]['parts'][0]['text']='Gleich, gleich … klack … Pfff.';original=copy.deepcopy(record)
+        value={'delivery_style':'One dismissive lip burst.','vocal_events':[{'word_index':5,'source_word':'Pfff.','tag':'<pff>'}]}
+        actual=generate.apply_delivery_overrides([record,self.records[2]],{record['key']},{record['key']:value})
+        self.assertEqual(actual[0]['request']['contents'][0]['parts'][0]['text'],'Gleich, gleich … klack … <pff>.')
+        self.assertEqual(actual[0]['request']['generationConfig'],original['request']['generationConfig']);self.assertEqual(record,original);self.assertIs(actual[1],self.records[2])
+        self.assertEqual(actual[0]['delivery_override']['source_text_sha256'],core.digest(original['request']['contents'][0]['parts'][0]['text'].encode()))
+        for word in ['Pff!','Pfff.','Ppfff…']:
+            generate.validate_vocal_events([{'word_index':0,'source_word':word,'tag':'<pff>'}])
+
+    def test_pff_wrong_token_index_and_cross_event_tags_rejected(self):
+        record=copy.deepcopy(self.records[0]);record['request']['contents'][0]['parts'][0]['text']='Gleich, gleich … klack … Pfff.'
+        event={'word_index':5,'source_word':'Pfff.','tag':'<pff>'}
+        for changed in [{**event,'word_index':3},{**event,'source_word':'Pff.'},{**event,'tag':'<phew>'},{**event,'tag':' <pff>'},{**event,'tag':'<scream>'}]:
+            with self.assertRaises(core.SafeError):generate.vocal_event_record(record,{'delivery_style':'Brief burst.','vocal_events':[changed]})
+        for word,tag in [('Pof.','<pff>'),('Puh!','<pff>'),('Pfeffer','<pff>'),('Pf2','<pff>'),('AAAH!','<pff>'),('Pfff.','<shriek>')]:
+            with self.assertRaises(core.SafeError):generate.validate_vocal_events([{'word_index':0,'source_word':word,'tag':tag}])
+
 if __name__=='__main__':unittest.main()

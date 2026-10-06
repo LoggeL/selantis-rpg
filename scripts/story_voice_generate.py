@@ -54,8 +54,10 @@ def validate_vocal_events(events):
         seen.add(index)
         if not isinstance(word,str) or not word or any(c.isspace() for c in word):raise core.SafeError('Vocal source_word must be one exact whitespace token.')
         letters=''.join(c for c in word if c.isalpha())
-        if not re.fullmatch(r'a{2,}h',letters,re.I) or any(not c.isalpha() and not unicodedata.category(c).startswith('P') for c in word):raise core.SafeError('Only explicit nonlexical AAH cry tokens may become vocal events.')
-        if not isinstance(event['tag'],str) or event['tag'] not in {'<scream>','<shriek>','<shout>'}:raise core.SafeError('Unsupported vocal event tag.')
+        if any(not c.isalpha() and not unicodedata.category(c).startswith('P') for c in word):raise core.SafeError('Vocal source token may contain letters and punctuation only.')
+        allowed={'<scream>','<shriek>','<shout>'} if re.fullmatch(r'a{2,}h',letters,re.I) else {'<pff>'} if re.fullmatch(r'p+f+',letters,re.I) else set()
+        if not allowed:raise core.SafeError('Only explicit nonlexical AAH or PFF tokens may become vocal events.')
+        if not isinstance(event['tag'],str) or event['tag'] not in allowed:raise core.SafeError('Unsupported vocal event tag for this exact source token.')
 
 
 def vocal_event_record(record,value):
