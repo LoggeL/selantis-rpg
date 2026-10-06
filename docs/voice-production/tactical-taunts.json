@@ -8,7 +8,7 @@
     "game/src/chapters/kapitel-5/rettung.ts": "a2a2ee9efc6911aa171217ab5b957a97fc5a3b2268c2d55483e74cd5956c70ec",
     "game/src/chapters/kapitel-5/bluff.ts": "2d0397041709e80f1727223360a6c855b14df9e4d13c27aecce81557b1044c0c",
     "game/src/chapters/kapitel-5/index.ts": "132f2365f687a029f1584c006a77d9307ee0c2840971761c1bc541a30f667d6f",
-    "game/src/ui/index.ts": "9b56aca736bb787d53889fc62dc14406feb4e43b67ca7fdd4692a57f601dd8e7"
+    "game/src/ui/index.ts": "0324e8edfb754029d27452ef854c62ff510641fee1f7587c57f4e7dff23bdf48"
   },
   "alias_map": {
     "lia": "lia"
