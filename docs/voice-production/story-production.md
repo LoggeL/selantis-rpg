@@ -1,10 +1,12 @@
 # Vertonung der Kapitel I bis V
 
-Die übrigen Kapitel verwenden `gemini-3.8-flash-tts` mit der Google Batch API. Das geprüfte Inventar enthält 1.557 Takes für 36 aktive Sprecherrollen: 867 Dialogzeilen, 323 Gedanken, 113 gewählte zitierte Antworten, 203 menschliche Rufe und 51 Erzählpassagen. Alle Verzweigungen sind erfasst. Menüs, Steuerungsanweisungen, nichtsprachliche Geräusche und musikalische Gesangspassagen sind im Inventar mit ihrer Quelle ausgeschlossen. Die 188 Prologaufnahmen bleiben erhalten.
+Die übrigen Kapitel verwenden `gemini-3.8-flash-tts` mit der Google Batch API. Das eingefrorene erste Produktionsinventar enthält 1.557 Takes für 36 aktive Sprecherrollen: 867 Dialogzeilen, 323 Gedanken, 113 gewählte zitierte Antworten, 203 menschliche Rufe und 51 Erzählpassagen. Alle Verzweigungen sind erfasst. Menüs, Steuerungsanweisungen, nichtsprachliche Geräusche und musikalische Gesangspassagen sind im Inventar mit ihrer Quelle ausgeschlossen. Die 188 Prologaufnahmen bleiben erhalten.
 
 Die Besetzung steht in [story-speakers.md](story-speakers.md), das an die Quellen gebundene Inventar in [story-lines.json](story-lines.json). Die Kapitelregie und ergänzende Rufe stehen unter [directions](directions). Jede Aufnahme besitzt eine geprüfte kurze Regie. Sorge, Trauer, Schmerz, Wut, Flüstern und Scherz werden aus dem Kontext der einzelnen Zeile abgeleitet. Die Stimme bleibt je Rolle konstant. Neue Besetzungen sind Castingentscheidungen und noch keine Hörabnahme.
 
 Lia und Kyra sprechen ihre eigenen Gedanken und gewählten Antworten. Erwachsene und junge Baris-Aufnahmen werden durch getrennte Prolog- und Story-Banken zugeordnet. Reine Buchzitate, die Lia vorliest, verwenden ihre Stimme; Erzählrahmen bleiben beim Erzähler. Sichtbare Tastatur- und Touchhinweise sowie der Steinzähler bleiben im Text erhalten und werden nicht mitgesprochen. Szenen und explizite Stimmungen unterscheiden gleiche Wörter mit unterschiedlichen Takes.
+
+Der aktuelle Hauptzweig umfasst im quelltextgebundenen Inventar 1.580 Sprachzeilen mit 1.774 Laufzeitrouten. 1.556 vorhandene Texte, Rollen und Regien bleiben identisch; eine entfernte Händlerzeile entfällt, 24 neue gesprochene Zeilen sind hinzugekommen. Die neuen Regien sind vorbereitet, ihre Aufnahmen und Prüfungen stehen noch aus. Vier sichtbare Statusanzeigen mit Level-, EXP- und Fortschrittswerten sind mit ihren genauen Quellen als UI-Ausgabe ausgeschlossen. Die eingefrorene private Bank mit 1.557 Aufnahmen wird dadurch nicht umgeschrieben.
 
 ## Stand der Produktion
 

@@ -1073,7 +1073,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 145,
+      "line": 140,
       "column": 11,
       "expression_sha256": "2d8e6ff5ce413c022a2b3911445efa5c1e91e6dd42b6b12f001ec54f688f5344",
       "text": "Schwarz-weiße Wappenröcke … Dunkelschatten. Ich habe über sie gelesen. Nie hätte ich gedacht, welche zu sehen.",
@@ -1087,7 +1087,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 147,
+      "line": 142,
       "column": 48,
       "expression_sha256": "50d17c518586c2b6c31aac15e3a8f3925458115a98f24f42b173e8882e1dbf6c",
       "text": "Sechs Pferde, sechs Männer. Die Spuren auf dem Weg … sie waren schon die ganze Zeit hier.",
@@ -1101,7 +1101,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 148,
+      "line": 143,
       "column": 11,
       "expression_sha256": "2489e7123906d9245bfc369facd52c7bd9f2bca1df86989b61963612e0d04057",
       "text": "Na, wo ist euer Balg?",
@@ -1115,7 +1115,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 149,
+      "line": 144,
       "column": 11,
       "expression_sha256": "abfa2c78ea27f6d061263cf8c31fa68395228212fc0c7dac4e25f79f6501745b",
       "text": "Wir sind allein. Hier gibt es kein Kind.",
@@ -1129,7 +1129,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 150,
+      "line": 145,
       "column": 11,
       "expression_sha256": "5dca831d73d7fde152cac121dd7bba572d88d2c0f64df033133f53dd2cf898fb",
       "text": "Wollt wohl nicht reden, was? Selbst schuld.",
@@ -1143,7 +1143,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 151,
+      "line": 146,
       "column": 11,
       "expression_sha256": "c256230f8400ff1ab2daf409d4ef2a8f4fd046eab177205f3bb99856dea93abf",
       "text": "Und nun zu dir, meine Liebe. Ist es dieses Balg wirklich wert?",
@@ -1157,7 +1157,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 152,
+      "line": 147,
       "column": 11,
       "expression_sha256": "31ec4c0eb5b8b44c4d971385b0c81f2e75f57e608e71e61cfae59e8a6290074f",
       "text": "Es gibt kein Balg. Nur uns zwei und ein paar Schweine.",
@@ -1171,7 +1171,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 163,
+      "line": 158,
       "column": 11,
       "expression_sha256": "c53f72fa3005076c9e4105f6482c20ed28cf87c9baaf5ef2aa5ad87965482178",
       "text": "Seht mal, wen ich gefunden habe.",
@@ -1185,7 +1185,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 165,
+      "line": 160,
       "column": 11,
       "expression_sha256": "ab1c065b84d92b595673449c6a33b39a9590142c5c05d158b4bb2ae942ab5d84",
       "text": "Kyra! Aus ihrer Augenbraue läuft Blut …",
@@ -1199,7 +1199,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 167,
+      "line": 162,
       "column": 11,
       "expression_sha256": "e0a2f450684be4527f462564cbd25d11be3d83d0f27508ebffdd090c372e965f",
       "text": "Ihr habt uns gesagt, ihr seid alleine. Und wer ist das?",
@@ -1213,7 +1213,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 168,
+      "line": 163,
       "column": 11,
       "expression_sha256": "0fdd186dbe5721aafb14448d402431e7bbbde51712b3669433af9ffceba27e46",
       "text": "Ich kenne sie nicht. Sie ist sicher nur ein neugieriges Kind. Lasst sie doch laufen.",
@@ -1227,7 +1227,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 169,
+      "line": 164,
       "column": 11,
       "expression_sha256": "4f0ead485e348bf3d817d8d170e625c2c62d1b0e17599151ca276fd4ad39b9de",
       "text": "Vater … er verleugnet sie. Um sie zu schützen. Um *uns* zu schützen.",
@@ -1241,7 +1241,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 172,
+      "line": 167,
       "column": 11,
       "expression_sha256": "c2f898aaaf909d6b75276358f0105e318f1de2aefad13eb98156afebba0673ce",
       "text": "Ich muss zu ihr! Ich muss –",
@@ -1255,7 +1255,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 176,
+      "line": 171,
       "column": 20,
       "expression_sha256": "a87de50eeca6617433704c3a9561199a791da020aa408ef13b94a141e5a3a68f",
       "text": "Was war das?",
@@ -1269,7 +1269,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 182,
+      "line": 177,
       "column": 13,
       "expression_sha256": "467f4b1ddde35e3b85b58465e07390cd8888d84177cf0b2b09fc38c2ceb50478",
       "text": "Nur ein Fuchs. Oder ein Karnickel.",
@@ -1283,7 +1283,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 189,
+      "line": 184,
       "column": 11,
       "expression_sha256": "b59bdcc39932e2d34e9a2d7b1607e7c1bf7cf0e8dc9b040fff2342d98d450ef8",
       "text": "Zeig deine Hände!",
@@ -1297,7 +1297,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 191,
+      "line": 186,
       "column": 11,
       "expression_sha256": "1d1f6f638513595f52840a126cb492a8ce8444698450068640bfea8ebea46d03",
       "text": "Hornhaut. Du bist es gewohnt, hart zu arbeiten. Wir haben noch Verwendung für dich.",
@@ -1311,7 +1311,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 192,
+      "line": 187,
       "column": 11,
       "expression_sha256": "10bc9a3f3f2f8ba1c39b92da035444ea0ad64b873b4ea96ca14aa2d758d6afd6",
       "text": "Der Hauptmann braucht eine neue Dienstmagd. Was für ein passender Zufall.",
@@ -1325,7 +1325,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 193,
+      "line": 188,
       "column": 5,
       "expression_sha256": "25a1e3467df7f8429245f806cdc9c9745be221203b2314cf8e9ed94590c9964b",
       "text": "Ich wette, die hält keine Woche durch.",
@@ -1339,7 +1339,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 195,
+      "line": 190,
       "column": 11,
       "expression_sha256": "4dc835df430089023276dd90e9e6a247dc16351ba9ca9269f7df3d9ca5fc87d0",
       "text": "Lasst sie in Ruhe!",
@@ -1353,7 +1353,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 197,
+      "line": 192,
       "column": 11,
       "expression_sha256": "0a5f67b786c32c878f01b64a9e7ba670616d924ff124bed684ef30a908080aa1",
       "text": "Dummer Bauer.",
@@ -1367,7 +1367,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 212,
+      "line": 207,
       "column": 11,
       "expression_sha256": "f51878d3980bdca123edd20f3064c1bc2ea78b32275ea685338a912a49c87f8e",
       "text": "Mein Buch rutscht mir aus den Händen. Ins Gras. Ich merke es kaum.",
@@ -1381,7 +1381,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 213,
+      "line": 208,
       "column": 11,
       "expression_sha256": "9a7d9416617c10ff4c97e465d7eb77d46f72476981537fba654e7ec4627c113b",
       "text": "Nein. Nein, nein, nein …",
@@ -1395,7 +1395,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 217,
+      "line": 212,
       "column": 5,
       "expression_sha256": "258ccba0fa79e7f5d579f89644c61d9c5ac6fa286a6e41147447f458300d23ad",
       "text": "Vater!",
@@ -1409,7 +1409,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 219,
+      "line": 214,
       "column": 11,
       "expression_sha256": "28d5901addd2c1a055a31d13e00a07637b6ab75fad51514e13558e6fdf9191d3",
       "text": "Ups. Wie ungeschickt von mir.",
@@ -1423,7 +1423,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 220,
+      "line": 215,
       "column": 11,
       "expression_sha256": "e799870106f452cae460e33046326bb4ff82358f3bbf6683391c45561bd7d907",
       "text": "Weint nicht, meine Liebe. Wenn ihr euch so allein fühlt, dann folgt ihm doch.",
@@ -1437,7 +1437,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 228,
+      "line": 223,
       "column": 11,
       "expression_sha256": "0e6fe9a60ff6a363f0b04efc58c3b19598196109eebecf623e792c79566961ba",
       "text": "Kyra …",
@@ -1451,7 +1451,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 234,
+      "line": 229,
       "column": 11,
       "expression_sha256": "aaab28a4fb1c91627b8ed8ad52312e738d7e3352176928a3be5a4a35ac802df9",
       "text": "Ich werde euch töten! Das schwöre ich bei allen Göttern!",
@@ -1465,7 +1465,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 235,
+      "line": 230,
       "column": 11,
       "expression_sha256": "af9ac6f49cbf826fa1b90efc0f5baba311867f1bf65e7f16580e20fab502027c",
       "text": "Oh, das wollen viele Mädchen. Stell dich hinten an.",
@@ -1479,7 +1479,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 238,
+      "line": 233,
       "column": 11,
       "expression_sha256": "9015d6cec848749c580f06f8193fb9226f1f154ee85e9acbac50af9a2a5d18af",
       "text": "Ich halte das nicht aus. Ich renne einfach hin, ich –",
@@ -1493,7 +1493,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 242,
+      "line": 237,
       "column": 7,
       "expression_sha256": "41377afd482887985d4890d9cfd8d18e85e8e397257415987b575908dc2ffd71",
       "text": "Da ist doch was!",
@@ -1507,7 +1507,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 242,
+      "line": 237,
       "column": 7,
       "expression_sha256": "41377afd482887985d4890d9cfd8d18e85e8e397257415987b575908dc2ffd71",
       "text": "Hm?",
@@ -1521,7 +1521,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 247,
+      "line": 242,
       "column": 13,
       "expression_sha256": "7f726426627ef9167c7b3f45fe714164da294420911aea130b68e71545da015b",
       "text": "Lass das Gebüsch. Wir haben, was wir brauchen.",
@@ -1535,7 +1535,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 250,
+      "line": 245,
       "column": 11,
       "expression_sha256": "81ab2d407e9d0cfe69c6390fcde5339baca085de23c9a0dae8e0a5643a1b3f33",
       "text": "Fesselt sie und verwahrt sie gut. Der Hauptmann wird sich über unser Geschenk freuen.",
@@ -1549,7 +1549,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 251,
+      "line": 246,
       "column": 11,
       "expression_sha256": "de66aa66f52e474893f4bc429cc50b2e93b1ccbe3c148d59877490bbdde802a0",
       "text": "Kyra wehrte sich so heftig, dass es drei Männer brauchte, um sie auf ein Pferd zu hieven.",
@@ -1563,7 +1563,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 254,
+      "line": 249,
       "column": 11,
       "expression_sha256": "d78bc2268e039ba852e63aef0b83be81d33b790d4b3b5f7841c8c61c511bff35",
       "text": "Harro! Du bleibst. Verscharr die beiden, bevor die Leichenfresser kommen.",
@@ -1577,7 +1577,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 255,
+      "line": 250,
       "column": 11,
       "expression_sha256": "54629adf8939f0aeb1ae06b762511edf5ebde3c42bf319aa4445f5bdf33ae9d8",
       "text": "Immer darf ich alles machen … Ich bin hier wohl der Depp vom Dienst.",
@@ -1591,7 +1591,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 256,
+      "line": 251,
       "column": 11,
       "expression_sha256": "f5ec9de3e46a8bc2daeedae83ce068cbb12347d6a39b492f7d911e659c084b89",
       "text": "Aufsitzen!",
@@ -1605,7 +1605,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 319,
+      "line": 314,
       "column": 9,
       "expression_sha256": "9d00d156b48f7c448c8f9c3c79efee887ccdf9d6d122d0364b74923be69618cd",
       "text": "Hey, du! Du siehst aber nicht aus wie ein Leichenfresser …",
@@ -1619,7 +1619,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 325,
+      "line": 320,
       "column": 9,
       "expression_sha256": "9fa06751fe6c9df0174416e6cbf6cf5311ca6203e6c65ec7eec91850831efb4b",
       "text": "Nein. So nicht. Ich warte, bis er mir den Rücken zudreht.",
@@ -1633,7 +1633,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 338,
+      "line": 333,
       "column": 11,
       "expression_sha256": "d85737412b41e5c9516f38b69584d96484d12fe8eaaf95815f9ab51bc78d915e",
       "text": "Sie kommen. Sie müssen durch den Hohlweg – direkt an mir vorbei!",
@@ -1647,7 +1647,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 354,
+      "line": 347,
       "column": 11,
       "expression_sha256": "582cf7603216b83196886e9f46e1cac7dd76617760d829d60a81ac6450373342",
       "text": "Kyra. Gefesselt auf dem Pferd des Grauhaarigen. Durch die Zweige sieht sie genau hierher.",
@@ -1661,7 +1661,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 355,
+      "line": 348,
       "column": 11,
       "expression_sha256": "8dcddfe14f2c849ad4933513d4cbf7253ce9786322523960ef4cc216f05b4e9a",
       "text": "Ihre Augen glänzen vor Trauer und Wut. Und ich sitze hier im Gebüsch und tue nichts.",
@@ -1675,7 +1675,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 356,
+      "line": 349,
       "column": 11,
       "expression_sha256": "eaf80c7dcb1be5eb8b50665c6b9e2f7f6cd5248d67b16b439afc814127d66743",
       "text": "Ich hole dich zurück, Kyra. Ich weiß nicht wie. Aber ich schwöre es.",
@@ -1689,7 +1689,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 363,
+      "line": 356,
       "column": 11,
       "expression_sha256": "5cc725762f43f3fc43b952364a1eda799635765145ace8ebf51271011f7cac97",
       "text": "Immer darf ich alles machen. Erst Reisig fürs Feuer, dann die Gräber. Und morgen hol ich euch nie wieder ein.",
@@ -1703,7 +1703,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 368,
+      "line": 361,
       "column": 9,
       "expression_sha256": "dad1218846c794989d75c0176ab7c2cb42b3727c9fc3160841b1b91828b8cf5f",
       "text": null,
@@ -1718,7 +1718,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 374,
+      "line": 367,
       "column": 51,
       "expression_sha256": "843e7d25be14202dff4af5e9337e5f2359aea06d723123ce54e3ffd6e6e6a33e",
       "text": null,
@@ -1733,7 +1733,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 398,
+      "line": 391,
       "column": 11,
       "expression_sha256": "8a34f7058768b2c10656d32d95bb808335638fbba315b88bd53ab922477c9f84",
       "text": "Hart wie Stein, der Boden. Seit Tagen kein Regen.",
@@ -1747,7 +1747,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 399,
+      "line": 392,
       "column": 11,
       "expression_sha256": "6f03eeb73227042a52131a132972dfc751ec60917fce4c872600bf3996988567",
       "text": "Ach, sollen die Leichenfresser sich doch satt fressen. Ich hol die anderen nie ein, wenn ich hier Löcher grab.",
@@ -1761,7 +1761,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 409,
+      "line": 402,
       "column": 11,
       "expression_sha256": "273b9699cd2b345eadc37a7b64e27ff88788f1d639d973e0565257c1fc3cd5f4",
       "text": "Weg. Er ist weg. Sie sind alle weg.",
@@ -1775,7 +1775,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 82,
+      "line": 83,
       "column": 87,
       "expression_sha256": "637c0d435349b49ff1951cafccbd970a1579fc7d5edc5e38737bf975dbff7d31",
       "text": "Sechs Pferde, den Hohlweg hinunter zur Hauptstraße. Eins trägt schwerer. Kyra.",
@@ -1789,7 +1789,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 132,
+      "line": 134,
       "column": 13,
       "expression_sha256": "ff76beea30502792e936cd47abaed299860c76a75101cd1fdaa34f9ef01cf2da",
       "text": "Lia wusste nicht, wie lange sie im Gras gelegen hatte.",
@@ -1803,7 +1803,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 132,
+      "line": 134,
       "column": 13,
       "expression_sha256": "ff76beea30502792e936cd47abaed299860c76a75101cd1fdaa34f9ef01cf2da",
       "text": "Irgendwann wurde es still. Nur die Grillen zirpten, als wäre nichts geschehen.",
@@ -1817,7 +1817,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 138,
+      "line": 140,
       "column": 13,
       "expression_sha256": "efe8e6728cf6d0df33914901c14070caedad280d852be2a885532607caad2cb4",
       "text": "Ich muss … ich muss zu ihnen.",
@@ -1831,7 +1831,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 150,
+      "line": 152,
       "column": 11,
       "expression_sha256": "d90e8acf13ae3cfc6ba42102c2a773893586ae88301b8de7664f4a3e128ac5e6",
       "text": "Da lagen sie. Eng beieinander, als hätten sie sich noch im Fallen gesucht. Lia hatte zwei Laken über sie gebreitet.",
@@ -1845,7 +1845,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 150,
+      "line": 152,
       "column": 11,
       "expression_sha256": "d90e8acf13ae3cfc6ba42102c2a773893586ae88301b8de7664f4a3e128ac5e6",
       "text": "Warum? Warum ihr? Warum Kyra? Was hattet ihr denn getan, dass ihr das verdient habt?",
@@ -1859,7 +1859,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 150,
+      "line": 152,
       "column": 11,
       "expression_sha256": "d90e8acf13ae3cfc6ba42102c2a773893586ae88301b8de7664f4a3e128ac5e6",
       "text": "Sie weinte, bis keine Tränen mehr kamen. Danach war da nur noch Leere.",
@@ -1873,7 +1873,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 150,
+      "line": 152,
       "column": 11,
       "expression_sha256": "d90e8acf13ae3cfc6ba42102c2a773893586ae88301b8de7664f4a3e128ac5e6",
       "text": "Und in der Leere ein einziger Gedanke: Kyra lebt. Und ich hole sie zurück.",
@@ -1887,7 +1887,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 156,
+      "line": 158,
       "column": 11,
       "expression_sha256": "0f1ffde48ad968202c119dd57bd95e0a8f4e124aabf7e62931cdeec24a799898",
       "text": "Ich lasse euch nicht so liegen. Nicht für die Leichenfresser.",
@@ -1901,7 +1901,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 157,
+      "line": 159,
       "column": 11,
       "expression_sha256": "a1cf042c4653fcc95faac7dc6c4f451811beb71fe56ec911cccac0a39a8c1ce8",
       "text": "Steine. Am Feldrand liegt ein ganzer Haufen davon.",
@@ -1915,7 +1915,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 178,
+      "line": 180,
       "column": 3,
       "expression_sha256": "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
       "text": null,
@@ -1930,7 +1930,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 197,
+      "line": 199,
       "column": 9,
       "expression_sha256": "8848e5301adec1d1440d308649d7c9ff27b628b4955fc4f35a5b5811ec023390",
       "text": null,
@@ -1945,7 +1945,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 219,
+      "line": 221,
       "column": 9,
       "expression_sha256": "807cc2f03109da0eee2f37a4f1de903133dd24f862b0bfa851bddcb019163b6c",
       "text": "Kornblumen. Ich wollte sie dir heute Abend auf den Tisch stellen.",
@@ -1959,7 +1959,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 220,
+      "line": 222,
       "column": 9,
       "expression_sha256": "85f7b146a968b29263e7514dd1a5c42292c6f7e21947a16c03af00d2ec31add0",
       "text": "Die meisten bekommst du. Ein paar nehme ich mit – ich presse sie in ein Buch.",
@@ -1973,7 +1973,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 228,
+      "line": 230,
       "column": 9,
       "expression_sha256": "75886a6af2134b2e294114c70e78a18eb3b7a360ef43f4586aacdb65792b4d93",
       "text": "Mein Buch. Ich habe es fallen lassen, als … Der Einband ist feucht vom Tau.",
@@ -1987,7 +1987,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 229,
+      "line": 231,
       "column": 9,
       "expression_sha256": "33354a6a953f56e6efaa84cf405a7b89910cf9d37e7c9bd57c87dcbb20e0c46f",
       "text": "Alana und Riccard. Gestern war das noch das Wichtigste auf der Welt.",
@@ -2001,7 +2001,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 247,
+      "line": 249,
       "column": 11,
       "expression_sha256": "5d8bcbeecb39ea7da5624c502abec37a8781b0383dd3ecfc6f90b508fefbc0c3",
       "text": "Die Sonne ging auf und tauchte den Himmel in rötliches Licht. Die ganze Nacht hatte Lia Steine getragen.",
@@ -2015,7 +2015,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 247,
+      "line": 249,
       "column": 11,
       "expression_sha256": "5d8bcbeecb39ea7da5624c502abec37a8781b0383dd3ecfc6f90b508fefbc0c3",
       "text": "Ihre Hände waren blutig, die Füße in den Holzschuhen wundgescheuert. Es war ihr gleich.",
@@ -2029,7 +2029,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 251,
+      "line": 253,
       "column": 11,
       "expression_sha256": "a796978be707806bce6925cd816563b06bd700b20b343d48c8e4f581e1504bb1",
       "text": "Danke. Für alles.",
@@ -2043,7 +2043,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 252,
+      "line": 254,
       "column": 11,
       "expression_sha256": "e057f7031e1e8ca1d42dd3d18dfe8e2d68a5ec434af0ee9f2eb448e425c14d9b",
       "text": "Ich werde alles tun, um Kyra zu finden. Das verspreche ich euch.",
@@ -2057,7 +2057,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 266,
+      "line": 268,
       "column": 7,
       "expression_sha256": "f51897116af20908dc161fedde6923ada37d82dbf99a7e4c2a82a45d5ca3dbdf",
       "text": "Mein Buch … liegt es noch in der Böschung?",
@@ -2071,7 +2071,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 280,
+      "line": 282,
       "column": 11,
       "expression_sha256": "d63da9cfa1b1c2158395e781e929f232c469253709b222273af98b6edc130eb7",
       "text": "Erst bekommt ihr euer Futter. Ich habe es Kyra versprochen. Ehrenwort.",
@@ -2085,7 +2085,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 282,
+      "line": 284,
       "column": 43,
       "expression_sha256": "1654a77ddbea9d25502cb25818bfe0cc8d4790db8f7e094a221840d957e1ec86",
       "text": "Und ausmisten wollte ich auch. Puh. Das … verschieben wir.",
@@ -2099,7 +2099,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 292,
+      "line": 296,
       "column": 11,
       "expression_sha256": "9b1aee4c74ef0fdc5b253c677fdafd6706b9bc6a12d81b392f3ddbcdf9cd1e2a",
       "text": "Macht’s gut, ihr drei. Ihr seid jetzt auf euch gestellt. Ich hoffe, ihr kommt ohne mich klar.",
@@ -2113,7 +2113,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 306,
+      "line": 310,
       "column": 11,
       "expression_sha256": "5ab7a13b928acaf0126bda3aa5c61ce41ae8e3294d1f678b8e82cdf2380d567d",
       "text": "Ich rede mit Schweinen. Wenn Kyra das sähe …",
@@ -2127,7 +2127,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 314,
+      "line": 318,
       "column": 18,
       "expression_sha256": "1570cbc3e1dd9b306939f9924054df5d1e80355fbea384825d25b6cc80fa35bd",
       "text": null,
@@ -2142,7 +2142,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 320,
+      "line": 324,
       "column": 11,
       "expression_sha256": "85e5aa1c69795b188a3fa3d6d5695dc835a2096efc9f8d5d659a18c0aae888ad",
       "text": "Unser Hof. Er fühlt sich fremd an. Unheimlich.",
@@ -2156,7 +2156,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 321,
+      "line": 325,
       "column": 11,
       "expression_sha256": "28a9de3d1fabdc86591b19062bfca2ae5afc2b05176bc581fd720857b6ee1223",
       "text": "Noch nie war ich länger als einen Tag von zu Hause fort.",
@@ -2170,7 +2170,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 322,
+      "line": 326,
       "column": 11,
       "expression_sha256": "d5d3932f34c34e7bb08555c9f7c927f6d0581a84d040e6d8709faa68d8275be8",
       "text": "Aber die Helden in meinen Büchern kommen auch immer mit wenig aus. So schwer kann es ja nicht sein.",
@@ -2184,7 +2184,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 325,
+      "line": 329,
       "column": 11,
       "expression_sha256": "72ee89228b73007397452f7e2e7af2187c58ab3a0d1ffa633b15b97709765d8a",
       "text": "Lia zog die Tür hinter sich zu und folgte den Hufspuren nach Osten. Das war der Morgen, an dem ihr Abenteuer begann.",
@@ -2198,7 +2198,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 361,
+      "line": 365,
       "column": 217,
       "expression_sha256": "5a0afdd02e8e6823e7b499f8826a74e7d335f7590c58250cc8b27249ccc33f74",
       "text": "Hier hat Mutter mir das Lesen beigebracht. Kyra ist immer nach dem dritten Wort weggelaufen.",
@@ -2212,7 +2212,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 362,
+      "line": 366,
       "column": 211,
       "expression_sha256": "bbc65713d19a3934ab7ba23a15c66fa285a9fdc5e8d6f19f10f8ef2c806a6842",
       "text": "Der Ofen ist kalt. An Winterabenden saßen wir hier alle zusammen, und ich las vor, bis die Kerze herunterbrannte.",
@@ -2226,7 +2226,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 381,
+      "line": 385,
       "column": 13,
       "expression_sha256": "d2379d04e98905db02e7e822e1130ae9e31a1647b5bce81f1699a1b7e5124c1b",
       "text": "Sie haben alles durchwühlt. Aber nicht alles mitgenommen.",
@@ -2240,7 +2240,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 400,
+      "line": 404,
       "column": 9,
       "expression_sha256": "a38176b6263eb98a3c4d89932a1a21c63dc6d0650ab065efc9f2d53909420292",
       "text": "Die Gläser sind alle umgeworfen. Aber Vater hat einen doppelten Boden eingebaut …",
@@ -2254,7 +2254,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 405,
+      "line": 409,
       "column": 9,
       "expression_sha256": "ead5829ec73eb48356ef3b771352d945c94841668376f6b0729ca83c7ab7c016",
       "text": "Da ist die Kerbe. Man kann sie als Griff benutzen.",
@@ -2268,7 +2268,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 411,
+      "line": 415,
       "column": 9,
       "expression_sha256": "d6b80b39a96864f027445b8bc633e33de0602ec14808f8fb5e14727e9550c6b8",
       "text": "Zweiundzwanzig Kupfer- und sieben Silbermünzen. Das haben sie nicht gefunden.",
@@ -2282,7 +2282,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 413,
+      "line": 417,
       "column": 9,
       "expression_sha256": "92c9102e9ed93fdc829f34b37d587251fe3e06eef13aa07d9030ff05e7dae810",
       "text": "Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.",
@@ -2296,7 +2296,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 422,
+      "line": 426,
       "column": 9,
       "expression_sha256": "4cede7c83ab421e4e39acc4355d78894ee0a4e8fb64486100d275e925c2d3991",
       "text": "Mutters Wundtinktur. Meine Ferse ist ganz wundgescheuert von den Holzschuhen.",
@@ -2310,7 +2310,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 425,
+      "line": 429,
       "column": 9,
       "expression_sha256": "71d7c44f121c062c13899b501854afa72b575240d88079220579cf2e3f850808",
       "text": "Au! Au, au, au … Es brennt. Aber es hilft. Hat Mutter immer gesagt.",
@@ -2324,7 +2324,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 426,
+      "line": 430,
       "column": 9,
       "expression_sha256": "3acd955e0547b16597804a581dc42361d69d3785e2f8c0a312d104146d9b6def",
       "text": "Ein Verband aus einem alten Laken. Und die leichten Lederschuhe statt der Holzschuhe.",
@@ -2338,7 +2338,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 441,
+      "line": 445,
       "column": 9,
       "expression_sha256": "ff8f5e397231c0c74be369f50ffeaf404df3647c04a235ff02845d0fca053857",
       "text": "Mein grüner Regenmantel. Und ein Haarband, damit mir die Locken nicht ins Gesicht fallen.",
@@ -2352,7 +2352,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 448,
+      "line": 452,
       "column": 11,
       "expression_sha256": "67e6c250a17fa0df5b4ea89694b916c6418ced0dee73af059cfebc7a17acb261",
       "text": "Cronibus großes Kräuterlexikon. Mutters Handschrift steht neben dem Speikraut.",
@@ -2366,7 +2366,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 449,
+      "line": 453,
       "column": 11,
       "expression_sha256": "d796e6553a940456dacf96c0005c2ae91da35d364f358c3ae5d5fa790980e680",
       "text": "Eigentlich brauche ich euch nicht. Aber … vielleicht doch. Es kommt in den Beutel, wenn Platz ist.",
@@ -2380,7 +2380,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 452,
+      "line": 456,
       "column": 9,
       "expression_sha256": "8764a14d798a250aa2fda85ee01c3d1a593cb176f66f2504121fffb1f5f4cf9c",
       "text": "Mutters Bücher. Die meisten kenne ich auswendig.",
@@ -2394,7 +2394,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 458,
+      "line": 462,
       "column": 9,
       "expression_sha256": "427650a4ed5866d69b1b01d8ff4cedd091bdbb6f45cc4a2fe417279a1bee0410",
       "text": "Honig-Apfelkuchen. Vater hat ihn gestern vom Markt mitgebracht. Den letzten haben sie übersehen.",
@@ -2408,7 +2408,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 463,
+      "line": 467,
       "column": 9,
       "expression_sha256": "df4b83a6c92e6a1199a01f535857c8a399ef6773f3752b067b71d5903fbc9e14",
       "text": "Kyras Bett: glatt gezogen. Meins: ein Schlachtfeld. Ich hätte es heute Morgen machen sollen.",
@@ -2422,7 +2422,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 464,
+      "line": 468,
       "column": 9,
       "expression_sha256": "46694b73a745bc51182c1a71e35de3c6f0f364dd4ee01e6f3eee2f9cd6ac0654",
       "text": "Meine Wolldecke rolle ich ein und schnalle sie an den Beutel.",
@@ -2436,7 +2436,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 481,
+      "line": 485,
       "column": 11,
       "expression_sha256": "030935cf462570a4ffd5c43daab5e8933f01288c00cec7adef3632fe71d05a4e",
       "text": "Erst brauche ich alles zusammen: Vaters Geheimfach, Mutters Tinktur, Mantel und Schuhe.",
@@ -2450,7 +2450,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 509,
+      "line": 513,
       "column": 49,
       "expression_sha256": "d15354db3518d2f316a028b0f0ad4e531fc55545214f4518e82dcbaa20356ddb",
       "text": null,
@@ -2465,7 +2465,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/shared.ts",
-      "line": 56,
+      "line": 59,
       "column": 9,
       "expression_sha256": "e2192f50aaea6570fcd4958280444f9d27d5ae5effa83dbb3dd11c7075be97f9",
       "text": "Fortsetzung folgt …",
@@ -2479,7 +2479,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 178,
+      "line": 180,
       "column": 3,
       "expression_sha256": "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
       "text": "Schwer. Meine Hände sind schon ganz aufgeschürft.",
@@ -2493,7 +2493,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 178,
+      "line": 180,
       "column": 3,
       "expression_sha256": "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
       "text": "Ich hätte zu Hause sein sollen. Ich hätte die Schweine füttern sollen.",
@@ -2507,7 +2507,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 178,
+      "line": 180,
       "column": 3,
       "expression_sha256": "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
       "text": "Die Grillen zirpen, als wäre nichts geschehen.",
@@ -2521,7 +2521,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 178,
+      "line": 180,
       "column": 3,
       "expression_sha256": "ab3e9f487539abf5ca09fc76ec349631d3fd787436c6c93cdc556ba4c8692947",
       "text": "Der letzte.",
@@ -2535,7 +2535,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 197,
+      "line": 199,
       "column": 9,
       "expression_sha256": "8848e5301adec1d1440d308649d7c9ff27b628b4955fc4f35a5b5811ec023390",
       "text": "Vater. Immer rau, immer warm. „Was bringst du uns mit?“ – „Wartet’s ab.“",
@@ -2549,7 +2549,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 197,
+      "line": 199,
       "column": 9,
       "expression_sha256": "8848e5301adec1d1440d308649d7c9ff27b628b4955fc4f35a5b5811ec023390",
       "text": "Dann läge ich jetzt neben euch. Und niemand würde Kyra suchen.",
@@ -2563,7 +2563,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 197,
+      "line": 199,
       "column": 9,
       "expression_sha256": "8848e5301adec1d1440d308649d7c9ff27b628b4955fc4f35a5b5811ec023390",
       "text": "Mutter hat die Stadt für ihn aufgegeben. „Ich würde es wieder genauso machen.“",
@@ -2577,7 +2577,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 197,
+      "line": 199,
       "column": 9,
       "expression_sha256": "8848e5301adec1d1440d308649d7c9ff27b628b4955fc4f35a5b5811ec023390",
       "text": "„Nächstes Jahr nehme ich euch mit zum Fest.“ Es gibt kein nächstes Jahr mehr.",
@@ -2591,7 +2591,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 314,
+      "line": 318,
       "column": 18,
       "expression_sha256": "1570cbc3e1dd9b306939f9924054df5d1e80355fbea384825d25b6cc80fa35bd",
       "text": "Ohne Proviant und ohne Beutel komme ich keinen Tag weit.",
@@ -2605,7 +2605,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 314,
+      "line": 318,
       "column": 18,
       "expression_sha256": "1570cbc3e1dd9b306939f9924054df5d1e80355fbea384825d25b6cc80fa35bd",
       "text": "Die Schweine! Ich kann sie nicht eingesperrt zurücklassen.",
@@ -2619,7 +2619,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 509,
+      "line": 513,
       "column": 49,
       "expression_sha256": "d15354db3518d2f316a028b0f0ad4e531fc55545214f4518e82dcbaa20356ddb",
       "text": "Kein Zunder … Ich werde schon irgendwie Feuer machen. In Büchern klappt das immer.",
@@ -2633,7 +2633,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 509,
+      "line": 513,
       "column": 49,
       "expression_sha256": "d15354db3518d2f316a028b0f0ad4e531fc55545214f4518e82dcbaa20356ddb",
       "text": "Mutters Lexikon wiegt eine Tonne. Aber ihre Handschrift ist darin.",
@@ -2647,7 +2647,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 509,
+      "line": 513,
       "column": 49,
       "expression_sha256": "d15354db3518d2f316a028b0f0ad4e531fc55545214f4518e82dcbaa20356ddb",
       "text": "Alana kommt mit. Ich lese es zu Ende, das hab ich mir versprochen.",
@@ -2661,7 +2661,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/trauer.ts",
-      "line": 509,
+      "line": 513,
       "column": 49,
       "expression_sha256": "d15354db3518d2f316a028b0f0ad4e531fc55545214f4518e82dcbaa20356ddb",
       "text": "Ohne ein einziges Buch. Wer hätte das gedacht.",
@@ -2675,7 +2675,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 374,
+      "line": 367,
       "column": 51,
       "expression_sha256": "843e7d25be14202dff4af5e9337e5f2359aea06d723123ce54e3ffd6e6e6a33e",
       "text": "Immer darf ich alles machen …",
@@ -2689,7 +2689,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 374,
+      "line": 367,
       "column": 51,
       "expression_sha256": "843e7d25be14202dff4af5e9337e5f2359aea06d723123ce54e3ffd6e6e6a33e",
       "text": "Verscharr die beiden, Harro. Hol Wasser, Harro.",
@@ -2703,7 +2703,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 374,
+      "line": 367,
       "column": 51,
       "expression_sha256": "843e7d25be14202dff4af5e9337e5f2359aea06d723123ce54e3ffd6e6e6a33e",
       "text": "Wo ist die verfluchte Schaufel?",
@@ -2717,7 +2717,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 374,
+      "line": 367,
       "column": 51,
       "expression_sha256": "843e7d25be14202dff4af5e9337e5f2359aea06d723123ce54e3ffd6e6e6a33e",
       "text": "Die anderen saufen heut Abend, und ich?",
@@ -2896,7 +2896,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 292,
+      "line": 287,
       "expression_sha256": "770c2c846b49aa70cc9ff5e0fa848b9bdcb1b2fd2b8ece4c8721ff46b86adf81",
       "text": "Hab ich da was gehört?",
       "kind": "configured_bark",
@@ -2911,7 +2911,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 292,
+      "line": 287,
       "expression_sha256": "770c2c846b49aa70cc9ff5e0fa848b9bdcb1b2fd2b8ece4c8721ff46b86adf81",
       "text": "Wer da?",
       "kind": "configured_bark",
@@ -2926,7 +2926,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 292,
+      "line": 287,
       "expression_sha256": "cba96b1345b6fbfdf5a7bc61542de6706ac5655f4c91aa31dd8bb6fda3af2ba7",
       "text": "Bloß ein Karnickel.",
       "kind": "configured_bark",
@@ -2941,7 +2941,7 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-      "line": 292,
+      "line": 287,
       "expression_sha256": "cba96b1345b6fbfdf5a7bc61542de6706ac5655f4c91aa31dd8bb6fda3af2ba7",
       "text": "Leichenfresser … pah.",
       "kind": "configured_bark",

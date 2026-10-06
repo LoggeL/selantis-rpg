@@ -14,8 +14,8 @@ try {
   const candidate = JSON.parse(fs.readFileSync(candidatePath, 'utf8'));
   const frozenPath = path.join(root, 'docs/voice-production/story-lines.json');
   const frozen = JSON.parse(fs.readFileSync(frozenPath, 'utf8'));
-  assert.equal(candidate.lines.length, 1557);
-  assert.equal(candidate.runtime_lookup.length, 1751);
+  assert.equal(candidate.lines.length, 1580);
+  assert.equal(candidate.runtime_lookup.length, 1774);
   assert.equal(candidate.unresolved.length, 0);
   const old = new Map(frozen.lines.map(line => [line.id, line]));
   for (const line of candidate.lines) {

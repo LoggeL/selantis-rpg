@@ -43,7 +43,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-    "line": 292,
+    "line": 287,
     "expression_sha256": "89bfca2c50c812655aaaa7868979721bb0c2e7d89fd42ddd7ec8d88208751780",
     "text": "Bloß ein Karnickel.",
     "kind": "bark",
@@ -183,7 +183,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-    "line": 292,
+    "line": 287,
     "expression_sha256": "89bfca2c50c812655aaaa7868979721bb0c2e7d89fd42ddd7ec8d88208751780",
     "text": "Leichenfresser … pah.",
     "kind": "bark",
@@ -337,7 +337,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-    "line": 292,
+    "line": 287,
     "expression_sha256": "74ee2151c63702507f1016b152a66afb393523dac50b08aa8dde2f79a16a5b35",
     "text": "Hab ich da was gehört?",
     "kind": "bark",
@@ -505,7 +505,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 127,
+    "line": 128,
     "expression_sha256": "844003986f4c0f6d0f06266692278d2146dba05895a324ac6bc3571352932099",
     "text": "Ohne Foltan und Azar gehe ich nirgendwohin.",
     "kind": "think",
@@ -575,7 +575,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-1/trauer.ts",
-    "line": 87,
+    "line": 88,
     "expression_sha256": "12978d507e4c5bb8369335e2b983c9a2d620e440ff7609f04038b82e6bb86829",
     "text": "Nicht jetzt. Erst die Gräber.",
     "kind": "think",
@@ -631,7 +631,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-    "line": 292,
+    "line": 287,
     "expression_sha256": "74ee2151c63702507f1016b152a66afb393523dac50b08aa8dde2f79a16a5b35",
     "text": "Wer da?",
     "kind": "bark",
@@ -925,7 +925,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-1/trauer.ts",
-    "line": 327,
+    "line": 331,
     "expression_sha256": "ab52f847c631868ebc6da3ed22e2fba40aeb9d2728111ff764866065ace3c1d8",
     "text": "Fortsetzung folgt …",
     "kind": "narrate",

@@ -1,7 +1,7 @@
 [
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 80,
+    "line": 81,
     "expression_sha256": "803f1835617d213a2739c1873706965cc7f3857391fd66d8f1242f0dc9656420",
     "text": "Der Hund klopft mit dem Schwanz auf die Dielen. Wenigstens einer, der sich freut.",
     "kind": "think",
@@ -14,7 +14,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 86,
+    "line": 87,
     "expression_sha256": "c199f24209c090eaf728d649f0d5922bb63514d6c351232715021a82342554b4",
     "text": "Hier hat sie gesessen. Festgebunden wie ein Hund.",
     "kind": "think",
@@ -27,7 +27,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 87,
+    "line": 88,
     "expression_sha256": "5799a1fc8882c28693e4f3934523daba40a957e17ffb8e84d363d12ee33d3a11",
     "text": "Kerben im Holz, in Sitzhöhe. Ich sollte genauer hinsehen.",
     "kind": "think",
@@ -45,7 +45,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 98,
+    "line": 99,
     "expression_sha256": "d3a6b9d2166bc66b42377a5b2718b63086dca230c474c1d38aeae02b4befd08d",
     "text": "Eintopf mit Speck. Azar hat recht, der ist gut. Kyra hätte drei Schüsseln gegessen.",
     "kind": "think",
@@ -58,7 +58,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 172,
+    "line": 173,
     "expression_sha256": "df77be0b3183018b6e196f8d4738c5d1b435caa83dda46c0e17d48ddb0a6a41c",
     "text": "Ein brauner Wallach mit Händlersattel. Nicht ihrer. Die Dunkelschatten sind längst fort.",
     "kind": "think",
@@ -71,7 +71,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 178,
+    "line": 179,
     "expression_sha256": "ff1f539f8a99d92d87f561d0ad579d02105742a51fd04da1dbea6b2e45346ba6",
     "text": "Die Fußschelle. Klein genug für Kyras Knöchel.",
     "kind": "think",
@@ -84,7 +84,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 182,
+    "line": 183,
     "expression_sha256": "dff6bf15f17dc5ad9c71fbf4f6716cde87ea57c0b4db3ef367840d36cbb5c8e2",
     "text": "Eine Kette am Ring, mit einer offenen Fußschelle. Frisch geölt … nein. Frisch *benutzt*.",
     "kind": "think",
@@ -97,7 +97,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 183,
+    "line": 184,
     "expression_sha256": "9e39cf48603f7052def5648f231f9bc40534d81af688fef43870c33d97bf784b",
     "text": "Wenn hier noch etwas ist, sehe ich es nur, wenn ich genau hinsehe.",
     "kind": "think",
@@ -115,7 +115,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 189,
+    "line": 190,
     "expression_sha256": "86fa9c897c51bdccae030a9d8d43bafcbf32ccba4bf752f8d4f68cfab641e4cd",
     "text": "Sie hat sich damit zugedeckt. Sie hat gefroren.",
     "kind": "think",
@@ -128,7 +128,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 191,
+    "line": 192,
     "expression_sha256": "73d9a5e8dd5149ead2f9e7d8bdecb9909aebd59d199a9be1c21fc3b48e1829d8",
     "text": "Ein leerer Kornsack, zerknüllt wie eine Decke. Jemand hat hier im Stroh geschlafen und gefroren.",
     "kind": "think",
@@ -141,7 +141,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 198,
+    "line": 199,
     "expression_sha256": "52d23760c5183f0b4b335c14c3ba6819f1a959649a06974d41841997116b5e79",
     "text": "Crios. Halt durch, Kyra.",
     "kind": "think",
@@ -154,7 +154,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 200,
+    "line": 201,
     "expression_sha256": "4dca04b30c94ffa3f1fa44acf3d25f2320881e95822aecf9b5a245d386a6d5f5",
     "text": "Durch das morsche Dach sieht man die Sterne. Und da, ganz hell, im Westen …",
     "kind": "think",
@@ -167,7 +167,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 201,
+    "line": 202,
     "expression_sha256": "fecc2406aaf8cb5034ffe121dcd073f98a3cb7c43669fa87c58ab78ff145121d",
     "text": "Crios. Sie hat hier gelegen und ihn gesehen. In derselben Nacht wie ich.",
     "kind": "think",
@@ -180,7 +180,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 212,
+    "line": 213,
     "expression_sha256": "9e506550f7703e39318cc688ca057fc947dc5c9b7ab1a2a7b3919edf961781de",
     "text": "Kyras Haarband … Sie war hier. Kyra war wirklich hier!",
     "kind": "say",
@@ -193,7 +193,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 241,
+    "line": 242,
     "expression_sha256": "e2b3d22866ebd6ea5d61a05b970f77edad1b24191036479841e32b94152bce32",
     "text": "Kyra lebt. Ich muss es Foltan sagen. Er kann nicht behaupten, sie sei nie hier gewesen.",
     "kind": "think",
@@ -206,7 +206,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 262,
+    "line": 263,
     "expression_sha256": "4b6a003af3f806dc7ea928570959371757527f0967c5416e6ce17ef7546da326",
     "text": "Du hast was rausgefunden, das sehe ich dir an. Soll ich den feinen Herrn holen?",
     "kind": "say",
@@ -219,7 +219,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 262,
+    "line": 263,
     "expression_sha256": "4b6a003af3f806dc7ea928570959371757527f0967c5416e6ce17ef7546da326",
     "text": "Na, Spürnase? Genug geschnüffelt? Dann hole ich Foltan von der Theke.",
     "kind": "say",
@@ -232,7 +232,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 263,
+    "line": 264,
     "expression_sha256": "d3ff709d789ccbf3656b37e22bc7ad6b19d5ed8b7810cf92a073988918673938",
     "text": "Hol ihn. Ich will hören, was Craupor weiß.",
     "kind": "choose",
@@ -245,7 +245,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 263,
+    "line": 264,
     "expression_sha256": "d3ff709d789ccbf3656b37e22bc7ad6b19d5ed8b7810cf92a073988918673938",
     "text": "Gleich. Ich sehe mich noch um.",
     "kind": "choose",
@@ -258,7 +258,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 263,
+    "line": 264,
     "expression_sha256": "d3ff709d789ccbf3656b37e22bc7ad6b19d5ed8b7810cf92a073988918673938",
     "text": "Ich ordne erst meine Notizen.",
     "kind": "choose",
@@ -271,7 +271,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 274,
+    "line": 275,
     "expression_sha256": "c7e0a06cf9b7801f18314e4836a4bcd795f276d669855ab1b5daad5c43e63ae8",
     "text": "Der Eintopf! Extra Speck! Craupor ist ein Künstler. Ein dürrer, glatzköpfiger Künstler.",
     "kind": "say",
@@ -284,7 +284,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 274,
+    "line": 275,
     "expression_sha256": "c7e0a06cf9b7801f18314e4836a4bcd795f276d669855ab1b5daad5c43e63ae8",
     "text": "Geh nur und sieh dich um. Aber trink das Dünnbier nicht in einem Zug. Lass dir das von einem Fachmann sagen.",
     "kind": "say",
@@ -297,7 +297,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 274,
+    "line": 275,
     "expression_sha256": "c7e0a06cf9b7801f18314e4836a4bcd795f276d669855ab1b5daad5c43e63ae8",
     "text": "Stille Wasser sind tief, Lia. Und laute Schenken haben viele Ohren. Hör dich um.",
     "kind": "say",
@@ -310,7 +310,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 276,
+    "line": 277,
     "expression_sha256": "ba81519ee50c43b8c5b75f15a69ea89d903cb0e965a6c628fe0150e8099b4a23",
     "text": "Ich ordne meine Notizen.",
     "kind": "choose",
@@ -323,7 +323,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 276,
+    "line": 277,
     "expression_sha256": "ba81519ee50c43b8c5b75f15a69ea89d903cb0e965a6c628fe0150e8099b4a23",
     "text": "Bis gleich.",
     "kind": "choose",
@@ -336,7 +336,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 289,
+    "line": 290,
     "expression_sha256": "79f9715a969367b7c85af6c3a5827184e65c4c3bb04db0e9e5f73b90a08c05d7",
     "text": "Azar … wieso helft ihr mir eigentlich? Ich bin euch dankbar. Aber was habt ihr davon?",
     "kind": "say",
@@ -349,7 +349,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 291,
+    "line": 292,
     "expression_sha256": "f08d3a3d670acb300a4378151d1cefbc71dace3d23c33cc291ca95d955ed760f",
     "text": "Hm. Du willst es wirklich wissen.",
     "kind": "say",
@@ -362,7 +362,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 293,
+    "line": 294,
     "expression_sha256": "9c614fdb6945e63cf2d3dbb2e582b74aeba8d49bf673a6b3a168cd241287de4a",
     "text": "Foltan war Leutnant in der Garde von Portas. Ein Pedant. Treu bis in die Stiefelspitzen.",
     "kind": "say",
@@ -375,7 +375,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 294,
+    "line": 295,
     "expression_sha256": "f5a291739db4226229760bebf16ca53757a8831fe3e42d7d125a841c93b8f165",
     "text": "Sie schickten ihn mit einer Strafexpedition zu Bauern, die zu wenig Steuern an den Rat gezahlt hatten.",
     "kind": "say",
@@ -388,7 +388,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 295,
+    "line": 296,
     "expression_sha256": "6d9a52bddccc2db89294e80c661ee64e94006870629cc260313da40a951d504b",
     "text": "Auf den Höfen war nichts zu holen. Da haben sie die Bauern gequält, damit sie ihre Verstecke verraten.",
     "kind": "say",
@@ -401,7 +401,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 296,
+    "line": 297,
     "expression_sha256": "af032acb682908a4d63a99ec02b4f97f42c14781d5af45654060ee9f8104db79",
     "text": "Aber die hatten nichts. Gar nichts. Jeder Schlag umsonst.",
     "kind": "say",
@@ -414,7 +414,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 297,
+    "line": 298,
     "expression_sha256": "5647c26049050e3ddc8b15f4219f03decd641a1d9fff154c23c0b2b26648317f",
     "text": "Dann befahl der Hauptmann, die Frauen und Kinder hinzurichten. Vor den Augen ihrer Männer.",
     "kind": "say",
@@ -427,7 +427,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 299,
+    "line": 300,
     "expression_sha256": "facd267a5828a3a7a2bf74e9240403101d6075aababb408a84b8f9ea05bea899",
     "text": "…",
     "kind": "say",
@@ -441,7 +441,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 300,
+    "line": 301,
     "expression_sha256": "a26485e426845bf1b92cf4ac63aa1855efdea13be41e8450bae3deed4ca921fa",
     "text": "Foltan hat sich geweigert. Der Hauptmann hat es trotzdem getan. Auf dem Rückweg ist Foltan desertiert.",
     "kind": "say",
@@ -454,7 +454,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 301,
+    "line": 302,
     "expression_sha256": "fe14940da697c199427569f4276d56d0d60627e62b97304f3f30daf22b4d6b73",
     "text": "Seitdem hilft er denen, denen er damals nicht helfen konnte. Darum sind wir hier.",
     "kind": "say",
@@ -467,7 +467,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 303,
+    "line": 304,
     "expression_sha256": "eaf428782dd9a81f43b9695e069648ac737a0a24e1be0fafda8767ff1837b390",
     "text": "Ich habe dir das natürlich nicht erzählt.",
     "kind": "say",
@@ -480,7 +480,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 304,
+    "line": 305,
     "expression_sha256": "6e69e3adc3504b73cee91a69aff1f4e551d60c4a5b70a3839cf92f809c39effb",
     "text": "Ich weiß gar nicht, wovon du sprichst.",
     "kind": "choose",
@@ -493,7 +493,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 304,
+    "line": 305,
     "expression_sha256": "6e69e3adc3504b73cee91a69aff1f4e551d60c4a5b70a3839cf92f809c39effb",
     "text": "Warum erzählst du es mir dann?",
     "kind": "choose",
@@ -506,7 +506,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 304,
+    "line": 305,
     "expression_sha256": "6e69e3adc3504b73cee91a69aff1f4e551d60c4a5b70a3839cf92f809c39effb",
     "text": "Danke, Azar.",
     "kind": "choose",
@@ -519,7 +519,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 305,
+    "line": 306,
     "expression_sha256": "2c2d923ecce2ab2b6b493345565b391352f9784db8d9d8072be3ac696504cf96",
     "text": "Sehr gut. Du lernst schnell.",
     "kind": "say",
@@ -532,7 +532,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 306,
+    "line": 307,
     "expression_sha256": "088884b31022b3c63b94f9865456143cf1f6f6a254be7baca097bf6a82e0dd5d",
     "text": "Weil du wissen sollst, dass er ein guter Mann ist. Auch wenn er ein Stock im Hintern hat.",
     "kind": "say",
@@ -545,7 +545,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 307,
+    "line": 308,
     "expression_sha256": "00772743d80f9fc4b865bfd3f87c038814e2dc110f7eea4fee5ba5fddd987263",
     "text": "Wofür? Ich hab nichts gesagt. Ich esse nur Eintopf.",
     "kind": "say",
@@ -558,7 +558,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 318,
+    "line": 319,
     "expression_sha256": "a79308c8efb1fb85d94791d3a5f576e969a1d7b523d5a354f62771bc4c7e5c8b",
     "text": "Gleich, Lia. Craupor und ich haben noch zu reden. Setz dich zu Azar.",
     "kind": "say",
@@ -571,7 +571,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 319,
+    "line": 320,
     "expression_sha256": "862854c61c65d28ec092bcf143fd25b0182d2f3f3951f504af5407e248f7d494",
     "text": "Ich bin nicht klein. Ich kann auch zuhören.",
     "kind": "say",
@@ -584,7 +584,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 320,
+    "line": 321,
     "expression_sha256": "2ef6ec8c51363ea44cd406493bb64c0f2e882343dbb7cec9f3360d19b99bb777",
     "text": "Und ich kann auch allein fragen. Geh schon.",
     "kind": "say",
@@ -597,7 +597,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 322,
+    "line": 323,
     "expression_sha256": "83caae3dfceaa8254d7ff864ce03a93a8c576a0bf66e93f7686fde3213b326a0",
     "text": "Gleich, habe ich gesagt.",
     "kind": "say",
@@ -610,7 +610,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 322,
+    "line": 323,
     "expression_sha256": "83caae3dfceaa8254d7ff864ce03a93a8c576a0bf66e93f7686fde3213b326a0",
     "text": "Lia. Bitte.",
     "kind": "say",
@@ -623,7 +623,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 322,
+    "line": 323,
     "expression_sha256": "83caae3dfceaa8254d7ff864ce03a93a8c576a0bf66e93f7686fde3213b326a0",
     "text": "Geduld ist eine Tugend. Azar hat davon auch keine.",
     "kind": "say",
@@ -636,7 +636,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 329,
+    "line": 330,
     "expression_sha256": "4af9de351c2de5c722b73926a8588a8b560e533cf1939d85f20011741b6f788c",
     "text": "Ah, die junge Dame! Foltans Freunde essen bei mir umsonst. Ehrensache.",
     "kind": "say",
@@ -649,7 +649,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 330,
+    "line": 331,
     "expression_sha256": "cb1af3303e582a1ede98df086660f5fe6667c3d753e49d48f98688ff68728d15",
     "text": "Waren gestern Dunkelschatten hier? Mit einem Mädchen, so groß wie ich?",
     "kind": "say",
@@ -662,7 +662,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 331,
+    "line": 332,
     "expression_sha256": "719288b42b2ff36b49bb8bf39f842ffe3d05103aff38d1a9944b107413766812",
     "text": "Ich, äh … Sprich mit Foltan, Mädchen. Das ist besser so.",
     "kind": "say",
@@ -675,7 +675,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 332,
+    "line": 333,
     "expression_sha256": "79bb092fd44c15a63688087b00beda17816799c204b55e6f32a91f7732a62d8f",
     "text": "Er weicht meinem Blick aus. Er weiß etwas.",
     "kind": "think",
@@ -688,7 +688,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 340,
+    "line": 341,
     "expression_sha256": "890e11b41128b186be717b33bfed4f38fcb282a1fbc346163832285140e909da",
     "text": "Mein schönes Täschchen. Den Puder hab ich drei Wochen gespart.",
     "kind": "say",
@@ -701,7 +701,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 344,
+    "line": 345,
     "expression_sha256": "fe7ef9da846094212eacce5af6596d34d14fcdf869479155c63cdea84ba40747",
     "text": "Frag mich bloß nichts. Ich bin heute nicht in Stimmung.",
     "kind": "say",
@@ -714,7 +714,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 345,
+    "line": 346,
     "expression_sha256": "2273de92cea48e2368d96e601c02bbecacbe417668c79f8db32422dfb1fb0094",
     "text": "Was ist denn passiert?",
     "kind": "choose",
@@ -727,7 +727,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 345,
+    "line": 346,
     "expression_sha256": "2273de92cea48e2368d96e601c02bbecacbe417668c79f8db32422dfb1fb0094",
     "text": "Schon gut.",
     "kind": "choose",
@@ -740,7 +740,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 347,
+    "line": 348,
     "expression_sha256": "449ef932bee489f6cff61a8c7b943a5ed8594043df4329516f830671586c7423",
     "text": "Gestern Abend. Fünf Kerle in Schwarz-Weiß. Haben gesoffen und mich angegrabscht.",
     "kind": "say",
@@ -753,7 +753,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 348,
+    "line": 349,
     "expression_sha256": "a8a82a043f11dcb3d3e0606c96591dac5e195123cb6985d6b4d2cade2b033886",
     "text": "Und heute früh nimmt mir der Kahle mit der roten Glatze mein Schminktäschchen weg! „Geliehen“, sagt er.",
     "kind": "say",
@@ -766,7 +766,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 349,
+    "line": 350,
     "expression_sha256": "aa5c96a5a0ede415aadcc22761bc83c05c2103855f10fda355b912f18ced1ea8",
     "text": "Wofür braucht ein Dunkelschatten Schminke?",
     "kind": "say",
@@ -779,7 +779,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 350,
+    "line": 351,
     "expression_sha256": "0105abbe8b0b5aed490bcd3d6401632616fc660e968ee8330b8a7b5a46925c20",
     "text": "Für das Mädchen, das sie dabeihatten. Sie soll ihrem Hauptmann gefallen, hat er gesagt. Pah!",
     "kind": "say",
@@ -792,7 +792,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 352,
+    "line": 353,
     "expression_sha256": "6b88df25fd75c83e313726c6407670a85a19a6cee1fddaa36eebd1d196af6f31",
     "text": "Ein Mädchen. Für einen Hauptmann. Kyra …",
     "kind": "think",
@@ -805,7 +805,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 359,
+    "line": 360,
     "expression_sha256": "57454292262afcea950c52d7ea30cc7809969158a1699ee73bdf5c6018e05e77",
     "text": "Wir spielen in Trapas am Tempelplatz. Komm vorbei, wenn du kannst. Und pass auf dich auf.",
     "kind": "say",
@@ -818,7 +818,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 362,
+    "line": 363,
     "expression_sha256": "cfffc84cf6a1d04be5c5c2d846fcbac46d5e339af75b3eb78680fd77e4cacb7c",
     "text": "Ein Lied gefällig, junge Dame? Wir ziehen zum Verbannungsfest. Das Räuberlied kennt dort jedes Kind.",
     "kind": "say",
@@ -831,7 +831,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 363,
+    "line": 364,
     "expression_sha256": "8fa6b899bd5a6f18313e37d8614d771b857126ceaf8ecc95e7c1e9f79f379fac",
     "text": "Waren gestern Dunkelschatten hier?",
     "kind": "choose",
@@ -844,7 +844,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 363,
+    "line": 364,
     "expression_sha256": "8fa6b899bd5a6f18313e37d8614d771b857126ceaf8ecc95e7c1e9f79f379fac",
     "text": "Spielt weiter, es ist schön.",
     "kind": "choose",
@@ -857,7 +857,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 364,
+    "line": 365,
     "expression_sha256": "da3c0686d5294e4482b5b3d679092da0bb387ce3e48948bad4b4fe5d885074d7",
     "text": "Für dich doch gern!",
     "kind": "say",
@@ -870,7 +870,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 366,
+    "line": 367,
     "expression_sha256": "2bb47ca9f87a39491839d439c87bfbc9a7b5bc08a794c3484365862259ff14d7",
     "text": "Pst. Fünf Stück. Am Tisch da drüben haben sie geprahlt, so laut, dass wir kaum mehr spielen konnten.",
     "kind": "say",
@@ -883,7 +883,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 367,
+    "line": 368,
     "expression_sha256": "fc4846c7c362873a6afd00452a8275767242374d4b6b890061c361eec5bdcc57",
     "text": "Ein neues Dienstmädchen für ihren Hauptmann, hieß es. Und sie haben gewettet, wie lange sie durchhält.",
     "kind": "say",
@@ -896,7 +896,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 368,
+    "line": 369,
     "expression_sha256": "0f28742a89fe0437486d6acde0a24ecfb7f4ab315e666faaa62a322a878cafec",
     "text": "„Drei Wochen“, sagte der Kahle. Die anderen lachten. Wir haben danach extra laut gespielt.",
     "kind": "say",
@@ -909,7 +909,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 370,
+    "line": 371,
     "expression_sha256": "df73f193d958db06c0655c90d7467f93b33200330c5e710d37253848a2b25253",
     "text": "Sie wetten auf ihr Leben …",
     "kind": "say",
@@ -922,7 +922,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 375,
+    "line": 376,
     "expression_sha256": "7903ebc180968e898024429b327f9578168fd34d8a73c04267f3fed0b4dde9eb",
     "text": "Iss das Kettengebäck, bevor es hart wird! Hopp!",
     "kind": "say",
@@ -935,7 +935,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 377,
+    "line": 378,
     "expression_sha256": "380ab6e57b64b37f9ee0fb64736b54e350ba2fc4c6cee7bf5c2bfe71365d754b",
     "text": "Na, Kleine? Auch auf dem Weg nach Trapas? Das Verbannungsfest! Tempel, Tanz und Kettengebäck!",
     "kind": "say",
@@ -948,7 +948,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 378,
+    "line": 379,
     "expression_sha256": "2895d3045338a7c40179d47d998b2e8baa965ddeb10b00ed13940463dd8b2dbf",
     "text": "Ich bin nicht klein. Und … nein. Ich war noch nie auf dem Fest.",
     "kind": "say",
@@ -961,7 +961,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 379,
+    "line": 380,
     "expression_sha256": "381167a8889486a1e831c0ad7adda39056bd4ba93ceb960bb37a71e9e2a6bfda",
     "text": "Nie? Dann weißt du ja gar nicht, warum die Kringel Ketten sind!",
     "kind": "say",
@@ -974,7 +974,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 380,
+    "line": 381,
     "expression_sha256": "299435f2c42ea8d7cf567ebefcc5e1cb11c0dd5a89a4a07403da89ecae26bbc9",
     "text": "Die Zehn Götter brachen die Ketten der Xenovia und verbannten sie auf den Meeresgrund. Und wir essen die Ketten auf!",
     "kind": "say",
@@ -987,7 +987,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 382,
+    "line": 383,
     "expression_sha256": "1d511bdfb241429b42e69835e1bdf61cc1bf8edeff6fef453d4d9232dd5de093",
     "text": "Hier. Eins hab ich übrig. Ein bisschen zerdrückt, aber süß.",
     "kind": "say",
@@ -1000,7 +1000,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 384,
+    "line": 385,
     "expression_sha256": "dd9bf2b28b2d80307d1a811e7a49ac5be6f8a8294f4e451de11ae90f16c516a3",
     "text": "Kettengebäck … Vater hat es jedes Jahr mitgebracht. „Für das Fest seid ihr noch zu jung.“",
     "kind": "think",
@@ -1013,20 +1013,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 390,
-    "expression_sha256": "56dca7856592033189b6c93c38afc4073b24f1b3b74f16949b8620ff748f3e54",
-    "text": "Bleib auf der Straße, Mädchen, und reise nicht allein.",
-    "kind": "say",
-    "runtime_speaker": "haendler",
-    "direction_en": "A wary roadside conversation with Lia; plain, concerned phrasing and a small lowering of the voice around unsafe subjects.",
-    "emotion_de": "ruhig",
-    "intensity": 1,
-    "context_de": "Lia untersucht den Goldenen Eber auf Kyras Spur; Gespräche mit Gästen und Begleitern. Szenenabschnitt: talkMerchant.",
-    "classification": "spoken"
-  },
-  {
-    "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 392,
+    "line": 393,
     "expression_sha256": "f2cba40c67952c09371f9400d55196922a39bb8bba71192b573e75cd6469cbeb",
     "text": "Die Straße nach Portas ist leer wie nie. Wer reist, reist in Gruppen. Oder gar nicht.",
     "kind": "say",
@@ -1039,7 +1026,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 393,
+    "line": 394,
     "expression_sha256": "285fc7d35ccb342532b30e99aecf0a518a11f818f05a4ea1dcdb29013edd1003",
     "text": "Und der Rat der Drei? Hockt in Trapas. Ihr Großmeister soll verrückt sein. Jagt fremde Kulte statt Räuber.",
     "kind": "say",
@@ -1052,7 +1039,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 395,
+    "line": 396,
     "expression_sha256": "518d7a9ea99a983806f747b153b27037df96300913bdd60839d19f0384c33576",
     "text": "Und wer schützt die Höfe?",
     "kind": "say",
@@ -1065,7 +1052,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 396,
+    "line": 397,
     "expression_sha256": "4faceca4e1bfc66746474d38a645d7a6e0b770742d3f2f2393990e7fd4062cb5",
     "text": "Niemand, Kind. Niemand.",
     "kind": "say",
@@ -1078,7 +1065,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 400,
+    "line": 421,
     "expression_sha256": "0ab9fb6d00a3095396d84bcdc8ecdad5c7fdd4db6dba79d81870bcb866d3f815",
     "text": "Gute Reise. Und Augen auf.",
     "kind": "say",
@@ -1091,7 +1078,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 402,
+    "line": 423,
     "expression_sha256": "52bd4f68cb796b24a5b4456565eafbdb2ccdf44523be5b8897b1d5ef0093b166",
     "text": "Wir sind auf dem Weg nach Trapas. Hinter den Mauern ist man sicher. Sagt man.",
     "kind": "say",
@@ -1104,7 +1091,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 403,
+    "line": 424,
     "expression_sha256": "67566cd9d5f5498af4b97e944e29394be602f5630c3e9c76f63711448ece350b",
     "text": "Seit Dunkelhain verkriechen sich die Fürsten in ihren Städten. Und draußen? Da sind wir allein.",
     "kind": "say",
@@ -1117,7 +1104,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 405,
+    "line": 426,
     "expression_sha256": "ab42c088c36df376b5a8bcabd1fecfa636e773b0050d1196d05a9a3b08820530",
     "text": "Die Kerle gestern … die saßen genau hier. Wir haben kein Wort gesagt. Kein einziges.",
     "kind": "say",
@@ -1130,7 +1117,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 410,
+    "line": 431,
     "expression_sha256": "b2b7c777d74b8531316d7496e7081c693117ba24d3f1309b70773c370a918d45",
     "text": "Ich trinke auf sie. Mehr kann ich nicht.",
     "kind": "say",
@@ -1143,7 +1130,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 413,
+    "line": 434,
     "expression_sha256": "e386efcfcec3cc060685c697439b9a20001a1ba2dfa31fc16c8923814960be1c",
     "text": "Lass mich in Ruhe, Mädchen. Ich hab heute schon genug falsch gemacht.",
     "kind": "say",
@@ -1156,7 +1143,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 414,
+    "line": 435,
     "expression_sha256": "891cceccb89a147dc4c64c84f740918ad6bb1a1381026b7cdad838f0c7099160",
     "text": "Was hast du denn falsch gemacht?",
     "kind": "choose",
@@ -1169,7 +1156,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 414,
+    "line": 435,
     "expression_sha256": "891cceccb89a147dc4c64c84f740918ad6bb1a1381026b7cdad838f0c7099160",
     "text": "Schon gut.",
     "kind": "choose",
@@ -1182,7 +1169,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 415,
+    "line": 436,
     "expression_sha256": "88d3e27d3a3db982059e14bf4b7ee616725930cba54b2e2c11f3b516c222b81b",
     "text": "Geht dich nichts an. Hau ab.",
     "kind": "say",
@@ -1195,7 +1182,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 416,
+    "line": 437,
     "expression_sha256": "65441bb7925a4ee6b37d659eb1d30bc23cd8e7d04abca4072bf9e9d3c702f429",
     "text": "Er starrt in seinen Krug, als hätte er Angst vor dem, was er darin sieht.",
     "kind": "think",
@@ -1208,7 +1195,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 419,
+    "line": 440,
     "expression_sha256": "61920c535e23b1d409911a3d1bf827f5b937659d9207a85ab930bc381601efa4",
     "text": "Gestern war ein Mädchen hier. Am Pfeiler festgebunden. Du hast sie gesehen.",
     "kind": "say",
@@ -1221,7 +1208,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 421,
+    "line": 442,
     "expression_sha256": "3d25d02b60dda63c1c68557ef4d0ded7b6bda125c53394f5dd6732c706b9838f",
     "text": "… Ja. Sie hat mir ein Bein gestellt, als ich raus wollte. Hat mich angefleht, ihr zu helfen.",
     "kind": "say",
@@ -1234,7 +1221,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 422,
+    "line": 443,
     "expression_sha256": "77c677b589e76a29b8165f22e2fa23e1abb0ec8d64a075b070dcb72528666be2",
     "text": "Und ich hab gesagt: „Geht mich nen Dreck an.“ Fünf Kerle in Schwarz-Weiß. Ich bin ein Zwerg, kein Narr.",
     "kind": "say",
@@ -1247,7 +1234,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 423,
+    "line": 444,
     "expression_sha256": "d013b1da4fa289274f83f12300ccf478abe354bee2def46ef59b326c64e0a30f",
     "text": "Im Morgengrauen sind sie los. Nach Osten, den Waldweg. Sie musste hinter den Pferden herlaufen.",
     "kind": "say",
@@ -1260,7 +1247,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 425,
+    "line": 446,
     "expression_sha256": "22d3e3fa36dcb34441174be0dc5fec6d463eb88fe9182d8ca75c624d0a3a4667",
     "text": "Sie ist meine Schwester!",
     "kind": "choose",
@@ -1273,7 +1260,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 425,
+    "line": 446,
     "expression_sha256": "22d3e3fa36dcb34441174be0dc5fec6d463eb88fe9182d8ca75c624d0a3a4667",
     "text": "Du hattest Angst.",
     "kind": "choose",
@@ -1286,7 +1273,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 425,
+    "line": 446,
     "expression_sha256": "22d3e3fa36dcb34441174be0dc5fec6d463eb88fe9182d8ca75c624d0a3a4667",
     "text": "(Schweigen)",
     "kind": "choose",
@@ -1300,7 +1287,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 426,
+    "line": 447,
     "expression_sha256": "f534390a71bb60b08a389a837e1c0e53d40598edcd2b85bf6d52b99c383eada9",
     "text": "Ich weiß. Ich seh’s an deinen Augen. Und ich trink seitdem auf ihr Wohl. Das ist alles, was ich kann.",
     "kind": "say",
@@ -1313,7 +1300,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 427,
+    "line": 448,
     "expression_sha256": "60fdad3bd0b0777654ee8bc79bf7c42d02d27c27f0fd3cbd261dbf6324abc13f",
     "text": "Angst. Ja. Sag ihr, wenn du sie findest … sie war tapferer als drei Zwerge zusammen.",
     "kind": "say",
@@ -1326,7 +1313,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 428,
+    "line": 449,
     "expression_sha256": "8657b51cf8a530159b35e02076c947409be8f5433884ad32ff191440481244b5",
     "text": "Schau mich nicht so an. Ich schau mich selbst schon so an.",
     "kind": "say",
@@ -1339,7 +1326,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 433,
+    "line": 454,
     "expression_sha256": "40f428e36e110d6a63106fadef7e56f8a2197fbf5099d632e596bc3dd3aa1822",
     "text": "… fünf Mann, sag ich dir. Und das Mädchen bei sich.",
     "kind": "bark",
@@ -1352,7 +1339,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 435,
+    "line": 456,
     "expression_sha256": "78d66ffb07995080355ec4a78ee50b37263b21b77d42d1ae88b4a7b2c4e0050c",
     "text": "Leiser, Craupor!",
     "kind": "bark",
@@ -1365,7 +1352,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 438,
+    "line": 459,
     "expression_sha256": "2aa168cd0f4fdcbb65e5adb373623e7810e2b71b127e877550c2a802c6587da7",
     "text": "Fünf Mann. Und ein Mädchen. Ich habe es genau gehört.",
     "kind": "think",
@@ -1378,7 +1365,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 440,
+    "line": 461,
     "expression_sha256": "329294b8f49122dfccc0cf6d0dc0fa18ef37129df6b5887560f7b955922e9e08",
     "text": "Lia? Du sollst bei Azar sitzen. Ich komme gleich.",
     "kind": "say",
@@ -1391,7 +1378,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 454,
+    "line": 475,
     "expression_sha256": "da910eb7cabcd4b7a120a67efe3619da25df4d90f6003080e9d3df4cd2e337e3",
     "text": "Erstaunlich viel los für eine Schenke mitten im Nirgendwo!",
     "kind": "say",
@@ -1404,7 +1391,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 455,
+    "line": 476,
     "expression_sha256": "e7ed498bcb8085a1cf0636433dc84f9de0bbbef76aeb26a415b5653319d2638a",
     "text": "Craupors Gastfreundschaft hat sich herumgesprochen. Und bald ist das Verbannungsfest in Trapas.",
     "kind": "say",
@@ -1417,7 +1404,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 456,
+    "line": 477,
     "expression_sha256": "3c0672cc777603f0b4122852edc4c7cf801faa6b7d1d5181c72e27a6af18ec9e",
     "text": "♪ Hoch die Krüge! ♪",
     "kind": "bark",
@@ -1431,7 +1418,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 457,
+    "line": 478,
     "expression_sha256": "ebdd29fa066938dca60fea991a24486677ae8900ffdb5ada4dd75d3eb8404054",
     "text": "Das zieht allerlei Gaukler und Gesindel an. Nur noch Saufen und Schlemmen, das Fest.",
     "kind": "say",
@@ -1444,7 +1431,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 458,
+    "line": 479,
     "expression_sha256": "0ab1235abadfded388e5fd2734e7e0d43ff72c2160871e472828eae88cc87289",
     "text": "Gegen ein zünftiges Festmahl ist nichts einzuwenden!",
     "kind": "say",
@@ -1457,7 +1444,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 470,
+    "line": 491,
     "expression_sha256": "49b5f9364fd85cd4f1902fbd7cdc64cb45604e88b1f2539f139da0ef6db5e365",
     "text": "Was darf’s sein?",
     "kind": "say",
@@ -1470,7 +1457,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 471,
+    "line": 492,
     "expression_sha256": "f46f640a6a72056f06ed9f0096f23169471ac20448cb6e9be48c7f99c1be36b0",
     "text": "Zwei Metbier und ein Dünnbier für die Kleine.",
     "kind": "say",
@@ -1483,7 +1470,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 472,
+    "line": 493,
     "expression_sha256": "2bca9fdfb9c911995e047ef1882108bfe4ef6b74ecc75840957fe8d2e688c496",
     "text": "Ich bin nicht klein.",
     "kind": "say",
@@ -1496,7 +1483,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 473,
+    "line": 494,
     "expression_sha256": "0c535ac9f7eddebc34f1f5bea6af334d8792afff620f749d11cc509533291c16",
     "text": "Und dreimal Eintopf.",
     "kind": "say",
@@ -1509,7 +1496,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 474,
+    "line": 495,
     "expression_sha256": "7da50c9c226f977892a920144a9b99cba2995141d04029735985b90cd4c05c61",
     "text": "Bei mir bitte mit extra viel Speck!",
     "kind": "say",
@@ -1522,7 +1509,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 475,
+    "line": 496,
     "expression_sha256": "d1f189ff4e07c3ae894e808758b4d276b113961bd86bb424a36fc7f06721a1d6",
     "text": "Wie immer umsonst, nehme ich an?",
     "kind": "say",
@@ -1535,7 +1522,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 476,
+    "line": 497,
     "expression_sha256": "cdf01a154597cb4d440f7a2f14306a6027791e47e12a711de3bd8690e0425bad",
     "text": "So ist es. Richte Craupor aus, dass ich später mit ihm reden will.",
     "kind": "say",
@@ -1548,7 +1535,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 479,
+    "line": 500,
     "expression_sha256": "6594de328302904571086716949da6c696e93b0c97bd3c41af8f75badf3d4164",
     "text": "Umsonst? Das ist ja nicht das erste Mal, dass du hier umsonst einkehrst.",
     "kind": "say",
@@ -1561,7 +1548,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 480,
+    "line": 501,
     "expression_sha256": "8644db957ae721b6fde6972fe93dc9670909926f51a51f316adeb5d2a2cf63b1",
     "text": "Sagen wir: Craupor schuldet mir einen großen Gefallen.",
     "kind": "say",
@@ -1574,7 +1561,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 481,
+    "line": 502,
     "expression_sha256": "e6ab9d74f886ad0476e230cf45796cd5076b8daa945fa14d1bf628fb941918d7",
     "text": "Ich bin ganz Ohr.",
     "kind": "say",
@@ -1587,7 +1574,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 484,
+    "line": 505,
     "expression_sha256": "433a1618cecd29a8e379eaa0e7fd31ee482fd2a58077815e20eb7a854d958c1a",
     "text": "Als ich noch in der Garde von Portas diente, eskortierten wir einen Kaufmann nach Trapas.",
     "kind": "say",
@@ -1600,7 +1587,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 486,
+    "line": 507,
     "expression_sha256": "5828b472259463e1526016e4b9303868a2b3b4e87fa70ba434b60e7781edf6d0",
     "text": "Wir betraten die Schenke: Bänke umgestoßen, Krüge zerschlagen. Eine Banditenbande hatte es sich gemütlich gemacht.",
     "kind": "say",
@@ -1613,7 +1600,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 487,
+    "line": 508,
     "expression_sha256": "2bd9904a8a550dbbb26cdfbc4ae84fee31f65484d65e5d0bd59939b2f9efeeec",
     "text": "Und den guten Craupor hatten sie kopfüber an einen Balken gehängt …",
     "kind": "say",
@@ -1626,7 +1613,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 488,
+    "line": 509,
     "expression_sha256": "0ec951ec26e1f4374c91794901ec25c45b786edfc017e7178c42ac2c190e1022",
     "text": "Lass mich raten. Du hast ihn heldenhaft befreit, und er hat dir ewigen Dank geschworen.",
     "kind": "say",
@@ -1639,7 +1626,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 490,
+    "line": 511,
     "expression_sha256": "ff0826fa4ffd6cf6dcb36fae7c91eaa433e76ef0c3700463b2e3ab6a24d72504",
     "text": "Spielverderber. So macht Geschichtenerzählen keinen Spaß.",
     "kind": "say",
@@ -1652,7 +1639,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 492,
+    "line": 513,
     "expression_sha256": "981ff7c7f2a04d31bcf3989b38c5ea12a24137be8c6b8a622b68091f2465ea98",
     "text": "Die Schankmaid stellt drei dampfende Schüsseln und die Krüge auf den Tisch.",
     "kind": "say",
@@ -1665,7 +1652,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 493,
+    "line": 514,
     "expression_sha256": "f7e18b0c9aabe1af4ad54004788c138914336239da86c32c392df9a53e70ae6f",
     "text": "Am Dünnbier nippen",
     "kind": "choose",
@@ -1679,7 +1666,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 493,
+    "line": 514,
     "expression_sha256": "f7e18b0c9aabe1af4ad54004788c138914336239da86c32c392df9a53e70ae6f",
     "text": "Den Krug zur Seite schieben",
     "kind": "choose",
@@ -1693,7 +1680,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 495,
+    "line": 516,
     "expression_sha256": "44a57d75dd7576de851f4aaab64fc91198ca4ed89d7229f89671e730c6c039d1",
     "text": "Bitter. Bitter und widerlich.",
     "kind": "think",
@@ -1706,7 +1693,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 496,
+    "line": 517,
     "expression_sha256": "64eedacfddc70276180c2113d296d4b3624c8dddaaf124033c859a3948521a9f",
     "text": "Da sieh mal an! Da hat jemand gerade seinen ersten Schluck Alkohol getrunken!",
     "kind": "say",
@@ -1719,7 +1706,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 497,
+    "line": 518,
     "expression_sha256": "9da9ed889e02a331c0eebb388650738f2028e31a63fa2f706040c9fe564752b4",
     "text": "Ich verstehe nicht, wie man so etwas freiwillig trinken kann.",
     "kind": "say",
@@ -1732,7 +1719,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 498,
+    "line": 519,
     "expression_sha256": "eb4e7580a190a82c25c483f56d0fe935c3643d02fcfb4f065dc6675b11d8c2fa",
     "text": "Nach dem dritten schmeckt’s!",
     "kind": "say",
@@ -1745,7 +1732,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 499,
+    "line": 520,
     "expression_sha256": "23b8e776443710027114fe1d3b335d02515e1718645bbece0bad861a58dd440e",
     "text": "Soweit wollen wir es nicht kommen lassen.",
     "kind": "say",
@@ -1758,7 +1745,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 502,
+    "line": 523,
     "expression_sha256": "f719cb67a57d08de928b941f464d931111d3d964a42f0c0f69701e9fc274fc64",
     "text": "Nicht durstig? Dann trinke ich es. Wäre doch schade drum.",
     "kind": "say",
@@ -1771,7 +1758,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 504,
+    "line": 525,
     "expression_sha256": "a5de1e14d60a502b240f21238e28ce3909295f2f8b5f13ef3b812a93631e87c0",
     "text": "Lia. Beschreib mir deine Schwester. Ich frage Craupor, ob in letzter Zeit Dunkelschatten hier waren.",
     "kind": "say",
@@ -1784,7 +1771,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 505,
+    "line": 526,
     "expression_sha256": "d8ae4dda832132c3b8f59736c33e6cf78264eadb2fd2f9fb3d5f761fe4d550fc",
     "text": "So groß wie ich. Lange braune Haare, ein beiges Kleid.",
     "kind": "choose",
@@ -1797,7 +1784,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 505,
+    "line": 526,
     "expression_sha256": "d8ae4dda832132c3b8f59736c33e6cf78264eadb2fd2f9fb3d5f761fe4d550fc",
     "text": "Braune Haare, braune Augen. Und sie beißt, wenn man sie ärgert.",
     "kind": "choose",
@@ -1823,7 +1810,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 507,
+    "line": 528,
     "expression_sha256": "3341cc6d6f3c228ad4c07a4cecf2b9a184fbe00890e42e6382ca5d31986c7cc3",
     "text": "Sie beißt? Die gefällt mir.",
     "kind": "say",
@@ -1849,7 +1836,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 509,
+    "line": 530,
     "expression_sha256": "6968cb124ff15eff4ec816f2ddec01595197edf668cc3f8985d5f9cc3303ee6f",
     "text": "Was sind das für Rebellen, zu denen ihr gehört?",
     "kind": "choose",
@@ -1862,7 +1849,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 509,
+    "line": 530,
     "expression_sha256": "6968cb124ff15eff4ec816f2ddec01595197edf668cc3f8985d5f9cc3303ee6f",
     "text": "Warum seid ihr eigentlich Freischärler?",
     "kind": "choose",
@@ -1875,7 +1862,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 511,
+    "line": 532,
     "expression_sha256": "ada44b5db3bf4bd4bd7ad897aa08e29a1c5dacddf55f5e44446842427cd3ba96",
     "text": "Pscht! Nicht so laut. Wer weiß, wer hier zuhört.",
     "kind": "say",
@@ -1888,7 +1875,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 512,
+    "line": 533,
     "expression_sha256": "5f7f32fd2a2067e4cc56369a29a25945c12b6c772c9d1cb94ac917e4e7b25386",
     "text": "Seit Dunkelhain verkriechen sich die Fürsten in ihren Städten und überlassen das Land den Dunkelschatten.",
     "kind": "say",
@@ -1901,7 +1888,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 513,
+    "line": 534,
     "expression_sha256": "2e05027acc9e71f7ce77c2e84a68ca26d9f23e68661a3e8d5745356c58791a9b",
     "text": "Wir von der Freien Bruderschaft haben uns vom Dienst der Hohen losgesagt. Wir jagen das Pack.",
     "kind": "say",
@@ -1914,7 +1901,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 517,
+    "line": 538,
     "expression_sha256": "164f4063617e727f74aa1695a05397c646794b70426bcd2f752c2011ba07f857",
     "text": "Die Kurzfassung: Ich bin von der Garde desertiert. Azar hat Schulden gemacht. Die Details ersparen wir dir.",
     "kind": "say",
@@ -1927,7 +1914,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 518,
+    "line": 539,
     "expression_sha256": "3fbf64719c65d4263b2c196f96abf466017e4a9f7812b568d0b176f682984c03",
     "text": "Welchem Befehl hast du dich verweigert?",
     "kind": "say",
@@ -1940,7 +1927,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 519,
+    "line": 540,
     "expression_sha256": "1952e1344f313a9f9c202357f8ea470ed3e5dfe05b4c38432dc112f8face316a",
     "text": "Ich sagte: Die Details sparen wir.",
     "kind": "say",
@@ -1953,7 +1940,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 522,
+    "line": 543,
     "expression_sha256": "3348a339b3b1eae17d8987b57e65b9873049c7f57b77931df32abbae1df8621a",
     "text": "Haltet hier die Stellung.",
     "kind": "say",
@@ -1966,7 +1953,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 528,
+    "line": 549,
     "expression_sha256": "d2902b764e46d236230d6416cdd7ece9e3ff94a96792085e2a6a5721666fb764",
     "text": "Foltan! Alter Freund!",
     "kind": "bark",
@@ -1979,7 +1966,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 531,
+    "line": 552,
     "expression_sha256": "8336d9ccc75efbb14a811edef2d7d85c82e822935f4c4d6ead046dec378dcf5f",
     "text": "Ich sitze hier nicht herum. Wenn Kyra hier war, hat irgendwer etwas gesehen.",
     "kind": "think",
@@ -1992,7 +1979,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 536,
+    "line": 557,
     "expression_sha256": "eaf065783d09d987045e930c123091a203c6065ffb480e9cd3d22cd19fb0b9a0",
     "text": "Lia kramt ein Stück Papier und einen Kohlestift aus dem Beutel. *Lias Notizen* liegen jetzt in der Tasche.",
     "kind": "say",
@@ -2005,7 +1992,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 537,
+    "line": 558,
     "expression_sha256": "fc6486343de04a2237028e478af881416b92ecd95ab851791501cf5e17d3e953",
     "text": null,
     "kind": "say",
@@ -2019,7 +2006,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 550,
+    "line": 571,
     "expression_sha256": "ceeca1b022fe174d6b2953beb7e8e878efefe7b289d4ddc62e02cbb75ff628a0",
     "text": "He! Foltan! Die Kleine ist ungeduldig!",
     "kind": "say",
@@ -2032,7 +2019,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 552,
+    "line": 573,
     "expression_sha256": "07504faea0be13766ef32bade1a6c20954218411ab8863559ccbb4076679fed1",
     "text": "Viel Glück, Foltan.",
     "kind": "bark",
@@ -2045,7 +2032,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 556,
+    "line": 577,
     "expression_sha256": "ea109bc600a134174126004e3e759bdbb4874ae546a838bd410ecdb3d6f80442",
     "text": "Und? Hat er etwas gesehen?",
     "kind": "say",
@@ -2058,7 +2045,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 558,
+    "line": 579,
     "expression_sha256": "5c1f687d26f4b963fc41ad9fc105f889eb6ebb4e29786457a177253e20a6cee6",
     "text": "Nein, leider nicht. Craupor weiß nichts.",
     "kind": "say",
@@ -2071,7 +2058,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 560,
+    "line": 581,
     "expression_sha256": "3ad62898d5049f1fb044e7ac1cf27ede47486008227deb3cc8fc482fd10700c9",
     "text": "Nichts? Gar nichts?",
     "kind": "say",
@@ -2084,7 +2071,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 561,
+    "line": 582,
     "expression_sha256": "157f0301db970f73dbe2cbcd23b7bca79c09554eababfd7b211ad7825a86d360",
     "text": "Ich hätte schwören können, dass hier … Nein. Hoffnung ist dumm.",
     "kind": "think",
@@ -2097,7 +2084,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 562,
+    "line": 583,
     "expression_sha256": "ebe739dbee0f144e58288b5a369b6e3dde58d788de0536d094ebae1a5de02885",
     "text": "Es tut mir leid, Lia.",
     "kind": "say",
@@ -2110,7 +2097,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 565,
+    "line": 586,
     "expression_sha256": "fbe2c20a910dbb45ffdbb3ebf02f7795fcaae1d2984b10fa1a955a4f2d7484ed",
     "text": "Er lügt. Kyra war hier. Ich habe es schwarz auf weiß in meinen Notizen.",
     "kind": "think",
@@ -2123,7 +2110,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 569,
+    "line": 590,
     "expression_sha256": "05c7d3ac382f0dbafcb5cb6d2f8b4643699eaf56a17171186a5e1207118a81de",
     "text": "Das stimmt nicht! Sie war hier. Ich habe ihr Haarband gefunden!",
     "kind": "choose",
@@ -2136,7 +2123,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 569,
+    "line": 590,
     "expression_sha256": "05c7d3ac382f0dbafcb5cb6d2f8b4643699eaf56a17171186a5e1207118a81de",
     "text": "(Nichts sagen. Ihn beobachten.)",
     "kind": "choose",
@@ -2150,7 +2137,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 569,
+    "line": 590,
     "expression_sha256": "05c7d3ac382f0dbafcb5cb6d2f8b4643699eaf56a17171186a5e1207118a81de",
     "text": "Und die fünf Mann mit dem Mädchen, von denen Craupor sprach?",
     "kind": "choose",
@@ -2163,7 +2150,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 573,
+    "line": 594,
     "expression_sha256": "c66e0f644a4e1c4f5897115dbd3dd3b5898235318a1dd908e4de70dac6c9ec19",
     "text": "Ein Haarband. Davon gibt es tausende zwischen Trapas und Portas.",
     "kind": "say",
@@ -2176,7 +2163,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 574,
+    "line": 595,
     "expression_sha256": "e220d6905c5a7846c24486c335d84005798b7deefb088b6f049e240ea59055dd",
     "text": "Es ist *ihres*! Ich würde es unter tausend erkennen!",
     "kind": "say",
@@ -2189,7 +2176,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 576,
+    "line": 597,
     "expression_sha256": "48870eb3ac88d18650d231976159033b1c0e2932d2abb2d9a826483b398e4fd6",
     "text": "Craupor hat sie nicht gesehen. Belassen wir es dabei.",
     "kind": "say",
@@ -2202,7 +2189,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 577,
+    "line": 598,
     "expression_sha256": "79d05cc4fddb7f346eacf007034de172cc24f475c5e8ba282d27bd3bece3c354",
     "text": "Azar sieht auf seine Schüssel. Er sagt kein Wort.",
     "kind": "think",
@@ -2215,7 +2202,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 580,
+    "line": 601,
     "expression_sha256": "efcf9369a6b90a340778b3d2e3be3ec53fe7292848fc496b20b01037d8f2621d",
     "text": "Und wo ist dieses Haarband?",
     "kind": "say",
@@ -2228,7 +2215,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 581,
+    "line": 602,
     "expression_sha256": "5e69bb4f4d95b8f2ee2ad453ff0cac27055dd46e2c07934b5c5e2290262ce240",
     "text": "… Ich habe es nicht mitgenommen. Verflucht.",
     "kind": "think",
@@ -2241,7 +2228,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 582,
+    "line": 603,
     "expression_sha256": "1c8ba53e9ca3b7ed08fd6d6b101db93a734651ab668aa0930f5f013716351f54",
     "text": "Siehst du. Craupor hat nichts gesehen.",
     "kind": "say",
@@ -2254,7 +2241,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 586,
+    "line": 607,
     "expression_sha256": "7573833d6b9e736e6466d98060e2a3b989e5baa5ccaa2af4628d9e049f8cc089",
     "text": "Du hast gelauscht?",
     "kind": "say",
@@ -2267,7 +2254,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 587,
+    "line": 608,
     "expression_sha256": "9a1005d1ed4ed72841f399016a56ed57dad821499d37efd7ec0800a22494c4d3",
     "text": "Fünf Mann und ein Mädchen – das sagt gar nichts. Solche Trupps ziehen jede Woche durch.",
     "kind": "say",
@@ -2280,7 +2267,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 588,
+    "line": 609,
     "expression_sha256": "d7df8332af451dc3538c9acd4695639429c319d8bd15ec15c27926b2ce9317e7",
     "text": "Er sieht mich nicht an, wenn er das sagt.",
     "kind": "think",
@@ -2293,7 +2280,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 591,
+    "line": 612,
     "expression_sha256": "8f5049a42b384747a45a8aa2698b0870fb6f2d27c461d99f79baf354ce53654d",
     "text": "Er lügt. Und er weiß, dass er lügt. Ich merke mir das, Foltan.",
     "kind": "think",
@@ -2306,7 +2293,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 594,
+    "line": 615,
     "expression_sha256": "80f0584766d1931860615a3c652446d0ced479e4688b6301ff90845d48cabc15",
     "text": "Wir sollten weiterziehen. Hier zu übernachten ist mir zu unsicher.",
     "kind": "say",
@@ -2319,7 +2306,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 595,
+    "line": 616,
     "expression_sha256": "9cbea4ebe6395c00bba8bab9549edc31e6180f139b73119bfe324484cfc7dba3",
     "text": "Man weiß nie, wer sonst noch so unter einem Dach schläft.",
     "kind": "say",
@@ -2332,7 +2319,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 596,
+    "line": 617,
     "expression_sha256": "1ca72be5e5b78cf30fde410fd681fe087956d4716732d8a6b7af103ddc788dba",
     "text": "Und mein zweiter Teller Eintopf?",
     "kind": "say",
@@ -2345,7 +2332,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 597,
+    "line": 618,
     "expression_sha256": "f9750ceb88d1e47d0d29eebbdeb8a71102204495871cab4629bc97b2a09699e6",
     "text": "Wird kalt. Los.",
     "kind": "say",
@@ -2358,7 +2345,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 615,
+    "line": 636,
     "expression_sha256": "cd3e139f6b55aa1dc98b39cdc5c2bd11864ab5aaeb3b5c9926e22a6a55290370",
     "text": "Am Abend standen sie vor einer Hausfassade mitten im Nirgendwo. An einer Kette baumelte ein Schild in Form eines Wildschweins.",
     "kind": "narrate",
@@ -2371,7 +2358,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 615,
+    "line": 636,
     "expression_sha256": "cd3e139f6b55aa1dc98b39cdc5c2bd11864ab5aaeb3b5c9926e22a6a55290370",
     "text": "„Zum Goldenen Eber“, las Lia in großen Lettern. Azar leckte sich die Lippen.",
     "kind": "narrate",
@@ -2384,7 +2371,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 632,
+    "line": 654,
     "expression_sha256": "070984d729d132ed3a08fe79f438bb05cc9038525ef129dd9c40352186711bce",
     "text": "Psst! Lia! Komm mal her.",
     "kind": "bark",
@@ -2397,7 +2384,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 57,
+    "line": 58,
     "expression_sha256": "713156e3b40cdd320b040fd9761723bb185c03aa24aa0ee6e04dfdad1d13a02c",
     "text": "Noch ein Eintopf? Kommt!",
     "kind": "bark",
@@ -2410,7 +2397,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 57,
+    "line": 58,
     "expression_sha256": "713156e3b40cdd320b040fd9761723bb185c03aa24aa0ee6e04dfdad1d13a02c",
     "text": "Pfoten weg vom Krug!",
     "kind": "bark",
@@ -2423,7 +2410,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 57,
+    "line": 58,
     "expression_sha256": "713156e3b40cdd320b040fd9761723bb185c03aa24aa0ee6e04dfdad1d13a02c",
     "text": "Wer hat hier verschüttet?",
     "kind": "bark",
@@ -2436,7 +2423,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 61,
+    "line": 62,
     "expression_sha256": "70bb3f7e2f8242833d5470dddc0a1ce21b3262bdf20ede4dadffa709062b1a0c",
     "text": "♪ Hoch die Krüge! ♪",
     "kind": "bark",
@@ -2450,7 +2437,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 61,
+    "line": 62,
     "expression_sha256": "70bb3f7e2f8242833d5470dddc0a1ce21b3262bdf20ede4dadffa709062b1a0c",
     "text": "♪ Wer nichts wagt … ♪",
     "kind": "bark",
@@ -2464,7 +2451,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 61,
+    "line": 62,
     "expression_sha256": "70bb3f7e2f8242833d5470dddc0a1ce21b3262bdf20ede4dadffa709062b1a0c",
     "text": "Noch eine Runde für die Musik?",
     "kind": "bark",
@@ -2477,7 +2464,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 65,
+    "line": 66,
     "expression_sha256": "991f39c58432855d7b94ad11b2ce8ea9ebf86dbeda7fc38082bf5702102ba203",
     "text": "Auf nach Trapas!",
     "kind": "bark",
@@ -2490,7 +2477,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 65,
+    "line": 66,
     "expression_sha256": "991f39c58432855d7b94ad11b2ce8ea9ebf86dbeda7fc38082bf5702102ba203",
     "text": "Kettengebäck, frisch vom Fest … fast.",
     "kind": "bark",
@@ -2503,7 +2490,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 65,
+    "line": 66,
     "expression_sha256": "991f39c58432855d7b94ad11b2ce8ea9ebf86dbeda7fc38082bf5702102ba203",
     "text": "Hopp, hopp, hopp!",
     "kind": "bark",
@@ -2516,7 +2503,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 69,
+    "line": 70,
     "expression_sha256": "8a27507f9211bc0e90661c54f6e118710b2912bdfcd0f8b021d150c7350649e4",
     "text": "Die Straßen sind leer wie nie.",
     "kind": "bark",
@@ -2529,7 +2516,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 69,
+    "line": 70,
     "expression_sha256": "8a27507f9211bc0e90661c54f6e118710b2912bdfcd0f8b021d150c7350649e4",
     "text": "Zwei Kupfer für den Krug? Wucher!",
     "kind": "bark",
@@ -2542,7 +2529,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 73,
+    "line": 74,
     "expression_sha256": "ed460862d5fee5d81a5d71e461692921f9688c221f0de952f1dc3283f28c763e",
     "text": "Seit Dunkelhain traut sich keiner allein raus.",
     "kind": "bark",
@@ -2555,7 +2542,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 73,
+    "line": 74,
     "expression_sha256": "ed460862d5fee5d81a5d71e461692921f9688c221f0de952f1dc3283f28c763e",
     "text": "Pst! Nicht so laut.",
     "kind": "bark",
@@ -2568,7 +2555,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 77,
+    "line": 78,
     "expression_sha256": "77b851eb4db3cb80641a2b2578b207246e9053641a579da279a512bee89aaa19",
     "text": "Hast du die Kerle gestern gesehen?",
     "kind": "bark",
@@ -2581,7 +2568,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 77,
+    "line": 78,
     "expression_sha256": "77b851eb4db3cb80641a2b2578b207246e9053641a579da279a512bee89aaa19",
     "text": "Ich will nur heim.",
     "kind": "bark",
@@ -2594,7 +2581,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 105,
+    "line": 106,
     "expression_sha256": "c9c71f20a52b114e42a16d7e3f65e2c1e26a40b5ec08602375e1791e822cef1b",
     "text": "Hanffasern, in Sitzhöhe. Und Kratzer von einem Hocker. Hier war jemand angebunden.",
     "kind": "thought",
@@ -2607,7 +2594,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 127,
+    "line": 128,
     "expression_sha256": "efaef58f141b2968b54fad79586defb60577af094ca981fca3f9b5b06e726c36",
     "text": "Ohne Foltan und Azar gehe ich nirgendwohin.",
     "kind": "blocked",
@@ -2620,7 +2607,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-3/eber.ts",
-    "line": 215,
+    "line": 216,
     "expression_sha256": "68aab36eebcb38db9049f23214e5aa4bb22f30ad23864662aad6e33a7e005adb",
     "text": "Kratzspuren im Lehm, wo die Kette über den Boden schleifte.",
     "kind": "thought",
@@ -5367,5 +5354,125 @@
     "context_de": "Lia untersucht den Goldenen Eber auf Kyras Spur; Gespräche mit Gästen und Begleitern.",
     "classification": "sfx",
     "reason": "Gesungener Liedtext / musikalischer Bark; separater Song-Pfad, nicht als gesprochene TTS erzeugen."
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 410,
+    "expression_sha256": "4a9596b6028e65b0c13ab9aeb08e292fb30fdbb2b860f86fa20f4b48e0f588d6",
+    "text": "Zu viert treten sie vor die Schenke. Hinter der Wegbiegung stehen drei Gestalten auf der Straße.",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "direction_en": "Narrate the group leaving the inn at a measured pace. Let the figures beyond the bend bring restrained tension into the second sentence.",
+    "emotion_de": "beobachtend, gespannt",
+    "intensity": 2,
+    "context_de": "Die Erzählerstimme setzt vor der Begleitbegegnung die Gruppe und die drei Gestalten auf der Straße ins Bild. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 415,
+    "expression_sha256": "e93dea8ccfb0b4fb1256bdc3ca9ad4cf9621c6fbdb3ab7569b3b30ef9a1c3023",
+    "text": "Er ist bei den anderen. Hier, wie versprochen. Und danke.",
+    "kind": "say",
+    "runtime_speaker": "haendler",
+    "direction_en": "Confirm the companion is safe with relieved warmth. Offer the promised reward plainly, then give a brief, sincere thank you.",
+    "emotion_de": "erleichtert, dankbar",
+    "intensity": 2,
+    "context_de": "Nach gewonnenem Begleitkampf bestätigt der Händler die sichere Ankunft und gibt die vereinbarte Belohnung. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 416,
+    "expression_sha256": "410225cf2a878058fac4260621eac36ef305d93561da69cddc07b483395e7b42",
+    "text": "Ich musste nicht jeden Räuber besiegen. Wir mussten nur zusammen durchkommen.",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "direction_en": "Reflect privately after the escort. Start with the effort of the fight, then let quiet understanding settle on getting through together.",
+    "emotion_de": "nachdenklich, erleichtert",
+    "intensity": 2,
+    "context_de": "Nach erfolgreicher Begleitung erkennt Lia den gemeinsamen Durchbruch als Ziel, statt jeden Räuber besiegen zu müssen. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 407,
+    "expression_sha256": "8c85f30c072041a60f04e21e0cbc1b18207c7f8880501f54435cc4e3854652a1",
+    "text": "Wir suchen meine Schwester. Heute nicht.",
+    "kind": "choice",
+    "runtime_speaker": "lia",
+    "direction_en": "Decline the escort politely but firmly. Let concern for the sister carry the first sentence; keep the short refusal clear and personal.",
+    "emotion_de": "besorgt, bestimmt",
+    "intensity": 2,
+    "context_de": "Lia lehnt die Begleitung zugunsten der Suche nach ihrer Schwester ab. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 407,
+    "expression_sha256": "8c85f30c072041a60f04e21e0cbc1b18207c7f8880501f54435cc4e3854652a1",
+    "text": "Foltan, Azar, helft ihr mir dabei?",
+    "kind": "choice",
+    "runtime_speaker": "lia",
+    "direction_en": "Ask Foltan and Azar for help with quiet resolve. Address each directly; make the request personal and leave room for their answer.",
+    "emotion_de": "entschlossen, bittend",
+    "intensity": 2,
+    "context_de": "Lia nimmt die kurze Begleitung an und bittet ihre beiden Gefährten um Unterstützung. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 403,
+    "expression_sha256": "4bff2f7ca3e74cbaa2922e6ea97cf26e1d085aa6f0bb62b3aa2f87fcfd92ef44",
+    "text": "Mein Reisegefährte ist sicher angekommen. Gute Reise euch, und danke noch einmal.",
+    "kind": "say",
+    "runtime_speaker": "haendler",
+    "direction_en": "Greet the group with settled gratitude. Confirm the safe arrival, then wish them well warmly, as a traveller closing a brief exchange.",
+    "emotion_de": "dankbar",
+    "intensity": 2,
+    "context_de": "Beim erneuten Ansprechen nach der erledigten Begleitung dankt der Händler der Gruppe und verabschiedet sie. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 406,
+    "expression_sha256": "0b2fcc0c4fe93e959f4201e220df1ab92a577d74ba6931c374c50c64e5548ef4",
+    "text": "Mein Reisegefährte wartet im Stall. Seine Gruppe steht am nächsten Wegzeichen, aber da treiben sich Räuber herum. Begleitet ihr ihn? Ich gebe euch Brot und eine Wundtinktur für die Reise. Nur ein kurzes Stück.",
+    "kind": "say",
+    "runtime_speaker": "haendler",
+    "direction_en": "Explain the danger with restrained worry, then ask plainly for help. Offer the supplies sincerely; keep the final reassurance modest.",
+    "emotion_de": "besorgt, hoffend",
+    "intensity": 2,
+    "context_de": "Der Händler bittet um Begleitung seines Reisegefährten zum Wegzeichen und bietet die tatsächliche Belohnung an. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-3/eber.ts",
+    "line": 409,
+    "expression_sha256": "16844765bd92bada7798ea6012d73e71a9e85de9e0b0510857a714121212421c",
+    "text": "Bis zum Wegzeichen. Danach gehen wir unserer eigenen Sache nach.",
+    "kind": "say",
+    "runtime_speaker": "foltan",
+    "direction_en": "Set the limit of the escort calmly and firmly. Pause after the waypoint, then state the group will return to its own purpose, without hostility.",
+    "emotion_de": "nüchtern, bestimmt",
+    "intensity": 2,
+    "context_de": "Foltan stimmt der Begleitung bis zum Wegzeichen zu und begrenzt sie zugunsten der eigenen Suche. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
   }
 ]

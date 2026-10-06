@@ -1604,7 +1604,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/index.ts",
-    "line": 26,
+    "line": 27,
     "expression_sha256": "abce941c081fdd9e134b3dc61d1c62d4945668084892a5aaf8572cfa32ca651a",
     "text": "Den ganzen Tag war Lia den Hufspuren gefolgt, über Feldwege, an Bächen vorbei. Ihre Beine schmerzten.",
     "kind": "narrate",
@@ -1617,7 +1617,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/index.ts",
-    "line": 26,
+    "line": 27,
     "expression_sha256": "abce941c081fdd9e134b3dc61d1c62d4945668084892a5aaf8572cfa32ca651a",
     "text": "Am Nachmittag erreichte sie die gepflasterte Hauptstraße. Weiter war sie noch nie von zu Hause fort gewesen.",
     "kind": "narrate",
@@ -3824,7 +3824,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 10,
+    "line": 11,
     "expression_sha256": "aed28bed2af8cd89b62c49051dcff6e50cb5671e0db73f1116d9c8942d40e4cb",
     "text": "text",
     "kind": "say",
@@ -3838,7 +3838,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 32,
+    "line": 33,
     "expression_sha256": "2425157f1b457520b00648a786cbca55faf1012d68c902dddfbaf1742713b076",
     "text": "Iss erst. Mit leerem Magen läuft niemand einen Tagesmarsch.",
     "kind": "say",
@@ -3851,7 +3851,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 33,
+    "line": 34,
     "expression_sha256": "c8fafa238a1a6b384a6a2625abc0832eb3213cfd772138403b2e95f968c00baf",
     "text": "Abmarsch. Der Pfad dort unten führt zurück auf unseren Weg.",
     "kind": "say",
@@ -3864,7 +3864,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 38,
+    "line": 39,
     "expression_sha256": "705c553da977e9da09008e5ad4357b7fdffc02f0d3131f9e686d4cc84ad4dcb6",
     "text": "Erst frühstücken. Azar hat extra gekocht.",
     "kind": "think",
@@ -3879,7 +3879,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 52,
+    "line": 53,
     "expression_sha256": "3090fbb4883e05e69e4f84c282a6f42629e3adcbc0c1270a8517de0efd090e2f",
     "text": "Noch ein Ei? Nein? Selbst schuld.",
     "kind": "say",
@@ -3892,7 +3892,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 52,
+    "line": 53,
     "expression_sha256": "3090fbb4883e05e69e4f84c282a6f42629e3adcbc0c1270a8517de0efd090e2f",
     "text": "Der Abwasch macht sich nicht von allein. Doch, eigentlich schon. Ich lass ihn liegen.",
     "kind": "say",
@@ -3905,7 +3905,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 57,
+    "line": 58,
     "expression_sha256": "a82adf7d569ad5d5444e8c1682e3b72ca1926df489d969c07c796aaf8acc3231",
     "text": "Wachteleier mit Speck. Nach Art des Hauses Azar. Die Eier hab ich heute früh selbst gefunden!",
     "kind": "say",
@@ -3918,7 +3918,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 59,
+    "line": 60,
     "expression_sha256": "391fd6c49eb4d41b85a0f5dd1b13bf7d59b01cabaea6e8eabb7f31efe5a5a76e",
     "text": "Schweigend essen.",
     "kind": "choice",
@@ -3934,7 +3934,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 59,
+    "line": 60,
     "expression_sha256": "391fd6c49eb4d41b85a0f5dd1b13bf7d59b01cabaea6e8eabb7f31efe5a5a76e",
     "text": "„Danke.“",
     "kind": "choice",
@@ -3949,7 +3949,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 59,
+    "line": 60,
     "expression_sha256": "391fd6c49eb4d41b85a0f5dd1b13bf7d59b01cabaea6e8eabb7f31efe5a5a76e",
     "text": "Kettengebäck mit ihm teilen.",
     "kind": "choice",
@@ -3965,7 +3965,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 66,
+    "line": 67,
     "expression_sha256": "49dd55c65a100edac76e3eebcd432de5f28c31569969c27c293ad73ab8b5971a",
     "text": "Es schmeckt wirklich gut. Aber reden mag ich nicht.",
     "kind": "think",
@@ -3980,7 +3980,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 67,
+    "line": 68,
     "expression_sha256": "b190a924e6a97167aa751cd8af49f8c4088ceaaf0e0f4ccfb65d90e6be80dbab",
     "text": "Schweigsam wie ein Grab, die Kleine. Na, Hauptsache, es schmeckt.",
     "kind": "say",
@@ -3993,7 +3993,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 71,
+    "line": 72,
     "expression_sha256": "bcc0d8b4cf0638b6369d68a10812a459bacb93fbd38f9a85eb763286bc01129b",
     "text": "Sie spricht! Und dann gleich etwas so Kluges.",
     "kind": "say",
@@ -4006,7 +4006,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 76,
+    "line": 77,
     "expression_sha256": "3b89278d90c3fd389cdfdfd9672486cbcfafe7394bec2598f45be9b8ae112dea",
     "text": "Kettengebäck! Zum Verbannungsfest! Mädchen, du bist ein Engel.",
     "kind": "say",
@@ -4019,7 +4019,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 77,
+    "line": 78,
     "expression_sha256": "8b66bb2b57d63f72dd7c6a779907a83762244ff8357eb1677ed31bdeb642566c",
     "text": "Jetzt hast du ihn für immer. Werd ihn mal wieder los.",
     "kind": "say",
@@ -4032,7 +4032,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 79,
+    "line": 80,
     "expression_sha256": "6698efb5261f43b788530e024b7542e58db4c58cc0c12777038c80670bbba4eb",
     "text": "Deinen Speck heben wir auf. Man weiß nie, wann man ihn braucht.",
     "kind": "say",
@@ -4045,7 +4045,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 82,
+    "line": 83,
     "expression_sha256": "7ef8f23b96f33a25b3325872e5150cb59824e9258358b4c4b83642394733838f",
     "text": "Genug geschlemmt. Aufbruch. Bis zum Hauptlager ist es ein Tagesmarsch.",
     "kind": "say",
@@ -4058,7 +4058,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 94,
+    "line": 95,
     "expression_sha256": "ffc7f589fe6df4ba76b2b4cff20e97e03c6a31bc5f2a60f2e3555a5fe859fa97",
     "text": "♪ Ein Ei, zwei Ei, drei Ei, Speck …",
     "kind": "bark",
@@ -4071,7 +4071,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 99,
+    "line": 100,
     "expression_sha256": "b7f275f721ea0961d85ea82a6f85d752eb34adbed21b9e83c8c9eb3d4fbcad1d",
     "text": "Ich habe tatsächlich geschlafen. Und es riecht … nach Speck?",
     "kind": "think",
@@ -4086,7 +4086,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 152,
+    "line": 173,
     "expression_sha256": "e5cec7247590b253d04fbf8c771322fb92d83e0366bd93896d8f4891ce4fdbf6",
     "text": "Moos auf der Nordseite. Und auf der Südseite. Und obendrauf. Das Moos sagt gar nichts, Azar.",
     "kind": "think",
@@ -4101,7 +4101,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 163,
+    "line": 184,
     "expression_sha256": "d8196ccec5461694a5c19ce3edbcd0d0b39fda4d673fb63493dcf84b38c9413d",
     "text": "Drei schräge Kerben in der Rinde. Frisch geschnitten. Das ist kein Zufall.",
     "kind": "think",
@@ -4116,7 +4116,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 164,
+    "line": 185,
     "expression_sha256": "fa4daa0b54b2fe79e77afdcc4390ca5d538ac8982c2478b3ea2280652a837ee4",
     "text": "Wieder drei Kerben. Immer auf Hüfthöhe.",
     "kind": "think",
@@ -4131,7 +4131,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 165,
+    "line": 186,
     "expression_sha256": "100896ff8b07193d111edab00a419a0497d58cf759ad3171ab53f1dc7de2a05d",
     "text": "Und hier noch einmal. Foltan folgt nicht dem Moos.",
     "kind": "think",
@@ -4146,7 +4146,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 173,
+    "line": 194,
     "expression_sha256": "f0f9889389f31d20eb6de3ee59e27801801cdfc3fc59a533b1eeb78e4d79910c",
     "text": "Falsche Richtung, Mädchen.",
     "kind": "bark",
@@ -4159,7 +4159,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 194,
+    "line": 215,
     "expression_sha256": "c639ea38776c7bb0d34d9eadb53d20826e25376ef6fdcf71b7da9a6cfc1fbd48",
     "text": "Morgenstund hat Gold im Mund. Und Wachteleier im Bauch!",
     "kind": "say",
@@ -4172,7 +4172,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 195,
+    "line": 216,
     "expression_sha256": "ab6094a731691e7aac8c3faace08e36a8c66aa20de0dff2d6a2ef5559edd9634",
     "text": "Und Blei in den Beinen, wenn du so weitertrödelst.",
     "kind": "say",
@@ -4185,7 +4185,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Wer rastet, der rostet. Sagt man.",
     "kind": "bark",
@@ -4198,7 +4198,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Weniger reden, mehr laufen.",
     "kind": "bark",
@@ -4211,7 +4211,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Der feine Herr Foltan rennt wie auf der Flucht.",
     "kind": "bark",
@@ -4224,7 +4224,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Ich … prüfe nur das Moos. Für die Richtung.",
     "kind": "bark",
@@ -4237,7 +4237,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Augen offen. Hier gibt’s nicht nur Eichhörnchen.",
     "kind": "bark",
@@ -4250,7 +4250,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Was war das?! … Nur ein Eichhörnchen.",
     "kind": "bark",
@@ -4263,7 +4263,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Ein leerer Bauch marschiert nicht gern.",
     "kind": "bark",
@@ -4276,7 +4276,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 216,
+    "line": 237,
     "expression_sha256": "d85a29338f03a1416eb05e9a83a425a734176e7c69a9e69f94bccfbac4eaf5b8",
     "text": "Azar. Das Moos wächst auf allen Seiten.",
     "kind": "bark",
@@ -4289,7 +4289,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 225,
+    "line": 246,
     "expression_sha256": "f33553c8a82ca1a48c39f4936bc1a07da39ea452a09c5c41436f0025bba3c97b",
     "text": "Halt! Das Moos sagt: dort hinauf. Das Moos ist mein Kompass!",
     "kind": "say",
@@ -4302,7 +4302,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 227,
+    "line": 248,
     "expression_sha256": "3bc03742057623f76b33f6868017dbe1b55b4c3ad9ae824f429c7e99a61b0f05",
     "text": "Dein Kompass hat uns letzten Winter in einen Sumpf geführt.",
     "kind": "say",
@@ -4315,7 +4315,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 228,
+    "line": 249,
     "expression_sha256": "1f7d764ce8d2e5d377cdaaa9bcf42e582c3bb8a14984ef5dd8127b82435a241d",
     "text": "Das war ein sehr trockener Sumpf!",
     "kind": "say",
@@ -4328,7 +4328,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 232,
+    "line": 253,
     "expression_sha256": "de555e46ef08b4487fd3d4d73089fb9be573303ac2ea2f216a572dfaf3bb25fd",
     "text": "`Halte ${w.controlHint('look')} gedrückt. Vielleicht verrät der Wald mehr als das Moos.`",
     "kind": "say",
@@ -4342,7 +4342,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 236,
+    "line": 257,
     "expression_sha256": "b8980d4c5dbb29ab5b317197dd9a515c3c6beb2665d92697f8dc609bf1df0359",
     "text": "Du hast die Kerben gesehen. Gute Augen.",
     "kind": "say",
@@ -4355,7 +4355,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 237,
+    "line": 258,
     "expression_sha256": "809a35810a15854ab7b14b0b78b1f0bdb89ae196b01aea7613230d1e4f2d70ea",
     "text": "Und jetzt vergiss sie wieder. Diese Zeichen hast du nie gesehen.",
     "kind": "say",
@@ -4368,7 +4368,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 246,
+    "line": 267,
     "expression_sha256": "6cf3434fe828f3461046cad89362228d15853d88c6252c31e508c96304b10c70",
     "text": "Brombeeren. Undurchdringlich. Hier geht es nicht weiter.",
     "kind": "think",
@@ -4383,7 +4383,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 249,
+    "line": 270,
     "expression_sha256": "fbbc4e44636fb13cd5da30ec118d9d6be9ccca7bdb51cfdd3a60a04775583d24",
     "text": "Das Moos … hat sich geirrt. Das kommt in den besten Familien vor.",
     "kind": "say",
@@ -4396,7 +4396,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 250,
+    "line": 271,
     "expression_sha256": "5a6c7d6b9dd50b4c6f10fef076aac7b5891e186e26313d364aa4f86cbb26d71c",
     "text": "In deiner Familie offenbar ständig.",
     "kind": "say",
@@ -4409,7 +4409,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 260,
+    "line": 281,
     "expression_sha256": "fa10b894b24902c86d6ad0cd063b8a264d7ded6ef0b8afda50376d74b9d78d6c",
     "text": "Wann … machen wir eigentlich … Mittagsrast?",
     "kind": "say",
@@ -4422,7 +4422,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 261,
+    "line": 282,
     "expression_sha256": "4e655814ce90f3b4c2a478dd01f4ae17ca92f981957d3cf08c6da43277266c2b",
     "text": "Bist du schon wieder hungrig?",
     "kind": "say",
@@ -4435,7 +4435,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 262,
+    "line": 283,
     "expression_sha256": "24212ff840a3dd03138562269875d8de9fcced83e468d554a3d8d85f01ad6386",
     "text": "Nein! Aber denk an das junge Mädchen. Wir müssen Rücksicht auf unser schwächstes Glied nehmen.",
     "kind": "say",
@@ -4448,7 +4448,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 263,
+    "line": 284,
     "expression_sha256": "20f81e90e679fa9abee330ecdd210f469b4d4e352954f3100be7c7b1683f4b0d",
     "text": "Er schnauft wie ein Blasebalg. Und sein Gesicht glänzt.",
     "kind": "think",
@@ -4463,7 +4463,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 264,
+    "line": 285,
     "expression_sha256": "dde11eb1ffadfbcf369779ec06f6af1400652b75810226b4b76923aaadd1bed2",
     "text": "„Ja. Ich brauche wirklich eine Pause.“",
     "kind": "choice",
@@ -4478,7 +4478,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 264,
+    "line": 285,
     "expression_sha256": "dde11eb1ffadfbcf369779ec06f6af1400652b75810226b4b76923aaadd1bed2",
     "text": "„Also wegen mir müssen wir nicht …“",
     "kind": "choice",
@@ -4493,7 +4493,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 264,
+    "line": 285,
     "expression_sha256": "dde11eb1ffadfbcf369779ec06f6af1400652b75810226b4b76923aaadd1bed2",
     "text": "„Ich glaube eher, Azar braucht eine Pause.“",
     "kind": "choice",
@@ -4508,7 +4508,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 271,
+    "line": 292,
     "expression_sha256": "b944a9bf1db16dd8fbcbd6e3ac71a633664e15d4332a2a8325e041b4babab039",
     "text": "Ja. Ich wäre über eine Pause wirklich dankbar.",
     "kind": "say",
@@ -4521,7 +4521,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 273,
+    "line": 294,
     "expression_sha256": "c03ab28573ef2f71caee800e183bbc57f973c16f56112ce1ebdb17f0bde865a1",
     "text": "Also wegen mir müssen wir nicht …",
     "kind": "say",
@@ -4534,7 +4534,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 275,
+    "line": 296,
     "expression_sha256": "13e49da6438b64f098a253b864a048f403567f8a84fcf56fd359a693ca0174b4",
     "text": "Er sieht mich an wie ein Hund, dem man den Knochen wegnimmt.",
     "kind": "think",
@@ -4549,7 +4549,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 276,
+    "line": 297,
     "expression_sha256": "74ce5761722b7c59d0a13afdecaad8896fe2eacc2a0e38e7bb7c365fc5394917",
     "text": "„… Doch. Eine Pause wäre schön.“",
     "kind": "choice",
@@ -4564,7 +4564,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 276,
+    "line": 297,
     "expression_sha256": "74ce5761722b7c59d0a13afdecaad8896fe2eacc2a0e38e7bb7c365fc5394917",
     "text": "„… wirklich nicht anhalten.“",
     "kind": "choice",
@@ -4579,7 +4579,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 279,
+    "line": 300,
     "expression_sha256": "d44bc0c15175521b9603a26e72868056a1880a0a1e3a0a4263830153dd194129",
     "text": "Ich meine: doch. Eine Pause wäre schön.",
     "kind": "say",
@@ -4592,7 +4592,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 281,
+    "line": 302,
     "expression_sha256": "47bca954441edd2d9c969d06afcb1f32f1d6ccdb03f393b17ab218512622550c",
     "text": "Ugh. Dann … dann laufe ich eben … bis ich umfalle.",
     "kind": "say",
@@ -4605,7 +4605,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 282,
+    "line": 303,
     "expression_sha256": "825deaa23dc2c5286d05abc10552f72e12b7e76cc5dd55bc1ad9416fce143733",
     "text": "Gut, kurze Rast. Bevor er mir wirklich umfällt.",
     "kind": "say",
@@ -4618,7 +4618,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 287,
+    "line": 308,
     "expression_sha256": "e97e21c46a82931ee403249a09f1cd4eaedef946fde6c252de3febc36714a00c",
     "text": "Unerhört! Ich habe eine ausgezeichnete Kondition!",
     "kind": "say",
@@ -4631,7 +4631,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 289,
+    "line": 310,
     "expression_sha256": "05d300d6483101a5d5303ab8e7d439c4ec87ded9527c7bb9a6924eee5963a4c4",
     "text": "Ha! Gut beobachtet. Na schön, kurze Rast. Für den Mann mit der ausgezeichneten Kondition.",
     "kind": "say",
@@ -4644,7 +4644,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 291,
+    "line": 312,
     "expression_sha256": "24d8e8319326b2ca83ca66f64b1322927b213580ae0de66811ca2ef69a8e519d",
     "text": "Wenn ihr meint. Dann setzt euch kurz. Ich schlage mich mal in die Büsche.",
     "kind": "say",
@@ -4657,7 +4657,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 292,
+    "line": 313,
     "expression_sha256": "6236241e9442d43c1c7d4b9614b4bbc970886a23714a7e8db025843481307c79",
     "text": "Ich schlage mich so lange in die Büsche.",
     "kind": "say",
@@ -4670,7 +4670,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 318,
+    "line": 339,
     "expression_sha256": "6c071f44a4c6c6f62f2a35e05f309f3c992dcd83a7d331bac541a7cb7f48fe0e",
     "text": "Ein Schluck aus dem Wasserschlauch. Kühl. Endlich.",
     "kind": "think",
@@ -4685,7 +4685,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 320,
+    "line": 341,
     "expression_sha256": "26dff1182dc055558d0344113ddd7f183287240afe47e80e4f4941b5b11c36d6",
     "text": "Danke. Sonst würden wir jetzt immer noch quer durch den Wald hetzen.",
     "kind": "say",
@@ -4698,7 +4698,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 321,
+    "line": 342,
     "expression_sha256": "8e014ef9c37cc1f8b84de76e04334b66251db6a0a137be7c2b497640718a5f28",
     "text": "Was ist eigentlich dein Name, Kleine? Ich möchte wenigstens wissen, bei wem ich mich bedanke.",
     "kind": "say",
@@ -4711,7 +4711,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 323,
+    "line": 344,
     "expression_sha256": "9c695e257ad08872736a81490382425b1ead676e56957d335189e29ae7c942bc",
     "text": "Ausgezeichnete Kondition, hab ich gesagt. Hmpf.",
     "kind": "say",
@@ -4724,7 +4724,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 324,
+    "line": 345,
     "expression_sha256": "2fbc24b5a74505b15b1cccdd744984b4a8044417e8b6a4a4a1590b6bddae6ebe",
     "text": "Wie heißt du eigentlich, Kleine? Ich möchte wissen, über wen ich mich ärgere.",
     "kind": "say",
@@ -4737,7 +4737,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 326,
+    "line": 347,
     "expression_sha256": "503d53e1cfbbbdbafc17ee8ffe7b0feae79d37b41815e9900d29214db0f45fde",
     "text": "Puh. Was ist eigentlich dein Name, Kleine? Wir reden seit gestern, und ich weiß ihn nicht.",
     "kind": "say",
@@ -4750,7 +4750,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 329,
+    "line": 350,
     "expression_sha256": "48d2c2f331b428ab1a5a2d183937e54676c24c1993b1052346c75de6f5958cda",
     "text": "Lia.",
     "kind": "say",
@@ -4763,7 +4763,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 331,
+    "line": 352,
     "expression_sha256": "026dcd246b335b009860b8320095ee071daffdc0835c242d3c4a5f8e6d8f0627",
     "text": "Lia. Schöner Name. Du redest nicht gern, hab ich recht? Nicht mal beim Frühstück. Und das war köstlich.",
     "kind": "say",
@@ -4776,7 +4776,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 332,
+    "line": 353,
     "expression_sha256": "6e8c3567dd8aa7c728aa9dec86da5fe61b6ef40bb89690e3e0be3f9f9d5507c9",
     "text": "Ich war nie besonders zurückhaltend, weißt du?",
     "kind": "say",
@@ -4789,7 +4789,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 337,
+    "line": 358,
     "expression_sha256": "044de55937eb2f4506bf7349dadb2cdfb380f420cf22308c5f7668db809392dd",
     "text": "Das hat sie gestern Abend schon gemerkt, glaub mir.",
     "kind": "say",
@@ -4802,7 +4802,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 338,
+    "line": 359,
     "expression_sha256": "dbd0e54152916342fc0fa593fd4c0c6ac994119fb2d702d5e0a0e97b53cd7c85",
     "text": "Lass sie. Das Schicksal hat sie schwer erwischt. Sie muss das erst einmal verarbeiten.",
     "kind": "say",
@@ -4815,7 +4815,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 339,
+    "line": 360,
     "expression_sha256": "f97c464fed9bdaf8e8b7ccbf17662f02378119fe24e5303ffb3373768b8fe627",
     "text": "Immerhin hat sie mir ihren Namen verraten. Sie heißt Lia.",
     "kind": "say",
@@ -4828,7 +4828,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 340,
+    "line": 361,
     "expression_sha256": "8aaf6a2e87fb66d86ddefb90aaf7b05970d290bd2d6ef81a348dcb815c42628c",
     "text": "Schön. Dann wissen wir wenigstens, wen wir ins Lager befördern.",
     "kind": "say",
@@ -4841,7 +4841,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 341,
+    "line": 362,
     "expression_sha256": "e87b554ceec80932d7b8fbd91193348b5bdf9d31dafcf5818af9b26d76989de9",
     "text": "Was ist das für ein Lager, in das ich gebracht werden soll?",
     "kind": "say",
@@ -4854,7 +4854,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 342,
+    "line": 363,
     "expression_sha256": "9ca9ce717a601fdefe0c02749a4f42e035f751a0f6833fed0981c2c4c4471b0b",
     "text": "Ein ganzer Satz! Nicht schlecht.",
     "kind": "say",
@@ -4867,7 +4867,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 343,
+    "line": 364,
     "expression_sha256": "f6919841562567b4d44730b2a632ba2a95b169f15c689d98237ee89d2e4d9224",
     "text": "Wir beide gehören zu einer Gruppe, die Dunkelschatten jagt. Unser Hauptlager liegt etwa einen Tagesmarsch entfernt.",
     "kind": "say",
@@ -4880,7 +4880,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 344,
+    "line": 365,
     "expression_sha256": "c23e777149d00109689253511af1b7ade090b0cf1c8aed7da8188051e4387f9b",
     "text": "Dort beraten wir über deinen Fall. Vielleicht hat ein anderer Spähtrupp die Entführer deiner Schwester gesehen.",
     "kind": "say",
@@ -4893,7 +4893,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 345,
+    "line": 366,
     "expression_sha256": "b42702d5fe60c7514beddc386f7cf46e92117a418d1cae7ddb8d61d8c68c4156",
     "text": "Mach dir aber keine großen Hoffnungen. Die Dunkelschatten schrecken auch vor einem Mädchen nicht zurück.",
     "kind": "say",
@@ -4906,7 +4906,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 346,
+    "line": 367,
     "expression_sha256": "5db0a0a251e0612994941b47173412f89b84955c191d4dc02c75e774875c65a9",
     "text": "Gerade sagst du, sie muss das alles erst verarbeiten, und jetzt sowas!",
     "kind": "say",
@@ -4919,7 +4919,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 347,
+    "line": 368,
     "expression_sha256": "3fa6ae4218d40cd9d3802568354cdf82bd6e71b4716bca71976b6fdbcbfacca7",
     "text": "Ich will ihr nichts vormachen. Ich bin nur ehrlich.",
     "kind": "say",
@@ -4932,7 +4932,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 348,
+    "line": 369,
     "expression_sha256": "756b381881b3b402fe94fcbf14bcc3af7b9f092e7128bc512107c26d47c14d91",
     "text": "„Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?“",
     "kind": "choice",
@@ -4947,7 +4947,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 348,
+    "line": 369,
     "expression_sha256": "756b381881b3b402fe94fcbf14bcc3af7b9f092e7128bc512107c26d47c14d91",
     "text": "„Ich sitze übrigens direkt neben euch. Mit Ohren.“",
     "kind": "choice",
@@ -4962,7 +4962,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 352,
+    "line": 373,
     "expression_sha256": "713b56a87ae2edebd2eba8df802a889c951c3379d75b1c85fed86625ed5a7469",
     "text": "Könnt ihr bitte aufhören, so über mich zu reden, wenn ich neben euch sitze?",
     "kind": "say",
@@ -4975,7 +4975,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 353,
+    "line": 374,
     "expression_sha256": "71b2fc06d35678de86d9430c2cb7ea276bf6282c1cbf195edd8c9177f7814d80",
     "text": "Ich sitze übrigens direkt neben euch. Mit Ohren. Zwei Stück.",
     "kind": "say",
@@ -4988,7 +4988,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 355,
+    "line": 376,
     "expression_sha256": "d3eb4aa4a36db31e0614b815c23d93cb60d2dc5fc43ef599d265981fada8aeb4",
     "text": "Als ob es noch schlimmer werden könnte. Ich habe schon alles verloren.",
     "kind": "say",
@@ -5001,7 +5001,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 356,
+    "line": 377,
     "expression_sha256": "07761d78d1c8858dec2f2402db7b712d4f6f19006382cd8826c94f0892678e30",
     "text": "Es kann nur besser werden. Indem ich meine Schwester zurückbekomme.",
     "kind": "say",
@@ -5014,7 +5014,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 357,
+    "line": 378,
     "expression_sha256": "08401a511f8b7a29ebe82e2e83d5422e57c8349e9013eec999c4a36db82eb1b5",
     "text": "Interessante Form von Optimismus.",
     "kind": "say",
@@ -5027,7 +5027,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 358,
+    "line": 379,
     "expression_sha256": "dc3f38254bdba9fdccee9ba947d5a1d8e0a3df54a36b31b6cc8c318a4092a500",
     "text": "Wir werden sehen, was sich machen lässt. Reden können wir heute Abend am Feuer. Los.",
     "kind": "say",
@@ -5040,7 +5040,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 359,
+    "line": 380,
     "expression_sha256": "658715eb1b25ea4db348ae07127579df5cd2aa980cfde063ecf33cc6619fe9dc",
     "text": "Man soll aufhören, wenn’s am schönsten ist …",
     "kind": "say",
@@ -5053,7 +5053,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 373,
+    "line": 395,
     "expression_sha256": "9482d1d970249fff1ce6ddf07339eff77535153beafccd6f289c15b833779aa6",
     "text": "Ein Kraut mit feinen Blättern und winzigen weißen Blüten. Mutter hätte gewusst, wofür es gut ist.",
     "kind": "think",
@@ -5068,7 +5068,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 377,
+    "line": 399,
     "expression_sha256": "6e801e8b05d3cd004a33a75c1684e7cc72558696e8b72a2b15c6b1ba36388b0e",
     "text": "Feine, gefiederte Blätter, kleine weiße Dolden … Speikraut! Mutters Lexikon hat eine ganze Seite darüber.",
     "kind": "think",
@@ -5083,7 +5083,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 378,
+    "line": 400,
     "expression_sha256": "da7a5b6b5e434421aeaffe9293579633f9f96a89dfd58ca707a1180b1d361797",
     "text": "Zerrieben kühlt es Entzündungen. Mutter hat daneben geschrieben: „Hilft auch gegen Blasen.“",
     "kind": "think",
@@ -5098,7 +5098,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 382,
+    "line": 404,
     "expression_sha256": "cd4af044cc1b319e77e02362bb36e0eb496f33e47689a06434355f3b71067ded",
     "text": "Auf die eigene Ferse legen.",
     "kind": "choice",
@@ -5114,7 +5114,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 382,
+    "line": 404,
     "expression_sha256": "cd4af044cc1b319e77e02362bb36e0eb496f33e47689a06434355f3b71067ded",
     "text": "Azar für seine Füße geben.",
     "kind": "choice",
@@ -5130,7 +5130,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 382,
+    "line": 404,
     "expression_sha256": "cd4af044cc1b319e77e02362bb36e0eb496f33e47689a06434355f3b71067ded",
     "text": "Für später aufheben.",
     "kind": "choice",
@@ -5146,7 +5146,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 391,
+    "line": 413,
     "expression_sha256": "1e56df81f0aee57b793a3a9ce1f11294e8767a1a2c981949f5be88e83514217e",
     "text": "Kühl. Das Brennen lässt nach. Danke, Mutter.",
     "kind": "think",
@@ -5161,7 +5161,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 396,
+    "line": 418,
     "expression_sha256": "c01655cca8da1b12c3f8d6f1df9ed27c8f1dda00104ec40de7db2820f52238da",
     "text": "Für meine Füße? Woher weißt du so etwas, Lia? Bist du ein Kräuterweiblein?",
     "kind": "say",
@@ -5174,7 +5174,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 397,
+    "line": 419,
     "expression_sha256": "c7e2845eb2aed034931c19cd2b8598017f035b29f1b55ba9e7d042a794656a89",
     "text": "Meine Mutter kannte jede Pflanze. Ich habe … gut aufgepasst.",
     "kind": "say",
@@ -5187,7 +5187,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 398,
+    "line": 420,
     "expression_sha256": "31d106f55cf112034ba62194424314442eb74566eb836bb0f6b2be1214d13604",
     "text": "Ahhh … himmlisch. Foltan, sie bleibt. Ich bestehe darauf.",
     "kind": "say",
@@ -5200,7 +5200,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 400,
+    "line": 422,
     "expression_sha256": "17e0b8a9101404d21f144422d694acdfb21ee2e77a9bc680faa9e8022d88c20c",
     "text": "Ich nehme es mit. Wer weiß, wann ich es brauche.",
     "kind": "think",
@@ -5215,7 +5215,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 406,
+    "line": 428,
     "expression_sha256": "5d3d62d4cb604d574476b5ab0dc925a6b7b9db29c11e19451e428856255438de",
     "text": "Erst rasten wir. Azar fällt sonst um.",
     "kind": "bark",
@@ -5228,7 +5228,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 415,
+    "line": 437,
     "expression_sha256": "018042dda00bd1f5635c7044b14fd401d49339a8435149172751ed58941e70e1",
     "text": "Sie liefen, bis die Schatten lang wurden. Foltan vorneweg, Lia in der Mitte, Azar schnaufend hinterher.",
     "kind": "narrate",
@@ -5241,7 +5241,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-2/waldweg.ts",
-    "line": 415,
+    "line": 437,
     "expression_sha256": "018042dda00bd1f5635c7044b14fd401d49339a8435149172751ed58941e70e1",
     "text": "Am Abend lichtete sich der Wald. An der Straße lag eine Schenke mit einem goldenen Eber über der Tür.",
     "kind": "narrate",
@@ -5251,5 +5251,125 @@
     "intensity": 2,
     "context_de": "Am Morgen wächst vorsichtig Vertrauen. Azars Essen und Beschwerden lockern den Marsch; Lia beobachtet Zeichen und hält an Kyras Rettung fest. Situation: toBoar.",
     "classification": "spoken"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 156,
+    "expression_sha256": "05df0ab22d389d917dcba4afb41320144708638ee44bb02d9295ebb7c6d193ab",
+    "text": "Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.",
+    "kind": "say",
+    "runtime_speaker": "foltan",
+    "direction_en": "Give a calm, protective plan before the fight. State your own task firmly, direct Lia to Azar, then invite help without pressuring her.",
+    "emotion_de": "schützend, bestimmt",
+    "intensity": 2,
+    "context_de": "Foltan übernimmt vor dem Waldweg-Kampf die Räuber und gibt Lia eine klare, schützende Aufgabe bei Azar. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 149,
+    "expression_sha256": "dd050f11c4c07b68b9e97b6dbd3c8a1aa76b581ad0813ad96b836785481a3b8b",
+    "text": "Gehen wir ihnen aus dem Weg.",
+    "kind": "choice",
+    "runtime_speaker": "lia",
+    "direction_en": "Suggest avoiding the strangers quietly and decisively. Keep the reply brief, cautious and practical, without sounding ashamed.",
+    "emotion_de": "vorsichtig",
+    "intensity": 2,
+    "context_de": "Lia entscheidet sich für das Umgehen der Wegelagerer am Bach. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 153,
+    "expression_sha256": "2d34af9338c9f554559884924401fa2416eea79bb8a5708ac5a1952d0081333b",
+    "text": "Vernünftig. Die Suche nach deiner Schwester geht vor.",
+    "kind": "say",
+    "runtime_speaker": "foltan",
+    "direction_en": "Approve the cautious choice with calm certainty. Put gentle weight on the search for the sister; keep the response practical and reassuring.",
+    "emotion_de": "zustimmend, fürsorglich",
+    "intensity": 2,
+    "context_de": "Foltan bestätigt Lias Umgehen der Wegelagerer und erinnert an den Vorrang von Kyras Suche. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 159,
+    "expression_sha256": "556b2dc42489a2fa493154127b4749974ec869183651faef21a2ba401a1bb58c",
+    "text": "Meine Hände zittern noch. Aber wir sind durchgekommen.",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "direction_en": "Think inwardly after the fight. Let the first phrase carry lingering fear, then allow quiet relief at having made it through together.",
+    "emotion_de": "erschöpft, erleichtert",
+    "intensity": 2,
+    "context_de": "Lia denkt nach dem gewonnenen Waldweg-Kampf über ihr anhaltendes Zittern und das gemeinsame Durchkommen nach. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 160,
+    "expression_sha256": "bb408dbe06ac3be0af1285c8c7b7d2968b267aec143b05917bf4b22b26ea8a2d",
+    "text": "Für heute reicht mir das. Beim nächsten Bach wünsche ich mir wieder Eichhörnchen.",
+    "kind": "say",
+    "runtime_speaker": "azar",
+    "direction_en": "Speak with weary relief after the fight. Let the wish for squirrels land as a dry complaint to the companions, keeping the tired warmth.",
+    "emotion_de": "erschöpft, trocken humorvoll",
+    "intensity": 2,
+    "context_de": "Azar kommentiert nach dem gewonnenen Waldweg-Kampf erschöpft, dass er wieder die harmlosen Eichhörnchen vorziehen würde. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 148,
+    "expression_sha256": "bd11a5bee9fc7f100d1f1c5c9d645008b016a0724071c7ac3d476af823d7a514",
+    "text": "Zwei Wegelagerer am anderen Ufer. Sie tragen zusammengeklaubte Rüstung. Wir können sie vertreiben oder den Bach weiter unten queren.",
+    "kind": "say",
+    "runtime_speaker": "foltan",
+    "direction_en": "Assess the two raiders with steady practical authority. Describe what you see, then offer both routes evenly so Lia can choose.",
+    "emotion_de": "wachsam, abwägend",
+    "intensity": 2,
+    "context_de": "Foltan beschreibt die zwei Wegelagerer und ihre Rüstung, bevor er Lia Kampf oder Umgehen zur Wahl stellt. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 390,
+    "expression_sha256": "cc0c136eaa55012a8522f212c3ee4bb464f796b8c810525536b7a1363bd5edcb",
+    "text": "Am Bach stehen Fremde. Sieh dir den Weg an, bevor wir hinübergehen.",
+    "kind": "bark",
+    "runtime_speaker": "foltan",
+    "direction_en": "Give a low, alert warning about the strangers. Keep practical authority and a brief pause before asking Lia to inspect the crossing.",
+    "emotion_de": "wachsam",
+    "intensity": 2,
+    "context_de": "Foltan weist nach der Rast auf die Fremden am Bach hin und mahnt vor dem Überqueren zur Prüfung. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-2/waldweg.ts",
+    "line": 149,
+    "expression_sha256": "dd050f11c4c07b68b9e97b6dbd3c8a1aa76b581ad0813ad96b836785481a3b8b",
+    "text": "Ich komme mit. Aber bleibt bei mir.",
+    "kind": "choice",
+    "runtime_speaker": "lia",
+    "direction_en": "Agree despite fear, then ask the companions to stay close. Keep the courage tentative and the second sentence an earnest request.",
+    "emotion_de": "ängstlich, entschlossen",
+    "intensity": 2,
+    "context_de": "Lia wählt die Begegnung mit den Wegelagerern und bittet darum, bei den Gefährten bleiben zu können. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
   }
 ]

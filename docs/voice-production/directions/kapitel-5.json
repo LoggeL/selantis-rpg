@@ -3553,7 +3553,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 115,
+    "line": 117,
     "expression_sha256": "818f6fd988b5ec2ae3752b858714ebd5bf5c9c56501a7e07ff1ece6ee1acdbcf",
     "text": "Lia ist keine Kämpferin. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.",
     "kind": "hint",
@@ -3567,7 +3567,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 116,
+    "line": 118,
     "expression_sha256": "663faa6e800a7e05356724ab6463ab0beccd6931cd2f63973516a1cfb8a1d586",
     "text": "Wer neben Kyra steht, kann die <em>Fesseln schneiden</em>. Zwei Schnitte sind nötig. Mit Vaters Dolch kann auch Lia schneiden, so geht es doppelt so schnell.",
     "kind": "hint",
@@ -3581,7 +3581,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 116,
+    "line": 118,
     "expression_sha256": "663faa6e800a7e05356724ab6463ab0beccd6931cd2f63973516a1cfb8a1d586",
     "text": "Flick steht neben Kyra und kann die <em>Fesseln schneiden</em>. Das nasse Seil braucht zwei Schnitte, einen pro Runde.",
     "kind": "hint",
@@ -3595,7 +3595,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 121,
+    "line": 123,
     "expression_sha256": "a13f2ff620b08de428a78b3c979a8a2b90d8df3121a27ae7b44338096bbbf134",
     "text": "Was … was war das?",
     "kind": "bark",
@@ -3608,7 +3608,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 138,
+    "line": 140,
     "expression_sha256": "8008a07c7b93029f6e5e0fb351656ae41a73fa95311feb4e0faac5c2aa8c1e9d",
     "text": "Ein Strang durch!",
     "kind": "bark",
@@ -3622,7 +3622,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 138,
+    "line": 140,
     "expression_sha256": "8008a07c7b93029f6e5e0fb351656ae41a73fa95311feb4e0faac5c2aa8c1e9d",
     "text": "Einer durch. Noch einer!",
     "kind": "bark",
@@ -3636,7 +3636,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 138,
+    "line": 140,
     "expression_sha256": "8008a07c7b93029f6e5e0fb351656ae41a73fa95311feb4e0faac5c2aa8c1e9d",
     "text": "info.unit.id === 'lia' ? 'Ein Strang durch!' : 'Einer durch. Noch einer!'",
     "kind": "bark",
@@ -3650,7 +3650,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 145,
+    "line": 147,
     "expression_sha256": "09e68bc18b1ef893e3a396b4fff891520ba48c431eabd706aa264f14261992f4",
     "text": "Mmmpf! … Lia?! Was machst du denn hier?",
     "kind": "say",
@@ -3663,7 +3663,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 145,
+    "line": 147,
     "expression_sha256": "09e68bc18b1ef893e3a396b4fff891520ba48c431eabd706aa264f14261992f4",
     "text": "Mmmpf! … Wer bist du denn?",
     "kind": "say",
@@ -3676,7 +3676,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 145,
+    "line": 147,
     "expression_sha256": "09e68bc18b1ef893e3a396b4fff891520ba48c431eabd706aa264f14261992f4",
     "text": "by.id === 'lia' ? 'Mmmpf! … Lia?! Was machst du denn hier?' : 'Mmmpf! … Wer bist du denn?'",
     "kind": "say",
@@ -3690,7 +3690,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 146,
+    "line": 148,
     "expression_sha256": "b3e62ac4ac4dcd38e58ff57f966035e99853e169a2c22a6eead74970b905a44f",
     "text": "Dich retten! Lauf zum Waldrand!",
     "kind": "say",
@@ -3703,7 +3703,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 147,
+    "line": 149,
     "expression_sha256": "a42b3d35936275f5384b102d0d33f8f9d4f4138cabf3f5c3a81dd2c1197ba90f",
     "text": "Eine Freundin deiner Schwester. Lauf zum Waldrand!",
     "kind": "say",
@@ -3716,7 +3716,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 149,
+    "line": 151,
     "expression_sha256": "e5de105a4691a39fa587eb21b0c77a89f2cb2c323c85339b1d848605221c50de",
     "text": "Die Gefangene! Lasst sie nicht entkommen! Und krümmt ihr kein Haar!",
     "kind": "bark",
@@ -3729,7 +3729,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 152,
+    "line": 154,
     "expression_sha256": "0a9d5b230c811b68ce615bea21164822eaef4a226bd84773e9d5795c711811a5",
     "text": "Die Wachen dürfen Kyra nichts tun, aber „Mädchen“ stellt sich ihr in den Weg. Ein <em>Stein</em> oder Kyras <em>Schubsen</em> stößt ihn beiseite.",
     "kind": "hint",
@@ -3743,7 +3743,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 163,
+    "line": 165,
     "expression_sha256": "472ff325ce2ee8634d39ad77a80c671a483cba0f15ee266c93746fbe11b76fd3",
     "text": "Uff … ich bleib … liegen …",
     "kind": "bark",
@@ -3757,7 +3757,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 163,
+    "line": 165,
     "expression_sha256": "472ff325ce2ee8634d39ad77a80c671a483cba0f15ee266c93746fbe11b76fd3",
     "text": "Uff … ich bleib … liegen …",
     "kind": "bark",
@@ -3771,7 +3771,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 163,
+    "line": 165,
     "expression_sha256": "472ff325ce2ee8634d39ad77a80c671a483cba0f15ee266c93746fbe11b76fd3",
     "text": "Uff … ich bleib … liegen …",
     "kind": "bark",
@@ -3785,7 +3785,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 163,
+    "line": 165,
     "expression_sha256": "472ff325ce2ee8634d39ad77a80c671a483cba0f15ee266c93746fbe11b76fd3",
     "text": "'Uff … ich bleib … liegen …'",
     "kind": "bark",
@@ -3799,7 +3799,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 166,
+    "line": 168,
     "expression_sha256": "4932628c587448945bb1204b798e120382fc430ce69becf6720fc2c82da8d0f6",
     "text": "Normalerweise lese ich so was nur …",
     "kind": "bark",
@@ -3812,7 +3812,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 167,
+    "line": 169,
     "expression_sha256": "ccabb5fac93940b8a36d3a1b313d0b00b5562ef2b8502bce8bd31b524190e65e",
     "text": "Das wird knapp …",
     "kind": "bark",
@@ -3825,7 +3825,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 175,
+    "line": 177,
     "expression_sha256": "7e60da2ef42ca388051208472ba98f37df887aca03376d30fe765981671c011e",
     "text": "Los, raus mit der Sprache!",
     "kind": "say",
@@ -3838,7 +3838,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 177,
+    "line": 179,
     "expression_sha256": "e52c544767d8cecbe52214e8332349b5365f71d8b1a41b47580ad90ed179a1ad",
     "text": "Ein Strang ist schon durch! Halt sie noch einen Moment hin, Lia!",
     "kind": "say",
@@ -3851,7 +3851,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 178,
+    "line": 180,
     "expression_sha256": "bde91a0114037986783cfed030ed1e52b8c043ab1c533ce2d9f2c2258862575f",
     "text": "Jetzt, Lia! Lenk sie ab!",
     "kind": "say",
@@ -3864,7 +3864,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 182,
+    "line": 184,
     "expression_sha256": "39cf3f9636d214ea830647c696aeee0022b0fa957fcf60c45a363de01e0e0e6b",
     "text": "Die Wachen starren noch verdutzt auf Lia. Einen Augenblick lang hast du die Überraschung auf deiner Seite.",
     "kind": "say",
@@ -3877,7 +3877,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 184,
+    "line": 186,
     "expression_sha256": "b29cc668b64053c0f40b740f200816161e0ee08723b761183eb7bb0417549214",
     "text": "Ein Hinterhalt! Ich wusste es!",
     "kind": "say",
@@ -3890,7 +3890,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 198,
+    "line": 200,
     "expression_sha256": "a602bf0bcd1412b294fc5f68facca1ae570ce22a54d19233f0eaeb5f5cf2d1ec",
     "text": "Was ist hier los?! Ihr Narren lasst euch von zwei Mädchen vorführen?",
     "kind": "say",
@@ -3903,7 +3903,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 199,
+    "line": 201,
     "expression_sha256": "cc6dc74c0d17c67f38998e512ffa91597fac5f3541be13f08139f65c15c57e7e",
     "text": "Die Kleine vom Feuer. Ich wusste, dass mit der etwas faul ist.",
     "kind": "say",
@@ -3916,7 +3916,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 200,
+    "line": 202,
     "expression_sha256": "8509b0ee8beb90b8925387a87712ab9450f58a6f0391c21b95b4b32a522492c2",
     "text": "Die Gefangene bleibt hier. Und die Spitzohrige … die gehört mir.",
     "kind": "say",
@@ -3929,7 +3929,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 227,
+    "line": 236,
     "expression_sha256": "e73dde85211a6764ba0f724773d58c1ac66063fe2bb337a96f8f614330b87af1",
     "text": "Jetzt ist’s aus, Spitzohr!",
     "kind": "say",
@@ -3942,7 +3942,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 230,
+    "line": 239,
     "expression_sha256": "45302845308f3b137e788fd79344363099260778bf52f251d15d813b1e60285c",
     "text": "FLICK!",
     "kind": "say",
@@ -3955,7 +3955,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 235,
+    "line": 243,
     "expression_sha256": "7304e417615103f8d1b4b2831086807ea0c8b69ea4cf487dde6731c35e4e0ae5",
     "text": "Lias Augen leuchten blau. Ein ~türkises Licht~ bricht aus ihr hervor, eine Welle, die das Gras flach drückt und die Blätter von der Eiche reißt.",
     "kind": "say",
@@ -3968,7 +3968,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 236,
+    "line": 244,
     "expression_sha256": "30fb599d90ab7fabb5b7204517b0a3b6de354b597b27818b3dd519a3f274c19f",
     "text": "Baris wird davongeschleudert wie ein Kind. Seine Axt wirbelt in die Dunkelheit.",
     "kind": "say",
@@ -3981,7 +3981,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 246,
+    "line": 254,
     "expression_sha256": "be6f4cfa9a934513f8b008c097f47e57e49f31a79b5f3be0f5280ba0a38a5f12",
     "text": "Zurück! Zurück!",
     "kind": "bark",
@@ -3995,7 +3995,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 246,
+    "line": 254,
     "expression_sha256": "be6f4cfa9a934513f8b008c097f47e57e49f31a79b5f3be0f5280ba0a38a5f12",
     "text": "Hexerei!",
     "kind": "bark",
@@ -4009,7 +4009,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 246,
+    "line": 254,
     "expression_sha256": "be6f4cfa9a934513f8b008c097f47e57e49f31a79b5f3be0f5280ba0a38a5f12",
     "text": "Hexerei!",
     "kind": "bark",
@@ -4023,7 +4023,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 246,
+    "line": 254,
     "expression_sha256": "be6f4cfa9a934513f8b008c097f47e57e49f31a79b5f3be0f5280ba0a38a5f12",
     "text": "Hexerei!",
     "kind": "bark",
@@ -4037,7 +4037,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 246,
+    "line": 254,
     "expression_sha256": "be6f4cfa9a934513f8b008c097f47e57e49f31a79b5f3be0f5280ba0a38a5f12",
     "text": "id === 'orwen' ? 'Zurück! Zurück!' : 'Hexerei!'",
     "kind": "bark",
@@ -4051,7 +4051,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 251,
+    "line": 259,
     "expression_sha256": "d073d72f887192368b2384fdb910ecfe850dfd6f0a725d6d319dae8337abbb27",
     "text": "Dann wird es still. Lia spürt noch, wie ihre Knie nachgeben. Dann nichts mehr.",
     "kind": "say",
@@ -4404,7 +4404,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 172,
+    "line": 174,
     "expression_sha256": "af52e60666d116f49dd5509b57277c596e18c90c09e3faf851db0e7bb12b9278",
     "text": "Ihr Leben ist mehr wert? Mehr wert als was? Was wollen die von Kyra?",
     "kind": "thought",
@@ -4417,7 +4417,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 174,
+    "line": 176,
     "expression_sha256": "2b92bfb9bc690e92f71abf603ccfcc6a5b06152bda22866cf17701ed044fc391",
     "text": "Orwen. Wir reiten voraus und sehen uns den Weg zur Grotte an. Ihr drei haltet Wache.",
     "kind": "say",
@@ -4430,7 +4430,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 175,
+    "line": 177,
     "expression_sha256": "c5db1538cad54bee80ef31986ef38cc794d4fb782a5aa670abd87cf32780b2bd",
     "text": "Wie Ihr befehlt, Hauptmann.",
     "kind": "say",
@@ -4443,7 +4443,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 199,
+    "line": 201,
     "expression_sha256": "fbc436f07beed685d7a5d9c3f90018c7d0119ab5284637259ff3ad5c05c60de0",
     "text": "Und?",
     "kind": "say",
@@ -4456,7 +4456,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 200,
+    "line": 202,
     "expression_sha256": "6142bbee1f602bc57e08eacc59c9d964274095a3f32d160d3c48f55982230f82",
     "text": "Sie haben Kyra an den Baum gefesselt. Der Hauptmann sagt, ihr Leben sei mehr wert als das seiner Männer.",
     "kind": "say",
@@ -4469,7 +4469,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 201,
+    "line": 203,
     "expression_sha256": "161fe2a552f635e35bfbcff5a58095f661cd1e7bee761a864acae3befbc46c93",
     "text": "Mehr wert? Seltsam. Wozu brauchen die ein Bauernmädchen so dringend?",
     "kind": "say",
@@ -4482,7 +4482,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 202,
+    "line": 204,
     "expression_sha256": "97139ace3036e318cdaf103c612d44acad3df05508b57edf7ad10c67b16bd283",
     "text": "Ich weiß es nicht.",
     "kind": "say",
@@ -4495,7 +4495,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 203,
+    "line": 205,
     "expression_sha256": "b8f7520da233be7216ae8cf2d2da2fbbc6755bd289abaf1eb0dba0a6399b603e",
     "text": "Der Hauptmann und der Grauhaarige sind weg. Nur noch drei Wachen. Besser wird es nicht.",
     "kind": "say",
@@ -4508,7 +4508,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 204,
+    "line": 206,
     "expression_sha256": "e87160b9029004bb30743fd88022f2ef5cbcbdf673d7704b078b882468d81e8a",
     "text": "Okay. Allein schaff ich das nicht. Du musst mir helfen.",
     "kind": "say",
@@ -4521,7 +4521,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 205,
+    "line": 207,
     "expression_sha256": "eb8fd66c18777766be9e5e06acdb7c4fbc0272e22cabe7080fd2bebf851444a4",
     "text": "Wir müssen deine Schwester befreien. Dann haben sie wenigstens nichts gegen uns in der Hand.",
     "kind": "say",
@@ -4534,7 +4534,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 206,
+    "line": 208,
     "expression_sha256": "bc7b486760ec712804eff730b1b7e58707a79a4248228c6f1e8ee7911da98227",
     "text": "Ich schleiche mich zum Baum und schneide sie los. Du lenkst die Wachen ab.",
     "kind": "say",
@@ -4547,7 +4547,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 207,
+    "line": 209,
     "expression_sha256": "b1feecd0bb1ddb1fc4b93a488beda84d54b0d169ea37cb4f9e48f0e137c48175",
     "text": "Kann es nicht bitte jemand anderes machen?",
     "kind": "say",
@@ -4560,7 +4560,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 208,
+    "line": 210,
     "expression_sha256": "76be6fcaa7973364b8107329ee14fecbe88efc4a42be2bb846e52da8a4944fb2",
     "text": "Siehst du hier noch jemanden außer uns?",
     "kind": "say",
@@ -4573,7 +4573,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 209,
+    "line": 211,
     "expression_sha256": "77e634386e3dc2ecf1c983f05ed4ffb93a39c78faa3b5a0c6b6c8c8d5f55356e",
     "text": "Nein. Aber gut, dann los.",
     "kind": "say",
@@ -4586,7 +4586,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 210,
+    "line": 212,
     "expression_sha256": "8ca7a8a086927a7ae2b74f2333c6a027325b1b20c1977d9548834e64e5fcbe80",
     "text": "Moment. Was soll ich denn bitte sagen?",
     "kind": "say",
@@ -4599,7 +4599,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 211,
+    "line": 213,
     "expression_sha256": "f2f39f41b664c4c82d14755bc09dd571c7c9a3f75c3b59365a35b1b400de4310",
     "text": "Ach, dir wird schon irgendwas einfallen.",
     "kind": "say",
@@ -4612,7 +4612,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 213,
+    "line": 215,
     "expression_sha256": "d90f8b27ac461708b44c91e480cf6a71c491befad52998c5dfe51d625990246f",
     "text": "Hast du ein Messer?",
     "kind": "say",
@@ -4625,7 +4625,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 214,
+    "line": 216,
     "expression_sha256": "0dacb41d743c014e3f4f0c00a6a830894ca04ce0417225b9c6d9c3fc6361122d",
     "text": "Vaters Dolch.",
     "kind": "say",
@@ -4638,7 +4638,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 215,
+    "line": 217,
     "expression_sha256": "711835d6cb5858454569d1b327cd97d4d48fb90539d464f9b8da9109f54ccc70",
     "text": "Gut. Wenn es eng wird: Seile schneiden, nicht Leute. Zu zweit sind die Fesseln schneller durch.",
     "kind": "say",
@@ -4651,7 +4651,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 218,
+    "line": 220,
     "expression_sha256": "af4e94a3a31e0bf15db8f8cdb466c121d1e4554ef98943053fb0c67f462766ee",
     "text": "Kein Messer? Dann muss ich die Fesseln allein durchschneiden. Das dauert. Halt sie lange genug hin.",
     "kind": "say",
@@ -4664,7 +4664,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 252,
+    "line": 254,
     "expression_sha256": "499c24058a2a918e32d2041ddbbf29cf841e0132523e000fbf66367d889a1380",
     "text": "Am nächsten Abend sahen sie den Rauch. Unter einer einsamen Eiche über den Feldern rastete der Trupp.",
     "kind": "narration",
@@ -4677,7 +4677,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 254,
+    "line": 256,
     "expression_sha256": "3a473f38c6ed495c78c8cf9fd901b815ca451de6150f34f51060e1ee2a4d5313",
     "text": "Da sind sie. Runter!",
     "kind": "say",
@@ -4690,7 +4690,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 255,
+    "line": 257,
     "expression_sha256": "4157de366cfdd443a595839a430cf6a931fe60103289878bb1aed71ad5c15ed9",
     "text": "Ich bin zu groß und zu grün für das Gras da draußen. Du bist kleiner. Sieh dir das Lager an. Ich warte hier.",
     "kind": "say",
@@ -4703,7 +4703,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 256,
+    "line": 258,
     "expression_sha256": "6b0b9840ffbb5fb7172c509e5786551af29644957b65cd1da30489a6e09441c7",
     "text": "Ich bin nicht klein.",
     "kind": "say",
@@ -4716,7 +4716,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 257,
+    "line": 259,
     "expression_sha256": "7258d8301ab5e57391ec02bcfb95eb0cacdd416bd66504b7d8c4e7958cf1d163",
     "text": "Heute schon. Und heute ist das gut so.",
     "kind": "say",
@@ -4729,7 +4729,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
-    "line": 259,
+    "line": 261,
     "expression_sha256": "6c8f147ecb6bf40391b54650cbbbb82ec86afdac3fb7168e8177548587f4104c",
     "text": "`Halte ${w.controlHint('sneak')} gedrückt, um zu schleichen. Geduckt in Büschen und hohem Gras sehen dich die Wachen nicht. Achte auf ihre Sichtkegel.`",
     "kind": "say",
@@ -4740,5 +4740,185 @@
     "context_de": "Kapitel V, schattenlager, Ablauf schattenlagerScript.",
     "classification": "ui",
     "reason": "Dynamischer Steuerungshinweis; Gerätebelegung wird zur Laufzeit eingesetzt."
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 60,
+    "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+    "text": "Lia: Die ersten gemeinsamen Schritte stehen noch bevor.",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "direction_en": "",
+    "emotion_de": "neutral",
+    "intensity": 1,
+    "context_de": "Rastplatzkarte zeigt den aktuellen Charakterfortschritt; diese statische Alternative gehört zur selben Statusanzeige.",
+    "classification": "ui",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "reason": "Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext."
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 44,
+    "expression_sha256": "06f6dd998bbe90e03fd9b16b9372314124aa3347cd411093ef564c549aa2b4a7",
+    "text": "Nicht die Welle von damals. Nur ein kleiner Stoß. Aber diesmal weiß ich, was ich tue.",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "direction_en": "Think carefully about the controlled burst of light. Pause at each comparison; let growing confidence settle into the final sentence.",
+    "emotion_de": "nachdenklich, zuversichtlich",
+    "intensity": 2,
+    "context_de": "Nach dem erlernten Lichtstoß vergleicht Lia die nun gehaltene kleine Urmacht mit der früheren Welle. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 60,
+    "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+    "text": "Kyra: Die ersten gemeinsamen Schritte stehen noch bevor.",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "direction_en": "",
+    "emotion_de": "neutral",
+    "intensity": 1,
+    "context_de": "Rastplatzkarte zeigt den aktuellen Charakterfortschritt; diese statische Alternative gehört zur selben Statusanzeige.",
+    "classification": "ui",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "reason": "Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext."
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 25,
+    "expression_sha256": "f4c24f51ff3f617f184291d1a010242b027fa2d0c741d9f4b1d45a7c154275aa",
+    "text": "Kyra ist frei. Zum ersten Mal seit Tagen kann ich weiter als bis zum nächsten Schritt denken.",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "direction_en": "Think privately with relief that Kyra is free. Let the second sentence open gently into the possibility of planning beyond immediate danger.",
+    "emotion_de": "erleichtert, hoffnungsvoll",
+    "intensity": 2,
+    "context_de": "Zu Beginn der Weiterreise denkt Lia nach Kyras Rettung erstmals wieder über mehr als den nächsten Schritt nach. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 47,
+    "expression_sha256": "f96d789fe5c1c2275069bbc001f06c7199245c4aa491f2df1bca7cdafa9008ee",
+    "text": "Du hast gleich gesehen, wo wir hinmüssen.",
+    "kind": "say",
+    "runtime_speaker": "kyra",
+    "direction_en": "Tell Lia what you noticed with warm admiration. Keep it a simple observation between sisters, pleased and direct rather than ceremonial.",
+    "emotion_de": "anerkennend, zugewandt",
+    "intensity": 2,
+    "context_de": "Nach dem ersten gewonnenen Weiterreise-Kampf erkennt Kyra Lias schnellen Blick für den richtigen Weg an. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 48,
+    "expression_sha256": "76eb97643669cdeaf47fa42acdc9e803e38d538666b2aa50c4cb7857b2fcbe5c",
+    "text": "Ich hatte immer noch Angst. Aber ich konnte dabei nachdenken.",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "direction_en": "Think privately after the encounter. Admit the fear honestly, then let measured relief and confidence enter the ability to think through it.",
+    "emotion_de": "nachdenklich, erleichtert",
+    "intensity": 2,
+    "context_de": "Lia stellt nach dem ersten Weiterreise-Kampf fest, dass sie trotz Angst überlegt handeln konnte. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 60,
+    "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+    "text": "Flick: Die ersten gemeinsamen Schritte stehen noch bevor.",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "direction_en": "",
+    "emotion_de": "neutral",
+    "intensity": 1,
+    "context_de": "Rastplatzkarte zeigt den aktuellen Charakterfortschritt; diese statische Alternative gehört zur selben Statusanzeige.",
+    "classification": "ui",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "reason": "Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext."
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 54,
+    "expression_sha256": "15d4ea014768786f2f42733958b27b9ab4db4486f90845f0d9cdc40170f812ab",
+    "text": "Wir versorgen uns vor jedem neuen Wegabschnitt. Alle kommen mit, niemand bleibt zurück.",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "direction_en": "Give the resting group a clear, caring plan. Speak the supplies sentence practically; make the promise that nobody stays behind firm and warm.",
+    "emotion_de": "fürsorglich, bestimmt",
+    "intensity": 2,
+    "context_de": "Flick erklärt an der Reiserast das gemeinsame Versorgen vor jedem Wegabschnitt und den Zusammenhalt der drei. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 24,
+    "expression_sha256": "505d9ce44ec79cdcbb05d8052c9f0190e751be0bfbcc0452586130659a9ae26f",
+    "text": "Und diesmal bin ich auch dabei. Ohne Seil.",
+    "kind": "say",
+    "runtime_speaker": "kyra",
+    "direction_en": "Join in with restored confidence and a dry little edge. Leave a short beat before Without the rope; let the written joke carry itself.",
+    "emotion_de": "befreit, trocken humorvoll",
+    "intensity": 2,
+    "context_de": "Die befreite Kyra schließt sich der Weiterreise an und kommentiert die überwundene Fesselung knapp. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 23,
+    "expression_sha256": "18d2bf4a78ba42bd46fc595fa8a55c5d03ff61d348a5b09171e26f2c12b3a8cf",
+    "text": "Wir bleiben zusammen. Wenn auf dem Weg Räuber stehen, halten wir einander den Rücken frei.",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "direction_en": "Reassure the group with warm, steady resolve. Make staying together a practical promise, then explain calmly how you will protect each other.",
+    "emotion_de": "zugewandt, entschlossen",
+    "intensity": 2,
+    "context_de": "Flick sichert Lia und Kyra beim Beginn der Weiterreise den gemeinsamen Schutz zu. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 43,
+    "expression_sha256": "946b5f3fbfd98c0daaceb01f724a022ef327900d9accfb4b3ceba9a4ffa86294",
+    "text": "Eben war wieder dieses Licht um deine Hand. Du hast es diesmal gehalten.",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "direction_en": "Notice the light with quiet wonder, then acknowledge Lia held it steady. Keep the praise attentive and specific, with no grand proclamation.",
+    "emotion_de": "aufmerksam, anerkennend",
+    "intensity": 2,
+    "context_de": "Flick beobachtet nach dem ersten gehaltenen Lichtstoß Lias konkrete Kontrolle über das Licht. Entwurf für spätere Aufnahme, keine Hör- oder Schauspielabnahme.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 58,
+    "expression_sha256": "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
+    "text": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "direction_en": "",
+    "emotion_de": "neutral",
+    "intensity": 1,
+    "context_de": "Dynamische Rastplatzkarte mit tatsächlichem Charakterlevel und EXP; die vollständige AST-Templateexpression ist gebunden.",
+    "classification": "ui",
+    "reason": "Sourcegebundene Charakterfortschrittskarte, numerische Laufzeitstatusanzeige.",
+    "review_status": "draft_current_source_annotation_requires_Root_review"
   }
 ]

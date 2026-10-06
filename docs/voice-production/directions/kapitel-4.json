@@ -2271,7 +2271,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 306,
+    "line": 313,
     "expression_sha256": "acab2808543df65ec997721beee3d33072ee199d93271511195f6e3b8db4286d",
     "text": "Ha! Siehst du die Funken? Hoffnung kann Stürme beschwören.",
     "kind": "dialogue",
@@ -2284,7 +2284,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 307,
+    "line": 314,
     "expression_sha256": "96a417c7d9d56b836a833363b92630bb882c07a855d47a48ccdc542a44858a7c",
     "text": "Wer ist dieser Elnon?",
     "kind": "dialogue",
@@ -2297,7 +2297,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 308,
+    "line": 315,
     "expression_sha256": "c7c7c32ef0126b584378dda620cca76b51e3558b864e8de5f70fb3f65403f5b9",
     "text": "Unser Anführer. Gewählt, weil er vom Krieg am meisten versteht. Er war Hauptmann der Garde von Ebaril.",
     "kind": "dialogue",
@@ -2310,7 +2310,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 309,
+    "line": 316,
     "expression_sha256": "e24cbb84e198abbc7df202a76938506192b334c4ab88a9bf36f125e10c12feb5",
     "text": "Bevor die Dunkelschatten die Stadt niedergebrannt haben. Seitdem lacht er nicht mehr. Na ja. Selten.",
     "kind": "dialogue",
@@ -2323,7 +2323,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 310,
+    "line": 317,
     "expression_sha256": "4a1d13541b88e2b55290d8d990d2a00b0ba3284d900db3a2384890dc81d46e2f",
     "text": "Und er hilft uns, Kyra zu finden?",
     "kind": "dialogue",
@@ -2336,7 +2336,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 311,
+    "line": 318,
     "expression_sha256": "807b1b0ada1f9df528257f53f571d0aec0d4087d954076ceac396b61595481ae",
     "text": "Bestimmt! Foltan erzählt ihm gerade alles. Elnon schickt sicher einen Spähtrupp los.",
     "kind": "dialogue",
@@ -2349,7 +2349,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 312,
+    "line": 319,
     "expression_sha256": "6d150ddab53bc897ae156cb816fa8ed43e4eb2f56b8f0dc557c9f360c045f24c",
     "text": "Vielleicht wird doch noch alles gut.",
     "kind": "thought",
@@ -2362,7 +2362,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 322,
+    "line": 329,
     "expression_sha256": "c7e0a06cf9b7801f18314e4836a4bcd795f276d669855ab1b5daad5c43e63ae8",
     "text": "Die Elfen hier sind höflich, aber sie lachen nie über meine Witze. Nicht mal über die guten.",
     "kind": "dialogue",
@@ -2375,7 +2375,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 322,
+    "line": 329,
     "expression_sha256": "c7e0a06cf9b7801f18314e4836a4bcd795f276d669855ab1b5daad5c43e63ae8",
     "text": "Gundrik behauptet, Zwerge schmieden besser. Ich sage: Zwerge schmieden kleiner.",
     "kind": "dialogue",
@@ -2388,7 +2388,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 322,
+    "line": 329,
     "expression_sha256": "c7e0a06cf9b7801f18314e4836a4bcd795f276d669855ab1b5daad5c43e63ae8",
     "text": "Stille Wasser sind tief. Und Kettenhemden rosten, wenn man sie anschweigt.",
     "kind": "dialogue",
@@ -2401,7 +2401,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 327,
+    "line": 334,
     "expression_sha256": "59de3686c024ce8215609e1b3aa18f79db3085768c0b2973bb1c8cd1ff249fb0",
     "text": "Geh essen. Morgen sehen wir weiter.",
     "kind": "dialogue",
@@ -2414,7 +2414,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 331,
+    "line": 338,
     "expression_sha256": "853fc15d406b0b9f5828d29d586c2c2661c62636f5f42b4468e76219d5dd065c",
     "text": "Foltan. Später.",
     "kind": "dialogue",
@@ -2427,7 +2427,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 336,
+    "line": 343,
     "expression_sha256": "1272cb63cae767895ff7746409639b8e13063fff9c8946273bb4054002bf4f1a",
     "text": "Geh. Iss etwas. Die Nacht wird kalt.",
     "kind": "dialogue",
@@ -2440,7 +2440,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 337,
+    "line": 344,
     "expression_sha256": "8d070c3e367836f58ca7e54f3c430570dd49786407aed2f0fdb172f18cd2576c",
     "text": "Du starrst. Das tun alle.",
     "kind": "dialogue",
@@ -2453,7 +2453,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 338,
+    "line": 345,
     "expression_sha256": "0f6404c02c18cc6bb2f34c2db89efd2916c10b5913ba5d7189eb02c5e11ca0ac",
     "text": "Woher hast du die Narbe?",
     "kind": "choice",
@@ -2466,7 +2466,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 338,
+    "line": 345,
     "expression_sha256": "0f6404c02c18cc6bb2f34c2db89efd2916c10b5913ba5d7189eb02c5e11ca0ac",
     "text": "Entschuldige.",
     "kind": "choice",
@@ -2479,7 +2479,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 340,
+    "line": 347,
     "expression_sha256": "6b9cff8cc8f84ab10e0e7e96a0e7a51121a68cb5f52a4d8621a4afe2b0a6c785",
     "text": "Ebaril. Die Stadt brannte drei Tage. Ich habe zwei davon gesehen.",
     "kind": "dialogue",
@@ -2492,7 +2492,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 341,
+    "line": 348,
     "expression_sha256": "0e4e7e89b488eb401b2f4bf722b01b958200745aa08348a97dd33a127737ce9a",
     "text": "Ich war in der großen Bibliothek, als das Dach einstürzte. Die Bücher brannten am hellsten.",
     "kind": "dialogue",
@@ -2505,7 +2505,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 342,
+    "line": 349,
     "expression_sha256": "e564737307a0c1e03fdea9accc3a2c0521664667f9760223544d2afaa3ca496f",
     "text": "Die Bibliothek von Ebaril … ich habe davon gelesen.",
     "kind": "dialogue",
@@ -2518,7 +2518,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 343,
+    "line": 350,
     "expression_sha256": "9c20ee500a9b0af1ecfd4f038240b55baf0e51a2c10651fb709dc5c44e3c03a9",
     "text": "Dann weißt du mehr als die meisten Menschen. Das ist alles, was von ihr übrig ist: was in Köpfen steht.",
     "kind": "dialogue",
@@ -2531,7 +2531,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 346,
+    "line": 353,
     "expression_sha256": "265c2f0e4f28f6ca5b7bc2c012aad2190001ef53f65d2bfcc1a33d98e0e9e826",
     "text": "Nicht nötig. Narben sind ehrlich. Ehrlicher als die meisten Gesichter.",
     "kind": "dialogue",
@@ -2544,7 +2544,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 348,
+    "line": 355,
     "expression_sha256": "6a287eced04d7c85b29030ac261eafd36f922b760d45cd3cc98d1ddfae5ae984",
     "text": "Elnon ist nicht kalt, Mädchen. Er rechnet. Ein Leben gegen tausend andere. Jeden Tag.",
     "kind": "dialogue",
@@ -2557,7 +2557,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 353,
+    "line": 360,
     "expression_sha256": "a5e24bafb73adc7c3ff68070deaba253e0be20517a7837f0eb82b2038e8aca26",
     "text": null,
     "kind": "dialogue",
@@ -2571,7 +2571,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 354,
+    "line": 361,
     "expression_sha256": "5438779ff9cc6a9278528c5f891b4ac1933c9d8c8076b4f7cefca3488455ff34",
     "text": "Ruhig atmen, dann loslassen. Beim Bogen wie bei allem anderen.",
     "kind": "dialogue",
@@ -2584,7 +2584,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 355,
+    "line": 362,
     "expression_sha256": "cba452c306c9eed4a050d5014e4f65a9a6dd0e5d3767ac6d538c219a337608cc",
     "text": "Ein Menschenmädchen, das nach Büchern riecht. Das sieht man hier selten.",
     "kind": "dialogue",
@@ -2597,7 +2597,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 356,
+    "line": 363,
     "expression_sha256": "2eceb330e5888e39b9f0bd6102efbc024f061bbd20b9ace9c7dabffd6e97ffc9",
     "text": "Was bedeuten Grün und Silber?",
     "kind": "choice",
@@ -2610,7 +2610,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 356,
+    "line": 363,
     "expression_sha256": "2eceb330e5888e39b9f0bd6102efbc024f061bbd20b9ace9c7dabffd6e97ffc9",
     "text": "Zu welchem Gott betet ihr Elfen?",
     "kind": "choice",
@@ -2623,7 +2623,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 358,
+    "line": 365,
     "expression_sha256": "126e70860b90d973d78ab952794f0026d2104d0d15456cbd145c16db72e6a68f",
     "text": "Die Farben von Ebaril. Wir tragen sie, bis die Stadt wieder steht.",
     "kind": "dialogue",
@@ -2636,7 +2636,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 359,
+    "line": 366,
     "expression_sha256": "33b99c6d5b207024ecd0ae7bde5ccb57973e741d946d042394892c61f6677041",
     "text": "Und zu welchem Gott betet ihr?",
     "kind": "dialogue",
@@ -2649,7 +2649,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 361,
+    "line": 368,
     "expression_sha256": "73a62b581a72486b7d2df6202eb9c5c1b5c8efaaa16f970c8648954a691ceb2f",
     "text": "Zu Destar. Sein weißer Hirsch Rega trug ihn durch die ersten Wälder, als es noch keine Wege gab.",
     "kind": "dialogue",
@@ -2662,7 +2662,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 362,
+    "line": 369,
     "expression_sha256": "d8063a5f402bf134502b65ad6b61672eebff3ba272fb1542ee5de1c7fae0d2ea",
     "text": "Regas Geweih ist heilig. Wer es raubt, schändet Destar selbst. Kein Elf würde es auch nur berühren.",
     "kind": "dialogue",
@@ -2675,7 +2675,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 369,
+    "line": 376,
     "expression_sha256": "667fdb4d1fcbf8779f368a071635c534f83ef594208234b27650055c86c077fc",
     "text": null,
     "kind": "dialogue",
@@ -2689,7 +2689,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 370,
+    "line": 377,
     "expression_sha256": "3443e2084f4f78227a8f7a47c0e68d611117aa58fa6cf710b10bd655ec938b7b",
     "text": "Holz. Hacken. Mehr gibt’s nicht zu sagen.",
     "kind": "dialogue",
@@ -2702,7 +2702,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 371,
+    "line": 378,
     "expression_sha256": "f3e9f43bea67d4c7c23f345f569ac632c4a8aa5b58e1f341dd4eeaf3084727f0",
     "text": "Was glotzt du? Noch nie einen Zwerg gesehen?",
     "kind": "dialogue",
@@ -2715,7 +2715,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 372,
+    "line": 379,
     "expression_sha256": "f4fb4639c16c42e805ab2e09015f62fc947d6d561c3e20ae2de68d8440020d1d",
     "text": "Nur in Büchern. Da wart ihr größer.",
     "kind": "dialogue",
@@ -2728,7 +2728,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 373,
+    "line": 380,
     "expression_sha256": "47605176179765a5943d63ddc8fbd28146272fe2250c1602c041a54eb50cb0d4",
     "text": "Pah! Bücher. Moneda hat seit Dunkelhain die Tore zu. Die feinen Herren hocken auf ihrem Gold.",
     "kind": "dialogue",
@@ -2741,7 +2741,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 374,
+    "line": 381,
     "expression_sha256": "3ebe2ff764239e46e126b6eaab80a23274a723f3544dd0fc7b4c345a06089215",
     "text": "Ich nicht. Ich bin raus. Lieber hacke ich hier Holz, als dort unten Däumchen zu drehen.",
     "kind": "dialogue",
@@ -2754,7 +2754,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 380,
+    "line": 387,
     "expression_sha256": "83bb967ecf445c9d2198fb023e09687293c081a8b45d9353a4b5d37170e37830",
     "text": null,
     "kind": "dialogue",
@@ -2768,7 +2768,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 381,
+    "line": 388,
     "expression_sha256": "fd2f4df6fd59f29a7095f345e3ff60da320d94edbfb415b126a2a31094599e6c",
     "text": "Probier ruhig vom Kessel, Kind. Aber nicht verraten, dass der Lorbeer fehlt.",
     "kind": "dialogue",
@@ -2781,7 +2781,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 382,
+    "line": 389,
     "expression_sha256": "8e7af3d464bf51aa5785baa1920e4ba27397f92bcf08874d3916e3abc11ac155",
     "text": "Na, du bist also Foltans Fundstück. Hunger?",
     "kind": "dialogue",
@@ -2794,7 +2794,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 383,
+    "line": 390,
     "expression_sha256": "ced50936a9411ca0826cd5e9b1cf1003c362b88f22611cf9fb4a4fe45bae0902",
     "text": "Ein bisschen. Warum hat er mich überhaupt mitgenommen?",
     "kind": "dialogue",
@@ -2807,7 +2807,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 384,
+    "line": 391,
     "expression_sha256": "8b5a1b3e15ea20766fb0787ad5ab440874f831ea2a7838d5073e091fcde4a711",
     "text": "Der Kodex. Niemand wird zurückgelassen, den Schwachen wird geholfen. Das hält uns zusammen.",
     "kind": "dialogue",
@@ -2820,7 +2820,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 385,
+    "line": 392,
     "expression_sha256": "9328143992f437dd92c5c31df4cb4a65cfa4187ab3583d5377f3f8dcfb8257f0",
     "text": "Menschen, Zwerge, Elfen. Alle aus einem Grund hier. Elnon sagt: Damit es kein zweites Ebaril gibt.",
     "kind": "dialogue",
@@ -2833,7 +2833,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 391,
+    "line": 398,
     "expression_sha256": "f6983e8d0d165df08bc053ea39f7a4500284ca0fbe1928b7b4ac5500e54eca13",
     "text": null,
     "kind": "dialogue",
@@ -2847,7 +2847,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 392,
+    "line": 399,
     "expression_sha256": "f8d246112b7c89d6b7d2087c5ac4f33f0abbbe37dd7e5186da729fc3062de013",
     "text": "Hast du gesehen? Ich hab der Puppe fast den Kopf abgehauen. Fast.",
     "kind": "dialogue",
@@ -2860,7 +2860,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 393,
+    "line": 400,
     "expression_sha256": "72d407539d721361682fa7d78eb3a53176a4e9f797a3d8ccd78790d84b252734",
     "text": "Hallo! Ich bin Jorin, aus Trapas. Der Lichterorden predigt, die Fürsten hocken hinter ihren Mauern.",
     "kind": "dialogue",
@@ -2873,7 +2873,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 394,
+    "line": 401,
     "expression_sha256": "965e326847156961756e31909bf49bec2ab4ad0996db8c0c5bf480cfdc5c6ed7",
     "text": "Da dachte ich: Wenn keiner rausgeht, geh ich eben selbst.",
     "kind": "dialogue",
@@ -2886,7 +2886,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 395,
+    "line": 402,
     "expression_sha256": "9b16fd5bca3dc4318bccc8403dc4d35af4f3dce59c8487ca5ab07a2260a7428c",
     "text": "Meine Mutter kam aus Trapas. Aus einer Händlerfamilie.",
     "kind": "dialogue",
@@ -2899,7 +2899,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 396,
+    "line": 403,
     "expression_sha256": "6d6391bbad2930f1ab1d05f3106d7003e795e08ebf92ba950a59ba360aea0c42",
     "text": "Dann sind wir ja fast verwandt! … Kam? Oh. Tut mir leid.",
     "kind": "dialogue",
@@ -2912,7 +2912,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 401,
+    "line": 408,
     "expression_sha256": "6551da125d2e6e653c60c0d1094f4cfad6bcae5de68936e4c89be16834397d32",
     "text": null,
     "kind": "dialogue",
@@ -2926,7 +2926,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 402,
+    "line": 409,
     "expression_sha256": "f7b2c7513ec4a7e626435a747ff1e16695636ec18342420dfe0aae49f838f830",
     "text": "Raus nur mit Foltan oder Elnon. Befehl.",
     "kind": "dialogue",
@@ -2939,7 +2939,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 403,
+    "line": 410,
     "expression_sha256": "1940ac14eeb4448acd65f7786359381b529f42c830088dfbe983e655862bb6ae",
     "text": "Losung ist Losung. Selbst für Gäste mit Augenbinde.",
     "kind": "dialogue",
@@ -2952,7 +2952,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 404,
+    "line": 411,
     "expression_sha256": "bf05377ce18ce3f5c7c31f147875153f494c1d55b38aa7df44cb78142c6c3214",
     "text": "Du trägst Rot und Weiß. Wie die Stadtwache von Trapas.",
     "kind": "dialogue",
@@ -2965,7 +2965,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 405,
+    "line": 412,
     "expression_sha256": "28582577b570419bf3962b60b125ca38930f90d22d702a8a411a9ad8338ee43e",
     "text": "War ich mal. Trapas schickt keine Soldaten mehr raus. Also sind wir eben selbst gegangen.",
     "kind": "dialogue",
@@ -2978,7 +2978,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 410,
+    "line": 417,
     "expression_sha256": "12a2f55e1971433a2e04d48523ad094858439a7fca271be928b9924490def148",
     "text": null,
     "kind": "dialogue",
@@ -2992,7 +2992,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 411,
+    "line": 418,
     "expression_sha256": "0cb2b7f71a0ce748547de5324e3d45cffe17865b88f8b3d15a9eb61ca404db2d",
     "text": "Der Wind dreht. Morgen regnet es. Endlich.",
     "kind": "dialogue",
@@ -3005,7 +3005,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 412,
+    "line": 419,
     "expression_sha256": "813546853f41e7d4e313409d4e7072fcec0cc1bfe94dee122c26d0ed4f913537",
     "text": "Du fragst dich, warum Elnon dich nicht ansieht.",
     "kind": "dialogue",
@@ -3018,7 +3018,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 413,
+    "line": 420,
     "expression_sha256": "aafa8522867f1b853f697e7b90312e729b2fa0ff35e8c699d3096d962f011009",
     "text": "In der letzten Nacht von Ebaril hat er Kinder durch den Fluchttunnel gebracht. Dann ist er zurückgegangen.",
     "kind": "dialogue",
@@ -3031,7 +3031,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 414,
+    "line": 421,
     "expression_sha256": "bdff40adb68de4cf11a1caf5b190f3eb1c36243cc29fb71ffffd0ebeaf853c6b",
     "text": "Seitdem zählt er. Wie viele er retten kann. Wie viele nicht.",
     "kind": "dialogue",
@@ -3044,7 +3044,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 419,
+    "line": 426,
     "expression_sha256": "810f4068dc56ea714c53173c0239e26d1be50c065689338dfc2b2dc85d4d4ec9",
     "text": "Noch heiß. Später gibt es mehr.",
     "kind": "thought",
@@ -3057,7 +3057,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 422,
+    "line": 429,
     "expression_sha256": "fa0ce7f0bc118470db1ef08e673adeaeabb9153c943d10faa9f1b1580560e3d9",
     "text": "Linsen, Speck … und Lorbeer. Genau wie bei Mutter.",
     "kind": "thought",
@@ -3070,7 +3070,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-4/bruderschaft.ts",
-    "line": 427,
+    "line": 434,
     "expression_sha256": "3421a3c7e3e4149f809d1df4cde3ebea2315a09b4c8963647caf14e6ec4ecbaf",
     "text": "Strohpuppen mit aufgemalten Gesichtern. Eine sieht aus wie ein Dunkelschatten. Jemand hat ihr ein Auge ausgestochen.",
     "kind": "thought",
@@ -4481,20 +4481,6 @@
     "intensity": 2,
     "context_de": "Abend im Lager; Lauschen, Enthüllung und Flucht.",
     "classification": "spoken"
-  },
-  {
-    "file": "game/src/chapters/kapitel-4/augenbinde.ts",
-    "line": 110,
-    "expression_sha256": "253a39970d6183adb28e03d9fd67ac3da2a6e23445519901ea9b701f975e56b7",
-    "text": "Halte still – es brennt!",
-    "kind": "instruction",
-    "runtime_speaker": null,
-    "direction_en": "",
-    "emotion_de": "neutral",
-    "intensity": 1,
-    "context_de": "Interaktive Wundversorgung; Halteaufgabe.",
-    "classification": "ui",
-    "reason": "Bedienhinweis zur Halteaufgabe."
   },
   {
     "file": "game/src/chapters/kapitel-4/verrat.ts",
