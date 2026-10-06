@@ -2,6 +2,7 @@
 """Offline full-word finalization against actual specialist receipt validators."""
 import copy
 import json
+from pathlib import Path
 import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -294,5 +295,157 @@ class ExpressiveFinalizerGates(unittest.TestCase):
         evidence=self.run/'veto-evidence.json';f.qa.save(evidence,{'id':ident,'clip_sha256':sha,'source_text_sha256':f.qa.text_hash(line['text'])});veto=self.run/'veto.json'
         f.qa.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Other actual word defect.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
         result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',result['takes'][0]['reasons'])
+
+class ScopedRootFinalizerGates(unittest.TestCase):
+    """Adapter guards; expensive raw reconstruction is tested by each helper.
+
+    Synthetic files never touch the production bank. Meta review's real full
+    root-template comparison remains active; native validate is isolated here.
+    """
+    def setUp(self):
+        self.fixture=fixtures.SpecialistTests();self.fixture.setUp();self.addCleanup(self.fixture.tearDown)
+        self.run=self.fixture.source;old=self.fixture.ids
+        self.rows=[dict(self.fixture.rows[0],id=f.meta_name.ID,text=f.meta_name.TEXT,speaker='lia'),
+            dict(self.fixture.rows[1],id=f.native625.ID,text=f.native625.SOURCE,speaker='azar')]
+        self.ids=[r['id'] for r in self.rows]
+        for prior,row in zip(old,self.rows):
+            for folder,ext in [('clips','.mp3'),('raw','.wav'),('raw','.receipt.json')]:
+                (self.run/folder/(prior+ext)).rename(self.run/folder/(row['id']+ext))
+            p=self.run/'raw'/(row['id']+'.receipt.json');d=f.core.read_json(p);d.update(id=row['id'],model=f.core.MODEL);f.core.save(p,d)
+        f.core.save(self.run/'lines.private.json',{'model':f.core.MODEL,'lines':self.rows})
+        self.signal={'silent':False,'seconds':2.,'clipped_fraction':0.,'peak':.4,'trailing_silence_seconds':.1,'leading_silence_seconds':.1,'last_frame_rms':0.,'rms':.1}
+        self.base={'version':f.qa.VERSION,'model':f.qa.MODEL,'manifest_sha256':f.qa.digest(self.run/'lines.private.json'),
+            'checked_ids':self.ids,'clip_sha256':{i:f.qa.digest(self.run/'clips'/(i+'.mp3')) for i in self.ids},
+            'takes':[{'id':r['id'],'text_sha256':f.qa.text_hash(r['text']),'signal':copy.deepcopy(self.signal),
+                'transcript':'Original independent ASR text remains literal.','reasons':['asr_lexical_mismatch_requires_review']} for r in self.rows],
+            'failures':[{'id':i,'reason':'asr_lexical_mismatch_requires_review'} for i in self.ids]}
+        self.base_path=self.run/'base-scoped.json';f.core.save(self.base_path,self.base)
+        self.raw=self.run/'actual-scoped-raw.json';f.core.save(self.raw,{'synthetic_independent_raw':True})
+        self.journal=self.run/'actual-import.json';f.core.save(self.journal,{'synthetic_scoped_import':True})
+        self.template={'id':f.meta_name.ID,'status':'root_review_required','reviewed_by':'','reason':'',
+            'source_row':self.rows[0],'clip_sha256':self.base['clip_sha256'][f.meta_name.ID],
+            'source_text_sha256':f.qa.text_hash(f.meta_name.TEXT),'helper_script_sha256':f.qa.digest(Path(f.meta_name.__file__)),
+            'protected_script_sha256':{str(Path(f.qa.__file__).resolve()):f.qa.digest(Path(f.qa.__file__))},
+            'provenance_files_sha256':{str(self.raw):f.qa.digest(self.raw)}}
+        self.meta_envelope=self.run/'meta-root.json'
+        self.meta_bindings={key:str(self.base_path if key=='qa_report_path' else self.raw) for key in f.meta_name.KEYS}
+        self.meta_approval=dict(copy.deepcopy(self.template),status=f.meta_name.APPROVED,reviewed_by='root synthetic test',reason='Explicit complete synthetic test evidence.')
+        f.core.save(self.meta_envelope,{'bindings':self.meta_bindings,'approval':self.meta_approval})
+        self.native_document=self.run/'native-document.json'
+        evidence={'id':f.native625.ID,'source':f.native625.SOURCE,'audio_sha256':self.base['clip_sha256'][f.native625.ID],
+            'source_text_sha256':f.qa.text_hash(f.native625.SOURCE),'files':{'actual_raw':{'path':str(self.raw),'sha256':f.qa.digest(self.raw)}}}
+        self.native_approval={'id':f.native625.ID,'status':'approved_native625_evidence','reviewed_by':'root synthetic test',
+            'reason':'Explicit actual complete child evidence review.'}
+        f.core.save(self.native_document,{'evidence':evidence,'evidence_sha256':'synthetic-native-evidence','root_approval':self.native_approval})
+        self.native_envelope=self.run/'native-root.json';f.core.save(self.native_envelope,{'bindings':{'native625_document_path':str(self.native_document)},'approval':self.native_approval})
+        self.meta_patch=patch.object(f.meta_name,'proof_template',side_effect=lambda *args:copy.deepcopy(self.template));self.meta_patch.start();self.addCleanup(self.meta_patch.stop)
+        self.native_patch=patch.object(f.native625,'validate',side_effect=self.native_result);self.native_mock=self.native_patch.start();self.addCleanup(self.native_patch.stop)
+    def native_result(self,run,document):
+        return {'id':f.native625.ID,'audio_sha256':self.base['clip_sha256'][f.native625.ID],
+            'evidence_sha256':document['evidence_sha256'],'import_journal_path':str(self.journal),'import_journal_sha256':f.qa.digest(self.journal)}
+    def finish(self,**kwargs):
+        options={'meta_name_root_evidence_path':self.meta_envelope,'native625_root_evidence_path':self.native_envelope};options.update(kwargs)
+        return f.finalize(self.run,self.base_path,self.run/'final-scoped.json',expected_count=2,**options)
+    def mutate(self,path,fn):
+        d=f.core.read_json(path);fn(d);f.core.save(path,d)
+    def test_two_optional_single_case_proofs_preserve_original_evidence(self):
+        old=self.base_path.read_bytes();result=self.finish();self.assertEqual(result['status'],'passed');self.assertEqual(self.base_path.read_bytes(),old)
+        for take in result['takes']:
+            self.assertEqual(take['transcript'],'Original independent ASR text remains literal.')
+            self.assertEqual(take['original_decoder_reasons'],['asr_lexical_mismatch_requires_review'])
+            self.assertFalse(take['reasons']);self.assertIsNone(take['extra_word_proof'][0]['listening_verdict'])
+        self.assertEqual(set(result['finalizer']['removed_reasons']),set(self.ids))
+    def test_each_optional_proof_is_independently_scoped(self):
+        for key,ident in [('native625_root_evidence_path',f.meta_name.ID),('meta_name_root_evidence_path',f.native625.ID)]:
+            result=self.finish(**{key:None});self.assertEqual(result['status'],'review_required')
+            self.assertEqual(set(result['finalizer']['removed_reasons']),{ident})
+            (self.run/'final-scoped.json').unlink()
+    def test_missing_root_and_wrong_case_id_rejected(self):
+        for path in [self.meta_envelope,self.native_envelope]:
+            original=path.read_bytes()
+            for change in [lambda d:d.update(approval=None),lambda d:d['approval'].update(id='story-other'),lambda d:d['approval'].update(reviewed_by='agent')]:
+                self.mutate(path,change)
+                with self.assertRaises(f.core.SafeError):self.finish()
+                self.assertFalse((self.run/'final-scoped.json').exists());path.write_bytes(original)
+    def test_complete_source_and_body_not_substituted(self):
+        for index in [0,1]:
+            source=(self.run/'lines.private.json').read_bytes();base=self.base_path.read_bytes()
+            d=f.core.read_json(self.run/'lines.private.json');d['lines'][index]['text']+=' Extra word.';f.core.save(self.run/'lines.private.json',d)
+            self.base['manifest_sha256']=f.qa.digest(self.run/'lines.private.json');self.base['takes'][index]['text_sha256']=f.qa.text_hash(d['lines'][index]['text']);f.core.save(self.base_path,self.base)
+            with self.assertRaises(f.core.SafeError):self.finish()
+            (self.run/'lines.private.json').write_bytes(source);self.base_path.write_bytes(base);self.base=f.core.read_json(self.base_path)
+        self.mutate(self.native_document,lambda d:d['evidence'].update(source='Ugh. Dann laufe ich eben bis ich umfalle.'))
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_private_bindings_and_symlink_escapes_rejected(self):
+        outside=self.run.parent/(self.run.name+'-outside.json');outside.write_text('{}');self.addCleanup(outside.unlink)
+        link=self.run/'outside-link.json';link.symlink_to(outside)
+        for path,key in [(self.meta_envelope,'pro_record_path'),(self.native_envelope,'native625_document_path')]:
+            original=path.read_bytes()
+            for value in [str(outside),str(link)]:
+                self.mutate(path,lambda d:d['bindings'].update({key:value}))
+                with self.assertRaises(f.core.SafeError):self.finish()
+                path.write_bytes(original)
+        self.mutate(self.native_document,lambda d:d['evidence']['files']['actual_raw'].update(path=str(outside),sha256=f.qa.digest(outside)))
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_wrong_base_qa_path_rejected_even_with_identical_bytes(self):
+        alternate=self.run/'other-base.json';alternate.write_bytes(self.base_path.read_bytes())
+        self.mutate(self.meta_envelope,lambda d:d['bindings'].update(qa_report_path=str(alternate)))
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_stale_source_audio_and_raw_proof_rejected(self):
+        audio=self.run/'clips'/(f.meta_name.ID+'.mp3');old=audio.read_bytes();audio.write_bytes(b'stale')
+        with self.assertRaises(f.core.SafeError):self.finish()
+        audio.write_bytes(old);self.template['clip_sha256']='changed'
+        with self.assertRaises(f.core.SafeError):self.finish()
+        self.template['clip_sha256']=self.base['clip_sha256'][f.meta_name.ID];self.raw.write_text('changed raw response')
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_all_signal_asr_and_global_failures_survive(self):
+        for take in self.base['takes']:
+            take['signal']['peak']=1.3
+            for reason in ['possible_clipping','asr_check_failed_ValueError','asr_check_failed_RuntimeError','fatal_model_failure']:
+                take['reasons'].append(reason);self.base['failures'].append({'id':take['id'],'reason':reason})
+        self.base['failures'].append({'id':None,'reason':'unexpected_clip_files'});f.core.save(self.base_path,self.base)
+        result=self.finish();self.assertEqual(result['status'],'review_required')
+        self.assertTrue(all(set(t['reasons'])=={'possible_clipping','asr_check_failed_ValueError','asr_check_failed_RuntimeError','fatal_model_failure'} for t in result['takes']))
+        self.assertIn({'id':None,'reason':'unexpected_clip_files'},result['failures'])
+    def test_actual_hashbound_root_veto_survives_new_word_proof(self):
+        evidence=self.run/'veto-evidence.json';ident=self.ids[0];f.core.save(evidence,{'id':ident,'clip_sha256':self.base['clip_sha256'][ident],'source_text_sha256':f.qa.text_hash(self.rows[0]['text'])})
+        veto=self.run/'veto.json';f.core.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root actual review',
+            'reason':'Actual unaccounted independent word defect.','clip_sha256':self.base['clip_sha256'][ident],'text_sha256':f.qa.text_hash(self.rows[0]['text']),
+            'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required')
+        self.assertIn('independent_audio_word_defect',result['takes'][0]['reasons'])
+    def test_proof_change_during_qualification_refuses_write(self):
+        real=f.meta_name.review;calls=0
+        def changed(*args):
+            nonlocal calls
+            value=real(*args);calls+=1
+            if calls==2:value['proof']['source_row']=dict(value['proof']['source_row'],mood='changed')
+            return value
+        with patch.object(f.meta_name,'review',side_effect=changed):
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-scoped.json').exists())
+    def test_helper_and_protected_hash_change_refuses_write(self):
+        real_digest=f.qa.digest
+        for target in [Path(f.meta_name.__file__).resolve(),Path(f.qa.__file__).resolve()]:
+            changed=False;calls=0
+            def current_hash(path):return 'changed-helper-bytes' if changed and Path(path).resolve()==target else real_digest(path)
+            def changed_during_recheck(run,doc):
+                nonlocal changed,calls
+                value=self.native_result(run,doc);calls+=1
+                if calls==2:changed=True
+                return value
+            with patch.object(f.qa,'digest',side_effect=current_hash),patch.object(f.native625,'validate',side_effect=changed_during_recheck):
+                with self.assertRaises(f.core.SafeError):self.finish()
+            self.assertEqual(calls,2);self.assertFalse((self.run/'final-scoped.json').exists())
+    def test_envelope_change_after_last_helper_review_refuses_write(self):
+        calls=0
+        def changed(run,doc):
+            nonlocal calls
+            value=self.native_result(run,doc);calls+=1
+            if calls==2:self.native_envelope.write_text(self.native_envelope.read_text()+' ')
+            return value
+        with patch.object(f.native625,'validate',side_effect=changed):
+            with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertEqual(calls,2);self.assertFalse((self.run/'final-scoped.json').exists())
 
 if __name__=='__main__':unittest.main()
