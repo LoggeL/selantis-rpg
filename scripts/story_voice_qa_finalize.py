@@ -14,6 +14,7 @@ import story_voice_specialist_asr as specialist
 import story_voice_pro_asr as pro
 import story_voice_complementary_names as complementary
 import story_voice_orthographic_segments as orthographic
+import story_voice_expressive_events as expressive
 
 REMOVABLE={'asr_lexical_mismatch_requires_review','asr_check_failed_ValueError'}
 
@@ -90,9 +91,9 @@ def pro_word_proof(run,line,audio_sha,record,approval=None):
         **({'approval':adopted} if adopted else {}),'provider_timestamps_used':False,'acting_approval':None,'listening_verdict':None}
 
 
-def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None):
+def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None):
     run=run.resolve();common.prepared(run)
-    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path] if p]]
+    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path] if p]]
     require(not output_path.exists() and output_path.resolve() not in {p.resolve() for p in inputs},'Choose a new private final report, never overwrite evidence.')
     require(output_path.resolve().is_relative_to(run) and all(p.resolve().is_relative_to(run) for p in inputs),'Reports must stay within the frozen private run.')
     complementary_requested=any([complementary_approvals_path,complementary_ctc_path,complementary_qa_path])
@@ -100,6 +101,8 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
     orthographic_requested=any([orthographic_approvals_path,orthographic_qa_path])
     require(not orthographic_requested or all([orthographic_approvals_path,orthographic_qa_path,flash_path,pro_path]),'Orthographic proof requires root approvals, separate current QA and actual Flash/Pro comparisons.')
     require(flash_path is None or complementary_requested or orthographic_requested,'Flash comparison needs a scoped complementary or orthographic proof.')
+    expressive_requested=any([expressive_approvals_path,expressive_qa_path,vocal_path])
+    require(not expressive_requested or all([expressive_approvals_path,expressive_qa_path,vocal_path]),'Expressive proof requires explicit root approvals, current physical QA and actual vocal comparison.')
     input_hashes={str(p.resolve().relative_to(run)):qa.digest(p) for p in inputs}
     manifest=core.read_json(run/'lines.private.json');manifest_sha=qa.digest(run/'lines.private.json');rows={r['id']:r for r in manifest['lines']};ids=set(rows)
     require(len(ids)==len(manifest['lines'])==expected_count,'Frozen inventory coverage differs.')
@@ -171,6 +174,13 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
             channels=orthographic.CASES[ident]['channels'];mapping={'Flash':flash_records,'Pro':pro_records}
             require(all(ident in mapping[ch] for ch in channels),'Actual scoped orthographic raw records missing.')
             orthographic_bindings[ident]={ch:mapping[ch][ident] for ch in channels}
+    expressive_records={};expressive_approvals={}
+    if expressive_requested:
+        envelope=unique_approval_json(expressive_approvals_path)
+        expressive_approvals=envelope.get('approvals',envelope.get('proposals',envelope))
+        require(isinstance(expressive_approvals,dict) and bool(expressive_approvals) and set(expressive_approvals)<=set(expressive.CASES)&ids,'Expressive approvals exceed three fixed source cases.')
+        expressive_records=indexed(core.read_json(vocal_path).get('records'),ids,'Vocal records')
+        require(set(expressive_approvals)<=set(expressive_records),'Actual expressive raw records missing.')
     result=copy.deepcopy(base);result['base_decoder_evidence']={'file':str(base_path.resolve().relative_to(run)),'sha256':input_hashes[str(base_path.resolve().relative_to(run))],'version':base['version'],'model':base['model']}
     removed={};extra_failures=[]
     for take in result['takes']:
@@ -191,9 +201,12 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         if ident in orthographic_approvals:
             proof=orthographic.review(run,line,orthographic_qa_path,orthographic_bindings[ident],orthographic_approvals[ident])
             require(proof is not None,'Explicit root-adopted orthographic proof required.');proofs.append(proof)
+        if ident in expressive_approvals:
+            proof=expressive.review(run,line,expressive_qa_path,expressive_records[ident],expressive_approvals[ident])
+            require(proof is not None,'Explicit root-adopted expressive proof required.');proofs.append(proof)
         if proofs:
             take['extra_word_proof']=proofs;take['original_decoder_reasons']=copy.deepcopy(take['reasons']);take['original_decoder_transcript']=copy.deepcopy(take.get('transcript'))
-            removable=set(take['reasons'])&REMOVABLE;take['reasons']=[r for r in take['reasons'] if r not in removable];removed[ident]=removable
+            removable=set(take['reasons'])&({'asr_lexical_mismatch_requires_review'} if all(p.get('method')==expressive.VERSION for p in proofs) else REMOVABLE);take['reasons']=[r for r in take['reasons'] if r not in removable];removed[ident]=removable
         diagnosis=qa.lexical_veto_review(run,line,audio[ident],veto)
         if diagnosis:
             take['finalizer_lexical_veto_diagnosis']=diagnosis
@@ -205,7 +218,7 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
     for f in extra_failures:
         if f not in result['failures']:result['failures'].append(f)
     result['status']='passed' if not result['failures'] and all(not t['reasons'] for t in result['takes']) else 'review_required'
-    result['finalizer']={'method':'additive-full-word-qualification-v1','script_sha256':qa.digest(Path(__file__)),'input_files_sha256':input_hashes,'manifest_sha256':manifest_sha,'clip_sha256':audio,'removed_reasons':{i:sorted(rs) for i,rs in removed.items()},'legacy_batch_provenance_sha256':legacy_batch_provenance,'current_tts_receipts':receipts,'proof_driver_sha256':{Path(module.__file__).name:qa.digest(Path(module.__file__)) for module in [qa,lexical,specialist,pro,complementary,orthographic]},'signal_decoder_unchanged':True,'acting_approval':None,'listening_verdict':None}
+    result['finalizer']={'method':'additive-full-word-qualification-v1','script_sha256':qa.digest(Path(__file__)),'input_files_sha256':input_hashes,'manifest_sha256':manifest_sha,'clip_sha256':audio,'removed_reasons':{i:sorted(rs) for i,rs in removed.items()},'legacy_batch_provenance_sha256':legacy_batch_provenance,'current_tts_receipts':receipts,'proof_driver_sha256':{Path(module.__file__).name:qa.digest(Path(module.__file__)) for module in [qa,lexical,specialist,pro,complementary,orthographic,expressive]},'signal_decoder_unchanged':True,'acting_approval':None,'listening_verdict':None}
     common.prepared(run)
     require(qa.digest(run/'lines.private.json')==manifest_sha and all(qa.digest(run/'clips'/(i+'.mp3'))==h for i,h in audio.items()),'Source/audio changed during final qualification.')
     require(all(qa.digest(run/name)==h for name,h in legacy_batch_provenance.items()),'Legacy provider provenance changed during qualification.')
@@ -222,16 +235,21 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         stored=next(p for take in result['takes'] if take['id']==ident for p in take.get('extra_word_proof',[]) if p.get('method')==orthographic.VERSION)
         require(repeated==stored and qa.digest(Path(orthographic.__file__))==stored['helper_sha256'],'Orthographic current raw/root proof changed before write.')
         require(all(qa.digest(Path(orthographic.__file__).parent/name)==h for name,h in stored['proof_drivers_sha256'].items()),'Orthographic proof driver changed before write.')
+    for ident,approval in expressive_approvals.items():
+        repeated=expressive.review(run,rows[ident],expressive_qa_path,expressive_records[ident],approval)
+        stored=next(p for take in result['takes'] if take['id']==ident for p in take.get('extra_word_proof',[]) if p.get('method')==expressive.VERSION)
+        require(repeated==stored and qa.digest(Path(expressive.__file__))==stored['helper_sha256'],'Expressive source/raw/root proof changed before write.')
+        require(all(qa.digest(Path(expressive.__file__).parent/name)==h for name,h in stored['proof_drivers_sha256'].items()),'Expressive driver changed before write.')
     require(all(qa.digest(run/name)==h for name,h in input_hashes.items()),'Evidence report changed during final qualification.')
     qa.save(output_path,result);return result
 
 def main():
     common.configure();p=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','output']:p.add_argument('--'+name,type=Path,required=True)
-    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report']:p.add_argument('--'+name,type=Path)
+    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report','orthographic-root-approvals','orthographic-qa-report','expressive-root-approvals','expressive-qa-report','vocal-comparison']:p.add_argument('--'+name,type=Path)
     a=p.parse_args()
     try:
-        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report)
+        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report,orthographic_approvals_path=a.orthographic_root_approvals,orthographic_qa_path=a.orthographic_qa_report,expressive_approvals_path=a.expressive_root_approvals,expressive_qa_path=a.expressive_qa_report,vocal_path=a.vocal_comparison)
         print(json.dumps({'status':result['status'],'failures':len(result['failures']),'checked':len(result['checked_ids'])}));return 0 if result['status']=='passed' else 2
     except (core.SafeError,OSError,ValueError,KeyError,TypeError) as e:
         print(str(e) if isinstance(e,core.SafeError) else 'Invalid bound final-QA evidence; no reports overwritten.',file=sys.stderr);return 1

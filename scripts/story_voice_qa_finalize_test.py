@@ -218,4 +218,36 @@ class OrthographicFinalizerGates(unittest.TestCase):
         f.qa.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Actual repeated words.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
         result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',next(t for t in result['takes'] if t['id']==ident)['reasons'])
 
+class ExpressiveFinalizerGates(unittest.TestCase):
+    def setUp(self):
+        import story_voice_expressive_events_test as expressive_fixtures
+        self.fixture=expressive_fixtures.Gates();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups);self.run=self.fixture.run
+        (self.run/'requests.jsonl').write_text('')
+        report=f.core.read_json(self.fixture.qa);report['checked_ids']=list(self.fixture.rows)
+        report['failures']=[{'id':t['id'],'reason':reason} for t in report['takes'] for reason in t['reasons']]
+        for t in report['takes']:t['transcript']='Original uncertain source gesture.'
+        f.qa.save(self.fixture.qa,report)
+        self.comparison=self.run/'vocal-comparison.json';f.qa.save(self.comparison,{'records':list(self.fixture.records.values())})
+        self.approvals=self.run/'expressive-approved.json';self.adopt()
+    def adopt(self):f.qa.save(self.approvals,{'approvals':{i:self.fixture.approved(i) for i in self.fixture.rows}})
+    def finish(self,**kwargs):
+        args={'expressive_approvals_path':self.approvals,'expressive_qa_path':self.fixture.qa,'vocal_path':self.comparison};args.update(kwargs)
+        return f.finalize(self.run,self.fixture.qa,self.run/'final-expressive.json',expected_count=3,**args)
+    def test_exact_three_root_proofs_only_remove_lexical_reason(self):
+        old=self.fixture.qa.read_bytes();result=self.finish();self.assertEqual(result['status'],'passed');self.assertEqual(self.fixture.qa.read_bytes(),old)
+        self.assertTrue(all(t['transcript']=='Original uncertain source gesture.' for t in result['takes']))
+        self.assertTrue(all(p['acting_approval'] is None for t in result['takes'] for p in t['extra_word_proof']))
+    def test_fatal_and_unknown_asr_error_retained(self):
+        report=f.core.read_json(self.fixture.qa);ident=report['takes'][0]['id']
+        for reason in ['asr_check_failed_ValueError','fatal_model_failure']:
+            report['takes'][0]['reasons'].append(reason);report['failures'].append({'id':ident,'reason':reason})
+        f.qa.save(self.fixture.qa,report);self.adopt();result=self.finish()
+        self.assertEqual(result['status'],'review_required');self.assertEqual(set(result['takes'][0]['reasons']),{'asr_check_failed_ValueError','fatal_model_failure'})
+    def test_unapproved_partial_arguments_and_veto_preserved(self):
+        with self.assertRaises(f.core.SafeError):self.finish(vocal_path=None)
+        ident=next(iter(self.fixture.rows));line=self.fixture.rows[ident];sha=f.qa.digest(self.run/'clips'/(ident+'.mp3'))
+        evidence=self.run/'veto-evidence.json';f.qa.save(evidence,{'id':ident,'clip_sha256':sha,'source_text_sha256':f.qa.text_hash(line['text'])});veto=self.run/'veto.json'
+        f.qa.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Other actual word defect.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        result=self.finish(veto_path=veto);self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',result['takes'][0]['reasons'])
+
 if __name__=='__main__':unittest.main()
