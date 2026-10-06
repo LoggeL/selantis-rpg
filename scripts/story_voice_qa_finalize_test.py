@@ -110,14 +110,47 @@ class FinalizeGates(unittest.TestCase):
             with self.assertRaises(f.core.SafeError):self.finish(pro_path=path)
             self.assertFalse((self.run/'final.json').exists())
 
-    def pro_variant_fixture(self,observed='Ich hab Kira gesehen.'):
-        row=self.fixture.rows[0];row['text']='Ich habe Kyra gesehen.'
+    def pro_variant_fixture(self,observed='Ich hab Kira gesehen.',source='Ich habe Kyra gesehen.'):
+        row=self.fixture.rows[0];row['text']=source
         f.core.save(self.run/'lines.private.json',{'lines':self.fixture.rows})
         requests=[{'key':r['id'],'request':f.common.request_for(r,self.fixture.profiles['speakers'])} for r in self.fixture.rows]
         (self.run/'requests.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in requests))
         self.base['manifest_sha256']=f.qa.digest(self.run/'lines.private.json');self.base['takes'][0]['text_sha256']=f.qa.text_hash(row['text']);f.core.save(self.path,self.base)
         path=self.pro_comparison(first_text=observed);record=f.core.read_json(path)['records'][0]
         return path,record
+
+    def kitzeln_fixture(self):
+        source='Und deins ist Rumsitzen? Pass auf, sonst kitzle ich dich gleich noch mal.';old=self.ids[0];ident='story-566e96b3e7093edace832a22'
+        for folder,suffix in [('clips','.mp3'),('raw','.wav'),('raw','.receipt.json')]:
+            path=self.run/folder/(old+suffix)
+            if path.exists():path.rename(self.run/folder/(ident+suffix))
+        self.ids[0]=ident;self.fixture.rows[0]['id']=ident
+        self.base['clip_sha256'][ident]=self.base['clip_sha256'].pop(old);self.base['takes'][0]['id']=ident
+        for row in self.base['failures']:
+            if row['id']==old:row['id']=ident
+        path,record=self.pro_variant_fixture(source.replace('kitzle','kitzel'),source)
+        return self.fixture.rows[0],self.base['clip_sha256'][ident],record
+    def test_single_source_first_person_kitzeln_root_bound_full_13_pro_words(self):
+        line,sha,record=self.kitzeln_fixture();proposal=f.pro_variant_template(self.run,line,sha,record)
+        self.assertEqual(len(proposal['expected_tokens']),13);self.assertEqual(proposal['variants'],[{'word_index':7,'expected':'kitzle','observed':'kitzel','kind':'colloquial_first_person_kitzeln'}])
+        self.assertIsNone(f.pro_word_proof(self.run,line,sha,record))
+        with self.assertRaises(f.core.SafeError):f.pro_word_proof(self.run,line,sha,record,proposal)
+        approval=copy.deepcopy(proposal);approval.update(status='approved_pro_word_variants',reviewed_by='root offline',reason='Reviewed this single literal first-person variant.')
+        self.assertTrue(f.pro_word_proof(self.run,line,sha,record,approval))
+        bad=copy.deepcopy(approval);bad['raw_response_sha256']='stale'
+        with self.assertRaises(f.core.SafeError):f.pro_word_proof(self.run,line,sha,record,bad)
+    def test_kitzeln_other_id_source_index_pair_extra_missing_reordering_refused(self):
+        line,sha,record=self.kitzeln_fixture()
+        with self.assertRaises(f.core.SafeError):f.pro_variant_template(self.run,{**line,'id':self.ids[1]},sha,record)
+        with self.assertRaises(f.core.SafeError):f.pro_variant_template(self.run,{**line,'text':line['text'].replace('deins','dein')},sha,record)
+        # Keep real raw model/schema parsing; isolate only provenance here to
+        # exercise the exact token rule for every forbidden body/pair variant.
+        tokens=f.qa.words(line['text']);good=tokens[:7]+['kitzel']+tokens[8:]
+        bad_words=[good+['extra'],good[:-1],good[:11]+['nochmal'],good[:7]+['kitzele']+good[8:],good[:6]+['kitzel','sonst']+good[8:],good[:8]+['du']+good[9:]]
+        for words in bad_words:
+            bad=copy.deepcopy(record);bad['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps({'transcript':' '.join(words)})
+            with patch.object(f.pro,'cached_record',return_value=True):
+                with self.assertRaises(f.core.SafeError):f.pro_variant_template(self.run,line,sha,bad)
 
     def test_explicit_combined_safe_pro_variants_full_accounting(self):
         path,record=self.pro_variant_fixture();approval=f.pro_variant_template(self.run,self.fixture.rows[0],self.base['clip_sha256'][self.ids[0]],record)
