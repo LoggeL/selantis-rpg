@@ -14,7 +14,7 @@ import story_voice_expressive_events as e
 class Gates(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.run=Path(self.tmp.name).resolve()
-  self.rows={i:{'id':i,'text':c['text'],'speaker':c['speaker'],'sources':[{'file':c['location'][0],'line':c['location'][1]}]} for i,c in e.CASES.items() if i!=e.pff.ID}
+  self.rows={i:{'id':i,'text':c['text'],'speaker':c['speaker'],'sources':[{'file':c['location'][0],'line':c['location'][1]}]} for i,c in e.CASES.items() if i in getattr(self,'case_ids',set(e.CASES)-{e.pff.ID,'story-aedd25753e0b80ba856d942b'})}
   for folder in ['clips','raw','independent-vocal-qc/batches/fixture']:(self.run/folder).mkdir(parents=True)
   e.qa.save(self.run/'lines.private.json',{'lines':list(self.rows.values())});e.qa.save(self.run/'prepared.json',{'model':e.core.MODEL})
   p=patch.object(e.common,'prepared',return_value={});p.start();self.addCleanup(p.stop)
@@ -32,10 +32,10 @@ class Gates(unittest.TestCase):
   self.qa=self.run/'qa.json';e.qa.save(self.qa,{'version':e.qa.VERSION,'model':e.qa.MODEL,'manifest_sha256':e.qa.digest(self.run/'lines.private.json'),'clip_sha256':hashes,'takes':takes})
   self.batch=self.run/'independent-vocal-qc/batches/fixture';payload=('\n'.join(json.dumps(x) for x in requests)+'\n').encode();(self.batch/'requests.jsonl').write_bytes(payload)
   e.qa.save(self.batch/'audio-snapshot.private.json',{'clips':entries,'source_run':str(self.run),'source_manifest_sha256':e.qa.digest(self.run/'lines.private.json'),'source_tts_prepared_sha256':e.qa.digest(self.run/'prepared.json'),'model':e.qc.MODEL,'prompt':e.qc.PROMPT,'prompt_sha256':e.qc.text_hash(e.qc.PROMPT)})
-  e.qa.save(self.batch/'prepared.json',{'bank':'independent-story-vocal-qc','model':e.qc.MODEL,'request_count':3,'input_bytes':len(payload),'input_sha256':e.core.digest(payload),'snapshot_sha256':e.qa.digest(self.batch/'audio-snapshot.private.json')})
-  e.qa.save(self.batch/'submit-intent.private.json',{'model':e.qc.MODEL,'state':'CONFIRMED','request_count':3,'input_sha256':e.core.digest(payload)})
-  e.qa.save(self.batch/'job.json',{'model':e.qc.MODEL,'state':'JOB_STATE_SUCCEEDED','request_count':3,'job_name':'batches/offline'})
-  e.qa.save(self.batch/'collection.private.json',{'model':e.qc.MODEL,'expected':3,'collected':3,'failures':[]});(self.batch/'responses.private.jsonl').write_text('\n'.join(json.dumps(x) for x in raw)+'\n')
+  e.qa.save(self.batch/'prepared.json',{'bank':'independent-story-vocal-qc','model':e.qc.MODEL,'request_count':len(self.rows),'input_bytes':len(payload),'input_sha256':e.core.digest(payload),'snapshot_sha256':e.qa.digest(self.batch/'audio-snapshot.private.json')})
+  e.qa.save(self.batch/'submit-intent.private.json',{'model':e.qc.MODEL,'state':'CONFIRMED','request_count':len(self.rows),'input_sha256':e.core.digest(payload)})
+  e.qa.save(self.batch/'job.json',{'model':e.qc.MODEL,'state':'JOB_STATE_SUCCEEDED','request_count':len(self.rows),'job_name':'batches/offline'})
+  e.qa.save(self.batch/'collection.private.json',{'model':e.qc.MODEL,'expected':len(self.rows),'collected':len(self.rows),'failures':[]});(self.batch/'responses.private.jsonl').write_text('\n'.join(json.dumps(x) for x in raw)+'\n')
  def approved(self,i):
   a=e.template(self.run,self.rows[i],self.qa,self.records[i]);a.update(status=e.APPROVED,reviewed_by='root offline',reason='Reviewed exact scoped gesture/body.');return a
  def test_three_root_only_complete_bindings(self):
@@ -78,11 +78,22 @@ class Gates(unittest.TestCase):
  def test_legacy_original_batch_needs_frozen_request_wav_provider(self):
   i=next(iter(self.rows));request={'fixture':'original'};wav=self.run/'raw'/(i+'.wav');wav.write_bytes(b'original-wav')
   (self.run/'requests.jsonl').write_text(json.dumps({'key':i,'request':request})+'\n')
-  e.qa.save(self.run/'job.json',{'model':e.core.MODEL,'request_count':3});e.qa.save(self.run/'status.private.json',{'metadata':{'model':'models/'+e.core.MODEL}})
+  e.qa.save(self.run/'job.json',{'model':e.core.MODEL,'request_count':len(self.rows)});e.qa.save(self.run/'status.private.json',{'metadata':{'model':'models/'+e.core.MODEL}})
   path=self.run/'raw'/(i+'.receipt.json');receipt=e.core.read_json(path);receipt.pop('model');receipt['request_sha256']=e.core.digest(json.dumps(request,sort_keys=True).encode());receipt['wav_sha256']=e.qa.digest(wav);e.qa.save(path,receipt)
   self.assertTrue(e.template(self.run,self.rows[i],self.qa,self.records[i]))
   wav.write_bytes(b'changed')
   with self.assertRaises(e.core.SafeError):e.template(self.run,self.rows[i],self.qa,self.records[i])
+ def test_flick_actual_fixed_laughter_body_and_root_provenance(self):
+  ident='story-aedd25753e0b80ba856d942b';fixture=Gates();fixture.case_ids={ident};fixture.setUp();self.addCleanup(fixture.doCleanups)
+  row=fixture.rows[ident];record=fixture.records[ident];proposal=e.template(fixture.run,row,fixture.qa,record)
+  self.assertEqual(proposal['binding']['source_token_index'],0);self.assertEqual(proposal['binding']['expected_body_tokens'],['trocken','wie','der','regen','gefällt','mir'])
+  self.assertIsNone(e.review(fixture.run,row,fixture.qa,record));self.assertTrue(e.review(fixture.run,row,fixture.qa,record,fixture.approved(ident)))
+  for line in [{**row,'speaker':'lia'},{**row,'text':row['text'].replace('Trocken','Nass')},{**row,'sources':[{'file':'game/src/chapters/kapitel-5/regenwald.ts','line':150}]}]:
+   with self.assertRaises(e.core.SafeError):e.observation(line,record)
+  obs=e.qc.response_observation(record['response'])
+  for value in [{'transcript':'Trocken der Regen gefällt mir','events':obs['events']},{'transcript':obs['transcript'],'events':obs['events']*2},{'transcript':obs['transcript'],'events':[{**obs['events'][0],'vocal_sound':'ha'}]}]:
+   bad=copy.deepcopy(record);bad['response']['candidates'][0]['content']['parts'][0]['text']=json.dumps(value)
+   with self.assertRaises(e.core.SafeError):e.observation(row,bad)
  def test_standard_cli_prepares_three_despite_stale_pff_cache(self):
   comparison=self.run/'comparison.json';e.qa.save(comparison,{'records':list(self.records.values())+[{'id':e.pff.ID,'transcript':'old stale standard cache'}]});output=self.run/'proposals.json'
   args=['expressive','--run-dir',str(self.run),'--base-qa-report',str(self.qa),'--vocal-comparison',str(comparison),'--output',str(output)]

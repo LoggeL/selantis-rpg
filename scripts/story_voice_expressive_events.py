@@ -12,11 +12,12 @@ import story_voice_qa as qa
 import story_voice_vocal_qc as qc
 import story_voice_pff_edit as pff
 
-VERSION='fixed-source-expressive-events-v2'
+VERSION='fixed-source-expressive-events-v3'
 APPROVED='approved_scoped_expressive_event'
 CASES={
  'story-88d0095b1020d81760acbae9':{'text':'Hrrrm … Disziplin …','index':0,'speaker':'foltan','category':'groan','sound':'urrhhh','description':'deep guttural groan transitioning into a heavy sighing exhale','location':['game/src/chapters/kapitel-4/augenbinde.ts',40]},
  'story-87fc79c20da2796dd07cd75e':{'text':'Klingt nach einem guten Zauberbuch. Ha!','index':5,'speaker':'azar','category':'laughter','sound':'huh','description':'short nasal chuckle','location':['game/src/chapters/kapitel-3/leselager.ts',143]},
+ 'story-aedd25753e0b80ba856d942b':{'text':'Ha! Trocken wie der Regen. Gefällt mir.','index':0,'speaker':'flick','category':'laughter','sound':'ha-ha','description':'giggle / light laughter','location':['game/src/chapters/kapitel-5/regenwald.ts',149]},
  pff.ID:{'text':pff.TEXT,'index':3,'speaker':'azar','category':'other','sound':'pff','description':'suppressed chuckle followed by a breathy exhale','location':['game/src/chapters/kapitel-3/leselager.ts',78]},
  'story-db519e80df5b9bdd3da3ac26':{'text':'Ha! Siehst du die Funken? Hoffnung kann Stürme beschwören.','index':0,'speaker':'azar','category':'laughter','sound':'haha','description':'a brief, soft chuckle','location':['game/src/chapters/kapitel-4/bruderschaft.ts',306]}}
 
