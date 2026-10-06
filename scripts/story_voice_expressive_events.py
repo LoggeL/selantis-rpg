@@ -10,12 +10,14 @@ import story_voice_common as common
 from story_voice_common import core
 import story_voice_qa as qa
 import story_voice_vocal_qc as qc
+import story_voice_pff_edit as pff
 
-VERSION='three-source-expressive-events-v1'
+VERSION='fixed-source-expressive-events-v2'
 APPROVED='approved_scoped_expressive_event'
 CASES={
  'story-88d0095b1020d81760acbae9':{'text':'Hrrrm … Disziplin …','index':0,'speaker':'foltan','category':'groan','sound':'urrhhh','description':'deep guttural groan transitioning into a heavy sighing exhale','location':['game/src/chapters/kapitel-4/augenbinde.ts',40]},
  'story-87fc79c20da2796dd07cd75e':{'text':'Klingt nach einem guten Zauberbuch. Ha!','index':5,'speaker':'azar','category':'laughter','sound':'huh','description':'short nasal chuckle','location':['game/src/chapters/kapitel-3/leselager.ts',143]},
+ pff.ID:{'text':pff.TEXT,'index':3,'speaker':'azar','category':'other','sound':'pff','description':'suppressed chuckle followed by a breathy exhale','location':['game/src/chapters/kapitel-3/leselager.ts',78]},
  'story-db519e80df5b9bdd3da3ac26':{'text':'Ha! Siehst du die Funken? Hoffnung kann Stürme beschwören.','index':0,'speaker':'azar','category':'laughter','sound':'haha','description':'a brief, soft chuckle','location':['game/src/chapters/kapitel-4/bruderschaft.ts',306]}}
 
 def require(condition,message):
@@ -71,14 +73,20 @@ def template(run,line,current_base_qa,current_qc):
     run=run.resolve();common.prepared(run);qa_path=private(run,current_base_qa)
     manifest=core.read_json(run/'lines.private.json');require([r for r in manifest['lines'] if r['id']==line['id']]==[line],'Current complete source row differs.')
     audio=run/'clips'/(line['id']+'.mp3');sha=qa.digest(audio);text_sha=qa.text_hash(line['text']);record=current_qc
-    require(isinstance(record,dict) and record.get('id')==line['id'] and qc.cached_record(record,sha,text_sha),'Actual current QC cache/model/schema/STOP/prompt/source/audio required.')
-    binding=observation(line,record);cache=private(run,'independent-vocal-qc/'+line['id']+'.'+sha[:16]+'.json');require(core.read_json(cache)==record,'Actual QC raw cache differs.')
+    is_pff=line['id']==pff.ID
+    if is_pff:
+        receipt=core.read_json(run/'raw'/(pff.ID+'.receipt.json'));pff_evidence=pff.validate_imported(run,line,receipt)
+        cache=private(run,pff.FOLDER+'/qc-raw.private.json');require(record==core.read_json(cache),'Actual direct QC envelope differs; no fake Batch cache accepted.')
+    else:
+        require(isinstance(record,dict) and record.get('id')==line['id'] and qc.cached_record(record,sha,text_sha),'Actual current QC cache/model/schema/STOP/prompt/source/audio required.')
+        cache=private(run,'independent-vocal-qc/'+line['id']+'.'+sha[:16]+'.json');require(core.read_json(cache)==record,'Actual QC raw cache differs.')
+    binding=observation(line,record)
     report=core.read_json(qa_path);takes=[t for t in report.get('takes',[]) if t.get('id')==line['id']]
     require(report.get('version')==qa.VERSION and (report.get('model')==qa.MODEL or str(report.get('model','')).startswith(qa.MODEL+':')) and report.get('manifest_sha256')==qa.digest(run/'lines.private.json') and report.get('clip_sha256',{}).get(line['id'])==sha and len(takes)==1 and takes[0].get('text_sha256')==text_sha,'Current original physical QA/source/audio required.')
     signal=takes[0].get('signal');require(isinstance(signal,dict) and type(signal.get('silent')) is bool and all(type(signal.get(k)) in (int,float) and math.isfinite(signal[k]) for k in ['seconds','clipped_fraction','peak','trailing_silence_seconds','leading_silence_seconds','last_frame_rms','rms']),'Finite complete physical QA required.')
     require(not qa.signal_failures(signal,len(qa.words(line['text']))),'Physical audio defects block expressive proof.')
     receipt_path=private(run,'raw/'+line['id']+'.receipt.json');receipt=core.read_json(receipt_path)
-    require(receipt.get('id')==line['id'] and receipt.get('status')=='complete' and receipt.get('mp3_sha256')==sha and receipt.get('backend')=='batch','Current complete TTS MP3 receipt required.')
+    require(receipt.get('id')==line['id'] and receipt.get('status')=='complete' and receipt.get('mp3_sha256')==sha and receipt.get('backend')==(pff.BACKEND if is_pff else 'batch'),'Current complete TTS MP3 receipt required.')
     legacy_paths=[]
     if 'model' in receipt:require(receipt['model']==core.MODEL,'Current TTS model differs.')
     else:
@@ -90,8 +98,11 @@ def template(run,line,current_base_qa,current_qc):
         require(len(selected)==1 and 'delivery_override' not in receipt and receipt.get('request_sha256')==core.digest(json.dumps(selected[0]['request'],sort_keys=True).encode()),'Legacy receipt must bind unchanged frozen original request.')
         require(receipt.get('wav_sha256')==qa.digest(wav) and job.get('model')==core.MODEL and job.get('request_count')==len(manifest['lines']) and status.get('metadata',{}).get('model','').removeprefix('models/')==core.MODEL,'Legacy WAV/frozen provider model differs.')
         legacy_paths=[run/'requests.jsonl',run/'job.json',run/'status.private.json',wav]
-    files={str(p.relative_to(run)):qa.digest(p) for p in [audio,run/'lines.private.json',run/'prepared.json',qa_path,cache,receipt_path,*legacy_paths]};files.update(provider_files(run,line,record,sha))
-    return {'id':line['id'],'status':'root_review_required','reviewed_by':'','reason':'','method':VERSION,'source_text':line['text'],'source_text_sha256':text_sha,'source_row_sha256':object_hash(line),'source_manifest_sha256':qa.digest(run/'lines.private.json'),'clip_sha256':sha,'qc_record_sha256':object_hash(record),'raw_response_sha256':object_hash(record['response']),'qc_contract':qc.cache_metadata(),'model':qc.MODEL,'binding':binding,'base_take_sha256':object_hash(takes[0]),'provenance_files_sha256':files,'proof_drivers_sha256':{Path(m.__file__).name:qa.digest(Path(m.__file__)) for m in [qa,qc,common,qc.transport,core]},'helper_sha256':qa.digest(Path(__file__)),'provider_timestamps_used':False,'timing_approval':None,'acting_approval':None,'listening_verdict':None}
+    files={str(p.relative_to(run)):qa.digest(p) for p in [audio,run/'lines.private.json',run/'prepared.json',qa_path,cache,receipt_path,*legacy_paths]};files.update(pff_evidence['provenance_files_sha256'] if is_pff else provider_files(run,line,record,sha))
+    if is_pff:
+        journal=core.read_json(run/pff.FOLDER/'import.private.json')
+        for name in [pff.FOLDER+'/import.private.json',journal['root_approval_file']]:files[name]=qa.digest(private(run,name))
+    return {'id':line['id'],'status':'root_review_required','reviewed_by':'','reason':'','method':VERSION,'source_text':line['text'],'source_text_sha256':text_sha,'source_row_sha256':object_hash(line),'source_manifest_sha256':qa.digest(run/'lines.private.json'),'clip_sha256':sha,'qc_record_sha256':object_hash(record),'raw_response_sha256':object_hash(record['response']),'qc_contract':qc.cache_metadata(),'model':qc.MODEL,'binding':binding,'base_take_sha256':object_hash(takes[0]),'provenance_files_sha256':files,'proof_drivers_sha256':{Path(m.__file__).name:qa.digest(Path(m.__file__)) for m in [qa,qc,common,qc.transport,core,pff]},'helper_sha256':qa.digest(Path(__file__)),'provider_timestamps_used':False,'timing_approval':None,'acting_approval':None,'listening_verdict':None}
 
 def review(run,line,current_base_qa,current_qc,rootapproval=None):
     if rootapproval is None:return None
@@ -104,9 +115,11 @@ def main():
     common.configure();parser=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','vocal-comparison','output']:parser.add_argument('--'+name,type=Path,required=True)
     args=parser.parse_args();run=core.directory(str(args.run_dir));require(args.output.resolve().is_relative_to(run) and not args.output.exists(),'Choose a new private proposal output.')
-    records=core.read_json(private(run,args.vocal_comparison))['records'];mapping={r['id']:r for r in records};require(len(mapping)==len(records),'Duplicate QC records.')
+    payload=core.read_json(private(run,args.vocal_comparison));records=payload.get('records',[]);mapping={r['id']:r for r in records};require(len(mapping)==len(records),'Duplicate QC records.')
+    if payload.get('binding',{}).get('id')==pff.ID and 'response' in payload:mapping[pff.ID]=payload
     rows={r['id']:r for r in core.read_json(run/'lines.private.json')['lines']}
-    proposals={i:template(run,rows[i],args.base_qa_report,mapping[i]) for i in CASES}
+    proposals={i:template(run,rows[i],args.base_qa_report,mapping[i]) for i in CASES if i in mapping}
+    require(bool(proposals),'No fixed-case actual QC supplied.')
     qa.save(args.output,{'method':VERSION,'requires_root_review':True,'proposals':proposals});print(json.dumps({'state':'UNAPPROVED_PRIVATE_PROPOSALS','count':len(proposals)}));return 0
 if __name__=='__main__':
     try:raise SystemExit(main())

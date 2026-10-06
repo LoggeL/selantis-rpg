@@ -251,4 +251,21 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual((self.args.public_dir/'KEEP.txt').read_text(),'keep')
         with self.assertRaises(pub.Invalid):pub.contained(self.run,'../outside')
 
+class PffPublisherGates(unittest.TestCase):
+    @unittest.skipUnless((Path(__file__).resolve().parents[1]/'output/audio/story-voice/2026-10-05-all-chapters/pff-edited-pass14/actual-transform.private.json').exists(),'Requires immutable private Pff pilot, no committed audio.')
+    def test_real_derived_receipt_only_fixed_source_current_root_and_journal(self):
+        import story_voice_pff_edit_test as fixtures
+        import story_voice_pff_edit as pff
+        fixture=fixtures.PffGates();fixture.setUp();self.addCleanup(fixture.doCleanups);run=fixture.run
+        approval=run/'root.json';pff.qa.save(approval,fixture.approval())
+        with patch.object(pff.retake,'rebuild',return_value=None):receipt=pff.apply(run,approval)
+        line=next(r for r in pff.core.read_json(run/'lines.private.json')['lines'] if r['id']==pff.ID)
+        self.assertTrue(pub.validate_pff_derived(run,line,receipt))
+        for key,value in [('model','other'),('google_voice','Other'),('backend','batch'),('request_sha256','fake'),('transform',{'filter':'anull'})]:
+            bad=copy.deepcopy(receipt);bad[key]=value
+            with self.assertRaises(pub.Invalid):pub.validate_pff_derived(run,line,bad)
+        with self.assertRaises(pub.Invalid):pub.validate_pff_derived(run,{**line,'id':pub.VARIANT_TARGET},receipt)
+        journal=run/pff.FOLDER/'import.private.json';body=pff.core.read_json(journal);body['state']='IMPORT_INTENT_RECORDED';pff.qa.save(journal,body)
+        with self.assertRaises(pub.Invalid):pub.validate_pff_derived(run,line,receipt)
+
 if __name__=='__main__':unittest.main()

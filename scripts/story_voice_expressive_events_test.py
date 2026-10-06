@@ -11,7 +11,7 @@ import story_voice_expressive_events as e
 class Gates(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.run=Path(self.tmp.name).resolve()
-  self.rows={i:{'id':i,'text':c['text'],'speaker':c['speaker'],'sources':[{'file':c['location'][0],'line':c['location'][1]}]} for i,c in e.CASES.items()}
+  self.rows={i:{'id':i,'text':c['text'],'speaker':c['speaker'],'sources':[{'file':c['location'][0],'line':c['location'][1]}]} for i,c in e.CASES.items() if i!=e.pff.ID}
   for folder in ['clips','raw','independent-vocal-qc/batches/fixture']:(self.run/folder).mkdir(parents=True)
   e.qa.save(self.run/'lines.private.json',{'lines':list(self.rows.values())});e.qa.save(self.run/'prepared.json',{'model':e.core.MODEL})
   p=patch.object(e.common,'prepared',return_value={});p.start();self.addCleanup(p.stop)

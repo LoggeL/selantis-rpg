@@ -116,6 +116,11 @@ def validate_vocal_variant(run,frozen,profiles,receipt,plan_path,target_qc_path=
     target_pcm=subprocess.run(['ffmpeg','-nostdin','-v','error','-i',str(contained(run,f'raw/{VARIANT_TARGET}.wav')),'-ar','24000','-ac','1','-f','s16le','pipe:1'],capture_output=True,timeout=60)
     require(source_pcm.returncode==target_pcm.returncode==0 and source_pcm.stdout and source_pcm.stdout==target_pcm.stdout,'Derived waveform does not equal approved pitch-preserved transform')
 
+def validate_pff_derived(run,line,receipt):
+    import story_voice_pff_edit as pff
+    try:return pff.validate_imported(run,line,receipt)
+    except (common.core.SafeError,OSError,ValueError,KeyError,TypeError,subprocess.SubprocessError) as error:raise Invalid('Invalid scoped Pff postproduction provenance') from error
+
 NONARCHIVED_REVIEWS = {f'docs/voice-production/directions/kapitel-{i}.json' for i in range(1,6)} | {'docs/voice-production/directions/supplemental.json'}
 
 def validate_run(run, qa_path, alignment_path, expected_count, review_source_root=None, vocal_variant_plan=None, vocal_variant_target_qc=None, vocal_variant_target_adjudications=None):
@@ -137,10 +142,13 @@ def validate_run(run, qa_path, alignment_path, expected_count, review_source_roo
         if receipt_path.is_file():
             receipt=read(contained(run,'raw/'+line['id']+'.receipt.json'))
             if str(receipt.get('backend','')).startswith('derived'):
-                require(receipt.get('backend')=='derived_single_nonlexical_event' and line['id']==VARIANT_TARGET,'Unsupported derived recording')
+                require((receipt.get('backend')=='derived_single_nonlexical_event' and line['id']==VARIANT_TARGET) or (receipt.get('backend')=='derived_scoped_pff_parts' and line['id']=='story-95c49f2ee284e215ca7615fc'),'Unsupported derived recording')
                 derived.append(receipt)
-    require(len(derived)<=1,'Multiple derived events forbidden')
-    for receipt in derived:validate_vocal_variant(run,frozen,profiles,receipt,vocal_variant_plan,vocal_variant_target_qc,vocal_variant_target_adjudications)
+    require(len(derived)<=2,'More than the two fixed derived cases forbidden')
+    for receipt in derived:
+        if receipt.get('backend')=='derived_scoped_pff_parts':
+            validate_pff_derived(run,next(row for row in lines if row['id']==receipt['id']),receipt)
+        else:validate_vocal_variant(run,frozen,profiles,receipt,vocal_variant_plan,vocal_variant_target_qc,vocal_variant_target_adjudications)
     snapshot = read(run / 'source-snapshot.private.json')
     bound_sources=set(frozen.get('source_hashes', {})); archived=set(snapshot)
     missing=bound_sources-archived

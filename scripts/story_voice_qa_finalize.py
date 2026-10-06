@@ -91,6 +91,13 @@ def pro_word_proof(run,line,audio_sha,record,approval=None):
         **({'approval':adopted} if adopted else {}),'provider_timestamps_used':False,'acting_approval':None,'listening_verdict':None}
 
 
+def expressive_record_mapping(payload,approvals,ids):
+    if isinstance(payload,dict) and 'binding' in payload:
+        require(payload.get('binding',{}).get('id')==expressive.pff.ID and 'response' in payload and set(approvals)=={expressive.pff.ID},'Direct Pff QC can qualify only the one exact source case.')
+        return {expressive.pff.ID:payload}
+    return indexed(payload.get('records'),ids,'Vocal records')
+
+
 def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None,orthographic_approvals_path=None,orthographic_qa_path=None,expressive_approvals_path=None,expressive_qa_path=None,vocal_path=None):
     run=run.resolve();common.prepared(run)
     inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,orthographic_approvals_path,orthographic_qa_path,expressive_approvals_path,expressive_qa_path,vocal_path] if p]]
@@ -179,7 +186,8 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         envelope=unique_approval_json(expressive_approvals_path)
         expressive_approvals=envelope.get('approvals',envelope.get('proposals',envelope))
         require(isinstance(expressive_approvals,dict) and bool(expressive_approvals) and set(expressive_approvals)<=set(expressive.CASES)&ids,'Expressive approvals exceed three fixed source cases.')
-        expressive_records=indexed(core.read_json(vocal_path).get('records'),ids,'Vocal records')
+        vocal_payload=core.read_json(vocal_path)
+        expressive_records=expressive_record_mapping(vocal_payload,expressive_approvals,ids)
         require(set(expressive_approvals)<=set(expressive_records),'Actual expressive raw records missing.')
     result=copy.deepcopy(base);result['base_decoder_evidence']={'file':str(base_path.resolve().relative_to(run)),'sha256':input_hashes[str(base_path.resolve().relative_to(run))],'version':base['version'],'model':base['model']}
     removed={};extra_failures=[]

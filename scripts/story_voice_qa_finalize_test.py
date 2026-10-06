@@ -233,6 +233,11 @@ class ExpressiveFinalizerGates(unittest.TestCase):
     def finish(self,**kwargs):
         args={'expressive_approvals_path':self.approvals,'expressive_qa_path':self.fixture.qa,'vocal_path':self.comparison};args.update(kwargs)
         return f.finalize(self.run,self.fixture.qa,self.run/'final-expressive.json',expected_count=3,**args)
+    def test_direct_pff_envelope_not_fake_batch_cache_and_wrong_scope_refused(self):
+        ident=f.expressive.pff.ID;envelope={'binding':{'id':ident},'response':{'actual':'raw'}}
+        self.assertEqual(f.expressive_record_mapping(envelope,{ident:{}},{ident}),{ident:envelope})
+        for bad,scope in [({'binding':{'id':self.fixture.rows.keys().__iter__().__next__()},'response':{}},{ident:{}}),(envelope,{ident:{},next(iter(self.fixture.rows)): {}}),({'binding':{'id':ident}},{ident:{}})]:
+            with self.assertRaises(f.core.SafeError):f.expressive_record_mapping(bad,scope,{ident})
     def test_exact_three_root_proofs_only_remove_lexical_reason(self):
         old=self.fixture.qa.read_bytes();result=self.finish();self.assertEqual(result['status'],'passed');self.assertEqual(self.fixture.qa.read_bytes(),old)
         self.assertTrue(all(t['transcript']=='Original uncertain source gesture.' for t in result['takes']))
