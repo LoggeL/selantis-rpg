@@ -12,6 +12,7 @@ import story_voice_qa as qa
 import story_voice_ctc_lexical_variants as lexical
 import story_voice_specialist_asr as specialist
 import story_voice_pro_asr as pro
+import story_voice_complementary_names as complementary
 
 REMOVABLE={'asr_lexical_mismatch_requires_review','asr_check_failed_ValueError'}
 
@@ -22,14 +23,18 @@ def indexed(values,ids,label):
     require(isinstance(values,list) and all(isinstance(x,dict) and x.get('id') in ids for x in values),label+' contains unknown IDs.')
     result={x['id']:x for x in values};require(len(result)==len(values),label+' contains duplicate IDs.');return result
 
-def load_pro_approvals(path):
+def unique_approval_json(path):
     def unique(pairs):
         result={}
         for key,value in pairs:
             require(key not in result,'Duplicate Pro approval JSON key.');result[key]=value
         return result
     with path.open(encoding='utf-8') as stream:body=json.load(stream,object_pairs_hook=unique)
-    require(isinstance(body,dict),'Pro approvals must be a private mapping.')
+    require(isinstance(body,dict),'Approvals must be a private mapping.')
+    return body
+
+def load_pro_approvals(path):
+    body=unique_approval_json(path)
     result=body.get('approvals',body)
     require(isinstance(result,dict) and all(isinstance(v,dict) and v.get('id')==k for k,v in result.items()),'Pro approval ID mapping invalid.')
     return result
@@ -84,11 +89,13 @@ def pro_word_proof(run,line,audio_sha,record,approval=None):
         **({'approval':adopted} if adopted else {}),'provider_timestamps_used':False,'acting_approval':None,'listening_verdict':None}
 
 
-def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None):
+def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approvals_path=None,veto_path=None,expected_count=1557,pro_path=None,pro_approvals_path=None,complementary_approvals_path=None,complementary_ctc_path=None,flash_path=None,complementary_qa_path=None):
     run=run.resolve();common.prepared(run)
-    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path] if p]]
+    inputs=[base_path,*[p for p in [specialist_path,ctc_path,approvals_path,veto_path,pro_path,pro_approvals_path,complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path] if p]]
     require(not output_path.exists() and output_path.resolve() not in {p.resolve() for p in inputs},'Choose a new private final report, never overwrite evidence.')
     require(output_path.resolve().is_relative_to(run) and all(p.resolve().is_relative_to(run) for p in inputs),'Reports must stay within the frozen private run.')
+    complementary_requested=any([complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path])
+    require(not complementary_requested or all([complementary_approvals_path,complementary_ctc_path,flash_path,complementary_qa_path,pro_path,veto_path]),'Complementary proof requires root approvals, separate QA, CTC, Flash, Pro and root-veto reports.')
     input_hashes={str(p.resolve().relative_to(run)):qa.digest(p) for p in inputs}
     manifest=core.read_json(run/'lines.private.json');manifest_sha=qa.digest(run/'lines.private.json');rows={r['id']:r for r in manifest['lines']};ids=set(rows)
     require(len(ids)==len(manifest['lines'])==expected_count,'Frozen inventory coverage differs.')
@@ -134,6 +141,22 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         require(isinstance(approvals,dict) and set(approvals)<=ids and set(ctc)<=ids,'Unknown CTC approval/record ID.')
     else:require(approvals_path is None,'CTC approvals require their bound report.');ctc={};approvals={}
     veto=qa.load_lexical_veto_records(veto_path) if veto_path else {};require(set(veto)<=ids,'Unknown root veto ID.')
+    complementary_bindings={};complementary_approvals={}
+    if complementary_requested:
+        # Accept an approval map or the original proposal envelope, but the
+        # helper itself requires explicit root-adopted status on every case.
+        envelope=unique_approval_json(complementary_approvals_path)
+        require(isinstance(envelope,dict),'Invalid complementary root approval envelope.')
+        complementary_approvals=envelope.get('approvals',envelope.get('proposals',envelope))
+        require(isinstance(complementary_approvals,dict) and bool(complementary_approvals) and set(complementary_approvals)<=set(complementary.CASES)&ids,'Complementary approvals exceed the fixed two cases.')
+        flash_records=indexed(core.read_json(flash_path).get('records'),ids,'Flash records')
+        require(set(complementary_approvals)<=set(flash_records)&set(pro_records),'Complementary actual raw comparison records missing.')
+        loader=output_path.parent/(output_path.stem+'.complementary-ctc-loader');require(not loader.exists(),'Use a fresh complementary loader namespace.');loader.mkdir(parents=True)
+        complementary_ctc=lexical.load_records(complementary_ctc_path,loader)
+        require(set(complementary_approvals)<=set(complementary_ctc),'Complementary free CTC evidence missing.')
+        for ident in complementary_approvals:
+            complementary_bindings[ident]={'flash_record':flash_records[ident],'pro_record':pro_records[ident],
+                'ctc_envelope':complementary_ctc[ident],'qa_report_path':complementary_qa_path.resolve(),'root_veto_report_path':veto_path.resolve()}
     result=copy.deepcopy(base);result['base_decoder_evidence']={'file':str(base_path.resolve().relative_to(run)),'sha256':input_hashes[str(base_path.resolve().relative_to(run))],'version':base['version'],'model':base['model']}
     removed={};extra_failures=[]
     for take in result['takes']:
@@ -147,6 +170,10 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
         if ident in pro_records:
             proof=pro_word_proof(run,line,audio[ident],pro_records[ident],pro_approvals.get(ident))
             if proof:proofs.append(proof)
+        if ident in complementary_approvals:
+            proof=complementary.review(run,line,complementary_bindings[ident],complementary_approvals[ident])
+            require(proof is not None,'Explicit adopted complementary proof required.')
+            proofs.append(proof)
         if proofs:
             take['extra_word_proof']=proofs;take['original_decoder_reasons']=copy.deepcopy(take['reasons']);take['original_decoder_transcript']=copy.deepcopy(take.get('transcript'))
             removable=set(take['reasons'])&REMOVABLE;take['reasons']=[r for r in take['reasons'] if r not in removable];removed[ident]=removable
@@ -161,23 +188,28 @@ def finalize(run,base_path,output_path,specialist_path=None,ctc_path=None,approv
     for f in extra_failures:
         if f not in result['failures']:result['failures'].append(f)
     result['status']='passed' if not result['failures'] and all(not t['reasons'] for t in result['takes']) else 'review_required'
-    result['finalizer']={'method':'additive-full-word-qualification-v1','script_sha256':qa.digest(Path(__file__)),'input_files_sha256':input_hashes,'manifest_sha256':manifest_sha,'clip_sha256':audio,'removed_reasons':{i:sorted(rs) for i,rs in removed.items()},'legacy_batch_provenance_sha256':legacy_batch_provenance,'current_tts_receipts':receipts,'proof_driver_sha256':{Path(module.__file__).name:qa.digest(Path(module.__file__)) for module in [qa,lexical,specialist,pro]},'signal_decoder_unchanged':True,'acting_approval':None,'listening_verdict':None}
+    result['finalizer']={'method':'additive-full-word-qualification-v1','script_sha256':qa.digest(Path(__file__)),'input_files_sha256':input_hashes,'manifest_sha256':manifest_sha,'clip_sha256':audio,'removed_reasons':{i:sorted(rs) for i,rs in removed.items()},'legacy_batch_provenance_sha256':legacy_batch_provenance,'current_tts_receipts':receipts,'proof_driver_sha256':{Path(module.__file__).name:qa.digest(Path(module.__file__)) for module in [qa,lexical,specialist,pro,complementary]},'signal_decoder_unchanged':True,'acting_approval':None,'listening_verdict':None}
     common.prepared(run)
     require(qa.digest(run/'lines.private.json')==manifest_sha and all(qa.digest(run/'clips'/(i+'.mp3'))==h for i,h in audio.items()),'Source/audio changed during final qualification.')
     require(all(qa.digest(run/name)==h for name,h in legacy_batch_provenance.items()),'Legacy provider provenance changed during qualification.')
     require(all(not r['wav_sha256_verified'] or qa.digest(run/'raw'/(i+'.wav'))==r['wav_sha256_verified'] for i,r in receipts.items()),'Legacy WAV changed during qualification.')
     require(all(qa.digest(run/'raw'/(i+'.receipt.json'))==r['sha256'] for i,r in receipts.items()),'Current TTS receipts changed during final qualification.')
     require(all(qa.digest(run/name)==h for take in result['takes'] for proof in take.get('extra_word_proof',[]) for name,h in proof.get('provenance_files_sha256',{}).items()),'Pro raw provenance changed during final qualification.')
+    for ident,bindings in complementary_bindings.items():
+        repeated=complementary.review(run,rows[ident],bindings,complementary_approvals[ident])
+        stored=next(proof for take in result['takes'] if take['id']==ident for proof in take.get('extra_word_proof',[]) if proof.get('method')==complementary.VERSION)
+        require(repeated==stored,'Complementary source/model/frame/root proof changed before write.')
+        require(all(qa.digest(Path(complementary.__file__).parent/name)==h for name,h in stored['proof_drivers_sha256'].items()),'Complementary proof driver changed before write.')
     require(all(qa.digest(run/name)==h for name,h in input_hashes.items()),'Evidence report changed during final qualification.')
     qa.save(output_path,result);return result
 
 def main():
     common.configure();p=argparse.ArgumentParser(description=__doc__)
     for name in ['run-dir','base-qa-report','output']:p.add_argument('--'+name,type=Path,required=True)
-    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals']:p.add_argument('--'+name,type=Path)
+    for name in ['specialist-comparison','ctc-variant-report','ctc-root-approvals','root-lexical-veto-report','pro-comparison','pro-root-approvals','complementary-root-approvals','complementary-ctc-report','flash-comparison','complementary-qa-report']:p.add_argument('--'+name,type=Path)
     a=p.parse_args()
     try:
-        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals)
+        result=finalize(a.run_dir,a.base_qa_report,a.output,a.specialist_comparison,a.ctc_variant_report,a.ctc_root_approvals,a.root_lexical_veto_report,pro_path=a.pro_comparison,pro_approvals_path=a.pro_root_approvals,complementary_approvals_path=a.complementary_root_approvals,complementary_ctc_path=a.complementary_ctc_report,flash_path=a.flash_comparison,complementary_qa_path=a.complementary_qa_report)
         print(json.dumps({'status':result['status'],'failures':len(result['failures']),'checked':len(result['checked_ids'])}));return 0 if result['status']=='passed' else 2
     except (core.SafeError,OSError,ValueError,KeyError,TypeError) as e:
         print(str(e) if isinstance(e,core.SafeError) else 'Invalid bound final-QA evidence; no reports overwritten.',file=sys.stderr);return 1

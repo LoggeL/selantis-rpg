@@ -7,6 +7,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 import story_voice_qa_finalize as f
 import story_voice_specialist_asr_test as fixtures
+import story_voice_complementary_names_test as complementary_fixtures
 
 class FinalizeGates(unittest.TestCase):
     def setUp(self):
@@ -152,5 +153,45 @@ class FinalizeGates(unittest.TestCase):
         veto=self.run/'active-veto.json';f.core.save(veto,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Repeated audible sequence remains defective.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
         result=self.finish(pro_path=path,pro_approvals_path=approvals,veto_path=veto)
         self.assertEqual(result['status'],'review_required');self.assertIn('independent_audio_word_defect',result['takes'][0]['reasons'])
+
+class ComplementaryFinalizerGates(unittest.TestCase):
+    def setUp(self):
+        self.fixture=complementary_fixtures.ComplementaryNames();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups)
+        self.run=self.fixture.run
+        (self.run/'requests.jsonl').write_text('')
+        for ident in self.fixture.ids:
+            path=self.run/'raw'/(ident+'.receipt.json');receipt=f.core.read_json(path);receipt['model']=f.core.MODEL;f.core.save(path,receipt)
+        self.base=f.core.read_json(self.fixture.qa_path);self.base['checked_ids']=self.fixture.ids
+        self.base_path=self.run/'base-complete.json';f.core.save(self.base_path,self.base)
+        self.flash=self.run/'flash-comparison.json';f.core.save(self.flash,{'records':list(self.fixture.flash_records.values())})
+        self.pro_path=self.fixture.pro_folder/'comparison.private.json'
+        self.ctc=self.run/'ctc-report.json';f.core.save(self.ctc,{'synthetic_loader_fixture':True})
+        self.approvals=self.run/'approved-complementary.json';f.core.save(self.approvals,{'proposals':{i:self.fixture.approved(i) for i in self.fixture.ids}})
+    def finish(self,**changes):
+        args={'pro_path':self.pro_path,'veto_path':self.fixture.veto_path,'complementary_approvals_path':self.approvals,'complementary_ctc_path':self.ctc,'flash_path':self.flash,'complementary_qa_path':self.fixture.qa_path}
+        args.update(changes)
+        with patch.object(f.lexical,'load_records',return_value=self.fixture.envelopes):
+            return f.finalize(self.run,self.base_path,self.run/'final-complementary.json',expected_count=2,**args)
+    def test_two_actual_complementary_full_word_proofs_adopted(self):
+        result=self.finish();self.assertEqual(result['status'],'passed')
+        for take in result['takes']:
+            proof=take['extra_word_proof'][0];self.assertEqual(proof['method'],f.complementary.VERSION);self.assertIsNone(proof['timing_approval']);self.assertTrue(proof['free_CTC_evidence'])
+    def test_missing_arguments_and_unapproved_templates_refused(self):
+        with self.assertRaises(f.core.SafeError):self.finish(flash_path=None)
+        f.core.save(self.approvals,{'proposals':{i:self.fixture.template(i) for i in self.fixture.ids}})
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_current_root_veto_and_stale_complementary_QA_cannot_suppress(self):
+        report=f.core.read_json(self.fixture.qa_path);report['clip_sha256'][self.fixture.ids[0]]='b'*64;f.core.save(self.fixture.qa_path,report)
+        with self.assertRaises(f.core.SafeError):self.finish()
+    def test_signal_failure_not_hidden_by_complementary_word_proof(self):
+        self.base['takes'][0]['signal']['peak']=1.3;self.base['takes'][0]['reasons'].append('possible_clipping');self.base['failures'].append({'id':self.fixture.ids[0],'reason':'possible_clipping'});f.core.save(self.base_path,self.base)
+        result=self.finish();self.assertEqual(result['status'],'review_required');self.assertIn('possible_clipping',result['takes'][0]['reasons'])
+
+    def test_active_hashbound_root_veto_refuses_complementary_approval(self):
+        ident=self.fixture.ids[0];line=self.fixture.rows[ident];sha=f.qa.digest(self.run/'clips'/(ident+'.mp3'))
+        evidence=self.run/'root-veto-evidence.json';f.core.save(evidence,{'id':ident,'clip_sha256':sha,'source_text_sha256':f.qa.text_hash(line['text'])})
+        f.core.save(self.fixture.veto_path,{'records':[{'id':ident,'status':'root_retake_required','reviewed_by':'root offline','reason':'Actual duplicated words.','clip_sha256':sha,'text_sha256':f.qa.text_hash(line['text']),'evidence':[{'file':evidence.name,'sha256':f.qa.digest(evidence)}]}]})
+        with self.assertRaises(f.core.SafeError):self.finish()
+        self.assertFalse((self.run/'final-complementary.json').exists())
 
 if __name__=='__main__':unittest.main()
