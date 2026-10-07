@@ -180,6 +180,7 @@ async function afterwards(w: WorldCtx): Promise<void> {
   });
   G.state.setParty(['flick', 'kyra']);
   w.setObjective('k5-reden', 'Sprich mit Kyra und Flick.', 'flick');
+  G.checkpoint(); // k5-erwacht: a reload resumes at the night camp instead of replaying the awakening
 }
 
 async function talkKyra(w: WorldCtx): Promise<void> {
@@ -241,6 +242,7 @@ async function talkFlick(w: WorldCtx): Promise<void> {
   w.completeObjective('k5-reden');
   for (const id of ['flick', 'kyra']) { w.despawn(id); w.companions.add(id); }
   w.setObjective('k5-aufbruch', 'Brich mit Kyra und Flick auf.', [650, 704]);
+  G.checkpoint(); // k5-weiter: a reload resumes with the two as companions
 }
 
 async function scorchRing(w: WorldCtx): Promise<void> {
@@ -273,6 +275,7 @@ async function departure(w: WorldCtx): Promise<void> {
       await G.ui.fade('out', 1000);
       G.audio.music('refuge', { fadeMs: 1500 });
       await G.ui.fade('in', 500);
+      G.checkpoint(); // k5-ende: „Fortsetzen“ (also after the credits) offers the choice again without the tableau
     }
     const next = await w.choose([...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]);
     if (next === 3) { await G.ui.fade('in', 300); w.unlockPlayer(); return; }

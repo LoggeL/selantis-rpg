@@ -4,10 +4,12 @@ import { startWorld, type MapDef, type StartWorldOptions, type WorldCtx } from '
 import { WorldStopped } from '../../world/ctx';
 export { forestEncounter, escortEncounter, onwardEncounter } from './travelBattles';
 
+/**
+ * Checkpoint with the player's position as return point. Keeps the scene's own start params (e.g. `part`) and, like
+ * G.goto, never writes the campaign save from a hidden dev chapter.
+ */
 export function saveEncounterReturn(w: WorldCtx): void {
-  G.state.save(G.state.data.chapter, G.currentScene, {
-    encounterReturn: { scene: G.currentScene, map: w.map.id, x: w.player.x, y: w.player.y },
-  });
+  G.checkpoint({ encounterReturn: { scene: G.currentScene, map: w.map.id, x: w.player.x, y: w.player.y } });
 }
 
 /** Resume the same exploration instance. Its scripts and timers sleep while tactics has control. */

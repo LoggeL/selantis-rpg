@@ -1,7 +1,7 @@
 import { abilities, clues, lore, memories } from '../core/catalog';
-import { events } from '../core/events';
 import { G } from '../core/G';
 import { findScene } from '../core/registry';
+import type { Objective } from '../core/types';
 import { FLOURISH } from './chapterCard';
 import { el, html, icon, type IconName, sfx } from './dom';
 import { NavList, type NavItem } from './nav';
@@ -10,33 +10,25 @@ import { renderChars } from './typewriter';
 
 interface Entry { id: string; title: string; text: string; meta?: string; state?: 'active' | 'done' | 'locked'; key?: string; heading?: string; }
 
-/** Where and when objectives were noted (this session only; saves do not carry it). */
-const objectiveMeta = new Map<string, { scene: string; setAt: number; doneAt?: number }>();
-events.on('objective:set', (p: { id: string }) => {
-  const known = objectiveMeta.get(p.id);
-  objectiveMeta.set(p.id, { scene: G.currentScene, setAt: known?.setAt ?? Date.now() });
-});
-events.on('objective:done', (p: { id: string }) => {
-  const m = objectiveMeta.get(p.id);
-  if (m) m.doneAt = Date.now(); else objectiveMeta.set(p.id, { scene: G.currentScene, setAt: Date.now(), doneAt: Date.now() });
-});
-events.on('state:changed', (p: { kind: string }) => { if (p?.kind === 'reset' || p?.kind === 'load') objectiveMeta.clear(); });
-
 function ago(t: number): string {
   const min = Math.round((Date.now() - t) / 60000);
   if (min < 1) return 'gerade eben';
   if (min < 60) return min === 1 ? 'vor einer Minute' : `vor ${min} Minuten`;
   const h = Math.round(min / 60);
-  return h === 1 ? 'vor einer Stunde' : `vor ${h} Stunden`;
+  if (h < 48) return h === 1 ? 'vor einer Stunde' : `vor ${h} Stunden`;
+  return `vor ${Math.round(h / 24)} Tagen`;
 }
 
-function objectiveNote(id: string, done: boolean): string {
-  const m = objectiveMeta.get(id);
-  if (!m) return done ? 'Erledigt – auf einem früheren Abschnitt der Reise.' : 'Notiert auf einem früheren Abschnitt der Reise.';
-  const found = m.scene ? findScene(m.scene) : undefined;
+/** Where and when an objective was noted (stored with the objective, so it survives saving and loading). */
+function objectiveNote(o: Objective): string {
+  if (o.setAt === undefined) {
+    if (!o.done) return 'Notiert auf einem früheren Abschnitt der Reise.';
+    return o.doneAt !== undefined ? `Notiert auf einem früheren Abschnitt der Reise.\nErledigt ${ago(o.doneAt)}.` : 'Erledigt – auf einem früheren Abschnitt der Reise.';
+  }
+  const found = o.scene ? findScene(o.scene) : undefined;
   const where = found ? `${/^[IVXLCDM]+$/.test(found.chapter.numeral) ? `Kapitel ${found.chapter.numeral}` : found.chapter.numeral} · „${found.scene.title}“` : '';
-  const lines = [`Notiert ${ago(m.setAt)}${where ? ` – ${where}` : ''}.`];
-  if (done) lines.push(m.doneAt ? `Erledigt ${ago(m.doneAt)}.` : 'Erledigt.');
+  const lines = [`Notiert ${ago(o.setAt)}${where ? ` – ${where}` : ''}.`];
+  if (o.done) lines.push(o.doneAt !== undefined ? `Erledigt ${ago(o.doneAt)}.` : 'Erledigt.');
   return lines.join('\n');
 }
 
@@ -60,8 +52,8 @@ const TABS: Tab[] = [
       const open = list.filter(o => !o.done).reverse();
       const done = list.filter(o => o.done).reverse();
       return [
-        ...open.map(o => ({ id: o.id, title: o.text, text: objectiveNote(o.id, false), state: (o === active ? 'active' : undefined) as Entry['state'], meta: o === active ? 'Aktuelles Ziel' : 'Offen' })),
-        ...done.map(o => ({ id: o.id, title: o.text, text: objectiveNote(o.id, true), state: 'done' as const, meta: 'Erledigt' })),
+        ...open.map(o => ({ id: o.id, title: o.text, text: objectiveNote(o), state: (o === active ? 'active' : undefined) as Entry['state'], meta: o === active ? 'Aktuelles Ziel' : 'Offen' })),
+        ...done.map(o => ({ id: o.id, title: o.text, text: objectiveNote(o), state: 'done' as const, meta: 'Erledigt' })),
       ];
     },
   },
