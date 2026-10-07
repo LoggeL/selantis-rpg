@@ -42,9 +42,13 @@ export function buildBackdrop(scene: Phaser.Scene, kind: Backdrop): Phaser.GameO
 /** Cover the current viewport without stretching the painting; keep it covered after rotation/fullscreen. */
 function fitBackdrop(scene: Phaser.Scene, image: Phaser.GameObjects.Image): Phaser.GameObjects.Image {
   image.setOrigin(0.5).setScrollFactor(0).setDepth(-100000);
-  const fit = () => image.setPosition(GAME_W / 2, GAME_H / 2).setScale(Math.max(GAME_W / image.width, GAME_H / image.height));
+  const fit = () => {
+    const zoom = scene.cameras.main.zoom;
+    image.setPosition(GAME_W / 2, GAME_H / 2).setScale(Math.max(GAME_W / image.width, GAME_H / image.height) / zoom);
+  };
   fit();
   scene.scale.on('resize', fit);
-  scene.events.once('shutdown', () => scene.scale.off('resize', fit));
+  scene.events.on('preupdate', fit);
+  scene.events.once('shutdown', () => { scene.scale.off('resize', fit); scene.events.off('preupdate', fit); });
   return image;
 }

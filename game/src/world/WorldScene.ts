@@ -1862,6 +1862,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.zoomPunch > 0.0005) this.zoomPunch *= Math.exp(-dt * 7); else this.zoomPunch = 0;
     const z = this.viewportZoom() * (1 + this.zoomPunch);
     if (this.cam.zoom !== z) { this.cam.setZoom(z); this.overlayCam.setZoom(z); }
+    this.vignette.setPosition(GAME_W / 2, GAME_H / 2).setDisplaySize(GAME_W / z, GAME_H / z);
     this.cam.centerOn(this.camFocus.x, this.camFocus.y);
     this.overlayCam.centerOn(this.camFocus.x, this.camFocus.y);
   }

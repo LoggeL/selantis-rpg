@@ -22,7 +22,9 @@ test('landscape rotation and browser-bar resize fill the screen without resettin
       const camerasMatch = [w.cam.width, w.cam.height, w.overlayCam.width, w.overlayCam.height].join(',') === [c.width, c.height, c.width, c.height].join(',');
       // Phaser pads render textures to an even size; the light layer must cover the entire canvas.
       const lightCovers = w.lighting.rt.width >= c.width && w.lighting.rt.width <= c.width + 1 && w.lighting.rt.height >= c.height && w.lighting.rt.height <= c.height + 1;
-      return camerasMatch && lightCovers;
+      const center = w.cam.matrix.transformPoint(w.lighting.rt.x, w.lighting.rt.y);
+      const lightCentered = Math.abs(center.x - c.width / 2) <= 0.5 && Math.abs(center.y - c.height / 2) <= 0.5;
+      return camerasMatch && lightCovers && lightCentered;
     })).toBe(true);
   }
   await page.setViewportSize({ width: 390, height: 844 });
@@ -54,7 +56,7 @@ test('real fullscreen entry and exit preserve full landscape coverage', async ({
 test('notch insets protect HUD and battle controls without narrowing the canvas', async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
   await page.goto('/?scene=tactics-sandbox');
-  await page.waitForFunction(() => (window as any).__tactics?.ready);
+  await page.waitForFunction(() => { const t = (window as any).__tactics; return t?.ready && t.ctrl.inputEnabled() && t.animating === 0; });
   await page.evaluate(() => {
     const s = document.querySelector<HTMLElement>('#ui')!.style;
     s.setProperty('--safe-left', '47px'); s.setProperty('--safe-right', '47px'); s.setProperty('--safe-bottom', '21px');
@@ -64,6 +66,16 @@ test('notch insets protect HUD and battle controls without narrowing the canvas'
   for (const selector of ['.hud-btn-menu', '.tac-obj', '.tac-rot', '.tac-end']) {
     await expect.poll(() => page.locator(selector).evaluate(e => {
       const r = e.getBoundingClientRect(); return r.left >= 47 && r.right <= innerWidth - 47 && r.bottom <= innerHeight - 21;
+    })).toBe(true);
+  }
+  for (const size of [{ width: 1280, height: 720 }, { width: 844, height: 390 }]) {
+    await page.setViewportSize(size); await fillsScreen(page);
+    await expect.poll(() => page.evaluate(() => {
+      const t = (window as any).__tactics, cam = t.cameras.main;
+      const bg = t.children.list.find((o: any) => o.depth === -100000);
+      const c = document.querySelector<HTMLCanvasElement>('#game canvas')!;
+      const center = bg && cam.matrix.transformPoint(bg.x, bg.y);
+      return bg && Math.abs(center.x - c.width / 2) <= 0.5 && Math.abs(center.y - c.height / 2) <= 0.5 && bg.displayWidth * cam.zoom >= c.width - 0.01 && bg.displayHeight * cam.zoom >= c.height - 0.01;
     })).toBe(true);
   }
   await page.screenshot({ path: test.info().outputPath('battle-landscape-safe-area.png') });
@@ -76,7 +88,11 @@ test('small painted maps also cover a wide phone viewport', async ({ page }) => 
   await fillsScreen(page);
   await expect.poll(() => page.evaluate(() => {
     const w = (window as any).__world, v = w.cam.worldView;
-    return v.width <= w.mapW + 1 && v.height <= w.mapH + 1 && v.x >= -1 && v.y >= -1 && v.right <= w.mapW + 1 && v.bottom <= w.mapH + 1;
+    const c = document.querySelector<HTMLCanvasElement>('#game canvas')!, rt = w.lighting.rt;
+    const center = w.cam.matrix.transformPoint(rt.x, rt.y);
+    return v.width <= w.mapW + 1 && v.height <= w.mapH + 1 && v.x >= -1 && v.y >= -1 && v.right <= w.mapW + 1 && v.bottom <= w.mapH + 1
+      && Math.abs(center.x - c.width / 2) <= 0.5 && Math.abs(center.y - c.height / 2) <= 0.5
+      && rt.displayWidth * w.cam.zoom >= c.width && rt.displayHeight * w.cam.zoom >= c.height;
   })).toBe(true);
   await page.screenshot({ path: test.info().outputPath('small-map-landscape.png') });
 });

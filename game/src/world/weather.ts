@@ -330,7 +330,7 @@ export class Weather {
       f.tilePositionX = cam.scrollX * par + this.t * (6 + i * 5) * (1 + this.wind);
       f.tilePositionY = cam.scrollY * par + Math.sin(this.t * 0.1 + i) * 6;
       f.setAlpha(a * (i === 0 ? 1 : 0.7) * (0.85 + Math.sin(this.t * 0.4 + i * 2) * 0.15));
-      f.setScale(1 / cam.zoom);
+      f.setPosition(GAME_W / 2, GAME_H / 2).setScale(1 / cam.zoom);
     });
   }
 

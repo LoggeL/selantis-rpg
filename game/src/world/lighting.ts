@@ -237,7 +237,8 @@ export class Lighting {
     const hz = this.add_;
     if (hz[0] + hz[1] + hz[2] > 0.003) {
       this.haze.setVisible(true).setTint(Phaser.Display.Color.GetColor(Math.min(255, hz[0] * 255 * 4), Math.min(255, hz[1] * 255 * 4), Math.min(255, hz[2] * 255 * 4)))
-        .setAlpha(0.25).setScale((GAME_W * 2) / 4 / cam.zoom, (GAME_H * 2) / 64 / cam.zoom);
+        .setAlpha(0.25).setPosition(GAME_W / 2, GAME_H / 2)
+        .setScale((GAME_W * 2) / 4 / cam.zoom, (GAME_H * 2) / 64 / cam.zoom);
     } else this.haze.setVisible(false);
 
     const fr = ((this.flashColor >> 16) & 255) / 255, fg = ((this.flashColor >> 8) & 255) / 255, fb = (this.flashColor & 255) / 255;
@@ -250,7 +251,7 @@ export class Lighting {
 
     const zoom = cam.zoom;
     const s = Math.max(1, 1 / zoom);
-    this.rt.setScale(s);
+    this.rt.setPosition(GAME_W / 2, GAME_H / 2).setScale(s);
     const cx = cam.worldView.centerX, cy = cam.worldView.centerY;
 
     // Position lights and glows.
