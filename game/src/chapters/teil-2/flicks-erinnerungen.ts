@@ -7,6 +7,7 @@
 // no failure, no reward). She gives nothing away and he sends for the sister. → e2-kyras-widerstand.
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { bloodPool } from '../common/blood';
 import { HALLE_SPOT, HALLE_TABLE, halleBase, halleBrazierLights, pinArea, pinPlayer } from './gewoelbe';
 import { bg, e2Scene, interlude, master, sfx, ui, VIOLET, nextScene } from './shared';
 
@@ -33,7 +34,7 @@ async function intrusion(w: WorldCtx): Promise<void> {
   ui().prefetchPlate('e2-erinnerung');
   await w.cutscene(async () => {
     await w.wait(500);
-    await w.think('Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.');
+    await w.think('Zwei Finger der Rechten, in einen Fetzen vom Hemd gewickelt, der Stoff schon wieder durchgeblutet. Nicht hinsehen. Wer hinsieht, zählt nach.');
     vamir.face('player');
     await w.say(master(), 'Du schweigst gut. Also frage ich nicht mehr. Ich sehe selbst nach.');
     await vamir.walkTo(HALLE_SPOT.chair[0] - 22, HALLE_SPOT.chair[1] - 4, { straight: true });
@@ -127,6 +128,8 @@ async function erinnerungScript(w: WorldCtx): Promise<void> {
   const door = w.spawn({ id: 'waerter', preset: 'shadow-club', speaker: 'e2-waerter', at: HALLE_SPOT.guardCells, dir: 'left', solid: false });
   for (const a of [vamir, baris, door]) a.hold(true);
   pinPlayer(w, 'sit-chair', 'left');
+  // Yesterday's blood under the armrest (e2-flicks-verhoer); nobody wiped it away.
+  bloodPool(w, [HALLE_SPOT.chair[0] - 4, HALLE_SPOT.chair[1] + 4], { scale: 0.45 });
   await ui().fade('in', 900);
   w.setObjective('e2-erinnerung-standhalten', 'Verrate nichts. Nicht ein Wort über Lia.', 'meister');
   await intrusion(w);

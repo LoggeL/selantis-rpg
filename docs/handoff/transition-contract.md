@@ -40,7 +40,7 @@ Der Abschluss von Teil zwei und der reguläre Start von Teil drei müssen diesel
 | Kyra | Unter Vamirs Einfluss, nicht aus freiem Willen gegen Lia. |
 | Flick | Entkommen, aber noch nicht wieder mit Lia vereint. Teil drei hat eigene Zwischenszenen; deren Ortswechsel brauchen eine nachvollziehbare Brücke. |
 | Ignatius | Lebt. Teil zwei löst den Mentor-Konflikt noch nicht abschließend auf. |
-| Elnon | Kyras Angriff ist geschehen. Der Handoff macht aus dem Zusammenbruch weder eine bestätigte Rettung noch eine unbelegte endgültige Todesmeldung. |
+| Elnon | Kyras Angriff ist geschehen. **Nutzerentscheidung (2026-10-08):** Elnon ist tot; Teil II zeigt den Stich und seinen Tod (`e2-elnon-struck` = getötet). Der Spieler weiß es, Lia nicht. Keine Rettung, keine Wiederkehr; Kyras Bericht in Teil III ist eine Lüge. |
 | Vamir | Lebt und besitzt die Urmacht noch nicht. Der Name ist nach Ignatius' Erklärung bekannt. |
 | Stäbe | Der geliehene Schattentöter aus Teil zwei und Lias eigener Stab aus Teil drei sind unterschiedliche Objekte. |
 

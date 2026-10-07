@@ -26,8 +26,13 @@ Verbindliche Szenenspezifikation für `game/src/chapters/teil-2/` (Kapitel-ID `t
   - **Baris** (`e2-baris`, Porträt `baris-scarred`): verbrannt, gedemütigt, gefährlich; Hauptmann. Orwen nicht nötig.
 - **Wissen trennen.** Lia erlebt Lehrerwald und Sorge; Gefangenenszenen sieht nur der Spieler. Lia erwähnt danach nichts
   aus ihnen, außer als ausdrücklich gekennzeichnete Albträume, die Ignatius als ungewiss einordnet.
-- **Gewalt und Kontrolle** nur über Kamera, Posen, Licht, Ton, Schnitt, Abblenden. Keine Verstümmelung, kein Blut im Bild,
-  keine Folter als Belohnungsspiel. Keine Todesbestätigung für Elnon.
+- **Gewalt** (Nutzervorgabe: „Gewalt kann ruhig expliziter sein“) wird gezeigt, wo die Handlung von ihr handelt: Schlag,
+  Stich und Folter im Bild statt Abblende, Treffer-Ton, roter Blitz, Blutspritzer (`fx.burst(…, 'blood')`), Blutlache
+  (Prop `blutlache`), Schmerzlaute als Barks/Zeilen, sichtbare Folgen in späteren Szenen. Helfer:
+  `chapters/common/blood.ts` (`bloodHit`, `bloodPool`, `preloadBlood`). Kein Selbstzweck: keine Zeitlupe, keine
+  Wiederholung, kein Gewaltdetail ohne erzählerische Funktion, keine Folter als Spielmechanik oder Belohnungsspiel
+  (Folter ist Zwischensequenz mit Trotz-Auswahl, nie ein Minispiel zum Gewinnen). Kontrolle (Vamirs Zugriff auf
+  Köpfe) bleibt bei Licht, Ton, Posen. **Elnon stirbt** in `e2-kontrolle` sichtbar; der Spieler ist Zeuge, Lia nicht.
 - **Neutrale Begriffe:** „die Prüfung“, „der Druide“ (siehe Quellenprüfung), unbenannte Stadt, unbenannte Frau in Flicks
   Erinnerung, Vamirs früherer Name wird nicht genannt. Gwynn wird nur als Bericht erwähnt. Zeitangabe: „sechzehn Jahre“
   bzw. „seit Dunkelhain“.
@@ -194,8 +199,15 @@ erwünscht; die Beats sind verbindlich.
 - **Herzstück:** Während der Meister spricht, lockert Flick heimlich einen Nagel aus der Armlehne
   (`storyAction('reach', 'Den losen Nagel lockern')`, nur wenn niemand hinsieht – Kamera/Bark-Hinweise). Ergebnis
   `e2-flick-nagel`: Damit kann sie später eine Handschelle heimlich lösen (Adaption; der Film zeigt nur ein Handgemenge
-  und einen Schlüsselbund). Antworten als trotzige Auswahl. Drohung gegen ihre Ohren bleibt Drohung. Die Folter
-  an den Fingern: Kamera auf Baris' Schatten, Schnitt, Ton, Abblende; keine dauerhafte Verletzung benennen.
+  und einen Schlüsselbund). Antworten als trotzige Auswahl. Drohung gegen ihre Ohren bleibt Drohung. Die Folter an den
+  Fingern wird gezeigt (Zwischensequenz, kein Minispiel): Nahaufnahme am Stuhl, Baris kniet mit der Zange aus dem
+  Kästchen und reißt ihr die Fingernägel von Zeige- und Mittelfinger der **rechten** Hand (ihre Bogenfinger), während
+  der Meister fragt; Schreie, roter Blitz, Blut auf Armlehne und Boden. Flicks Antworten bleiben trotzig (Auswahl ohne
+  Einfluss auf den Ausgang). Die linke Faust mit dem Nagel bleibt zu. Der Meister kündigt die andere Hand für morgen an.
+- **Nachwirkung:** Verband um zwei Finger der Rechten in `e2-flicks-erinnerungen` (Blutfleck unterm Stuhl),
+  `e2-zellengespraeche` (Gespräch mit Elnon, Schloss knacken mit Daumen und Ringfinger), `e2-flick-entkommt` (die Hand
+  pocht nach dem Schlag) und `e2-aufbruch` (kann keinen Bogen halten). Die Nägel wachsen nach; keine bleibende
+  Behinderung festlegen.
 - → `G.goto('e2-konzentration')`.
 
 ### e2-konzentration – „Atem“ (F2 20:50–21:38)
@@ -211,7 +223,8 @@ erwünscht; die Beats sind verbindlich.
 - **Ort:** `e2-halle`. Vamir dringt in Flicks Erinnerungen (violett). Tafel `e2-erinnerung` mit sichtbarer Rahmung.
 - **Herzstück:** `stealthGame('cover', 'Die Erinnerung verschließen')` als innerer Widerstand (Fehler wiederholen nur
   den Abschnitt, kein Scheitern, keine Belohnung). Die Frau bleibt unbenannt; Flick verlangt, dass er ihren Kopf
-  verlässt, und verrät nichts. → `G.goto('e2-kyras-widerstand')`.
+  verlässt, und verrät nichts. Flicks rechte Hand ist verbunden und durchgeblutet, unter dem Stuhl der Blutfleck vom
+  Verhör. → `G.goto('e2-kyras-widerstand')`.
 
 ### e2-kyras-widerstand – „Nicht ein Wort“ (F2 24:14–25:19) — Gefangenenblick
 - **Ort:** `e2-halle`, Kyra gefesselt auf dem Holztisch (`kyra-bound` `lie`).
@@ -237,8 +250,9 @@ erwünscht; die Beats sind verbindlich.
 
 ### e2-zellengespraeche – „Durch die Gitter“ (F2 30:17–32:10) — Gefangenenblick
 - **Ort:** `e2-kerker`. Spieler: Flick in ihrer Zelle.
-- **Beats:** Zwei Wärter schlagen Elnon (nur Ton/Schatten/Abblende), er provoziert sie. Flick fragt nach ihm; beide
-  verletzt; Kyra ist beim Meister. Elnon entschuldigt sich für den Umgang mit ihrer Herkunft; Flick erklärt die Lüge
+- **Beats:** Zwei Wärter schlagen Elnon in seiner Zelle, sichtbar durchs Gitter (drei Schläge, Blut, ein Zahn), er
+  provoziert sie, Flick schreit dazwischen (Barks). Flick fragt nach ihm; beide verletzt (Flicks Finger); Kyra ist beim
+  Meister. Elnon entschuldigt sich für den Umgang mit ihrer Herkunft; Flick erklärt die Lüge
   (Auswahl: wie viel sie sagt). Keine Romanze. `e2-versoehnt`. Kyra wird halluzinierend zurückgebracht.
 - **Herzstück:** In der Zelle: mit dem Nagel (`e2-flick-nagel`) das Schloss der Handschelle lösen und die Schelle so
   angelegt lassen, dass niemand es sieht (`storyAction('tend')`); Wärterroutine beobachten (wer trägt den Schlüsselbund,
@@ -261,7 +275,7 @@ erwünscht; die Beats sind verbindlich.
   und gewinnen ihr Zeit. Zwei Wärter holen Flick ab.
 - **Herzstück:** Im Gang schlägt Flick mit der gelösten Hand zu (Quellenbefund §6: Handgemenge, Schlüsselbund am Boden;
   kein Zauber): kurzer Reaktionsmoment (`storyAction` oder Auswahl mit Zeitdruck, Fehler wiederholen nur den Moment),
-  der Schlüsselbund fällt. Sie läuft zur Zelle von Elnon und Kyra; Elnon entscheidet bewusst, bei Kyra zu bleiben, und
+  die Eisenschelle trifft den Wärter an der Schläfe (Blut, Platzwunde), der Schlüsselbund fällt. Sie läuft zur Zelle von Elnon und Kyra; Elnon entscheidet bewusst, bei Kyra zu bleiben, und
   schickt sie, Hilfe zu holen. Danach Schleichweg am zweiten, alarmierten Wärter bzw. einer Patrouille vorbei zum
   Ausgang (Wachen mit Sichtkegeln, Verstecke im Schatten, Checkpoint, kein Game Over). Tafel `e2-flucht`.
   `e2-flick-escaped`. → `G.goto('e2-kontrolle')`.
@@ -270,8 +284,13 @@ erwünscht; die Beats sind verbindlich.
 - **Ort:** `e2-halle`. Vamir tobt über Flicks Flucht (Wachen, Baris). Er wählt Kyra als schwächsten Geist.
 - **Herzstück (ohne Rettungszweig):** Spieler als Elnon (gefesselt): Er versucht, Kyra zu erreichen (Auswahl: ihren
   Namen rufen, an Lia erinnern, an den Hof erinnern); jede Antwort prallt an der Kontrolle ab. Kyra spricht mit fremder
-  Ruhe, nennt Vamir „Meister“. Schwert, Befehl, Tafel `e2-kontrolle`, Stoß im Schnitt (Ton, Licht, Abblende), Elnon
-  fällt. Vamir: neues Lieblingsspielzeug (eigene Worte). `e2-kyra-controlled`, `e2-elnon-struck`. Keine Todesaussage.
+  Ruhe, nennt Vamir „Meister“. Schwert, Befehl, Tafel `e2-kontrolle`. **Der Stoß ist im Bild** (keine Abblende):
+  Kyra sticht zu, roter Blitz, Blut, Elnon krümmt sich, letzte Worte je nach seiner letzten Wahl, er fällt und bleibt
+  reglos in einer wachsenden Blutlache liegen. Für einen Atemzug blitzt Kyras eigenes Ich durch (`struggle`), Vamir
+  schließt die Tür wieder (`cold`). Baris kniet bei ihm und stellt den Tod fest; Vamir: neues
+  Lieblingsspielzeug (eigene Worte), „schafft ihn hinaus“. Schlusskarte: Elnon starb durch Kyras Hand; Lia erfuhr nichts
+  davon. `e2-kyra-controlled`, `e2-elnon-struck` (bedeutet seit dieser Fassung: getötet). Elnon ist tot – keine
+  Rettung, keine Wiederkehr.
 - → `G.goto('e2-aufbruch')`.
 
 ### e2-aufbruch – „Letzte Hoffnung“ (F2 38:15–40:15)
@@ -284,7 +303,8 @@ erwünscht; die Beats sind verbindlich.
   über `e2-herbsthang`: Pfad, Spurenblick auf ihre eigene Richtung (Flick? nein – nur Wild und alte Wege), am Ende ein
   Stück weißes Leinen im Busch; als Lia rastet, gleitet dicht hinter ihr etwas Helles mit blau-violettem Randleuchten
   vorbei (eine Gestalt? ein Gewand?), Lia dreht sich um (Interaktion), nichts ist da. Wahrnehmung, unbenannt, kein Zauber
-  (Übergang zur Erscheinung in Teil III, ohne sie zu benennen). Tafel `e2-aufbruch`, Erzähler: Gruppe getrennt, Ziel offen.
+  (Übergang zur Erscheinung in Teil III, ohne sie zu benennen). Tafel `e2-aufbruch`, Erzähler: Gruppe getrennt, Ziel offen;
+  Elnon ist tot, Lia weiß es nicht (Spielerwissen). Flick im Zwischenspiel weiß es ebenfalls nicht („Haltet durch, ihr zwei“).
 - **Abschluss:** `e2-finished`, `setParty([])`, Credits „Ende des zweiten Buches“, `finishBook2()`.
 
 ## 4. Dateibesitz

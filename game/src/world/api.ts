@@ -567,7 +567,7 @@ export interface WorldCtx {
 
   /** Small effects in world space. */
   fx: {
-    burst(at: At | string, kind?: 'dust' | 'sparkle' | 'urmacht' | 'leaves' | 'splash' | 'smoke', count?: number): void;
+    burst(at: At | string, kind?: 'dust' | 'sparkle' | 'urmacht' | 'leaves' | 'splash' | 'smoke' | 'blood', count?: number): void;
   };
 
   /** Low-level access (advanced). */

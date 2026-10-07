@@ -1,14 +1,16 @@
 // Scene „e2-zellengespraeche“ – Durch die Gitter (docs/teil-2/umsetzung.md §3, F2 30:17–32:10). Captivity interlude,
 // framed „Unterdessen …“: the player is Flick, locked in the westernmost cell of the dungeon (e2-kerker). Elnon is
-// beaten in the next cell while he provokes the wardens – heard over black, never shown. A first whisper through the
+// beaten in the next cell while he provokes the wardens – shown through the bars (blows, blood, a lost tooth). A first whisper through the
 // wall (both hurt, Kyra is with the Master). Heart: inside the cell Flick watches the wardens' routine through the
 // bars (who carries the key bunch, when the other one dozes, that they only ever go up together) and, while nobody
 // looks, opens her left shackle with the nail from the interrogation chair and leaves it on so that it still looks
 // locked (tend gesture + a choice how to hide it). Then Elnon apologises for how he treated her origin; Flick decides
 // how much she explains (no romance). Kyra is brought back hallucinating; Flick reaches through the wall with a few
 // words. → e2-stabtraining.
+import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { KERKER_CELLS, KERKER_SPOT, kerkerBase, kerkerLights } from './gewoelbe';
 import { restageGesture, type GesturePicture } from './gewoelbe-geste';
 import { bg, e2Scene, interlude, sfx, ui, until, nextScene } from './shared';
@@ -212,7 +214,8 @@ async function workShackle(w: WorldCtx): Promise<void> {
   }
   w.player.teleport(CORNER, 'down');
   w.player.setIdle('sit');
-  await w.think('Der Nagel aus dem Ärmelsaum. Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam.');
+  await w.think('Der Nagel aus dem Ärmelsaum, zwischen Daumen und Ringfinger der Rechten. Die zwei anderen Finger schreien bei jeder Bewegung.');
+  await w.think('Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam. Und nicht auf den Verband bluten.');
   const gesture = G.ui.storyAction('tend', 'Das Schloss mit dem Nagel öffnen');
   restageGesture('tend', 'Schieb den Nagel ins Schloss und dreh ihn vor und zurück, bis der Riegel nachgibt. Leise.', PICK_PICTURE);
   await gesture;
@@ -255,23 +258,43 @@ async function knockWall(w: WorldCtx): Promise<void> {
 // Story beats
 // ---------------------------------------------------------------------------------------------------------------
 
+/** One blow of the club warden on Elnon (in the picture): swing, impact, blood, Elnon reels. */
+async function blow(w: WorldCtx, strength: number): Promise<void> {
+  const club = w.actor(CLUB), elnon = w.actor('elnon');
+  sfx('swing', { volume: 0.5 });
+  bg(club.play('attack', { ms: 450 }));
+  await w.wait(160);
+  sfx(strength > 1 ? 'hit-heavy' : 'hit', { volume: 0.7 });
+  bloodHit(w, [elnon.x, elnon.y - 22], strength);
+  bg(elnon.play('hurt' as CharAnim, { ms: 700 }));
+  sfx('chain', { volume: 0.5 });
+  await w.wait(700);
+}
+
 async function beating(w: WorldCtx): Promise<void> {
   const key = w.actor(KEY), club = w.actor(CLUB), elnon = w.actor('elnon');
-  await w.wait(400);
-  sfx('hit', { volume: 0.55 });
-  await w.wait(300);
-  await w.say('e2-waerterin', 'Na, Anführer? Immer noch so gesprächig?');
-  await w.say('e2-elnon', 'Gesprächiger als ihr. Ihr zwei kennt zusammen ein Wort, und das ist aus Holz.', { mood: 'pained' });
-  sfx('hit', { volume: 0.6 });
-  await w.wait(250);
-  sfx('chain', { volume: 0.5 });
-  await w.say('e2-waerter', 'Der hat noch alle Zähne. Soll ich mal nachzählen?');
-  await w.say('e2-elnon', 'Du und zählen? Ich warte. Wie weit kommst du, bis drei?', { mood: 'pained' });
-  sfx('hit-heavy', { volume: 0.5 });
-  await w.wait(500);
-  await w.say('e2-waerterin', 'Lass gut sein. Der Meister will morgen noch was von ihm, das reden kann.');
-  await ui().fade('in', 1100);
   await w.cutscene(async () => {
+    await Promise.all([w.camera.zoom(1.6, 0), w.camera.pan([ELNON_CELL.inLeft[0] + 16, 100], 0)]);
+    await ui().fade('in', 700);
+    await club.walkTo(ELNON_CELL.inLeft[0] + 20, ELNON_CELL.inLeft[1] + 4, { straight: true });
+    club.face('elnon');
+    await blow(w, 0.8);
+    await w.say('e2-waerterin', 'Na, Anführer? Immer noch so gesprächig?');
+    await w.say('e2-elnon', 'Gesprächiger als ihr. Ihr zwei kennt zusammen ein Wort, und das ist aus Holz.', { mood: 'pained' });
+    await blow(w, 1);
+    w.player.bark('Hört auf!', 1400);
+    elnon.setIdle('sit');
+    w.fx.burst([elnon.x - 6, elnon.y - 10], 'blood', 5);
+    await w.say('narrator', 'Elnon spuckt Blut auf das Stroh. Und einen Zahn.');
+    await w.say('e2-waerter', 'Der hatte noch alle Zähne. Jetzt zähl ich einen weniger.');
+    await w.say('e2-elnon', 'Du und zählen? Ich warte. Wie weit kommst du, bis drei?', { mood: 'pained' });
+    await blow(w, 1.4);
+    elnon.setIdle('lie');
+    bloodPool(w, [elnon.x - 4, elnon.y - 2], { scale: 0.5, ms: 2500 });
+    w.player.bark('Ihr Feiglinge! Zu zweit gegen einen in Ketten!', 2200);
+    await w.say('e2-waerterin', 'Lass gut sein. Der Meister will morgen noch was von ihm, das reden kann.');
+    await w.wait(500);
+    elnon.setIdle('kneel');
     await Promise.all([
       key.walkTo(ELNON_CELL.doorway[0], ELNON_CELL.doorway[1], { straight: true }),
       club.walkTo(ELNON_CELL.doorway[0] + 16, ELNON_CELL.doorway[1] - 4, { straight: true }),
@@ -294,6 +317,8 @@ async function beating(w: WorldCtx): Promise<void> {
       club.walkTo(KERKER_SPOT.guardSeat[0], KERKER_SPOT.guardSeat[1], { straight: true }).then(() => { club.face('right'); club.setIdle('sit'); }),
       key.walkTo(KERKER_SPOT.guardTable[0], KERKER_SPOT.guardTable[1], { straight: true }).then(() => key.face('right')),
     ]);
+    await w.camera.zoom(1, 500);
+    w.camera.follow();
   });
 }
 
@@ -319,8 +344,10 @@ async function firstWhisper(w: WorldCtx): Promise<void> {
     await w.say('e2-elnon', 'Du flüsterst zu laut.', { mood: 'hurt' });
     await w.say('e2-flick', 'Da ist er ja.', { mood: 'smirk' });
     await w.say('e2-flick', 'Wie schlimm?', { mood: 'scared' });
-    await w.say('e2-elnon', 'Rippen. Lippe. Nichts, was nicht wieder heilt. Und deine Hände?', { mood: 'pained' });
-    await w.say('e2-flick', 'Spielen Laute wie vorher. Also gar nicht.', { mood: 'smirk' });
+    await w.say('e2-elnon', 'Rippen. Lippe. Ein Zahn weniger. Nichts, was mich umbringt. Und deine Hände?', { mood: 'pained' });
+    await w.say('e2-flick', 'Rechts fehlen zwei Fingernägel. Baris hat sie mit einer Zange geholt. Ausgerechnet die Bogenfinger.', { mood: 'pained' });
+    await w.say('e2-elnon', 'Die wachsen nach. Halt die Hand hoch, damit sie weniger pocht. Und wickel sie nicht auf.', { mood: 'grim' });
+    await w.say('e2-flick', 'Spiel ich eben eine Weile keine Laute. Konnte ich vorher auch nicht.', { mood: 'smirk' });
     await w.say('e2-flick', 'Und Kyra? Sie war nicht da, als die mich runtergebracht haben.', { mood: 'scared' });
     await w.say('e2-elnon', 'Oben. Bei ihm. Seit dem Abend. Ich hab gehört, wie sie die Treppe hoch geschimpft hat.', { mood: 'grim' });
     await w.say('e2-flick', 'Wenn er ihr was tut, dann …', { mood: 'angry' });
@@ -447,6 +474,7 @@ async function zellenScript(w: WorldCtx): Promise<void> {
   for (const f of [...Object.values(F), ...Object.values(SEEN)]) G.state.set(f, false);
   for (const f of Object.values(ZG_RESULT)) G.state.set(f, false);
   shownObjective = '';
+  preloadBlood(w);
   const elnon = w.spawn({ id: 'elnon', preset: 'e2-elnon-gefangen', speaker: 'e2-elnon', at: ELNON_CELL.inLeft, dir: 'down', idle: 'kneel', solid: false, facePlayer: false, speed: 24 });
   const key = w.spawn({ id: KEY, preset: 'shadow-sword', speaker: 'e2-waerterin', at: [ELNON_CELL.inLeft[0] + 30, ELNON_CELL.inLeft[1] + 2], dir: 'left', solid: false, speed: 36 });
   const club = w.spawn({ id: CLUB, preset: 'shadow-club', speaker: 'e2-waerter', at: [ELNON_CELL.inRight[0], ELNON_CELL.inRight[1]], dir: 'left', solid: false, speed: 36 });

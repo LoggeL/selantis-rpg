@@ -241,3 +241,14 @@ Anmerkungen:
 - Die neue Pose `drunk-sit` steht nicht in `POSE_NAMES` von `build_manifest.py`; das Manifest löst sie über den Sidecar
   (`character`/`pose`) auf. Laufzeit: abspielbar unter ihrem eigenen Namen, ohne Fallback-Kette.
 - Spielcode (`game/src/**`) wurde nicht angefasst. Wirtshausszene mit Logge, Sebastian und Pascal muss noch eingebaut werden.
+
+## Status Blutlache (Nutzerwunsch 2026-10-08: Gewalt expliziter)
+
+| Asset | Datei(en) | Größe | Provenienz | Fassung / Abweichungen |
+| --- | --- | --- | --- | --- |
+| Requisit `blutlache` | `props/blutlache.png` (+ `.json`) | 40×17, Höhe 16, Anker (21, 17), ohne Footprint | `docs/rebuild/art/props.json` (`props.py`, ein Codex-Auftrag) | v1. Frische dunkelrote Lache, flach am Boden, dunkler Kern, kleine Spritzer; ohne Boden, Figur, Waffe. Generischer Name, weil auch Kapitel I sie nutzt. Laufzeit über `chapters/common/blood.ts` (`bloodPool` zentriert und lässt sie per Tween wachsen) |
+
+Anmerkungen:
+- Blutspritzer sind kein Bild-Asset: `fx.burst(…, 'blood')` färbt die vorhandenen Wassertropfen-Partikel dunkelrot
+  (`world/WorldScene.ts`).
+- Die Tafel `e2-kontrolle` bleibt „kein Blut“: Sie zeigt den Moment vor dem Stich.

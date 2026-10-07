@@ -1,11 +1,12 @@
 // Scene `ueberfall` (DESIGN.md §7.4, Kapitel I/3): the Dunkelschatten are already at the farm when Lia arrives.
 // She hides in the embankment, sneaks along it past the lookout, watches the interrogation (canon beats, violence
-// only through camera, cuts and darkness), must find cover twice (no game over), the riders pass right by her
+// shown from the hiding place: both parents are stabbed, blood on the yard), must find cover twice (no game over), the riders pass right by her
 // hiding place, and Harro stays behind to bury the dead – Lia has to slip away from him through the old field gate.
 import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
 import type { SfxLoop } from '../../audio/api';
 import { defineMap, type MapDef, type NpcDef, type WorldCtx } from '../../world';
+import { BLOOD_PROP, bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { AT, HOF_BLOCK, HOF_HIDING, HOF_OCCLUDERS, HOF_SURFACES, HOF_WALK } from './hofGeo';
 import { dimmer, music, sfx, ui } from './shared';
 
@@ -83,6 +84,7 @@ async function spottedByLookout(w: WorldCtx): Promise<void> {
 
 export async function ueberfallScript(w: WorldCtx): Promise<void> {
   dimmer(w, 0.38);
+  preloadBlood(w);
   ui().prefetchPlate('k1-verhoer');
   await w.cutscene(async () => {
     await w.player.walkTo(110, 660);
@@ -191,18 +193,24 @@ async function confrontation(w: WorldCtx): Promise<void> {
     gr.face('vater');
     await w.say('grauhaarige', 'Dummer Bauer.', { mood: 'angry' });
 
-    // The father: a cut to Lia, a dull sound, darkness.
-    await w.camera.pan(AT.hide, 350);
+    // The father: stabbed in front of his daughters, seen from Lia's hiding place (no cut away).
+    await w.camera.pan([AT.father[0] + 10, AT.father[1] + 10], 350);
     await w.camera.zoom(1.6, 350);
-    sfx('hit-heavy', { volume: 0.55, distance: 0.6 });
-    await G.ui.fade('out', 260, '#1a0606');
+    sfx('sword-draw', { volume: 0.5, distance: 0.6 });
+    void gr.play('attack', { ms: 500 });
+    await w.wait(180);
+    sfx('hit-heavy', { volume: 0.6, distance: 0.6 });
+    bloodHit(w, [vater.x, vater.y - 18], 1.2);
+    void vater.play('hurt' as CharAnim, { ms: 700 });
+    await w.wait(700);
     vater.setIdle('lie');
+    sfx('thud', { volume: 0.4, distance: 0.6 });
+    bloodPool(w, [vater.x, vater.y - 4], { scale: 1.1, ms: 4500 });
     music('grief');
     w.addProp({ id: 'buch-boeschung', prop: 'alana-book', at: [522, 300], collide: false });
     G.state.take('book-alana');
     G.state.set('k1-buch-verloren');
-    await w.wait(500);
-    await G.ui.fade('in', 900);
+    await w.wait(900);
     sfx('thud', { volume: 0.3 });
     await w.think('Mein Buch rutscht mir aus den Händen. Ins Gras. Ich merke es kaum.');
     await w.think('Nein. Nein, nein, nein …');
@@ -214,16 +222,21 @@ async function confrontation(w: WorldCtx): Promise<void> {
     await w.say('grauhaarige', 'Na so was. Da ist mir die Hand ausgerutscht.', { mood: 'smirk' });
     await w.say('grauhaarige', 'Weint nicht, meine Liebe. Wenn ihr euch so allein fühlt, dann folgt ihm doch.', { mood: 'smirk' });
 
-    // The mother: darkness, her last word.
-    await w.camera.pan(AT.hide, 350);
-    await G.ui.fade('out', 300, '#1a0606');
-    sfx('hit-heavy', { volume: 0.4, distance: 0.7 });
-    mutter.setIdle('lie');
+    // The mother: the same blade, her last word.
+    gr.face('mutter');
+    await w.wait(300);
+    void gr.play('attack', { ms: 500 });
+    await w.wait(180);
+    sfx('hit-heavy', { volume: 0.5, distance: 0.7 });
+    bloodHit(w, [mutter.x, mutter.y - 18], 1);
+    void mutter.play('hurt' as CharAnim, { ms: 600 });
     await w.wait(600);
+    mutter.setIdle('lie');
+    bloodPool(w, [mutter.x, mutter.y - 4], { scale: 1, ms: 4500 });
+    await w.wait(500);
     await w.say('mutter', 'Kyra …', { mood: 'sad' });
     await w.wait(400);
-    await G.ui.fade('in', 1100);
-    await w.camera.pan([590, 236], 800);
+    await w.think('Sie bewegt sich nicht mehr. Keiner von beiden.');
     kyra.setIdle('idle');
     void kyra.play('hurt' as CharAnim, { ms: 700 });
     await w.say('kyra', 'Ich merk mir eure Fratzen. Jede einzelne. Ihr werdet nicht alt.', { mood: 'angry' });
@@ -287,7 +300,12 @@ export const harroMap: MapDef = defineMap({
       suspiciousBarks: ['Hab ich da was gehört?', 'Wer da?'], calmBarks: ['Bloß ein Karnickel.', 'Leichenfresser … pah.'],
     },
   ],
-  props: [{ id: 'buch-boeschung', prop: 'alana-book', at: [522, 300], collide: false }],
+  props: [
+    { id: 'buch-boeschung', prop: 'alana-book', at: [522, 300], collide: false },
+    // Where the parents died (ueberfallScript): the blood is still there when Harro comes to bury them.
+    { id: 'blut-vater', prop: BLOOD_PROP, at: [AT.father[0], AT.father[1] + 4], collide: false, blocksView: false, depthOffset: -48 },
+    { id: 'blut-mutter', prop: BLOOD_PROP, at: [AT.mother[0], AT.mother[1] + 4], collide: false, blocksView: false, depthOffset: -48 },
+  ],
   triggers: [
     { id: 'gatter', poly: [[60, 568], [140, 568], [140, 620], [60, 620]], onEnter: escapeThroughGate },
   ],

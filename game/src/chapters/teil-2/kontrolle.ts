@@ -3,11 +3,14 @@
 // at the wardens and Baris over Flick's escape (he found the missing nail in his own chair), then has Kyra brought
 // and picks her because her mind is the easiest door. Heart (no rescue branch): Elnon tries to reach Kyra – her
 // name, her sister, the farm, and the chain itself; every attempt breaks on the control, she answers with a stranger's
-// calm and calls Vamir „Meister“. A warden hands her his sword; plate e2-kontrolle; the strike happens in a cut
-// (sound, light, fade), Elnon falls. Vamir's line about his new favourite plaything is our own wording. Elnon's fate
-// stays open: nobody says he is dead. Sets e2-kyra-controlled and e2-elnon-struck. → e2-aufbruch.
+// calm and calls Vamir „Meister“. A warden hands her his sword; plate e2-kontrolle; the strike is shown in the
+// picture (no cut away): the thrust, a red flash and blood, Elnon's last breath, his body on the stones in a spreading
+// pool. Baris confirms his death; Vamir's line about his new favourite plaything is our own wording. Elnon is dead
+// (the player witnesses it, Lia never learns of it). Sets e2-kyra-controlled and e2-elnon-struck. → e2-aufbruch.
+import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { chainArea, HALLE_SPOT, halleBase, halleBrazierLights, pinPlayer } from './gewoelbe';
 import { bg, e2Scene, interlude, master, sfx, ui, until, VIOLET, nextScene } from './shared';
 
@@ -70,22 +73,22 @@ async function reachKyra(w: WorldCtx): Promise<void> {
     if (id === 'name') {
       await w.say('e2-elnon', 'Kyra! Sieh mich an. Du heißt Kyra, und du beißt jeden, der dir zu nahe kommt.', { mood: 'determined' });
       violetPulse(w);
-      await w.say('e2-kyra-gebannt', 'Ich sehe dich. Du bist laut. Der Meister mag es nicht, wenn man laut ist.');
+      await w.say('e2-kyra-gebannt', 'Ich sehe dich. Du bist laut. Der Meister mag es nicht, wenn man laut ist.', { mood: 'cold' });
       await w.say(master(), 'Namen. Als wäre ein Name eine Tür, durch die man einfach wieder hinausgeht.');
     } else if (id === 'lia') {
       await w.say('e2-elnon', 'Denk an Lia. Deine Schwester sucht dich. Sie hat dich schon einmal da rausgeholt.', { mood: 'determined' });
       const light = w.lighting.get('e2-kyra-bann');
       await light.fadeTo(0.15, 500);
-      await w.say('e2-kyra-gebannt', 'Lia …');
+      await w.say('e2-kyra-gebannt', 'Lia …', { mood: 'struggle' });
       await w.wait(500);
       violetPulse(w, 1.4);
-      await w.say('e2-kyra-gebannt', 'Lia ist weit weg. Der Meister ist hier.');
+      await w.say('e2-kyra-gebannt', 'Lia ist weit weg. Der Meister ist hier.', { mood: 'cold' });
       vamir.face('player');
       await w.say(master(), 'Oh, das hat gezuckt. Hast du’s gesehen? Ein Fünkchen. Und schon ist es wieder still.');
     } else {
       await w.say('e2-elnon', 'Der Hof, Kyra. Die Schweine. Du hast die halbe Nacht von ihnen erzählt. Ich kenne jedes beim Namen.', { mood: 'grim' });
       violetPulse(w);
-      await w.say('e2-kyra-gebannt', 'Ich habe keinen Hof. Ich hatte nie einen. Ich habe den Meister.');
+      await w.say('e2-kyra-gebannt', 'Ich habe keinen Hof. Ich hatte nie einen. Ich habe den Meister.', { mood: 'cold' });
       await w.say(master(), 'Ich räume gründlich auf, wenn ich irgendwo einziehe. Alte Möbel, alte Tiere. Alles raus.');
     }
     G.state.set(F.tried, [...done, id].join(','));
@@ -184,7 +187,7 @@ async function kyraBrought(w: WorldCtx): Promise<void> {
     await w.wait(600);
     sfx('rope-cut', { volume: 0.4 });
     await w.say('narrator', 'Ein Wärter schneidet ihr die Stricke durch. Kyra rührt sich nicht. Sie reibt sich nicht einmal die Handgelenke.');
-    await w.say('e2-kyra-gebannt', 'Meister.');
+    await w.say('e2-kyra-gebannt', 'Meister.', { mood: 'devoted' });
     await w.say(master(), 'Siehst du, Anführer? Es ging schneller, als du dachtest.');
     kyra.face('player');
   });
@@ -216,55 +219,97 @@ async function theSword(w: WorldCtx): Promise<void> {
     if (pick === 0) await w.say('e2-elnon', 'Kyra. Ich bin dir nicht böse. Was immer jetzt passiert. Das bist nicht du.', { mood: 'grim' });
     else if (pick === 1) await w.say('e2-elnon', 'Wehr dich! Nur einen Atemzug lang! Mehr brauchst du nicht!', { mood: 'determined' });
     else { await w.wait(1400); await w.say('narrator', 'Elnon sieht ihr in die Augen. Darin ist kein Hof, kein Stroh, keine Schwester. Nur kaltes Violett.'); }
-    await w.say('e2-kyra-gebannt', 'Ja, Meister.');
+    await w.say('e2-kyra-gebannt', 'Ja, Meister.', { mood: 'devoted' });
     await G.ui.closePlate();
   });
 }
 
+/** Elnon's last words, shaped by what he said to her before the order (KO_RESULT.last). */
+function lastWords(): string | null {
+  const last = G.state.flag<string>(KO_RESULT.last);
+  if (last === 'nicht-boese') return 'Nicht … du. Das … warst nicht …';
+  if (last === 'wehr-dich') return 'Kyra … wehr … dich …';
+  return null;
+}
+
 async function theStrike(w: WorldCtx): Promise<void> {
-  const kyra = w.actor('kyra'), vamir = w.actor('meister');
+  const kyra = w.actor('kyra'), vamir = w.actor('meister'), baris = w.actor('baris');
+  const key = w.actor(KEY), club = w.actor(CLUB);
   await w.cutscene(async () => {
-    await w.camera.pan([486, 200], 500);
+    await w.camera.pan([486, 196], 500);
     await w.camera.zoom(1.6, 600);
-    void w.lighting.get('becken-west').fadeTo(0.25, 800);
-    void w.lighting.get('becken-ost').fadeTo(0.25, 800);
+    void w.lighting.get('becken-west').fadeTo(0.55, 800);
+    void w.lighting.get('becken-ost').fadeTo(0.55, 800);
     sfx('heartbeat', { volume: 0.7 });
-    await kyra.walkTo(w.player.x - 22, w.player.y + 8, { straight: true });
+    await kyra.walkTo(w.player.x - 20, w.player.y + 4, { straight: true });
     kyra.face('player');
-    await w.wait(700);
-    bg(kyra.play('attack', { ms: 400 }));
-    w.lighting.flash(VIOLET, 160);
-    await ui().fade('out', 140, '#0b0712');
-    sfx('hit-heavy', { volume: 0.45, pitch: 0.7 });
+    w.lighting.get('e2-kyra-bann').set({ at: [kyra.x, kyra.y - 26] });
     await w.wait(500);
-    sfx('chain', { volume: 0.6, pitch: 0.6 });
-    await w.wait(300);
-    sfx('fall', { volume: 0.5 });
-    bg(w.player.play('fall'));
-    await w.wait(900);
-    await G.ui.narrate(['Ein Stoß im Dunkeln. Ketten auf Stein. Elnon fällt.'], { style: 'card' });
-    // The next shot shows only the Master and Kyra; Elnon stays out of the picture (his fate is left open).
-    w.player.hide();
-    await w.camera.zoom(1.3, 0);
-    await w.camera.pan([400, 170], 0);
-    kyra.teleport([KYRA_AT[0] - 40, KYRA_AT[1] - 30], 'left');
-    vamir.teleport([KYRA_AT[0] - 84, KYRA_AT[1] - 40], 'right');
-    w.lighting.get('e2-kyra-bann').set({ at: [KYRA_AT[0] - 40, KYRA_AT[1] - 56] });
-    await ui().fade('in', 1200);
+    await w.think('Ihre Hände zittern nicht. Meine schon.');
+    // The thrust, in the picture: no cut away.
+    sfx('swing', { volume: 0.6, pitch: 0.8 });
+    bg(kyra.play('attack', { ms: 700 }));
+    await w.wait(180);
+    sfx('hit-heavy', { volume: 0.85, pitch: 0.75 });
+    bloodHit(w, [w.player.x, w.player.y - 18], 1.4);
+    w.camera.punch(0.1);
+    bg(w.player.play('hurt' as CharAnim, { ms: 1400 }));
+    sfx('chain', { volume: 0.7, pitch: 0.7 });
+    G.audio.duck(-14, 7000);
+    await w.wait(1200);
+    w.fx.burst([w.player.x - 4, w.player.y - 10], 'blood', 8);
+    const words = lastWords();
+    if (words) await w.say('e2-elnon', words, { mood: 'pained' });
+    else await w.say('narrator', 'Elnon sagt nichts. Er sieht sie nur an, bis er es nicht mehr kann.');
+    sfx('fall', { volume: 0.6 });
+    await w.player.play('fall', { ms: 600 });
+    w.player.setIdle('lie');
+    sfx('thud', { volume: 0.55 });
+    sfx('chain', { volume: 0.5, pitch: 0.5 });
+    bloodPool(w, [w.player.x, w.player.y - 4], { id: 'elnon-blut', scale: 1.35, ms: 5000 });
+    await w.wait(1600);
+    await w.say('narrator', 'Die Kette klirrt noch einmal. Dann liegt sie still, wie er.');
+    // For one breath Kyra herself looks out of her eyes – and the Master closes the door again.
+    const bann = w.lighting.get('e2-kyra-bann');
+    await bann.fadeTo(0.2, 400);
+    await w.say('e2-kyra-gebannt', 'Elnon …? Warum ist da so viel … Was hab ich …', { mood: 'struggle' });
+    vamir.face('kyra');
+    bg(vamir.play('cast', { ms: 900 }));
+    violetPulse(w, 1.5);
+    await w.say(master(), 'Still, Kind. Da ist nichts. Sieh mich an.');
+    await w.say('e2-kyra-gebannt', 'Da ist nichts.', { mood: 'cold' });
+
+    // Wider shot: the body in its blood, Kyra above it with the sword, the Master coming closer.
+    await Promise.all([w.camera.zoom(1.3, 1200), w.camera.pan([440, 190], 1200)]);
+    await vamir.walkTo(KYRA_AT[0] - 30, KYRA_AT[1] - 14, { straight: true });
+    vamir.face('player');
     await w.say(master(), 'Kein Zögern. Kein Zittern. Habt ihr das gesehen? So sieht Gehorsam aus, wenn man ihn richtig anfasst.');
-    await w.say('e2-kyra-gebannt', 'Wie Ihr befehlt, Meister.');
+    kyra.face('meister');
+    await w.say('e2-kyra-gebannt', 'Wie Ihr befehlt, Meister.', { mood: 'devoted' });
+    baris.face('player');
+    await baris.walkTo(w.player.x + 24, w.player.y + 10, { straight: true });
+    bg(baris.play('kneel', { ms: 1800 }));
+    await w.wait(1200);
+    await w.say('e2-baris', 'Tot, Meister. Ein Stich, glatt durch. Die Kleine hat dabei nicht mal geblinzelt.', { mood: 'pained' });
+    baris.face('kyra');
+    await w.say('e2-baris', 'Gestern hat sie mir noch in die Hand gebissen. Und jetzt das.', { mood: 'pained' });
     await w.say(master(), 'Alte Spielsachen gehen kaputt, Baris. Diese hier nicht. Ich glaube, die behalte ich. Sie ist mir schon jetzt die liebste.');
-    await w.say('e2-baris', 'Und der Elf, Meister?', { mood: 'pained' });
-    await w.say(master(), 'Schafft ihn mir aus den Augen. Und dann findet mir die Spitzohrige.');
+    await w.say(master(), 'Gib ihr ein Tuch für die Klinge. Und schafft ihn hinaus. Dann findet mir die Spitzohrige.');
+    key.face('player'); club.face('player');
     sfx('magic', { volume: 0.4, pitch: 0.45 });
     await w.lighting.get('e2-kyra-bann').fadeTo(1.3, 800);
     await ui().fade('out', 1600, '#0b0712');
   });
+  await G.ui.narrate([
+    'Elnon, der Anführer der Freien, starb in Ketten auf den Steinen der Halle. Durch Kyras Hand, auf Befehl des Meisters.',
+    'Lia erfuhr nichts davon.',
+  ], { style: 'card' });
 }
 
 async function kontrolleScript(w: WorldCtx): Promise<void> {
   for (const f of Object.values(F)) G.state.set(f, false);
   G.state.set(KO_RESULT.last, false);
+  preloadBlood(w);
   const vamir = w.spawn({ id: 'meister', preset: 'vamir', speaker: master(), at: HALLE_SPOT.dais, dir: 'down', solid: false, speed: 30 });
   const baris = w.spawn({ id: 'baris', preset: 'baris-scarred', speaker: 'e2-baris', at: [HALLE_SPOT.daisFoot[0] - 70, HALLE_SPOT.daisFoot[1] + 10], dir: 'up', solid: false, speed: 40 });
   const key = w.spawn({ id: KEY, preset: 'shadow-sword', speaker: 'e2-waerterin', at: [HALLE_SPOT.daisFoot[0] - 16, HALLE_SPOT.daisFoot[1] + 16], dir: 'up', idle: 'kneel', solid: false, speed: 40 });

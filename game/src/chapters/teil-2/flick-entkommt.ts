@@ -11,6 +11,7 @@
 //     stairs. Sets e2-flick-escaped. → e2-kontrolle.
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { kerkerBase, kerkerLights } from './gewoelbe';
 import { strikeMoment } from './flick-entkommt-moment';
 import {
@@ -185,6 +186,7 @@ async function scuffle(w: WorldCtx): Promise<void> {
         await w.wait(120);
         sfx('hit-heavy', { volume: 0.7 });
         w.camera.punch(0.08);
+        bloodHit(w, [key.x, key.y - 30], 0.8);
         bg(key.play('fall'));
         key.setIdle('fall');
         sfx('chain', { volume: 0.6, pitch: 0.7 });
@@ -199,7 +201,8 @@ async function scuffle(w: WorldCtx): Promise<void> {
   w.unlockPlayer();
   w.completeObjective('e2-fe-moment');
   await w.cutscene(async () => {
-    await w.say('narrator', 'Der Wärter mit dem Bund liegt auf den Steinen und hält sich den Kopf. Sein Gürtelhaken ist leer.');
+    bloodPool(w, [key.x - 10, key.y - 2], { scale: 0.55, ms: 2500 });
+    await w.say('narrator', 'Die Schelle hat den Wärter an der Schläfe erwischt. Er liegt auf den Steinen, Blut läuft ihm übers Ohr. Sein Gürtelhaken ist leer.');
     await w.say('e2-waerterin', 'Mein Schädel … Halt sie … HALT SIE!', { mood: 'pained' });
     club.face('player');
     bg(club.emote('!', 900));
@@ -208,6 +211,7 @@ async function scuffle(w: WorldCtx): Promise<void> {
     await club.walkPath([[SCUFFLE[0] + 40, 262], [306, 300], [306, 360]], { straight: true, run: true, speed: 110 });
     w.despawn(CLUB);
     await w.think('Er rennt. Richtung Halle. Gleich ist hier mehr los als auf dem Markt in Trapas.');
+    await w.think('Meine rechte Hand pocht wie ein zweites Herz. Der Verband ist rot. Später. Alles später.');
   });
   G.state.set(F.keysDown);
   w.setObjective('e2-fe-bund', 'Schnapp dir den Schlüsselbund.', 'schluessel');
@@ -285,6 +289,7 @@ async function parting(w: WorldCtx): Promise<void> {
 async function fluchtScript(w: WorldCtx): Promise<void> {
   for (const f of Object.values(F)) G.state.set(f, false);
   for (const f of Object.values(FE_RESULT)) G.state.set(f, false);
+  preloadBlood(w);
   spawnPrisoners(w);
   w.player.face('right');
   await visions(w);

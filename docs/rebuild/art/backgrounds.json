@@ -46,6 +46,21 @@
       "seconds": 179,
       "attempts": 1,
       "time": "2026-10-08T01:12:40"
+    },
+    "output/imagegen/raw/art/cut/bonus-goldener-eber-v2.png": {
+      "kind": "plate",
+      "id": "bonus-goldener-eber",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Edit of the FIRST attached image (a group picture in the 'Goldener Eber' tavern): keep the whole composition, all eight companions at the table, their faces, poses, clothing, the food, the fireplace, the golden boar sign and the lighting EXACTLY as they are. ONLY change the tavern background behind them: replace the blurred generic guests with three cheerful tavern guests from the other attached reference sheets, smaller and further back but clearly recognisable, each matching his sheet exactly: Pascal (straw hat with green band, faded brick-red shirt, bright orange braces) drumming with two wooden spoons on a back table; Logge (dark golden-blond hair, round orange-tinted spectacles, rust-orange tunic, pocketed leather vest, quill behind his ear) raising a tankard and writing in a little book; Sebastian (wavy dark-brown hair, moustache and goatee, charcoal doublet, white shirt, neckerchief) playing his lute with a wide theatrical grin. The barmaid with mugs may stay. The three must not cover any of the eight companions.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/art/cut/bonus-goldener-eber.png",
+        "docs/rebuild/art/refs/pascal.png",
+        "docs/rebuild/art/refs/logge.png",
+        "docs/rebuild/art/refs/sebastian.png"
+      ],
+      "ok": true,
+      "seconds": 96,
+      "attempts": 1,
+      "time": "2026-10-08T01:21:54"
     }
   },
   "builds": {
@@ -120,8 +135,8 @@
       "chars": "e2-lia-stab"
     },
     "plate:bonus-goldener-eber": {
-      "desc": "A warm, joyful group picture of all the companions together in the 'Goldener Eber' tavern (the attached tavern interior: timber beams, big stone fireplace, candle-lit tables, a golden boar sign above the bar). Evening, crackling fire, warm amber candlelight. Around one long wooden table full of bread, roast, tankards and candles, all EIGHT characters from the attached reference sheets are gathered and clearly visible, each matching their sheet exactly: in the CENTRE the red-haired girl Lia raising a mug and laughing, her sister Kyra (nut-brown hair) hugging her from the side with a broad grin; the half-elf Flick with short black hair sitting on the table edge with one boot on the bench, smirking; the old bald mage Ignatius smiling warmly with a cup of tea; the tall elf Elnon standing upright behind them with a calm smile and a raised goblet; the wiry Foltan with his pointed beard raising a toast stiffly; the stout blacksmith Azar laughing loudly with a huge tankard and a drumstick; the white-bearded wizard Valentus in his robe leaning on his staff at the end of the table, eyes twinkling. Everyone is turned slightly toward the viewer like a group portrait, faces clearly readable, nobody cut off. Background: a few blurred tavern guests, a barmaid carrying mugs. Cozy, celebratory, heart-warming mood.",
-      "chars": "lia,kyra,flick,valentus,ignatius,elnon,foltan,azar"
+      "desc": "Edit of the FIRST attached image (a group picture in the 'Goldener Eber' tavern): keep the whole composition, all eight companions at the table, their faces, poses, clothing, the food, the fireplace, the golden boar sign and the lighting EXACTLY as they are. ONLY change the tavern background behind them: replace the blurred generic guests with three cheerful tavern guests from the other attached reference sheets, smaller and further back but clearly recognisable, each matching his sheet exactly: Pascal (straw hat with green band, faded brick-red shirt, bright orange braces) drumming with two wooden spoons on a back table; Logge (dark golden-blond hair, round orange-tinted spectacles, rust-orange tunic, pocketed leather vest, quill behind his ear) raising a tankard and writing in a little book; Sebastian (wavy dark-brown hair, moustache and goatee, charcoal doublet, white shirt, neckerchief) playing his lute with a wide theatrical grin. The barmaid with mugs may stay. The three must not cover any of the eight companions.",
+      "chars": "pascal,logge,sebastian"
     }
   }
 }

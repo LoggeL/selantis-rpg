@@ -1947,7 +1947,7 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
-  burst(x: number, y: number, kind: 'dust' | 'sparkle' | 'urmacht' | 'leaves' | 'splash' | 'smoke', count = 8): void {
+  burst(x: number, y: number, kind: 'dust' | 'sparkle' | 'urmacht' | 'leaves' | 'splash' | 'smoke' | 'blood', count = 8): void {
     for (let i = 0; i < count; i++) {
       const a = Math.random() * Math.PI * 2, sp = 10 + Math.random() * 25;
       switch (kind) {
@@ -1956,6 +1956,8 @@ export class WorldScene extends Phaser.Scene {
         case 'leaves': this.spawnPuff(`w-leaf-${i % 3}`, x, y - 8, Math.cos(a) * sp, -20 - Math.random() * 20, 1, 1, 1, 1.1, 40, 6, false); break;
         case 'smoke': this.spawnPuff('w-dust', x, y, (Math.random() - 0.5) * 8, -12 - Math.random() * 8, 0.6, 2.2, 0.5, 1.6, 0, 0, false, Phaser.BlendModes.NORMAL, 0x8a8a90); break;
         case 'splash': this.puff(x, y, 'splash'); break;
+        // Dark red droplets thrown up and falling back (a wound in a cutscene; tinted water droplet).
+        case 'blood': this.spawnPuff('w-droplet', x + (Math.random() - 0.5) * 4, y - Math.random() * 4, Math.cos(a) * sp * 1.6, -18 - Math.random() * 34, 1.1, 0.9, 1, 0.55, 210, 0, false, Phaser.BlendModes.NORMAL, 0x8a1a22); break;
         default: this.spawnPuff('w-dust', x, y, Math.cos(a) * sp, Math.sin(a) * sp * 0.5 - 5, 0.5, 1.4, 0.7, 0.55, 0, 0, false);
       }
     }

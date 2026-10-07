@@ -75,7 +75,7 @@ Diese Befunde widersprechen `docs/episode-02.md` bzw. dem Story-Plan und sollten
 - Diese Aussage stammt von der noch kontrollierten Kyra. In F3 27:40 bis 27:49 erklärt Vamir den Plan, Kyra solle Triss zu einem entlegenen Rebellenlager locken, wo die Falle zuschnappt. Der Bericht über Elnon ist also Teil des Köders und kein Filmfakt.
 - Im übrigen F3-Transkript und in den F3-Notizen erscheint Elnon nicht mehr, weder lebend noch tot. Der Epilog zeigt nur Triss, Kyra und Flick.
 
-**Folgerung für das Spiel:** In Teil 2 gilt nur: Elnon wird auf Vamirs Befehl von Kyra niedergestochen und bricht zusammen. Sein Schicksal bleibt **offen**: keine Totenszene, keine Rettung, keine Wiederkehr. Kyras spätere Behauptung, Elnon lebe, gehört in Teil 3 und ist dort als Lüge oder Köder zu behandeln, solange der Nutzer nichts anderes festlegt.
+**Folgerung für das Spiel:** Belegt ist: Elnon wird auf Vamirs Befehl von Kyra niedergestochen und bricht zusammen; der Film entscheidet sein Schicksal nicht. **Nutzerentscheidung (Spielfassung):** Elnon **stirbt**. Der Stich wird im Bild gezeigt, Elnon bleibt tot in seinem Blut liegen, Baris stellt den Tod fest (Adaption, siehe [Adaptionsprotokoll](adaption.md)). Keine Rettung, keine Wiederkehr. Kyras spätere Behauptung, sie habe Elnon auf der Flucht verloren, ist in Teil 3 damit für den Spieler eine erkennbare Lüge (Teil des Köders); Lia weiß es nicht.
 
 ## 4. Lagerangriff: Wer versteckt, wer drängt zur Flucht, was geschieht
 
@@ -203,7 +203,7 @@ Der grüne Umhang gehört Flick, der blaue Kyra, der schwarze Triss. Das ergibt 
 
 1. **Prüfung und Druide:** Sollen sie im Spiel dauerhaft namenlos bleiben („die Prüfung“, „der Druide“)? Oder willst du eine Schreibweise festlegen, zum Beispiel „Belek Ba'ul“ und „Drakus“? Beides ist nur nach Gehör belegt.
 2. **Flicks Frau:** Bleibt die hingerichtete Frau aus Flicks Erinnerung ohne Verwandtschaftsgrad? Oder soll das Spiel eine Beziehung festlegen (etwa Mutter), was über den Film hinausginge?
-3. **Elnons Schicksal:** Soll Elnon in der Spielfassung den Stich überleben, sodass Kyras Behauptung in Teil 3 einen wahren Kern hätte? Oder soll er sterben? Oder bleibt sein Schicksal dauerhaft offen? Der Film entscheidet das nicht.
+3. **Elnons Schicksal:** *Entschieden:* Elnon stirbt in `e2-kontrolle` sichtbar durch Kyras Hand; Kyras Bericht in Teil 3 ist eine Lüge (siehe §3).
 4. **Lagerangriff:** Ist es in Ordnung, dass Flick im Spiel diejenige ist, die Lia und Kyra zum Verstecken auffordert und selbst zurückbleibt? Das ist wahrscheinlich, aber nicht sicher belegt. Und sollen Foltan, Azar und Alastir beim Angriff anwesend sein oder gerade unterwegs?
 5. **Zeitangabe:** Bestätigst du, dass Ignatius' „vierzehn Jahre“ im Spiel auf sechzehn Jahre (seit Dunkelhain) angepasst oder ganz weggelassen wird?
 6. **Vamirs früherer Name:** Soll „Tolos“ (Schreibweise ungesichert) irgendwann im Spiel fallen, oder bleibt es bei „Vamir“ allein?

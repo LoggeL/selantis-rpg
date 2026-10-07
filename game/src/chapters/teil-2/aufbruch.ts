@@ -125,6 +125,7 @@ async function flickScript(w: WorldCtx): Promise<void> {
     sfx('alert', { volume: 0.45, pitch: 0.42, distance: 0.6 });
     await w.say('e2-flick', 'Ein Horn. Die haben die leeren Schellen gefunden. Schneller, als mir lieb ist.', { mood: 'scared' });
     await w.say('e2-flick', 'Laufen bringt nichts mehr. Meine Beine sind seit Tagen nur noch zur Hälfte meine.', { mood: 'pained' });
+    await w.say('e2-flick', 'Und die rechte Hand kann keinen Bogen halten. Zwei Finger ohne Nägel, der Verband klebt. Also: verstecken.', { mood: 'pained' });
   });
   w.setObjective('e2-auf-farn', 'Versteck dich im Farn, bevor die Verfolger da sind.', FERN_AT);
   await w.say('narrator', `Halte ${w.controlHint('sneak')} gedrückt: Geduckt im Farn sieht dich keiner.`);
@@ -475,7 +476,7 @@ async function leaveTop(w: WorldCtx): Promise<void> {
   try { G.audio.music('refuge', { fadeMs: 2000 }); } catch { /* audio optional */ }
   await ui().fade('in', 900);
   await G.ui.say('narrator', 'So zog Lia los, allein, mit einem geliehenen Stab und einem Bündel, das nach Rauch roch.');
-  await G.ui.say('narrator', 'Irgendwo hinter den Hügeln waren Kyra und Flick. Und Elnon, was immer aus ihm geworden war. Lia wusste von alledem nichts.');
+  await G.ui.say('narrator', 'Irgendwo hinter den Hügeln waren Kyra und Flick. Dass Elnon tot war, gestorben durch Kyras Hand, ahnte Lia nicht.');
   await G.ui.say('narrator', 'Wohin der Weg führte, wusste Lia nicht. Nur, dass sie ihn nicht mehr zurückgehen würde.');
   await G.ui.say('narrator', 'Und tief in ihr wartete das ~Licht~ darauf, dass sie es rief.');
   await ui().fade('out', 1200);

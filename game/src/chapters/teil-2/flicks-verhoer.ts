@@ -3,10 +3,13 @@
 // works a loose nail out of the armrest – but only while nobody looks. The Master and Baris turn away in short
 // windows (a report at the arch, the high chair, the tool box on the table); trying while watched only earns a
 // suspicious look and a retry. Two windows: wiggle, then the reach gesture pulls it out (flag e2-flick-nagel, later
-// used to open a shackle). Answers are defiant choices; the threat against her ears stays a threat. The fingers:
-// camera on the brazier and Baris' shadow, cut, sound, fade – no injury named. → e2-konzentration.
+// used to open a shackle). Answers are defiant choices; the threat against her ears stays a threat. The fingers are
+// shown (no cut away, no minigame): close on the chair, Baris kneels with the pliers from the box and tears out the
+// nails of her right index and middle finger (her bow fingers) while the Master asks; screams, blood on the armrest and
+// the floor. Her left fist with the nail stays closed. Later Flick scenes keep the bandaged hand. → e2-konzentration.
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { HALLE_SPOT, HALLE_TABLE, halleBase, halleBrazierLights, pinArea, pinPlayer } from './gewoelbe';
 import { restageGesture, type GesturePicture } from './gewoelbe-geste';
 import { bg, e2Scene, interlude, master, sfx, ui, until, VIOLET, nextScene } from './shared';
@@ -159,13 +162,29 @@ async function middle(w: WorldCtx): Promise<void> {
   });
 }
 
+/** Flick's right hand on the armrest (map px, chest height of the seated figure). */
+const HAND: [number, number] = [HALLE_SPOT.chair[0] - 6, HALLE_SPOT.chair[1] - 14];
+
+/** One nail torn out with the pliers: the grip, the pull, the scream, the blood. */
+async function tear(w: WorldCtx, strength: number, scream: string): Promise<void> {
+  sfx('block', { volume: 0.45, pitch: 1.5 });
+  w.player.bark('Nein …', 900);
+  await w.wait(900);
+  sfx('hit-heavy', { volume: 0.6, pitch: 1.4 });
+  sfx('chain', { volume: 0.8, pitch: 1.2 });
+  bloodHit(w, HAND, strength);
+  w.camera.punch(0.06 * strength);
+  w.player.bark(scream, 1800);
+  await w.wait(1400);
+}
+
 async function fingers(w: WorldCtx): Promise<void> {
   const vamir = w.actor('meister'), baris = w.actor('baris');
   await w.cutscene(async () => {
     vamir.face('player');
     await w.say(master(), 'Baris. Ist das die Schützin, die dir den halben Trupp durch den Wald gejagt hat?');
     await w.say('e2-baris', 'Sie hatte einen Bogen, Meister. Jetzt hat sie keinen.', { mood: 'pained' });
-    await w.say(master(), 'Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.');
+    await w.say(master(), 'Dann fang bei den Fingern an, mit denen sie die Sehne zieht. Die rechte Hand. Langsam, damit sie zwischendurch nachdenken kann.');
     const pick = await w.choose([
       '„Ich hab schon Wölfen ins Maul geguckt, Kapuze. Die hatten bessere Zähne als dein verbrannter Hund.“',
       '„Zähl gut mit, Baris. Bis zehn kommst du doch noch, oder?“',
@@ -173,19 +192,46 @@ async function fingers(w: WorldCtx): Promise<void> {
     if (pick === 0) await w.say('e2-flick', 'Ich hab schon Wölfen ins Maul geguckt, Kapuze. Die hatten bessere Zähne als dein verbrannter Hund.', { mood: 'angry' });
     else await w.say('e2-flick', 'Zähl gut mit, Baris. Bis zehn kommst du doch noch, oder? Notfalls nimm die Zehen dazu.', { mood: 'smirk' });
     await w.say('e2-baris', 'Gleich lachst du anders, Spitzohr.', { mood: 'pained' });
-    await w.think('Faust zu. Was in meinem Ärmel steckt, gehört mir. Das kriegen sie nicht. Das und Lia nicht.');
-    // Staging: the camera leaves her; Baris' shadow grows over the brazier light, then the cut.
-    G.audio.duck(-10, 4000);
-    await w.camera.pan(HALLE_SPOT.brazierEast, 1200);
-    await baris.walkTo(HALLE_SPOT.chairFront[0] + 16, HALLE_SPOT.chairFront[1] + 4, { straight: true });
+    await w.think('Faust zu. Die linke. Was in meinem Ärmel steckt, gehört mir. Das kriegen sie nicht. Das und Lia nicht.');
+
+    // Staging: close on the chair. Baris kneels beside it with the pliers from the box, the Master watches.
+    G.audio.duck(-10, 30000);
+    await Promise.all([w.camera.pan([HALLE_SPOT.chair[0] - 14, HALLE_SPOT.chair[1] - 10], 900), w.camera.zoom(2, 900)]);
+    await baris.walkTo(HALLE_SPOT.chair[0] - 22, HALLE_SPOT.chair[1] + 6, { straight: true });
     baris.face('player');
-    const fire = w.lighting.get('becken-ost');
-    bg(fire.fadeTo(0.3, 900));
-    await w.wait(900);
-    sfx('chain', { volume: 0.7 });
-    await G.ui.fade('out', 300);
-    sfx('thud', { volume: 0.5 });
-    await w.wait(700);
+    baris.setIdle('kneel');
+    sfx('chain', { volume: 0.6 });
+    await w.think('Er drückt meine rechte Hand flach auf die Lehne. Die Zange ist klein und schwarz. Kleiner, als ich dachte.');
+    await w.say(master(), 'Eine Frage, eine Antwort. Wohin läuft das Mädchen mit dem Licht?');
+    const first = await w.choose([
+      '„Zu ihren Schweinen. Die sind netter als du.“',
+      '(Schweigen. Auf die Zange starren.)',
+      '„Fahr zur Hölle. Nimm Baris mit.“',
+    ]);
+    if (first === 0) await w.say('e2-flick', 'Zu ihren Schweinen. Die sind netter als du. Und riechen besser.', { mood: 'angry' });
+    else if (first === 1) await w.wait(1200);
+    else await w.say('e2-flick', 'Fahr zur Hölle. Und nimm Baris mit, der kennt da sicher jemanden.', { mood: 'angry' });
+    await w.say(master(), 'Baris.');
+    await tear(w, 1, 'AAAAH!');
+    await w.say('e2-flick', 'AAH – du … du dreckiger … verbrannter …', { mood: 'pained' });
+    await w.think('Der Fingernagel vom Zeigefinger. Einfach weg. Wo er war, ist nur noch rot. Und heiß. So heiß.');
+    await w.say('e2-baris', 'Einer. Du wolltest doch, dass ich zähle.', { mood: 'pained' });
+    await w.say(master(), 'Wohin, Flick?');
+    await w.say('e2-flick', 'Nach … Süden. Oder Norden. Hab ich … doch gesagt.', { mood: 'pained' });
+    await w.say(master(), 'Den nächsten.');
+    await tear(w, 1.3, 'NEIN – AAAAAH!');
+    bloodPool(w, [HAND[0] + 2, HALLE_SPOT.chair[1] + 4], { id: 'verhoer-blut', scale: 0.45, ms: 4000 });
+    await w.say('narrator', 'Blut läuft über die Armlehne und tropft auf den Stein. Flick zerrt an den Stricken, bis der Stuhl knarrt. Er gibt nicht nach.');
+    await w.think('Nicht die linke aufmachen. Egal was. Die linke bleibt zu.');
+    await w.say('e2-flick', 'Nimm … ruhig alle zehn. Ich hab … noch Zehen.', { mood: 'pained' });
+    await w.say(master(), 'Genug für heute. Morgen fangen wir mit der anderen Hand an. Dann hat sie die ganze Nacht, darüber nachzudenken.');
+    baris.setIdle('idle');
+    sfx('rustle', { volume: 0.4 });
+    await w.say('narrator', 'Baris wischt die Zange an seiner Hose ab und wirft zwei blutige Fingernägel in die Glut des Beckens.');
+    sfx('fire-ignite', { volume: 0.3, pitch: 1.4 });
+    await w.wait(600);
+    await G.ui.fade('out', 900);
+    await w.wait(500);
   });
   await G.ui.narrate(['Flick sagte an diesem Abend viele Dinge. Keines davon war ein Ort.', 'Und ihre linke Faust blieb die ganze Zeit geschlossen.'], { style: 'card' });
 }
@@ -194,6 +240,7 @@ async function verhoerScript(w: WorldCtx): Promise<void> {
   for (const f of [F.unwatched, F.busy]) G.state.set(f, false);
   G.state.set(F.stage, 0);
   G.state.set(F.near, 0);
+  preloadBlood(w);
   const vamir = w.spawn({ id: 'meister', preset: 'vamir', speaker: master(), at: HALLE_SPOT.chairFront, dir: 'right', solid: false, speed: 30 });
   const baris = w.spawn({ id: 'baris', preset: 'baris-scarred', speaker: 'e2-baris', at: HALLE_SPOT.chairGuard, dir: 'up', solid: false, speed: 40 });
   const door = w.spawn({

@@ -6,8 +6,10 @@
 // prisoners as bait, Elnon provokes and is dragged off while Flick defends him (defiant choices), Baris mentions in
 // passing that most rebels got away south, and the Master claims Lia carries something of his. Lia never learns any
 // of this. → e2-urmacht.
+import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
 import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
+import { bloodHit } from '../common/blood';
 import { chainArea, HALLE_SPOT, halleBase, halleBrazierLights } from './gewoelbe';
 import { bg, e2Scene, interlude, master, sfx, ui, VIOLET, nextScene } from './shared';
 
@@ -191,10 +193,19 @@ async function entrance(w: WorldCtx): Promise<void> {
     await w.say('e2-elnon', 'Mutig waren sie nur aus sicherer Entfernung. Wie du.', { mood: 'angry' });
     await w.say(master(), 'Wie laut er ist. Bringt ihn mir aus den Ohren.');
     await door.walkTo(476, 222, { straight: true });
-    sfx('hit', { volume: 0.5 });
-    w.camera.shake(160, 0.003);
+    door.face('elnon');
+    sfx('swing', { volume: 0.5 });
+    bg(door.play('attack', { ms: 450 }));
+    await w.wait(160);
+    sfx('hit-heavy', { volume: 0.6 });
+    bloodHit(w, [elnon.x, elnon.y - 24], 0.8);
+    bg(elnon.play('hurt' as CharAnim, { ms: 800 }));
+    w.player.bark('Elnon!', 1200);
+    await w.wait(900);
+    w.fx.burst([elnon.x - 4, elnon.y - 8], 'blood', 5);
+    await w.say('narrator', 'Der Knüppel trifft Elnon am Mund. Er spuckt Blut auf den Stein und hebt trotzdem den Kopf.');
     elnon.face('up');
-    await w.wait(400);
+    await w.wait(300);
   });
   await defendElnon(w);
   await w.cutscene(async () => {

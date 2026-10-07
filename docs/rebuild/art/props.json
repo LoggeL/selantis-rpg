@@ -26,6 +26,18 @@
       "attempts": 1,
       "time": "2026-10-05T02:34:45"
     },
+    "output/imagegen/raw/art/props/blutlache.png": {
+      "kind": "prop",
+      "id": "blutlache",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a fresh pool of dark red blood lying FLAT on the ground, seen from the high three-quarter top-down game camera: one irregular rounded puddle, wider than tall, glossy deep crimson with a darker almost black-red centre and a small wet highlight, a few smaller splatter drops and short smears beside it, no person, no weapon, no floor tiles, only the blood itself\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 41,
+      "attempts": 1,
+      "time": "2026-10-08T01:05:46"
+    },
     "output/imagegen/raw/art/props/k2-gauklerwagen.png": {
       "kind": "",
       "id": "",
