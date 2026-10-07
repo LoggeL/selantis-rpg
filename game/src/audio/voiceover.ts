@@ -2,7 +2,19 @@ import { CapturedMediaRoutingError, type RecordedMediaRoute } from './recordedMe
 import { stripMarkup } from '../ui/text';
 
 export type VoiceKind = 'say' | 'think' | 'narrate' | 'bark' | 'choice';
-export type VoiceBank = 'prolog' | 'story';
+export type VoiceBank = 'prolog' | 'story' | 'teil-2';
+// Exact registered scenes in chapters/teil-2/shared.ts. Unknown e2-* names do
+// not select this bank, and a missing take never borrows another bank's cast.
+export const part2VoiceScenes = [
+  'e2-taverne', 'e2-bruderschaft', 'e2-pruefung', 'e2-flicks-herkunft', 'e2-lagerangriff', 'e2-der-fremde',
+  'e2-gefangene', 'e2-urmacht', 'e2-flicks-verhoer', 'e2-konzentration', 'e2-flicks-erinnerungen',
+  'e2-kyras-widerstand', 'e2-ignatius', 'e2-zellengespraeche', 'e2-stabtraining', 'e2-flick-entkommt',
+  'e2-kontrolle', 'e2-aufbruch',
+] as const;
+export function voiceBankForScene(id: string): VoiceBank {
+  if (/^prolog-(rat|schlacht|flucht|zuflucht)$/.test(id)) return 'prolog';
+  return (part2VoiceScenes as readonly string[]).includes(id) ? 'teil-2' : 'story';
+}
 export interface VoiceKey { kind: VoiceKind; speaker: string; text: string; scene?: string; mood?: string }
 export interface WordCue { start: number; end: number }
 export type VoiceOutcome = 'playing' | 'ended' | 'failed' | 'stopped';
@@ -59,6 +71,7 @@ interface Dependencies {
   fetchManifest: (bank: VoiceBank) => Promise<VoiceManifest>;
   volume: () => number;
   now: () => number;
+  playerSpeaker?: (scene: string) => string | undefined;
   visible?: () => boolean;
   routeMedia?: (element: HTMLAudioElement) => RecordedMediaRoute | null;
   requestFrame?: (callback: FrameRequestCallback) => number;
@@ -92,12 +105,16 @@ export class Voiceover {
   scene(id: string): void {
     this.stop();
     this.currentScene = id;
-    this.bank = /^prolog-(rat|schlacht|flucht|zuflucht)$/.test(id) ? 'prolog' : 'story';
+    this.bank = voiceBankForScene(id);
     this.enabled = Boolean(id);
     this.lastBark = -Infinity;
     if (this.enabled) void this.preload();
   }
   playerSpeaker(): string {
+    if (this.bank === 'teil-2') {
+      const current = this.deps.playerSpeaker?.(this.currentScene);
+      if (typeof current === 'string' && current) return current;
+    }
     return this.indexes.get(this.bank)?.player(this.currentScene) ?? (this.bank === 'prolog' ? 'valentus' : '');
   }
   stop(): void { this.active?.playback.stop(); }
@@ -235,12 +252,17 @@ export const voiceover = new Voiceover({
     return audio;
   }, fetchManifest,
   volume: () => voiceVolume(), now: () => performance.now(),
+  playerSpeaker: scene => worldVoicePlayer?.(scene),
   visible: () => typeof document === 'undefined' || !document.hidden,
   routeMedia: element => recordedMediaRoute?.(element) ?? null,
 });
 // Set at UI mount so this module remains independently testable without loading the game facade.
 let voiceVolume = () => 0.9;
 export function bindVoiceVolume(get: () => number): void { voiceVolume = get; }
+
+let worldVoicePlayer: ((scene: string) => string | undefined) | undefined;
+/** The UI supplies a lifecycle-checked current world; audio never imports gameplay. */
+export function bindWorldVoicePlayer(get: (scene: string) => string | undefined): void { worldVoicePlayer = get; }
 
 let recordedMediaRoute: ((element: HTMLAudioElement) => RecordedMediaRoute | null) | undefined;
 export function bindRecordedMediaRouting(route: (element: HTMLAudioElement) => RecordedMediaRoute | null): void { recordedMediaRoute = route; }

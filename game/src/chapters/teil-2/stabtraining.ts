@@ -117,7 +117,7 @@ async function practiceRound(w: WorldCtx): Promise<void> {
     while (callIndex() < PRACTICE_CALLS.length && w.alive) {
       const call = PRACTICE_CALLS[callIndex()];
       w.setObjective('e2-stab-ziel', `Ignatius ruft: „${call.call}“ Triff genau das mit dem Stabimpuls.`, [220, 236]);
-      const picked = await aimStaff(w, `<em>Ignatius:</em> „${call.call}“`, last);
+      const picked = await aimStaff(w, call.call, last);
       if (!picked) {
         w.setObjective('e2-stab-ziel', 'Stab abgesetzt. Zurück an die Schusslinie, wenn du so weit bist.', 'schusslinie');
         return;

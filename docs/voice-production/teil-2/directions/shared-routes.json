@@ -1,0 +1,1020 @@
+[
+  {
+    "file": "game/src/chapters/teil-2/der-fremde.ts",
+    "line": 35,
+    "expression_sha256": "817257313cf9931181773c89a9f1bbc9bf5101b58ad91dab9e18f25e5c566342",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Weiter komme ich nicht. Nicht heute.",
+    "spoken_text": "Weiter komme ich nicht. Nicht heute.",
+    "mood": "neutral",
+    "direction_en": "Die körperliche Grenze ehrlich erkennen; Nicht heute erschöpft und schlicht schließen, ohne endgültig aufzugeben.",
+    "emotion_de": "Erschöpfung",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die körperliche Grenze ehrlich erkennen; Nicht heute erschöpft und schlicht schließen, ohne endgültig aufzugeben.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/der-fremde.ts",
+        "source_file_sha256": "a2e5f64eb6b2346306b1377a5d6ef1d10f3f39b4d3b48a4592dd5d2f8feb4b76",
+        "line": 35,
+        "start": 2241,
+        "end": 2279,
+        "expression_sha256": "817257313cf9931181773c89a9f1bbc9bf5101b58ad91dab9e18f25e5c566342",
+        "function": null,
+        "scene": "e2-der-fremde",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-092792e54cad819319371e0b",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/der-fremde.ts",
+    "line": 36,
+    "expression_sha256": "817257313cf9931181773c89a9f1bbc9bf5101b58ad91dab9e18f25e5c566342",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Weiter komme ich nicht. Nicht heute.",
+    "spoken_text": "Weiter komme ich nicht. Nicht heute.",
+    "mood": "neutral",
+    "direction_en": "Die körperliche Grenze ehrlich erkennen; Nicht heute erschöpft und schlicht schließen, ohne endgültig aufzugeben.",
+    "emotion_de": "Erschöpfung",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die körperliche Grenze ehrlich erkennen; Nicht heute erschöpft und schlicht schließen, ohne endgültig aufzugeben.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/der-fremde.ts",
+        "source_file_sha256": "a2e5f64eb6b2346306b1377a5d6ef1d10f3f39b4d3b48a4592dd5d2f8feb4b76",
+        "line": 36,
+        "start": 2390,
+        "end": 2428,
+        "expression_sha256": "817257313cf9931181773c89a9f1bbc9bf5101b58ad91dab9e18f25e5c566342",
+        "function": null,
+        "scene": "e2-der-fremde",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-092792e54cad819319371e0b",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/der-fremde.ts",
+    "line": 233,
+    "expression_sha256": "9d15c57eb22c2f1171e0efbaab3526441f828161960d860cac1c6178669c7526",
+    "kind": "choice",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "„Wo sind Kyra und Flick?“",
+    "spoken_text": "Wo sind Kyra und Flick?",
+    "mood": "neutral",
+    "direction_en": "Direkt und besorgt nach beiden Freunden fragen; die Namen klar lassen, eine konkrete Antwort erwarten.",
+    "emotion_de": "Sorge um die Freunde",
+    "intensity": 3,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Direkt und besorgt nach beiden Freunden fragen; die Namen klar lassen, eine konkrete Antwort erwarten.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/der-fremde.ts",
+        "source_file_sha256": "a2e5f64eb6b2346306b1377a5d6ef1d10f3f39b4d3b48a4592dd5d2f8feb4b76",
+        "line": 233,
+        "start": 12143,
+        "end": 12164,
+        "expression_sha256": "9d15c57eb22c2f1171e0efbaab3526441f828161960d860cac1c6178669c7526",
+        "function": "callback",
+        "scene": "e2-der-fremde",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-130757a48d5b33c4f4932cd0",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/urmacht.ts",
+    "line": 167,
+    "expression_sha256": "9d15c57eb22c2f1171e0efbaab3526441f828161960d860cac1c6178669c7526",
+    "kind": "choice",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "„Wo sind Kyra und Flick?“",
+    "spoken_text": "Wo sind Kyra und Flick?",
+    "mood": "neutral",
+    "direction_en": "Direkt und besorgt nach beiden Freunden fragen; die Namen klar lassen, eine konkrete Antwort erwarten.",
+    "emotion_de": "Sorge um die Freunde",
+    "intensity": 3,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Direkt und besorgt nach beiden Freunden fragen; die Namen klar lassen, eine konkrete Antwort erwarten.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/urmacht.ts",
+        "source_file_sha256": "7192b248ec9b39019a0d8fbb8d5c7de63e035629fb9d6d8025f3f532adf2d2d6",
+        "line": 167,
+        "start": 8969,
+        "end": 8990,
+        "expression_sha256": "9d15c57eb22c2f1171e0efbaab3526441f828161960d860cac1c6178669c7526",
+        "function": "conversation",
+        "scene": "e2-der-fremde",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-130757a48d5b33c4f4932cd0",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/lagerangriff.ts",
+    "line": 122,
+    "expression_sha256": "4581bf7c9508a7c82256786a76b9b4c82b1b09fa90025149e0d633b3d5bcfe7c",
+    "kind": "say",
+    "runtime_speaker": "foltan",
+    "runtime_speakers": [
+      "foltan"
+    ],
+    "text": "Geh. Und wenn du dich umdrehst, dann nur, um schneller zu laufen.",
+    "spoken_text": "Geh. Und wenn du dich umdrehst, dann nur, um schneller zu laufen.",
+    "mood": "neutral",
+    "direction_en": "Lia bestimmt zum Weiterlaufen schicken; Sorge steckt unter der praktischen Anweisung, kein Abschiedspathos.",
+    "emotion_de": "entschlossene Fürsorge",
+    "intensity": 3,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Lia bestimmt zum Weiterlaufen schicken; Sorge steckt unter der praktischen Anweisung, kein Abschiedspathos.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/lagerangriff.ts",
+        "source_file_sha256": "74476a46e0c5fdb8f1b6ae352d92bbb1e704f1200f5ac851a109b145c5e56367",
+        "line": 122,
+        "start": 6555,
+        "end": 6731,
+        "expression_sha256": "4581bf7c9508a7c82256786a76b9b4c82b1b09fa90025149e0d633b3d5bcfe7c",
+        "function": "talkFoltan",
+        "scene": "e2-lagerangriff",
+        "runtime_speakers": [
+          "foltan"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-21b177773a24293a7c85e5e0",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/lagerangriff.ts",
+    "line": 135,
+    "expression_sha256": "09f76c98c007d4b6311d11406f8110945c9e6d3e666879fe45f63d33ee4dfc44",
+    "kind": "say",
+    "runtime_speaker": "foltan",
+    "runtime_speakers": [
+      "foltan"
+    ],
+    "text": "Geh. Und wenn du dich umdrehst, dann nur, um schneller zu laufen.",
+    "spoken_text": "Geh. Und wenn du dich umdrehst, dann nur, um schneller zu laufen.",
+    "mood": "neutral",
+    "direction_en": "Lia bestimmt zum Weiterlaufen schicken; Sorge steckt unter der praktischen Anweisung, kein Abschiedspathos.",
+    "emotion_de": "entschlossene Fürsorge",
+    "intensity": 3,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Lia bestimmt zum Weiterlaufen schicken; Sorge steckt unter der praktischen Anweisung, kein Abschiedspathos.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/lagerangriff.ts",
+        "source_file_sha256": "74476a46e0c5fdb8f1b6ae352d92bbb1e704f1200f5ac851a109b145c5e56367",
+        "line": 135,
+        "start": 7540,
+        "end": 7607,
+        "expression_sha256": "09f76c98c007d4b6311d11406f8110945c9e6d3e666879fe45f63d33ee4dfc44",
+        "function": "talkFoltan",
+        "scene": "e2-lagerangriff",
+        "runtime_speakers": [
+          "foltan"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-21b177773a24293a7c85e5e0",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flick-entkommt.ts",
+    "line": 347,
+    "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Unterdessen, in den Kerkern unter der Halle des Meisters …",
+    "spoken_text": "Unterdessen, in den Kerkern unter der Halle des Meisters …",
+    "mood": "neutral",
+    "direction_en": "Den Wechsel zu den Gefangenen ruhig rahmen; Kerkern und unter der Halle klar setzen, ohne deren Schicksal vorwegzunehmen.",
+    "emotion_de": "ruhiger Perspektivwechsel",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den Wechsel zu den Gefangenen ruhig rahmen; Kerkern und unter der Halle klar setzen, ohne deren Schicksal vorwegzunehmen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flick-entkommt.ts",
+        "source_file_sha256": "15c175523e56fcef0a80383220f07d9bb31cdffc57db0aef622411c1074c6152",
+        "line": 347,
+        "start": 18644,
+        "end": 18715,
+        "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
+        "function": "callback",
+        "scene": "e2-flick-entkommt",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-27886aef265a7a886468f05c",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/zellengespraeche.ts",
+    "line": 468,
+    "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Unterdessen, in den Kerkern unter der Halle des Meisters …",
+    "spoken_text": "Unterdessen, in den Kerkern unter der Halle des Meisters …",
+    "mood": "neutral",
+    "direction_en": "Den Wechsel zu den Gefangenen ruhig rahmen; Kerkern und unter der Halle klar setzen, ohne deren Schicksal vorwegzunehmen.",
+    "emotion_de": "ruhiger Perspektivwechsel",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den Wechsel zu den Gefangenen ruhig rahmen; Kerkern und unter der Halle klar setzen, ohne deren Schicksal vorwegzunehmen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/zellengespraeche.ts",
+        "source_file_sha256": "8c75bb294048a837af020871e4e3c0fc5bd35fd5556bf9f2d36572477c9e7a19",
+        "line": 468,
+        "start": 24669,
+        "end": 24740,
+        "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
+        "function": "callback",
+        "scene": "e2-flick-entkommt",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-27886aef265a7a886468f05c",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 51,
+    "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Nicht da lang. Er ist nicht nach Süden gegangen.",
+    "spoken_text": "Nicht da lang. Er ist nicht nach Süden gegangen.",
+    "mood": "neutral",
+    "direction_en": "Die falsche Richtung innerlich verwerfen und die Spur praktisch korrigieren; ruhig bleiben, kein neuer Fluchtplan.",
+    "emotion_de": "aufmerksame Selbstkorrektur",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die falsche Richtung innerlich verwerfen und die Spur praktisch korrigieren; ruhig bleiben, kein neuer Fluchtplan.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "line": 51,
+        "start": 3230,
+        "end": 3234,
+        "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+        "function": "callback",
+        "scene": "e2-ignatius",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-4e58070a972e41013028d5e0",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 52,
+    "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Nicht da lang. Er ist nicht nach Süden gegangen.",
+    "spoken_text": "Nicht da lang. Er ist nicht nach Süden gegangen.",
+    "mood": "neutral",
+    "direction_en": "Die falsche Richtung innerlich verwerfen und die Spur praktisch korrigieren; ruhig bleiben, kein neuer Fluchtplan.",
+    "emotion_de": "aufmerksame Selbstkorrektur",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die falsche Richtung innerlich verwerfen und die Spur praktisch korrigieren; ruhig bleiben, kein neuer Fluchtplan.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "line": 52,
+        "start": 3324,
+        "end": 3328,
+        "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+        "function": "callback",
+        "scene": "e2-ignatius",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-4e58070a972e41013028d5e0",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 51,
+    "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Mitten in der Nacht, allein, mit einem Traum als Karte? Nein.",
+    "spoken_text": "Mitten in der Nacht, allein, mit einem Traum als Karte? Nein.",
+    "mood": "neutral",
+    "direction_en": "Den nächtlichen Plan innerlich auf seine Unsicherheit prüfen; die Frage kurz skeptisch, Nein als klare eigene Grenze.",
+    "emotion_de": "skeptische Vorsicht",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den nächtlichen Plan innerlich auf seine Unsicherheit prüfen; die Frage kurz skeptisch, Nein als klare eigene Grenze.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "line": 51,
+        "start": 3230,
+        "end": 3234,
+        "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+        "function": "callback",
+        "scene": "e2-ignatius",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-78d06bcf541561d985a1e935",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 52,
+    "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Mitten in der Nacht, allein, mit einem Traum als Karte? Nein.",
+    "spoken_text": "Mitten in der Nacht, allein, mit einem Traum als Karte? Nein.",
+    "mood": "neutral",
+    "direction_en": "Den nächtlichen Plan innerlich auf seine Unsicherheit prüfen; die Frage kurz skeptisch, Nein als klare eigene Grenze.",
+    "emotion_de": "skeptische Vorsicht",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den nächtlichen Plan innerlich auf seine Unsicherheit prüfen; die Frage kurz skeptisch, Nein als klare eigene Grenze.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "line": 52,
+        "start": 3324,
+        "end": 3328,
+        "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+        "function": "callback",
+        "scene": "e2-ignatius",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-78d06bcf541561d985a1e935",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/stabtraining.ts",
+    "line": 59,
+    "expression_sha256": "cedc38c54de017125b14b89a3567a076180288c5d7c96aac0e3574b2b37d9685",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Erst die Übung. Weglaufen kann ich später noch.",
+    "spoken_text": "Erst die Übung. Weglaufen kann ich später noch.",
+    "mood": "neutral",
+    "direction_en": "Sich selbst auf die anstehende Übung festlegen; Weglaufen als vertagten Impuls trocken eingestehen.",
+    "emotion_de": "geduldiger Selbstzwang",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Sich selbst auf die anstehende Übung festlegen; Weglaufen als vertagten Impuls trocken eingestehen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/stabtraining.ts",
+        "source_file_sha256": "8165018f10f1a4d0329d9fec4db6bc26c3f507895ef699755e09fd144f15e09a",
+        "line": 59,
+        "start": 3609,
+        "end": 3658,
+        "expression_sha256": "cedc38c54de017125b14b89a3567a076180288c5d7c96aac0e3574b2b37d9685",
+        "function": null,
+        "scene": "e2-stabtraining",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-7cf5727caff6f925a7117011",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/stabtraining.ts",
+    "line": 60,
+    "expression_sha256": "cedc38c54de017125b14b89a3567a076180288c5d7c96aac0e3574b2b37d9685",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Erst die Übung. Weglaufen kann ich später noch.",
+    "spoken_text": "Erst die Übung. Weglaufen kann ich später noch.",
+    "mood": "neutral",
+    "direction_en": "Sich selbst auf die anstehende Übung festlegen; Weglaufen als vertagten Impuls trocken eingestehen.",
+    "emotion_de": "geduldiger Selbstzwang",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Sich selbst auf die anstehende Übung festlegen; Weglaufen als vertagten Impuls trocken eingestehen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/stabtraining.ts",
+        "source_file_sha256": "8165018f10f1a4d0329d9fec4db6bc26c3f507895ef699755e09fd144f15e09a",
+        "line": 60,
+        "start": 3775,
+        "end": 3824,
+        "expression_sha256": "cedc38c54de017125b14b89a3567a076180288c5d7c96aac0e3574b2b37d9685",
+        "function": null,
+        "scene": "e2-stabtraining",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-7cf5727caff6f925a7117011",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 51,
+    "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Er wartet doch. Und ich will wissen, worauf.",
+    "spoken_text": "Er wartet doch. Und ich will wissen, worauf.",
+    "mood": "neutral",
+    "direction_en": "Die eigene Ungeduld bremsen; im zweiten Satz neugierig und leicht misstrauisch nach dem wartenden Mann fragen.",
+    "emotion_de": "vorsichtige Neugier",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die eigene Ungeduld bremsen; im zweiten Satz neugierig und leicht misstrauisch nach dem wartenden Mann fragen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "line": 51,
+        "start": 3230,
+        "end": 3234,
+        "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+        "function": "callback",
+        "scene": "e2-ignatius",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-8a995b1324df48b04cde38c3",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 52,
+    "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Er wartet doch. Und ich will wissen, worauf.",
+    "spoken_text": "Er wartet doch. Und ich will wissen, worauf.",
+    "mood": "neutral",
+    "direction_en": "Die eigene Ungeduld bremsen; im zweiten Satz neugierig und leicht misstrauisch nach dem wartenden Mann fragen.",
+    "emotion_de": "vorsichtige Neugier",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die eigene Ungeduld bremsen; im zweiten Satz neugierig und leicht misstrauisch nach dem wartenden Mann fragen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "line": 52,
+        "start": 3324,
+        "end": 3328,
+        "expression_sha256": "38a9c1e721584da284b90ceea4ed7eb8db15ac4ea86c2c75ec925d5f8799fcf0",
+        "function": "callback",
+        "scene": "e2-ignatius",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-8a995b1324df48b04cde38c3",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 268,
+    "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Unterdessen, in der Halle des Meisters …",
+    "spoken_text": "Unterdessen, in der Halle des Meisters …",
+    "mood": "neutral",
+    "direction_en": "Den Blickwechsel in die Halle ruhig und ernst ankündigen; der Ort trägt die Spannung, keine Ereignisse vorwegnehmen.",
+    "emotion_de": "ernster Perspektivwechsel",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den Blickwechsel in die Halle ruhig und ernst ankündigen; der Ort trägt die Spannung, keine Ereignisse vorwegnehmen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
+        "line": 268,
+        "start": 15099,
+        "end": 15152,
+        "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-9cd041bafd57674257e7b1a8",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/kontrolle.ts",
+    "line": 289,
+    "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
+    "kind": "narrate",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Unterdessen, in der Halle des Meisters …",
+    "spoken_text": "Unterdessen, in der Halle des Meisters …",
+    "mood": "neutral",
+    "direction_en": "Den Blickwechsel in die Halle ruhig und ernst ankündigen; der Ort trägt die Spannung, keine Ereignisse vorwegnehmen.",
+    "emotion_de": "ernster Perspektivwechsel",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den Blickwechsel in die Halle ruhig und ernst ankündigen; der Ort trägt die Spannung, keine Ereignisse vorwegnehmen.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/kontrolle.ts",
+        "source_file_sha256": "1e9950251df7f79c607d142178d62dd0967eb1162737839217e5a0c1a0eaf040",
+        "line": 289,
+        "start": 16091,
+        "end": 16144,
+        "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-9cd041bafd57674257e7b1a8",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/konzentration.ts",
+    "line": 44,
+    "expression_sha256": "cfced98091bbd80da69cea919edfa4294e9867b691de9a659eb8c1f3d1b76d54",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Ich hab versprochen, es zu versuchen. Also versuche ich es.",
+    "spoken_text": "Ich hab versprochen, es zu versuchen. Also versuche ich es.",
+    "mood": "neutral",
+    "direction_en": "Sich an das eigene Versprechen halten; der zweite Satz setzt einen kleinen entschlossenen Schritt trotz Unruhe.",
+    "emotion_de": "beharrlicher Selbstzwang",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Sich an das eigene Versprechen halten; der zweite Satz setzt einen kleinen entschlossenen Schritt trotz Unruhe.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/konzentration.ts",
+        "source_file_sha256": "4c8fabd9c52f7ca1151ba816ef52c516492135ff3efe22ca3b41cba0a0b848fd",
+        "line": 44,
+        "start": 2967,
+        "end": 3028,
+        "expression_sha256": "cfced98091bbd80da69cea919edfa4294e9867b691de9a659eb8c1f3d1b76d54",
+        "function": null,
+        "scene": "e2-konzentration",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-9d8cfe67522ef4e446308d4b",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/konzentration.ts",
+    "line": 45,
+    "expression_sha256": "cfced98091bbd80da69cea919edfa4294e9867b691de9a659eb8c1f3d1b76d54",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Ich hab versprochen, es zu versuchen. Also versuche ich es.",
+    "spoken_text": "Ich hab versprochen, es zu versuchen. Also versuche ich es.",
+    "mood": "neutral",
+    "direction_en": "Sich an das eigene Versprechen halten; der zweite Satz setzt einen kleinen entschlossenen Schritt trotz Unruhe.",
+    "emotion_de": "beharrlicher Selbstzwang",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Sich an das eigene Versprechen halten; der zweite Satz setzt einen kleinen entschlossenen Schritt trotz Unruhe.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/konzentration.ts",
+        "source_file_sha256": "4c8fabd9c52f7ca1151ba816ef52c516492135ff3efe22ca3b41cba0a0b848fd",
+        "line": 45,
+        "start": 3146,
+        "end": 3207,
+        "expression_sha256": "cfced98091bbd80da69cea919edfa4294e9867b691de9a659eb8c1f3d1b76d54",
+        "function": null,
+        "scene": "e2-konzentration",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-9d8cfe67522ef4e446308d4b",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/lagerangriff.ts",
+    "line": 332,
+    "expression_sha256": "fb668bc2f9a41dfb5ff3d8bf20371839608e20c9114da4ef5c099fd52c8879a6",
+    "kind": "say",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "e2-lia"
+    ],
+    "text": "Kyra …",
+    "spoken_text": "Kyra …",
+    "mood": "sad",
+    "direction_en": "Den Namen auf engem, erschöpftem Atem an die Schwester richten; Sorge und Bindung tragen die geschriebene Pause.",
+    "emotion_de": "erschöpfte Sorge",
+    "intensity": 3,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den Namen auf engem, erschöpftem Atem an die Schwester richten; Sorge und Bindung tragen die geschriebene Pause.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/lagerangriff.ts",
+        "source_file_sha256": "74476a46e0c5fdb8f1b6ae352d92bbb1e704f1200f5ac851a109b145c5e56367",
+        "line": 332,
+        "start": 17081,
+        "end": 17104,
+        "expression_sha256": "fb668bc2f9a41dfb5ff3d8bf20371839608e20c9114da4ef5c099fd52c8879a6",
+        "function": "callback",
+        "scene": "e2-lagerangriff",
+        "runtime_speakers": [
+          "e2-lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-d4ddd3e3c262a52adf5fbc4d",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/lagerangriff.ts",
+    "line": 365,
+    "expression_sha256": "fb668bc2f9a41dfb5ff3d8bf20371839608e20c9114da4ef5c099fd52c8879a6",
+    "kind": "say",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "e2-lia"
+    ],
+    "text": "Kyra …",
+    "spoken_text": "Kyra …",
+    "mood": "sad",
+    "direction_en": "Den Namen auf engem, erschöpftem Atem an die Schwester richten; Sorge und Bindung tragen die geschriebene Pause.",
+    "emotion_de": "erschöpfte Sorge",
+    "intensity": 3,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Den Namen auf engem, erschöpftem Atem an die Schwester richten; Sorge und Bindung tragen die geschriebene Pause.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/lagerangriff.ts",
+        "source_file_sha256": "74476a46e0c5fdb8f1b6ae352d92bbb1e704f1200f5ac851a109b145c5e56367",
+        "line": 365,
+        "start": 18671,
+        "end": 18694,
+        "expression_sha256": "fb668bc2f9a41dfb5ff3d8bf20371839608e20c9114da4ef5c099fd52c8879a6",
+        "function": "callback",
+        "scene": "e2-lagerangriff",
+        "runtime_speakers": [
+          "e2-lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-d4ddd3e3c262a52adf5fbc4d",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/urmacht.ts",
+    "line": 52,
+    "expression_sha256": "983989cd45122de9764ddf1d5205c164308b5a6316ab55a9e89825800eabc388",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Erst will ich Antworten.",
+    "spoken_text": "Erst will ich Antworten.",
+    "mood": "neutral",
+    "direction_en": "Die eigene Bewegung mit dem offenen Antwortbedürfnis bremsen; knapp und fest, ohne neue Gewissheit.",
+    "emotion_de": "beharrliche Ungewissheit",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die eigene Bewegung mit dem offenen Antwortbedürfnis bremsen; knapp und fest, ohne neue Gewissheit.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/urmacht.ts",
+        "source_file_sha256": "7192b248ec9b39019a0d8fbb8d5c7de63e035629fb9d6d8025f3f532adf2d2d6",
+        "line": 52,
+        "start": 3301,
+        "end": 3327,
+        "expression_sha256": "983989cd45122de9764ddf1d5205c164308b5a6316ab55a9e89825800eabc388",
+        "function": null,
+        "scene": "e2-urmacht",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-e1f8e64903ee55da5bed4210",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/urmacht.ts",
+    "line": 53,
+    "expression_sha256": "983989cd45122de9764ddf1d5205c164308b5a6316ab55a9e89825800eabc388",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "runtime_speakers": [
+      "lia"
+    ],
+    "text": "Erst will ich Antworten.",
+    "spoken_text": "Erst will ich Antworten.",
+    "mood": "neutral",
+    "direction_en": "Die eigene Bewegung mit dem offenen Antwortbedürfnis bremsen; knapp und fest, ohne neue Gewissheit.",
+    "emotion_de": "beharrliche Ungewissheit",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die eigene Bewegung mit dem offenen Antwortbedürfnis bremsen; knapp und fest, ohne neue Gewissheit.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/urmacht.ts",
+        "source_file_sha256": "7192b248ec9b39019a0d8fbb8d5c7de63e035629fb9d6d8025f3f532adf2d2d6",
+        "line": 53,
+        "start": 3438,
+        "end": 3464,
+        "expression_sha256": "983989cd45122de9764ddf1d5205c164308b5a6316ab55a9e89825800eabc388",
+        "function": null,
+        "scene": "e2-urmacht",
+        "runtime_speakers": [
+          "lia"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-e1f8e64903ee55da5bed4210",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/aufbruch.ts",
+    "line": 53,
+    "expression_sha256": "bd00d68404bbec9657959abb8a663bbd438788dc09594eae925f6379792c6097",
+    "kind": "bark",
+    "runtime_speaker": "soldiers",
+    "runtime_speakers": [
+      "dunkelschatten",
+      "verfolger-2"
+    ],
+    "text": "Nichts. Weiter.",
+    "spoken_text": "Nichts. Weiter.",
+    "mood": "neutral",
+    "direction_en": "Die Suche knapp abschließen und die Patrouille weiterschicken; kurz und sachlich, ohne einen neuen Fund anzudeuten.",
+    "emotion_de": "Wachroutine",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die Suche knapp abschließen und die Patrouille weiterschicken; kurz und sachlich, ohne einen neuen Fund anzudeuten.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/aufbruch.ts",
+        "source_file_sha256": "9091505e56377f4bece13431e321ec87454b3061d821a6c46bf888ed9b0da737",
+        "line": 53,
+        "start": 3751,
+        "end": 3788,
+        "expression_sha256": "bd00d68404bbec9657959abb8a663bbd438788dc09594eae925f6379792c6097",
+        "function": "callback",
+        "scene": "e2-aufbruch",
+        "runtime_speakers": [
+          "dunkelschatten",
+          "verfolger-2"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-fea69bacf5df36491409ed61",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  },
+  {
+    "file": "game/src/chapters/teil-2/lagerangriff.ts",
+    "line": 287,
+    "expression_sha256": "067869884f3a6ba0f5e9ea08bdc085619974907c9ac6975524896f0537119920",
+    "kind": "bark",
+    "runtime_speaker": "soldiers",
+    "runtime_speakers": [
+      "dunkelschatten",
+      "verfolger-2"
+    ],
+    "text": "Nichts. Weiter.",
+    "spoken_text": "Nichts. Weiter.",
+    "mood": "neutral",
+    "direction_en": "Die Suche knapp abschließen und die Patrouille weiterschicken; kurz und sachlich, ohne einen neuen Fund anzudeuten.",
+    "emotion_de": "Wachroutine",
+    "intensity": 2,
+    "context_de": "Eine bewusst gemeinsame Darstellung für die identischen tatsächlichen Laufzeitwörter an sämtlichen aufgeführten Sourcekontexten. Die Suche knapp abschließen und die Patrouille weiterschicken; kurz und sachlich, ohne einen neuen Fund anzudeuten.",
+    "classification": "spoken",
+    "performance_classification": "explicit_balanced_shared_source_context_performance",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/lagerangriff.ts",
+        "source_file_sha256": "74476a46e0c5fdb8f1b6ae352d92bbb1e704f1200f5ac851a109b145c5e56367",
+        "line": 287,
+        "start": 14549,
+        "end": 14568,
+        "expression_sha256": "067869884f3a6ba0f5e9ea08bdc085619974907c9ac6975524896f0537119920",
+        "function": null,
+        "scene": "e2-aufbruch",
+        "runtime_speakers": [
+          "dunkelschatten",
+          "verfolger-2"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review",
+    "source_candidate_id": "part2-fea69bacf5df36491409ed61",
+    "route_resolution": "explicit_balanced_shared_source_context_performance"
+  }
+]

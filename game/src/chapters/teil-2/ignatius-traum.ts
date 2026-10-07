@@ -1,11 +1,14 @@
 // Lia's nightmare in e2-ignatius: a framed, clearly marked dream (DOM panel over black). Violet haze, voices of Kyra
 // and Flick that drift in, waver and fade. Nothing here is a fact: the scene labels every voice „im Traum“ and
-// Ignatius later calls it uncertain. Timed beats; a key press or click only hurries the next line.
+// Ignatius later calls it uncertain. Recorded voices reveal the words; first continue reveals, second advances.
+import { voiceover, type VoicePlayback } from '../../audio/voiceover';
 import { G } from '../../core/G';
-import { ctx } from '../../ui/context';
+import { ctx, isConfirm } from '../../ui/context';
+import { revealSpeech, Typewriter, type TextReveal } from '../../ui/typewriter';
 import { ui } from './shared';
 
-export interface DreamLine { who: string; text: string }
+/** A shared caption may have two voices, played consecutively rather than over each other. */
+export interface DreamLine { who: string; text: string; speaker: string | readonly [string, ...string[]] }
 
 let styled = false;
 function ensureStyles(): void {
@@ -36,40 +39,126 @@ function ensureStyles(): void {
 /** Plays the dream; resolves when it faded out. Never resolves for a scene the player already left. */
 export async function playDream(lines: DreamLine[]): Promise<void> {
   ensureStyles();
-  if (ctx.stale()) return new Promise(() => {});
+  if (ctx.stale()) return ctx.never();
+  const token = ctx.epoch;
+  await voiceover.preload();
+  if (ctx.stale() || token !== ctx.epoch) return ctx.never();
+  voiceover.stop();
   const root = ui().panel('e2-traum');
   root.setAttribute('role', 'dialog');
   root.setAttribute('aria-label', 'Ein Traum');
   root.innerHTML = '<div class="e2-traum-tag">Ein Traum</div>';
-  let hurry: (() => void) | null = null;
-  const skip = () => { hurry?.(); };
-  root.addEventListener('pointerdown', e => { e.preventDefault(); skip(); });
-  const close = ctx.open({ id: 'e2-traum', allowMenu: false, onKey: e => { if (!e.repeat) skip(); return true; } });
+  let advance: (() => void) | null = null;
+  let recording: VoicePlayback | null = null;
+  let reveal: TextReveal | null = null;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let watchFrame = 0;
+  let disposed = false;
+  const alive = () => !disposed && token === ctx.epoch && !ctx.stale() && root.isConnected;
+  const skip = () => { if (alive()) advance?.(); };
+  const onPointer = (e: PointerEvent) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    e.preventDefault(); skip();
+  };
+  root.addEventListener('pointerdown', onPointer);
+  const close = ctx.open({ id: 'e2-traum', allowMenu: false, onKey: e => { if (!e.repeat && isConfirm(e)) skip(); return true; } });
+  let off = () => {};
+  const dispose = () => {
+    if (disposed) return;
+    disposed = true;
+    advance = null;
+    clearTimeout(timer);
+    cancelAnimationFrame(watchFrame);
+    reveal?.cancel?.();
+    recording?.stop();
+    off();
+    close();
+    root.removeEventListener('pointerdown', onPointer);
+    root.remove();
+  };
+  off = G.events.on('scene:goto', dispose);
+  const watch = () => {
+    if (!alive()) { dispose(); return; }
+    watchFrame = requestAnimationFrame(watch);
+  };
+  watchFrame = requestAnimationFrame(watch);
   const beat = (ms: number) => new Promise<void>(resolve => {
-    const token = ui().token();
-    const t = setTimeout(() => { hurry = null; if (ui().alive(token)) resolve(); }, ms);
-    hurry = () => { clearTimeout(t); hurry = null; resolve(); };
+    advance = () => { clearTimeout(timer); advance = null; resolve(); };
+    timer = setTimeout(() => { if (alive()) advance?.(); else dispose(); }, ms);
   });
   try {
-    requestAnimationFrame(() => root.classList.add('is-in'));
+    requestAnimationFrame(() => { if (alive()) root.classList.add('is-in'); });
     try { G.audio.sfx('magic', { volume: 0.25, pitch: 0.55 }); } catch { /* audio optional */ }
     await beat(1200);
     let prev: HTMLElement | null = null;
     for (const l of lines) {
       const el = document.createElement('div');
       el.className = 'e2-traum-line';
-      el.innerHTML = `<span class="e2-traum-who">${l.who}</span><span class="e2-traum-text">${l.text}</span>`;
+      const who = document.createElement('span');
+      who.className = 'e2-traum-who';
+      who.textContent = l.who;
+      const text = document.createElement('span');
+      text.className = 'e2-traum-text';
+      el.append(who, text);
       root.appendChild(el);
       prev?.classList.add('is-gone');
       prev = el;
-      requestAnimationFrame(() => el.classList.add('is-in'));
+      requestAnimationFrame(() => { if (alive()) el.classList.add('is-in'); });
       try { G.audio.sfx('heartbeat', { volume: 0.35 }); } catch { /* audio optional */ }
-      await beat(1600 + l.text.length * 35);
+      await new Promise<void>(resolve => {
+        const startedAt = performance.now();
+        let completedAt = 0;
+        let revealed = false;
+        let voicesDone = false;
+        let finished = false;
+        const finish = () => {
+          if (finished || !alive()) return;
+          finished = true;
+          advance = null;
+          clearTimeout(timer);
+          reveal?.cancel?.();
+          recording?.stop();
+          recording = null;
+          resolve();
+        };
+        const autoAdvance = () => {
+          if (finished || !revealed || !voicesDone || !alive()) return;
+          clearTimeout(timer);
+          // Keep the dream's quiet beat, but never cut a still-speaking voice to meet a text timer.
+          timer = setTimeout(finish, Math.max(600, startedAt + 1600 + l.text.length * 35 - performance.now()));
+        };
+        const onDone = () => {
+          revealed = true;
+          completedAt = performance.now();
+          autoAdvance();
+        };
+        advance = () => {
+          if (!revealed) { reveal?.complete(); return; }
+          if (performance.now() - completedAt >= 140) finish();
+        };
+        const voices = typeof l.speaker === 'string' ? [l.speaker] : l.speaker;
+        const play = async () => {
+          for (const speaker of voices) {
+            if (finished || !alive()) return;
+            recording = voiceover.play('say', speaker, l.text);
+            if (!reveal || !revealed) {
+              reveal?.cancel?.();
+              reveal = revealSpeech(text, l.text, recording,
+                () => new Typewriter(text, l.text, { onDone }), onDone, alive);
+            }
+            if (recording) await recording.done;
+          }
+          if (finished || !alive()) return;
+          voicesDone = true;
+          autoAdvance();
+        };
+        reveal = null;
+        void play();
+      });
     }
     root.classList.add('is-out');
     await beat(900);
   } finally {
-    close();
-    root.remove();
+    dispose();
   }
 }

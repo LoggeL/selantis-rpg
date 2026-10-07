@@ -1,0 +1,98 @@
+[
+  {
+    "file": "game/src/chapters/teil-2/bruderschaft.ts",
+    "line": 91,
+    "expression_sha256": "a9755ce5ed6d0717aef123dfd1895351b5c9cf12377058e63de65c7867b1750e",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "text": "Zwei Wege. Wohin sind die beiden? Ich sollte genau hinsehen.",
+    "spoken_text": "Zwei Wege. Wohin sind die beiden? Ich sollte genau hinsehen.",
+    "mood": "neutral",
+    "direction_en": "An der Gabelung die beiden Wegmöglichkeiten innerlich prüfen; die Sorge mit einem konkreten Entschluss zum Hinsehen ordnen.",
+    "emotion_de": "suchende Unsicherheit",
+    "intensity": 2,
+    "context_de": "Lia ist im Wald hinter Kyra und Flick zurückgefallen. Der Spurenblick-Hinweis in Klammern ist Bedienung, die übrigen Wörter sind ihr tatsächlicher Gedanke.",
+    "classification": "spoken",
+    "performance_classification": "mixed_control_template_actual_prose",
+    "runtime_normalization_policy": "omit_only_exact_control_hint_parenthetical",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/bruderschaft.ts",
+        "source_file_sha256": "c93a35cbfee79d43d117af4414ab59075ec23014354943c0058c665fde08267b",
+        "expression_sha256": "a9755ce5ed6d0717aef123dfd1895351b5c9cf12377058e63de65c7867b1750e",
+        "start": 4986,
+        "end": 5082,
+        "function": "callback",
+        "scene": "e2-bruderschaft",
+        "full_original_template": "`Zwei Wege. Wohin sind die beiden? Ich sollte genau hinsehen. (${w.controlHint('look')} halten)`",
+        "ui_boundary": "Only the original controlHint parenthetical is excluded; all other original prose remains."
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-herkunft.ts",
+    "line": 109,
+    "expression_sha256": "f6ac033f296456b43cd408857a0ce7e0ad2afab5df9e7d865ef3c9a18ff1e4d9",
+    "kind": "say",
+    "runtime_speaker": "narrator",
+    "text": "Flicks Spuren findest du im Spurenblick. Langsam: Deine Beine wollen noch nicht so recht.",
+    "spoken_text": "Flicks Spuren findest du im Spurenblick. Langsam: Deine Beine wollen noch nicht so recht.",
+    "mood": "neutral",
+    "direction_en": "Die Spuren ruhig erklären; bei Langsam Rücksicht auf Lias erschöpfte Beine nehmen. Sachlich helfen, nicht die Figur tadeln.",
+    "emotion_de": "aufmerksame Hilfe",
+    "intensity": 2,
+    "context_de": "Erzählstimme erklärt nach der Prüfung die Spurensuche. Der konkrete Tastenhinweis bleibt UI; die Erschöpfung ist tatsächlich in diesem Text benannt.",
+    "classification": "spoken",
+    "performance_classification": "mixed_control_template_actual_prose",
+    "runtime_normalization_policy": "omit_only_exact_control_hint_parenthetical",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-herkunft.ts",
+        "source_file_sha256": "9ff37aeb5f5792192d6485e3e87a35f7458429279cf4e91c37696e9031c9ab70",
+        "expression_sha256": "f6ac033f296456b43cd408857a0ce7e0ad2afab5df9e7d865ef3c9a18ff1e4d9",
+        "start": 6295,
+        "end": 6420,
+        "function": "callback",
+        "scene": "e2-flicks-herkunft",
+        "full_original_template": "`Flicks Spuren findest du im Spurenblick (${w.controlHint('look')} halten). Langsam: Deine Beine wollen noch nicht so recht.`",
+        "ui_boundary": "Only the original controlHint parenthetical is excluded; all other original prose remains."
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/ignatius.ts",
+    "line": 382,
+    "expression_sha256": "9819433da3ef4ab1b9f6df4b4e6dda701983bfe4301df8e5fde1437bb7f0f997",
+    "kind": "think",
+    "runtime_speaker": "lia",
+    "text": "Seine Decke liegt noch da, zusammengefaltet. Er ist nicht entführt worden. Er ist gegangen. Wohin?",
+    "spoken_text": "Seine Decke liegt noch da, zusammengefaltet. Er ist nicht entführt worden. Er ist gegangen. Wohin?",
+    "mood": "neutral",
+    "direction_en": "Die zurückgelassene Decke genau betrachten; die Entführungsangst mit dem eigenen Schluss beruhigen, Wohin suchend offenlassen.",
+    "emotion_de": "besorgte Spurensuche",
+    "intensity": 3,
+    "context_de": "Lia findet den leeren Platz des Mentors. Sie schließt aus seiner Decke auf freiwilliges Gehen; der Gedanke besitzt keine allwissende Erzählergewissheit.",
+    "classification": "spoken",
+    "performance_classification": "mixed_control_template_actual_prose",
+    "runtime_normalization_policy": "omit_only_exact_control_hint_parenthetical",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/ignatius.ts",
+        "source_file_sha256": "3a6b72a957b8a5761fc2afb7d411d328d3b96a1051567ed17d98d377f45367d2",
+        "expression_sha256": "9819433da3ef4ab1b9f6df4b4e6dda701983bfe4301df8e5fde1437bb7f0f997",
+        "start": 20597,
+        "end": 20731,
+        "function": "emptySeat",
+        "scene": "e2-ignatius",
+        "full_original_template": "`Seine Decke liegt noch da, zusammengefaltet. Er ist nicht entführt worden. Er ist gegangen. Wohin? (${w.controlHint('look')} halten)`",
+        "ui_boundary": "Only the original controlHint parenthetical is excluded; all other original prose remains."
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  }
+]

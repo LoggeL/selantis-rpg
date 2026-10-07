@@ -144,10 +144,10 @@ async function nightmare(w: WorldCtx): Promise<void> {
   await w.camera.zoom(1.35, 0);
   await G.ui.narrate(['In dieser Nacht träumte Lia.'], { style: 'card' });
   await playDream([
-    { who: 'Kyra, im Traum', text: 'Lia? Lia, wo bist du? Hier ist alles lila.' },
-    { who: 'Flick, im Traum', text: 'Bleib weg, Leseratte. Hörst du? Lauf weiter.' },
-    { who: 'Kyra, im Traum', text: 'Es tut nicht weh. Ehrlich. Nur ein bisschen.' },
-    { who: 'Kyra und Flick, im Traum', text: 'Lia …!' },
+    { who: 'Kyra, im Traum', speaker: 'e2-kyra', text: 'Lia? Lia, wo bist du? Hier ist alles lila.' },
+    { who: 'Flick, im Traum', speaker: 'e2-flick', text: 'Bleib weg, Leseratte. Hörst du? Lauf weiter.' },
+    { who: 'Kyra, im Traum', speaker: 'e2-kyra', text: 'Es tut nicht weh. Ehrlich. Nur ein bisschen.' },
+    { who: 'Kyra und Flick, im Traum', speaker: ['e2-kyra', 'e2-flick'], text: 'Lia …!' },
   ]);
   const gesture = G.ui.storyAction('open-eyes', 'Aufwachen');
   restageGesture('open-eyes', 'Schieb die Lider auf. Raus aus dem Violett. Es ist nur ein Traum. Oder?');

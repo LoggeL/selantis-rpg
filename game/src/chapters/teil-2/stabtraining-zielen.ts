@@ -3,8 +3,10 @@
 // painted object (spatially, see nextInDirection); E / Enter / Space or „Stabimpuls“ fires, Esc / „Absetzen“ lowers
 // the staff. The marker is a world light, so the player judges the painted object itself, not a label.
 import type Phaser from 'phaser';
+import { voiceover, type VoicePlayback } from '../../audio/voiceover';
 import { G } from '../../core/G';
 import { ctx, isConfirm } from '../../ui/context';
+import { revealSpeech, type TextReveal } from '../../ui/typewriter';
 import type { WorldCtx } from '../../world';
 import { sfx, ui } from './shared';
 import { AIM_START, nextInDirection, PRACTICE_OBJECTS } from './stabtraining-ziele';
@@ -45,11 +47,15 @@ function aimRing(w: WorldCtx): Phaser.GameObjects.Graphics {
 
 /**
  * Lets the player pick one painted object of the practice ground. Resolves with its id, or null when the player
- * lowered the staff. `call` is shown in the bar (Ignatius' last call), `from` is where the marker starts.
+ * lowered the staff. `call` contains only Ignatius' words; labels and controls are never spoken.
  */
-export function aimStaff(w: WorldCtx, call: string, from = AIM_START): Promise<string | null> {
+export async function aimStaff(w: WorldCtx, call: string, from = AIM_START): Promise<string | null> {
   ensureStyles();
-  if (ctx.stale()) return new Promise(() => {});
+  if (ctx.stale()) return ctx.never();
+  const token = ctx.epoch;
+  await voiceover.preload();
+  if (ctx.stale() || token !== ctx.epoch || !w.alive) return ctx.never();
+  voiceover.stop();
   let current = PRACTICE_OBJECTS.some(o => o.id === from) ? from : AIM_START;
   const at = () => PRACTICE_OBJECTS.find(o => o.id === current)!.at;
   const marker = w.lighting.add({ id: 'e2-zielmarke', at: at(), kind: 'plain', color: 0xfff0b0, radius: 20, intensity: 1.1, always: true });
@@ -62,7 +68,7 @@ export function aimStaff(w: WorldCtx, call: string, from = AIM_START): Promise<s
   const root = ui().panel('e2-zielen');
   const touch = ctx.root.classList.contains('is-touch');
   root.innerHTML = `<div class="e2-zielen-bar ch-panel">
-    <div class="e2-zielen-call">${call}</div>
+    <div class="e2-zielen-call"><em>Ignatius:</em> „<span class="e2-zielen-words"></span>“</div>
     <div class="e2-zielen-pad">
       <button class="ch-btn up" aria-label="Ziel weiter hinten">▲</button><button class="ch-btn left" aria-label="Ziel links">◀</button>
       <button class="ch-btn down" aria-label="Ziel weiter vorn">▼</button><button class="ch-btn right" aria-label="Ziel rechts">▶</button>
@@ -74,7 +80,11 @@ export function aimStaff(w: WorldCtx, call: string, from = AIM_START): Promise<s
 
   return new Promise<string | null>(resolve => {
     let done = false;
+    let recording: VoicePlayback | null = null;
+    let reveal: TextReveal | null = null;
+    let watchFrame = 0;
     const move = (dx: number, dy: number) => {
+      if (done) return;
       const next = nextInDirection(current, dx, dy);
       if (next === current) { sfx('ui-cancel', { volume: 0.4 }); return; }
       current = next;
@@ -85,14 +95,21 @@ export function aimStaff(w: WorldCtx, call: string, from = AIM_START): Promise<s
       sfx('ui-move', { volume: 0.5 });
     };
     let unsub = () => {};
-    const finish = (result: string | null) => {
+    const dispose = () => {
       if (done) return;
       done = true;
       unsub();
+      cancelAnimationFrame(watchFrame);
+      reveal?.cancel?.();
+      recording?.stop();
       close();
       marker.remove();
       ring.destroy();
       root.remove();
+    };
+    const finish = (result: string | null) => {
+      if (done) return;
+      dispose();
       sfx(result ? 'ui-confirm' : 'ui-close', { volume: 0.5 });
       resolve(result);
     };
@@ -118,7 +135,21 @@ export function aimStaff(w: WorldCtx, call: string, from = AIM_START): Promise<s
     on('.right', () => move(1, 0));
     on('.fire', () => finish(current));
     on('.back', () => finish(null));
-    // A scene change removes the panel; the modal must not outlive it.
-    unsub = G.events.on('scene:goto', () => { if (!done) { done = true; unsub(); close(); } });
+    // Do not resume the old training script after a warp, title or reset.
+    unsub = G.events.on('scene:goto', dispose);
+    const alive = () => !done && w.alive && token === ctx.epoch && !ctx.stale() && root.isConnected;
+    const watch = () => {
+      if (!alive()) { dispose(); return; }
+      watchFrame = requestAnimationFrame(watch);
+    };
+    const words = root.querySelector<HTMLElement>('.e2-zielen-words')!;
+    const plain = (): TextReveal => {
+      words.textContent = call;
+      return { done: true, complete() {} };
+    };
+    // The modal prevents ambient NPC barks; the foreground call replaces any previous bark.
+    recording = voiceover.play('bark', 'e2-ignatius', call, undefined, undefined, true);
+    reveal = revealSpeech(words, call, recording, plain, () => {}, alive);
+    watchFrame = requestAnimationFrame(watch);
   });
 }

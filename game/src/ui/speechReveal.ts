@@ -20,19 +20,45 @@ export function speechDisplayWordGroups(displayText: string, spokenText: string)
   const spoken = normalizeVoiceText(spokenText);
   const tokens = [...display.matchAll(/\S+/gu)];
   if (display === spoken) return tokens.map((_, i) => [i]);
-  const omitted = [...display.matchAll(/\([^()]*\)/gu)].map(match => [match.index!, match.index! + match[0].length]);
-  if (!omitted.length) return null;
-  const kept = tokens.map((token, index) => ({ text: token[0], index, start: token.index! }))
-    .filter(token => !omitted.some(([start, end]) => token.start >= start && token.start < end));
-  // No substitutions, spoken words, or punctuation may disappear outside the exact parenthetical.
-  if (kept.map(token => token.text).join(' ') !== spoken || !kept.length) return null;
-  const groups = kept.map(token => [token.index]);
-  for (let index = 0; index < tokens.length; index++) {
-    if (kept.some(token => token.index === index)) continue;
-    let target = -1;
-    kept.forEach((token, i) => { if (token.index < index) target = i; });
-    if (target < 0) target = 0;
-    groups[target].push(index);
+  const parentheticals = [...display.matchAll(/\([^()]*\)/gu)];
+  if (!parentheticals.length) return null;
+  const omitted = new Set<number>();
+  for (const match of parentheticals) {
+    let start = match.index!;
+    // Deleting only the parentheses must not leave a space before their outside suffix punctuation.
+    while (start > 0 && /\s/u.test(display[start - 1])) start--;
+    for (let index = start; index < match.index! + match[0].length; index++) omitted.add(index);
+  }
+  let remaining = '';
+  const sourceOffsets: number[] = [];
+  for (let index = 0; index < display.length; index++) {
+    if (omitted.has(index)) continue;
+    remaining += display[index];
+    sourceOffsets.push(index);
+  }
+  // Keep every outside character, including a period attached to the final parenthetical token.
+  // The text was already stripped of markup; only whitespace is normalized again here.
+  if (remaining.replace(/\s+/gu, ' ').trim() !== spoken) return null;
+  const sourceTokens = new Map<number, number>();
+  tokens.forEach((token, tokenIndex) => {
+    for (let index = token.index!; index < token.index! + token[0].length; index++) sourceTokens.set(index, tokenIndex);
+  });
+  const groups = [...remaining.matchAll(/\S+/gu)].map(word => {
+    const group = new Set<number>();
+    for (let index = word.index!; index < word.index! + word[0].length; index++) group.add(sourceTokens.get(sourceOffsets[index])!);
+    return [...group];
+  });
+  if (!groups.length) return null;
+  const owners = new Map<number, number>();
+  for (let group = 0; group < groups.length; group++) for (const token of groups[group]) {
+    if (owners.has(token) && owners.get(token) !== group) return null;
+    owners.set(token, group);
+  }
+  let preceding = 0;
+  for (let token = 0; token < tokens.length; token++) {
+    const owner = owners.get(token);
+    if (owner === undefined) groups[preceding].push(token);
+    else preceding = owner;
   }
   return groups.map(group => group.sort((a, b) => a - b));
 }

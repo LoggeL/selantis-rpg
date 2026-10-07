@@ -1,6 +1,7 @@
 import type { CharAnim, CharacterSpec } from '../art/api';
 import { G } from '../core/G';
 import { isTouch } from '../core/input';
+import { findScene } from '../core/registry';
 import type { Dir } from '../core/types';
 import type { ChoiceOption } from '../ui/api';
 import type {
@@ -42,6 +43,11 @@ export function createCtx(scene: WorldScene): WorldCtx {
   }
 
   const wait = (ms: number) => guard(new Promise<void>(resolve => scene.time.delayedCall(ms, () => resolve())));
+
+  // Existing banks use their established scene-player routes; Teil II changes players within a scene.
+  function voicePlayer(): string | undefined {
+    return findScene(G.currentScene)?.chapter.id === 'teil-2' ? scene.player?.speaker : undefined;
+  }
 
   /** Resolves a target to px: actor id, interactable/prop id, or At. */
   function targetPx(target: At | string): Vec | null {
@@ -201,9 +207,15 @@ export function createCtx(scene: WorldScene): WorldCtx {
     addProp(def: PropDef) { const p = scene.addProp(def); return propHandle(p.id); },
 
     say: (speaker: string, text: string, opts?: { mood?: string; portrait?: string }) => dialog(G.ui.say(speaker, text, opts)),
-    choose: (options: (string | ChoiceOption)[], opts?: { speaker?: string; prompt?: string }) => dialog(G.ui.choose(options, opts)),
+    choose: (options: (string | ChoiceOption)[], opts?: { speaker?: string; prompt?: string }) => {
+      const speaker = voicePlayer();
+      return dialog(G.ui.choose(options, speaker === undefined ? opts : { ...opts, speaker: opts?.speaker ?? speaker }));
+    },
     narrate: (lines: string | string[], opts?: { style?: 'book' | 'card' | 'thought' }) => dialog(G.ui.narrate(lines, opts)),
-    think: (text: string) => dialog(G.ui.think(text)),
+    think: (text: string) => {
+      const speaker = voicePlayer();
+      return dialog(speaker === undefined ? G.ui.think(text) : G.ui.think(text, { speaker }));
+    },
     bark(actorId: string, text: string, ms?: number) {
       const a = scene.actors.get(actorId);
       return a ? scene.barkActor(a, text, ms) : () => {};

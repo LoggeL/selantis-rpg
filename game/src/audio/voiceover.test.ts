@@ -1,8 +1,10 @@
 import { CapturedMediaRoutingError } from './recordedMediaRouting';
 import recordedProlog from '../../public/audio/prolog/manifest.json';
 import frozenStory from '../../../docs/voice-production/story-lines.json';
+import frozenPart2 from '../../../docs/voice-production/teil-2/lines.json';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { normalizeVoiceText, quotedChoiceText, VoiceIndex, Voiceover, type VoiceManifest } from './voiceover';
+import part2SharedSource from '../chapters/teil-2/shared.ts?raw';
+import { normalizeVoiceText, part2VoiceScenes, quotedChoiceText, voiceBankForScene, VoiceIndex, Voiceover, type VoiceManifest } from './voiceover';
 
 const manifest: VoiceManifest = {
   model: 'test', aliases: { elder: 'valentus' }, clips: [{
@@ -35,6 +37,73 @@ function fixture() {
   return { engine, audios, setVolume: (v: number) => { volume = v; engine.refreshVolume(); } };
 }
 afterEach(() => vi.useRealTimers());
+
+describe('isolated Teil-II voice bank', () => {
+  it('resolves every actual frozen Teil-II Source route with the real runtime selectors', () => {
+    const clips = frozenPart2.lines.map(line => ({ ...line, audio: `audio/teil-2/${line.id}.mp3`, seconds: 1 }));
+    const index = new VoiceIndex({ model: frozenPart2.model, aliases: frozenPart2.aliases,
+      scene_players: frozenPart2.scene_players, clips } as unknown as VoiceManifest, 'teil-2');
+    expect(frozenPart2.lines).toHaveLength(1401);
+    expect(frozenPart2.runtime_lookup).toHaveLength(1408);
+    for (const route of frozenPart2.runtime_lookup) {
+      const kind = route.kind as 'say' | 'think' | 'narrate' | 'bark' | 'choice';
+      expect(index.find(kind, route.speaker, route.text, route.scene,
+        route.mood === 'neutral' ? undefined : route.mood)?.id,
+      `${route.kind}/${route.scene}/${route.speaker}/${route.mood}`).toBe(route.asset_id);
+    }
+    expect(index.player('e2-aufbruch')).toBeUndefined();
+  });
+  it('covers the exact registered scene list and does not route arbitrary e2 names into the bank', () => {
+    const declaration = part2SharedSource.match(/export const E2_SCENES = \[([\s\S]*?)\] as const;/)?.[1];
+    const registered = [...(declaration ?? '').matchAll(/'(e2-[a-z-]+)'/g)].map(match => match[1]);
+    expect(registered).toHaveLength(18);
+    expect(part2VoiceScenes).toEqual(registered);
+    for (const scene of registered) expect(voiceBankForScene(scene)).toBe('teil-2');
+    expect(voiceBankForScene('e2-unregistered')).toBe('story');
+    expect(voiceBankForScene('prolog-rat')).toBe('prolog');
+    expect(voiceBankForScene('wiese')).toBe('story');
+  });
+  it('uses the dedicated bank, preserves player aliases, and never borrows missing takes from Story', async () => {
+    const part2: VoiceManifest = { model: 'test', aliases: { 'e2-lia': 'lia' }, scene_players: { 'e2-taverne': 'lia' },
+      clips: [{ ...manifest.clips[0], id: 'part2-one', speaker: 'lia', audio: 'audio/teil-2/part2-one.mp3',
+        runtime_keys: [{ kind: 'say', speaker: 'lia', text: 'Weiter.', scene: 'e2-taverne' }] }] };
+    const story: VoiceManifest = { model: 'test', aliases: {}, clips: [{ ...part2.clips[0], id: 'old-story',
+      audio: 'audio/story/old-story.mp3', runtime_keys: [{ kind: 'say', speaker: 'lia', text: 'Nur im alten Buch.' }] }] };
+    const fetchManifest = vi.fn(async (bank: string) => bank === 'teil-2' ? part2 : story);
+    const urls: string[] = [];
+    const engine = new Voiceover({ audio: url => { urls.push(url); return new FakeAudio() as unknown as HTMLAudioElement; },
+      fetchManifest, volume: () => .9, now: () => 1 });
+    await engine.preload('story'); await engine.preload('teil-2');
+    engine.scene('e2-taverne');
+    expect(engine.playerSpeaker()).toBe('lia');
+    const playing = engine.play('say', 'e2-lia', 'Weiter.')!;
+    expect(playing).not.toBeNull(); expect(urls).toEqual(['/audio/teil-2/part2-one.mp3']);
+    expect(engine.play('say', 'lia', 'Nur im alten Buch.')).toBeNull();
+    await playing.done;
+    expect(fetchManifest).toHaveBeenCalledTimes(2);
+    expect(new VoiceIndex(story, 'teil-2').find('say', 'lia', 'Nur im alten Buch.')).toBeUndefined();
+  });
+  it('uses the current world player for mixed Teil-II scenes while retaining Story/Prolog players', async () => {
+    let current = 'e2-flick';
+    const resolve = vi.fn((_scene: string): string | undefined => current);
+    const banks: Record<string, VoiceManifest> = {
+      'teil-2': { model: 'test', aliases: {}, scene_players: { 'e2-taverne': 'lia' }, clips: [] },
+      story: { model: 'test', aliases: {}, scene_players: { kyra: 'kyra' }, clips: [] },
+      prolog: manifest,
+    };
+    const engine = new Voiceover({ audio: () => new FakeAudio() as unknown as HTMLAudioElement,
+      fetchManifest: async bank => banks[bank], playerSpeaker: resolve, volume: () => .9, now: () => 1 });
+    await engine.preload('teil-2'); await engine.preload('story'); await engine.preload('prolog');
+    engine.scene('e2-aufbruch'); expect(engine.playerSpeaker()).toBe('e2-flick');
+    current = 'e2-lia'; expect(engine.playerSpeaker()).toBe('e2-lia');
+    expect(resolve).toHaveBeenLastCalledWith('e2-aufbruch');
+    resolve.mockReturnValue(undefined);
+    expect(engine.playerSpeaker()).toBe('');
+    engine.scene('kyra'); expect(engine.playerSpeaker()).toBe('kyra');
+    engine.scene('prolog-rat'); expect(engine.playerSpeaker()).toBe('valentus');
+    expect(resolve).toHaveBeenCalledTimes(3);
+  });
+});
 
 describe('voice runtime lookup', () => {
   it('uses the actual UI markup parser and whitespace rules without deleting literal characters', () => {

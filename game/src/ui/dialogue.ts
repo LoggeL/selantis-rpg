@@ -256,13 +256,13 @@ export class DialogueUi {
   }
 
   /** Player's thought: italic, no box chrome, soft and quiet (no blips). */
-  async think(text: string): Promise<void> {
+  async think(text: string, opts: { speaker?: string } = {}): Promise<void> {
     if (ctx.stale()) return ctx.never();
     const token = ctx.epoch;
     await voiceover.preload();
     if (ctx.stale() || token !== ctx.epoch) return ctx.never();
     this.box.hideNow();
-    const recording = voiceover.play('think', voiceover.playerSpeaker(), text);
+    const recording = voiceover.play('think', opts.speaker ?? voiceover.playerSpeaker(), text);
     const wrap = el('div', 'thought');
     const inner = el('div', 'thought-text');
     wrap.appendChild(el('div', 'thought-orn', '❧'));

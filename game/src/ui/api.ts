@@ -29,8 +29,8 @@ export interface UiApi {
   choose(options: (string | ChoiceOption)[], opts?: { speaker?: string; prompt?: string }): Promise<number>;
   /** Book-style narration. Each string is one page/beat waiting for continue. */
   narrate(lines: string | string[], opts?: { style?: 'book' | 'card' | 'thought' }): Promise<void>;
-  /** Thought line of the player character (italic, no portrait box chrome). */
-  think(text: string): Promise<void>;
+  /** Thought line of the player character; an explicit speaker supports changing player characters within a scene. */
+  think(text: string, opts?: { speaker?: string }): Promise<void>;
 
   /**
    * Shows a book plate full screen with slow pan: the painted plate image from the asset manifest

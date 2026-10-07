@@ -1,5 +1,5 @@
 import { screenVoicePan } from '../audio/recordedMediaRouting';
-import { bindRecordedMediaRouting, bindVoiceVolume, voiceover } from '../audio/voiceover';
+import { bindRecordedMediaRouting, bindVoiceVolume, bindWorldVoicePlayer, voiceover } from '../audio/voiceover';
 import { G } from '../core/G';
 import { openBag, registerItemAction, type ItemAction } from './bag';
 import { chapterCard } from './chapterCard';
@@ -24,6 +24,8 @@ import { preloadBackdrop } from './titleBackdrop';
 import { ToastUi } from './toast';
 import { TouchUi } from './touch';
 import type { UiApi } from './api';
+import { WorldVoicePlayer } from './worldVoicePlayer';
+import type { WorldScene } from '../world/WorldScene';
 import './styles.css';
 
 export type { UiApi } from './api';
@@ -131,10 +133,14 @@ export function createUi(): UiApiExt {
       ctx.onVoicePause = paused => voiceover.setPaused(paused);
       bindVoiceVolume(() => G.settings.voice);
       bindRecordedMediaRouting(element => G.audio?.routeRecordedMedia?.(element) ?? null);
+      const worldPlayer = new WorldVoicePlayer();
+      const currentWorld = () => G.game?.scene.getScenes(false).find(scene => scene.sys.settings.key === 'World') as WorldScene | undefined;
+      bindWorldVoicePlayer(scene => worldPlayer.speaker(scene, currentWorld()));
+      G.events.on('world:ready', () => worldPlayer.ready(G.currentScene, currentWorld()));
       void voiceover.preload('prolog');
       void voiceover.preload('story');
       voiceover.scene(G.currentScene);
-      G.events.on('scene:goto', ({ id }) => voiceover.scene(id));
+      G.events.on('scene:goto', ({ id }) => { worldPlayer.sceneChanged(); voiceover.scene(id); });
       G.events.on('settings:changed', () => voiceover.refreshVolume());
       document.addEventListener('visibilitychange', () => { if (document.hidden) voiceover.stop(); });
       dialogue = new DialogueUi();
@@ -180,7 +186,7 @@ export function createUi(): UiApiExt {
     say: (speaker, text, opts) => dialogue.say(speaker, text, opts),
     choose: (options, opts) => dialogue.choose(options, opts),
     narrate: (lines, opts) => (ctx.stale() ? ctx.never() : narration.narrate(lines, opts?.style)),
-    think: text => dialogue.think(text),
+    think: (text, opts) => dialogue.think(text, opts),
 
     plate: (id, opts) => (ctx.stale() ? ctx.never() : plates.show(id, opts)),
     closePlate: () => plates.close(),

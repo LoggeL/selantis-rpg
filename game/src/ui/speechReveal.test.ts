@@ -60,6 +60,49 @@ describe('speech alignment', () => {
     expect(speechDisplayWordGroups('Die Nacht ist kalt.', 'Die Nacht ist warm.')).toBeNull();
     expect(speechDisplayWordGroups('Drücke Shift und gehe.', 'Drücke und gehe.')).toBeNull();
   });
+  it('preserves outside periods and commas when a control ends within their original display token', () => {
+    const display = 'Flicks Spuren findest du im Spurenblick (Q halten). Langsam: Deine Beine wollen noch nicht so recht.';
+    const spoken = 'Flicks Spuren findest du im Spurenblick. Langsam: Deine Beine wollen noch nicht so recht.';
+    expect(speechDisplayWordGroups(display, spoken)).toEqual([
+      [0], [1], [2], [3], [4], [5, 6, 7], [8], [9], [10], [11], [12], [13], [14], [15],
+    ]);
+    expect(speechDisplayWordGroups('Duck dich (C halten), dann lauf.', 'Duck dich, dann lauf.')).toEqual([[0], [1, 2, 3], [4], [5]]);
+  });
+  it('attaches a leading control to the first spoken word without changing any surviving characters', () => {
+    expect(speechDisplayWordGroups('(Q halten) Flicks Spuren.', 'Flicks Spuren.')).toEqual([[0, 1, 2], [3]]);
+    expect(speechDisplayWordGroups('Warte\\*wirklich\\* (Q).', 'Warte\\*wirklich\\*.')).toEqual([[0, 1]]);
+  });
+  it('rejects changed outside punctuation, source words and a retained unrelated parenthetical', () => {
+    expect(speechDisplayWordGroups('Warte (Q halten)! Dann gehe.', 'Warte. Dann gehe.')).toBeNull();
+    expect(speechDisplayWordGroups('Duck dich (C halten), dann lauf.', 'Duck dich dann lauf.')).toBeNull();
+    expect(speechDisplayWordGroups('(Q halten) Flicks Spuren.', 'Kyras Spuren.')).toBeNull();
+    expect(speechDisplayWordGroups('Warte (wirklich!), dann gehe. (Q)', 'Warte (wirklich!), dann gehe.')).toBeNull();
+  });
+  it('reveals the complete actual control caption and its outside period at the Spurenblick cue', () => {
+    const text = 'Flicks Spuren findest du im Spurenblick (Q halten). Langsam: Deine Beine wollen noch nicht so recht.';
+    const spoken = 'Flicks Spuren findest du im Spurenblick. Langsam: Deine Beine wollen noch nicht so recht.';
+    const raf = frames(), audio = media(), host = node();
+    vi.stubGlobal('requestAnimationFrame', raf.request); vi.stubGlobal('cancelAnimationFrame', raf.cancel);
+    const playback = { ...audio.playback, spokenText: spoken,
+      get currentTime() { return audio.playback.currentTime; },
+      wordCues: spoken.split(' ').map((_, index) => ({ start: index + .5, end: index + .9 })),
+    };
+    const fallback = vi.fn(() => ({ done: true, complete() {} }));
+    const reveal = revealSpeech(host as unknown as HTMLElement, text, playback, fallback, vi.fn(), () => true);
+    const flatten = (n: FakeNode): FakeNode[] => [n, ...n.children.flatMap(flatten)];
+    const chars = flatten(host).filter(n => n.classList.contains('tc'));
+    const visible = () => chars.filter(n => n.classList.contains('on')).map(n => n.textContent).join('');
+    audio.clock(5.49); raf.tick();
+    expect(visible()).toBe('FlicksSpurenfindestduim');
+    audio.clock(5.5); raf.tick();
+    expect(visible()).toBe('FlicksSpurenfindestduimSpurenblick(Qhalten).');
+    for (let i = 0; i < 10; i++) raf.tick();
+    expect(visible()).not.toContain('Langsam');
+    audio.clock(6.5); raf.tick();
+    expect(visible()).toBe('FlicksSpurenfindestduimSpurenblick(Qhalten).Langsam:');
+    expect(fallback).not.toHaveBeenCalled();
+    reveal.cancel?.(); expect(raf.pending()).toBe(0);
+  });
   it('calls native global frame functions without passing the reveal instance as their receiver', () => {
     const raf = frames(), audio = media(), showWord = vi.fn();
     vi.stubGlobal('requestAnimationFrame', function (this: unknown, callback: FrameRequestCallback) {
