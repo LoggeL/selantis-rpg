@@ -12,11 +12,12 @@ from pathlib import Path
 import unicodedata
 import story_voice_publish as strict
 import story_voice_word_cues as word_driver
+import story_voice_rewrite_e8_large as e8_large
 from story_voice_publish import (read, digest, contained, require, sha, MODEL, ID,
     common, VARIANT_TARGET, NONARCHIVED_REVIEWS, QA_VERSION, QA_MODEL,
     ALIGNMENT_ENGINE, acoustic, validate_pff_derived, validate_vocal_variant)
 
-VERSION = 'one-frozen-rewrite-490-receipt-bound-punctuation-v1'
+VERSION = 'one-frozen-rewrite-490-receipt-bound-punctuation-v2'
 RUN_NAME = '2026-10-07-rewrite-490'
 FROZEN_MANIFEST_SHA256 = 'bb243f9af44a00e2fb63779620c1fe92ec6bf1f9896b7629f88195d8a16db343'
 PROTECTED = {
@@ -32,7 +33,8 @@ SOURCE_FIELDS = ('id', 'kind', 'speaker', 'text', 'display_text', 'direction_en'
                  'performance_variant', 'mood', 'runtime_keys')
 POLICY_FIELDS = {'method', 'frozen_manifest_sha256', 'source_contract_sha256',
                  'source_text_sha256', 'audio_sha256', 'receipt_sha256',
-                 'original_receipt_sha256', 'cues_sha256', 'profiles_sha256', 'prepared_sha256'}
+                 'original_receipt_sha256', 'cues_sha256', 'profiles_sha256', 'prepared_sha256',
+                 'alignment_engine', 'actual_alignment_model'}
 
 
 def source_contract(line):
@@ -138,10 +140,20 @@ def evidence_files(run):
         if receipt.get('engine_version') != ALIGNMENT_ENGINE:
             expected = {key:receipt.get(key) for key in
                         ('audio_sha256', 'text_sha256', 'source_manifest_sha256')}
-            files.extend(_ctc_evidence(Path(run), receipt, expected, cache))
+            files.extend(_adoption_evidence(Path(run), receipt, expected, cache))
     approvals = Path(run)/'word-cues/qualifications.private.json'
     if approvals.exists(): files.append(contained(run, str(approvals.relative_to(run))))
     return list(dict.fromkeys(files))
+
+
+def _adoption_evidence(run, receipt, expected, provenance_cache=None):
+    if receipt.get('engine_version') == e8_large.ENGINE:
+        files = e8_large.evidence(run,receipt,expected,provenance_cache)
+        adoption = receipt['FullLarge_adoption']
+        return [contained(run,'word-cues/qualifications.private.json'),
+                contained(run,e8_large.NAMESPACE+'/actual-result.private.json'),
+                contained(run,adoption['original_receipt_relative_path']), *files]
+    return _ctc_evidence(run,receipt,expected,provenance_cache)
 
 
 def _bound_receipt(run, line, entry, seconds, provenance_cache=None):
@@ -154,7 +166,7 @@ def _bound_receipt(run, line, entry, seconds, provenance_cache=None):
             and all(receipt.get(key) == value for key,value in expected.items() if key != 'engine_version'),
             'Rewrite actual cue receipt source/audio binding differs')
     if receipt.get('engine_version') != ALIGNMENT_ENGINE:
-        _ctc_evidence(Path(run), receipt, expected, provenance_cache)
+        _adoption_evidence(Path(run), receipt, expected, provenance_cache)
     duration = receipt.get('decoded_seconds')
     require(type(duration) in (int,float) and math.isfinite(duration) and duration > 0
             and abs(duration-seconds) <= .05, 'Rewrite receipt decoded duration differs')
@@ -181,13 +193,17 @@ def _policy(run, line, clip, provenance_cache=None):
     original = path
     if receipt.get('engine_version') != ALIGNMENT_ENGINE:
         expected = {key:receipt.get(key) for key in ('audio_sha256','text_sha256','source_manifest_sha256')}
-        original = _ctc_evidence(Path(run),receipt,expected,provenance_cache)[2]
+        original = _adoption_evidence(Path(run),receipt,expected,provenance_cache)[2]
+    model = (e8_large.MODEL if receipt.get('engine_version') == e8_large.ENGINE
+             else receipt['CTC_adoption']['binding']['model']['model_id']
+             if receipt.get('engine_version') != ALIGNMENT_ENGINE else acoustic.MODEL)
     return {'method': VERSION, 'frozen_manifest_sha256': FROZEN_MANIFEST_SHA256,
             'source_contract_sha256': source_contract(line), 'source_text_sha256': sha(line['text'].encode()),
             'audio_sha256': clip['sha256'], 'receipt_sha256': digest(path),
             'original_receipt_sha256': digest(original), 'cues_sha256': acoustic.cue_sha(clip['word_cues']),
             'profiles_sha256': digest(contained(run,'profiles.private.json')),
-            'prepared_sha256': digest(contained(run,'prepared.json'))}
+            'prepared_sha256': digest(contained(run,'prepared.json')),
+            'alignment_engine': receipt['engine_version'], 'actual_alignment_model': model}
 
 
 def validate_retained_clip(clip, current, root):
@@ -232,7 +248,7 @@ def validate_retained_clip(clip, current, root):
     receipt = read(files[-1])
     if receipt['engine_version'] != ALIGNMENT_ENGINE:
         expected = {key:receipt.get(key) for key in ('audio_sha256','text_sha256','source_manifest_sha256')}
-        files.extend(_ctc_evidence(run,receipt,expected,cache))
+        files.extend(_adoption_evidence(run,receipt,expected,cache))
     _protected_originals()
     return files
 
@@ -268,6 +284,9 @@ def validate_run(run, qa_path, alignment_path, expected_count, review_source_roo
     for line in frozen['lines']:
         clip = next(clip for clip in clips if clip['id'] == line['id'])
         _bound_receipt(run,line,alignment['alignment_by_id'][line['id']],clip['seconds'],cache)
+        receipt = read(contained(run,'word-cues/'+line['id']+'.json'))
+        if receipt.get('engine_version') == e8_large.ENGINE:
+            e8_large.clean_target_qa(read(qa_path),line,receipt,clip['sha256'])
         clip['timing_policy'] = _policy(run,line,clip,cache)
     require(all(digest(path) == expected for path,expected in before.items()), 'Rewrite actual cue evidence changed during validation')
     require(all(digest(Path(__file__).with_name(name)) == expected for name,expected in PROTECTED.items()),
