@@ -7,6 +7,7 @@ import { el, html, sfx } from './dom';
 import { buildGallery, type GalleryCtl } from './gallery';
 import { NavList, type NavItem } from './nav';
 import { buildSettings } from './settings';
+import { cheatInput, everythingUnlocked, unlockEverything } from './unlocks';
 
 export type TitleChoice = 'new' | 'continue' | { warp: string };
 
@@ -54,11 +55,30 @@ export function showTitle(): Promise<TitleChoice> {
       id: 'title',
       allowMenu: false,
       onKey: e => {
+        if (cheat(e)) { unlockAll(); return true; }
         if (page === 'gallery' && gallery?.key(e)) return true;
         if (e.key === 'Escape' && page !== 'main') { sfx('ui-cancel', { volume: 0.5 }); showMain(); return true; }
         return nav?.key(e) ?? false;
       },
     });
+
+    // Cheat: ↑ ↑ ↓ ↓ ← → ← → B A, or seven taps on the logo, opens every chapter and gallery picture.
+    const cheat = cheatInput();
+    let taps = 0, tapAt = 0;
+    logo.addEventListener('pointerdown', () => {
+      const now = performance.now();
+      taps = now - tapAt < 700 ? taps + 1 : 1;
+      tapAt = now;
+      if (taps >= 7) { taps = 0; unlockAll(); }
+    });
+    function unlockAll(): void {
+      if (everythingUnlocked()) { G.ui.toast('Schon alles freigeschaltet.', 'info'); return; }
+      unlockEverything();
+      sfx('ui-confirm', { volume: 1 });
+      G.ui.toast('Alle Kapitel und die ganze Galerie sind freigeschaltet.', 'info');
+      if (page === 'chapters') showChapters();
+      else if (page === 'gallery') showGallery();
+    }
 
     const finish = (choice: TitleChoice) => {
       if (done) return;

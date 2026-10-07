@@ -4,10 +4,12 @@ import { devMode } from './chapters';
 import { ctx } from './context';
 import { el, sfx } from './dom';
 import { NavList, type NavItem } from './nav';
+import { everythingUnlocked } from './unlocks';
 
 /**
  * Title-menu gallery: book plates, portraits and painted places. Every picture unlocks the first time the game shows
- * it (plate, dialogue portrait, map background) and stays unlocked across saves; dev mode shows everything.
+ * it (plate, dialogue portrait, map background) and stays unlocked across saves; dev mode and the unlock cheat show
+ * everything.
  */
 
 type Kind = 'plate' | 'portrait' | 'background';
@@ -79,7 +81,7 @@ interface Entry { id: string; title: string; open: boolean; images: { url: strin
 
 function entries(tab: Kind): Entry[] {
   const m = manifest();
-  const all = devMode();
+  const all = devMode() || everythingUnlocked();
   const s = load();
   if (tab === 'plate') {
     return Object.keys(m.plates).sort(byStory).map(id => ({

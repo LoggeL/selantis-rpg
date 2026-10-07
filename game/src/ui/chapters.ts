@@ -1,6 +1,7 @@
 import { getChapters } from '../core/registry';
 import { el, sfx } from './dom';
 import { NavList, type NavItem } from './nav';
+import { sceneUnlocked } from './unlocks';
 
 export const devMode = (): boolean => {
   const q = new URLSearchParams(location.search);
@@ -46,27 +47,32 @@ export function buildChapterSelect(host: HTMLElement, opts: ChapterSelectOptions
   };
 
   let shown = 0;
+  // Players only get the scenes they have reached (or everything via the cheat); dev lists stay complete.
+  const open = (sceneId: string) => opts.includeHidden || sceneUnlocked(sceneId);
   for (const chapter of chapters) {
     const chapterHit = matches(chapter.title, chapter.numeral, chapter.id);
     const scenes = chapter.scenes.filter(s => chapterHit || matches(s.id, s.title));
     if (q && !scenes.length) continue;
     shown++;
-    const head = el('button', `chap-head${chapter.hidden ? ' is-hidden' : ''}`);
+    const reached = chapter.scenes.filter(s => open(s.id));
+    const head = el('button', `chap-head${chapter.hidden ? ' is-hidden' : ''}${reached.length ? '' : ' is-locked'}`);
     head.type = 'button';
-    head.append(el('span', 'chap-num', chapter.numeral), el('span', 'chap-title', chapter.title));
+    head.append(el('span', 'chap-num', chapter.numeral), el('span', 'chap-title', reached.length ? chapter.title : 'Noch nicht erreicht'));
     // The numeral already says „Dev“ for dev chapters: a badge only where it adds something.
     if (chapter.hidden && chapter.numeral !== 'Dev') head.appendChild(el('span', 'chap-badge', 'Dev'));
-    if (chapter.subtitle && !opts.compact) head.appendChild(el('span', 'chap-sub', chapter.subtitle));
+    if (chapter.subtitle && !opts.compact && reached.length) head.appendChild(el('span', 'chap-sub', chapter.subtitle));
     list.appendChild(head);
-    const first = chapter.scenes[0];
+    const first = reached[0];
     items.push({ el: head, disabled: !first, activate: () => first && pick(first.id, head) });
+    if (!reached.length) continue;
     for (const scene of scenes) {
-      const row = el('button', 'chap-scene');
+      const unlocked = open(scene.id);
+      const row = el('button', unlocked ? 'chap-scene' : 'chap-scene is-locked');
       row.type = 'button';
-      row.append(el('span', 'chap-scene-title', scene.title));
+      row.append(el('span', 'chap-scene-title', unlocked ? scene.title : '???'));
       if (opts.compact || chapter.hidden) row.appendChild(el('span', 'chap-scene-id', scene.id));
       list.appendChild(row);
-      items.push({ el: row, activate: () => pick(scene.id, row) });
+      items.push({ el: row, disabled: !unlocked, activate: () => unlocked && pick(scene.id, row) });
     }
   }
   if (!shown) list.appendChild(el('div', 'chap-empty', q ? 'Keine Szene passt zu diesem Filter.' : 'Die Chronik ist noch ungeschrieben. Bald gibt es hier Kapitel.'));

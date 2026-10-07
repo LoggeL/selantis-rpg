@@ -316,6 +316,8 @@ test('an old book-one save (k5-ende) shows Teil II in the chapter select and war
   await useSettings(page);
   await gotoTitle(page);
   await writeSave(page, OLD_SAVE);
+  // Chapter select only offers reached scenes (meta progress, ui/unlocks.ts).
+  await page.evaluate(() => localStorage.setItem('selantis.progress.v1', JSON.stringify({ reached: ['e2-urmacht'] })));
   await page.reload();
   await expect(page.getByRole('button', { name: /Fortsetzen/ })).toBeVisible({ timeout: 30000 });
   await page.getByRole('button', { name: /^Kapitel/ }).click();

@@ -26,6 +26,7 @@ import { TouchUi } from './touch';
 import type { UiApi } from './api';
 import { WorldVoicePlayer } from './worldVoicePlayer';
 import type { WorldScene } from '../world/WorldScene';
+import { trackProgress } from './unlocks';
 import './styles.css';
 
 export type { UiApi } from './api';
@@ -94,6 +95,7 @@ function forwardTapToCanvas(x: number, y: number): void {
 export function createUi(): UiApiExt {
   let escapeHandler: (() => boolean) | null = null;
   registerDefaultSpeakers();
+  trackProgress();
   let dialogue!: DialogueUi;
   let narration!: NarrationUi;
   let fx!: FxUi;
