@@ -1301,6 +1301,34 @@
       "seconds": 64,
       "attempts": 1,
       "time": "2026-10-05T01:59:59"
+    },
+    "output/imagegen/raw/art/characters/lia-cloak/sneak.png": {
+      "kind": "sneak",
+      "id": "lia-cloak",
+      "prompt": "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view creeping toward the viewer.\nROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the hunched back).\nThe 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 frames, matching the attached walk sheet of this character. The character must match the attached full-body reference sheet and walk sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. A long moss-green hooded rain cloak (hood DOWN, resting on her back) reaching to mid-calf, fastened at the throat, open at the front over a white linen blouse and a plain mid-brown calf-length skirt. A large brown leather satchel on a strap worn diagonally across her body (strap over her RIGHT shoulder, the bag hanging at her LEFT hip). Light brown leather shoes with laces wound around her ankles.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "game/public/assets/sprites/lia-cloak-walk.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 63,
+      "attempts": 1,
+      "time": "2026-10-08T01:02:58"
+    },
+    "output/imagegen/raw/art/characters/lia/sneak.png": {
+      "kind": "sneak",
+      "id": "lia",
+      "prompt": "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view creeping toward the viewer.\nROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the hunched back).\nThe 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 frames, matching the attached walk sheet of this character. The character must match the attached full-body reference sheet and walk sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Lia, a slender 16-year-old farm girl from a medieval fantasy village (youthful teenage proportions: not a small child, not a grown woman; natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair, the curls loosely pinned up at the back of her head, a few loose curls framing her face. Fair skin with a few light freckles, grey-green eyes, a dreamy, thoughtful, slightly wry expression. Simple white linen blouse with sleeves rolled to the elbows and a small drawstring neckline, plain mid-brown calf-length skirt with a darker narrow waistband, simple pale carved wooden clogs.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png",
+        "game/public/assets/sprites/lia-walk.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 64,
+      "attempts": 1,
+      "time": "2026-10-08T01:01:55"
     }
   },
   "builds": {
@@ -1402,6 +1430,17 @@
         "scared": "game/public/assets/portraits/lia-scared.png",
         "surprised": "game/public/assets/portraits/lia-surprised.png",
         "thinking": "game/public/assets/portraits/lia-thinking.png"
+      },
+      "sneak": {
+        "file": "game/public/assets/sprites/lia-sneak.png",
+        "sha": "35bec097e745b08f",
+        "rows": {
+          "down": "sneak row 1",
+          "left": "sneak row 2",
+          "right": "sneak row 3",
+          "up": "sneak row 4"
+        },
+        "height": 31
       }
     },
     "valentus": {
@@ -1726,6 +1765,17 @@
         "scared": "game/public/assets/portraits/lia-cloak-scared.png",
         "surprised": "game/public/assets/portraits/lia-cloak-surprised.png",
         "thinking": "game/public/assets/portraits/lia-cloak-thinking.png"
+      },
+      "sneak": {
+        "file": "game/public/assets/sprites/lia-cloak-sneak.png",
+        "sha": "b760a1c66cf24983",
+        "rows": {
+          "down": "sneak row 1",
+          "left": "sneak row 2",
+          "right": "sneak row 3",
+          "up": "sneak row 4"
+        },
+        "height": 31
       }
     },
     "kyra-bound": {

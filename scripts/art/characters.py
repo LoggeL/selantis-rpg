@@ -4,6 +4,7 @@
 Usage
   python3 scripts/art/characters.py ref      <ids…>                     # turnaround sheet → docs/rebuild/art/refs/<id>.png
   python3 scripts/art/characters.py walk     <ids…>                     # walk sheet raw → sprites/<id>-walk.png
+  python3 scripts/art/characters.py sneak    <ids…>                     # crouch-walk sheet raw → sprites/<id>-sneak.png
   python3 scripts/art/characters.py pose     <ids…> [--poses=sit,lie]   # pose raws → sprites/<id>-<pose>.png
   python3 scripts/art/characters.py portrait <ids…> [--moods=neutral,happy]  # → portraits/<id>[-<mood>].png
   python3 scripts/art/characters.py build    <ids…>                     # only (re)process existing raws
@@ -16,7 +17,7 @@ Options
   --gen-only       generate raws, do not process               --force        regenerate even if the raw exists
   --area=NAME      provenance file docs/rebuild/art/NAME.json (default: characters)
 
-Raw images:   output/imagegen/raw/art/characters/<id>/{turnaround,walk,pose-<pose>,portrait-<mood>}[suffix].png
+Raw images:   output/imagegen/raw/art/characters/<id>/{turnaround,walk,sneak,pose-<pose>,portrait-<mood>}[suffix].png
 Outputs:      game/public/assets/sprites/<id>-walk.png (+ .json sidecar), sprites/<id>-<pose>.png,
               game/public/assets/portraits/<id>.png, <id>-<mood>.png, docs/rebuild/art/refs/<id>.png
 QA previews:  output/imagegen/preview/art/<id>-*.png|gif (see scripts/art/qa.py)
@@ -52,6 +53,7 @@ LIE_FOOT = (64, 60)
 WIDE_POSES = {"attack", "shoot"}  # weapons need room: 96x64 cell, foot (48, 60)
 WIDE_CELL = (96, 64)
 WIDE_FOOT = (48, 60)
+SNEAK_FRAC = 0.78  # crouch-walk figure height relative to the standing height
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -123,6 +125,11 @@ def jobs_for(kind: str, cid: str, opts: dict) -> list[dict]:
     elif kind == "walk":
         need_ref(cid)
         add(raw(cid, "walk", suffix), P.walk_prompt(cid, extra), [ref_path(cid)] + P.SPRITE_REFS, "walk")
+    elif kind == "sneak":
+        need_ref(cid)
+        walk_sheet = SPRITES / f"{cid}-walk.png"
+        refs = [ref_path(cid)] + ([walk_sheet] if walk_sheet.is_file() else []) + P.SPRITE_REFS
+        add(raw(cid, "sneak", suffix), P.sneak_prompt(cid, extra), refs, "sneak")
     elif kind == "pose":
         need_ref(cid)
         poses = opts["poses"].split(",") if opts.get("poses") else c.get("poses", [])
@@ -195,19 +202,19 @@ def build_ref(cid: str) -> None:
     print(f"OK   Referenz {rel(ref_path(cid))}")
 
 
-def walk_rows(cid: str) -> tuple[list[list[Image.Image]], dict]:
-    cfg = build_cfg(cid)
-    src = raw(cid, "walk")
+def walk_rows(cid: str, sheet: str = "walk") -> tuple[list[list[Image.Image]], dict]:
+    cfg = build_cfg(cid) if sheet == "walk" else build_cfg(cid).get(sheet, {})
+    src = raw(cid, sheet)
     keyed = key_out(Image.open(src))
     grid = grid_figures(keyed, 4, 4)
-    sources = {"walk": grid}
+    sources = {sheet: grid}
     rows, info = [], {}
     mirror = cfg.get("mirror", {})          # {"left": "right"} → left row = mirrored right row
     row_from = cfg.get("rowFrom", {})       # {"left": "walk-v2"} → left row from another raw of this character
     order = cfg.get("order", {})            # {"down": [0, 3, 2, 1]}
     for r, d in enumerate(DIRS):
         src_dir = mirror.get(d, d)
-        name = row_from.get(src_dir, "walk")
+        name = row_from.get(src_dir, sheet)
         if name not in sources:
             sources[name] = grid_figures(key_out(Image.open(raw(cid, name))), 4, 4)
         row = list(sources[name][DIRS.index(src_dir)])
@@ -237,18 +244,21 @@ def anchor_x(small: Image.Image, d: str) -> float:
     return band_center(small, 0.02, 0.2)
 
 
-def build_walk(cid: str) -> tuple[list[Image.Image], dict] | None:
-    if not raw(cid, "walk").is_file():
+def build_walk(cid: str, sheet: str = "walk") -> tuple[list[Image.Image], dict] | None:
+    """4×4 sheet (rows down, left, right, up): the walk cycle, or the crouch-walk cycle (sheet="sneak")."""
+    if not raw(cid, sheet).is_file():
         return None
     height = int(P.char(cid).get("height", 42))
-    rows, info = walk_rows(cid)
+    if sheet == "sneak":
+        height = round(height * float(build_cfg(cid).get("sneak", {}).get("frac", SNEAK_FRAC)))
+    rows, info = walk_rows(cid, sheet)
     frames = []
     for r, (d, row) in enumerate(zip(DIRS, rows)):
         smalls = shrink_row(row, height)
         heads = [anchor_x(s, d) for s in smalls]
         # Side rows: keep the head fixed. Front/back rows: same, the body is symmetric around it.
         for i, (s, hx) in enumerate(zip(smalls, heads)):
-            frames.append(place(s, CELL, hx, FOOT, f"{cid}-walk[{d}{i}]"))
+            frames.append(place(s, CELL, hx, FOOT, f"{cid}-{sheet}[{d}{i}]"))
     return frames, {"rows": info, "height": height}
 
 
@@ -350,6 +360,11 @@ def build(cid: str) -> list[str]:
         walk = build_walk(cid)
     except Exception as exc:  # noqa: BLE001
         errors.append(f"{cid}-walk: {exc}")
+    sneak = None
+    try:
+        sneak = build_walk(cid, "sneak")
+    except Exception as exc:  # noqa: BLE001
+        errors.append(f"{cid}-sneak: {exc}")
     poses: dict[str, tuple[Image.Image, dict]] = {}
     rd = raw_dir(cid)
     pose_names = sorted({p.name[5:-4] for p in rd.glob("pose-*.png") if "-v" not in p.stem[5:] or
@@ -368,7 +383,7 @@ def build(cid: str) -> list[str]:
         errors.append(f"{cid}-idle: {exc}")
     frames = walk[0] if walk else []
     if frames or poses:
-        palette = make_palette(frames + [f for f, _ in poses.values()] + list(idle.values()),
+        palette = make_palette(frames + (sneak[0] if sneak else []) + [f for f, _ in poses.values()] + list(idle.values()),
                                colors=int(c.get("colors", 44)))
         for d, frame in idle.items():
             frame = apply_palette(frame, palette)
@@ -390,6 +405,17 @@ def build(cid: str) -> list[str]:
             meta["walk"] = {"file": rel(dest), "sha": sha(dest), **walk[1]}
             qa.walk_previews(cid, sheet)
             print(f"OK   {rel(dest)}  rows={walk[1]['rows']}")
+        if sneak:
+            sheet = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+            for i, f in enumerate(sneak[0]):
+                sheet.alpha_composite(apply_palette(f, palette), ((i % 4) * 64, (i // 4) * 64))
+            check_sprite(sheet, cid, f"{cid}-sneak")
+            dest = SPRITES / f"{cid}-sneak.png"
+            sheet.save(dest, optimize=True)
+            save_json(SPRITES / f"{cid}-sneak.json", {"character": cid, "sheet": "sneak", "foot": list(FOOT), "fps": 6})
+            meta["sneak"] = {"file": rel(dest), "sha": sha(dest), **sneak[1]}
+            qa.walk_previews(f"{cid}-sneak", sheet)
+            print(f"OK   {rel(dest)}  rows={sneak[1]['rows']}")
         meta["poses"] = {}
         for pose, (frame, info) in poses.items():
             frame = apply_palette(frame, palette)
@@ -476,7 +502,7 @@ def main(argv: list[str]) -> int:
     if not ids:
         ids = list(P.cast())
     ok = True
-    if kind in ("ref", "walk", "pose", "portrait") and "build-only" not in opts:
+    if kind in ("ref", "walk", "sneak", "pose", "portrait") and "build-only" not in opts:
         jobs = [j for cid in ids for j in jobs_for(kind, cid, opts)]
         ok &= run_jobs(jobs, area, int(opts.get("jobs", 3)))
         if kind == "portrait":

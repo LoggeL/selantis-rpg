@@ -1026,7 +1026,7 @@
       "sex": "f",
       "portraitFrom": {
         "id": "kyra-bound",
-        "edit": "She is now under a dark spell of mind control: her face is BLANK and EMPTY, completely expressionless, no defiance, no emotion, lips slightly parted and slack, the eyes staring fixedly straight ahead without focus, and the irises have a faint COLD VIOLET sheen (a subtle pale violet glow in the eyes only, not turquoise, no glow anywhere else). Her wrists are FREE: NO rope anywhere, arms hanging down. Keep the same face identity, hair, dusty beige dress, wooden bead necklace, the small cut above her LEFT eyebrow, framing, camera angle, pixel style and plain dark background exactly the same."
+        "edit": "She is now under Vamir's dark mind-control spell and it must be CLEARLY visible at first glance: both irises GLOW a bright cold VIOLET (luminous violet light in the eyes, a faint violet haze rising from them), the pupils tiny; thin dark violet veins creep from the corners of her eyes over the temples; a cold violet rim light from behind replaces the warm one and the shadows on her face take a faint violet tint. Her face is BLANK and EMPTY, completely expressionless, lips slightly parted and slack, staring fixedly straight ahead without focus, unnaturally still like a puppet. Her hair is tied back roughly with a plain cord, a few strands loose. Her wrists are FREE: NO rope anywhere. Keep the same face identity, hair colour, dusty beige dress, wooden bead necklace, the small cut above her LEFT eyebrow, framing, camera angle, pixel style and plain dark background."
       },
       "desc": "Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.",
       "poses": [
@@ -1035,7 +1035,10 @@
         "lie"
       ],
       "moods": [
-        "neutral"
+        "neutral",
+        "cold",
+        "struggle",
+        "devoted"
       ],
       "record": "teil-2"
     },

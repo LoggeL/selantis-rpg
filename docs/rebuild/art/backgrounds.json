@@ -26,6 +26,26 @@
       "attempts": 1,
       "time": "2026-10-05T02:36:53",
       "output": "game/public/assets/cut/wiese-lia-liest.jpg"
+    },
+    "output/imagegen/raw/art/cut/bonus-goldener-eber.png": {
+      "kind": "plate",
+      "id": "bonus-goldener-eber",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: A warm, joyful group picture of all the companions together in the 'Goldener Eber' tavern (the attached tavern interior: timber beams, big stone fireplace, candle-lit tables, a golden boar sign above the bar). Evening, crackling fire, warm amber candlelight. Around one long wooden table full of bread, roast, tankards and candles, all EIGHT characters from the attached reference sheets are gathered and clearly visible, each matching their sheet exactly: in the CENTRE the red-haired girl Lia raising a mug and laughing, her sister Kyra (nut-brown hair) hugging her from the side with a broad grin; the half-elf Flick with short black hair sitting on the table edge with one boot on the bench, smirking; the old bald mage Ignatius smiling warmly with a cup of tea; the tall elf Elnon standing upright behind them with a calm smile and a raised goblet; the wiry Foltan with his pointed beard raising a toast stiffly; the stout blacksmith Azar laughing loudly with a huge tankard and a drumstick; the white-bearded wizard Valentus in his robe leaning on his staff at the end of the table, eyes twinkling. Everyone is turned slightly toward the viewer like a group portrait, faces clearly readable, nobody cut off. Background: a few blurred tavern guests, a barmaid carrying mugs. Cozy, celebratory, heart-warming mood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "game/public/assets/bg/k3-eber.png",
+        "docs/rebuild/art/refs/lia.png",
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/flick.png",
+        "docs/rebuild/art/refs/valentus.png",
+        "docs/rebuild/art/refs/ignatius.png",
+        "docs/rebuild/art/refs/elnon.png",
+        "docs/rebuild/art/refs/foltan.png",
+        "docs/rebuild/art/refs/azar.png"
+      ],
+      "ok": true,
+      "seconds": 179,
+      "attempts": 1,
+      "time": "2026-10-08T01:12:40"
     }
   },
   "builds": {
@@ -98,6 +118,10 @@
     "plate:e2-aufbruch": {
       "desc": "Golden autumn morning on a hillside path: Lia (the slender 16-year-old girl with strawberry-blonde curls tied back, moss-green cloak thrown back over her shoulders, leather satchel, from the attached sheet) walks along a narrow winding earth path through dense golden-red and orange autumn BUSHES and young birches, holding the long natural knotted wooden staff in her right hand like a walking staff. Seen from the SIDE at medium distance, her full figure visible from head to feet, walking to the right. Low warm morning sunlight, falling leaves. Background: only misty forested hills fading into soft morning haze, layer behind layer of autumn forest. NO town, NO city, NO houses, NO roofs, NO towers, NO castle, NO fortress, NO ruins, NO village, NO farm, NO bridge, NO walls, NO buildings or man-made structures of any kind anywhere in the landscape, no chimney smoke: only untouched nature (only bushes, trees, forested hills and mist). Hopeful, determined mood. No magic glow.",
       "chars": "e2-lia-stab"
+    },
+    "plate:bonus-goldener-eber": {
+      "desc": "A warm, joyful group picture of all the companions together in the 'Goldener Eber' tavern (the attached tavern interior: timber beams, big stone fireplace, candle-lit tables, a golden boar sign above the bar). Evening, crackling fire, warm amber candlelight. Around one long wooden table full of bread, roast, tankards and candles, all EIGHT characters from the attached reference sheets are gathered and clearly visible, each matching their sheet exactly: in the CENTRE the red-haired girl Lia raising a mug and laughing, her sister Kyra (nut-brown hair) hugging her from the side with a broad grin; the half-elf Flick with short black hair sitting on the table edge with one boot on the bench, smirking; the old bald mage Ignatius smiling warmly with a cup of tea; the tall elf Elnon standing upright behind them with a calm smile and a raised goblet; the wiry Foltan with his pointed beard raising a toast stiffly; the stout blacksmith Azar laughing loudly with a huge tankard and a drumstick; the white-bearded wizard Valentus in his robe leaning on his staff at the end of the table, eyes twinkling. Everyone is turned slightly toward the viewer like a group portrait, faces clearly readable, nobody cut off. Background: a few blurred tavern guests, a barmaid carrying mugs. Cozy, celebratory, heart-warming mood.",
+      "chars": "lia,kyra,flick,valentus,ignatius,elnon,foltan,azar"
     }
   }
 }

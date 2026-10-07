@@ -606,15 +606,15 @@
     "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-neutral.png": {
       "kind": "portrait:neutral",
       "id": "e2-kyra-gebannt",
-      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. CHANGE: She is now under a dark spell of mind control: her face is BLANK and EMPTY, completely expressionless, no defiance, no emotion, lips slightly parted and slack, the eyes staring fixedly straight ahead without focus, and the irises have a faint COLD VIOLET sheen (a subtle pale violet glow in the eyes only, not turquoise, no glow anywhere else). Her wrists are FREE: NO rope anywhere, arms hanging down. Keep the same face identity, hair, dusty beige dress, wooden bead necklace, the small cut above her LEFT eyebrow, framing, camera angle, pixel style and plain dark background exactly the same. Expression: cold, grim, hateful stare. CHARACTER (for reference): Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.\nIMPORTANT CORRECTION: Ignore any instruction about a hateful or grim stare: her expression must be completely BLANK and EMPTY like a sleepwalker, slack face, unfocused eyes staring straight ahead, with a faint cold violet sheen in the irises. No rope at her wrists.",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. CHANGE: She is now under Vamir's dark mind-control spell and it must be CLEARLY visible at first glance: both irises GLOW a bright cold VIOLET (luminous violet light in the eyes, a faint violet haze rising from them), the pupils tiny; thin dark violet veins creep from the corners of her eyes over the temples; a cold violet rim light from behind replaces the warm one and the shadows on her face take a faint violet tint. Her face is BLANK and EMPTY, completely expressionless, lips slightly parted and slack, staring fixedly straight ahead without focus, unnaturally still like a puppet. Her hair is tied back roughly with a plain cord, a few strands loose. Her wrists are FREE: NO rope anywhere. Keep the same face identity, hair colour, dusty beige dress, wooden bead necklace, the small cut above her LEFT eyebrow, framing, camera angle, pixel style and plain dark background. Expression: cold, grim, hateful stare. CHARACTER (for reference): Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
       "refs": [
         "output/imagegen/raw/art/characters/kyra-bound/portrait-neutral.png",
         "docs/rebuild/art/refs/e2-kyra-gebannt.png"
       ],
       "ok": true,
-      "seconds": 83,
+      "seconds": 74,
       "attempts": 1,
-      "time": "2026-10-07T15:19:10"
+      "time": "2026-10-08T01:04:37"
     },
     "output/imagegen/raw/art/characters/e2-kyra-gebannt/pose-attack.png": {
       "kind": "pose:attack",
@@ -1959,6 +1959,58 @@
       "seconds": 67,
       "attempts": 1,
       "time": "2026-10-07T15:16:26"
+    },
+    "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-cold.png": {
+      "kind": "portrait:cold",
+      "id": "e2-kyra-gebannt",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: icy and inhuman, head tilted slightly to one side, the glowing eyes narrowed and fixed on the viewer, the faintest empty smile, the violet glow a little brighter. Keep the spell clearly visible: both irises glow cold violet (except where the expression says otherwise), thin dark violet veins at the temples, cold violet rim light. No rope at her wrists. CHARACTER (for reference): Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-neutral.png",
+        "docs/rebuild/art/refs/e2-kyra-gebannt.png"
+      ],
+      "ok": true,
+      "seconds": 51,
+      "attempts": 1,
+      "time": "2026-10-08T01:05:28"
+    },
+    "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-devoted.png": {
+      "kind": "portrait:devoted",
+      "id": "e2-kyra-gebannt",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: obedient devotion, head bowed slightly, the glowing eyes lowered, a serene empty half smile, the violet veins darker and the violet glow at its strongest. Keep the spell clearly visible: both irises glow cold violet (except where the expression says otherwise), thin dark violet veins at the temples, cold violet rim light. No rope at her wrists. CHARACTER (for reference): Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-neutral.png",
+        "docs/rebuild/art/refs/e2-kyra-gebannt.png"
+      ],
+      "ok": true,
+      "seconds": 47,
+      "attempts": 1,
+      "time": "2026-10-08T01:07:10"
+    },
+    "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-struggle-v2.png": {
+      "kind": "portrait:struggle",
+      "id": "e2-kyra-gebannt",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: her real self breaking through for a moment: brows drawn together in pain, lips trembling, a single tear on her cheek; the violet glow is FLICKERING and fading in her LEFT eye so her own warm brown iris shows through there, while her RIGHT eye still glows violet. Keep the spell clearly visible: both irises glow cold violet (except where the expression says otherwise), thin dark violet veins at the temples, cold violet rim light. No rope at her wrists. CHARACTER (for reference): Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.\nIMPORTANT CORRECTION: Her LEFT eye (on the right side of the image from the viewer) must be her NORMAL warm BROWN eye with no glow at all, clearly different from the other eye, which still glows violet. The asymmetry must be obvious at a glance.",
+      "refs": [
+        "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-neutral.png",
+        "docs/rebuild/art/refs/e2-kyra-gebannt.png"
+      ],
+      "ok": true,
+      "seconds": 85,
+      "attempts": 1,
+      "time": "2026-10-08T01:08:59"
+    },
+    "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-struggle.png": {
+      "kind": "portrait:struggle",
+      "id": "e2-kyra-gebannt",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: her real self breaking through for a moment: brows drawn together in pain, lips trembling, a single tear on her cheek; the violet glow is FLICKERING and fading in her LEFT eye so her own warm brown iris shows through there, while her RIGHT eye still glows violet. Keep the spell clearly visible: both irises glow cold violet (except where the expression says otherwise), thin dark violet veins at the temples, cold violet rim light. No rope at her wrists. CHARACTER (for reference): Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/e2-kyra-gebannt/portrait-neutral.png",
+        "docs/rebuild/art/refs/e2-kyra-gebannt.png"
+      ],
+      "ok": true,
+      "seconds": 54,
+      "attempts": 1,
+      "time": "2026-10-08T01:06:22"
     }
   },
   "builds": {
@@ -2334,7 +2386,10 @@
         }
       },
       "portraits": {
-        "neutral": "game/public/assets/portraits/e2-kyra-gebannt.png"
+        "cold": "game/public/assets/portraits/e2-kyra-gebannt-cold.png",
+        "devoted": "game/public/assets/portraits/e2-kyra-gebannt-devoted.png",
+        "neutral": "game/public/assets/portraits/e2-kyra-gebannt.png",
+        "struggle": "game/public/assets/portraits/e2-kyra-gebannt-struggle.png"
       }
     },
     "logge": {

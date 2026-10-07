@@ -6,6 +6,7 @@ Usage:  python3 scripts/art/build_manifest.py [--check]
 
 Folder conventions (DESIGN.md §3, schema in docs/rebuild/art-pipeline.md, typed in game/src/art/manifest.ts):
   sprites/<id>-walk.png               walk sheet 256×256 (4×4 × 64×64; rows down,left,right,up), foot (32,60)
+  sprites/<id>-sneak.png              crouch-walk sheet, same layout (sidecar "sheet": "sneak")
   sprites/<id>-<pose>[-<dir>].png     pose 64×64 (lying 128×64), optional strip of N frames (sidecar "frames")
   portraits/<id>[-<mood>].png         256×256; no mood suffix = neutral
   bg/<id>.png|jpg                     map backgrounds (640×360 or 1280×720)
@@ -31,7 +32,7 @@ from lib import ASSETS, load_json, rel  # noqa: E402
 OUT = ASSETS / "manifest.json"
 DIRS = ("down", "up", "left", "right")
 MOODS = ("neutral", "happy", "sad", "angry", "surprised", "determined", "hurt", "pained", "thinking", "scared",
-         "smirk", "tired", "crying", "shocked", "worried", "laughing", "grim", "glow", "ashamed")
+         "smirk", "tired", "crying", "shocked", "worried", "laughing", "grim", "glow", "ashamed", "cold", "struggle", "devoted")
 POSE_NAMES = ("idle", "sit", "kneel", "lie", "read", "sit-read", "crouch", "sneak", "cast", "attack", "hurt", "hit",
               "carry", "sleep", "struggle", "wave", "point", "talk", "cheer", "shoot", "fall", "interact", "run",
               "dead", "bound", "tied", "ride", "lie-bound", "sit-bound")
@@ -98,6 +99,11 @@ def scan(warnings: list[str]) -> dict:
                          "idle": meta.get("idle", [0, 4, 8, 12])}
             c["foot"] = meta.get("foot", [32, 60])
             c["height"] = meta.get("height", 42)
+            continue
+        if meta.get("sheet") == "sneak":  # crouch-walk sheet, same 4×4 layout as the walk sheet
+            c = m["characters"].setdefault(meta["character"], {"poses": {}})
+            c["sneak"] = {"file": url(p), "frameW": 64, "frameH": 64, "cols": 4, "rows": 4,
+                          "dirs": ["down", "left", "right", "up"], "fps": meta.get("fps", 6)}
             continue
         parts = (meta.get("character"), meta.get("pose"), meta.get("dir")) if meta.get("character") else \
             split_sprite(p.stem, chars)

@@ -12,6 +12,7 @@ import type {
 import { Actor, type ActorHost } from './actor';
 import { createCtx, WorldStopped } from './ctx';
 import type { UiApiExt } from '../ui';
+import { markSeen } from '../ui/gallery';
 import { areaPx, clamp, damp, dirFromVector, dirVector, inRect, isAt, setMapUnits, setWorldScale, toPx, unitPx, wk, type Rect, type Vec } from './geom';
 import { DebugOverlay } from './debug';
 import { Flame } from './flame';
@@ -356,6 +357,7 @@ export class WorldScene extends Phaser.Scene {
     } catch (e) { console.warn('[world] asset preload failed', e); }
     if (!def.background || !this.alive) return null;
     const id = def.background;
+    markSeen('background', id, def.name);
     let fromArt = false;
     try { fromArt = !def.backgroundUrl && G.art.hasAsset('background', id); } catch { /* */ }
     if (fromArt) {

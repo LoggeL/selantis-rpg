@@ -1,6 +1,7 @@
 import { G } from '../core/G';
 import { ctx } from './context';
 import { el, sfx, wait } from './dom';
+import { markSeen } from './gallery';
 import { frame, label, parchment } from './plateKit';
 
 type PlateDraw = () => HTMLCanvasElement | string;
@@ -72,6 +73,7 @@ export class PlateUi {
       if (f) await Promise.race([Promise.all(['700 32px Cinzel', '500 32px Cinzel', '500 32px Alegreya', 'italic 500 32px Alegreya'].map(spec => f.load(spec))), new Promise(r => setTimeout(r, 1500))]);
     } catch { /* fonts optional */ } }
     const r = await this.resolve(id);
+    markSeen('plate', id, opts.caption);
     const previous = this.current;
     const root = el('div', 'plate');
     const frameEl = el('div', 'plate-frame');

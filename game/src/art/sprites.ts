@@ -38,7 +38,7 @@ const MOVING: Record<string, { pose?: string; fps: number }> = {
   walk: { fps: 8 }, run: { fps: 12 }, carry: { pose: 'carry', fps: 7 }, sneak: { pose: 'sneak', fps: 5 },
 };
 
-const info = new Map<string, { id: string; placeholder: boolean; height: number }>();
+const info = new Map<string, { id: string; placeholder: boolean; height: number; crouchWalk?: boolean }>();
 let customCounter = 0;
 
 export function animKey(charKey: string, anim: CharAnim | CharAnimExtra | string, dir: Dir): string {
@@ -83,7 +83,9 @@ export function ensureCharacter(scene: Phaser.Scene, idOrSpec: string | Characte
     if (isId && !warned.has(id)) { warned.add(id); console.info(`[art] no walk sheet for "${id}" yet — placeholder silhouette`); }
     upgradableTexture(textures, key, 256, 256, grid, placeholderWalkSheet(id, tint, height));
   }
-  info.set(key, { id, placeholder: !entry?.walk, height });
+  // Crouch-walk sheet: until it is loaded the walk sheet stands in (upright, as before).
+  if (entry?.sneak) upgradableTexture(textures, `${key}:sneak-sheet`, 256, 256, grid, placeholderWalkSheet(id, undefined, height), entry.sneak.file);
+  info.set(key, { id, placeholder: !entry?.walk, height, crouchWalk: Boolean(entry?.sneak) });
   buildAnims(scene, key, entry);
   return key;
 }
@@ -129,7 +131,10 @@ function buildAnims(scene: Phaser.Scene, key: string, entry: CharacterEntry | un
       let repeat = -1;
       const mv = MOVING[anim];
       if (mv) {
-        if (mv.pose && poses[mv.pose]) { frames = poseFrames(scene, key, mv.pose, poses[mv.pose], dir); fps = poses[mv.pose].fps ?? mv.fps; }
+        if (anim === 'sneak' && entry?.sneak) {
+          frames = [0, 1, 2, 3].map(i => ({ key: `${key}:sneak-sheet`, frame: row * 4 + i }));
+          fps = entry.sneak.fps;
+        } else if (mv.pose && poses[mv.pose]) { frames = poseFrames(scene, key, mv.pose, poses[mv.pose], dir); fps = poses[mv.pose].fps ?? mv.fps; }
         else { frames = walkFrames; fps = anim === 'walk' ? walkFps : mv.fps; }
       } else {
         const src = (ANIM_SOURCE[anim] ?? [anim, 'idle']).find(p => p === 'idle' || poses[p]);
@@ -159,5 +164,6 @@ export async function characterReady(key: string): Promise<void> {
   const id = info.get(key)?.id;
   const entry = id ? manifest().characters[id] : undefined;
   if (entry) for (const pose of Object.keys(entry.poses)) keys.push(`${key}:${pose}`, `${key}:${pose}:flip`);
+  if (entry?.sneak) keys.push(`${key}:sneak-sheet`);
   await Promise.all(keys.map(whenReady));
 }
