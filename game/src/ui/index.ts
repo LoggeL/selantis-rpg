@@ -128,6 +128,7 @@ export function createUi(): UiApiExt {
       if (mounted) return;
       mounted = true;
       ctx.mount(root);
+      ctx.onVoicePause = paused => voiceover.setPaused(paused);
       bindVoiceVolume(() => G.settings.voice);
       bindRecordedMediaRouting(element => G.audio?.routeRecordedMedia?.(element) ?? null);
       void voiceover.preload('prolog');

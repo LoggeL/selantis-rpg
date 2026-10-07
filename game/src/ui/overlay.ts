@@ -49,6 +49,7 @@ export function openOverlay(opts: {
   const closeModal = ctx.open({
     id: opts.id,
     allowMenu: false,
+    pauseVoice: true,
     onKey: e => {
       if (e.key === 'Escape' || opts.closeKeys?.includes(e.key)) {
         if (e.repeat) return true;

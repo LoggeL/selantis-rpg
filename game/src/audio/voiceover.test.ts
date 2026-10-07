@@ -123,6 +123,55 @@ describe('voice playback lifecycle', () => {
     expect(engine.play('bark', 'valentus', 'Warm.')).toBeNull();
     setVolume(0); expect(engine.play('say', 'valentus', manifest.clips[0].text)).toBeNull();
   });
+  it('keeps a paused recording alive beyond its watchdog and resumes with only the remaining deadline', async () => {
+    vi.useFakeTimers();
+    const audio = new FakeAudio();
+    const engine = new Voiceover({ audio: () => audio as unknown as HTMLAudioElement, fetchManifest: async () => manifest, volume: () => .9, now: () => Date.now() });
+    await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('say', 'valentus', manifest.clips[0].text)!;
+    await vi.advanceTimersByTimeAsync(4000);
+    engine.setPaused(true);
+    await vi.advanceTimersByTimeAsync(60000);
+    expect(playback.outcome).toBe('playing');
+    expect(audio.pause).toHaveBeenCalledOnce();
+    engine.setPaused(false);
+    expect(audio.play).toHaveBeenCalledTimes(2);
+    await vi.advanceTimersByTimeAsync(5999);
+    expect(playback.outcome).toBe('playing');
+    await vi.advanceTimersByTimeAsync(1);
+    await playback.done;
+    expect(playback.outcome).toBe('failed');
+  });
+  it('holds a new recording behind a menu and does not restart it after mute or a scene change', async () => {
+    const { engine, audios, setVolume } = fixture();
+    await engine.preload(); engine.scene('prolog-rat'); engine.setPaused(true);
+    const muted = engine.play('say', 'valentus', manifest.clips[0].text)!;
+    expect(audios[0].play).not.toHaveBeenCalled();
+    expect(muted.started).toBe(false);
+    setVolume(0); await muted.done; engine.setPaused(false);
+    expect(audios[0].play).not.toHaveBeenCalled();
+    setVolume(.9); engine.setPaused(true);
+    const oldScene = engine.play('say', 'valentus', manifest.clips[0].text)!;
+    engine.scene('prolog-flucht'); await oldScene.done; engine.setPaused(false);
+    expect(audios[1].play).not.toHaveBeenCalled();
+    expect(oldScene.outcome).toBe('stopped');
+  });
+  it('ignores a pending native play abort caused by pause and handles a real resume refusal', async () => {
+    let refuse!: (error: Error) => void;
+    const audio = new FakeAudio();
+    audio.play.mockReturnValueOnce(new Promise<void>((_, reject) => { refuse = reject; }));
+    const fallback = vi.fn();
+    const engine = new Voiceover({ audio: () => audio as unknown as HTMLAudioElement, fetchManifest: async () => manifest, volume: () => .9, now: () => Date.now() });
+    await engine.preload(); engine.scene('prolog-rat');
+    const playback = engine.play('say', 'valentus', manifest.clips[0].text, fallback)!;
+    engine.setPaused(true); engine.setPaused(false);
+    refuse(new Error('AbortError')); await Promise.resolve(); await Promise.resolve();
+    expect(playback.outcome).toBe('playing'); expect(playback.started).toBe(true);
+    expect(fallback).not.toHaveBeenCalled();
+    engine.setPaused(true); audio.play.mockRejectedValueOnce(new Error('NotAllowedError'));
+    engine.setPaused(false); await playback.done;
+    expect(playback.outcome).toBe('failed'); expect(fallback).toHaveBeenCalledOnce();
+  });
   it('unavailable manifests keep ordinary dialogue available', async () => {
     const engine = new Voiceover({ audio: () => { throw new Error('not reached'); }, fetchManifest: async () => { throw new Error('404'); }, volume: () => .9, now: () => 1 });
     engine.scene('prolog-rat'); await engine.preload();

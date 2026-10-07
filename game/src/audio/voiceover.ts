@@ -71,7 +71,8 @@ export class Voiceover {
   private loading = new Map<VoiceBank, Promise<void>>();
   private bank: VoiceBank = 'prolog';
   private currentScene = '';
-  private active?: { playback: VoicePlayback; audio: HTMLAudioElement; bark: boolean };
+  private active?: { playback: VoicePlayback; audio: HTMLAudioElement; bark: boolean; setPaused(paused: boolean): void };
+  private paused = false;
   private enabled = false;
   private lastBark = -Infinity;
   constructor(private deps: Dependencies) {}
@@ -100,6 +101,11 @@ export class Voiceover {
     return this.indexes.get(this.bank)?.player(this.currentScene) ?? (this.bank === 'prolog' ? 'valentus' : '');
   }
   stop(): void { this.active?.playback.stop(); }
+  setPaused(paused: boolean): void {
+    if (this.paused === paused) return;
+    this.paused = paused;
+    this.active?.setPaused(paused);
+  }
   refreshVolume(): void {
     if (this.active) {
       this.active.audio.volume = this.volume();
@@ -133,7 +139,10 @@ export class Voiceover {
     let settled = false;
     let outcome: VoiceOutcome = 'playing';
     let started = false;
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let remaining = Math.min(120000, clip.seconds * 1000 + 8000);
+    let timerStarted = 0;
+    let attempt = 0;
     let route: RecordedMediaRoute | null = null;
     let spatialFrame = 0;
     let routingFailedAfterCapture = false;
@@ -144,13 +153,14 @@ export class Voiceover {
     const requestFrame = this.deps.requestFrame ?? (callback => requestAnimationFrame(callback));
     const cancelFrame = this.deps.cancelFrame ?? (id => cancelAnimationFrame(id));
     const updatePan = () => {
-      if (settled || !started || !route || !pan) return;
+      if (settled || this.paused || !started || !route || !pan) return;
       try { route.setPan(pan()); } catch { try { route.setPan(0); } catch { /* Optional direction must not stop media playback. */ } }
       spatialFrame = requestFrame(updatePan);
     };
     const finish = (reason: VoiceOutcome) => {
       if (settled) return;
       settled = true;
+      attempt++;
       outcome = reason;
       clearTimeout(timer);
       if (spatialFrame) cancelFrame(spatialFrame);
@@ -173,14 +183,35 @@ export class Voiceover {
       get spokenText() { return clip.text; },
       get outcome() { return outcome; },
     };
-    this.active = { playback, audio, bark };
+    const setPaused = (paused: boolean) => {
+      if (settled) return;
+      attempt++;
+      if (paused) {
+        if (timer !== undefined) remaining = Math.max(0, remaining - Math.max(0, this.deps.now() - timerStarted));
+        clearTimeout(timer);
+        timer = undefined;
+        if (spatialFrame) cancelFrame(spatialFrame);
+        spatialFrame = 0;
+        try { audio.pause(); } catch { finish('failed'); }
+        return;
+      }
+      const currentAttempt = attempt;
+      timerStarted = this.deps.now();
+      timer = setTimeout(error, remaining);
+      try {
+        void audio.play().then(() => {
+          if (settled || this.paused || currentAttempt !== attempt) return;
+          started = true;
+          if (route && pan) spatialFrame = requestFrame(updatePan);
+        }, () => { if (!settled && !this.paused && currentAttempt === attempt) finish('failed'); });
+      } catch { finish('failed'); }
+    };
+    this.active = { playback, audio, bark, setPaused };
     if (bark) this.lastBark = this.deps.now();
     audio.addEventListener('ended', ended);
     audio.addEventListener('error', error);
-    timer = setTimeout(error, Math.min(120000, clip.seconds * 1000 + 8000));
     if (routingFailedAfterCapture) { finish('failed'); return playback; }
-    try { void audio.play().then(() => { if (!settled) { started = true; if (route && pan) spatialFrame = requestFrame(updatePan); } }, () => { if (!settled) finish('failed'); }); }
-    catch { finish('failed'); }
+    setPaused(this.paused);
     return settled ? null : playback;
   }
 }

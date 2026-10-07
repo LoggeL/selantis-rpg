@@ -20,6 +20,8 @@ export interface Modal {
   allowJournal?: boolean;
   /** Does not count for busy() (e.g. the title screen counts, a plate counts; debug overlay counts). */
   passive?: boolean;
+  /** Menus cover the story and suspend its recorded speech until the last one closes. */
+  pauseVoice?: boolean;
 }
 
 export type HudMode = 'explore' | 'battle' | 'cinematic' | 'none';
@@ -35,6 +37,7 @@ export class UiContext {
   hudMode: HudMode = 'none';
   /** Called for keys no modal handled. Return true when handled. */
   globalKeys: (e: KeyboardEvent) => boolean = () => false;
+  onVoicePause: (paused: boolean) => void = () => {};
 
   private stack: Modal[] = [];
   private locks = 0;
@@ -168,6 +171,7 @@ export class UiContext {
   private syncModalClass(): void {
     this.root?.classList.toggle('is-modal', this.busy());
     this.root?.setAttribute('data-modal', this.top()?.id ?? '');
+    this.onVoicePause(this.stack.some(modal => modal.pauseVoice));
   }
 
   /** Story UI must not open now: the title is up or a scene transition is in progress. */
