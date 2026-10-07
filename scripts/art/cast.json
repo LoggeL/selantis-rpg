@@ -53,6 +53,22 @@
         "scared"
       ]
     },
+    "e2-lia-stab": {
+      "name": "Lia (Schattentöter)",
+      "height": 41,
+      "base": "lia-cloak",
+      "desc": "Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet. Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. Her long moss-green hooded rain cloak (hood DOWN) is THROWN BACK over both shoulders so it hangs down her back like a cape and leaves her arms and the front of her body free: white linen blouse and a plain mid-brown calf-length skirt clearly visible. A large brown leather satchel on a strap worn diagonally across her body (strap over her RIGHT shoulder, the bag hanging at her LEFT hip). Light brown leather shoes with laces wound around her ankles. In her RIGHT hand she carries the staff 'Shadow-slayer': a long, plain, natural wooden staff a little taller than she is, pale grey-brown weathered wood with a slight natural twist, a gnarled knot at the top end, a worn dark-brown leather grip wrapped around the middle; NO gem, NO metal, NO carvings, no glow at rest. She holds it upright beside her, its foot on the ground.",
+      "poses": [
+        "cast",
+        "attack",
+        "sit",
+        "kneel",
+        "lie",
+        "hurt"
+      ],
+      "moods": [],
+      "record": "teil-2"
+    },
     "kyra": {
       "name": "Kyra",
       "height": 40,
@@ -501,6 +517,38 @@
         "widePoses": []
       }
     },
+    "e2-ignatius": {
+      "name": "Ignatius (Einsiedler)",
+      "height": 43,
+      "base": "ignatius",
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "portraitFrom": {
+        "id": "ignatius",
+        "edit": "He is now SIXTEEN YEARS OLDER, around 80, living as a hermit in the forest: deeper wrinkles and weathered, sun-browned skin, still a BALD crown but the fringe of white hair has grown longer and untidy, reaching his collar, and his beard is now a LONG, UNTRIMMED, slightly unkempt white beard reaching the middle of his chest; bushy white eyebrows, the same warm brown eyes. His red-orange robe is now faded to a dusty rust-orange, the gold trim worn and frayed, a patch of brown cloth sewn on the shoulder; OVER it he wears a hooded brown wool forest cloak with the hood DOWN, lying around his neck and shoulders. Keep the same face identity, framing, camera angle, pixel style and plain dark background."
+      },
+      "desc": "Ignatius of Ignis sixteen years later, now an old hermit around 80 but spry and wiry, kind and shrewd: deeply wrinkled, weathered sun-browned face, a BALD crown with a longer, untidy fringe of white hair reaching his collar, a LONG UNTRIMMED white beard reaching the middle of his chest, bushy white eyebrows, warm brown eyes with deep crow's feet. His old floor-length RED-ORANGE robe, now faded to a dusty rust-orange and patched with squares of brown and grey cloth, the gold trim worn and frayed; over it a hooded brown wool forest cloak (hood DOWN, lying on his back) reaching to his calves, fastened at the throat with a simple wooden toggle; a plain brown leather belt with two small pouches over the robe; worn, scuffed brown leather boots. NO staff, empty hands.",
+      "poses": [
+        "sit",
+        "kneel",
+        "talk",
+        "carry",
+        "cast"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "thinking",
+        "sad",
+        "worried",
+        "determined",
+        "grim"
+      ],
+      "record": "teil-2",
+      "build": {
+        "widePoses": []
+      }
+    },
     "foltan": {
       "name": "Foltan",
       "height": 43,
@@ -622,6 +670,23 @@
       "rawDir": "output/imagegen/raw/chars-reise/flick",
       "record": "chars-reise"
     },
+    "e2-flick-gefangen": {
+      "name": "Flick (gefangen)",
+      "height": 41,
+      "base": "flick",
+      "portraitStyle": "female",
+      "desc": "Flick, a slender, agile young half-elf woman around 20 held CAPTIVE, exactly as in the attached reference sheet but disarmed. Short, tousled, messy almost-black hair (a choppy uneven pixie cut) with ONE single pale ash-blonde streak at the front; pointed elven ears sticking out of the hair; freckles, amber-brown eyes, light olive skin, a small red SCRAPE on her RIGHT cheek, a defiant look. Her olive-green hip-length hunter's coat (hood down) is DUSTY and smudged with dirt, worn open over the laced dark-brown leather vest and a dirty cream linen shirt; brown leather bracers; a plain brown leather belt WITHOUT knife or sheath; dark brown leggings, soft brown leather knee boots, dusty. NO bow, NO quiver, NO arrows, NO knife, no weapons at all. Heavy dark IRON MANACLES on both wrists, joined by a SHORT iron chain, so her hands are held close together in front of her body.",
+      "poses": [
+        "sit",
+        "sit-chair",
+        "kneel",
+        "crouch",
+        "lie",
+        "hurt"
+      ],
+      "moods": [],
+      "record": "teil-2"
+    },
     "baris": {
       "name": "Baris",
       "height": 52,
@@ -650,14 +715,19 @@
         "id": "baris",
         "edit": "He has just been burnt by a magic blast: the RIGHT half of his face (the side nearest the viewer: cheek, temple, around the eye, down to the jaw) is now covered by a raw, fresh BURN SCAR of red, mottled, blistered and puckered skin, part of his beard on that side is burnt away to stubble, and his RIGHT eye is milky white, clouded and blind. The rest of the face, hair, beard, armour, framing and background stay exactly the same."
       },
-      "desc": "Baris, a HUGE, towering, massively built man around 40 in heavy black plate armour, buzz-cut black hair, big bushy full black beard, hard brutal square face. The RIGHT half of his face is covered by a raw fresh burn scar (red, mottled, blistered skin), part of his beard on that side burnt away, his RIGHT eye milky white and blind.",
-      "poses": [],
+      "desc": "Baris, a HUGE, towering, massively built man around 40 in heavy black plate armour, buzz-cut black hair, big bushy full black beard, hard brutal square face, exactly as in the attached reference sheet, carrying the same large single-bladed battle axe in his RIGHT hand. The RIGHT half of his face (cheek, temple and around the eye down to the jaw) is covered by a BURN SCAR of red, mottled, puckered skin, part of his beard on that side burnt away to stubble, and his RIGHT eye is milky white and blind (in a front view this is the left side of the image; in a side profile facing right the scarred half faces the viewer).",
+      "poses": [
+        "kneel",
+        "attack",
+        "talk"
+      ],
       "moods": [
         "neutral",
         "pained"
       ],
       "rawDir": "output/imagegen/raw/chars-reise/baris-scarred",
-      "record": "chars-reise"
+      "record": "chars-reise",
+      "colors": 40
     },
     "vamir": {
       "name": "Vamir",
@@ -796,6 +866,25 @@
       "rawDir": "output/imagegen/raw/chars-reise/guard-brotherhood",
       "record": "chars-reise"
     },
+    "e2-druide": {
+      "name": "Druide der Bruderschaft",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "An old human druid of a rebel brotherhood, a lean, wiry man around 60 with a calm, searching gaze: weathered, deeply tanned and lined skin, long grey hair worn in TWO thin braids hanging in front of his shoulders, each braid threaded with a few small round WOODEN BEADS, a short neatly kept grey beard, grey eyes. A long undyed GREY-GREEN wool robe reaching his ankles, over it a patched brown LEATHER hooded mantle covering his shoulders and upper arms (hood DOWN, lying on his back); a broad leather belt crowded with many small herb pouches and a few small corked clay vials; simple leather sandals. Empty hands, no staff, no weapons.",
+      "poses": [
+        "kneel",
+        "talk",
+        "interact"
+      ],
+      "moods": [
+        "neutral",
+        "worried",
+        "surprised",
+        "grim"
+      ],
+      "record": "teil-2"
+    },
     "ghoul": {
       "name": "Leichenfresser",
       "height": 43,
@@ -913,6 +1002,103 @@
         "neutral"
       ],
       "record": "council-b"
+    },
+    "e2-elnon-gefangen": {
+      "name": "Elnon (gefangen)",
+      "height": 46,
+      "base": "elnon",
+      "portraitStyle": "male",
+      "desc": "Elnon, a tall, muscular male elf, former guard captain and leader of a rebel brotherhood, now held CAPTIVE, exactly as in the attached reference sheet but disarmed and battered. Long straight jet-black hair tied into one long braid hanging down his back, a few strands come loose; long pointed elven ears; an angular face with high cheekbones and a strong jaw, clean-shaven, fair skin, cool green eyes; dark purple-blue BRUISES on his face (a swollen bruise on his LEFT cheekbone and one at the RIGHT temple), a weary but unbroken look. His forest-green tunic embroidered with golden-yellow leaf patterns is DIRTY and TORN OPEN at the RIGHT shoulder (the sleeve ripped at the seam, showing the bare shoulder), the hem frayed; brown leather bracers; a plain brown leather belt with NO axe, NO weapon at all; dark brown leggings, tall brown leather boots, dusty. Heavy dark IRON MANACLES on both wrists, joined by a SHORT iron chain, so his hands are held close together in front of his body.",
+      "poses": [
+        "kneel",
+        "sit",
+        "lie",
+        "hurt",
+        "fall"
+      ],
+      "moods": [],
+      "record": "teil-2"
+    },
+    "e2-kyra-gebannt": {
+      "name": "Kyra (gebannt)",
+      "height": 40,
+      "base": "kyra-bound",
+      "sex": "f",
+      "portraitFrom": {
+        "id": "kyra-bound",
+        "edit": "She is now under a dark spell of mind control: her face is BLANK and EMPTY, completely expressionless, no defiance, no emotion, lips slightly parted and slack, the eyes staring fixedly straight ahead without focus, and the irises have a faint COLD VIOLET sheen (a subtle pale violet glow in the eyes only, not turquoise, no glow anywhere else). Her wrists are FREE: NO rope anywhere, arms hanging down. Keep the same face identity, hair, dusty beige dress, wooden bead necklace, the small cut above her LEFT eyebrow, framing, camera angle, pixel style and plain dark background exactly the same."
+      },
+      "desc": "Kyra, a 16-year-old girl from a medieval fantasy village (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but UNDER A DARK MIND-CONTROL SPELL and NO LONGER BOUND: NO rope at her wrists, both hands free. Long nut-brown (warm chestnut) hair tied back roughly with a plain cord, a few strands loose, a small cut above her LEFT eyebrow; a BLANK, empty, expressionless face, staring fixedly ahead, her brown eyes with a faint COLD VIOLET sheen. A STIFF, rigid, unnaturally upright posture like a puppet, shoulders square, arms straight. Her plain beige ankle-length linen dress is dusty and torn at the hem, sleeves pushed up, a small necklace of tiny honey-coloured wooden beads, simple brown leather shoes. In her RIGHT hand she holds a PLAIN SHORT SWORD (simple straight steel blade about as long as her forearm plus hand, plain iron crossguard, brown leather-wrapped grip), held low and pointing down beside her leg.",
+      "poses": [
+        "attack",
+        "kneel",
+        "lie"
+      ],
+      "moods": [
+        "neutral"
+      ],
+      "record": "teil-2"
+    },
+    "logge": {
+      "name": "Logge",
+      "height": 43,
+      "sex": "m",
+      "portraitStyle": "male",
+      "_note": "Nutzerwunsch 2026-10-07: Logge als NPC, Ähnlichkeit mit eigenem Einverständnis, Fotos privat unter output/imagegen/private",
+      "desc": "Logge, a travelling chronicler of a medieval fantasy world: a lean, athletic young man around 30 (natural adult proportions, not chibi) with short, slightly wavy-curly dark golden-blond hair cropped shorter at the sides, a slightly receding hairline, a longish oval face with a strong straight nose, fair skin with a light rosy flush on the cheeks and a few faint freckles, blue-grey eyes, a light reddish-blond stubble on chin and jaw, and a playful, mischievous lopsided half-smile. He wears a rust-orange linen tunic with the sleeves rolled up to the elbows, over it a brown leather vest covered in many small pockets, dark brown trousers and brown leather boots; ink stains on his fingers; a brown leather satchel on a strap across his body, stuffed with rolled scrolls; a white goose-feather quill tucked behind his RIGHT ear; and his trademark: a pair of small ROUND ORANGE-TINTED spectacles pushed up onto his hair above the forehead.",
+      "poses": [
+        "sit",
+        "talk",
+        "read",
+        "kneel"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "smirk",
+        "surprised",
+        "thinking"
+      ],
+      "record": "teil-2"
+    },
+    "sebastian": {
+      "name": "Sebastian",
+      "height": 44,
+      "sex": "m",
+      "portraitStyle": "male",
+      "_note": "Nutzerwunsch 2026-10-07: Sebastian als NPC am Tisch mit Logge; Ähnlichkeit nach privaten Fotos, Einverständnis laut Nutzer; bewusste, dokumentierte Ausnahme von DESIGN §2, da er im Film 2 Valentus spielt — die Figur ist NICHT Valentus und trägt nichts von dessen Kostüm",
+      "desc": "Sebastian, a cheerful lute-playing tavern guest of a medieval fantasy world: a slim young man around 30 (natural adult proportions, not chibi) with thick, wavy dark-brown hair swept back and up from the forehead with a little volume on top, a narrow face with high cheekbones, fair skin, expressive dark-brown eyes under lively, often raised dark eyebrows, a neat dark moustache and a short dark goatee / chin beard, and a friendly, theatrical wide grin. He is dressed soberly and tidily: a dark charcoal-grey buttoned doublet over a clean white linen shirt with a small dark neckerchief tied at the collar, dark trousers, polished black leather boots, and a wooden lute with a brown leather strap slung diagonally across his BACK (the lute's neck pointing up behind his left shoulder).",
+      "poses": [
+        "sit",
+        "talk",
+        "interact"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "surprised",
+        "worried",
+        "smirk"
+      ],
+      "record": "teil-2"
+    },
+    "pascal": {
+      "name": "Pascal",
+      "height": 43,
+      "sex": "m",
+      "portraitStyle": "male",
+      "_note": "Nutzerwunsch 2026-10-07: Pascal als einsamer Gast; Ähnlichkeit nach privaten Fotos, Einverständnis laut Nutzer; bewusste, dokumentierte Ausnahme von DESIGN §2, da er im Film 1 eine Wache spielt — die Figur ist keine Wache und trägt keine Dunkelschatten-Kleidung",
+      "desc": "Pascal, a quiet, solitary tavern guest of a medieval fantasy world: a slim young man around 30 (natural adult proportions, not chibi) with short straight light-brown / dark-blond hair, fair skin, a narrow face with a pointed chin, light blue-grey eyes and a dry, deadpan, slightly sceptical expression (one corner of the mouth pulled in). He wears a faded brick-red linen shirt with the sleeves pushed up, dark brown trousers held up by bright ORANGE braces (suspenders) over both shoulders, simple brown leather shoes, and a woven natural straw hat with a green fabric band on his head. He holds two small wooden spoons in his RIGHT hand (he drums with them on tables).",
+      "poses": [
+        "sit",
+        "talk"
+      ],
+      "moods": [
+        "neutral",
+        "smirk",
+        "thinking"
+      ],
+      "record": "teil-2"
     }
   }
 }

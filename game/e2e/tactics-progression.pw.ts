@@ -37,11 +37,14 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     await expect(page.locator('.tac-tcard:not(.hidden)')).toContainText('MP');
     await expect(page.locator('.tac-tcard:not(.hidden)')).toContainText('Tempo');
     await page.locator('.tac-endturn').click();
+    await page.locator('.tac-confirm-facing').click();
     await ready(page, 'valentus');
     await expect(card).toContainText('Lvl 20');
     await expect(card).toContainText('Angriff 22');
     await page.locator('.tac-card button[data-ab="handstoss"]').click();
     await hoverUnit(page, 's-south');
+    const target = await page.evaluate(() => (window as any).__tactics.debugPage('s-south'));
+    await page.mouse.click(target.x, target.y);
     const forecast = page.locator('.tac-tcard.forecast:not(.hidden)');
     await expect(forecast.locator('.tac-combatant')).toHaveCount(2);
     await expect(forecast).toContainText('Treffer'); await expect(forecast).toContainText('Schaden');
@@ -54,13 +57,15 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
       return box ? box.x + box.width : Infinity;
     }).toBeLessThanOrEqual(root!.x + root!.width + 1);
     const box = await forecast.boundingBox(); expect(box!.x).toBeGreaterThanOrEqual(root!.x);
-    await page.screenshot({ path: `../output/references/ffta/selantis-forecast-${viewport.width}.png` });
+    await page.screenshot({ path: test.info().outputPath(`forecast-${viewport.width}.png`) });
     // Executing the preview consumes the action and grants one reward.
     const before = await page.evaluate(() => {
       const b = (window as any).__tactics.ctrl.battle; return { exp: b.unit('valentus').exp, target: b.unit('s-south').hp };
     });
-    const target = await page.evaluate(() => (window as any).__tactics.debugPage('s-south'));
-    await page.mouse.click(target.x, target.y);
+    await expect(page.locator('.tac-confirm-target')).toBeEnabled();
+    expect(await page.evaluate(() => (window as any).__tactics.ctrl.battle.unit('valentus').acted)).toBe(false);
+    if (viewport.width === 390) await page.locator('.tac-confirm-target').click();
+    else await page.mouse.click(target.x, target.y);
     await page.waitForFunction(() => (window as any).__tactics.ctrl.battle.unit('valentus').acted);
     await page.waitForFunction(() => (window as any).__tactics.animating === 0);
     const after = await page.evaluate(() => {
@@ -124,7 +129,7 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 771, height: 880 
     await page.mouse.move(1, 1);
     await expect(page.locator('.tac-tip')).toBeHidden();
     await expect(page.locator('.tac-hint')).toBeVisible();
-    await page.screenshot({ path: `../output/references/ffta/selantis-clear-hints-${viewport.width}.png` });
+    await page.screenshot({ path: test.info().outputPath(`clear-hints-${viewport.width}.png`) });
     await page.locator('.tac-hint button').click();
     await expect(page.locator('.tac-hint')).toBeHidden();
     await expect(page.locator('.tac-card')).toBeVisible();

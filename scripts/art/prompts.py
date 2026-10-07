@@ -144,6 +144,20 @@ POSES: dict[str, dict] = {
                      "knees buckling, body toppling backward toward the LEFT, head thrown back, arms flung out, the "
                      "weapon slipping from the hand, body facing three-quarter toward the RIGHT.",
              "measure": "pair"},
+    "sit-chair": {"text": "Pose (RIGHT figure): sitting upright on a simple wooden chair (plain four-legged chair with a "
+                          "low straight backrest, the WHOLE chair visible down to its feet on the ground), both feet on "
+                          "the floor, hands resting in the lap, body turned three-quarter toward the RIGHT.",
+                  "measure": "pair"},
+    "carry": {"text": "Pose (RIGHT figure): standing upright and carrying an armful of split firewood logs held against "
+                      "the chest with both arms, the logs stacked horizontally, body turned three-quarter toward the "
+                      "RIGHT.",
+              "measure": "pair"},
+    "drunk-sit": {"text": "Pose (RIGHT figure): TIPSY, sitting slumped on a simple wooden bench (the WHOLE bench "
+                          "visible down to its feet on the ground), swaying and leaning to one side, one elbow propped "
+                          "on the knee to hold himself up, the other hand holding a wooden tankard of ale, cheeks "
+                          "flushed red, eyes half-closed, a happy dopey grin, body turned three-quarter toward the "
+                          "RIGHT.",
+                  "measure": "pair"},
     "lie": {"text": "Pose (RIGHT figure): lying flat on the ground on the back, unconscious or asleep, body stretched out "
                     "HORIZONTALLY (head on the LEFT, feet on the RIGHT), arms relaxed at the sides, eyes closed. Seen "
                     "slightly from above so face and clothing are readable. The lying figure is as long as the standing "
@@ -152,6 +166,8 @@ POSES: dict[str, dict] = {
 }
 
 STAND_WEAPON = "The LEFT standing figure holds its weapon the same way as in the reference sheet, close to the body."
+STAFF_STAND = ("The LEFT standing figure holds the staff upright in her RIGHT hand exactly as in the reference "
+               "sheet.")
 
 # Character-specific pose tweaks.
 POSE_EXTRA: dict[tuple[str, str], str] = {
@@ -265,6 +281,98 @@ POSE_EXTRA: dict[tuple[str, str], str] = {
     ("ghoul", "hurt"): "He recoils from a hit, hunched, the axe swinging away, LEFT hand clutching his chest.",
     ("ghoul", "lie"): "Dead: sprawled face-down on the ground, the masked head turned to the side, limbs splayed, the "
                       "axe lying next to his hand.",
+    # ---- Teil II „Letzte Hoffnung“ (area teil-2)
+
+    ("e2-lia-stab", "cast"): "INSTEAD of an open palm she uses the staff. CONTROLLED, focused casting, NOT an outburst: she stands firmly and points the staff "
+                             "forward toward the RIGHT with both hands (RIGHT hand on the leather grip, LEFT hand further "
+                             "up the shaft), the knotted tip aimed forward. Only a SMALL, soft TURQUOISE light glows at "
+                             "the knotted tip of the staff — no explosion, no beam, no swirl around her, hair and cloak "
+                             "calm, eyes normal (not glowing). " + STAFF_STAND,
+    ("e2-lia-stab", "attack"): "A short, controlled staff swing: she holds the staff with both hands near the middle "
+                               "and strikes sideways toward the RIGHT with the knotted end, compact, the staff kept "
+                               "close to the body; no glow, no magic. " + STAFF_STAND,
+    ("e2-lia-stab", "sit"): "Sitting on the ground, the staff held loosely upright in her RIGHT hand and leaning "
+                            "against her RIGHT shoulder, its foot on the ground. " + STAFF_STAND,
+    ("e2-lia-stab", "kneel"): "Kneeling on ONE knee, holding the staff upright in her RIGHT hand with its foot planted "
+                              "on the ground beside her, leaning lightly on it. " + STAFF_STAND,
+    ("e2-lia-stab", "lie"): "Asleep on her back, the staff lying on the ground right beside her, parallel to her body. "
+                            "No glow.",
+    ("e2-lia-stab", "hurt"): "She flinches, the staff still gripped in her RIGHT hand but lowered and slanting. "
+                             + STAFF_STAND,
+    ("e2-ignatius", "cast"): "The glow at his RIGHT palm is a small, soft, warm AMBER-GOLD light (honey-coloured glow, "
+                             "not fire, absolutely not turquoise). NO staff.",
+    ("e2-ignatius", "sit"): "Sitting cross-legged on the ground, hands resting on his knees, relaxed and patient.",
+    ("e2-ignatius", "talk"): "He explains with his RIGHT hand raised, index finger lifted like a teacher, LEFT hand "
+                             "resting on his belt.",
+    ("e2-ignatius", "carry"): "The firewood is pale split logs with bark, about six pieces, held against his chest "
+                              "under his crossed forearms.",
+    ("e2-flick-gefangen", "sit"): "Sitting on the ground with her knees drawn up, chained wrists resting on her knees, "
+                                  "glaring defiantly.",
+    ("e2-flick-gefangen", "sit-chair"): "Her CHAINED wrists rest in her lap, the short iron chain between the "
+                                        "manacles clearly visible, defiant upright posture, chin raised.",
+    ("e2-flick-gefangen", "kneel"): "Forced to kneel, chained wrists in front of her, head raised defiantly.",
+    ("e2-flick-gefangen", "crouch"): "Crouching low and sneaking, chained wrists held together in front of her close "
+                                     "to the ground, alert.",
+    ("e2-flick-gefangen", "lie"): "Lying on her back, exhausted and unconscious, chained wrists resting on her "
+                                  "stomach. No blood.",
+    ("e2-flick-gefangen", "hurt"): "Flinching, chained wrists raised together to protect her face.",
+    ("e2-druide", "interact"): "He holds a shallow wooden bowl in his LEFT hand at waist height and sprinkles a pinch "
+                               "of dried herbs into it with his RIGHT hand, focused.",
+    ("e2-druide", "talk"): "He speaks calmly with an open RIGHT palm, LEFT hand resting on the herb pouches at his belt.",
+    ("baris-scarred", "attack"): "He swings his huge battle axe with both hands in a brutal diagonal strike forward and "
+                                 "down toward the RIGHT, the axe head at the height of his chest in front of him (NOT "
+                                 "raised high above his head), a heavy wide stance. " + STAND_WEAPON,
+    ("baris-scarred", "kneel"): "Kneeling on ONE knee before his master, head bowed, his RIGHT gauntleted fist on the "
+                                "ground, the axe lying on the ground beside him.",
+    ("baris-scarred", "talk"): "He stands upright and menacing, gesturing with his LEFT gauntlet, the axe held low in "
+                               "his RIGHT hand beside his leg. " + STAND_WEAPON,
+    ("e2-elnon-gefangen", "kneel"): "Forced to kneel on both knees, chained wrists resting in front of him, back "
+                                    "straight and head raised with quiet dignity.",
+    ("e2-elnon-gefangen", "sit"): "Sitting on the ground leaning back slightly, one knee drawn up, the chained wrists "
+                                  "resting on that knee, weary.",
+    ("e2-elnon-gefangen", "lie"): "Lying on his back, exhausted and unconscious, chained wrists resting on his "
+                                  "stomach. No blood.",
+    ("e2-elnon-gefangen", "hurt"): "He doubles over from a blow, chained wrists pressed against his stomach, teeth "
+                                   "gritted. No blood.",
+    ("e2-elnon-gefangen", "fall"): "He has NO weapon: the chained wrists fly up together as he topples backward. "
+                                   "No blood.",
+    ("e2-kyra-gebannt", "attack"): "A stiff, mechanical sword thrust: she stabs the short sword forward toward the "
+                                   "RIGHT with her RIGHT arm straight, the blade kept close and compact, her face "
+                                   "blank and expressionless like a puppet, no glow, no magic effect. The LEFT "
+                                   "standing figure holds the short sword low in her RIGHT hand, pointing down.",
+    ("e2-kyra-gebannt", "kneel"): "Kneeling on both knees, stiff and upright like a puppet, staring blankly ahead, "
+                                  "the short sword lying flat on the ground in front of her knees.",
+    ("e2-kyra-gebannt", "lie"): "Lying on her back, unconscious, the spell broken, eyes closed, hands empty and "
+                                "relaxed, the short sword lying on the ground beside her. No rope. No blood.",
+    # Logge (Nutzerwunsch: der Spielemacher als Chronist-NPC, area teil-2)
+    ("logge", "sit"): "INSTEAD of sitting on the ground he sits on a small, low, three-legged wooden stool (the WHOLE "
+                      "stool visible down to its feet), one ankle resting on the other knee, a small open book "
+                      "propped on that knee, writing in it eagerly with the white quill in his RIGHT hand, grinning.",
+    ("logge", "talk"): "He talks enthusiastically, RIGHT hand raised and pointing the white quill upward like a "
+                       "teacher's pointer, LEFT hand on the strap of his satchel, a big mischievous grin.",
+    ("logge", "read"): "He reads a small open book held close to his face in both hands, the round orange-tinted "
+                       "spectacles now pulled DOWN onto his nose, eyebrows raised in amusement.",
+    ("logge", "kneel"): "Kneeling on ONE knee, bent forward, holding out his LEFT hand low toward the ground as if "
+                        "offering a treat to a small animal, the quill still behind his ear, smiling.",
+    ("logge", "drunk-sit"): "The round orange-tinted spectacles have slipped crookedly onto his hair, the quill still "
+                            "behind his ear, a little ale foam on the tankard.",
+    # Sebastian und Pascal (Nutzerwunsch 2026-10-07: Wirtshausgäste nach privaten Fotos, area teil-2)
+    ("sebastian", "sit"): "INSTEAD of sitting on the ground he sits UPRIGHT on a short plain wooden bench (the WHOLE "
+                          "bench visible down to its feet), back straight, both forearms raised forward at chest "
+                          "height with the hands folded together as if resting on the edge of a table in front of "
+                          "him (do NOT draw the table), the lute still on his back, a friendly grin.",
+    ("sebastian", "talk"): "He talks animatedly like a storyteller, RIGHT hand raised with the open palm in a "
+                           "theatrical flourish, eyebrows raised high, a big grin, the lute on his back.",
+    ("sebastian", "interact"): "He has swung the lute round to the front and PLAYS it at waist height: LEFT hand on the "
+                               "neck, RIGHT hand strumming the strings, head tilted, grinning.",
+    ("pascal", "sit"): "INSTEAD of sitting on the ground he sits alone on a small low three-legged wooden stool (the "
+                       "WHOLE stool visible down to its feet) at a small, low, round wooden table placed directly in "
+                       "front of him on the RIGHT, drumming on the table top with two small wooden spoons, one in "
+                       "each hand, straw hat on, deadpan face. Keep the table small so figure, stool and table form "
+                       "one compact group.",
+    ("pascal", "talk"): "He talks dryly with a deadpan face, one eyebrow raised, RIGHT hand lifted holding the two "
+                        "wooden spoons and pointing them like a little baton, LEFT thumb hooked under an orange "
+                        "brace.",
 }
 
 PORTRAIT = (
@@ -327,6 +435,13 @@ PORTRAIT_EXTRA: dict[str, str] = {
     "elnon": "His long pointed elven ears clearly visible.",
     "baris-scarred": "Burn scar on the RIGHT half of his face (the side nearest the viewer), RIGHT eye milky white "
                      "and blind.",
+    "logge": "The small round orange-tinted spectacles sit pushed up on his hair above the forehead, the white quill "
+             "tucked behind his ear, the rust-orange tunic and pocketed leather vest visible at the bottom.",
+    "sebastian": "The charcoal doublet, white shirt collar and small dark neckerchief visible at the bottom, the brown "
+                 "leather strap of the lute crossing his chest diagonally and the top of the lute neck behind his "
+                 "shoulder. NOT a wizard, no robe, no staff.",
+    "pascal": "The woven straw hat with the green band on his head, the faded red shirt and the bright orange braces "
+              "visible at the bottom. NOT a guard, no armour, no dark clothing.",
 }
 
 

@@ -1,0 +1,9 @@
+{
+  "facing": "right",
+  "foot": [
+    32,
+    60
+  ],
+  "character": "logge",
+  "pose": "kneel"
+}

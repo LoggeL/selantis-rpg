@@ -1,5 +1,7 @@
 import { G } from '../../core/G';
+import { findScene } from '../../core/registry';
 import { defineMap, type WorldCtx } from '../../world';
+import { BOOK2, continueToBook2 } from '../common/bookContract';
 import { onwardEncounter, playEncounter, saveEncounterReturn } from '../common/encounters';
 import { waldweg } from '../kapitel-2/waldweg';
 import { showCredits } from './credits';
@@ -13,7 +15,7 @@ export const weiterreiseMap = defineMap({
   interactables: [
     { id: 'reiseweg', verb: 'Weg sichern', at: [420, 400], radius: 30, sparkle: true, onInteract: nextEncounter },
     { id: 'reiserast', verb: 'Mit der Gruppe rasten', at: [260, 490], radius: 28, onInteract: rest },
-    { id: 'reiseende', verb: 'Das erste Buch abschließen', at: [40, 482], radius: 26, sparkle: true, onInteract: finish },
+    { id: 'reiseende', verb: 'Reise beenden', at: [40, 482], radius: 26, sparkle: true, once: false, onInteract: finish },
   ],
   onEnter: async w => {
     G.state.setParty(['flick', 'kyra']);
@@ -62,7 +64,18 @@ async function rest(w: WorldCtx): Promise<void> {
 }
 
 async function finish(w: WorldCtx): Promise<void> {
-  const pick = await w.choose(['Noch weiterreisen.', 'Das erste Buch abschließen.']);
+  const book2 = Boolean(findScene(BOOK2.entry));
+  const pick = await w.choose([
+    { text: 'Noch weiterreisen.' },
+    { text: 'Das erste Buch abschließen.' },
+    { text: 'Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.', disabled: !book2, reason: book2 ? undefined : 'Noch nicht verfügbar.' },
+  ]);
+  if (pick === 2) {
+    w.lockPlayer();
+    await G.ui.fade('out', 700);
+    await continueToBook2();
+    return;
+  }
   if (pick !== 1) return;
   saveEncounterReturn(w);
   w.lockPlayer();

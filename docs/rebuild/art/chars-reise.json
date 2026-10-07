@@ -2152,6 +2152,46 @@
     "baris-scarred": {
       "id": "baris-scarred",
       "height": 52,
+      "walk": {
+        "file": "game/public/assets/sprites/baris-scarred-walk.png",
+        "sha": "97a7a615b1263de9",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 52
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/baris-scarred-attack.png",
+          "method": "pair",
+          "scale": 0.0637,
+          "size": [
+            62,
+            48
+          ]
+        },
+        "kneel": {
+          "file": "game/public/assets/sprites/baris-scarred-kneel.png",
+          "method": "pair",
+          "scale": 0.0637,
+          "size": [
+            42,
+            37
+          ]
+        },
+        "talk": {
+          "file": "game/public/assets/sprites/baris-scarred-talk.png",
+          "method": "pair",
+          "scale": 0.0607,
+          "size": [
+            36,
+            52
+          ]
+        }
+      },
       "portraits": {
         "neutral": "game/public/assets/portraits/baris-scarred.png",
         "pained": "game/public/assets/portraits/baris-scarred-pained.png"

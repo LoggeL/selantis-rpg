@@ -2,7 +2,7 @@ import { G } from '../../core/G';
 import { settings } from '../../core/settings';
 import { GAME_H, GAME_W, canvasRect } from '../../core/viewport';
 import type { BattleUnitDef, HintOptions } from '../api';
-import type { AbilityDef, Phase, TargetPreview, Unit } from '../rules/types';
+import type { AbilityDef, Facing, Phase, TargetPreview, Unit } from '../rules/types';
 import { ICONS, abilityIcon } from './icons';
 import { TACTICS_CSS } from './style';
 import { AP_TO_MASTER, EXP_PER_LEVEL, MAX_LEVEL, WEAPONS } from '../rules/progression';
@@ -21,6 +21,9 @@ export interface UiHandlers {
   hoverAbility(id: string | null): void;
   equip(weapon: string): void;
   back(): void;
+  confirmTarget(): void;
+  face(facing: Facing): void;
+  confirmFacing(): void;
 }
 
 export interface AbilitySlot { def: AbilityDef; cooldown: number; usable: boolean; reason?: string; mastered?: boolean }
@@ -42,6 +45,14 @@ export interface PreviewModel {
   targets: { unit: Unit; def: BattleUnitDef; p: TargetPreview }[];
   /** Line ability with no unit in it, etc. */
   empty?: string;
+  /** The player has clicked a target and can now confirm the action. */
+  confirmed?: boolean;
+}
+
+export interface FacingModel {
+  name: string;
+  selected: Facing;
+  options: { facing: Facing; arrow: string; label: string }[];
 }
 
 export interface MenuModel {
@@ -151,6 +162,7 @@ export class BattleUi {
   private lastCard = '';
   private lastMenu = '';
   private lastPreview = '';
+  private lastFacing = '';
   private lastOrder = '';
   private tipBlockedAbility: string | null = null;
   private dismissTip = (event: Event) => {
@@ -179,6 +191,7 @@ export class BattleUi {
     rot.querySelectorAll('button').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); this.h.rotate(Number((b as HTMLElement).dataset.r) as 1 | -1); }));
     mk('card', 'tac-panel tac-card hidden');
     mk('tcard', 'tac-panel tac-tcard hidden');
+    mk('facing', 'tac-panel tac-facing hidden');
     mk('tile', 'tac-panel tac-tile hidden');
     const end = mk('end', 'tac-end', `<button type="button" class="tac-btn tac-endturn" title="Zug beenden (Leertaste)"><span class="hg">${ICONS.hourglass}</span>Zug beenden <kbd>Leertaste</kbd></button>`);
     end.querySelector('button')!.addEventListener('click', e => { e.stopPropagation(); this.h.endTurn(); });
@@ -192,7 +205,7 @@ export class BattleUi {
     mk('out', 'tac-out', '<div class="t"></div><div class="line"></div><div class="s"></div><div class="btns"></div>');
     this.els.phase.style.display = 'none';
     // Swallow pointer events on panels so clicks don't reach the canvas.
-    for (const k of ['obj', 'card', 'menu', 'end', 'rot', 'hint', 'order', 'out']) {
+    for (const k of ['obj', 'card', 'tcard', 'facing', 'menu', 'end', 'rot', 'hint', 'order', 'out']) {
       this.els[k].addEventListener('pointerdown', e => e.stopPropagation());
       this.els[k].addEventListener('wheel', e => e.stopPropagation());
     }
@@ -257,7 +270,7 @@ export class BattleUi {
   }
 
   private occupied(exclude?: HTMLElement): DOMRect[] {
-    const nodes = ['obj', 'phase', 'order', 'rot', 'card', 'tcard', 'end', 'hint', 'tile', 'menu'].map(k => this.els[k]);
+    const nodes = ['obj', 'phase', 'order', 'rot', 'card', 'tcard', 'facing', 'end', 'hint', 'tile', 'menu'].map(k => this.els[k]);
     const escape = document.querySelector<HTMLElement>('.hud-btn-menu');
     if (escape) nodes.push(escape);
     const key = escape?.querySelector<HTMLElement>('.hud-btn-key');
@@ -465,7 +478,7 @@ export class BattleUi {
   previewCard(m: PreviewModel | null): void {
     const c = this.els.tcard;
     if (!m) { this.root.classList.remove('has-forecast'); c.classList.remove('forecast'); if (this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
-    const sig = 'P' + JSON.stringify([m.ability.id, m.user, m.targets.map(t => [t.unit, t.p]), m.empty]);
+    const sig = 'P' + JSON.stringify([m.ability.id, m.user, m.targets.map(t => [t.unit, t.p]), m.empty, m.confirmed]);
     if (sig === this.lastPreview) { c.classList.remove('hidden'); return; }
     this.lastPreview = sig;
     c.classList.toggle('forecast', m.targets.length > 0);
@@ -476,41 +489,62 @@ export class BattleUi {
       c.classList.remove('hidden');
       return;
     }
-    const main = m.targets[0];
-    const p = main.p;
-    const u = main.unit;
-    const offensive = p.damage > 0 || p.relation !== 'none';
-    const total = p.damage * p.hits;
-    const extra = p.push ? (p.push.collide?.damage ?? 0) + p.push.fallDamage + (p.push.intoFire ? 3 : 0) : 0;
-    const after = offensive ? Math.max(0, u.hp - total - extra) : Math.min(u.maxHp, u.hp + p.heal);
-    const mods = p.mods.map(md => `<span class="tac-chip ${md.kind === 'good' ? 'good' : md.kind === 'bad' ? 'bad' : ''}">${esc(md.label)} ${esc(md.text)}</span>`).join('');
-    let pushLine = '';
-    if (p.push) {
-      const parts: string[] = [];
-      if (p.push.path.length) parts.push(`${p.push.path.length} Feld${p.push.path.length > 1 ? 'er' : ''} weg`);
-      if (p.push.collide) {
-        const what = p.push.collide.kind === 'unit' ? 'Aufprall an Einheit' : p.push.collide.kind === 'cliff' ? 'Aufprall an Kante' : p.push.collide.kind === 'edge' ? 'Aufprall am Rand' : 'Aufprall an Hindernis';
-        parts.push(`${what} <b>+${p.push.collide.damage}</b>${p.push.collide.otherDamage ? ` (dort +${p.push.collide.otherDamage})` : ''}`);
+    const targets = m.targets.map(({ unit: u, def, p }) => {
+      const offensive = p.damage > 0 || p.relation !== 'none';
+      const total = p.damage * p.hits;
+      const extra = p.push ? (p.push.collide?.damage ?? 0) + p.push.fallDamage + (p.push.intoFire ? 3 : 0) : 0;
+      const after = offensive ? Math.max(0, u.hp - total - extra) : Math.min(u.maxHp, u.hp + p.heal);
+      const mods = p.mods.map(md => `<span class="tac-chip ${md.kind === 'good' ? 'good' : md.kind === 'bad' ? 'bad' : ''}">${esc(md.label)} ${esc(md.text)}</span>`).join('');
+      let pushLine = '';
+      if (p.push) {
+        const parts: string[] = [];
+        if (p.push.path.length) parts.push(`${p.push.path.length} Feld${p.push.path.length > 1 ? 'er' : ''} weg`);
+        if (p.push.collide) {
+          const what = p.push.collide.kind === 'unit' ? 'Aufprall an Einheit' : p.push.collide.kind === 'cliff' ? 'Aufprall an Kante' : p.push.collide.kind === 'edge' ? 'Aufprall am Rand' : 'Aufprall an Hindernis';
+          parts.push(`${what} <b>+${p.push.collide.damage}</b>${p.push.collide.otherDamage ? ` (dort +${p.push.collide.otherDamage})` : ''}`);
+        }
+        if (p.push.drop >= 2) parts.push(`Sturz ${p.push.drop} Ebenen <b>+${p.push.fallDamage}</b>`);
+        if (p.push.intoWater) parts.push('ins Wasser');
+        if (!parts.length) parts.push('kann nicht gestoßen werden');
+        pushLine = `<div class="tac-push">${ICONS.push}<span>Stoß: ${parts.join(' · ')}</span></div>`;
       }
-      if (p.push.drop >= 2) parts.push(`Sturz ${p.push.drop} Ebenen <b>+${p.push.fallDamage}</b>`);
-      if (p.push.intoWater) parts.push('ins Wasser');
-      if (!parts.length) parts.push('kann nicht gestoßen werden');
-      pushLine = `<div class="tac-push">${ICONS.push}<span>Stoß: ${parts.join(' · ')}</span></div>`;
+      const big = offensive
+        ? `<div class="tac-big"><div><span class="v hit">${p.chance} %</span><span class="l">Treffer</span></div><div><span class="v ${p.lethal ? 'lethal' : 'dmg'}">${p.damage}${p.hits > 1 ? `×${p.hits}` : ''}</span><span class="l">Schaden</span></div>${p.lethal ? `<div><span class="v lethal" style="font-size:1em">${u.nonLethal ? 'Kampfunfähig' : 'Besiegt'}</span><span class="l">bei Treffer</span></div>` : ''}</div>`
+        : p.frees ? '<div class="tac-push">Die Fesseln lösen. Sie kämpft danach an deiner Seite.</div>'
+          : `<div class="tac-chips">${p.statuses.map(s => `<span class="tac-chip magic">${STATUS_LABEL[s] ?? s}</span>`).join('')}${p.heal ? `<span class="tac-chip good">+${p.heal} LP</span>` : ''}</div>`;
+      return `<div class="tac-target" data-target="${esc(u.id)}">${combatant(u, def, after)}${big}${mods ? `<div class="tac-chips">${mods}</div>` : ''}${pushLine}</div>`;
+    }).join('');
+    c.innerHTML = `<div class="forecast-title"><span class="ab${magic}">${esc(m.ability.name)}${m.ability.mpCost ? ` · ${m.ability.mpCost} MP` : ''}</span><span>${m.targets.length === 1 ? '1 Ziel' : `${m.targets.length} Ziele`}</span></div>
+      <div class="tac-forecast-body"><div class="tac-versus">${combatant(m.user, m.userDef, undefined, m.user.mp - (m.ability.mpCost ?? 0))}<div class="tac-versus-arrow">→</div><div class="tac-targets">${targets}</div></div></div>
+      <div class="tac-forecast-actions"><span>${m.confirmed ? 'Ziel gewählt. Zweiter Klick oder Enter bestätigt.' : 'Ziel anklicken, dann bestätigen.'}</span><button type="button" class="tac-btn tac-confirm-target" ${m.confirmed ? '' : 'disabled'}>Bestätigen <kbd>Enter</kbd></button></div>`;
+    c.querySelector('.tac-confirm-target')!.addEventListener('click', e => { e.stopPropagation(); this.h.confirmTarget(); });
+    c.classList.remove('hidden');
+  }
+
+  facingCard(m: FacingModel | null): void {
+    const c = this.els.facing;
+    this.root.classList.toggle('has-facing', !!m);
+    if (!m) { c.classList.add('hidden'); this.lastFacing = ''; return; }
+    const sig = JSON.stringify(m);
+    if (sig !== this.lastFacing) {
+      this.lastFacing = sig;
+      c.innerHTML = `<div class="forecast-title"><span>${esc(m.name)}</span><span>Blickrichtung wählen</span></div>
+        <div class="tac-directions">${m.options.map(o => `<button type="button" data-facing="${o.facing}" class="${o.facing === m.selected ? 'on' : ''}" aria-pressed="${o.facing === m.selected}" aria-label="Nach ${o.label} schauen">${o.arrow}</button>`).join('')}</div>
+        <div class="tac-facing-note">Pfeiltasten wählen die Richtung. Enter beendet den Zug.</div>
+        <div class="tac-facing-actions"><button type="button" class="tac-btn tac-face-back">Zurück <kbd>Esc</kbd></button><button type="button" class="tac-btn tac-confirm-facing">Bestätigen <kbd>Enter</kbd></button></div>`;
+      c.querySelectorAll<HTMLButtonElement>('[data-facing]').forEach(button => button.addEventListener('click', e => {
+        e.stopPropagation(); this.h.face(button.dataset.facing as Facing);
+      }));
+      c.querySelector('.tac-face-back')!.addEventListener('click', e => { e.stopPropagation(); this.h.back(); });
+      c.querySelector('.tac-confirm-facing')!.addEventListener('click', e => { e.stopPropagation(); this.h.confirmFacing(); });
     }
-    const big = offensive
-      ? `<div class="tac-big"><div><span class="v hit">${p.chance} %</span><span class="l">Treffer</span></div><div><span class="v ${p.lethal ? 'lethal' : 'dmg'}">${p.damage}${p.hits > 1 ? `×${p.hits}` : ''}</span><span class="l">Schaden</span></div>${p.lethal ? `<div><span class="v lethal" style="font-size:1em">${u.nonLethal ? 'Kampfunfähig' : 'Besiegt'}</span><span class="l">bei Treffer</span></div>` : ''}</div>`
-      : p.frees ? '<div class="tac-push">Die Fesseln lösen. Sie kämpft danach an deiner Seite.</div>'
-        : `<div class="tac-chips">${p.statuses.map(s => `<span class="tac-chip magic">${STATUS_LABEL[s] ?? s}</span>`).join('')}${p.heal ? `<span class="tac-chip good">+${p.heal} LP</span>` : ''}</div>`;
-    const others = m.targets.slice(1).map(t => `<div class="tac-row"><span class="n">${esc(t.unit.name)}</span><span class="c">${t.p.chance} %</span><span class="d">${t.p.damage}${t.p.hits > 1 ? `×${t.p.hits}` : ''}</span></div>`).join('');
-    c.innerHTML = `<div class="forecast-title"><span class="ab${magic}">${esc(m.ability.name)}${m.ability.mpCost ? ` · ${m.ability.mpCost} MP` : ''}</span><span>Aktionsvorschau</span></div><div class="tac-versus">${combatant(m.user, m.userDef, undefined, m.user.mp - (m.ability.mpCost ?? 0))}<div class="tac-versus-arrow">→</div>${combatant(u, main.def, after)}</div>
-      ${big}${offensive ? '<div class="tac-forecast-note">HP nach Treffer · jeder Schlag würfelt einzeln</div>' : ''}
-      ${mods ? `<div class="tac-chips">${mods}</div>` : ''}${pushLine}${others}`;
     c.classList.remove('hidden');
   }
 
   // ------------------------------------------------------------ action menu
   menu(m: MenuModel | null): void {
     const e = this.els.menu;
+    this.root.classList.toggle('choosing', !!m && (!!m.targeting || m.moveOn));
     if (!m) { e.classList.add('hidden'); this.lastMenu = ''; this.hideTip(); return; }
     const sig = JSON.stringify([m.targeting, m.canMove, m.canAct, m.canUndo, m.moveOn, m.actOpen, m.selected, m.abilities.map(a => [a.def.id, a.usable, a.cooldown])]);
     const r = this.root.getBoundingClientRect();
@@ -523,7 +557,7 @@ export class BattleUi {
       const sub = m.actOpen ? `<div class="sub">${m.abilities.map((a, i) => `<button type="button" data-ab="${a.def.id}" class="${a.def.kind === 'magic' || a.def.vfx === 'ward' ? 'magic' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>${abilityIcon(a.def.vfx)}<span>${esc(a.def.name)}</span><kbd>${a.cooldown > 0 ? `⧗${a.cooldown}` : i + 1}</kbd></button>`).join('')}</div>` : '';
       e.innerHTML = btn('move', ICONS.move, 'Bewegen', 'M', m.canMove, m.moveOn) + btn('act', ICONS.act, 'Handeln', '1–4', m.canAct, m.actOpen) + sub +
         btn('wait', ICONS.wait, 'Warten', 'F', true) + (m.canUndo ? btn('undo', ICONS.undo, 'Rückgängig', 'Z', true) : '');
-      if (m.targeting) e.innerHTML = `<div class="tac-target-name">${esc(m.abilities.find(a => a.def.id === m.selected)?.def.name ?? 'Ziel wählen')}</div>` + btn('back', ICONS.undo, 'Abbrechen', 'Esc', true);
+      if (m.targeting || m.moveOn) e.innerHTML = `<div class="tac-target-name">${m.moveOn ? 'Bewegung wählen' : esc(m.abilities.find(a => a.def.id === m.selected)?.def.name ?? 'Ziel wählen')}</div>` + btn('back', ICONS.undo, 'Abbrechen', 'Esc', true);
       e.querySelectorAll<HTMLButtonElement>('button[data-m]').forEach(b => b.addEventListener('click', ev => {
         ev.stopPropagation();
         const id = b.dataset.m;
@@ -538,8 +572,8 @@ export class BattleUi {
       });
     }
     e.classList.remove('hidden');
-    e.classList.toggle('targeting', !!m.targeting);
-    if (m.targeting) {
+    e.classList.toggle('targeting', !!m.targeting || m.moveOn);
+    if (m.targeting || m.moveOn) {
       e.style.left = 'auto'; e.style.right = '.8em'; e.style.top = 'var(--tac-target-top)';
       return;
     }

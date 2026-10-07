@@ -4,7 +4,10 @@
 // eye lost; staged tastefully). Back to the three: Flick will take them to the rebels, Kyra is thrilled, Lia sighs and
 // hesitates (Foltan). They walk off together under Crios. Book-style credits „Ende des ersten Buches“, then back to the title.
 import { G } from '../../core/G';
+import { findScene } from '../../core/registry';
+import type { ChoiceOption } from '../../ui/api';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
+import { BOOK2, continueToBook2 } from '../common/bookContract';
 import { ambience, lia, sfx, ui } from './common';
 import { showCredits } from './credits';
 import { FIRE_AT, LAGER_BLOCK, LAGER_HIDING, LAGER_OCCLUDERS, LAGER_SURFACES, LAGER_WALK } from './lagerGeom';
@@ -247,28 +250,51 @@ async function scorchRing(w: WorldCtx): Promise<void> {
   G.state.addLore('k5-lore-tuerkis');
 }
 
+/** Worlds whose departure choice is currently open (the trigger may fire again while the dialogue runs). */
+const departing = new WeakSet<WorldCtx>();
+
 async function departure(w: WorldCtx): Promise<void> {
-  if (G.state.is('k5-ende')) return;
-  G.state.set('k5-ende');
-  w.lockPlayer();
-  G.state.complete('k5-aufbruch');
-  ui().prefetchPlate('k5-aufbruch');
-  await G.ui.fade('out', 900);
-  await G.ui.plate('k5-aufbruch', { caption: 'Drei unter Crios', pan: 'in', durationMs: 22000 });
-  await G.ui.fade('in', 900);
-  await w.say('narrator', 'Sie gingen zu dritt über die nächtlichen Felder. Kyra redete, Flick horchte in den Wind. Im Westen stand Crios, wie immer.');
-  await w.say('narrator', 'Ein treuer Gefährte, hatte Lia sich gewünscht. Jetzt hatte sie zwei.');
-  await w.say('narrator', 'Und tief in Lia schlief etwas ~Türkises~. Es hatte Zeit.');
-  await G.ui.closePlate();
-  await G.ui.fade('out', 1000);
-  G.audio.music('refuge', { fadeMs: 1500 });
-  await G.ui.fade('in', 500);
-  const next = await w.choose(['Das erste Buch abschließen.', 'Mit Kyra und Flick weiterreisen.']);
-  await G.ui.fade('out', 500);
-  if (next === 1) { await G.goto('weiterreise'); return; }
-  await showCredits();
-  const m = await import('../../scenes/BootScene');
-  await m.showTitle();
+  if (departing.has(w)) return;
+  departing.add(w);
+  try {
+    w.lockPlayer();
+    // Saves that already reached the end of book one (k5-ende) skip the closing tableau and get the choice again.
+    if (!G.state.is('k5-ende')) {
+      G.state.set('k5-ende');
+      G.state.complete('k5-aufbruch');
+      ui().prefetchPlate('k5-aufbruch');
+      await G.ui.fade('out', 900);
+      await G.ui.plate('k5-aufbruch', { caption: 'Drei unter Crios', pan: 'in', durationMs: 22000 });
+      await G.ui.fade('in', 900);
+      await w.say('narrator', 'Sie gingen zu dritt über die nächtlichen Felder. Kyra redete, Flick horchte in den Wind. Im Westen stand Crios, wie immer.');
+      await w.say('narrator', 'Ein treuer Gefährte, hatte Lia sich gewünscht. Jetzt hatte sie zwei.');
+      await w.say('narrator', 'Und tief in Lia schlief etwas ~Türkises~. Es hatte Zeit.');
+      await G.ui.closePlate();
+      await G.ui.fade('out', 1000);
+      G.audio.music('refuge', { fadeMs: 1500 });
+      await G.ui.fade('in', 500);
+    }
+    const next = await w.choose([...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]);
+    if (next === 3) { await G.ui.fade('in', 300); w.unlockPlayer(); return; }
+    await G.ui.fade('out', 500);
+    if (next === 1) { await G.goto('weiterreise'); return; }
+    if (next === 2) { await continueToBook2(); return; }
+    await showCredits();
+    const m = await import('../../scenes/BootScene');
+    await m.showTitle();
+  } finally {
+    departing.delete(w);
+  }
+}
+
+/** The three ways out of book one: credits, optional travel, or the explicit continuation into Teil II. */
+export function bookOneEndChoices(): ChoiceOption[] {
+  const book2 = Boolean(findScene(BOOK2.entry));
+  return [
+    { text: 'Das erste Buch abschließen.' },
+    { text: 'Mit Kyra und Flick weiterreisen.' },
+    { text: 'Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.', disabled: !book2, reason: book2 ? undefined : 'Noch nicht verfügbar.' },
+  ];
 }
 
 export async function finaleScript(w: WorldCtx): Promise<void> {

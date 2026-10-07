@@ -185,6 +185,8 @@ async function playPhase(page: Page, ids: string[]): Promise<void> {
       await cursorTo(page, plan.action.target);
       await page.keyboard.press('Enter');
       await page.waitForTimeout(500);
+      const confirm = page.locator('.tac-confirm-target:enabled');
+      if (await confirm.isVisible()) await confirm.click();
       await settle(page);
     }
     const done = await page.evaluate(id => { const b = (window as Win).__tactics.ctrl.battle; const u = b.findUnit(id); return !u || u.down || b.isDone(id); }, id);
@@ -192,6 +194,8 @@ async function playPhase(page: Page, ids: string[]): Promise<void> {
   }
   const st = await settle(page);
   if (st && !st.out && st.input) { await page.keyboard.press(' '); await page.waitForTimeout(300); }
+  const facing = page.locator('.tac-confirm-facing');
+  if (await facing.isVisible()) { await facing.click(); await page.waitForTimeout(300); }
 }
 
 // ------------------------------------------------------------------------------------------------ tests

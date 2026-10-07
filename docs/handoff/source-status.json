@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "client_date": "2026-10-07",
+  "client_timezone": "Europe/Berlin",
+  "verified_at_utc": "2026-10-07T11:01:18+00:00",
+  "method": "Public yt-dlp download without cookies or credentials; muxed full 720p MP4 with audio; ffprobe and ffmpeg decode checks.",
+  "sources": [
+    {
+      "part": 2,
+      "public_source_url": "https://www.youtube.com/watch?v=XUZV9T7fEsE",
+      "title": "Die Chroniken von Selantis - Letzte Hoffnung",
+      "title_provenance": "existing YouTube info metadata",
+      "local_path": "sources/videos/02-XUZV9T7fEsE.mp4",
+      "raw_available": true,
+      "restored_date": "2026-10-07",
+      "duration_seconds": 2600.007982,
+      "bytes": 582111217,
+      "sha256": "b2a8de1660cf2f90f34781f714a28a36ea914a90191bc67e8de325d196e98dfb",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": {
+        "codec": "aac",
+        "channels": 2
+      },
+      "readable_frame_checks": [
+        {
+          "timestamp_seconds": 5.0,
+          "decoded": true
+        },
+        {
+          "timestamp_seconds": 1300.004,
+          "decoded": true
+        },
+        {
+          "timestamp_seconds": 2585.008,
+          "decoded": true
+        }
+      ],
+      "validation_scope": "Container, audio/video streams and three decoded video frames; full film not watched in this restoration.",
+      "fallback_materials": {
+        "transcript_txt": "sources/transcripts/02-XUZV9T7fEsE.txt",
+        "transcript_json": "sources/transcripts/02-XUZV9T7fEsE.json",
+        "existing_audio_wav": "sources/audio/02-XUZV9T7fEsE.wav",
+        "reference_frames_directory": "sources/frames"
+      }
+    },
+    {
+      "part": 3,
+      "public_source_url": "https://www.youtube.com/watch?v=c9oV3Lh2Lyw",
+      "title": "Die Chroniken von Selantis - Falscher Glaube",
+      "title_provenance": "existing YouTube info metadata",
+      "local_path": "sources/videos/03-c9oV3Lh2Lyw.mp4",
+      "raw_available": true,
+      "restored_date": "2026-10-07",
+      "duration_seconds": 3126.845533,
+      "bytes": 669155790,
+      "sha256": "6a556e3c03ec34ccc56aea36cb6351044f5fc4ce3b6beebb7b0d20ea691d6603",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": {
+        "codec": "aac",
+        "channels": 2
+      },
+      "readable_frame_checks": [
+        {
+          "timestamp_seconds": 5.0,
+          "decoded": true
+        },
+        {
+          "timestamp_seconds": 1563.423,
+          "decoded": true
+        },
+        {
+          "timestamp_seconds": 3111.846,
+          "decoded": true
+        }
+      ],
+      "validation_scope": "Container, audio/video streams and three decoded video frames; full film not watched in this restoration.",
+      "fallback_materials": {
+        "transcript_txt": "sources/transcripts/03-c9oV3Lh2Lyw.txt",
+        "transcript_json": "sources/transcripts/03-c9oV3Lh2Lyw.json",
+        "existing_audio_wav": null,
+        "reference_frames_directory": "sources/frames"
+      }
+    }
+  ]
+}

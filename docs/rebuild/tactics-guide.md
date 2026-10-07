@@ -50,7 +50,7 @@ Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spa
 - **Waffen und MP:** `weapon` und `weapons` setzen Ausrüstung und Wechselmöglichkeiten. Ohne Angaben ergibt sich die Startausrüstung aus den Fähigkeiten. Wechsel ist vor Bewegung/Aktion im eigenen Zug möglich. Gemeisterte Fähigkeiten bleiben ohne die ursprüngliche Waffe verfügbar. `mpCost` kostet MP pro Aktion, 2 MP regenerieren am Beginn des eigenen Zuges. `mp`, `maxMp`, `level` und `exp` können an `BattleUnitDef` gesetzt werden.
 - **Bewegung:** `move` Punkte; Klettern um mehr als 1 Stufe kostet +1 je Stufe; höchstens `jump` Stufen hinauf, `jump + 1` hinab. Verbündete kann man durchqueren, Feinde nicht.
 - **Treffer:** Chance = Genauigkeit ± 5 % je Höhenstufe (max. ±3) + Seite +10 / Rücken +20 − Deckung 30 − Ausweichen 45. Schaden = Stärke + Angriff − Rüstung, × Seite 1,25 / Rücken 1,5 × Höhe ±10 % je Stufe × Schutzwall 0,5.
-- **Blickrichtung** folgt automatisch der letzten Bewegung/Aktion (Pfeil unter jeder Figur).
+- **Blickrichtung** folgt während des Zugs der Bewegung/Aktion. Vor dem Zugende wählt der Spieler sie mit den Richtungsknöpfen oder Pfeiltasten und bestätigt mit Enter (Pfeil unter jeder Figur).
 - **Wegstoßen:** Aufprall an Hindernis, Kante oder Rand 3 Schaden (die getroffene Einheit 2); Sturz 4 Schaden je Stufe ab der zweiten; Wasser dämpft Stürze. Schutzwall verhindert Stoßen.
 - **Fernkampf:** braucht freie Schusslinie; `heightRange` gibt +1 Reichweite je 2 Stufen Höhenvorteil.
 - **Status:** `guarded` (Schutzwall), `stunned`, `taunt` (Ablenken: Feinde gehen auf sie los), `evasive`, `bound` (gefesselt, unangreifbar, befreibar durch `befreien`), `burning`.
@@ -101,7 +101,7 @@ Alle Hooks sind async und halten den Kampf an, bis sie fertig sind: `onStart`, `
 
 ## Steuerung (für Texte/Hinweise)
 
-Maus: Einheit anklicken, blaues Feld anklicken (Pfadvorschau beim Überfahren), Fähigkeit wählen, Ziel anklicken; Rechtsklick = zurück; Ziehen = Kamera; Mausrad = Zoom (×2, zum Mauszeiger hin). Tastatur: Pfeile/WASD Cursor, Enter/E bestätigen, Rücktaste oder Esc zurück (Esc bricht zuerst Zielwahl/Auswahl ab und öffnet erst danach das Menü), 1–9 Fähigkeiten, Tab nächste Einheit, Leertaste „Zug beenden“, Z Rückgängig, F Warten, M Bewegen, Q/R Ansicht drehen. Touch: Tippen = Auswahl/Vorschau, zweites Tippen = bestätigen.
+Maus: Einheit anklicken, Bewegen wählen, blaues Feld anklicken (Pfadvorschau beim Überfahren), Fähigkeit wählen, Ziel anklicken. Die Vorschau zeigt jede betroffene Figur mit HP, MP, Level, Exp, Schaden und Trefferchance. Erst ein zweiter Klick auf dasselbe Ziel, der Bestätigen-Knopf oder Enter führt die Aktion aus. Ein anderes Ziel ersetzt die Vorschau. Rechtsklick = zurück; Ziehen = Kamera; Mausrad = Zoom (×2, zum Mauszeiger hin). Tastatur: Pfeile/WASD Cursor, Enter/E bestätigen, Rücktaste oder Esc zurück (Esc bricht zuerst die Vorschau, dann Zielwahl/Auswahl ab und öffnet erst danach das Menü), 1–9 Fähigkeiten, Tab nächste Einheit, Leertaste „Zug beenden“, Z Rückgängig, F Warten, M Bewegen, Q/R Ansicht drehen. Zug beenden und Warten öffnen zuerst die Wahl der Blickrichtung. Touch: Tippen = Auswahl/Vorschau, zweites Tippen oder Bestätigen führt aus.
 
 ## Vollständiges Beispiel
 

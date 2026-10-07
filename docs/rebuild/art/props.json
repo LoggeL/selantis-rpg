@@ -26,6 +26,58 @@
       "attempts": 1,
       "time": "2026-10-05T02:34:45"
     },
+    "output/imagegen/raw/art/props/k2-gauklerwagen.png": {
+      "kind": "",
+      "id": "",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a travelling performers' covered wagon (a small medieval caravan for jugglers and minstrels) with a rounded canvas roof in faded red and mustard-yellow stripes, painted wooden sides decorated with simple suns and stars, four big wooden spoked wheels, a small door at the back with a tiny wooden step, a string of small colourful cloth pennants along the roof edge, wooden shafts resting on the ground, no horse, the long side faces the viewer\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 42,
+      "attempts": 1,
+      "time": "2026-10-05T05:58:41",
+      "note": "nachgetragen aus output/imagegen/log.jsonl"
+    },
+    "output/imagegen/raw/art/props/k2-haendlerkarren.png": {
+      "kind": "",
+      "id": "",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a merchant's sturdy two-wheeled wooden cart loaded high with tied cloth bundles, a small barrel, wooden crates and sacks, partly covered with a brown canvas tarp tied down with ropes, two long wooden shafts resting on the ground at the front, no horse, the long side faces the viewer\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-05T06:09:53",
+      "note": "nachgetragen aus output/imagegen/log.jsonl"
+    },
+    "output/imagegen/raw/art/props/k2-pfanne.png": {
+      "kind": "",
+      "id": "",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a small black cast-iron frying pan with four fried quail eggs and two strips of crispy bacon in it, resting on three small stones\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-05T06:09:54",
+      "note": "nachgetragen aus output/imagegen/log.jsonl"
+    },
+    "output/imagegen/raw/art/props/k2-speikraut.png": {
+      "kind": "",
+      "id": "",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: a small low clump of a wild meadow herb (spignel) with very fine feathery thread-like green leaves and a few tiny white flower umbels on thin stems, growing from a little patch of moss\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 41,
+      "attempts": 1,
+      "time": "2026-10-05T06:22:02",
+      "note": "nachgetragen aus output/imagegen/log.jsonl"
+    },
     "output/imagegen/raw/art/props/oak-tree.png": {
       "kind": "prop",
       "id": "oak-tree",

@@ -8,7 +8,7 @@ import { settings } from '../core/settings';
 import { GAME_H, GAME_W, canvasRect } from '../core/viewport';
 import type { BattleActor, BattleResult, HintOptions, TacticsStartData } from './api';
 import { BattleController, type Presenter } from './controller';
-import { key, TERRAIN } from './rules/grid';
+import { directionTo, key, TERRAIN } from './rules/grid';
 import { pathTo } from './rules/movement';
 import { WEAPONS, skillAvailable } from './rules/progression';
 import { surviveProgress } from './rules/objectives';
@@ -25,7 +25,7 @@ import { ensureTacticsTextures } from './view/textures';
 import { characterIdsOf, UnitView } from './view/units';
 import { playMagicBurst } from './view/magicBurst';
 
-type Mode = 'none' | 'move' | 'target';
+type Mode = 'none' | 'move' | 'target' | 'facing';
 interface PropView { img: Phaser.GameObjects.Sprite | Phaser.GameObjects.Image; x: number; y: number; info: IsoProp; glow?: Phaser.GameObjects.Image; baseDepth: number; rules: boolean }
 
 const PAINT: Record<string, Surface> = { g: 'grass', y: 'drygrass', f: 'forest', d: 'dirt', s: 'stone', a: 'sand', m: 'mud' };
@@ -64,7 +64,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private lastAct: Extract<BattleEvent, { type: 'act' }> | null = null;
   private hintTarget: { unit?: string; tile?: Point } | null = null;
   private waterFrame = 0;
-  private autoEndTimer: Phaser.Time.TimerEvent | null = null;
+  private endFacing: Facing | null = null;
+  private beforeFacing: { mode: Mode; actOpen: boolean; ability: string | null; pending: Point | null } | null = null;
   private keyHandler?: (e: KeyboardEvent) => void;
   private finished = false;
   private tableauActive = false;
@@ -77,6 +78,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.sel = { unit: null, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null };
     this.hover = null; this.drag = null; this.animating = 0; this.beamHandle = null; this.lastAct = null; this.hintTarget = null; this.finished = false;
     this.tableauActive = false;
+    this.hoverAbility = null; this.endFacing = null; this.beforeFacing = null;
   }
 
   private ready = false;
@@ -143,6 +145,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
         void this.ctrl.perform(() => this.ctrl.battle.equip(id, weapon)).then(() => { if (!this.ctrl.isEnded) this.select(id, true); });
       },
       back: () => { this.back(); },
+      confirmTarget: () => this.confirmTarget(),
+      face: facing => this.chooseFacing(facing),
+      confirmFacing: () => { void this.confirmFacing(); },
     });
     this.ui.mount(document.getElementById('ui')!);
     this.ui.setObjective(this.ctrl.objectiveText, this.ctrl.objectiveDetail, surviveProgress(this.ctrl.battle, def.objective.win));
@@ -165,7 +170,6 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.ui?.destroy();
     if (this.keyHandler) window.removeEventListener('keydown', this.keyHandler);
     (G.ui as UiApiExt).setEscapeHandler?.(null);
-    this.autoEndTimer?.remove();
     this.input.removeAllListeners();
   }
 
@@ -304,6 +308,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       else if (center && this.views.size) { const c = this.iso.center(center.x, center.y, this.ctrl.battle.grid.height(center.x, center.y)); cam.centerOn((cam.midPoint.x + c.x) / 2, (cam.midPoint.y + c.y) / 2); }
       this.refreshOverlays();
       this.updateCursor();
+      this.refreshPanels();
       cam.fadeIn(140, 7, 8, 12);
     });
   }
@@ -354,6 +359,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const b = this.ctrl.battle;
     const s = this.sel;
     this.clearOverlay('range'); this.clearOverlay('aoe'); this.clearOverlay('path'); this.clearOverlay('danger');
+    this.showPathSteps([]);
+    if (s.mode === 'facing') return;
     const ability = s.mode === 'target' ? s.ability : this.hoverAbility;
     if (s.unit && ability && this.ctrl.inputEnabled()) {
       const a = b.ability(ability);
@@ -361,7 +368,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       const tex = a.kind === 'magic' || a.vfx === 'ward' ? 'tac-ov-magic' : a.target === 'ally' ? 'tac-ov-ally' : 'tac-ov-act';
       this.setOverlay('range', cells, s.mode === 'target' ? tex : 'tac-ov-move-dim');
       if (s.mode === 'target') {
-        const tgt = s.pending ?? this.hover;
+        const tgt = s.pending ?? this.actionTarget(this.hover);
         const inRange = tgt && cells.some(c => c.x === tgt.x && c.y === tgt.y);
         if (tgt && inRange) this.setOverlay('aoe', b.affectedCells(s.unit, ability, tgt), b.validTarget(s.unit, ability, tgt) ? 'tac-ov-aoe' : 'tac-ov-hover', 3);
       }
@@ -502,13 +509,20 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private onKey(e: KeyboardEvent): void {
     if (!this.scene.isActive()) return;
     const k = e.key;
-    if (this.ui.hintOpenWithButton() && (k === 'Enter' || k === ' ' || k === 'e' || k === 'E')) { e.preventDefault(); this.ui.confirmHint(); return; }
+    if (this.sel.mode !== 'facing' && this.ui.hintOpenWithButton() && (k === 'Enter' || k === ' ' || k === 'e' || k === 'E')) { e.preventDefault(); this.ui.confirmHint(); return; }
     if (this.finished || this.ctrl.isEnded) { if (k === 'Enter' || k === ' ' || k === 'e' || k === 'E') { e.preventDefault(); this.ui.confirmOutcome(); } return; }
     if (this.tableauActive) return;
     if (inputLock.locked || G.ui.busy()) return;
     const dirs: Record<string, 'up' | 'down' | 'left' | 'right'> = { ArrowUp: 'up', w: 'up', W: 'up', ArrowDown: 'down', s: 'down', S: 'down', ArrowLeft: 'left', a: 'left', A: 'left', ArrowRight: 'right', d: 'right', D: 'right' };
     if (k === 'q' || k === 'Q') { this.rotate(-1); return; }
     if (k === 'r' || k === 'R') { this.rotate(1); return; }
+    if (this.sel.mode === 'facing' && this.ctrl.inputEnabled()) {
+      if (dirs[k]) { e.preventDefault(); this.chooseFacing(this.iso.facingForScreen(dirs[k])); return; }
+      if (k === 'Enter' || k === 'e' || k === 'E' || k === ' ') { e.preventDefault(); void this.confirmFacing(); return; }
+      if (k === 'Backspace') { e.preventDefault(); this.back(); return; }
+      // Other action keys cannot replace the final direction choice.
+      return;
+    }
     if (dirs[k]) {
       e.preventDefault();
       const f = this.iso.facingForScreen(dirs[k]);
@@ -519,7 +533,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       return;
     }
     if (!this.ctrl.inputEnabled()) return;
-    if (k === 'Enter' || k === 'e' || k === 'E') { e.preventDefault(); if (this.hover) this.click(this.hover, false); return; }
+    if (k === 'Enter' || k === 'e' || k === 'E') { e.preventDefault(); if (this.sel.mode === 'target' && this.sel.pending) this.confirmTarget(); else if (this.hover) this.click(this.hover, false); return; }
     if (k === ' ') { e.preventDefault(); this.requestEndTurn(); return; }
     if (k === 'Tab') { e.preventDefault(); this.cycleUnit(e.shiftKey ? -1 : 1); return; }
     if (k === 'Backspace') { e.preventDefault(); if (this.sel.mode === 'target' || this.sel.pending || this.sel.inspect || !this.sel.unit || !this.ctrl.battle.canUndo(this.sel.unit)) this.back(); else this.undo(); return; }
@@ -539,7 +553,6 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (changed) {
       if (t && this.ctrl.inputEnabled()) G.audio.sfx('ui-move', { volume: 0.18, key: 'tac-cursor' });
       if (fromKeyboard && t) void this.ensureVisible(t);
-      if (!this.sel.pending || !t || t.x !== this.sel.pending.x || t.y !== this.sel.pending.y) this.sel.pending = this.sel.pending && t ? this.sel.pending : this.sel.pending;
     }
     this.updateCursor();
     this.refreshOverlays();
@@ -620,12 +633,13 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private select(id: string | null, silent = false): void {
     const b = this.ctrl.battle;
     if (this.sel.unit) { const v = this.views.get(this.sel.unit); if (v) v.selected = false; }
+    this.hoverAbility = null;
+    this.endFacing = null; this.beforeFacing = null;
     this.sel = { unit: id, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null };
     if (id) {
       const u = b.unit(id);
       const v = this.views.get(id);
       if (v) v.selected = true;
-      this.sel.mode = b.canMove(id) ? 'move' : 'none';
       this.sel.actOpen = !b.canMove(id) && b.canAct(id);
       if (!silent) { G.audio.sfx('ui-confirm', { volume: 0.5 }); this.ctrl.signal({ type: 'select', unit: id }); }
       void this.ensureVisible(u);
@@ -647,21 +661,28 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (!t) { if (s.mode === 'target') this.back(); return; }
     const occupant = b.unitAt(t.x, t.y);
 
+    if (s.unit && s.mode === 'facing') {
+      const u = b.unit(s.unit);
+      if (u.x !== t.x || u.y !== t.y) this.chooseFacing(directionTo(u, t));
+      return;
+    }
+
     if (s.unit && s.mode === 'target' && s.ability) {
       const a = b.ability(s.ability);
       const ownOther = occupant && this.controllable(occupant) && occupant.id !== s.unit && !b.isDone(occupant.id);
       if (ownOther && a.target !== 'ally' && a.target !== 'any') { this.select(occupant!.id); return; }
-      if (b.validTarget(s.unit, s.ability, t)) {
-        if (touch && (!s.pending || s.pending.x !== t.x || s.pending.y !== t.y)) { s.pending = { ...t }; this.refresh(); return; }
-        void this.doAct(s.unit, s.ability, t);
+      const target = this.actionTarget(t)!;
+      if (b.validTarget(s.unit, s.ability, target)) {
+        if (!s.pending || s.pending.x !== target.x || s.pending.y !== target.y) { s.pending = { ...target }; this.refresh(); return; }
+        this.confirmTarget();
         return;
       }
       if (ownOther) { this.select(occupant!.id); return; }
-      this.back();
+      G.audio.sfx('ui-cancel', { volume: 0.3 });
       return;
     }
     if (occupant && this.controllable(occupant) && !b.isDone(occupant.id)) {
-      if (occupant.id === s.unit) { this.sel.actOpen = !this.sel.actOpen; this.refresh(); return; }
+      if (occupant.id === s.unit) { this.refresh(); return; }
       this.select(occupant.id);
       return;
     }
@@ -673,6 +694,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
         void this.doMove(s.unit, t);
         return;
       }
+      if (!occupant) { G.audio.sfx('ui-cancel', { volume: 0.3 }); return; }
     }
     if (occupant && !this.controllable(occupant)) {
       this.sel.inspect = this.sel.inspect === occupant.id ? null : occupant.id;
@@ -687,6 +709,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
 
   private clickUnitFromUi(id: string): void {
+    if (this.sel.mode === 'facing') return;
     const u = this.ctrl.battle.findUnit(id);
     if (!u) return;
     if (this.controllable(u) && !this.ctrl.battle.isDone(id) && this.ctrl.inputEnabled()) this.select(id);
@@ -698,10 +721,18 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   /** Steps back one level (pending action → targeting → inspect → selection). False when there was nothing to undo. */
   private back(): boolean {
     const s = this.sel;
+    if (s.mode === 'facing' && s.unit) {
+      this.views.get(s.unit)?.setFacing(this.ctrl.battle.unit(s.unit).facing);
+      s.mode = this.beforeFacing?.mode ?? 'none'; s.actOpen = this.beforeFacing?.actOpen ?? false;
+      s.ability = this.beforeFacing?.ability ?? null; s.pending = this.beforeFacing?.pending ?? null;
+      this.endFacing = null; this.beforeFacing = null;
+      this.refresh(); return true;
+    }
     if (s.pending) { s.pending = null; this.refresh(); return true; }
+    if (s.mode === 'move') { s.mode = 'none'; this.refresh(); return true; }
     if (s.mode === 'target') {
       G.audio.sfx('ui-cancel', { volume: 0.4 });
-      s.mode = s.unit && this.ctrl.battle.canMove(s.unit) ? 'move' : 'none';
+      s.mode = 'none';
       s.ability = null;
       s.actOpen = true;
       this.refresh();
@@ -716,7 +747,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const s = this.sel;
     if (!s.unit || !this.ctrl.inputEnabled()) return;
     if (!this.ctrl.battle.canMove(s.unit)) return;
-    s.mode = s.mode === 'move' ? 'none' : 'move';
+    if (s.mode === 'facing') return;
+    s.mode = 'move';
+    this.hoverAbility = null;
     s.ability = null; s.actOpen = false; s.pending = null;
     G.audio.sfx('ui-move', { volume: 0.35 });
     this.refresh();
@@ -725,8 +758,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private toggleActMenu(): void {
     const s = this.sel;
     if (!s.unit || !this.ctrl.inputEnabled() || !this.ctrl.battle.canAct(s.unit)) return;
+    if (s.mode === 'facing') return;
     s.actOpen = !s.actOpen;
-    if (s.mode === 'target') { s.mode = this.ctrl.battle.canMove(s.unit) ? 'move' : 'none'; s.ability = null; }
+    s.mode = 'none'; s.ability = null; s.pending = null; this.hoverAbility = null;
     G.audio.sfx('ui-move', { volume: 0.35 });
     this.refresh();
   }
@@ -734,18 +768,36 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private chooseAbility(id: string): void {
     const s = this.sel;
     const b = this.ctrl.battle;
-    if (!s.unit || !this.ctrl.inputEnabled()) return;
+    if (!s.unit || !this.ctrl.inputEnabled() || s.mode === 'facing') return;
     const u = b.unit(s.unit);
     if (!b.canAct(s.unit) || !b.abilityReady(u, id)) { G.audio.sfx('ui-cancel', { volume: 0.3 }); return; }
     if (s.mode === 'target' && s.ability === id) { this.back(); return; }
     const a = b.ability(id);
-    // Self abilities fire immediately (with a confirm step for touch via the menu).
-    if (a.target === 'self' && a.shape.type === 'self') { void this.doAct(s.unit, id, { x: u.x, y: u.y }); return; }
     s.mode = 'target'; s.ability = id; s.pending = null;
+    this.hoverAbility = null;
     G.audio.sfx('ui-confirm', { volume: 0.45 });
-    // Ring abilities target the caster's own tile: preview right away.
-    if (a.shape.type === 'ring') { this.hover = { x: u.x, y: u.y }; this.updateCursor(); }
+    // Self and ring ranges are centred on the caster.
+    if (a.shape.type === 'ring' || a.shape.type === 'self') {
+      this.hover = { x: u.x, y: u.y }; this.updateCursor();
+      if (a.shape.type === 'self') s.pending = { ...this.hover };
+    }
     this.refresh();
+  }
+
+  /** A ring is centred on its caster, but any affected figure can be clicked to select it. */
+  private actionTarget(point: Point | null): Point | null {
+    const s = this.sel;
+    if (!point || !s.unit || !s.ability) return point;
+    const b = this.ctrl.battle, u = b.unit(s.unit), a = b.ability(s.ability);
+    if (a.shape.type === 'ring' && b.affectedCells(u.id, a.id, u).some(c => c.x === point.x && c.y === point.y)) return { x: u.x, y: u.y };
+    return point;
+  }
+
+  private confirmTarget(): void {
+    const s = this.sel, b = this.ctrl.battle;
+    if (!this.ctrl.inputEnabled() || this.animating || inputLock.locked || G.ui.busy() || s.mode !== 'target' || !s.unit || !s.ability || !s.pending) return;
+    if (!b.canAct(s.unit) || !b.abilityReady(b.unit(s.unit), s.ability) || !b.validTarget(s.unit, s.ability, s.pending)) return;
+    void this.doAct(s.unit, s.ability, { ...s.pending });
   }
 
   private cycleUnit(dir: number): void {
@@ -760,7 +812,36 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
 
   private requestEndTurn(): void {
     if (!this.ctrl.inputEnabled() || this.animating > 0) return;
-    this.autoEndTimer?.remove();
+    if (this.sel.mode === 'facing') { void this.confirmFacing(); return; }
+    const u = this.ctrl.battle.findUnit(this.ctrl.battle.activeUnit ?? '');
+    if (this.controllable(u)) this.beginFacing(u!.id);
+    else this.ctrl.endTurn();
+  }
+
+  private beginFacing(id: string): void {
+    if (this.sel.unit !== id) this.select(id, true);
+    this.beforeFacing = this.ctrl.battle.isDone(id)
+      ? { mode: 'none', actOpen: false, ability: null, pending: null }
+      : { mode: this.sel.mode, actOpen: this.sel.actOpen, ability: this.sel.ability, pending: this.sel.pending };
+    this.sel.mode = 'facing'; this.sel.ability = null; this.sel.pending = null; this.sel.inspect = null;
+    this.hoverAbility = null;
+    this.endFacing = this.ctrl.battle.unit(id).facing;
+    this.refresh();
+  }
+
+  private chooseFacing(facing: Facing): void {
+    if (!this.ctrl.inputEnabled() || this.sel.mode !== 'facing' || !this.sel.unit) return;
+    this.endFacing = facing;
+    this.views.get(this.sel.unit)?.setFacing(facing);
+    this.refreshPanels();
+  }
+
+  private async confirmFacing(): Promise<void> {
+    const id = this.sel.unit, facing = this.endFacing;
+    if (!id || !facing || this.sel.mode !== 'facing' || !this.ctrl.inputEnabled() || inputLock.locked || G.ui.busy()) return;
+    const done = await this.ctrl.perform(() => [...this.ctrl.battle.face(id, facing), ...this.ctrl.battle.wait(id)]);
+    if (!done || this.ctrl.isEnded) return;
+    this.ctrl.signal({ type: 'wait', unit: id });
     G.audio.sfx('page', { volume: 0.6 });
     this.select(null, true);
     this.ctrl.endTurn();
@@ -780,18 +861,15 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private waitUnit(): void {
     const s = this.sel;
     if (!s.unit || !this.ctrl.inputEnabled()) return;
-    const id = s.unit;
-    void this.ctrl.perform(() => this.ctrl.battle.wait(id)).then(() => {
-      this.ctrl.signal({ type: 'wait', unit: id });
-      this.afterUnitAction(id);
-    });
+    if (s.mode !== 'facing') this.beginFacing(s.unit);
   }
 
   private async doMove(id: string, to: Point): Promise<void> {
     this.sel.pending = null;
     this.clearOverlay('range'); this.clearOverlay('path'); this.showPathSteps([]);
     this.ui.menu(null);
-    await this.ctrl.perform(() => this.ctrl.battle.move(id, to));
+    const moved = await this.ctrl.perform(() => this.ctrl.battle.move(id, to));
+    if (!moved) return;
     this.ctrl.signal({ type: 'move', unit: id });
     if (this.ctrl.isEnded) return;
     const b = this.ctrl.battle;
@@ -808,13 +886,14 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.sel.pending = null;
     this.clearOverlay('range'); this.clearOverlay('aoe');
     this.ui.menu(null); this.ui.previewCard(null);
-    await this.ctrl.perform(() => this.ctrl.battle.act(id, ability, target));
+    const acted = await this.ctrl.perform(() => this.ctrl.battle.act(id, ability, target));
+    if (!acted) return;
     this.ctrl.signal({ type: 'act', unit: id, ability });
     if (this.ctrl.isEnded) return;
     this.afterUnitAction(id);
   }
 
-  /** After a unit acted/waited: keep it selected if it can still move, else pick the next one. */
+  /** A completed turn stays open until the player chooses the unit's final facing. */
   private afterUnitAction(id: string): void {
     const b = this.ctrl.battle;
     if (!this.ctrl.inputEnabled() && !this.ctrl.isEnded && b.phase !== 'player') return;
@@ -823,12 +902,11 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       this.select(id, true);
       return;
     }
+    if (u && this.controllable(u)) { this.beginFacing(id); return; }
     const next = b.units.find(o => this.controllable(o) && !b.isDone(o.id));
     if (next) { this.select(next.id, true); this.setHover({ x: next.x, y: next.y }); return; }
     this.select(null, true);
-    // Everyone is done: end the turn after a short beat (the button pulses meanwhile).
-    this.autoEndTimer?.remove();
-    this.autoEndTimer = this.time.delayedCall(700, () => { if (this.ctrl.inputEnabled() && !this.ctrl.battle.pending().length) this.requestEndTurn(); });
+    if (this.ctrl.inputEnabled()) this.ctrl.endTurn();
   }
 
   // =================================================================== panels
@@ -839,7 +917,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.ui.setOrder(this.ctrl.turnOrder(), this.ctrl.unitDefs, b.phase, () => false, b.activeUnit);
     this.ui.setObjective(this.ctrl.objectiveText, this.ctrl.objectiveDetail, surviveProgress(b, this.startData.battle.objective.win));
     const enabled = this.ctrl.inputEnabled();
-    this.ui.setEndTurn(enabled, enabled && b.pending().length === 0);
+    this.ui.setEndTurn(enabled && this.sel.mode !== 'facing', enabled && b.pending().length === 0);
     this.refreshOverlays();
     this.refreshPanels();
   }
@@ -869,6 +947,12 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (this.tableauActive) return;
     const b = this.ctrl.battle;
     const s = this.sel;
+    const facing = s.mode === 'facing' && s.unit && this.ctrl.inputEnabled();
+    this.ui.facingCard(facing ? {
+      name: b.unit(s.unit!).name, selected: this.endFacing!,
+      options: ([['up', '↗', 'rechts oben'], ['right', '↘', 'rechts unten'], ['down', '↙', 'links unten'], ['left', '↖', 'links oben']] as const)
+        .map(([dir, arrow, label]) => ({ facing: this.iso.facingForScreen(dir), arrow, label })),
+    } : null);
     const hovered = this.unitAtPoint(this.hover);
     const cardUnit = s.unit ? b.findUnit(s.unit) : (hovered && this.controllable(hovered) ? hovered : undefined);
     if (cardUnit && !this.ctrl.isEnded) {
@@ -881,8 +965,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     } else this.ui.unitCard(null);
 
     // Preview / inspect card.
-    if (s.unit && s.mode === 'target' && s.ability) {
-      const tgt = s.pending ?? this.hover;
+    if (s.unit && s.mode === 'target' && s.ability && this.ctrl.inputEnabled() && this.animating === 0) {
+      const tgt = s.pending;
       const a = b.ability(s.ability);
       if (tgt && b.validTarget(s.unit, s.ability, tgt)) {
         const pv = b.preview(s.unit, s.ability, tgt);
@@ -890,9 +974,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
           ability: a, user: b.unit(s.unit), userDef: this.ctrl.unitDefs.get(s.unit),
           targets: pv.targets.map(p => ({ unit: b.unit(p.unit), def: this.ctrl.unitDefs.get(p.unit)!, p })),
           empty: a.shape.type === 'line' ? 'Kein Feind in dieser Linie.' : 'Kein Ziel.',
+          confirmed: !!s.pending,
         });
-      } else if (tgt && a.shape.type === 'line' && b.targetCells(s.unit, s.ability).some(c => c.x === tgt.x && c.y === tgt.y)) {
-        this.ui.previewCard({ ability: a, user: b.unit(s.unit), targets: [], empty: 'Kein Feind in dieser Linie.' });
       } else {
         this.ui.previewCard(null);
         this.ui.inspectCard(null);
@@ -911,7 +994,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private placeMenu(): void {
     const b = this.ctrl.battle;
     const s = this.sel;
-    if (!s.unit || !this.ctrl.inputEnabled() || this.animating > 0) { this.ui.menu(null); return; }
+    if (!s.unit || s.mode === 'facing' || !this.ctrl.inputEnabled() || this.animating > 0) { this.ui.menu(null); return; }
     const u = b.findUnit(s.unit);
     const v = this.views.get(s.unit);
     if (!u || !v || u.down) { this.ui.menu(null); return; }
@@ -1092,7 +1175,6 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.refresh();
   }
   endPlayerPhase(): void {
-    this.autoEndTimer?.remove();
     if (this.sel.unit) this.select(null, true);
     this.clearOverlay('range'); this.clearOverlay('aoe'); this.clearOverlay('path'); this.showPathSteps([]);
     this.ui?.menu(null);

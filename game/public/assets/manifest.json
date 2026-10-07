@@ -255,6 +255,68 @@
    ],
    "height": 52
   },
+  "baris-scarred": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/baris-scarred-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/baris-scarred-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/baris-scarred-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/baris-scarred-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 52
+  },
   "baris-young": {
    "poses": {
     "attack": {
@@ -854,6 +916,488 @@
     60
    ],
    "height": 34
+  },
+  "e2-druide": {
+   "poses": {
+    "interact": {
+     "file": "assets/sprites/e2-druide-interact.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e2-druide-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/e2-druide-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e2-druide-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     11,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "e2-elnon-gefangen": {
+   "poses": {
+    "fall": {
+     "file": "assets/sprites/e2-elnon-gefangen-fall.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/e2-elnon-gefangen-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e2-elnon-gefangen-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e2-elnon-gefangen-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/e2-elnon-gefangen-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e2-elnon-gefangen-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 46
+  },
+  "e2-flick-gefangen": {
+   "poses": {
+    "crouch": {
+     "file": "assets/sprites/e2-flick-gefangen-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/e2-flick-gefangen-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e2-flick-gefangen-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e2-flick-gefangen-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit-chair": {
+     "file": "assets/sprites/e2-flick-gefangen-sit-chair.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/e2-flick-gefangen-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e2-flick-gefangen-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     7,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
+  "e2-ignatius": {
+   "poses": {
+    "carry": {
+     "file": "assets/sprites/e2-ignatius-carry.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "cast": {
+     "file": "assets/sprites/e2-ignatius-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e2-ignatius-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/e2-ignatius-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/e2-ignatius-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e2-ignatius-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "e2-kyra-gebannt": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/e2-kyra-gebannt-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e2-kyra-gebannt-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e2-kyra-gebannt-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e2-kyra-gebannt-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "e2-lia-stab": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/e2-lia-stab-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "cast": {
+     "file": "assets/sprites/e2-lia-stab-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/e2-lia-stab-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e2-lia-stab-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e2-lia-stab-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/e2-lia-stab-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e2-lia-stab-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
   },
   "elf-f": {
    "poses": {},
@@ -2017,6 +2561,90 @@
    ],
    "height": 40
   },
+  "logge": {
+   "poses": {
+    "drunk-sit": {
+     "file": "assets/sprites/logge-drunk-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/logge-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "read": {
+     "file": "assets/sprites/logge-read.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/logge-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/logge-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/logge-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     7,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
   "loyla": {
    "poses": {
     "cast": {
@@ -2280,6 +2908,57 @@
    ],
    "height": 47
   },
+  "pascal": {
+   "poses": {
+    "sit": {
+     "file": "assets/sprites/pascal-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/pascal-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/pascal-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     2,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
   "pig": {
    "poses": {
     "lie": {
@@ -2401,6 +3080,68 @@
     60
    ],
    "height": 43
+  },
+  "sebastian": {
+   "poses": {
+    "interact": {
+     "file": "assets/sprites/sebastian-interact.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/sebastian-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/sebastian-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/sebastian-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
   },
   "shadow-club": {
    "poses": {
@@ -3112,6 +3853,24 @@
   "dwarf": {
    "neutral": "assets/portraits/dwarf.png"
   },
+  "e2-druide": {
+   "grim": "assets/portraits/e2-druide-grim.png",
+   "surprised": "assets/portraits/e2-druide-surprised.png",
+   "worried": "assets/portraits/e2-druide-worried.png",
+   "neutral": "assets/portraits/e2-druide.png"
+  },
+  "e2-ignatius": {
+   "determined": "assets/portraits/e2-ignatius-determined.png",
+   "grim": "assets/portraits/e2-ignatius-grim.png",
+   "happy": "assets/portraits/e2-ignatius-happy.png",
+   "sad": "assets/portraits/e2-ignatius-sad.png",
+   "thinking": "assets/portraits/e2-ignatius-thinking.png",
+   "worried": "assets/portraits/e2-ignatius-worried.png",
+   "neutral": "assets/portraits/e2-ignatius.png"
+  },
+  "e2-kyra-gebannt": {
+   "neutral": "assets/portraits/e2-kyra-gebannt.png"
+  },
   "elf-f": {
    "neutral": "assets/portraits/elf-f.png"
   },
@@ -3120,7 +3879,11 @@
   },
   "elnon": {
    "angry": "assets/portraits/elnon-angry.png",
+   "ashamed": "assets/portraits/elnon-ashamed.png",
+   "determined": "assets/portraits/elnon-determined.png",
    "grim": "assets/portraits/elnon-grim.png",
+   "hurt": "assets/portraits/elnon-hurt.png",
+   "pained": "assets/portraits/elnon-pained.png",
    "neutral": "assets/portraits/elnon.png"
   },
   "falke-soldier": {
@@ -3136,7 +3899,10 @@
    "angry": "assets/portraits/flick-angry.png",
    "determined": "assets/portraits/flick-determined.png",
    "happy": "assets/portraits/flick-happy.png",
+   "hurt": "assets/portraits/flick-hurt.png",
+   "pained": "assets/portraits/flick-pained.png",
    "sad": "assets/portraits/flick-sad.png",
+   "scared": "assets/portraits/flick-scared.png",
    "smirk": "assets/portraits/flick-smirk.png",
    "surprised": "assets/portraits/flick-surprised.png",
    "neutral": "assets/portraits/flick.png"
@@ -3184,6 +3950,7 @@
    "angry": "assets/portraits/kyra-bound-angry.png",
    "determined": "assets/portraits/kyra-bound-determined.png",
    "hurt": "assets/portraits/kyra-bound-hurt.png",
+   "pained": "assets/portraits/kyra-bound-pained.png",
    "sad": "assets/portraits/kyra-bound-sad.png",
    "scared": "assets/portraits/kyra-bound-scared.png",
    "surprised": "assets/portraits/kyra-bound-surprised.png",
@@ -3211,6 +3978,13 @@
    "thinking": "assets/portraits/lia-cloak-thinking.png",
    "neutral": "assets/portraits/lia-cloak.png"
   },
+  "logge": {
+   "happy": "assets/portraits/logge-happy.png",
+   "smirk": "assets/portraits/logge-smirk.png",
+   "surprised": "assets/portraits/logge-surprised.png",
+   "thinking": "assets/portraits/logge-thinking.png",
+   "neutral": "assets/portraits/logge.png"
+  },
   "loyla": {
    "neutral": "assets/portraits/loyla.png"
   },
@@ -3235,11 +4009,23 @@
   "paladin": {
    "neutral": "assets/portraits/paladin.png"
   },
+  "pascal": {
+   "smirk": "assets/portraits/pascal-smirk.png",
+   "thinking": "assets/portraits/pascal-thinking.png",
+   "neutral": "assets/portraits/pascal.png"
+  },
   "rikkon": {
    "neutral": "assets/portraits/rikkon.png"
   },
   "samira": {
    "neutral": "assets/portraits/samira.png"
+  },
+  "sebastian": {
+   "happy": "assets/portraits/sebastian-happy.png",
+   "smirk": "assets/portraits/sebastian-smirk.png",
+   "surprised": "assets/portraits/sebastian-surprised.png",
+   "worried": "assets/portraits/sebastian-worried.png",
+   "neutral": "assets/portraits/sebastian.png"
   },
   "shadow-club": {
    "neutral": "assets/portraits/shadow-club.png"
@@ -3303,6 +4089,26 @@
    "file": "assets/bg/dev-meadow.png",
    "w": 1280,
    "h": 720
+  },
+  "e2-halle": {
+   "file": "assets/bg/e2-halle.png",
+   "w": 640,
+   "h": 360
+  },
+  "e2-herbsthang": {
+   "file": "assets/bg/e2-herbsthang.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-ignatius-lager": {
+   "file": "assets/bg/e2-ignatius-lager.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-kerker": {
+   "file": "assets/bg/e2-kerker.png",
+   "w": 640,
+   "h": 360
   },
   "k1-heimweg": {
    "file": "assets/bg/k1-heimweg.png",
@@ -3421,6 +4227,66 @@
   }
  },
  "plates": {
+  "e2-aufbruch": {
+   "file": "assets/cut/e2-aufbruch.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-bericht-wiege": {
+   "file": "assets/cut/e2-bericht-wiege.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-bericht-xenovia": {
+   "file": "assets/cut/e2-bericht-xenovia.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-erinnerung": {
+   "file": "assets/cut/e2-erinnerung.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-flucht": {
+   "file": "assets/cut/e2-flucht.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-kontrolle": {
+   "file": "assets/cut/e2-kontrolle.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-pruefung": {
+   "file": "assets/cut/e2-pruefung.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-schattentoeter": {
+   "file": "assets/cut/e2-schattentoeter.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-sehkugel": {
+   "file": "assets/cut/e2-sehkugel.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-stadtwache": {
+   "file": "assets/cut/e2-stadtwache.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-trennung": {
+   "file": "assets/cut/e2-trennung.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-vamir-anhoehe": {
+   "file": "assets/cut/e2-vamir-anhoehe.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "k1-graeber-blumen": {
    "file": "assets/cut/k1-graeber-blumen.jpg",
    "w": 1280,
@@ -3884,6 +4750,33 @@
    },
    "height": 17,
    "desc": "a sturdy wooden crate made of planks with corner battens, closed lid"
+  },
+  "e2-katze-liegend": {
+   "file": "assets/props/e2-katze-liegend.png",
+   "w": 13,
+   "h": 11,
+   "frames": 1,
+   "anchor": [
+    6,
+    11
+   ],
+   "footprint": null,
+   "height": 10,
+   "desc": "a small sleek BLACK house cat curled up into a round ball, fast asleep on the ground, eyes closed, chin tucked onto its front paws, its long tail wrapped around its body, ears relaxed, glossy black fur with subtle dark blue-grey highlights, seen from the high three-quarter top-down game camera. Same cat as in the sitting cat reference: black fur, pink inner ears."
+  },
+  "e2-katze": {
+   "file": "assets/props/e2-katze.png",
+   "w": 12,
+   "h": 15,
+   "frames": 2,
+   "anchor": [
+    5,
+    15
+   ],
+   "footprint": null,
+   "height": 14,
+   "desc": "a small sleek BLACK house cat sitting upright on its haunches, front paws together, body turned three-quarter toward the RIGHT, head looking at the viewer, bright yellow-green eyes, a tiny pink nose, glossy black fur with subtle dark blue-grey highlights, its long tail curled on the ground beside its paws. Frame 1: the tail tip lies curled flat around the front paws. Frame 2: the tail tip is lifted and flicked up in a lazy curve. Everything else (body, head, ears, eyes) stays exactly identical in both frames.",
+   "fps": 2
   },
   "fallen-banner": {
    "file": "assets/props/fallen-banner.png",
@@ -4902,7 +5795,8 @@
    "apple": 22,
    "ribbon": 23,
    "honey-cake": 24,
-   "chain-pastry": 25
+   "chain-pastry": 25,
+   "e2-schattentoeter": 26
   }
  },
  "images": {

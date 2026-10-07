@@ -1,0 +1,75 @@
+// Lia's nightmare in e2-ignatius: a framed, clearly marked dream (DOM panel over black). Violet haze, voices of Kyra
+// and Flick that drift in, waver and fade. Nothing here is a fact: the scene labels every voice „im Traum“ and
+// Ignatius later calls it uncertain. Timed beats; a key press or click only hurries the next line.
+import { G } from '../../core/G';
+import { ctx } from '../../ui/context';
+import { ui } from './shared';
+
+export interface DreamLine { who: string; text: string }
+
+let styled = false;
+function ensureStyles(): void {
+  if (styled || typeof document === 'undefined') return;
+  styled = true;
+  const style = document.createElement('style');
+  style.id = 'e2-traum-styles';
+  style.textContent = `
+.e2-traum { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1em; cursor: pointer;
+  background: radial-gradient(70% 60% at 50% 50%, rgba(80, 44, 130, 0.55) 0%, rgba(26, 12, 44, 0.92) 60%, #07040c 100%);
+  opacity: 0; transition: opacity 1.4s; }
+.e2-traum.is-in { opacity: 1; }
+.e2-traum.is-out { opacity: 0; transition-duration: 0.9s; }
+.e2-traum-tag { position: absolute; top: 7%; left: 0; right: 0; text-align: center; font-family: var(--f-label);
+  letter-spacing: 0.3em; font-size: 0.78em; color: rgba(210, 190, 255, 0.55); text-transform: uppercase; }
+.e2-traum-line { max-width: 30em; text-align: center; opacity: 0; filter: blur(0.25em); transform: translateY(0.6em) scale(0.98);
+  transition: opacity 1.1s, filter 1.4s, transform 1.4s; }
+.e2-traum-line.is-in { opacity: 1; filter: blur(0); transform: none; animation: e2-traum-wave 3.8s ease-in-out infinite; }
+.e2-traum-line.is-gone { opacity: 0.18; filter: blur(0.12em); }
+.e2-traum-who { display: block; font-family: var(--f-label); font-size: 0.72em; letter-spacing: 0.16em; color: rgba(190, 160, 255, 0.75); }
+.e2-traum-text { font-family: var(--f-body); font-style: italic; font-size: 1.25em; color: #e8dcff; text-shadow: 0 0 0.6em rgba(154, 108, 255, 0.7); }
+@keyframes e2-traum-wave { 0%, 100% { transform: translateX(0) skewX(0deg); } 33% { transform: translateX(0.25em) skewX(-1.5deg); } 66% { transform: translateX(-0.2em) skewX(1.2deg); } }
+#ui.reduced-motion .e2-traum-line.is-in { animation: none; }
+`;
+  document.head.appendChild(style);
+}
+
+/** Plays the dream; resolves when it faded out. Never resolves for a scene the player already left. */
+export async function playDream(lines: DreamLine[]): Promise<void> {
+  ensureStyles();
+  if (ctx.stale()) return new Promise(() => {});
+  const root = ui().panel('e2-traum');
+  root.setAttribute('role', 'dialog');
+  root.setAttribute('aria-label', 'Ein Traum');
+  root.innerHTML = '<div class="e2-traum-tag">Ein Traum</div>';
+  let hurry: (() => void) | null = null;
+  const skip = () => { hurry?.(); };
+  root.addEventListener('pointerdown', e => { e.preventDefault(); skip(); });
+  const close = ctx.open({ id: 'e2-traum', allowMenu: false, onKey: e => { if (!e.repeat) skip(); return true; } });
+  const beat = (ms: number) => new Promise<void>(resolve => {
+    const token = ui().token();
+    const t = setTimeout(() => { hurry = null; if (ui().alive(token)) resolve(); }, ms);
+    hurry = () => { clearTimeout(t); hurry = null; resolve(); };
+  });
+  try {
+    requestAnimationFrame(() => root.classList.add('is-in'));
+    try { G.audio.sfx('magic', { volume: 0.25, pitch: 0.55 }); } catch { /* audio optional */ }
+    await beat(1200);
+    let prev: HTMLElement | null = null;
+    for (const l of lines) {
+      const el = document.createElement('div');
+      el.className = 'e2-traum-line';
+      el.innerHTML = `<span class="e2-traum-who">${l.who}</span><span class="e2-traum-text">${l.text}</span>`;
+      root.appendChild(el);
+      prev?.classList.add('is-gone');
+      prev = el;
+      requestAnimationFrame(() => el.classList.add('is-in'));
+      try { G.audio.sfx('heartbeat', { volume: 0.35 }); } catch { /* audio optional */ }
+      await beat(1600 + l.text.length * 35);
+    }
+    root.classList.add('is-out');
+    await beat(900);
+  } finally {
+    close();
+    root.remove();
+  }
+}

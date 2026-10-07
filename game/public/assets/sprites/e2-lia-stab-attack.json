@@ -1,0 +1,9 @@
+{
+  "facing": "right",
+  "foot": [
+    48,
+    60
+  ],
+  "character": "e2-lia-stab",
+  "pose": "attack"
+}

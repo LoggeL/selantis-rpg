@@ -21,12 +21,15 @@ const PAGES = `
   <p><em>Fortsetzung folgt im zweiten Buch.</em></p>
 `;
 
-/** Shows the credits; resolves when they ran through or the player skipped them (E / Space / click). */
-export function showCredits(): Promise<void> {
+/**
+ * Shows the credits; resolves when they ran through or the player skipped them (E / Space / click).
+ * `pages` replaces the book-one text (Teil II reuses the same book-style roll with its own pages).
+ */
+export function showCredits(pages: string = PAGES): Promise<void> {
   ensureStyles();
   if (ctx.stale()) return new Promise(() => {});
   const root = G.ui.panel('k5-credits');
-  root.innerHTML = `<div class="k5-credits-page ch-parch"><div class="k5-credits-roll">${PAGES}</div></div>
+  root.innerHTML = `<div class="k5-credits-page ch-parch"><div class="k5-credits-roll">${pages}</div></div>
     <div class="k5-credits-hint">${ctx.root.classList.contains('is-touch') ? 'Tippen zum Fortfahren' : 'E · Leertaste · Klick zum Fortfahren'}</div>`;
   const page = root.querySelector('.k5-credits-page') as HTMLElement;
   const roll = root.querySelector('.k5-credits-roll') as HTMLElement;

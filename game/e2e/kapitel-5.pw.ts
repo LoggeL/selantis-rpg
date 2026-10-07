@@ -264,7 +264,13 @@ async function act(c: Ctx, unit: Rescuer, key: number, target?: [number, number]
   await c.page.keyboard.press(String(key));
   await wait(300);
   if (target) await clickTile(c.page, target[0], target[1]);
+  await c.page.locator('.tac-confirm-target').click();
   await battleReady(c);
+}
+
+async function endBattleTurn(c: Ctx): Promise<void> {
+  if (!(await c.page.locator('.tac-confirm-facing').isVisible())) await c.page.keyboard.press('Space');
+  await c.page.locator('.tac-confirm-facing').click();
 }
 
 /** Move through the visible battle controls; read the movement range only to pick a legal tile. */
@@ -281,6 +287,7 @@ async function moveToward(c: Ctx, unit: Rescuer, goal: [number, number]): Promis
   if (!target) return;
   await c.page.getByRole('button', { name: { lia: 'Lia', flick: 'Flick', kyra: 'Kyra' }[unit], exact: true }).click();
   await wait(300);
+  await c.page.keyboard.press('m');
   await clickTile(c.page, target.x, target.y);
   await battleReady(c);
   const moved = (await tac(c.page))!.units[unit];
@@ -295,15 +302,15 @@ test('rettung: cut Kyra free, hold out, the Urmacht bursts out → finale', asyn
   // Round 1: Flick cuts the first strand (ability 3), Lia distracts (2).
   await act(c, 'flick', 3, [7, 4]);
   expect((await tac(page))!.units.kyra.bound).toBe(true);
-  await page.keyboard.press('Space');
+  await endBattleTurn(c);
   await battleReady(c);
   await act(c, 'lia', 2);
-  await page.keyboard.press('Space');
+  await endBattleTurn(c);
   await battleReady(c);
   // Round 2: the last strand.
   await act(c, 'flick', 3, [7, 4]);
   expect((await tac(page))!.units.kyra.bound).toBe(false);
-  await page.keyboard.press('Space');
+  await endBattleTurn(c);
   for (let r = 0; r < 24; r++) {
     if ((await battleReady(c)) === 'ended') break;
     const s = (await tac(page))!;
@@ -315,7 +322,7 @@ test('rettung: cut Kyra free, hold out, the Urmacht bursts out → finale', asyn
       return !u.acted && !u.down ? ['ausweichen', 'ablenken'].find(id => b.abilityReady(u, id)) : null;
     }) : null;
     if (defence) await act(c, 'lia', defence === 'ausweichen' ? 1 : 2);
-    await page.keyboard.press('Space');
+    await endBattleTurn(c);
   }
   await until(c, async () => {
     await expect(page.locator('.tac-out.show.lose')).toHaveCount(0);

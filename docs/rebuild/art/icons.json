@@ -78,9 +78,31 @@
       ],
       "cols": 3,
       "rows": 1
+    },
+    "e2-schattentoeter": {
+      "ids": [
+        "e2-schattentoeter"
+      ],
+      "descs": [
+        "a long gnarled natural wooden staff of pale grey-brown weathered wood with a slight twist and a knotted knob at the top end, a worn dark-brown leather grip wrapped around the middle, no gem, no metal, no glow, shown DIAGONALLY from bottom-left to top-right filling the cell"
+      ],
+      "cols": 1,
+      "rows": 1
     }
   },
   "images": {
+    "output/imagegen/raw/art/icons/e2-schattentoeter.png": {
+      "kind": "icons",
+      "id": "e2-schattentoeter",
+      "prompt": "Inventory item icon sheet for a fantasy RPG: a strict grid of 1 columns x 1 rows of separate item icons, each item centred in its own invisible square cell with wide empty gaps, nothing touching, every icon drawn large and bold so it stays readable at 32x32 pixels, slight three-quarter view, chunky pixels with a bold dark outline, warm soft lighting. Items in reading order (left to right, top to bottom): 1. a long gnarled natural wooden staff of pale grey-brown weathered wood with a slight twist and a knotted knob at the top end, a worn dark-brown leather grip wrapped around the middle, no gem, no metal, no glow, shown DIAGONALLY from bottom-left to top-right filling the cell. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-07T15:20:12"
+    },
     "output/imagegen/raw/art/icons/story-1.png": {
       "kind": "icons",
       "id": "story-1",

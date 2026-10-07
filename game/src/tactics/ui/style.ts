@@ -114,17 +114,34 @@ export const TACTICS_CSS = `
 .tac-tcard .nm{font-family:Cinzel,serif;font-weight:700;font-size:.95em;color:#f6e8c6}
 .tac-tcard .ab{font-family:'Alegreya Sans SC',sans-serif;font-size:.72em;letter-spacing:.1em;color:var(--gold)}
 .tac-tcard .ab.magic{color:var(--turq)}
-.tac-tcard.forecast{left:50%;right:auto;transform:translateX(-50%);bottom:3.6em;width:min(39em,calc(100% - 1.6em));padding:.6em .8em;z-index:2}
+.tac-tcard.forecast{left:50%;right:auto;transform:translateX(-50%);bottom:var(--tac-footer,3.6em);width:min(39em,calc(100% - 1.6em));max-height:min(24em,calc(100% - var(--tac-header,4em) - var(--tac-footer,3.6em) - 8px));padding:.6em .8em;z-index:2;display:flex;flex-direction:column;pointer-events:auto}
 .tac.has-forecast .tac-card{visibility:hidden}
-.forecast-title{display:flex;justify-content:space-between;gap:1em;border-bottom:1px solid #d8b25a44;padding-bottom:.3em;font:.72em 'Alegreya Sans SC',sans-serif;color:#c9bb96}
-.tac-versus{display:grid;grid-template-columns:minmax(0,1fr) 1.5em minmax(0,1fr);align-items:center;gap:.6em;margin-top:.4em}
+.tac.choosing .tac-card{visibility:hidden}
+.tac-forecast-body{overflow-y:auto;min-height:0;overscroll-behavior:contain;scrollbar-width:thin}
+.tac-versus>.tac-combatant,.tac-versus-arrow{position:sticky;top:0}
+.tac-targets{min-width:0;display:grid;gap:.6em}
+.tac-target+.tac-target{border-top:1px solid #d8b25a44;padding-top:.5em}
+.tac-forecast-actions{display:flex;align-items:center;justify-content:space-between;gap:.7em;border-top:1px solid #d8b25a44;margin-top:.4em;padding-top:.4em;flex-shrink:0}
+.tac-forecast-actions>span{font:.7em 'Alegreya Sans SC',sans-serif;color:#c9bb96}
+.tac-forecast-actions .tac-btn{font-size:.75em;white-space:nowrap}
+.tac-facing{left:50%;transform:translateX(-50%);bottom:var(--tac-footer,3.6em);width:min(25em,calc(100% - 1.6em));padding:.6em .8em;z-index:3;pointer-events:auto}
+.tac-facing.hidden{display:none}
+.tac.has-facing .tac-card,.tac.has-facing .tac-tcard,.tac.has-facing .tac-hint{visibility:hidden;pointer-events:none}
+.tac-directions{display:flex;justify-content:center;gap:.6em;margin:.5em 0}
+.tac-directions button{background:#182537;border:1px solid #d8b25a77;border-radius:.25em;font-size:1.6em;line-height:1;width:2em;height:1.6em}
+.tac-directions button.on{background:#574526;border-color:var(--gold2);color:#fff2cc}
+.tac-facing-note{font:.75em 'Alegreya Sans SC',sans-serif;color:#c9bb96;text-align:center}
+.tac-facing-actions{display:flex;justify-content:space-between;gap:.7em;margin-top:.5em}
+.tac-facing-actions .tac-btn{font-size:.8em}
+.forecast-title{display:flex;justify-content:space-between;gap:1em;border-bottom:1px solid #d8b25a44;padding-bottom:.3em;font:.72em 'Alegreya Sans SC',sans-serif;color:#c9bb96;flex-shrink:0}
+.tac-versus{display:grid;grid-template-columns:minmax(0,1fr) 1.5em minmax(0,1fr);align-items:start;gap:.6em;margin-top:.4em}
 .tac-combatant{min-width:0;padding:.25em .4em;border-left:2px solid var(--blue);background:#27375433}
 .tac-combatant.enemy{border-color:var(--danger);background:#54322733}
 .tac-combatant.ally{border-color:var(--green)}
 .tac-combatant .ab{letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:14em}
 .tac-versus-arrow{text-align:center;font-size:1.6em;color:var(--gold2)}
 .tac-forecast-note{font:.7em 'Alegreya Sans SC',sans-serif;color:#c9bb96;margin-top:.2em}
-.forecast .tac-big{justify-content:center;gap:2em;margin-top:.4em}
+.forecast .tac-big{justify-content:center;flex-wrap:wrap;gap:.8em;margin-top:.4em}
 .forecast .tac-chips{justify-content:center}
 .forecast .tac-push{justify-content:center}
 .tac-big{display:flex;gap:.9em;margin-top:.35em;align-items:baseline}
@@ -255,7 +272,7 @@ export const TACTICS_CSS = `
 .tac.compact .tac-obj .det{display:none}
 .tac.compact .tac-hint{width:14.5em;top:5em;font-size:.88em}
 .tac.compact .tac-tcard{width:14em;bottom:3.6em}
-.tac.compact .tac-tcard.forecast{width:calc(100% - 1.2em);bottom:3.3em;font-size:.9em}
+.tac.compact .tac-tcard.forecast{width:calc(100% - 1.2em);bottom:var(--tac-footer,3.3em);font-size:.9em}
 .tac.compact .tac-versus{gap:.3em;grid-template-columns:minmax(0,1fr) 1em minmax(0,1fr)}
 .tac.compact .tac-combatant{padding:.15em .25em}
 .tac.compact .tac-combatant .por{width:2em;height:2em}

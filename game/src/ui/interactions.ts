@@ -6,8 +6,21 @@ import './interactions.css';
 import { createStealthStage } from './stealthStage';
 import { createMiniIllustration } from './miniIllustration';
 
-export interface StoryActionOptions { onStroke?: (stroke: number) => void; onProgress?: (progress: number) => void }
-export interface StealthOptions { onNoise?: (mistakes: number) => void }
+export interface StoryActionOptions {
+  onStroke?: (stroke: number) => void;
+  onProgress?: (progress: number) => void;
+  /** Instruction text instead of the built-in one (which describes the book-one moment of this gesture). */
+  help?: string;
+  /** false hides the built-in book-one illustration (cradle, Valentus' hand …); track and grip stay. */
+  illustration?: boolean;
+}
+export interface StealthOptions {
+  onNoise?: (mistakes: number) => void;
+  /** Instruction text instead of the built-in one. */
+  help?: string;
+  /** Key hint instead of the built-in one (which names Lia). */
+  keyHint?: string;
+}
 
 const AXES: Record<string, [number, number]> = {
   ArrowLeft: [-1, 0], KeyA: [-1, 0], ArrowRight: [1, 0], KeyD: [1, 0],
@@ -153,7 +166,7 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
   };
   // The rail ends sit further in than the stealth games', so the goal ring and its ripple clear the gilt frame.
   const inset = 36;
-  const view = interaction(label, kind, helps[kind], vertical, inset);
+  const view = interaction(label, kind, opts.help ?? helps[kind], vertical, inset);
   view.root.classList.add('is-gesture');
   view.root.style.setProperty('--rail-inset', `${inset}px`);
   let state = storyStart(kind);
@@ -170,7 +183,7 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
   // The painted bellows is drawn on the canvas; this box follows its leather folds (geometry from the illustration).
   const ornament = el('div', `action-ornament ornament-${kind}`);
   if (kind === 'bellows') ornament.append(el('div', 'bellows-folds'));
-  const art = createMiniIllustration(view.stage, kind);
+  const art = opts.illustration === false ? { ready: Promise.resolve(), render: () => {} } : createMiniIllustration(view.stage, kind);
   view.stage.append(ornament, track, goal, grip);
   const caps = (keys: string[]) => keys.map(k => `<kbd class="ch-key">${k}</kbd>`).join('');
   view.keyHint.innerHTML = `${vertical ? caps(['W', 'S']) : caps(['A', 'D'])} oder ${vertical ? caps(['↑', '↓']) : caps(['←', '→'])} · Griff ziehen`;
@@ -221,10 +234,11 @@ export function stealthGame(kind: StealthKind, label: string, opts: StealthOptio
     duck: 'Duck dich vor den Reitern unter die Böschung. Zwischen den Gruppen kurz hochsehen.',
     listen: 'Lausche hinter den Baumstämmen. Wechsle auf die dunkle Seite, bevor die Fackel dorthin leuchtet.',
   };
-  const view = interaction(label, kind, help[kind], kind === 'duck');
+  const view = interaction(label, kind, opts.help ?? help[kind], kind === 'duck');
   view.root.classList.add('is-stealth');
   const keycaps = (keys: string[]) => keys.map(k => `<kbd class="ch-key">${k}</kbd>`).join('');
-  view.keyHint.innerHTML = kind === 'duck'
+  if (opts.keyHint) view.keyHint.textContent = opts.keyHint;
+  else view.keyHint.innerHTML = kind === 'duck'
     ? `${keycaps(['W', 'S'])} oder ${keycaps(['↑', '↓'])} · Lia ziehen`
     : `${keycaps(['A', 'D'])} oder ${keycaps(['←', '→'])} · Lia ziehen`;
   let state = stealthStart(kind), started = false;

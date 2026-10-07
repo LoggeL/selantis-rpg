@@ -84,7 +84,7 @@ export class BattleController {
   // ---------------------------------------------------------------- state for the scene
   get isEnded(): boolean { return this.ended !== null; }
   /** Player input allowed right now. */
-  inputEnabled(): boolean { return !this.ended && this.battle.phase === 'player' && this.locks === 0 && !!this.turnDone; }
+  inputEnabled(): boolean { return !this.ended && !this.turnEnding && this.battle.phase === 'player' && this.locks === 0 && !!this.turnDone; }
   outcomeNow(): Outcome { return this.forced ?? evaluate(this.battle, this.def.objective.win, this.def.objective.lose); }
 
   // ---------------------------------------------------------------- main loop

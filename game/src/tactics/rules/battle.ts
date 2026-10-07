@@ -428,7 +428,7 @@ export class Battle {
     return [{ type: 'wait', unit: id }];
   }
 
-  /** Turns a unit to face a direction (only used by scripts; normal facing is automatic). */
+  /** Turns a unit, including the player's final direction choice at the end of a turn. */
   face(id: string, facing: Facing): BattleEvent[] {
     this.unit(id).facing = facing;
     return [{ type: 'face', unit: id, facing }];
