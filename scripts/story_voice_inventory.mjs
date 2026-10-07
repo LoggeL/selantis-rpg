@@ -42,7 +42,23 @@ function evalNode(n,env=new Map(),seen=new Set()){
  if(ts.isObjectLiteralExpression(n)){let rows=[{}];for(const p of n.properties){if(ts.isSpreadAssignment(p)){const vv=evalNode(p.expression,env,seen);if(!vv.length)return[];rows=rows.flatMap(r=>vv.map(v=>({...r,...v})));}else if(ts.isPropertyAssignment(p)){const k=propName(p.name);if(!k)return[];const vv=evalNode(p.initializer,env,seen);if(vv.length)rows=rows.flatMap(r=>vv.map(v=>({...r,[k]:v})));}else if(ts.isShorthandPropertyAssignment(p)){const vv=evalNode(p.name,env,seen);if(vv.length)rows=rows.flatMap(r=>vv.map(v=>({...r,[p.name.text]:v})));}}return rows;}
  if(ts.isConditionalExpression(n)){const c=evalNode(n.condition,env,seen);if(c.length&&c.every(v=>!v===!c[0]))return evalNode(c[0]?n.whenTrue:n.whenFalse,env,seen);return [...evalNode(n.whenTrue,env,seen),...evalNode(n.whenFalse,env,seen)];}
  if(ts.isTemplateExpression(n)){let vals=[n.head.text];for(const p of n.templateSpans){const vv=evalNode(p.expression,env,seen).filter(v=>typeof v==='string'||typeof v==='number');if(!vv.length){if(evaluatingSpeech)issue(n,'text','Dynamic template requires explicit binding; no partial-branch skip');return[];}vals=vals.flatMap(a=>vv.map(v=>a+v+p.literal.text));}return vals;}
- if(ts.isBinaryExpression(n)){if(n.operatorToken.kind===ts.SyntaxKind.PlusToken)return evalNode(n.left,env,seen).flatMap(a=>evalNode(n.right,env,seen).map(b=>a+b));if([ts.SyntaxKind.BarBarToken,ts.SyntaxKind.QuestionQuestionToken].includes(n.operatorToken.kind))return [...evalNode(n.left,env,seen),...evalNode(n.right,env,seen)];return[];}
+ if(ts.isBinaryExpression(n)){
+  if([ts.SyntaxKind.EqualsEqualsEqualsToken,ts.SyntaxKind.ExclamationEqualsEqualsToken].includes(n.operatorToken.kind)){
+   const fixedInput=q=>{
+    while(ts.isParenthesizedExpression(q)||ts.isAsExpression(q)||ts.isSatisfiesExpression(q)||ts.isNonNullExpression(q))q=q.expression;
+    return ts.isStringLiteralLike(q)||ts.isNumericLiteral(q)||q.kind===ts.SyntaxKind.TrueKeyword||q.kind===ts.SyntaxKind.FalseKeyword||env.has(q)||(ts.isIdentifier(q)&&env.has(decl(q)));
+   };
+   // Initializers of mutable counters/properties do not prove their value at a later speech call.
+   if(!fixedInput(n.left)||!fixedInput(n.right))return[];
+   const left=evalNode(n.left,env,seen),right=evalNode(n.right,env,seen);
+   const primitive=v=>v===null||['undefined','string','number','boolean'].includes(typeof v);
+   // A single loop/call binding can select its own branch. Ambiguous values remain unknown.
+   if(left.length!==1||right.length!==1||!primitive(left[0])||!primitive(right[0]))return[];
+   const equal=left[0]===right[0];return[n.operatorToken.kind===ts.SyntaxKind.EqualsEqualsEqualsToken?equal:!equal];
+  }
+  if(n.operatorToken.kind===ts.SyntaxKind.PlusToken)return evalNode(n.left,env,seen).flatMap(a=>evalNode(n.right,env,seen).map(b=>a+b));
+  if([ts.SyntaxKind.BarBarToken,ts.SyntaxKind.QuestionQuestionToken].includes(n.operatorToken.kind))return [...evalNode(n.left,env,seen),...evalNode(n.right,env,seen)];return[];
+ }
  if(ts.isPropertyAccessExpression(n)){const vv=evalNode(n.expression,env,seen).flatMap(v=>v?.[n.name.text]!==undefined?[v[n.name.text]]:[]);if(vv.length)return vv;const d=decl(n.name);return d?.initializer?evalNode(d.initializer,env,seen):[];}
  if(ts.isElementAccessExpression(n)){const bases=evalNode(n.expression,env,seen),indices=evalNode(n.argumentExpression,env,seen);return bases.flatMap(b=>indices.length?indices.flatMap(i=>b?.[i]!==undefined?[b[i]]:[]):Array.isArray(b)?b:typeof b==='object'&&b?Object.values(b):[]);}
  if(ts.isIdentifier(n)){const d=decl(n);if(env.has(d))return env.get(d);if(d?.initializer){const initial=evalNode(d.initializer,env,seen);if(initial.some(Array.isArray)){const pushed=[];function findPush(q){if(ts.isCallExpression(q)&&ts.isPropertyAccessExpression(q.expression)&&q.expression.name.text==='push'&&ts.isIdentifier(q.expression.expression)&&decl(q.expression.expression)===d)for(const a of q.arguments)pushed.push(...evalNode(a,env,seen));ts.forEachChild(q,findPush);}findPush(d.getSourceFile());return initial.map(v=>Array.isArray(v)?v.concat(pushed):v);}return initial;}if(d&&ts.isBindingElement(d)){const pat=d.parent,ix=pat.elements.indexOf(d),varDecl=pat.parent;let vs=[];if(ts.isVariableDeclaration(varDecl)&&varDecl.initializer)vs=evalNode(varDecl.initializer,env,seen);else if(ts.isVariableDeclaration(varDecl)&&ts.isVariableDeclarationList(varDecl.parent)&&ts.isForOfStatement(varDecl.parent.parent))vs=evalNode(varDecl.parent.parent.expression,env,seen).flatMap(x=>Array.isArray(x)?x:[]);return vs.flatMap(v=>{let x=ts.isArrayBindingPattern(pat)?v?.[ix]:v?.[d.propertyName?.text??d.name.text];return x===undefined?[]:[x];});}return[];}
