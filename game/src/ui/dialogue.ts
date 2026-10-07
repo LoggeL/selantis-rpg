@@ -1,3 +1,4 @@
+import { manifest } from '../art/manifest';
 import { quotedChoiceText, voiceover } from '../audio/voiceover';
 import { speaker as speakerDef } from '../core/catalog';
 import { G } from '../core/G';
@@ -6,6 +7,7 @@ import { advanceGate } from './advance';
 import type { ChoiceOption } from './api';
 import { ctx, isConfirm } from './context';
 import { dialogueFocus, el, sfx } from './dom';
+import { markSeen } from './gallery';
 import { NavList, type NavItem } from './nav';
 import { renderChars, revealSpeech, Typewriter } from './typewriter';
 
@@ -146,6 +148,7 @@ class DialogueBox {
     const newSpeaker = this.currentSpeaker !== id;
     this.currentSpeaker = id;
     if (!url) { this.wanted = ''; return; }
+    markSeen('portrait', portraitId, opts.mood && manifest().portraits[portraitId]?.[opts.mood] ? opts.mood : 'neutral');
     if (newSpeaker) {
       this.frame.classList.remove('pop');
       void this.frame.offsetWidth;

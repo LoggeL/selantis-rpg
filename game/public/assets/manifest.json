@@ -2429,6 +2429,20 @@
      "facing": "right"
     }
    },
+   "sneak": {
+    "file": "assets/sprites/lia-sneak.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 6
+   },
    "walk": {
     "file": "assets/sprites/lia-walk.png",
     "frameW": 64,
@@ -2534,6 +2548,20 @@
      ],
      "facing": "right"
     }
+   },
+   "sneak": {
+    "file": "assets/sprites/lia-cloak-sneak.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 6
    },
    "walk": {
     "file": "assets/sprites/lia-cloak-walk.png",
@@ -3869,6 +3897,9 @@
    "neutral": "assets/portraits/e2-ignatius.png"
   },
   "e2-kyra-gebannt": {
+   "cold": "assets/portraits/e2-kyra-gebannt-cold.png",
+   "devoted": "assets/portraits/e2-kyra-gebannt-devoted.png",
+   "struggle": "assets/portraits/e2-kyra-gebannt-struggle.png",
    "neutral": "assets/portraits/e2-kyra-gebannt.png"
   },
   "elf-f": {
@@ -4227,6 +4258,11 @@
   }
  },
  "plates": {
+  "bonus-goldener-eber": {
+   "file": "assets/cut/bonus-goldener-eber.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "e2-aufbruch": {
    "file": "assets/cut/e2-aufbruch.jpg",
    "w": 1280,

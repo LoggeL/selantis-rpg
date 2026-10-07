@@ -91,6 +91,27 @@ WALK = (
     "tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. "
 )
 
+SNEAK = (
+    "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 "
+    "full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet "
+    "reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, "
+    "nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply "
+    "bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body "
+    "and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing "
+    "upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\n"
+    "ROW 1 (top): facing SOUTH — front view creeping toward the viewer.\n"
+    "ROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\n"
+    "ROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\n"
+    "ROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the "
+    "hunched back).\n"
+    "The 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet "
+    "close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in "
+    "all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game "
+    "camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay "
+    "readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 "
+    "frames, matching the attached walk sheet of this character. "
+)
+
 POSE_PAIR = (
     "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the "
     "same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral "
@@ -414,11 +435,21 @@ MOODS: dict[str, str] = {
     "smirk": "Expression: smug and mocking, a self-satisfied lopsided smirk or cold sneer, one eyebrow raised, eyes "
              "half-lidded.",
     "grim": "Expression: stern and severe, a cold disapproving gaze, brows lowered, mouth a hard straight line.",
+    # Kyra under Vamir's spell (e2-kyra-gebannt): the glowing violet eyes and veins stay in every variant.
+    "cold": "Expression: icy and inhuman, head tilted slightly to one side, the glowing eyes narrowed and fixed on the "
+            "viewer, the faintest empty smile, the violet glow a little brighter.",
+    "struggle": "Expression: her real self breaking through for a moment: brows drawn together in pain, lips trembling, "
+                "a single tear on her cheek; the violet glow is FLICKERING and fading in her LEFT eye so her own warm "
+                "brown iris shows through there, while her RIGHT eye still glows violet.",
+    "devoted": "Expression: obedient devotion, head bowed slightly, the glowing eyes lowered, a serene empty half smile, "
+               "the violet veins darker and the violet glow at its strongest.",
 }
 
 PORTRAIT_EXTRA: dict[str, str] = {
     "valentus-cloak": "Hood up, face partly shadowed by the hood but clearly readable.",
     "kyra-bound": "Show the rope around her wrists at the bottom edge if visible; cut above the LEFT eyebrow.",
+    "e2-kyra-gebannt": "Keep the spell clearly visible: both irises glow cold violet (except where the expression says "
+                       "otherwise), thin dark violet veins at the temples, cold violet rim light. No rope at her wrists.",
 
     "conspirator": "The face inside the hood is pure black shadow; only two small glowing red eyes are visible. No "
                    "nose, no mouth, no skin visible.",
@@ -476,6 +507,12 @@ def walk_prompt(cid: str, extra: str = "") -> str:
     return (WALK + "The character must match the attached full-body reference sheet exactly (same face, hair, age, "
             "body type, clothing, colours, accessories).\nCHARACTER: " + char(cid)["desc"] + "\n" + MAGENTA + "\n"
             + STYLE + " " + NO_TEXT + correction(extra))
+
+
+def sneak_prompt(cid: str, extra: str = "") -> str:
+    return (SNEAK + "The character must match the attached full-body reference sheet and walk sheet exactly (same face, "
+            "hair, age, body type, clothing, colours, accessories).\nCHARACTER: " + char(cid)["desc"] + "\n" + MAGENTA
+            + "\n" + STYLE + " " + NO_TEXT + correction(extra))
 
 
 def pose_prompt(cid: str, pose: str, extra: str = "") -> str:

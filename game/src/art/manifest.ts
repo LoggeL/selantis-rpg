@@ -37,6 +37,8 @@ export interface PoseEntry {
 
 export interface CharacterEntry {
   walk?: WalkSheetEntry;
+  /** Crouch-walk sheet (same 4×4 layout as walk), used for 'sneak' when present. */
+  sneak?: WalkSheetEntry;
   foot?: Vec2;
   /** Visible sprite height in px. */
   height?: number;

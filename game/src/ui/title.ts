@@ -4,6 +4,7 @@ import { FLOURISH } from './chapterCard';
 import { buildChapterSelect, devMode } from './chapters';
 import { ctx } from './context';
 import { el, html, sfx } from './dom';
+import { buildGallery, type GalleryCtl } from './gallery';
 import { NavList, type NavItem } from './nav';
 import { buildSettings } from './settings';
 
@@ -46,12 +47,14 @@ export function showTitle(): Promise<TitleChoice> {
     try { G.audio?.music('refuge', { fadeMs: 2500 }); G.audio?.ambience(['night', 'crickets'], { fadeMs: 2500, volume: { crickets: 0.6 } }); } catch { /* audio optional */ }
 
     let nav: NavList | null = null;
-    let page: 'main' | 'chapters' | 'settings' = 'main';
+    let page: 'main' | 'chapters' | 'settings' | 'gallery' = 'main';
+    let gallery: GalleryCtl | null = null;
     let done = false;
     const closeModal = ctx.open({
       id: 'title',
       allowMenu: false,
       onKey: e => {
+        if (page === 'gallery' && gallery?.key(e)) return true;
         if (e.key === 'Escape' && page !== 'main') { sfx('ui-cancel', { volume: 0.5 }); showMain(); return true; }
         return nav?.key(e) ?? false;
       },
@@ -109,6 +112,7 @@ export function showTitle(): Promise<TitleChoice> {
         finish('new');
       });
       add('Kapitel', () => showChapters());
+      add('Galerie', () => showGallery());
       add('Einstellungen', () => showSettings());
       menu.appendChild(list);
       nav = new NavList(items);
@@ -133,6 +137,21 @@ export function showTitle(): Promise<TitleChoice> {
         confirm: () => (save && !save.hidden ? 'Nochmal wählen – der Spielstand wird überschrieben.' : null),
         onBack: () => { sfx('ui-cancel', { volume: 0.5 }); showMain(); },
       });
+    }
+
+    function showGallery(): void {
+      page = 'gallery';
+      nav = null;
+      sfx('ui-open', { volume: 0.6 });
+      root.classList.add('is-sub');
+      ctx.root.classList.add('title-subpage');
+      menu.textContent = '';
+      const panel = el('div', 'title-panel ch-panel gal-panel');
+      panel.appendChild(el('h2', 'title-panel-head', 'Galerie'));
+      const body = el('div', 'title-panel-body');
+      panel.appendChild(body);
+      menu.appendChild(panel);
+      gallery = buildGallery(body, () => { sfx('ui-cancel', { volume: 0.5 }); showMain(); });
     }
 
     function showSettings(): void {

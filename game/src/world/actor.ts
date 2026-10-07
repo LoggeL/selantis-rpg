@@ -37,6 +37,8 @@ export interface ActorHost {
 export type ActorKind = 'player' | 'npc' | 'companion' | 'guard';
 
 export const SHADOW_DEPTH = -200;
+/** Height factor of a sneaking walk cycle for characters without a painted crouch-walk sheet. */
+const CROUCH_SQUASH = 0.86;
 
 /** A character in the world: sprite + shadow + movement along paths + animation selection + emotes. */
 export class Actor {
@@ -92,6 +94,8 @@ export class Actor {
   private frontPhase = Math.random() * 6;
   private rustle = 0;
   private shadowW = 1;
+  /** Vertical squash (1 = none) that lowers characters without a crouch-walk sheet while they sneak. */
+  private squash = 1;
 
   constructor(
     readonly host: ActorHost,
@@ -250,6 +254,9 @@ export class Actor {
   update(dt: number, integrate = true): void {
     if (integrate && this.path) this.followPath(dt);
     this.applyAnim(false);
+    const squash = this.sneaking && this.moving && !this.crouchWalk && !this.override ? CROUCH_SQUASH : 1;
+    this.squash += (squash - this.squash) * Math.min(1, dt * 12);
+    if (Math.abs(this.squash - squash) < 0.005) this.squash = squash;
     this.footsteps(dt);
     this.updateSink(dt);
     this.sync();
@@ -299,8 +306,14 @@ export class Actor {
       if (this.running || s > this.walkSpeed * 1.3) return 'run';
       return 'walk';
     }
-    if (this.sneaking) return this.hasAnim('crouch' as CharAnim) ? ('crouch' as CharAnim) : 'sneak';
+    // Standing still while sneaking: a held crouch-walk frame keeps the facing; else the (side view) crouch pose.
+    if (this.sneaking) return !this.crouchWalk && this.hasAnim('crouch' as CharAnim) ? ('crouch' as CharAnim) : 'sneak';
     return this.idleAnim;
+  }
+
+  /** True if the art layer has a painted crouch-walk sheet for this character. */
+  private get crouchWalk(): boolean {
+    return this.host.scene.textures.exists(`${this.charKey}:sneak-sheet`);
   }
 
   /** True if the art layer generated this animation for the character (optional extras like 'crouch'). */
@@ -380,7 +393,10 @@ export class Actor {
   sync(): void {
     const x = this.x, y = this.y;
     const sc = this.baseScale * this.host.scaleAt(y);
-    if (Math.abs(sc - this.scale) > 0.001 || this.sprite.scaleX !== sc) { this.scale = sc; this.sprite.setScale(sc); }
+    if (Math.abs(sc - this.scale) > 0.001 || this.sprite.scaleX !== sc || this.sprite.scaleY !== sc * this.squash) {
+      this.scale = sc;
+      this.sprite.setScale(sc, sc * this.squash);
+    }
     this.sprite.setPosition(x, y + this.hopY);
     this.sprite.setDepth(y + this.depthBias);
     this.sprite.setAlpha(this.fade);
@@ -389,7 +405,7 @@ export class Actor {
     const fr = this.sprite.frame;
     // The sink is in world px; the crop works in frame px (minus the transparent rows under the feet anchor).
     const below = fr ? fr.realHeight * (1 - this.sprite.originY) : 0;
-    if (k > 0 && fr) this.sprite.setCrop(0, 0, fr.realWidth, Math.max(1, Math.round(fr.realHeight - below - k / this.scale)));
+    if (k > 0 && fr) this.sprite.setCrop(0, 0, fr.realWidth, Math.max(1, Math.round(fr.realHeight - below - k / (this.scale * this.squash))));
     else if (this.sprite.isCropped) this.sprite.setCrop();
     if (this.front) {
       const on = this.sink > 0.6 && this.visible;
