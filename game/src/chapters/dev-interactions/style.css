@@ -3,5 +3,5 @@
 .interaction-preview-picker span { color: var(--gold-hi); font-family: var(--f-label); }
 .interaction-preview-picker select { min-width: 0; max-width: 23em; min-height: 2.4em; padding: .3em 1.8em .3em .6em; font: inherit; color: var(--parch); background: #141d2b; border: 1px solid var(--gold-line); border-radius: .3em; cursor: pointer; }
 .interaction-preview-picker optgroup, .interaction-preview-picker option { background: #141d2b; color: var(--parch); }
-.interaction-preview-nav ~ .k3-blow .k3-veil, .interaction-preview-nav ~ .k3-stake .k3-veil { animation: none; }
+.interaction-preview-nav ~ .k3-blow .k3-frame, .interaction-preview-nav ~ .k3-stake .k3-frame { animation: none; }
 @media (max-width: 480px) { .interaction-preview-picker { width: 100%; } .interaction-preview-picker select { flex: 1; width: 0; } }

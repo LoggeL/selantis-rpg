@@ -12,22 +12,12 @@
 .action-goal { border: 2px dashed #7cdeca; background: #49e0c822; }
 .is-vertical .action-grip, .is-vertical .action-goal { left: 50%; }
 .action-ornament { position: absolute; inset: 0; pointer-events: none; opacity: .75; }
-.action-ornament svg { width: 100%; height: 100%; color: #ac8a57; }
 .mini-illustration { display: block; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
 .action-stage > .mini-illustration { position: absolute; inset: 0; }
 .has-mini-art:not(.is-vertical) .action-grip, .has-mini-art:not(.is-vertical) .action-goal { top: calc(100% - 24px); }
 .has-mini-art:not(.is-vertical) .action-track { top: auto; bottom: 24px; }
 .has-mini-art.is-vertical .action-grip, .has-mini-art.is-vertical .action-goal { left: calc(100% - 24px); }
 .has-mini-art.is-vertical .action-track { left: calc(100% - 24px); }
-.action-bellows .action-stage { height: 9em; background: radial-gradient(ellipse at 80% 100%, #604129, #131c25 70%); }
-.action-bellows .action-track { display: none; }
-.action-bellows .action-goal { width: 9em; height: 1.25em; border-radius: .15em; opacity: .3; }
-.action-bellows .bellows-handle { width: 9em; height: 1.3em; border-radius: .2em; border: 2px solid #e2be83; background: linear-gradient(#c59b61, #855c36); box-shadow: 0 3px 0 #392819, inset 0 2px 0 #eacf9a; color: #37281d; font: bold 1em var(--f-label); cursor: ns-resize; }
-.action-bellows .has-mini-art .bellows-handle, .action-bellows .has-mini-art .action-goal { left: 50%; }
-.bellows-folds { position: absolute; left: calc(50% - 4em); width: 8em; top: calc(24px + (100% - 48px) * var(--stroke-position)); bottom: 15px; }
-.bellows-folds svg { width: 100%; height: 100%; }
-.bellows-base { position: absolute; bottom: 8px; left: calc(50% - 4.5em); width: 9em; height: .6em; border: 2px solid #ac8758; background: #67452d; border-radius: .1em; }
-.bellows-nozzle { position: absolute; bottom: 15px; left: calc(50% + 4em); width: 3em; height: .8em; background: linear-gradient(#cbb38a, #6a5744); clip-path: polygon(0 0, 100% 30%, 100% 70%, 0 100%); }
 .action-status { min-height: 2.5em; display: grid; place-items: center; color: var(--gold-hi); font-family: var(--f-label); font-size: .9em; }
 .action-controls { display: flex; justify-content: center; gap: .8em; margin: .2em 0; }
 .action-direction.ch-btn { display: grid; place-items: center; min-width: 3.5em; min-height: 2.6em; padding: .3em 1em; font-size: 1.15em; touch-action: none; }
@@ -35,23 +25,203 @@
 .action-keyhint { margin-top: .5em; font-size: .75em; color: var(--parch-dim); }
 .is-touch .action-keyhint { display: none; }
 .scene-action.is-complete .action-box { border-color: #7cdeca; }
-.is-stealth .action-box { width: min(40em, 100%); }
-.is-stealth .action-stage { height: auto; aspect-ratio: 16 / 7; background: #101b20; border-color: var(--gold-line); box-shadow: inset 0 .15em .4em #0008; }
-.stealth-canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
-.stealth-beats { display: flex; justify-content: center; gap: .55em; padding: .3em; }
-.stealth-beats i { width: .7em; height: .7em; border-radius: 50%; border: 1px solid var(--gold); background: #0a111b; }
-.stealth-beats i.is-done { background: #9ee7c0; border-color: #9ee7c0; }
-.is-started .action-stage::after { content: ''; position: absolute; inset: auto 0 0; height: 3px; background: var(--gold-hi); transform-origin: left; transform: scaleX(var(--warning)); pointer-events: none; }
-[data-phase=retry] .action-stage { border-color: #e58b73; }
 .is-portrait .scene-action { align-items: center; padding: .7em; }
 @media (max-height: 480px) and (orientation: landscape) {
   .scene-action { padding: .4em; }
   .action-box { padding: .45em 1em; width: min(36em, 100%); }
   .action-box .ch-title { font-size: 1.05em; }
   .action-instruction { font-size: .8em; margin: .2em 0; }
-  .action-stage, .action-duck .action-stage, .action-bellows .action-stage { height: 4.6em; }
-  .is-stealth .action-stage { height: clamp(7em, 34vh, 10em); aspect-ratio: auto; }
+  .action-stage, .action-duck .action-stage { height: 4.6em; }
   .action-status { min-height: 1.6em; font-size: .8em; }
   .action-direction.ch-btn { min-height: 2em; padding: .15em .8em; }
   .action-keyhint { margin-top: .2em; }
 }
+
+/* ---- Story-Gesten (reach, lift, open-eyes, tend, bellows) — a painted close-up with a gilt slider and a control footer ---- */
+.scene-action.is-gesture { align-items: center; padding: 1em; background: radial-gradient(ellipse at 50% 50%, #05080eb3 30%, #030509ee 100%); --gesture-foot: 4.6em; --gesture-light: 243, 214, 138; }
+.action-reach.is-gesture, .action-lift.is-gesture { --gesture-light: 160, 255, 238; }
+.is-gesture .action-box { position: relative; display: flex; flex-direction: column; width: min(100%, 1080px, calc((100dvh - 7.5em - var(--gesture-foot)) * 16 / 9)); max-height: 100%; padding: 0; overflow: hidden; box-shadow: 0 1.2em 3em #000c, 0 0 0 1px #000; }
+.is-gesture .action-box::before, .is-gesture .action-box::after { z-index: 4; }
+.is-gesture .action-stage { position: relative; flex: none; width: 100%; height: auto; aspect-ratio: 16 / 9; margin: 0; border: 0; border-bottom: 1px solid var(--gold-line); border-radius: 0; background: #0b0f17; box-shadow: none; cursor: grab; }
+.is-gesture .mini-illustration { position: absolute; inset: 0; }
+/* Title cartouche and instruction ribbon over the top of the painting. */
+.is-gesture .ch-title { position: absolute; z-index: 3; top: .6em; left: 50%; transform: translateX(-50%); margin: 0; padding: .28em 1.5em .34em; font-size: clamp(1.05em, 2.6vmin, 1.6em); white-space: nowrap; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #0d121bdd 18%, #0d121bee 50%, #0d121bdd 82%, transparent); text-shadow: 0 2px 6px #000; }
+.is-gesture .ch-title::after { content: ''; position: absolute; left: 18%; right: 18%; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.is-gesture .action-instruction { position: absolute; z-index: 3; top: 3.05em; left: 50%; transform: translateX(-50%); width: max-content; max-width: min(40em, 78%); margin: 0; padding: .3em 2.2em .35em; font-size: clamp(.86em, 1.9vmin, 1.05em); line-height: 1.3; color: var(--parch); text-shadow: 0 1px 3px #000, 0 0 10px #000; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #0b0f17b3 16%, #0b0f17c7 50%, #0b0f17b3 84%, transparent); }
+/* Status ribbon: the next movement, just above the slider. */
+.is-gesture .action-status { position: absolute; z-index: 3; left: 50%; bottom: calc(var(--gesture-foot) + 4.3em); transform: translateX(-50%); min-height: 0; max-width: 80%; padding: .35em 1.6em .4em; font-size: clamp(1em, 2.4vmin, 1.3em); line-height: 1.2; white-space: nowrap; color: var(--gold-hi); pointer-events: none;
+  background: linear-gradient(90deg, transparent, #0d121be6 14%, #0d121bf2 50%, #0d121be6 86%, transparent); border-top: 1px solid #d8b25a55; border-bottom: 1px solid #d8b25a55; text-shadow: 0 1px 3px #000; }
+.action-lift.is-gesture .action-status, .action-open-eyes.is-gesture .action-status, .action-bellows.is-gesture .action-status { bottom: calc(var(--gesture-foot) + 1.1em); }
+/* The slider: an engraved gilt rail along the edge of the picture, a medallion grip and a glowing goal ring. */
+.is-gesture .action-track { z-index: 2; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #d8b25a33, #f3d68acc 50%, #d8b25a33); box-shadow: 0 0 0 1px #0008, 0 0 8px #000; }
+.is-gesture .is-vertical .action-track { width: 4px; height: auto; transform: translateX(-50%); background: linear-gradient(180deg, #d8b25a33, #f3d68acc 50%, #d8b25a33); }
+.is-gesture .action-goal { z-index: 2; width: 2.6em; height: 2.6em; border-radius: 50%; border: 2px solid rgb(var(--gesture-light)); background: radial-gradient(circle, rgba(var(--gesture-light), .35), rgba(var(--gesture-light), .08) 60%, transparent 72%); box-shadow: 0 0 1.2em rgba(var(--gesture-light), .55), inset 0 0 .8em rgba(var(--gesture-light), .45); }
+.is-gesture .action-goal::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid rgba(var(--gesture-light), .8); animation: gesture-ripple 1.6s ease-out infinite; }
+.is-gesture .action-grip { z-index: 3; width: 2.7em; height: 2.7em; border-radius: 50%; color: var(--gold-hi); border: 2px solid var(--gold); background: radial-gradient(circle at 50% 35%, #2a3550, #0d121b 75%);
+  box-shadow: 0 .25em .7em #000c, inset 0 0 0 3px #0d121b, inset 0 0 0 4px #d8b25a66, 0 0 1em #f3d68a55; transition: box-shadow .2s, transform .15s; }
+.is-gesture .action-stage:active .action-grip { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 .25em .7em #000c, inset 0 0 0 3px #0d121b, inset 0 0 0 4px #d8b25aaa, 0 0 1.6em #f3d68aaa; }
+.is-gesture .action-grip .ch-ico { width: 1.5em; height: 1.5em; }
+.is-gesture .bellows-handle { cursor: ns-resize; }
+.is-gesture .grip-glyph { font: 700 1.35em/1 var(--f-label); }
+.is-gesture .has-mini-art:not(.is-vertical) .action-grip, .is-gesture .has-mini-art:not(.is-vertical) .action-goal { top: calc(100% - var(--rail-inset, 24px)); }
+.is-gesture .has-mini-art.is-vertical .action-grip, .is-gesture .has-mini-art.is-vertical .action-goal { left: calc(100% - var(--rail-inset, 24px)); }
+.is-gesture .has-mini-art:not(.is-vertical) .action-track { left: var(--rail-inset, 24px); right: var(--rail-inset, 24px); bottom: var(--rail-inset, 24px); }
+.is-gesture .has-mini-art.is-vertical .action-track { top: var(--rail-inset, 24px); bottom: var(--rail-inset, 24px); left: calc(100% - var(--rail-inset, 24px)); }
+/* Pushing the wrong way against the end of the rail: the grip shakes, the next-move ribbon lights up. */
+.is-gesture.is-blocked .action-grip { animation: gesture-shake .3s ease-in-out infinite; border-color: #ffcf9a; }
+.is-gesture.is-blocked .action-status { color: #fff4d6; border-color: var(--gold); box-shadow: 0 0 1.2em #f3d68a55; }
+.is-gesture.is-blocked .action-goal { box-shadow: 0 0 2em rgba(var(--gesture-light), .9), inset 0 0 1em rgba(var(--gesture-light), .6); }
+@keyframes gesture-shake { 0%, 100% { translate: 0 0; } 25% { translate: -4px 0; } 75% { translate: 4px 0; } }
+.is-gesture .is-vertical .action-grip { animation-name: gesture-shake-v; }
+@keyframes gesture-shake-v { 0%, 100% { translate: 0 0; } 25% { translate: 0 -4px; } 75% { translate: 0 4px; } }
+.is-gesture .action-ornament { z-index: 1; opacity: 1; }
+/* Leather folds of the painted bellows (drawn on the canvas); the box only follows their geometry. */
+.bellows-folds { position: absolute; left: var(--folds-left, 7%); width: var(--folds-width, 40%); top: var(--folds-top, 40%); height: var(--folds-height, 30%); pointer-events: none; }
+/* Footer: arrow plates, stroke pips and key caps. */
+.is-gesture .action-controls { position: relative; flex: none; height: var(--gesture-foot); margin: 0; padding: 0 1.1em; display: flex; justify-content: space-between; align-items: center; gap: 1em;
+  background: linear-gradient(180deg, #131a28, #0c1019); }
+.is-gesture .action-direction.ch-btn { min-width: 3.3em; min-height: 3.3em; padding: 0; border-radius: 50%; font-size: 1.3em; line-height: 1; background: radial-gradient(circle at 50% 35%, #2a3550, #10151f 75%); border: 2px solid var(--gold); color: var(--gold-hi);
+  box-shadow: 0 .2em .6em #000a, inset 0 0 0 3px #0d121b, inset 0 0 0 4px #d8b25a55; }
+.is-gesture .action-direction.ch-btn:active { transform: scale(.94); background: radial-gradient(circle at 50% 35%, #4a3f22, #1a150c 75%); }
+.is-gesture .gesture-pips { position: absolute; z-index: 3; left: 50%; bottom: calc(var(--gesture-foot) - 2.35em); transform: translateX(-50%); display: flex; gap: .5em; pointer-events: none; }
+.gesture-pips i { width: .9em; height: .9em; border-radius: 50%; border: 1.5px solid var(--gold); background: radial-gradient(circle at 35% 30%, #1d2536, #070a10); box-shadow: inset 0 1px 2px #000; transition: background .3s, box-shadow .3s, transform .3s var(--ease-back); }
+.gesture-pips i.is-done { background: radial-gradient(circle at 35% 30%, #fff1c4, var(--gold) 55%, #8a6a2c); box-shadow: 0 0 .7em #f3d68aaa; transform: scale(1.18); }
+.is-gesture .action-keyhint { position: absolute; z-index: 3; left: 50%; bottom: calc(var(--gesture-foot) / 2); transform: translate(-50%, 50%); margin: 0; font-size: .85em; color: var(--parch-dim); white-space: nowrap; pointer-events: none; }
+.is-gesture .gesture-pips ~ .action-keyhint { bottom: .75em; transform: translateX(-50%); }
+.is-gesture .action-keyhint .ch-key { margin: 0 .12em; }
+.is-touch .is-gesture .action-keyhint { display: none; }
+/* Completion: the picture flares with the gesture's own light. */
+.is-gesture .action-stage::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at 50% 50%, rgba(var(--gesture-light), .85), rgba(var(--gesture-light), .25) 45%, transparent 75%); }
+.scene-action.is-gesture.is-complete .action-stage::after { animation: gesture-flare .5s ease-out forwards; }
+.scene-action.is-gesture.is-complete .action-box { border-color: var(--gold-hi); box-shadow: 0 0 0 2px var(--gold-hi), 0 0 3em rgba(var(--gesture-light), .45); }
+.scene-action.is-gesture.is-complete .action-grip { border-color: #fff4d0; box-shadow: 0 0 2em rgba(var(--gesture-light), .9); }
+@keyframes gesture-ripple { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
+@keyframes gesture-flare { 0% { opacity: 0; } 35% { opacity: 1; } 100% { opacity: .55; } }
+/* Phone portrait: the picture becomes a tall window, the texts flow above and below it. */
+.is-portrait .scene-action.is-gesture { padding: .5em; }
+.is-portrait .is-gesture .action-box { width: 100%; padding: .7em .7em 0; overflow: auto; }
+.is-portrait .is-gesture .ch-title { position: static; order: 1; transform: none; font-size: 1.25em; padding: .1em .5em .25em; white-space: normal; background: none; }
+.is-portrait .is-gesture .ch-title::after { display: none; }
+.is-portrait .is-gesture .action-instruction { position: static; order: 2; transform: none; width: auto; max-width: none; padding: .2em .2em .5em; font-size: .95em; color: var(--parch-dim); background: none; }
+.is-portrait .is-gesture .action-stage { order: 3; aspect-ratio: 4 / 5; max-height: 56dvh; border: 1px solid var(--gold-line); border-radius: .4em; }
+.is-portrait .is-gesture .gesture-pips { position: static; order: 4; align-self: center; transform: none; margin-top: .6em; }
+.is-portrait .is-gesture .action-status { position: static; order: 4; transform: none; max-width: none; margin-top: .45em; font-size: 1.08em; padding: .4em .6em; white-space: normal; }
+.is-portrait .is-gesture .action-controls { order: 5; justify-content: center; gap: 2em; margin: 0 -.7em; }
+.is-portrait .is-gesture .action-direction.ch-btn { min-width: 3.5em; min-height: 3.5em; }
+/* Vertical gestures put both arrow plates beside the rail. */
+.action-lift.is-gesture .action-controls, .action-open-eyes.is-gesture .action-controls, .action-bellows.is-gesture .action-controls { justify-content: flex-end; }
+.is-portrait .action-lift.is-gesture .action-controls, .is-portrait .action-open-eyes.is-gesture .action-controls, .is-portrait .action-bellows.is-gesture .action-controls { justify-content: center; }
+.action-lift.is-gesture .action-keyhint, .action-open-eyes.is-gesture .action-keyhint, .action-bellows.is-gesture .action-keyhint { left: 1.2em; transform: translateY(50%); }
+.action-bellows.is-gesture .gesture-pips { left: 1.2em; transform: none; }
+.action-bellows.is-gesture .action-status { left: auto; right: 4.2em; transform: none; }
+.action-bellows.is-gesture .gesture-pips ~ .action-keyhint { transform: none; }
+/* Phone landscape: same tableau, tighter type. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .scene-action.is-gesture { padding: .3em; --gesture-foot: 3.2em; }
+  .is-gesture .action-box { width: min(100%, calc((100dvh - .6em - var(--gesture-foot)) * 16 / 9)); padding: 0; }
+  .is-gesture .action-stage { height: auto; }
+  .is-gesture .ch-title { top: .35em; font-size: 1em; }
+  .is-gesture .action-instruction { top: 2.1em; font-size: .78em; width: 86%; }
+  .is-gesture .action-status { bottom: calc(var(--gesture-foot) + 3.9em); font-size: .9em; padding: .25em 1em; }
+  .is-gesture .action-direction.ch-btn { min-width: 2.6em; min-height: 2.6em; font-size: 1.1em; }
+  .is-gesture .action-grip { width: 2.6em; height: 2.6em; }
+  .is-gesture .action-goal { width: 2.7em; height: 2.7em; }
+  .is-gesture .gesture-pips { bottom: calc(var(--gesture-foot) / 2); transform: translate(-50%, 50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-gesture .action-goal::after { animation: none; opacity: 0; }
+  .is-gesture.is-blocked .action-grip { animation: none; }
+  .gesture-pips i, .is-gesture .action-grip { transition: none; }
+  .scene-action.is-gesture.is-complete .action-stage::after { animation: none; opacity: .5; }
+}
+.reduced-motion .is-gesture .action-goal::after { animation: none !important; opacity: 0; }
+.reduced-motion .is-gesture.is-blocked .action-grip { animation: none !important; }
+.reduced-motion .scene-action.is-gesture.is-complete .action-stage::after { animation: none !important; opacity: .5; }
+
+/* ---- Versteckspiele (stealth: cover, duck, listen) — a painted tableau with the Chronik HUD laid over it ---- */
+.scene-action.is-stealth { align-items: center; padding: 1em; background: radial-gradient(ellipse at 50% 55%, #05080ecc 30%, #030509f2 100%); }
+.is-stealth .action-box { position: relative; width: min(100%, 1180px, calc((100dvh - 8em) * 16 / 9)); aspect-ratio: 16 / 9; max-height: 100%; padding: 0; overflow: hidden; text-align: center; box-shadow: 0 1.2em 3em #000c, 0 0 0 1px #000; }
+.is-stealth .action-box::before, .is-stealth .action-box::after { z-index: 4; }
+.is-stealth .action-box::before { border-color: rgba(216, 178, 90, .45); }
+.is-stealth .action-stage { position: absolute; inset: 0; height: 100%; margin: 0; border: 0; border-radius: inherit; background: #0b1018; box-shadow: none; cursor: grab; }
+.stealth-canvas { display: block; width: 100%; height: 100%; pointer-events: none; }
+/* Title cartouche and instruction ribbon sit in the painted sky. */
+.is-stealth .ch-title { position: absolute; z-index: 3; top: .65em; left: 50%; transform: translateX(-50%); margin: 0; padding: .28em 1.4em .32em; font-size: clamp(1.05em, 2.6vmin, 1.6em); white-space: nowrap; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #0d121bdd 18%, #0d121bee 50%, #0d121bdd 82%, transparent); text-shadow: 0 2px 6px #000; }
+.is-stealth .ch-title::after { content: ''; position: absolute; left: 18%; right: 18%; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.is-stealth .action-instruction { position: absolute; z-index: 3; top: 3.1em; left: 50%; transform: translateX(-50%); width: min(44em, 80%); margin: 0; padding: .3em 1em; font-size: clamp(.82em, 1.9vmin, 1.02em); line-height: 1.3; color: var(--parch); text-shadow: 0 1px 3px #000, 0 0 10px #000; pointer-events: none; }
+/* Progress medallions, top right. */
+.stealth-beats { position: absolute; z-index: 3; top: .85em; right: 1.1em; display: flex; gap: .45em; padding: .35em .55em; border: 1px solid var(--gold-line); border-radius: 1em; background: #0d121bcc; pointer-events: none; }
+.stealth-beats i { width: .85em; height: .85em; border-radius: 50%; border: 1.5px solid var(--gold); background: radial-gradient(circle at 35% 30%, #1d2536, #070a10); box-shadow: inset 0 1px 2px #000; transition: background .3s, box-shadow .3s, transform .3s var(--ease-back); }
+.stealth-beats i.is-done { background: radial-gradient(circle at 35% 30%, #fff1c4, var(--gold) 55%, #8a6a2c); box-shadow: 0 0 .6em #f3d68aaa; transform: scale(1.15); }
+/* Status ribbon: the one line that tells what to do now. */
+.is-stealth .action-status { position: absolute; z-index: 3; left: 50%; bottom: 4.9em; transform: translateX(-50%); min-height: 0; max-width: 78%; padding: .35em 1.5em .4em; font-size: clamp(1em, 2.4vmin, 1.32em); line-height: 1.2; color: var(--gold-hi); pointer-events: none;
+  background: linear-gradient(90deg, transparent, #0d121be6 14%, #0d121bf2 50%, #0d121be6 86%, transparent); border-top: 1px solid #d8b25a55; border-bottom: 1px solid #d8b25a55; text-shadow: 0 1px 3px #000; transition: color .2s; }
+.is-stealth.is-danger .action-status { color: #ffd2c2; border-color: #d4573b99; background: linear-gradient(90deg, transparent, #2a0f0be6 14%, #2a0f0bf2 50%, #2a0f0be6 86%, transparent); }
+.is-stealth[data-phase=retry] .action-status { color: #ffb59f; animation: stealth-nudge .35s ease-out; }
+.is-stealth.is-safe:not(.is-danger) .action-status { color: #fff0c2; }
+/* Controls: big arrow plates at the bottom corners, start button in the middle of the picture. */
+.is-stealth .action-controls { position: absolute; z-index: 3; inset: 0; margin: 0; padding: 0 1em 1em; display: flex; justify-content: space-between; align-items: flex-end; pointer-events: none; }
+.is-stealth .action-direction.ch-btn { pointer-events: auto; min-width: 3.4em; min-height: 3.4em; padding: 0; border-radius: 50%; font-size: 1.35em; line-height: 1; background: radial-gradient(circle at 50% 35%, #2a3550, #10151f 75%); border: 2px solid var(--gold); color: var(--gold-hi); box-shadow: 0 .25em .7em #000a, inset 0 0 0 3px #0d121b, inset 0 0 0 4px #d8b25a55; }
+.is-stealth .action-direction.ch-btn:active { transform: scale(.94); background: radial-gradient(circle at 50% 35%, #4a3f22, #1a150c 75%); }
+.action-duck.is-stealth .action-controls { flex-direction: column; justify-content: flex-end; align-items: flex-end; gap: .5em; }
+.is-stealth .action-start.ch-btn { pointer-events: auto; position: absolute; left: 50%; bottom: calc(50% - 2em); transform: translateX(-50%); min-width: 8em; padding: .55em 2em; font-size: 1.35em; font-family: var(--f-head); letter-spacing: .06em; box-shadow: 0 0 2em #f3d68a55, 0 .3em 1em #000c; }
+.is-stealth .action-start.ch-btn:not(:disabled) { animation: stealth-ready 1.8s ease-in-out infinite; }
+.is-stealth:not(.is-started) .action-stage::before { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 60%, #05080e55, #05080ecc); pointer-events: none; }
+.is-stealth:not(.is-started) .action-status { bottom: calc(50% - 6em); }
+/* Once the watch starts, the status ribbon takes the instruction's place in the sky, clear of Lia and the cover. */
+.is-stealth .action-instruction { transition: opacity .3s; }
+.is-stealth.is-started .action-instruction { opacity: 0; }
+.is-stealth.is-started .action-status { bottom: auto; top: 4.1em; }
+/* ↑ and ↓ are small glyphs in the label font: larger type on the duck plates, same plate size. */
+.action-duck.is-stealth .action-direction.ch-btn { font-size: 1.9em; min-width: 2.42em; min-height: 2.42em; }
+.is-stealth .action-keyhint { position: absolute; z-index: 3; left: 50%; bottom: 1.1em; transform: translateX(-50%); margin: 0; padding: .2em .8em; font-size: .85em; color: var(--parch); background: #0d121bcc; border-radius: .4em; white-space: nowrap; pointer-events: none; }
+.is-touch .is-stealth .action-keyhint { display: none; }
+/* Watch timer: a gold fuse along the bottom edge that turns red while the guard searches. */
+.is-stealth.is-started .action-stage::after { content: ''; position: absolute; z-index: 2; inset: auto 0 0; height: 6px; background: linear-gradient(90deg, #8a6a2c, var(--gold-hi)); box-shadow: 0 0 10px #f3d68a88; transform-origin: left; transform: scaleX(var(--warning)); pointer-events: none; }
+.is-stealth.is-danger .action-stage::after { background: linear-gradient(90deg, #7a2e1f, var(--danger)); box-shadow: 0 0 12px #d4573baa; }
+.is-stealth[data-phase=retry] .action-box { box-shadow: 0 0 0 2px #d4573b, 0 0 2.4em #d4573b88, 0 1.2em 3em #000c; }
+.scene-action.is-stealth.is-complete .action-box { border-color: var(--gold-hi); box-shadow: 0 0 0 2px var(--gold-hi), 0 0 3em #f3d68a66; }
+@keyframes stealth-ready { 0%, 100% { box-shadow: 0 0 1.2em #f3d68a44, 0 .3em 1em #000c; } 50% { box-shadow: 0 0 2.6em #f3d68aaa, 0 .3em 1em #000c; } }
+@keyframes stealth-nudge { 0% { transform: translateX(-50%); } 30% { transform: translateX(calc(-50% - 6px)); } 60% { transform: translateX(calc(-50% + 5px)); } 100% { transform: translateX(-50%); } }
+/* Phone portrait: the picture becomes a tall window, the HUD flows around it. */
+.is-portrait .scene-action.is-stealth { padding: .5em; }
+.is-portrait .is-stealth .action-box { width: 100%; aspect-ratio: auto; max-height: 100%; padding: .7em .7em .8em; overflow: auto; display: flex; flex-direction: column; }
+.is-portrait .is-stealth .action-stage { position: relative; inset: auto; order: 3; height: auto; aspect-ratio: 3 / 4; max-height: 60dvh; margin: .5em 0 0; border: 1px solid var(--gold-line); border-radius: .4em; }
+.is-portrait .is-stealth .ch-title { position: static; order: 1; transform: none; font-size: 1.25em; padding: .1em .5em .25em; white-space: normal; background: none; }
+.is-portrait .is-stealth .action-instruction { position: static; order: 2; transform: none; width: auto; padding: .2em .2em 0; font-size: .92em; color: var(--parch-dim); }
+.is-portrait .is-stealth .stealth-beats { position: static; order: 4; align-self: center; margin-top: .5em; }
+.is-portrait .is-stealth .action-status { position: static; order: 4; transform: none; max-width: none; margin-top: .45em; font-size: 1.05em; padding: .4em .6em; }
+.is-portrait .is-stealth[data-phase=retry] .action-status { animation: none; }
+.is-portrait .is-stealth .action-controls { position: static; order: 5; padding: .45em 0 0; justify-content: center; gap: 1.6em; }
+.is-portrait .action-duck.is-stealth .action-controls { flex-direction: row; justify-content: center; align-items: center; }
+.is-portrait .is-stealth .action-direction.ch-btn { min-width: 3.6em; min-height: 3.6em; }
+.is-portrait .is-stealth .action-start.ch-btn { bottom: auto; top: 46%; }
+.is-portrait .is-stealth:not(.is-started) .action-status { bottom: auto; }
+.is-portrait .is-stealth.is-started .action-instruction { opacity: 1; }
+.is-portrait .is-stealth.is-started .action-status { top: auto; }
+.is-portrait .action-duck.is-stealth .action-direction.ch-btn { font-size: 1.8em; min-width: 2.7em; min-height: 2.7em; }
+.is-portrait .is-stealth .action-keyhint { position: static; order: 6; transform: none; margin-top: .4em; background: none; }
+/* Phone landscape: same tableau, tighter type. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .scene-action.is-stealth { padding: .3em; }
+  .is-stealth .action-box { width: min(100%, calc((100dvh - .6em) * 16 / 9)); padding: 0; }
+  .is-stealth .ch-title { top: .35em; font-size: 1em; }
+  .is-stealth .action-instruction { top: 2.85em; font-size: .78em; width: 86%; }
+  .is-stealth .stealth-beats { top: .45em; right: .6em; }
+  .is-stealth .action-status { bottom: 3.6em; font-size: .9em; padding: .25em 1em; }
+  .is-stealth.is-started .action-status { top: 2.35em; }
+  .action-duck.is-stealth .action-direction.ch-btn { font-size: 1.5em; min-width: 2.1em; min-height: 2.1em; }
+  .is-stealth .action-controls { padding: 0 .6em .6em; }
+  .is-stealth .action-direction.ch-btn { min-width: 2.7em; min-height: 2.7em; font-size: 1.15em; padding: 0; }
+  .action-duck.is-stealth .action-controls { flex-direction: row; justify-content: flex-end; }
+  .is-stealth .action-start.ch-btn { font-size: 1.1em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-stealth .action-start.ch-btn:not(:disabled), .is-stealth[data-phase=retry] .action-status { animation: none; }
+  .stealth-beats i { transition: none; }
+  .is-stealth .action-instruction { transition: none; }
+}
+.reduced-motion .is-stealth .action-start.ch-btn, .reduced-motion .is-stealth .action-status { animation: none !important; }

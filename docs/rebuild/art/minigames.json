@@ -8,8 +8,882 @@
       "prompt": "Use case: stylized-concept. Asset type: background raster for an interactive fantasy RPG bellows mini game. Primary request: an empty medieval blacksmith workshop inside a forest camp, matching the detailed hand-painted pixel art of the reference game backgrounds. Scene: dark weathered timber shelter, stone forge hearth on the right with small orange coals, soot, a few hanging tongs and tools, low wooden workbench in the back, packed earth floor. Slightly elevated three-quarter game camera, wide horizontal composition, usable clear open foreground. Warm subtle forge light against dark desaturated blue and brown shadows. Style: polished 1990s fantasy RPG environment, crisp visible pixel clusters, richly textured materials, atmospheric painted pixel art, no smooth vector shapes, no photorealism. No people, no bellows, no anvil in the foreground because those interactive objects are drawn separately by the game. Keep the central foreground and left foreground clear. No lettering, no UI, no frame, no watermark. Landscape 16:9 composition.",
       "refs": [],
       "source": "output/imagegen/minigame-forge.png",
-      "runtimeSize": [640, 360],
+      "runtimeSize": [
+        640,
+        360
+      ],
       "ok": true
+    },
+    "game/public/assets/minigames/stealth-cover.jpg": {
+      "kind": "bg",
+      "id": "stealth-cover",
+      "prompt": "Use case: background raster for an interactive stealth mini game in a fantasy RPG. Low side-view camera at the eye height of a crouching girl, like a painted battle-scene backdrop, wide horizontal 16:9 composition. Scene: the grassy embankment beside a small farm at dusk. Lower third: an open, gently sloping strip of short grass and a few wildflowers, kept clear and flat so characters and bushes can be placed on it later. Middle ground at about 50-60% height: a packed dirt farm lane running horizontally across the whole image, empty, room for a patrolling guard. Background: a timber-framed farmhouse with a thatched roof and warm lit windows on the right, a wooden barn and a split-rail fence, a thin column of dark smoke, wheat fields and a tree line under a dramatic orange-violet dusk sky. No people, no animals, no bushes in the lower third. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png",
+        "game/public/assets/bg/k1-hof.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-cover.png",
+      "build": "output/stealth-build.py (16:9 crop, 1280×720 JPG)",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-bush-a.png": {
+      "kind": "prop",
+      "id": "stealth-bush-a",
+      "prompt": "Use case: two isolated foreground props for a side-view stealth mini game. Two separate large, dense hazel and hawthorn bushes seen from a low side view, side by side with a wide empty gap between them, each about as wide as tall, lush layered leaves, a few long grass blades and ferns at the base, warm dusk rim light from the right and cool shadow on the left, full shapes with nothing cut off, flat bottoms resting on one invisible ground line. Flat pure magenta #FF00FF background everywhere around the objects (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-cover-bushes.png",
+      "build": "output/stealth-build.py (lib.key_out, split, despill)",
+      "runtimeSize": [
+        405,
+        300
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-bush-b.png": {
+      "kind": "prop",
+      "id": "stealth-bush-b",
+      "prompt": "Use case: two isolated foreground props for a side-view stealth mini game. Two separate large, dense hazel and hawthorn bushes seen from a low side view, side by side with a wide empty gap between them, each about as wide as tall, lush layered leaves, a few long grass blades and ferns at the base, warm dusk rim light from the right and cool shadow on the left, full shapes with nothing cut off, flat bottoms resting on one invisible ground line. Flat pure magenta #FF00FF background everywhere around the objects (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hohlweg.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-cover-bushes.png",
+      "build": "output/stealth-build.py (lib.key_out, split, despill)",
+      "runtimeSize": [
+        412,
+        300
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-duck.jpg": {
+      "kind": "bg",
+      "id": "stealth-duck",
+      "prompt": "Use case: background raster for an interactive stealth mini game in a fantasy RPG. Low side-view camera at the eye height of a crouching girl, like a painted battle-scene backdrop, wide horizontal 16:9 composition. Scene: a sunken lane (hollow way) between two steep earth embankments at golden dusk, seen from low inside the near embankment. The empty dirt lane runs horizontally across the whole image at about 45-65% height, long enough for riders to gallop through. Far side behind the lane: a steep bank of exposed earth with roots, ferns and hazel bushes, above it golden wheat fields, a few round trees and a warm orange sunset sky. Lower third: the grassy top of the near embankment, fairly dark and clear. No people, no horses, no animals. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hohlweg.png",
+        "output/imagegen/raw/minigames/stealth/minigame-cover.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-duck.png",
+      "build": "output/stealth-build.py (16:9 crop, 1280×720 JPG)",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-bank.png": {
+      "kind": "prop",
+      "id": "stealth-bank",
+      "prompt": "Use case: one isolated foreground prop for a side-view stealth mini game. A long continuous band of embankment vegetation: brambles, ferns, tall grass blades, hazel leaves and a few exposed roots and earth clods, about four times wider than tall, flat straight bottom edge, irregular leafy top edge, seen from a low side view, warm dusk light from the right and deep green shadow. The band spans the image horizontally with a small magenta margin on all sides, nothing cut off. Flat pure magenta #FF00FF background everywhere around the objects (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/raw/minigames/stealth/minigame-duck.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-duck-bank.png",
+      "build": "output/stealth-build.py (lib.key_out, split, despill)",
+      "runtimeSize": [
+        1250,
+        300
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-listen.jpg": {
+      "kind": "bg",
+      "id": "stealth-listen",
+      "prompt": "Use case: background raster for an interactive stealth mini game in a fantasy RPG. Low side-view camera at the eye height of a crouching girl, like a painted battle-scene backdrop, wide horizontal 16:9 composition. Scene: late dusk, view from the dark edge of a forest out onto open fields. Middle distance on a gentle rise: one huge lone oak with a small campfire glowing orange beneath it, a few tiny tents, bedrolls and tethered horses as small dark silhouettes, a black-and-white quartered banner on a pole. Middle ground at about 50-65% height: a dark meadow of tall grass running horizontally, empty, room for a patrolling guard. Lower third: dark forest floor with moss, roots and fallen leaves, open and flat. Deep blue-violet twilight sky with the first stars, cool shadows, warm firelight accents. No people. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/raw/minigames/stealth/minigame-duck.png",
+        "game/public/assets/bg/k5-schattenlager.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-listen.png",
+      "build": "output/stealth-build.py (16:9 crop, 1280×720 JPG)",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-trunk-a.png": {
+      "kind": "prop",
+      "id": "stealth-trunk-a",
+      "prompt": "Use case: two isolated foreground props for a side-view stealth mini game. Two separate massive old tree trunks, thick gnarled oak trunks with deep furrowed bark, moss patches and spreading roots at the base, tall and vertical, standing side by side with a wide empty gap between them, each trunk cut off cleanly by the top edge of the image (no crown, no branches visible), cool blue twilight light with a warm orange rim light on one side. Flat bottoms resting on one invisible ground line, roots fully visible. Flat pure magenta #FF00FF background everywhere around the objects (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/raw/minigames/stealth/minigame-listen.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-listen-trunks.png",
+      "build": "output/stealth-build.py (lib.key_out, split, despill)",
+      "runtimeSize": [
+        669,
+        720
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/stealth-trunk-b.png": {
+      "kind": "prop",
+      "id": "stealth-trunk-b",
+      "prompt": "Use case: two isolated foreground props for a side-view stealth mini game. Two separate massive old tree trunks, thick gnarled oak trunks with deep furrowed bark, moss patches and spreading roots at the base, tall and vertical, standing side by side with a wide empty gap between them, each trunk cut off cleanly by the top edge of the image (no crown, no branches visible), cool blue twilight light with a warm orange rim light on one side. Flat bottoms resting on one invisible ground line, roots fully visible. Flat pure magenta #FF00FF background everywhere around the objects (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, soft atmospheric depth, matching the rendering style of the attached reference landscapes. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; absolutely no turquoise or cyan. No text, no letters, no numbers, no UI, no watermark, no frame, no border.",
+      "refs": [
+        "output/imagegen/raw/minigames/stealth/minigame-listen.png"
+      ],
+      "source": "output/imagegen/raw/minigames/stealth/minigame-listen-trunks.png",
+      "build": "output/stealth-build.py (lib.key_out, split, despill)",
+      "runtimeSize": [
+        658,
+        720
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-reach-arm.png": {
+      "kind": "minigame",
+      "id": "gesture-reach-arm",
+      "prompt": "Single isolated game illustration element for a fantasy RPG minigame, seen from the side: the right forearm and open hand of an old, wise mage reaching horizontally to the right towards a light. The wide bell-shaped sleeve of a deep royal-blue wool robe with a broad cream-white embroidered cuff band edged with thin gold lines, exactly like the robe on the attached character sheet. The sleeve enters from the LEFT edge of the image and is cut off cleanly and straight by the left image edge. The hand is on the right: palm open and turned slightly upward, five gently spread fingers reaching forward, natural anatomy, aged weathered warm skin with visible knuckles. The whole arm is horizontal, centred vertically and spans about 85 percent of the image width; the fingertips keep a clear margin to the right edge. Cool turquoise rim light on the fingertips from the right, otherwise dim cool cave light. No body, no face, no orb, no magic effects, no background objects. Landscape 3:2 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Detailed HD-2D pixel art with FINE, SMALL pixels: use the same small pixel size and the same painterly shading as the attached cave scene (second image), clearly finer than a chunky sprite; clean dark outlines, soft gradients made of small pixels. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/valentus.png",
+        "output/imagegen/raw/minigames/gestures/reach-scene.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/reach-arm-v2.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-reach-arm.png"
+      ],
+      "build": "output/gestures-build.py reach-arm-v2 (lib.key_out)",
+      "ok": true,
+      "previous": {
+        "prompt": "Single isolated game illustration element for a fantasy RPG minigame, seen from the side: the right forearm and open hand of an old, wise mage reaching horizontally to the right towards a light. The wide bell-shaped sleeve of a deep royal-blue wool robe with a broad cream-white embroidered cuff band edged with thin gold lines, exactly like the robe on the attached character sheet. The sleeve enters from the LEFT edge of the image and is cut off cleanly and straight by the left image edge. The hand is on the right: palm open and turned slightly upward, five gently spread fingers reaching forward, natural anatomy, aged weathered warm skin with visible knuckles. The whole arm is horizontal, centred vertically and spans about 85 percent of the image width; the fingertips keep a clear margin to the right edge. A faint cool light touches the fingertips from the right, otherwise warm dim light. No body, no face, no orb, no magic effects, no background objects. Landscape 3:2 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+        "source": "output/imagegen/raw/minigames/gestures/reach-arm.png",
+        "refs": [
+          "docs/rebuild/art/refs/valentus.png"
+        ],
+        "note": "Pixel deutlich gröber als die Höhlenszene; im Review ersetzt."
+      },
+      "runtimeSize": [
+        900,
+        415
+      ]
+    },
+    "game/public/assets/minigames/gesture-lift-arm.png": {
+      "kind": "minigame",
+      "id": "gesture-lift-arm",
+      "prompt": "Single isolated game illustration element for a fantasy RPG minigame, seen from above and slightly behind, like looking over the shoulder: the right forearm and open hand of an old, wise mage, raised upward and forward in a calm blessing gesture, palm facing down and away from the viewer, five gently spread fingers, natural anatomy, aged weathered warm skin. The wide bell-shaped sleeve of a deep royal-blue wool robe with a broad cream-white embroidered cuff band edged with thin gold lines, exactly like the robe on the attached character sheet. The sleeve enters from the BOTTOM edge of the image and is cut off cleanly and straight by the bottom image edge; the arm points straight up, the fingertips near the top with a clear empty margin above them. The arm fills about 80 percent of the image height and about 35 percent of its width, centred horizontally. Warm candle light from the left. No body, no face, no head, no magic effects, no background objects. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/valentus.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/lift-arm.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-lift-arm.png"
+      ],
+      "build": "output/gestures-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-lift-scene.jpg": {
+      "kind": "minigame",
+      "id": "gesture-lift-scene",
+      "prompt": "Close-up minigame scene illustration for a fantasy RPG, landscape 16:9. Camera: high three-quarter view looking down into a simple wooden baby cradle on a plank floor in a small cosy forest cottage at night, framed close like a painted vignette. The cradle stands in the upper middle of the image: dark warm-brown wood, carved rails, rocking runners. Inside, two newborn twin baby girls sleep side by side on a cream linen pillow: small round faces with closed eyes, a wisp of light brown hair, tucked under a hand-knitted red-and-cream striped wool blanket. Around the cradle: a woven rag rug, on the left a small wooden stool with a burning beeswax candle in a brass holder, dried herb bundles hanging from a beam at the top edge, a small window with deep blue night sky and stars at the top right. Warm golden candlelight, deep brown and night-blue shadows, darker vignette edges. The lower third of the image in front of the cradle must be EMPTY floor and rug (no hands, no person, no glow), because the game draws a hand rising there. No adults, no magic glow. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. Turquoise must not appear. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/lift-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-lift-scene.jpg"
+      ],
+      "build": "output/gestures-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-tend-scene.jpg": {
+      "kind": "minigame",
+      "id": "gesture-tend-scene",
+      "prompt": "Close-up minigame scene illustration for a fantasy RPG, landscape 16:9. Camera: high three-quarter view looking down at the sunny bank of a clear forest brook in summer, framed close like a painted vignette. In the centre of the image the bare right foot and ankle of a slender sixteen-year-old girl rest on their side on a folded white linen cloth on a flat mossy stone; the heel points towards the left-centre of the image and the toes point to the right; natural foot anatomy with five toes, fair skin. On the back of the heel: a small half-healed reddish scrape with a little brown scab, clearly visible. The foot fills about one third of the image width. The hem of a long brown wool skirt comes in from the left image edge and covers the leg above the ankle. To the right of the cloth stands a small cork-stoppered round glass bottle with green herbal tincture. Around: smooth river pebbles, ferns, clover and moss; clear shallow water with soft white ripples runs across the top quarter of the image; dappled warm sunlight through leaves. The space directly above the heel must be EMPTY (no hands, no cloth pad), because the game draws a hand there. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. Turquoise must not appear. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/tend-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-tend-scene.jpg"
+      ],
+      "build": "output/gestures-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-tend-hand.png": {
+      "kind": "minigame",
+      "id": "gesture-tend-hand",
+      "prompt": "Single isolated game illustration element for a fantasy RPG minigame, seen from a high three-quarter camera looking down: the right hand and forearm of a slender sixteen-year-old girl reaching down from the TOP edge of the image, holding a small folded pad of white linen, dampened with green-amber herbal tincture, between thumb, index and middle finger; the linen pad is the lowest point of the object, near the bottom centre. A cream-white linen blouse sleeve rolled up to the elbow, cut off cleanly and straight by the top image edge. Natural anatomy, five fingers, fair skin with a few freckles. The forearm is slightly tilted, coming from the upper right. Fills about 85 percent of the image height. No face, no body, no ground, no foot. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/tend-hand.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-tend-hand.png"
+      ],
+      "build": "output/gestures-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-bellows-top.png": {
+      "kind": "minigame",
+      "id": "gesture-bellows",
+      "prompt": "Single isolated game prop for a fantasy RPG minigame, strict orthographic SIDE VIEW without perspective: a large old blacksmith's box bellows lying horizontally. From top to bottom: a flat thick upper board of dark oak with two black iron straps and a big black iron ring handle standing up from its middle; below it a dark brown oiled leather bag folded in four even horizontal pleats with brass tacks along the edges; below that a flat thick lower board of dark oak of the same length as the upper board. On the right end, at the height of the LOWER board, a tapered riveted iron nozzle pipe points to the right. Both boards are perfectly horizontal and parallel; the bellows is fully open, so the leather pleats are about as tall as both boards together. Centred, filling about 80 percent of the image width, nothing cut off. Warm orange forge light from the right. Landscape 3:2 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "game/public/assets/bg/minigame-forge.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/bellows.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-bellows-top.png",
+        "game/public/assets/minigames/gesture-bellows-leather.png",
+        "game/public/assets/minigames/gesture-bellows-base.png"
+      ],
+      "build": "output/gestures-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-reach-scene.jpg": {
+      "kind": "minigame",
+      "id": "gesture-reach-scene",
+      "prompt": "Close-up minigame scene illustration for a fantasy RPG, landscape 16:9, framed close like a painted vignette. A hidden cave sanctum deep under a council hall at night: on the RIGHT side of the image, at about two thirds of the image width, an ancient moss-covered octagonal stone pedestal with carved runes-free arches; floating above it a sphere of swirling turquoise primordial light (the Urmacht) with soft spiral wisps and tiny glowing motes, casting cool turquoise light onto the wet rock. Dark grey-blue cave walls with stalactites, a few stalagmites at the edges, wet cobblestone floor reflecting the light; far in the left background a narrow tunnel with two tiny warm torches. The LEFT half of the image in front of the pedestal is open dark air at the height of the sphere (no person, no hand, no objects there), because the game draws a reaching arm entering from the left. No people. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Palette: cave stone grey, night blue-violet, a little warm torch orange; turquoise ONLY in the sphere and its light. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-rain-forest.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/reach-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-reach-scene.jpg"
+      ],
+      "build": "output/gestures-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/gesture-bellows-scene.jpg": {
+      "kind": "minigame",
+      "id": "gesture-bellows-scene",
+      "prompt": "Close-up minigame scene illustration for a fantasy RPG, landscape 16:9, framed close like a painted vignette. Camera at eye level, straight side view into a small village smithy in the evening. The RIGHT half of the image: a big waist-high blacksmith's forge hearth built of rough grey fieldstones with a stone hood and chimney rising to the top edge; on top a bed of glowing orange and yellow coals with small flames, casting strong warm orange light. On the hearth's LEFT stone face, low down at about 70 percent of the image height and at about 52 percent of the image width, a short round black iron air pipe (tuyere) sticks out of the stone towards the left, its open round mouth facing left, where a bellows nozzle will be attached. The LEFT half of the image below 45 percent of the image height is EMPTY floor of packed dark earth with a few scattered coal crumbs (no objects, no bellows, no people there), because the game draws a large bellows there. Background behind: dark timber wall with hanging tongs and hammers, a horseshoe rack, a water barrel at the far right edge, an anvil on a stump in the left middle distance. In the left background, small and behind the empty floor area, standing beside the anvil: Azar, the stout cheerful blacksmith from the attached character sheet (red knitted cap, short dark beard, mustard-yellow tunic with leather belt and pouch, brown trousers, boots), turned three-quarters towards the hearth, holding a pair of long tongs, friendly smile; his whole figure visible, about 30 percent of the image height, feet at about 50 percent of the image height. Warm orange firelight, deep brown shadows, a little cool blue dusk light from a small window at the top left. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. Turquoise must not appear. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/azar.png",
+        "output/imagegen/raw/minigames/gestures/lift-scene.png"
+      ],
+      "source": "output/imagegen/raw/minigames/gestures/bellows-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/gesture-bellows-scene.jpg"
+      ],
+      "build": "output/gestures-build.py bellows-scene",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "tool": "scripts/art/codex_image.sh",
+      "ok": true
+    },
+    "game/public/assets/minigames/feuer-scene.jpg": {
+      "kind": "minigame",
+      "id": "feuer-scene",
+      "prompt": "Close-up minigame scene illustration for a fantasy RPG, landscape 16:9. Camera: high three-quarter view looking down at a small campfire pit on a forest-clearing floor at dusk, framed close like a painted vignette, matching the attached first-camp map reference in materials and palette. In the exact centre of the image: a shallow pit ringed by about ten rounded grey field stones. Inside the ring, centred, lies a flat split piece of pale dry wood (the hearth board) with one small dark scorched notch exactly at the image centre, a tiny heap of brown wood dust under the notch, and directly in front of it a loose nest of dry golden grass and crumbled brown leaves. Next to the ring: a small bundle of dry twigs, a few pine cones, moss and fern fronds, packed brown earth. Background top edge: dark roots and undergrowth of the forest fading into blue-violet dusk shadow; a warm last orange evening light from the upper left. The area directly above the notch must be EMPTY (no stick, no hands, no fire, no smoke, no person) because the game draws the drill and hands there. No fire burning yet. Painterly, rich, atmospheric, darker around the edges like a vignette. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-first-camp.png",
+        "game/public/assets/bg/k2-lager.png"
+      ],
+      "source": "output/imagegen/raw/minigames/feuer-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/feuer-scene.jpg"
+      ],
+      "build": "output/feuer-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/feuer-hands.png": {
+      "kind": "minigame",
+      "id": "feuer-hands",
+      "prompt": "Single isolated game illustration element for a fantasy RPG minigame, seen from a high three-quarter camera looking down and slightly forward: the two hands and forearms of a slender sixteen-year-old girl twirling a fire-drill. A straight, thin, peeled pale wooden spindle stick stands vertically in the exact horizontal centre of the image; its lower pointed tip, slightly blackened, reaches the bottom centre of the image. Her two open hands press flat palms together around the upper half of the stick from the left and the right, fingers extended, five fingers each, natural anatomy, warm skin with a few freckles. Forearms come in from the upper left and upper right and are cut off cleanly by the top edge of the image; she wears cream-white linen blouse sleeves rolled up to the forearm (like the attached character sheet) and the edge of a long green travel cloak. Warm orange firelight from below. No face, no body, no ground, no fire. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "source": "output/imagegen/raw/minigames/feuer-hands.png",
+      "outputs": [
+        "game/public/assets/minigames/feuer-hands.png"
+      ],
+      "build": "output/feuer-build.py",
+      "ok": true
+    },
+    "game/public/assets/minigames/feuer-flame.png": {
+      "kind": "minigame",
+      "id": "feuer-flame",
+      "prompt": "Single isolated game effect sprite for a fantasy RPG minigame, seen from a high three-quarter camera: a freshly caught small campfire flame, a lively cluster of bright orange and golden-yellow tongues of fire with a hot pale-yellow core at the bottom centre, flickering upward to pointed tips, three or four tiny glowing orange sparks above it. Only the fire itself: no wood, no grass, no logs, no smoke. The flame base sits at the bottom centre of the image, the flame fills about 75% of the image height and about 45% of its width, nothing cut off. Warm fire colours only (deep red, orange, gold, pale yellow), absolutely no blue, cyan, turquoise or white-blue. Flat pure black #000000 background everywhere around the fire (one single flat colour, no gradient, no ground, no wood, no grass, no scenery), so the image can be composited with an additive screen blend. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/feuer-flame.png",
+      "outputs": [
+        "game/public/assets/minigames/feuer-flame.png"
+      ],
+      "build": "output/feuer-build.py (alpha from brightness on black, no chroma key)",
+      "ok": true
+    },
+    "game/public/assets/minigames/sterne-sky.jpg": {
+      "kind": "minigame",
+      "id": "sterne-sky",
+      "prompt": "Asset type: full-screen painted backdrop for a star-finding mini game in a fantasy RPG, wide 16:9 landscape. Point of view: a girl lies on her cloak on the forest floor at night and looks STRAIGHT UP into the sky through the crowns of old oak trees (worm's-eye view, no ground visible). COMPOSITION IS CRITICAL: the trees form only a FRAME around the picture. Four or five oak trunks rise from the four corners and converge in steep upward perspective, their leafy crowns overhang ONLY the outer border: about the outer 10 percent of the width on the left and right edges and the outer 12 percent of the height at top and bottom, a little deeper in the four corners. Everything inside, from 12 to 88 percent of the width and 14 to 82 percent of the height, is completely OPEN sky with no leaves, no twigs and no branches crossing it. Individual oak leaves and thin twigs are silhouetted crisply against the sky along the inner edge of the frame. Sky: deep midnight blue in the centre, blue-violet towards the leaves, a soft faint milky-way haze running diagonally from the lower left to the upper right. IMPORTANT: the sky contains NO bright stars and no moon, only extremely faint tiny star dust, because the game draws all stars itself. A faint warm orange campfire glow from below catches the undersides of the leaves along the bottom edge only. Leaves in dark green, blue-green and near-black, cool moonless night, no people, no animals, no turquoise. Match the painting style, pixel density and colours of the attached sky backdrop exactly, but with a much wider opening.\n\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG with an HD-2D feel, crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric. No text, no letters, no watermark, no frame, no UI.",
+      "refs": [
+        "output/imagegen/raw/art/sterne/minigame-sky.png",
+        "game/public/assets/bg/k2-lager.png"
+      ],
+      "source": "output/imagegen/raw/art/sterne/minigame-sky-wide.png",
+      "runtimeSize": [
+        1600,
+        900
+      ],
+      "note": "output/sterne-build.py: leaves segmented (sky = blue dominant), leaf area filled with extended sky. Canopy is the matching overlay.",
+      "ok": true
+    },
+    "game/public/assets/minigames/sterne-canopy.webp": {
+      "kind": "minigame",
+      "id": "sterne-canopy",
+      "prompt": "(same raw as sterne-sky)",
+      "refs": [],
+      "source": "output/imagegen/raw/art/sterne/minigame-sky-wide.png",
+      "runtimeSize": [
+        1600,
+        900
+      ],
+      "note": "output/sterne-build.py: leaves only, alpha from the sky segmentation; drawn above the stars so leaves occlude them and can sway.",
+      "ok": true
+    },
+    "game/public/assets/minigames/sterne-eagle.jpg": {
+      "kind": "minigame",
+      "id": "sterne-eagle",
+      "prompt": "Asset type: glowing overlay for a fantasy RPG night sky, on a PURE FLAT BLACK background (#000000 everywhere, no stars, no sky colour, no gradient). Subject: a mythical constellation figure of a great eagle drawn as an old star-atlas illustration made of thin luminous pale-gold light lines and soft golden glow, seen straight from below: the eagle faces the viewer, head pointing UP with a small hooked beak in profile, both wings spread wide and slightly raised so the wing tips are higher than the shoulders, long primary feathers fanned at the wing tips, the body narrows downward to a fanned tail at the bottom, two talons tucked beside the tail. The figure fills the frame tightly, centered, square format, wings touching the left and right edges. Translucent, ethereal, like a golden engraving of light, fine feather lines, soft bloom, sparse tiny golden sparkles along the outline. Colours only warm gold, pale cream and white on black; no blue, no turquoise. Crisp painterly pixel-art light lines in the style of a 16-bit fantasy RPG. No text, no letters, no frame, no circle, no stars chart grid, no watermark.",
+      "refs": [],
+      "source": "output/imagegen/raw/art/sterne/sterne-eagle.png",
+      "runtimeSize": [
+        600,
+        600
+      ],
+      "note": "Glow on black, composited with \"screen\" over the sky once Crios is found.",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-notes-table.jpg": {
+      "kind": "minigame",
+      "id": "k3-notes-table",
+      "prompt": "Minigame background illustration for a fantasy RPG, landscape 16:9, seen straight from above (top-down) onto the rough dark oak tabletop of a medieval tavern table at night, filling the whole image edge to edge. Wide worn planks running horizontally with knots, scratches, old wax drops and a few faint ring stains from mugs. At the top-right corner: a short tallow candle in a small brass holder, burning, casting a warm golden pool of light over the right half of the table, the light falling off into deep brown-violet shadow towards the left and bottom edges. At the bottom-left corner: the edge of a clay ale mug and a stick of black drawing charcoal with charcoal dust. At the top-left corner: the corner of a brown leather satchel. The large CENTRE of the table must stay EMPTY bare wood (no papers, no objects), because the game lays notes there. Cosy, atmospheric, slightly smoky tavern mood. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/notes-table.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-notes-table.jpg"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-notes-paper.png": {
+      "kind": "minigame",
+      "id": "k3-notes-paper",
+      "prompt": "Single isolated game illustration element for a fantasy RPG: one blank torn scrap of old handmade paper seen straight from above, landscape rectangle about twice as wide as high, filling about 90 percent of the image width. Warm cream-ivory rag paper with visible fibres, slightly crumpled, soft creases, a few faint brown foxing spots, uneven torn deckled edges on all four sides, slightly darker toasted edges. Completely blank, nothing written or drawn on it. Soft even light. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/notes-paper.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-notes-paper.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-clue-seilfasern.png": {
+      "kind": "minigame",
+      "id": "k3-clue-seilfasern",
+      "prompt": "Single isolated small object illustration for a fantasy RPG clue card, seen from a high three-quarter view, centred, filling about 80 percent of a square image, nothing cut off, warm candle light from the upper left. A short section of a rough dark wooden tavern pillar post standing upright, with a few torn strands of frayed golden-brown hemp rope fibres snagged on a splinter and scratches at its middle; a small loose loop of frayed hemp cord hangs from it. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/clue-seilfasern.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-clue-seilfasern.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-clue-zwerg.png": {
+      "kind": "minigame",
+      "id": "k3-clue-zwerg",
+      "prompt": "Single isolated small object illustration for a fantasy RPG clue card, seen from a high three-quarter view, centred, filling about 80 percent of a square image, nothing cut off, warm candle light from the upper left. The belongings of a grumpy dwarf on a tavern bench corner: a heavy iron-banded wooden tankard with foam, a long-stemmed carved clay pipe with a thin wisp of smoke, and a dwarven iron-grey braided beard clasp of bronze beside them. No person, no face, no hands. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/clue-zwerg.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-clue-zwerg.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-clue-kette.png": {
+      "kind": "minigame",
+      "id": "k3-clue-kette",
+      "prompt": "Single isolated small object illustration for a fantasy RPG clue card, seen from a high three-quarter view, centred, filling about 80 percent of a square image, nothing cut off, warm candle light from the upper left. A short rusty iron chain of about seven links hanging from an iron hook, ending in a small open hinged iron ankle shackle (fetter), clearly too small for a man, narrow, with a little open padlock pin. No person, no foot. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/clue-kette.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-clue-kette.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-clue-haarband.png": {
+      "kind": "minigame",
+      "id": "k3-clue-haarband",
+      "prompt": "Single isolated small object illustration for a fantasy RPG clue card, seen from a high three-quarter view, centred, filling about 80 percent of a square image, nothing cut off, warm candle light from the upper left. A girl's simple hair band made of braided warm brown leather cord with two small knotted tassel ends and a single small carved wooden bead, lying loosely curled on a little tuft of golden straw. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/clue-haarband.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-clue-haarband.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-clue-schminke.png": {
+      "kind": "minigame",
+      "id": "k3-clue-schminke",
+      "prompt": "Single isolated small object illustration for a fantasy RPG clue card, seen from a high three-quarter view, centred, filling about 80 percent of a square image, nothing cut off, warm candle light from the upper left. A small open medieval makeup case: a little hinged wooden box lined with worn red velvet, with a tiny round polished bronze hand mirror in the lid, two small clay pots of rouge and kohl, and a short brush. Pretty but cheap. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/clue-schminke.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-clue-schminke.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-clue-wette.png": {
+      "kind": "minigame",
+      "id": "k3-clue-wette",
+      "prompt": "Single isolated small object illustration for a fantasy RPG clue card, seen from a high three-quarter view, centred, filling about 80 percent of a square image, nothing cut off, warm candle light from the upper left. A wager on a tavern table corner: a small stack of copper and silver coins, two bone dice and a little leather coin purse, in front of a small complete minstrel's lute lying diagonally behind them; the whole lute is visible inside the image with a wide magenta margin, nothing touches or crosses the image edges. No person, no hands. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/minigames/k3/clue-wette.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-clue-wette.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-blow-scene.jpg": {
+      "kind": "minigame",
+      "id": "k3-blow-scene",
+      "prompt": "Close-up minigame scene illustration for a fantasy RPG, landscape 16:9, low camera close to the ground at night in a dark forest clearing. In the centre of the image: two cupped hands of a slender sixteen-year-old girl (fair skin with a few freckles, cream-white linen blouse sleeves and the edge of a long green travel cloak at the wrists, like the attached character sheet) gently hold a loose bird's-nest bundle of dry golden grass and shredded bark, coming in from the bottom-left of the image; five fingers each, natural anatomy. In the middle of the nest a tiny dull orange ember glows faintly. Below and behind the hands: a ring of grey field stones with a small unlit teepee of dry twigs and kindling. Background: dark tree trunks, ferns and roots in deep blue-violet moonlit night shadow; at the right edge the dim warm silhouette of a big man's knee and a red sleeve (only a hint, cut off by the edge, no face). The area directly above and left of the nest must stay EMPTY dark air (no smoke, no fire), because the game draws the breath, glow, smoke and flame there. Painterly, intimate, very dark around the edges like a vignette, the only warm light is the faint ember. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/minigames/k3/blow-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-blow-scene.jpg"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-stake-scene.jpg": {
+      "kind": "minigame",
+      "id": "k3-stake-scene",
+      "prompt": "Minigame scene illustration for a fantasy RPG, landscape 16:9, low camera at ground level at night, looking across a soldiers' camp in a forest clearing beside a moonlit pond, matching the attached camp map in materials and palette. Foreground bottom-left third: soft wet brown riverbank clay and trampled grass, completely EMPTY (no stake, no chain, no person), because the game draws the stake there. Middle distance, centre-right: a crackling campfire in a stone ring with logs to sit on; around it four rough soldiers seen from behind and from the side, sitting and singing with raised wooden mugs, one beating a small hand drum; they wear black-and-white quartered tabards over mail like the attached soldier sheet; small figures, faces turned away towards the fire. To the right of the fire: a beer keg on a trestle with EMPTY space next to it (no one standing there). Background: dark canvas tents, a big black tent with black-and-white banners, tall dark trees, and the pond on the right with a full moon reflected in the water. Warm orange firelight against deep blue-violet night. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "game/public/assets/bg/k3-weiher.png",
+        "docs/rebuild/art/refs/shadow-spear.png"
+      ],
+      "source": "output/imagegen/raw/minigames/k3/stake-scene.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-stake-scene.jpg"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-stake-post.png": {
+      "kind": "minigame",
+      "id": "k3-stake-post",
+      "prompt": "Single isolated game illustration element for a fantasy RPG minigame, seen from a low close camera: a thick rough wooden stake driven upright into a small mound of wet brown clay. Near its top a heavy iron ring is nailed into the wood, and a short rusty iron chain hangs from the ring down and off to the LEFT edge of the image. Two slender hands of a sixteen-year-old girl (warm skin, a little dirty, five fingers each, natural anatomy, the cuffs of a torn beige linen dress at the wrists like the attached character sheet) grip the stake firmly just below the ring, one above the other, coming in from the left; the forearms are cut off cleanly by the LEFT image edge. No face, no body. The stake stands in the horizontal centre, its clay base at the bottom. Portrait 3:4 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra-bound.png"
+      ],
+      "source": "output/imagegen/raw/minigames/k3/stake-post.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-stake-post.png",
+        "game/public/assets/minigames/k3-stake-mound.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out; split into post and mound; the hidden foot below the clay line is the bark band above it, stretched to the column width and stained with wet clay, with an irregular mud line above the clay so the rising stake shows no seam)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-stake-algard-back.png": {
+      "kind": "minigame",
+      "id": "k3-stake-algard-back",
+      "prompt": "Single isolated character illustration for a fantasy RPG minigame: a rough scarred mercenary soldier like the attached character sheet (dark brown hair in a short ponytail, black-and-white quartered tabard over mail sleeves, leather bracers, brown boots, axe on the belt) standing and seen from BEHIND, slightly from the left, his back to the viewer, tipping a wooden mug of beer up to his mouth with his right hand, relaxed. Full figure from head to boots, nothing cut off, filling about 90 percent of the image height. Warm orange firelight from the right side. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/algard.png"
+      ],
+      "source": "output/imagegen/raw/minigames/k3/stake-algard-back.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-stake-algard-back.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k3-stake-algard-look.png": {
+      "kind": "minigame",
+      "id": "k3-stake-algard-look",
+      "prompt": "Single isolated character illustration for a fantasy RPG minigame: the same rough scarred mercenary soldier as in the attached images (dark brown hair in a short ponytail, black-and-white quartered tabard over mail sleeves, leather bracers, brown boots, axe on the belt), standing with his back mostly to the viewer but TURNING his head and shoulders round over his left shoulder to stare suspiciously straight at the viewer, narrowed eyes, scarred right cheek, a wooden mug lowered in his right hand. Same pose scale and stance as the attached back view. Full figure from head to boots, nothing cut off, filling about 90 percent of the image height. Warm orange firelight from the right side. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere around the object (one single flat colour, no gradient), no ground shadow, no floor, no table, no scenery. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, stone grey, evening orange, night blue-violet. Absolutely no turquoise or cyan anywhere. No text, no letters, no numbers, no runes, no labels, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/algard.png",
+        "output/imagegen/raw/minigames/k3/stake-algard-back.png"
+      ],
+      "source": "output/imagegen/raw/minigames/k3/stake-algard-look.png",
+      "outputs": [
+        "game/public/assets/minigames/k3-stake-algard-look.png"
+      ],
+      "build": "output/k3-panels-build.py (magenta keyed with scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-table.jpg": {
+      "kind": "bg",
+      "id": "packen-table",
+      "prompt": "Use case: stylized-concept. Asset type: background raster for an interactive fantasy RPG packing mini game (a close-up scene vignette). Primary request: a close-up view of a big worn oak kitchen table inside the rustic farmhouse room of the attached game background (same house, same wood, same stone and plaster), seen from a high three-quarter camera looking down onto the table top. The long plank table top fills the whole middle and lower two thirds of the image from the left edge to the right edge, warm honey-brown oak planks with grain, knots, scratches and old knife marks; its surface is EMPTY and clear everywhere because the game places objects on it. Only the upper quarter of the image shows the room behind the table: on the left a cold grey fieldstone oven with an iron hook on the timber post beside it, in the middle a plastered wall with a wooden shelf of clay jars and dried herb bundles, some jars knocked over, on the right a small window with soft pale-gold early morning light. A gentle diagonal beam of dawn light falls from the window across the table. Quiet, sorrowful morning after a tragedy: soft warm dawn light against cool blue-violet shadows in the corners, slightly darker vignette at the image edges. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible pixel clusters, clean dark outlines, rich painterly pixel shading, richly textured wood and stone, no smooth vector shapes, no photorealism. No people, no bag, no books, no food, no apples, no candles on the table. No lettering, no UI, no frame, no watermark. Landscape 16:9 composition.",
+      "refs": [
+        "game/public/assets/bg/k1-stube.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/bg.png",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "build": "output/packen-build.py bg",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-bag.png": {
+      "kind": "prop",
+      "id": "packen-bag",
+      "prompt": "Use case: stylized-concept. Asset type: one large item illustration for an interactive fantasy RPG packing mini game, cut out later by the game. Object: a big worn brown leather shoulder bag (a farm girl's travel satchel) standing upright on its flat bottom and wide OPEN, its flap thrown back behind it, seen from a slightly elevated front view so the oval opening at the top is visible. The front rim of the opening is a fairly straight, wide horizontal leather edge with stitching across the upper third of the bag. Already packed inside and peeking out only at the LEFT and RIGHT ends of the opening: on the left a round loaf of bread and a wedge of yellow cheese, on the right the folded edge of a green wool cloak and the neck of a leather waterskin; the MIDDLE of the opening stays an empty deep dark-brown hollow with room for more. A rolled grey wool blanket is strapped under the bag with two leather straps. Stitched seams, a brass buckle on the hanging front strap, leather tie cords at the rim, a long shoulder strap arching up behind the bag. Centred, filling about 80% of the image, empty margin all around, nothing cut off. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, matching the attached item illustrations: crisp visible square pixels, clean dark outlines, rich painterly pixel shading, soft warm light from the upper right, warm palette of leather browns, wheat gold and soft greens. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/minigames/packen/extras.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/bag.png",
+      "key": "magenta (scripts/art/lib.key_out)",
+      "build": "output/packen-build.py bag",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-book-herbs.png": {
+      "kind": "prop",
+      "id": "packen-book-herbs",
+      "prompt": "Use case: stylized-concept. Asset type: five separate item illustrations for an interactive fantasy RPG packing mini game, cut out later by the game. Draw exactly FIVE objects side by side in ONE horizontal row, evenly spaced with WIDE empty gaps between them, each object complete and nothing cut off, all at the same scale as if lying on one table, slightly elevated three-quarter view, soft warm light from the upper left. From left to right: 1. a thick old herbal lexicon bound in green leather with a golden embossed leaf emblem and brass corner fittings, closed; 2. an old storybook bound in dark blue leather with a golden eight-pointed star on the cover and gold edges, closed; 3. a small round tin box with its lid tilted open, filled with dry wood shavings and brown tinder fungus; 4. a round golden honey apple cake with caramelised apple slices laid in a spiral; 5. a single shiny red apple with a short stem and one green leaf. Keep the colours and designs of the attached item icons but draw them much larger and richer. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no table, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, rich painterly pixel shading, warm palette. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/minigames/packen/ref-extras-icons.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/extras.png",
+      "sheet": "five objects in one row, split by output/packen-build.py extras",
+      "key": "magenta (scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-book-alana.png": {
+      "kind": "prop",
+      "id": "packen-book-alana",
+      "prompt": "Use case: stylized-concept. Asset type: five separate item illustrations for an interactive fantasy RPG packing mini game, cut out later by the game. Draw exactly FIVE objects side by side in ONE horizontal row, evenly spaced with WIDE empty gaps between them, each object complete and nothing cut off, all at the same scale as if lying on one table, slightly elevated three-quarter view, soft warm light from the upper left. From left to right: 1. a thick old herbal lexicon bound in green leather with a golden embossed leaf emblem and brass corner fittings, closed; 2. an old storybook bound in dark blue leather with a golden eight-pointed star on the cover and gold edges, closed; 3. a small round tin box with its lid tilted open, filled with dry wood shavings and brown tinder fungus; 4. a round golden honey apple cake with caramelised apple slices laid in a spiral; 5. a single shiny red apple with a short stem and one green leaf. Keep the colours and designs of the attached item icons but draw them much larger and richer. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no table, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, rich painterly pixel shading, warm palette. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/minigames/packen/ref-extras-icons.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/extras.png",
+      "sheet": "five objects in one row, split by output/packen-build.py extras",
+      "key": "magenta (scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-tinder.png": {
+      "kind": "prop",
+      "id": "packen-tinder",
+      "prompt": "Use case: stylized-concept. Asset type: five separate item illustrations for an interactive fantasy RPG packing mini game, cut out later by the game. Draw exactly FIVE objects side by side in ONE horizontal row, evenly spaced with WIDE empty gaps between them, each object complete and nothing cut off, all at the same scale as if lying on one table, slightly elevated three-quarter view, soft warm light from the upper left. From left to right: 1. a thick old herbal lexicon bound in green leather with a golden embossed leaf emblem and brass corner fittings, closed; 2. an old storybook bound in dark blue leather with a golden eight-pointed star on the cover and gold edges, closed; 3. a small round tin box with its lid tilted open, filled with dry wood shavings and brown tinder fungus; 4. a round golden honey apple cake with caramelised apple slices laid in a spiral; 5. a single shiny red apple with a short stem and one green leaf. Keep the colours and designs of the attached item icons but draw them much larger and richer. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no table, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, rich painterly pixel shading, warm palette. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/minigames/packen/ref-extras-icons.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/extras.png",
+      "sheet": "five objects in one row, split by output/packen-build.py extras",
+      "key": "magenta (scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-honey-cake.png": {
+      "kind": "prop",
+      "id": "packen-honey-cake",
+      "prompt": "Use case: stylized-concept. Asset type: five separate item illustrations for an interactive fantasy RPG packing mini game, cut out later by the game. Draw exactly FIVE objects side by side in ONE horizontal row, evenly spaced with WIDE empty gaps between them, each object complete and nothing cut off, all at the same scale as if lying on one table, slightly elevated three-quarter view, soft warm light from the upper left. From left to right: 1. a thick old herbal lexicon bound in green leather with a golden embossed leaf emblem and brass corner fittings, closed; 2. an old storybook bound in dark blue leather with a golden eight-pointed star on the cover and gold edges, closed; 3. a small round tin box with its lid tilted open, filled with dry wood shavings and brown tinder fungus; 4. a round golden honey apple cake with caramelised apple slices laid in a spiral; 5. a single shiny red apple with a short stem and one green leaf. Keep the colours and designs of the attached item icons but draw them much larger and richer. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no table, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, rich painterly pixel shading, warm palette. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/minigames/packen/ref-extras-icons.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/extras.png",
+      "sheet": "five objects in one row, split by output/packen-build.py extras",
+      "key": "magenta (scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/packen-apple.png": {
+      "kind": "prop",
+      "id": "packen-apple",
+      "prompt": "Use case: stylized-concept. Asset type: five separate item illustrations for an interactive fantasy RPG packing mini game, cut out later by the game. Draw exactly FIVE objects side by side in ONE horizontal row, evenly spaced with WIDE empty gaps between them, each object complete and nothing cut off, all at the same scale as if lying on one table, slightly elevated three-quarter view, soft warm light from the upper left. From left to right: 1. a thick old herbal lexicon bound in green leather with a golden embossed leaf emblem and brass corner fittings, closed; 2. an old storybook bound in dark blue leather with a golden eight-pointed star on the cover and gold edges, closed; 3. a small round tin box with its lid tilted open, filled with dry wood shavings and brown tinder fungus; 4. a round golden honey apple cake with caramelised apple slices laid in a spiral; 5. a single shiny red apple with a short stem and one green leaf. Keep the colours and designs of the attached item icons but draw them much larger and richer. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no table, no scenery. Style: high-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, rich painterly pixel shading, warm palette. No text, no letters, no numbers, no labels, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/raw/minigames/packen/ref-extras-icons.png"
+      ],
+      "source": "output/imagegen/raw/minigames/packen/extras.png",
+      "sheet": "five objects in one row, split by output/packen-build.py extras",
+      "key": "magenta (scripts/art/lib.key_out)",
+      "ok": true
+    },
+    "game/public/assets/minigames/k5-dodge-bg.jpg": {
+      "kind": "bg",
+      "id": "k5-dodge-bg",
+      "prompt": "Asset type: wide painted backdrop for a dramatic close-up combat cut-in of a fantasy RPG. Scene: eye-level close view deep inside an old forest at night during heavy summer rain. A muddy forest path with dark puddles runs across the foreground and catches cold blue moonlight; dense wet ferns and bramble at both sides; huge gnarled mossy oak trunks and roots in the middle distance; a mossy grey boulder far left, a rotten fallen log far right; misty depth with dark blue-violet tree silhouettes; faint warm reflections on wet leaves. Low camera at chest height, wide 16:9 horizontal composition. The central area and the lower middle must stay open, empty ground (characters are added later by the game). Moody night palette: deep night blue, moss green, wet brown, a little cold silver light. No people, no creatures, no weapons, no rain streaks drawn (the game adds rain). High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "game/public/assets/bg/k5-regenwald.png"
+      ],
+      "source": "output/imagegen/raw/k5-dodge/k5-dodge-bg.png",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "ok": true,
+      "build": "python3 output/k5-dodge-build.py"
+    },
+    "game/public/assets/minigames/k5-dodge-ghoul-windup.png": {
+      "kind": "cutout",
+      "id": "k5-dodge-ghoul-windup",
+      "prompt": "Asset type: large cut-out character illustration for a close-up combat cut-in. CHARACTER: the Leichenfresser (ghoul) exactly as in the reference turnaround sheet: gaunt grey-skinned humanoid, ragged torn brown hooded cloak, bone-white mask with dark round eye holes and stitched mouth, rope belt, patched dark trousers, linen bandages wrapped around forearms and feet, one rusty notched hand axe with a wooden haft. Keep design, colours and proportions identical to the reference. POSE: three-quarter view facing to the LEFT, full body from hood to feet, lunging forward in a wide aggressive stance, both bony hands raising the axe high above and behind its head for an overhead chop, torn cloak flaring, hunched predatory posture, menacing. Dramatic cold moonlight from the upper left, wet sheen. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/ghoul.png"
+      ],
+      "source": "output/imagegen/raw/k5-dodge/k5-dodge-ghoul-windup.png",
+      "runtimeSize": [
+        545,
+        895
+      ],
+      "ok": true,
+      "build": "python3 output/k5-dodge-build.py"
+    },
+    "game/public/assets/minigames/k5-dodge-ghoul-strike.png": {
+      "kind": "cutout",
+      "id": "k5-dodge-ghoul-strike",
+      "prompt": "Asset type: large cut-out character illustration for a close-up combat cut-in. CHARACTER: the Leichenfresser (ghoul) exactly as in the reference turnaround sheet: gaunt grey-skinned humanoid, ragged torn brown hooded cloak, bone-white mask with dark round eye holes and stitched mouth, rope belt, patched dark trousers, linen bandages wrapped around forearms and feet, one rusty notched hand axe with a wooden haft. Keep design, colours and proportions identical to the reference. POSE: three-quarter view facing to the LEFT, full body from hood to feet, the follow-through of a vicious overhead chop: the axe has swung down diagonally and its blade is now low in front of it near knee height on the left side, body leaning far forward, one foot stepping forward, cloak whipping. Dramatic cold moonlight from the upper left, wet sheen. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/ghoul.png"
+      ],
+      "source": "output/imagegen/raw/k5-dodge/k5-dodge-ghoul-strike.png",
+      "runtimeSize": [
+        557,
+        785
+      ],
+      "ok": true,
+      "build": "python3 output/k5-dodge-build.py"
+    },
+    "game/public/assets/minigames/k5-dodge-lia-ready.png": {
+      "kind": "cutout",
+      "id": "k5-dodge-lia-ready",
+      "prompt": "Asset type: large cut-out character illustration for a close-up combat cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded rain cloak, white blouse, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Her hair and cloak are soaked and dark from rain. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. POSE: seen from behind in three-quarter back view, turned to the RIGHT toward an unseen attacker, full body from head to shoes, knees bent in a frightened but determined defensive crouch, weight on the back foot, one arm raised protectively in front, the other hand clutching the strap of her bag, cloak hanging wet. Unarmed. Rim light of cold moonlight. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k5-dodge/k5-dodge-lia-ready.png",
+      "runtimeSize": [
+        464,
+        781
+      ],
+      "ok": true,
+      "build": "python3 output/k5-dodge-build.py"
+    },
+    "game/public/assets/minigames/k5-dodge-lia-dodge.png": {
+      "kind": "cutout",
+      "id": "k5-dodge-lia-dodge",
+      "prompt": "Asset type: large cut-out character illustration for a close-up combat cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded rain cloak, white blouse, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Her hair and cloak are soaked and dark from rain. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. POSE: three-quarter back view, full body from head to shoes, throwing herself sideways to the LEFT away from an attacker on the right: ducking low, torso bent, one leg pushing off, arms pulled in, the green cloak and red curls swinging out to the right from the motion. Unarmed. Rim light of cold moonlight. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k5-dodge/k5-dodge-lia-dodge.png",
+      "runtimeSize": [
+        550,
+        706
+      ],
+      "ok": true,
+      "build": "python3 output/k5-dodge-build.py"
+    },
+    "game/public/assets/minigames/k5-dodge-lia-hurt.png": {
+      "kind": "cutout",
+      "id": "k5-dodge-lia-hurt",
+      "prompt": "Asset type: large cut-out character illustration for a close-up combat cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded rain cloak, white blouse, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Her hair and cloak are soaked and dark from rain. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. POSE: three-quarter back view turned to the RIGHT, full body from head to shoes, staggering backward after being grazed on the shoulder, one hand pressed to her left upper arm, knees buckling, head pulled in, cloak twisting. No blood, no gore. Unarmed. Rim light of cold moonlight. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k5-dodge/k5-dodge-lia-hurt.png",
+      "runtimeSize": [
+        430,
+        842
+      ],
+      "ok": true,
+      "build": "python3 output/k5-dodge-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-bg.jpg": {
+      "kind": "bg",
+      "id": "k4-drill-bg",
+      "prompt": "Asset type: wide painted backdrop for a close-up sparring cut-in of a fantasy RPG. Scene: eye-level view inside the training ground of a rebel camp in a forest clearing, the same camp as in the reference map: a tall weathered palisade of sharpened logs runs across the background, behind it lush summer forest canopy; on the left a straw archery target on a wooden stand and two straw training dummies on posts; on the right a wooden weapon rack with spears and wooden swords, a few barrels and crates, the corner of an olive-green canvas tent and a faded green-and-white banner on a pole; trampled sandy dirt ground with patches of grass and footprints. Golden late-afternoon sun from the upper left, long soft shadows, warm dust in the air. Camera at chest height, wide 16:9 horizontal composition. The central area and the whole lower middle must stay open, empty sandy ground (two characters are added later by the game). No people, no animals. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "game/public/assets/bg/k4-lager.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-bg.png",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-foltan-ready.png": {
+      "kind": "cutout",
+      "id": "k4-drill-foltan-ready",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Foltan exactly as in the reference turnaround sheet: lean man in his thirties, short brown hair, small brown goatee, brown leather beret, quartered blue-and-yellow tabard over a dark brown long-sleeved shirt, broad brown leather belt with a brass buckle, diagonal leather strap across the chest, brown leather gloves, dark brown trousers, tall brown leather boots. For this training he leaves his crossbow and steel sword aside and holds ONE simple wooden practice sword (plain light wood, blunt, short wooden crossguard) in his right hand. Keep design, colours and proportions identical to the reference. Original character design, the face must not resemble any real person or actor. He faces the viewer (front view, slightly three-quarter), full body from beret to boots, focused teacher's expression. POSE: relaxed fencing guard, feet apart, knees slightly bent, the wooden practice sword held in front of him in his right hand with the tip pointing up and slightly forward, left hand open at his side. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/foltan.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-foltan-ready.png",
+      "runtimeSize": [
+        481,
+        722
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-foltan-windup-side.png": {
+      "kind": "cutout",
+      "id": "k4-drill-foltan-windup-side",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Foltan exactly as in the reference turnaround sheet: lean man in his thirties, short brown hair, small brown goatee, brown leather beret, quartered blue-and-yellow tabard over a dark brown long-sleeved shirt, broad brown leather belt with a brass buckle, diagonal leather strap across the chest, brown leather gloves, dark brown trousers, tall brown leather boots. For this training he leaves his crossbow and steel sword aside and holds ONE simple wooden practice sword (plain light wood, blunt, short wooden crossguard) in his right hand. Keep design, colours and proportions identical to the reference. Original character design, the face must not resemble any real person or actor. He faces the viewer (front view, slightly three-quarter), full body from beret to boots, focused teacher's expression. POSE: winding up a wide horizontal swing: torso twisted, the wooden practice sword pulled far back over his right shoulder so the blade points out to the LEFT side of the image, both hands on the grip, weight on his back foot, ready to sweep across. The whole sword must be visible. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/foltan.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-foltan-windup-side.png",
+      "runtimeSize": [
+        481,
+        722
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-foltan-windup-high.png": {
+      "kind": "cutout",
+      "id": "k4-drill-foltan-windup-high",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Foltan exactly as in the reference turnaround sheet: lean man in his thirties, short brown hair, small brown goatee, brown leather beret, quartered blue-and-yellow tabard over a dark brown long-sleeved shirt, broad brown leather belt with a brass buckle, diagonal leather strap across the chest, brown leather gloves, dark brown trousers, tall brown leather boots. For this training he leaves his crossbow and steel sword aside and holds ONE simple wooden practice sword (plain light wood, blunt, short wooden crossguard) in his right hand. Keep design, colours and proportions identical to the reference. Original character design, the face must not resemble any real person or actor. He faces the viewer (front view, slightly three-quarter), full body from beret to boots, focused teacher's expression. POSE: winding up an overhead chop: both hands raise the wooden practice sword high above his head, the blade pointing up and back, chest open, stepping forward. The whole sword must be visible. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/foltan.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-foltan-windup-high.png",
+      "runtimeSize": [
+        481,
+        722
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-foltan-strike-side.png": {
+      "kind": "cutout",
+      "id": "k4-drill-foltan-strike-side",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Foltan exactly as in the reference turnaround sheet: lean man in his thirties, short brown hair, small brown goatee, brown leather beret, quartered blue-and-yellow tabard over a dark brown long-sleeved shirt, broad brown leather belt with a brass buckle, diagonal leather strap across the chest, brown leather gloves, dark brown trousers, tall brown leather boots. For this training he leaves his crossbow and steel sword aside and holds ONE simple wooden practice sword (plain light wood, blunt, short wooden crossguard) in his right hand. Keep design, colours and proportions identical to the reference. Original character design, the face must not resemble any real person or actor. He faces the viewer (front view, slightly three-quarter), full body from beret to boots, focused teacher's expression. POSE: the follow-through of a wide horizontal swing: the wooden practice sword has swept across in front of him and is now extended far out to the RIGHT side of the image at chest height, arms crossed over his body, torso twisted, lunging step. The whole sword must be visible. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/foltan.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-foltan-strike-side.png",
+      "runtimeSize": [
+        481,
+        722
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-foltan-strike-high.png": {
+      "kind": "cutout",
+      "id": "k4-drill-foltan-strike-high",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Foltan exactly as in the reference turnaround sheet: lean man in his thirties, short brown hair, small brown goatee, brown leather beret, quartered blue-and-yellow tabard over a dark brown long-sleeved shirt, broad brown leather belt with a brass buckle, diagonal leather strap across the chest, brown leather gloves, dark brown trousers, tall brown leather boots. For this training he leaves his crossbow and steel sword aside and holds ONE simple wooden practice sword (plain light wood, blunt, short wooden crossguard) in his right hand. Keep design, colours and proportions identical to the reference. Original character design, the face must not resemble any real person or actor. He faces the viewer (front view, slightly three-quarter), full body from beret to boots, focused teacher's expression. POSE: the follow-through of an overhead chop: the wooden practice sword has come down in front of him, both hands on the grip at waist height, the blade pointing forward and down towards the viewer, leaning forward in a deep lunge. The whole sword must be visible. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/foltan.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-foltan-strike-high.png",
+      "runtimeSize": [
+        481,
+        722
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-lia-ready.png": {
+      "kind": "cutout",
+      "id": "k4-drill-lia-ready",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded cloak, white blouse with rolled sleeves, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Unarmed. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. Seen FROM BEHIND (back view, we look over her shoulder towards an opponent in front of her), full body from head to shoes, her face is not visible. Her toes point AWAY from the viewer into the image: we see the backs and heels of her shoes, never the toe caps. POSE: standing on the balls of her feet in an alert, slightly crouched stance, knees bent, arms a little raised and open at her sides, weight centred, ready to jump away. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-lia-ready.png",
+      "runtimeSize": [
+        481,
+        712
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-lia-dodge.png": {
+      "kind": "cutout",
+      "id": "k4-drill-lia-dodge",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded cloak, white blouse with rolled sleeves, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Unarmed. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. Seen FROM BEHIND (back view, we look over her shoulder towards an opponent in front of her), full body from head to shoes, her face is not visible. Her toes point AWAY from the viewer into the image: we see the backs and heels of her shoes, never the toe caps. POSE: a quick sidestep jump to the RIGHT side of the image: body leaning hard to the right, right foot landing wide to the right, left leg pushing off, arms flung out for balance, her hair and the green cloak swinging out to the left from the motion. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-lia-dodge.png",
+      "runtimeSize": [
+        481,
+        712
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-lia-duck.png": {
+      "kind": "cutout",
+      "id": "k4-drill-lia-duck",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded cloak, white blouse with rolled sleeves, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Unarmed. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. Seen FROM BEHIND (back view, we look over her shoulder towards an opponent in front of her), full body from head to shoes, her face is not visible. Her toes point AWAY from the viewer into the image: we see the backs and heels of her shoes, never the toe caps. POSE: ducking very low under a swing: deep crouch, both knees bent, head pulled down between her shoulders, both hands over the back of her head, cloak pooling around her. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-lia-duck.png",
+      "runtimeSize": [
+        481,
+        712
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-drill-lia-hurt.png": {
+      "kind": "cutout",
+      "id": "k4-drill-lia-hurt",
+      "prompt": "Asset type: large cut-out character illustration for a close-up sparring cut-in. CHARACTER: Lia exactly as in the reference turnaround sheet: slim 16-year-old girl, long curly red-blonde hair tied back with a green ribbon, long green hooded cloak, white blouse with rolled sleeves, brown skirt, brown leather shoulder bag, light leather shoes with laces around the ankles. Unarmed. Keep design and colours identical to the reference. Original character design, the face must not resemble any real person or actor. Seen FROM BEHIND (back view, we look over her shoulder towards an opponent in front of her), full body from head to shoes, her face is not visible. Her toes point AWAY from the viewer into the image: we see the backs and heels of her shoes, never the toe caps. POSE: just tapped on the shoulder by a wooden practice sword: staggering one step backward, one hand rubbing her left upper arm, shoulders hunched, head tilted to the side in an 'ouch'. No blood, no wound. Warm late-afternoon sunlight from the upper left, soft warm bounce light, gentle rim light. Portrait 2:3 image. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated. The whole figure fully visible with generous margin, nothing cut off. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-drill-lia-hurt.png",
+      "runtimeSize": [
+        481,
+        712
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-blind-cloth.jpg": {
+      "kind": "bg",
+      "id": "k4-blind-cloth",
+      "prompt": "Asset type: full-screen painted texture for a game overlay: what a girl sees from INSIDE a blindfold. Extreme close-up of the inner side of a coarse, loosely woven dark brown linen cloth, filling the whole image edge to edge, slightly out of focus, soft folds and creases. Almost black overall. Faint warm golden daylight seeps through the gaps of the weave in the upper third, strongest towards the upper left (forest sun through leaves), dissolving into deep umber and black towards the lower half and the corners. A few loose fibres catch the light. No objects, no people, no shapes of trees. Wide 16:9 horizontal image. Moody, intimate, warm umber palette. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [],
+      "source": "output/imagegen/raw/k4/k4-blind-cloth.png",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
+    },
+    "game/public/assets/minigames/k4-blind-hands.png": {
+      "kind": "cutout",
+      "id": "k4-blind-hands",
+      "prompt": "Asset type: cut-out foreground illustration for a first-person view in a fantasy RPG. Subject: the two hands and forearms of a slim 16-year-old girl, seen from her own eyes (first-person view), reaching forward and slightly up into darkness, fingers spread and feeling the air carefully, palms facing forward-down; rolled white blouse sleeves and the edges of a long green cloak at the forearms, light freckled skin, a thin green ribbon around one wrist. The forearms enter from the bottom edge of the image at the left and right, the hands meet in the middle area leaving a gap between them. Only hands and forearms, no body, no face. Dim scene: soft warm golden light grazes the fingertips from above, the rest in deep shadow. Wide 16:9 horizontal image. The arms are cut by the bottom edge on purpose; everything else on flat pure magenta #FF00FF background (one single flat colour, no gradient). High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG (HD-2D look), crisp visible square pixels, clean dark outlines, limited warm palette, rich painterly pixel shading, atmospheric lighting. No text, no letters, no numbers, no watermark, no frame, no border, no UI.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png"
+      ],
+      "source": "output/imagegen/raw/k4/k4-blind-hands.png",
+      "runtimeSize": [
+        1280,
+        569
+      ],
+      "ok": true,
+      "build": "python3 output/k4-build.py"
     }
   }
 }

@@ -64,11 +64,36 @@ Der Atemregler im Leselager verwendet Links/Rechts oder Ziehen. Feuerbohren und 
 Zeitfenster, die übrigen Challenges behalten ihre jeweiligen Regeln für Erkundung, Rätsel und Training.
 `hold()` bleibt als UI-Baustein für die Entwicklungsdemo verfügbar; die Storykapitel verwenden ihn nicht.
 
-Die Karten folgen den dunklen Flächen und Goldrahmen des Feuerbohrens. Die Versteckspiele verwenden Lias
-Lauf- und Duckposen sowie die echten Wachen und Reiter. Büsche und Baumstämme werden vor Lia gezeichnet
-und verdecken sie tatsächlich. Story-Aktionen, Atemregler und Pflockziehen zeigen jeweils passende
-Charaktere, Requisiten und Bildausschnitte. Die Schmiede verwendet den Hintergrund `minigame-forge`,
-der mit dem eingebauten Imagegen-Werkzeug erstellt wurde; der Prompt steht in `art/minigames.json`.
+### Optik der Minispiele
+
+Jedes Minispiel ist ein gemaltes Szenenbild im HD-2D-Stil der übrigen Spielgrafik, kein Formular. Alle Bilder
+liegen in `assets/minigames/<gruppe>-*` (Codex-Pipeline, Prompts je Bild in `art/minigames.json`, Aufbereitung
+und Freistellung in `output/<gruppe>-build.py`, danach `scripts/art/build_manifest.py`):
+
+| Gruppe | Assets | Code zeichnet |
+| --- | --- | --- |
+| Versteckspiele (`cover`, `duck`, `listen`) | `stealth-{cover,duck,listen}` als Hintergrund, `stealth-bush-*`, `-bank`, `-trunk-*` als Deckung vor Lia | Sprites von Lia und Wachen, Lichtkegel, Umriss hinter Deckung |
+| Story-Gesten | `gesture-*-scene` plus freigestellte Hand, Arm oder Blasebalg (drei Scheiben); `open-eyes` nutzt die Tafel `k2-geweckt` | Licht, Partikel, Lider, Unschärfe, Schieber |
+| Feuerbohren, Atemregler | `feuer-scene`, `-hands`, `-flame`; `k3-blow-scene` (leiht `feuer-flame`) | Glut, Rauch, Atem, Glutfeld |
+| Hinweistafel, Pflock | `k3-notes-table`, `-paper`, `k3-clue-*`; `k3-stake-scene`, `-post`, `-mound`, `-algard-*` | Fäden, Nadeln, Fokus, Takt, Alarm |
+| Drill, Augenbinde | `k4-drill-bg`, `k4-drill-{foltan,lia}-*` (Posen); `k4-blind-cloth`, `-hands` | Hiebbogen, Schallringe, Dunkelheit |
+| Ausweichen (Kapitel V) | `k5-dodge-bg`, `k5-dodge-{ghoul,lia}-*` | Ring, Axthieb, Blitz |
+| Packen, Sternbilder | `packen-table`, `-bag`, Gegenstände; `sterne-sky`, `-canopy`, `-eagle` | Etiketten, Sterne, Linien |
+
+Neue Minispiele folgen demselben Aufbau: ein gemalter Hintergrund im Bildformat 16:9 (für das Telefon im
+Hochformat einen eigenen Ausschnitt wählen), Figuren und Requisiten als freigestellte Codex-Bilder (Chroma-
+Hintergrund, Freistellung wie `scripts/art/props.py`), Figuren nach `docs/rebuild/art/refs/<id>.png`, nie nach
+Filmbildern oder alten Porträts. Der Code zeichnet nur Effekte, Markierungen und Balken, keine Figuren oder
+Gegenstände aus Formen. Rahmen und Bedienung folgen dem Chronik-Stil: dunkle Navy-Fläche, Goldrahmen, Titel in
+Kapitälchen, darunter eine Hinweisleiste mit Tastenkappen (Tastatur) oder einem kurzen Tipp-Hinweis (Touch) und
+runde goldgerahmte Pfeilknöpfe. Volle Ausschnitte (Drill, Ausweichen, Packen, Sterne) dürfen randlos sein.
+Türkis bleibt der Urmacht vorbehalten. Prüfen auf 1280×720, 390×844 und 844×390, mit Maus, Touch und Tastatur;
+bei `prefers-reduced-motion` entfallen Wackeln, Schwanken und Blinken.
+
+Details der Gesten: Die Schieberenden liegen 36 px innerhalb des Bildrands, damit der Zielring den Goldrahmen
+nicht berührt. Drückt man gegen das Schieberende, wackelt der Griff und das Hinweisband leuchtet auf. Der
+Blasebalg steht auf dem Boden der Schmiede (`gesture-bellows-scene`, Azar am Amboss), steckt mit der Düse im
+Windrohr der Esse, und seine Falten stauchen sich mit dem Griff.
 
 Die neuen Interaktionen pausieren bei Fokusverlust oder im Hintergrund. Szenenwechsel entfernen Eingaben
 und Oberflächen und verhindern, dass alte Abschlussversprechen die Geschichte fortsetzen. Gehaltene

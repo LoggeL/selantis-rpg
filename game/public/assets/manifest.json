@@ -4906,6 +4906,321 @@
   }
  },
  "images": {
+  "minigames/feuer-flame": {
+   "file": "assets/minigames/feuer-flame.png",
+   "w": 196,
+   "h": 420
+  },
+  "minigames/feuer-hands": {
+   "file": "assets/minigames/feuer-hands.png",
+   "w": 568,
+   "h": 560
+  },
+  "minigames/feuer-scene": {
+   "file": "assets/minigames/feuer-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/gesture-bellows-base": {
+   "file": "assets/minigames/gesture-bellows-base.png",
+   "w": 640,
+   "h": 76
+  },
+  "minigames/gesture-bellows-leather": {
+   "file": "assets/minigames/gesture-bellows-leather.png",
+   "w": 640,
+   "h": 164
+  },
+  "minigames/gesture-bellows-scene": {
+   "file": "assets/minigames/gesture-bellows-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/gesture-bellows-top": {
+   "file": "assets/minigames/gesture-bellows-top.png",
+   "w": 640,
+   "h": 134
+  },
+  "minigames/gesture-lift-arm": {
+   "file": "assets/minigames/gesture-lift-arm.png",
+   "w": 311,
+   "h": 760
+  },
+  "minigames/gesture-lift-scene": {
+   "file": "assets/minigames/gesture-lift-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/gesture-reach-arm": {
+   "file": "assets/minigames/gesture-reach-arm.png",
+   "w": 900,
+   "h": 415
+  },
+  "minigames/gesture-reach-scene": {
+   "file": "assets/minigames/gesture-reach-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/gesture-tend-hand": {
+   "file": "assets/minigames/gesture-tend-hand.png",
+   "w": 351,
+   "h": 760
+  },
+  "minigames/gesture-tend-scene": {
+   "file": "assets/minigames/gesture-tend-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k3-blow-scene": {
+   "file": "assets/minigames/k3-blow-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k3-clue-haarband": {
+   "file": "assets/minigames/k3-clue-haarband.png",
+   "w": 224,
+   "h": 190
+  },
+  "minigames/k3-clue-kette": {
+   "file": "assets/minigames/k3-clue-kette.png",
+   "w": 84,
+   "h": 224
+  },
+  "minigames/k3-clue-schminke": {
+   "file": "assets/minigames/k3-clue-schminke.png",
+   "w": 173,
+   "h": 224
+  },
+  "minigames/k3-clue-seilfasern": {
+   "file": "assets/minigames/k3-clue-seilfasern.png",
+   "w": 96,
+   "h": 224
+  },
+  "minigames/k3-clue-wette": {
+   "file": "assets/minigames/k3-clue-wette.png",
+   "w": 224,
+   "h": 198
+  },
+  "minigames/k3-clue-zwerg": {
+   "file": "assets/minigames/k3-clue-zwerg.png",
+   "w": 224,
+   "h": 213
+  },
+  "minigames/k3-notes-paper": {
+   "file": "assets/minigames/k3-notes-paper.png",
+   "w": 640,
+   "h": 281
+  },
+  "minigames/k3-notes-table": {
+   "file": "assets/minigames/k3-notes-table.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k3-stake-algard-back": {
+   "file": "assets/minigames/k3-stake-algard-back.png",
+   "w": 240,
+   "h": 360
+  },
+  "minigames/k3-stake-algard-look": {
+   "file": "assets/minigames/k3-stake-algard-look.png",
+   "w": 240,
+   "h": 360
+  },
+  "minigames/k3-stake-mound": {
+   "file": "assets/minigames/k3-stake-mound.png",
+   "w": 540,
+   "h": 720
+  },
+  "minigames/k3-stake-post": {
+   "file": "assets/minigames/k3-stake-post.png",
+   "w": 540,
+   "h": 720
+  },
+  "minigames/k3-stake-scene": {
+   "file": "assets/minigames/k3-stake-scene.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k4-blind-cloth": {
+   "file": "assets/minigames/k4-blind-cloth.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k4-blind-hands": {
+   "file": "assets/minigames/k4-blind-hands.png",
+   "w": 1280,
+   "h": 569
+  },
+  "minigames/k4-drill-bg": {
+   "file": "assets/minigames/k4-drill-bg.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k4-drill-foltan-ready": {
+   "file": "assets/minigames/k4-drill-foltan-ready.png",
+   "w": 481,
+   "h": 722
+  },
+  "minigames/k4-drill-foltan-strike-high": {
+   "file": "assets/minigames/k4-drill-foltan-strike-high.png",
+   "w": 481,
+   "h": 722
+  },
+  "minigames/k4-drill-foltan-strike-side": {
+   "file": "assets/minigames/k4-drill-foltan-strike-side.png",
+   "w": 481,
+   "h": 722
+  },
+  "minigames/k4-drill-foltan-windup-high": {
+   "file": "assets/minigames/k4-drill-foltan-windup-high.png",
+   "w": 481,
+   "h": 722
+  },
+  "minigames/k4-drill-foltan-windup-side": {
+   "file": "assets/minigames/k4-drill-foltan-windup-side.png",
+   "w": 481,
+   "h": 722
+  },
+  "minigames/k4-drill-lia-dodge": {
+   "file": "assets/minigames/k4-drill-lia-dodge.png",
+   "w": 481,
+   "h": 712
+  },
+  "minigames/k4-drill-lia-duck": {
+   "file": "assets/minigames/k4-drill-lia-duck.png",
+   "w": 481,
+   "h": 712
+  },
+  "minigames/k4-drill-lia-hurt": {
+   "file": "assets/minigames/k4-drill-lia-hurt.png",
+   "w": 481,
+   "h": 712
+  },
+  "minigames/k4-drill-lia-ready": {
+   "file": "assets/minigames/k4-drill-lia-ready.png",
+   "w": 481,
+   "h": 712
+  },
+  "minigames/k5-dodge-bg": {
+   "file": "assets/minigames/k5-dodge-bg.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/k5-dodge-ghoul-strike": {
+   "file": "assets/minigames/k5-dodge-ghoul-strike.png",
+   "w": 557,
+   "h": 785
+  },
+  "minigames/k5-dodge-ghoul-windup": {
+   "file": "assets/minigames/k5-dodge-ghoul-windup.png",
+   "w": 545,
+   "h": 895
+  },
+  "minigames/k5-dodge-lia-dodge": {
+   "file": "assets/minigames/k5-dodge-lia-dodge.png",
+   "w": 550,
+   "h": 706
+  },
+  "minigames/k5-dodge-lia-hurt": {
+   "file": "assets/minigames/k5-dodge-lia-hurt.png",
+   "w": 430,
+   "h": 842
+  },
+  "minigames/k5-dodge-lia-ready": {
+   "file": "assets/minigames/k5-dodge-lia-ready.png",
+   "w": 464,
+   "h": 781
+  },
+  "minigames/packen-apple": {
+   "file": "assets/minigames/packen-apple.png",
+   "w": 247,
+   "h": 257
+  },
+  "minigames/packen-bag": {
+   "file": "assets/minigames/packen-bag.png",
+   "w": 726,
+   "h": 520
+  },
+  "minigames/packen-book-alana": {
+   "file": "assets/minigames/packen-book-alana.png",
+   "w": 286,
+   "h": 300
+  },
+  "minigames/packen-book-herbs": {
+   "file": "assets/minigames/packen-book-herbs.png",
+   "w": 281,
+   "h": 300
+  },
+  "minigames/packen-honey-cake": {
+   "file": "assets/minigames/packen-honey-cake.png",
+   "w": 286,
+   "h": 264
+  },
+  "minigames/packen-table": {
+   "file": "assets/minigames/packen-table.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/packen-tinder": {
+   "file": "assets/minigames/packen-tinder.png",
+   "w": 274,
+   "h": 230
+  },
+  "minigames/stealth-bank": {
+   "file": "assets/minigames/stealth-bank.png",
+   "w": 1250,
+   "h": 300
+  },
+  "minigames/stealth-bush-a": {
+   "file": "assets/minigames/stealth-bush-a.png",
+   "w": 405,
+   "h": 300
+  },
+  "minigames/stealth-bush-b": {
+   "file": "assets/minigames/stealth-bush-b.png",
+   "w": 412,
+   "h": 300
+  },
+  "minigames/stealth-cover": {
+   "file": "assets/minigames/stealth-cover.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/stealth-duck": {
+   "file": "assets/minigames/stealth-duck.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/stealth-listen": {
+   "file": "assets/minigames/stealth-listen.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "minigames/stealth-trunk-a": {
+   "file": "assets/minigames/stealth-trunk-a.png",
+   "w": 669,
+   "h": 720
+  },
+  "minigames/stealth-trunk-b": {
+   "file": "assets/minigames/stealth-trunk-b.png",
+   "w": 658,
+   "h": 720
+  },
+  "minigames/sterne-canopy": {
+   "file": "assets/minigames/sterne-canopy.webp",
+   "w": 1600,
+   "h": 900
+  },
+  "minigames/sterne-eagle": {
+   "file": "assets/minigames/sterne-eagle.jpg",
+   "w": 600,
+   "h": 600
+  },
+  "minigames/sterne-sky": {
+   "file": "assets/minigames/sterne-sky.jpg",
+   "w": 1600,
+   "h": 900
+  },
   "tactics/sky-day": {
    "file": "assets/tactics/sky-day.png",
    "w": 640,

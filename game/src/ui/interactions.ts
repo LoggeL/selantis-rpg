@@ -16,7 +16,8 @@ const AXES: Record<string, [number, number]> = {
 const ARROWS = ['←', '→', '↑', '↓'];
 
 /** One owner for keys, pointers, focus loss and scene cancellation. Stale scene promises never resume. */
-function interaction(label: string, kind: string, help: string, vertical: boolean) {
+/** `inset`: distance of the slider ends from the stage edge in px (pointer mapping and rail). */
+function interaction(label: string, kind: string, help: string, vertical: boolean, inset = 24) {
   const epoch = ctx.epoch;
   const scene = G.currentScene;
   const modalId = `action-${kind}`;
@@ -80,7 +81,7 @@ function interaction(label: string, kind: string, help: string, vertical: boolea
   ctx.layers.dialog.append(root);
   const coordinate = (e: PointerEvent) => {
     const r = stage.getBoundingClientRect();
-    return Math.max(0, Math.min(1, kind === 'duck' ? ((e.clientY - r.top) / r.height - 0.42) / 0.42 : vertical ? (e.clientY - r.top - 24) / (r.height - 48) : (e.clientX - r.left - 24) / (r.width - 48)));
+    return Math.max(0, Math.min(1, kind === 'duck' ? ((e.clientY - r.top) / r.height - 0.42) / 0.42 : vertical ? (e.clientY - r.top - inset) / (r.height - inset * 2) : (e.clientX - r.left - inset) / (r.width - inset * 2)));
   };
   const updatePointer = (e: PointerEvent) => { if (e.pointerId === activePointer) pointer = coordinate(e); };
   stage.addEventListener('pointerdown', e => {
@@ -150,7 +151,11 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
     tend: 'Streiche die Tinktur vorsichtig hin und her auf die Ferse.',
     bellows: 'Bewege den Blasebalg dreimal ganz nach unten und wieder nach oben.',
   };
-  const view = interaction(label, kind, helps[kind], vertical);
+  // The rail ends sit further in than the stealth games', so the goal ring and its ripple clear the gilt frame.
+  const inset = 36;
+  const view = interaction(label, kind, helps[kind], vertical, inset);
+  view.root.classList.add('is-gesture');
+  view.root.style.setProperty('--rail-inset', `${inset}px`);
   let state = storyStart(kind);
   const targets = storyTargets(kind);
   const track = el('div', 'action-track');
@@ -158,21 +163,26 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
   const grip = el('div', 'action-grip');
   if (kind === 'bellows') {
     grip.classList.add('bellows-handle');
-    grip.textContent = '↕';
+    grip.append(el('span', 'grip-glyph', '↕'));
   } else grip.append(icon(kind === 'open-eyes' ? 'eye' : 'hand'));
   grip.setAttribute('aria-hidden', 'true');
+  goal.setAttribute('aria-hidden', 'true');
+  // The painted bellows is drawn on the canvas; this box follows its leather folds (geometry from the illustration).
   const ornament = el('div', `action-ornament ornament-${kind}`);
-  ornament.innerHTML = kind === 'bellows'
-    ? '<div class="bellows-folds"><svg viewBox="0 0 160 100" preserveAspectRatio="none"><path d="M12 0H148L135 16L148 32L135 48L148 64L135 80L148 100H12L25 80L12 64L25 48L12 32L25 16Z" fill="#946d48" stroke="#e5bc78" stroke-width="3"/><path d="M25 16H135M12 32H148M25 48H135M12 64H148M25 80H135" stroke="#38281f" stroke-width="5"/></svg></div><div class="bellows-base"></div><div class="bellows-nozzle"></div>'
-    : '';
+  if (kind === 'bellows') ornament.append(el('div', 'bellows-folds'));
   const art = createMiniIllustration(view.stage, kind);
   view.stage.append(ornament, track, goal, grip);
+  const caps = (keys: string[]) => keys.map(k => `<kbd class="ch-key">${k}</kbd>`).join('');
+  view.keyHint.innerHTML = `${vertical ? caps(['W', 'S']) : caps(['A', 'D'])} oder ${vertical ? caps(['↑', '↓']) : caps(['←', '→'])} · Griff ziehen`;
+  const pips = el('div', 'gesture-pips');
+  pips.setAttribute('aria-hidden', 'true');
+  if (targets.length > 1) { for (let i = 0; i < targets.length; i++) pips.append(el('i')); view.stage.after(pips); }
   return new Promise(resolve => {
     const render = (dt = 0) => {
       const target = targets[state.strokes] ?? state.position;
       const axis = vertical ? 'top' : 'left';
-      grip.style[axis] = `calc(24px + (100% - 48px) * ${state.position})`;
-      goal.style[axis] = `calc(24px + (100% - 48px) * ${target})`;
+      grip.style[axis] = `calc(${inset}px + (100% - ${inset * 2}px) * ${state.position})`;
+      goal.style[axis] = `calc(${inset}px + (100% - ${inset * 2}px) * ${target})`;
       const arrow = ARROWS[vertical ? (target === 0 ? 2 : 3) : (target === 0 ? 0 : 1)];
       const progress = Math.min(1, (state.strokes + Math.abs(state.position - (target === 0 ? 1 : 0))) / targets.length);
       view.root.style.setProperty('--action-progress', String(progress));
@@ -182,13 +192,20 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
       view.root.dataset.strokes = String(state.strokes);
       const message = state.strokes >= targets.length ? 'Fertig.' : `${arrow} ${vertical ? (target === 0 ? 'Nach oben' : 'Nach unten') : (target === 0 ? 'Nach links' : 'Nach rechts')}${targets.length > 1 ? ` · ${state.strokes} / ${targets.length} Bewegungen` : ''}`;
       if (view.status.textContent !== message) view.status.textContent = message;
+      [...pips.children].forEach((pip, i) => pip.classList.toggle('is-done', i < state.strokes));
       opts.onProgress?.(progress);
-      art.render({ progress, position: state.position }, dt);
+      art.render({ progress, position: state.position, strokes: state.strokes }, dt);
     };
     render();
+    void art.ready.then(() => { if (view.root.isConnected) render(); });
+    let blocked = 0;
     view.run((dt, d, pointer) => {
-      const before = state.strokes;
+      const before = state.strokes, from = state.position;
       state = storyMove(state, kind, pointer ?? state.position + d * dt * (kind === 'bellows' ? 2.8 : 1.05));
+      // Pushing against the end of the rail (the wrong way): the grip shakes and the hint lights up.
+      const pushing = pointer === undefined && d !== 0 && state.position === from;
+      blocked = pushing ? 0.45 : Math.max(0, blocked - dt);
+      view.root.classList.toggle('is-blocked', blocked > 0);
       // A pointer crossing an endpoint must reverse for the next stroke, just like the keys.
       if (state.strokes !== before) { sfx('ui-move', { volume: 0.4 }); opts.onStroke?.(state.strokes); }
       render(dt);
@@ -206,7 +223,10 @@ export function stealthGame(kind: StealthKind, label: string, opts: StealthOptio
   };
   const view = interaction(label, kind, help[kind], kind === 'duck');
   view.root.classList.add('is-stealth');
-  view.keyHint.textContent = kind === 'duck' ? 'W / S oder ↑ / ↓ · Lia ziehen' : 'A / D oder ← / → · Lia ziehen';
+  const keycaps = (keys: string[]) => keys.map(k => `<kbd class="ch-key">${k}</kbd>`).join('');
+  view.keyHint.innerHTML = kind === 'duck'
+    ? `${keycaps(['W', 'S'])} oder ${keycaps(['↑', '↓'])} · Lia ziehen`
+    : `${keycaps(['A', 'D'])} oder ${keycaps(['←', '→'])} · Lia ziehen`;
   let state = stealthStart(kind), started = false;
   const scene = createStealthStage(view.stage, kind);
   const beats = el('div', 'stealth-beats');
@@ -246,12 +266,21 @@ export function stealthGame(kind: StealthKind, label: string, opts: StealthOptio
     };
     render();
     scene.render(state, started);
+    let cuePhase = '', cueSafe = false;
     view.run((dt, d, pointer) => {
       if (!started) { scene.render(state, false, dt); return; }
       const result = stealthStep(state, kind, dt, d, pointer);
       state = result.state;
-      if (result.event === 'noise') { sfx('branch-snap', { volume: 0.5 }); opts.onNoise?.(state.mistakes); }
+      if (result.event === 'noise') { sfx('branch-snap', { volume: 0.5 }); if (kind !== 'duck') sfx('alert', { volume: 0.3 }); opts.onNoise?.(state.mistakes); }
       if (result.event === 'safe') sfx('ui-move', { volume: 0.45 });
+      // Sound cues: the guard turns (or the riders thunder past), leaves rustle when Lia reaches cover.
+      const cue = stealthPhase(state, kind), safeNow = stealthSafe(state, kind);
+      if (cue === 'danger' && cuePhase !== 'danger') {
+        if (kind !== 'duck') sfx('suspicious', { volume: 0.4 });
+        else if (stealthTarget(kind, state.round) > 0.5) sfx('horse', { volume: 0.7 });
+      }
+      if (safeNow && !cueSafe && cue === 'move') sfx('rustle', { volume: 0.3 });
+      cuePhase = cue; cueSafe = safeNow;
       render();
       scene.render(state, true, dt);
       if (state.done) view.finish(() => resolve(state.mistakes));
