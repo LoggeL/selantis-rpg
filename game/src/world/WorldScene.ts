@@ -327,6 +327,7 @@ export class WorldScene extends Phaser.Scene {
     kb.on('keydown', this.onKeyDown, this);
     this.companionDefs = (this.opts.companions ?? []).map(c => (typeof c === 'string' ? { id: c, preset: c } : { id: c.id, preset: c.preset ?? c.id, speaker: c.speaker }));
     this.ctx = createCtx(this);
+    this.scale.on(Phaser.Scale.Events.RESIZE, this.resizeViewport, this);
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.onShutdown());
 
@@ -404,6 +405,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private onShutdown(): void {
+    this.scale.off(Phaser.Scale.Events.RESIZE, this.resizeViewport, this);
     this.alive = false;
     const err = new WorldStopped();
     for (const reject of [...this.pending]) reject(err);
@@ -649,9 +651,27 @@ export class WorldScene extends Phaser.Scene {
     for (const c of this.clues) if (m.has('clues', c.def.id)) c.found = true;
   }
 
+  private resizeViewport(): void {
+    this.overlayCam.setSize(GAME_W, GAME_H);
+    this.lighting.resize(); this.weather.resize();
+    this.vignette.setPosition(GAME_W / 2, GAME_H / 2).setDisplaySize(GAME_W, GAME_H);
+    if (this.map && this.player) {
+      this.applyBounds();
+      this.cam.centerOn(this.camFocus.x, this.camFocus.y);
+      this.overlayCam.centerOn(this.camFocus.x, this.camFocus.y);
+      this.cam.preRender(); this.overlayCam.preRender();
+    }
+  }
+
+  private viewportZoom(): number {
+    return Math.max(this.baseZoom, GAME_W / Math.max(1, this.mapW), GAME_H / Math.max(1, this.mapH));
+  }
+
   private applyBounds(): void {
     const b = this.map.camera?.bounds ? areaPx(this.map.camera.bounds) : { x: 0, y: 0, w: this.mapW, h: this.mapH };
-    const vw = GAME_W / this.baseZoom, vh = GAME_H / this.baseZoom;
+    const zoom = this.viewportZoom();
+    this.cam.setZoom(zoom); this.overlayCam.setZoom(zoom);
+    const vw = GAME_W / zoom, vh = GAME_H / zoom;
     let { x, y, w, h } = b;
     if (w < vw) { x -= (vw - w) / 2; w = vw; }
     if (h < vh) { y -= (vh - h) / 2; h = vh; }
@@ -1840,7 +1860,7 @@ export class WorldScene extends Phaser.Scene {
       this.camFocus.y += (target.y - this.camFocus.y) * damp(5, dt);
     }
     if (this.zoomPunch > 0.0005) this.zoomPunch *= Math.exp(-dt * 7); else this.zoomPunch = 0;
-    const z = this.baseZoom * (1 + this.zoomPunch);
+    const z = this.viewportZoom() * (1 + this.zoomPunch);
     if (this.cam.zoom !== z) { this.cam.setZoom(z); this.overlayCam.setZoom(z); }
     this.cam.centerOn(this.camFocus.x, this.camFocus.y);
     this.overlayCam.centerOn(this.camFocus.x, this.camFocus.y);

@@ -73,6 +73,7 @@ export class UiContext {
     window.addEventListener('keyup', e => this.onKeyUp(e), true);
     window.addEventListener('blur', () => this.held.clear());
     window.addEventListener('resize', () => this.layout());
+    window.visualViewport?.addEventListener('resize', () => this.layout());
     window.addEventListener('orientationchange', () => setTimeout(() => this.layout(), 120));
     document.addEventListener('fullscreenchange', () => setTimeout(() => this.layout(), 60));
     events.on('settings:changed', () => this.applySettings());
@@ -99,7 +100,8 @@ export class UiContext {
 
   layout(): void {
     if (!this.root) return;
-    const vw = window.innerWidth, vh = window.innerHeight;
+    const viewport = this.root.getBoundingClientRect();
+    const vw = viewport.width || window.innerWidth, vh = viewport.height || window.innerHeight;
     const r = canvasRect();
     let x: number, y: number, w: number, h: number;
     if (r && r.width > 0) ({ left: x, top: y, width: w, height: h } = r);
@@ -111,6 +113,12 @@ export class UiContext {
     this.portrait = vh > vw * 1.05;
     // In portrait the canvas is a thin band: HUD chrome uses the whole window (black bars become UI space).
     this.hud = this.portrait ? { x: 0, y: 0, w: vw, h: vh } : { x: Math.max(0, x), y: Math.max(0, y), w: Math.min(vw, w), h: Math.min(vh, h) };
+    const safe = getComputedStyle(this.root);
+    const inset = (edge: string) => parseFloat(safe.getPropertyValue(`--safe-${edge}`)) || 0;
+    const left = inset('left'), right = inset('right'), top = inset('top'), bottom = inset('bottom');
+    this.hud.x += left; this.hud.y += top;
+    this.hud.w = Math.max(0, this.hud.w - left - right);
+    this.hud.h = Math.max(0, this.hud.h - top - bottom);
     const base = this.portrait ? vw : Math.min(this.hud.w, this.hud.h * 16 / 9);
     this.fontPx = Math.round(Math.min(24, Math.max(15, 9.5 + base * 0.0066)) * 10) / 10;
     const s = this.root.style;

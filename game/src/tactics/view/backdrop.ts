@@ -18,8 +18,7 @@ export const BACKDROP_TINT: Record<Backdrop, number> = {
  */
 export function buildBackdrop(scene: Phaser.Scene, kind: Backdrop): Phaser.GameObjects.Image {
   if (scene.textures.exists(skyKey(kind))) {
-    return scene.add.image(GAME_W / 2, GAME_H / 2, skyKey(kind)).setOrigin(0.5, 0.5).setScrollFactor(0).setDepth(-100000)
-      .setDisplaySize(GAME_W, GAME_H);
+    return fitBackdrop(scene, scene.add.image(0, 0, skyKey(kind)));
   }
   // Fallback while/if the painting is missing: a plain vertical gradient in the backdrop's mood.
   const key = `tac-backdrop-${kind}`;
@@ -37,5 +36,15 @@ export function buildBackdrop(scene: Phaser.Scene, kind: Backdrop): Phaser.GameO
     g.fillRect(0, 0, GAME_W, GAME_H);
     scene.textures.addCanvas(key, c);
   }
-  return scene.add.image(0, 0, key).setOrigin(0, 0).setScrollFactor(0).setDepth(-100000);
+  return fitBackdrop(scene, scene.add.image(0, 0, key));
+}
+
+/** Cover the current viewport without stretching the painting; keep it covered after rotation/fullscreen. */
+function fitBackdrop(scene: Phaser.Scene, image: Phaser.GameObjects.Image): Phaser.GameObjects.Image {
+  image.setOrigin(0.5).setScrollFactor(0).setDepth(-100000);
+  const fit = () => image.setPosition(GAME_W / 2, GAME_H / 2).setScale(Math.max(GAME_W / image.width, GAME_H / image.height));
+  fit();
+  scene.scale.on('resize', fit);
+  scene.events.once('shutdown', () => scene.scale.off('resize', fit));
+  return image;
 }

@@ -13,7 +13,7 @@ export const TACTICS_CSS = `
 .tac-panel::after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-bottom-right-radius:.45em}
 
 /* objective */
-.tac-obj{left:.8em;top:.8em;max-width:min(19em,calc(28% - 1em));padding:.45em .8em .55em;pointer-events:auto;overflow-wrap:break-word}
+.tac-obj{left:calc(.8em + var(--safe-left,0px));top:calc(.8em + var(--safe-top,0px));max-width:min(19em,calc(28% - 1em));padding:.45em .8em .55em;pointer-events:auto;overflow-wrap:break-word}
 .tac-obj .lbl{font-family:'Alegreya Sans SC',sans-serif;font-size:.72em;letter-spacing:.16em;color:var(--gold);display:flex;align-items:center;gap:.4em}
 .tac-obj .lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(216,178,90,.6),transparent)}
 .tac-obj .txt{font-family:Cinzel,serif;font-weight:700;font-size:1em;color:#f4e6c4;margin-top:.1em}
@@ -26,7 +26,7 @@ export const TACTICS_CSS = `
 @keyframes tacObjFlash{0%{box-shadow:0 0 0 0 rgba(243,210,122,.0)}30%{box-shadow:0 0 0 .3em rgba(243,210,122,.5)}100%{box-shadow:0 0 0 0 rgba(243,210,122,0)}}
 
 /* phase pill + order */
-.tac-phase{left:50%;top:.75em;transform:translateX(-50%);padding:.25em .9em .3em;font-family:Cinzel,serif;font-weight:700;font-size:.9em;letter-spacing:.06em;white-space:nowrap;display:flex;gap:.6em;align-items:center}
+.tac-phase{left:50%;top:calc(.75em + var(--safe-top,0px));transform:translateX(-50%);padding:.25em .9em .3em;font-family:Cinzel,serif;font-weight:700;font-size:.9em;letter-spacing:.06em;white-space:nowrap;display:flex;gap:.6em;align-items:center}
 .tac-phase .rd{font-family:'Alegreya Sans SC',sans-serif;font-weight:500;font-size:.8em;color:#bfb08c;letter-spacing:.12em}
 .tac-phase{max-width:44%;letter-spacing:.03em;gap:.4em}
 .tac-phase>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
@@ -45,13 +45,13 @@ export const TACTICS_CSS = `
 .tac-order .order-number{position:absolute;left:0;bottom:0;padding:0 .2em;background:#0e131de6;color:#fff2cc;font:700 .55em sans-serif}
 
 /* rotate */
-.tac-rot{position:absolute;right:.8em;top:var(--tac-controls-top,66px);display:flex;gap:.3em;pointer-events:auto}
+.tac-rot{position:absolute;right:calc(.8em + var(--safe-right,0px));top:var(--tac-controls-top,66px);display:flex;gap:.3em;pointer-events:auto}
 .tac-rot button{width:2em;height:2em;border-radius:50%;background:rgba(20,26,38,.85);border:1px solid rgba(216,178,90,.55);display:grid;place-items:center;padding:0}
 .tac-rot button:hover{border-color:var(--gold2);background:rgba(36,46,66,.95)}
 .tac-rot svg{width:1.1em;height:1.1em}
 
 /* unit card */
-.tac-card{left:.8em;bottom:.8em;width:21em;padding:.6em .7em .6em;pointer-events:auto;transition:opacity .15s,transform .15s}
+.tac-card{left:calc(.8em + var(--safe-left,0px));bottom:calc(.8em + var(--safe-bottom,0px));width:21em;padding:.6em .7em .6em;pointer-events:auto;transition:opacity .15s,transform .15s}
 .tac-card.hidden{opacity:0;transform:translateY(.5em);pointer-events:none}
 .tac-card .top{display:flex;gap:.6em;align-items:flex-start}
 .tac-card .por{width:4.4em;height:4.4em;flex:0 0 auto;border-radius:.35em;border:1px solid rgba(216,178,90,.6);background:radial-gradient(circle at 40% 30%,#2a3550,#0d1119);overflow:hidden;box-shadow:inset 0 0 0 2px #0a0d14}
@@ -106,7 +106,7 @@ export const TACTICS_CSS = `
 .tac-done{margin-top:.45em;font-family:'Alegreya Sans SC',sans-serif;font-size:.74em;letter-spacing:.08em;color:#a99a78;text-align:center}
 
 /* target card */
-.tac-tcard{right:.8em;bottom:4.4em;width:19em;padding:.55em .7em .6em;transition:opacity .12s,transform .12s}
+.tac-tcard{right:calc(.8em + var(--safe-right,0px));bottom:calc(4.4em + var(--safe-bottom,0px));width:19em;padding:.55em .7em .6em;transition:opacity .12s,transform .12s}
 .tac-tcard.hidden{opacity:0;transform:translateY(.4em)}
 .tac-tcard .hd{display:flex;align-items:center;gap:.5em}
 .tac-tcard .por{width:2.6em;height:2.6em;border-radius:.3em;border:1px solid rgba(216,178,90,.5);overflow:hidden;background:#0e131d;flex:0 0 auto}
@@ -165,7 +165,7 @@ export const TACTICS_CSS = `
 .tac-tile.hidden{opacity:0}
 
 /* end turn */
-.tac-end{position:absolute;right:.8em;bottom:.8em;display:flex;gap:.4em;pointer-events:auto;align-items:stretch}
+.tac-end{position:absolute;right:calc(.8em + var(--safe-right,0px));bottom:calc(.8em + var(--safe-bottom,0px));display:flex;gap:.4em;pointer-events:auto;align-items:stretch}
 .tac-btn{display:flex;align-items:center;gap:.45em;padding:.42em .85em .46em;border-radius:.5em;background:linear-gradient(180deg,#2c3854,#1b2336);border:1px solid rgba(216,178,90,.65);box-shadow:inset 0 1px 0 rgba(255,240,200,.08),0 .3em .8em rgba(0,0,0,.5);font-family:Cinzel,serif;font-weight:700;font-size:.92em;color:#f6e8c6;white-space:nowrap}
 .tac-btn:hover:not(:disabled){border-color:var(--gold2);background:linear-gradient(180deg,#36456a,#222c44)}
 .tac-btn:active:not(:disabled){transform:translateY(1px)}
@@ -238,7 +238,7 @@ export const TACTICS_CSS = `
 @keyframes tacFloat{0%{transform:translate(-50%,-30%) scale(.4);opacity:0}14%{transform:translate(-50%,-90%) scale(1.25);opacity:1}30%{transform:translate(-50%,-110%) scale(1)}75%{opacity:1}100%{transform:translate(-50%,-190%) scale(.95);opacity:0}}
 
 /* hint */
-.tac-hint{z-index:3;left:.8em;top:6.6em;width:min(21em,44%);padding:.6em .85em .65em;pointer-events:auto;transition:opacity .25s,transform .25s}
+.tac-hint{z-index:3;left:calc(.8em + var(--safe-left,0px));top:6.6em;width:min(21em,44%);padding:.6em .85em .65em;pointer-events:auto;transition:opacity .25s,transform .25s}
 .tac-hint.hidden{opacity:0;transform:translateY(-.6em);pointer-events:none;visibility:hidden;transition:opacity .25s,transform .25s,visibility 0s .25s}
 .tac-hint{max-height:calc(100% - var(--tac-header,64px) - var(--tac-footer,40px));overflow-y:auto;overscroll-behavior:contain}
 .tac.has-hint .tac-card,.tac.has-hint .tac-tcard:not(.forecast){visibility:hidden}

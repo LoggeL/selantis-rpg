@@ -4,7 +4,7 @@ Ein Story-RPG im Browser mit Lia, freier Erkundung und taktischen Rasterkämpfen
 
 [Spiel öffnen](https://selantis.logge.top/) · [Szenenmusik anhören](https://selantis.logge.top/musik.html)
 
-Die Spielwelt verwendet gemalte Pixelgrafiken, Licht, Wetter und Partikel. Dialoge, Tagebuch, Tasche und Menüs liegen als HTML/CSS-Oberfläche über der Leinwand. Die interne Spielauflösung beträgt 640 × 360 Pixel; die Darstellung passt sich mit erhaltenem Seitenverhältnis an das Fenster an.
+Die Spielwelt verwendet gemalte Pixelgrafiken, Licht, Wetter und Partikel. Dialoge, Tagebuch, Tasche und Menüs liegen als HTML/CSS-Oberfläche über der Leinwand. Die Grundauflösung beträgt 640 × 360 Pixel. Im Querformat und Vollbild passt sich die Kamerafläche an das Display an und füllt es ohne seitliche Ränder. Figuren und Pixelgrafiken behalten ihre Proportionen; kleine Karten werden über die Kamera passend vergrößert.
 
 ## Screenshots
 

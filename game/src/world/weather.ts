@@ -75,6 +75,15 @@ export class Weather {
     });
   }
 
+  resize(): void {
+    this.flashRect.setPosition(GAME_W / 2, GAME_H / 2).setSize(GAME_W * 3, GAME_H * 3);
+    for (const layer of this.layers) {
+      for (const fog of layer.fog) fog.setSize(GAME_W * 1.6, GAME_H * 1.6);
+      if (isRain(layer.kind)) this.resizeDrops(layer);
+    }
+    this.scatterPending = true;
+  }
+
   private get current(): Layer | undefined { const l = this.layers[this.layers.length - 1]; return l && l.target > 0 ? l : undefined; }
 
   set(kind: WeatherKind, opts: { intensity?: number; ms?: number } = {}): void {

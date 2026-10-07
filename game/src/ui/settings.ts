@@ -106,6 +106,7 @@ export function buildSettings(host: HTMLElement, onBack?: () => void): NavList {
   const toggle = (label: string, get: () => boolean, set: (v: boolean) => void) => {
     const t = el('button', 'set-toggle');
     t.type = 'button';
+    t.setAttribute('aria-label', label);
     t.append(el('span', 'set-toggle-knob'), el('span', 'set-toggle-text'));
     const paint = () => {
       const on = get();
@@ -124,7 +125,7 @@ export function buildSettings(host: HTMLElement, onBack?: () => void): NavList {
   const fsSupported = typeof document.documentElement.requestFullscreen === 'function';
   if (fsSupported) {
     const paintFs = toggle('Vollbild', () => Boolean(document.fullscreenElement), v => {
-      if (v && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+      if (v && !document.fullscreenElement) document.documentElement.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
       else if (!v && document.fullscreenElement) document.exitFullscreen().catch(() => {});
     });
     paintFullscreen = () => { if (rows.isConnected) paintFs(); else paintFullscreen = null; };

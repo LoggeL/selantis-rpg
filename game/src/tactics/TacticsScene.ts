@@ -154,6 +154,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.ui.setEndTurn(false, false);
 
     this.setupInput();
+    this.scale.on(Phaser.Scale.Events.RESIZE, this.resizeViewport, this);
     if (def.music !== null) G.audio.music(def.music ?? 'battle', { fadeMs: 1200 });
     if (def.ambience) G.audio.ambience(def.ambience);
     this.time.addEvent({ delay: 180, loop: true, callback: () => this.tickWater() });
@@ -165,6 +166,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
 
   private cleanup(): void {
+    this.scale.off(Phaser.Scale.Events.RESIZE, this.resizeViewport, this);
     this.bootToken = {};
     this.ready = false;
     this.ui?.destroy();
@@ -263,6 +265,14 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       const t = img.getData('tile') as Tile;
       img.setFrame(this.atlas.frame(t.x, t.y, this.waterFrame));
     }
+  }
+
+  private resizeViewport(): void {
+    if (!this.ready) return;
+    const cam = this.cameras.main;
+    cam.centerOn(cam.midPoint.x, cam.midPoint.y);
+    cam.preRender();
+    this.refreshPanels(); this.updateCursor();
   }
 
   private centerCamera(instant = false): void {

@@ -214,6 +214,11 @@ export class Lighting {
 
   clear(): void { for (const id of [...this.lights.keys()]) this.remove(id); }
 
+  resize(): void {
+    this.rt.resize(GAME_W, GAME_H);
+    this.haze.setDisplaySize(GAME_W * 2, GAME_H * 2);
+  }
+
   update(dt: number, cam: Phaser.Cameras.Scene2D.Camera): void {
     this.t += dt;
     if (this.tT < 1) {
