@@ -34,18 +34,25 @@ export interface CharacterProgress {
   abilityAp: Record<string, number>;
 }
 
-export interface WeaponDef { id: string; name: string; skills: string[] }
+/** `attack` is the weapon's basic attack (Angriff): always usable while equipped, never locked by mastery. */
+export interface WeaponDef { id: string; name: string; skills: string[]; attack: string }
 export const WEAPONS: Record<string, WeaponDef> = {
-  lichtfokus: { id: 'lichtfokus', name: 'Lichtfokus', skills: ['handstoss', 'strahl', 'druckwelle', 'schutzwall'] },
-  kurzschwerter: { id: 'kurzschwerter', name: 'Zwei Kurzschwerter', skills: ['doppelhieb', 'tritt'] },
-  schwert: { id: 'schwert', name: 'Schwert', skills: ['schwerthieb'] },
-  speer: { id: 'speer', name: 'Speer', skills: ['speerstoss'] },
-  armbrust: { id: 'armbrust', name: 'Armbrust', skills: ['bolzen'] },
-  axt: { id: 'axt', name: 'Streitaxt', skills: ['axthieb', 'wuchtschlag'] },
-  vatersdolch: { id: 'vatersdolch', name: 'Vaters Dolch', skills: ['dolch'] },
-  jagdbogen: { id: 'jagdbogen', name: 'Jagdbogen', skills: ['bogen'] },
-  jagdmesser: { id: 'jagdmesser', name: 'Jagdmesser', skills: ['messer'] },
+  lichtfokus: { id: 'lichtfokus', name: 'Lichtfokus', skills: ['handstoss', 'strahl', 'druckwelle', 'schutzwall'], attack: 'handstoss' },
+  kurzschwerter: { id: 'kurzschwerter', name: 'Zwei Kurzschwerter', skills: ['doppelhieb', 'tritt'], attack: 'doppelhieb' },
+  schwert: { id: 'schwert', name: 'Schwert', skills: ['schwerthieb'], attack: 'schwerthieb' },
+  speer: { id: 'speer', name: 'Speer', skills: ['speerstoss'], attack: 'speerstoss' },
+  armbrust: { id: 'armbrust', name: 'Armbrust', skills: ['bolzen'], attack: 'bolzen' },
+  axt: { id: 'axt', name: 'Streitaxt', skills: ['axthieb', 'wuchtschlag'], attack: 'axthieb' },
+  vatersdolch: { id: 'vatersdolch', name: 'Vaters Dolch', skills: ['dolch'], attack: 'dolch' },
+  jagdbogen: { id: 'jagdbogen', name: 'Jagdbogen', skills: ['bogen'], attack: 'bogen' },
+  jagdmesser: { id: 'jagdmesser', name: 'Jagdmesser', skills: ['messer'], attack: 'messer' },
 };
+
+/** Basic attack a unit gets from its spec and equipped weapon; null when it must never strike. */
+export function basicAttack(spec: Pick<UnitSpec, 'attack'>, weapon: string | null): string | null {
+  if (spec.attack === false) return null;
+  return spec.attack ?? (weapon ? WEAPONS[weapon]?.attack : undefined) ?? 'angriff';
+}
 
 /** Derive starting equipment from authored skills without giving characters weapons they do not own. */
 export function withEquipment(spec: UnitSpec): UnitSpec {
@@ -55,6 +62,7 @@ export function withEquipment(spec: UnitSpec): UnitSpec {
 }
 
 export function skillAvailable(u: Unit, id: string): boolean {
+  if (id === u.attack) return true;
   const weaponSkill = Object.values(WEAPONS).some(w => w.skills.includes(id));
   return !weaponSkill || u.innate.includes(id) || u.mastered.includes(id) || !!u.weapon && WEAPONS[u.weapon]?.skills.includes(id);
 }

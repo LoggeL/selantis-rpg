@@ -2,7 +2,8 @@ import type { AbilityDef } from './types';
 
 /**
  * Standard ability library. Battles may add or override entries via BattleDef.abilities.
- * Damage = power + user.atk − target.def, then multiplied by flank/height/guard.
+ * Damage = power + user.atk − target.def (min 1), halved when guarded. Facing and height only change
+ * the hit chance of physical attacks (see Battle.previewTarget).
  */
 export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   // ---------------- Valentus ----------------
@@ -104,6 +105,11 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   },
 
   // ---------------- shared ----------------
+  angriff: {
+    id: 'angriff', name: 'Angriff', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
+    power: 1, accuracy: 100, vfx: 'kick',
+    description: 'Ein Schlag ohne Waffe. Jeder kann ihn, wenn nichts anderes bleibt.',
+  },
   befreien: {
     id: 'befreien', name: 'Befreien', kind: 'interact', target: 'bound', range: [1, 1], shape: { type: 'single' },
     power: 0, accuracy: 100, alwaysHits: true, frees: true, vfx: 'free',

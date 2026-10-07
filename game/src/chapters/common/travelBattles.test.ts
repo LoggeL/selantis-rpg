@@ -88,6 +88,7 @@ describe('travel battles and campaign pace', () => {
     G.state.reset(); G.state.give('dagger');
     for (const def of [escortEncounter(), onwardEncounter(0)]) {
       const b = build(def, def.seed, 'speed');
+      if (def.id === 'k3-begleitung') expect(b.unit('reisender').attack).toBe(null);
       for (const u of b.units) if (u.team === 'player') {
         b.aiOverrides.set(u.id, u.id === 'reisender' ? { profile: 'flee', goal: { x: 7, y: 2 } }
           : { profile: u.id === 'foltan' || u.id === 'kyra' || u.id === 'lia' && u.abilities.includes('dolch') ? 'melee' : u.id === 'flick' ? 'archer' : 'support' });

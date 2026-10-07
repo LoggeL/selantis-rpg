@@ -76,6 +76,8 @@ describe('e2-uebungskampf', () => {
     const ig = def.units.find(u => u.id === 'ignatius')!;
     expect(ig.team).toBe('ally');
     expect(ig.abilities).toEqual(['decken']);
+    expect(ig.attack).toBe(false);
+    expect(controller().ctrl.battle.unit('ignatius').attack).toBe(null);
     for (const u of def.units) if (u.id !== 'lia') expect(u.nonLethal, u.id).toBe(true);
     expect(def.units.filter(u => u.team === 'enemy').map(u => u.preset)).toEqual(['ghoul', 'ghoul']);
   });

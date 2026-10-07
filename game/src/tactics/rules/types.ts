@@ -90,8 +90,13 @@ export interface AbilityDef {
   power: number;
   /** Strikes per use (two short swords = 2). Each strike rolls separately. */
   hits?: number;
-  /** Base hit chance in percent. */
+  /**
+   * Base hit chance in percent for magic, support and `noFlank` abilities. Physical attacks (melee/ranged)
+   * start from the target's facing instead (front 50, side 70, back 90) and only add `hitMod`.
+   */
   accuracy: number;
+  /** Physical attacks: flat hit chance modifier on top of the facing base (e.g. +10 for a quick stab). */
+  hitMod?: number;
   /** Tiles the target is pushed away from the caster. */
   push?: number;
   effects?: AbilityEffect[];
@@ -107,7 +112,7 @@ export interface AbilityDef {
   vertical?: number;
   /** Ignores bush cover. */
   ignoresCover?: boolean;
-  /** No flank/height multipliers (e.g. magic shock). */
+  /** Facing and height do not matter; the hit chance comes from `accuracy` (e.g. magic shock). */
   noFlank?: boolean;
   /** Always hits (cover/evasion still shown, but irrelevant). */
   alwaysHits?: boolean;
@@ -164,6 +169,11 @@ export interface UnitSpec {
   mastered?: string[];
   abilityAp?: Record<string, number>;
   abilities: string[];
+  /**
+   * Basic attack (Angriff), always usable besides `abilities`. Defaults to the equipped weapon's attack,
+   * else the unarmed 'angriff'. `false` = this unit never strikes (escorts, a teacher who only guards).
+   */
+  attack?: string | false;
   /** Becomes "kampfunfähig" (wounded, stays on the field) instead of dying. */
   nonLethal?: boolean;
   ai?: AiProfile;
@@ -199,6 +209,8 @@ export interface Unit {
   mastered: string[];
   abilityAp: Record<string, number>;
   abilities: string[];
+  /** Basic attack, not part of `abilities` (digit hotkeys index those); null = cannot strike. */
+  attack: string | null;
   cooldowns: Record<string, number>;
   statuses: StatusMap;
   down: false | DownKind;
@@ -216,9 +228,9 @@ export interface Unit {
 
 /** One modifier line shown in the hit preview. */
 export interface PreviewMod {
-  /** German label, e.g. „Rücken“, „Höhe“, „Deckung“. */
+  /** German label, e.g. „Rücken“, „Tempo“, „Höhe“, „Deckung“. */
   label: string;
-  /** Display text, e.g. „×1,5“ or „+10 %“. */
+  /** Display text, e.g. „90 %“, „+10 %“ or „×0,5“. */
   text: string;
   kind: 'good' | 'bad' | 'neutral';
 }

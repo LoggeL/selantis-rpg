@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Battle, makeUnit } from './battle';
 import { Grid } from './grid';
-import { AP_TO_MASTER, awardProgress, normalizeProgress, progressOf, restoreProgress } from './progression';
+import { AP_TO_MASTER, awardProgress, normalizeProgress, progressOf, restoreProgress, skillAvailable } from './progression';
 import type { UnitSpec } from './types';
 
 const spec = (id: string, team: UnitSpec['team'], speed: number, x: number): UnitSpec => ({
@@ -100,6 +100,8 @@ describe('character growth and weapons', () => {
     expect(u.mastered).toContain('bogen');
     b.equip('hero', 'jagdmesser'); expect(b.abilityReady(u, 'bogen')).toBe(true);
     expect(b.abilityReady(u, 'messer')).toBe(true);
+    // The basic attack follows the equipped weapon and needs no mastery.
+    expect(u.attack).toBe('messer'); expect(skillAvailable(u, 'messer')).toBe(true);
     b.move('hero', { x: 0, y: 1 }); expect(() => b.equip('hero', 'jagdbogen')).toThrow();
     expect(() => b.equip('hero', 'axt')).toThrow();
   });

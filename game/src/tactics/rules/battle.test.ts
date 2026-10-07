@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { Battle, COLLIDE_DAMAGE, COLLIDE_OTHER_DAMAGE, FALL_DAMAGE_PER_LEVEL } from './battle';
+import { Battle, COLLIDE_DAMAGE, COLLIDE_OTHER_DAMAGE, FALL_DAMAGE_PER_LEVEL, HIT_BASE, SPEED_HIT_CAP, actionList, makeUnit } from './battle';
 import { Grid, directionTo } from './grid';
 import { pathTo, reachable } from './movement';
 import { evaluate } from './objectives';
-import { executePlan, planTurn } from './ai';
+import { chooseFacing, executePlan, planTurn } from './ai';
 import type { UnitSpec } from './types';
 
 const flat = (w: number, h: number, ch = '.') => ({ height: Array(h).fill('0'.repeat(w)), terrain: Array(h).fill(ch.repeat(w)) });
@@ -43,15 +43,27 @@ describe('movement', () => {
     expect(r.has('2,0')).toBe(false);  // water path 2+2, land path 4
     expect(r.has('2,1')).toBe(true);
   });
-  it('cannot climb more than jump, climbing costs extra', () => {
+  it('cannot climb more than jump, every level up costs one extra point', () => {
     const map = { height: ['0130', '0000'], terrain: ['....', '....'] };
     const b = make([hero({ jump: 2, move: 6 })], map);
     const r = b.reach('hero');
-    expect(r.get('1,0')?.cost).toBe(1);
+    expect(r.get('1,0')?.cost).toBe(2); // 1 + one level up
     expect(r.has('2,0')).toBe(true);
-    expect(r.get('2,0')?.cost).toBe(3); // 1 (to h1) + 1 + (3-1-1) = climb 2 from h1 costs 2
+    expect(r.get('2,0')?.cost).toBe(5); // 2 to h1, then 1 + two levels up
     const low = make([hero({ jump: 1, move: 6 })], map).reach('hero');
     expect(low.has('2,0')).toBe(false);
+    expect(make([hero({ jump: 2, move: 4 })], map).reach('hero').has('2,0')).toBe(false);
+  });
+  it('descending costs extra too, at most jump + 1 levels per step', () => {
+    const map = { height: ['3200', '4000'], terrain: ['....', '....'] };
+    const b = make([hero({ jump: 2, move: 6 })], map);
+    const r = b.reach('hero');
+    expect(r.get('1,0')?.cost).toBe(2); // 1 + one level down
+    expect(r.get('2,0')?.cost).toBe(5); // 2, then 1 + two levels down
+    expect(r.get('0,1')?.cost).toBe(2); // one level up
+    expect(r.get('1,1')?.cost).toBe(5); // via h2: 2, then 1 + two levels down
+    expect(make([hero({ jump: 1, move: 6, y: 1 })], map).reach('hero').has('1,1')).toBe(false); // 4 down > 2
+    expect(make([hero({ jump: 3, move: 6, y: 1 })], map).reach('hero').get('1,1')?.cost).toBe(5); // 1 + 4 down
   });
   it('allies can be passed, enemies block, nobody can end on occupied cells', () => {
     const map = { height: ['00000'], terrain: ['.....'] };
@@ -92,24 +104,59 @@ describe('combat', () => {
     expect(b.relation({ x: 2, y: 1 }, t)).toBe('back');
     expect(b.relation({ x: 3, y: 1 }, t)).toBe('back'); // diagonal tie favours the attacker
   });
-  it('damage multipliers for back and height are previewed', () => {
-    const map = { height: ['000', '000', '000'], terrain: ['...', '...', '...'] };
-    const b = make([hero({ x: 1, y: 0 }), foe({ x: 1, y: 1, facing: 's', def: 1 })], map);
-    const p = b.preview('hero', 'schwerthieb', { x: 1, y: 1 });
+  it('physical hit chance starts at 50 % front, 70 % side, 90 % back', () => {
+    const chanceFrom = (facing: 'n' | 'e' | 's' | 'w') => {
+      const b = make([hero({ x: 1, y: 0 }), foe({ x: 1, y: 1, facing })]);
+      return b.preview('hero', 'schwerthieb', { x: 1, y: 1 }).targets[0];
+    };
+    expect(HIT_BASE).toMatchObject({ front: 50, side: 70, back: 90 });
+    expect(chanceFrom('n')).toMatchObject({ relation: 'front', chance: 50 });
+    expect(chanceFrom('e')).toMatchObject({ relation: 'side', chance: 70 });
+    expect(chanceFrom('s')).toMatchObject({ relation: 'back', chance: 90 });
+    expect(chanceFrom('s').mods[0]).toEqual({ label: 'Rücken', text: '90 %', kind: 'good' });
+    expect(chanceFrom('n').mods[0]).toEqual({ label: 'Vorne', text: '50 %', kind: 'neutral' });
+    expect(chanceFrom('e').mods[0].label).toBe('Seite');
+  });
+  it('facing and height change the hit chance, never the damage', () => {
     const base = 2 + 3 - 1;
-    expect(p.targets[0].damage).toBe(Math.round(base * 1.5));
-    expect(p.targets[0].mods.map(m => m.label)).toContain('Rücken');
+    const map = { height: ['000', '000', '000'], terrain: ['...', '...', '...'] };
+    for (const facing of ['n', 'e', 's'] as const) {
+      const b = make([hero({ x: 1, y: 0 }), foe({ x: 1, y: 1, facing, def: 1 })], map);
+      expect(b.preview('hero', 'schwerthieb', { x: 1, y: 1 }).targets[0].damage).toBe(base);
+    }
     const hill = { height: ['020', '000', '000'], terrain: ['...', '...', '...'] };
     const b2 = make([hero({ x: 1, y: 0 }), foe({ x: 1, y: 1, facing: 'n', def: 1 })], hill);
-    const p2 = b2.preview('hero', 'schwerthieb', { x: 1, y: 1 });
-    expect(p2.targets[0].damage).toBe(Math.round(base * 1.2));
-    expect(p2.targets[0].chance).toBe(84 + 10);
-    expect(p2.targets[0].mods.find(m => m.label === 'Höhe')?.text).toBe('+20 %');
+    const p2 = b2.preview('hero', 'schwerthieb', { x: 1, y: 1 }).targets[0];
+    expect(p2.damage).toBe(base);
+    expect(p2.chance).toBe(50 + 10);
+    expect(p2.mods.find(m => m.label === 'Höhe')?.text).toBe('+10 %');
+    const low = make([hero({ x: 1, y: 1 }), foe({ x: 1, y: 0, facing: 's', def: 1 })], hill);
+    expect(low.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0]).toMatchObject({ chance: 50 - 10, damage: base });
+  });
+  it('speed shifts physical hit chance by 3 per point, capped at ±15', () => {
+    const chance = (speed: number, foeSpeed: number) => {
+      const b = make([hero({ speed }), foe({ facing: 'w', speed: foeSpeed })]);
+      return b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0];
+    };
+    expect(chance(5, 5).chance).toBe(50);
+    expect(chance(5, 5).mods.some(m => m.label === 'Tempo')).toBe(false);
+    expect(chance(8, 5).chance).toBe(59);
+    expect(chance(8, 5).mods.find(m => m.label === 'Tempo')).toEqual({ label: 'Tempo', text: '+9 %', kind: 'good' });
+    expect(chance(4, 6).chance).toBe(44);
+    expect(chance(20, 1).chance).toBe(50 + SPEED_HIT_CAP);
+    expect(chance(1, 20).chance).toBe(50 - SPEED_HIT_CAP);
+  });
+  it('hitMod adjusts physical attacks; magic keeps its accuracy regardless of facing or speed', () => {
+    const b = make([hero({ x: 0, y: 1, speed: 1 }), foe({ x: 1, y: 1, facing: 'e', speed: 9 })]);
+    b.abilities.schwerthieb = { ...b.ability('schwerthieb'), hitMod: 10 };
+    expect(b.preview('hero', 'schwerthieb', { x: 1, y: 1 }).targets[0].chance).toBe(90 - 15 + 10);
+    expect(b.preview('hero', 'strahl', { x: 1, y: 1 }).targets[0].chance).toBe(b.ability('strahl').accuracy);
+    expect(b.preview('hero', 'druckwelle', { x: 0, y: 1 }).targets[0].chance).toBe(100);
   });
   it('bush cover lowers hit chance, guarded halves damage', () => {
     const map = { height: ['000'], terrain: ['.b.'] };
     const b = make([hero(), foe({ x: 1, facing: 'w' })], map);
-    expect(b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0].chance).toBe(84 - 30);
+    expect(b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0].chance).toBe(50 - 30);
     b.addStatus(b.unit('foe'), 'guarded', 1);
     const p = b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0];
     expect(p.damage).toBe(2);
@@ -143,6 +190,7 @@ describe('combat', () => {
   });
   it('wounded instead of dead for non-lethal units', () => {
     const b = make([hero(), foe({ hp: 1, nonLethal: true })]);
+    b.abilities.handstoss = { ...b.ability('handstoss'), alwaysHits: true };
     b.act('hero', 'handstoss', { x: 1, y: 0 });
     expect(b.unit('foe').down).toBe('wounded');
     expect(b.unitAt(1, 0)?.id === 'foe' || b.unitAt(2, 0)?.id === 'foe').toBe(true);
@@ -217,6 +265,57 @@ describe('phases and statuses', () => {
   });
 });
 
+describe('basic attack', () => {
+  it('comes from the equipped weapon, else the unarmed Angriff, and stays out of the ability list', () => {
+    const bare = makeUnit(hero({ abilities: ['schutzwall'] }));
+    expect(bare.attack).toBe('angriff');
+    expect(bare.abilities).toEqual(['schutzwall']);
+    expect(actionList(bare)).toEqual(['angriff', 'schutzwall']);
+    const dagger = makeUnit(hero({ abilities: ['ausweichen'], weapon: 'vatersdolch' }));
+    expect(dagger.attack).toBe('dolch');
+    expect(actionList(dagger)).toEqual(['dolch', 'ausweichen']); // the weapon skill is not listed twice
+    expect(makeUnit(hero({ attack: 'axthieb', weapon: 'vatersdolch' })).attack).toBe('axthieb');
+    expect(makeUnit(hero({ attack: false, weapon: 'schwert' })).attack).toBe(null);
+    expect(actionList(makeUnit(hero({ attack: false, abilities: ['schutzwall'] })))).toEqual(['schutzwall']);
+  });
+  it('is always usable, even without a weapon or mastery', () => {
+    const b = make([hero({ abilities: ['schutzwall'] }), foe({ facing: 'e' })]);
+    const u = b.unit('hero');
+    expect(b.abilityReady(u, 'angriff')).toBe(true);
+    expect(b.validTarget('hero', 'angriff', { x: 1, y: 0 })).toBe(true);
+    expect(b.preview('hero', 'angriff', { x: 1, y: 0 }).targets[0]).toMatchObject({ damage: 1 + 3 - 1, chance: 90 });
+    const events = b.act('hero', 'angriff', { x: 1, y: 0 });
+    expect(events.some(e => e.type === 'strike')).toBe(true);
+    expect(b.abilityReady(u, 'schwerthieb')).toBe(false);
+  });
+  it('a unit with attack: false cannot strike', () => {
+    const b = make([hero({ attack: false, abilities: ['schutzwall'] }), foe()]);
+    expect(b.abilityReady(b.unit('hero'), 'angriff')).toBe(false);
+    expect(() => b.act('hero', 'angriff', { x: 1, y: 0 })).toThrow();
+    b.endPhase();
+    b.endPhase();
+    b.unit('hero').ai = 'melee';
+    expect(planTurn(b, 'hero').action).toBe(null);
+  });
+  it('follows a weapon swap, unless it was authored', () => {
+    const b = make([hero({ abilities: [], weapons: ['jagdbogen', 'jagdmesser'] }), hero({ id: 'fix', x: 0, y: 2, abilities: [], attack: 'angriff', weapons: ['jagdbogen', 'jagdmesser'] }), foe({ x: 5, y: 5 })]);
+    expect(b.unit('hero').attack).toBe('bogen');
+    b.equip('hero', 'jagdmesser');
+    expect(b.unit('hero').attack).toBe('messer');
+    b.equip('fix', 'jagdmesser');
+    expect(b.unit('fix').attack).toBe('angriff');
+  });
+  it('rejects unknown attacks', () => {
+    expect(() => make([hero({ attack: 'nichts' })])).toThrow();
+  });
+  it('the AI uses the basic attack when it has nothing else', () => {
+    const b = make([hero({ x: 2, y: 2, facing: 'n' }), foe({ x: 2, y: 4, abilities: [] })]);
+    b.endPhase();
+    const plan = planTurn(b, 'foe');
+    expect(plan.action?.ability).toBe('angriff');
+  });
+});
+
 describe('objectives', () => {
   it('defeatAll, survive, protect, escort', () => {
     const b = make([hero(), foe({ hp: 1 }), { ...hero(), id: 'kyra', x: 0, y: 3 }]);
@@ -243,7 +342,7 @@ describe('ai', () => {
   });
   it('archer prefers high ground and keeps distance', () => {
     const map = { height: ['000000', '000000', '000022', '000022', '000000', '000000'], terrain: Array(6).fill('......') };
-    const b = make([hero({ x: 0, y: 0 }), foe({ id: 'xb', x: 3, y: 3, ai: 'archer', abilities: ['bolzen'], move: 3 })], map);
+    const b = make([hero({ x: 0, y: 0 }), foe({ id: 'xb', x: 3, y: 3, ai: 'archer', abilities: ['bolzen'], move: 4 })], map);
     b.endPhase();
     const plan = planTurn(b, 'xb');
     const dest = plan.moveTo ?? { x: 3, y: 3 };
@@ -277,6 +376,26 @@ describe('ai', () => {
       outcome = evaluate(b, [{ type: 'defeatAll' }]);
     }
     expect(outcome).not.toBe(null);
+  });
+  it('ends each AI turn facing the threat, idle units keep their facing', () => {
+    const b = make([hero({ x: 0, y: 2 }), foe({ x: 4, y: 2, facing: 'w', ai: 'hold', abilities: ['bolzen'] }), foe({ id: 'civ', x: 5, y: 5, facing: 'n', ai: 'passive' })]);
+    b.endPhase();
+    // The archer shoots west and keeps facing the hero.
+    expect(chooseFacing(b, b.unit('foe'))).toBe('w');
+    const turned = make([hero({ x: 2, y: 0 }), foe({ x: 2, y: 4, facing: 'e', ai: 'hold', abilities: [] }), foe({ id: 'civ', x: 5, y: 5, facing: 'n', ai: 'passive' })]);
+    turned.endPhase();
+    const events = executePlan(turned, planTurn(turned, 'foe'));
+    expect(turned.unit('foe').facing).toBe('n');
+    expect(events.map(e => e.type).slice(-2)).toEqual(['face', 'wait']);
+    executePlan(turned, planTurn(turned, 'civ'));
+    expect(turned.unit('civ').facing).toBe('n');
+  });
+  it('faces away from the side with more threats', () => {
+    const b = make([foe({ id: 'me', x: 2, y: 2, facing: 'w', ai: 'hold', abilities: [] }), hero({ x: 4, y: 2 }), hero({ id: 'h2', x: 2, y: 4 }), hero({ id: 'h3', x: 2, y: 5 })]);
+    const f = chooseFacing(b, b.unit('me'));
+    // Facing south puts the two southern foes in front and the eastern one at the side; never show the back.
+    expect(f).toBe('s');
+    for (const id of ['hero', 'h2', 'h3']) expect(b.relation(b.unit(id), { ...b.unit('me'), facing: f })).not.toBe('back');
   });
   it('directionTo prefers horizontal on ties', () => {
     expect(directionTo({ x: 0, y: 0 }, { x: 1, y: 1 })).toBe('e');

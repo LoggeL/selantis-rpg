@@ -89,7 +89,7 @@ export function escortEncounter(): BattleDef {
     units: [
       ...travelParty(),
       { id: 'reisender', name: 'Reisender', team: 'player', x: 0, y: 2, hp: 18, atk: 0, def: 0, speed: 4, move: 3, jump: 1,
-        abilities: [], preset: 'merchant', nonLethal: true, title: 'Bringt ihn zum Wegzeichen im Osten' },
+        abilities: [], attack: false, preset: 'merchant', nonLethal: true, title: 'Bringt ihn zum Wegzeichen im Osten' },
       bandit('raeuber-1', 5, 2, 2), bandit('raeuber-2', 6, 4, 2), bandit('raeuber-3', 6, 1, 2, true),
     ],
     abilities: TRAVEL_ABILITIES, progression: EARLY_PROGRESS, seed: 3042, backdrop: 'day', goalTiles: exit,

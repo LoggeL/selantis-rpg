@@ -1,7 +1,7 @@
-import type { Battle } from './battle';
-import { TERRAIN, key, manhattan } from './grid';
+import { actionList, type Battle } from './battle';
+import { FACINGS, TERRAIN, directionTo, key, manhattan } from './grid';
 import { distanceField, pathTo } from './movement';
-import type { AbilityDef, AiProfile, Point, Unit } from './types';
+import type { AbilityDef, AiProfile, Facing, Point, Unit } from './types';
 
 export interface AiPlan {
   unit: string;
@@ -113,7 +113,7 @@ export function planTurn(b: Battle, id: string): AiPlan {
 
   const targets = candidateTargets(b, u);
   const focus = new Set<string>(o?.target ? [o.target] : targets.filter(t => b.has(t, 'taunt')).map(t => t.id));
-  const abilities = u.abilities.map(a => b.ability(a)).filter(a => offensive(a) && b.abilityReady(u, a.id));
+  const abilities = actionList(u).map(a => b.ability(a)).filter(a => offensive(a) && b.abilityReady(u, a.id));
   const canAct = b.canAct(id);
 
   let best: AiPlan = { ...none, score: -Infinity };
@@ -183,7 +183,7 @@ export function planTurn(b: Battle, id: string): AiPlan {
 
 function planBlock(b: Battle, u: Unit, blocked: Unit, cells: Point[], goal?: Point): AiPlan {
   const foes = candidateTargets(b, u).filter(t => t.id !== blocked.id);
-  const abilities = u.abilities.map(a => b.ability(a)).filter(a => offensive(a) && b.abilityReady(u, a.id));
+  const abilities = actionList(u).map(a => b.ability(a)).filter(a => offensive(a) && b.abilityReady(u, a.id));
   let best: AiPlan = { unit: u.id, moveTo: null, action: null, actFirst: false, score: -Infinity, reason: 'block' };
   for (const c of cells) {
     const d = manhattan(c, blocked);
@@ -218,6 +218,38 @@ function normalize(p: AiPlan, u: Unit): AiPlan {
   return p;
 }
 
+/**
+ * End-of-turn facing: turn toward the threats so that no foe gets an easy back attack. Foes that could
+ * reach the unit next turn count, nearer ones more; ties prefer facing the nearest foe.
+ */
+export function chooseFacing(b: Battle, u: Unit): Facing {
+  const foes = b.units.filter(f => !f.down && f.x > -50 && b.isEnemy(u, f) && !b.has(f, 'bound'));
+  if (!foes.length) return u.facing;
+  const nearest = foes.reduce((p, q) => (manhattan(q, u) < manhattan(p, u) ? q : p));
+  const threats = foes.filter(f => manhattan(f, u) <= f.move + 2);
+  if (!threats.length) threats.push(nearest);
+  const toward = directionTo(u, nearest);
+  let best = toward, bestScore = Infinity;
+  for (const facing of [toward, ...FACINGS.filter(f => f !== toward)]) {
+    const probe = { ...u, facing };
+    let score = 0;
+    for (const t of threats) {
+      const r = b.relation(t, probe);
+      score += (r === 'back' ? 3 : r === 'side' ? 1 : 0) / Math.max(1, manhattan(t, u));
+    }
+    if (score < bestScore - 1e-9) { bestScore = score; best = facing; }
+  }
+  return best;
+}
+
+/** Facing an AI unit should take before it waits, or null to keep it (idle, scripted or downed units). */
+export function endTurnFacing(b: Battle, plan: AiPlan): Facing | null {
+  const u = b.unit(plan.unit);
+  if (plan.reason === 'idle' || u.down || b.has(u, 'bound')) return null;
+  const f = chooseFacing(b, u);
+  return f === u.facing ? null : f;
+}
+
 /** Applies a plan to the battle and returns the events (used by tests and the controller). */
 export function executePlan(b: Battle, plan: AiPlan) {
   const events = [] as ReturnType<Battle['move']>;
@@ -233,6 +265,8 @@ export function executePlan(b: Battle, plan: AiPlan) {
     }
   };
   if (plan.actFirst) { doAct(); doMove(); } else { doMove(); doAct(); }
+  const facing = endTurnFacing(b, plan);
+  if (facing) events.push(...b.face(plan.unit, facing));
   if (!b.unit(plan.unit).down) events.push(...b.wait(plan.unit));
   return events;
 }

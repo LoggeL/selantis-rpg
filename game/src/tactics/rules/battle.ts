@@ -2,7 +2,7 @@ import { STANDARD_ABILITIES } from './abilities';
 import { DIRS, FACINGS, Grid, OPPOSITE, TERRAIN, directionTo, key, manhattan, stepFacing } from './grid';
 import { pathTo, reachable, sameSide, type ReachMap } from './movement';
 import { Rng } from './rng';
-import { EXP_PER_LEVEL, WEAPONS, awardProgress, characterLevel, skillAvailable, statsAtLevel } from './progression';
+import { EXP_PER_LEVEL, WEAPONS, awardProgress, basicAttack, characterLevel, skillAvailable, statsAtLevel } from './progression';
 import type {
   AbilityDef, ActionPreview, AiOverride, BattleEvent, BattleProgression, Facing, Phase, Point, PreviewMod, PushOutcome,
   StatusId, TargetPreview, Team, Unit, UnitSpec,
@@ -16,11 +16,14 @@ export const COLLIDE_OTHER_DAMAGE = 2;
 export const FALL_DAMAGE_PER_LEVEL = 4;
 /** Hit chance bonus per height level (attacker above target), capped at ±3 levels. */
 export const HEIGHT_HIT_PER_LEVEL = 5;
-/** Damage factor per height level, capped at ±3 levels. */
-export const HEIGHT_DMG_PER_LEVEL = 0.1;
-export const FLANK_DAMAGE = { front: 1, side: 1.25, back: 1.5, none: 1 } as const;
-export const FLANK_HIT = { front: 0, side: 10, back: 20, none: 0 } as const;
+/** FFTA: a physical attack's base hit chance depends only on where it lands on the target. */
+export const HIT_BASE = { front: 50, side: 70, back: 90, none: 100 } as const;
+/** Hit chance per point of speed the attacker has over the target, capped at ±SPEED_HIT_CAP. */
+export const SPEED_HIT_PER_POINT = 3;
+export const SPEED_HIT_CAP = 15;
 export const EVASIVE_PENALTY = 45;
+export const STUNNED_HIT_BONUS = 25;
+const RELATION_LABEL = { front: 'Vorne', side: 'Seite', back: 'Rücken' } as const;
 
 export interface BattleSetup {
   grid: Grid;
@@ -35,6 +38,14 @@ export interface BattleSetup {
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
+/** Physical attacks roll against the target's facing; magic, support and noFlank abilities use `accuracy`. */
+export const isPhysical = (a: AbilityDef) => (a.kind === 'melee' || a.kind === 'ranged') && !a.noFlank && !a.alwaysHits;
+
+/** Everything a unit can choose under „Aktion“: the basic attack first, then its abilities (no duplicates). */
+export function actionList(u: Pick<Unit, 'attack' | 'abilities'>): string[] {
+  return u.attack ? [u.attack, ...u.abilities.filter(id => id !== u.attack)] : [...u.abilities];
+}
+
 export function makeUnit(spec: UnitSpec): Unit {
   const weapons = [...(spec.weapons ?? (spec.weapon ? [spec.weapon] : []))];
   for (const id of weapons) if (!Object.hasOwn(WEAPONS, id)) throw new Error(`Unknown weapon ${id}`);
@@ -45,14 +56,15 @@ export function makeUnit(spec: UnitSpec): Unit {
     maxHp: spec.maxHp ?? spec.hp ?? 10, maxMp: spec.maxMp ?? spec.mp ?? 24,
     atk: spec.atk ?? 2, def: spec.def ?? 0, speed: spec.speed ?? 5,
   };
+  const weapon = spec.weapon ?? weapons[0] ?? null;
   return {
     id: spec.id, name: spec.name, team: spec.team, x: spec.x, y: spec.y, facing: spec.facing ?? 's',
     ...stats, hp: clamp(spec.hp ?? stats.maxHp, 0, stats.maxHp),
     move: spec.move ?? 4, jump: spec.jump ?? 2,
     mp: clamp(spec.mp ?? stats.maxMp, 0, stats.maxMp),
-    level, exp: spec.exp ?? 0, weapon: spec.weapon ?? weapons[0] ?? null, weapons,
+    level, exp: spec.exp ?? 0, weapon, weapons,
     innate: spec.abilities.filter(id => !weaponSkills.has(id)), mastered: [...(spec.mastered ?? [])], abilityAp: { ...(spec.abilityAp ?? {}) },
-    abilities: [...new Set([...spec.abilities, ...weaponSkills, ...(spec.mastered ?? [])])], cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
+    abilities: [...new Set([...spec.abilities, ...weaponSkills, ...(spec.mastered ?? [])])], attack: basicAttack(spec, weapon), cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
     down: false, nonLethal: !!spec.nonLethal, ai: spec.ai ?? (spec.team === 'enemy' ? 'melee' : 'passive'),
     guardRadius: spec.guardRadius ?? 4, freedTeam: spec.freedTeam ?? 'player', tags: [...(spec.tags ?? [])],
     moved: false, acted: false, undo: null,
@@ -90,7 +102,7 @@ export class Battle {
     this.turnMode = setup.turnMode ?? 'phases';
     this.progression = setup.progression ?? {};
     for (const u of this.units) {
-      for (const a of u.abilities) if (!this.abilities[a]) throw new Error(`Unit ${u.id}: unknown ability ${a}`);
+      for (const a of actionList(u)) if (!this.abilities[a]) throw new Error(`Unit ${u.id}: unknown ability ${a}`);
       if (!this.grid.standable(u.x, u.y)) throw new Error(`Unit ${u.id} placed on blocked tile ${u.x},${u.y}`);
     }
   }
@@ -145,14 +157,17 @@ export class Battle {
   isCurrent(u: Unit): boolean { return u.team === this.phase && (this.turnMode !== 'speed' || u.id === this.activeUnit); }
   canUndo(id: string): boolean { const u = this.unit(id); return this.isCurrent(u) && !u.down && u.moved && !u.acted && !!u.undo; }
   isDone(id: string): boolean { const u = this.unit(id); return !!u.down || (u.moved && u.acted) || this.has(u, 'bound'); }
+  /** The basic attack is always available; other abilities need their weapon or mastery. */
   abilityReady(u: Unit, abilityId: string): boolean {
-    return u.abilities.includes(abilityId) && skillAvailable(u, abilityId) &&
+    return (abilityId === u.attack || u.abilities.includes(abilityId) && skillAvailable(u, abilityId)) &&
       (u.cooldowns[abilityId] ?? 0) <= 0 && u.mp >= (this.ability(abilityId).mpCost ?? 0);
   }
 
   equip(id: string, weapon: string): BattleEvent[] {
     const u = this.unit(id);
     if (!this.canAct(id) || u.moved || !u.weapons.includes(weapon)) throw new Error('Equipment can only change before moving or acting on your turn');
+    // A weapon-derived basic attack follows the new weapon; an authored one stays.
+    if (u.attack && u.attack === (u.weapon ? WEAPONS[u.weapon].attack : 'angriff')) u.attack = WEAPONS[weapon].attack;
     u.weapon = weapon;
     return [{ type: 'equip', unit: id, weapon }];
   }
@@ -321,28 +336,31 @@ export class Battle {
     const hits = a.hits ?? 1;
     if (offensive) {
       relation = a.noFlank || (origin.x === t.x && origin.y === t.y) ? 'none' : this.relation(origin, t);
-      chance = a.accuracy;
-      const lv = clamp(dh, -3, 3);
-      if (!a.noFlank && lv !== 0) chance += lv * HEIGHT_HIT_PER_LEVEL;
-      chance += FLANK_HIT[relation];
+      const pct = (n: number) => `${n > 0 ? '+' : '−'}${Math.abs(n)} %`;
+      const lv = a.noFlank ? 0 : clamp(dh, -3, 3);
+      if (isPhysical(a)) {
+        // FFTA: facing sets the base, speed and height shift it.
+        chance = HIT_BASE[relation];
+        if (relation !== 'none') mods.push({ label: RELATION_LABEL[relation], text: `${chance} %`, kind: relation === 'front' ? 'neutral' : 'good' });
+        const speed = clamp((u.speed - t.speed) * SPEED_HIT_PER_POINT, -SPEED_HIT_CAP, SPEED_HIT_CAP);
+        if (speed) { chance += speed; mods.push({ label: 'Tempo', text: pct(speed), kind: speed > 0 ? 'good' : 'bad' }); }
+        if (a.hitMod) chance += a.hitMod;
+      } else chance = a.accuracy;
+      if (lv !== 0) { chance += lv * HEIGHT_HIT_PER_LEVEL; mods.push({ label: 'Höhe', text: pct(lv * HEIGHT_HIT_PER_LEVEL), kind: lv > 0 ? 'good' : 'bad' }); }
       const cover = TERRAIN[this.grid.tile(t.x, t.y)!.terrain].cover;
       if (cover && !a.ignoresCover) { chance -= cover; mods.push({ label: 'Deckung', text: `−${cover} %`, kind: 'bad' }); }
       if (this.has(t, 'evasive')) { chance -= EVASIVE_PENALTY; mods.push({ label: 'Ausweichen', text: `−${EVASIVE_PENALTY} %`, kind: 'bad' }); }
-      if (this.has(t, 'stunned')) chance += 25;
+      if (this.has(t, 'stunned')) { chance += STUNNED_HIT_BONUS; mods.push({ label: 'Benommen', text: `+${STUNNED_HIT_BONUS} %`, kind: 'good' }); }
       chance = a.alwaysHits ? 100 : clamp(Math.round(chance), 5, 100);
 
-      let mult = FLANK_DAMAGE[relation];
-      if (relation === 'side') mods.unshift({ label: 'Seite', text: '×1,25', kind: 'good' });
-      if (relation === 'back') mods.unshift({ label: 'Rücken', text: '×1,5', kind: 'good' });
-      if (!a.noFlank && lv !== 0) {
-        mult *= 1 + lv * HEIGHT_DMG_PER_LEVEL;
-        const pct = Math.round(lv * HEIGHT_DMG_PER_LEVEL * 100);
-        mods.push({ label: 'Höhe', text: `${pct > 0 ? '+' : '−'}${Math.abs(pct)} %`, kind: pct > 0 ? 'good' : 'bad' });
+      // Direction and height change only the hit chance; damage is power + atk − def.
+      const guarded = this.has(t, 'guarded');
+      if (guarded) mods.push({ label: 'Schutzwall', text: '×0,5', kind: 'bad' });
+      if (a.fixedDamage !== undefined) damage = guarded ? Math.max(0, Math.floor(a.fixedDamage * 0.5)) : a.fixedDamage;
+      else {
+        const base = Math.max(1, a.power + u.atk - t.def);
+        damage = guarded ? Math.max(1, Math.round(base * 0.5)) : base;
       }
-      if (this.has(t, 'guarded')) { mult *= 0.5; mods.push({ label: 'Schutzwall', text: '×0,5', kind: 'bad' }); }
-      const base = a.fixedDamage ?? Math.max(1, a.power + u.atk - t.def);
-      damage = a.fixedDamage !== undefined ? a.fixedDamage : Math.max(1, Math.round(base * mult));
-      if (a.fixedDamage !== undefined && this.has(t, 'guarded')) damage = Math.max(0, Math.floor(damage * 0.5));
     }
     let push: PushOutcome | null = null;
     if (a.push && offensive) {
@@ -438,7 +456,7 @@ export class Battle {
     if (!this.canAct(id)) throw new Error(`${id} cannot act now`);
     const u = this.unit(id);
     const a = this.ability(abilityId);
-    if (!u.abilities.includes(abilityId)) throw new Error(`${id} does not know ${abilityId}`);
+    if (abilityId !== u.attack && !u.abilities.includes(abilityId)) throw new Error(`${id} does not know ${abilityId}`);
     if (!this.abilityReady(u, abilityId)) throw new Error(`${abilityId} is unavailable (weapon, MP or cooldown)`);
     if (!this.validTarget(id, abilityId, cell)) throw new Error(`invalid target ${cell.x},${cell.y} for ${abilityId}`);
 
@@ -556,6 +574,8 @@ export class Battle {
     const old = this.units.findIndex(u => u.id === spec.id);
     if (old >= 0) this.units.splice(old, 1);
     for (const a of spec.abilities) if (!this.abilities[a]) throw new Error(`Unit ${spec.id}: unknown ability ${a}`);
+    const attack = basicAttack(spec, spec.weapon ?? spec.weapons?.[0] ?? null);
+    if (attack && !this.abilities[attack]) throw new Error(`Unit ${spec.id}: unknown attack ${attack}`);
     const cell = this.freeCellNear(spec);
     if (!cell) return [];
     const u = makeUnit({ ...spec, x: cell.x, y: cell.y });

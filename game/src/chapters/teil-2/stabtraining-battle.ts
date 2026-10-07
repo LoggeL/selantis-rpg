@@ -114,7 +114,7 @@ export function uebungskampf(setup: UebungSetup): BattleDef {
         abilities: liaStaffAbilities(setup.lichtstoss), preset: 'e2-lia-stab', portrait: 'lia-cloak', nonLethal: true,
         title: 'Mit einem geliehenen Stab und sehr viel Herzklopfen' },
       { id: 'ignatius', name: 'Ignatius', ...IGNATIUS, team: 'ally', x: IGNATIUS_START.x, y: IGNATIUS_START.y, facing: 'e', move: 3, jump: 1,
-        abilities: ['decken'], preset: 'e2-ignatius', portrait: 'e2-ignatius', ai: 'guard', guardRadius: 1, nonLethal: true,
+        abilities: ['decken'], attack: false, preset: 'e2-ignatius', portrait: 'e2-ignatius', ai: 'guard', guardRadius: 1, nonLethal: true,
         title: 'Deckt seine Schülerin. Kämpfen muss sie selbst.' },
       ...GHOUL_STARTS.map((p, i) => ghoul(`ghul-${i + 1}`, p)),
     ],

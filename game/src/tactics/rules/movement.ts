@@ -13,9 +13,12 @@ export interface MoveRules {
 /** Height a unit may descend in one step (one more than it can climb). */
 export const dropLimit = (jump: number) => jump + 1;
 
+/** Extra move points per height level climbed or descended (FFTA: slopes slow down both ways). */
+export const HEIGHT_STEP_COST = 1;
+
 /**
- * Cost to step from a to b, or Infinity when impossible.
- * Climbing up more than one level costs +1 per extra level; never more than `jump` up.
+ * Cost to step from a to b, or Infinity when impossible: terrain cost plus HEIGHT_STEP_COST per level
+ * up or down. Never more than `jump` up or `dropLimit(jump)` down.
  */
 export function stepCost(grid: Grid, a: Point, b: Point, jump: number): number {
   const tb = grid.tile(b.x, b.y);
@@ -23,7 +26,7 @@ export function stepCost(grid: Grid, a: Point, b: Point, jump: number): number {
   const dh = tb.h - grid.height(a.x, a.y);
   if (dh > jump) return Infinity;
   if (-dh > dropLimit(jump)) return Infinity;
-  return grid.info(b.x, b.y).cost + Math.max(0, dh - 1);
+  return grid.info(b.x, b.y).cost + Math.abs(dh) * HEIGHT_STEP_COST;
 }
 
 /** Who may pass a cell: allies (same side) can be passed but not ended on, enemies block. */
