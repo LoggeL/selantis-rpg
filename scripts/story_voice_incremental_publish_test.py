@@ -184,6 +184,20 @@ class IncrementalTests(unittest.TestCase):
         self.records[0]['qa_report'] = str(outside); self.refresh()
         with self.assertRaisesRegex(inc.Invalid, 'private'): self.build()
 
+    def test_original_descriptor_cannot_relabel_an_arbitrary_private_run_as_full_original_bank(self):
+        self.records[0].update(source_closure=str(self.run/'source-closure.json'),source_closure_sha256='0'*64)
+        self.refresh()
+        with self.assertRaisesRegex(inc.Invalid,'private current workspace'):
+            self.build()
+
+    def test_unknown_original_descriptor_fields_and_missing_closure_hash_fail(self):
+        original=copy.deepcopy(self.records[0])
+        for additions in ({'source_closure':'/tmp/forged.json'},
+                          {'source_closure':'/tmp/forged.json','source_closure_sha256':'0'*64,'approved':True}):
+            self.records[0]={**original,**additions};self.refresh()
+            with self.subTest(additions=additions),self.assertRaisesRegex(inc.Invalid,'Incomplete supplement'):
+                self.build()
+
     def existing(self, retired=False):
         manifest, paths, _ = self.build(); clip = copy.deepcopy(manifest['clips'][0])
         clip['id'] = 'story-'+'c'*24 if retired else self.missing
