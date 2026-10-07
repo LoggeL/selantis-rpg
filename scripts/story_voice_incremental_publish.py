@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Publish an explicitly reviewed, fully qualified partial current Story bank.
 
-No generation or original-bank clearance. Each selected run uses the unchanged
-strict publisher validator. Missing current Sources stay missing in coverage.
+No generation or original-bank clearance. Original runs use the unchanged strict
+validator; one frozen rewrite490 run preserves receipt-bound unspoken punctuation.
+Missing current Sources stay missing in coverage.
 """
 from __future__ import annotations
 import argparse
@@ -17,11 +18,12 @@ import shutil
 import subprocess
 import tempfile
 import story_voice_publish as strict
+import story_voice_rewrite_timing_publish as rewrite_timing
 
 VERSION = 'current-source-qualified-incremental-story-v1'
 APPROVED = 'approved_incremental_story_selection'
 PUBLIC_CLIP_FIELDS = ('id', 'kind', 'speaker', 'text', 'display_text', 'audio', 'sha256',
-                      'seconds', 'voice', 'word_cues', 'runtime_keys')
+                      'seconds', 'voice', 'word_cues', 'runtime_keys', 'timing_policy')
 WITHDRAWN_PAIRS = {
     'story-3f12e4f8eeea79a306adb510': 'schuetze',
     'story-5a8a63b92feae6147480ad67': 'maedchen',
@@ -122,11 +124,13 @@ def exact_source(frozen, current, profiles):
     return voice
 
 
-def cue_check(clip):
+def cue_check(clip, current=None, root=None):
     seconds = clip.get('seconds'); cues = clip.get('word_cues')
     require(type(seconds) in (int, float) and math.isfinite(seconds) and seconds > 0
             and isinstance(cues, list) and len(cues) == len(strict.acoustic.normalized_text(clip['text']).split()) and cues,
             'Existing clip duration or full cue coverage invalid')
+    if 'timing_policy' in clip:
+        return rewrite_timing.validate_retained_clip(clip,current,root)
     previous = 0
     for cue in cues:
         start, end = cue.get('start'), cue.get('end')
@@ -136,7 +140,8 @@ def cue_check(clip):
         previous = end
 
 
-def existing_assets(target, expected_manifest_hash, current, profiles, replacement_ids, approved_retired):
+def existing_assets(target, expected_manifest_hash, current, profiles, replacement_ids, approved_retired,
+                    root=None, input_hashes=None):
     if not target.exists():
         require(expected_manifest_hash is None and not approved_retired, 'Expected existing bank or retirements unavailable')
         return [], {}, []
@@ -153,6 +158,11 @@ def existing_assets(target, expected_manifest_hash, current, profiles, replaceme
     kept, paths, retired = [], {}, []
     for clip in old['clips']:
         ident = clip['id']; path = target/(ident+'.mp3')
+        if 'timing_policy' in clip:
+            require(isinstance(clip['timing_policy'],dict)
+                    and set(clip['timing_policy']) == rewrite_timing.POLICY_FIELDS
+                    and clip['timing_policy'].get('method') == rewrite_timing.VERSION,
+                    'Unknown or malformed existing rewrite timing policy')
         require(clip.get('audio') == 'audio/story/'+ident+'.mp3' and digest(path) == clip.get('sha256'),
                 'Existing Story audio/path/hash differs')
         if ident not in current:
@@ -163,9 +173,11 @@ def existing_assets(target, expected_manifest_hash, current, profiles, replaceme
                 and clip.get('runtime_keys') == row['runtime_keys']
                 and clip.get('voice') == profiles['speakers'][row['speaker']]['google_voice'],
                 'Existing current clip text/cast/preset/routes differ')
-        cue_check(clip)
+        proof_files = cue_check(clip,row,root)
+        if input_hashes is not None:
+            for file in proof_files or []: input_hashes[str(file)] = digest(file)
         if ident not in replacement_ids:
-            kept.append({field: copy.deepcopy(clip[field]) for field in PUBLIC_CLIP_FIELDS}); paths[ident] = path
+            kept.append({field: copy.deepcopy(clip[field]) for field in PUBLIC_CLIP_FIELDS if field in clip}); paths[ident] = path
     require({r['id'] for r in retired} == approved_retired, 'Retired Source IDs differ from explicit Root selection')
     return kept, paths, retired
 
@@ -270,7 +282,8 @@ def build(args):
         require(run_ids and selected and selected <= requested and not seen & run_ids,
                 'Unknown/duplicate/unrequested supplement Source')
         # Validate every charged recording, including withdrawn rows, before filtering.
-        frozen, extra, extra_paths = strict.validate_run(run, qa, alignment, len(run_ids), root)
+        validator = rewrite_timing.validate_run if rewrite_timing.supports_run(run,len(run_ids)) else strict.validate_run
+        frozen, extra, extra_paths = validator(run, qa, alignment, len(run_ids), root)
         run_profiles = read(run/'profiles.private.json')
         for row in frozen['lines']:
             if row['id'] in removed:
@@ -292,12 +305,14 @@ def build(args):
                       'requests.jsonl', 'full-inventory.private.json', 'source-snapshot.private.json', 'collection.private.json']]
         provenance.extend(path for row in frozen['lines']
                           if (path := run/'raw'/(row['id']+'.receipt.json')).is_file())
+        if validator is rewrite_timing.validate_run:
+            provenance.extend(rewrite_timing.evidence_files(run))
         for file in [*provenance, qa, alignment, *extra_paths.values()]:
             input_hashes[str(file)] = digest(file)
     require(covered == requested, 'Every explicitly requested changed/new Source must be fully covered')
     require(removed_all == set(withdrawn), 'Undeclared or unused Root withdrawal mappings')
     kept, old_paths, retired_rows = existing_assets(target, selection['existing_manifest_sha256'], rows,
-                                                   profiles, requested, retired)
+                                                   profiles, requested, retired,root,input_hashes)
     clips = kept + clips; paths = {**old_paths, **paths}
     require(len(clips) == len(paths) == len({c['id'] for c in clips}), 'Duplicate combined clip coverage')
     manifest = {'model': strict.MODEL, 'aliases': copy.deepcopy(current.get('aliases', {})),
@@ -323,6 +338,7 @@ def build(args):
     drivers = ['story_voice_incremental_publish.py', 'story_voice_publish.py', 'story_voice_common.py',
                'story_voice_qa.py', 'story_voice_word_cues.py', 'prolog_voice_word_cues.py',
                'prolog_voice_generate.py', 'prolog_voice_batch.py', 'story_voice_inventory.mjs']
+    drivers.append('story_voice_rewrite_timing_publish.py')
     driver_hashes = {str(Path(__file__).with_name(name)): digest(Path(__file__).with_name(name)) for name in drivers}
     coverage = {'method': VERSION, 'status': status,
                 'full_original_bank_approved': False, 'current_inventory_sha256': digest(inventory_path),
