@@ -257,7 +257,7 @@ async function halleScript(w: WorldCtx): Promise<void> {
   // Coming to: violet light fades from the edges, then the hall.
   w.lighting.flash(VIOLET, 700);
   await ui().fade('in', 1400);
-  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-hoffnung-und-weigerung-geweckt', fallback: 'e2-halle', caption: 'Kohlebecken, Stein, ein Eisenring. Und vor ihr eine Kapuze.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-hoffnung-geweckt', fallback: 'e2-halle', caption: 'Kohlebecken, Stein, ein Eisenring. Und vor ihr eine Kapuze.' });
   restageGesture('open-eyes', 'Weg von der Wiese, zurück in den kalten Körper. Mach die Augen auf.');
   await wake;
   await w.cutscene(async () => {

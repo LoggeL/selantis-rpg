@@ -316,7 +316,7 @@ async function morgenScript(w: WorldCtx): Promise<void> {
   await w.cutscene(async () => {
     await w.say('e3-kyra', 'Hoch. Sofort.', { mood: 'angry' });
   });
-  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-vertraute-schwester-geweckt', fallback: 'k3-leselager', caption: 'Asche statt Feuer. Kyra steht über ihr und lächelt nicht.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-schwester-geweckt', fallback: 'k3-leselager', caption: 'Asche statt Feuer. Kyra steht über ihr und lächelt nicht.' });
   restageGesture('open-eyes', 'Die Lider sind schwer wie nasse Wolle. Schieb sie trotzdem hoch.');
   await wake;
   await w.cutscene(async () => {

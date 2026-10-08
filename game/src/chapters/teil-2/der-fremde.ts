@@ -96,7 +96,7 @@ async function wake(w: WorldCtx): Promise<void> {
   await w.camera.zoom(1.35, 0);
   await G.ui.narrate(['Wasser rauscht. Holz knackt. Irgendwer summt, falsch und sehr zufrieden.'], { style: 'card' });
   const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', {
-    backdrop: 'e2-der-fremde-geweckt', fallback: 'e2-ignatius-lager', caption: 'Ein Dach aus Ästen. Ein Fremder am Feuer, der summt.',
+    backdrop: 'e2-fremder-geweckt', fallback: 'e2-ignatius-lager', caption: 'Ein Dach aus Ästen. Ein Fremder am Feuer, der summt.',
     help: 'Schieb die schweren Lider langsam nach oben.',
   });
   await wake;

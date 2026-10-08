@@ -102,6 +102,8 @@ const PAINTED: Record<string, { asset: string; tall?: boolean; overUnit?: boolea
   barrel: { asset: 'iso-crate', n: 1, oy: 3 },
   stake: { asset: 'iso-stake', tall: true, oy: 2, foot: true },
   campfire: { asset: 'iso-campfire', flame: true, oy: 4 },
+  // The ten relic stands of the ritual hill (variant = stand index, each with its own relic on top).
+  'ritual-stand': { asset: 'iso-ritual-relic', tall: true, oy: 2, foot: true },
 };
 
 /** Painted iso prop if its art exists, else null. */

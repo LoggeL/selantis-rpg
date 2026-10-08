@@ -160,7 +160,7 @@ async function wakeUp(w: WorldCtx): Promise<void> {
   const doc = w.spawn({ id: DOCTOR, preset: 'e3-doktor', speaker: 'e3-doktor', at: GZ_SPOT.tableSide, dir: 'right', solid: false, facePlayer: false });
   doc.hold(true);
   bg(doc.play('interact', { ms: 4000 }));
-  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-macht-und-schutz-geweckt', fallback: 'e3-gastzimmer', caption: 'Ein Dachzimmer. Ein Mann mit Kristall und Kerze am Tisch.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-macht-geweckt', fallback: 'e3-gastzimmer', caption: 'Ein Dachzimmer. Ein Mann mit Kristall und Kerze am Tisch.' });
   restageGesture('open-eyes', 'Schieb die schweren Lider nach oben. Langsam.');
   await wake;
   await ui().fade('in', 1400);
