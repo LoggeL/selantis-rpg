@@ -37,7 +37,8 @@ export interface PickRound {
   prompt?: PickLine;
   /** Free tag for decorations (`data-cue` on the panel), e.g. the direction of a swing. */
   cue?: string;
-  cards: PickCard[];
+  /** The cards, or a function that builds them when the round starts (cards that depend on earlier picks). */
+  cards: PickCard[] | (() => PickCard[]);
   /** Ok picks needed to finish the round (default 1). Ok cards are marked as held. */
   need?: number;
   judge(id: string): PickVerdict | Promise<PickVerdict>;
@@ -202,8 +203,9 @@ export function scenePick(opts: ScenePickOptions): Promise<PickResult> {
       prompt.append(el('span', 'pick-text', round.prompt.text));
     }
     cardsEl.replaceChildren();
-    const spots = driftSpots(round.cards.length);
-    buttons = round.cards.map((c, i) => {
+    const cards = typeof round.cards === 'function' ? round.cards() : round.cards;
+    const spots = driftSpots(cards.length);
+    buttons = cards.map((c, i) => {
       const b = el('button', 'pick-card');
       b.type = 'button';
       b.dataset.id = c.id;

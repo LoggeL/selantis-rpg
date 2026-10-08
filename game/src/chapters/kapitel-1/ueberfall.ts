@@ -1,12 +1,13 @@
 // Scene `ueberfall` (DESIGN.md §7.4, Kapitel I/3): the Dunkelschatten are already at the farm when Lia arrives.
 // She hides in the embankment, sneaks along it past the lookout, watches the interrogation (canon beats, violence
 // shown from the hiding place: both parents are stabbed, blood on the yard), nearly gives herself away twice (staged), the riders pass right by her
-// hiding place, and Harro stays behind to bury the dead – Lia has to slip away from him through the old field gate.
+// hiding place („Hinsehen“, hinsehen.ts: duck when they are close, look up once when they are far), and Harro stays behind to bury the dead – Lia has to slip away from him through the old field gate.
 import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
 import type { SfxLoop } from '../../audio/api';
 import { defineMap, type MapDef, type NpcDef, type WorldCtx } from '../../world';
 import { BLOOD_PROP, bloodHit, bloodPool, preloadBlood } from '../common/blood';
+import { judgePass, LOOK_FLAG, passCards, PASSES } from './hinsehen';
 import { AT, HOF_BLOCK, HOF_HIDING, HOF_OCCLUDERS, HOF_SURFACES, HOF_WALK } from './hofGeo';
 import { dimmer, music, sfx, ui } from './shared';
 
@@ -364,13 +365,37 @@ async function harroPhase(w: WorldCtx): Promise<void> {
       await r.walkPath([[620, 330], [500, 446], [300, 566], [60, 700], [-60, 760]], { speed: 150, run: true, straight: true });
       w.despawn(id);
     })().catch(() => {}));
-    const hidden = G.ui.stealthGame('duck', 'Unter den Reitern abtauchen', { onNoise: () => { void w.player.emote('drop', 600); } });
+    const seen: string[] = [];
+    const hidden = G.ui.scenePick({
+      label: 'Hinsehen',
+      help: 'Die Reiter ziehen in Gruppen vorbei. Hör hin: Sind sie nah, bleib unten. Sind sie weit, darfst du einmal hinsehen. Was du siehst, bleibt.',
+      backdrop: 'minigames/stealth-duck',
+      layout: 'row',
+      className: 'k1-hinsehen',
+      rounds: PASSES.map(pass => ({
+        cue: pass.cue,
+        prompt: { text: pass.sound },
+        cards: () => passCards(seen),
+        judge: (id: string) => {
+          const v = judgePass(pass, id);
+          if (v.look) { seen.push(v.look); G.state.set(LOOK_FLAG[v.look]); }
+          return { ok: v.ok, mood: v.ok ? (v.look ? 'flash' : 'calm') : 'shake', reply: { speaker: 'lia', text: v.line } };
+        },
+      })),
+      onRound: (_i, round) => { if (round.cue === 'nah') sfx('horse', { volume: 0.7 }); },
+      onVerdict: v => { if (!v.ok) { sfx('branch-snap', { volume: 0.5 }); void w.player.emote('drop', 600); } },
+    });
     await Promise.all([hidden, ...rides]);
     hooves?.stop(1600);
     await w.wait(400);
     await G.ui.plate('k1-reiter', { caption: 'Der Hohlweg', pan: 'right', durationMs: 16000 });
-    await w.think('Kyra. Gefesselt auf dem Pferd des Grauhaarigen. Durch die Zweige sieht sie genau hierher.');
-    await w.think('Ihre Augen glänzen vor Trauer und Wut. Und ich sitze hier im Gebüsch und tue nichts.');
+    if (G.state.is('k1-gesehen-kyra')) {
+      await w.think('Sie hat mich gesehen. Nur einen Atemzug lang, durch die Zweige.');
+      await w.think('Ihre Augen glänzen vor Trauer und Wut. Und ich sitze hier im Gebüsch und tue nichts.');
+    } else {
+      await w.think('Kyra. Gefesselt auf dem Pferd des Grauhaarigen. Durch die Zweige sieht sie genau hierher.');
+      await w.think('Ihre Augen glänzen vor Trauer und Wut. Und ich sitze hier im Gebüsch und tue nichts.');
+    }
     await w.think('Ich hole dich zurück, Kyra. Ich weiß nicht wie. Aber ich schwöre es.');
     await G.ui.closePlate();
     await w.camera.zoom(1, 600);

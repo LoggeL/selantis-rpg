@@ -231,13 +231,16 @@ async function reason(w: WorldCtx): Promise<void> {
     let mistakes = 0;
     // Question 1: why not Trapas?
     for (const tried = new Set<number>(); ;) {
+      const sawPlain = G.state.is('k1-gesehen-zeichen');
       const pick = await w.choose([
         { text: '„Trapas ist zu weit weg.“', disabled: tried.has(0), reason: 'Schon verworfen.' },
         { text: '„Die Spuren biegen nach Osten ab.“', disabled: tried.has(1), reason: 'Schon verworfen.' },
         { text: '„In Trapas stehen eine Garnison und der Lichterorden.“', tag: 'Wissen' },
+        ...(sawPlain ? [{ text: '„Kein Wappen, kein Zeichen. Wer sich so versteckt, reitet nicht durch ein Stadttor.“', tag: 'Gesehen' }] : []),
       ], { speaker: 'k2-lia', prompt: 'Was spricht gegen Trapas?' });
-      if (pick === 2) {
-        await w.say('k2-lia', 'Starke Mauern, eine Garnison, der Lichterorden. Freiwillig reiten Dunkelschatten nicht vor die Tore einer Festung.', { mood: 'thinking' });
+      if (pick === 2 || pick === 3) {
+        if (pick === 3) await w.say('k2-lia', 'Schwarz und Weiß, sonst nichts. Ich hab es im Hohlweg gesehen. Wer nicht erkannt werden will, meidet Wachen und Tore.', { mood: 'thinking' });
+        await w.say('k2-lia', 'Und in Trapas: starke Mauern, eine Garnison, der Lichterorden. Freiwillig reiten Dunkelschatten nicht vor die Tore einer Festung.', { mood: 'thinking' });
         G.state.addLore('k2-lore-trapas');
         break;
       }
@@ -247,12 +250,15 @@ async function reason(w: WorldCtx): Promise<void> {
     }
     // Question 2: why Portas?
     for (const tried = new Set<number>(); ;) {
+      const sawBags = G.state.is('k1-gesehen-proviant');
       const pick = await w.choose([
         { text: '„Auf der Straße nach Osten ist mehr los.“', disabled: tried.has(0), reason: 'Schon verworfen.' },
         { text: '„Der Weg nach Portas führt an vielen Dörfern vorbei.“', tag: 'Wegweiser' },
         { text: '„Kyra wollte immer nach Portas.“', disabled: tried.has(2), reason: 'Schon verworfen.' },
+        ...(sawBags ? [{ text: '„Ihre Satteltaschen waren prall. So packt man nicht für einen Tagesritt.“', tag: 'Gesehen' }] : []),
       ], { speaker: 'k2-lia', prompt: 'Und was spricht für Portas?' });
-      if (pick === 1) {
+      if (pick === 1 || pick === 3) {
+        if (pick === 3) await w.say('k2-lia', 'Proviant für Wochen, Decken obendrauf. Trapas ist einen Tag entfernt. Die wollen weit weg.', { mood: 'determined' });
         await w.say('k2-lia', 'Wochenlang Straße, Dorf an Dorf, und keine Mauern. Dort können sie ungestört Halt machen.', { mood: 'determined' });
         break;
       }

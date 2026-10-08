@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { playSceneAction } from './sceneActions';
+import { playSceneAction, playScenePick } from './sceneActions';
 import { disableReloads } from './noReloads';
 
 /**
@@ -45,6 +45,8 @@ async function playUntil(page: Page, cond: () => Promise<boolean>, timeout = 120
   while (Date.now() - t0 < timeout) {
     if (await cond()) return;
     if (await playSceneAction(page)) continue;
+    // Scene picks („Hinsehen“): try the looks first – too early is struck through, then Lia stays down.
+    if (await playScenePick(page, ['taschen', 'zeichen'])) continue;
     if (await holdOpen(page)) {
       await sleep(250);
       await page.keyboard.down('e');
@@ -215,6 +217,8 @@ test('ueberfall: sneak along the embankment, freeze twice, slip past Harro', asy
   // The confrontation: two staged near-misses, duck under the riders, Harro stays behind.
   await playUntil(page, async () => (await mapId(page)) === 'k1-hof-harro' && (await objective(page)).includes('Feldgatter'), 300000);
   expect(await flag(page, 'k1-buch-verloren')).toBe(true);
+  expect(await flag(page, 'k1-gesehen-proviant')).toBe(true);
+  expect(await flag(page, 'k1-gesehen-zeichen')).toBe(true);
   // Slip from bush to bush down to the old field gate while Harro is busy in the yard.
   await page.keyboard.down('Control');
   for (const p of [[432, 372], [352, 462], [244, 528], [180, 572]] as [number, number][]) {
