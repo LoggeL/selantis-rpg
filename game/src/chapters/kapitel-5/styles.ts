@@ -200,4 +200,13 @@ const CSS = `
 .k5-credits .k5-turq { color: #1f8f80; font-style: italic; }
 .k5-credits .flourish { width: 60%; margin: 0.3em auto; color: #8a6a3a; }
 .k5-credits-hint { position: absolute; bottom: 4%; left: 0; right: 0; text-align: center; color: rgba(239, 227, 200, 0.55); font-family: var(--f-label); font-size: 0.8em; letter-spacing: 0.08em; }
+/* ---------------- „Drei Atemzüge“: the dodge cut-in as the stage of a scene pick ---------------- */
+.scene-pick.k5-ghoul { background: #05070c; }
+.k5-ghoul-cut { position: absolute; inset: 0; cursor: default; --k5-close: 900ms; }
+.k5-ghoul-cut .k5-qte-ghoul .pose-windup { transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.k5-ghoul-cut[data-cue="tief"].is-run .k5-qte-ghoul .pose-windup { opacity: 0; }
+.k5-ghoul-cut[data-cue="tief"].is-run .k5-qte-ghoul .pose-strike { opacity: 1; transform: translateX(-50%) rotate(-2deg); }
+.k5-ghoul-cut[data-cue="hoch"].is-run .k5-qte-ghoul .pose-windup { animation: none; transform: translateX(-50%) translateY(-4%) scale(1.05); }
+.k5-ghoul-cut[data-cue="versteckt"].is-run .k5-qte-ghoul { opacity: 0.1; filter: blur(3px); }
+.k5-ghoul-cut .k5-qte-ghoul { transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s, filter 0.6s, translate 0.5s cubic-bezier(0.3, 0.6, 0.3, 1); }
 `;

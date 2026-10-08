@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { playSceneAction } from './sceneActions';
+import { playSceneAction, playScenePick } from './sceneActions';
 import { disableReloads } from './noReloads';
 
 test.beforeEach(async ({ page }) => disableReloads(page));
@@ -35,9 +35,14 @@ const pos = (page: Page) => page.evaluate(() => {
 });
 
 /** One dialogue step: a choice gets a deliberate number key (next of c.picks, default 1); text gets Enter; a hold prompt is held. */
+/** Right answers by scene-pick cue (the ghoul's wind-ups). */
+const PICK_ANSWERS: Record<string, string> = { tief: 'wurzel', hoch: 'stamm', versteckt: 'mantel' };
+
 async function step(c: Ctx): Promise<void> {
   const { page } = c;
   if (await playSceneAction(page)) return;
+  const cue = await page.evaluate(() => document.querySelector<HTMLElement>('.scene-pick:not(.is-out)')?.dataset.cue ?? null);
+  if (cue !== null && await playScenePick(page, PICK_ANSWERS[cue] ? [PICK_ANSWERS[cue]] : [])) return;
   const state = await page.evaluate(() => ({
     hold: Boolean(document.querySelector('.hold:not(.is-complete)')),
     choice: document.querySelectorAll('.choices .choice').length,
@@ -119,15 +124,14 @@ test('regenwald: rain, the Urmacht hint, Flick, the Leichenfresser, story → fa
   expect(await page.evaluate(() => (window as any).__world.weather.kind)).toBe('rain');
   await walkTo(c, 840, 320);
   await until(c, async () => Boolean(await flag(page, 'k5-flick-weg')) && !(await busy(page)));
-  // The ghoul: walk on, then dodge three swings with Space while the ring glows.
+  // The ghoul: walk on, then read each wind-up and pick what Lia does („Drei Atemzüge“).
   await walkTo(c, 1075, 300, { stopOnBusy: true });
-  await until(c, async () => page.evaluate(() => Boolean(document.querySelector('.k5-qte'))), 30000);
+  await until(c, async () => page.evaluate(() => Boolean(document.querySelector('.scene-pick.k5-ghoul'))), 30000);
   const t0 = Date.now();
-  while (Date.now() - t0 < 30000) {
-    const st = await page.evaluate(() => { const e = document.querySelector<HTMLElement>('.k5-qte'); return e ? (e.dataset.state ?? 'none') : null; });
-    if (st === null) break;
-    if (st === 'window') { await page.keyboard.press('Space'); await wait(300); }
-    await wait(25);
+  while (Date.now() - t0 < 60000) {
+    const cue = await page.evaluate(() => document.querySelector<HTMLElement>('.scene-pick.k5-ghoul:not(.is-out)')?.dataset.cue ?? null);
+    if (cue === null) break;
+    await playScenePick(page, [PICK_ANSWERS[cue]]);
   }
   expect(await flag(page, 'k5-ghul-treffer')).toBe(0);
   await until(c, async () => Boolean(await flag(page, 'k5-flick-dabei')) && !(await busy(page)));

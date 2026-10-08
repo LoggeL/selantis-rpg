@@ -1,11 +1,11 @@
 // Kapitel V, Szene 1 „regenwald“: alone at night, wind, clouds, drizzle, then pouring summer rain. The rain briefly
-// retreats around Lia (Urmacht hint). Flick teases, Lia rebuffs her; a Leichenfresser attacks (dodge prompt), Flick's
+// retreats around Lia (Urmacht hint). Flick teases, Lia rebuffs her; a Leichenfresser attacks („Drei Atemzüge“), Flick's
 // arrow saves her. Only then Lia tells her story; Flick offers a city, then helps.
 // Map: assets/bg/k5-regenwald.png (1280×720, painted at night). Geometry in map px (F1 overlay, scripts/map_tool.mjs).
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { ambience, lia, sfx, ui } from './common';
-import { dodgeQte } from './dodge';
+import { flickOnTricks, ghoulFight } from './dodge';
 
 export const regenwaldMap: MapDef = defineMap({
   id: 'k5-regenwald',
@@ -186,13 +186,15 @@ async function ghoulAttack(w: WorldCtx): Promise<void> {
     w.player.face('ghoul');
     w.camera.punch(0.6);
     await w.say('narrator', 'Das Gestrüpp reißt auf. Eine bleiche Knochenmaske, dahinter ein Keuchen, in der Faust eine schartige Axt.');
-    await w.say('narrator', 'Ein *Leichenfresser*, und er holt schon aus. Weich seinen Hieben aus!');
+    await w.say('narrator', 'Ein *Leichenfresser*, und er holt schon aus.');
+    await w.think('Ich kann nicht kämpfen. Aber ich kann hinsehen. Wurzeln, eine Buche, mein Mantel, schwer vom Regen.');
     let hits = 0;
-    await dodgeQte({
-      need: 3,
-      onWindup: () => { void ghoul.play('attack', { ms: 1100 }); sfx('whoosh', { volume: 0.5 }); },
-      onResult: async ok => {
+    const tricks: string[] = [];
+    await ghoulFight({
+      onWindup: () => { void ghoul.play('attack', { ms: 1100 }); },
+      onResult: async (ok, _i, pick) => {
         if (ok) {
+          tricks.push(pick);
           sfx('dodge');
           const side = w.player.x < ghoul.x ? -1 : 1;
           void w.player.walkTo(w.player.x + side * 12, w.player.y + (Math.random() < 0.5 ? -6 : 6), { straight: true, speed: 160 }).catch(() => {});
@@ -202,7 +204,6 @@ async function ghoulAttack(w: WorldCtx): Promise<void> {
           sfx('hit', { volume: 0.8 });
           w.camera.shake(220, 0.004);
           await w.player.play('hit', { ms: 520 });
-          if (hits === 2) w.bark('player', 'Weg! Weg von mir!');
         }
       },
     });
@@ -220,6 +221,8 @@ async function ghoulAttack(w: WorldCtx): Promise<void> {
     w.player.face('flick');
     G.audio.music('refuge', { fadeMs: 2500 });
     await w.say('flick', 'Du darfst ruhig ‚danke‘ sagen. Wenn du wieder Luft kriegst.', { mood: 'smirk' });
+    const trick = flickOnTricks(tricks);
+    if (trick) await w.say('flick', trick, { mood: 'smirk' });
     if (hits > 0) await w.say('flick', 'Zeig mal her. … Ein Kratzer. Bis du heiratest, ist der weg.');
     await storyTold(w);
   });

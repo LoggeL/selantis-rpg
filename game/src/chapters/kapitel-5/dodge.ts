@@ -1,38 +1,100 @@
-// Kapitel V: timing prompt „Ausweichen!“ (the ghoul attack in the rain forest), staged as a painted combat cut-in.
-// A ring closes in on the target circle; press E / Space / Enter or tap while it is inside the gold zone.
-// A miss costs nothing but a bruise: the swing simply repeats (no game over).
-// The scene is painted (assets/minigames/k5-dodge-*, Codex, prompts in docs/rebuild/art/minigames.json, built by
-// output/k5-dodge-build.py): forest backdrop, the Leichenfresser (wind-up / strike) and Lia (ready / dodge / hurt).
-// The code only adds rain, mist, lightning, the axe glint, the slash streak, hit flashes and the controls.
+// Kapitel V: „Drei Atemzüge“ – the ghoul attack in the rain forest. Lia is no fighter, but she sees: each time the
+// Leichenfresser comes, the painted cut-in shows how (crouched with the axe low, the axe high over the bone mask,
+// gone into the ferns and only listening), and the player picks what Lia does with what is around her: jump onto the
+// root arch, jump behind the beech, throw the wet cloak aside as a decoy. Only one answer fits each swing; a wrong one or freezing (the breath bar
+// runs out) costs a scratch and the swing is lost, not repeated. Flick's arrow ends it either way.
+// Staged with G.ui.scenePick over the painted cut-in (assets/minigames/k5-dodge-*, Codex, prompts in
+// docs/rebuild/art/minigames.json): forest backdrop, the ghoul (wind-up / strike), Lia (ready / dodge / hurt).
 import { G } from '../../core/G';
 import { assetUrl, manifest } from '../../art/manifest';
-import { ctx, isConfirm } from '../../ui/context';
-import { ICONS } from '../../ui/dom';
+import { ctx } from '../../ui/context';
+import type { PickCard, PickLine, PickRound } from '../../ui/scenePick';
 import { ensureStyles } from './styles';
 
-export interface DodgeOptions {
-  /** Successful dodges needed. */
-  need: number;
-  /** Called when a swing starts (telegraph: the attacker winds up). */
-  onWindup?(i: number): void;
-  /** Called with the result of a swing (animate dodge / hit). Awaited before the next swing. */
-  onResult?(ok: boolean, i: number): Promise<void> | void;
-  /** Ring closing time in ms (default 1100; the window is the last ~30 % plus a little grace). */
-  closeMs?: number;
+export type Cue = 'tief' | 'hoch' | 'versteckt';
+export type Move = 'wurzel' | 'stamm' | 'mantel';
+
+export const MOVES: readonly (PickCard & { id: Move })[] = [
+  { id: 'wurzel', text: 'Auf den Wurzelbogen springen' },
+  { id: 'stamm', text: 'Hinter die Buche springen' },
+  { id: 'mantel', text: 'Den nassen Mantel als Köder zur Seite werfen' },
+];
+
+export interface Swing {
+  cue: Cue;
+  /** What the player sees as the ghoul hauls back. */
+  tell: string;
+  answer: Move;
+  ok: string;
+  /** Lia's line for each wrong move (the right one stays empty). */
+  wrong: Record<Move, string>;
 }
 
-/** Pure timing check (unit-tested): progress p = elapsed / closeMs. */
-export function dodgeWindow(p: number): 'early' | 'good' | 'late' {
-  if (p < 0.72) return 'early';
-  if (p <= 1.14) return 'good';
-  return 'late';
+export const SWINGS: readonly Swing[] = [
+  {
+    cue: 'tief', answer: 'wurzel',
+    tell: 'Er duckt sich tief, die Axt pendelt auf Kniehöhe hin und her. Der Hieb wird flach kommen, quer über den Boden.',
+    ok: 'Ich spring auf den Wurzelbogen. Die Klinge fegt unter mir durch und reißt Farn aus dem Matsch.',
+    wrong: {
+      wurzel: '',
+      stamm: 'Hinter der Buche bin ich zu langsam. Die Schneide erwischt mich am Schienbein, bevor ich dort bin.',
+      mantel: 'Ein Köder nützt nichts, wenn er mich längst sieht. Die Axt fegt mir die Beine weg, ich lande im Matsch.',
+    },
+  },
+  {
+    cue: 'hoch', answer: 'stamm',
+    tell: 'Beide Fäuste am Schaft, die Axt steigt hoch über die Knochenmaske. Sie wird senkrecht von oben kommen.',
+    ok: 'Ich spring hinter die Buche. Die Axt fährt von oben in den Stamm und bleibt stecken. Er zerrt daran und brüllt.',
+    wrong: {
+      wurzel: 'Oben auf der Wurzel steh ich ihm genau entgegen. Der Schaft kracht mir auf die Schulter.',
+      stamm: '',
+      mantel: 'Er schaut mich direkt an, da lockt ihn kein Mantel weg. Die Klinge streift meinen Arm.',
+    },
+  },
+  {
+    cue: 'versteckt', answer: 'mantel',
+    tell: 'Er ist im Farn verschwunden. Es knackt, mal links, mal rechts. Er schnüffelt. Im Regen sieht er kaum besser als ich.',
+    ok: 'Ich werf den nassen Mantel nach links. Die Axt fährt mitten hinein, und ich bin schon rechts weg.',
+    wrong: {
+      wurzel: 'Auf der Wurzel bin ich das einzige, was sich bewegt. Er kommt aus dem Farn wie ein Hund auf eine Ratte.',
+      stamm: 'Ich renne zur Buche, und das Rascheln verrät mich. Die Klaue reißt mir über den Rücken.',
+      mantel: '',
+    },
+  },
+];
+
+/** Flick's first remark, by what Lia pulled off (she watched from the trees). */
+export function flickOnTricks(tricks: readonly string[]): string | null {
+  if (tricks.includes('mantel')) return 'Den Mantel als Köder? Nicht schlecht, Bauernmädchen. Hab ich so auch noch nicht gesehen.';
+  if (tricks.includes('stamm')) return 'Ihn die Axt in einen Baum hauen lassen. Gemein. Gefällt mir.';
+  if (tricks.includes('wurzel')) return 'Auf die Wurzel gehüpft wie ein Eichhörnchen. Das meine ich als Lob.';
+  return null;
+}
+
+/** Picked when the breath bar runs out. */
+export const FROZEN = 'erstarrt';
+export const FROZEN_LINE = 'Ich steh da wie ein Pfosten. Kein Gedanke, nur die Klinge.';
+/** Seconds of thought per swing (generous: this is about seeing, not reflexes). */
+export const BREATH_MS = 9000;
+
+/** Judges one swing (pure, unit-tested). */
+export function judgeSwing(swing: Swing, pick: string): { ok: boolean; line: string } {
+  if (pick === swing.answer) return { ok: true, line: swing.ok };
+  if (pick === FROZEN) return { ok: false, line: FROZEN_LINE };
+  return { ok: false, line: swing.wrong[pick as Move] || FROZEN_LINE };
+}
+
+export interface GhoulOptions {
+  /** A swing starts (telegraph: the world ghoul winds up). */
+  onWindup?(i: number, swing: Swing): void;
+  /** Result of a swing (animate dodge / hit in the world). Awaited before the reply. */
+  onResult?(ok: boolean, i: number, pick: string): Promise<void> | void;
 }
 
 /** URL of a painted cut-in image (manifest first, conventional path as fallback). */
 const art = (key: string, ext = 'png') => assetUrl(manifest().images?.[`minigames/${key}`]?.file ?? `assets/minigames/${key}.${ext}`);
 const reduced = () => ctx.reducedMotion || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
 const sfx = (name: Parameters<typeof G.audio.sfx>[0], opts?: Parameters<typeof G.audio.sfx>[1]) => { try { G.audio.sfx(name, opts); } catch { /* audio optional */ } };
-const wait = (ms: number) => new Promise<void>(r => setTimeout(r, ms));
 
 /** Rain streaks over the cut-in (a light canvas effect; static drizzle with reduced motion). */
 function startRain(canvas: HTMLCanvasElement, root: HTMLElement): void {
@@ -85,152 +147,69 @@ function startRain(canvas: HTMLCanvasElement, root: HTMLElement): void {
   requestAnimationFrame(loop);
 }
 
-export function dodgeQte(opts: DodgeOptions): Promise<void> {
+
+/** The painted fight cut-in as the stage of a scene pick. Resolves with the number of scratches. */
+export async function ghoulFight(opts: GhoulOptions = {}): Promise<number> {
   ensureStyles();
-  if (ctx.stale()) return new Promise(() => {});
-  const root = G.ui.panel('k5-qte');
-  const touch = ctx.root?.classList.contains('is-touch') ?? false;
-  const closeMs = opts.closeMs ?? 1100;
-  root.style.setProperty('--k5-close', `${closeMs}ms`);
-  root.classList.toggle('is-reduced', reduced());
-  const keyHint = touch
-    ? `<span class="k5-qte-hand ch-key">${ICONS.hand}</span><span>Tippe irgendwo, wenn der Ring golden leuchtet</span>`
-    : '<span class="ch-key">E</span><span class="ch-key">Leertaste</span><span class="ch-key">Klick</span><span>wenn der Ring golden leuchtet</span>';
-  root.innerHTML = `
-    <div class="k5-qte-scene" aria-hidden="true">
-      <div class="k5-qte-bg" style="background-image:url('${art('k5-dodge-bg', 'jpg')}')"></div>
-      <div class="k5-qte-mist"></div>
-      <div class="k5-qte-fig k5-qte-ghoul">
-        <div class="k5-qte-shadow"></div>
-        <img class="pose-windup" alt="" draggable="false" src="${art('k5-dodge-ghoul-windup')}">
-        <img class="pose-strike" alt="" draggable="false" src="${art('k5-dodge-ghoul-strike')}">
-        <div class="k5-qte-glint"></div>
-      </div>
-      <svg class="k5-qte-slash" viewBox="0 0 60 100" preserveAspectRatio="none">
-        <defs><linearGradient id="k5-slash-g" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#fffdf4" stop-opacity="0"/><stop offset="0.3" stop-color="#fffdf4" stop-opacity="0.75"/>
-          <stop class="tint" offset="0.75" stop-opacity="0.55"/><stop class="tint" offset="1" stop-opacity="0"/>
-        </linearGradient></defs>
-        <path d="M52 2 Q-2 38 26 98 Q12 40 52 2 Z" fill="url(#k5-slash-g)"/>
-        <path d="M52 2 Q4 40 24 92" fill="none" stroke="#fffdf4" stroke-width="0.7" stroke-linecap="round" opacity="0.85"/>
-      </svg>
-      <div class="k5-qte-impact"></div>
-      <div class="k5-qte-fig k5-qte-lia">
-        <div class="k5-qte-shadow"></div>
-        <img class="pose-ready" alt="" draggable="false" src="${art('k5-dodge-lia-ready')}">
-        <img class="pose-dodge" alt="" draggable="false" src="${art('k5-dodge-lia-dodge')}">
-        <img class="pose-hurt" alt="" draggable="false" src="${art('k5-dodge-lia-hurt')}">
-      </div>
-      <canvas class="k5-qte-rain"></canvas>
-      <div class="k5-qte-vignette"></div>
-      <div class="k5-qte-flash"></div>
-    </div>
-    <div class="k5-qte-box">
-      <div class="k5-qte-head">
-        <div class="k5-qte-label ch-title" role="status" aria-live="assertive">Ausweichen!</div>
-        <div class="k5-qte-pips" aria-label="Ausgewichen: 0 von ${opts.need}"></div>
-      </div>
-      <div class="k5-qte-ring"><div class="k5-qte-target"></div><div class="k5-qte-closing"></div>
-        <div class="k5-qte-key ch-key">${touch ? ICONS.hand : 'E'}</div></div>
-      <div class="k5-qte-sub ch-label">${keyHint}</div>
-    </div>`;
-  const closing = root.querySelector('.k5-qte-closing') as HTMLElement;
-  const label = root.querySelector('.k5-qte-label') as HTMLElement;
-  const pips = root.querySelector('.k5-qte-pips') as HTMLElement;
-  pips.innerHTML = Array.from({ length: opts.need }, () => '<span></span>').join('');
-  const imgs = Array.from(root.querySelectorAll('img'));
-  startRain(root.querySelector('.k5-qte-rain') as HTMLCanvasElement, root);
-
-  return new Promise<void>(resolve => {
-    let ok = 0;
-    let swing = 0;
-    let start = 0;
-    let state: 'pause' | 'run' = 'pause';
-    let raf = 0;
-    let pressed = false;
-    const closeModal = ctx.open({
-      id: 'k5-qte', allowMenu: false,
-      onKey: e => { if (!isConfirm(e)) return false; if (!e.repeat) press(); return true; },
-      onKeyUp: e => isConfirm(e),
-    });
-    const onDown = (e: PointerEvent) => { e.preventDefault(); press(); };
-    root.addEventListener('pointerdown', onDown);
-    /** Restarts a one-shot CSS animation class. */
-    const pulse = (cls: string) => { root.classList.remove(cls); void root.offsetWidth; root.classList.add(cls); };
-
-    const finishSwing = async (good: boolean) => {
-      state = 'pause';
-      cancelAnimationFrame(raf);
-      root.dataset.state = good ? 'hit' : 'miss';
-      root.classList.remove('is-run', 'is-window');
-      root.classList.toggle('is-good', good);
-      root.classList.toggle('is-bad', !good);
-      pulse(good ? 'fx-dodge' : 'fx-hurt');
-      label.textContent = good ? 'Ausgewichen!' : 'Getroffen!';
-      if (good) {
-        ok++;
-        pips.children[ok - 1]?.classList.add('on');
-        pips.setAttribute('aria-label', `Ausgewichen: ${ok} von ${opts.need}`);
+  let cut: HTMLElement | null = null;
+  const lia: PickLine = { speaker: 'k5-lia', text: '' };
+  const rounds: PickRound[] = SWINGS.map((swing, i) => ({
+    cue: swing.cue,
+    prompt: { text: swing.tell },
+    cards: MOVES.map(m => ({ ...m })),
+    timeoutMs: BREATH_MS,
+    timeoutPick: FROZEN,
+    judge: pick => {
+      const v = judgeSwing(swing, pick);
+      return { ok: v.ok, endRound: true, mood: v.ok ? 'good' : 'hurt', reply: { ...lia, text: v.line } };
+    },
+  }));
+  const result = await G.ui.scenePick({
+    label: 'Drei Atemzüge',
+    help: 'Sieh hin, wie er ausholt, und nutz, was um dich ist. Der Balken ist dein Atem.',
+    layout: 'row',
+    className: 'k5-ghoul',
+    rounds,
+    decorate(stage) {
+      cut = document.createElement('div');
+      cut.className = 'k5-qte k5-ghoul-cut';
+      cut.setAttribute('aria-hidden', 'true');
+      cut.innerHTML = `
+        <div class="k5-qte-scene">
+          <div class="k5-qte-bg" style="background-image:url('${art('k5-dodge-bg', 'jpg')}')"></div>
+          <div class="k5-qte-mist"></div>
+          <div class="k5-qte-fig k5-qte-ghoul"><div class="k5-qte-shadow"></div>
+            <img class="pose-windup" alt="" draggable="false" src="${art('k5-dodge-ghoul-windup')}">
+            <img class="pose-strike" alt="" draggable="false" src="${art('k5-dodge-ghoul-strike')}"></div>
+          <div class="k5-qte-impact"></div>
+          <div class="k5-qte-fig k5-qte-lia"><div class="k5-qte-shadow"></div>
+            <img class="pose-ready" alt="" draggable="false" src="${art('k5-dodge-lia-ready')}">
+            <img class="pose-dodge" alt="" draggable="false" src="${art('k5-dodge-lia-dodge')}">
+            <img class="pose-hurt" alt="" draggable="false" src="${art('k5-dodge-lia-hurt')}"></div>
+          <canvas class="k5-qte-rain"></canvas>
+          <div class="k5-qte-vignette"></div>
+        </div>`;
+      stage.prepend(cut);
+      startRain(cut.querySelector('.k5-qte-rain') as HTMLCanvasElement, cut);
+      requestAnimationFrame(() => cut?.classList.add('is-in'));
+      if (!reduced()) sfx('thunder', { volume: 0.35 });
+    },
+    onRound(i) {
+      if (!cut) return;
+      cut.classList.remove('is-good', 'is-bad', 'fx-dodge', 'fx-hurt');
+      cut.dataset.cue = SWINGS[i].cue;
+      cut.classList.add('is-run');
+      sfx('whoosh', { volume: 0.45 });
+      opts.onWindup?.(i, SWINGS[i]);
+    },
+    async onVerdict(v, i, pick) {
+      if (cut) {
+        cut.classList.remove('is-run');
+        cut.classList.add(v.ok ? 'is-good' : 'is-bad', v.ok ? 'fx-dodge' : 'fx-hurt');
       }
-      try { await opts.onResult?.(good, swing); } catch (err) { console.error(err); }
-      if (!root.isConnected) { closeModal(); return; }
-      if (ok >= opts.need) {
-        root.dataset.state = 'done';
-        root.classList.add('is-won');
-        label.textContent = 'Geschafft!';
-        closeModal();
-        await wait(reduced() ? 150 : 520);
-        root.classList.add('is-out');
-        setTimeout(() => root.remove(), 380);
-        resolve();
-        return;
-      }
-      setTimeout(next, 420);
-    };
-    const press = () => {
-      if (state !== 'run' || pressed) return;
-      pressed = true;
-      const verdict = dodgeWindow((performance.now() - start) / closeMs);
-      void finishSwing(verdict === 'good');
-    };
-    const tick = (now: number) => {
-      if (!root.isConnected) { closeModal(); return; }
-      if (state !== 'run') return;
-      const p = (now - start) / closeMs;
-      const scale = Math.max(1, 3.2 - 2.2 * Math.min(1, p));
-      closing.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(3)})`;
-      closing.style.opacity = Math.min(1, Math.max(0, p) * 3 + 0.25).toFixed(2);
-      const zone = dodgeWindow(p);
-      if (zone === 'good' && !root.classList.contains('is-window')) sfx('ui-move', { volume: 0.35 });
-      root.classList.toggle('is-window', zone === 'good');
-      root.dataset.state = zone === 'good' ? 'window' : 'wait';
-      if (zone === 'late') { pressed = true; void finishSwing(false); return; }
-      raf = requestAnimationFrame(tick);
-    };
-    const next = () => {
-      if (!root.isConnected) { closeModal(); return; }
-      swing++;
-      pressed = false;
-      root.classList.remove('is-good', 'is-bad', 'is-window', 'fx-dodge', 'fx-hurt');
-      root.dataset.swing = String(swing);
-      label.textContent = 'Ausweichen!';
-      opts.onWindup?.(swing);
-      pulse('is-run');
-      closing.style.transform = 'translate(-50%, -50%) scale(3.2)';
-      start = performance.now() + 120;
-      state = 'run';
-      root.dataset.state = 'wait';
-      raf = requestAnimationFrame(tick);
-    };
-    // Give the painted figures a moment to decode, so the cut-in never opens on empty frames.
-    const ready = Promise.race([Promise.all(imgs.map(i => i.decode().catch(() => {}))), wait(1500)]);
-    void ready.then(() => {
-      if (!root.isConnected) { closeModal(); return; }
-      requestAnimationFrame(() => {
-        root.classList.add('is-in');
-        if (!reduced()) sfx('thunder', { volume: 0.35 });
-        setTimeout(next, 450);
-      });
-    });
+      await opts.onResult?.(v.ok, i, pick);
+    },
   });
+  if (cut) (cut as HTMLElement).dataset.state = 'done';
+  return result.mistakes;
 }

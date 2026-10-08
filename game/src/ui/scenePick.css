@@ -11,7 +11,7 @@
 .pick-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 40%, #05070cd0 100%); }
 .pick-flash { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: #fff6dc; }
 
-.pick-cards { position: absolute; inset: 0; }
+.pick-cards { position: absolute; inset: 0; z-index: 5; }
 .scene-pick.is-row .pick-cards { inset: auto 0 .8em 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5em; padding: 0 1em; }
 .pick-card { display: inline-flex; align-items: baseline; gap: .45em; max-width: 19em; padding: .45em .8em; border: 1px solid var(--gold-line); border-radius: .45em;
   background: #0d121cd9; color: var(--parch); font: inherit; font-size: .95em; text-align: left; cursor: pointer; box-shadow: 0 .2em .6em #0008;

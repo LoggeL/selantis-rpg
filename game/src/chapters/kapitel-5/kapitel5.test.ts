@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { BEAT_NOISE, BEAT_YOUNG, beatGoods, clampPoints, rescueSetup, verdict } from './bluff';
-import { dodgeWindow } from './dodge';
+import { flickOnTricks, FROZEN, judgeSwing, MOVES, SWINGS } from './dodge';
 import { corridor, ellipse, inside } from './geom';
 
 describe('kapitel-5 bluff', () => {
@@ -43,12 +43,24 @@ describe('kapitel-5 bluff', () => {
   });
 });
 
-describe('kapitel-5 dodge timing', () => {
-  it('has an early, a good and a late zone', () => {
-    expect(dodgeWindow(0.3)).toBe('early');
-    expect(dodgeWindow(0.8)).toBe('good');
-    expect(dodgeWindow(1.0)).toBe('good');
-    expect(dodgeWindow(1.3)).toBe('late');
+describe('kapitel-5 „Drei Atemzüge“', () => {
+  it('each swing has exactly one fitting move, and every move fits one swing', () => {
+    expect(SWINGS.map(s => s.answer).sort()).toEqual(MOVES.map(m => m.id).sort());
+    for (const s of SWINGS) {
+      expect(judgeSwing(s, s.answer).ok).toBe(true);
+      for (const m of MOVES) if (m.id !== s.answer) {
+        const v = judgeSwing(s, m.id);
+        expect(v.ok).toBe(false);
+        expect(v.line.length).toBeGreaterThan(20);
+      }
+      expect(judgeSwing(s, FROZEN).ok).toBe(false);
+    }
+  });
+
+  it('Flick comments on the boldest trick', () => {
+    expect(flickOnTricks(['wurzel', 'mantel'])).toContain('Köder');
+    expect(flickOnTricks(['stamm'])).toContain('Baum');
+    expect(flickOnTricks([])).toBeNull();
   });
 });
 
