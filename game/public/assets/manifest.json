@@ -2302,6 +2302,225 @@
    ],
    "height": 43
   },
+  "goblin-fips": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/goblin-fips-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/goblin-fips-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/goblin-fips-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/goblin-fips-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/goblin-fips-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 29
+  },
+  "goblin-hotze": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/goblin-hotze-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/goblin-hotze-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/goblin-hotze-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/goblin-hotze-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/goblin-hotze-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 32
+  },
+  "goblin-ratz": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/goblin-ratz-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/goblin-ratz-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/goblin-ratz-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/goblin-ratz-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/goblin-ratz-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     7,
+     11,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 34
+  },
   "guard-brotherhood": {
    "poses": {},
    "walk": {
@@ -4576,6 +4795,30 @@
   },
   "gira": {
    "neutral": "assets/portraits/gira.png"
+  },
+  "goblin-fips": {
+   "angry": "assets/portraits/goblin-fips-angry.png",
+   "happy": "assets/portraits/goblin-fips-happy.png",
+   "scared": "assets/portraits/goblin-fips-scared.png",
+   "smirk": "assets/portraits/goblin-fips-smirk.png",
+   "surprised": "assets/portraits/goblin-fips-surprised.png",
+   "neutral": "assets/portraits/goblin-fips.png"
+  },
+  "goblin-hotze": {
+   "angry": "assets/portraits/goblin-hotze-angry.png",
+   "happy": "assets/portraits/goblin-hotze-happy.png",
+   "scared": "assets/portraits/goblin-hotze-scared.png",
+   "smirk": "assets/portraits/goblin-hotze-smirk.png",
+   "surprised": "assets/portraits/goblin-hotze-surprised.png",
+   "neutral": "assets/portraits/goblin-hotze.png"
+  },
+  "goblin-ratz": {
+   "angry": "assets/portraits/goblin-ratz-angry.png",
+   "happy": "assets/portraits/goblin-ratz-happy.png",
+   "scared": "assets/portraits/goblin-ratz-scared.png",
+   "smirk": "assets/portraits/goblin-ratz-smirk.png",
+   "surprised": "assets/portraits/goblin-ratz-surprised.png",
+   "neutral": "assets/portraits/goblin-ratz.png"
   },
   "guard-brotherhood": {
    "neutral": "assets/portraits/guard-brotherhood.png"

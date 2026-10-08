@@ -1726,6 +1726,114 @@
   "hash": "LDCFU]kV03aKSjoMnhWA0~ax}rbb",
   "sourceHash": "5d1f0c79b933fec7a3a13c75c228b522143e90e775b8ec288a1d717de9bb2278"
  },
+ "assets/portraits/goblin-fips-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3B2[8^503XN0BRU~Mb;05kC?W5S",
+  "sourceHash": "06d4b1020329e47b4661481f4ca4163aa49f4a92ebfcbe84c00722a91356b061"
+ },
+ "assets/portraits/goblin-fips-happy.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3B2[7^403XQ08RS~PXh05oe?X5S",
+  "sourceHash": "01880e47c7fed8a94351b20a20badb5dab66541c3751804b06e3dee93692eaca"
+ },
+ "assets/portraits/goblin-fips-scared.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3A]Wg^402km0BRn~MTD04kC?Y5S",
+  "sourceHash": "cd3e5446aa9cfdb57a909196df55263870db5a07af492452a0831c8cb63da7d3"
+ },
+ "assets/portraits/goblin-fips-smirk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3A+.+^403kU08Rm~OXh05of-,5S",
+  "sourceHash": "c0961ad0c65adf235ac28e5b7c358f58f1ab7cfcccfd847c2d0d81c1a0e6ec70"
+ },
+ "assets/portraits/goblin-fips-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3B2_G^402XP0BRU~MXg04of^#5S",
+  "sourceHash": "fb632df607594b652a6de306adea8fd2f3ec0c4ee4d5c9610a0fb0b757ff460f"
+ },
+ "assets/portraits/goblin-fips.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3A]Wh^402ov0ARU~Mb;05kC?X5S",
+  "sourceHash": "305c3522f1b271651a7fc0fdb24c6c0a49e909c8a22c2a5effc30febadd81500"
+ },
+ "assets/portraits/goblin-hotze-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5FEV.5901^%01^N~BnO5roJSvIt",
+  "sourceHash": "247bba716b0f6f6301a95759b24334f268aba2c108a1be3e95cccc9a5637d171"
+ },
+ "assets/portraits/goblin-hotze-happy.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5F4.B5S01^i01^N~BnO5rj?ScI@",
+  "sourceHash": "8a1728fd2d7a386d4861ae784d0517b1b041a103f8bd9872749cbfa7166a6503"
+ },
+ "assets/portraits/goblin-hotze-scared.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5FXX}0$01?F01^N~Brr15s,SvI@",
+  "sourceHash": "8133672d653d5873c05bbcccb6cd14dff4bebadec2b74c9b0d18d566e1e3734e"
+ },
+ "assets/portraits/goblin-hotze-smirk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5FESz5901^%01^N~Brr5roJXMEQ",
+  "sourceHash": "0d75026ce594a75e752d6142da87e12c3c881d8c78a92097a937988309b13665"
+ },
+ "assets/portraits/goblin-hotze-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5FESy5T01^i01^N~BnO1Oj?bpI@",
+  "sourceHash": "2082c8a6a2b601a750338b6b96eaf7c9d8c2973eee3bd5146d50b6378309f750"
+ },
+ "assets/portraits/goblin-hotze.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L6F4=K5S01?F01^N~BnOAIj?ScI@",
+  "sourceHash": "9c16b7fcfe543b55af70a4cdfd0a32608e9e0a051832f6446c486f1a9dd3de0d"
+ },
+ "assets/portraits/goblin-ratz-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4CrGw^d03}=K|wN8}WBIaI;X7NH",
+  "sourceHash": "9fd5daa59c095ebb2bc72c238f5abbf03025ea513fc819ede00636803cc75637"
+ },
+ "assets/portraits/goblin-ratz-happy.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3Chs2}-02}=K|#q4pWBIaENSzNH",
+  "sourceHash": "f758f4760819734049e24ae4fa1a0f4d47f728dd7a612f407577387ba944d0a1"
+ },
+ "assets/portraits/goblin-ratz-scared.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3CrDn},02}=Pj#q03ae9xENj]NH",
+  "sourceHash": "e59fbd552c9395581d2d2ab6ef1d269a537de4abacbadb5a3a05535a654fc705"
+ },
+ "assets/portraits/goblin-ratz-smirk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3Chv9}-02}=K|#q4WWBIaENS#NH",
+  "sourceHash": "9c219614156d43d1772cba008660f584f737431fb73ba6f5bf77fe33ab9c2758"
+ },
+ "assets/portraits/goblin-ratz-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3Chv8}-02}=K|#q4qWBIaENSgNH",
+  "sourceHash": "428f766a834b77144f1e6bbf197f2806080329338b8820e39cf1ec867d64e2d0"
+ },
+ "assets/portraits/goblin-ratz.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3COs_}-02}=LH#q4WWBE7ENX7NH",
+  "sourceHash": "b939255b156f9abcd8dda0336b799f98e4dec5f46bbd85bca616ebea0260573f"
+ },
  "assets/portraits/guard-brotherhood.png": {
   "width": 256,
   "height": 256,
@@ -9566,6 +9674,501 @@
     "height": 64,
     "hash": "L89Zit9tIWxa_NM{a_t7tTRPX7t7",
     "alphaHash": "LHB3.^of00Rj9Fay?bof00ay~qof"
+   }
+  ]
+ },
+ "assets/sprites/goblin-fips-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "LGD82f}AxBOBIIM#s9od,;wfo1W:",
+  "alphaHash": "L45OQnt700D%00WB~qxu9FWB?bxu",
+  "sourceHash": "109c6f3c28b844d037e5ea1821ae3f7fbf91991a8068cbbc4c1d5762896fdc9f"
+ },
+ "assets/sprites/goblin-fips-crouch.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L99P.@W1RPt11UV~t2k8s$O9R-n+",
+  "alphaHash": "L86Hy7of00Rj00WB~qt7xuofM{Rj",
+  "sourceHash": "44d4c6bcc064db15148bcf7d481273acc067f2707454989252a5df6c4ce9abd2"
+ },
+ "assets/sprites/goblin-fips-hurt.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "LTE,$m|ywcOB+}=1s+SLbHR+azj@",
+  "alphaHash": "L66RM%of00M{00WB~qt7D%j[-;WB",
+  "sourceHash": "3db943f25a8e2b695c8635b492700208506bffcacd81cc9834910ce5f1723553"
+ },
+ "assets/sprites/goblin-fips-sit.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "LCB:HY9Bt3%DT#ECodt1RPbWWEjb",
+  "alphaHash": "L75}pxj[00WB00ay~qofxuayM{j[",
+  "sourceHash": "3e0b7ed32cb8fe02fecb9a0ce11016111d634162eb12d791d370a1395f1bf0df"
+ },
+ "assets/sprites/goblin-fips-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L2D+3ZBV[xKq0a{$T^v6z%K{Dri^",
+  "alphaHash": "L04o1d%Mof-;IUWBfQWBj[WBofWB",
+  "sourceHash": "c9495399ffeb27c3765e09d55aef4fb8d9c6e07e254bf6b8b86532436265f2cf",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "LHA0FHnoR-kBEYt8oeWCJBWVfka|",
+    "alphaHash": "L66*dht700M{00WB~qt79Fay?bj["
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L8E2Bu5A$v?D}s0T$w%G9waeWCWX",
+    "alphaHash": "L66*dhof00M{00WB~qt79Fay?bof"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "LI9GRcxIRlWVJbX9s.j[I[bZa{ay",
+    "alphaHash": "L66*dht700M{00WB~qt79Fay?bj["
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "LIEUDm|D#+S%r6;dw]SPOqt2kAWX",
+    "alphaHash": "L66*dhof00M{00WB~qt74nay_3of"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "LJDREX|:r=OZrO;^s+NyspbEjaj[",
+    "alphaHash": "L66kVCof00Rj00WB~qt79Fay?bj["
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "LHAJNjr{WCoe9.tRoeWCbcR+j[oL",
+    "alphaHash": "L56a-cj[00WB00ay~qof9Fay?bj["
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L9B2}#vvV=t90uwXs*WaX9Rko0j[",
+    "alphaHash": "L66*dhof00M{00WB~qof9FWB?bt7"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "LJE1my|DwIS%vs=Dw[S6ozWUoKj[",
+    "alphaHash": "L66kVCof00Rj00ay~qof9Fay?bof"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L8E1?9~k-1rs:t-T$vWB--tOt3af",
+    "alphaHash": "L76[2Hay00of00j[~qay9FfQ-;ay"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "LBDH%68JjE+u+C1Ss+$eNya$oLa{",
+    "alphaHash": "L66kVCj[00Rj00ay~qof9FfQ?bfQ"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L6Cr4u3Giw]ODM1mxU,nnobIn+ay",
+    "alphaHash": "L66*dhof00M{00WB~qt79Fay?bof"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "LCFEV.*D-Mw0+OY0$wnP%JxYs-WW",
+    "alphaHash": "L56a-cof00M{00WB~qt74nay_3of"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "LAELA**D-fw0:?AExAw^IXtPWCV]",
+    "alphaHash": "L66t].of00M{00ay~qof9FWB?bt7"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "LGA+{$Nsjas;5enij@WrElR+WDj[",
+    "alphaHash": "L66a-cj[00ay00ay~qj[9FfQ?bfQ"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "LGA]pvtLoeo45eRQaykDI]baa#az",
+    "alphaHash": "L66kVCay00j[00j[~qay9Fay?bj["
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L6EK=G3m=.}A_t7v$c#T9}MhWCkB",
+    "alphaHash": "L66kVCof00Rj00ay~qof9Fay?bof"
+   }
+  ]
+ },
+ "assets/sprites/goblin-hotze-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "LADu*D?+9b$%?kpA$~soI=S2bFaz",
+  "alphaHash": "L97-ZwWB00t700j[~qayD%of-;Rj",
+  "sourceHash": "289d3c5c4edb933369c5f1c7f2da09d400f373fa04d9f121707fb7b9b993d467"
+ },
+ "assets/sprites/goblin-hotze-crouch.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "LFCr=q?]Ob$Rb_xvxusCRPRjadWo",
+  "alphaHash": "LD8qNgt700M{00Rj~qxuxuofM{Rj",
+  "sourceHash": "ae21c0e46a9cf1aff4e6dc466fe8b779e727ea8de3fc52825c83ab68d6ab78c2"
+ },
+ "assets/sprites/goblin-hotze-hurt.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L2AS^{.T05Ey0B-q?Yv}9b--=?R+",
+  "alphaHash": "LD9tJvt700D%00Rj~q%MD%ay-;ay",
+  "sourceHash": "26ed298f1fc3443a2fde1c2db589ea21a70e78feb103de8890020e1eaf670d60"
+ },
+ "assets/sprites/goblin-hotze-sit.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L2Avj@?c04?A0BCR-VrX+|+uwJxt",
+  "alphaHash": "LG9jv0of00M{00WB~qt7t7ayWBof",
+  "sourceHash": "9fb7b39fe3a77e0af8c7e13698b65001ba14402a7c022efac8e17989279e8224"
+ },
+ "assets/sprites/goblin-hotze-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L1E2Bq=ZOA*E[|5U;A#BFf1#@%{S",
+  "alphaHash": "L08z.G_3ay~q00M{ofIU~qofRjt7",
+  "sourceHash": "12c4adc46c55adad9008f3957fe91d6ba3b225f56158fcb2d257be4ef562b76e",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L4CiW%040g%^*DHu~mKd9cKN-Saf",
+    "alphaHash": "LFAmrFWB00xu00of~qRj9Fay?bj["
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L4A0N]-305-p0oRP~AI[0ioy-mR,",
+    "alphaHash": "LEAmrFRj00%M00t7~qM{4nj[_3WB"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L4Am6caQ05x[0XxU~A9{0,%1-TV]",
+    "alphaHash": "LFAwF=Rj00%M00t7~qM{4nj[?bay"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L6BMew050h?XyP8}~8bt5WtQ%0WC",
+    "alphaHash": "LFAmrFWB00xu00of~qRj4nay?bj["
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L3A0K%RU03$y04xY}=I;5Wti^gRl",
+    "alphaHash": "LEAAaaRj00%M00t7~qM{9Fj[?bWB"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L1Al|50R02tP01vi~TAt04_K~RM#",
+    "alphaHash": "LD9%*VRj00%M00of~qM{9FfQ?bay"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L2AceszW04Nz06r-~9Em0DTu-.N1",
+    "alphaHash": "LEA0?#WB00t700of~qWB9Fay?bay"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L2By1;0d03}H_b1?~Ano4sGC^ger",
+    "alphaHash": "LD9@S5Rj00%M00of~qM{9Fj[?bWB"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L8B{Mm||5BS4+y#F=_xWERV]xsoe",
+    "alphaHash": "LEAAaaxu009F00Rj~q%M9FWB-;t7"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L3A,5Y]m03b]6{9J^#$%0iRQ-Qox",
+    "alphaHash": "LD9%*Vxu00D%00Rj~q%M9FWB?bt7"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2Acew?t05^O0a9v_0^00jIY?Wt5",
+    "alphaHash": "LEA0?#t700IU00Rj~qxu9FWB-;t7"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2A,8f[003X,2V9b~R-U0$D,?CtP",
+    "alphaHash": "LD9@S5xu00D%00Rj~q%M9FWB?bt7"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L4BoT.3q0nz?M-6A}?=Z4r5m?D$#",
+    "alphaHash": "LDAd7f%M004n00M{~q-;4nWB_3xu"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L7A+~Q~39$NLFxW,-mxr5BRR-Tt5",
+    "alphaHash": "LDAd7f%M004n00M{~q-;4nWB_3xu"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L3B.lf3Y0U+eQ[2d}=^J08Q;^h%0",
+    "alphaHash": "LEAmrF%M009F00M{~q%M4nWB_3of"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5A9.t~80:NL1PEQ-U${0:IW=_xZ",
+    "alphaHash": "LDATi,%M004n00M{~q-;4nRj_3xu"
+   }
+  ]
+ },
+ "assets/sprites/goblin-ratz-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L2BodA}Z0#-m1H9t$zkD4=Vxxaod",
+  "alphaHash": "L77KuMt700IU00Rj~qxu9FWB?bt7",
+  "sourceHash": "3fac16f1f14dc4f1e1fa983b98002c4dcd4806094b32bf0faf9b4d48f6c9016b"
+ },
+ "assets/sprites/goblin-ratz-crouch.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L3BoN=1i9c}Xx22:=_,H9ut3WER+",
+  "alphaHash": "LC8Nqbj[00ay00WB~qt7ofofayM{",
+  "sourceHash": "180bdf594279007e7e83a9ef224c2ba31001fb16ae47e8906e53a6f0d304f9b8"
+ },
+ "assets/sprites/goblin-ratz-hurt.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L2BoN${D0P%d=Vxo},%00ic8oyM~",
+  "alphaHash": "LA8|^lof00Rj00Rj~qxu4nt7_3IU",
+  "sourceHash": "773c0daea4ecf946997d222e8e4b12046422e015723ba924de093894440de31a"
+ },
+ "assets/sprites/goblin-ratz-sit.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L1AcJ7_503tS14:7?9JUr1-n%2WC",
+  "alphaHash": "LC8Nqbj[00WB00ay~qj[ofayayof",
+  "sourceHash": "6e9a8420a0c645bd4fbd7a533d869328fcf70aea82583bab0129715757b5c669"
+ },
+ "assets/sprites/goblin-ratz-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4C}|7?9?D^z.hk7t2tKIvjJNKn~",
+  "alphaHash": "L08E6$_3Rj~qIUofofof~qofofWB",
+  "sourceHash": "e15b81aa70a094570b8b8d3fab8d4364ab8706521e3578c663fd7c45275d0d45",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L3B.Gz2-4[,[}=1s${-94xJB={w|",
+    "alphaHash": "LCAd7fxu00D%00WB~qt700Rj~qxu"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L9BCrO4rACti.fIDxptONbRl%0s.",
+    "alphaHash": "LCATi,xu00D%00WB~qt700Rj~qxu"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L2Ala~{f0Ptj1O*|=rtL0pkB^jxs",
+    "alphaHash": "LCAd7fxu00D%00WB~qxu00Rj~qxu"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L2BoBa3003=z~k1Xkh-UZYEz}s-B",
+    "alphaHash": "LCATi,xu00IU00WB~qt700Rj~qxu"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L6BV,?060}%K_I4Y${pCFwjcxZt5",
+    "alphaHash": "LA9%*VRj00xu00t7~qIU00Rj~qxu"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L39i;w~o0Rrw0jst-oJ60#%L-Aax",
+    "alphaHash": "LA9tJvRj00%M00t7~qIU00WB~qt7"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L5BfLM8$0#%K~l4Y-lx=KJN0$%xY",
+    "alphaHash": "LB9@S5Rj00xu00t7_3IU00Rj~qxu"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L6B.$005D+=^.gDA${x:F_N1$%t3",
+    "alphaHash": "LA9aBQRj00%M00t7_3IU00WB~qt7"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2Av5:,}08kQ0i~mP4Rj0.1I=yRV",
+    "alphaHash": "LA9tJv%M009F00M{~q-;00j[~qfQ"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L1A9m7}c0DBM2{o??Z#B0PKk?GJ8",
+    "alphaHash": "LA9jv0%M009F00M{_3-;00fQ~qj["
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2BCDKNO04XjB6^#}:Rp0zRQ^OI@",
+    "alphaHash": "LA9%*Vt700IU00Rj~q%M00of~qRj"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L8A]81|3ERJ%,]=c-BoLIqsT$*ah",
+    "alphaHash": "LA9aBQ%M004n00M{_3-;00ay~qof"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L2AlkF}%0{nP3UjV-qwN03NY^7aP",
+    "alphaHash": "LC9@S5t700IU4nWB_3xu00ay~qof"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L29~.~^j0$+]45On%gnP0P5X^8Rk",
+    "alphaHash": "LCAAaaWB00t700j[_3ay00of~qRj"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L3ASoG~01ZnPBmn4-Dwg0fNZ-VWE",
+    "alphaHash": "LCA0?#t700M{00WB_3t700j[~qfQ"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L29?LJ%L0*+_45o|-;rs0P9|}uRl",
+    "alphaHash": "LCA0?#WB00t700fQ_3fQ00of~qRj"
    }
   ]
  },

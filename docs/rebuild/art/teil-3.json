@@ -953,6 +953,45 @@
       "attempts": 1,
       "time": "2026-10-08T01:43:13"
     },
+    "output/imagegen/raw/art/characters/goblin-fips/turnaround.png": {
+      "kind": "turnaround",
+      "id": "goblin-fips",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: Fips, a TINY, jittery COMIC goblin, the smallest of a hapless trio (funny, not scary; a humanoid smaller than his two friends, cartoonish but still natural goblin proportions about 4 heads tall). Scrawny and twitchy, greenish-grey skin, ENORMOUS ears, a HUGE long bulbous nose that droops over his mouth, big round bulging eyes, a nervous buck-toothed grin. A wild tuft of dark hair on top of his head with three colourful FEATHERS stuck in it (one red, one blue, one yellow). A ragged moss-green tunic too big for him with a sagging pocket full of pebbles, a frayed leather cord belt, bare tiny green feet. In his RIGHT hand he holds a wooden Y-shaped SLINGSHOT with a leather pouch. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.\nIMPORTANT CORRECTION: Goblin proportions: a small humanoid about 4 heads tall with a big head and huge ears, comic and lovable, not scary, no claws, no fangs dripping, no blood.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T00:43:13"
+    },
+    "output/imagegen/raw/art/characters/goblin-hotze/turnaround.png": {
+      "kind": "turnaround",
+      "id": "goblin-hotze",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: Hotze, a small COMIC goblin, the cook of a hapless trio, always hungry (funny, not scary; a humanoid about half as tall as a man, cartoonish but still natural goblin proportions about 4 heads tall). ROUND and FAT with a big pot belly, short stubby legs and arms, a double chin, greenish-grey skin, big FLOPPY droopy ears hanging down, a small upturned piggy nose, round cheeks, a hungry open-mouthed grin with two small blunt lower teeth, a bald head with three wiry hairs. A greasy, stained, once-white COOK'S APRON tied over a patched mustard-yellow tunic, a dirty checkered dish towel tucked into the apron string, bare green feet. In his RIGHT hand he carries a long iron roasting SPIT (a skewer) with a half-eaten sausage still stuck on the tip. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.\nIMPORTANT CORRECTION: Goblin proportions: a small humanoid about 4 heads tall with a big head and huge ears, comic and lovable, not scary, no claws, no fangs dripping, no blood.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-09T00:42:22"
+    },
+    "output/imagegen/raw/art/characters/goblin-ratz/turnaround.png": {
+      "kind": "turnaround",
+      "id": "goblin-ratz",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: Ratz, a small COMIC goblin, the self-appointed leader of a hapless trio (funny, not scary; a humanoid about half as tall as a man, slightly big head, cartoonish but still natural goblin proportions about 4 heads tall). SKINNY and bony with long thin arms and knobbly knees, greenish-grey skin, HUGE pointed ears sticking out sideways, a long pointy nose, small beady yellow eyes, a pompous, self-important pout. On his head a far too large, DENTED, battered iron COOKING POT worn as a helmet, slipping down to his eyebrows, its little handle sticking out at one side, the big ears poking out under the rim. Over his shoulders a ragged, moth-eaten faded PURPLE cape made from an old curtain, a patched brown burlap tunic tied with a frayed rope belt, bare big knobbly green feet. In his RIGHT hand he holds a big wooden cooking SPOON (a long ladle) raised like a royal sceptre. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.\nIMPORTANT CORRECTION: Goblin proportions: a small humanoid about 4 heads tall with a big head and huge ears, comic and lovable, not scary, no claws, no fangs dripping, no blood.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png",
+        "docs/rebuild/art/refs/lia.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T00:42:24"
+    },
     "output/imagegen/raw/art/characters/paladin-anfuehrer/turnaround.png": {
       "kind": "turnaround",
       "id": "paladin-anfuehrer",
@@ -1817,6 +1856,189 @@
         "neutral": "game/public/assets/portraits/paladin-wache.png",
         "surprised": "game/public/assets/portraits/paladin-wache-surprised.png",
         "thinking": "game/public/assets/portraits/paladin-wache-thinking.png"
+      }
+    },
+    "goblin-ratz": {
+      "id": "goblin-ratz",
+      "height": 34,
+      "walk": {
+        "file": "game/public/assets/sprites/goblin-ratz-walk.png",
+        "sha": "cb07859a0cbdf964",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 34
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/goblin-ratz-attack.png",
+          "method": "pair",
+          "scale": 0.0461,
+          "size": [
+            29,
+            30
+          ]
+        },
+        "crouch": {
+          "file": "game/public/assets/sprites/goblin-ratz-crouch.png",
+          "method": "pair",
+          "scale": 0.0465,
+          "size": [
+            23,
+            24
+          ]
+        },
+        "hurt": {
+          "file": "game/public/assets/sprites/goblin-ratz-hurt.png",
+          "method": "pair",
+          "scale": 0.0456,
+          "size": [
+            24,
+            29
+          ]
+        },
+        "sit": {
+          "file": "game/public/assets/sprites/goblin-ratz-sit.png",
+          "method": "pair",
+          "scale": 0.0459,
+          "size": [
+            23,
+            25
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/goblin-ratz-angry.png",
+        "happy": "game/public/assets/portraits/goblin-ratz-happy.png",
+        "neutral": "game/public/assets/portraits/goblin-ratz.png",
+        "scared": "game/public/assets/portraits/goblin-ratz-scared.png",
+        "smirk": "game/public/assets/portraits/goblin-ratz-smirk.png",
+        "surprised": "game/public/assets/portraits/goblin-ratz-surprised.png"
+      }
+    },
+    "goblin-hotze": {
+      "id": "goblin-hotze",
+      "height": 32,
+      "walk": {
+        "file": "game/public/assets/sprites/goblin-hotze-walk.png",
+        "sha": "a342b076626d5db1",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 32
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/goblin-hotze-attack.png",
+          "method": "pair",
+          "scale": 0.0458,
+          "size": [
+            36,
+            27
+          ]
+        },
+        "crouch": {
+          "file": "game/public/assets/sprites/goblin-hotze-crouch.png",
+          "method": "pair",
+          "scale": 0.0457,
+          "size": [
+            29,
+            20
+          ]
+        },
+        "hurt": {
+          "file": "game/public/assets/sprites/goblin-hotze-hurt.png",
+          "method": "pair",
+          "scale": 0.0466,
+          "size": [
+            34,
+            28
+          ]
+        },
+        "sit": {
+          "file": "game/public/assets/sprites/goblin-hotze-sit.png",
+          "method": "pair",
+          "scale": 0.0464,
+          "size": [
+            26,
+            24
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/goblin-hotze-angry.png",
+        "happy": "game/public/assets/portraits/goblin-hotze-happy.png",
+        "neutral": "game/public/assets/portraits/goblin-hotze.png",
+        "scared": "game/public/assets/portraits/goblin-hotze-scared.png",
+        "smirk": "game/public/assets/portraits/goblin-hotze-smirk.png",
+        "surprised": "game/public/assets/portraits/goblin-hotze-surprised.png"
+      }
+    },
+    "goblin-fips": {
+      "id": "goblin-fips",
+      "height": 29,
+      "walk": {
+        "file": "game/public/assets/sprites/goblin-fips-walk.png",
+        "sha": "df6692a3fb8301b8",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 29
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/goblin-fips-attack.png",
+          "method": "pair",
+          "scale": 0.0379,
+          "size": [
+            25,
+            28
+          ]
+        },
+        "crouch": {
+          "file": "game/public/assets/sprites/goblin-fips-crouch.png",
+          "method": "pair",
+          "scale": 0.0355,
+          "size": [
+            18,
+            20
+          ]
+        },
+        "hurt": {
+          "file": "game/public/assets/sprites/goblin-fips-hurt.png",
+          "method": "pair",
+          "scale": 0.0321,
+          "size": [
+            13,
+            27
+          ]
+        },
+        "sit": {
+          "file": "game/public/assets/sprites/goblin-fips-sit.png",
+          "method": "pair",
+          "scale": 0.0327,
+          "size": [
+            14,
+            22
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/goblin-fips-angry.png",
+        "happy": "game/public/assets/portraits/goblin-fips-happy.png",
+        "neutral": "game/public/assets/portraits/goblin-fips.png",
+        "scared": "game/public/assets/portraits/goblin-fips-scared.png",
+        "smirk": "game/public/assets/portraits/goblin-fips-smirk.png",
+        "surprised": "game/public/assets/portraits/goblin-fips-surprised.png"
       }
     }
   }
