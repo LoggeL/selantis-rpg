@@ -193,7 +193,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 248,
+    "line": 249,
     "expression_sha256": "8072adc2569e830eb9b4d80a5e46c9d56389fa7b90a0ad32406b1d0485c91805",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -212,10 +212,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 248,
-        "start": 13062,
-        "end": 13142,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 249,
+        "start": 13335,
+        "end": 13415,
         "expression_sha256": "8072adc2569e830eb9b4d80a5e46c9d56389fa7b90a0ad32406b1d0485c91805",
         "function": "barisArrives",
         "scene": "e2-lagerangriff",
@@ -1109,7 +1109,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 236,
+    "line": 237,
     "expression_sha256": "f8c9c75108956dbedbd447ff7275359bbc9325cf2ea3695cd5555537477d6762",
     "kind": "say",
     "runtime_speaker": "kyra",
@@ -1128,10 +1128,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 236,
-        "start": 12384,
-        "end": 12440,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 237,
+        "start": 12657,
+        "end": 12713,
         "expression_sha256": "f8c9c75108956dbedbd447ff7275359bbc9325cf2ea3695cd5555537477d6762",
         "function": "opening",
         "scene": "e2-lagerangriff",
@@ -2177,7 +2177,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 207,
+    "line": 208,
     "expression_sha256": "2aa085e9de39519a5d62e88d95e0fb461c22d5281ce17e8e5d9927a421730eb7",
     "kind": "bark",
     "runtime_speaker": "kyra",
@@ -2196,10 +2196,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 207,
-        "start": 10735,
-        "end": 10769,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 208,
+        "start": 11007,
+        "end": 11041,
         "expression_sha256": "2aa085e9de39519a5d62e88d95e0fb461c22d5281ce17e8e5d9927a421730eb7",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -2369,7 +2369,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 213,
+    "line": 214,
     "expression_sha256": "788e5c332882dac2820332643b7d88d54b5f92a749bc44e521ef063861129364",
     "kind": "bark",
     "runtime_speaker": "azar",
@@ -2388,10 +2388,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 213,
-        "start": 11156,
-        "end": 11187,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 214,
+        "start": 11428,
+        "end": 11459,
         "expression_sha256": "788e5c332882dac2820332643b7d88d54b5f92a749bc44e521ef063861129364",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -4501,7 +4501,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 186,
+    "line": 187,
     "expression_sha256": "197a6b40b45c964eadde4bd20c3a0c8b6d3e405062ad5e0ecdf7e3fa7136e3ba",
     "kind": "bark",
     "runtime_speaker": "elnon",
@@ -4520,10 +4520,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 186,
-        "start": 9730,
-        "end": 9751,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 187,
+        "start": 10002,
+        "end": 10023,
         "expression_sha256": "197a6b40b45c964eadde4bd20c3a0c8b6d3e405062ad5e0ecdf7e3fa7136e3ba",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -4653,7 +4653,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 201,
+    "line": 202,
     "expression_sha256": "cda7e32c603cc17474c4bbe5afeff47c240a072e617d8ba1eafd90d8e62dcac6",
     "kind": "bark",
     "runtime_speaker": "kyra",
@@ -4672,10 +4672,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 201,
-        "start": 10459,
-        "end": 10492,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 202,
+        "start": 10731,
+        "end": 10764,
         "expression_sha256": "cda7e32c603cc17474c4bbe5afeff47c240a072e617d8ba1eafd90d8e62dcac6",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -6215,7 +6215,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 193,
+    "line": 194,
     "expression_sha256": "c51c3e3bf9a81e22098ea48578ae71706034003095d4973ca96a270a257e7f88",
     "kind": "bark",
     "runtime_speaker": "baris",
@@ -6234,10 +6234,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 193,
-        "start": 10112,
-        "end": 10152,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 194,
+        "start": 10384,
+        "end": 10424,
         "expression_sha256": "c51c3e3bf9a81e22098ea48578ae71706034003095d4973ca96a270a257e7f88",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -6291,7 +6291,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 211,
+    "line": 212,
     "expression_sha256": "eaade28349f4cf8062b4583b157ac3ec30133cccf31375f9e89acaa397895965",
     "kind": "bark",
     "runtime_speaker": "elnon",
@@ -6310,10 +6310,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 211,
-        "start": 10959,
-        "end": 10979,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 212,
+        "start": 11231,
+        "end": 11251,
         "expression_sha256": "eaade28349f4cf8062b4583b157ac3ec30133cccf31375f9e89acaa397895965",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -6785,7 +6785,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 214,
+    "line": 215,
     "expression_sha256": "0c55643016662061e592b7c799d870adee1dd87d33402a77b2d4ea21cb628532",
     "kind": "bark",
     "runtime_speaker": "baris",
@@ -6804,10 +6804,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 214,
-        "start": 11259,
-        "end": 11286,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 215,
+        "start": 11531,
+        "end": 11558,
         "expression_sha256": "0c55643016662061e592b7c799d870adee1dd87d33402a77b2d4ea21cb628532",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -6975,7 +6975,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 249,
+    "line": 250,
     "expression_sha256": "110cbc7a0def9a0b7ac7510ad0c1177f700ea6e1884dd6ad647b18bb257bec4f",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -6994,10 +6994,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 249,
-        "start": 13189,
-        "end": 13247,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 250,
+        "start": 13462,
+        "end": 13520,
         "expression_sha256": "110cbc7a0def9a0b7ac7510ad0c1177f700ea6e1884dd6ad647b18bb257bec4f",
         "function": "barisArrives",
         "scene": "e2-lagerangriff",
@@ -8575,7 +8575,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 215,
+    "line": 216,
     "expression_sha256": "6876ae524b65d6b20d04aacb978acb985d2e9eee21d7b2f0fe471bc6982dd102",
     "kind": "bark",
     "runtime_speaker": "soldiers",
@@ -8601,10 +8601,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 215,
-        "start": 11380,
-        "end": 11410,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 216,
+        "start": 11652,
+        "end": 11682,
         "expression_sha256": "6876ae524b65d6b20d04aacb978acb985d2e9eee21d7b2f0fe471bc6982dd102",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -11521,7 +11521,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 210,
+    "line": 211,
     "expression_sha256": "68d7c6e787e75179d9074c14ef36a120bbf6de126da6efb9e2c0bde34d51947e",
     "kind": "bark",
     "runtime_speaker": "flick",
@@ -11540,10 +11540,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 210,
-        "start": 10859,
-        "end": 10887,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 211,
+        "start": 11131,
+        "end": 11159,
         "expression_sha256": "68d7c6e787e75179d9074c14ef36a120bbf6de126da6efb9e2c0bde34d51947e",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -12323,7 +12323,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 218,
+    "line": 219,
     "expression_sha256": "a28c5a36123333ca1b175894b9723398bd7256b6db20f3a0659f1ff8e332e84f",
     "kind": "bark",
     "runtime_speaker": "lia",
@@ -12342,10 +12342,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 218,
-        "start": 11507,
-        "end": 11539,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 219,
+        "start": 11779,
+        "end": 11811,
         "expression_sha256": "a28c5a36123333ca1b175894b9723398bd7256b6db20f3a0659f1ff8e332e84f",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -13009,7 +13009,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 235,
+    "line": 236,
     "expression_sha256": "f96f05ebeae3820666280c79ad3f85e0c73994977eeac05e4843bf24a5cac00f",
     "kind": "say",
     "runtime_speaker": "lia",
@@ -13028,10 +13028,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 235,
-        "start": 12269,
-        "end": 12337,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 236,
+        "start": 12542,
+        "end": 12610,
         "expression_sha256": "f96f05ebeae3820666280c79ad3f85e0c73994977eeac05e4843bf24a5cac00f",
         "function": "opening",
         "scene": "e2-lagerangriff",
@@ -13085,7 +13085,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 233,
+    "line": 234,
     "expression_sha256": "068b22a90e51ff5ddbfd7f5b0487194aeb8e0ba52f0fa5bf0e3a2d22f8e839d9",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -13104,10 +13104,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 233,
-        "start": 12105,
-        "end": 12185,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 234,
+        "start": 12378,
+        "end": 12458,
         "expression_sha256": "068b22a90e51ff5ddbfd7f5b0487194aeb8e0ba52f0fa5bf0e3a2d22f8e839d9",
         "function": "opening",
         "scene": "e2-lagerangriff",
@@ -13809,7 +13809,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 212,
+    "line": 213,
     "expression_sha256": "70a5a68799acd59c6daf07275fae07da95d233d3304e1e536b56cac1e9e37aa0",
     "kind": "bark",
     "runtime_speaker": "foltan",
@@ -13828,10 +13828,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 212,
-        "start": 11053,
-        "end": 11086,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 213,
+        "start": 11325,
+        "end": 11358,
         "expression_sha256": "70a5a68799acd59c6daf07275fae07da95d233d3304e1e536b56cac1e9e37aa0",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -14569,7 +14569,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 219,
+    "line": 220,
     "expression_sha256": "7f1ba10492d43f83c4812f03d6355e8e2d8a6eb02f8c48d5724329342c05b62e",
     "kind": "bark",
     "runtime_speaker": "kyra",
@@ -14588,10 +14588,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 219,
-        "start": 11611,
-        "end": 11640,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 220,
+        "start": 11883,
+        "end": 11912,
         "expression_sha256": "7f1ba10492d43f83c4812f03d6355e8e2d8a6eb02f8c48d5724329342c05b62e",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -15253,7 +15253,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 224,
+    "line": 225,
     "expression_sha256": "1b67f44d00c336d3ad6da5151075738108be532baf4aafe4e314fd1867ffdce6",
     "kind": "say",
     "runtime_speaker": "kyra",
@@ -15272,10 +15272,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 224,
-        "start": 11756,
-        "end": 11809,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 225,
+        "start": 12029,
+        "end": 12082,
         "expression_sha256": "1b67f44d00c336d3ad6da5151075738108be532baf4aafe4e314fd1867ffdce6",
         "function": "callback",
         "scene": "e2-lagerangriff",
@@ -16511,7 +16511,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-    "line": 231,
+    "line": 232,
     "expression_sha256": "3638451e40ec360b9b4408bd506c3514425c08de16066c11bd6d5604a126c0ef",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -16530,10 +16530,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/lagerangriff-battle.ts",
-        "source_file_sha256": "fdfeba2ecd2762b90f6a5a803a121e4d9a4539f7e663031b89efc0050b29ada9",
-        "line": 231,
-        "start": 11964,
-        "end": 12025,
+        "source_file_sha256": "6179b1452488d7259207aa9ed8dab40da97eb41b8882ef3507d49b88b3ad1348",
+        "line": 232,
+        "start": 12237,
+        "end": 12298,
         "expression_sha256": "3638451e40ec360b9b4408bd506c3514425c08de16066c11bd6d5604a126c0ef",
         "function": "opening",
         "scene": "e2-lagerangriff",

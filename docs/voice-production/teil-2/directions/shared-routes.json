@@ -235,7 +235,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flick-entkommt.ts",
-    "line": 347,
+    "line": 352,
     "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -254,10 +254,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flick-entkommt.ts",
-        "source_file_sha256": "15c175523e56fcef0a80383220f07d9bb31cdffc57db0aef622411c1074c6152",
-        "line": 347,
-        "start": 18644,
-        "end": 18715,
+        "source_file_sha256": "3b1a54d8010bd910c9061435a18717dfd479e5faedc078e5c60b46c8c3a2ec5c",
+        "line": 352,
+        "start": 18994,
+        "end": 19065,
         "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
         "function": "callback",
         "scene": "e2-flick-entkommt",
@@ -274,7 +274,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/zellengespraeche.ts",
-    "line": 468,
+    "line": 496,
     "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -293,10 +293,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/zellengespraeche.ts",
-        "source_file_sha256": "8c75bb294048a837af020871e4e3c0fc5bd35fd5556bf9f2d36572477c9e7a19",
-        "line": 468,
-        "start": 24669,
-        "end": 24740,
+        "source_file_sha256": "2d02ac3124bd048c44a1d941acff660e151341c7f80f0d62824e9a2941091b55",
+        "line": 496,
+        "start": 26413,
+        "end": 26484,
         "expression_sha256": "de206e0fe16b7c8ae320f5418c7acc4fc5f24dad9b7ff5bf195dbf223a37abc3",
         "function": "callback",
         "scene": "e2-flick-entkommt",
@@ -625,7 +625,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 268,
+    "line": 315,
     "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -644,10 +644,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 268,
-        "start": 15099,
-        "end": 15152,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 315,
+        "start": 18273,
+        "end": 18326,
         "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -664,7 +664,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/kontrolle.ts",
-    "line": 289,
+    "line": 334,
     "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -683,10 +683,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/kontrolle.ts",
-        "source_file_sha256": "1e9950251df7f79c607d142178d62dd0967eb1162737839217e5a0c1a0eaf040",
-        "line": 289,
-        "start": 16091,
-        "end": 16144,
+        "source_file_sha256": "4266ea912d718f01a237b84ae36a96c119acec429faeff53e1287d911e96cb56",
+        "line": 334,
+        "start": 18721,
+        "end": 18774,
         "expression_sha256": "f267c6ea40ecf9d0521952bd45372b59a0ff20cc01d57804d055cd94b0f5ba64",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -957,7 +957,7 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/aufbruch.ts",
-        "source_file_sha256": "9091505e56377f4bece13431e321ec87454b3061d821a6c46bf888ed9b0da737",
+        "source_file_sha256": "351d6423a693c9b82da93334c20ea247a06ab73429b2dd635e265c77e682f30d",
         "line": 53,
         "start": 3751,
         "end": 3788,

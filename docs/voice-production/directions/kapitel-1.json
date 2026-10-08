@@ -1661,6 +1661,23 @@
     },
     {
       "file": "game/src/chapters/kapitel-1/ueberfall.ts",
+      "line": 239,
+      "column": 11,
+      "expression_sha256": "c7dc52e428016a65aa5230f7723f465dc4f5dc44ed7bc19d4c6d2417b4ee38ff",
+      "text": "Sie bewegt sich nicht mehr. Keiner von beiden.",
+      "kind": "think",
+      "runtime_speaker": "lia",
+      "direction_en": "Private thought, barely a whisper from hiding. Numb shock: say it flatly, as if checking a fact she cannot accept; the second sentence breaks off almost inaudibly. No crying, no drama.",
+      "emotion_de": "betäubter Schock, ungläubige Leere",
+      "intensity": 4,
+      "context_de": "Lia sieht aus ihrem Versteck, wie ihre Eltern erstochen werden und reglos in ihrem Blut liegen bleiben.",
+      "classification": "spoken",
+      "review_status": "draft_current_source_annotation_requires_Root_review",
+      "new_take_status": "pending_no_recording_or_audio_approval",
+      "rewrite_note": "Gewalt sichtbar (Nutzervorgabe 2026-10-08): neue Zeile nach dem Tod der Mutter; Neuaufnahme erforderlich."
+    },
+    {
+      "file": "game/src/chapters/kapitel-1/ueberfall.ts",
       "line": 348,
       "column": 11,
       "expression_sha256": "8dcddfe14f2c849ad4933513d4cbf7253ce9786322523960ef4cc216f05b4e9a",

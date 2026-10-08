@@ -3,6 +3,7 @@ import recordedProlog from '../../public/audio/prolog/manifest.json';
 import frozenStory from '../../../docs/voice-production/story-lines.json';
 import frozenPart2 from '../../../docs/voice-production/teil-2/lines.json';
 import publishedStory from '../../public/audio/story/manifest.json';
+import publishedPart2 from '../../public/audio/teil-2/manifest.json';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import part2SharedSource from '../chapters/teil-2/shared.ts?raw';
 import { normalizeVoiceText, part2VoiceScenes, quotedChoiceText, voiceBankForScene, VoiceIndex, Voiceover, type VoiceManifest } from './voiceover';
@@ -44,8 +45,8 @@ describe('isolated Teil-II voice bank', () => {
     const clips = frozenPart2.lines.map(line => ({ ...line, audio: `audio/teil-2/${line.id}.mp3`, seconds: 1 }));
     const index = new VoiceIndex({ model: frozenPart2.model, aliases: frozenPart2.aliases,
       scene_players: frozenPart2.scene_players, clips } as unknown as VoiceManifest, 'teil-2');
-    expect(frozenPart2.lines).toHaveLength(1401);
-    expect(frozenPart2.runtime_lookup).toHaveLength(1408);
+    expect(frozenPart2.lines).toHaveLength(1442);
+    expect(frozenPart2.runtime_lookup).toHaveLength(1449);
     for (const route of frozenPart2.runtime_lookup) {
       const kind = route.kind as 'say' | 'think' | 'narrate' | 'bark' | 'choice';
       expect(index.find(kind, route.speaker, route.text, route.scene,
@@ -53,6 +54,19 @@ describe('isolated Teil-II voice bank', () => {
       `${route.kind}/${route.scene}/${route.speaker}/${route.mood}`).toBe(route.asset_id);
     }
     expect(index.player('e2-aufbruch')).toBeUndefined();
+  });
+  it('ships no Teil-II take whose words or mood were rewritten after recording', () => {
+    const current = new Map(frozenPart2.lines.map(line => [line.id, line]));
+    for (const clip of publishedPart2.clips) {
+      const line = current.get(clip.id);
+      expect(line, `${clip.id}: ${clip.text}`).toBeDefined();
+      expect(clip.text).toBe(line!.text);
+      expect(clip.speaker).toBe(line!.speaker);
+    }
+    const published = new Set(publishedPart2.clips.map(clip => clip.id));
+    const open = new Set(publishedPart2.coverage.missing_sources.map(source => source.id));
+    expect(published.size + open.size).toBe(frozenPart2.lines.length);
+    for (const line of frozenPart2.lines) expect(published.has(line.id) || open.has(line.id), line.id).toBe(true);
   });
   it('covers the exact registered scene list and does not route arbitrary e2 names into the bank', () => {
     const declaration = part2SharedSource.match(/export const E2_SCENES = \[([\s\S]*?)\] as const;/)?.[1];
@@ -311,8 +325,8 @@ describe('frozen production inventory compatibility', () => {
     }));
     const index = new VoiceIndex({ model: frozenStory.model, aliases: frozenStory.aliases,
       scene_players: frozenStory.scene_players, clips } as unknown as VoiceManifest, 'story');
-    expect(frozenStory.lines).toHaveLength(1579);
-    expect(frozenStory.runtime_lookup).toHaveLength(1773);
+    expect(frozenStory.lines).toHaveLength(1580);
+    expect(frozenStory.runtime_lookup).toHaveLength(1774);
     expect(Object.keys(frozenStory.aliases)).toHaveLength(67);
     for (const route of frozenStory.runtime_lookup) {
       const mood = route.mood === 'neutral' ? undefined : route.mood;

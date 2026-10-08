@@ -1,7 +1,7 @@
 [
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 107,
+    "line": 109,
     "expression_sha256": "e990ab27bb91563c5f694bdaa002c789c2d40827715f764d25b75cd71d10345b",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -20,10 +20,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 107,
-        "start": 5416,
-        "end": 5463,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 109,
+        "start": 5507,
+        "end": 5554,
         "expression_sha256": "e990ab27bb91563c5f694bdaa002c789c2d40827715f764d25b75cd71d10345b",
         "function": "lookDoor",
         "scene": "e2-gefangene",
@@ -39,7 +39,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 90,
+    "line": 92,
     "expression_sha256": "96b3bc7200f8f564377a1e54c8cc8cae4a5a4793bfe96fbe02c61cdd7ac062fe",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -58,10 +58,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 90,
-        "start": 4442,
-        "end": 4497,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 92,
+        "start": 4533,
+        "end": 4588,
         "expression_sha256": "96b3bc7200f8f564377a1e54c8cc8cae4a5a4793bfe96fbe02c61cdd7ac062fe",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -115,7 +115,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 157,
+    "line": 160,
     "expression_sha256": "b5f8b5ccf096f15d5f0b11aa874440b3b8bbe7f3fedb55717b49954c0b496a2e",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -135,10 +135,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 157,
-        "start": 8922,
-        "end": 9017,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 160,
+        "start": 9251,
+        "end": 9346,
         "expression_sha256": "b5f8b5ccf096f15d5f0b11aa874440b3b8bbe7f3fedb55717b49954c0b496a2e",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -387,7 +387,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 217,
+    "line": 264,
     "expression_sha256": "cf550b6e36c81c9cd25589f5c8fdec78a23593979ebecce8e0797be49ad72ecc",
     "kind": "bark",
     "runtime_speaker": "waerter",
@@ -406,10 +406,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 217,
-        "start": 12569,
-        "end": 12616,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 264,
+        "start": 15743,
+        "end": 15790,
         "expression_sha256": "cf550b6e36c81c9cd25589f5c8fdec78a23593979ebecce8e0797be49ad72ecc",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -425,7 +425,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 67,
+    "line": 68,
     "expression_sha256": "dc975aea410f6c390f85e063e6128e90efd79e5a90918bee9d8795bc41cb62bb",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -445,10 +445,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 67,
-        "start": 3971,
-        "end": 4043,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 68,
+        "start": 4096,
+        "end": 4168,
         "expression_sha256": "dc975aea410f6c390f85e063e6128e90efd79e5a90918bee9d8795bc41cb62bb",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -465,7 +465,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 201,
+    "line": 248,
     "expression_sha256": "dbcddac2022549cfb753b1998d9717bf8fbab41108901d80f27aa3ad84d53e53",
     "kind": "bark",
     "runtime_speaker": "waerter",
@@ -484,10 +484,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 201,
-        "start": 11628,
-        "end": 11675,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 248,
+        "start": 14802,
+        "end": 14849,
         "expression_sha256": "dbcddac2022549cfb753b1998d9717bf8fbab41108901d80f27aa3ad84d53e53",
         "function": "verhoerScript",
         "scene": "e2-flicks-verhoer",
@@ -541,7 +541,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 232,
+    "line": 279,
     "expression_sha256": "edd32a735a4e96733f1ae1fa10e674baf336fc41088483139c4c72d2e97f5c4f",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -561,10 +561,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 232,
-        "start": 13447,
-        "end": 13560,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 279,
+        "start": 16621,
+        "end": 16734,
         "expression_sha256": "edd32a735a4e96733f1ae1fa10e674baf336fc41088483139c4c72d2e97f5c4f",
         "function": "verhoerScript",
         "scene": "e2-flicks-verhoer",
@@ -581,7 +581,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 177,
+    "line": 179,
     "expression_sha256": "34fc1fbd5067f19b2898b760a2e094b4a6135d258e90e0ebd01d1ac9a7718e46",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -601,10 +601,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 177,
-        "start": 9443,
-        "end": 9521,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 179,
+        "start": 9534,
+        "end": 9612,
         "expression_sha256": "34fc1fbd5067f19b2898b760a2e094b4a6135d258e90e0ebd01d1ac9a7718e46",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -661,7 +661,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 232,
+    "line": 279,
     "expression_sha256": "edd32a735a4e96733f1ae1fa10e674baf336fc41088483139c4c72d2e97f5c4f",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -681,10 +681,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 232,
-        "start": 13447,
-        "end": 13560,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 279,
+        "start": 16621,
+        "end": 16734,
         "expression_sha256": "edd32a735a4e96733f1ae1fa10e674baf336fc41088483139c4c72d2e97f5c4f",
         "function": "verhoerScript",
         "scene": "e2-flicks-verhoer",
@@ -701,7 +701,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 156,
+    "line": 158,
     "expression_sha256": "be5147a8e63eb353c334b81453261b82c6b6484aed814de4aeb01b3f63ee6b04",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -720,10 +720,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 156,
-        "start": 8028,
-        "end": 8090,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 158,
+        "start": 8119,
+        "end": 8181,
         "expression_sha256": "be5147a8e63eb353c334b81453261b82c6b6484aed814de4aeb01b3f63ee6b04",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -931,7 +931,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 119,
+    "line": 121,
     "expression_sha256": "2acaf5e24a7beaa17e85f0490def84428ed318ecf3d26310e08001a4a099d7b2",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -950,10 +950,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 119,
-        "start": 6183,
-        "end": 6256,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 121,
+        "start": 6274,
+        "end": 6347,
         "expression_sha256": "2acaf5e24a7beaa17e85f0490def84428ed318ecf3d26310e08001a4a099d7b2",
         "function": "watchKeys",
         "scene": "e2-gefangene",
@@ -969,7 +969,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 60,
+    "line": 61,
     "expression_sha256": "d04d1b73a4272331e0d654498e146cbfe399e035611e63fb309f510824222f65",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -988,10 +988,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 60,
-        "start": 3526,
-        "end": 3605,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 61,
+        "start": 3651,
+        "end": 3730,
         "expression_sha256": "d04d1b73a4272331e0d654498e146cbfe399e035611e63fb309f510824222f65",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -1007,7 +1007,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 173,
+    "line": 192,
     "expression_sha256": "b165c2707031f4ee1988ed61849c8dbb3307b41d9053d19eb4d622454dd92b84",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -1026,10 +1026,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 173,
-        "start": 9819,
-        "end": 9919,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 192,
+        "start": 10832,
+        "end": 10932,
         "expression_sha256": "b165c2707031f4ee1988ed61849c8dbb3307b41d9053d19eb4d622454dd92b84",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -1201,7 +1201,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 116,
+    "line": 119,
     "expression_sha256": "e390eb7505806984e10eb27119e60e25e4aadbc27d4d96f6647ba543413b6749",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -1221,10 +1221,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 116,
-        "start": 6139,
-        "end": 6207,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 119,
+        "start": 6468,
+        "end": 6536,
         "expression_sha256": "e390eb7505806984e10eb27119e60e25e4aadbc27d4d96f6647ba543413b6749",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -1281,7 +1281,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 191,
+    "line": 193,
     "expression_sha256": "93010fc5cab50c1c4b79349b0e25f1b3268bc4d272d86c616be14b21089ded27",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -1300,10 +1300,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 191,
-        "start": 10440,
-        "end": 10494,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 193,
+        "start": 10531,
+        "end": 10585,
         "expression_sha256": "93010fc5cab50c1c4b79349b0e25f1b3268bc4d272d86c616be14b21089ded27",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -1319,7 +1319,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 57,
+    "line": 58,
     "expression_sha256": "47d3efbcb5310ee1d488cc25c6ea7b68b38837b6ef4a04909b4c8fd996dd1d05",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -1339,10 +1339,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 57,
-        "start": 3129,
-        "end": 3241,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 58,
+        "start": 3254,
+        "end": 3366,
         "expression_sha256": "47d3efbcb5310ee1d488cc25c6ea7b68b38837b6ef4a04909b4c8fd996dd1d05",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -1477,7 +1477,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 127,
+    "line": 130,
     "expression_sha256": "3b39c1edbd761b050eba5468f30cffa6d02c0220de6e6f3d9a001d48dcba2fa9",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -1497,10 +1497,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 127,
-        "start": 6879,
-        "end": 6974,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 130,
+        "start": 7208,
+        "end": 7303,
         "expression_sha256": "3b39c1edbd761b050eba5468f30cffa6d02c0220de6e6f3d9a001d48dcba2fa9",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -1517,7 +1517,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 82,
+    "line": 83,
     "expression_sha256": "0bd655891868b5aa63d7996837e24c7a91c6461c1f114af0b8e0f6f8c9e3f5c7",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -1536,10 +1536,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 82,
-        "start": 4891,
-        "end": 4981,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 83,
+        "start": 5016,
+        "end": 5106,
         "expression_sha256": "0bd655891868b5aa63d7996837e24c7a91c6461c1f114af0b8e0f6f8c9e3f5c7",
         "function": "resistance",
         "scene": "e2-flicks-erinnerungen",
@@ -1829,7 +1829,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 175,
+    "line": 194,
     "expression_sha256": "362fe8ab93e743fbf52aef7758790fd11740a68515b81530a49fc827e29377e6",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -1848,10 +1848,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 175,
-        "start": 10112,
-        "end": 10148,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 194,
+        "start": 11125,
+        "end": 11161,
         "expression_sha256": "362fe8ab93e743fbf52aef7758790fd11740a68515b81530a49fc827e29377e6",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -1867,7 +1867,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 126,
+    "line": 129,
     "expression_sha256": "89b25cfad5531e2796d5a2d761aebf5ea28db2cb642d15560c0752d3afd5f806",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -1886,10 +1886,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 126,
-        "start": 6766,
-        "end": 6824,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 129,
+        "start": 7095,
+        "end": 7153,
         "expression_sha256": "89b25cfad5531e2796d5a2d761aebf5ea28db2cb642d15560c0752d3afd5f806",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -1943,7 +1943,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 172,
+    "line": 174,
     "expression_sha256": "a71d80bac671b873987f8c5617c78f86d4399a7e188803b08ff9f66b3e1d9df6",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -1962,10 +1962,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 172,
-        "start": 8865,
-        "end": 8940,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 174,
+        "start": 8956,
+        "end": 9031,
         "expression_sha256": "a71d80bac671b873987f8c5617c78f86d4399a7e188803b08ff9f66b3e1d9df6",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -1981,7 +1981,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 190,
+    "line": 236,
     "expression_sha256": "eed88d40d6224c19550f6efd8644d7c407e3fbf9dff57737b14edb60ffe1f05f",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -1994,16 +1994,16 @@
     "direction_en": "Ruhig und präzise; linke Faust bleibt ein kleines konkretes Zeichen, keine Verletzung erzählen.",
     "emotion_de": "ernste Rahmung",
     "intensity": 2,
-    "context_de": "Vor dem dunklen Schnitt verteidigt Flick Lia und den versteckten Nagel. Das Skript nennt keine zusätzliche Verletzung. Einzelbeat: Ruhig und präzise; linke Faust bleibt ein kleines konkretes Zeichen, keine Verletzung erzählen.",
+    "context_de": "Nach dem gezeigten Verhör: Baris hat Flick zwei Nägel der rechten Hand ausgerissen. Sie hat Lia und den versteckten Nagel nicht verraten. Einzelbeat: Ruhig und präzise; linke Faust bleibt ein kleines konkretes Zeichen, keine Verletzung erzählen.",
     "classification": "spoken",
     "performance_classification": "spoken_framing_narration",
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 190,
-        "start": 10849,
-        "end": 10977,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 236,
+        "start": 14004,
+        "end": 14132,
         "expression_sha256": "eed88d40d6224c19550f6efd8644d7c407e3fbf9dff57737b14edb60ffe1f05f",
         "function": "fingers",
         "scene": "e2-flicks-verhoer",
@@ -2019,7 +2019,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 303,
+    "line": 314,
     "expression_sha256": "e2861d7a007d07f10578e450038f69be80fbc371c57e9cc1ba01d60a8eb44b4d",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -2038,10 +2038,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 303,
-        "start": 16307,
-        "end": 16365,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 314,
+        "start": 16833,
+        "end": 16891,
         "expression_sha256": "e2861d7a007d07f10578e450038f69be80fbc371c57e9cc1ba01d60a8eb44b4d",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -2057,7 +2057,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 132,
+    "line": 135,
     "expression_sha256": "f6646c60b05d50b0c0ac6df4e3b6644c3c2df1428dab1ba2de0e3a9e1196be2f",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -2076,10 +2076,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 132,
-        "start": 7252,
-        "end": 7294,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 135,
+        "start": 7581,
+        "end": 7623,
         "expression_sha256": "f6646c60b05d50b0c0ac6df4e3b6644c3c2df1428dab1ba2de0e3a9e1196be2f",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -2095,7 +2095,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 80,
+    "line": 83,
     "expression_sha256": "81fc525b1289c18b05a0f24f32fcfddedcae5b1af6751caf3fd5be0257b6f0ba",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -2114,10 +2114,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 80,
-        "start": 4408,
-        "end": 4479,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 83,
+        "start": 4737,
+        "end": 4808,
         "expression_sha256": "81fc525b1289c18b05a0f24f32fcfddedcae5b1af6751caf3fd5be0257b6f0ba",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -2133,7 +2133,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 144,
+    "line": 147,
     "expression_sha256": "4a8dc70f4f938e5b69241085ed2fca7f4336d2d1aff5f4eba6f1968fca8920da",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -2152,10 +2152,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 144,
-        "start": 8090,
-        "end": 8327,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 147,
+        "start": 8419,
+        "end": 8656,
         "expression_sha256": "4a8dc70f4f938e5b69241085ed2fca7f4336d2d1aff5f4eba6f1968fca8920da",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -2247,7 +2247,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 124,
+    "line": 127,
     "expression_sha256": "5a01668b6462765b0e2f64e78e90ec209020187fa2133666c7b879bfab2559c8",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -2267,10 +2267,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 124,
-        "start": 6653,
-        "end": 6704,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 127,
+        "start": 6982,
+        "end": 7033,
         "expression_sha256": "5a01668b6462765b0e2f64e78e90ec209020187fa2133666c7b879bfab2559c8",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -2287,7 +2287,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 115,
+    "line": 118,
     "expression_sha256": "cf2e1238236a664fececc5a06fc41f820b6ccdf2c7b1075760a0c42274b37bf8",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -2306,10 +2306,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 115,
-        "start": 6049,
-        "end": 6091,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 118,
+        "start": 6378,
+        "end": 6420,
         "expression_sha256": "cf2e1238236a664fececc5a06fc41f820b6ccdf2c7b1075760a0c42274b37bf8",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -2403,7 +2403,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 70,
+    "line": 73,
     "expression_sha256": "731cf2f53780377445bdfddd3ffea95a1d5e0898082c170ebbe66be44108d4b8",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -2422,10 +2422,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 70,
-        "start": 3768,
-        "end": 3858,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 73,
+        "start": 4097,
+        "end": 4187,
         "expression_sha256": "731cf2f53780377445bdfddd3ffea95a1d5e0898082c170ebbe66be44108d4b8",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -2441,7 +2441,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 247,
+    "line": 294,
     "expression_sha256": "080108c7a94a56d7d36943e21d7dd0cca0e790aa153e12b8d1bd9ae0d29c8725",
     "kind": "bark",
     "runtime_speaker": "vamir",
@@ -2461,10 +2461,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 247,
-        "start": 14233,
-        "end": 14268,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 294,
+        "start": 17407,
+        "end": 17442,
         "expression_sha256": "080108c7a94a56d7d36943e21d7dd0cca0e790aa153e12b8d1bd9ae0d29c8725",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -2559,7 +2559,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 59,
+    "line": 60,
     "expression_sha256": "019168b12dfd60751d8ac16103647b933dfc392e33296eb80f115cab9725347d",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -2579,10 +2579,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 59,
-        "start": 3397,
-        "end": 3495,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 60,
+        "start": 3522,
+        "end": 3620,
         "expression_sha256": "019168b12dfd60751d8ac16103647b933dfc392e33296eb80f115cab9725347d",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -2875,7 +2875,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 173,
+    "line": 175,
     "expression_sha256": "178b7ce43c1d62d417f2a2acac7580c243ad8576efb0ebfc5b3816580a342d79",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -2895,10 +2895,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 173,
-        "start": 8989,
-        "end": 9070,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 175,
+        "start": 9080,
+        "end": 9161,
         "expression_sha256": "178b7ce43c1d62d417f2a2acac7580c243ad8576efb0ebfc5b3816580a342d79",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -2955,7 +2955,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 171,
+    "line": 173,
     "expression_sha256": "44cf33a7e8b1c035d96a7115f4c419e3145cc69bd14f479814489a78d15cb62d",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -2975,10 +2975,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 171,
-        "start": 8759,
-        "end": 8834,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 173,
+        "start": 8850,
+        "end": 8925,
         "expression_sha256": "44cf33a7e8b1c035d96a7115f4c419e3145cc69bd14f479814489a78d15cb62d",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -3073,7 +3073,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 118,
+    "line": 120,
     "expression_sha256": "a2aaeee372bab960f46eac849ebf62334c896abda2496841b2795b4b7728c461",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -3092,10 +3092,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 118,
-        "start": 6061,
-        "end": 6164,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 120,
+        "start": 6152,
+        "end": 6255,
         "expression_sha256": "a2aaeee372bab960f46eac849ebf62334c896abda2496841b2795b4b7728c461",
         "function": "watchKeys",
         "scene": "e2-gefangene",
@@ -3111,7 +3111,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 264,
+    "line": 275,
     "expression_sha256": "3dbf76c62763ff4956d9cb0aada0b1676d0689fb92b630935095a3023e249392",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -3130,10 +3130,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 264,
-        "start": 14283,
-        "end": 14473,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 275,
+        "start": 14809,
+        "end": 14999,
         "expression_sha256": "3dbf76c62763ff4956d9cb0aada0b1676d0689fb92b630935095a3023e249392",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -3265,7 +3265,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 117,
+    "line": 120,
     "expression_sha256": "193bef8cf06e56468193bb195a88e4bc829c8f1f8cdce2cab3145c2e0d588bb2",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -3284,10 +3284,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 117,
-        "start": 6242,
-        "end": 6476,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 120,
+        "start": 6571,
+        "end": 6805,
         "expression_sha256": "193bef8cf06e56468193bb195a88e4bc829c8f1f8cdce2cab3145c2e0d588bb2",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -3341,7 +3341,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 100,
+    "line": 101,
     "expression_sha256": "a2e3523f74d226c303fc779cfd00c73891ec4182f9dfb1699280fb28c85e3037",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -3361,10 +3361,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 100,
-        "start": 5935,
-        "end": 6027,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 101,
+        "start": 6060,
+        "end": 6152,
         "expression_sha256": "a2e3523f74d226c303fc779cfd00c73891ec4182f9dfb1699280fb28c85e3037",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -3381,7 +3381,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 53,
+    "line": 56,
     "expression_sha256": "8733ec1c2fdf6a8ae3efa4529f1177d11a72132994584a5b1fa2ecf87ac70763",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -3400,10 +3400,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 53,
-        "start": 2900,
-        "end": 2967,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 56,
+        "start": 3229,
+        "end": 3296,
         "expression_sha256": "8733ec1c2fdf6a8ae3efa4529f1177d11a72132994584a5b1fa2ecf87ac70763",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -3495,7 +3495,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 79,
+    "line": 82,
     "expression_sha256": "85868f98eee5acd90db992b753a9fda1bbbcd052b608027d596e6c8b15206491",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -3514,10 +3514,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 79,
-        "start": 4301,
-        "end": 4387,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 82,
+        "start": 4630,
+        "end": 4716,
         "expression_sha256": "85868f98eee5acd90db992b753a9fda1bbbcd052b608027d596e6c8b15206491",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -3573,7 +3573,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 60,
+    "line": 63,
     "expression_sha256": "41f7b685341129ad615a7e774b0e1c583b9e6a774eb16dd9c1938453d13fc2b6",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -3592,10 +3592,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 60,
-        "start": 3306,
-        "end": 3450,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 63,
+        "start": 3635,
+        "end": 3779,
         "expression_sha256": "41f7b685341129ad615a7e774b0e1c583b9e6a774eb16dd9c1938453d13fc2b6",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -3691,7 +3691,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 62,
+    "line": 63,
     "expression_sha256": "154c60ed336cc99d9312cb95ce88bb33a3b6e385d3435e405837041035274f54",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -3710,10 +3710,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 62,
-        "start": 3750,
-        "end": 3807,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 63,
+        "start": 3875,
+        "end": 3932,
         "expression_sha256": "154c60ed336cc99d9312cb95ce88bb33a3b6e385d3435e405837041035274f54",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -3809,7 +3809,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 291,
+    "line": 302,
     "expression_sha256": "a7528d0895647709ede1b902dba5eb35766ee057c4b18470b456f9d0818eea20",
     "kind": "bark",
     "runtime_speaker": "waerter-schluessel",
@@ -3828,10 +3828,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 291,
-        "start": 15703,
-        "end": 15773,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 302,
+        "start": 16229,
+        "end": 16299,
         "expression_sha256": "a7528d0895647709ede1b902dba5eb35766ee057c4b18470b456f9d0818eea20",
         "function": "koederScript",
         "scene": "e2-gefangene",
@@ -3963,7 +3963,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 118,
+    "line": 119,
     "expression_sha256": "bc073c58ec374bc560d5c02e252cbd23e05e02f688dbc421c8bfc81d91443163",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -3983,10 +3983,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 118,
-        "start": 7530,
-        "end": 7584,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 119,
+        "start": 7655,
+        "end": 7709,
         "expression_sha256": "bc073c58ec374bc560d5c02e252cbd23e05e02f688dbc421c8bfc81d91443163",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -4161,7 +4161,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 101,
+    "line": 102,
     "expression_sha256": "b63ffad14db6e2e2983d693ad7235a5fea6ae6e7aa1471d3cd61f420d3fea05d",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -4181,10 +4181,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 101,
-        "start": 6056,
-        "end": 6134,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 102,
+        "start": 6181,
+        "end": 6259,
         "expression_sha256": "b63ffad14db6e2e2983d693ad7235a5fea6ae6e7aa1471d3cd61f420d3fea05d",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -4361,7 +4361,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 49,
+    "line": 50,
     "expression_sha256": "f45d1d62c13565b6960abb16b7587610aeb5cac28242b053eb943089462bac2c",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -4381,10 +4381,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 49,
-        "start": 2752,
-        "end": 2829,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 50,
+        "start": 2877,
+        "end": 2954,
         "expression_sha256": "f45d1d62c13565b6960abb16b7587610aeb5cac28242b053eb943089462bac2c",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -4401,7 +4401,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 151,
+    "line": 154,
     "expression_sha256": "9c1c8524b5f612c739912731e9ea49d17bdeac87843dba3ea86abfd5f883bbfc",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -4421,10 +4421,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 151,
-        "start": 8507,
-        "end": 8580,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 154,
+        "start": 8836,
+        "end": 8909,
         "expression_sha256": "9c1c8524b5f612c739912731e9ea49d17bdeac87843dba3ea86abfd5f883bbfc",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -4639,7 +4639,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 275,
+    "line": 286,
     "expression_sha256": "5ee25be7d03b6328a18418bef9c032980f0d68c44aee99a037694431d0ea3592",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -4659,10 +4659,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 275,
-        "start": 14957,
-        "end": 15023,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 286,
+        "start": 15483,
+        "end": 15549,
         "expression_sha256": "5ee25be7d03b6328a18418bef9c032980f0d68c44aee99a037694431d0ea3592",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -4837,7 +4837,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 248,
+    "line": 259,
     "expression_sha256": "5fd1c78b15fa08743cce69adb6580d2398ab73b13d9db3fb7dac5e363fdcef88",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -4856,10 +4856,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 248,
-        "start": 13288,
-        "end": 13344,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 259,
+        "start": 13814,
+        "end": 13870,
         "expression_sha256": "5fd1c78b15fa08743cce69adb6580d2398ab73b13d9db3fb7dac5e363fdcef88",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -4913,7 +4913,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 130,
+    "line": 133,
     "expression_sha256": "e5c354a07a4d69d1fb0f64ade8d5d1312ab19d8270f4966c69f378ea29574f79",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -4933,10 +4933,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 130,
-        "start": 7146,
-        "end": 7215,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 133,
+        "start": 7475,
+        "end": 7544,
         "expression_sha256": "e5c354a07a4d69d1fb0f64ade8d5d1312ab19d8270f4966c69f378ea29574f79",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -4953,7 +4953,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 256,
+    "line": 303,
     "expression_sha256": "1cde995596dee6a78b7a66d1da17ec98fc95029478fa03c6d3cd16cf9d497093",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -4973,10 +4973,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 256,
-        "start": 14719,
-        "end": 14785,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 303,
+        "start": 17893,
+        "end": 17959,
         "expression_sha256": "1cde995596dee6a78b7a66d1da17ec98fc95029478fa03c6d3cd16cf9d497093",
         "function": "verhoerScript",
         "scene": "e2-flicks-verhoer",
@@ -4993,7 +4993,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 274,
+    "line": 285,
     "expression_sha256": "9bfc0426dbb6801d4514cb49cc3540d06f4bdbae8a54daa860f2469988c0927b",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -5012,10 +5012,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 274,
-        "start": 14879,
-        "end": 14906,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 285,
+        "start": 15405,
+        "end": 15432,
         "expression_sha256": "9bfc0426dbb6801d4514cb49cc3540d06f4bdbae8a54daa860f2469988c0927b",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -5031,7 +5031,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 213,
+    "line": 224,
     "expression_sha256": "475ef2433dbfab9cd19ab3c8d0244c8bc4f1df70aa291eb42e8da2296abca7a1",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -5051,10 +5051,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 213,
-        "start": 11514,
-        "end": 11572,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 224,
+        "start": 12040,
+        "end": 12098,
         "expression_sha256": "475ef2433dbfab9cd19ab3c8d0244c8bc4f1df70aa291eb42e8da2296abca7a1",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -5071,7 +5071,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 116,
+    "line": 117,
     "expression_sha256": "73044bdacf8dd17fce5d68058ec71552f73e4f3db03dc306115f24ed148811b2",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -5090,10 +5090,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 116,
-        "start": 7296,
-        "end": 7380,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 117,
+        "start": 7421,
+        "end": 7505,
         "expression_sha256": "73044bdacf8dd17fce5d68058ec71552f73e4f3db03dc306115f24ed148811b2",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -5109,7 +5109,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 249,
+    "line": 260,
     "expression_sha256": "0d8a3b5fe0cfab5b337bc3a85782175a68c384879f4a79c0dbf288f7f9d8c12b",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -5128,10 +5128,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 249,
-        "start": 13401,
-        "end": 13430,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 260,
+        "start": 13927,
+        "end": 13956,
         "expression_sha256": "0d8a3b5fe0cfab5b337bc3a85782175a68c384879f4a79c0dbf288f7f9d8c12b",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -5185,7 +5185,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 38,
+    "line": 39,
     "expression_sha256": "6ece54bb8dab7f63deeeea120f6b9df613dd8365f979a73b850e4d90eb4ad273",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -5205,10 +5205,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 38,
-        "start": 1992,
-        "end": 2060,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 39,
+        "start": 2117,
+        "end": 2185,
         "expression_sha256": "6ece54bb8dab7f63deeeea120f6b9df613dd8365f979a73b850e4d90eb4ad273",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -5225,7 +5225,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 82,
+    "line": 84,
     "expression_sha256": "5dbc9c8615f362b656c47b5971e801c34ed8fd5da06090dda415134f1d0250bc",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -5244,10 +5244,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 82,
-        "start": 4125,
-        "end": 4236,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 84,
+        "start": 4216,
+        "end": 4327,
         "expression_sha256": "5dbc9c8615f362b656c47b5971e801c34ed8fd5da06090dda415134f1d0250bc",
         "function": "tugRing",
         "scene": "e2-gefangene",
@@ -5263,7 +5263,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 169,
+    "line": 188,
     "expression_sha256": "86a2c6152d26ee0a48e5b1847c3e5920b2ab87e465efe0ffa7dfffd2ecdd2342",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -5282,10 +5282,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 169,
-        "start": 9587,
-        "end": 9772,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 188,
+        "start": 10600,
+        "end": 10785,
         "expression_sha256": "86a2c6152d26ee0a48e5b1847c3e5920b2ab87e465efe0ffa7dfffd2ecdd2342",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -5301,7 +5301,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 48,
+    "line": 49,
     "expression_sha256": "a33432c8cff8a99bea02976a23804325ef80920dfb56ccd654cc8bc60c7548fb",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -5320,10 +5320,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 48,
-        "start": 2613,
-        "end": 2723,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 49,
+        "start": 2738,
+        "end": 2848,
         "expression_sha256": "a33432c8cff8a99bea02976a23804325ef80920dfb56ccd654cc8bc60c7548fb",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -5377,7 +5377,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 68,
+    "line": 69,
     "expression_sha256": "3de5631025dd92515dc37dc16a3c0a63666646b5c96d4727ac410c76ae281abe",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -5397,10 +5397,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 68,
-        "start": 4072,
-        "end": 4167,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 69,
+        "start": 4197,
+        "end": 4292,
         "expression_sha256": "3de5631025dd92515dc37dc16a3c0a63666646b5c96d4727ac410c76ae281abe",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -5417,7 +5417,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 115,
+    "line": 116,
     "expression_sha256": "d65b2bc90423bf66d5d3485a739634acdc1d7b01f5ea0526cbbb8d6889e98b68",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -5436,10 +5436,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 115,
-        "start": 7241,
-        "end": 7255,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 116,
+        "start": 7366,
+        "end": 7380,
         "expression_sha256": "d65b2bc90423bf66d5d3485a739634acdc1d7b01f5ea0526cbbb8d6889e98b68",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -5495,7 +5495,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 273,
+    "line": 284,
     "expression_sha256": "edecc65d8335172309cf45bea9471fdbf11d31ab73231dfc37c57d5ede2f148f",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -5514,10 +5514,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 273,
-        "start": 14751,
-        "end": 14827,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 284,
+        "start": 15277,
+        "end": 15353,
         "expression_sha256": "edecc65d8335172309cf45bea9471fdbf11d31ab73231dfc37c57d5ede2f148f",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -5609,7 +5609,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 95,
+    "line": 97,
     "expression_sha256": "69b9ecf993f641190997729919cc4183bfe3dcdeed41276e34bb57a373e6f7f1",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -5628,10 +5628,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 95,
-        "start": 4696,
-        "end": 4801,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 97,
+        "start": 4787,
+        "end": 4892,
         "expression_sha256": "69b9ecf993f641190997729919cc4183bfe3dcdeed41276e34bb57a373e6f7f1",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -5647,7 +5647,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 112,
+    "line": 115,
     "expression_sha256": "fda75d5e0e48dbaa77db0ac02fdcaf93741196180d77b4ae88643ce4b775c97a",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -5666,10 +5666,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 112,
-        "start": 5745,
-        "end": 5858,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 115,
+        "start": 6074,
+        "end": 6187,
         "expression_sha256": "fda75d5e0e48dbaa77db0ac02fdcaf93741196180d77b4ae88643ce4b775c97a",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -5685,47 +5685,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 168,
-    "expression_sha256": "aed39ee57af22358757ab5b7dc6fa17d395722ee6b36788151e526f03d7c5951",
-    "kind": "say",
-    "runtime_speaker": "vamir",
-    "runtime_speakers": [
-      "e2-vamir",
-      "vamir"
-    ],
-    "text": "Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.",
-    "spoken_text": "Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.",
-    "mood": "neutral",
-    "direction_en": "Harmlos höhnisch; Hände und Langsam bewusst ruhig anweisen, keine Gewaltlaute hinzufügen.",
-    "emotion_de": "grausamer Befehl",
-    "intensity": 4,
-    "context_de": "Gerahmter Gefangenenblick im Verhör. Der Stuhl und die Wachroutine bestimmen Flicks kleine Handlungsmöglichkeiten. Einzelbeat: Harmlos höhnisch; Hände und Langsam bewusst ruhig anweisen, keine Gewaltlaute hinzufügen.",
-    "classification": "spoken",
-    "performance_classification": "spoken_dialogue",
-    "context_bindings": [
-      {
-        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 168,
-        "start": 9452,
-        "end": 9552,
-        "expression_sha256": "aed39ee57af22358757ab5b7dc6fa17d395722ee6b36788151e526f03d7c5951",
-        "function": "callback",
-        "scene": "e2-flicks-verhoer",
-        "runtime_speakers": [
-          "e2-vamir",
-          "vamir"
-        ],
-        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
-      }
-    ],
-    "human_listening_or_acting_approval": false,
-    "authoring_status": "individual_offline_direction_pending_root_review",
-    "source_candidate_id": "part2-6f184d03606b8cadae528650"
-  },
-  {
-    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 201,
+    "line": 248,
     "expression_sha256": "dbcddac2022549cfb753b1998d9717bf8fbab41108901d80f27aa3ad84d53e53",
     "kind": "bark",
     "runtime_speaker": "waerter",
@@ -5744,10 +5704,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 201,
-        "start": 11628,
-        "end": 11675,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 248,
+        "start": 14802,
+        "end": 14849,
         "expression_sha256": "dbcddac2022549cfb753b1998d9717bf8fbab41108901d80f27aa3ad84d53e53",
         "function": "verhoerScript",
         "scene": "e2-flicks-verhoer",
@@ -6187,7 +6147,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 302,
+    "line": 313,
     "expression_sha256": "4740f1f91ebb72ae764fbba3f85f43da4b52574c8f6e6767b5ba767c28a2bf80",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -6206,10 +6166,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 302,
-        "start": 16185,
-        "end": 16286,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 313,
+        "start": 16711,
+        "end": 16812,
         "expression_sha256": "4740f1f91ebb72ae764fbba3f85f43da4b52574c8f6e6767b5ba767c28a2bf80",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -6341,7 +6301,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 154,
+    "line": 157,
     "expression_sha256": "c466fdeb087e55c047a6c9cbf94adc739a979d2dfed4f5b57283d9411d33fc2f",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -6361,10 +6321,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 154,
-        "start": 8793,
-        "end": 8852,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 157,
+        "start": 9122,
+        "end": 9181,
         "expression_sha256": "c466fdeb087e55c047a6c9cbf94adc739a979d2dfed4f5b57283d9411d33fc2f",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -6459,7 +6419,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 250,
+    "line": 261,
     "expression_sha256": "cf40e60a35b03d165586c306089deef90aa7f4dd3e95d52b8177e0a5e77f40c2",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -6478,10 +6438,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 250,
-        "start": 13471,
-        "end": 13495,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 261,
+        "start": 13997,
+        "end": 14021,
         "expression_sha256": "cf40e60a35b03d165586c306089deef90aa7f4dd3e95d52b8177e0a5e77f40c2",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -6497,7 +6457,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 71,
+    "line": 73,
     "expression_sha256": "69b5e4c49ccb64d5842781feeb560765e260faa4cd377a8224d2eb522a17f5cd",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -6516,10 +6476,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 71,
-        "start": 3526,
-        "end": 3600,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 73,
+        "start": 3617,
+        "end": 3691,
         "expression_sha256": "69b5e4c49ccb64d5842781feeb560765e260faa4cd377a8224d2eb522a17f5cd",
         "function": "tugRing",
         "scene": "e2-gefangene",
@@ -6573,7 +6533,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 108,
+    "line": 109,
     "expression_sha256": "07342f12e3833dab7a8b2f0347a1ff289f03797eb43ad6d68b23dc8e9e9ffca3",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -6592,10 +6552,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 108,
-        "start": 6603,
-        "end": 6693,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 109,
+        "start": 6728,
+        "end": 6818,
         "expression_sha256": "07342f12e3833dab7a8b2f0347a1ff289f03797eb43ad6d68b23dc8e9e9ffca3",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -6843,7 +6803,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 80,
+    "line": 81,
     "expression_sha256": "6ce9e5c0cf511ff886e44eb05dabafdc83527a303a3a0c091316980d2e54f6ea",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -6862,10 +6822,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 80,
-        "start": 4661,
-        "end": 4762,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 81,
+        "start": 4786,
+        "end": 4887,
         "expression_sha256": "6ce9e5c0cf511ff886e44eb05dabafdc83527a303a3a0c091316980d2e54f6ea",
         "function": "resistance",
         "scene": "e2-flicks-erinnerungen",
@@ -6881,7 +6841,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 221,
+    "line": 232,
     "expression_sha256": "0e8c79799d6d3444706a0ba176051dfc216e9862b7a3fde19c156febdd51e77d",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -6901,10 +6861,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 221,
-        "start": 11875,
-        "end": 11964,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 232,
+        "start": 12401,
+        "end": 12490,
         "expression_sha256": "0e8c79799d6d3444706a0ba176051dfc216e9862b7a3fde19c156febdd51e77d",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -6959,7 +6919,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 60,
+    "line": 63,
     "expression_sha256": "41f7b685341129ad615a7e774b0e1c583b9e6a774eb16dd9c1938453d13fc2b6",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -6978,10 +6938,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 60,
-        "start": 3306,
-        "end": 3450,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 63,
+        "start": 3635,
+        "end": 3779,
         "expression_sha256": "41f7b685341129ad615a7e774b0e1c583b9e6a774eb16dd9c1938453d13fc2b6",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -7037,7 +6997,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 129,
+    "line": 132,
     "expression_sha256": "7501ae1af2282fc3f916a36a010083e2856cce1ed3a675acdb9e03717fa08679",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -7056,10 +7016,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 129,
-        "start": 7020,
-        "end": 7096,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 132,
+        "start": 7349,
+        "end": 7425,
         "expression_sha256": "7501ae1af2282fc3f916a36a010083e2856cce1ed3a675acdb9e03717fa08679",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -7113,7 +7073,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 188,
+    "line": 190,
     "expression_sha256": "6153783b99d76603aad8c16ef61a0ef158bcc36e7968cd089619de092bc24e6b",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -7133,10 +7093,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 188,
-        "start": 10145,
-        "end": 10228,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 190,
+        "start": 10236,
+        "end": 10319,
         "expression_sha256": "6153783b99d76603aad8c16ef61a0ef158bcc36e7968cd089619de092bc24e6b",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -7153,7 +7113,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 142,
+    "line": 145,
     "expression_sha256": "7dbc1402799f7914bbd5b972a31ec226ef5e504d4d5419b89ad4c5bce484412b",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -7173,10 +7133,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 142,
-        "start": 7900,
-        "end": 7969,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 145,
+        "start": 8229,
+        "end": 8298,
         "expression_sha256": "7dbc1402799f7914bbd5b972a31ec226ef5e504d4d5419b89ad4c5bce484412b",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -7193,7 +7153,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 264,
+    "line": 275,
     "expression_sha256": "3dbf76c62763ff4956d9cb0aada0b1676d0689fb92b630935095a3023e249392",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -7212,10 +7172,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 264,
-        "start": 14283,
-        "end": 14473,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 275,
+        "start": 14809,
+        "end": 14999,
         "expression_sha256": "3dbf76c62763ff4956d9cb0aada0b1676d0689fb92b630935095a3023e249392",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -7271,7 +7231,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 143,
+    "line": 146,
     "expression_sha256": "efe40edef35f3199d314a2c4d31dc1bee72e5a02300e381be0997547eb093154",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -7290,10 +7250,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 143,
-        "start": 7990,
-        "end": 8055,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 146,
+        "start": 8319,
+        "end": 8384,
         "expression_sha256": "efe40edef35f3199d314a2c4d31dc1bee72e5a02300e381be0997547eb093154",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -7427,7 +7387,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 73,
+    "line": 74,
     "expression_sha256": "d1588a7bbfcb34b0effd542861227de2558175558976dc2822678daa53a50abd",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -7446,10 +7406,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 73,
-        "start": 4253,
-        "end": 4352,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 74,
+        "start": 4378,
+        "end": 4477,
         "expression_sha256": "d1588a7bbfcb34b0effd542861227de2558175558976dc2822678daa53a50abd",
         "function": "resistance",
         "scene": "e2-flicks-erinnerungen",
@@ -7619,7 +7579,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 107,
+    "line": 108,
     "expression_sha256": "910b828ff25439d60b4d2482e4252b29b9f3e3ab9d2dd27944aa4464f8af5d5d",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -7638,10 +7598,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 107,
-        "start": 6438,
-        "end": 6532,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 108,
+        "start": 6563,
+        "end": 6657,
         "expression_sha256": "910b828ff25439d60b4d2482e4252b29b9f3e3ab9d2dd27944aa4464f8af5d5d",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -7773,7 +7733,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 59,
+    "line": 62,
     "expression_sha256": "20a0de536211f2ce2e7e4376795f8cecb79d384d9391e4f3f087ae317cb59416",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -7792,10 +7752,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 59,
-        "start": 3170,
-        "end": 3265,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 62,
+        "start": 3499,
+        "end": 3594,
         "expression_sha256": "20a0de536211f2ce2e7e4376795f8cecb79d384d9391e4f3f087ae317cb59416",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -7811,7 +7771,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 192,
+    "line": 194,
     "expression_sha256": "9df7461dcd3355d885f19ba18ca4d33346742202d4bd6fa95a580a2ad6efd037",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -7831,10 +7791,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 192,
-        "start": 10542,
-        "end": 10590,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 194,
+        "start": 10633,
+        "end": 10681,
         "expression_sha256": "9df7461dcd3355d885f19ba18ca4d33346742202d4bd6fa95a580a2ad6efd037",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -7889,7 +7849,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 59,
+    "line": 62,
     "expression_sha256": "20a0de536211f2ce2e7e4376795f8cecb79d384d9391e4f3f087ae317cb59416",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -7908,10 +7868,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 59,
-        "start": 3170,
-        "end": 3265,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 62,
+        "start": 3499,
+        "end": 3594,
         "expression_sha256": "20a0de536211f2ce2e7e4376795f8cecb79d384d9391e4f3f087ae317cb59416",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -7927,7 +7887,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 181,
+    "line": 183,
     "expression_sha256": "443e82b366402cc5986042432ea89a284625588805afe57a58b5479b9765ad00",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -7946,10 +7906,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 181,
-        "start": 9709,
-        "end": 9810,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 183,
+        "start": 9800,
+        "end": 9901,
         "expression_sha256": "443e82b366402cc5986042432ea89a284625588805afe57a58b5479b9765ad00",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -8005,7 +7965,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 113,
+    "line": 114,
     "expression_sha256": "607d3604b2a76afc24d2eadf2d7867d0c80590fdcfe71cff86c46d34e85498c3",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -8025,10 +7985,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 113,
-        "start": 7022,
-        "end": 7094,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 114,
+        "start": 7147,
+        "end": 7219,
         "expression_sha256": "607d3604b2a76afc24d2eadf2d7867d0c80590fdcfe71cff86c46d34e85498c3",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -8123,7 +8083,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 102,
+    "line": 103,
     "expression_sha256": "78a9d654befbd1a883bc7089a3f075964c7131c88cf5706080b158c711d01187",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -8142,10 +8102,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 102,
-        "start": 6169,
-        "end": 6391,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 103,
+        "start": 6294,
+        "end": 6516,
         "expression_sha256": "78a9d654befbd1a883bc7089a3f075964c7131c88cf5706080b158c711d01187",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -8317,7 +8277,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 117,
+    "line": 120,
     "expression_sha256": "193bef8cf06e56468193bb195a88e4bc829c8f1f8cdce2cab3145c2e0d588bb2",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -8336,10 +8296,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 117,
-        "start": 6242,
-        "end": 6476,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 120,
+        "start": 6571,
+        "end": 6805,
         "expression_sha256": "193bef8cf06e56468193bb195a88e4bc829c8f1f8cdce2cab3145c2e0d588bb2",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -8355,7 +8315,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 133,
+    "line": 136,
     "expression_sha256": "b3b93ff7852a78fb23f6094b43c230ee2b856f37de118a3857fef3cb1a273e52",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -8375,10 +8335,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 133,
-        "start": 7343,
-        "end": 7438,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 136,
+        "start": 7672,
+        "end": 7767,
         "expression_sha256": "b3b93ff7852a78fb23f6094b43c230ee2b856f37de118a3857fef3cb1a273e52",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -8432,44 +8392,6 @@
     "source_candidate_id": "part2-9f4bf0551d4a81f40a351d4c"
   },
   {
-    "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 36,
-    "expression_sha256": "a2bf0f88e26a74bc2a5b0d5c223c51dacccc3c660d39a41be41fb88d9adc822a",
-    "kind": "think",
-    "runtime_speaker": "flick",
-    "runtime_speakers": [
-      "flick"
-    ],
-    "text": "Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.",
-    "spoken_text": "Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.",
-    "mood": "neutral",
-    "direction_en": "Innerlich eng und gepresst; nach weh kurz Luft holen, den letzten Satz kontrolliert wegdrücken.",
-    "emotion_de": "Schmerz und Abwehr",
-    "intensity": 4,
-    "context_de": "Gerahmter Gefangenenblick unter Vamirs Zugriff. Flick schützt Lia in ihrem eigenen Gedächtnis. Einzelbeat: Innerlich eng und gepresst; nach weh kurz Luft holen, den letzten Satz kontrolliert wegdrücken.",
-    "classification": "spoken",
-    "performance_classification": "spoken_inner_thought",
-    "context_bindings": [
-      {
-        "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 36,
-        "start": 1875,
-        "end": 1937,
-        "expression_sha256": "a2bf0f88e26a74bc2a5b0d5c223c51dacccc3c660d39a41be41fb88d9adc822a",
-        "function": "callback",
-        "scene": "e2-flicks-erinnerungen",
-        "runtime_speakers": [
-          "flick"
-        ],
-        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
-      }
-    ],
-    "human_listening_or_acting_approval": false,
-    "authoring_status": "individual_offline_direction_pending_root_review",
-    "source_candidate_id": "part2-9f894dd9e79d335112368140"
-  },
-  {
     "file": "game/src/chapters/teil-2/konzentration.ts",
     "line": 93,
     "expression_sha256": "a55ca6fc818aad16c5640831248e0adb0774d4042e881756583323c59e89c264",
@@ -8511,7 +8433,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 167,
+    "line": 186,
     "expression_sha256": "304c6fa0b69e16c9a8062d46e557e6479186adc6170c1a32e5eb09a992992769",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -8530,10 +8452,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 167,
-        "start": 9348,
-        "end": 9403,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 186,
+        "start": 10332,
+        "end": 10387,
         "expression_sha256": "304c6fa0b69e16c9a8062d46e557e6479186adc6170c1a32e5eb09a992992769",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -8549,7 +8471,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 117,
+    "line": 118,
     "expression_sha256": "692a732bd053f79e0fe162e31e88653362e41d4d20756eaffa7860f67e30a42a",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -8568,10 +8490,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 117,
-        "start": 7411,
-        "end": 7482,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 118,
+        "start": 7536,
+        "end": 7607,
         "expression_sha256": "692a732bd053f79e0fe162e31e88653362e41d4d20756eaffa7860f67e30a42a",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -8627,7 +8549,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 190,
+    "line": 236,
     "expression_sha256": "eed88d40d6224c19550f6efd8644d7c407e3fbf9dff57737b14edb60ffe1f05f",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -8640,16 +8562,16 @@
     "direction_en": "Zurückhaltend erzählen; viele Dinge offenlassen, kein Ort als nüchterne Widerstandsmarke setzen.",
     "emotion_de": "ernste Rahmung",
     "intensity": 3,
-    "context_de": "Vor dem dunklen Schnitt verteidigt Flick Lia und den versteckten Nagel. Das Skript nennt keine zusätzliche Verletzung. Einzelbeat: Zurückhaltend erzählen; viele Dinge offenlassen, kein Ort als nüchterne Widerstandsmarke setzen.",
+    "context_de": "Nach dem gezeigten Verhör: Baris hat Flick zwei Nägel der rechten Hand ausgerissen. Sie hat Lia und den versteckten Nagel nicht verraten. Einzelbeat: Zurückhaltend erzählen; viele Dinge offenlassen, kein Ort als nüchterne Widerstandsmarke setzen.",
     "classification": "spoken",
     "performance_classification": "spoken_framing_narration",
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 190,
-        "start": 10849,
-        "end": 10977,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 236,
+        "start": 14004,
+        "end": 14132,
         "expression_sha256": "eed88d40d6224c19550f6efd8644d7c407e3fbf9dff57737b14edb60ffe1f05f",
         "function": "fingers",
         "scene": "e2-flicks-verhoer",
@@ -8703,7 +8625,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 123,
+    "line": 126,
     "expression_sha256": "f312e1b4255f25268260cbde150124a8636c0e3f0e336df7c6c18009e81d52e2",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -8722,10 +8644,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 123,
-        "start": 6531,
-        "end": 6603,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 126,
+        "start": 6860,
+        "end": 6932,
         "expression_sha256": "f312e1b4255f25268260cbde150124a8636c0e3f0e336df7c6c18009e81d52e2",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -8819,7 +8741,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 238,
+    "line": 249,
     "expression_sha256": "16277161d00d51ae3ae2973002ae00473626578dbfc133d1edd845a8f5fac886",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -8838,10 +8760,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 238,
-        "start": 12656,
-        "end": 12893,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 249,
+        "start": 13182,
+        "end": 13419,
         "expression_sha256": "16277161d00d51ae3ae2973002ae00473626578dbfc133d1edd845a8f5fac886",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -8975,7 +8897,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 176,
+    "line": 178,
     "expression_sha256": "2baf184f05cfec1b7f91eb7056ea4ee8a8d85fe14bea2fd718ba4ca67eaebfd5",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -8995,10 +8917,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 176,
-        "start": 9352,
-        "end": 9414,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 178,
+        "start": 9443,
+        "end": 9505,
         "expression_sha256": "2baf184f05cfec1b7f91eb7056ea4ee8a8d85fe14bea2fd718ba4ca67eaebfd5",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -9015,7 +8937,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 238,
+    "line": 249,
     "expression_sha256": "16277161d00d51ae3ae2973002ae00473626578dbfc133d1edd845a8f5fac886",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -9034,10 +8956,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 238,
-        "start": 12656,
-        "end": 12893,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 249,
+        "start": 13182,
+        "end": 13419,
         "expression_sha256": "16277161d00d51ae3ae2973002ae00473626578dbfc133d1edd845a8f5fac886",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -9053,7 +8975,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 94,
+    "line": 96,
     "expression_sha256": "b08384bbfccce3ae07229d1563d2848b125007876b4e9ce1e938f73ae90a93d2",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -9072,10 +8994,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 94,
-        "start": 4584,
-        "end": 4648,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 96,
+        "start": 4675,
+        "end": 4739,
         "expression_sha256": "b08384bbfccce3ae07229d1563d2848b125007876b4e9ce1e938f73ae90a93d2",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -9129,7 +9051,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 96,
+    "line": 98,
     "expression_sha256": "1016cb849e6b7fcab684ba7e7735b2ae1673d8c7dc1ccd38621509df7f324301",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -9148,10 +9070,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 96,
-        "start": 4848,
-        "end": 4872,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 98,
+        "start": 4939,
+        "end": 4963,
         "expression_sha256": "1016cb849e6b7fcab684ba7e7735b2ae1673d8c7dc1ccd38621509df7f324301",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -9167,7 +9089,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 291,
+    "line": 302,
     "expression_sha256": "a7528d0895647709ede1b902dba5eb35766ee057c4b18470b456f9d0818eea20",
     "kind": "bark",
     "runtime_speaker": "waerter-schluessel",
@@ -9186,10 +9108,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 291,
-        "start": 15703,
-        "end": 15773,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 302,
+        "start": 16229,
+        "end": 16299,
         "expression_sha256": "a7528d0895647709ede1b902dba5eb35766ee057c4b18470b456f9d0818eea20",
         "function": "koederScript",
         "scene": "e2-gefangene",
@@ -9361,7 +9283,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 110,
+    "line": 112,
     "expression_sha256": "d22248b9d2dbde1bdbcc3dc3286d28db0401a4229ccb7e8e54e0ca630058bb29",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -9380,10 +9302,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 110,
-        "start": 5623,
-        "end": 5743,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 112,
+        "start": 5714,
+        "end": 5834,
         "expression_sha256": "d22248b9d2dbde1bdbcc3dc3286d28db0401a4229ccb7e8e54e0ca630058bb29",
         "function": "lookDoor",
         "scene": "e2-gefangene",
@@ -9399,7 +9321,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 100,
+    "line": 102,
     "expression_sha256": "4851b3c3c91fee13ac828525cb34526ec218cae93eb2f53c41d7d246f447d5b0",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -9418,10 +9340,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 100,
-        "start": 5212,
-        "end": 5239,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 102,
+        "start": 5303,
+        "end": 5330,
         "expression_sha256": "4851b3c3c91fee13ac828525cb34526ec218cae93eb2f53c41d7d246f447d5b0",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -9437,7 +9359,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 187,
+    "line": 189,
     "expression_sha256": "9d262ee177d4ee568c272ca6d1668a8f81ced9a08ba4e3d34213bc74058c64e7",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -9456,10 +9378,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 187,
-        "start": 10068,
-        "end": 10116,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 189,
+        "start": 10159,
+        "end": 10207,
         "expression_sha256": "9d262ee177d4ee568c272ca6d1668a8f81ced9a08ba4e3d34213bc74058c64e7",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -9589,7 +9511,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 255,
+    "line": 266,
     "expression_sha256": "8ebfa98be89c42549cfb7ff6fb4312fd9f39cd30c252b5b9666ef7adfadc751b",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -9609,10 +9531,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 255,
-        "start": 13756,
-        "end": 13842,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 266,
+        "start": 14282,
+        "end": 14368,
         "expression_sha256": "8ebfa98be89c42549cfb7ff6fb4312fd9f39cd30c252b5b9666ef7adfadc751b",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -9629,7 +9551,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 174,
+    "line": 176,
     "expression_sha256": "5d4a6eb586fabd42c453c83084b375fc6cef22a71c813898a3955d4b57496a7f",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -9648,10 +9570,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 174,
-        "start": 9101,
-        "end": 9210,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 176,
+        "start": 9192,
+        "end": 9301,
         "expression_sha256": "5d4a6eb586fabd42c453c83084b375fc6cef22a71c813898a3955d4b57496a7f",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -9667,7 +9589,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 61,
+    "line": 62,
     "expression_sha256": "225852f4d9db612d863d5e57230a342b74c3265c37ba9126f0913c082a1f2e2e",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -9687,10 +9609,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 61,
-        "start": 3653,
-        "end": 3729,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 62,
+        "start": 3778,
+        "end": 3854,
         "expression_sha256": "225852f4d9db612d863d5e57230a342b74c3265c37ba9126f0913c082a1f2e2e",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -9783,7 +9705,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 174,
+    "line": 193,
     "expression_sha256": "f8c3e6d6a109aa6019d6543ce2d0df7f15346565670df3b759b1a21d01b8a958",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -9802,10 +9724,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 174,
-        "start": 9974,
-        "end": 10062,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 193,
+        "start": 10987,
+        "end": 11075,
         "expression_sha256": "f8c3e6d6a109aa6019d6543ce2d0df7f15346565670df3b759b1a21d01b8a958",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -9859,7 +9781,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 98,
+    "line": 100,
     "expression_sha256": "7a9b3d1de3d9803c315acacf3d9495f4a4a5e489c9097241a85bf40e5abcef14",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -9878,10 +9800,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 98,
-        "start": 5058,
-        "end": 5143,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 100,
+        "start": 5149,
+        "end": 5234,
         "expression_sha256": "7a9b3d1de3d9803c315acacf3d9495f4a4a5e489c9097241a85bf40e5abcef14",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -9973,7 +9895,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 252,
+    "line": 263,
     "expression_sha256": "7f14755ebb3ca03cf4ed079651b35fd703dc8705b4a1ed3812ae340d08d8943a",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -9992,10 +9914,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 252,
-        "start": 13541,
-        "end": 13628,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 263,
+        "start": 14067,
+        "end": 14154,
         "expression_sha256": "7f14755ebb3ca03cf4ed079651b35fd703dc8705b4a1ed3812ae340d08d8943a",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -10011,7 +9933,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 140,
+    "line": 143,
     "expression_sha256": "5bddb7c1caf06c17e57b7d0cb0057f77930fb4414bd79c8dc34cca5efcb50789",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -10030,10 +9952,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 140,
-        "start": 7659,
-        "end": 7737,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 143,
+        "start": 7988,
+        "end": 8066,
         "expression_sha256": "5bddb7c1caf06c17e57b7d0cb0057f77930fb4414bd79c8dc34cca5efcb50789",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -10049,7 +9971,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 291,
+    "line": 302,
     "expression_sha256": "a7528d0895647709ede1b902dba5eb35766ee057c4b18470b456f9d0818eea20",
     "kind": "bark",
     "runtime_speaker": "waerter-schluessel",
@@ -10068,10 +9990,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 291,
-        "start": 15703,
-        "end": 15773,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 302,
+        "start": 16229,
+        "end": 16299,
         "expression_sha256": "a7528d0895647709ede1b902dba5eb35766ee057c4b18470b456f9d0818eea20",
         "function": "koederScript",
         "scene": "e2-gefangene",
@@ -10087,7 +10009,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 139,
+    "line": 142,
     "expression_sha256": "49bd22138ba1da0d1740dc4042044e65b76e8b9dd39c6d2e0277ed635e417119",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -10107,10 +10029,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 139,
-        "start": 7561,
-        "end": 7628,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 142,
+        "start": 7890,
+        "end": 7957,
         "expression_sha256": "49bd22138ba1da0d1740dc4042044e65b76e8b9dd39c6d2e0277ed635e417119",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -10243,7 +10165,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 109,
+    "line": 110,
     "expression_sha256": "ec6fbfa025d924d0805dd91bb5919ff4c7b2aeb53a5103d03549ea2441440e17",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -10262,10 +10184,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 109,
-        "start": 6777,
-        "end": 6838,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 110,
+        "start": 6902,
+        "end": 6963,
         "expression_sha256": "ec6fbfa025d924d0805dd91bb5919ff4c7b2aeb53a5103d03549ea2441440e17",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -10359,7 +10281,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 81,
+    "line": 82,
     "expression_sha256": "dff86118d92ad99993e6ce2525fe5de709fe52dda5655492daf0f2d53798468d",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -10378,10 +10300,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 81,
-        "start": 4802,
-        "end": 4867,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 82,
+        "start": 4927,
+        "end": 4992,
         "expression_sha256": "dff86118d92ad99993e6ce2525fe5de709fe52dda5655492daf0f2d53798468d",
         "function": "resistance",
         "scene": "e2-flicks-erinnerungen",
@@ -10475,7 +10397,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 150,
+    "line": 153,
     "expression_sha256": "cc859d05c9f602ab27e4220b657a881390c16226a9d49be36cc94c8bf11ca24a",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -10494,10 +10416,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 150,
-        "start": 8382,
-        "end": 8457,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 153,
+        "start": 8711,
+        "end": 8786,
         "expression_sha256": "cc859d05c9f602ab27e4220b657a881390c16226a9d49be36cc94c8bf11ca24a",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -10550,46 +10472,8 @@
     "source_candidate_id": "part2-c2308481206ce70eebd103c6"
   },
   {
-    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 176,
-    "expression_sha256": "fb33f617d0a66c17ba79f9cc74d871e900c0b650a5fb59484d7cc75cf70eaef7",
-    "kind": "think",
-    "runtime_speaker": "flick",
-    "runtime_speakers": [
-      "flick"
-    ],
-    "text": "Faust zu. Was in meinem Ärmel steckt, gehört mir. Das kriegen sie nicht. Das und Lia nicht.",
-    "spoken_text": "Faust zu. Was in meinem Ärmel steckt, gehört mir. Das kriegen sie nicht. Das und Lia nicht.",
-    "mood": "neutral",
-    "direction_en": "Innerlich die Faust festhalten; mir und nicht betonen, Lia am Ende als unantastbare Grenze.",
-    "emotion_de": "Schutzentschlossenheit",
-    "intensity": 5,
-    "context_de": "Gerahmter Gefangenenblick im Verhör. Der Stuhl und die Wachroutine bestimmen Flicks kleine Handlungsmöglichkeiten. Einzelbeat: Innerlich die Faust festhalten; mir und nicht betonen, Lia am Ende als unantastbare Grenze.",
-    "classification": "spoken",
-    "performance_classification": "spoken_inner_thought",
-    "context_bindings": [
-      {
-        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 176,
-        "start": 10189,
-        "end": 10282,
-        "expression_sha256": "fb33f617d0a66c17ba79f9cc74d871e900c0b650a5fb59484d7cc75cf70eaef7",
-        "function": "callback",
-        "scene": "e2-flicks-verhoer",
-        "runtime_speakers": [
-          "flick"
-        ],
-        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
-      }
-    ],
-    "human_listening_or_acting_approval": false,
-    "authoring_status": "individual_offline_direction_pending_root_review",
-    "source_candidate_id": "part2-c290ec5cd5bcdb4c5f79774f"
-  },
-  {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 58,
+    "line": 59,
     "expression_sha256": "c31385227c64f9a0ca72b25218febdfed02b0d1bdbc3225c3fb5a807e1f49353",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -10609,10 +10493,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 58,
-        "start": 3270,
-        "end": 3368,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 59,
+        "start": 3395,
+        "end": 3493,
         "expression_sha256": "c31385227c64f9a0ca72b25218febdfed02b0d1bdbc3225c3fb5a807e1f49353",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -10825,7 +10709,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 169,
+    "line": 188,
     "expression_sha256": "86a2c6152d26ee0a48e5b1847c3e5920b2ab87e465efe0ffa7dfffd2ecdd2342",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -10844,10 +10728,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 169,
-        "start": 9587,
-        "end": 9772,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 188,
+        "start": 10600,
+        "end": 10785,
         "expression_sha256": "86a2c6152d26ee0a48e5b1847c3e5920b2ab87e465efe0ffa7dfffd2ecdd2342",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -10863,7 +10747,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 97,
+    "line": 99,
     "expression_sha256": "c4b74a2e2da2243d4d8475a372c2c8267498c10213d71a7fe9c9fb71c1607bf5",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -10882,10 +10766,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 97,
-        "start": 4920,
-        "end": 5011,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 99,
+        "start": 5011,
+        "end": 5102,
         "expression_sha256": "c4b74a2e2da2243d4d8475a372c2c8267498c10213d71a7fe9c9fb71c1607bf5",
         "function": "whisperElnon",
         "scene": "e2-gefangene",
@@ -10941,7 +10825,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 116,
+    "line": 118,
     "expression_sha256": "8b70377eb58857ac04a95364a63842b5e82941795897d0c7d341bb9c05981d85",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -10960,10 +10844,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 116,
-        "start": 5917,
-        "end": 5974,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 118,
+        "start": 6008,
+        "end": 6065,
         "expression_sha256": "8b70377eb58857ac04a95364a63842b5e82941795897d0c7d341bb9c05981d85",
         "function": "watchKeys",
         "scene": "e2-gefangene",
@@ -10979,7 +10863,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 211,
+    "line": 222,
     "expression_sha256": "fcdb6c3edb40cd0657c30ee163abcc0cb5b88037dfe12be26bb6cdc287783391",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -10999,10 +10883,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 211,
-        "start": 11295,
-        "end": 11354,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 222,
+        "start": 11821,
+        "end": 11880,
         "expression_sha256": "fcdb6c3edb40cd0657c30ee163abcc0cb5b88037dfe12be26bb6cdc287783391",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -11137,7 +11021,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 190,
+    "line": 192,
     "expression_sha256": "40c1dc6fac59735fc7261d2424bc8dcfa7645d637236c69bedf6d943a5bd9231",
     "kind": "say",
     "runtime_speaker": "elnon",
@@ -11156,10 +11040,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 190,
-        "start": 10286,
-        "end": 10390,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 192,
+        "start": 10377,
+        "end": 10481,
         "expression_sha256": "40c1dc6fac59735fc7261d2424bc8dcfa7645d637236c69bedf6d943a5bd9231",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -11215,7 +11099,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 142,
+    "line": 145,
     "expression_sha256": "02c8edaa6697950d87540cdffaca8f4cbbaa60b552c36d1079c123df8efd4b6c",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -11234,10 +11118,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 142,
-        "start": 8726,
-        "end": 8786,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 145,
+        "start": 9020,
+        "end": 9080,
         "expression_sha256": "02c8edaa6697950d87540cdffaca8f4cbbaa60b552c36d1079c123df8efd4b6c",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -11253,7 +11137,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 262,
+    "line": 273,
     "expression_sha256": "a485a82e2d61970ec7fe888b759696558e35be4fd1785872d5d1ee0fa3b5df5c",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -11273,10 +11157,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 262,
-        "start": 14070,
-        "end": 14167,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 273,
+        "start": 14596,
+        "end": 14693,
         "expression_sha256": "a485a82e2d61970ec7fe888b759696558e35be4fd1785872d5d1ee0fa3b5df5c",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -11369,7 +11253,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 263,
+    "line": 274,
     "expression_sha256": "010d66e0232b88606a9445a1e6113dd6a5f2a56a44018f838c5f38f8da98361d",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -11388,10 +11272,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 263,
-        "start": 14188,
-        "end": 14248,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 274,
+        "start": 14714,
+        "end": 14774,
         "expression_sha256": "010d66e0232b88606a9445a1e6113dd6a5f2a56a44018f838c5f38f8da98361d",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -11567,7 +11451,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 245,
+    "line": 256,
     "expression_sha256": "e544edc7368e269eb3a87bf35dbf2b0a9e13b3be2ce82bd944ec4bf904c21a60",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -11586,10 +11470,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 245,
-        "start": 13016,
-        "end": 13101,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 256,
+        "start": 13542,
+        "end": 13627,
         "expression_sha256": "e544edc7368e269eb3a87bf35dbf2b0a9e13b3be2ce82bd944ec4bf904c21a60",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -11605,7 +11489,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 253,
+    "line": 264,
     "expression_sha256": "8ec420d622513087a5164299bbe3f0059e0ff1a012bc0189f04f27d1a0d50711",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -11625,10 +11509,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 253,
-        "start": 13678,
-        "end": 13721,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 264,
+        "start": 14204,
+        "end": 14247,
         "expression_sha256": "8ec420d622513087a5164299bbe3f0059e0ff1a012bc0189f04f27d1a0d50711",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -11763,7 +11647,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 69,
+    "line": 72,
     "expression_sha256": "f7c8f0b4c1b1a61789bff555065f2311ff294fea1784004d0e2824d00edd2b54",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -11782,10 +11666,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 69,
-        "start": 3650,
-        "end": 3745,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 72,
+        "start": 3979,
+        "end": 4074,
         "expression_sha256": "f7c8f0b4c1b1a61789bff555065f2311ff294fea1784004d0e2824d00edd2b54",
         "function": "workNail",
         "scene": "e2-flicks-verhoer",
@@ -11917,7 +11801,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 81,
+    "line": 83,
     "expression_sha256": "a8b0b3cca57a2fe74c74e060a98e818eddde40c22e272f0338260ccc6ace4211",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -11936,10 +11820,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 81,
-        "start": 3979,
-        "end": 4106,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 83,
+        "start": 4070,
+        "end": 4197,
         "expression_sha256": "a8b0b3cca57a2fe74c74e060a98e818eddde40c22e272f0338260ccc6ace4211",
         "function": "tugRing",
         "scene": "e2-gefangene",
@@ -11993,7 +11877,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 271,
+    "line": 282,
     "expression_sha256": "9d3276684c694ae12f97dfdea9477ac907ad71b31aae102b000cfc3122ab0917",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12013,10 +11897,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 271,
-        "start": 14635,
-        "end": 14689,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 282,
+        "start": 15161,
+        "end": 15215,
         "expression_sha256": "9d3276684c694ae12f97dfdea9477ac907ad71b31aae102b000cfc3122ab0917",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12033,7 +11917,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 74,
+    "line": 76,
     "expression_sha256": "e5b8bdd0a64e8cf16fc0171c8d903de4d10fbafe69700220a9fe9e35dc9f63f2",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -12052,10 +11936,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 74,
-        "start": 3729,
-        "end": 3802,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 76,
+        "start": 3820,
+        "end": 3893,
         "expression_sha256": "e5b8bdd0a64e8cf16fc0171c8d903de4d10fbafe69700220a9fe9e35dc9f63f2",
         "function": "tugRing",
         "scene": "e2-gefangene",
@@ -12147,7 +12031,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 114,
+    "line": 115,
     "expression_sha256": "7ddbff6a188a0342eba3e83dcb573726cdf5f78b4ba3891f1aeab3f0f3cc17f6",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12167,10 +12051,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 114,
-        "start": 7123,
-        "end": 7210,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 115,
+        "start": 7248,
+        "end": 7335,
         "expression_sha256": "7ddbff6a188a0342eba3e83dcb573726cdf5f78b4ba3891f1aeab3f0f3cc17f6",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -12187,7 +12071,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 237,
+    "line": 248,
     "expression_sha256": "21aa047cf5bdf1a2533a9c2156c4b1bf0d68ed1b7f669d830fb52988bfe4c36f",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -12206,10 +12090,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 237,
-        "start": 12535,
-        "end": 12621,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 248,
+        "start": 13061,
+        "end": 13147,
         "expression_sha256": "21aa047cf5bdf1a2533a9c2156c4b1bf0d68ed1b7f669d830fb52988bfe4c36f",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12263,7 +12147,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 261,
+    "line": 272,
     "expression_sha256": "c270756e7878b0ef02b9d0b94b95d14487c75b8e322e45eedc5cc5617ad95666",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12283,10 +12167,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 261,
-        "start": 13964,
-        "end": 14041,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 272,
+        "start": 14490,
+        "end": 14567,
         "expression_sha256": "c270756e7878b0ef02b9d0b94b95d14487c75b8e322e45eedc5cc5617ad95666",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12303,7 +12187,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 278,
+    "line": 289,
     "expression_sha256": "42515f91b8229666107095bd51f6231ea7919683c525086effc2ea026c794dad",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12323,10 +12207,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 278,
-        "start": 15092,
-        "end": 15155,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 289,
+        "start": 15618,
+        "end": 15681,
         "expression_sha256": "42515f91b8229666107095bd51f6231ea7919683c525086effc2ea026c794dad",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12381,7 +12265,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 96,
+    "line": 99,
     "expression_sha256": "dd2b785608692d4b35dcd1e9b0d4637262cd234212ad84b7bf39e19f98d34e67",
     "kind": "bark",
     "runtime_speaker": "flick",
@@ -12400,10 +12284,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 96,
-        "start": 5056,
-        "end": 5065,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 99,
+        "start": 5385,
+        "end": 5394,
         "expression_sha256": "dd2b785608692d4b35dcd1e9b0d4637262cd234212ad84b7bf39e19f98d34e67",
         "function": "window",
         "scene": "e2-flicks-verhoer",
@@ -12459,7 +12343,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 212,
+    "line": 223,
     "expression_sha256": "4e40b2cae20bdbd3fe70277ba817dc3f091323779079197fa3d29e1125dc77b0",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -12478,10 +12362,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 212,
-        "start": 11385,
-        "end": 11465,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 223,
+        "start": 11911,
+        "end": 11991,
         "expression_sha256": "4e40b2cae20bdbd3fe70277ba817dc3f091323779079197fa3d29e1125dc77b0",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12497,7 +12381,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 166,
+    "line": 185,
     "expression_sha256": "f362dd6c3b599986b655154c0ed11079f2c4123b9bc379770c7e09551f96389e",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12517,10 +12401,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 166,
-        "start": 9235,
-        "end": 9317,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 185,
+        "start": 10219,
+        "end": 10301,
         "expression_sha256": "f362dd6c3b599986b655154c0ed11079f2c4123b9bc379770c7e09551f96389e",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -12577,7 +12461,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 246,
+    "line": 257,
     "expression_sha256": "0212d4e621cd63b25d0dbe35af2915fd308edaef43597b7a0084ef0b688ff4f4",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12597,10 +12481,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 246,
-        "start": 13151,
-        "end": 13226,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 257,
+        "start": 13677,
+        "end": 13752,
         "expression_sha256": "0212d4e621cd63b25d0dbe35af2915fd308edaef43597b7a0084ef0b688ff4f4",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12771,7 +12655,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 102,
+    "line": 103,
     "expression_sha256": "78a9d654befbd1a883bc7089a3f075964c7131c88cf5706080b158c711d01187",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -12790,10 +12674,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 102,
-        "start": 6169,
-        "end": 6391,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 103,
+        "start": 6294,
+        "end": 6516,
         "expression_sha256": "78a9d654befbd1a883bc7089a3f075964c7131c88cf5706080b158c711d01187",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -12849,7 +12733,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 175,
+    "line": 177,
     "expression_sha256": "dd0f5952bd16c4cee8e2ab1949b4457b6b56250c82f05e82a44d3c1dfebad2e8",
     "kind": "say",
     "runtime_speaker": "baris",
@@ -12868,10 +12752,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 175,
-        "start": 9241,
-        "end": 9323,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 177,
+        "start": 9332,
+        "end": 9414,
         "expression_sha256": "dd0f5952bd16c4cee8e2ab1949b4457b6b56250c82f05e82a44d3c1dfebad2e8",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -12887,7 +12771,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 141,
+    "line": 144,
     "expression_sha256": "3f3f779967544fd071c87ebb476cd1a69f17df756b46fc37933fd2698275811a",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -12907,10 +12791,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 141,
-        "start": 7785,
-        "end": 7871,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 144,
+        "start": 8114,
+        "end": 8200,
         "expression_sha256": "3f3f779967544fd071c87ebb476cd1a69f17df756b46fc37933fd2698275811a",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -13003,7 +12887,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 270,
+    "line": 281,
     "expression_sha256": "3d029240e59e019c40497c89ecdec5994df8cabc69721d6158ee21b81ad3a500",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -13022,10 +12906,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 270,
-        "start": 14528,
-        "end": 14580,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 281,
+        "start": 15054,
+        "end": 15106,
         "expression_sha256": "3d029240e59e019c40497c89ecdec5994df8cabc69721d6158ee21b81ad3a500",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -13195,7 +13079,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 241,
+    "line": 288,
     "expression_sha256": "e6f6b108abf0a077ac49b3a21b30d811336f1880bb6f93b3734ef232b55d3aff",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -13215,10 +13099,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 241,
-        "start": 13881,
-        "end": 13959,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 288,
+        "start": 17055,
+        "end": 17133,
         "expression_sha256": "e6f6b108abf0a077ac49b3a21b30d811336f1880bb6f93b3734ef232b55d3aff",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -13353,7 +13237,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-    "line": 99,
+    "line": 100,
     "expression_sha256": "41a1c3d62e65e4819e3c0c3cdba8484c407ab910a3eef3f584d262e0f9692aa7",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -13373,10 +13257,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
-        "source_file_sha256": "943fc9ee57b844ccf258dfabb1ef6eb69f42a7f86cc2be8ece8ff9ae4b6e6126",
-        "line": 99,
-        "start": 5835,
-        "end": 5901,
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 100,
+        "start": 5960,
+        "end": 6026,
         "expression_sha256": "41a1c3d62e65e4819e3c0c3cdba8484c407ab910a3eef3f584d262e0f9692aa7",
         "function": "callback",
         "scene": "e2-flicks-erinnerungen",
@@ -13390,6 +13274,43 @@
     "human_listening_or_acting_approval": false,
     "authoring_status": "individual_offline_direction_pending_root_review",
     "source_candidate_id": "part2-f530bbc4b7f40ff2a832ffc1"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
+    "line": 37,
+    "expression_sha256": "b2d2dc0d176efad45033999931920da0246700839df9dcd1371962de0f06babc",
+    "kind": "think",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Zwei Finger der Rechten, in einen Fetzen vom Hemd gewickelt, der Stoff schon wieder durchgeblutet. Nicht hinsehen. Wer hinsieht, zählt nach.",
+    "spoken_text": "Zwei Finger der Rechten, in einen Fetzen vom Hemd gewickelt, der Stoff schon wieder durchgeblutet. Nicht hinsehen. Wer hinsieht, zählt nach.",
+    "mood": "neutral",
+    "direction_en": "Innerlich eng und gepresst; die Verletzung sachlich benennen, bei Nicht hinsehen den Blick bewusst abwenden, den letzten Satz mit bitterem Galgenhumor wegdrücken.",
+    "emotion_de": "Schmerz und Abwehr",
+    "intensity": 4,
+    "context_de": "Gerahmter Gefangenenblick unter Vamirs Zugriff, am Tag nach dem Verhör; das Blut von gestern klebt noch an der Armlehne. Flick schützt Lia in ihrem eigenen Gedächtnis.",
+    "classification": "spoken",
+    "performance_classification": "spoken_inner_thought",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-erinnerungen.ts",
+        "source_file_sha256": "97bca85a8d076c32f32db4bb68abbe100a86ea37df707e25af7266c8e3ede525",
+        "line": 37,
+        "start": 1920,
+        "end": 2062,
+        "expression_sha256": "b2d2dc0d176efad45033999931920da0246700839df9dcd1371962de0f06babc",
+        "function": "callback",
+        "scene": "e2-flicks-erinnerungen",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
   },
   {
     "file": "game/src/chapters/teil-2/kyras-widerstand.ts",
@@ -13431,7 +13352,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 114,
+    "line": 117,
     "expression_sha256": "c55596577d8aee18c59dd4ab1254b69bfa243fd3a291c66eeeef38169c3cb20a",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -13451,10 +13372,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 114,
-        "start": 5913,
-        "end": 6018,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 117,
+        "start": 6242,
+        "end": 6347,
         "expression_sha256": "c55596577d8aee18c59dd4ab1254b69bfa243fd3a291c66eeeef38169c3cb20a",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -13471,7 +13392,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 153,
+    "line": 156,
     "expression_sha256": "8514d6ee3f8e58e0adf818aeddea23665aa2e04236d57c7322a412e14c572c49",
     "kind": "say",
     "runtime_speaker": "flick",
@@ -13490,10 +13411,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 153,
-        "start": 8642,
-        "end": 8743,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 156,
+        "start": 8971,
+        "end": 9072,
         "expression_sha256": "8514d6ee3f8e58e0adf818aeddea23665aa2e04236d57c7322a412e14c572c49",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -13509,7 +13430,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 117,
+    "line": 120,
     "expression_sha256": "193bef8cf06e56468193bb195a88e4bc829c8f1f8cdce2cab3145c2e0d588bb2",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -13528,10 +13449,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 117,
-        "start": 6242,
-        "end": 6476,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 120,
+        "start": 6571,
+        "end": 6805,
         "expression_sha256": "193bef8cf06e56468193bb195a88e4bc829c8f1f8cdce2cab3145c2e0d588bb2",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -13547,7 +13468,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-    "line": 144,
+    "line": 147,
     "expression_sha256": "4a8dc70f4f938e5b69241085ed2fca7f4336d2d1aff5f4eba6f1968fca8920da",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -13566,10 +13487,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
-        "source_file_sha256": "cbbdf452dfb1ba3f398833bc113ea5d5dc87a153beb8b015e1303ba77d402ce7",
-        "line": 144,
-        "start": 8090,
-        "end": 8327,
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 147,
+        "start": 8419,
+        "end": 8656,
         "expression_sha256": "4a8dc70f4f938e5b69241085ed2fca7f4336d2d1aff5f4eba6f1968fca8920da",
         "function": "callback",
         "scene": "e2-flicks-verhoer",
@@ -13582,6 +13503,869 @@
     "human_listening_or_acting_approval": false,
     "authoring_status": "individual_offline_direction_pending_root_review",
     "source_candidate_id": "part2-f84b6d24a6e19f957e4f18f2"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 171,
+    "expression_sha256": "f7f4aad0568401dd6f8d41574ca3cb3a6ee9a35619298503bd2e74b3c6cd8234",
+    "kind": "bark",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Nein …",
+    "spoken_text": "Nein …",
+    "mood": "neutral",
+    "direction_en": "Gepresstes, leises Nein, als die Zange zugreift; Angst und Abwehr, noch kein Schrei.",
+    "emotion_de": "panische Abwehr",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "situational_bark",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 171,
+        "start": 9766,
+        "end": 9774,
+        "expression_sha256": "f7f4aad0568401dd6f8d41574ca3cb3a6ee9a35619298503bd2e74b3c6cd8234",
+        "function": "tear",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 187,
+    "expression_sha256": "f7a5d2578ce909e72719115900e09aab667c85cec66e044884be108d7477c411",
+    "kind": "say",
+    "runtime_speaker": "vamir",
+    "runtime_speakers": [
+      "e2-vamir",
+      "vamir"
+    ],
+    "text": "Dann fang bei den Fingern an, mit denen sie die Sehne zieht. Die rechte Hand. Langsam, damit sie zwischendurch nachdenken kann.",
+    "spoken_text": "Dann fang bei den Fingern an, mit denen sie die Sehne zieht. Die rechte Hand. Langsam, damit sie zwischendurch nachdenken kann.",
+    "mood": "neutral",
+    "direction_en": "Kalt und geschäftsmäßig anordnen; Sehne und rechte Hand genau zielen, Langsam genüsslich gedehnt, keine Gewaltlaute hinzufügen.",
+    "emotion_de": "grausamer Befehl",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 187,
+        "start": 10436,
+        "end": 10565,
+        "expression_sha256": "f7a5d2578ce909e72719115900e09aab667c85cec66e044884be108d7477c411",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-vamir",
+          "vamir"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 195,
+    "expression_sha256": "3455a8c3fd5edf6eb32ece1dddb4cc9a7a7596ba61ad5441169b9c31153084c3",
+    "kind": "think",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Faust zu. Die linke. Was in meinem Ärmel steckt, gehört mir. Das kriegen sie nicht. Das und Lia nicht.",
+    "spoken_text": "Faust zu. Die linke. Was in meinem Ärmel steckt, gehört mir. Das kriegen sie nicht. Das und Lia nicht.",
+    "mood": "neutral",
+    "direction_en": "Innerlich die linke Faust festhalten; Die linke knapp setzen, mir und nicht betonen, Lia am Ende als unantastbare Grenze.",
+    "emotion_de": "Schutzentschlossenheit",
+    "intensity": 5,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_inner_thought",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 195,
+        "start": 11202,
+        "end": 11306,
+        "expression_sha256": "3455a8c3fd5edf6eb32ece1dddb4cc9a7a7596ba61ad5441169b9c31153084c3",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 204,
+    "expression_sha256": "d4abdc0ff54e03fe63851666ccf16f0ba929c61a7ae3f4c80372bce1214e5a3e",
+    "kind": "think",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Er drückt meine rechte Hand flach auf die Lehne. Die Zange ist klein und schwarz. Kleiner, als ich dachte.",
+    "spoken_text": "Er drückt meine rechte Hand flach auf die Lehne. Die Zange ist klein und schwarz. Kleiner, als ich dachte.",
+    "mood": "neutral",
+    "direction_en": "Flacher, beherrschter Gedanke; die Zange genau ansehen, bei Kleiner, als ich dachte steigt unter der Fassung die Angst auf.",
+    "emotion_de": "kalte Angst",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_inner_thought",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 204,
+        "start": 11772,
+        "end": 11880,
+        "expression_sha256": "d4abdc0ff54e03fe63851666ccf16f0ba929c61a7ae3f4c80372bce1214e5a3e",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 205,
+    "expression_sha256": "9b3e8706873c1c6446d1226ab64119e53c0aadc4d0af6fb3b77822b2beb41a10",
+    "kind": "say",
+    "runtime_speaker": "vamir",
+    "runtime_speakers": [
+      "e2-vamir",
+      "vamir"
+    ],
+    "text": "Eine Frage, eine Antwort. Wohin läuft das Mädchen mit dem Licht?",
+    "spoken_text": "Eine Frage, eine Antwort. Wohin läuft das Mädchen mit dem Licht?",
+    "mood": "neutral",
+    "direction_en": "Ruhig und sachlich die Regel setzen; die Frage ohne drohenden Ton, die Drohung liegt in der Ruhe.",
+    "emotion_de": "geduldige Grausamkeit",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 205,
+        "start": 11909,
+        "end": 11975,
+        "expression_sha256": "9b3e8706873c1c6446d1226ab64119e53c0aadc4d0af6fb3b77822b2beb41a10",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-vamir",
+          "vamir"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 206,
+    "expression_sha256": "6da14b81c01e462db2b2842a70f923ef4595dc83049ed89e461c4f52113164fa",
+    "kind": "choice",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "„Zu ihren Schweinen. Die sind netter als du.“",
+    "spoken_text": "Zu ihren Schweinen. Die sind netter als du.",
+    "mood": "neutral",
+    "direction_en": "Gewählte Antwort; trotzig und spöttisch, die Angst vor der Zange darunter hörbar.",
+    "emotion_de": "trotziger Spott",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_quoted_choice",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 206,
+        "start": 12011,
+        "end": 12161,
+        "expression_sha256": "6da14b81c01e462db2b2842a70f923ef4595dc83049ed89e461c4f52113164fa",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 206,
+    "expression_sha256": "6da14b81c01e462db2b2842a70f923ef4595dc83049ed89e461c4f52113164fa",
+    "kind": "choice",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "„Fahr zur Hölle. Nimm Baris mit.“",
+    "spoken_text": "Fahr zur Hölle. Nimm Baris mit.",
+    "mood": "neutral",
+    "direction_en": "Gewählte Antwort; offener Hass, laut, aber verständlich.",
+    "emotion_de": "Hass",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_quoted_choice",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 206,
+        "start": 12011,
+        "end": 12161,
+        "expression_sha256": "6da14b81c01e462db2b2842a70f923ef4595dc83049ed89e461c4f52113164fa",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 211,
+    "expression_sha256": "46087314b1288468e6023a38289345ffa9f18d1d9211614a587a9ae22204380e",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "e2-flick"
+    ],
+    "text": "Zu ihren Schweinen. Die sind netter als du. Und riechen besser.",
+    "spoken_text": "Zu ihren Schweinen. Die sind netter als du. Und riechen besser.",
+    "mood": "angry",
+    "direction_en": "Mit zitterndem Trotz ausspucken; Und riechen besser als bissiger Nachsatz, die Angst bleibt hörbar.",
+    "emotion_de": "trotziger Zorn",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 211,
+        "start": 12209,
+        "end": 12274,
+        "expression_sha256": "46087314b1288468e6023a38289345ffa9f18d1d9211614a587a9ae22204380e",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 213,
+    "expression_sha256": "8b678fd1f2f1168229e3c72231799fde1a326b2e14e817c9f8c640f858a5ca7d",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "e2-flick"
+    ],
+    "text": "Fahr zur Hölle. Und nimm Baris mit, der kennt da sicher jemanden.",
+    "spoken_text": "Fahr zur Hölle. Und nimm Baris mit, der kennt da sicher jemanden.",
+    "mood": "angry",
+    "direction_en": "Fahr zur Hölle hart setzen; den Nachsatz über Baris giftig und schnell.",
+    "emotion_de": "hasserfüllter Trotz",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 213,
+        "start": 12375,
+        "end": 12442,
+        "expression_sha256": "8b678fd1f2f1168229e3c72231799fde1a326b2e14e817c9f8c640f858a5ca7d",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 214,
+    "expression_sha256": "e5bdfd9bad97aba678a2316e5b27e54524da0121446e9cc8e231c2d7aff28220",
+    "kind": "say",
+    "runtime_speaker": "vamir",
+    "runtime_speakers": [
+      "e2-vamir",
+      "vamir"
+    ],
+    "text": "Baris.",
+    "spoken_text": "Baris.",
+    "mood": "neutral",
+    "direction_en": "Nur der Name, leise und beiläufig, als Befehl.",
+    "emotion_de": "kalte Beiläufigkeit",
+    "intensity": 2,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 214,
+        "start": 12490,
+        "end": 12498,
+        "expression_sha256": "e5bdfd9bad97aba678a2316e5b27e54524da0121446e9cc8e231c2d7aff28220",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-vamir",
+          "vamir"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 215,
+    "expression_sha256": "382d694041f88c45d8b2a76941b2b775501ab50c62433d62652ed18e6cd0f313",
+    "kind": "bark",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "AAAAH!",
+    "spoken_text": "AAAAH!",
+    "mood": "neutral",
+    "direction_en": "Ein echter, gellender Schmerzensschrei, als der Nagel herausgerissen wird; kein Wort, am Ende abbrechen.",
+    "emotion_de": "reiner Schmerz",
+    "intensity": 5,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "situational_bark",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 215,
+        "start": 12511,
+        "end": 12531,
+        "expression_sha256": "382d694041f88c45d8b2a76941b2b775501ab50c62433d62652ed18e6cd0f313",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 216,
+    "expression_sha256": "d0317d8b3e4be66a0281efd13dbc52c42f0f2314fb9d64257db57a253d001e66",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "e2-flick"
+    ],
+    "text": "AAH – du … du dreckiger … verbrannter …",
+    "spoken_text": "AAH – du … du dreckiger … verbrannter …",
+    "mood": "pained",
+    "direction_en": "Nach dem Schrei keuchend und zitternd; die Beschimpfungen bruchstückhaft, zwischen den Pausen nach Luft ringen.",
+    "emotion_de": "Schmerz und Hass",
+    "intensity": 5,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 216,
+        "start": 12561,
+        "end": 12602,
+        "expression_sha256": "d0317d8b3e4be66a0281efd13dbc52c42f0f2314fb9d64257db57a253d001e66",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 217,
+    "expression_sha256": "bd42d0f873adc4297e65f0fe0a78d7dd308f71736db70b31600a14a6778d3e49",
+    "kind": "think",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Der Fingernagel vom Zeigefinger. Einfach weg. Wo er war, ist nur noch rot. Und heiß. So heiß.",
+    "spoken_text": "Der Fingernagel vom Zeigefinger. Einfach weg. Wo er war, ist nur noch rot. Und heiß. So heiß.",
+    "mood": "neutral",
+    "direction_en": "Innerer Gedanke im Schock; stockend, fast staunend, bei So heiß bricht die Fassung.",
+    "emotion_de": "Schock",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_inner_thought",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 217,
+        "start": 12643,
+        "end": 12738,
+        "expression_sha256": "bd42d0f873adc4297e65f0fe0a78d7dd308f71736db70b31600a14a6778d3e49",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 218,
+    "expression_sha256": "8d21dd95849865c5500012da5557894d3cf59839df6f458b9a194b79b11b8399",
+    "kind": "say",
+    "runtime_speaker": "baris",
+    "runtime_speakers": [
+      "e2-baris"
+    ],
+    "text": "Einer. Du wolltest doch, dass ich zähle.",
+    "spoken_text": "Einer. Du wolltest doch, dass ich zähle.",
+    "mood": "pained",
+    "direction_en": "Rau und zufrieden; Einer nüchtern zählen, den Rest als gehässige Retourkutsche, mit seinem schmerzhaften Atem.",
+    "emotion_de": "gehässige Genugtuung",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 218,
+        "start": 12769,
+        "end": 12811,
+        "expression_sha256": "8d21dd95849865c5500012da5557894d3cf59839df6f458b9a194b79b11b8399",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-baris"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 219,
+    "expression_sha256": "fdc8971083a2f1b3e5e1c255bbc7318c028c3d283bb1a9142fb6dcf66a4f280d",
+    "kind": "say",
+    "runtime_speaker": "vamir",
+    "runtime_speakers": [
+      "e2-vamir",
+      "vamir"
+    ],
+    "text": "Wohin, Flick?",
+    "spoken_text": "Wohin, Flick?",
+    "mood": "neutral",
+    "direction_en": "Leise, fast freundlich wiederholen; keine Ungeduld.",
+    "emotion_de": "kalte Geduld",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 219,
+        "start": 12860,
+        "end": 12875,
+        "expression_sha256": "fdc8971083a2f1b3e5e1c255bbc7318c028c3d283bb1a9142fb6dcf66a4f280d",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-vamir",
+          "vamir"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 220,
+    "expression_sha256": "08f66b36eca40511a339e27bbe103a2b6447302279d8c0a4786f8562796af3e8",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "e2-flick"
+    ],
+    "text": "Nach … Süden. Oder Norden. Hab ich … doch gesagt.",
+    "spoken_text": "Nach … Süden. Oder Norden. Hab ich … doch gesagt.",
+    "mood": "pained",
+    "direction_en": "Atemlos und zitternd lügen; zwischen den Pausen nach Luft schnappen, der Trotz bleibt unter dem Schmerz.",
+    "emotion_de": "gebrochener Trotz",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 220,
+        "start": 12906,
+        "end": 12957,
+        "expression_sha256": "08f66b36eca40511a339e27bbe103a2b6447302279d8c0a4786f8562796af3e8",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 221,
+    "expression_sha256": "0ece5fedf11361af6f4e3457bcff8caa99ddf0835782dedba9779d6304772a6e",
+    "kind": "say",
+    "runtime_speaker": "vamir",
+    "runtime_speakers": [
+      "e2-vamir",
+      "vamir"
+    ],
+    "text": "Den nächsten.",
+    "spoken_text": "Den nächsten.",
+    "mood": "neutral",
+    "direction_en": "Zwei Wörter, ruhig und endgültig, ohne Regung.",
+    "emotion_de": "kalte Grausamkeit",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 221,
+        "start": 13006,
+        "end": 13021,
+        "expression_sha256": "0ece5fedf11361af6f4e3457bcff8caa99ddf0835782dedba9779d6304772a6e",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-vamir",
+          "vamir"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 222,
+    "expression_sha256": "6670db9c96da2f886038ef23947536f41cbce23407bb84931afff6bbab4247a7",
+    "kind": "bark",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "NEIN – AAAAAH!",
+    "spoken_text": "NEIN – AAAAAH!",
+    "mood": "neutral",
+    "direction_en": "Das Nein als verzweifelter Ruf, dann ein langer, gellender Schmerzensschrei; kein weiteres Wort.",
+    "emotion_de": "Panik und Schmerz",
+    "intensity": 5,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "situational_bark",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 222,
+        "start": 13034,
+        "end": 13064,
+        "expression_sha256": "6670db9c96da2f886038ef23947536f41cbce23407bb84931afff6bbab4247a7",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 224,
+    "expression_sha256": "77a4591bc7e343fbb1d59e4a63a4a4fe924e2460104d0dc6eadbe80020efe227",
+    "kind": "say",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Blut läuft über die Armlehne und tropft auf den Stein. Flick zerrt an den Stricken, bis der Stuhl knarrt. Er gibt nicht nach.",
+    "spoken_text": "Blut läuft über die Armlehne und tropft auf den Stein. Flick zerrt an den Stricken, bis der Stuhl knarrt. Er gibt nicht nach.",
+    "mood": "neutral",
+    "direction_en": "Ruhig und genau erzählen, ohne Sensationston; die Bilder für sich wirken lassen, Er gibt nicht nach schwer setzen.",
+    "emotion_de": "beklemmende Nüchternheit",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 224,
+        "start": 13199,
+        "end": 13326,
+        "expression_sha256": "77a4591bc7e343fbb1d59e4a63a4a4fe924e2460104d0dc6eadbe80020efe227",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 225,
+    "expression_sha256": "670782b9f09bf345d959c3cc4eb776b78321bea55158ad6fefd5bddfbce0865d",
+    "kind": "think",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Nicht die linke aufmachen. Egal was. Die linke bleibt zu.",
+    "spoken_text": "Nicht die linke aufmachen. Egal was. Die linke bleibt zu.",
+    "mood": "neutral",
+    "direction_en": "Innerer Gedanke durch den Schmerz hindurch; wie ein Mantra, leise und verbissen.",
+    "emotion_de": "verbissener Wille",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_inner_thought",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 225,
+        "start": 13347,
+        "end": 13406,
+        "expression_sha256": "670782b9f09bf345d959c3cc4eb776b78321bea55158ad6fefd5bddfbce0865d",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 226,
+    "expression_sha256": "ae0d4722e4f437a5d8c215556b8a785d23deb2f15620d61fc1ff080f7f14f6fd",
+    "kind": "say",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "e2-flick"
+    ],
+    "text": "Nimm … ruhig alle zehn. Ich hab … noch Zehen.",
+    "spoken_text": "Nimm … ruhig alle zehn. Ich hab … noch Zehen.",
+    "mood": "pained",
+    "direction_en": "Gebrochen und keuchend, aber mit letztem Galgenhumor; Zehen fast als Lachen unter Tränen.",
+    "emotion_de": "Galgenhumor unter Schmerz",
+    "intensity": 4,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 226,
+        "start": 13437,
+        "end": 13484,
+        "expression_sha256": "ae0d4722e4f437a5d8c215556b8a785d23deb2f15620d61fc1ff080f7f14f6fd",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 227,
+    "expression_sha256": "ece45f2d74d830a37ae0987c69b21cf8ac6ab5f9e631b8a06a0de7c7cb1dfe1c",
+    "kind": "say",
+    "runtime_speaker": "vamir",
+    "runtime_speakers": [
+      "e2-vamir",
+      "vamir"
+    ],
+    "text": "Genug für heute. Morgen fangen wir mit der anderen Hand an. Dann hat sie die ganze Nacht, darüber nachzudenken.",
+    "spoken_text": "Genug für heute. Morgen fangen wir mit der anderen Hand an. Dann hat sie die ganze Nacht, darüber nachzudenken.",
+    "mood": "neutral",
+    "direction_en": "Gelassen beenden wie nach getaner Arbeit; die Ankündigung für morgen beiläufig und gerade dadurch grausam.",
+    "emotion_de": "beiläufige Grausamkeit",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 227,
+        "start": 13533,
+        "end": 13646,
+        "expression_sha256": "ece45f2d74d830a37ae0987c69b21cf8ac6ab5f9e631b8a06a0de7c7cb1dfe1c",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "e2-vamir",
+          "vamir"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+    "line": 230,
+    "expression_sha256": "83fee48b3526577517e96d490d13b4808485a86dfa9f5308a3d952958361ae51",
+    "kind": "say",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Baris wischt die Zange an seiner Hose ab und wirft zwei blutige Fingernägel in die Glut des Beckens.",
+    "spoken_text": "Baris wischt die Zange an seiner Hose ab und wirft zwei blutige Fingernägel in die Glut des Beckens.",
+    "mood": "neutral",
+    "direction_en": "Nüchtern und langsam erzählen; das Bild ohne Kommentar stehen lassen.",
+    "emotion_de": "beklemmende Nüchternheit",
+    "intensity": 3,
+    "context_de": "Gezeigtes Verhör im Stuhl, kein Schnitt: Baris reißt Flick mit der Zange die Nägel von Zeige- und Mittelfinger der rechten Hand, ihren Bogenfingern, während der Meister fragt. Ihre linke Faust mit dem Nagel bleibt zu.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/flicks-verhoer.ts",
+        "source_file_sha256": "fe980e23b71e61332a0f636667c8cc444ebb0ca8911631d684a1f21ebaf4ae73",
+        "line": 230,
+        "start": 13740,
+        "end": 13842,
+        "expression_sha256": "83fee48b3526577517e96d490d13b4808485a86dfa9f5308a3d952958361ae51",
+        "function": "callback",
+        "scene": "e2-flicks-verhoer",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
   },
   {
     "file": "game/src/chapters/teil-2/konzentration.ts",
@@ -13623,7 +14407,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 317,
+    "line": 328,
     "expression_sha256": "a2a1b4a9a11202f94965401bb15d5796dd30710299af2bbcaf86afc899aef3e0",
     "kind": "narrate",
     "runtime_speaker": "narrator",
@@ -13642,10 +14426,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 317,
-        "start": 16739,
-        "end": 16795,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 328,
+        "start": 17265,
+        "end": 17321,
         "expression_sha256": "a2a1b4a9a11202f94965401bb15d5796dd30710299af2bbcaf86afc899aef3e0",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -13661,7 +14445,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 186,
+    "line": 188,
     "expression_sha256": "38c5b8e3bdb62b1a88fad86db49c7a8dd1ae70eb32525282f7edf21236c830a7",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -13681,10 +14465,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 186,
-        "start": 9990,
-        "end": 10037,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 188,
+        "start": 10081,
+        "end": 10128,
         "expression_sha256": "38c5b8e3bdb62b1a88fad86db49c7a8dd1ae70eb32525282f7edf21236c830a7",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -13899,7 +14683,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 109,
+    "line": 111,
     "expression_sha256": "3cf86e99d2c082f2167c33831d289163c68885add8991fd5fe6a735fcb6dd008",
     "kind": "think",
     "runtime_speaker": "flick",
@@ -13918,10 +14702,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 109,
-        "start": 5518,
-        "end": 5604,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 111,
+        "start": 5609,
+        "end": 5695,
         "expression_sha256": "3cf86e99d2c082f2167c33831d289163c68885add8991fd5fe6a735fcb6dd008",
         "function": "lookDoor",
         "scene": "e2-gefangene",
@@ -13937,7 +14721,81 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 220,
+    "line": 203,
+    "expression_sha256": "d4948a0badc7f2f41c7ee493f162a6510c22a323ee1cf68b75f0e3f16c318f5c",
+    "kind": "bark",
+    "runtime_speaker": "flick",
+    "runtime_speakers": [
+      "flick"
+    ],
+    "text": "Elnon!",
+    "spoken_text": "Elnon!",
+    "mood": "neutral",
+    "direction_en": "Erschrockener, scharfer Ruf, als der Knüppel trifft.",
+    "emotion_de": "Schreck",
+    "intensity": 4,
+    "context_de": "Gerahmter Gefangenenblick in den Gewölben. Ein Wärter schlägt dem provozierenden Elnon den Knüppel ins Gesicht; Flick ruft ihm nach.",
+    "classification": "spoken",
+    "performance_classification": "situational_bark",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/gefangene.ts",
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 203,
+        "start": 11018,
+        "end": 11026,
+        "expression_sha256": "d4948a0badc7f2f41c7ee493f162a6510c22a323ee1cf68b75f0e3f16c318f5c",
+        "function": "callback",
+        "scene": "e2-gefangene",
+        "runtime_speakers": [
+          "flick"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/gefangene.ts",
+    "line": 206,
+    "expression_sha256": "8f9dd3541a6d7845bb80a938f70150e89ad4a950f6cfc763223d0438d1b2aab5",
+    "kind": "say",
+    "runtime_speaker": "narrator",
+    "runtime_speakers": [
+      "narrator"
+    ],
+    "text": "Der Knüppel trifft Elnon am Mund. Er spuckt Blut auf den Stein und hebt trotzdem den Kopf.",
+    "spoken_text": "Der Knüppel trifft Elnon am Mund. Er spuckt Blut auf den Stein und hebt trotzdem den Kopf.",
+    "mood": "neutral",
+    "direction_en": "Den Schlag sachlich erzählen; trotzdem den Kopf mit leisem Respekt setzen.",
+    "emotion_de": "nüchterne Härte",
+    "intensity": 3,
+    "context_de": "Gerahmter Gefangenenblick in den Gewölben. Ein Wärter schlägt dem provozierenden Elnon den Knüppel ins Gesicht.",
+    "classification": "spoken",
+    "performance_classification": "spoken_dialogue",
+    "context_bindings": [
+      {
+        "file": "game/src/chapters/teil-2/gefangene.ts",
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 206,
+        "start": 11142,
+        "end": 11234,
+        "expression_sha256": "8f9dd3541a6d7845bb80a938f70150e89ad4a950f6cfc763223d0438d1b2aab5",
+        "function": "callback",
+        "scene": "e2-gefangene",
+        "runtime_speakers": [
+          "narrator"
+        ],
+        "source_context_policy": "actual_AST_source_and_runtime_role_binding_no_invented_path"
+      }
+    ],
+    "human_listening_or_acting_approval": false,
+    "authoring_status": "individual_offline_direction_pending_root_review"
+  },
+  {
+    "file": "game/src/chapters/teil-2/gefangene.ts",
+    "line": 231,
     "expression_sha256": "bed88c9d5fb8e31b0b97c09fc7b15f8998de7b57ec40dff6a9b16636e81e4b5e",
     "kind": "say",
     "runtime_speaker": "vamir",
@@ -13957,10 +14815,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 220,
-        "start": 11774,
-        "end": 11846,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 231,
+        "start": 12300,
+        "end": 12372,
         "expression_sha256": "bed88c9d5fb8e31b0b97c09fc7b15f8998de7b57ec40dff6a9b16636e81e4b5e",
         "function": "callback",
         "scene": "e2-gefangene",
@@ -14017,7 +14875,7 @@
   },
   {
     "file": "game/src/chapters/teil-2/gefangene.ts",
-    "line": 238,
+    "line": 249,
     "expression_sha256": "16277161d00d51ae3ae2973002ae00473626578dbfc133d1edd845a8f5fac886",
     "kind": "choice",
     "runtime_speaker": "flick",
@@ -14036,10 +14894,10 @@
     "context_bindings": [
       {
         "file": "game/src/chapters/teil-2/gefangene.ts",
-        "source_file_sha256": "0a04ed3bb4751ffc0f76172a619964711b17f7be61c85255ea3449634ffe58d8",
-        "line": 238,
-        "start": 12656,
-        "end": 12893,
+        "source_file_sha256": "328aa989c609086fdf3e2a0d98d99f56b9520c975274919bd7453ab14e0478cf",
+        "line": 249,
+        "start": 13182,
+        "end": 13419,
         "expression_sha256": "16277161d00d51ae3ae2973002ae00473626578dbfc133d1edd845a8f5fac886",
         "function": "callback",
         "scene": "e2-gefangene",

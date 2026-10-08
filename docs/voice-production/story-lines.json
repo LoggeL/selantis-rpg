@@ -13816,6 +13816,15 @@
       "asset_id": "story-df74a0e103db8a8eb4203840"
     },
     {
+      "kind": "think",
+      "speaker": "lia",
+      "text": "Sie bewegt sich nicht mehr. Keiner von beiden.",
+      "scene": "ueberfall",
+      "mood": "neutral",
+      "performance_variant": "Private thought, barely a whisper from hiding. Numb shock: say it flatly, as if checking a fact she cannot accept; the second sentence breaks off almost inaudibly. No crying, no drama.",
+      "asset_id": "story-df7ad27585bf0481d1286c32"
+    },
+    {
       "kind": "bark",
       "speaker": "wache",
       "text": "Ruhe jetzt.",
@@ -15984,8 +15993,9 @@
   "language": "de",
   "source_hashes": {
     "game/src/chapters/common/battleCharacters.ts": "419e5990792777deb3fe52491547d981a6aa6a06c40b7f84c04166f82de4cc72",
+    "game/src/chapters/common/blood.ts": "255fd723e425900ea14b6040507d796a9deb666577c2c40386f111567144eb20",
     "game/src/chapters/common/bookContract.ts": "44c84bf22416d0ca209c29dfb5c3b5c44ff1607c7cf63d72eb257ce4e733a3b0",
-    "game/src/chapters/common/encounters.ts": "ae59a28df9c746e813cb001046ae163afe5d8aa05b7ab548f8b699815c94c899",
+    "game/src/chapters/common/encounters.ts": "cbd0d3b1893b2f8106e2ad94cfa37495f5234dcda9c68d3253448f25b36c2e8d",
     "game/src/chapters/common/index.ts": "2d78f8f01fbaa117915a50bb34525fc8a450ea8586f1968c52d64171a8034249",
     "game/src/chapters/common/liaKit.ts": "452d67998e955de5e6d1906d7501a27cd2841903197efb7c1cf93eec8fccd9ab",
     "game/src/chapters/common/travelBattles.ts": "6b9bfd3d27709572034afd8242367495a4c518302db7c92b0e7c92b632f9a244",
@@ -15998,7 +16008,7 @@
     "game/src/chapters/kapitel-1/pigpen.ts": "95b7fcb4bb12e8347f1698777546d68a3af62622591f361b43a507365dfb3c86",
     "game/src/chapters/kapitel-1/shared.ts": "24e5b372920b6a7baf52b9c88d75a6efe35d5c20cdfff1d986b6f2caa623e03a",
     "game/src/chapters/kapitel-1/trauer.ts": "008dea4f68f16c3e689e636f269a8db26cfc56eb5f15b90ec6f1f3ef288b5cb7",
-    "game/src/chapters/kapitel-1/ueberfall.ts": "36720d665a6c03cdcf59e3ce9b65eda78f610860f3e5bbe3c16c14669c4edddc",
+    "game/src/chapters/kapitel-1/ueberfall.ts": "8a0d2b36fc3019d59eb3837c8abee1ead1562164db3e9375e453bd68ace8e134",
     "game/src/chapters/kapitel-1/wiese.ts": "afd9aff86adafd4097cc4f1894cc8084418ef5a442a5a6b4d47642599ab515f4",
     "game/src/chapters/kapitel-2/catalog.ts": "26e8d08ee17cb91b9ab7a9e5b4fadf99eaf89e02bc6370211ea105b077bddbec",
     "game/src/chapters/kapitel-2/feuer.ts": "36087463ddf151edd393a9efc7def87c37a501bd9641a8e08cf6bf18c560f16e",
@@ -16038,7 +16048,7 @@
     "game/src/chapters/kapitel-5/credits.ts": "d5064fc1e796061d4edd866fe1ba4265c8ad98e9f8195f4c1b5fe9adff7ba9c7",
     "game/src/chapters/kapitel-5/dodge.ts": "74e8e55668f519a33e92651bf635631883587e7f3f831dba832e1640e06f752c",
     "game/src/chapters/kapitel-5/faehrte.ts": "9040a4e9946a788d88f578257d0bdf72658e315ae079c7dd45de2bc9cc997e1b",
-    "game/src/chapters/kapitel-5/finale.ts": "281c8fc23e982c1e0cb59627f76b05f550205aac9da6808a2cf7fe21b4081442",
+    "game/src/chapters/kapitel-5/finale.ts": "2b4bacde3c5238278297f9b9fd55d3d35cbb606bff0474a16be75f31429c1bea",
     "game/src/chapters/kapitel-5/geom.ts": "8d68b4a58ef9dccb2c6570d21d3c2db98a3f31be2662c3d8c0130614c8e7dace",
     "game/src/chapters/kapitel-5/index.ts": "0d07bb2b403e4683e709252f4c1d11cb7ee8dcfff0e113413e50fd485722e831",
     "game/src/chapters/kapitel-5/lagerGeom.ts": "c0a6de6df4f17409b2332eb66f144cc16f0a0c1dbe16a7bb20afddf97877c03d",
@@ -16049,7 +16059,7 @@
     "game/src/chapters/kapitel-5/weiterreise.ts": "0c9f92e4640db6e8c5f7a004a4822dcc3bb4ed8824171f249b27f95b1feb98a2",
     "game/src/ui/text.ts": "6711c1d67b909ad468b392ac031bcc45692b5dbf3e05d3e8b8e3789d8297f71b",
     "game/src/world/ctx.ts": "12fcfdd6d279c8a89bfcc0de16cdcfd6666977cb3cfb89ed6c6f037a467f235a",
-    "docs/voice-production/directions/kapitel-1.json": "bead3c40447b74f43ab22b66218b3a5e04a3deaab203124c8720f20bdc235a35",
+    "docs/voice-production/directions/kapitel-1.json": "f835886342551ecd498f8a89d393cbe5390294d0059495bc429e233b0af44330",
     "docs/voice-production/directions/kapitel-2.json": "a0cc4cf26235d93f75045b284027244c8068ab817678c50c4179f3788fee1fa4",
     "docs/voice-production/directions/kapitel-3.json": "8375996385dfb548c60d9e6e4d64dc22c7fd705e9b23f450843717fb8ecfd426",
     "docs/voice-production/directions/kapitel-4.json": "6a9817cdd1d66bdf6aae031aa10d1a0abea6abeafdedf9f44601c356a24ed6ad",
@@ -18316,10 +18326,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 217,
+          "line": 218,
           "column": 11,
-          "start": 11470,
-          "end": 11555,
+          "start": 11573,
+          "end": 11658,
           "expression": "lia('In Büchern ist die Geschichte aus, wenn man die Schwester gefunden hat.', 'sad')",
           "expression_sha256": "ae9076cc40a4fd219141bdffdfdf3335f9ec306291923a134d050ddcdc305cb0",
           "review_anchor_hashes": [
@@ -20961,10 +20971,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 356,
+          "line": 374,
           "column": 26,
-          "start": 16746,
-          "end": 16846,
+          "start": 17842,
+          "end": 17942,
           "expression": "'Erst Reisig fürs Feuer, jetzt Gräber. Bis ich fertig bin, sitzen die längst im nächsten Wirtshaus.'",
           "expression_sha256": "771c7b5a55ac1486c4e9080b115409e3278485816082e603f6d33fd0f1d94acd",
           "review_anchor_hashes": [
@@ -22214,10 +22224,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 219,
+          "line": 220,
           "column": 11,
-          "start": 11677,
-          "end": 11706,
+          "start": 11780,
+          "end": 11809,
           "expression": "lia('Am Ofen. Nicht zu Fuß.')",
           "expression_sha256": "f42716b31506d74505e3f2e243c625c3c4c6a322f25da01b2b0212b96421d1ff",
           "review_anchor_hashes": [
@@ -22294,10 +22304,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 246,
+          "line": 259,
           "column": 21,
-          "start": 11952,
-          "end": 12043,
+          "start": 12663,
+          "end": 12754,
           "expression": "'Kyra wehrte sich so heftig, dass es drei Männer brauchte, um sie auf ein Pferd zu hieven.'",
           "expression_sha256": "36c98b9592c2884947292b9c192a13f6d21ea75ab425aff97fb11fe9a221c8b2",
           "review_anchor_hashes": [
@@ -22305,7 +22315,7 @@
             "de66aa66f52e474893f4bc429cc50b2e93b1ccbe3c148d59877490bbdde802a0",
             "ada352ec6ae2a2eddbaf57fa0a056f29e9e945b301aebfe2cd0b28281ca0a1e5",
             "411363eb02dcde7092b479d5b3d5bf7e1fcf809fccb550e38a94f8d364397f56",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -24141,10 +24151,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 229,
+          "line": 242,
           "column": 25,
-          "start": 11058,
-          "end": 11123,
+          "start": 11769,
+          "end": 11834,
           "expression": "'Ich merk mir eure Fratzen. Jede einzelne. Ihr werdet nicht alt.'",
           "expression_sha256": "aeea741bcaa56e5fae2cc1d8208bc49b9af7791536ee9245aa2f2a0ec0497d06",
           "review_anchor_hashes": [
@@ -24152,7 +24162,7 @@
             "a127b558d4dbce6cd1cc46050580a6fa35eb3eb5f9854183b6c24cfbe35850b4",
             "ec18579a46f44d14ba789e7c1cf50d7730841f4bae7d0a17e1a984293dcb618a",
             "906640899ed3ba3853bb81018929add854b48aab6480a2fe938eb97f4083e4a7",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -24613,10 +24623,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 218,
+          "line": 219,
           "column": 25,
-          "start": 11581,
-          "end": 11645,
+          "start": 11684,
+          "end": 11748,
           "expression": "'Dann ist das eben ein dickes Buch. Du magst doch dicke Bücher.'",
           "expression_sha256": "fffdd14dd52d1ab87892fa984321e568c95a3cf49a1149895f6b3a37a727807a",
           "review_anchor_hashes": [
@@ -25934,10 +25944,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 143,
+          "line": 145,
           "column": 32,
-          "start": 6930,
-          "end": 6978,
+          "start": 7064,
+          "end": 7112,
           "expression": "'Noch einmal, ganz freundlich: Wo ist das Kind?'",
           "expression_sha256": "4103e8072d43b993b94326c1782d714c6d3eae390d0a9f93c8d01140b5c4bf2d",
           "review_anchor_hashes": [
@@ -25945,7 +25955,7 @@
             "99c9d2fcb6e8d59ced1429c117d9e8857f6fbea9c7c8291029290390612ad948",
             "057092af132e6a5af5c6edcae00832587c224cdb0996a7982ee0e82fbec60000",
             "4d59c0d6f4d7cd192758337ac7a7fd96bc25c05e20a73415ae2e39e7cca31cfc",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -26953,10 +26963,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 245,
+          "line": 258,
           "column": 32,
-          "start": 11842,
-          "end": 11929,
+          "start": 12553,
+          "end": 12640,
           "expression": "'Fesselt sie und verwahrt sie gut. Der Hauptmann wird sich über unser Geschenk freuen.'",
           "expression_sha256": "19c060f0d94aa3517b97b170ea73e54f3b0e40467ded5428738f3463aae12481",
           "review_anchor_hashes": [
@@ -26964,7 +26974,7 @@
             "81ab2d407e9d0cfe69c6390fcde5339baca085de23c9a0dae8e0a5643a1b3f33",
             "2c9a00dac0f0c54f970a54ee05b3bf74888f4fa9b329da23d275be800d283fa9",
             "3c7e47233a60b6472c2c172f3a53ec6fb227208816a781bcc7aaede3532a5dc6",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -27008,10 +27018,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 193,
+          "line": 194,
           "column": 25,
-          "start": 9894,
-          "end": 9988,
+          "start": 9997,
+          "end": 10091,
           "expression": "'Dann hätt ich dem Riesen so lang in die Waden gebissen, bis er mich freiwillig laufen lässt.'",
           "expression_sha256": "08dd1433a496ead4cf2e9c20d6e1d65008dfb5beb501fdab52586f2a55885cf8",
           "review_anchor_hashes": [
@@ -27650,10 +27660,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 349,
+          "line": 367,
           "column": 19,
-          "start": 16471,
-          "end": 16541,
+          "start": 17567,
+          "end": 17637,
           "expression": "'Ich hole dich zurück, Kyra. Ich weiß nicht wie. Aber ich schwöre es.'",
           "expression_sha256": "f2e6bea21a83a7869e8bdecaa621b8e6b034591fd93e773d40027260f15bcd83",
           "review_anchor_hashes": [
@@ -27763,10 +27773,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 220,
+          "line": 221,
           "column": 26,
-          "start": 11733,
-          "end": 11796,
+          "start": 11836,
+          "end": 11899,
           "expression": "'Bei den Rebellen sitzt man auf Wurzeln. Nur damit du’s weißt.'",
           "expression_sha256": "daa4cf6b4252fa8ee7a594da62ac27c68dcc75cf4ab1925de39a5a81b4487ee7",
           "review_anchor_hashes": [
@@ -29933,10 +29943,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 287,
+          "line": 300,
           "column": 24,
-          "start": 13919,
-          "end": 13956,
+          "start": 14630,
+          "end": 14667,
           "expression": "['Hab ich da was gehört?', 'Wer da?']",
           "expression_sha256": "74ee2151c63702507f1016b152a66afb393523dac50b08aa8dde2f79a16a5b35",
           "review_anchor_hashes": [
@@ -29945,11 +29955,11 @@
             "bbe4255fe08852b1e3e2e7b2099f0f9d2f9dffa848e5bcb290f436f22dfec769",
             "e72261b2c841e6f175db0934bfcbdebf36b2a34feee01cc2b37f39366d81dd7c",
             "284d1a1751a1b3cdda9a431a348c201235a07940d05010d5c1a66d52c76b6c42",
-            "c781d7378ff2c43fa2d3708e1d52250fe3843103f3f09d0d838255b850f7d2c3",
-            "3ea0d78dabadf5cd9b9f2db62d94d37d0c47d0bef4da01cb2fc45a2b684e1f66",
-            "bb477f3319edf18575dccc68234747c0c13ddc8f6ad49f2caca2ac9b6c1d8f60",
-            "d2dbfe8e198fcb9ed551eb7cd416e3116a539a97b6e55720b771a9b431709fbd",
-            "10f8a6107cbe0f7e11d7aa2d4a9ee32876fa82afa0bc00a54cb2894107026faf"
+            "6c741fc3afd87dd44625673310a889f90e81bd4de8725e6d789916f0be2dd948",
+            "3d9178fc65468066c9f8fa3f3900ac1aecb51a281bb301f668d6f97ecaaad320",
+            "b92a499eedf0cbed737f53fb8efe276f6c63b4a7df9782bcb168c981b0c50186",
+            "ed9db3343b4d2873c87b3fe2bb43aa802d3b1538e2811adfe70cf21adb592e64",
+            "7c3b183c78eb13b12d6b425ff94fa7701928086a2e1080c26a623490506730ea"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -30653,10 +30663,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 216,
+          "line": 217,
           "column": 25,
-          "start": 11378,
-          "end": 11438,
+          "start": 11481,
+          "end": 11541,
           "expression": "'Rebellen? Mit Lagerfeuer und Geheimzeichen? Ich bin dabei.'",
           "expression_sha256": "597ab71991b935fdb45e07e344de6ce311d335216c2a45b645ae04c03b44f376",
           "review_anchor_hashes": [
@@ -31608,10 +31618,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 167,
+          "line": 169,
           "column": 19,
-          "start": 8330,
-          "end": 8359,
+          "start": 8464,
+          "end": 8493,
           "expression": "'Ich muss zu ihr! Ich muss –'",
           "expression_sha256": "2c674db6ac26800bcdda5dbe4badcc0a9a38c9d0de864dc3d318569872c4053a",
           "review_anchor_hashes": [
@@ -31619,7 +31629,7 @@
             "c2f898aaaf909d6b75276358f0105e318f1de2aefad13eb98156afebba0673ce",
             "bbe181d628d55a1c342b407fbfa094db6a233c495ce0a1cdd416dea552d9f532",
             "961ae91d19f3d93d9ae0835237e7aeb5f9ecd9444fe5aaf15f6ca8bddee59ca4",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -31779,10 +31789,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 158,
+          "line": 160,
           "column": 31,
-          "start": 7762,
-          "end": 7813,
+          "start": 7896,
+          "end": 7947,
           "expression": "'Hockte unterm Bett. Hat mich gebissen, das Biest.'",
           "expression_sha256": "9a15f9866c1d8aca7f15a00c063b050caa04f0092a904f5f3937f53cd44fcbe2",
           "review_anchor_hashes": [
@@ -31790,7 +31800,7 @@
             "2ee1d80d0f19632fbdcdbeb9ee8365dc12ef8695880a59413332e00d9fcf51d5",
             "bb4c9f378f22540a365645d3f15a935cc7e2eca211ac8033b1d333d685939249",
             "3df185ff366f61e107ea1c5e15c8d5fe294b938be0190e93d328e558d79f5015",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -32097,10 +32107,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 206,
+          "line": 207,
           "column": 23,
-          "start": 10736,
-          "end": 10811,
+          "start": 10839,
+          "end": 10914,
           "expression": "'Dann halten wir das. Ich pflück die Blumen, und du weißt, wie sie heißen.'",
           "expression_sha256": "78f4eb4a04ffb2de94ea2b58fdb8de6360242f1536a4095475779ea0fc28c5eb",
           "review_anchor_hashes": [
@@ -32323,10 +32333,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 204,
+          "line": 205,
           "column": 23,
-          "start": 10451,
-          "end": 10541,
+          "start": 10554,
+          "end": 10644,
           "expression": "'Nachts am Pflock hab ich an den Hof gedacht. Ob jemand die Schweine füttert. Dumm, oder?'",
           "expression_sha256": "d01ddb20e99cb23df0a49b08c2bb063a9376ee9b8430a1b81123cd6073e4f048",
           "review_anchor_hashes": [
@@ -34367,10 +34377,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 391,
+          "line": 409,
           "column": 26,
-          "start": 18181,
-          "end": 18232,
+          "start": 19277,
+          "end": 19328,
           "expression": "'Hart wie Stein, der Boden. Seit Tagen kein Regen.'",
           "expression_sha256": "85fe4f6e9227595da2b281401e7efbad9d1a7bc5d21685ff49c10ce4f03d5063",
           "review_anchor_hashes": [
@@ -34538,10 +34548,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 41,
+          "line": 42,
           "column": 96,
-          "start": 2385,
-          "end": 2401,
+          "start": 2500,
+          "end": 2516,
           "expression": "YARD_BARKS.kahle",
           "expression_sha256": "9d7bff6b7c721b50364d74ffc9ea4767e32037cd408df7b30658b3bc41ba7370",
           "review_anchor_hashes": [
@@ -35243,17 +35253,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 212,
+          "line": 220,
           "column": 15,
-          "start": 10250,
-          "end": 10258,
+          "start": 10739,
+          "end": 10747,
           "expression": "'Vater!'",
           "expression_sha256": "1de554a03f3499ea3feedf208b3f43266e5bf74c579f5c1c0c83eaba688a3e6a",
           "review_anchor_hashes": [
             "1de554a03f3499ea3feedf208b3f43266e5bf74c579f5c1c0c83eaba688a3e6a",
             "258ccba0fa79e7f5d579f89644c61d9c5ac6fa286a6e41147447f458300d23ad",
             "922e2d771a655239805c4e41ac41f53d4b80aac8a58d74b2c2f5a781109681c2",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -35578,10 +35588,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 199,
+          "line": 200,
           "column": 11,
-          "start": 10177,
-          "end": 10237,
+          "start": 10280,
+          "end": 10340,
           "expression": "lia('Und das hier lag im Stall vom Goldenen Eber.', 'happy')",
           "expression_sha256": "f200188381b329ff22a052b7c10e8452f016ecc7fff9de86852291d658eb55ae",
           "review_anchor_hashes": [
@@ -36464,10 +36474,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 232,
+          "line": 233,
           "column": 28,
-          "start": 12812,
-          "end": 12878,
+          "start": 12915,
+          "end": 12981,
           "expression": "'Dann gehen wir zu dritt hin. Und diesmal stellen wir die Fragen.'",
           "expression_sha256": "1a9dfdd294c67dbdcf0aa997516dc1b9daec67e07a2f123ad4bb4c26c68e6de8",
           "review_anchor_hashes": [
@@ -36582,10 +36592,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 222,
+          "line": 223,
           "column": 26,
-          "start": 11972,
-          "end": 12063,
+          "start": 12075,
+          "end": 12166,
           "expression": "'Und wer weiß. Mit euch zwei im Schlepptau lassen sie mich vielleicht doch noch ans Feuer.'",
           "expression_sha256": "ed14069c026c05901ab4cef7aa7556acaa0759b4c6c238555dde626a2a01677b",
           "review_anchor_hashes": [
@@ -37516,10 +37526,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 249,
+          "line": 262,
           "column": 32,
-          "start": 12133,
-          "end": 12221,
+          "start": 12844,
+          "end": 12932,
           "expression": "'Harro. Schaufel. Die zwei kommen unter die Erde, bevor die Leichenfresser sie riechen.'",
           "expression_sha256": "ab50e337c4ff063d7f8629c8de9abbd635652fa478eaa64a61e56f7dfc29e40e",
           "review_anchor_hashes": [
@@ -37527,7 +37537,7 @@
             "76317753426ab8136b85b5455a3ce8824d5f8e0adfbc68376b8e1518b9858c3e",
             "aad36846f107be331ec3c4f0c8dd56286e5c868d6a30776db2cd07240779b89b",
             "b2e177eabaac428f20249eb7742a70bc7e507dcd373fcc8982bd11a101c6eee1",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -38641,10 +38651,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 144,
+          "line": 146,
           "column": 26,
-          "start": 7025,
-          "end": 7067,
+          "start": 7159,
+          "end": 7201,
           "expression": "'Wir sind allein. Hier gibt es kein Kind.'",
           "expression_sha256": "84e62a2aa2c8416c0bd620e44511be2b102bb296a43d96d0105b91a91578355f",
           "review_anchor_hashes": [
@@ -38652,7 +38662,7 @@
             "abfa2c78ea27f6d061263cf8c31fa68395228212fc0c7dac4e25f79f6501745b",
             "2ec05b580c3be370ccfd35650e89e475065b157cf1498cae755b7e95d164481e",
             "383ade7c2ca95275027b801b7b6090712aa023d535d7dee169442b24ad70a232",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -41533,10 +41543,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 41,
+          "line": 42,
           "column": 96,
-          "start": 2385,
-          "end": 2401,
+          "start": 2500,
+          "end": 2516,
           "expression": "YARD_BARKS.kahle",
           "expression_sha256": "9d7bff6b7c721b50364d74ffc9ea4767e32037cd408df7b30658b3bc41ba7370",
           "review_anchor_hashes": [
@@ -41946,10 +41956,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 42,
+          "line": 43,
           "column": 101,
-          "start": 2541,
-          "end": 2558,
+          "start": 2656,
+          "end": 2673,
           "expression": "YARD_BARKS.kapuze",
           "expression_sha256": "e5b7791a6f20d99210b07eb05d94faee0c264f9bc070afb9b464a5d31c795e54",
           "review_anchor_hashes": [
@@ -43282,10 +43292,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 392,
+          "line": 410,
           "column": 26,
-          "start": 18279,
-          "end": 18391,
+          "start": 19375,
+          "end": 19487,
           "expression": "'Ach, sollen die Leichenfresser sich doch satt fressen. Ich hol die anderen nie ein, wenn ich hier Löcher grab.'",
           "expression_sha256": "5ad2503ac0cd158cd4b91dca85f9d628d8339553d4ae2f4674021a1f86709f28",
           "review_anchor_hashes": [
@@ -44564,10 +44574,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 201,
+          "line": 202,
           "column": 25,
-          "start": 10291,
-          "end": 10393,
+          "start": 10394,
+          "end": 10496,
           "expression": "'Mein Haarband … Den ganzen Weg bist du mir nach. Du. Die beim Holzholen nach drei Scheiten schnauft.'",
           "expression_sha256": "d003ee4677d47898169690355505784a61e451c4cda2d9fea0affa03841d75ed",
           "review_anchor_hashes": [
@@ -45800,10 +45810,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 140,
+          "line": 142,
           "column": 19,
-          "start": 6615,
-          "end": 6703,
+          "start": 6749,
+          "end": 6837,
           "expression": "'Schwarz-weiße Wappenröcke. Dunkelschatten. In meinen Büchern waren die immer weit weg.'",
           "expression_sha256": "ca0ca1c539b1d60d67a56156e8ed987669029439e028d28494d25478defe36d8",
           "review_anchor_hashes": [
@@ -45811,7 +45821,7 @@
             "ed4a59bd3240035e8c69fbbcaaec5159148955f61e75af9b3f1dafc5b63bec17",
             "6a9a7a6e563a091496a9d6711a06fa960901e9f885cb2eac801b1af9eb7851f1",
             "50e341237aea42117cb85632b54690db9091ea1182bfadc5c10bf25249904154",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -46521,10 +46531,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 271,
+          "line": 273,
           "column": 31,
-          "start": 14963,
-          "end": 15021,
+          "start": 15142,
+          "end": 15200,
           "expression": "'Und tief in Lia schlief etwas ~Türkises~. Es hatte Zeit.'",
           "expression_sha256": "a04d57a4504d3803caf495658e29046732ac8107ffbdaffc48d6a7af4c125a8d",
           "review_anchor_hashes": [
@@ -46532,11 +46542,11 @@
             "168ed76175528c19f666c3794f2b2d2e98321813ae811287abc76b03bf513bfd",
             "427450813aa6d1a08e9526f59439cf8a0447c99540bf5442f158cca370e4db28",
             "d49cbe64470b3cc1a56ed19ff22d0f8bde77fd90a4e86477ea60e94eb02a5132",
-            "9d0ecd3895105e81531354bd1a68474266c4791d81d5ed2023af02ff360e5e5f",
-            "64429e3e8e2703454f162c28a074df1e31c1581f1e7d8b9ae1bdc84eaf3d6020",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "eff0a5b1382b63dbd8cf4c6ababa8b9385a327f39f6a8e35853232cbf00212f8",
+            "77d13599d60ef4442418d757ff2b5d6036a47cfbb6b31c2b80f11e26155691b2",
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -46691,10 +46701,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 177,
+          "line": 179,
           "column": 32,
-          "start": 8685,
-          "end": 8721,
+          "start": 8819,
+          "end": 8855,
           "expression": "'Nur ein Fuchs. Oder ein Karnickel.'",
           "expression_sha256": "5aa69d8765c8ba4cdc87b61cbbf5c5d5c2174b3ab282b0c06e345a4000d236b9",
           "review_anchor_hashes": [
@@ -46704,7 +46714,7 @@
             "a1e6877cec540bb2c17e3c99777731b519b024d597cae2971b7c4a17a3f43066",
             "85493fbe89114b3dd3ae94b6a39a81360068f03e878c09b932894c67c1a46b0c",
             "9ca4f59fe24001628593dafa9c58b68d3f832d9c3ed609a9a4ecc29fd3e0798d",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -47497,10 +47507,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 367,
+          "line": 385,
           "column": 67,
-          "start": 17396,
-          "end": 17433,
+          "start": 18492,
+          "end": 18529,
           "expression": "HARRO_BARKS[i++ % HARRO_BARKS.length]",
           "expression_sha256": "35562b808e62cffa2ca91b62f6bc237a36dcd9e64a67ec75f0fc433fc5328859",
           "review_anchor_hashes": [
@@ -48495,10 +48505,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 367,
+          "line": 385,
           "column": 67,
-          "start": 17396,
-          "end": 17433,
+          "start": 18492,
+          "end": 18529,
           "expression": "HARRO_BARKS[i++ % HARRO_BARKS.length]",
           "expression_sha256": "35562b808e62cffa2ca91b62f6bc237a36dcd9e64a67ec75f0fc433fc5328859",
           "review_anchor_hashes": [
@@ -49862,10 +49872,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 92,
+          "line": 94,
           "column": 19,
-          "start": 4632,
-          "end": 4706,
+          "start": 4766,
+          "end": 4840,
           "expression": "'Die Haustür steht sperrangelweit offen. Vor ihr knien Mutter und Vater …'",
           "expression_sha256": "61b4eacccf601b725c291aac85bd76207e59155553b18e20193baf4735c08294",
           "review_anchor_hashes": [
@@ -50632,10 +50642,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 234,
+          "line": 235,
           "column": 28,
-          "start": 12945,
-          "end": 13027,
+          "start": 13048,
+          "end": 13130,
           "expression": "'Musst du nicht. Vorne lauf ich. Ich seh im Dunkeln besser als ihr zwei zusammen.'",
           "expression_sha256": "58b4f7bb0c8be72da61dfcf42c1222f1dce245e22cd6c22723272de433e8c4a7",
           "review_anchor_hashes": [
@@ -51882,10 +51892,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 103,
+          "line": 105,
           "column": 19,
-          "start": 5167,
-          "end": 5193,
+          "start": 5301,
+          "end": 5327,
           "expression": "'Runter! In die Böschung!'",
           "expression_sha256": "b0bc49397725aed2e19037da7c366a5d13b26d1a80cca3fdb451242b8c19d882",
           "review_anchor_hashes": [
@@ -52447,10 +52457,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 249,
+          "line": 251,
           "column": 17,
-          "start": 13825,
-          "end": 13911,
+          "start": 14004,
+          "end": 14090,
           "expression": "'Türkis, sagt Flick. Wie bei Alana. Nur dass Alana in einem Buch steht. Und ich hier.'",
           "expression_sha256": "50481afd20cf737525e6c39d694d09b3753e1e30423976ef54f5c83578236f41",
           "review_anchor_hashes": [
@@ -54304,10 +54314,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 171,
+          "line": 173,
           "column": 37,
-          "start": 8507,
-          "end": 8521,
+          "start": 8641,
+          "end": 8655,
           "expression": "'Was war das?'",
           "expression_sha256": "470eb2c7c13eb72ea7fa4c91034214035a67b1cf40f8328203a070ea6d536fd0",
           "review_anchor_hashes": [
@@ -54898,10 +54908,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 192,
+          "line": 194,
           "column": 32,
-          "start": 9433,
-          "end": 9448,
+          "start": 9567,
+          "end": 9582,
           "expression": "'Dummer Bauer.'",
           "expression_sha256": "f66076c288f71abf85ab39d28df7b8c5341295547894de3354fd036093bc20cd",
           "review_anchor_hashes": [
@@ -54909,7 +54919,7 @@
             "0a5f67b786c32c878f01b64a9e7ba670616d924ff124bed684ef30a908080aa1",
             "89a1a91107c8448200e6d97ce1d33376621574994a46adb0005bf023965016bb",
             "ec88afc1122b3404c0e80e0dba315767061dc63d02b95d464a44ad1a64a18910",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -55014,17 +55024,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 188,
+          "line": 190,
           "column": 21,
-          "start": 9229,
-          "end": 9269,
+          "start": 9363,
+          "end": 9403,
           "expression": "'Ich wette, die hält keine Woche durch.'",
           "expression_sha256": "3e9ae9e34a3a9c451a743fbfb6bee8c5dc429c10b2fa77cae5a16e163dccd0ee",
           "review_anchor_hashes": [
             "3e9ae9e34a3a9c451a743fbfb6bee8c5dc429c10b2fa77cae5a16e163dccd0ee",
             "25a1e3467df7f8429245f806cdc9c9745be221203b2314cf8e9ed94590c9964b",
             "4184c735a1a88aa4b2cc779106d22c6c6feb9a4454fba7409ef19adf44c6dcde",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -55293,10 +55303,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 191,
+          "line": 192,
           "column": 25,
-          "start": 9693,
-          "end": 9789,
+          "start": 9796,
+          "end": 9892,
           "expression": "'Meine Perlen! Gestreut wie im Märchen. Hätt nie gedacht, dass dein ewiges Lesen mal was nützt.'",
           "expression_sha256": "f4c48a90b5bd2f14591cff5943cfbb339c74cba52050d4c9386d04925ba176a6",
           "review_anchor_hashes": [
@@ -55962,10 +55972,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 402,
+          "line": 420,
           "column": 19,
-          "start": 18949,
-          "end": 18986,
+          "start": 20045,
+          "end": 20082,
           "expression": "'Weg. Er ist weg. Sie sind alle weg.'",
           "expression_sha256": "2b2676bbe4d76dca696d5e5496031e66ad3702487823032c319d3babec44700d",
           "review_anchor_hashes": [
@@ -56580,10 +56590,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 184,
+          "line": 186,
           "column": 32,
-          "start": 8879,
-          "end": 8898,
+          "start": 9013,
+          "end": 9032,
           "expression": "'Zeig deine Hände!'",
           "expression_sha256": "c74ccab3ffbd7993b9da6cc20488e44d36d9b2851e30eca1e9bbb52d5b3e9c3f",
           "review_anchor_hashes": [
@@ -56591,7 +56601,7 @@
             "b59bdcc39932e2d34e9a2d7b1607e7c1bf7cf0e8dc9b040fff2342d98d450ef8",
             "bd0da10de74ea2b86435b2eb9e296c578397b0ba17a7c2b083f757b73361aca4",
             "0cf219b73f7c1a7006ba11358da6cf5431b510505520eb0d601981a1c8f31d57",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -57599,10 +57609,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 236,
+          "line": 237,
           "column": 25,
-          "start": 13079,
-          "end": 13173,
+          "start": 13182,
+          "end": 13276,
           "expression": "'Wir drei. Eine leuchtet, eine schießt, und ich beiße. Über uns singen die Leute mal Lieder …'",
           "expression_sha256": "a9f6a434e49986fe89a4e83d313d34c0d1d86054991a1955ab89162ecb909d63",
           "review_anchor_hashes": [
@@ -58688,10 +58698,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 229,
+          "line": 230,
           "column": 13,
-          "start": 12425,
-          "end": 12633,
+          "start": 12528,
+          "end": 12736,
           "expression": "lia(G.state.is('k3-luege-bemerkt') ? 'Foltan wusste, wohin sie dich bringen. Seit dem Goldenen Eber. Ich hab’s ihm angesehen.' : 'Foltan wusste, wohin sie dich bringen. Und er hat kein Wort gesagt.', 'angry')",
           "expression_sha256": "c1b1ef66b2ff82b83e684b6bfd2a4c674e079877aede2940a5b3798af9d2d392",
           "review_anchor_hashes": [
@@ -59056,10 +59066,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 145,
+          "line": 147,
           "column": 32,
-          "start": 7121,
-          "end": 7170,
+          "start": 7255,
+          "end": 7304,
           "expression": "'Schade. Ich hatte gehofft, wir bleiben höflich.'",
           "expression_sha256": "fb34e45920f831a425ac1c3f4eb44920b88ca797baa396d240584ef65dabfe13",
           "review_anchor_hashes": [
@@ -59067,7 +59077,7 @@
             "018b2f88dbbf3aca4c8db1d67c2c3abf8944ae29c23feabe3acc2c2df500c4c1",
             "7a78385709459a7a6a540b10e4e153a51f8e2a5b9cd03cc35799d9adc4e4be61",
             "793a2ccbcbae079acee0f159268b6841c04c8a5d6c0f7e581fccfd087c852917",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -60537,10 +60547,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 250,
+          "line": 263,
           "column": 26,
-          "start": 12249,
-          "end": 12311,
+          "start": 12960,
+          "end": 13022,
           "expression": "'Natürlich Harro. Wer sonst. Harro gräbt, die anderen saufen.'",
           "expression_sha256": "c0d765dd8bae2541f1c4876dc0e640c8ef8df97050371aa3aa0654ad3a3d1af1",
           "review_anchor_hashes": [
@@ -60548,7 +60558,7 @@
             "1a4146e69f79e831e75aa3fa88885eef5a30d0609ce8f42c5702c1aa7dd052ce",
             "477bf9eb7f4f2b742b3d6144089393c9dc7ff734297664910f788a4bfa5d381f",
             "49b61c777233c5a4c2c1b6e6d0253d86029c99b0d1351d693515554311628588",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -61608,10 +61618,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 248,
+          "line": 250,
           "column": 17,
-          "start": 13709,
-          "end": 13806,
+          "start": 13888,
+          "end": 13985,
           "expression": "'Ein Kreis aus verbranntem Gras, so rund wie mit dem Zirkel gezogen. Und ich stand in der Mitte.'",
           "expression_sha256": "bc17e05357334c9664255a2de12fa44935b91c2441217e3cce6603a719084d13",
           "review_anchor_hashes": [
@@ -62061,10 +62071,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 205,
+          "line": 206,
           "column": 9,
-          "start": 10569,
-          "end": 10712,
+          "start": 10672,
+          "end": 10815,
           "expression": "lia('Die Schweine hab ich laufen lassen. Mutter und Vater liegen vorm Haus. Ich hab ihnen versprochen, dass wir zu zweit wiederkommen.', 'sad')",
           "expression_sha256": "d69f2e471fcfbea0075387a73499c340e287484a1243739edca3e145a1ee8de0",
           "review_anchor_hashes": [
@@ -62673,10 +62683,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 221,
+          "line": 222,
           "column": 25,
-          "start": 11842,
-          "end": 11925,
+          "start": 11945,
+          "end": 12028,
           "expression": "'Und du kannst jetzt Riesen umpusten! Weißt du, wie schnell wir damit Holz hacken?'",
           "expression_sha256": "b8c4e5fe5f94a7e14f9020ccb0333cfedb77d6faeddb73976732b46b555c5788",
           "review_anchor_hashes": [
@@ -63322,10 +63332,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 40,
+          "line": 41,
           "column": 99,
-          "start": 2234,
-          "end": 2250,
+          "start": 2349,
+          "end": 2365,
           "expression": "YARD_BARKS.orwen",
           "expression_sha256": "63c6de568c47dc3fe72eedb744ccb8cb6c26622e235d99db07f79f6b45ea61ae",
           "review_anchor_hashes": [
@@ -63744,10 +63754,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 40,
+          "line": 41,
           "column": 99,
-          "start": 2234,
-          "end": 2250,
+          "start": 2349,
+          "end": 2365,
           "expression": "YARD_BARKS.orwen",
           "expression_sha256": "63c6de568c47dc3fe72eedb744ccb8cb6c26622e235d99db07f79f6b45ea61ae",
           "review_anchor_hashes": [
@@ -63861,10 +63871,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 223,
+          "line": 237,
           "column": 27,
-          "start": 10830,
-          "end": 10838,
+          "start": 11546,
+          "end": 11554,
           "expression": "'Kyra …'",
           "expression_sha256": "104f5da5326b36b919fe3e40cf13638afb61b66663d9ed3512eb7104d117fe28",
           "review_anchor_hashes": [
@@ -63872,7 +63882,7 @@
             "0e6fe9a60ff6a363f0b04efc58c3b19598196109eebecf623e792c79566961ba",
             "a5032d90dd6ff357c472f8ba0948e447698c25314217f647a306cff657669a22",
             "7df047a82af73eaf551673abd7e6329bc8762cd1e717d93128cc3c32f1361084",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -63998,10 +64008,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 52,
+          "line": 53,
           "column": 24,
-          "start": 3233,
-          "end": 3268,
+          "start": 3348,
+          "end": 3383,
           "expression": "['Was raschelt da?', 'Ist da wer?']",
           "expression_sha256": "37df4649facf6d898918bda98c24f620efa57c21612c503b3a259ad455f5fec0",
           "review_anchor_hashes": [
@@ -65007,10 +65017,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 367,
+          "line": 385,
           "column": 67,
-          "start": 17396,
-          "end": 17433,
+          "start": 18492,
+          "end": 18529,
           "expression": "HARRO_BARKS[i++ % HARRO_BARKS.length]",
           "expression_sha256": "35562b808e62cffa2ca91b62f6bc237a36dcd9e64a67ec75f0fc433fc5328859",
           "review_anchor_hashes": [
@@ -66347,10 +66357,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 320,
+          "line": 338,
           "column": 17,
-          "start": 14987,
-          "end": 15046,
+          "start": 16083,
+          "end": 16142,
           "expression": "'Nein. So nicht. Ich warte, bis er mir den Rücken zudreht.'",
           "expression_sha256": "28053a8cb60936b31fd003070dcbd57850cfa282a42191fbfc00a3abb7436d43",
           "review_anchor_hashes": [
@@ -66698,10 +66708,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 40,
+          "line": 41,
           "column": 99,
-          "start": 2234,
-          "end": 2250,
+          "start": 2349,
+          "end": 2365,
           "expression": "YARD_BARKS.orwen",
           "expression_sha256": "63c6de568c47dc3fe72eedb744ccb8cb6c26622e235d99db07f79f6b45ea61ae",
           "review_anchor_hashes": [
@@ -67174,10 +67184,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 287,
+          "line": 300,
           "column": 74,
-          "start": 13969,
-          "end": 14017,
+          "start": 14680,
+          "end": 14728,
           "expression": "['Bloß ein Karnickel.', 'Leichenfresser … pah.']",
           "expression_sha256": "89bfca2c50c812655aaaa7868979721bb0c2e7d89fd42ddd7ec8d88208751780",
           "review_anchor_hashes": [
@@ -67186,11 +67196,11 @@
             "bbe4255fe08852b1e3e2e7b2099f0f9d2f9dffa848e5bcb290f436f22dfec769",
             "e72261b2c841e6f175db0934bfcbdebf36b2a34feee01cc2b37f39366d81dd7c",
             "284d1a1751a1b3cdda9a431a348c201235a07940d05010d5c1a66d52c76b6c42",
-            "c781d7378ff2c43fa2d3708e1d52250fe3843103f3f09d0d838255b850f7d2c3",
-            "3ea0d78dabadf5cd9b9f2db62d94d37d0c47d0bef4da01cb2fc45a2b684e1f66",
-            "bb477f3319edf18575dccc68234747c0c13ddc8f6ad49f2caca2ac9b6c1d8f60",
-            "d2dbfe8e198fcb9ed551eb7cd416e3116a539a97b6e55720b771a9b431709fbd",
-            "10f8a6107cbe0f7e11d7aa2d4a9ee32876fa82afa0bc00a54cb2894107026faf"
+            "6c741fc3afd87dd44625673310a889f90e81bd4de8725e6d789916f0be2dd948",
+            "3d9178fc65468066c9f8fa3f3900ac1aecb51a281bb301f668d6f97ecaaad320",
+            "b92a499eedf0cbed737f53fb8efe276f6c63b4a7df9782bcb168c981b0c50186",
+            "ed9db3343b4d2873c87b3fe2bb43aa802d3b1538e2811adfe70cf21adb592e64",
+            "7c3b183c78eb13b12d6b425ff94fa7701928086a2e1080c26a623490506730ea"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -68119,10 +68129,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 231,
+          "line": 232,
           "column": 13,
-          "start": 12737,
-          "end": 12783,
+          "start": 12840,
+          "end": 12886,
           "expression": "lia('Vielleicht. Ich erzähl’s dir unterwegs.')",
           "expression_sha256": "4b1ca847b01e634c5ab1a26b28ab1a11a431d53e2b03cbff5815dcc511bf0181",
           "review_anchor_hashes": [
@@ -68677,10 +68687,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 73,
+          "line": 74,
           "column": 19,
-          "start": 4006,
-          "end": 4019,
+          "start": 4121,
+          "end": 4134,
           "expression": "'He! Wer da?'",
           "expression_sha256": "debfdc0d99ce85ff2f894d3ebf358e6a0ec4bc10f58f690c2ee1c03f6c13229c",
           "review_anchor_hashes": [
@@ -70963,10 +70973,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 214,
+          "line": 215,
           "column": 11,
-          "start": 11151,
-          "end": 11212,
+          "start": 11254,
+          "end": 11315,
           "expression": "lia('Und jetzt? Weiter als bis zu Kyra hab ich nie gedacht.')",
           "expression_sha256": "037fcc399759072e2d426b1e3a7acc65fa0cd1755112b88ddac0b350cde55854",
           "review_anchor_hashes": [
@@ -73278,10 +73288,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 164,
+          "line": 166,
           "column": 19,
-          "start": 8216,
-          "end": 8286,
+          "start": 8350,
+          "end": 8420,
           "expression": "'Vater … er verleugnet sie. Um sie zu schützen. Um *uns* zu schützen.'",
           "expression_sha256": "e432c0c768ec71c4d9a7340f9314f1a5cf56847e6374aa529a4d974b0007a69d",
           "review_anchor_hashes": [
@@ -73289,7 +73299,7 @@
             "4f0ead485e348bf3d817d8d170e625c2c62d1b0e17599151ca276fd4ad39b9de",
             "1aeee8972412e52c0ea051af3c739c216d578a2105f7d34422987e8fcdc3f728",
             "b48969768ac7dff055b36f2b2e40d90a019952d9ff4a8fe5dcdf9f9e5a11009f",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -74052,10 +74062,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 237,
+          "line": 250,
           "column": 23,
-          "start": 11540,
-          "end": 11574,
+          "start": 12251,
+          "end": 12285,
           "expression": "n > 1 ? 'Da ist doch was!' : 'Hm?'",
           "expression_sha256": "a78edd5a5da3096ae27febbe3667eedbb35ae5a36e89162e8dc605d3a164eb48",
           "review_anchor_hashes": [
@@ -74445,10 +74455,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 208,
+          "line": 216,
           "column": 19,
-          "start": 10104,
-          "end": 10130,
+          "start": 10593,
+          "end": 10619,
           "expression": "'Nein. Nein, nein, nein …'",
           "expression_sha256": "cf096fb49c1579f18197635d21caacfff9b3c9bbb50de435222c5e16c3c7235c",
           "review_anchor_hashes": [
@@ -74456,7 +74466,7 @@
             "9a7d9416617c10ff4c97e465d7eb77d46f72476981537fba654e7ec4627c113b",
             "c582b8689aa58808181f0df1ea12f74d68195cfa74dd4c23bb63973b4bcea1d2",
             "6b2e13e002ce444b5069d5485f1537ef66d136e4ef7d49c08731169377ae1dec",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -75628,10 +75638,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 52,
+          "line": 53,
           "column": 24,
-          "start": 3233,
-          "end": 3268,
+          "start": 3348,
+          "end": 3383,
           "expression": "['Was raschelt da?', 'Ist da wer?']",
           "expression_sha256": "37df4649facf6d898918bda98c24f620efa57c21612c503b3a259ad455f5fec0",
           "review_anchor_hashes": [
@@ -75939,10 +75949,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 333,
+          "line": 351,
           "column": 19,
-          "start": 15396,
-          "end": 15462,
+          "start": 16492,
+          "end": 16558,
           "expression": "'Sie kommen. Sie müssen durch den Hohlweg – direkt an mir vorbei!'",
           "expression_sha256": "0b40e49bcffc641b1d5f0407a48e36ff3310bf5114ce24dfe7b2ca4044dea507",
           "review_anchor_hashes": [
@@ -76395,10 +76405,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 189,
+          "line": 190,
           "column": 11,
-          "start": 9533,
-          "end": 9634,
+          "start": 9636,
+          "end": 9737,
           "expression": "lia(beads >= 3 ? 'Hier. Die lagen auf dem Weg. Alle drei.' : 'Hier. Die lagen auf dem Weg.', 'happy')",
           "expression_sha256": "9ac7c71f35321d057aa952b725f2ae8c277c5938397cfd2150fface204d68059",
           "review_anchor_hashes": [
@@ -79193,10 +79203,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 251,
+          "line": 264,
           "column": 32,
-          "start": 12364,
-          "end": 12376,
+          "start": 13075,
+          "end": 13087,
           "expression": "'Aufsitzen!'",
           "expression_sha256": "2d0c27c0fdbd8a52c3f1fb4142f4f73ffeb97e023cdcabbafb2822fd2878e999",
           "review_anchor_hashes": [
@@ -79204,7 +79214,7 @@
             "f5ec9de3e46a8bc2daeedae83ce068cbb12347d6a39b492f7d911e659c084b89",
             "450a69700d67b868c8982ebdd51f7c5382d5414d505545634f5af685de7e631b",
             "e11a5050201a386c318a22da691fcb402a37be2642a4b46907ea68c5b1cfd7b7",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -80147,10 +80157,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 210,
+          "line": 211,
           "column": 55,
-          "start": 10950,
-          "end": 11019,
+          "start": 11053,
+          "end": 11122,
           "expression": "'Na los, Leseratte. Nach Süden, über die Felder. Der Wind steht gut.'",
           "expression_sha256": "950094d4bd0ca87d15a201681d89acc387c107cdc99ef80263c02ac9a74601fd",
           "review_anchor_hashes": [
@@ -80160,7 +80170,7 @@
             "65d24c944219878bcd48dd1040be1fed1a7d9822a1d01f29f9ced1db5270c29d",
             "623da55f5ae12d06eeaf4fdd3e103b923f13a0c3a8d2897c5e850e7573f157a7",
             "527cc05e9e9cc119be019bf2e31707ca5eebbf36bb27475c76cbdf872cb0ddce",
-            "ea583983885c983d152470782ff67c7c485c478bdadefb9292dd88bf72ca69e1"
+            "29ea193fe4d5926451d8a10a146d06e87d0d9f5d163c8b4c1474044f534f05be"
           ],
           "function": "talkFlick",
           "chapter": "kapitel-5",
@@ -80259,10 +80269,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 214,
+          "line": 222,
           "column": 32,
-          "start": 10373,
-          "end": 10419,
+          "start": 10862,
+          "end": 10908,
           "expression": "'Na so was. Da ist mir die Hand ausgerutscht.'",
           "expression_sha256": "a3e1aea3d69de1fb41d04c34e84dcd98cc7c8c04953d76d03ce034b7f0787d8c",
           "review_anchor_hashes": [
@@ -80270,7 +80280,7 @@
             "ea29a65775a5ffd2183facd2d12df949a2faf451c759b9dad2bda4cd04f2eb0e",
             "d1db0c755a2d6b783c245dd841ad25ec275332fa4f25a43c7cdecde15c99e6e2",
             "45a1056eb39061873027f0410d70e6157b16bfc37598d61b208d5523e81a0832",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -80403,10 +80413,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 160,
+          "line": 162,
           "column": 19,
-          "start": 7888,
-          "end": 7929,
+          "start": 8022,
+          "end": 8063,
           "expression": "'Kyra! Aus ihrer Augenbraue läuft Blut …'",
           "expression_sha256": "58ce1dc08681bb250e904b141796761572202d33452fae93cde90979d2596a5e",
           "review_anchor_hashes": [
@@ -80414,7 +80424,7 @@
             "ab1c065b84d92b595673449c6a33b39a9590142c5c05d158b4bb2ae942ab5d84",
             "81c08dd6dd7364b45a086d8ca6d6333b25072c311d70ccf3c9fc02aab6176309",
             "9211778ced9a67fa3b0d71be3f069f82383bc1e9b5552afe5229f1b506dfa2ec",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -80574,10 +80584,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 242,
+          "line": 255,
           "column": 34,
-          "start": 11699,
-          "end": 11747,
+          "start": 12410,
+          "end": 12458,
           "expression": "'Lass das Gebüsch. Wir haben, was wir brauchen.'",
           "expression_sha256": "34b5a8ddf9704abbecf9ea1535445b429220aa730482cdb128c748ecfb03134a",
           "review_anchor_hashes": [
@@ -80587,7 +80597,7 @@
             "b58357382c845f1aa3de734b885cc63fb6a0b3aa96428809162496e5ce7c981f",
             "597aeb0b44f0aedeebeac3898d02e25663cde3f7d2ef53f966af8c68a742ce8b",
             "305b8c4d47ef19f80bc1c93912555246a4b04f8581545774fc64e3a8101cfbec",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -80989,10 +80999,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 237,
+          "line": 250,
           "column": 23,
-          "start": 11540,
-          "end": 11574,
+          "start": 12251,
+          "end": 12285,
           "expression": "n > 1 ? 'Da ist doch was!' : 'Hm?'",
           "expression_sha256": "a78edd5a5da3096ae27febbe3667eedbb35ae5a36e89162e8dc605d3a164eb48",
           "review_anchor_hashes": [
@@ -81043,10 +81053,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 237,
+          "line": 238,
           "column": 11,
-          "start": 13205,
-          "end": 13271,
+          "start": 13308,
+          "end": 13374,
           "expression": "lia('Mir reicht, dass du da bist. Der Rest kann warten.', 'happy')",
           "expression_sha256": "eb2899418fe40284bd30f2832dc7055c5334f6cd56bc77d8fdbabb86cae7bd95",
           "review_anchor_hashes": [
@@ -81123,10 +81133,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 229,
+          "line": 230,
           "column": 13,
-          "start": 12425,
-          "end": 12633,
+          "start": 12528,
+          "end": 12736,
           "expression": "lia(G.state.is('k3-luege-bemerkt') ? 'Foltan wusste, wohin sie dich bringen. Seit dem Goldenen Eber. Ich hab’s ihm angesehen.' : 'Foltan wusste, wohin sie dich bringen. Und er hat kein Wort gesagt.', 'angry')",
           "expression_sha256": "c1b1ef66b2ff82b83e684b6bfd2a4c674e079877aede2940a5b3798af9d2d392",
           "review_anchor_hashes": [
@@ -82261,10 +82271,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 287,
+          "line": 300,
           "column": 74,
-          "start": 13969,
-          "end": 14017,
+          "start": 14680,
+          "end": 14728,
           "expression": "['Bloß ein Karnickel.', 'Leichenfresser … pah.']",
           "expression_sha256": "89bfca2c50c812655aaaa7868979721bb0c2e7d89fd42ddd7ec8d88208751780",
           "review_anchor_hashes": [
@@ -82273,11 +82283,11 @@
             "bbe4255fe08852b1e3e2e7b2099f0f9d2f9dffa848e5bcb290f436f22dfec769",
             "e72261b2c841e6f175db0934bfcbdebf36b2a34feee01cc2b37f39366d81dd7c",
             "284d1a1751a1b3cdda9a431a348c201235a07940d05010d5c1a66d52c76b6c42",
-            "c781d7378ff2c43fa2d3708e1d52250fe3843103f3f09d0d838255b850f7d2c3",
-            "3ea0d78dabadf5cd9b9f2db62d94d37d0c47d0bef4da01cb2fc45a2b684e1f66",
-            "bb477f3319edf18575dccc68234747c0c13ddc8f6ad49f2caca2ac9b6c1d8f60",
-            "d2dbfe8e198fcb9ed551eb7cd416e3116a539a97b6e55720b771a9b431709fbd",
-            "10f8a6107cbe0f7e11d7aa2d4a9ee32876fa82afa0bc00a54cb2894107026faf"
+            "6c741fc3afd87dd44625673310a889f90e81bd4de8725e6d789916f0be2dd948",
+            "3d9178fc65468066c9f8fa3f3900ac1aecb51a281bb301f668d6f97ecaaad320",
+            "b92a499eedf0cbed737f53fb8efe276f6c63b4a7df9782bcb168c981b0c50186",
+            "ed9db3343b4d2873c87b3fe2bb43aa802d3b1538e2811adfe70cf21adb592e64",
+            "7c3b183c78eb13b12d6b425ff94fa7701928086a2e1080c26a623490506730ea"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -82982,10 +82992,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 347,
+          "line": 365,
           "column": 19,
-          "start": 16252,
-          "end": 16343,
+          "start": 17348,
+          "end": 17439,
           "expression": "'Kyra. Gefesselt auf dem Pferd des Grauhaarigen. Durch die Zweige sieht sie genau hierher.'",
           "expression_sha256": "e4b6531665a75283b0366186af6b6a1ea36167200c05561a81c02b0d4b03bbce",
           "review_anchor_hashes": [
@@ -83095,10 +83105,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 348,
+          "line": 366,
           "column": 19,
-          "start": 16364,
-          "end": 16450,
+          "start": 17460,
+          "end": 17546,
           "expression": "'Ihre Augen glänzen vor Trauer und Wut. Und ich sitze hier im Gebüsch und tue nichts.'",
           "expression_sha256": "5578f712506c15caf2e0aea7f70f2774b93561a3c04bf3171a279e851fc9779f",
           "review_anchor_hashes": [
@@ -83205,10 +83215,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 192,
+          "line": 193,
           "column": 11,
-          "start": 9821,
-          "end": 9868,
+          "start": 9924,
+          "end": 9971,
           "expression": "lia('Und wenn ich sie übersehen hätte?', 'sad')",
           "expression_sha256": "a66e94bcd174635570870c34846755bbe09724a14fb6d99d969ce98a35b2af00",
           "review_anchor_hashes": [
@@ -84121,10 +84131,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 224,
+          "line": 225,
           "column": 33,
-          "start": 12262,
-          "end": 12388,
+          "start": 12365,
+          "end": 12491,
           "expression": "[\n      '„Ich kenne diese Rebellen. Ich trau ihnen nicht.“',\n      '(Seufzen.) „Na gut. Aber ich lauf nicht vorneweg.“',\n    ]",
           "expression_sha256": "601a0fc2c931e7b200d06f1c824b1a2d655ec24b1752fa038f92632c45e4275b",
           "review_anchor_hashes": [
@@ -84237,10 +84247,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 52,
+          "line": 53,
           "column": 72,
-          "start": 3281,
-          "end": 3325,
+          "start": 3396,
+          "end": 3440,
           "expression": "['Nur ein Karnickel.', 'Verfluchte Mücken.']",
           "expression_sha256": "990bd2b39d7bfa0d6e3cadfd225c2dd04098d5896c1adb31fd85c9a8478ab6ad",
           "review_anchor_hashes": [
@@ -86941,10 +86951,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 162,
+          "line": 164,
           "column": 32,
-          "start": 7985,
-          "end": 8042,
+          "start": 8119,
+          "end": 8176,
           "expression": "'Ihr habt uns gesagt, ihr seid alleine. Und wer ist das?'",
           "expression_sha256": "e46afa29fb048492a7a1a5c5370f71217bd51c69c12b0a8d721b0a080aa29760",
           "review_anchor_hashes": [
@@ -86952,7 +86962,7 @@
             "e0a2f450684be4527f462564cbd25d11be3d83d0f27508ebffdd090c372e965f",
             "d16894d2631a8dfd89ec3f87f7ade7dc5589ff21532a6f9b603edee8ae1eddc8",
             "af67850f88a5f28f098ae39dcd3a2d8470fd54d30e3808f42179193f86e5a51c",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -87253,10 +87263,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 142,
+          "line": 144,
           "column": 56,
-          "start": 6805,
-          "end": 6896,
+          "start": 6939,
+          "end": 7030,
           "expression": "'Sechs Pferde, sechs Männer. Die Spuren auf dem Weg … sie waren schon die ganze Zeit hier.'",
           "expression_sha256": "62ff1c10157144d4df6da224ad708feeb660eeec34a01bccd36a173b3dac2540",
           "review_anchor_hashes": [
@@ -87265,7 +87275,7 @@
             "dc9697012ddaff4398a00f76465141db66d00a4f80cf68b80a775836a1b6d1c0",
             "d0bec4a6ef46abc49a2663fe5655a2f380fd2d7d290617babdd04fee8e907e25",
             "12f1a81bbc6e8ac9157a0d18b398b9497d6b36305ffea09ece4526831b52f661",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -87821,10 +87831,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 367,
+          "line": 385,
           "column": 67,
-          "start": 17396,
-          "end": 17433,
+          "start": 18492,
+          "end": 18529,
           "expression": "HARRO_BARKS[i++ % HARRO_BARKS.length]",
           "expression_sha256": "35562b808e62cffa2ca91b62f6bc237a36dcd9e64a67ec75f0fc433fc5328859",
           "review_anchor_hashes": [
@@ -88280,10 +88290,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 230,
+          "line": 231,
           "column": 27,
-          "start": 12661,
-          "end": 12699,
+          "start": 12764,
+          "end": 12802,
           "expression": "'Wer ist Foltan? Soll ich ihn beißen?'",
           "expression_sha256": "e92cc777f41d700ba71e977b1930958cd102f70f897d20c24048221a061b3d77",
           "review_anchor_hashes": [
@@ -92906,10 +92916,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 52,
+          "line": 53,
           "column": 72,
-          "start": 3281,
-          "end": 3325,
+          "start": 3396,
+          "end": 3440,
           "expression": "['Nur ein Karnickel.', 'Verfluchte Mücken.']",
           "expression_sha256": "990bd2b39d7bfa0d6e3cadfd225c2dd04098d5896c1adb31fd85c9a8478ab6ad",
           "review_anchor_hashes": [
@@ -95192,10 +95202,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 146,
+          "line": 148,
           "column": 32,
-          "start": 7223,
-          "end": 7301,
+          "start": 7357,
+          "end": 7435,
           "expression": "'Und du, Bäuerin? Ein Hof ohne Kinder? Wer mistet euch dann die Schweine aus?'",
           "expression_sha256": "6c950294e0b1c3baa4f8c58f67af74c3542507449d1216c36d20324c06f47a1f",
           "review_anchor_hashes": [
@@ -95203,7 +95213,7 @@
             "3b98f1837bc6c923eeef2b03a307608b81af30ae3130d05a92dc6e2ca669e2d3",
             "bd77fa5fdb888bdae1a4715e333c0e89053d8d7c4fcf0b1d3e4233ebc42d79fa",
             "0601fdc1a5ef0cee549d1e7cdcf57e782f1b730eeaa5a56a97045807dc92163e",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -95898,10 +95908,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 93,
+          "line": 95,
           "column": 19,
-          "start": 4727,
-          "end": 4785,
+          "start": 4861,
+          "end": 4919,
           "expression": "'Und um sie herum: Männer in Schwarz und Weiß. Bewaffnet.'",
           "expression_sha256": "5ec5d072f05800589062f8eb5389d4415699f80d45473bdc392005c00c0f7c69",
           "review_anchor_hashes": [
@@ -96723,10 +96733,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 269,
+          "line": 271,
           "column": 31,
-          "start": 14703,
-          "end": 14827,
+          "start": 14882,
+          "end": 15006,
           "expression": "'Sie gingen zu dritt über die nächtlichen Felder. Kyra redete, Flick horchte in den Wind. Im Westen stand Crios, wie immer.'",
           "expression_sha256": "72a651f4741935b0744432d43a289afe4d981f1d976e515c1b41a7078e8eae68",
           "review_anchor_hashes": [
@@ -96734,11 +96744,11 @@
             "20e2dafb35247e230d2e3bb118cb813390f5c564a999877449d6132030055266",
             "ba32d74caee2f8a40014362e42cd3e6a8e70c2a93bf0c4207f41f9d8eb7e561e",
             "c7a91c93630cc59f5f059ca39d08c7857fa05e63831d748e4bce233442b3dadd",
-            "9d0ecd3895105e81531354bd1a68474266c4791d81d5ed2023af02ff360e5e5f",
-            "64429e3e8e2703454f162c28a074df1e31c1581f1e7d8b9ae1bdc84eaf3d6020",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "eff0a5b1382b63dbd8cf4c6ababa8b9385a327f39f6a8e35853232cbf00212f8",
+            "77d13599d60ef4442418d757ff2b5d6036a47cfbb6b31c2b80f11e26155691b2",
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -97441,10 +97451,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 190,
+          "line": 192,
           "column": 26,
-          "start": 9326,
-          "end": 9353,
+          "start": 9460,
+          "end": 9487,
           "expression": "'Nehmt die Finger von ihr.'",
           "expression_sha256": "0cca5eb0784b8ebcf99c2d7c831be48b6880f5d8ea3c8549c5d95f441055bc96",
           "review_anchor_hashes": [
@@ -97452,7 +97462,7 @@
             "0b2b289dcc903d54d720f144889c5296d8f2c04ebac882730d7a080d4a214d49",
             "e65704549c764e8dba5ec3ff76ee1503037b0e4a2b475f940a1aaba94f159373",
             "24cdc4f7a56f52e09a4ab0717fe3e2a6431733e4fce66ba68f005414d6b6a88c",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -98924,10 +98934,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 230,
+          "line": 243,
           "column": 32,
-          "start": 11176,
-          "end": 11226,
+          "start": 11887,
+          "end": 11937,
           "expression": "'Das sagen sie alle, Mädel. Stell dich hinten an.'",
           "expression_sha256": "4b12e2e79ad6280ff08124d3fe557209fd7d1c3f68618bff6ea340705f97086c",
           "review_anchor_hashes": [
@@ -98935,7 +98945,7 @@
             "f91a794ca89023c7b5fafa7db43a4f1fd3c0e65e748de04370cec699fdb81afd",
             "e3d4fd50e7b0d27de7b70f9bcf449f5974fedfdf1376b729f7fbbbec115e6a1e",
             "4f4a0025cc695590bd49a26cb629d1dd96981470bc8836dddb21d3aa17415849",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -99144,6 +99154,61 @@
           "scene": "bruderschaft",
           "mood": "neutral",
           "performance_variant": "Quiet and reserved; let lived loss weigh on the pauses, keeping the words plain."
+        }
+      ]
+    },
+    {
+      "scene": "ueberfall",
+      "chapter": "kapitel-1",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "think",
+      "text": "Sie bewegt sich nicht mehr. Keiner von beiden.",
+      "display_text": "Sie bewegt sich nicht mehr. Keiner von beiden.",
+      "mood": "neutral",
+      "performance_variant": "Private thought, barely a whisper from hiding. Numb shock: say it flatly, as if checking a fact she cannot accept; the second sentence breaks off almost inaudibly. No crying, no drama.",
+      "direction_en": "Private thought, barely a whisper from hiding. Numb shock: say it flatly, as if checking a fact she cannot accept; the second sentence breaks off almost inaudibly. No crying, no drama.",
+      "sources": [
+        {
+          "file": "game/src/chapters/kapitel-1/ueberfall.ts",
+          "line": 239,
+          "column": 19,
+          "start": 11615,
+          "end": 11663,
+          "expression": "'Sie bewegt sich nicht mehr. Keiner von beiden.'",
+          "expression_sha256": "b0f35d3672b4a299f2e4a223b7dc2f3d09e45497339dd4e99c946772c0ef2b18",
+          "review_anchor_hashes": [
+            "b0f35d3672b4a299f2e4a223b7dc2f3d09e45497339dd4e99c946772c0ef2b18",
+            "c7dc52e428016a65aa5230f7723f465dc4f5dc44ed7bc19d4c6d2417b4ee38ff",
+            "a0f0b28386a80bf93f9243223554b8c3a12ccddc276963e9ac85a9f21856f30e",
+            "a7050a2687b48a7115a82ffe0de66b6f5ce5f01eda0eea4ce1564b0f51cd749f",
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
+          ],
+          "function": "callback",
+          "chapter": "kapitel-1",
+          "scene": "ueberfall",
+          "runtime_scenes": [
+            "ueberfall"
+          ]
+        }
+      ],
+      "review": {
+        "file": "docs/voice-production/directions/kapitel-1.json",
+        "expression_sha256": "c7dc52e428016a65aa5230f7723f465dc4f5dc44ed7bc19d4c6d2417b4ee38ff",
+        "emotion_de": "betäubter Schock, ungläubige Leere",
+        "intensity": 4
+      },
+      "id": "story-df7ad27585bf0481d1286c32",
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "lia",
+          "text": "Sie bewegt sich nicht mehr. Keiner von beiden.",
+          "scene": "ueberfall",
+          "mood": "neutral",
+          "performance_variant": "Private thought, barely a whisper from hiding. Numb shock: say it flatly, as if checking a fact she cannot accept; the second sentence breaks off almost inaudibly. No crying, no drama."
         }
       ]
     },
@@ -99595,10 +99660,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 97,
+          "line": 99,
           "column": 21,
-          "start": 4926,
-          "end": 4947,
+          "start": 5060,
+          "end": 5081,
           "expression": "'Alles ruhig am Weg.'",
           "expression_sha256": "85366965845bde0f3caba95dd10f723a2ede36e795dac45edeed4e8b953f424a",
           "review_anchor_hashes": [
@@ -101137,10 +101202,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 189,
+          "line": 190,
           "column": 11,
-          "start": 9533,
-          "end": 9634,
+          "start": 9636,
+          "end": 9737,
           "expression": "lia(beads >= 3 ? 'Hier. Die lagen auf dem Weg. Alle drei.' : 'Hier. Die lagen auf dem Weg.', 'happy')",
           "expression_sha256": "9ac7c71f35321d057aa952b725f2ae8c277c5938397cfd2150fface204d68059",
           "review_anchor_hashes": [
@@ -101411,10 +101476,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 147,
+          "line": 149,
           "column": 27,
-          "start": 7349,
-          "end": 7403,
+          "start": 7483,
+          "end": 7537,
           "expression": "'Wir zwei. Für drei Schweine braucht es keine Kinder.'",
           "expression_sha256": "1ec39e9a338a01b3fcf66f16d9f958e883b286b18bfe9d993c12341e221282a0",
           "review_anchor_hashes": [
@@ -101422,7 +101487,7 @@
             "83e371c040e0deeb2ccff92207978d38d440277a012f880b1ce82befed231530",
             "751dafb13d86b87e94222aac6d17a8aa2ee5c3ee380abee96f4be4971799f266",
             "8941cd48a6ad57a0301089e83f45070a399bf209fa5e1c1b62a925fd91235fdf",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -101869,10 +101934,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 215,
+          "line": 223,
           "column": 32,
-          "start": 10472,
-          "end": 10551,
+          "start": 10961,
+          "end": 11040,
           "expression": "'Weint nicht, meine Liebe. Wenn ihr euch so allein fühlt, dann folgt ihm doch.'",
           "expression_sha256": "8a155d994a677b91d0b234a5ec55ce210dd861caccf8781f417b6de3211b49b6",
           "review_anchor_hashes": [
@@ -101880,7 +101945,7 @@
             "e799870106f452cae460e33046326bb4ff82358f3bbf6683391c45561bd7d907",
             "bdd8fee3e9e61f9552919a788c832bbf4d44f2d03339c40dc27e7914c78e3e2b",
             "e11cc361563d0bda8acc3998c37f5a75f91e4e4967b00fa0b1ade641e01be44a",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -102151,10 +102216,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 207,
+          "line": 215,
           "column": 19,
-          "start": 10015,
-          "end": 10083,
+          "start": 10504,
+          "end": 10572,
           "expression": "'Mein Buch rutscht mir aus den Händen. Ins Gras. Ich merke es kaum.'",
           "expression_sha256": "3e06d4ca91121463fa352c28558e81fd3690a39c2f9af546f72b7993fb02ce0e",
           "review_anchor_hashes": [
@@ -102162,7 +102227,7 @@
             "f51878d3980bdca123edd20f3064c1bc2ea78b32275ea685338a912a49c87f8e",
             "d4787beaf339308c578bedd8f863470b97b7e9fb2dffb54a2fb9666b278626b7",
             "71371482fb6fe0a2c6cb659cc9a02cd3f5910bfe731ed1f4f8f5ced91464b29a",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -102817,10 +102882,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 314,
+          "line": 332,
           "column": 24,
-          "start": 14763,
-          "end": 14801,
+          "start": 15859,
+          "end": 15897,
           "expression": "'He! Wer kriecht denn da im Gras rum?'",
           "expression_sha256": "ac961f546605c5cc9308d349f3b68cb447f6a13b90bfeb15e315e7d99214e4b5",
           "review_anchor_hashes": [
@@ -104420,10 +104485,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 223,
+          "line": 224,
           "column": 19,
-          "start": 12103,
-          "end": 12227,
+          "start": 12206,
+          "end": 12330,
           "expression": "'Die Rebellen. Elnon, der über meinen Kopf hinweg geredet hat. Alastir. Und Foltan, der mich angesehen und geschwiegen hat.'",
           "expression_sha256": "2a02012e1961583f3dd22e512fd213312057b77f4b69a4040cfc3b632f84cfaf",
           "review_anchor_hashes": [
@@ -104697,10 +104762,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 224,
+          "line": 225,
           "column": 33,
-          "start": 12262,
-          "end": 12388,
+          "start": 12365,
+          "end": 12491,
           "expression": "[\n      '„Ich kenne diese Rebellen. Ich trau ihnen nicht.“',\n      '(Seufzen.) „Na gut. Aber ich lauf nicht vorneweg.“',\n    ]",
           "expression_sha256": "601a0fc2c931e7b200d06f1c824b1a2d655ec24b1752fa038f92632c45e4275b",
           "review_anchor_hashes": [
@@ -104867,10 +104932,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 81,
+          "line": 82,
           "column": 17,
-          "start": 4252,
-          "end": 4325,
+          "start": 4367,
+          "end": 4440,
           "expression": "'Das war knapp. Ganz geduckt bleiben – und nur weiter, wenn er wegsieht.'",
           "expression_sha256": "2f71f5d9798dde5fe585884af4db8126cfee0fd2d4b9f1b2c5925bca5c910d11",
           "review_anchor_hashes": [
@@ -105055,10 +105120,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 215,
+          "line": 216,
           "column": 26,
-          "start": 11239,
-          "end": 11327,
+          "start": 11342,
+          "end": 11430,
           "expression": "'Zu den Rebellen. Wenn irgendwer weiß, was da eben aus dir rausgebrochen ist, dann die.'",
           "expression_sha256": "c1cc17a84fde3c114c0aca9344edb0ba4ed7344f3f67f49276b71c477d5b3b99",
           "review_anchor_hashes": [
@@ -105543,10 +105608,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 270,
+          "line": 272,
           "column": 31,
-          "start": 14860,
-          "end": 14930,
+          "start": 15039,
+          "end": 15109,
           "expression": "'Ein treuer Gefährte, hatte Lia sich gewünscht. Jetzt hatte sie zwei.'",
           "expression_sha256": "fd9cbeda2097ce04fb81f5eb52df9805cd1fb1dc3be208721ba10b7f407e6ec1",
           "review_anchor_hashes": [
@@ -105554,11 +105619,11 @@
             "2dce67ac2e250381451ba6e845873006b0ae1ea40123b68aa67495e7411a7faa",
             "abf86ed4a86d82429d0bd58759ae20aef252fc28a5ad62ce453fd466b29758e2",
             "3131bd7c31645a043bb66abf83001a20161d32fc67d22fc8387b21d3b95f958d",
-            "9d0ecd3895105e81531354bd1a68474266c4791d81d5ed2023af02ff360e5e5f",
-            "64429e3e8e2703454f162c28a074df1e31c1581f1e7d8b9ae1bdc84eaf3d6020",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "eff0a5b1382b63dbd8cf4c6ababa8b9385a327f39f6a8e35853232cbf00212f8",
+            "77d13599d60ef4442418d757ff2b5d6036a47cfbb6b31c2b80f11e26155691b2",
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -107280,10 +107345,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 287,
+          "line": 300,
           "column": 24,
-          "start": 13919,
-          "end": 13956,
+          "start": 14630,
+          "end": 14667,
           "expression": "['Hab ich da was gehört?', 'Wer da?']",
           "expression_sha256": "74ee2151c63702507f1016b152a66afb393523dac50b08aa8dde2f79a16a5b35",
           "review_anchor_hashes": [
@@ -107292,11 +107357,11 @@
             "bbe4255fe08852b1e3e2e7b2099f0f9d2f9dffa848e5bcb290f436f22dfec769",
             "e72261b2c841e6f175db0934bfcbdebf36b2a34feee01cc2b37f39366d81dd7c",
             "284d1a1751a1b3cdda9a431a348c201235a07940d05010d5c1a66d52c76b6c42",
-            "c781d7378ff2c43fa2d3708e1d52250fe3843103f3f09d0d838255b850f7d2c3",
-            "3ea0d78dabadf5cd9b9f2db62d94d37d0c47d0bef4da01cb2fc45a2b684e1f66",
-            "bb477f3319edf18575dccc68234747c0c13ddc8f6ad49f2caca2ac9b6c1d8f60",
-            "d2dbfe8e198fcb9ed551eb7cd416e3116a539a97b6e55720b771a9b431709fbd",
-            "10f8a6107cbe0f7e11d7aa2d4a9ee32876fa82afa0bc00a54cb2894107026faf"
+            "6c741fc3afd87dd44625673310a889f90e81bd4de8725e6d789916f0be2dd948",
+            "3d9178fc65468066c9f8fa3f3900ac1aecb51a281bb301f668d6f97ecaaad320",
+            "b92a499eedf0cbed737f53fb8efe276f6c63b4a7df9782bcb168c981b0c50186",
+            "ed9db3343b4d2873c87b3fe2bb43aa802d3b1538e2811adfe70cf21adb592e64",
+            "7c3b183c78eb13b12d6b425ff94fa7701928086a2e1080c26a623490506730ea"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -107786,10 +107851,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 186,
+          "line": 188,
           "column": 32,
-          "start": 8974,
-          "end": 9059,
+          "start": 9108,
+          "end": 9193,
           "expression": "'Hornhaut. Du bist es gewohnt, hart zu arbeiten. Wir haben noch Verwendung für dich.'",
           "expression_sha256": "8d7b0e750dc955d53081bbc17684fec54d4a94d161840527cdf60ebb16cb7477",
           "review_anchor_hashes": [
@@ -107797,7 +107862,7 @@
             "1d1f6f638513595f52840a126cb492a8ce8444698450068640bfea8ebea46d03",
             "0e432094758241cadf7463e54d3442ed38827ae268a88e1db64737cf9112c041",
             "42a515adb5051de8dd3975f8f47cb4f3030d3447d45e3939a25e7b6b8ea23ffe",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -107841,10 +107906,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 163,
+          "line": 165,
           "column": 26,
-          "start": 8089,
-          "end": 8175,
+          "start": 8223,
+          "end": 8309,
           "expression": "'Ich kenne sie nicht. Sie ist sicher nur ein neugieriges Kind. Lasst sie doch laufen.'",
           "expression_sha256": "5daf2e0dfddb1f47ae8dc3525e4b9bb66f1e075de49649a088b7197d879150ac",
           "review_anchor_hashes": [
@@ -107852,7 +107917,7 @@
             "0fdd186dbe5721aafb14448d402431e7bbbde51712b3669433af9ffceba27e46",
             "aa093bc953f94ff462d5dac41f4694b49d733abded4a6cc0fd0b6fb635bffc84",
             "fdd37876ca6b5737d0b0e6c43f4c8663dfb809baccb5cc51fb83e1600823b35e",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -108893,10 +108958,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 233,
+          "line": 246,
           "column": 19,
-          "start": 11339,
-          "end": 11394,
+          "start": 12050,
+          "end": 12105,
           "expression": "'Ich halte das nicht aus. Ich renne einfach hin, ich –'",
           "expression_sha256": "91326bb14f84edc3f325f071b817a2a905eb7a5fe1ee0e753c89baab3c56ed66",
           "review_anchor_hashes": [
@@ -108904,7 +108969,7 @@
             "9015d6cec848749c580f06f8193fb9226f1f154ee85e9acbac50af9a2a5d18af",
             "bc91bb32bd812f5c9ad37f09535e84ef0d998db677d24b0fb39648ca27b4b5ee",
             "fdb50808e219a1285a7ab5f3e81bb8ea13eb292d202a25915add705ae519974b",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -109081,10 +109146,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 187,
+          "line": 189,
           "column": 32,
-          "start": 9112,
-          "end": 9187,
+          "start": 9246,
+          "end": 9321,
           "expression": "'Der Hauptmann braucht eine neue Dienstmagd. Was für ein passender Zufall.'",
           "expression_sha256": "7939f9ef0c39538313baa34999f61c97f27ac6f78734ba05170a91f3a1ecd0e2",
           "review_anchor_hashes": [
@@ -109092,7 +109157,7 @@
             "10bc9a3f3f2f8ba1c39b92da035444ea0ad64b873b4ea96ca14aa2d758d6afd6",
             "78b4dea265a94877236efebe1a3dc7eaddfadbfdc9e5d256bb8e971ba00b6c6d",
             "f2b0516575d5fce8fef3d82ff6fc9ccf4c94a6285c7c71cb5b5f4b66b33bd66c",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -109136,10 +109201,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 238,
+          "line": 239,
           "column": 25,
-          "start": 13297,
-          "end": 13346,
+          "start": 13400,
+          "end": 13449,
           "expression": "'Jetzt wird sie rührselig. Los, bevor sie heult.'",
           "expression_sha256": "5b732acaa59d4b1350c739e391f59ce7fb1be344fc093711c620541643ddf3b7",
           "review_anchor_hashes": [
@@ -110600,10 +110665,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 94,
+          "line": 96,
           "column": 27,
-          "start": 4814,
-          "end": 4832,
+          "start": 4948,
+          "end": 4966,
           "expression": "'Wo ist das Kind?'",
           "expression_sha256": "dad861f9d165ba8458a0cf6a146eb2597e9c753e72940605944401273c2b341e",
           "review_anchor_hashes": [
@@ -111453,10 +111518,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 42,
+          "line": 43,
           "column": 101,
-          "start": 2541,
-          "end": 2558,
+          "start": 2656,
+          "end": 2673,
           "expression": "YARD_BARKS.kapuze",
           "expression_sha256": "e5b7791a6f20d99210b07eb05d94faee0c264f9bc070afb9b464a5d31c795e54",
           "review_anchor_hashes": [
@@ -112297,10 +112362,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/encounters.ts",
-          "line": 18,
+          "line": 20,
           "column": 3,
-          "start": 960,
-          "end": 975,
+          "start": 1109,
+          "end": 1124,
           "expression": "G.ui.hint(null)",
           "expression_sha256": "6eb2b0e1f4840c27e1a4361b28e3a1eb1075b1b570689cf52a44de3480afda6c",
           "review_anchor_hashes": [
@@ -116849,10 +116914,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 30,
+          "line": 31,
           "column": 3,
-          "start": 1723,
-          "end": 1738,
+          "start": 1838,
+          "end": 1853,
           "expression": "name: 'Der Hof'",
           "expression_sha256": "08430aa618e763720a653098fbdbf42c5152045a910dbe679e1847926bd90ee4",
           "review_anchor_hashes": [
@@ -116878,10 +116943,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 74,
+          "line": 75,
           "column": 8,
-          "start": 4035,
-          "end": 4062,
+          "start": 4150,
+          "end": 4177,
           "expression": "w.player.emote('drop', 900)",
           "expression_sha256": "85c5b3223fc59b85f5d45f13c527efd677e86e0cea88c865416bae5456884996",
           "review_anchor_hashes": [
@@ -116905,10 +116970,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 99,
+          "line": 101,
           "column": 10,
-          "start": 4988,
-          "end": 5012,
+          "start": 5122,
+          "end": 5146,
           "expression": "w.player.emote('!', 900)",
           "expression_sha256": "065a9c17fbc805290dab3a3ce78542fb8d0c6a99abcd2dd48a68fca2cd737d2e",
           "review_anchor_hashes": [
@@ -116932,16 +116997,16 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 107,
+          "line": 109,
           "column": 3,
-          "start": 5395,
-          "end": 5491,
+          "start": 5529,
+          "end": 5625,
           "expression": "w.setObjective('k1-naeher', 'Schleich dich in der Böschung näher an den Hof heran.', 'versteck')",
           "expression_sha256": "2e13819bb8efc7920a8a666e45d0dc94d0de6500ebb50140e9d6cf6b1e1ba208",
           "review_anchor_hashes": [
             "2e13819bb8efc7920a8a666e45d0dc94d0de6500ebb50140e9d6cf6b1e1ba208",
             "84a44b67d9b0846fd11d0308a7e3c5b289807eafc25407aa0a209129383e8d6d",
-            "18ead83de9e35c4960ec360f45f19d3321562fdceecb86966ec0c0302215dcf0"
+            "6d984919fcf051cebd1c93fac3ed5e7174d639b9e7a2076b7133e5b0ce9d94c4"
           ],
           "function": "ueberfallScript",
           "chapter": "kapitel-1",
@@ -116958,17 +117023,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 130,
+          "line": 132,
           "column": 47,
-          "start": 6268,
-          "end": 6280,
+          "start": 6402,
+          "end": 6414,
           "expression": "a.hold(true)",
           "expression_sha256": "c06efa2e547b2f3299e357cc40ec4c882d2b63f0e50bb99629a6407c91d6cdc7",
           "review_anchor_hashes": [
             "c06efa2e547b2f3299e357cc40ec4c882d2b63f0e50bb99629a6407c91d6cdc7",
             "65b454c4f955d574b40f7ae15fb43010c932ca102c9840c169bb22a7224eb035",
             "550da71a69e46b7322424602607d95a9ffa2eddd9580fd36e5caa5371ec00b80",
-            "db00e70e8d75fe2d9ac4da7ea266600f0e28f892246f725ca311aeba4d8d440a"
+            "bb9a0fa6d6912c24d3fd602ee3c5d245dd3f182346093a4a49f212c77550eef5"
           ],
           "function": "confrontation",
           "chapter": "kapitel-1",
@@ -116985,17 +117050,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 139,
+          "line": 141,
           "column": 11,
-          "start": 6496,
-          "end": 6595,
+          "start": 6630,
+          "end": 6729,
           "expression": "G.ui.plate('k1-verhoer', { caption: 'Der Hof am Ende des Hohlwegs', pan: 'in', durationMs: 20000 })",
           "expression_sha256": "d9cab9b08d3ce303b4393ef1a3d0dd6df5be0ae6a8edfa48e887794d2d675087",
           "review_anchor_hashes": [
             "d9cab9b08d3ce303b4393ef1a3d0dd6df5be0ae6a8edfa48e887794d2d675087",
             "b616ad04a8d966a4445fc3fb8ef49096de9593b6935ced3a149ca5406ae929cb",
             "09c199046833178134b77014dc1022d5a3a1f83a8577a9f5a036153ba9c8373f",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -117012,10 +117077,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 139,
+          "line": 141,
           "column": 38,
-          "start": 6523,
-          "end": 6562,
+          "start": 6657,
+          "end": 6696,
           "expression": "caption: 'Der Hof am Ende des Hohlwegs'",
           "expression_sha256": "50149901034bd947232c536cf6ca5bce07bba014b642e25331ff121ac557a1d1",
           "review_anchor_hashes": [
@@ -117024,7 +117089,7 @@
             "d9cab9b08d3ce303b4393ef1a3d0dd6df5be0ae6a8edfa48e887794d2d675087",
             "b616ad04a8d966a4445fc3fb8ef49096de9593b6935ced3a149ca5406ae929cb",
             "09c199046833178134b77014dc1022d5a3a1f83a8577a9f5a036153ba9c8373f",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -117041,17 +117106,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 159,
+          "line": 161,
           "column": 10,
-          "start": 7844,
-          "end": 7868,
+          "start": 7978,
+          "end": 8002,
           "expression": "w.player.emote('!', 900)",
           "expression_sha256": "065a9c17fbc805290dab3a3ce78542fb8d0c6a99abcd2dd48a68fca2cd737d2e",
           "review_anchor_hashes": [
             "065a9c17fbc805290dab3a3ce78542fb8d0c6a99abcd2dd48a68fca2cd737d2e",
             "041dd7f28a658827ddb3a8e6b78f40817c2b1c48d1115f6ac86143c6c10ac24f",
             "408fe81439b1b57eb8f08497ab2fd91bcfa4c2c7a4dfefb83f4c07469908f018",
-            "9404216b1842e6cd37add363b19daa850f41dc207ff60b6f3645def2ae25bb84"
+            "0da8fc66982fad6b5a8c4d3a6f0e365ce257be1aa7c853e0a5da1005453d720e"
           ],
           "function": "callback",
           "chapter": "kapitel-1",
@@ -117068,10 +117133,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 170,
+          "line": 172,
           "column": 12,
-          "start": 8447,
-          "end": 8469,
+          "start": 8581,
+          "end": 8603,
           "expression": "kapuze.emote('?', 900)",
           "expression_sha256": "86c3e1f91b65e597e50d60674d7c2dfa64a1b2c3ff7da274590b1a703d2f3c9f",
           "review_anchor_hashes": [
@@ -117095,10 +117160,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 172,
+          "line": 174,
           "column": 12,
-          "start": 8541,
-          "end": 8568,
+          "start": 8675,
+          "end": 8702,
           "expression": "w.player.emote('drop', 700)",
           "expression_sha256": "b9361e228b42de36bfa032de425fc949d3f19b410fe1a2232f1e5d66ec93ce36",
           "review_anchor_hashes": [
@@ -117122,10 +117187,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 236,
+          "line": 249,
           "column": 12,
-          "start": 11481,
-          "end": 11516,
+          "start": 12192,
+          "end": 12227,
           "expression": "kahle.emote(n > 1 ? '!' : '?', 900)",
           "expression_sha256": "21653fc7bc71acf645b03d6d976de8eb1053e021a636902716f4802c5ef63fd0",
           "review_anchor_hashes": [
@@ -117149,19 +117214,19 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 265,
+          "line": 278,
           "column": 3,
-          "start": 12924,
-          "end": 12939,
+          "start": 13635,
+          "end": 13650,
           "expression": "name: 'Der Hof'",
           "expression_sha256": "08430aa618e763720a653098fbdbf42c5152045a910dbe679e1847926bd90ee4",
           "review_anchor_hashes": [
             "08430aa618e763720a653098fbdbf42c5152045a910dbe679e1847926bd90ee4",
-            "c781d7378ff2c43fa2d3708e1d52250fe3843103f3f09d0d838255b850f7d2c3",
-            "3ea0d78dabadf5cd9b9f2db62d94d37d0c47d0bef4da01cb2fc45a2b684e1f66",
-            "bb477f3319edf18575dccc68234747c0c13ddc8f6ad49f2caca2ac9b6c1d8f60",
-            "d2dbfe8e198fcb9ed551eb7cd416e3116a539a97b6e55720b771a9b431709fbd",
-            "10f8a6107cbe0f7e11d7aa2d4a9ee32876fa82afa0bc00a54cb2894107026faf"
+            "6c741fc3afd87dd44625673310a889f90e81bd4de8725e6d789916f0be2dd948",
+            "3d9178fc65468066c9f8fa3f3900ac1aecb51a281bb301f668d6f97ecaaad320",
+            "b92a499eedf0cbed737f53fb8efe276f6c63b4a7df9782bcb168c981b0c50186",
+            "ed9db3343b4d2873c87b3fe2bb43aa802d3b1538e2811adfe70cf21adb592e64",
+            "7c3b183c78eb13b12d6b425ff94fa7701928086a2e1080c26a623490506730ea"
           ],
           "function": null,
           "chapter": "kapitel-1",
@@ -117178,10 +117243,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 342,
+          "line": 360,
           "column": 100,
-          "start": 16013,
-          "end": 16040,
+          "start": 17109,
+          "end": 17136,
           "expression": "w.player.emote('drop', 600)",
           "expression_sha256": "adf8626169aed9f8c6a6d65050f72f0a02cf02718c0c9d805bbac4e2c8c24a26",
           "review_anchor_hashes": [
@@ -117205,10 +117270,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 346,
+          "line": 364,
           "column": 11,
-          "start": 16148,
-          "end": 16232,
+          "start": 17244,
+          "end": 17328,
           "expression": "G.ui.plate('k1-reiter', { caption: 'Der Hohlweg', pan: 'right', durationMs: 16000 })",
           "expression_sha256": "878946372557a5ad505b5e4e1a6cea1448fa047a7d188a4ff2be8dd9d6044914",
           "review_anchor_hashes": [
@@ -117232,10 +117297,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 346,
+          "line": 364,
           "column": 37,
-          "start": 16174,
-          "end": 16196,
+          "start": 17270,
+          "end": 17292,
           "expression": "caption: 'Der Hohlweg'",
           "expression_sha256": "58e751c95fc92497107022dee71d1d5af0791816ba9f30733a6c5aca95f7ed0c",
           "review_anchor_hashes": [
@@ -117261,10 +117326,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 362,
+          "line": 380,
           "column": 3,
-          "start": 17102,
-          "end": 17203,
+          "start": 18198,
+          "end": 18299,
           "expression": "w.setObjective('k1-weg', 'Weg hier, bevor er dich findet: Schleich zum Feldgatter am Weg.', 'gatter')",
           "expression_sha256": "3cfb8df14479f40b249a80ceaf01690d2836f190538471de8dd94ca3b95f829f",
           "review_anchor_hashes": [
@@ -117287,10 +117352,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 383,
+          "line": 401,
           "column": 5,
-          "start": 17857,
-          "end": 17873,
+          "start": 18953,
+          "end": 18969,
           "expression": "harro.hold(true)",
           "expression_sha256": "8d764751dcfa0123249e0b577e8f800a163362efa6ef369c2d8a05cf622ff594",
           "review_anchor_hashes": [
@@ -124206,10 +124271,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/encounters.ts",
-          "line": 18,
+          "line": 20,
           "column": 3,
-          "start": 960,
-          "end": 975,
+          "start": 1109,
+          "end": 1124,
           "expression": "G.ui.hint(null)",
           "expression_sha256": "6eb2b0e1f4840c27e1a4361b28e3a1eb1075b1b570689cf52a44de3480afda6c",
           "review_anchor_hashes": [
@@ -126765,10 +126830,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/encounters.ts",
-          "line": 18,
+          "line": 20,
           "column": 3,
-          "start": 960,
-          "end": 975,
+          "start": 1109,
+          "end": 1124,
           "expression": "G.ui.hint(null)",
           "expression_sha256": "6eb2b0e1f4840c27e1a4361b28e3a1eb1075b1b570689cf52a44de3480afda6c",
           "review_anchor_hashes": [
@@ -134450,7 +134515,7 @@
           "review_anchor_hashes": [
             "be989b76c6c7e03f02db20b81c5eaf43e2283caa5c1b7f683e72f1e7123c3b02",
             "b7dece05ecdc665364b686454e5600789c0e7acd778ab517c1379d111a909f52",
-            "2c122483d1d412d308f2805da36cfd301057829ec81224ea6c843f929c4d21a9"
+            "6915ee26d5cca7f9800ed2f0201283a2501c307ff930d9f186fe1a2d08c2657f"
           ],
           "function": "afterwards",
           "chapter": "kapitel-5",
@@ -134467,16 +134532,16 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 243,
+          "line": 244,
           "column": 3,
-          "start": 13518,
-          "end": 13592,
+          "start": 13621,
+          "end": 13695,
           "expression": "w.setObjective('k5-aufbruch', 'Brich mit Kyra und Flick auf.', [650, 704])",
           "expression_sha256": "0ee2ab2df270a43bdb453e3abb241828d0fbb69774166777dc2a0f9b35076c28",
           "review_anchor_hashes": [
             "0ee2ab2df270a43bdb453e3abb241828d0fbb69774166777dc2a0f9b35076c28",
             "942c91a553fc00b48b2e5062001907a502c334c7854a590e1ebb894d16ffdd14",
-            "ea583983885c983d152470782ff67c7c485c478bdadefb9292dd88bf72ca69e1"
+            "29ea193fe4d5926451d8a10a146d06e87d0d9f5d163c8b4c1474044f534f05be"
           ],
           "function": "talkFlick",
           "chapter": "kapitel-5",
@@ -134493,21 +134558,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 267,
+          "line": 269,
           "column": 13,
-          "start": 14549,
-          "end": 14637,
+          "start": 14728,
+          "end": 14816,
           "expression": "G.ui.plate('k5-aufbruch', { caption: 'Drei unter Crios', pan: 'in', durationMs: 22000 })",
           "expression_sha256": "9bf21020c6a029d5a3b0b3ea5a541171a504fbe6514aed9e84b031e3779741c7",
           "review_anchor_hashes": [
             "9bf21020c6a029d5a3b0b3ea5a541171a504fbe6514aed9e84b031e3779741c7",
             "ab25e334ddc1e15acf89b180fd92cf6bc58ecae447a29c61bc6685137c2f4705",
             "cad128c68f24e721d759c177f48ada0f1672a90dd2229bba915330f152576ac6",
-            "9d0ecd3895105e81531354bd1a68474266c4791d81d5ed2023af02ff360e5e5f",
-            "64429e3e8e2703454f162c28a074df1e31c1581f1e7d8b9ae1bdc84eaf3d6020",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "eff0a5b1382b63dbd8cf4c6ababa8b9385a327f39f6a8e35853232cbf00212f8",
+            "77d13599d60ef4442418d757ff2b5d6036a47cfbb6b31c2b80f11e26155691b2",
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -134524,10 +134589,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 267,
+          "line": 269,
           "column": 41,
-          "start": 14577,
-          "end": 14604,
+          "start": 14756,
+          "end": 14783,
           "expression": "caption: 'Drei unter Crios'",
           "expression_sha256": "d6dc5f5d972aa7243ec95248136937211c6ed499359bf5417dd53b12472fafa1",
           "review_anchor_hashes": [
@@ -134536,11 +134601,11 @@
             "9bf21020c6a029d5a3b0b3ea5a541171a504fbe6514aed9e84b031e3779741c7",
             "ab25e334ddc1e15acf89b180fd92cf6bc58ecae447a29c61bc6685137c2f4705",
             "cad128c68f24e721d759c177f48ada0f1672a90dd2229bba915330f152576ac6",
-            "9d0ecd3895105e81531354bd1a68474266c4791d81d5ed2023af02ff360e5e5f",
-            "64429e3e8e2703454f162c28a074df1e31c1581f1e7d8b9ae1bdc84eaf3d6020",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "eff0a5b1382b63dbd8cf4c6ababa8b9385a327f39f6a8e35853232cbf00212f8",
+            "77d13599d60ef4442418d757ff2b5d6036a47cfbb6b31c2b80f11e26155691b2",
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -134557,10 +134622,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 277,
+          "line": 280,
           "column": 33,
-          "start": 15212,
-          "end": 15282,
+          "start": 15507,
+          "end": 15577,
           "expression": "[...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]",
           "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
           "review_anchor_hashes": [
@@ -134570,9 +134635,9 @@
             "6bf65a9a408fc75670f907870650d17c579578b4f9e829380ca3b374a95b6276",
             "85149ee7a155b226257a6bad9bb87d458adee5d068a823788810349dccc25ba2",
             "6e903f740531a3018dc5fb592864f7f1b70cfa2d68ddaf2c844c60894e040df4",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -134589,10 +134654,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 277,
+          "line": 280,
           "column": 33,
-          "start": 15212,
-          "end": 15282,
+          "start": 15507,
+          "end": 15577,
           "expression": "[...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]",
           "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
           "review_anchor_hashes": [
@@ -134602,9 +134667,9 @@
             "6bf65a9a408fc75670f907870650d17c579578b4f9e829380ca3b374a95b6276",
             "85149ee7a155b226257a6bad9bb87d458adee5d068a823788810349dccc25ba2",
             "6e903f740531a3018dc5fb592864f7f1b70cfa2d68ddaf2c844c60894e040df4",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -134621,10 +134686,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 277,
+          "line": 280,
           "column": 33,
-          "start": 15212,
-          "end": 15282,
+          "start": 15507,
+          "end": 15577,
           "expression": "[...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]",
           "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
           "review_anchor_hashes": [
@@ -134634,9 +134699,9 @@
             "6bf65a9a408fc75670f907870650d17c579578b4f9e829380ca3b374a95b6276",
             "85149ee7a155b226257a6bad9bb87d458adee5d068a823788810349dccc25ba2",
             "6e903f740531a3018dc5fb592864f7f1b70cfa2d68ddaf2c844c60894e040df4",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -134653,10 +134718,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 296,
+          "line": 299,
           "column": 85,
-          "start": 16065,
-          "end": 16116,
+          "start": 16360,
+          "end": 16411,
           "expression": "reason: book2 ? undefined : 'Noch nicht verfügbar.'",
           "expression_sha256": "9636b05847d5c3b525a56c1c84755d6ecd7559c405fe1b8b962df671663ee82a",
           "review_anchor_hashes": [
@@ -134681,10 +134746,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 314,
+          "line": 317,
           "column": 5,
-          "start": 16694,
-          "end": 16768,
+          "start": 16989,
+          "end": 17063,
           "expression": "w.setObjective('k5-aufbruch', 'Brich mit Kyra und Flick auf.', [650, 704])",
           "expression_sha256": "0ee2ab2df270a43bdb453e3abb241828d0fbb69774166777dc2a0f9b35076c28",
           "review_anchor_hashes": [
@@ -134709,10 +134774,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 315,
+          "line": 318,
           "column": 10,
-          "start": 16779,
-          "end": 16844,
+          "start": 17074,
+          "end": 17139,
           "expression": "w.setObjective('k5-reden', 'Sprich mit Kyra und Flick.', 'flick')",
           "expression_sha256": "be989b76c6c7e03f02db20b81c5eaf43e2283caa5c1b7f683e72f1e7123c3b02",
           "review_anchor_hashes": [
@@ -136941,10 +137006,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/encounters.ts",
-          "line": 18,
+          "line": 20,
           "column": 3,
-          "start": 960,
-          "end": 975,
+          "start": 1109,
+          "end": 1124,
           "expression": "G.ui.hint(null)",
           "expression_sha256": "6eb2b0e1f4840c27e1a4361b28e3a1eb1075b1b570689cf52a44de3480afda6c",
           "review_anchor_hashes": [
@@ -137324,10 +137389,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 277,
+          "line": 280,
           "column": 33,
-          "start": 15212,
-          "end": 15282,
+          "start": 15507,
+          "end": 15577,
           "expression": "[...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]",
           "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
           "review_anchor_hashes": [
@@ -137337,9 +137402,9 @@
             "6bf65a9a408fc75670f907870650d17c579578b4f9e829380ca3b374a95b6276",
             "85149ee7a155b226257a6bad9bb87d458adee5d068a823788810349dccc25ba2",
             "6e903f740531a3018dc5fb592864f7f1b70cfa2d68ddaf2c844c60894e040df4",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
+            "a1f03b79f2d3bff5287fe7e632a84f95c4478ea0c1310c650237ec400aac1a06",
+            "cfa01067a1f2dfbe6f26a4ec77f4f9e65fb40e6ac33af1001d72633fb9904e0d",
+            "e70151056ad177b1557ec1d0a1a2bc49c6ef2a687b6b739e560bde3992b10a9c"
           ],
           "function": "departure",
           "chapter": "kapitel-5",
@@ -137422,10 +137487,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 105,
+          "line": 107,
           "column": 29,
-          "start": 5257,
-          "end": 5384,
+          "start": 5391,
+          "end": 5518,
           "expression": "`Halte ${w.controlHint('sneak')} gedrückt, um geduckt zu schleichen. Im Gebüsch sieht dich niemand – auf freier Strecke schon.`",
           "expression_sha256": "170e57bab01e5dda00d73edd68256feed6c4ea4e70307d6e59ab4540c261ba4c",
           "review_anchor_hashes": [
@@ -137450,10 +137515,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-1/ueberfall.ts",
-          "line": 361,
+          "line": 379,
           "column": 27,
-          "start": 16989,
-          "end": 17097,
+          "start": 18085,
+          "end": 18193,
           "expression": "`Bleib geduckt (${w.controlHint('sneak')}) und husch von Busch zu Busch, wenn Harro dir den Rücken zukehrt.`",
           "expression_sha256": "db44f2a0465b10831cd79ee69542c55f9310c8ebdcb2b5b1a9a8d32d65a6e54c",
           "review_anchor_hashes": [

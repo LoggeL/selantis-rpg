@@ -5129,37 +5129,6 @@
       ]
     },
     {
-      "id": "part2-0e4b177d30de118778a3865f",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Ja, Meister.",
-      "display_text": "Ja, Meister.",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-0e4b177d30de118778a3865f.mp3",
-      "sha256": "96612d9f2eac72fe569f242891982207f49eb6b98c602931dccffd911d870371",
-      "seconds": 1.72,
-      "word_cues": [
-        {
-          "start": 0.3,
-          "end": 0.96
-        },
-        {
-          "start": 0.96,
-          "end": 1.54
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Ja, Meister.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Kyras Ja ohne Zögern, Meister gleichmäßig; weder Freude noch eigene Feindseligkeit."
-        }
-      ]
-    },
-    {
       "id": "part2-0e57008f97ed7b5743a16e79",
       "kind": "say",
       "speaker": "jaeger",
@@ -5786,132 +5755,6 @@
           "scene": "e2-ignatius",
           "mood": "happy",
           "performance_variant": "happy | Genau das anerkennend; Nützliches als bodenständige Pointe, nicht philosophische Predigt."
-        }
-      ]
-    },
-    {
-      "id": "part2-10eb09fd656cdf7da9fbe89d",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Lia …",
-      "display_text": "Lia …",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-10eb09fd656cdf7da9fbe89d.mp3",
-      "sha256": "028d8bfdf1d39ceb13425426c64c930dd21d5f8ff4cbd54776f72f413a60287e",
-      "seconds": 1.08,
-      "word_cues": [
-        {
-          "start": 0.24,
-          "end": 0.52
-        },
-        {
-          "start": 0.52,
-          "end": 0.52
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Lia …",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | In Kyras eigener Stimme kurz eine Erinnerung an Lia aufsteigen lassen; offen abbrechen, keinen neuen Ruf."
-        }
-      ]
-    },
-    {
-      "id": "part2-10f174f45a10e0f31149ff34",
-      "kind": "say",
-      "speaker": "narrator",
-      "text": "Der Wärter mit dem Bund liegt auf den Steinen und hält sich den Kopf. Sein Gürtelhaken ist leer.",
-      "display_text": "Der Wärter mit dem Bund liegt auf den Steinen und hält sich den Kopf. Sein Gürtelhaken ist leer.",
-      "voice": "Sulafat",
-      "audio": "audio/teil-2/part2-10f174f45a10e0f31149ff34.mp3",
-      "sha256": "53e4d41e35a49d141af2d93af38fd82d3822f1dee8cb6a5d463a330ca418f025",
-      "seconds": 6.48,
-      "word_cues": [
-        {
-          "start": 0.22,
-          "end": 0.38
-        },
-        {
-          "start": 0.38,
-          "end": 0.84
-        },
-        {
-          "start": 0.84,
-          "end": 1.02
-        },
-        {
-          "start": 1.02,
-          "end": 1.18
-        },
-        {
-          "start": 1.18,
-          "end": 1.5
-        },
-        {
-          "start": 1.5,
-          "end": 1.92
-        },
-        {
-          "start": 1.92,
-          "end": 2.06
-        },
-        {
-          "start": 2.06,
-          "end": 2.22
-        },
-        {
-          "start": 2.22,
-          "end": 2.72
-        },
-        {
-          "start": 2.72,
-          "end": 3.04
-        },
-        {
-          "start": 3.04,
-          "end": 3.22
-        },
-        {
-          "start": 3.22,
-          "end": 3.42
-        },
-        {
-          "start": 3.42,
-          "end": 3.58
-        },
-        {
-          "start": 3.58,
-          "end": 4.28
-        },
-        {
-          "start": 4.52,
-          "end": 4.96
-        },
-        {
-          "start": 4.96,
-          "end": 5.6
-        },
-        {
-          "start": 5.6,
-          "end": 5.8
-        },
-        {
-          "start": 5.8,
-          "end": 6.11
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "narrator",
-          "text": "Der Wärter mit dem Bund liegt auf den Steinen und hält sich den Kopf. Sein Gürtelhaken ist leer.",
-          "scene": "e2-flick-entkommt",
-          "mood": "neutral",
-          "performance_variant": "neutral | Kopfhalten und leeren Gürtelhaken nüchtern schildern; weder Tod noch Verletzung dazuerfinden."
         }
       ]
     },
@@ -6881,45 +6724,6 @@
           "scene": "e2-kontrolle",
           "mood": "neutral",
           "performance_variant": "neutral | Die Demonstration knapp ankündigen; wessen Stimme mit kühler Besitzsicherheit."
-        }
-      ]
-    },
-    {
-      "id": "part2-144cda3a4ed43fbf37b43d80",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Wie Ihr befehlt, Meister.",
-      "display_text": "Wie Ihr befehlt, Meister.",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-144cda3a4ed43fbf37b43d80.mp3",
-      "sha256": "e9e4767da537d7c22c42894cb848136b66608cc20c62d28096ce2dca7effb12b",
-      "seconds": 3.2,
-      "word_cues": [
-        {
-          "start": 0.25,
-          "end": 0.52
-        },
-        {
-          "start": 0.52,
-          "end": 0.94
-        },
-        {
-          "start": 0.94,
-          "end": 2.18
-        },
-        {
-          "start": 2.18,
-          "end": 2.98
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Wie Ihr befehlt, Meister.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Kyras gleiche Stimme mechanisch gefasst und kalt; befehlt gleichmäßig, ohne anderen Schauspielerklang."
         }
       ]
     },
@@ -8621,113 +8425,6 @@
           "scene": "e2-lagerangriff",
           "mood": "smirk",
           "performance_variant": "smirk | Die eigene Verwechslung als Chance für Lia anbieten; frech bleiben, obwohl der Ausgang ungewiss ist."
-        }
-      ]
-    },
-    {
-      "id": "part2-1c25b2b788945967e58b4f8c",
-      "kind": "say",
-      "speaker": "narrator",
-      "text": "Irgendwo hinter den Hügeln waren Kyra und Flick. Und Elnon, was immer aus ihm geworden war. Lia wusste von alledem nichts.",
-      "display_text": "Irgendwo hinter den Hügeln waren Kyra und Flick. Und Elnon, was immer aus ihm geworden war. Lia wusste von alledem nichts.",
-      "voice": "Sulafat",
-      "audio": "audio/teil-2/part2-1c25b2b788945967e58b4f8c.mp3",
-      "sha256": "dab03a1f099be6b72b69a3c818f1c72c718e500c1b77c8d6284b2d9f4c1dbe36",
-      "seconds": 11.08,
-      "word_cues": [
-        {
-          "start": 0.25,
-          "end": 0.98
-        },
-        {
-          "start": 0.98,
-          "end": 1.3
-        },
-        {
-          "start": 1.3,
-          "end": 1.56
-        },
-        {
-          "start": 1.56,
-          "end": 2.14
-        },
-        {
-          "start": 2.14,
-          "end": 2.68
-        },
-        {
-          "start": 2.68,
-          "end": 3.3
-        },
-        {
-          "start": 3.3,
-          "end": 3.66
-        },
-        {
-          "start": 3.66,
-          "end": 4.32
-        },
-        {
-          "start": 4.32,
-          "end": 5.1
-        },
-        {
-          "start": 5.28,
-          "end": 5.9
-        },
-        {
-          "start": 6.1,
-          "end": 6.36
-        },
-        {
-          "start": 6.36,
-          "end": 6.66
-        },
-        {
-          "start": 6.66,
-          "end": 6.88
-        },
-        {
-          "start": 6.88,
-          "end": 7.02
-        },
-        {
-          "start": 7.02,
-          "end": 7.38
-        },
-        {
-          "start": 7.38,
-          "end": 8.47
-        },
-        {
-          "start": 8.75,
-          "end": 9.12
-        },
-        {
-          "start": 9.12,
-          "end": 9.54
-        },
-        {
-          "start": 9.54,
-          "end": 9.78
-        },
-        {
-          "start": 9.78,
-          "end": 10.26
-        },
-        {
-          "start": 10.26,
-          "end": 10.82
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "narrator",
-          "text": "Irgendwo hinter den Hügeln waren Kyra und Flick. Und Elnon, was immer aus ihm geworden war. Lia wusste von alledem nichts.",
-          "scene": "e2-aufbruch",
-          "mood": "neutral",
-          "performance_variant": "neutral | Die Namen verbunden aufzählen; Elnons Schicksal ausdrücklich offen, Lias Nichtwissen ruhig bewahren."
         }
       ]
     },
@@ -14165,89 +13862,6 @@
           "scene": "e2-bruderschaft",
           "mood": "neutral",
           "performance_variant": "neutral | Die Zustimmung still teilen und vor direkter Provokation warnen."
-        }
-      ]
-    },
-    {
-      "id": "part2-32fb6f2a0a8f200265e9c96d",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Ich sehe dich. Du bist laut. Der Meister mag es nicht, wenn man laut ist.",
-      "display_text": "Ich sehe dich. Du bist laut. Der Meister mag es nicht, wenn man laut ist.",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-32fb6f2a0a8f200265e9c96d.mp3",
-      "sha256": "2fdd10a0fb99da5e73fd443350c6bc36d134a9a01c7fc9f927f92aa3222734b8",
-      "seconds": 5.88,
-      "word_cues": [
-        {
-          "start": 0.05,
-          "end": 0.48
-        },
-        {
-          "start": 0.48,
-          "end": 0.82
-        },
-        {
-          "start": 0.82,
-          "end": 1.46
-        },
-        {
-          "start": 1.54,
-          "end": 1.92
-        },
-        {
-          "start": 1.92,
-          "end": 2.14
-        },
-        {
-          "start": 2.14,
-          "end": 2.68
-        },
-        {
-          "start": 3.23,
-          "end": 3.48
-        },
-        {
-          "start": 3.48,
-          "end": 3.86
-        },
-        {
-          "start": 3.86,
-          "end": 4.18
-        },
-        {
-          "start": 4.18,
-          "end": 4.34
-        },
-        {
-          "start": 4.34,
-          "end": 4.68
-        },
-        {
-          "start": 4.68,
-          "end": 4.74
-        },
-        {
-          "start": 4.74,
-          "end": 4.92
-        },
-        {
-          "start": 4.92,
-          "end": 5.22
-        },
-        {
-          "start": 5.22,
-          "end": 5.62
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Ich sehe dich. Du bist laut. Der Meister mag es nicht, wenn man laut ist.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Kyras gleiche Stimme bleibt kühl gleichmäßig; laut und Meister sachlich, ohne ihren früheren Spott."
         }
       ]
     },
@@ -21634,69 +21248,6 @@
           "scene": "e2-ignatius",
           "mood": "neutral",
           "performance_variant": "neutral | Die Hälfte konkret übergeben; Wer mitliest mit frisch erfundenem, trockenem Spruchton."
-        }
-      ]
-    },
-    {
-      "id": "part2-4cf87c1f820759e6c77f314a",
-      "kind": "say",
-      "speaker": "elnon",
-      "text": "Rippen. Lippe. Nichts, was nicht wieder heilt. Und deine Hände?",
-      "display_text": "Rippen. Lippe. Nichts, was nicht wieder heilt. Und deine Hände?",
-      "voice": "Alnilam",
-      "audio": "audio/teil-2/part2-4cf87c1f820759e6c77f314a.mp3",
-      "sha256": "bc2f27dc2d45c041c6311a64c9bfef2fab5ba9d95912049e65548c7e58d66eb3",
-      "seconds": 6.16,
-      "word_cues": [
-        {
-          "start": 0.19,
-          "end": 0.92
-        },
-        {
-          "start": 0.92,
-          "end": 2.32
-        },
-        {
-          "start": 2.32,
-          "end": 3.14
-        },
-        {
-          "start": 3.14,
-          "end": 3.3
-        },
-        {
-          "start": 3.3,
-          "end": 3.52
-        },
-        {
-          "start": 3.52,
-          "end": 3.72
-        },
-        {
-          "start": 3.72,
-          "end": 4.46
-        },
-        {
-          "start": 4.46,
-          "end": 4.94
-        },
-        {
-          "start": 4.94,
-          "end": 5.1
-        },
-        {
-          "start": 5.1,
-          "end": 5.64
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "elnon",
-          "text": "Rippen. Lippe. Nichts, was nicht wieder heilt. Und deine Hände?",
-          "scene": "e2-zellengespraeche",
-          "mood": "pained",
-          "performance_variant": "pained | Elnon zählt die betroffenen Stellen atemknapp; Heilung als eigene Zuversicht, die Hände besorgt erfragen."
         }
       ]
     },
@@ -29381,77 +28932,6 @@
       ]
     },
     {
-      "id": "part2-6932cb0cd3bf3ff3f9d861be",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Ich habe keinen Hof. Ich hatte nie einen. Ich habe den Meister.",
-      "display_text": "Ich habe keinen Hof. Ich hatte nie einen. Ich habe den Meister.",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-6932cb0cd3bf3ff3f9d861be.mp3",
-      "sha256": "1660334e7fb42a30728ba6c43a6ae552c20aa77b14037fa0f8c0e9028e720130",
-      "seconds": 5.84,
-      "word_cues": [
-        {
-          "start": 0.05,
-          "end": 0.58
-        },
-        {
-          "start": 0.58,
-          "end": 1.06
-        },
-        {
-          "start": 1.06,
-          "end": 1.5
-        },
-        {
-          "start": 1.5,
-          "end": 2.24
-        },
-        {
-          "start": 2.45,
-          "end": 2.8
-        },
-        {
-          "start": 2.8,
-          "end": 3.08
-        },
-        {
-          "start": 3.08,
-          "end": 3.34
-        },
-        {
-          "start": 3.34,
-          "end": 3.86
-        },
-        {
-          "start": 4.19,
-          "end": 4.58
-        },
-        {
-          "start": 4.58,
-          "end": 4.86
-        },
-        {
-          "start": 4.86,
-          "end": 5.04
-        },
-        {
-          "start": 5.04,
-          "end": 5.64
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Ich habe keinen Hof. Ich hatte nie einen. Ich habe den Meister.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Kyras Hofverneinung flach und bestimmt, die Wiederholung ohne Weinen; Meister ohne Begeisterung."
-        }
-      ]
-    },
-    {
       "id": "part2-69519c0168b8d0a77a748264",
       "kind": "choice",
       "speaker": "flick",
@@ -31072,93 +30552,6 @@
           "scene": "e2-flick-entkommt",
           "mood": "neutral",
           "performance_variant": "neutral | Flick setzt sich nach Entdeckung knapp zurück; Leiser als gezielten Selbstbefehl schließen."
-        }
-      ]
-    },
-    {
-      "id": "part2-6f184d03606b8cadae528650",
-      "kind": "say",
-      "speaker": "vamir",
-      "text": "Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.",
-      "display_text": "Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.",
-      "voice": "Enceladus",
-      "audio": "audio/teil-2/part2-6f184d03606b8cadae528650.mp3",
-      "sha256": "212d2fa36aad5155568ee0205c7f3f52bc57376bd7a8c4d3bcc603a831bc5bae",
-      "seconds": 8.12,
-      "word_cues": [
-        {
-          "start": 0.32,
-          "end": 0.5
-        },
-        {
-          "start": 0.5,
-          "end": 0.78
-        },
-        {
-          "start": 0.78,
-          "end": 0.96
-        },
-        {
-          "start": 0.96,
-          "end": 1.16
-        },
-        {
-          "start": 1.16,
-          "end": 2.12
-        },
-        {
-          "start": 2.49,
-          "end": 2.92
-        },
-        {
-          "start": 2.92,
-          "end": 3.04
-        },
-        {
-          "start": 3.04,
-          "end": 3.2
-        },
-        {
-          "start": 3.2,
-          "end": 3.6
-        },
-        {
-          "start": 3.6,
-          "end": 3.93
-        },
-        {
-          "start": 4.55,
-          "end": 5.45
-        },
-        {
-          "start": 6.03,
-          "end": 6.2
-        },
-        {
-          "start": 6.2,
-          "end": 6.38
-        },
-        {
-          "start": 6.38,
-          "end": 6.88
-        },
-        {
-          "start": 6.88,
-          "end": 7.42
-        },
-        {
-          "start": 7.42,
-          "end": 7.96
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "vamir",
-          "text": "Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.",
-          "scene": "e2-flicks-verhoer",
-          "mood": "neutral",
-          "performance_variant": "neutral | Harmlos höhnisch; Hände und Langsam bewusst ruhig anweisen, keine Gewaltlaute hinzufügen."
         }
       ]
     },
@@ -32826,33 +32219,6 @@
           "scene": "e2-bruderschaft",
           "mood": "neutral",
           "performance_variant": "neutral | Das Fesseln knapp befehlen; Kyras Beißen mit konkreter vorsichtiger Warnung nennen."
-        }
-      ]
-    },
-    {
-      "id": "part2-74304a5555c63b4e9f21df7d",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Meister.",
-      "display_text": "Meister.",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-74304a5555c63b4e9f21df7d.mp3",
-      "sha256": "8c81e0f3cd763bbb11986929feff945ba7ca0b213e965e6f294fcba2f6878002",
-      "seconds": 1.08,
-      "word_cues": [
-        {
-          "start": 0.22,
-          "end": 0.86
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Meister.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Kyras bekannte Stimme ohne Eigenwillen; Meister kurz, ruhig, mit unpersönlicher Unterordnung."
         }
       ]
     },
@@ -36518,77 +35884,6 @@
       ]
     },
     {
-      "id": "part2-8067fd271e6e593218c709d1",
-      "kind": "say",
-      "speaker": "vamir",
-      "text": "Schafft ihn mir aus den Augen. Und dann findet mir die Spitzohrige.",
-      "display_text": "Schafft ihn mir aus den Augen. Und dann findet mir die Spitzohrige.",
-      "voice": "Enceladus",
-      "audio": "audio/teil-2/part2-8067fd271e6e593218c709d1.mp3",
-      "sha256": "8b649dff953e1a46429035c4b116324d5e43252a51f57676c56539fed83d50b6",
-      "seconds": 6.08,
-      "word_cues": [
-        {
-          "start": 0.15,
-          "end": 0.88
-        },
-        {
-          "start": 0.88,
-          "end": 1.02
-        },
-        {
-          "start": 1.02,
-          "end": 1.22
-        },
-        {
-          "start": 1.22,
-          "end": 1.48
-        },
-        {
-          "start": 1.48,
-          "end": 1.7
-        },
-        {
-          "start": 1.7,
-          "end": 2.62
-        },
-        {
-          "start": 3.1,
-          "end": 3.46
-        },
-        {
-          "start": 3.46,
-          "end": 3.64
-        },
-        {
-          "start": 3.64,
-          "end": 4.08
-        },
-        {
-          "start": 4.08,
-          "end": 4.38
-        },
-        {
-          "start": 4.38,
-          "end": 4.64
-        },
-        {
-          "start": 4.64,
-          "end": 5.78
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "vamir",
-          "text": "Schafft ihn mir aus den Augen. Und dann findet mir die Spitzohrige.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Vamir erledigt Elnon als störendes Thema; aus den Augen und findet klar, kein Todesbefehl ergänzen."
-        }
-      ]
-    },
-    {
       "id": "part2-808900b9b1ea6460f6017af9",
       "kind": "say",
       "speaker": "flick",
@@ -39664,65 +38959,6 @@
           "scene": "e2-flicks-verhoer",
           "mood": "neutral",
           "performance_variant": "neutral | Baris könnte es herausfinden ruhig setzen; Messer und sehr viel Zeit deutlich, nicht ausmalen."
-        }
-      ]
-    },
-    {
-      "id": "part2-8a6df8f535b2a0d50bd4eb84",
-      "kind": "say",
-      "speaker": "waerter",
-      "text": "Der hat noch alle Zähne. Soll ich mal nachzählen?",
-      "display_text": "Der hat noch alle Zähne. Soll ich mal nachzählen?",
-      "voice": "Orus",
-      "audio": "audio/teil-2/part2-8a6df8f535b2a0d50bd4eb84.mp3",
-      "sha256": "adaaa237c1ebf31bf11d75749149c949ffd2636f2edca212fb6e7900ff6e82d9",
-      "seconds": 5.52,
-      "word_cues": [
-        {
-          "start": 0.25,
-          "end": 1.52
-        },
-        {
-          "start": 1.52,
-          "end": 1.82
-        },
-        {
-          "start": 1.82,
-          "end": 2.02
-        },
-        {
-          "start": 2.02,
-          "end": 2.38
-        },
-        {
-          "start": 2.38,
-          "end": 3.34
-        },
-        {
-          "start": 3.61,
-          "end": 3.9
-        },
-        {
-          "start": 3.9,
-          "end": 4.02
-        },
-        {
-          "start": 4.02,
-          "end": 4.2
-        },
-        {
-          "start": 4.2,
-          "end": 5.32
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "waerter",
-          "text": "Der hat noch alle Zähne. Soll ich mal nachzählen?",
-          "scene": "e2-zellengespraeche",
-          "mood": "neutral",
-          "performance_variant": "neutral | Der Knüppelwärter grinst in der Stimme; nachzählen als konkrete Gewaltandrohung, keine Schlaglaute."
         }
       ]
     },
@@ -44180,57 +43416,6 @@
       ]
     },
     {
-      "id": "part2-97a5f6e57c73135ee7bc9ddf",
-      "kind": "say",
-      "speaker": "flick",
-      "text": "Spielen Laute wie vorher. Also gar nicht.",
-      "display_text": "Spielen Laute wie vorher. Also gar nicht.",
-      "voice": "Autonoe",
-      "audio": "audio/teil-2/part2-97a5f6e57c73135ee7bc9ddf.mp3",
-      "sha256": "89dc43de191c3537e5bee5491d18ba159a44a89a90ddebaa90a0784fb07891bc",
-      "seconds": 4.44,
-      "word_cues": [
-        {
-          "start": 0.3,
-          "end": 1.44
-        },
-        {
-          "start": 1.44,
-          "end": 1.8
-        },
-        {
-          "start": 1.8,
-          "end": 1.98
-        },
-        {
-          "start": 1.98,
-          "end": 2.66
-        },
-        {
-          "start": 2.92,
-          "end": 3.12
-        },
-        {
-          "start": 3.42,
-          "end": 3.78
-        },
-        {
-          "start": 3.78,
-          "end": 4.2
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "flick",
-          "text": "Spielen Laute wie vorher. Also gar nicht.",
-          "scene": "e2-zellengespraeche",
-          "mood": "smirk",
-          "performance_variant": "smirk | Flick hält ihre Hände hinter dem Lautenwitz verborgen; Also gar nicht trocken, ohne Lachen über Schmerz."
-        }
-      ]
-    },
-    {
       "id": "part2-97df8724cb10430118deb263",
       "kind": "say",
       "speaker": "elnon",
@@ -46580,69 +45765,6 @@
       ]
     },
     {
-      "id": "part2-9f894dd9e79d335112368140",
-      "kind": "think",
-      "speaker": "flick",
-      "text": "Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.",
-      "display_text": "Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.",
-      "voice": "Autonoe",
-      "audio": "audio/teil-2/part2-9f894dd9e79d335112368140.mp3",
-      "sha256": "0b02c85ceb47d491873e517eb353ad35d61d0111006919f0b983e93dec2e4206",
-      "seconds": 7.92,
-      "word_cues": [
-        {
-          "start": 0.06,
-          "end": 0.38
-        },
-        {
-          "start": 0.38,
-          "end": 0.9
-        },
-        {
-          "start": 1.07,
-          "end": 1.34
-        },
-        {
-          "start": 1.34,
-          "end": 2.06
-        },
-        {
-          "start": 2.93,
-          "end": 3.58
-        },
-        {
-          "start": 3.58,
-          "end": 4.5
-        },
-        {
-          "start": 4.5,
-          "end": 5.12
-        },
-        {
-          "start": 5.12,
-          "end": 5.64
-        },
-        {
-          "start": 5.64,
-          "end": 5.86
-        },
-        {
-          "start": 5.86,
-          "end": 6.66
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "think",
-          "speaker": "flick",
-          "text": "Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.",
-          "scene": "e2-flicks-erinnerungen",
-          "mood": "neutral",
-          "performance_variant": "neutral | Innerlich eng und gepresst; nach weh kurz Luft holen, den letzten Satz kontrolliert wegdrücken."
-        }
-      ]
-    },
-    {
       "id": "part2-9fee0e584892e08f70b0a096",
       "kind": "choice",
       "speaker": "lia",
@@ -47556,85 +46678,6 @@
           "scene": "e2-lagerangriff",
           "mood": "neutral",
           "performance_variant": "neutral | Mit wenigen Lebenspunkten den nächsten Schritten innerlich Halt geben; auf kurzen Restatem sprechen."
-        }
-      ]
-    },
-    {
-      "id": "part2-a26e6344bcfd751e18150714",
-      "kind": "think",
-      "speaker": "flick",
-      "text": "Der Nagel aus dem Ärmelsaum. Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam.",
-      "display_text": "Der Nagel aus dem Ärmelsaum. Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam.",
-      "voice": "Autonoe",
-      "audio": "audio/teil-2/part2-a26e6344bcfd751e18150714.mp3",
-      "sha256": "89b6ff1db8875f10f9a4caa0d240505ca99e6214716d00799de06b50c9b6b36e",
-      "seconds": 11.36,
-      "word_cues": [
-        {
-          "start": 0.14,
-          "end": 0.64
-        },
-        {
-          "start": 0.64,
-          "end": 1.54
-        },
-        {
-          "start": 1.54,
-          "end": 2.12
-        },
-        {
-          "start": 2.12,
-          "end": 2.44
-        },
-        {
-          "start": 2.57,
-          "end": 3.71
-        },
-        {
-          "start": 4.05,
-          "end": 4.9
-        },
-        {
-          "start": 4.9,
-          "end": 5.76
-        },
-        {
-          "start": 5.76,
-          "end": 6.26
-        },
-        {
-          "start": 6.26,
-          "end": 7.28
-        },
-        {
-          "start": 7.28,
-          "end": 7.52
-        },
-        {
-          "start": 7.52,
-          "end": 8.18
-        },
-        {
-          "start": 8.18,
-          "end": 8.84
-        },
-        {
-          "start": 9.79,
-          "end": 10.16
-        },
-        {
-          "start": 10.16,
-          "end": 11.15
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "think",
-          "speaker": "flick",
-          "text": "Der Nagel aus dem Ärmelsaum. Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam.",
-          "scene": "e2-zellengespraeche",
-          "mood": "neutral",
-          "performance_variant": "neutral | Die Nagelhandgriffe in ruhigen kleinen Atemgruppen denken; Ganz langsam besonders kontrolliert."
         }
       ]
     },
@@ -65115,61 +64158,6 @@
       ]
     },
     {
-      "id": "part2-df790b7b8ea84b292b1f0ae3",
-      "kind": "say",
-      "speaker": "kyra",
-      "text": "Lia ist weit weg. Der Meister ist hier.",
-      "display_text": "Lia ist weit weg. Der Meister ist hier.",
-      "voice": "Laomedeia",
-      "audio": "audio/teil-2/part2-df790b7b8ea84b292b1f0ae3.mp3",
-      "sha256": "a2a0c274273d3129e9acdf7b4be5b8e89ebe571a440d553b3ea3c749bb38ab5a",
-      "seconds": 3.48,
-      "word_cues": [
-        {
-          "start": 0.19,
-          "end": 0.46
-        },
-        {
-          "start": 0.46,
-          "end": 0.78
-        },
-        {
-          "start": 0.78,
-          "end": 0.98
-        },
-        {
-          "start": 0.98,
-          "end": 1.52
-        },
-        {
-          "start": 2.21,
-          "end": 2.38
-        },
-        {
-          "start": 2.38,
-          "end": 2.7
-        },
-        {
-          "start": 2.7,
-          "end": 2.9
-        },
-        {
-          "start": 2.9,
-          "end": 3.2
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "kyra",
-          "text": "Lia ist weit weg. Der Meister ist hier.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Die eben aufgekeimte Nähe erlischt; weit weg und hier trocken als gesetzte Tatsachen sprechen."
-        }
-      ]
-    },
-    {
       "id": "part2-df87cdf63172a7cc6b258cd3",
       "kind": "say",
       "speaker": "lia",
@@ -70910,65 +69898,6 @@
       ]
     },
     {
-      "id": "part2-f4c3f5bead4135ea71fb72df",
-      "kind": "narrate",
-      "speaker": "narrator",
-      "text": "Ein Stoß im Dunkeln. Ketten auf Stein. Elnon fällt.",
-      "display_text": "Ein Stoß im Dunkeln. Ketten auf Stein. Elnon fällt.",
-      "voice": "Sulafat",
-      "audio": "audio/teil-2/part2-f4c3f5bead4135ea71fb72df.mp3",
-      "sha256": "0025d2b37402f278d6b9ee934cd35e411821472016e5c95b26b2c1446a726861",
-      "seconds": 5.52,
-      "word_cues": [
-        {
-          "start": 0.0,
-          "end": 0.54
-        },
-        {
-          "start": 0.54,
-          "end": 1.06
-        },
-        {
-          "start": 1.06,
-          "end": 1.24
-        },
-        {
-          "start": 1.24,
-          "end": 2.02
-        },
-        {
-          "start": 2.14,
-          "end": 2.84
-        },
-        {
-          "start": 2.84,
-          "end": 3.06
-        },
-        {
-          "start": 3.06,
-          "end": 3.96
-        },
-        {
-          "start": 4.07,
-          "end": 4.62
-        },
-        {
-          "start": 4.62,
-          "end": 5.27
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "narrate",
-          "speaker": "narrator",
-          "text": "Ein Stoß im Dunkeln. Ketten auf Stein. Elnon fällt.",
-          "scene": "e2-kontrolle",
-          "mood": "neutral",
-          "performance_variant": "neutral | Stoß, Ketten und Fall als drei konkrete Wahrnehmungen erzählen; keine Verletzung oder Todesaussage."
-        }
-      ]
-    },
-    {
       "id": "part2-f4c7cd0c9ac5b94e8fc7d64f",
       "kind": "say",
       "speaker": "lia",
@@ -74329,8 +73258,8 @@
   "coverage": {
     "version": "part2-individual-actual-second3-publication-v1",
     "status": "partial",
-    "expected_sources": 1401,
-    "published_sources": 1109,
+    "expected_sources": 1442,
+    "published_sources": 1092,
     "missing_sources": [
       {
         "id": "part2-0071630628f74fbbbe2bbf50",
@@ -74452,6 +73381,15 @@
         "speaker": "flick",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-0abe49695f4a50aaf92a16e7",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "elnon",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -74717,6 +73655,15 @@
         ]
       },
       {
+        "id": "part2-1adc0a3b65111a7d62e7c625",
+        "scene": "e2-gefangene",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-1b2a13e947ff7dec124c79bd",
         "scene": "e2-urmacht",
         "kind": "choice",
@@ -74828,6 +73775,15 @@
         ]
       },
       {
+        "id": "part2-230d0dca39c36b702cc05e7f",
+        "scene": "e2-zellengespraeche",
+        "kind": "bark",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-27886aef265a7a886468f05c",
         "scene": "e2-flick-entkommt",
         "kind": "narrate",
@@ -74903,6 +73859,15 @@
         ]
       },
       {
+        "id": "part2-2bc9b720144006d906d66440",
+        "scene": "e2-kontrolle",
+        "kind": "narrate",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-2c5a6c033135b4f54fec1ab8",
         "scene": "e2-pruefung",
         "kind": "say",
@@ -74929,6 +73894,15 @@
         "reasons": [
           "asr_lexical_mismatch_requires_review",
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-2dabb40a23a03613e0662de0",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75014,6 +73988,15 @@
         ]
       },
       {
+        "id": "part2-377c1da207928bf08097c739",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-3791bf73740e0375c44d2a30",
         "scene": "e2-ignatius",
         "kind": "say",
@@ -75030,6 +74013,33 @@
         "reasons": [
           "asr_lexical_mismatch_requires_review",
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-3880ec76e21a0caaf7f19b4b",
+        "scene": "e2-flicks-verhoer",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-3921f034f157f30723fc7977",
+        "scene": "e2-aufbruch",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-396349d3c61e7d420d188537",
+        "scene": "e2-zellengespraeche",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75058,6 +74068,15 @@
         "speaker": "flick",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-3b0d1f8f9c29921bd2a93c34",
+        "scene": "e2-zellengespraeche",
+        "kind": "say",
+        "speaker": "waerter",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75106,6 +74125,15 @@
         ]
       },
       {
+        "id": "part2-3d84983682a00dc4c67885dd",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-3e5f070bd6caa6289b023919",
         "scene": "e2-bruderschaft",
         "kind": "say",
@@ -75134,6 +74162,15 @@
         ]
       },
       {
+        "id": "part2-41a9f84b53c2d174e8b715ba",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-41bec705a15267e095018074",
         "scene": "e2-zellengespraeche",
         "kind": "say",
@@ -75158,6 +74195,24 @@
         "speaker": "flick",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-42f87d475763f015df66040f",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "elnon",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-4522debf2ee7ca17ae168c28",
+        "scene": "e2-kontrolle",
+        "kind": "narrate",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75189,6 +74244,15 @@
         ]
       },
       {
+        "id": "part2-465ff3c50a0fa0c6da1652d0",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-4726ea9667b7fa42be598c02",
         "scene": "e2-ignatius",
         "kind": "choice",
@@ -75204,6 +74268,15 @@
         "speaker": "flick",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-4a09dab2c3fefc84ff628e17",
+        "scene": "e2-gefangene",
+        "kind": "bark",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75299,6 +74372,15 @@
         ]
       },
       {
+        "id": "part2-549458099a63ec6aac7c61cb",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-56057a16388ca85ed99d76c2",
         "scene": "e2-der-fremde",
         "kind": "say",
@@ -75308,12 +74390,30 @@
         ]
       },
       {
+        "id": "part2-561dd4101cd37ae41bdf4856",
+        "scene": "e2-zellengespraeche",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-5676ab05605fdbb7afa62595",
         "scene": "e2-flicks-erinnerungen",
         "kind": "say",
         "speaker": "vamir",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-597afe91d217837f017effe5",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75332,6 +74432,15 @@
         "speaker": "flick",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-5c352fdd70fda13ee5348979",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75494,6 +74603,15 @@
         ]
       },
       {
+        "id": "part2-6a8ffc6d6a6ab80555340b3c",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-6ac7239eae08695ace3e485b",
         "scene": "e2-bruderschaft",
         "kind": "say",
@@ -75541,6 +74659,15 @@
         ]
       },
       {
+        "id": "part2-6cf93b389a22462e58adbfc2",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-6f54cd7470b42a36084b7943",
         "scene": "e2-bruderschaft",
         "kind": "narrate",
@@ -75567,6 +74694,15 @@
         "speaker": "lia",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-70791dc0c1f4e892294f9e58",
+        "scene": "e2-flicks-verhoer",
+        "kind": "bark",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75607,12 +74743,30 @@
         ]
       },
       {
+        "id": "part2-75d63cc6608ac53c17bfc98e",
+        "scene": "e2-flicks-verhoer",
+        "kind": "choice",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-769e3a9c934066885bd33d6d",
         "scene": "e2-urmacht",
         "kind": "say",
         "speaker": "ignatius",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-77244ab6140f027c9be8e9d7",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "baris",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75702,6 +74856,15 @@
         ]
       },
       {
+        "id": "part2-7ebf7a6148f26f7f6023b7a2",
+        "scene": "e2-flicks-verhoer",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-7fa562030c3664676fd8c96e",
         "scene": "e2-bruderschaft",
         "kind": "say",
@@ -75720,6 +74883,15 @@
         ]
       },
       {
+        "id": "part2-7fddff3f1a322d4090482fc5",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "baris",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-8001b352e174009400e36629",
         "scene": "e2-bruderschaft",
         "kind": "say",
@@ -75735,6 +74907,15 @@
         "speaker": "flick",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-81123c9da6c71aa40bdab850",
+        "scene": "e2-zellengespraeche",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75775,12 +74956,30 @@
         ]
       },
       {
+        "id": "part2-8458a48e00c0ba79e7f5fa2f",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-846a4c60925dac13339f3eb0",
         "scene": "e2-der-fremde",
         "kind": "think",
         "speaker": "lia",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-8582019580671e618461d864",
+        "scene": "e2-zellengespraeche",
+        "kind": "bark",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75800,6 +74999,15 @@
         "speaker": "azar",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-86f068c1a9b79b7d20f97c61",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75868,6 +75076,15 @@
         ]
       },
       {
+        "id": "part2-8c0edc4771963b576f86525e",
+        "scene": "e2-flicks-verhoer",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-8c0f9f18516829e5652a2f35",
         "scene": "e2-flicks-erinnerungen",
         "kind": "think",
@@ -75883,6 +75100,15 @@
         "speaker": "ignatius",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-8ddba5be612423a1818600e2",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -75979,6 +75205,15 @@
         ]
       },
       {
+        "id": "part2-969ae0ce4ce801a57fdc0dee",
+        "scene": "e2-aufbruch",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-9741d930b0cdcc3a82f661a3",
         "scene": "e2-ignatius",
         "kind": "say",
@@ -75988,12 +75223,39 @@
         ]
       },
       {
+        "id": "part2-978165bfd9344b27db43d2bf",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-9792dc26629de27befe56800",
         "scene": "e2-der-fremde",
         "kind": "bark",
         "speaker": "ignatius",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-9abc223b4df29478330303ef",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-9aea3d45a0018de285ae1155",
+        "scene": "e2-flick-entkommt",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76055,6 +75317,24 @@
         ]
       },
       {
+        "id": "part2-9e387e4ff437f75a49bf8372",
+        "scene": "e2-flicks-erinnerungen",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-9e6323fdda08e28ed593711d",
+        "scene": "e2-flick-entkommt",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-9ea4794055dbab22d733dab0",
         "scene": "e2-flicks-verhoer",
         "kind": "say",
@@ -76102,6 +75382,15 @@
         ]
       },
       {
+        "id": "part2-a15e8ac56ca361afbbb2bdc4",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-a161cbabb80c29e897523eaa",
         "scene": "e2-flicks-verhoer",
         "kind": "say",
@@ -76121,6 +75410,15 @@
         ]
       },
       {
+        "id": "part2-a24836993e3fca9517965f70",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-a3bde12be7e7f8ee9de9d34a",
         "scene": "e2-pruefung",
         "kind": "say",
@@ -76136,6 +75434,15 @@
         "speaker": "flick",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-a5de22488ba9fe822f5bbe73",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76176,6 +75483,15 @@
         ]
       },
       {
+        "id": "part2-a8c852e305075682b0bdd8a5",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "baris",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-a91c58f2f3015c2ac2f94801",
         "scene": "e2-taverne",
         "kind": "say",
@@ -76183,6 +75499,15 @@
         "reasons": [
           "asr_lexical_mismatch_requires_review",
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-a9e2286917d3edb21282f423",
+        "scene": "e2-flicks-verhoer",
+        "kind": "bark",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76277,6 +75602,15 @@
         "speaker": "ignatius",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-b226477c3cd6f83c4077693e",
+        "scene": "e2-flicks-verhoer",
+        "kind": "think",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76465,13 +75799,21 @@
         ]
       },
       {
-        "id": "part2-c290ec5cd5bcdb4c5f79774f",
-        "scene": "e2-flicks-verhoer",
-        "kind": "think",
+        "id": "part2-c2a4189f71783f45c2f675f8",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-c4086214053257e8780ff564",
+        "scene": "e2-zellengespraeche",
+        "kind": "say",
         "speaker": "flick",
         "reasons": [
-          "asr_lexical_mismatch_requires_review",
-          "Explicit current private qualification required"
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76484,12 +75826,39 @@
         ]
       },
       {
+        "id": "part2-c5c229d14603b2b3953a8a85",
+        "scene": "e2-kontrolle",
+        "kind": "think",
+        "speaker": "elnon",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-c5e1c8b9f25269f539818f96",
         "scene": "e2-bruderschaft",
         "kind": "say",
         "speaker": "foltan",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-c6950f9889623969ae9de9bf",
+        "scene": "e2-zellengespraeche",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-c936f31b3b13b4aae540fdb3",
+        "scene": "e2-zellengespraeche",
+        "kind": "say",
+        "speaker": "elnon",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76567,6 +75936,15 @@
         ]
       },
       {
+        "id": "part2-d5e19204cfe20ddb86cd1b28",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "kyra",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-d67042c68b0df624bfe66d84",
         "scene": "e2-flicks-verhoer",
         "kind": "think",
@@ -76583,6 +75961,15 @@
         "speaker": "kyra",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-d6fff268812c1cce387810e8",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76661,6 +76048,15 @@
         ]
       },
       {
+        "id": "part2-db5f739fa4de6057b32a7320",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-db79f6eee0df856a96b9ab6d",
         "scene": "e2-taverne",
         "kind": "bark",
@@ -76687,6 +76083,15 @@
         "speaker": "vamir",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-dc52554877d50c1bc6378c58",
+        "scene": "e2-zellengespraeche",
+        "kind": "say",
+        "speaker": "elnon",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76718,6 +76123,24 @@
         ]
       },
       {
+        "id": "part2-df4e36ee31de95191abfd45c",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
+        "id": "part2-e0692869253e035a1da03ea4",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "vamir",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-e0792e07b2fcf55104e1c8a8",
         "scene": "e2-urmacht",
         "kind": "say",
@@ -76746,21 +76169,21 @@
         ]
       },
       {
-        "id": "part2-e1b022a2d0d5efaf887318bc",
-        "scene": "e2-kontrolle",
-        "kind": "say",
-        "speaker": "baris",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review"
-        ]
-      },
-      {
         "id": "part2-e370cd223a30c079d5393a26",
         "scene": "e2-flicks-herkunft",
         "kind": "say",
         "speaker": "lia",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-e4e20fb1a87a71774128c1d9",
+        "scene": "e2-flicks-verhoer",
+        "kind": "say",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76839,6 +76262,15 @@
         ]
       },
       {
+        "id": "part2-ec32fe3f26770d81c6f13a50",
+        "scene": "e2-flicks-verhoer",
+        "kind": "choice",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
+        ]
+      },
+      {
         "id": "part2-ec762fa9fa8b63ccbd56ad3f",
         "scene": "e2-taverne",
         "kind": "say",
@@ -76874,6 +76306,15 @@
         "speaker": "lia",
         "reasons": [
           "Explicit current private qualification required"
+        ]
+      },
+      {
+        "id": "part2-f28f962bfc8425fdf789d1bc",
+        "scene": "e2-flicks-verhoer",
+        "kind": "bark",
+        "speaker": "flick",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -76996,6 +76437,15 @@
         "speaker": "logge",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
+        ]
+      },
+      {
+        "id": "part2-fb4c89eb61bba314b4f2b94d",
+        "scene": "e2-kontrolle",
+        "kind": "say",
+        "speaker": "narrator",
+        "reasons": [
+          "source_rewritten_new_recording_required"
         ]
       },
       {
@@ -77139,6 +76589,146 @@
     "second3_strict_clear_unapproved_sources": 0,
     "second3_actual_whole_completed_sources": 3,
     "second3_selection_sha256": "2c22a95c3f662964eb2ffc5a1df323ecc9ef99a7f097cc97f37b9fb79da9a3cd",
-    "second3_baseline_manifest_sha256": "0ef92e2870409fba53d5f041e145d8b6b12d83d8d6aa10256beb0b9b17761506"
+    "second3_baseline_manifest_sha256": "0ef92e2870409fba53d5f041e145d8b6b12d83d8d6aa10256beb0b9b17761506",
+    "source_rewrite_retired_sources": 17,
+    "source_rewrite_retired": [
+      {
+        "id": "part2-0e4b177d30de118778a3865f",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Ja, Meister.",
+        "audio_sha256": "96612d9f2eac72fe569f242891982207f49eb6b98c602931dccffd911d870371",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-10eb09fd656cdf7da9fbe89d",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Lia …",
+        "audio_sha256": "028d8bfdf1d39ceb13425426c64c930dd21d5f8ff4cbd54776f72f413a60287e",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-10f174f45a10e0f31149ff34",
+        "kind": "say",
+        "speaker": "narrator",
+        "text": "Der Wärter mit dem Bund liegt auf den Steinen und hält sich den Kopf. Sein Gürtelhaken ist leer.",
+        "audio_sha256": "53e4d41e35a49d141af2d93af38fd82d3822f1dee8cb6a5d463a330ca418f025",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-144cda3a4ed43fbf37b43d80",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Wie Ihr befehlt, Meister.",
+        "audio_sha256": "e9e4767da537d7c22c42894cb848136b66608cc20c62d28096ce2dca7effb12b",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-1c25b2b788945967e58b4f8c",
+        "kind": "say",
+        "speaker": "narrator",
+        "text": "Irgendwo hinter den Hügeln waren Kyra und Flick. Und Elnon, was immer aus ihm geworden war. Lia wusste von alledem nichts.",
+        "audio_sha256": "dab03a1f099be6b72b69a3c818f1c72c718e500c1b77c8d6284b2d9f4c1dbe36",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-32fb6f2a0a8f200265e9c96d",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Ich sehe dich. Du bist laut. Der Meister mag es nicht, wenn man laut ist.",
+        "audio_sha256": "2fdd10a0fb99da5e73fd443350c6bc36d134a9a01c7fc9f927f92aa3222734b8",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-4cf87c1f820759e6c77f314a",
+        "kind": "say",
+        "speaker": "elnon",
+        "text": "Rippen. Lippe. Nichts, was nicht wieder heilt. Und deine Hände?",
+        "audio_sha256": "bc2f27dc2d45c041c6311a64c9bfef2fab5ba9d95912049e65548c7e58d66eb3",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-6932cb0cd3bf3ff3f9d861be",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Ich habe keinen Hof. Ich hatte nie einen. Ich habe den Meister.",
+        "audio_sha256": "1660334e7fb42a30728ba6c43a6ae552c20aa77b14037fa0f8c0e9028e720130",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-6f184d03606b8cadae528650",
+        "kind": "say",
+        "speaker": "vamir",
+        "text": "Dann ist sie ja harmlos. Fang bei den Händen an. Langsam, damit sie zwischendurch nachdenken kann.",
+        "audio_sha256": "212d2fa36aad5155568ee0205c7f3f52bc57376bd7a8c4d3bcc603a831bc5bae",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-74304a5555c63b4e9f21df7d",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Meister.",
+        "audio_sha256": "8c81e0f3cd763bbb11986929feff945ba7ca0b213e965e6f294fcba2f6878002",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-8067fd271e6e593218c709d1",
+        "kind": "say",
+        "speaker": "vamir",
+        "text": "Schafft ihn mir aus den Augen. Und dann findet mir die Spitzohrige.",
+        "audio_sha256": "8b649dff953e1a46429035c4b116324d5e43252a51f57676c56539fed83d50b6",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-8a6df8f535b2a0d50bd4eb84",
+        "kind": "say",
+        "speaker": "waerter",
+        "text": "Der hat noch alle Zähne. Soll ich mal nachzählen?",
+        "audio_sha256": "adaaa237c1ebf31bf11d75749149c949ffd2636f2edca212fb6e7900ff6e82d9",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-97a5f6e57c73135ee7bc9ddf",
+        "kind": "say",
+        "speaker": "flick",
+        "text": "Spielen Laute wie vorher. Also gar nicht.",
+        "audio_sha256": "89dc43de191c3537e5bee5491d18ba159a44a89a90ddebaa90a0784fb07891bc",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-9f894dd9e79d335112368140",
+        "kind": "think",
+        "speaker": "flick",
+        "text": "Die Hände tun weh. Nicht hinsehen. Wer hinsieht, zählt nach.",
+        "audio_sha256": "0b02c85ceb47d491873e517eb353ad35d61d0111006919f0b983e93dec2e4206",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-a26e6344bcfd751e18150714",
+        "kind": "think",
+        "speaker": "flick",
+        "text": "Der Nagel aus dem Ärmelsaum. Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam.",
+        "audio_sha256": "89b6ff1db8875f10f9a4caa0d240505ca99e6214716d00799de06b50c9b6b36e",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-df790b7b8ea84b292b1f0ae3",
+        "kind": "say",
+        "speaker": "kyra",
+        "text": "Lia ist weit weg. Der Meister ist hier.",
+        "audio_sha256": "a2a0c274273d3129e9acdf7b4be5b8e89ebe571a440d553b3ea3c749bb38ab5a",
+        "reason": "absent_from_current_part2_inventory"
+      },
+      {
+        "id": "part2-f4c3f5bead4135ea71fb72df",
+        "kind": "narrate",
+        "speaker": "narrator",
+        "text": "Ein Stoß im Dunkeln. Ketten auf Stein. Elnon fällt.",
+        "audio_sha256": "0025d2b37402f278d6b9ee934cd35e411821472016e5c95b26b2c1446a726861",
+        "reason": "absent_from_current_part2_inventory"
+      }
+    ],
+    "source_rewrite_open_sources": 60
   }
 }

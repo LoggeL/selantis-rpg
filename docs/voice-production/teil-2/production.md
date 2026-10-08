@@ -83,6 +83,12 @@ Der Export tauscht ausschließlich `audio/teil-2` aus, schützt fremde Dateien, 
 
 Veröffentlicht wird durch einen selektiven geprüften Push auf `main` in `LoggeL/selantis-rpg`. Dokploys Git-Integration übernimmt die Bereitstellung. Vor der Meldung als live werden Deploymentstatus, `/release.json` gegen den gepushten Commit, öffentliche Audiobytes und die tatsächliche Wiedergabe im Browser geprüft.
 
+## Neufassung mit gezeigter Gewalt
+
+Verhör, Schläge im Kerker, Elnons Tod und Flicks verletzte Hand sind in `flicks-verhoer`, `zellengespraeche`, `gefangene`, `kontrolle`, `flicks-erinnerungen`, `flick-entkommt` und `aufbruch` jetzt ausdrücklich gezeigt. Die gebannte Kyra spricht dabei mit den Stimmungen `cold`, `struggle` und `devoted`. Das Teil-II-Inventar umfasst damit 1.442 Zeilen mit 1.449 Laufzeitrouten. 60 Zeilen sind neu oder geändert und stehen mit Regie in `teil-2/directions` als offene Aufnahmen in `missing_sources`. 17 bisherige Aufnahmen sind entfernt, weil sich ihr Wortlaut oder ihre Stimmung geändert hat. Die Bank liefert 1.092 Aufnahmen, 350 sind offen. Die Neuaufnahmen stehen in `../retakes-gewalt.md`.
+
+Für den Check wurde der private Root-Quellstand (`derived-source-current.private.json`) auf neun geänderte Teil-II-Dateien neu gepinnt (sieben aus dieser Neufassung, dazu `lagerangriff-battle.ts` und `stabtraining-battle.ts` aus Lias Kampfbogen); die Kontextbindungen in `teil-2/directions` zeigen auf den aktuellen Quelltext.
+
 ## Offline-Adaptertests
 
 ```sh
