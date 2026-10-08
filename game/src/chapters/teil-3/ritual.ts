@@ -2,14 +2,15 @@
 // { part }, a reload restarts the current part):
 //  1. default, e3-ritualhuegel at dusk: Lia lies bound on the stone (look e3-lia-gefesselt, pose lie, held in place),
 //     ten stands with veiled things in a ring round her. She opens her eyes; Baris gloats and she answers him (choice);
-//     she stretches her bound hands towards Kyra (storyAction 'reach'), who looks straight through her; Vamir answers
+//     she stretches her bound hands towards Kyra, who looks straight through her; Vamir answers
 //     for her. Vamir's speech to his men (the last free cities, a new count of years; own words). The cloths come off
 //     ten nameless things, turquoise threads run from every stand to Lia, the sphere forms above her (plate e3-ritual).
 //  2. 'flick' (only with e3-ri-lia-gesehen): „Unterdessen, am Waldrand …“. The player is Flick with her bow at the
 //     bottom of the sunken path, Ignatius and two paladins behind her. Heart: in the Spurenblick the three outer guards
 //     lift out of the dusk (only within sight range); each one is pointed out to the others („Posten zeigen“). Then she
 //     picks the way up at one of three places (Hohlweg / Felsen / offen, e3-ritual-weg; the battle starts the allies
-//     there). She draws (storyAction 'lift') and the first arrow drops the spearman; Baris shouts, Flick answers.
+//     there). She chooses the first target: the guard who would see her way up (a wrong pick costs a second arrow and a
+//     shout, e3-ri-erster-pfeil); Baris shouts, Flick answers.
 //     Sets e3-ritual-begonnen. → e3-ritualangriff.
 // Knowledge stays apart: Flick's approach is framed; Lia learns of it only when Flick stands next to her.
 import { G } from '../../core/G';
@@ -17,8 +18,8 @@ import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } f
 import { pinArea, pinPlayer } from '../teil-2/gewoelbe';
 import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import {
-  ANSTIEG_WALK, APPROACH, ASCENTS, type AscentDef, BARIS_RETORTS, canSpot, HILL_BLOCKS, HILL_OCCLUDERS, HILL_SPOT, ON_THE_STONE,
-  POST_IDS, type PostId, postObjective, POSTS, type RitualLine, STONE_LIE, TORCHES,
+  ANSTIEG_WALK, APPROACH, ASCENTS, type AscentDef, BARIS_RETORTS, canSpot, FIRST_TARGET, HILL_BLOCKS, HILL_OCCLUDERS, HILL_SPOT,
+  ON_THE_STONE, POST_IDS, type PostId, postObjective, POSTS, type RitualLine, STONE_LIE, TARGET_HINT, TARGET_OPTIONS, TARGET_WRONG, TORCHES,
 } from './ritual-huegel';
 import { ritualCircle, type RitualCircle } from './ritual-kreis';
 import { bg, e3Scene, interlude, lia, liaLook, nextScene, poisoned, sfx, ui, until } from './shared';
@@ -312,15 +313,6 @@ async function anstiegScript(w: WorldCtx): Promise<void> {
   await firstArrow(w, hill);
 }
 
-/** Close-up for drawing the bow: Flick at the edge of the bushes, the hill above. */
-const BOW_PICTURE = (at: readonly [number, number]): GesturePicture => ({
-  background: 'e3-ritualhuegel',
-  focus: [at[0] + 10, at[1] - 24],
-  zoom: 3,
-  figures: [{ id: 'flick', pose: 'shoot', at, facing: 'up' }],
-  glint: [at[0] + 8, at[1] - 30],
-});
-
 async function firstArrow(w: WorldCtx, hill: Hill): Promise<void> {
   const weg = ASCENTS.find(a => a.weg === G.state.flag<string>(RITUAL_WAY_FLAG)) ?? ASCENTS[0];
   await w.cutscene(async () => {
@@ -328,17 +320,28 @@ async function firstArrow(w: WorldCtx, hill: Hill): Promise<void> {
     await w.say('e2-ignatius', 'Dann los. Wir sind direkt hinter dir.', { mood: 'determined' });
     w.player.face(POSTS.hang.at as [number, number]);
   });
-  const gesture = G.ui.storyAction('lift', 'Den Bogen spannen');
-  restageGesture('lift', 'Zieh die Sehne bis ans Ohr. Ganz ruhig. Der mit dem Speer zuerst.', BOW_PICTURE(weg.at));
-  await gesture;
+  // Which guard first? The one who would see their way up.
+  await w.say('e2-ignatius', TARGET_HINT, { mood: 'determined' });
+  const right = FIRST_TARGET[weg.weg] ?? 'hang';
+  const pick = POST_IDS[await w.choose(POST_IDS.map(id => TARGET_OPTIONS[id]), { prompt: 'Wen trifft der erste Pfeil?', speaker: 'e2-flick' })];
+  G.state.set('e3-ri-erster-pfeil', pick === right ? 'richtig' : 'falsch');
   await w.cutscene(async () => {
-    bg(w.player.play('shoot', { once: true }));
-    sfx('bow', { volume: 0.7 });
-    await w.wait(380);
-    sfx('arrow-hit', { volume: 0.6 });
-    const spear = posts.hang;
-    if (spear) { bg(spear.play('fall')); spear.setIdle('fall'); }
-    w.camera.punch(0.04);
+    const shoot = async (id: PostId) => {
+      w.player.face(POSTS[id].at as [number, number]);
+      bg(w.player.play('shoot', { once: true }));
+      sfx('bow', { volume: 0.7 });
+      await w.wait(380);
+      sfx('arrow-hit', { volume: 0.6 });
+      const g = posts[id];
+      if (g) { bg(g.play('fall')); g.setIdle('fall'); }
+      w.camera.punch(0.04);
+    };
+    await shoot(pick);
+    if (pick !== right) {
+      w.bark(`posten-${right}-figur`, TARGET_WRONG.shout, 1400);
+      await w.say('e2-flick', TARGET_WRONG.flick, { mood: 'angry' });
+      await shoot(right);
+    }
     await w.camera.pan([600, 380], 900);
     hill.baris.face('down');
     for (const l of APPROACH.arrow) await sayLine(w, l);

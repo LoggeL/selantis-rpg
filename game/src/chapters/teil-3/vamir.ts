@@ -4,7 +4,7 @@
 //     her own staff, poisoned (slow, staggers). Heart 1: the trail in the Spurenblick on the lower path (rules in
 //     vamir-spur.ts): a frost-rimmed violet burn mark, Ignatius' lost Schattentöter (Lia picks it up, once), his boot
 //     prints leaving the path for the bank. Then voices from up the bank. Lia creeps up behind the bush; tableau:
-//     Vamir over the kneeling Ignatius, Ignatius defies him, Lia tries to raise her staff (storyAction 'lift') and is
+//     Vamir over the kneeling Ignatius, Ignatius defies him, Lia tries to raise her staff (poison-slow, staged) and is
 //     too slow – the cold violet blow hits him, she cries out and steps into the open. Vamir turns.
 //  2. 'duell' (only after the tableau, e3-va-gestellt): the tactics duel e3-vamir-duell (vamir-duell-battle.ts):
 //     violet shield, teleports, the Urmacht's finisher. Defeat offers „Erneut versuchen“ in the battle; giving up
@@ -14,7 +14,6 @@
 import { G } from '../../core/G';
 import type { TacticsStartData } from '../../tactics/api';
 import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
-import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import { look } from './battle-shared';
 import { duelBattle } from './vamir-duell-battle';
 import { poisonedGait } from './vamir-schwaeche';
@@ -125,19 +124,6 @@ async function violetBlow(w: WorldCtx, ig: ActorHandle): Promise<void> {
   bg(glow.fadeTo(0, 1600).then(() => glow.remove()));
 }
 
-/** Close-up behind the gesture: Vamir's raised hand over the kneeling Ignatius, Lia at the bush below. */
-const LIFT_PICTURE = (): GesturePicture => ({
-  background: 'e3-waldpfad',
-  focus: [492, 330],
-  zoom: 3,
-  figures: [
-    { id: 'e2-ignatius', pose: 'kneel', at: WALDPFAD_SPOT.ignatius, facing: 'right' },
-    { id: 'vamir', pose: 'cast', at: WALDPFAD_SPOT.vamir, facing: 'left' },
-    { id: look('e3-lia-eigenstab', 'lia-cloak'), pose: 'kneel', at: WALDPFAD_SPOT.hide, facing: 'left' },
-  ],
-  glint: [WALDPFAD_SPOT.hide[0] - 6, WALDPFAD_SPOT.hide[1] - 46],
-});
-
 async function confront(w: WorldCtx): Promise<void> {
   if (G.state.is(F.confronted)) return;
   G.state.set(F.confronted);
@@ -155,10 +141,9 @@ async function confront(w: WorldCtx): Promise<void> {
         bg(va.play('cast', { ms: 1800 }));
       }
     }
-    // Lia tries to lift her staff in time. She does it – and it is still too late.
-    const gesture = G.ui.storyAction('lift', 'Den Stab heben');
-    restageGesture('lift', 'Heb den Stab. Schneller, als das Gift es will. Er hat die Hand schon erhoben.', LIFT_PICTURE());
-    await gesture;
+    // Lia tries to lift her staff in time. The poison makes her arms slow, and it is too late.
+    bg(w.player.play('cast' as never, { ms: 1600 }));
+    await w.think('Den Stab hoch. Hoch! Meine Arme sind wie aus nassem Sand, und er hat die Hand schon erhoben …');
     await violetBlow(w, ig);
     w.player.setIdle('idle');
     await lia(w, 'Ignatius!', 'scared');

@@ -181,6 +181,20 @@ export const ASCENTS: readonly AscentDef[] = [
   },
 ];
 
+/**
+ * The first arrow: the guard who would see Flick's way up must fall first (the sunken lane runs past the spearman, the
+ * rocks lie below the man at the fire basket, the open slope is in the crossbowman's view). Chosen with a choice.
+ */
+export const FIRST_TARGET: Record<string, PostId> = { hohlweg: 'hang', felsen: 'fackel', offen: 'kreis' };
+export const TARGET_OPTIONS: Record<PostId, string> = {
+  fackel: 'Den am Feuerkorb links.',
+  kreis: 'Den Armbrustschützen zwischen den Ständern.',
+  hang: 'Den Speerträger rechts am Hang.',
+};
+export const TARGET_HINT = 'Wer unseren Weg sieht, muss zuerst fallen. Sonst schreit er, bevor wir oben sind.';
+/** A wrong first target: it falls, but the one who sees their way shouts. Flick's second arrow is faster. */
+export const TARGET_WRONG = { shout: 'Da unten! Am Waldrand!', flick: 'Der Falsche. Mist. Dann eben zwei, und schneller.' };
+
 // ---------------------------------------------------------------------------------------------------------------
 // Ritual lines (own words; F3 38:29–40:41 gives the beats only)
 // ---------------------------------------------------------------------------------------------------------------
