@@ -105,6 +105,14 @@ PROPS: dict[str, tuple[str, list[str], int]] = {
                   "with iron hoops, each on its own.", [ref("selantis-first-camp.png")], 2),
     "iso-stake": (ISO + " Two variants of a thick wooden stake/post driven into the ground with a coil of rope tied "
                   "around it, arranged in one row, each on its own.", [ref("selantis-first-camp.png")], 2),
+    # Teil III, ritual hill: the bare wooden relic stand of the painted map e3-ritualhuegel (the relics are separate
+    # props e3-relikt-1..10, drawn on the tray by the game).
+    "iso-ritual-stand": (ISO + " Two variants of a slender ritual offering stand of dark weathered wood, about chest "
+                         "high: a single square wooden post planted in the ground with a few short splayed wooden feet "
+                         "and a little tuft of grass at its foot, topped by a flat SQUARE wooden tray / cap a bit wider "
+                         "than the post, the top surface of the tray clearly visible, flat and EMPTY. One variant "
+                         "slightly older and more cracked. Arranged in one row, each on its own.",
+                         [ref("selantis-first-camp.png")], 2),
     "iso-campfire": (ISO + " One unlit campfire: a ring of grey stones around a few crossed charred logs and ash, "
                      "no flames, centred.", [ref("selantis-first-camp.png")], 1),
 }

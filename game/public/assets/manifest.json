@@ -6035,6 +6035,200 @@
    "desc": "a small sleek BLACK house cat sitting upright on its haunches, front paws together, body turned three-quarter toward the RIGHT, head looking at the viewer, bright yellow-green eyes, a tiny pink nose, glossy black fur with subtle dark blue-grey highlights, its long tail curled on the ground beside its paws. Frame 1: the tail tip lies curled flat around the front paws. Frame 2: the tail tip is lifted and flicked up in a lazy curve. Everything else (body, head, ears, eyes) stays exactly identical in both frames.",
    "fps": 2
   },
+  "e3-relikt-1": {
+   "file": "assets/props/e3-relikt-1.png",
+   "w": 20,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    9,
+    17
+   ],
+   "footprint": null,
+   "height": 16,
+   "desc": "A small CROWN carved from a single piece of grey stone, a simple ring with five blunt angular points, worn smooth, a few tiny carved notches. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-10": {
+   "file": "assets/props/e3-relikt-10.png",
+   "w": 21,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    9,
+    17
+   ],
+   "footprint": null,
+   "height": 16,
+   "desc": "A CLOAK CLASP of bronze shaped like a round sun with two spread wings, with a fan of real brown, white and grey FEATHERS attached behind it, displayed upright on a tiny wooden stand. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-2": {
+   "file": "assets/props/e3-relikt-2.png",
+   "w": 20,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    9,
+    15
+   ],
+   "footprint": null,
+   "height": 14,
+   "desc": "A shallow round BRONZE BOWL on a short foot, dark green patina, a simple spiral engraved on the side. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-3": {
+   "file": "assets/props/e3-relikt-3.png",
+   "w": 9,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    4,
+    17
+   ],
+   "footprint": null,
+   "height": 16,
+   "desc": "An AMULET made from a forked piece of DEER ANTLER, hung on a small upright wooden peg with its braided leather cord and three bone beads. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-4": {
+   "file": "assets/props/e3-relikt-4.png",
+   "w": 9,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    3,
+    15
+   ],
+   "footprint": null,
+   "height": 14,
+   "desc": "A SEALED SCROLL of old yellowed parchment, rolled up and tied with a faded cord, a big round dark-red WAX SEAL, standing slightly tilted on one end. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-5": {
+   "file": "assets/props/e3-relikt-5.png",
+   "w": 11,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    3,
+    15
+   ],
+   "footprint": null,
+   "height": 14,
+   "desc": "A primitive KNIFE with a leaf-shaped blade of knapped dark FLINT and a handle of pale bone wrapped in leather, propped up at an angle on a small flat stone. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-6": {
+   "file": "assets/props/e3-relikt-6.png",
+   "w": 9,
+   "h": 18,
+   "frames": 1,
+   "anchor": [
+    4,
+    18
+   ],
+   "footprint": null,
+   "height": 17,
+   "desc": "A small standing FIGURINE of fired reddish CLAY: a very simple stylised human figure with arms crossed over the chest, a round head without a face, cracked and chipped. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-7": {
+   "file": "assets/props/e3-relikt-7.png",
+   "w": 15,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    7,
+    17
+   ],
+   "footprint": null,
+   "height": 16,
+   "desc": "A clear GLASS SPHERE the size of a fist, slightly cloudy with a tiny bubble inside, resting in a small three-legged holder of dark bronze. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-8": {
+   "file": "assets/props/e3-relikt-8.png",
+   "w": 6,
+   "h": 15,
+   "frames": 1,
+   "anchor": [
+    3,
+    15
+   ],
+   "footprint": null,
+   "height": 14,
+   "desc": "An old carved WOODEN FLUTE with five finger holes and a simple carved bird head at the top, standing upright in a small clay holder. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-9": {
+   "file": "assets/props/e3-relikt-9.png",
+   "w": 13,
+   "h": 17,
+   "frames": 1,
+   "anchor": [
+    7,
+    17
+   ],
+   "footprint": null,
+   "height": 16,
+   "desc": "A large ancient IRON KEY with a ring-shaped bow and a heavy toothed bit, dark and rust-flecked, standing upright, leaning against a small stone. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+   "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+   }
+  },
+  "e3-relikt-podest": {
+   "file": "assets/props/e3-relikt-podest.png",
+   "w": 22,
+   "h": 23,
+   "frames": 1,
+   "anchor": [
+    11,
+    23
+   ],
+   "footprint": {
+    "x": -9,
+    "y": -5,
+    "w": 18,
+    "h": 5
+   },
+   "height": 22,
+   "desc": "A small, waist-high square stone PEDESTAL for an offering: a weathered grey stone block with a slightly wider base and a flat top slab, simple carved border lines (no letters), a little moss at its foot. The top surface is flat and EMPTY. Seen from the high three-quarter top-down game camera, standing on its own.",
+   "anchors": {
+    "relic": {
+     "x": 0,
+     "y": -17
+    }
+   }
+  },
   "fallen-banner": {
    "file": "assets/props/fallen-banner.png",
    "w": 38,
@@ -6390,6 +6584,198 @@
     "y": -12,
     "w": 50,
     "h": 12
+   }
+  },
+  "iso-ritual-relic-0": {
+   "file": "assets/props/iso-ritual-relic-0.png",
+   "w": 29,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    14,
+    52
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-1": {
+   "file": "assets/props/iso-ritual-relic-1.png",
+   "w": 29,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    14,
+    50
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-2": {
+   "file": "assets/props/iso-ritual-relic-2.png",
+   "w": 29,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    14,
+    52
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-3": {
+   "file": "assets/props/iso-ritual-relic-3.png",
+   "w": 29,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    14,
+    50
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-4": {
+   "file": "assets/props/iso-ritual-relic-4.png",
+   "w": 29,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    14,
+    50
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-5": {
+   "file": "assets/props/iso-ritual-relic-5.png",
+   "w": 29,
+   "h": 53,
+   "frames": 1,
+   "anchor": [
+    14,
+    53
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-6": {
+   "file": "assets/props/iso-ritual-relic-6.png",
+   "w": 29,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    14,
+    52
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-7": {
+   "file": "assets/props/iso-ritual-relic-7.png",
+   "w": 29,
+   "h": 50,
+   "frames": 1,
+   "anchor": [
+    14,
+    50
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-8": {
+   "file": "assets/props/iso-ritual-relic-8.png",
+   "w": 29,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    14,
+    52
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-relic-9": {
+   "file": "assets/props/iso-ritual-relic-9.png",
+   "w": 29,
+   "h": 52,
+   "frames": 1,
+   "anchor": [
+    14,
+    52
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -12,
+    "w": 23,
+    "h": 12
+   }
+  },
+  "iso-ritual-stand-0": {
+   "file": "assets/props/iso-ritual-stand-0.png",
+   "w": 29,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    14,
+    43
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -11,
+    "w": 23,
+    "h": 11
+   }
+  },
+  "iso-ritual-stand-1": {
+   "file": "assets/props/iso-ritual-stand-1.png",
+   "w": 29,
+   "h": 43,
+   "frames": 1,
+   "anchor": [
+    14,
+    43
+   ],
+   "footprint": {
+    "x": -12,
+    "y": -11,
+    "w": 23,
+    "h": 11
    }
   },
   "iso-rock-0": {

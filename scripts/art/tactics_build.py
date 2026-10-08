@@ -31,12 +31,12 @@ PICK: dict[str, str] = {}
 PROP_HEIGHT = {
     "iso-tree": 92, "iso-pine": 96, "iso-bush": 30, "iso-rock": 30, "iso-ruin": 50,
     "iso-banner-light": 70, "iso-banner-dark": 70, "iso-deadtree": 84, "iso-stump": 20, "iso-crate": 30,
-    "iso-stake": 46, "iso-campfire": 26,
+    "iso-stake": 46, "iso-campfire": 26, "iso-ritual-stand": 42,
 }
 # Max width as a fallback limit.
 PROP_WIDTH = {"iso-tree": 92, "iso-pine": 64, "iso-bush": 44, "iso-rock": 44, "iso-ruin": 52,
               "iso-banner-light": 40, "iso-banner-dark": 40, "iso-deadtree": 70, "iso-stump": 30, "iso-crate": 34,
-              "iso-stake": 24, "iso-campfire": 40}
+              "iso-stake": 24, "iso-campfire": 40, "iso-ritual-stand": 30}
 
 
 def raw_path(kind: str, aid: str) -> Path:
@@ -197,6 +197,32 @@ def build_prop(pid: str) -> dict:
 
 
 # ------------------------------------------------------------------------------------------- backdrops
+def compose_relic_stands() -> list[str]:
+    """Teil III ritual hill: iso-ritual-relic-<n> = painted iso stand (variant n % 2) with the world relic prop
+    e3-relikt-<n+1> (scripts/art/props.py) set on the middle of the tray. Rebuilt whenever both exist."""
+    tray = (14, 8)  # bottom-centre of a relic on the tray surface of iso-ritual-stand-<v> (29x43)
+    outs = []
+    for n in range(10):
+        stand_p = PROPS_OUT / f"iso-ritual-stand-{n % 2}.png"
+        relic_p = PROPS_OUT / f"e3-relikt-{n + 1}.png"
+        side = PROPS_OUT / f"e3-relikt-{n + 1}.json"
+        if not (stand_p.is_file() and relic_p.is_file()):
+            continue
+        stand = Image.open(stand_p).convert("RGBA")
+        relic = Image.open(relic_p).convert("RGBA")
+        ax, ay = json.loads(side.read_text())["anchor"] if side.is_file() else (relic.width // 2, relic.height)
+        top = max(0, ay - tray[1])
+        left = max(0, ax - tray[0])
+        w = max(stand.width + left, left + tray[0] - ax + relic.width)
+        canvas = Image.new("RGBA", (w, stand.height + top), (0, 0, 0, 0))
+        canvas.alpha_composite(stand, (left, top))
+        canvas.alpha_composite(relic, (left + tray[0] - ax, top + tray[1] - ay))
+        dst = PROPS_OUT / f"iso-ritual-relic-{n}.png"
+        canvas.save(dst, optimize=True)
+        outs.append(str(dst.relative_to(ROOT)))
+    return outs
+
+
 def build_backdrop(bid: str) -> dict:
     src = raw_path("sky", bid)
     im = Image.open(src).convert("RGB")
@@ -289,6 +315,10 @@ def main() -> None:
             info.update(prompts.get(info["raw"], {}))
             doc["props"][pid] = info
             print("prop", pid, [v["w"] for v in info["variants"]])
+        relic = compose_relic_stands()
+        if relic:
+            doc["props"]["iso-ritual-relic"] = {"composed": "iso-ritual-stand + props/e3-relikt-<n+1>", "variants": relic}
+            print("prop iso-ritual-relic", len(relic))
     if what in ("backdrops", "all"):
         for bid in BACKDROPS:
             if not raw_path("sky", bid).exists():

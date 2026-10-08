@@ -1,0 +1,14 @@
+{
+  "height": 16,
+  "frames": 1,
+  "anchor": [
+    9,
+    17
+  ],
+  "desc": "A small CROWN carved from a single piece of grey stone, a simple ring with five blunt angular points, worn smooth, a few tiny carved notches. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+  "footprint": null,
+  "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+  }
+}

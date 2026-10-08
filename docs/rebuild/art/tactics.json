@@ -411,6 +411,41 @@
         "selantis-first-camp.png"
       ],
       "ok": true
+    },
+    "iso-ritual-stand": {
+      "raw": "prop-iso-ritual-stand.png",
+      "variants": [
+        {
+          "out": "game/public/assets/props/iso-ritual-stand-0.png",
+          "w": 29,
+          "h": 43
+        },
+        {
+          "out": "game/public/assets/props/iso-ritual-stand-1.png",
+          "w": 29,
+          "h": 43
+        }
+      ],
+      "prompt": "Isometric three-quarter view from above like the props of Final Fantasy Tactics Advance (camera about 30 degrees down), drawn as pixel art sprites for an isometric tactics battle map. Two variants of a slender ritual offering stand of dark weathered wood, about chest high: a single square wooden post planted in the ground with a few short splayed wooden feet and a little tuft of grass at its foot, topped by a flat SQUARE wooden tray / cap a bit wider than the post, the top surface of the tray clearly visible, flat and EMPTY. One variant slightly older and more cracked. Arranged in one row, each on its own. Flat pure magenta #FF00FF background everywhere around the objects, no cast shadow on the background, no ground plane, no gradients. Objects well separated, nothing touching the image border. High-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet. No text, no letters, no watermark, no frame, no border, no people, no animals.",
+      "refs": [
+        "selantis-first-camp.png"
+      ],
+      "ok": true
+    },
+    "iso-ritual-relic": {
+      "composed": "iso-ritual-stand + props/e3-relikt-<n+1>",
+      "variants": [
+        "game/public/assets/props/iso-ritual-relic-0.png",
+        "game/public/assets/props/iso-ritual-relic-1.png",
+        "game/public/assets/props/iso-ritual-relic-2.png",
+        "game/public/assets/props/iso-ritual-relic-3.png",
+        "game/public/assets/props/iso-ritual-relic-4.png",
+        "game/public/assets/props/iso-ritual-relic-5.png",
+        "game/public/assets/props/iso-ritual-relic-6.png",
+        "game/public/assets/props/iso-ritual-relic-7.png",
+        "game/public/assets/props/iso-ritual-relic-8.png",
+        "game/public/assets/props/iso-ritual-relic-9.png"
+      ]
     }
   },
   "backdrops": {

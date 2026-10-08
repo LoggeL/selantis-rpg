@@ -1,0 +1,14 @@
+{
+  "height": 17,
+  "frames": 1,
+  "anchor": [
+    4,
+    18
+  ],
+  "desc": "A small standing FIGURINE of fired reddish CLAY: a very simple stylised human figure with arms crossed over the chest, a round head without a face, cracked and chipped. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.",
+  "footprint": null,
+  "light": {
+    "radius": 18,
+    "color": "#f2e2b0"
+  }
+}

@@ -1493,6 +1493,138 @@
       "attempts": 1,
       "time": "2026-10-08T02:50:59",
       "note": "Codex job run via scripts/art/icons.py (primary record in icons.json, sheet e3-icons); mirrored here for the teil-3 area"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-1.png": {
+      "kind": "prop",
+      "id": "e3-relikt-1",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A small CROWN carved from a single piece of grey stone, a simple ring with five blunt angular points, worn smooth, a few tiny carved notches. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 44,
+      "attempts": 1,
+      "time": "2026-10-09T01:15:50"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-10.png": {
+      "kind": "prop",
+      "id": "e3-relikt-10",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A CLOAK CLASP of bronze shaped like a round sun with two spread wings, with a fan of real brown, white and grey FEATHERS attached behind it, displayed upright on a tiny wooden stand. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-09T01:22:33"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-2.png": {
+      "kind": "prop",
+      "id": "e3-relikt-2",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A shallow round BRONZE BOWL on a short foot, dark green patina, a simple spiral engraved on the side. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 57,
+      "attempts": 1,
+      "time": "2026-10-09T01:16:48"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-3.png": {
+      "kind": "prop",
+      "id": "e3-relikt-3",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: An AMULET made from a forked piece of DEER ANTLER, hung on a small upright wooden peg with its braided leather cord and three bone beads. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-09T01:17:27"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-4.png": {
+      "kind": "prop",
+      "id": "e3-relikt-4",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A SEALED SCROLL of old yellowed parchment, rolled up and tied with a faded cord, a big round dark-red WAX SEAL, standing slightly tilted on one end. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-09T01:18:05"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-5.png": {
+      "kind": "prop",
+      "id": "e3-relikt-5",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A primitive KNIFE with a leaf-shaped blade of knapped dark FLINT and a handle of pale bone wrapped in leather, propped up at an angle on a small flat stone. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 44,
+      "attempts": 1,
+      "time": "2026-10-09T01:18:50"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-6.png": {
+      "kind": "prop",
+      "id": "e3-relikt-6",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A small standing FIGURINE of fired reddish CLAY: a very simple stylised human figure with arms crossed over the chest, a round head without a face, cracked and chipped. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 35,
+      "attempts": 1,
+      "time": "2026-10-09T01:19:27"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-7.png": {
+      "kind": "prop",
+      "id": "e3-relikt-7",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A clear GLASS SPHERE the size of a fist, slightly cloudy with a tiny bubble inside, resting in a small three-legged holder of dark bronze. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 40,
+      "attempts": 1,
+      "time": "2026-10-09T01:20:08"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-8.png": {
+      "kind": "prop",
+      "id": "e3-relikt-8",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: An old carved WOODEN FLUTE with five finger holes and a simple carved bird head at the top, standing upright in a small clay holder. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 56,
+      "attempts": 1,
+      "time": "2026-10-09T01:21:05"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-9.png": {
+      "kind": "prop",
+      "id": "e3-relikt-9",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A large ancient IRON KEY with a ring-shaped bow and a heavy toothed bit, dark and rust-flecked, standing upright, leaning against a small stone. an ancient sacred relic of the first ten humans, small, weathered and very old, seen from the high three-quarter top-down game camera, standing upright on its own (no stand, no table, no ground) as it would sit on a small offering tray.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 41,
+      "attempts": 1,
+      "time": "2026-10-09T01:21:47"
+    },
+    "output/imagegen/raw/art/props/e3-relikt-podest.png": {
+      "kind": "prop",
+      "id": "e3-relikt-podest",
+      "prompt": "Single game prop sprite for a 2D pixel-art RPG, seen from the same high three-quarter top-down camera as the attached landscape reference, drawn as one isolated object, centred, filling about 70% of the image, with an empty margin all around, nothing cut off. Object: A small, waist-high square stone PEDESTAL for an offering: a weathered grey stone block with a slightly wider base and a flat top slab, simple carved border lines (no letters), a little moss at its foot. The top surface is flat and EMPTY. Seen from the high three-quarter top-down game camera, standing on its own.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 37,
+      "attempts": 1,
+      "time": "2026-10-09T01:23:11"
     }
   },
   "builds": {

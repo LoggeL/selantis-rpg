@@ -1,0 +1,21 @@
+{
+  "height": 22,
+  "frames": 1,
+  "anchor": [
+    11,
+    23
+  ],
+  "desc": "A small, waist-high square stone PEDESTAL for an offering: a weathered grey stone block with a slightly wider base and a flat top slab, simple carved border lines (no letters), a little moss at its foot. The top surface is flat and EMPTY. Seen from the high three-quarter top-down game camera, standing on its own.",
+  "footprint": {
+    "x": -9,
+    "y": -5,
+    "w": 18,
+    "h": 5
+  },
+  "anchors": {
+    "relic": {
+      "x": 0,
+      "y": -17
+    }
+  }
+}

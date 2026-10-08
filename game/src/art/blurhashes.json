@@ -2850,6 +2850,83 @@
    }
   ]
  },
+ "assets/props/e3-relikt-1.png": {
+  "width": 20,
+  "height": 17,
+  "hash": "L8C?48?FE2xZ~BNG%K%1f8t6juIp",
+  "alphaHash": "L8L#2+~q00-;00Rj~qRj00Rj004n",
+  "sourceHash": "085c7716c3a54096bd3c07640d5736f07860f3a9f1d64f949c09292bd317ee0e"
+ },
+ "assets/props/e3-relikt-10.png": {
+  "width": 21,
+  "height": 17,
+  "hash": "LBD8|0en0fxa~VIVR+%2IuE2%Lxa",
+  "alphaHash": "L8LN.4_300WB~qxuRj?b00IU-;D%",
+  "sourceHash": "2b17a08243258f651cf3397806300d3f1776104ed0cfb247f28c5c3bdad04419"
+ },
+ "assets/props/e3-relikt-2.png": {
+  "width": 20,
+  "height": 15,
+  "hash": "L6Avp^?DDmxY~9ni-T=^4sRk^#$$",
+  "alphaHash": "LKO43i?b00t7~qof%Mxu00RjIUIU",
+  "sourceHash": "9ef8197e41432c75d7abf07a598372ec38c66589ed45ec1022e57bf570f9b534"
+ },
+ "assets/props/e3-relikt-3.png": {
+  "width": 9,
+  "height": 17,
+  "hash": "L6DuMCsptQ}?i0E3E3s.^M%1xZjF",
+  "alphaHash": "LFHC1R-;00fQayj[004n9FRj~q-;",
+  "sourceHash": "306399b96b3df21f8f3da98a2d9f40a7f38b144078ad7108a8cb7ea9afbf227e"
+ },
+ "assets/props/e3-relikt-4.png": {
+  "width": 9,
+  "height": 15,
+  "hash": "LQFg,H~8ENE4$$R+R+$$R+WCs.s.",
+  "alphaHash": "LSL4yu~q004nof4nD%-;9FRj-;of",
+  "sourceHash": "f52c2993eb749c59ec6122297481573b74445f5aa29abb4034b76354d3a9f3b6"
+ },
+ "assets/props/e3-relikt-5.png": {
+  "width": 11,
+  "height": 15,
+  "hash": "LBBfRr~AofbINLIqRkxtX9RlRjs.",
+  "alphaHash": "LRGu,m-;00IUD%00of~qj[j[-;t7",
+  "sourceHash": "f71ed365d4cad2ffa201c9f38ea5b88d7afa24f8fbdf2e0f41511d8bfeba1ce7"
+ },
+ "assets/props/e3-relikt-6.png": {
+  "width": 9,
+  "height": 18,
+  "hash": "LPG?If}q5.S4-Ts.S3NbSzoexFWV",
+  "alphaHash": "LLMQ*J~q00M{%M%Mt7M{00M{j[M{",
+  "sourceHash": "e6fe8154eebb9ece39cdca56698af7ac4f6a09393a8a66969b66947ddc35d0d5"
+ },
+ "assets/props/e3-relikt-7.png": {
+  "width": 15,
+  "height": 17,
+  "hash": "LIDu*h-T9Haf~Us.M|RkE2oe-oRk",
+  "alphaHash": "LPK-qP-;00WB~qt74nRj00Rjt7M{",
+  "sourceHash": "a6309240397f9885aa979f22ad4b38b7f57780dfb6eb0ea0b49ed9744cde611f"
+ },
+ "assets/props/e3-relikt-8.png": {
+  "width": 6,
+  "height": 15,
+  "hash": "LFEUD7}=Nw$%-nWqxF$$=wxER+S3",
+  "alphaHash": "LSIOhG~q00009FRjt7M{Rjay%M%M",
+  "sourceHash": "d5fe7424e25f25b2349f257df00db2f35a3107191bcac9cad1c5df90a3da0676"
+ },
+ "assets/props/e3-relikt-9.png": {
+  "width": 13,
+  "height": 17,
+  "hash": "L2B2}U%K038}IE0N?F~T?ES44=E3",
+  "alphaHash": "LNIE|g~q004n00_3~qM{?bt7xuxu",
+  "sourceHash": "56f0c2ca1f0e0605c47f4b03813f938fed94120049552b674cbfe613a04df068"
+ },
+ "assets/props/e3-relikt-podest.png": {
+  "width": 22,
+  "height": 23,
+  "hash": "LGEB]5={4;Rl~AWDM|t6ayWCt6s:",
+  "alphaHash": "LANKFy~q00of%May%Mof00M{?bIU",
+  "sourceHash": "9a20e2b9c53f31c10a42974386b6fb8705133a9e5d66a82f359f8bf99a0fc919"
+ },
  "assets/props/fallen-banner.png": {
   "width": 38,
   "height": 23,
@@ -3003,6 +3080,90 @@
   "hash": "L06*%80E03~U?@EIqxbV4Z-,LbI1",
   "alphaHash": "LEKUZk%M00M{00ayRjM{00of~qIU",
   "sourceHash": "0e431b5032debe744849914e1dcb42e3f6018c7b2c4aa6d68afddcd1ae3a0306"
+ },
+ "assets/props/iso-ritual-relic-0.png": {
+  "width": 29,
+  "height": 52,
+  "hash": "L9AcMF$*59xZ~AxZWBj]yBovslt6",
+  "alphaHash": "LCI}-Q?b009F~qj[xu%M9FRj%Mt7",
+  "sourceHash": "2510d67b6222c326f48de7d6c22f72588f6ece2f9258274061a74e11b3f888e2"
+ },
+ "assets/props/iso-ritual-relic-1.png": {
+  "width": 29,
+  "height": 50,
+  "hash": "L5A05V%20ixZ~6xYnRa}y6ob#-j?",
+  "alphaHash": "LNJ[I,-;00IU~qayM{t7%MayRjt7",
+  "sourceHash": "e174d371638c44fd7badf1744d89ab812b16901e042b2a8b9a7b9539a5e49c83"
+ },
+ "assets/props/iso-ritual-relic-2.png": {
+  "width": 29,
+  "height": 52,
+  "hash": "L8ASYzo40$xZ}qWVR+oLtLS1s,t5",
+  "alphaHash": "L8H.Qb_30000M{ay~q%M00M{~qt7",
+  "sourceHash": "9b70c989c44ad80483c60944f7a5f8a06abf2983b82fafb8124672d5c7bdd626"
+ },
+ "assets/props/iso-ritual-relic-3.png": {
+  "width": 29,
+  "height": 50,
+  "hash": "L7ASl5xu0jR.};t6EQNKx:oeNKNI",
+  "alphaHash": "L7IY5?~q0000?bM{-;?b00Rj?b-;",
+  "sourceHash": "3ccc17b531cfff85fe584e833154635b7bb3344e7e6b4ab555da4169cbf113fa"
+ },
+ "assets/props/iso-ritual-relic-4.png": {
+  "width": 29,
+  "height": 50,
+  "hash": "L49?UXxI0jo|}s$jShNyK3a{xGS$",
+  "alphaHash": "L6IE|g~q004n-;Rj~q_300IU~q?b",
+  "sourceHash": "5a5c37d6c8427ec42815da477da1a9158881cfcded582f9279b22bc8248919cf"
+ },
+ "assets/props/iso-ritual-relic-5.png": {
+  "width": 29,
+  "height": 53,
+  "hash": "LDB2iR-T5mS4}V$$SgR,-7xYoeWW",
+  "alphaHash": "L9IOhG~q0000ofRj%Mxu00WB-;of",
+  "sourceHash": "c78b3cf1e932b4f415bba5ac7efe0ecf9328268349f5a0f2c69b4aa6ab5e02a2"
+ },
+ "assets/props/iso-ritual-relic-6.png": {
+  "width": 29,
+  "height": 52,
+  "hash": "LCA]Toxa59oL~9t4RjR+--ocjEa{",
+  "alphaHash": "LBI=Mq_30000~qt7M{of9FWBofWB",
+  "sourceHash": "219dc125aa1dfa6169b765feb1006b17d0a6ad3bb030aedd099612040a1970f2"
+ },
+ "assets/props/iso-ritual-relic-7.png": {
+  "width": 29,
+  "height": 50,
+  "hash": "L7AJ1X$+0%kC}qxZNwR-x:s.j[R+",
+  "alphaHash": "L8I5Y-~q0000WBRj_3%M00WB~qxu",
+  "sourceHash": "667b524d1b3a37eded8facf7f5ee659489fa7167a1d2e88e38bd4d1463902705"
+ },
+ "assets/props/iso-ritual-relic-8.png": {
+  "width": 29,
+  "height": 52,
+  "hash": "L49sM1xI0PxH}qf#WCRnKINsxCoc",
+  "alphaHash": "L8H_=B~q0000Rjt7~qof00WB~qRj",
+  "sourceHash": "312c5bfa60b4e9b301518797655e1ea34c241c7cac5bebd50e00308d7255b8ef"
+ },
+ "assets/props/iso-ritual-relic-9.png": {
+  "width": 29,
+  "height": 52,
+  "hash": "LAAl%$s.58t6~AWTR*kC%eWAf5of",
+  "alphaHash": "LFJkl#-;00D%~qM{M{%MRjRjofxu",
+  "sourceHash": "57247c2cb067f52f4d20756df588843368c91e11cd05f6161d3af45370bc1b71"
+ },
+ "assets/props/iso-ritual-stand-0.png": {
+  "width": 29,
+  "height": 43,
+  "hash": "L69?RNxH0ht6}sxDJANI?EfiNJR-",
+  "alphaHash": "LLJH]v%M00IU~qofayt7_3ofoft7",
+  "sourceHash": "fef0ecfdbdec29ab2f74236cfdc96f56d64e4db3b678acff124f868e31467d98"
+ },
+ "assets/props/iso-ritual-stand-1.png": {
+  "width": 29,
+  "height": 43,
+  "hash": "L59sPA$l0iso}YovI;R,-.s:NKR-",
+  "alphaHash": "LJJRdV-;00D%~qj[j[t7~qoft7t7",
+  "sourceHash": "808e285928e29803c91792d29b3ed8031a24077b049f372d32cba6c721924e83"
  },
  "assets/props/iso-rock-0.png": {
   "width": 36,
