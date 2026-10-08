@@ -98,6 +98,7 @@ export const TACTICS_CSS = `
 .tac-abil button.on{border-color:var(--gold2);box-shadow:0 0 0 1px var(--gold2),0 0 .7em rgba(243,210,122,.35);background:linear-gradient(180deg,#3a3a2a,#262418)}
 .tac-abil button.magic.on{border-color:var(--turq);box-shadow:0 0 0 1px var(--turq),0 0 .7em rgba(73,224,200,.35);background:linear-gradient(180deg,#1d3a3c,#14282a)}
 .tac-abil button:disabled,.tac-abil button.dis{opacity:.42;cursor:default}
+.tac-abil button.attack{border-color:rgba(243,210,122,.7)}
 .tac-abil .k{font-family:'Alegreya Sans SC',sans-serif;font-size:.68em;color:#0e131d;background:var(--gold);border-radius:.25em;padding:0 .3em;line-height:1.35}
 .tac-abil .ic{width:1.15em;height:1.15em;flex:0 0 auto;color:#f3d27a}
 .tac-abil .magic .ic{color:var(--turq)}
@@ -120,7 +121,15 @@ export const TACTICS_CSS = `
 .tac-forecast-body{overflow-y:auto;min-height:0;overscroll-behavior:contain;scrollbar-width:thin}
 .tac-versus>.tac-combatant,.tac-versus-arrow{position:sticky;top:0}
 .tac-targets{min-width:0;display:grid;gap:.6em}
-.tac-target+.tac-target{border-top:1px solid #d8b25a44;padding-top:.5em}
+/* One affected unit at a time (FFTA); the others stay in the DOM, collapsed, for the pager. */
+.tac-target:not(.on){display:none}
+.tac-pager{display:flex;align-items:center;gap:.3em;margin-left:auto;font-size:1.25em;color:#f3e2b0}
+.tac-pager button{min-width:32px;min-height:32px;padding:0 .3em;border-radius:.3em;border:1px solid rgba(216,178,90,.6);background:linear-gradient(180deg,#2c3854,#1b2336);font:700 1.15em Cinzel,serif;line-height:1;color:#f6e8c6;display:grid;place-items:center}
+.tac-pager button:hover{border-color:var(--gold2)}
+.tac-page{min-width:2.4em;text-align:center;font-variant-numeric:tabular-nums}
+.tac-count{align-self:center}
+.tac-big .v.dir{font-size:1.05em;color:#e8d8b0}
+.tac-big .v.dir.side{color:#c8f6b8}.tac-big .v.dir.back{color:#9ee08a}
 .tac-forecast-actions{display:flex;align-items:center;justify-content:space-between;gap:.7em;border-top:1px solid #d8b25a44;margin-top:.4em;padding-top:.4em;flex-shrink:0}
 .tac-forecast-actions>span{font:.7em 'Alegreya Sans SC',sans-serif;color:#c9bb96}
 .tac-forecast-actions .tac-btn{font-size:.75em;white-space:nowrap}
@@ -133,7 +142,7 @@ export const TACTICS_CSS = `
 .tac-facing-note{font:.75em 'Alegreya Sans SC',sans-serif;color:#c9bb96;text-align:center}
 .tac-facing-actions{display:flex;justify-content:space-between;gap:.7em;margin-top:.5em}
 .tac-facing-actions .tac-btn{font-size:.8em}
-.forecast-title{display:flex;justify-content:space-between;gap:1em;border-bottom:1px solid #d8b25a44;padding-bottom:.3em;font:.72em 'Alegreya Sans SC',sans-serif;color:#c9bb96;flex-shrink:0}
+.forecast-title{display:flex;justify-content:space-between;align-items:center;gap:1em;border-bottom:1px solid #d8b25a44;padding-bottom:.3em;font:.72em 'Alegreya Sans SC',sans-serif;color:#c9bb96;flex-shrink:0}
 .tac-versus{display:grid;grid-template-columns:minmax(0,1fr) 1.5em minmax(0,1fr);align-items:start;gap:.6em;margin-top:.4em}
 .tac-combatant{min-width:0;padding:.25em .4em;border-left:2px solid var(--blue);background:#27375433}
 .tac-combatant.enemy{border-color:var(--danger);background:#54322733}
@@ -190,6 +199,7 @@ export const TACTICS_CSS = `
 .tac-menu .sub{padding-left:.6em;border-left:1px solid rgba(216,178,90,.3);margin-left:.6em;display:flex;flex-direction:column;gap:.1em}
 .tac-menu .sub button{font-size:.84em}
 .tac-menu .sub .magic svg{color:var(--turq)}
+.tac-menu .sub .attack span{font-weight:700;color:#f6e8c6}
 .tac-menu.targeting{transform:none;min-width:8em;max-width:12em}
 .tac-target-name{padding:.2em .5em;font:.75em 'Alegreya Sans SC',sans-serif;color:var(--gold2)}
 
@@ -277,6 +287,8 @@ export const TACTICS_CSS = `
 .tac.compact .tac-combatant{padding:.15em .25em}
 .tac.compact .tac-combatant .por{width:2em;height:2em}
 .tac.compact .tac-combatant .ab{display:none}
+.tac.compact .forecast-title{gap:.5em}
+.tac.compact .tac-pager{font-size:1.4em}
 .tac.compact .tac-equipment .tac-chips{display:none}
 .tac.compact .tac-growth{gap:.3em}
 .tac.compact .tac-tcard .tac-stats{display:none}

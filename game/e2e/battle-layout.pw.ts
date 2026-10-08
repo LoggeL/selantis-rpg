@@ -27,7 +27,7 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     await page.getByRole('button', { name: 'Flick', exact: true }).click();
     await expect(page.locator('.tac-menu')).toBeVisible();
     await expect.poll(() => menuOverlaps(page)).toEqual([]);
-    await page.getByRole('button', { name: /^Handeln(?: 1–4)?$/ }).click();
+    await page.getByRole('button', { name: /^Aktion(?: \d–\d)?$/ }).click();
     await expect(page.locator('.tac-menu .sub')).toBeVisible();
     await expect.poll(() => menuOverlaps(page)).toEqual([]);
   });

@@ -20,11 +20,11 @@ const SAFE_TILES: Point[] = [{ x: 1, y: 1 }, { x: 0, y: 2 }];
 
 async function tutorialRound1(ctx: BattleCtx): Promise<void> {
   const active = ctx.battle.activeUnit ? ctx.unit(ctx.battle.activeUnit) : undefined;
-  await ctx.hint(`Wähle <em>${active?.name ?? 'die aktive Einheit'}</em> mit einem Klick oder drücke <strong>Tab</strong>. Das <em>Tempo</em> bestimmt die Zugreihenfolge oben.`, { title: 'Zugreihenfolge', unit: active?.id, until: 'select' });
-  await ctx.hint('<em>Blaue Felder</em> zeigen die Bewegung. Klicke ein blaues Feld. <strong>Rückgängig</strong> nimmt den Schritt zurück, solange du noch nicht gehandelt hast.', { title: 'Bewegung', until: 'move' });
-  await ctx.hint('Wähle <em>Handeln</em> und eine Fähigkeit, dann ein Ziel. Die Vorschau stellt beide Figuren gegenüber und zeigt <em>Schaden und Trefferchance</em>. Ist niemand in Reichweite, wähle <strong>Warten</strong>.', { title: 'Handeln', until: e => e.type === 'act' || e.type === 'wait' });
-  await ctx.hint('Ein Hieb von der Seite trifft <strong>×1,25</strong>, in den Rücken <strong>×1,5</strong>. Fähigkeiten kommen von der Waffe. Mit <em>AP</em> meisterst du sie dauerhaft; <em>Exp</em> erhöht dein Level.', { title: 'Flanken und Lernen' });
-  await ctx.hint('<em>Zug beenden</em> (Leertaste) gibt an die nächste Figur weiter. Jede Figur darf pro Zug einmal bewegen und einmal handeln.', { title: 'Zug beenden', until: 'endTurn' });
+  // The active unit is already selected with its menu open, so the tour starts with „Bewegen“.
+  await ctx.hint(`<em>${active?.name ?? 'Die aktive Figur'}</em> ist am Zug und schon ausgewählt; das <em>Tempo</em> bestimmt die Reihenfolge oben. Wähle <strong>Bewegen</strong> und klicke ein blaues Feld. Jede Höhenstufe hinauf oder hinab kostet einen Schritt mehr. <strong>Rückgängig</strong> nimmt den Schritt zurück, solange du noch nicht gehandelt hast.`, { title: 'Dein Zug', unit: active?.id, until: 'move' });
+  await ctx.hint('Unter <em>Aktion</em> steht zuerst der <em>Angriff</em> der Waffe, darunter die Fähigkeiten. Zeig auf ein Ziel: Die Vorschau stellt beide Figuren gegenüber und zeigt <em>Trefferchance und Schaden</em>. Trifft es mehrere, blätterst du mit ‹ › oder <strong>Tab</strong>. Ein zweiter Klick oder <strong>Bestätigen</strong> führt die Aktion aus. Ist niemand in Reichweite, wähle <strong>Warten</strong>.', { title: 'Aktion', until: e => e.type === 'act' || e.type === 'wait' });
+  await ctx.hint('Ein Hieb von vorne trifft zu <strong>50 %</strong>, von der Seite zu <strong>70 %</strong>, in den Rücken zu <strong>90 %</strong>. Tempo und Höhe verschieben die Chance. Fähigkeiten kommen von der Waffe; mit <em>AP</em> meisterst du sie dauerhaft, <em>Exp</em> erhöht dein Level.', { title: 'Flanken und Lernen' });
+  await ctx.hint('Zum Schluss wählst du die <em>Blickrichtung</em>: Wer dem Feind den Rücken zudreht, wird leicht getroffen. <em>Zug beenden</em> (Leertaste) oder <strong>Warten</strong> öffnet die Wahl, <strong>Enter</strong> gibt an die nächste Figur weiter. Bewegen und Aktion sind je einmal erlaubt, in beliebiger Reihenfolge.', { title: 'Zug beenden', until: 'endTurn' });
 }
 
 function free(ctx: BattleCtx, p: Point): boolean {
@@ -199,7 +199,7 @@ export const dunkelhain: BattleDef = {
       if (round === 1) await tutorialRound1(ctx);
       if (round === 2) {
         await ctx.hint('Die Verwundeten humpeln nach jeder deiner Runden ein Stück weiter, zum Tor oben links. Stellt euch <em>zwischen</em> sie und die Dunkelschatten. <em>Schutzwall</em> halbiert den Schaden eines Verbündeten.', { title: 'Deckung', unit: 'verwundeter-1' });
-        await ctx.hint('<em>Höhe</em> zählt: Wer von oben angreift, trifft öfter und härter (bis zu ±30 %). Der Hang gehört euch – nutzt ihn.', { title: 'Höhe' });
+        await ctx.hint('<em>Höhe</em> zählt: Wer von oben angreift, trifft öfter (+5 % je Stufe, bis zu +15 %), und jeder Schritt bergauf kostet den Feind Bewegung. Der Hang gehört euch – nutzt ihn.', { title: 'Höhe' });
       }
       if (round === 5) await ctx.hint('Noch diese Runde! Dann ist der Rückzug durch.', { title: 'Letzte Runde' });
       if (round >= 6) await collapse(ctx);

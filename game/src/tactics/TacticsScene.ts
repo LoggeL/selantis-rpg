@@ -11,6 +11,7 @@ import { BattleController, type Presenter } from './controller';
 import { directionTo, key, TERRAIN } from './rules/grid';
 import { pathTo } from './rules/movement';
 import { WEAPONS, skillAvailable } from './rules/progression';
+import { actionList } from './rules/battle';
 import { surviveProgress } from './rules/objectives';
 import type { BattleEvent, Facing, Phase, Point, Tile, Unit } from './rules/types';
 import type { UiApiExt } from '../ui';
@@ -52,10 +53,18 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private cursor!: Phaser.GameObjects.Image;
   private pointerArrow!: Phaser.GameObjects.Image;
   private hintMarker!: Phaser.GameObjects.Image;
+  /** Marks the affected unit the forecast currently details. */
+  private focusMarker!: Phaser.GameObjects.Image;
+  private focusUnit: string | null = null;
+  /** Preview target (ability + cell) the focus index belongs to; a new target starts at its first unit. */
+  private focusKey = '';
+  /** Input state of the previous frame: the active unit is selected again whenever input opens up. */
+  private inputWas = false;
   private tint = 0xffffff;
   private pickOrder: Tile[] = [];
-  private sel: { unit: string | null; mode: Mode; ability: string | null; actOpen: boolean; pending: Point | null; inspect: string | null } =
-    { unit: null, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null };
+  /** `focus`: index of the affected unit the forecast shows in detail (pager / Tab while a target is pinned). */
+  private sel: { unit: string | null; mode: Mode; ability: string | null; actOpen: boolean; pending: Point | null; inspect: string | null; focus: number } =
+    { unit: null, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null, focus: 0 };
   private hover: Point | null = null;
   private hoverAbility: string | null = null;
   private drag: { x: number; y: number; sx: number; sy: number; moved: boolean; touch: boolean } | null = null;
@@ -75,7 +84,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   init(data: TacticsStartData): void {
     this.startData = data;
     this.tileImgs = new Map(); this.waterTiles = []; this.props = []; this.views = new Map(); this.overlays = new Map();
-    this.sel = { unit: null, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null };
+    this.sel = { unit: null, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null, focus: 0 };
+    this.focusKey = ''; this.focusUnit = null; this.inputWas = false;
     this.hover = null; this.drag = null; this.animating = 0; this.beamHandle = null; this.lastAct = null; this.hintTarget = null; this.finished = false;
     this.tableauActive = false;
     this.hoverAbility = null; this.endFacing = null; this.beforeFacing = null;
@@ -123,6 +133,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.cursor = this.add.image(0, 0, 'tac-cursor').setOrigin(0, 0).setVisible(false);
     this.pointerArrow = this.add.image(0, 0, 'tac-pointer').setOrigin(0.5, 1).setDepth(1e6).setVisible(false);
     this.hintMarker = this.add.image(0, 0, 'tac-pointer').setOrigin(0.5, 1).setDepth(1e6).setTint(0xffe9a8).setVisible(false).setScale(1.2);
+    this.focusMarker = this.add.image(0, 0, 'tac-pointer').setOrigin(0.5, 1).setDepth(1e6).setTint(0xff9a7a).setVisible(false).setScale(1.1);
 
     this.buildField();
     for (const u of this.ctrl.battle.units) this.addUnitView(u);
@@ -148,6 +159,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       confirmTarget: () => this.confirmTarget(),
       face: facing => this.chooseFacing(facing),
       confirmFacing: () => { void this.confirmFacing(); },
+      focusTarget: dir => this.cycleFocus(dir),
     });
     this.ui.mount(document.getElementById('ui')!);
     this.ui.setObjective(this.ctrl.objectiveText, this.ctrl.objectiveDetail, surviveProgress(this.ctrl.battle, def.objective.win));
@@ -378,6 +390,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       const tex = a.kind === 'magic' || a.vfx === 'ward' ? 'tac-ov-magic' : a.target === 'ally' ? 'tac-ov-ally' : 'tac-ov-act';
       this.setOverlay('range', cells, s.mode === 'target' ? tex : 'tac-ov-move-dim');
       if (s.mode === 'target') {
+        // Every tile the pinned (or hovered) target would affect lights up.
         const tgt = s.pending ?? this.actionTarget(this.hover);
         const inRange = tgt && cells.some(c => c.x === tgt.x && c.y === tgt.y);
         if (tgt && inRange) this.setOverlay('aoe', b.affectedCells(s.unit, ability, tgt), b.validTarget(s.unit, ability, tgt) ? 'tac-ov-aoe' : 'tac-ov-hover', 3);
@@ -422,7 +435,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (hit) return hit;
     const out = new Map<string, Point>();
     const reach = [...b.reach(u.id).values()];
-    const abilities = u.abilities.map(a => b.ability(a)).filter(a => a.kind !== 'support' && a.kind !== 'interact');
+    const abilities = actionList(u).map(a => b.ability(a)).filter(a => a.kind !== 'support' && a.kind !== 'interact');
     for (const r of reach) {
       for (const a of abilities) for (const c of b.targetCells(u.id, a.id, r)) out.set(key(c.x, c.y), c);
     }
@@ -545,11 +558,17 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (!this.ctrl.inputEnabled()) return;
     if (k === 'Enter' || k === 'e' || k === 'E') { e.preventDefault(); if (this.sel.mode === 'target' && this.sel.pending) this.confirmTarget(); else if (this.hover) this.click(this.hover, false); return; }
     if (k === ' ') { e.preventDefault(); this.requestEndTurn(); return; }
-    if (k === 'Tab') { e.preventDefault(); this.cycleUnit(e.shiftKey ? -1 : 1); return; }
+    // Tab pages through the affected units of a pinned target, otherwise through the units that may still act.
+    if (k === 'Tab') { e.preventDefault(); if (this.sel.mode === 'target' && this.sel.pending) this.cycleFocus(e.shiftKey ? -1 : 1); else this.cycleUnit(e.shiftKey ? -1 : 1); return; }
     if (k === 'Backspace') { e.preventDefault(); if (this.sel.mode === 'target' || this.sel.pending || this.sel.inspect || !this.sel.unit || !this.ctrl.battle.canUndo(this.sel.unit)) this.back(); else this.undo(); return; }
     if (k === 'z' || k === 'Z') { e.preventDefault(); this.undo(); return; }
     if (k === 'f' || k === 'F') { this.waitUnit(); return; }
     if (k === 'm' || k === 'M') { this.toggleMoveMode(); return; }
+    if (k === '0' && this.sel.unit) {
+      const attack = this.ctrl.battle.unit(this.sel.unit).attack;
+      if (attack) this.chooseAbility(attack);
+      return;
+    }
     if (/^[1-9]$/.test(k) && this.sel.unit) {
       const u = this.ctrl.battle.unit(this.sel.unit);
       const ab = u.abilities[Number(k) - 1];
@@ -616,6 +635,14 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
 
   update(time: number): void {
     if (!this.ready) return;
+    const enabled = this.ctrl.inputEnabled();
+    if (enabled !== this.inputWas) {
+      this.inputWas = enabled;
+      // Input opens up (turn start, a hint during a story hook): the active unit is selected with its menu open.
+      // Never refresh while input closes: the rules already hold the outcome the animation is about to show.
+      if (enabled && !this.sel.unit) this.autoSelect();
+      if (enabled && this.animating === 0) this.refresh();
+    }
     for (const v of this.views.values()) v.layout();
     const pulse = 0.78 + Math.sin(time / 260) * 0.22;
     for (const img of this.overlays.get('range') ?? []) if (img.visible) img.setAlpha(pulse);
@@ -628,6 +655,10 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       else if (ht.tile) { const c = this.iso.center(ht.tile.x, ht.tile.y, this.ctrl.battle.grid.height(ht.tile.x, ht.tile.y)); pos = { x: c.x, y: c.y - 6 }; }
       if (pos) this.hintMarker.setVisible(true).setPosition(Math.round(pos.x), Math.round(pos.y - 4 + Math.sin(time / 140) * 3));
     } else this.hintMarker.setVisible(false);
+    const fv = this.focusUnit ? this.views.get(this.focusUnit) : undefined;
+    const onCursor = fv && this.hover && Math.round(fv.gx) === this.hover.x && Math.round(fv.gy) === this.hover.y;
+    if (fv && !onCursor && this.sel.mode === 'target' && enabled) this.focusMarker.setVisible(true).setPosition(Math.round(fv.head.x), Math.round(fv.head.y - 12 + Math.sin(time / 160) * 2));
+    else this.focusMarker.setVisible(false);
     // Tall props (trees, banners, ruins) turn see-through when they hide a unit or the cursor.
     if ((this.fadeTick = (this.fadeTick + 1) % 6) === 0) this.fadeTallProps();
     // Bushes become see-through when someone hides in them.
@@ -645,7 +676,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (this.sel.unit) { const v = this.views.get(this.sel.unit); if (v) v.selected = false; }
     this.hoverAbility = null;
     this.endFacing = null; this.beforeFacing = null;
-    this.sel = { unit: id, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null };
+    this.sel = { unit: id, mode: 'none', ability: null, actOpen: false, pending: null, inspect: null, focus: 0 };
     if (id) {
       const u = b.unit(id);
       const v = this.views.get(id);
@@ -656,6 +687,28 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       this.bounceUnit(id);
     }
     this.refresh();
+  }
+
+  /**
+   * Selects the unit whose turn it is (FFTA: its menu opens by itself). Tutorial hints waiting for 'select' receive
+   * the same signal as for a click. Returns the selected unit, or null when no player unit may act.
+   */
+  private autoSelect(): string | null {
+    const b = this.ctrl.battle;
+    if (this.finished || this.tableauActive || this.ctrl.isEnded || b.phase !== 'player') return null;
+    if (this.sel.unit && this.controllable(b.findUnit(this.sel.unit))) return this.sel.unit;
+    const first = b.units.find(u => this.controllable(u) && !b.isDone(u.id));
+    if (!first) return null;
+    this.select(first.id, true);
+    this.setHover({ x: first.x, y: first.y });
+    this.ctrl.signal({ type: 'select', unit: first.id });
+    return first.id;
+  }
+
+  /** Speed turns keep the active unit selected: cancelling steps back to its menu instead of deselecting it. */
+  private keepsSelection(id: string): boolean {
+    const b = this.ctrl.battle;
+    return b.turnMode === 'speed' && this.controllable(b.findUnit(id)) && !b.isDone(id);
   }
 
   private bounceUnit(id: string): void {
@@ -683,7 +736,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       if (ownOther && a.target !== 'ally' && a.target !== 'any') { this.select(occupant!.id); return; }
       const target = this.actionTarget(t)!;
       if (b.validTarget(s.unit, s.ability, target)) {
-        if (!s.pending || s.pending.x !== target.x || s.pending.y !== target.y) { s.pending = { ...target }; this.refresh(); return; }
+        if (!s.pending || s.pending.x !== target.x || s.pending.y !== target.y) { s.pending = { ...target }; this.focusKey = ''; this.refresh(); return; }
         this.confirmTarget();
         return;
       }
@@ -692,7 +745,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       return;
     }
     if (occupant && this.controllable(occupant) && !b.isDone(occupant.id)) {
-      if (occupant.id === s.unit) { this.refresh(); return; }
+      if (occupant.id === s.unit) { this.ctrl.signal({ type: 'select', unit: occupant.id }); this.refresh(); return; }
       this.select(occupant.id);
       return;
     }
@@ -714,6 +767,11 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     }
     if (s.unit && occupant?.id === s.unit) return;
     if (s.inspect) { s.inspect = null; this.refresh(); return; }
+    if (s.unit && this.keepsSelection(s.unit)) {
+      // An empty tile closes the Aktion list; the active unit stays selected.
+      if (s.actOpen) { s.actOpen = false; this.hoverAbility = null; this.refresh(); }
+      return;
+    }
     if (s.unit && !(s.mode === 'move')) { this.select(null); return; }
     if (s.unit) { this.select(null); }
   }
@@ -728,7 +786,10 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.setHover({ x: u.x, y: u.y });
   }
 
-  /** Steps back one level (pending action → targeting → inspect → selection). False when there was nothing to undo. */
+  /**
+   * Steps back one level (pending action → targeting → Aktion list → inspect → selection; speed turns never drop the
+   * active unit). False when there was nothing to undo.
+   */
   private back(): boolean {
     const s = this.sel;
     if (s.mode === 'facing' && s.unit) {
@@ -749,6 +810,13 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       return true;
     }
     if (s.inspect) { s.inspect = null; this.refresh(); return true; }
+    if (s.unit && this.keepsSelection(s.unit)) {
+      // Back to the turn menu; with nothing left to cancel, Escape falls through to the game menu.
+      if (!s.actOpen) return false;
+      G.audio.sfx('ui-cancel', { volume: 0.4 });
+      s.actOpen = false; this.hoverAbility = null;
+      this.refresh(); return true;
+    }
     if (s.unit) { G.audio.sfx('ui-cancel', { volume: 0.4 }); this.select(null, true); return true; }
     return false;
   }
@@ -818,6 +886,30 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const next = list[(i + dir + list.length) % list.length];
     this.select(next.id);
     this.setHover({ x: next.x, y: next.y });
+  }
+
+  /** Pages the forecast through the affected units; an unpinned (hovered) target gets pinned first. */
+  private cycleFocus(dir: 1 | -1): void {
+    const s = this.sel, b = this.ctrl.battle;
+    if (!s.unit || s.mode !== 'target' || !s.ability || !this.ctrl.inputEnabled()) return;
+    const tgt = this.previewTarget();
+    if (!tgt) return;
+    const n = b.affectedUnits(s.unit, s.ability, tgt).length;
+    if (!s.pending) s.pending = { ...tgt };
+    if (n < 2) { this.refresh(); return; }
+    s.focus = (s.focus + dir + n) % n;
+    G.audio.sfx('ui-move', { volume: 0.3 });
+    this.refresh();
+    if (this.focusUnit) { const u = b.findUnit(this.focusUnit); if (u) void this.ensureVisible(u); }
+  }
+
+  /** Cell the forecast is about: the pinned target, else the hovered cell when it is a legal target. */
+  private previewTarget(): Point | null {
+    const s = this.sel, b = this.ctrl.battle;
+    if (!s.unit || s.mode !== 'target' || !s.ability) return null;
+    const t = s.pending ?? this.actionTarget(this.hover);
+    if (!t || !b.targetCells(s.unit, s.ability).some(c => c.x === t.x && c.y === t.y)) return null;
+    return b.validTarget(s.unit, s.ability, t) ? t : null;
   }
 
   private requestEndTurn(): void {
@@ -932,9 +1024,13 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     this.refreshPanels();
   }
 
+  /** Entries under „Aktion“: the basic attack (hotkey 0), then the specials with their digit (index in u.abilities). */
   private slots(u: Unit): AbilitySlot[] {
     const b = this.ctrl.battle;
-    return u.abilities.map(id => {
+    return actionList(u).map(id => {
+      const attack = id === u.attack;
+      const index = u.abilities.indexOf(id);
+      const key = attack ? '0' : index >= 0 && index < 9 ? String(index + 1) : undefined;
       const def = b.ability(id);
       const cd = u.cooldowns[id] ?? 0;
       let usable = true;
@@ -948,7 +1044,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
         usable = false;
         reason = def.target === 'bound' ? 'Niemand Gefesseltes in der Nähe.' : def.shape.type === 'ring' ? 'Kein Feind direkt daneben.' : def.shape.type === 'line' ? 'Kein Feind in gerader Linie.' : def.target === 'ally' ? 'Kein Verbündeter in Reichweite.' : 'Kein Ziel in Reichweite – erst bewegen.';
       }
-      return { def, cooldown: cd, usable, reason, mastered: u.mastered.includes(id) };
+      return { def, cooldown: cd, usable, reason, mastered: u.mastered.includes(id), attack, key };
     });
   }
 
@@ -975,22 +1071,34 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     } else this.ui.unitCard(null);
 
     // Preview / inspect card.
+    this.focusUnit = null;
     if (s.unit && s.mode === 'target' && s.ability && this.ctrl.inputEnabled() && this.animating === 0) {
-      const tgt = s.pending;
+      // Hovering a legal target previews it; a click pins it (s.pending) for confirmation.
+      const tgt = this.previewTarget();
       const a = b.ability(s.ability);
-      if (tgt && b.validTarget(s.unit, s.ability, tgt)) {
+      if (tgt) {
         const pv = b.preview(s.unit, s.ability, tgt);
+        const key = `${s.ability}:${tgt.x},${tgt.y}`;
+        // A new target starts at the unit under the cursor (an enemy inside a ring), else the first one; until the
+        // target is pinned the focus follows the cursor.
+        const under = pv.targets.findIndex(t => t.unit === this.unitAtPoint(this.hover)?.id);
+        if (key !== this.focusKey) { this.focusKey = key; s.focus = Math.max(0, under); }
+        else if (!s.pending && under >= 0) s.focus = under;
+        if (pv.targets.length) s.focus = ((s.focus % pv.targets.length) + pv.targets.length) % pv.targets.length;
+        this.focusUnit = pv.targets[s.focus]?.unit ?? null;
         this.ui.previewCard({
           ability: a, user: b.unit(s.unit), userDef: this.ctrl.unitDefs.get(s.unit),
           targets: pv.targets.map(p => ({ unit: b.unit(p.unit), def: this.ctrl.unitDefs.get(p.unit)!, p })),
           empty: a.shape.type === 'line' ? 'Kein Feind in dieser Linie.' : 'Kein Ziel.',
-          confirmed: !!s.pending,
+          confirmed: !!s.pending, focus: s.focus,
         });
       } else {
+        this.focusKey = '';
         this.ui.previewCard(null);
         this.ui.inspectCard(null);
       }
     } else {
+      this.focusKey = '';
       this.ui.previewCard(null);
       const insp = s.inspect ? b.findUnit(s.inspect) : hovered && hovered.id !== s.unit && (!this.controllable(hovered) || s.unit) ? hovered : undefined;
       if (insp) {
@@ -1105,6 +1213,11 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
 
   showHint(text: string, opts: HintOptions, withButton: boolean): Promise<void> {
+    // The active unit is selected by itself, so a hint waiting for 'select' is already satisfied: no card at all.
+    if (!withButton && opts.until === 'select' && this.ctrl.battle.phase === 'player') {
+      const id = this.autoSelect();
+      if (id) { this.ctrl.signal({ type: 'select', unit: id }); return Promise.resolve(); }
+    }
     this.hintTarget = opts.unit || opts.tile ? { unit: opts.unit, tile: opts.tile } : null;
     G.audio.sfx('page', { volume: 0.4 });
     return this.ui.hint(text, opts, withButton);
@@ -1179,9 +1292,10 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   }
 
   beginPlayerPhase(): void {
-    const b = this.ctrl.battle;
-    const first = b.units.find(u => this.controllable(u) && !b.isDone(u.id));
-    if (first) { this.select(first.id, true); this.setHover({ x: first.x, y: first.y }); }
+    // The unit may already be selected (a hint during the round hook opened input early); keep what the player chose.
+    const id = this.sel.unit;
+    if (!this.autoSelect()) this.select(null, true);
+    else if (id && id === this.sel.unit) this.ctrl.signal({ type: 'select', unit: id });
     this.refresh();
   }
   endPlayerPhase(): void {
@@ -1511,7 +1625,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       if (e.hp <= 0 && !settings.reducedMotion) this.zoomPulse();
       const c = this.canvasOf(tgt, 'head');
       this.ui.float(c.x, c.y, `${e.damage}`, big ? 'big' : 'dmg');
-      if (isBack || isSide) this.ui.float(c.x, c.y - 14, isBack ? 'Rücken! ×1,5' : 'Seite! ×1,25', 'info');
+      if (isBack || isSide) this.ui.float(c.x, c.y - 14, isBack ? 'Rücken!' : 'Seite!', 'info');
       if (e.heightDiff >= 1 && melee) this.ui.float(c.x + 18, c.y - 4, 'Höhe +', 'info');
       // Knock the target back a hair.
       const dx = tgt.feet.x - atk.feet.x, dy = tgt.feet.y - atk.feet.y, len = Math.hypot(dx, dy) || 1;

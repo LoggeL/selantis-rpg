@@ -7,6 +7,7 @@ import { ICONS, abilityIcon } from './icons';
 import { TACTICS_CSS } from './style';
 import { AP_TO_MASTER, EXP_PER_LEVEL, MAX_LEVEL, WEAPONS } from '../rules/progression';
 import { STANDARD_ABILITIES } from '../rules/abilities';
+import { HIT_BASE, isPhysical } from '../rules/battle';
 
 export interface UiHandlers {
   endTurn(): void;
@@ -24,9 +25,15 @@ export interface UiHandlers {
   confirmTarget(): void;
   face(facing: Facing): void;
   confirmFacing(): void;
+  /** Pages the forecast to the previous (-1) or next (1) affected unit. */
+  focusTarget(dir: 1 | -1): void;
 }
 
-export interface AbilitySlot { def: AbilityDef; cooldown: number; usable: boolean; reason?: string; mastered?: boolean }
+/**
+ * One entry under „Aktion“. `attack` marks the basic attack (listed first, hotkey 0); `key` is the hotkey label,
+ * for specials the digit of the ability's index in `Unit.abilities`.
+ */
+export interface AbilitySlot { def: AbilityDef; cooldown: number; usable: boolean; reason?: string; mastered?: boolean; attack?: boolean; key?: string }
 
 export interface CardModel {
   unit: Unit;
@@ -47,6 +54,8 @@ export interface PreviewModel {
   empty?: string;
   /** The player has clicked a target and can now confirm the action. */
   confirmed?: boolean;
+  /** Index of the affected unit shown in detail (the pager „‹ 1/3 ›“ flips through `targets`). */
+  focus?: number;
 }
 
 export interface FacingModel {
@@ -116,6 +125,10 @@ export function portraitFor(def: BattleUnitDef | undefined, unit: Unit): string 
   } catch { /* fall back */ }
   return crest(unit.team, unit.id);
 }
+
+const RELATION_TEXT = { front: 'Vorne', side: 'Seite', back: 'Rücken' } as const;
+/** Button label of an action: the basic attack reads „Angriff“, plus the weapon move's own name. */
+export const slotLabel = (a: AbilitySlot) => a.attack && a.def.name !== 'Angriff' ? `Angriff · ${a.def.name}` : a.attack ? 'Angriff' : a.def.name;
 
 const esc = (s: string) => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]!));
 const pct = (x: number, total: number) => `${(x / total) * 100}%`;
@@ -401,10 +414,10 @@ export class BattleUi {
     const teamLabel = u.team === 'player' ? 'Verbündet' : u.team === 'enemy' ? 'Feind' : 'Begleitung';
     const statuses = Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip ${k === 'guarded' ? 'magic' : k === 'stunned' || k === 'bound' ? 'bad' : ''}">${STATUS_LABEL[k] ?? k}</span>`);
     if (u.down === 'wounded') statuses.unshift('<span class="tac-chip bad">Kampfunfähig</span>');
-    const abil = m.controllable && !u.down ? `<div class="tac-abil">${m.abilities.map((a, i) => {
+    const abil = m.controllable && !u.down ? `<div class="tac-abil">${m.abilities.map(a => {
       const magic = a.def.kind === 'magic' || a.def.vfx === 'ward' ? ' magic' : '';
-      return `<button type="button" data-ab="${a.def.id}" class="${magic}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>
-        <span class="k">${i + 1}</span><span class="ic">${abilityIcon(a.def.vfx)}</span><span class="an">${esc(a.def.name)}</span>${a.cooldown > 0 ? `<span class="cd">${a.cooldown}</span>` : ''}</button>`;
+      return `<button type="button" data-ab="${a.def.id}" class="${magic}${a.attack ? ' attack' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>
+        ${a.key ? `<span class="k">${a.key}</span>` : ''}<span class="ic">${abilityIcon(a.def.vfx)}</span><span class="an">${esc(slotLabel(a))}</span>${a.cooldown > 0 ? `<span class="cd">${a.cooldown}</span>` : ''}</button>`;
     }).join('')}</div>` : '';
     const doneLine = m.controllable && !u.down && !m.canAct && !m.canMove && u.team === 'player' && !u.statuses.bound ? '<div class="tac-done">Zug beendet</div>' : '';
     const title = m.def.title ? `<div class="ttl">${esc(m.def.title)}</div>` : '';
@@ -444,13 +457,16 @@ export class BattleUi {
     if (rt) meta.push(rt);
     meta.push(shapeText(a));
     if (a.power || a.fixedDamage) meta.push(a.fixedDamage ? `${a.fixedDamage} Schaden` : `Stärke ${a.power}${a.hits && a.hits > 1 ? ` ×${a.hits}` : ''}`);
-    if (!a.alwaysHits && a.kind !== 'support') meta.push(`Treffer ${a.accuracy} %`);
+    if (isPhysical(a)) {
+      const hit = (base: number) => Math.max(5, Math.min(100, base + (a.hitMod ?? 0)));
+      meta.push(`Treffer ${hit(HIT_BASE.front)}–${hit(HIT_BASE.back)} % je nach Richtung`);
+    } else if (!a.alwaysHits && a.kind !== 'support') meta.push(`Treffer ${a.accuracy} %`);
     if (a.push) meta.push(`Stoß ${a.push}`);
     if (a.cooldown) meta.push(`Abklingzeit ${a.cooldown}`);
     if (a.mpCost) meta.push(`${a.mpCost} MP`);
     if (slot.mastered) meta.push('Gemeistert, dauerhaft verfügbar');
     const magic = a.kind === 'magic' || a.vfx === 'ward';
-    t.innerHTML = `<h4>${esc(a.name)}</h4><p>${esc(a.description)}</p><div class="meta">${meta.map(x => `<span class="tac-chip${magic ? ' magic' : ''}">${esc(x)}</span>`).join('')}</div>${slot.reason ? `<div class="meta" style="margin-top:.35em"><span class="tac-chip bad">${esc(slot.reason)}</span></div>` : ''}`;
+    t.innerHTML = `<h4>${esc(slotLabel(slot))}</h4><p>${esc(a.description)}</p><div class="meta">${meta.map(x => `<span class="tac-chip${magic ? ' magic' : ''}">${esc(x)}</span>`).join('')}</div>${slot.reason ? `<div class="meta" style="margin-top:.35em"><span class="tac-chip bad">${esc(slot.reason)}</span></div>` : ''}`;
     t.classList.remove('hidden');
     this.root.classList.add('has-tip');
     this.placeTip(anchor);
@@ -475,26 +491,38 @@ export class BattleUi {
     c.classList.remove('hidden');
   }
 
+  /**
+   * FFTA-style forecast: the attacker beside one focused affected unit (portrait, HP now → after, hit chance, damage,
+   * direction, modifiers). Every affected unit keeps its own `.tac-target` node; only the focused one (`.on`) is
+   * expanded, the pager „‹ 1/3 ›“ (or Tab) flips through the rest.
+   */
   previewCard(m: PreviewModel | null): void {
     const c = this.els.tcard;
     if (!m) { this.root.classList.remove('has-forecast'); c.classList.remove('forecast'); if (this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
-    const sig = 'P' + JSON.stringify([m.ability.id, m.user, m.targets.map(t => [t.unit, t.p]), m.empty, m.confirmed]);
+    const n = m.targets.length;
+    const focus = n ? ((m.focus ?? 0) % n + n) % n : 0;
+    const sig = 'P' + JSON.stringify([m.ability.id, m.user, m.targets.map(t => [t.unit, t.p]), m.empty, m.confirmed, focus]);
     if (sig === this.lastPreview) { c.classList.remove('hidden'); return; }
     this.lastPreview = sig;
-    c.classList.toggle('forecast', m.targets.length > 0);
-    this.root.classList.toggle('has-forecast', m.targets.length > 0);
+    c.classList.toggle('forecast', n > 0);
+    this.root.classList.toggle('has-forecast', n > 0);
     const magic = m.ability.kind === 'magic' || m.ability.vfx === 'ward' ? ' magic' : '';
-    if (!m.targets.length) {
+    if (!n) {
       c.innerHTML = `<div class="ab${magic}">${esc(m.ability.name)}</div><div class="tac-push" style="margin-top:.3em"><span>${esc(m.empty ?? 'Kein Ziel in Reichweite.')}</span></div>`;
       c.classList.remove('hidden');
       return;
     }
-    const targets = m.targets.map(({ unit: u, def, p }) => {
+    const targets = m.targets.map(({ unit: u, def, p }, i) => {
       const offensive = p.damage > 0 || p.relation !== 'none';
       const total = p.damage * p.hits;
       const extra = p.push ? (p.push.collide?.damage ?? 0) + p.push.fallDamage + (p.push.intoFire ? 3 : 0) : 0;
       const after = offensive ? Math.max(0, u.hp - total - extra) : Math.min(u.maxHp, u.hp + p.heal);
-      const mods = p.mods.map(md => `<span class="tac-chip ${md.kind === 'good' ? 'good' : md.kind === 'bad' ? 'bad' : ''}">${esc(md.label)} ${esc(md.text)}</span>`).join('');
+      // The facing sets the base chance of physical attacks; it is shown as „Richtung“, its percentage as „Basis“.
+      const dir = p.relation !== 'none' ? RELATION_TEXT[p.relation] : null;
+      const mods = p.mods.map(md => {
+        const label = md.label === dir && md.kind !== 'bad' ? 'Basis' : md.label;
+        return `<span class="tac-chip ${md.kind === 'good' && label !== 'Basis' ? 'good' : md.kind === 'bad' ? 'bad' : ''}">${esc(label)} ${esc(md.text)}</span>`;
+      }).join('');
       let pushLine = '';
       if (p.push) {
         const parts: string[] = [];
@@ -509,15 +537,21 @@ export class BattleUi {
         pushLine = `<div class="tac-push">${ICONS.push}<span>Stoß: ${parts.join(' · ')}</span></div>`;
       }
       const big = offensive
-        ? `<div class="tac-big"><div><span class="v hit">${p.chance} %</span><span class="l">Treffer</span></div><div><span class="v ${p.lethal ? 'lethal' : 'dmg'}">${p.damage}${p.hits > 1 ? `×${p.hits}` : ''}</span><span class="l">Schaden</span></div>${p.lethal ? `<div><span class="v lethal" style="font-size:1em">${u.nonLethal ? 'Kampfunfähig' : 'Besiegt'}</span><span class="l">bei Treffer</span></div>` : ''}</div>`
+        ? `<div class="tac-big"><div><span class="v hit">${p.chance} %</span><span class="l">Treffer</span></div><div><span class="v ${p.lethal ? 'lethal' : 'dmg'}">${p.damage}${p.hits > 1 ? `×${p.hits}` : ''}</span><span class="l">Schaden</span></div>${dir ? `<div><span class="v dir ${p.relation}">${dir}</span><span class="l">Richtung</span></div>` : ''}${p.lethal ? `<div><span class="v lethal" style="font-size:1em">${u.nonLethal ? 'Kampfunfähig' : 'Besiegt'}</span><span class="l">bei Treffer</span></div>` : ''}</div>`
         : p.frees ? '<div class="tac-push">Die Fesseln lösen. Sie kämpft danach an deiner Seite.</div>'
           : `<div class="tac-chips">${p.statuses.map(s => `<span class="tac-chip magic">${STATUS_LABEL[s] ?? s}</span>`).join('')}${p.heal ? `<span class="tac-chip good">+${p.heal} LP</span>` : ''}</div>`;
-      return `<div class="tac-target" data-target="${esc(u.id)}">${combatant(u, def, after)}${big}${mods ? `<div class="tac-chips">${mods}</div>` : ''}${pushLine}</div>`;
+      const on = i === focus;
+      return `<div class="tac-target${on ? ' on' : ''}" data-target="${esc(u.id)}"${on ? ' aria-current="true"' : ''}>${combatant(u, def, after)}${big}${mods ? `<div class="tac-chips">${mods}</div>` : ''}${pushLine}</div>`;
     }).join('');
-    c.innerHTML = `<div class="forecast-title"><span class="ab${magic}">${esc(m.ability.name)}${m.ability.mpCost ? ` · ${m.ability.mpCost} MP` : ''}</span><span>${m.targets.length === 1 ? '1 Ziel' : `${m.targets.length} Ziele`}</span></div>
+    const pager = n > 1
+      ? `<span class="tac-pager" role="group" aria-label="Betroffene Figuren durchblättern"><button type="button" class="tac-prev" aria-label="Vorheriges Ziel">‹</button><span class="tac-page">${focus + 1}/${n}</span><button type="button" class="tac-next" aria-label="Nächstes Ziel">›</button></span>`
+      : '';
+    c.innerHTML = `<div class="forecast-title"><span class="ab${magic}">${esc(m.ability.name)}${m.ability.mpCost ? ` · ${m.ability.mpCost} MP` : ''}</span>${pager}<span class="tac-count">${n === 1 ? '1 Ziel' : `${n} Ziele`}</span></div>
       <div class="tac-forecast-body"><div class="tac-versus">${combatant(m.user, m.userDef, undefined, m.user.mp - (m.ability.mpCost ?? 0))}<div class="tac-versus-arrow">→</div><div class="tac-targets">${targets}</div></div></div>
-      <div class="tac-forecast-actions"><span>${m.confirmed ? 'Ziel gewählt. Zweiter Klick oder Enter bestätigt.' : 'Ziel anklicken, dann bestätigen.'}</span><button type="button" class="tac-btn tac-confirm-target" ${m.confirmed ? '' : 'disabled'}>Bestätigen <kbd>Enter</kbd></button></div>`;
+      <div class="tac-forecast-actions"><span>${m.confirmed ? `Ziel gewählt.${n > 1 ? ' Tab blättert.' : ''} Zweiter Klick oder Enter bestätigt.` : 'Ziel anklicken, dann bestätigen.'}</span><button type="button" class="tac-btn tac-confirm-target" ${m.confirmed ? '' : 'disabled'}>Bestätigen <kbd>Enter</kbd></button></div>`;
     c.querySelector('.tac-confirm-target')!.addEventListener('click', e => { e.stopPropagation(); this.h.confirmTarget(); });
+    c.querySelector('.tac-prev')?.addEventListener('click', e => { e.stopPropagation(); this.h.focusTarget(-1); });
+    c.querySelector('.tac-next')?.addEventListener('click', e => { e.stopPropagation(); this.h.focusTarget(1); });
     c.classList.remove('hidden');
   }
 
@@ -554,10 +588,14 @@ export class BattleUi {
       this.hideTip();
       const btn = (id: string, icon: string, label: string, key: string, enabled: boolean, on = false) =>
         `<button type="button" data-m="${id}" class="${on ? 'on' : ''}" ${enabled ? '' : 'disabled'}>${icon}<span>${label}</span><kbd>${key}</kbd></button>`;
-      const sub = m.actOpen ? `<div class="sub">${m.abilities.map((a, i) => `<button type="button" data-ab="${a.def.id}" class="${a.def.kind === 'magic' || a.def.vfx === 'ward' ? 'magic' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>${abilityIcon(a.def.vfx)}<span>${esc(a.def.name)}</span><kbd>${a.cooldown > 0 ? `⧗${a.cooldown}` : i + 1}</kbd></button>`).join('')}</div>` : '';
-      e.innerHTML = btn('move', ICONS.move, 'Bewegen', 'M', m.canMove, m.moveOn) + btn('act', ICONS.act, 'Handeln', '1–4', m.canAct, m.actOpen) + sub +
+      // „Aktion“ lists the basic attack first (hotkey 0), then the specials (digits = index in Unit.abilities).
+      const sub = m.actOpen ? `<div class="sub">${m.abilities.map(a => `<button type="button" data-ab="${a.def.id}" class="${a.def.kind === 'magic' || a.def.vfx === 'ward' ? 'magic' : ''}${a.attack ? ' attack' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>${abilityIcon(a.def.vfx)}<span>${esc(slotLabel(a))}</span><kbd>${a.cooldown > 0 ? `⧗${a.cooldown}` : a.key ?? ''}</kbd></button>`).join('')}</div>` : '';
+      const keys = m.abilities.map(a => a.key).filter((k): k is string => !!k);
+      const actKey = keys.length > 1 ? `${keys[0]}–${keys[keys.length - 1]}` : keys[0] ?? '';
+      e.innerHTML = btn('move', ICONS.move, 'Bewegen', 'M', m.canMove, m.moveOn) + btn('act', ICONS.act, 'Aktion', actKey, m.canAct, m.actOpen) + sub +
         btn('wait', ICONS.wait, 'Warten', 'F', true) + (m.canUndo ? btn('undo', ICONS.undo, 'Rückgängig', 'Z', true) : '');
-      if (m.targeting || m.moveOn) e.innerHTML = `<div class="tac-target-name">${m.moveOn ? 'Bewegung wählen' : esc(m.abilities.find(a => a.def.id === m.selected)?.def.name ?? 'Ziel wählen')}</div>` + btn('back', ICONS.undo, 'Abbrechen', 'Esc', true);
+      const chosen = m.abilities.find(a => a.def.id === m.selected);
+      if (m.targeting || m.moveOn) e.innerHTML = `<div class="tac-target-name">${m.moveOn ? 'Bewegung wählen' : esc(chosen ? slotLabel(chosen) : 'Ziel wählen')}</div>` + btn('back', ICONS.undo, 'Abbrechen', 'Esc', true);
       e.querySelectorAll<HTMLButtonElement>('button[data-m]').forEach(b => b.addEventListener('click', ev => {
         ev.stopPropagation();
         const id = b.dataset.m;

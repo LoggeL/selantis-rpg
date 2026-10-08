@@ -71,27 +71,36 @@ test('world: overlays, debug keys and movement', async ({ page }) => {
   expect(await busy(page)).toBe(false);
 });
 
-test('battle: Tab cycles units, Esc cancels before the menu, J/I/F1 ignored', async ({ page }) => {
+test('battle: the active unit stays selected, Esc steps back to its menu before the game menu, J/I/F1 ignored', async ({ page }) => {
   await page.goto('/?scene=tactics-sandbox');
   await page.waitForFunction(() => Boolean((window as any).__tactics?.ready), undefined, { timeout: 20000 });
   await page.waitForTimeout(1500);
   await settle(page);
   await page.waitForFunction(() => (window as any).__tactics.ctrl.inputEnabled(), undefined, { timeout: 15000 });
   const sel = () => page.evaluate(() => (window as any).__tactics?.sel?.unit ?? null);
+  const mode = () => page.evaluate(() => (window as any).__tactics?.sel?.mode ?? null);
 
+  // The unit whose turn it is starts selected with its menu open; Tab keeps it.
+  const active = await page.evaluate(() => (window as any).__tactics.ctrl.battle.activeUnit);
+  expect(await sel()).toBe(active);
+  expect(await visible(page, '.tac-menu')).toBe(true);
   await press(page, 'Tab', 500);
-  expect(await sel()).not.toBeNull();
+  expect(await sel()).toBe(active);
   expect(await visible(page, '.journal-ov')).toBe(false);
   await press(page, 'j');
   await press(page, 'i');
   expect(await visible(page, '.journal-ov')).toBe(false);
   expect(await visible(page, '.bag-ov')).toBe(false);
 
-  await press(page, 'Escape');
-  expect(await sel()).toBeNull();
+  await press(page, 'm');
+  expect(await mode()).toBe('move');
+  await press(page, 'Escape'); // back to the turn menu, never deselected
+  expect(await mode()).toBe('none');
+  expect(await sel()).toBe(active);
   expect(await visible(page, '.menu-ov')).toBe(false);
-  await press(page, 'Escape');
+  await press(page, 'Escape'); // nothing left to cancel: the game menu opens
   expect(await visible(page, '.menu-ov')).toBe(true);
+  expect(await sel()).toBe(active);
   await press(page, 'Escape');
   expect(await visible(page, '.menu-ov')).toBe(false);
 

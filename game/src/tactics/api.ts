@@ -191,6 +191,8 @@ export interface HintOptions {
   /**
    * When the hint resolves: 'click' (default, „Verstanden“ button), or when the player does something:
    * 'select' a unit, 'move', 'act', 'endTurn'. A function receives each player event.
+   * The active unit is selected automatically at the start of its turn (same 'select' event as a click), so a
+   * 'select' hint during a player turn is already satisfied and never shows; prefer 'move' or 'act' for tutorials.
    */
   until?: 'click' | 'select' | 'move' | 'act' | 'endTurn' | ((e: { type: string; unit?: string; ability?: string }) => boolean);
 }

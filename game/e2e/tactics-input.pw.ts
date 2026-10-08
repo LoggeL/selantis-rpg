@@ -58,11 +58,25 @@ test('first click pins the target, changing it and cancelling never spends the a
   await expect(page.locator('.tac-target')).toHaveAttribute('data-target', 's-north');
   expect(await actor(page, 'valentus')).toEqual(before);
   await page.keyboard.press('Escape');
-  await expect(page.locator('.tac-tcard.forecast')).toHaveCount(0);
+  // Unpinned: the forecast may still follow the cursor, but nothing can be confirmed.
+  await expect(page.locator('.tac-confirm-target:enabled')).toHaveCount(0);
   expect(await actor(page, 'valentus')).toEqual(before);
   await page.keyboard.press('Escape');
   expect(await page.evaluate(() => (window as any).__tactics.sel.mode)).toBe('none');
+  expect(await page.evaluate(() => (window as any).__tactics.sel.unit)).toBe('valentus');
   expect(await page.locator('.menu-ov').isVisible()).toBe(false);
+});
+
+test('Aktion lists the basic attack first and hotkey 0 chooses it', async ({ page }) => {
+  await boot(page); await valentus(page);
+  await page.locator('.tac-menu [data-m="act"]').click();
+  const first = page.locator('.tac-menu .sub button[data-ab]').first();
+  await expect(first).toHaveAttribute('data-ab', 'handstoss');
+  await expect(first).toContainText('Angriff');
+  await expect(page.locator('.tac-menu [data-m="act"]')).toContainText('Aktion');
+  await expect(page.locator('.tac-card button[data-ab="handstoss"]')).toHaveCount(1);
+  await page.keyboard.press('0');
+  expect(await page.evaluate(() => (window as any).__tactics.sel)).toMatchObject({ mode: 'target', ability: 'handstoss' });
 });
 
 for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 }, { width: 390, height: 844 }]) {
@@ -75,6 +89,11 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     const forecast = page.locator('.tac-tcard.forecast');
     await expect(forecast).toContainText('4 Ziele');
     await expect(forecast.locator('.tac-target')).toHaveCount(4);
+    // FFTA: one affected unit at a time, starting with the clicked one.
+    await expect(forecast.locator('.tac-target.on')).toHaveCount(1);
+    await expect(forecast.locator('.tac-target.on')).toHaveAttribute('data-target', 's-north');
+    await expect(forecast.locator('.tac-target.on')).toHaveAttribute('aria-current', 'true');
+    await expect(forecast.locator('.tac-page')).toHaveText('1/4');
     for (const id of ['s-north', 's-east', 's-south', 'baris-young']) {
       const target = forecast.locator(`[data-target="${id}"]`);
       await expect(target).toContainText('HP');
@@ -92,11 +111,32 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     expect(boxes.panel.bottom).toBeLessThanOrEqual(boxes.root.bottom);
     expect(boxes.button.bottom).toBeLessThanOrEqual(boxes.panel.bottom);
     await page.screenshot({ path: test.info().outputPath('all-targets.png') });
-    const last = forecast.locator('.tac-target').last().locator('.tac-big');
-    await last.scrollIntoViewIfNeeded();
-    const lastBox = await last.boundingBox();
-    const body = await forecast.locator('.tac-forecast-body').boundingBox();
-    expect(lastBox!.y + lastBox!.height).toBeLessThanOrEqual(body!.y + body!.height + 1);
+    // The pager visits every affected unit; each focused one is readable inside the card and marked on the map.
+    const seen = new Set<string>();
+    for (let i = 0; i < 4; i++) {
+      const on = forecast.locator('.tac-target.on');
+      const id = (await on.getAttribute('data-target'))!;
+      seen.add(id);
+      expect(await page.evaluate(() => (window as any).__tactics.focusUnit)).toBe(id);
+      const big = on.locator('.tac-big');
+      await big.scrollIntoViewIfNeeded();
+      const bigBox = await big.boundingBox();
+      const body = await forecast.locator('.tac-forecast-body').boundingBox();
+      expect(bigBox!.y + bigBox!.height).toBeLessThanOrEqual(body!.y + body!.height + 1);
+      const next = forecast.locator('.tac-next');
+      const nextBox = await next.boundingBox();
+      expect(Math.min(nextBox!.width, nextBox!.height)).toBeGreaterThanOrEqual(32);
+      await next.click();
+    }
+    expect(seen.size).toBe(4);
+    await expect(forecast.locator('.tac-page')).toHaveText('1/4');
+    if (viewport.width === 1280) {
+      await page.keyboard.press('Shift+Tab');
+      await expect(forecast.locator('.tac-page')).toHaveText('4/4');
+      await page.keyboard.press('Tab');
+      await expect(forecast.locator('.tac-page')).toHaveText('1/4');
+    }
+    expect(await actor(page, 'valentus')).toEqual(before);
     await page.locator('.tac-confirm-target').click();
     await page.waitForFunction(() => (window as any).__tactics.ctrl.battle.unit('valentus').acted);
     const after = await actor(page, 'valentus');

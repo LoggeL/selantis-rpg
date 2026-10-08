@@ -58,8 +58,8 @@ export const hofKampf: BattleDef = {
     },
     async onRound(ctx, round, phase) {
       if (round === 1 && phase === 'player') {
-        await ctx.hint('Wähle <em>Valentus</em>.', { unit: 'valentus', until: 'select' });
-        await ctx.hint('Blaue Felder zeigen seine Reichweite.', { until: 'move' });
+        // Valentus is already selected when his turn starts; the tour begins with „Bewegen“.
+        await ctx.hint('<em>Valentus</em> ist am Zug. Wähle <strong>Bewegen</strong>: Blaue Felder zeigen seine Reichweite.', { unit: 'valentus', until: 'move' });
       }
     },
     async onUnitDown(ctx, unit, kind) {

@@ -144,9 +144,10 @@ Skripte sind **async-Funktionen** mit einem Kontext: `await ui.say('lia', 'Text'
 
 ### 6.4 Taktikkampf (`tactics/`)
 Raster im selben Pixelstil wie die Welt (vgl Final Fantasy Tactics Advance).
-- Gemeint ist: **isometrisches Raster mit Höhenstufen** wie in FFTA (Klötzchen-Gelände, Höhe beeinflusst Bewegung, Sprunghöhe, Reichweite und Flankenfaktor), drehbare Ansicht optional. Figuren sind dieselben Pixel-Sprites wie in der Welt.
-- **Spielerphase / Gegnerphase.** Jede eigene Einheit: Bewegung + eine Aktion, in beliebiger Reihenfolge.
-- **Flanken:** Treffer von der Seite +25 %, von hinten +50 %. Blickrichtung ergibt sich automatisch aus der letzten Bewegung oder Aktion; kein extra Richtungsmenü. Die Vorschau zeigt es klar an („Rücken! ×1,5“). Aus dem Playtest: Blickrichtung muss verständlich sein. Höhenunterschiede wirken sich auch auf den Faktor aus.
+- Gemeint ist: **isometrisches Raster mit Höhenstufen** wie in FFTA (Klötzchen-Gelände, Höhe beeinflusst Bewegungskosten, Sprunghöhe, Reichweite und Trefferchance), drehbare Ansicht optional. Figuren sind dieselben Pixel-Sprites wie in der Welt.
+- **Zugreihenfolge nach Tempo** (alle Teams in einer Runde). Die aktive Figur ist automatisch gewählt, ihr Menü **Bewegen / Aktion / Warten** offen: einmal bewegen und einmal handeln, in beliebiger Reihenfolge; Warten lässt den Rest aus. Bewegen zeigt alle erreichbaren Felder (Bewegungswert); jede Höhenstufe hinauf oder hinab kostet einen Punkt extra.
+- **Aktion:** Jede Figur hat einen Grundangriff („Angriff“, von der Waffe) und dazu ihre Fähigkeiten. Der Spieler wählt einen Gegner oder ein Bodenfeld, sieht alle betroffenen Figuren und blättert durch sie, jeweils mit Schaden und Trefferchance (Angreifer und Ziel gegenübergestellt wie in FFTA).
+- **Flanken wie FFTA:** Körperliche Angriffe treffen von vorne zu 50 %, von der Seite zu 70 %, in den Rücken zu 90 %; Tempo und Höhe verschieben die Chance. Richtung ändert nur die Trefferchance, nicht den Schaden. Am Zugende wählt der Spieler die **Blickrichtung** (eigenes Richtungsmenü mit Vorschau an der Figur); die KI dreht sich zur Bedrohung. Aus dem Playtest: Blickrichtung muss verständlich sein.
 - **Wegstoßen:** Einheiten, die gegen Hindernisse oder andere Einheiten geschoben werden, nehmen Kollisionsschaden. Das erlaubt kreative Kombos (Druckwelle).
 - Gelände: Gras, Büsche (Deckung −30 % Trefferchance, verbergen), Felsen/Mauern (blockieren), Wasser/Schlamm (verlangsamt), Feuer.
 - Volle Steuerung mit Maus (Klick auf Feld = bewegen, Klick auf Fähigkeit/Ziel), Tastatur und Touch. **Knopf „Zug beenden“ (Sanduhr)** immer sichtbar. Rückgängig für Bewegung, solange keine Aktion ausgeführt wurde.

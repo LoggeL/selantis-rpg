@@ -45,12 +45,13 @@ Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spa
 
 ## Regeln in Kürze
 
-- **Runde:** Alle Teams teilen sich eine Zugreihenfolge nach `speed` (höchster Wert zuerst, Gleichstand nach Einheiten-ID). Nur die aktive Figur darf bewegen oder handeln. Jede Einheit: einmal bewegen + einmal handeln, beliebige Reihenfolge. Bewegung lässt sich zurücknehmen, bis gehandelt wurde. Verstärkung und befreite Figuren kommen nächste Runde hinzu.
+- **Runde:** Alle Teams teilen sich eine Zugreihenfolge nach `speed` (höchster Wert zuerst, Gleichstand nach Einheiten-ID). Nur die aktive Figur darf bewegen oder handeln; sie ist zu Beginn ihres Zugs automatisch ausgewählt, ihr Menü **Bewegen / Aktion / Warten** ist offen. Jede Einheit: einmal bewegen + einmal handeln, beliebige Reihenfolge. Bewegung lässt sich zurücknehmen, bis gehandelt wurde. Verstärkung und befreite Figuren kommen nächste Runde hinzu.
+- **Angriff:** Jede Einheit hat neben ihren Fähigkeiten einen Grundangriff, der immer verfügbar ist und unter „Aktion“ zuerst steht (Taste 0). Er kommt aus `BattleUnitDef.attack`, sonst aus der ausgerüsteten Waffe (`WeaponDef.attack`, z. B. Lichtfokus → `handstoss`, Schwert → `schwerthieb`), sonst ist es der waffenlose `angriff`. `attack: false` heißt: Die Einheit schlägt nie zu (Geleitschutz, ein Lehrer, der nur deckt). Der Angriff zählt nicht zu `abilities`; die Ziffern 1–9 wählen weiterhin `abilities[0..8]`.
 - **Fortschritt:** HP, MP, Level, Exp und Tempo erscheinen auf Figurenkarten. Erfolgreiche Aktionen geben 10 Exp und 10 AP, ein besiegtes Ziel 20 Exp pro Aktion. Sieg gibt zusätzlich 20 Exp und 20 AP. 100 Exp erhöhen das Level, 50 AP meistern die Fähigkeiten der ausgerüsteten Waffe. Level, Exp, Ausrüstung und gemeisterte Fähigkeiten werden nach dem Sieg in den Kampagnenzustand übernommen und am nächsten Speicherpunkt gespeichert. Details und Referenzbilder: `docs/ffta-battle-reference.md`.
 - **Waffen und MP:** `weapon` und `weapons` setzen Ausrüstung und Wechselmöglichkeiten. Ohne Angaben ergibt sich die Startausrüstung aus den Fähigkeiten. Wechsel ist vor Bewegung/Aktion im eigenen Zug möglich. Gemeisterte Fähigkeiten bleiben ohne die ursprüngliche Waffe verfügbar. `mpCost` kostet MP pro Aktion, 2 MP regenerieren am Beginn des eigenen Zuges. `mp`, `maxMp`, `level` und `exp` können an `BattleUnitDef` gesetzt werden.
-- **Bewegung:** `move` Punkte; Klettern um mehr als 1 Stufe kostet +1 je Stufe; höchstens `jump` Stufen hinauf, `jump + 1` hinab. Verbündete kann man durchqueren, Feinde nicht.
-- **Treffer:** Chance = Genauigkeit ± 5 % je Höhenstufe (max. ±3) + Seite +10 / Rücken +20 − Deckung 30 − Ausweichen 45. Schaden = Stärke + Angriff − Rüstung, × Seite 1,25 / Rücken 1,5 × Höhe ±10 % je Stufe × Schutzwall 0,5.
-- **Blickrichtung** folgt während des Zugs der Bewegung/Aktion. Vor dem Zugende wählt der Spieler sie mit den Richtungsknöpfen oder Pfeiltasten und bestätigt mit Enter (Pfeil unter jeder Figur).
+- **Bewegung:** `move` Punkte; jede Höhenstufe hinauf **oder hinab** kostet einen Punkt extra (zusätzlich zu den Geländekosten); höchstens `jump` Stufen hinauf, `jump + 1` hinab. Bewegen zeigt alle erreichbaren Felder. Verbündete kann man durchqueren, Feinde nicht.
+- **Treffer (wie FFTA):** Körperliche Angriffe (`melee`/`ranged`) treffen von vorne zu 50 %, von der Seite zu 70 %, in den Rücken zu 90 %. Dazu kommen Tempo (±3 % je Punkt Unterschied, höchstens ±15 %), Höhe (±5 % je Stufe, höchstens ±3 Stufen), `hitMod` der Fähigkeit, Deckung −30, Ausweichen −45 und Benommen +25; Ergebnis 5–100 %. Magie und `noFlank`-Fähigkeiten nutzen stattdessen ihre `accuracy` (± Höhe, außer bei `noFlank`). Schaden = Stärke + Angriff − Rüstung (mindestens 1), × Schutzwall 0,5. Richtung und Höhe ändern nur die Trefferchance, nicht den Schaden.
+- **Blickrichtung** folgt während des Zugs der Bewegung/Aktion. Am Zugende (nach Bewegen + Aktion, nach Warten oder „Zug beenden“) wählt der Spieler sie mit den Richtungsknöpfen, einem Klick aufs Feld oder den Pfeiltasten und bestätigt mit Enter (Pfeil unter jeder Figur). KI-Einheiten drehen sich am Ende ihres Zugs zur Bedrohung.
 - **Wegstoßen:** Aufprall an Hindernis, Kante oder Rand 3 Schaden (die getroffene Einheit 2); Sturz 4 Schaden je Stufe ab der zweiten; Wasser dämpft Stürze. Schutzwall verhindert Stoßen.
 - **Fernkampf:** braucht freie Schusslinie; `heightRange` gibt +1 Reichweite je 2 Stufen Höhenvorteil.
 - **Status:** `guarded` (Schutzwall), `stunned`, `taunt` (Ablenken: Feinde gehen auf sie los), `evasive`, `bound` (gefesselt, unangreifbar, befreibar durch `befreien`), `burning`.
@@ -81,7 +82,7 @@ Ohne `hp` und `mp` beginnt eine Figur mit vollen Ressourcen. Explizite Werte set
 
 ## Fähigkeiten
 
-Standardbibliothek in `rules/abilities.ts`: `handstoss`, `strahl`, `druckwelle`, `schutzwall` (Valentus) · `doppelhieb`, `tritt` (Falke) · `schwerthieb`, `speerstoss`, `bolzen`, `axthieb`, `wuchtschlag` (Dunkelschatten) · `ausweichen`, `ablenken`, `steinwurf`, `dolch` (Lia) · `bogen`, `messer` (Flick) · `befreien`, `schubsen`. Eigene oder geänderte über `BattleDef.abilities` (gleiche Struktur wie `AbilityDef`, Formen: `single`, `line`, `ring`, `cone`, `area`, `self`).
+Standardbibliothek in `rules/abilities.ts`: `angriff` (waffenloser Grundangriff), `handstoss`, `strahl`, `druckwelle`, `schutzwall` (Valentus) · `doppelhieb`, `tritt` (Falke) · `schwerthieb`, `speerstoss`, `bolzen`, `axthieb`, `wuchtschlag` (Dunkelschatten) · `ausweichen`, `ablenken`, `steinwurf`, `dolch` (Lia) · `bogen`, `messer` (Flick) · `befreien`, `schubsen`. Eigene oder geänderte über `BattleDef.abilities` (gleiche Struktur wie `AbilityDef`, Formen: `single`, `line`, `ring`, `cone`, `area`, `self`).
 
 ## KI
 
@@ -97,11 +98,11 @@ Ziel-Felder von `reach`/`escort` werden mit goldenen Fahnen markiert (oder `goal
 
 Alle Hooks sind async und halten den Kampf an, bis sie fertig sind: `onStart`, `onRound(ctx, round, phase)`, `onUnitDown`, `onHpBelow: [{ unit, below, run }]`, `triggers: [{ id, when, run, once }]`, `onAction`, `onMove`, `onFree`; außerdem `waves: [{ round, phase?, units, text? }]` für Verstärkung.
 
-`ctx`: `say`, `hint(text, { title, unit, tile, until })` (Tutorial-Karte; `until`: `'click' | 'select' | 'move' | 'act' | 'endTurn' | fn`; Hinweise blockieren die Eingabe nie und verfallen, wenn der Spieler die Runde beendet), `focus`, `wait`, `banner`, `bark`, `spawn`, `remove`, `move`, `face`, `pose`, `damage`, `heal`, `setStatus`, `setAi`, `setObjective`, `flag`, `hasFlag`, `shake`, `win`, `lose`, sowie `ctx.battle` (Regel-Engine, lesend).
+`ctx`: `say`, `hint(text, { title, unit, tile, until })` (Tutorial-Karte; `until`: `'click' | 'select' | 'move' | 'act' | 'endTurn' | fn`; Hinweise blockieren die Eingabe nie und verfallen, wenn der Spieler die Runde beendet. Weil die aktive Figur sich selbst auswählt, gilt `'select'` im Spielerzug sofort als erfüllt und erscheint nicht; für Tutorials besser `'move'` oder `'act'`), `focus`, `wait`, `banner`, `bark`, `spawn`, `remove`, `move`, `face`, `pose`, `damage`, `heal`, `setStatus`, `setAi`, `setObjective`, `flag`, `hasFlag`, `shake`, `win`, `lose`, sowie `ctx.battle` (Regel-Engine, lesend).
 
 ## Steuerung (für Texte/Hinweise)
 
-Maus: Einheit anklicken, Bewegen wählen, blaues Feld anklicken (Pfadvorschau beim Überfahren), Fähigkeit wählen, Ziel anklicken. Die Vorschau zeigt jede betroffene Figur mit HP, MP, Level, Exp, Schaden und Trefferchance. Erst ein zweiter Klick auf dasselbe Ziel, der Bestätigen-Knopf oder Enter führt die Aktion aus. Ein anderes Ziel ersetzt die Vorschau. Rechtsklick = zurück; Ziehen = Kamera; Mausrad = Zoom (×2, zum Mauszeiger hin). Tastatur: Pfeile/WASD Cursor, Enter/E bestätigen, Rücktaste oder Esc zurück (Esc bricht zuerst die Vorschau, dann Zielwahl/Auswahl ab und öffnet erst danach das Menü), 1–9 Fähigkeiten, Tab nächste Einheit, Leertaste „Zug beenden“, Z Rückgängig, F Warten, M Bewegen, Q/R Ansicht drehen. Zug beenden und Warten öffnen zuerst die Wahl der Blickrichtung. Touch: Tippen = Auswahl/Vorschau, zweites Tippen oder Bestätigen führt aus.
+Die aktive Figur ist schon gewählt, ihr Menü offen: **Bewegen** (blaue Felder, Pfadvorschau beim Überfahren, Feld anklicken), **Aktion** (zuerst „Angriff“, darunter die Fähigkeiten; danach Ziel wählen), **Warten** (Rest des Zugs auslassen), solange möglich **Rückgängig**. Bei einer Aktion zeigt das Überfahren eines Ziels (Figur bei Einzelzielen, Bodenfeld bei Fläche/Linie/Kegel) alle betroffenen Felder; ein Klick heftet das Ziel an. Die Vorschau stellt wie in FFTA den Angreifer und **eine** betroffene Figur gegenüber: Porträt, HP jetzt → danach, Schaden, Trefferchance, Richtung (Vorne/Seite/Rücken) und Modifikatoren. Treffen es mehrere, blättert „‹ 1/3 ›“ (oder Tab/Umschalt+Tab) durch sie; ein Pfeil markiert die gezeigte Figur auf dem Feld, die Kamera schwenkt bei Bedarf hin. Erst ein zweiter Klick auf dasselbe Ziel, der Bestätigen-Knopf oder Enter führt die Aktion für alle Betroffenen aus. Ein anderes Ziel ersetzt die Vorschau. Rechtsklick = zurück; Ziehen = Kamera; Mausrad = Zoom (×2, zum Mauszeiger hin). Tastatur: Pfeile/WASD Cursor, Enter/E bestätigen, Rücktaste oder Esc zurück (Vorschau → Zielwahl → Aktionsliste → Menü der Figur; die aktive Figur bleibt immer gewählt, erst danach öffnet Esc das Spielmenü), 0 Angriff, 1–9 Fähigkeiten, Tab blättert bei angeheftetem Ziel durch die Betroffenen, sonst zur nächsten Einheit, Leertaste „Zug beenden“, Z Rückgängig, F Warten, M Bewegen, Q/R Ansicht drehen. Zug beenden und Warten öffnen zuerst die Wahl der Blickrichtung. Touch: Tippen = Auswahl/Vorschau, zweites Tippen oder Bestätigen führt aus, „‹ ›“ blättert.
 
 ## Vollständiges Beispiel
 
@@ -166,8 +167,8 @@ export const hofKampf: BattleDef = {
     },
     async onRound(ctx, round, phase) {
       if (round === 1 && phase === 'player') {
-        await ctx.hint('Wähle <em>Valentus</em>.', { unit: 'valentus', until: 'select' });
-        await ctx.hint('Blaue Felder zeigen seine Reichweite.', { until: 'move' });
+        // Valentus is already selected when his turn starts; the tour begins with „Bewegen“.
+        await ctx.hint('<em>Valentus</em> ist am Zug. Wähle <strong>Bewegen</strong>: Blaue Felder zeigen seine Reichweite.', { unit: 'valentus', until: 'move' });
       }
     },
     async onUnitDown(ctx, unit, kind) {

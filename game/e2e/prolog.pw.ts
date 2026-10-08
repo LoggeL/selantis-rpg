@@ -160,6 +160,7 @@ async function playPhase(page: Page, ids: string[]): Promise<void> {
     if (!st || st.out || !st.input) return;
     const can = await page.evaluate(id => { const b = (window as Win).__tactics.ctrl.battle; const u = b.findUnit(id); return !!u && !u.down && !b.isDone(id); }, id);
     if (!can) continue;
+    // The active unit starts selected; Tab only matters if a story beat dropped the selection.
     for (let i = 0; i < 6 && (await tstate(page))?.sel !== id; i++) { await page.keyboard.press('Tab'); await page.waitForTimeout(250); }
     const plan = await page.evaluate(async id => {
       const aiUrl = '/src/tactics/rules/ai.ts';
@@ -169,7 +170,9 @@ async function playPhase(page: Page, ids: string[]): Promise<void> {
       b.aiOverrides.set(id, { profile: 'melee' });
       const p = ai.planTurn(b, id);
       if (had) b.aiOverrides.set(id, had); else b.aiOverrides.delete(id);
-      return { moveTo: p.moveTo, action: p.action, idx: p.action ? b.unit(id).abilities.indexOf(p.action.ability) : -1 };
+      // Hotkeys: digits = index in abilities, 0 = the basic attack (Angriff).
+      const u = b.unit(id), idx = p.action ? u.abilities.indexOf(p.action.ability) : -1;
+      return { moveTo: p.moveTo, action: p.action, key: !p.action ? null : idx >= 0 ? String(idx + 1) : p.action.ability === u.attack ? '0' : null };
     }, id);
     if (plan.moveTo) {
       st = await tstate(page);
@@ -179,8 +182,8 @@ async function playPhase(page: Page, ids: string[]): Promise<void> {
       await page.waitForTimeout(400);
       await settle(page);
     }
-    if (plan.action && plan.idx >= 0) {
-      await page.keyboard.press(String(plan.idx + 1));
+    if (plan.action && plan.key) {
+      await page.keyboard.press(plan.key);
       await page.waitForTimeout(200);
       await cursorTo(page, plan.action.target);
       await page.keyboard.press('Enter');
