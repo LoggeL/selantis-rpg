@@ -49,7 +49,7 @@ export const STUDY_SECTIONS: readonly (readonly Line[])[] = [
     { who: 'e3-grossmeister', text: 'Gwynn. So hieß sie doch, Eure Zauberin. Sie sitzt hinter Schloss und Riegel, und Ihr kommt nicht an sie heran.', mood: 'grim' },
     { who: 'e2-ignatius', text: 'Lasst Gwynn aus dem Spiel.', mood: 'grim' },
     { who: 'e3-grossmeister', text: 'Ihr seid nicht des Mädchens wegen hier, sondern wegen Gwynn. Mit der Urmacht bekämt Ihr jede Zellentür auf.' },
-    { who: 'e2-ignatius', text: 'Das ist nicht wahr. Ich würde Lia niemals für so etwas in Gefahr bringen.', mood: 'worried' },
+    { who: 'e2-ignatius', text: 'Das ist eine Lüge. Lia ist kein Brecheisen für Zellentüren. Für nichts und niemanden.', mood: 'worried' },
     { who: 'e3-grossmeister', text: 'Sie steckt längst mittendrin, mit Euch oder ohne Euch.' },
     { who: 'e2-ignatius', text: '… Dann gebt mir Männer. Lasst mich Gwynn holen.', mood: 'sad' },
     { who: 'e2-ignatius', text: 'Danach gehört das Mädchen Euch. Ich stelle mich Euch nicht mehr in den Weg. Mein Wort darauf.', mood: 'sad' },
@@ -93,7 +93,7 @@ export const BOOK_PASSAGES: readonly Passage[] = [
   {
     key: 'ersten', pick: 'Die Stelle mit dem Kreis am Rand.',
     book: '„Was den Ersten gehörte, behält etwas von ihnen. Bringt man es zusammen und wendet es gegen sie, so …“ Der Rest ist verwischt.',
-    thought: 'Daneben ein Kreis aus zehn Strichen, mit Tinte, die noch glänzt. Wie ein Becher, der noch nach jemandem riecht? Unheimlich.',
+    thought: 'Daneben ein Kreis aus zehn Strichen, mit Tinte, die noch glänzt. Jemand hat das erst vor Kurzem gezeichnet.',
   },
   {
     key: 'seite', pick: 'Die Lücke, wo eine Seite fehlt.',

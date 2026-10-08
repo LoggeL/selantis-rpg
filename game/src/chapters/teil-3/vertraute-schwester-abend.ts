@@ -119,7 +119,7 @@ export const HALL_CUT: readonly { who: 'e2-vamir' | 'e2-baris'; text: string; mo
 /** The harsh morning. */
 export const MORNING: readonly Line[] = [
   { who: 'lia', text: 'Kyra? Ist schon … Morgen?' },
-  { who: 'kyra-cold', text: 'Steh auf. Und spiel mir nicht die Müde vor. Du hast lange genug gelegen.', mood: 'cold' },
+  { who: 'kyra-cold', text: 'Hoch mit dir. Gähnen kannst du unterwegs. Die Sonne wartet nicht auf dich.', mood: 'cold' },
   { who: 'lia', text: 'Ich spiel nichts. Mir dreht sich alles. Meine Beine sind wie aus nassem Brot.', mood: 'hurt' },
   { who: 'kyra', text: 'Dann eben langsam. Aber du gehst.' },
 ];

@@ -58,6 +58,26 @@ const SCENES: { id: string; title: string; check: Check }[] = [
   { id: 'tactics-demo', title: 'Taktik: Dunkelhain', check: page => waitBattle(page) },
   { id: 'tactics-rescue-demo', title: 'Taktik: Rettung', check: page => waitBattle(page) },
   { id: 'tactics-sandbox', title: 'Taktik: Übungsplatz', check: page => waitBattle(page) },
+  // Teil III „Falscher Glaube“: each scene's first picture without any input (narration card, start map or battle).
+  { id: 'e3-valentus', title: 'Teil III: e3-valentus', check: page => expect(page.locator('.narr-card')).toContainText('Zwei Tage war Lia nun allein unterwegs', { timeout: 20000 }) },
+  { id: 'e3-eigener-stab', title: 'Teil III: e3-eigener-stab', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-lichtwald', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-paladine', title: 'Teil III: e3-paladine', check: page => expect(page.locator('.narr-card')).toContainText('Am Nachmittag lag der Wald hinter ihnen', { timeout: 20000 }) },
+  { id: 'e3-schutzreaktion', title: 'Teil III: e3-schutzreaktion', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-ordenssaal-verhoer', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-macht-und-schutz', title: 'Teil III: e3-macht-und-schutz', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-gastzimmer-pruefung', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-falscher-glaube', title: 'Teil III: e3-falscher-glaube', check: page => expect(page.locator('.narr-card')).toContainText('Weit entfernt', { timeout: 20000 }) },
+  { id: 'e3-kyras-fluchtweg', title: 'Teil III: e3-kyras-fluchtweg', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-gastzimmer-flucht', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-waldgegner', title: 'Teil III: e3-waldgegner', check: page => expect(page.locator('.narr-card')).toContainText('Unterdessen, ein paar Täler weiter', { timeout: 20000 }) },
+  { id: 'e3-vertraute-schwester', title: 'Teil III: e3-vertraute-schwester', check: page => expect(page.locator('.narr-card')).toContainText('Einen Tag später, tief im Wald', { timeout: 20000 }) },
+  { id: 'e3-falle', title: 'Teil III: e3-falle', check: page => expect(page.locator('.narr-card')).toContainText('Am Vormittag, ein Lager im Wald', { timeout: 20000 }) },
+  { id: 'e3-innere-zuflucht', title: 'Teil III: e3-innere-zuflucht', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-innenwelt', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-flicks-hilfe', title: 'Teil III: e3-flicks-hilfe', check: page => expect(page.locator('.narr-card')).toContainText('Unterdessen, im verlassenen Lager', { timeout: 20000 }) },
+  { id: 'e3-hoffnung-und-weigerung', title: 'Teil III: e3-hoffnung-und-weigerung', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-innenwelt-riss', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-ritual', title: 'Teil III: e3-ritual', check: page => expect(page.locator('.narr-card')).toContainText('Am Abend, auf einem kahlen Hügel', { timeout: 20000 }) },
+  { id: 'e3-ritualangriff', title: 'Teil III: e3-ritualangriff', check: async page => { await waitBattle(page); expect(await page.evaluate(() => (window as any).__tactics.ctrl.def.id)).toBe('e3-ritualangriff'); } },
+  { id: 'e3-vamir', title: 'Teil III: e3-vamir', check: page => expect(page.locator('.narr-card')).toContainText('Ignatius’ Spur führte vom Hügel hinunter', { timeout: 20000 }) },
+  { id: 'e3-ignatius-abschied', title: 'Teil III: e3-ignatius-abschied', check: page => page.waitForFunction(() => (window as any).__world?.map?.id === 'e3-waldpfad-abschied', undefined, { timeout: 20000 }).then(() => undefined) },
+  { id: 'e3-hueterin', title: 'Teil III: e3-hueterin', check: page => expect(page.locator('.narr-card')).toContainText('Zwei Tage später stand Lia wieder auf dem Platz', { timeout: 20000 }) },
+  { id: 'e3-epilog', title: 'Teil III: e3-epilog', check: page => expect(page.locator('.narr-card')).toContainText('Am Morgen nach der Zeremonie verließen sie Trapas', { timeout: 20000 }) },
 ];
 
 async function waitWorld(page: Page): Promise<void> {

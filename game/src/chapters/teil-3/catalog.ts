@@ -15,7 +15,7 @@ registerSpeakers([
   { id: 'e3-doktor', name: 'Der Doktor', portrait: 'e3-doktor', voice: { pitch: 150, wave: 'triangle' }, color: '#7a7a8a' },
   { id: 'e3-paladin', name: 'Paladin', portrait: 'paladin', voice: { pitch: 140, wave: 'square' }, color: '#c8d4e8' },
   { id: 'e3-hauptmann', name: 'Hauptmann der Wache', portrait: 'paladin', voice: { pitch: 120, wave: 'square' }, color: '#c8d4e8' },
-  { id: 'e3-novize', name: 'Novize', portrait: 'villager-m', voice: { pitch: 190, wave: 'triangle' }, color: '#c8d4e8' },
+  { id: 'e3-novize', name: 'Novize', portrait: 'paladin', voice: { pitch: 190, wave: 'triangle' }, color: '#c8d4e8' },
   { id: 'e3-heilerin', name: 'Heilerin des Ordens', portrait: 'villager-f', voice: { pitch: 260, wave: 'sine' }, color: '#b8c8a0' },
   { id: 'e3-gestalt', name: 'Die Gestalt', portrait: 'e3-gestalt', voice: { pitch: 300, wave: 'sine' }, color: '#e6eef5' },
   { id: 'e3-kyra', name: 'Kyra', portrait: 'kyra', voice: { pitch: 300, wave: 'triangle' }, color: '#b07a4f' },
@@ -58,7 +58,7 @@ registerLore([
   },
   {
     id: 'e3-lore-relikte', title: 'Zehn Relikte',
-    text: 'Zehn alte Gegenstände aus Vamirs Raubzügen standen im Kreis um den Stein, alle auf Lia gerichtet. Ein altes Buch soll beschreiben, wie die ersten zehn Menschen Xenovia so die Urmacht nahmen. Welche Gegenstände es waren und wohin sie nach dem Kampf kamen, weiß niemand genau.',
+    text: 'Zehn sehr alte Dinge standen auf Ständern im Kreis um den Stein, jedes auf Lia gerichtet. Im Buch des Doktors stand etwas über das, „was den Ersten gehörte“, und daneben ein Kreis aus zehn Strichen. Welche Dinge es waren und wohin sie nach dem Kampf kamen, weiß niemand.',
   },
 ]);
 
@@ -77,7 +77,8 @@ registerClues([
 registerItemAction('tincture', {
   label: 'Auftragen',
   when: () => poisoned(),
-  reason: 'Gerade gibt es nichts zu versorgen.',
+  // Registered globally (ui/bag has no way to unregister): the reason must read right in every chapter.
+  reason: 'Mutters Tinktur. Die hebe ich mir für einen Kratzer auf, der es wirklich braucht.',
   run: async () => {
     await G.ui.think('Ich reibe ein paar Tropfen auf die Schläfen. Es riecht nach Zuhause und hilft kein bisschen. Das hier ist kein Kratzer. Das sitzt tiefer.');
   },

@@ -380,7 +380,7 @@ async function saalScript(w: WorldCtx): Promise<void> {
   await w.cutscene(async () => {
     await captain.walkTo(HALL_SPOT.captain[0], HALL_SPOT.captain[1] + 20, { face: 'up' });
     await w.say('e3-hauptmann', 'Großmeister. Am Tor stand eine Elfe und hat so lange gegen das Holz getreten, bis wir aufgemacht haben.');
-    await w.say('e3-hauptmann', 'Sie sagt, es geht um das Mädchen. Das Mädchen, das uns letzte Nacht abhandengekommen ist.');
+    await w.say('e3-hauptmann', 'Sie sagt, es geht um das Mädchen. Das Mädchen, das uns vorletzte Nacht abhandengekommen ist.');
     await w.say('e3-grossmeister', 'Dann soll sie vortreten. Ignatius, Ihr bleibt. Ihr kennt die Gefährten des Mädchens besser als ich.', { mood: 'grim' });
     mentor.face('player');
   });
@@ -395,10 +395,10 @@ async function saalScript(w: WorldCtx): Promise<void> {
     await w.player.walkTo(HALL_SPOT.lia[0] + 10, HALL_SPOT.lia[1], { face: 'up' });
     bg(mentor.walkTo(HALL_SPOT.mentor[0] - 70, HALL_SPOT.mentor[1] - 10, { face: 'right' }));
     await w.camera.pan([320, 170], 700);
-    await flick(w, 'Vamirs Leute haben Lia. In einem Lager im Wald, einen halben Tag von hier. Ich hab zugesehen.', 'determined');
+    await flick(w, 'Vamirs Leute haben Lia. In einem Lager im Wald, näher, als Ihr denkt. Kyra hat sie im Kreis geführt. Ich hab zugesehen.', 'determined');
     await flick(w, 'Mich hatten sie an einen Pfosten gebunden, damit ich auch alles gut sehe. Dann haben sie sie im Käfig weggefahren.', 'angry');
     mentor.face('player');
-    await w.say('e2-ignatius', 'Im Käfig … Sie ist doch fort, über Nacht. Wie kam sie zu Vamirs Leuten?', { mood: 'worried' });
+    await w.say('e2-ignatius', 'Im Käfig … Sie ist doch vor zwei Nächten fort, aus freien Stücken. Wie kam sie zu Vamirs Leuten?', { mood: 'worried' });
     await flick(w, 'Ihre Schwester hat sie hingebracht. Und sah dabei aus, als wäre sie gar nicht richtig da.', 'sad');
     await w.say('e2-ignatius', 'Kyra. Also hält er sie noch immer fest.', { mood: 'grim' });
     await w.say('e3-grossmeister', 'Und das soll ich einer Elfe glauben, die um Mitternacht an mein Tor tritt? Vielleicht schickt dich Vamir.', { mood: 'grim' });
@@ -407,7 +407,7 @@ async function saalScript(w: WorldCtx): Promise<void> {
     const t = TONE_OPTIONS[pick];
     for (const l of t.lines) await sayHall(w, l);
     G.state.set(FH_RESULT.tone, t.key);
-    await w.say('e3-grossmeister', 'Mein Orden hat eine Nacht damit verbracht, ein leeres Zimmer zu bewachen. Warum sollte ich ihm jetzt folgen?', { mood: 'grim' });
+    await w.say('e3-grossmeister', 'Meine Wachen standen vor einem leeren Zimmer, meine Reiter suchen seit zwei Tagen die falschen Wälder ab. Und jetzt dir folgen?', { mood: 'grim' });
     await w.say('e3-grossmeister', 'Hundert Mann in einen Wald, den mir eine Fremde zeigt. Gib mir einen Grund, der nicht nur aus Worten besteht.', { mood: 'thinking' });
     const proofPick = await w.choose(PROOF_OPTIONS.map(o => o.text), { prompt: 'Was zeigt Flick ihm?', speaker: 'e2-flick' });
     const p = PROOF_OPTIONS[proofPick];

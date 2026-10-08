@@ -10,8 +10,11 @@ import type { AbilityDef, Unit } from '../../tactics/rules/types';
 import { STAFF } from '../common/bookContract';
 import { settings } from '../../core/settings';
 import type { LiaKitOptions } from '../common/liaKit';
-import { BLOOD_DARK, BLOOD_RED } from './blood';
+import { BLOOD_RED } from '../common/blood';
 import { POISON_FACTOR, hasOwnStaff, poisoned, sfx } from './shared';
+
+/** The dark centre of a battle pool (the world scenes use the shared prop of common/blood.ts). */
+const BLOOD_DARK = 0x4a0d12;
 
 /**
  * Spiel-Design (docs/teil-3/adaption.md): Lia's narrow beam from the tip of her own staff. Fixed damage, so it pierces

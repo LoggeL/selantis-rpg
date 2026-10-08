@@ -17,7 +17,7 @@ import { BOOK3 } from '../common/bookContract';
 import { apparition } from './erscheinung';
 import { BOOK3_CREDITS } from './epilog-credits';
 import {
-  ELNON, ELNON_ANSWERS, ELNON_CHOICES, ELNON_CLUE, ELNON_END, END_ZONE, ENDING, FELDWEG_OCCLUDERS, FELDWEG_SPOT as SPOT, FELDWEG_SURFACES,
+  ELNON, ELNON_CHOICES, ELNON_CLUE, ELNON_END, elnonAnswer, END_ZONE, ENDING, FELDWEG_OCCLUDERS, FELDWEG_SPOT as SPOT, FELDWEG_SURFACES,
   FELDWEG_WALK, FINISHED_LINE, OPENING, SCHUTZ, SOMMER, SOMMER_ANSWERS, SOMMER_CHOICES, SOMMER_END, TALK_ZONES, TREE, TREE_BLOCK,
   nextTalk, talkFlag, talksDone, type Line, type TalkId,
 } from './epilog-weg';
@@ -107,7 +107,7 @@ async function talk(w: WorldCtx, id: TalkId): Promise<void> {
         await w.player.walkTo(kyra.x + (w.player.x < kyra.x ? -14 : 14), kyra.y + 2);
         bg(w.player.emote('heart'));
       }
-      await play(w, ELNON_ANSWERS[pick]);
+      await play(w, elnonAnswer(pick, G.state.flag<number>('e3-ra-kyra-antwort')));
       flick.face('player');
       await play(w, ELNON_END);
       kyra.hold(false);

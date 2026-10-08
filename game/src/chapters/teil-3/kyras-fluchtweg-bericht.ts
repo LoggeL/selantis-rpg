@@ -102,10 +102,10 @@ export function openQuestions(asked: ReadonlySet<ReportKey>): Question[] {
 /** After the three questions: the camp of the scattered rebels, the staff, and Kyra putting everything off till tomorrow. */
 export const REPORT_END: readonly Line[] = [
   { who: 'lia', text: 'Aber wie, nur wir zwei? Ich bin keine Kriegerin. Und du siehst aus, als hättest du seit Tagen nichts gegessen.', mood: 'worried' },
-  { who: 'kyra', text: 'Nicht weit von hier haben sich ein paar Versprengte versteckt. Rebellen. Zusammen mit denen geht es.' },
-  { who: 'kyra', text: 'Und du trägst doch dieses Licht in dir. Oder hast du das vergessen?' },
-  { who: 'lia', text: 'Ein bisschen zaubern kann ich jetzt. Ein bisschen. Aber mein Stab hängt in Trapas an der Wand.', mood: 'sad' },
-  { who: 'kyra', text: 'Ein bisschen reicht.' },
+  { who: 'kyra', text: 'Drei Hügel weiter hocken ein paar Rebellen im Unterholz, die der Überfall übrig gelassen hat. Mit denen zusammen geht es.' },
+  { who: 'kyra', text: 'Und du hast doch dein Leuchten. Ein Funke davon, und die Kerle rennen.' },
+  { who: 'lia', text: 'Ein paar Funken krieg ich hin, mehr nicht. Und mein Stab hängt bei den Paladinen an der Wand, zwischen Speeren.', mood: 'sad' },
+  { who: 'kyra', text: 'Ein paar Funken reichen.' },
   { who: 'lia', text: 'Ich muss dir so viel erzählen. Da war ein Magier aus Licht, und eine Weide, und auf einmal hatte ich …', mood: 'happy' },
   { who: 'kyra', text: 'Morgen. Am Feuer. Jetzt schlaf, ich halte Wache.' },
 ];

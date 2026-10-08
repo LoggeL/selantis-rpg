@@ -120,6 +120,10 @@ export const ELNON: readonly Line[] = [
   { who: 'kyra', text: 'Er ist tot. Ich hab ihn umgebracht. Und dann hab ich dir ins Gesicht gelogen, als wäre es nichts.', mood: 'sad' },
   { who: 'lia-think', text: 'Elnon. Der Elf, der mir nie über den Weg getraut hat. Und Kyra hat die ganze Zeit neben mir gelächelt.' },
 ];
+/** Lia's thought in the hug answer: the push at the stone only happened if she tried to hug Kyra there (pick 2). */
+const HUG_REFUSED = 'Ich sage nichts. Ich halte sie fest. Am Stein hat sie mich weggeschoben.';
+const HUG_FIRST = 'Ich sage nichts. Ich halte sie fest. Am Stein wollte sie allein sein. Jetzt nicht mehr.';
+
 export const ELNON_CHOICES: readonly string[] = [
   '„Das war nicht deine Hand. Er hat sie geführt.“',
   'Sie festhalten, ohne etwas zu sagen.',
@@ -132,7 +136,7 @@ export const ELNON_ANSWERS: readonly (readonly Line[])[] = [
     { who: 'lia', text: 'Ich weiß. Und trotzdem war es nicht dein Wille. Keinen Augenblick lang.', mood: 'sad' },
   ],
   [
-    { who: 'lia-think', text: 'Ich sage nichts. Ich halte sie fest. Am Stein hat sie mich weggeschoben.' },
+    { who: 'lia-think', text: HUG_REFUSED },
     { who: 'kyra', text: 'Diesmal lass ich dich.', mood: 'sad' },
     { who: 'lia', text: 'Es war nicht dein Wille, Kyra. Das weiß ich. Ich hab dir in die Augen gesehen, damals.', mood: 'sad' },
   ],
@@ -142,9 +146,18 @@ export const ELNON_ANSWERS: readonly (readonly Line[])[] = [
     { who: 'lia', text: 'Weil du die schlechteste Lügnerin auf dem ganzen Hof warst. Es war nicht dein Wille.', mood: 'sad' },
   ],
 ];
+/** The answer to the Elnon talk, matched to what Lia did at the stone (flag e3-ra-kyra-antwort: 2 = the hug). */
+export function elnonAnswer(pick: number, stonePick: number | undefined): readonly Line[] {
+  const lines = ELNON_ANSWERS[pick];
+  if (pick !== 1 || stonePick === 2) return lines;
+  return lines.map(l => (l.text === HUG_REFUSED ? { ...l, text: HUG_FIRST } : l));
+}
+
 export const ELNON_END: readonly Line[] = [
   { who: 'flick', text: 'Er hat mich vor allen einen Mischling genannt. Ich hab ihm oft was an den Hals gewünscht. Das nicht.', mood: 'sad' },
-  { who: 'kyra', text: 'Die Bruderschaft muss es erfahren. Von mir, nicht als Gerücht aus irgendeiner Schenke. Sie sind im Süden.', mood: 'determined' },
+  { who: 'lia', text: 'Und Foltan? Azar, Alastir? Die warten vielleicht noch auf ihn und wissen von nichts.', mood: 'sad' },
+  { who: 'kyra', text: 'Dann sollen sie es von mir hören, nicht als Gerücht aus irgendeiner Schenke.', mood: 'determined' },
+  { who: 'kyra', text: 'Baris hat in der Halle geflucht, die meisten seien nach Süden entwischt. Azar bestimmt. Der quatscht sich an jeder Wache vorbei.', mood: 'neutral' },
   { who: 'lia', text: 'Dann gehen wir nach Süden.', mood: 'determined' },
 ];
 
@@ -169,7 +182,7 @@ export const TREE: readonly Line[] = [
 export const ENDING: readonly Line[] = [
   { who: 'narrator', text: 'So gingen sie weiter, zu dritt, in einen Herbst hinein, der noch lange dauern sollte.' },
   { who: 'narrator', text: 'Vamir war fort. Wohin die zehn Dinge vom Hügel gekommen waren und wo der Doktor steckte, wusste niemand.' },
-  { who: 'narrator', text: 'Hinter ihnen stand für einen Atemzug jemand am Wegrand und sah ihnen nach. Keine von ihnen drehte sich um.' },
+  { who: 'narrator', text: 'Am Wegrand hinter ihnen schimmerte für einen Atemzug etwas Türkises, ein alter Mann mit grauem Bart, der ihnen nachsah.' },
   { who: 'narrator', text: 'Die ~Urmacht~ ruhte in ihrer Trägerin. Und zum ersten Mal seit dem Sommer fühlte sich das nicht wie eine Last an.' },
 ];
 

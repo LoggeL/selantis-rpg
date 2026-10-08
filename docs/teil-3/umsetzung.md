@@ -337,7 +337,7 @@ helfe; Flag `e3-gift-abklingend`. Die Urmacht verhindert den Tod, nicht die Schw
 - **Ort:** `e3-feldweg`, Morgen. Companions Kyra und Flick.
 - **Herzstück:** gemeinsamer Weg mit Gesprächen beim Gehen: Kyra (seit dem Sommer ist alles anders; Eltern sähen zu
   und wären stolz), Kyra über Elnon und das Schwert: Sie erinnert sich an die Klinge in ihrer Hand und an sein
-  Gesicht; sie weiß jetzt, dass er tot ist und dass sie Lia von ihm angelogen hat. Lia erfährt hier erst, dass Elnon
+  Gesicht; sie weiß jetzt, dass er tot ist und dass sie Lia über ihn angelogen hat. Lia erfährt hier erst, dass Elnon
   tot ist (Auswahl, wie sie reagiert; alle tröstend: es war nicht dein Wille). Kyra will den Rebellen im Süden die
   Wahrheit sagen. Flick als Leibwächterin („Der Großmeister zieht mir das Fell ab, wenn …“,
   eigene Worte). Optional: Rückkehr zu den Elterngräbern als Versprechen (kein Besuch). Am Wegende Valentus'

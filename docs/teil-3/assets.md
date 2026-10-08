@@ -227,3 +227,10 @@ Itemsymbole: `scripts/art/icons.py gen e3-icons --cols=2 --items=…` (Bogen `e3
 Rohbild `output/imagegen/raw/art/icons/e3-icons.png`). `icons.py` protokolliert fest in `icons.json`; der Eintrag ist
 zusätzlich in `teil-3.json` gespiegelt. Atlas jetzt 29 Symbole, die bisherigen 27 in unveränderter Reihenfolge, die beiden
 neuen hinten angehängt (`ui/items.json`). `build_manifest.py` und `--check` aktuell (57 Tafeln, 29 Symbole).
+
+## Offen (Nachforderung an die Asset-Spur)
+
+| Asset | Wofür | Stand |
+| --- | --- | --- |
+| Porträt `ghoul` (`portraits/ghoul.png`, 256×256, dazu ein Manifest-Eintrag) | Sprecher `e3-ghul` und `e3-ratze` im Zwischenspiel `e3-waldgegner`. Der Katalog verweist schon auf `ghoul`; bis das Bild kommt, zeigt die Dialogbox die graue Platzhalter-Silhouette. Look wie die Figur `ghoul`: abgerissene braune Kapuzenlumpen, hohle Wangen, kein Schädel, kein Blut | angefordert, noch nicht geliefert |
+| Kyra in dunkler Fluchtkleidung (Welt) | Die Tafel `e3-phiole` zeigt Kyra dunkel gekleidet, in der Welt trägt sie ihr helles Kleid (`kyra`). Lias Text verspricht nur noch Stiefel und Umhang, passt also zur Figur `lia-cloak` | optional |

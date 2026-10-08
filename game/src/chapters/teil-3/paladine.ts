@@ -436,9 +436,15 @@ async function readNotice(w: WorldCtx): Promise<void> {
   await lia(w, 'Zwei Silberstücke. Dafür hätte uns der Junge vermutlich auch ohne Grund gemeldet.', 'thinking');
   const m = w.actor(MENTOR);
   m.face('player');
-  await mentor(w, 'Du … liest das? Einfach so, im Vorbeigehen?', 'thinking');
-  await lia(w, 'Jedes Wort. Mutter hat es uns beigebracht, abends am Küchentisch. Kyra hat sich mit Händen und Füßen gewehrt. Ich nicht.');
-  await mentor(w, 'Sechzehn Jahre bin ich an Höfen vorbeigekommen, auf denen keiner seinen eigenen Namen lesen konnte.', 'thinking');
+  if (G.state.flag<string>('e2-abschied') === 'brief') {
+    // He has read her note on birch bark (Teil II): what surprises him is the order's script, not that she reads.
+    await mentor(w, 'Deine Rinde konnte ich lesen. Aber das da ist Ordensschrift, voller Schnörkel. Die liest hier nicht mal jeder Paladin.', 'thinking');
+    await lia(w, 'Mutter hat genau so geschrieben. Ein Schnörkel an jedem großen Buchstaben. Ich dachte immer, das macht man so.');
+  } else {
+    await mentor(w, 'Du … liest das? Einfach so, im Vorbeigehen?', 'thinking');
+    await lia(w, 'Jedes Wort. Mutter hat es uns beigebracht, abends am Küchentisch. Kyra hat sich mit Händen und Füßen gewehrt. Ich nicht.');
+    await mentor(w, 'Sechzehn Jahre bin ich an Höfen vorbeigekommen, auf denen keiner seinen eigenen Namen lesen konnte.', 'thinking');
+  }
   await lia(w, 'Mutter war von hier. Aus Trapas. Sie ist für Vater aufs Land gezogen und hat ihre Bücher mitgenommen.', 'sad');
   await mentor(w, 'Dann bist du hier halb zu Hause. Und ich lerne dich offenbar gerade erst kennen.', 'happy');
   G.state.addLore('e3-lore-lichterorden');

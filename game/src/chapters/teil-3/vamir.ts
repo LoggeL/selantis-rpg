@@ -10,7 +10,7 @@
 //     violet shield, teleports, the Urmacht's finisher. Defeat offers „Erneut versuchen“ in the battle; giving up
 //     restarts this part. On the win: e3-vamir-besiegt → e3-ignatius-abschied.
 // Violence (umsetzung.md, Vorrang): the blow is cold violet light and lands hard – a red hit flash, shake, droplets,
-// and a dark stain spreading under Ignatius as he sinks into the leaves (blood.ts). He dies calmly later, without blood.
+// and a dark stain spreading under Ignatius as he sinks into the leaves (common/blood.ts). He dies calmly later, without blood.
 import { G } from '../../core/G';
 import type { TacticsStartData } from '../../tactics/api';
 import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
@@ -20,7 +20,7 @@ import { duelBattle } from './vamir-duell-battle';
 import { poisonedGait } from './vamir-schwaeche';
 import { OPENING_THOUGHTS, TABLEAU, TRAIL, VOICES, nextFind, pickUpSchattentoeter, trailFlag, trailFound, type TrailId } from './vamir-spur';
 import { HIDE_ZONE, WALDPFAD_BLOCKS, WALDPFAD_HIDE, WALDPFAD_OCCLUDERS, WALDPFAD_SPOT, WALDPFAD_SURFACES, WALDPFAD_WALK } from './waldpfad';
-import { bloodHit, bloodPool } from './blood';
+import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { VIOLET, bg, e3Scene, lia, liaLook, nextScene, sfx, ui, until } from './shared';
 
 /** Scene flags: the voices were heard, the tableau ran (checkpoint for the duel part), the contract flag. */
@@ -116,11 +116,12 @@ async function violetBlow(w: WorldCtx, ig: ActorHandle): Promise<void> {
   w.lighting.flash(VIOLET, 220);
   w.fx.burst([ig.x, ig.y - 20], 'smoke', 10);
   await w.wait(120);
-  bloodHit(w, [ig.x, ig.y - 26], { strength: 1, floorY: ig.y + 2 });
+  bloodHit(w, [ig.x, ig.y - 26], 1);
+  sfx('hit-heavy', { volume: 0.85 });
   await ig.play('hurt' as never, { ms: 700 });
   ig.setIdle('lie');
   sfx('fall', { volume: 0.5 });
-  bloodPool(w, [ig.x - 4, ig.y - 2], { scale: 1.2, ms: 2600 });
+  bloodPool(w, [ig.x - 4, ig.y - 2], { id: 'e3-va-blut', scale: 0.6, ms: 2600 });
   bg(glow.fadeTo(0, 1600).then(() => glow.remove()));
 }
 
@@ -171,6 +172,7 @@ async function confront(w: WorldCtx): Promise<void> {
 }
 
 async function spurScript(w: WorldCtx): Promise<void> {
+  preloadBlood(w);
   for (const id of TRAIL.map(t => t.id)) G.state.set(trailFlag(id), false);
   G.state.set(F.heard, false);
   G.state.set(F.confronted, false);

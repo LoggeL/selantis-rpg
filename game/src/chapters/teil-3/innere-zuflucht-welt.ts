@@ -154,7 +154,7 @@ export const CAMP_CUT: { speech: CampLine[]; atPost: CampLine[]; parting: CampLi
     { who: 'e2-baris', text: 'Erst läufst du uns davon, dann schleichst du uns einen halben Tag hinterher. Entscheid dich mal, Spitzohr.' },
     { who: 'e2-flick', text: 'Hab ich. Ich steh auf der Seite, wo du nicht stehst. Ist meistens die mit dem besseren Geruch.', mood: 'smirk' },
     { who: 'e2-baris', text: 'Meister. Ein Hieb, und sie ist still.' },
-    { who: 'e2-vamir', text: 'Wozu? Tote schauen nicht zu. Sie soll sehen, wie wir ihre Freundin fortbringen.' },
+    { who: 'e2-vamir', text: 'Wozu? Tote schauen nicht zu. Lass sie am Pfosten stehen und zählen, wie weit der Wagen schon ist.' },
     { who: 'e2-vamir', text: 'Danach gehört sie dem Wald. Man sagt, die Wölfe hier sind dieses Jahr früh hungrig.' },
     { who: 'e2-baris', text: 'Wie Ihr wollt.' },
   ],

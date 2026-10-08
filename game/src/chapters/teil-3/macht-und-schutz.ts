@@ -388,8 +388,8 @@ async function bondsOff(w: WorldCtx): Promise<void> {
     await lia(w, 'Wo ist Ignatius? Der alte Mann, mit dem ich gekommen bin.');
     await paladin(w, 'Darüber soll ich eigentlich nicht reden.');
     await w.choose([...IGNATIUS_ASKS]);
-    await paladin(w, '… Er hat ein Zimmer hier auf dem Gang. Gleich neben deinem.');
-    await paladin(w, 'Der Großmeister will euch getrennt halten. Damit ihr euch keine gemeinsame Geschichte zurechtlegt.');
+    await paladin(w, '… Eine Tür weiter. Die mit dem Riegel außen, so wie deine.');
+    await paladin(w, 'Befehl von oben: Ihr redet erst miteinander, wenn jeder für sich ausgesagt hat. Wegen der Geschichten, verstehst du.');
     await w.think('Gleich nebenan. Und trotzdem weiter weg als Portas.');
     await guard.walkTo(GZ_SPOT.door[0], GZ_SPOT.door[1]);
     sfx('door', { volume: 0.4 });

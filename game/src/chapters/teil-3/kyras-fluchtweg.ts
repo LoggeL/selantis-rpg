@@ -173,7 +173,7 @@ async function kyraAppears(w: WorldCtx): Promise<ActorHandle> {
     await kyraSays(w, 'Erzähl ich dir draußen.');
     sfx('rustle', { volume: 0.6 });
     w.fx.burst([104, 168], 'dust', 6);
-    await kyraSays(w, 'Hier. Was Dunkles. Dein Zeug leuchtet im Mondlicht wie ein Laken auf der Leine. Zieh das drüber, schnell.');
+    await kyraSays(w, 'Hier, Stiefel und Umhang. Zieh die Kapuze tief, dein rotes Haar sieht man im Mondlicht drei Gassen weit. Schnell.');
   });
   G.state.set(F.clothes);
   return k;
@@ -182,9 +182,9 @@ async function kyraAppears(w: WorldCtx): Promise<ActorHandle> {
 let talkTurn = 0;
 async function talkKyra(w: WorldCtx): Promise<void> {
   const lines: [string, string][] = [
-    ['Woher wusstest du, welches Zimmer meins ist?', 'Ich hatte Zeit, mich umzusehen. Zieh dich um.'],
+    ['Woher wusstest du, welches Zimmer meins ist?', 'Ich hatte Zeit, mich umzusehen. Zieh dich an.'],
     ['Wo warst du die ganze Zeit? Was haben sie mit dir gemacht?', 'Draußen. Alles draußen. Hier haben die Wände Ohren.'],
-    ['Du bist so ernst. Früher hättest du jetzt einen Witz über mein Haar gemacht.', 'Dein Haar ist auch ohne Witz schlimm genug. Zieh dich um.'],
+    ['Du bist so ernst. Früher hättest du jetzt einen Witz über mein Haar gemacht.', 'Dein Haar ist auch ohne Witz schlimm genug. Zieh dich an.'],
   ];
   const [q, a] = lines[talkTurn++ % lines.length];
   await lia(w, q);
@@ -217,7 +217,7 @@ async function changeClothes(w: WorldCtx): Promise<void> {
     await w.camera.pan([w.player.x, w.player.y], 600);
     w.camera.follow();
     w.player.face('right');
-    await lia(w, 'So. Jetzt sehe ich aus wie ein Schatten mit Sommersprossen.');
+    await lia(w, 'So. Kapuze auf. Jetzt bin ich nur noch ein Umhang mit Sommersprossen.');
     await kyraSays(w, 'Gut genug. Gehen wir.');
   });
   G.state.set(F.changed);

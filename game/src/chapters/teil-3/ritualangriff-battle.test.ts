@@ -277,6 +277,22 @@ describe('e3-ritualangriff (ritual on the hill)', () => {
     expect(def.objective.lose!.some(c => c.type === 'unitDown' && c.units.includes('kyra'))).toBe(false);
   });
 
+  it('lets the freed Kyra get up again too, still on Lia’s side and still without attacks', async () => {
+    const { def, ctx, ctrl } = controller();
+    const baris = ctrl.battle.unit('baris');
+    ctrl.battle.knockOut(baris);
+    await def.hooks!.onUnitDown!(ctx, baris, 'wounded');
+    const kyra = ctrl.battle.unit('kyra');
+    expect(kyra.team).toBe('ally');
+    ctrl.battle.knockOut(kyra);
+    await def.hooks!.onUnitDown!(ctx, kyra, 'wounded');
+    const again = ctrl.battle.unit('kyra');
+    expect(again.down).toBe(false);
+    expect(again.team).toBe('ally');
+    expect(again.hp).toBeGreaterThan(0);
+    expect(ctrl.unitDefs.get('kyra')!.attack).toBe(false);
+  });
+
   it('wins only when Baris is down and Lia is free; Flick’s fall loses', async () => {
     const { def, ctx, ctrl } = controller();
     const win = trigger(def, 'e3-ritual-sieg');

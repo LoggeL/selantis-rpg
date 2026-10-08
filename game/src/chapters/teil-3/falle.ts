@@ -18,7 +18,7 @@ import {
   type FindId, findCount, KYRA_DEFLECT, KYRA_URGE, lastWords,
 } from './falle-lager';
 import { STAGGER_BARKS, STAGGER_EVERY_MS } from './vertraute-schwester-abend';
-import { bloodHit } from './blood';
+import { bloodHit, preloadBlood } from '../common/blood';
 import { bg, e3Scene, lia, liaGait, liaLook, nextScene, poisoned, sfx, ui, until, VIOLET } from './shared';
 
 registerClues([
@@ -237,7 +237,8 @@ async function springTrap(w: WorldCtx, k: ActorHandle): Promise<void> {
     await w.wait(900);
     w.player.face('left');
     // They seize her hard: a blow, not gore (umsetzung.md, Vorrang) – flash, shake, a few drops from a split lip.
-    bloodHit(w, [w.player.x, w.player.y - 30], { strength: 0.6, drops: 3, floorY: w.player.y + 2 });
+    bloodHit(w, [w.player.x, w.player.y - 30], 0.4);
+    sfx('hit-heavy', { volume: 0.7 });
     sfx('thud', { volume: 0.5 });
     await w.player.play('hurt' as never, { ms: 900 });
     await w.think('Ich will mich losreißen, aber meine Arme gehorchen nicht. Als wären sie aus nassem Brot.');
@@ -285,6 +286,7 @@ async function springTrap(w: WorldCtx, k: ActorHandle): Promise<void> {
 }
 
 async function script(w: WorldCtx): Promise<void> {
+  preloadBlood(w);
   G.state.set(F.trap, false);
   for (const id of Object.keys(FINDS) as FindId[]) G.state.set(F.seen(id), false);
   G.state.set(FALLE_FINDS, 0);

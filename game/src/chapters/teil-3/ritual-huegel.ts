@@ -212,7 +212,7 @@ export const ON_THE_STONE: { wake: RitualLine[]; baris: RitualLine[]; kyra: Ritu
   kyra: [
     { who: 'lia', text: 'Kyra! Kyra, ich bin’s. Sieh mich an. Bitte.', mood: 'scared' },
     { who: 'think', text: 'Sie steht da und schaut auf einen Punkt über meinem Kopf. Als wäre da etwas Interessanteres als ich.' },
-    { who: 'e2-vamir', text: 'Spar dir die Mühe. Sie hört dich, aber sie antwortet nur mir.' },
+    { who: 'e2-vamir', text: 'Ruf, so laut du willst. Bei ihr kommt nur noch eine Stimme an, und das ist meine.' },
     { who: 'lia', text: 'Das ist meine Schwester. Nicht dein Hund.', mood: 'angry' },
     { who: 'e2-baris', text: 'Halt den Mund, oder ich stopf ihn dir.', mood: 'angry' },
   ],
@@ -241,7 +241,7 @@ export const APPROACH: { arrive: RitualLine[]; allShown: RitualLine[]; arrow: Ri
   ],
   allShown: [
     { who: 'e2-ignatius', text: 'Drei Wachen außen, dazu Baris, seine Leute am Stein und Kyra. Und er selbst.', mood: 'grim' },
-    { who: 'e3-paladin', text: 'Wir sind zu viert. Wenn wir hinaufgehen, dann alle zugleich und von einer Seite.' },
+    { who: 'e3-paladin', text: 'Wir sind nur die Vorhut, zu viert. Der Rest ist eine Stunde hinter uns. Also alle zugleich, von einer Seite.' },
     { who: 'e2-flick', text: 'Dann sucht euch keinen schönen Weg aus. Sucht einen kurzen.', mood: 'determined' },
   ],
   arrow: [

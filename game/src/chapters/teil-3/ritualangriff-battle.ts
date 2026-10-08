@@ -195,8 +195,10 @@ export const RITUAL_MAP: BattleDef['map'] = {
   ],
   props: [
     ...STANDS.map((p, i) => ({ x: p.x, y: p.y, prop: 'stake', variant: i % 2 })),
-    { x: 3, y: 2, prop: 'torch' },
-    { x: 9, y: 8, prop: 'torch' },
+    // Fire bowls on the two rock tiles (decorative, the rock still blocks). The world 'torch' prop is too narrow for
+    // tactics/view/props.sharedProp (< 20 px) and would show as a grey placeholder block.
+    { x: 3, y: 2, prop: 'campfire' },
+    { x: 9, y: 8, prop: 'campfire' },
     { x: 10, y: 2, prop: 'banner-dark' },
   ],
 };
@@ -585,7 +587,13 @@ async function onDown(ctx: BattleCtx, unit: Unit): Promise<void> {
     await respawn(ctx, kyraUnit(false, unit, KYRA_RECOVER), { keepPools: false });
     return;
   }
-  if (unit.id === 'kyra') { ctx.bark('kyra', 'Ich … brauch nur einen Moment.', 1800); return; }
+  if (unit.id === 'kyra') {
+    // Freed Kyra cannot be knocked out either (umsetzung.md §3): she sinks down and gets up again, still exhausted.
+    ctx.bark('kyra', 'Ich … brauch nur einen Moment.', 1800);
+    await ctx.wait(500);
+    await respawn(ctx, kyraUnit(true, unit, KYRA_RECOVER), { keepPools: false });
+    return;
+  }
   if (unit.id === 'flick') { ctx.bark('lia', 'Flick!', 1400); return; }
   if (unit.id.startsWith('paladin')) {
     battleBlood(unit.id, { pool: true, strength: 0.7 });

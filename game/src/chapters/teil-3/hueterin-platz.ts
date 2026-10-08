@@ -131,11 +131,11 @@ export const ANSWER: Record<AnswerTone, readonly Line[]> = {
   ],
   ehrlich: [
     { who: 'lia', text: 'Ich weiß nicht, ob ich das kann. Diesen Sommer hab ich noch Schweine gefüttert. Aber ich versuche es. Mit den beiden da.', mood: 'worried' },
-    { who: 'gm', text: 'Wer weiß, dass er es nicht kann, ist meistens der Richtige.', mood: 'neutral' },
+    { who: 'gm', text: 'Dann sind wir schon zwei. Ich lerne mein Amt auch gerade noch einmal neu.', mood: 'neutral' },
   ],
   trocken: [
     { who: 'lia', text: 'Wenn das heißt, dass Ihr niemanden mehr für Euren Glauben einsperrt, nehme ich es gern.', mood: 'smirk' },
-    { who: 'gm', text: 'Das heißt es. Und ich habe es verdient, dass Ihr es vor allen sagt.', mood: 'ashamed' },
+    { who: 'gm', text: 'Das heißt es. Und ich habe es verdient, dass du es vor allen sagst.', mood: 'ashamed' },
   ],
 };
 

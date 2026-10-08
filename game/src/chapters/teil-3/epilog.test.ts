@@ -3,7 +3,7 @@ import { G } from '../../core/G';
 import { pointInPoly } from '../../world/poly';
 import { BOOK3_CREDITS } from './epilog-credits';
 import {
-  ELNON, ELNON_ANSWERS, ELNON_CHOICES, ELNON_END, END_ZONE, ENDING, FELDWEG_SPOT, FELDWEG_WALK, FINISHED_LINE, OPENING, SCHUTZ, SOMMER,
+  ELNON, ELNON_ANSWERS, ELNON_CHOICES, ELNON_END, elnonAnswer, END_ZONE, ENDING, FELDWEG_SPOT, FELDWEG_WALK, FINISHED_LINE, OPENING, SCHUTZ, SOMMER,
   SOMMER_ANSWERS, SOMMER_CHOICES, SOMMER_END, TALK_ORDER, TALK_ZONES, TRACK, TREE, TREE_BLOCK, nextTalk, talkFlag, talksDone, type Line,
 } from './epilog-weg';
 import { hasOwnStaff, poisoned, prepareE3 } from './shared';
@@ -57,6 +57,21 @@ describe('the talks', () => {
     expect(ELNON.some(l => l.who === 'kyra' && /tot/.test(l.text))).toBe(true);
     expect(ELNON.some(l => l.who === 'kyra' && /gelogen/.test(l.text))).toBe(true);
     for (const a of ELNON_ANSWERS) expect(a.some(l => l.who === 'lia' && /nicht dein Wille/.test(l.text))).toBe(true);
+  });
+
+  it('only recalls the push at the stone when Lia tried to hug Kyra there', () => {
+    const pushed = (stone: number | undefined) => elnonAnswer(1, stone).some(l => /weggeschoben/.test(l.text));
+    expect(pushed(2)).toBe(true);
+    for (const stone of [0, 1, undefined]) expect(pushed(stone)).toBe(false);
+    expect(elnonAnswer(0, 0)).toBe(ELNON_ANSWERS[0]);
+    for (const l of elnonAnswer(1, 0)) expect(l.text.length).toBeLessThanOrEqual(140);
+  });
+
+  it('names the Bruderschaft figures and gives Kyra a source for the south', () => {
+    const end = ELNON_END.map(l => l.text).join(' ');
+    expect(end).toMatch(/Foltan/);
+    expect(end).toMatch(/Azar/);
+    expect(end).toMatch(/Baris hat in der Halle/);
   });
 
   it('says the parents would be proud in every answer of the first talk', () => {
