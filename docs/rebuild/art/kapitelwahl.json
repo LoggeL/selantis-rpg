@@ -62,6 +62,18 @@
       "attempts": 1,
       "time": "2026-10-08T13:01:41"
     },
+    "output/imagegen/raw/art/cut/chap-prolog-v2.png": {
+      "kind": "plate",
+      "id": "chap-prolog",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a solemn stone council hall interior with ten empty high-backed wooden chairs arranged in a half circle and plain coloured city banners (no symbols with letters) hanging on the walls; at the back a massive sealed stone door with a faint turquoise glow seeping through its cracks, the only turquoise in the image. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: Count carefully: EXACTLY TEN (10) empty high-backed chairs in one half circle, five on each side of the centre line; the sealed stone door is centred behind them.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 72,
+      "attempts": 1,
+      "time": "2026-10-08T13:14:05"
+    },
     "output/imagegen/raw/art/cut/chap-prolog.png": {
       "kind": "plate",
       "id": "chap-prolog",
@@ -73,6 +85,174 @@
       "seconds": 49,
       "attempts": 1,
       "time": "2026-10-08T12:56:13"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-1.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-1",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a forest brook crossing with flat stepping stones, the bark of a nearby tree marked with small carved notches, a thin line of camp smoke rising above the treetops in the distance. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 62,
+      "attempts": 1,
+      "time": "2026-10-08T13:02:49"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-2-v2.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-2",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a closed wooden palisade gate at dawn, torches beside it still burning, low fog on the ground, quiet and tense atmosphere, nobody there. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: The background must be only dense forest and fog: NO town, NO village, NO church, NO bridge, NO houses anywhere in the image.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 64,
+      "attempts": 1,
+      "time": "2026-10-08T13:15:11"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-2.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-2",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a closed wooden palisade gate at dawn, torches beside it still burning, low fog on the ground, quiet and tense atmosphere, nobody there. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-08T13:03:45"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-3-v2.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-3",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a hermit's clearing in the woods: a small lean-to shelter under an old beech tree, a stone fire pit, a stacked woodpile, strips of birch bark with simple charcoal drawings of plants and trees pinned to the shelter. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: The clearing is enclosed by dense forest on all sides; the background is only trees: NO castle, NO tower, NO town, NO buildings anywhere except the small shelter.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 53,
+      "attempts": 1,
+      "time": "2026-10-08T13:16:06"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-3.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-3",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a hermit's clearing in the woods: a small lean-to shelter under an old beech tree, a stone fire pit, a stacked woodpile, strips of birch bark with simple charcoal drawings of plants and trees pinned to the shelter. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-08T13:04:42"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-4-v2.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-4",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a still life close view: a long, plain, natural pale grey-brown wooden staff with a gnarled knot at the top and a worn leather grip, leaning against a tree stump on a forest floor in warm autumn light; the staff does not glow. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: Close still life inside the forest, background only autumn trees and soft bokeh foliage: NO castle, NO towers, NO buildings, NO lake view. The top of the staff is a natural gnarled wooden knot, not a carved spiral.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-08T13:16:58"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-2-4.png": {
+      "kind": "plate",
+      "id": "chap-teil-2-4",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a still life close view: a long, plain, natural pale grey-brown wooden staff with a gnarled knot at the top and a worn leather grip, leaning against a tree stump on a forest floor in warm autumn light; the staff does not glow. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 48,
+      "attempts": 1,
+      "time": "2026-10-08T13:05:32"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-1-v2.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-1",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a peaceful glade under a huge weeping willow whose long hanging branches form a green curtain, soft green light, a few tiny turquoise light motes floating gently in the air (the only turquoise in the image). Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: View from inside the willow: the long hanging branches form a clear green curtain around the glade; around fifteen small softly glowing turquoise light motes float clearly visible in the air in the middle of the image. No bridge, no stone ruins.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-08T13:18:00"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-1.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-1",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a peaceful glade under a huge weeping willow whose long hanging branches form a green curtain, soft green light, a few tiny turquoise light motes floating gently in the air (the only turquoise in the image). Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 51,
+      "attempts": 1,
+      "time": "2026-10-08T13:06:25"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-2.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-2",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a large walled fortress city on a hill seen from a country road, stone walls and towers, blue-and-white banners showing a simple white bird shape (no letters), golden autumn fields in the foreground. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 89,
+      "attempts": 1,
+      "time": "2026-10-08T13:07:56"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-3.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-3",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a vaulted underground stone tunnel flooded knee-deep with dark still water, one small lantern standing on a stone ledge, its warm light reflecting on the water. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-08T13:08:48"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-4.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-4",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a small sunny summer meadow island with a single oak tree and blue cornflowers, floating among drifting violet-grey clouds and mist, dreamlike and gentle. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 87,
+      "attempts": 1,
+      "time": "2026-10-08T13:10:16"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-5.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-5",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: a bare grassy hilltop at dusk with one long rough flat stone slab in the middle and ten EMPTY simple wooden stands arranged in a ring around it, dark forest below the hill. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-08T13:11:07"
+    },
+    "output/imagegen/raw/art/cut/chap-teil-3-6.png": {
+      "kind": "plate",
+      "id": "chap-teil-3-6",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: an open autumn field path at morning leading toward distant rolling hills, a lone tree beside the path, haystacks in the fields, soft hazy light; no castle, no city, no village. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle. No castle, no town, no village, no church, no buildings in the background unless explicitly described above.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/selantis-map-hof.png"
+      ],
+      "ok": true,
+      "seconds": 73,
+      "attempts": 1,
+      "time": "2026-10-08T13:12:22"
     }
   }
 }
