@@ -71,7 +71,8 @@ export interface PickResult {
 
 /** Resolves a backdrop id to a URL: plate, background, minigame image, else the plate convention path. */
 export function pickBackdropUrl(id: string, art = manifest()): string {
-  const file = art.plates[id]?.file ?? art.backgrounds[id]?.file ?? art.images[id]?.file ?? `assets/cut/${id}.jpg`;
+  const file = art.plates[id]?.file ?? art.backgrounds[id]?.file ?? art.images[id]?.file
+    ?? (id.startsWith('minigames/') ? `assets/${id}.jpg` : `assets/cut/${id}.jpg`);
   return assetUrl(file);
 }
 

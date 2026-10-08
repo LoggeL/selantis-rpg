@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { playSceneAction } from './sceneActions';
+import { playSceneAction, playScenePick } from './sceneActions';
 import { disableReloads } from './noReloads';
 
 /**
@@ -61,6 +61,17 @@ async function advance(page: Page, done: () => Promise<boolean>, choose?: Choose
     else await page.waitForTimeout(150);
   }
   throw new Error('advance: timeout');
+}
+
+/** „Feuer nach Büchern“: picks the preferred ideas in each step (wrong cards get struck, so it always ends). */
+async function buildFire(page: Page, prefer: string[]): Promise<void> {
+  const t0 = Date.now();
+  while (await page.evaluate(() => (window as any).G.state.flag('k2-feuer-fehler') === undefined)) {
+    if (Date.now() - t0 > 90000) throw new Error('buildFire: timeout');
+    if (await playScenePick(page, prefer)) continue;
+    if (await busy(page)) await page.keyboard.press('Enter');
+    await page.waitForTimeout(150);
+  }
 }
 
 /** True once the objective is `id` and no UI has been open for a moment (scripts often chain lines). */
@@ -178,7 +189,7 @@ test('strasse: tracks, signpost, deduction east, jugglers, on to the camp', asyn
   expect(errors).toEqual([]);
 });
 
-test('erstes-lager: stones, twigs, fire drilling (secret spark), eat, sleep', async ({ page }) => {
+test('erstes-lager: stones, twigs, building the fire (secret spark), eat, sleep', async ({ page }) => {
   test.setTimeout(240000);
   const errors = errorsOf(page);
   await warp(page, 'erstes-lager');
@@ -193,16 +204,8 @@ test('erstes-lager: stones, twigs, fire drilling (secret spark), eat, sleep', as
   await advance(page, objectiveIs(page, 'k2-lager-feuer'));
   expect(await page.evaluate(() => (window as any).G.state.has('tinder'))).toBe(false);
   await clickWorld(page, 300, 190);
-  // No tinder: three failed attempts (pressing outside the bright zone) – then the turquoise spark lights it anyway.
-  for (let attempt = 0; attempt < 3; attempt++) {
-    await advance(page, async () => page.evaluate(() => Boolean((window as any).__k2fire)), undefined, 20000);
-    for (let slip = 0; slip < 3; slip++) {
-      await page.waitForFunction(() => { const f = (window as any).__k2fire; return f && !f.inZone() && Math.abs(f.state.pos - f.state.zoneAt) > 0.2; }, undefined, { timeout: 5000 });
-      await page.keyboard.press(' ');
-      await page.waitForTimeout(220);
-    }
-    await page.waitForFunction(() => !(window as any).__k2fire, undefined, { timeout: 5000 });
-  }
+  // No tinder and adventure-novel ideas first: the build fails three times – then the turquoise spark lights it anyway.
+  await buildFire(page, ['aeste', 'moos', 'stapel', 'floss', 'westen', 'rundum', 'schnell', 'zauberwort']);
   await advance(page, objectiveIs(page, 'k2-lager-essen'));
   expect(await page.evaluate(() => (window as any).G.state.is('k2-funke'))).toBe(true);
   expect(await page.evaluate(() => (window as any).G.state.is('k2-feuer'))).toBe(true);
@@ -219,7 +222,7 @@ test('erstes-lager: stones, twigs, fire drilling (secret spark), eat, sleep', as
   expect(errors).toEqual([]);
 });
 
-test('erstes-lager: with tinder the fire can be drilled for real', async ({ page }) => {
+test('erstes-lager: with tinder and the right ideas the fire catches for real', async ({ page }) => {
   test.setTimeout(180000);
   await warp(page, 'erstes-lager');
   await advance(page, objectiveIs(page, 'k2-lager-sammeln'));
@@ -227,16 +230,11 @@ test('erstes-lager: with tinder the fire can be drilled for real', async ({ page
   await clickWorld(page, 300, 190);
   await advance(page, objectiveIs(page, 'k2-lager-feuer'));
   await clickWorld(page, 300, 190);
-  await advance(page, async () => page.evaluate(() => Boolean((window as any).__k2fire)), undefined, 20000);
-  for (let i = 0; i < 40; i++) {
-    const live = await page.evaluate(() => Boolean((window as any).__k2fire));
-    if (!live) break;
-    await page.waitForFunction(() => { const f = (window as any).__k2fire; return !f || Math.abs(f.state.pos - f.state.zoneAt) < 0.035; }, undefined, { timeout: 8000, polling: 'raf' });
-    await page.keyboard.press(' ');
-    await page.waitForTimeout(160);
-  }
+  await buildFire(page, ['zunder', 'zelt', 'osten', 'gleichmaessig']);
   await advance(page, objectiveIs(page, 'k2-lager-essen'));
   expect(await page.evaluate(() => (window as any).G.state.is('k2-feuer'))).toBe(true);
+  expect(await page.evaluate(() => (window as any).G.state.is('k2-funke'))).toBe(false);
+  expect(await page.evaluate(() => (window as any).G.state.flag('k2-feuer-fehler'))).toBe(0);
 });
 
 test('foltan-azar: woken, caught sneaking off, interrogation, Crios, Kyra in the stable', async ({ page }) => {

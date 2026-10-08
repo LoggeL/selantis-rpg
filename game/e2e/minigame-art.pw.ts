@@ -20,17 +20,17 @@ test('all previews load their distinct artwork and the selector keeps every game
     if (r.url().endsWith('/assets/bg/minigame-forge.png') && r.ok()) forgeLoaded = true;
   });
   await open(page, 'cover');
-  for (const kind of ['cover', 'duck', 'listen', 'reach', 'lift', 'open-eyes', 'tend', 'bellows', 'stake', 'fire']) {
+  for (const kind of ['cover', 'duck', 'listen', 'reach', 'lift', 'open-eyes', 'tend', 'bellows', 'stake']) {
     if (kind !== 'cover') await page.getByRole('combobox', { name: 'Minispiel wählen' }).selectOption(kind);
     await expect(page.getByRole('combobox', { name: 'Minispiel wählen' })).toHaveValue(kind);
     if (['cover', 'duck', 'listen'].includes(kind)) {
       await expect(page.locator('.action-stage')).toHaveAttribute('data-assets', 'ready');
       await expect(page.locator('.action-stage')).toHaveAttribute('data-character', kind === 'listen' ? 'lia-cloak' : 'lia');
       await expect(page.locator('.stealth-canvas')).toBeVisible();
-    } else if (kind !== 'fire') {
+    } else {
       await expect(page.locator('.has-mini-art')).toHaveAttribute('data-art', 'ready');
       await expect(page.locator('.mini-illustration')).toBeVisible();
-    } else await expect(page.locator('.k2-feuer')).toBeVisible();
+    }
   }
   expect(errors).toEqual([]);
   expect(forgeLoaded).toBe(true);

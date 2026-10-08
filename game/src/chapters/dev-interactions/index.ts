@@ -1,8 +1,6 @@
 import { G } from '../../core/G';
 import { defineChapter } from '../../core/registry';
 import type { StoryActionKind, StealthKind } from '../../ui/interactionRules';
-import { fireAttempt } from '../kapitel-2/feuer';
-import { fireConfig, newFire, resetAttempt } from '../kapitel-2/feuerLogic';
 import { stakeGame } from '../kapitel-3/panels';
 import { startSong } from '../kapitel-3/song';
 import './style.css';
@@ -10,13 +8,13 @@ import { assetUrl, manifest } from '../../art/manifest';
 
 const story: StoryActionKind[] = ['reach', 'lift', 'open-eyes', 'tend', 'bellows'];
 const stealth: StealthKind[] = ['cover', 'duck', 'listen'];
-const extras = ['fire', 'stake'] as const;
+const extras = ['stake'] as const;
 type PreviewKind = StoryActionKind | StealthKind | typeof extras[number];
 const labels: Record<PreviewKind, string> = {
   reach: 'Die Hand ausstrecken', lift: 'Die Hand heben', 'open-eyes': 'Augen öffnen',
   tend: 'Die Ferse versorgen', bellows: 'Blasebalg treten', cover: 'In der Böschung verstecken',
   duck: 'Unter den Reitern abtauchen', listen: 'Im Schatten lauschen',
-  fire: 'Feuerbohren', stake: 'Der Pflock',
+  stake: 'Der Pflock',
 };
 
 function previewPicker(kind: PreviewKind): void {
@@ -71,13 +69,6 @@ defineChapter({
       if (kind === 'stake') {
         const song = startSong({ volume: 0.6 });
         try { await stakeGame(song); } finally { song.stop(); }
-      } else if (kind === 'fire') {
-        // Fire drilling owns its own input and needs the plate's modal lock released.
-        await G.ui.closePlate();
-        G.game.scene.start('Title', { mode: 'backdrop' });
-        const state = newFire();
-        let result;
-        do { resetAttempt(state); result = await fireAttempt(state, fireConfig(true)); } while (result === 'failed');
       } else if (story.includes(kind as StoryActionKind)) await G.ui.storyAction(kind as StoryActionKind, labels[kind], kind === 'open-eyes' ? { backdrop: 'k2-geweckt' } : {});
       else await G.ui.stealthGame(kind as StealthKind, labels[kind]);
       G.state.set('demo-interaction-done');

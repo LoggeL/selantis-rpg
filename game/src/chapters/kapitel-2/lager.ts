@@ -1,11 +1,11 @@
 // Kapitel II, Szene 2 `erstes-lager`: die Lichtung hundert Schritte abseits der Straße (640×360, assets/bg/k2-lager.png).
-// Herzstück: Steine und Reisig sammeln, Steinkreis legen, Feuerbohren (Timing-Minispiel, ohne Zunder schwerer,
-// beim dritten Fehlversuch springt heimlich ein türkiser Funke über), essen, Mantel ausbreiten, schlafen.
+// Herzstück: Steine und Reisig sammeln, Steinkreis legen, „Feuer nach Büchern“ (feuerAufbau.ts: das Feuer in vier
+// Schritten aufbauen, ohne Zunder schwerer, beim dritten Fehlschlag springt heimlich ein türkiser Funke über), essen,
+// Mantel ausbreiten, schlafen.
 // The same clearing (other map ids, same background) hosts `foltan-azar` (night) and the start of `waldweg` (morning).
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type OccluderDef, type Polygon, type WorldCtx } from '../../world';
-import { fireAttempt } from './feuer';
-import { fireConfig, newFire, resetAttempt } from './feuerLogic';
+import { FIRE_STEPS, fireOutcome, ideasFor, NO_TINDER_LINE } from './feuerAufbau';
 import { bg, gotoNext, sfx, sleep } from './shared';
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -190,31 +190,44 @@ async function drillFire(w: WorldCtx): Promise<void> {
     if (tinder) await w.think('Gut, dass ich Zunder dabeihabe. Damit fängt die Glut viel schneller.');
     else await w.think('Zu Hause hatten wir Zunder. Den hätte ich besser mitgenommen. Dann eben mit trockenem Laub.');
   }
-  const c = fireConfig(tinder);
-  const s = newFire();
   w.lockPlayer();
   G.ui.setHud('cinematic');
   w.player.face('right');
   w.player.setIdle('kneel');
-  let result: string;
+  let result: 'ember' | 'spark';
   try {
-    for (;;) {
-      const r = await fireAttempt(s, c, {
-        onHit: heat => {
-          sfx('drill', { volume: 0.8, pitch: 0.9 + heat / 300 });
-          w.fx.burst([SPOT.ring[0], SPOT.ring[1] - 4], 'smoke', heat > 50 ? 3 : 1);
+    const built = await G.ui.scenePick({
+      label: 'Feuer nach Büchern',
+      help: 'Lia baut ihr erstes Feuer aus dem, was sie gesammelt und gelesen hat. Manches davon stimmt sogar.',
+      backdrop: 'minigames/feuer-scene',
+      layout: 'row',
+      className: 'k2-feuer-bau',
+      rounds: FIRE_STEPS.map(step => ({
+        cue: step.id,
+        prompt: { speaker: 'k2-lia', text: step.prompt },
+        cards: ideasFor(step, tinder).map(({ id, text, disabled, reason }) => ({ id, text, disabled, reason })),
+        judge: (id: string) => {
+          const idea = step.ideas.find(x => x.id === id)!;
+          return { ok: idea.ok, mood: idea.ok ? 'good' : 'shake', reply: { speaker: 'k2-lia', text: idea.line } };
         },
-        onSlip: () => { sfx('thud', { volume: 0.5 }); w.camera.shake(120, 0.002); },
-      });
-      if (r === 'ember' || r === 'spark') { result = r; break; }
-      // A failed attempt: Lia's own grumbling, then the next try.
-      const lines = tinder
-        ? ['Na komm schon …', 'Meine Hände krampfen. Noch einmal.']
-        : ['Na komm schon. Ich hab es doch fast.', 'Ohne Zunder … dummes, dummes Laub.'];
-      w.player.setIdle('idle');
-      await w.think(lines[Math.min(lines.length - 1, s.failed - 1)]);
-      w.player.setIdle('kneel');
-      resetAttempt(s);
+      })),
+      onVerdict: (v, round) => {
+        if (v.ok) {
+          sfx(round === FIRE_STEPS.length - 1 ? 'drill' : 'rustle', { volume: 0.6 });
+          w.fx.burst([SPOT.ring[0], SPOT.ring[1] - 4], 'smoke', 1 + round);
+        } else {
+          sfx('thud', { volume: 0.4 });
+          w.fx.burst([SPOT.ring[0], SPOT.ring[1] - 4], 'smoke', 4);
+        }
+      },
+    });
+    G.state.set('k2-feuer-fehler', built.mistakes);
+    result = fireOutcome(built.mistakes, tinder);
+    if (!tinder) {
+      sfx('drill', { volume: 0.6 });
+      w.fx.burst([SPOT.ring[0], SPOT.ring[1] - 4], 'smoke', 3);
+      await w.think(NO_TINDER_LINE);
+      if (result === 'ember') { sfx('drill', { volume: 0.8, pitch: 1.1 }); await sleep(600); }
     }
   } finally {
     G.ui.setHud('explore');
