@@ -1191,6 +1191,61 @@
       "attempts": 1,
       "time": "2026-10-08T02:42:03"
     },
+    "output/imagegen/raw/art/cut/e3-erinnerung-buch.png": {
+      "kind": "plate",
+      "id": "e3-erinnerung-buch",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Memory scene: a bright summer afternoon behind a small farmstead; under a huge old oak tree at the edge of a golden wheat field sits Lia at about FOURTEEN (younger and smaller than on the first sheet, rounder childlike face, strawberry-blonde curls pinned up loosely, white blouse, brown skirt, barefoot, wooden clogs beside her), completely absorbed in an old storybook with a worn blue cover and a small golden star on it; beside her on a cloth lies a slice of honey cake on a plate. Bees, dappled sunlight, the farmhouse roof in the background. The translucent white ghost of present-day Lia stands at the RIGHT edge of the image. A warm, golden MEMORY painting: soft hazy light, gently glowing warm colours, the edges of the image dissolve into soft white-golden MIST like a dream. At one edge of the image stands a quiet observer: the present-day Lia as a half-TRANSLUCENT, softly white-glowing ghostlike figure (sheet 'e3-lia-innen': slender 16-year-old girl, long loose strawberry-blonde curls, simple white lace dress, barefoot), see-through, watching the remembered scene with a tender, wistful look; she does not touch anything and nobody in the memory sees her.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png",
+        "docs/rebuild/art/refs/e3-lia-innen.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T01:34:16"
+    },
+    "output/imagegen/raw/art/cut/e3-erinnerung-holz.png": {
+      "kind": "plate",
+      "id": "e3-erinnerung-holz",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Memory scene: a warm evening at the small farmstead, orange sunset light on the yard, the half-timbered farmhouse and a woodpile. Kyra (first sheet, about fourteen, nut-brown loose hair, beige dress, sleeves pushed up) LAUGHS out loud, carrying a huge stack of split firewood in her arms, and with one hand pushes a few logs under the arm of her twin sister Lia (second sheet, about fourteen, strawberry-blonde curls pinned up, white blouse, brown skirt), who walks along still reading a book held in her other hand, surprised. Playful, loving sisters. The translucent white ghost of present-day Lia stands at the LEFT edge of the image. A warm, golden MEMORY painting: soft hazy light, gently glowing warm colours, the edges of the image dissolve into soft white-golden MIST like a dream. At one edge of the image stands a quiet observer: the present-day Lia as a half-TRANSLUCENT, softly white-glowing ghostlike figure (sheet 'e3-lia-innen': slender 16-year-old girl, long loose strawberry-blonde curls, simple white lace dress, barefoot), see-through, watching the remembered scene with a tender, wistful look; she does not touch anything and nobody in the memory sees her.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/lia.png",
+        "docs/rebuild/art/refs/e3-lia-innen.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T01:35:17"
+    },
+    "output/imagegen/raw/art/cut/e3-erinnerung-mutter-v2.png": {
+      "kind": "plate",
+      "id": "e3-erinnerung-mutter",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Memory scene: a cosy winter evening inside a farmhouse kitchen, candlelight and the glow of the hearth fire, frost on the small window, dried herbs hanging from the beams. The mother (first sheet: long reddish-copper curls, green eyes, brown dress, cream apron) KNEELS beside the wooden table next to little Lia aged about SEVEN (a small child with strawberry-blonde curls, a simple white shift) who sits on a stool; an open old book lies on the table, and the mother's finger points at one large, decorated initial capital letter on the page while the child follows it with her own small finger, eyes wide; a red apple lies beside the book. The capital letter is drawn as an ornate decorative shape, no other readable text. Tender and warm. The translucent white ghost of present-day Lia stands at the RIGHT edge of the image. A warm, golden MEMORY painting: soft hazy light, gently glowing warm colours, the edges of the image dissolve into soft white-golden MIST like a dream. At one edge of the image stands a quiet observer: the present-day Lia as a half-TRANSLUCENT, softly white-glowing ghostlike figure (sheet 'e3-lia-innen': slender 16-year-old girl, long loose strawberry-blonde curls, simple white lace dress, barefoot), see-through, watching the remembered scene with a tender, wistful look; she does not touch anything and nobody in the memory sees her.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: EXCEPTION to the no-letters rule: the one big decorated initial on the open page is clearly the single capital letter A (an illuminated letter A with leaf ornaments), the mother's fingertip rests on it. No other letters or words anywhere. The mother kneels on the floor beside the child's stool, so her face is at the child's height.",
+      "refs": [
+        "docs/rebuild/art/refs/mother.png",
+        "docs/rebuild/art/refs/lia.png",
+        "docs/rebuild/art/refs/e3-lia-innen.png"
+      ],
+      "ok": true,
+      "seconds": 119,
+      "attempts": 1,
+      "time": "2026-10-09T01:39:20"
+    },
+    "output/imagegen/raw/art/cut/e3-erinnerung-mutter.png": {
+      "kind": "plate",
+      "id": "e3-erinnerung-mutter",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Memory scene: a cosy winter evening inside a farmhouse kitchen, candlelight and the glow of the hearth fire, frost on the small window, dried herbs hanging from the beams. The mother (first sheet: long reddish-copper curls, green eyes, brown dress, cream apron) KNEELS beside the wooden table next to little Lia aged about SEVEN (a small child with strawberry-blonde curls, a simple white shift) who sits on a stool; an open old book lies on the table, and the mother's finger points at one large, decorated initial capital letter on the page while the child follows it with her own small finger, eyes wide; a red apple lies beside the book. The capital letter is drawn as an ornate decorative shape, no other readable text. Tender and warm. The translucent white ghost of present-day Lia stands at the RIGHT edge of the image. A warm, golden MEMORY painting: soft hazy light, gently glowing warm colours, the edges of the image dissolve into soft white-golden MIST like a dream. At one edge of the image stands a quiet observer: the present-day Lia as a half-TRANSLUCENT, softly white-glowing ghostlike figure (sheet 'e3-lia-innen': slender 16-year-old girl, long loose strawberry-blonde curls, simple white lace dress, barefoot), see-through, watching the remembered scene with a tender, wistful look; she does not touch anything and nobody in the memory sees her.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/mother.png",
+        "docs/rebuild/art/refs/lia.png",
+        "docs/rebuild/art/refs/e3-lia-innen.png"
+      ],
+      "ok": true,
+      "seconds": 108,
+      "attempts": 1,
+      "time": "2026-10-09T01:37:07"
+    },
     "output/imagegen/raw/art/cut/e3-erscheinung.png": {
       "kind": "plate",
       "id": "e3-erscheinung",

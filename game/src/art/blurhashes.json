@@ -479,6 +479,24 @@
   "hash": "LUFrhdgiM{xtyGnlnMozx_W=Rixa",
   "sourceHash": "27de3af5ebf7e90c4963d7ff43fa9912aeb3906297fc20f389c1cf395b2f9d99"
  },
+ "assets/cut/e3-erinnerung-buch.jpg": {
+  "width": 1280,
+  "height": 720,
+  "hash": "LBK,Wn00~q~UE-9G9Ht7Ez?G~BRR",
+  "sourceHash": "f76ffe336f235442cb535e99a767a1835926ead1412a015a46f4274be1f561e0"
+ },
+ "assets/cut/e3-erinnerung-holz.jpg": {
+  "width": 1280,
+  "height": 720,
+  "hash": "LRJi:*~AXns;iwxDIVR+$*M|XRNH",
+  "sourceHash": "fbafaa3fcd6cc82cfbe0940b300d435f8a8e23e7e881e93a7abcd65a0b2c294c"
+ },
+ "assets/cut/e3-erinnerung-mutter.jpg": {
+  "width": 1280,
+  "height": 720,
+  "hash": "LRHTmg9F~VIoMyt6MxoMOEkD%0xa",
+  "sourceHash": "94f55063b05c4e4acdf2f1c8433e8b0aedabd6fb17d6baf6c94e2155cf24cec4"
+ },
  "assets/cut/e3-erscheinung.jpg": {
   "width": 1280,
   "height": 720,
