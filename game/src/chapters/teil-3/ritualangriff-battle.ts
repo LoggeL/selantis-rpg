@@ -194,7 +194,7 @@ export const RITUAL_MAP: BattleDef['map'] = {
     '. . . . . d d . . . . . .',
   ],
   props: [
-    ...STANDS.map((p, i) => ({ x: p.x, y: p.y, prop: 'stake', variant: i % 2 })),
+    ...STANDS.map((p, i) => ({ x: p.x, y: p.y, prop: 'ritual-stand', variant: i % 2 })),
     // Fire bowls on the two rock tiles (decorative, the rock still blocks). The world 'torch' prop is too narrow for
     // tactics/view/props.sharedProp (< 20 px) and would show as a grey placeholder block.
     { x: 3, y: 2, prop: 'campfire' },

@@ -31,7 +31,8 @@ export const GZ_BLOCKS: BlockDef[] = [
   { id: 'bett', poly: [[40, 80], [162, 80], [162, 218], [124, 218], [124, 238], [40, 238]] },
   { id: 'nachttisch', poly: [[160, 80], [200, 80], [200, 146], [160, 146]] },
   { id: 'tisch', poly: [[344, 80], [420, 80], [420, 132], [402, 132], [402, 142], [366, 142], [366, 132], [344, 132]] },
-  { id: 'waschtisch', poly: [[438, 80], [515, 80], [515, 162], [438, 162]] },
+  { id: 'waschtisch', poly: [[438, 80], [515, 80], [515, 140], [438, 140]] },
+  { id: 'waschkorb', poly: [[478, 140], [522, 140], [522, 165], [478, 165]] },
   { id: 'kisten', poly: [[0, 248], [96, 248], [96, 360], [0, 360]] },
   { id: 'kommode', poly: [[586, 230], [640, 230], [640, 360], [586, 360]] },
 ];
@@ -51,7 +52,7 @@ export const GZ_SPOT = {
   /** The candle on the table (light anchor). */
   candle: [370, 68],
   /** In front of the washstand. */
-  washFront: [474, 184],
+  washFront: [464, 154],
   /** Beside the washstand (the doctor holds the bowl). */
   washSide: [520, 176],
   /** The bowl on the washstand (light/fx anchor). */

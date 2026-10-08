@@ -43,6 +43,7 @@ async function dialogues(page: Page, until: () => Promise<boolean>, choice = 0):
     const choices = page.locator('.choices .choice:visible');
     if (await choices.count()) {
       await page.waitForTimeout(750);
+      if (await until()) return; // The target choice may have appeared during the wait.
       if (await choices.count()) await page.keyboard.press(String(choice + 1));
     } else if (await page.evaluate(() => (window as any).G.ui.busy())) await page.keyboard.press('Enter');
     await page.waitForTimeout(180);
@@ -135,9 +136,10 @@ test('the finale choice can be postponed and the other two book-one endings stay
   expect(texts[0]).toContain('Das erste Buch abschließen');
   expect(texts[1]).toContain('weiterreisen');
   await page.waitForTimeout(750);
-  await page.keyboard.press('4');
+  await page.getByRole('option', { name: /Noch ein wenig am Feuer bleiben/ }).click();
   await page.waitForFunction(() => !(window as any).G.ui.busy() && (window as any).__world && !(window as any).__world.playerLocked);
   expect(await page.evaluate(() => (window as any).G.currentScene)).toBe('finale');
+  expect(await page.evaluate(() => (window as any).G.state.activeObjective()?.id)).toBe('k5-aufbruch');
   await page.screenshot({ path: test.info().outputPath('finale-postponed.png') });
   expect(errors).toEqual([]);
 });

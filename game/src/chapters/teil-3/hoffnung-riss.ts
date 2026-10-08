@@ -9,34 +9,54 @@ import { VIOLET } from './shared';
 type WorldSceneLike = Phaser.Scene & { addWorld?<T extends Phaser.GameObjects.GameObject>(o: T): T };
 const ADD = 1; // Phaser.BlendModes.ADD
 const CALM = 0xf3eefc;
-const DEEP = 0x26123f;
-const RIM = 0xd9c6ff;
+const DEEP = 0x100c1b;
+const RIM = 0xaa87ce;
+const SOIL = 0x36442b;
+const GRASS = 0x778952;
+type Point = { x: number; y: number };
 
 const world = <T extends Phaser.GameObjects.GameObject>(w: WorldCtx, o: T): T => {
   const s = w.scene as WorldSceneLike;
   return s.addWorld ? s.addWorld(o) : o;
 };
 
-/** Deterministic jagged crack (a few branches) around a point; `seed` varies the shape. */
-function crackPoints(seed: number, len: number): { x: number; y: number }[][] {
+/** A long split with smaller forks, rather than radial arms resembling a magic sigil. */
+function crackPoints(seed: number, len: number): Point[][] {
   let r = seed * 9301 + 49297;
   const rnd = () => { r = (r * 9301 + 49297) % 233280; return r / 233280; };
-  const branches: { x: number; y: number }[][] = [];
-  for (let b = 0; b < 3; b++) {
-    const a0 = (b / 3) * Math.PI * 2 + rnd() * 0.8;
-    const pts = [{ x: 0, y: 0 }];
-    let x = 0, y = 0, a = a0;
-    const n = 4 + Math.floor(rnd() * 3);
-    for (let i = 0; i < n; i++) {
-      a += (rnd() - 0.5) * 1.1;
-      const step = (len / n) * (0.7 + rnd() * 0.6);
-      x += Math.cos(a) * step;
-      y += Math.sin(a) * step * 0.55; // flattened: the crack lies on the ground (3/4 view)
+  const slope = (rnd() - 0.5) * 0.28;
+  const seam = Array.from({ length: 9 }, (_, i) => {
+    const x = (i / 8 * 2 - 1) * len;
+    return { x, y: x * slope + (rnd() - 0.5) * len * 0.2 };
+  });
+  const branches = [seam];
+  for (let b = 0; b < 2; b++) {
+    const start = seam[3 + b * 2];
+    const pts = [{ ...start }];
+    let x = start.x, y = start.y;
+    for (let i = 0; i < 3; i++) {
+      x += (rnd() - 0.5) * len * 0.35;
+      y += (b === 0 ? -1 : 1) * len * (0.12 + rnd() * 0.08);
       pts.push({ x, y });
     }
     branches.push(pts);
   }
   return branches;
+}
+
+/** Tapered banks around a branch, flattened to the meadow's ground plane. */
+function banks(points: Point[], width: number): [Point[], Point[]] {
+  const upper: Point[] = [], lower: Point[] = [];
+  points.forEach((p, i) => {
+    const prev = points[Math.max(0, i - 1)], next = points[Math.min(points.length - 1, i + 1)];
+    const dx = next.x - prev.x, dy = next.y - prev.y;
+    const length = Math.hypot(dx, dy) || 1;
+    const half = width * (0.08 + 0.42 * Math.sin(Math.PI * i / (points.length - 1)));
+    const nx = -dy / length * half, ny = dx / length * half * 0.65;
+    upper.push({ x: p.x - nx, y: p.y - ny });
+    lower.push({ x: p.x + nx, y: p.y + ny });
+  });
+  return [upper, lower];
 }
 
 export interface RiftView {
@@ -62,19 +82,36 @@ export function drawRift(w: WorldCtx, at: readonly [number, number], seed: numbe
     open += Math.sign(target - open) * Math.min(Math.abs(target - open), dt * 2.5);
     g.clear();
     if (open <= 0.01) { glow.setAlpha(0); light?.set({ intensity: 0 }); return; }
-    const flicker = 0.8 + 0.2 * Math.sin(t * 9 + seed);
-    // A soft violet seam, a dark gap in the middle, a pale rim of light along it (readable on bright grass).
-    for (const [width, color, alpha] of [[7, VIOLET, 0.45], [3, DEEP, 0.95], [1, RIM, 0.9]] as const) {
-      g.lineStyle(width * Math.max(0.4, open), color, alpha * open * flicker);
-      for (const pts of branches) {
+    const flicker = 0.92 + 0.08 * Math.sin(t * 3 + seed);
+    const placed = (p: Point): Point => ({ x: at[0] + p.x * open, y: at[1] + p.y * open });
+    for (const [b, pts] of branches.entries()) {
+      const width = b === 0 ? 10 : 5;
+      const [outerTop, outerBottom] = banks(pts, width + 6);
+      const [top, bottom] = banks(pts, width);
+      // Grass darkens at the torn edge; the centre remains an opening, without a bright line across it.
+      g.fillStyle(SOIL, 0.65 * open);
+      g.fillPoints([...outerTop, ...outerBottom.reverse()].map(placed), true);
+      g.fillStyle(DEEP, 0.98 * open);
+      g.fillPoints([...top, ...bottom.slice().reverse()].map(placed), true);
+      for (const [edge, color, alpha] of [[top, RIM, 0.62], [bottom, SOIL, 0.9]] as const) {
+        g.lineStyle(b === 0 ? 1.2 : 0.8, color, alpha * open * flicker);
         g.beginPath();
-        g.moveTo(at[0] + pts[0].x * open, at[1] + pts[0].y * open);
-        for (const p of pts.slice(1)) g.lineTo(at[0] + p.x * open, at[1] + p.y * open);
+        const first = placed(edge[0]);
+        g.moveTo(first.x, first.y);
+        for (const p of edge.slice(1)) { const q = placed(p); g.lineTo(q.x, q.y); }
         g.strokePath();
       }
+      // A few bent blades bridge the painted meadow and the code-drawn bank.
+      g.lineStyle(1, GRASS, 0.75 * open);
+      for (let i = 1; i < pts.length - 1; i += 2) {
+        const p = placed((i % 4 === 1 ? top : bottom)[i]);
+        const lean = (seed + i) % 2 ? -1 : 1;
+        g.lineBetween(p.x, p.y, p.x + lean * 2 * open, p.y - 3 * open);
+        g.lineBetween(p.x, p.y, p.x - lean * open, p.y - 2 * open);
+      }
     }
-    glow.setScale(0.4 + 0.5 * open).setAlpha(0.7 * open * flicker);
-    light?.set({ intensity: 0.9 * open });
+    glow.setScale(0.25 + 0.35 * open).setAlpha(0.22 * open * flicker);
+    light?.set({ intensity: 0.45 * open });
   };
   scene.events.on('postupdate', onPost);
   const remove = () => {

@@ -205,9 +205,16 @@ export const waldweg: MapDef = defineMap({
   lookMode: true,
   critters: true,
   onEnter: async w => {
+    w.completeObjective('k2-aufbruch');
     // The party follows (also after a reload on this map or a skipped breakfast).
     for (const id of ['foltan', 'azar']) if (!w.companions.ids.includes(id) && !(G.state.is('k2-rast-angesagt') && !G.state.is('k2-rast-fertig'))) w.companions.add(id, id, id);
-    if (G.state.is('k2-waldweg-start')) return;
+    if (G.state.is('k2-waldweg-start')) {
+      const active = G.state.activeObjective()?.id;
+      if (active === 'k2-trittsteine') w.setObjectiveTarget([1270, 274]);
+      else if (active === 'k2-rast') w.setObjectiveTarget('rastplatz');
+      else if (active === 'k2-waldweg') w.setObjectiveTarget(G.state.is('k2-kerben') ? 'kerbe-2' : [640, 330]);
+      return;
+    }
     G.state.set('k2-waldweg-start');
     bantering(w);
     await sleep(600);
@@ -313,6 +320,7 @@ async function middayRest(w: WorldCtx): Promise<void> {
     else await w.say('foltan', 'Ich schlage mich so lange in die Büsche.');
   });
   G.state.set('k2-rast-angesagt');
+  w.completeObjective('k2-waldweg');
   w.setObjective('k2-rast', 'Setz dich zu Azar an den Baumstamm und raste.', 'rastplatz');
   void (async () => {
     // Foltan leaves for the bushes; Azar plops down on the log.
@@ -386,7 +394,7 @@ async function rest(w: WorldCtx): Promise<void> {
   G.state.set('k2-name-genannt');
   w.companions.add('foltan', 'foltan', 'foltan');
   w.companions.add('azar', 'azar', 'azar');
-  w.setObjective('k2-osten', 'Weiter nach Osten, über die Trittsteine.', [1270, 274]);
+  w.setObjective('k2-trittsteine', 'Weiter nach Osten, über die Trittsteine.', [1270, 274]);
   w.bark('foltan', 'Am Bach stehen Fremde. Sieh dir den Weg an, bevor wir hinübergehen.', 4200);
 }
 
@@ -429,7 +437,8 @@ async function toBoar(w: WorldCtx): Promise<void> {
     await w.cutscene(() => w.player.walkTo([1220, w.player.y], { straight: true }));
     return;
   }
-  w.completeObjective('k2-osten');
+  w.completeObjective('k2-trittsteine');
+  G.state.set('k2-waldweg-fertig');
   await w.cutscene(async () => {
     await w.player.walkTo([1276, w.player.y], { straight: true });
   });

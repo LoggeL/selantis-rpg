@@ -1,14 +1,54 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { G } from '../../core/G';
+import type { ActorHandle } from '../../world';
+import { figureScale } from '../../world/presentation';
+import { buildPaintedGrid, normBlocks } from '../../world/navgrid';
+import { distToPoly, pointInPoly, polyCentroid } from '../../world/poly';
 import { STAFF } from '../common/bookContract';
 import {
   FOLLOW, followVerdict, IGNATIUS_ASKS, STILL, stepFollow, stepStill, VERHANDLUNG_ANSWERS, VERHANDLUNG_TONES,
 } from './macht-und-schutz-regeln';
 import { hasOwnStaff, liaLook, prepareE3, staffPlace } from './shared';
 
+vi.mock('../../world', () => ({ defineMap: (map: unknown) => map, startWorld: vi.fn() }));
+import { crystalPicture, doctorCandleAnchor, pruefungMap } from './macht-und-schutz';
+
+function bowlGeometry() {
+  const bowl = pruefungMap.interactables!.find(i => i.id === 'schale')!;
+  const lean = pruefungMap.hidingSpots!.find(h => h.id === 'schale-beugen')!;
+  if (!Array.isArray(bowl.standAt) || !bowl.poly || !lean.poly || bowl.radius === undefined) throw new Error('The bowl needs its real stand, hotspot, lean area and interaction radius.');
+  const [x, y] = bowl.standAt;
+  // The controller may finish up to 3 px from its goal. Sample the centre and a 3 px arrival circle.
+  const arrivals = [[x, y], ...Array.from({ length: 32 }, (_, i) => [x + 3 * Math.cos(i * Math.PI / 16), y + 3 * Math.sin(i * Math.PI / 16)])];
+  return { bowl, lean, arrivals };
+}
+
 afterEach(() => G.state.reset());
 
 describe('e3-macht-und-schutz: the bowl', () => {
+  it('keeps the real interaction stand and its arrival tolerance inside the leaning hiding spot', () => {
+    const { lean, arrivals } = bowlGeometry();
+    for (const [x, y] of arrivals) expect(pointInPoly(x, y, lean.poly!), `arrival ${x},${y}`).toBe(true);
+  });
+
+  it('allows an 8×4 half-foot at every arrival without colliding with the washstand or basket', () => {
+    const { arrivals } = bowlGeometry();
+    const grid = buildPaintedGrid(pruefungMap, 640, 360);
+    for (const [x, y] of arrivals) expect(grid.boxFree(x, y, 8, 4), `arrival ${x},${y}`).toBe(true);
+    // The gap must remain usable while both pieces of furniture retain their collision.
+    for (const id of ['waschtisch', 'waschkorb']) {
+      const block = normBlocks(pruefungMap).find(b => b.id === id);
+      if (!block) throw new Error(`Missing furniture collision: ${id}`);
+      const centre = polyCentroid(block.poly);
+      expect(grid.solidAt(centre.x, centre.y), id).toBe(true);
+    }
+  });
+
+  it('keeps the bowl in interaction range after arrival, including the 3 px tolerance', () => {
+    const { bowl, arrivals } = bowlGeometry();
+    for (const [x, y] of arrivals) expect(distToPoly(x, y, bowl.poly!), `arrival ${x},${y}`).toBeLessThanOrEqual(bowl.radius!);
+  });
+
   it('fills only while Lia leans over the bowl and holds still', () => {
     let p = 0;
     for (let t = 0; t < STILL.needSec - 0.2; t += 0.1) p = stepStill(p, 0.1, true, 0);
@@ -25,6 +65,25 @@ describe('e3-macht-und-schutz: the bowl', () => {
 });
 
 describe('e3-macht-und-schutz: the candle', () => {
+  it('attaches the flame to the actual scaled sprite while preserving its ground sorting depth', () => {
+    const doc = {
+      x: 100, y: 200, dir: 'right',
+      sprite: { x: 100, y: 194, scaleX: 2.2, scaleY: 2.2, flipX: false, depth: 204 },
+    } as unknown as Pick<ActorHandle, 'x' | 'y' | 'dir' | 'sprite'>;
+    const anchor = doctorCandleAnchor(doc);
+    expect(anchor.at[0]).toBeCloseTo(106.6);
+    expect(anchor.at[1]).toBeCloseTo(147.8);
+    expect(anchor.depth).toBe(204); // A hop moves the sprite, not its ground depth.
+    Object.assign(doc.sprite!, { x: 120, y: 210, scaleX: 1.5, scaleY: 1.2, flipX: true, depth: 214 });
+    expect(doctorCandleAnchor(doc)).toEqual({ at: [115.5, 184.8], depth: 214 });
+  });
+
+  it.each([
+    ['down', -8, -18], ['left', -4, -20], ['right', 3, -21], ['up', 6, -20],
+  ] as const)('uses the visible %s hand from the actual walk sheet when no sprite is available', (dir, dx, dy) => {
+    expect(doctorCandleAnchor({ x: 100, y: 200, dir, sprite: undefined })).toEqual({ at: [100 + dx, 200 + dy], depth: 200 });
+  });
+
   it('counts only time close to the flame, and complains far away', () => {
     expect(followVerdict(FOLLOW.near)).toBe('close');
     expect(followVerdict(FOLLOW.near + 1)).toBe('ok');
@@ -35,6 +94,27 @@ describe('e3-macht-und-schutz: the candle', () => {
     let p = 0;
     for (let t = 0; t < FOLLOW.needSec + 0.2; t += 0.1) p = stepFollow(p, 0.1, 20);
     expect(p).toBe(1);
+  });
+});
+
+describe('e3-macht-und-schutz: the crystal picture', () => {
+  it('frames the scaled heads, hands and feet within the observed 210 px canvas while retaining the map anchors', () => {
+    const originalArt = G.art;
+    G.art = { ...originalArt, hasAsset: () => true };
+    let picture: ReturnType<typeof crystalPicture>;
+    try { picture = crystalPicture(); } finally { G.art = originalArt; }
+    expect(picture.figureScale).toBe(figureScale(picture.background));
+    const scale = picture.figureScale!;
+    const top = picture.focus[1] - 210 / picture.zoom / 2;
+    const bottom = picture.focus[1] + 210 / picture.zoom / 2;
+    expect(picture.figures.map(f => f.at)).toEqual([[342, 130], [392, 150]]);
+    expect(picture.glint).toEqual([392, 92]);
+    for (const f of picture.figures) {
+      expect(f.at[1] - 44 * scale).toBeGreaterThanOrEqual(top);
+      expect(f.at[1]).toBeLessThanOrEqual(bottom);
+    }
+    expect(picture.glint[1]).toBeGreaterThan(top);
+    expect(picture.glint[1]).toBeLessThan(bottom);
   });
 });
 

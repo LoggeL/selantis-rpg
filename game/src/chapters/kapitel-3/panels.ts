@@ -8,7 +8,7 @@ import { loadImage } from '../../art/assets';
 import { assetUrl, manifest } from '../../art/manifest';
 import type { UiApiExt } from '../../ui';
 import { ctx, isConfirm } from '../../ui/context';
-import { BOARD_CLUES, combine, complete, DEDUCTIONS, FINAL } from './deduce';
+import { BOARD_CLUES, combine, DEDUCTIONS, FINAL, reconcileConclusion, recordDeduction } from './deduce';
 import { blowConfig, blowStart, blowStep, stakeStart, stakeStep, stakeTug, type StakeState } from './games';
 import { BEAT_MS, type Song } from './song';
 
@@ -23,6 +23,9 @@ const smooth = (a: number, b: number, v: number) => { const t = clamp01((v - a) 
 const hash = (i: number) => { const v = Math.sin(i * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 
 const STYLE = `
+.k3-blow, .k3-stake { pointer-events: none; }
+.k3-airflow, .k3-ring, .k3-pause { pointer-events: auto; }
+.k3-pause { position: absolute; right: 1em; top: 1em; z-index: 10; }
 /* ---------------------------------------------------------------- Lias Notizen: notes on the tavern table */
 .k3-veil { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1em; overflow: hidden;
   background: #0b0806 var(--k3-table) center / cover no-repeat; animation: k3-in .35s ease-out; }
@@ -327,6 +330,7 @@ const MISSING_HINT: Record<string, string> = {
  */
 export function openClueBoard(): Promise<number> {
   injectStyle();
+  reconcileConclusion(G.state);
   const root = ui().panel('k3-notes');
   const veil = document.createElement('div');
   veil.className = 'k3-veil';
@@ -454,14 +458,13 @@ export function openClueBoard(): Promise<number> {
     } else {
       out.textContent = d.line;
       sfx('write');
-      G.state.addClue(d.id);
+      const recorded = recordDeduction(G.state, d);
       fresh = d.id;
       flash.set(first, 'is-match'); flash.set(id, 'is-match');
-      made++;
-      if (complete(G.state.data.clues) && !G.state.hasClue(FINAL)) {
+      if (recorded.added) made++;
+      if (recorded.concluded) {
         setTimeout(() => {
           if (!root.isConnected) return;
-          G.state.addClue(FINAL);
           sfx('discover', { volume: 0.7 });
           out.classList.add('is-final');
           out.innerHTML = '<b>Kyra lebt.</b> Sie war letzte Nacht hier – in derselben Nacht, in der ich Crios sah.';
@@ -532,6 +535,9 @@ export function blowGame(withTinder: boolean): Promise<void> {
       <div></div>
     </div>
   </div></div>`;
+  const pause = document.createElement('button');
+  pause.className = 'ch-btn k3-pause'; pause.type = 'button'; pause.textContent = 'Pause';
+  pause.addEventListener('click', () => ui().openMenu()); root.appendChild(pause);
   const stageEl = root.querySelector('.k3-illustration') as HTMLElement;
   const zone = root.querySelector('.k3-zone') as HTMLElement;
   const needle = root.querySelector('.k3-needle') as HTMLElement;
@@ -642,6 +648,7 @@ export function blowGame(withTinder: boolean): Promise<void> {
   return new Promise<void>(resolve => {
     let last = performance.now();
     let finished = false;
+    let finishing = 0;
     let puffUntil = 0;
     const epoch = ctx.epoch;
     const alive = () => root.isConnected && epoch === ctx.epoch && !ctx.stale();
@@ -650,6 +657,7 @@ export function blowGame(withTinder: boolean): Promise<void> {
     let breathLoop: { stop(ms?: number): void; set(o: { volume?: number }): void } | null = null;
     const closeModal = ctx.open({
       id: 'k3-blow',
+      allowMenu: true,
       releaseKeys: ['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD'],
       onKey: e => {
         if (['ArrowLeft', 'KeyA', 'ArrowRight', 'KeyD'].includes(e.code)) {
@@ -665,6 +673,13 @@ export function blowGame(withTinder: boolean): Promise<void> {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       if (document.hidden || !document.hasFocus() || ctx.top()?.id !== 'k3-blow') { breathLoop?.stop(100); breathLoop = null; requestAnimationFrame(frame); return; }
+      if (finishing) {
+        paint(1, 0, true, false, dt);
+        finishing = Math.max(0, finishing - dt);
+        if (!finishing) { finished = true; closeModal(); root.remove(); resolve(); return; }
+        requestAnimationFrame(frame);
+        return;
+      }
       const r = blowStep(state, dt, 0, cfg);
       state = r.state;
       if (state.breath > 0.08 && !breathLoop) { try { breathLoop = G.audio.loop('whoosh', { interval: 0.42, volume: 0.25 }); } catch { breathLoop = null; } }
@@ -696,17 +711,13 @@ export function blowGame(withTinder: boolean): Promise<void> {
       else if (now >= puffUntil && over) { sub.className = 'k3-sub is-bad'; sub.textContent = 'Zu fest …'; }
       else if (now >= puffUntil && inZone && state.ember > 0.08) { sub.className = 'k3-sub is-good'; sub.textContent = 'Die Glut wird heller …'; }
       if (r.event === 'catch') {
-        finished = true;
+        finishing = 0.65;
         breathLoop?.stop(100);
         sfx('fire-ignite');
         sub.className = 'k3-sub is-win';
         sub.textContent = 'Eine Flamme!';
         catchAt = time; flare = 0.8;
-        // Let the flame rise for a moment before the panel closes.
-        let t0 = performance.now();
-        const grow = (t: number) => { if (!root.isConnected) return; paint(1, 0, true, false, Math.min(0.05, (t - t0) / 1000)); t0 = t; if (t - last < 650) requestAnimationFrame(grow); };
-        requestAnimationFrame(grow);
-        setTimeout(() => { const current = alive(); closeModal(); root.remove(); if (current) resolve(); }, 650);
+        requestAnimationFrame(frame);
         return;
       }
       requestAnimationFrame(frame);
@@ -730,7 +741,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
   root.innerHTML = `<div class="k3-scene"><div class="k3-frame ch-panel">
     <div class="k3-illustration"><div class="ch-title">Der Pflock</div><div class="k3-watch" aria-live="assertive"></div><div class="k3-lyric">Die Trommel setzt ein …</div></div>
     <div class="k3-foot">
-      <div class="k3-drum"><div class="k3-approach"></div><div class="k3-ring">♪</div></div>
+      <div class="k3-drum"><div class="k3-approach"></div><button class="k3-ring" type="button" aria-label="Im Takt am Pflock rütteln">♪</button></div>
       <div class="k3-stake-meters">
         <div class="k3-gauge"><span class="ch-label">Pflock locker</span><div class="k3-bar is-loose"><i class="k3-loose"></i></div></div>
         <div class="k3-gauge"><span class="ch-label">Lärm</span><div class="k3-bar is-noise"><i class="k3-noise"></i></div></div>
@@ -738,6 +749,9 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
       <div class="k3-hint">${keyHint('<span class="ch-key">E</span> · <span class="ch-key">Leertaste</span> · Klick <b>im Takt der Trommel</b><span class="k3-hint-long">. In den Pausen: stillhalten!</span>', 'Tippen <b>im Takt der Trommel</b><span class="k3-hint-long">. In den Pausen: stillhalten!</span>')}</div>
     </div>
   </div></div>`;
+  const pause = document.createElement('button');
+  pause.className = 'ch-btn k3-pause'; pause.type = 'button'; pause.textContent = 'Pause';
+  pause.addEventListener('click', () => ui().openMenu()); root.appendChild(pause);
   const stageEl = root.querySelector('.k3-illustration') as HTMLElement;
   const lyric = root.querySelector('.k3-lyric') as HTMLElement;
   const ring = root.querySelector('.k3-ring') as HTMLElement;
@@ -871,6 +885,10 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
   let lastBeatAt = performance.now();
   return new Promise<void>(resolve => {
     let finished = false;
+    let finishing = 0;
+    const epoch = ctx.epoch;
+    const alive = () => root.isConnected && epoch === ctx.epoch && !ctx.stale();
+    const active = () => !document.hidden && document.hasFocus() && ctx.top()?.id === 'k3-stake';
     const offs: (() => void)[] = [];
     offs.push(song.onBeat(b => {
       rest = b.rest;
@@ -883,7 +901,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
     }));
     offs.push(song.onLine(text => { lyric.textContent = `„${text}“`; }));
     const tug = () => {
-      if (finished) return;
+      if (finished || finishing || !active()) return;
       const now = performance.now();
       const r = stakeTug(state, now, lastBeatAt, song.nextBeatAt, rest);
       state = r.state;
@@ -905,14 +923,22 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
     };
     const closeModal = ctx.open({
       id: 'k3-stake',
+      allowMenu: true,
       onKey: e => { if (isConfirm(e)) { if (!e.repeat) tug(); return true; } return e.key !== 'Escape'; },
     });
-    root.addEventListener('pointerdown', e => { e.preventDefault(); tug(); });
+    ring.addEventListener('click', tug);
     let last = performance.now();
     const frame = (now: number) => {
-      if (!root.isConnected) { if (!finished) { closeModal(); offs.forEach(o => o()); } return; }
+      if (!alive()) { if (!finished) { closeModal(); offs.forEach(o => o()); } return; }
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
+      if (!active()) { requestAnimationFrame(frame); return; }
+      if (finishing) {
+        paint(state, false, dt);
+        finishing = Math.max(0, finishing - dt);
+        if (!finishing) { finished = true; closeModal(); root.remove(); resolve(); return; }
+        requestAnimationFrame(frame); return;
+      }
       if (!finished) {
         const r = stakeStep(state, dt);
         state = r.state;
@@ -936,7 +962,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
     };
     requestAnimationFrame(frame);
     const finish = () => {
-      finished = true;
+      finishing = 0.7;
       offs.forEach(o => o());
       freed = time;
       burst(18, 1.4);
@@ -946,7 +972,6 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
       watch.classList.remove('is-on');
       watch.classList.add('is-free');
       watch.textContent = 'Der Pflock gibt nach!';
-      setTimeout(() => { closeModal(); root.remove(); resolve(); }, 700);
     };
   });
 }

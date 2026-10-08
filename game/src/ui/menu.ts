@@ -5,6 +5,7 @@ import { el, html, sfx } from './dom';
 import { NavList, type NavItem } from './nav';
 import { openOverlay, type OverlayHandle } from './overlay';
 import { buildSettings } from './settings';
+import { savedScene } from './title';
 
 export interface MenuActions {
   journal(): void;
@@ -79,10 +80,12 @@ export function openMenu(actions: MenuActions): OverlayHandle {
     title.textContent = 'Kapitel wählen';
     overlay.panel.classList.add('is-wide');
     sfx('ui-confirm', { volume: 0.5 });
+    const save = savedScene();
     nav = buildChapterSelect(content, {
       includeHidden: devMode() || actions.debug(),
       current: G.currentScene || undefined,
       onPick: id => { overlay.close(); actions.warp(id); },
+      confirm: () => (save && !save.hidden ? 'Nochmal wählen – der Spielstand wird überschrieben.' : null),
       onBack: () => { sfx('ui-cancel', { volume: 0.5 }); showMain(); },
     });
   }

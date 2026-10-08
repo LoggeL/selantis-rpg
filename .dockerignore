@@ -35,3 +35,5 @@
 !.git/refs/
 !.git/refs/heads/
 !.git/refs/heads/main
+
+.local/

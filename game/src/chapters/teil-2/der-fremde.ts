@@ -7,6 +7,7 @@
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { halt } from '../kapitel-4/shared';
+import { restageGesture } from './gewoelbe-geste';
 import { IG_EDGE, IG_SPOT, igFireLight, igLanternLight, ignatiusBase } from './ignatius-lager';
 import { AMBER, bg, e2Scene, lia, liaLook, mentor, sfx, ui, until, nextScene } from './shared';
 
@@ -95,7 +96,9 @@ async function wake(w: WorldCtx): Promise<void> {
   await w.camera.pan(IG_SPOT.bed, 0);
   await w.camera.zoom(1.35, 0);
   await G.ui.narrate(['Wasser rauscht. Holz knackt. Irgendwer summt, falsch und sehr zufrieden.'], { style: 'card' });
-  await G.ui.storyAction('open-eyes', 'Die Augen öffnen', { help: 'Schieb die schweren Lider langsam nach oben.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  restageGesture('open-eyes', 'Schieb die schweren Lider langsam nach oben.');
+  await wake;
   await ui().fade('in', 1600);
   await w.cutscene(async () => {
     await w.think('Ein Dach aus Ästen. Felle unter mir. Es riecht nach Rauch und … Minze?');

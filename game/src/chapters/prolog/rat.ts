@@ -112,8 +112,8 @@ export const ratMap = defineMap({
 
 function heardObjective(w: WorldCtx): void {
   const n = heardCount();
-  if (n < HEARD.length) w.setObjective('prolog-anhoeren', `Höre die Ratsmitglieder an (${n}/${HEARD.length}).`, nextUnheard());
-  else {
+  w.setObjective('prolog-anhoeren', `Höre die Ratsmitglieder an (${n}/${HEARD.length}).`, nextUnheard());
+  if (n === HEARD.length) {
     w.completeObjective('prolog-anhoeren');
     w.setObjective('prolog-abstimmen', 'Rufe den Rat zur Abstimmung – sprich mit Ulfbert.', 'wortfuehrer');
   }

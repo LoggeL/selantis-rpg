@@ -417,9 +417,9 @@ export class BattleUi {
   // ------------------------------------------------------------ unit card
   unitCard(m: CardModel | null): void {
     const c = this.els.card;
-    if (!m) { c.classList.add('hidden'); this.lastCard = ''; this.hideTip(); return; }
+    if (!m) { c.classList.add('hidden'); c.replaceChildren(); this.lastCard = ''; this.hideTip(); return; }
     const u = m.unit;
-    const sig = JSON.stringify([u, m.abilities.map(a => [a.def.id, a.cooldown, a.usable, a.reason]), m.selected, m.canAct, m.canMove, m.controllable]);
+    const sig = JSON.stringify([u, m.def.title, m.abilities.map(a => [a.def.id, a.cooldown, a.usable, a.reason]), m.selected, m.canAct, m.canMove, m.controllable]);
     if (sig === this.lastCard) { c.classList.remove('hidden'); return; }
     this.lastCard = sig;
     this.hideTip();
@@ -497,7 +497,7 @@ export class BattleUi {
   // ------------------------------------------------------------ target / preview card
   inspectCard(u: Unit | null, def?: BattleUnitDef, note?: string): void {
     const c = this.els.tcard;
-    if (!u) { if (!this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
+    if (!u) { if (!this.lastPreview.startsWith('P')) { c.classList.add('hidden'); c.replaceChildren(); this.lastPreview = ''; } return; }
     const sig = 'I' + JSON.stringify([u, note]);
     if (sig === this.lastPreview) return;
     this.lastPreview = sig;
@@ -518,7 +518,7 @@ export class BattleUi {
    */
   previewCard(m: PreviewModel | null): void {
     const c = this.els.tcard;
-    if (!m) { this.root.classList.remove('has-forecast'); c.classList.remove('forecast'); if (this.lastPreview.startsWith('P')) { c.classList.add('hidden'); this.lastPreview = ''; } return; }
+    if (!m) { this.root.classList.remove('has-forecast'); c.classList.remove('forecast'); if (this.lastPreview.startsWith('P')) { c.classList.add('hidden'); c.replaceChildren(); this.lastPreview = ''; } return; }
     const n = m.targets.length;
     const focus = n ? ((m.focus ?? 0) % n + n) % n : 0;
     const sig = 'P' + JSON.stringify([m.ability.id, m.user, m.targets.map(t => [t.unit, t.p]), m.empty, m.confirmed, focus]);

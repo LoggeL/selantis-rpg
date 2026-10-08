@@ -6,6 +6,7 @@ import { manifest } from '../../art/manifest';
 import { items } from '../../core/catalog';
 import { G } from '../../core/G';
 import { settings } from '../../core/settings';
+import { ctx } from '../../ui/context';
 import { add, CAPACITY, EXTRAS, FIXED, remove, used, verdict, type Owned, type Selection } from './packing';
 import { sfx } from './shared';
 
@@ -512,28 +513,32 @@ export function openPacking(owned: Owned, start: Selection): Promise<Selection |
   update();
 
   return new Promise(resolve => {
+    let closed = false;
+    let closeModal = () => {};
     const done = (value: Selection | null) => {
-      window.removeEventListener('keydown', onKey, true);
+      if (closed) return;
+      closed = true;
+      closeModal();
       root.remove();
       resolve(value);
     };
     const openedAt = performance.now();
-    const onKey = (e: KeyboardEvent) => {
-      if (!root.isConnected) { window.removeEventListener('keydown', onKey, true); return; }
+    const onKey = (e: KeyboardEvent): boolean => {
+      if (!root.isConnected) { done(null); return true; }
       const k = e.key;
+      if (!closing && !e.repeat && (k === 'Escape' || k === 'Backspace')) { sfx('ui-close'); done(null); return true; }
       // The key that opened the bag (E) must not also pick the first item.
-      if (closing || performance.now() - openedAt < 300 || e.repeat) { e.preventDefault(); e.stopPropagation(); return; }
+      if (closing || performance.now() - openedAt < 300 || e.repeat) return true;
       let used_ = true;
       if (/^[1-9]$/.test(k)) { const u = units[Number(k) - 1]; if (u) { focus = Number(k) - 1; toggle(u, buttons[focus]); } }
       else if (k === 'ArrowDown' || k === 'ArrowRight' || k === 's' || k === 'S') { focus = (focus + 1) % (units.length + 1); update(); }
       else if (k === 'ArrowUp' || k === 'ArrowLeft' || k === 'w' || k === 'W') { focus = (focus + units.length) % (units.length + 1); update(); }
       else if (k === 'Enter' || k === ' ' || k === 'e' || k === 'E') {
         if (focus >= units.length) finish(); else toggle(units[focus], buttons[focus]);
-      } else if (k === 'Escape' || k === 'Backspace') { sfx('ui-close'); done(null); }
-      else used_ = false;
-      if (used_) { e.preventDefault(); e.stopPropagation(); }
+      } else used_ = false;
+      return used_;
     };
-    window.addEventListener('keydown', onKey, true);
+    closeModal = ctx.open({ id: 'k1-pack', allowMenu: false, onKey });
 
     const finish = () => {
       if (closing) return;

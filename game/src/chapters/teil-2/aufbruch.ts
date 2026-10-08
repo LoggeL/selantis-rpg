@@ -117,7 +117,7 @@ async function flickScript(w: WorldCtx): Promise<void> {
     await w.wait(200);
     await ui().fade('in', 500);
     w.unlockPlayer();
-    await w.say('e2-flick', 'Nein. So nicht. Noch mal, Flick. Flach wie ein Blatt.', { mood: 'scared' });
+    await w.say('e2-flick', 'Nein. So nicht. Noch mal, Flick. Flach wie ein Blatt.', { mood: 'scared', portrait: 'flick-flight' });
   });
 
   await w.cutscene(async () => {
@@ -125,9 +125,10 @@ async function flickScript(w: WorldCtx): Promise<void> {
     sfx('alert', { volume: 0.5, pitch: 0.45, distance: 0.6 });
     await w.wait(900);
     sfx('alert', { volume: 0.45, pitch: 0.42, distance: 0.6 });
-    await w.say('e2-flick', 'Ein Horn. Die haben die leeren Schellen gefunden. Schneller, als mir lieb ist.', { mood: 'scared' });
-    await w.say('e2-flick', 'Laufen bringt nichts mehr. Meine Beine sind seit Tagen nur noch zur Hälfte meine.', { mood: 'pained' });
-    await w.say('e2-flick', 'Und die rechte Hand kann keinen Bogen halten. Zwei Finger ohne Nägel, der Verband klebt. Also: verstecken.', { mood: 'pained' });
+    // The escape portrait reflects her current equipment. Other Flick scenes retain their usual portrait set.
+    await w.say('e2-flick', 'Ein Horn. Die haben die leeren Schellen gefunden. Schneller, als mir lieb ist.', { mood: 'scared', portrait: 'flick-flight' });
+    await w.say('e2-flick', 'Laufen bringt nichts mehr. Meine Beine sind seit Tagen nur noch zur Hälfte meine.', { mood: 'pained', portrait: 'flick-flight' });
+    await w.say('e2-flick', 'Und die rechte Hand kann keinen Bogen halten. Zwei Finger ohne Nägel, der Verband klebt. Also: verstecken.', { mood: 'pained', portrait: 'flick-flight' });
   });
   w.setObjective('e2-auf-farn', 'Versteck dich im Farn, bevor die Verfolger da sind.', FERN_AT);
   await w.say('narrator', `Halte ${w.controlHint('sneak')} gedrückt: Geduckt im Farn sieht dich keiner.`);
@@ -171,9 +172,9 @@ async function flickScript(w: WorldCtx): Promise<void> {
     g.hide();
   }));
   w.completeObjective('e2-auf-still');
-  await w.say('e2-flick', 'Weg. Alle vier. Und keiner hat nach unten geguckt.', { mood: 'smirk' });
-  await w.say('e2-flick', 'Hilfe holen, hat Elnon gesagt. Als ob die irgendwo rumsitzt und auf mich wartet.', { mood: 'sad' });
-  await w.say('e2-flick', 'Na schön. Dann such ich sie eben. Haltet durch, ihr zwei.', { mood: 'determined' });
+  await w.say('e2-flick', 'Weg. Alle vier. Und keiner hat nach unten geguckt.', { mood: 'smirk', portrait: 'flick-flight' });
+  await w.say('e2-flick', 'Hilfe holen, hat Elnon gesagt. Als ob die irgendwo rumsitzt und auf mich wartet.', { mood: 'sad', portrait: 'flick-flight' });
+  await w.say('e2-flick', 'Na schön. Dann such ich sie eben. Haltet durch, ihr zwei.', { mood: 'determined', portrait: 'flick-flight' });
   await ui().fade('out', 1200);
   halt(w, PURSUERS);
   await nextScene('e2-aufbruch', { part: 'morgen' });

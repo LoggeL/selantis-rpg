@@ -16,7 +16,8 @@
 import type Phaser from 'phaser';
 import { G } from '../../core/G';
 import { registerClues } from '../../core/catalog';
-import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
+import { figureScale } from '../../world/presentation';
 import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import {
   FOLLOW, IGNATIUS_ASKS, stepFollow, stepStill, VERHANDLUNG_ANSWERS, VERHANDLUNG_TONES, followVerdict,
@@ -63,7 +64,12 @@ const novice = (w: WorldCtx, text: string) => w.say('e3-novize', text);
 // ---------------------------------------------------------------------------------------------------------------
 
 /** Leaning over the bowl: a crouching Lia in front of the washstand counts as „leaning over“. */
-const BOWL_LEAN = [[450, 166], [500, 166], [500, 204], [450, 204]] as [number, number][];
+const BOWL_LEAN = [
+  [GZ_SPOT.washFront[0] - 18, GZ_SPOT.washFront[1] - 12],
+  [GZ_SPOT.washFront[0] + 18, GZ_SPOT.washFront[1] - 12],
+  [GZ_SPOT.washFront[0] + 18, GZ_SPOT.washFront[1] + 18],
+  [GZ_SPOT.washFront[0] - 18, GZ_SPOT.washFront[1] + 18],
+] as [number, number][];
 
 export const pruefungMap: MapDef = defineMap({
   ...gastzimmerBase(false),
@@ -75,7 +81,7 @@ export const pruefungMap: MapDef = defineMap({
       standAt: GZ_SPOT.tableFront, face: 'up', when: () => stage() === 'kristall',
     },
     {
-      id: 'schale', verb: 'Über die Schale beugen', poly: [[444, 72], [498, 72], [498, 106], [444, 106]], radius: 40, once: false, sparkle: true,
+      id: 'schale', verb: 'Über die Schale beugen', poly: [[444, 72], [498, 72], [498, 106], [444, 106]], radius: 55, once: false, sparkle: true,
       standAt: GZ_SPOT.washFront, face: 'up', when: () => stage() === 'schale',
     },
   ],
@@ -149,7 +155,9 @@ async function wakeUp(w: WorldCtx): Promise<void> {
   const doc = w.spawn({ id: DOCTOR, preset: 'e3-doktor', speaker: 'e3-doktor', at: GZ_SPOT.tableSide, dir: 'right', solid: false, facePlayer: false });
   doc.hold(true);
   bg(doc.play('interact', { ms: 4000 }));
-  await G.ui.storyAction('open-eyes', 'Die Augen öffnen', { help: 'Schieb die schweren Lider nach oben. Langsam.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  restageGesture('open-eyes', 'Schieb die schweren Lider nach oben. Langsam.');
+  await wake;
   await ui().fade('in', 1400);
   await w.cutscene(async () => {
     await w.think('Ein Bett. Ein echtes, mit Kissen. Entweder bin ich tot, oder jemand hier meint es ausnahmsweise gut mit mir.');
@@ -169,8 +177,9 @@ async function wakeUp(w: WorldCtx): Promise<void> {
 // Heart 1: the three instruments
 // ---------------------------------------------------------------------------------------------------------------
 
-const CRYSTAL_PICTURE = (): GesturePicture => ({
-  background: 'e3-gastzimmer', focus: [380, 112], zoom: 3, glint: GZ_SPOT.crystal,
+export const crystalPicture = (): GesturePicture => ({
+  background: 'e3-gastzimmer', focus: [380, 100], zoom: 1.4, glint: GZ_SPOT.crystal,
+  figureScale: figureScale('e3-gastzimmer'),
   figures: [
     { id: 'e3-doktor', pose: 'interact', at: [342, 130], facing: 'right' },
     { id: liaLook({ bound: true }), pose: 'idle', at: [392, 150], facing: 'up' },
@@ -189,7 +198,7 @@ async function crystalTest(w: WorldCtx): Promise<void> {
     await doctor(w, 'Ein Lesekristall. Er zeigt jede Magie an, auch die kleinste. Beide Hände drauf. Keine Angst, er ist nur kalt.');
   });
   const gesture = G.ui.storyAction('reach', 'Die Hände auf den Kristall legen', { help: 'Schieb die gebundenen Hände zum Kristall.' });
-  restageGesture('reach', 'Schieb die gebundenen Hände auf den Kristall. Ganz ruhig.', CRYSTAL_PICTURE());
+  restageGesture('reach', 'Schieb die gebundenen Hände auf den Kristall. Ganz ruhig.', crystalPicture());
   await gesture;
   w.completeObjective('e3-ms-kristall');
   await w.cutscene(async () => {
@@ -252,7 +261,10 @@ async function candleTest(w: WorldCtx): Promise<void> {
   G.state.set(F.stage, 'kerze');
   const flame = w.lighting.add({ id: 'e3-doktorkerze', at: [GZ_SPOT.candle[0], GZ_SPOT.candle[1] + 10], kind: 'candle', radius: 36, intensity: 1, always: true });
   const hand = handFlame(w);
-  const follow = () => { flame.set({ at: [doc.x + 8, doc.y - 30] }); hand.at(doc.x + 8, doc.y - 30); };
+  const follow = () => {
+    const { at, depth } = doctorCandleAnchor(doc);
+    flame.set({ at }); hand.at(at[0], at[1], depth);
+  };
   await w.cutscene(async () => {
     await doc.walkTo(GZ_SPOT.tableSide[0], GZ_SPOT.tableSide[1] + 10, { face: 'right' });
     void w.lighting.get('gz-kerze').fadeTo(0, 300);
@@ -290,8 +302,9 @@ async function candleTest(w: WorldCtx): Promise<void> {
   await w.cutscene(async () => {
     doc.face('player');
     w.player.face(DOCTOR);
-    const at: [number, number] = [doc.x + 8, doc.y - 30];
+    const { at, depth } = doctorCandleAnchor(doc);
     flame.set({ at, color: TURQUOISE, radius: 130, intensity: 1.5 });
+    hand.at(at[0], at[1], depth);
     hand.flare(true);
     sfx('fire-ignite', { volume: 0.8 });
     sfx('spark', { volume: 0.6 });
@@ -410,8 +423,26 @@ function crystalShine(w: WorldCtx): void {
   scene.events.once('shutdown', () => { scene.tweens.killTweensOf([spark, halo]); spark.destroy(); halo.destroy(); });
 }
 
+// Visible hand pixels in e3-doktor-walk's idle frames (3/5/9/15), relative to the [32,60] feet anchor.
+const CANDLE_HAND: Record<ActorHandle['dir'], readonly [number, number]> = {
+  down: [-8, -18], left: [-4, -20], right: [3, -21], up: [6, -20],
+};
+
+/** Sprite-local hand position; sorting stays at the doctor's ground depth, independent of hand height. */
+export function doctorCandleAnchor(doc: Pick<ActorHandle, 'x' | 'y' | 'dir' | 'sprite'>): { at: [number, number]; depth: number } {
+  const sprite = doc.sprite;
+  const [dx, dy] = CANDLE_HAND[doc.dir];
+  return {
+    at: [
+      (sprite?.x ?? doc.x) + dx * (sprite?.scaleX ?? 1) * (sprite?.flipX ? -1 : 1),
+      (sprite?.y ?? doc.y) + dy * (sprite?.scaleY ?? 1),
+    ],
+    depth: sprite?.depth ?? doc.y,
+  };
+}
+
 /** The doctor's candle flame in his hand (a warm glow that follows him; the light alone is too faint by day). */
-function handFlame(w: WorldCtx): { at(x: number, y: number): void; flare(on: boolean): void; remove(): void } {
+function handFlame(w: WorldCtx): { at(x: number, y: number, groundDepth: number): void; flare(on: boolean): void; remove(): void } {
   const scene = w.scene as Phaser.Scene & { addWorld?: (o: Phaser.GameObjects.GameObject) => unknown };
   const glow = scene.add.image(0, 0, 'w-glow').setTint(0xffc46b).setBlendMode(1).setScale(0.2).setAlpha(0.8);
   const core = scene.add.image(0, 0, 'fx-ember').setTint(0xffe2a0).setBlendMode(1).setScale(1.4);
@@ -422,7 +453,7 @@ function handFlame(w: WorldCtx): { at(x: number, y: number): void; flare(on: boo
   const remove = () => { if (gone) return; gone = true; scene.tweens.killTweensOf(core); glow.destroy(); core.destroy(); };
   scene.events.once('shutdown', remove);
   return {
-    at(x, y) { if (!gone) { glow.setPosition(x, y).setDepth(y + 40); core.setPosition(x, y).setDepth(y + 41); } },
+    at(x, y, groundDepth) { if (!gone) { glow.setPosition(x, y).setDepth(groundDepth + 0.4); core.setPosition(x, y).setDepth(groundDepth + 0.5); } },
     flare(on) { if (!gone) { glow.setTint(on ? TURQUOISE : 0xffc46b).setScale(on ? 0.7 : 0.2); core.setTint(on ? 0xc8fff6 : 0xffe2a0).setScale(on ? 3 : 1.4); } },
     remove,
   };

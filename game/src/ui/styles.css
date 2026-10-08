@@ -68,6 +68,7 @@
 .ui-layer-dialog { z-index: 50; }
 .ui-layer-card { z-index: 55; }
 .ui-layer-title { z-index: 60; }
+.ui-layer-rotate-hint { z-index: 65; }
 .ui-layer-overlay { z-index: 70; }
 .ui-layer-debug { z-index: 90; }
 
@@ -1125,7 +1126,7 @@
 .rotate-hint-close .ch-ico { width: 1em; height: 1em; }
 .title-active .rotate-hint { top: auto; bottom: max(0.9em, env(safe-area-inset-bottom)); }
 .is-modal .rotate-hint:not(:hover) { opacity: 0; pointer-events: none; }
-.title-active.is-modal .rotate-hint { opacity: 1; pointer-events: auto; }
+.title-active.is-modal .rotate-hint.is-in { opacity: 1; pointer-events: auto; }
 
 /* ------------------------------------------------------------ painted title backdrop (ui/titleBackdrop.ts) */
 .tb { position: absolute; inset: 0; overflow: hidden; background: #05070f; opacity: 0; transition: opacity 1.4s ease; }

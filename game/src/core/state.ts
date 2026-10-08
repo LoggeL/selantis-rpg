@@ -1,6 +1,7 @@
 import { events } from './events';
 import type { FlagValue, Objective, SaveData } from './types';
 import { normalizeProgress, type CharacterProgress } from '../tactics/rules/progression';
+import { repairStoryObjectives } from './objectiveMigrations';
 
 const SAVE_KEY = 'selantis.save.v1';
 
@@ -198,6 +199,7 @@ export class GameState {
       const parsed = JSON.parse(raw) as Partial<SaveData> | null;
       if (!isRecord(parsed) || parsed.version !== 1) return false;
       this.data = normalizeSave(parsed);
+      repairStoryObjectives(this.data);
       this.restartClock();
       this.changed('load');
       return true;

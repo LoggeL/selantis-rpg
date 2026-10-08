@@ -147,7 +147,9 @@ async function steinScript(w: WorldCtx): Promise<void> {
   const { vamir, baris, kyra, circle } = stageHill(w, { veiled: true, men: true });
   await w.camera.pan([STONE_LIE[0], STONE_LIE[1] + 10], 0);
   await ui().fade('in', 1600);
-  await G.ui.storyAction('open-eyes', 'Die Augen öffnen', { help: 'Die Lider kleben, der Kopf ist schwer. Schieb die Augen trotzdem auf.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  restageGesture('open-eyes', 'Die Lider kleben, der Kopf ist schwer. Schieb die Augen trotzdem auf.');
+  await wake;
   await w.cutscene(async () => {
     for (const l of ON_THE_STONE.wake) await sayLine(w, l);
     if (poisoned()) await w.think('Und unter allem dieses Gift, das mir die Knochen weich macht. Ich könnte nicht mal weglaufen, wenn die Stricke reißen.');

@@ -39,6 +39,7 @@ export class PropObj {
   readonly parts: (Phaser.GameObjects.Image | Phaser.GameObjects.Sprite)[] = [];
   readonly sway: boolean;
   readonly depth: number;
+  readonly scale: number;
   private phase: number;
   private shakeT = 0;
   visible = true;
@@ -47,6 +48,7 @@ export class PropObj {
     const scene = host.scene;
     this.info = propInfo(scene, def.prop, def.variant ?? variant);
     const info = this.info;
+    this.scale = Math.max(0.125, def.scale ?? 1);
     this.phase = (x * 0.037 + y * 0.051) % (Math.PI * 2);
     this.depth = def.above ? 60000 + y : y + (def.depthOffset ?? 0);
     const ox = info.originX / info.width, oy = info.originY / info.height;
@@ -70,6 +72,7 @@ export class PropObj {
       this.parts.push(host.addWorld(scene.add.image(x, y, info.key).setOrigin(ox, oy)));
     }
     this.parts.forEach((p, i) => {
+      p.setScale(this.scale);
       p.setDepth(this.depth + i * 0.001);
       if (def.flipX) p.setFlipX(true);
       if (def.tint !== undefined) p.setTint(def.tint);
@@ -84,14 +87,14 @@ export class PropObj {
     const fp = this.info.footprint;
     if (!fp) return null;
     const x = this.def.flipX ? -fp.x - fp.w : fp.x;
-    return { x: this.x + x, y: this.y + fp.y, w: fp.w, h: fp.h };
+    return { x: this.x + x * this.scale, y: this.y + fp.y * this.scale, w: fp.w * this.scale, h: fp.h * this.scale };
   }
 
   /** Full image bounds in world px. */
   bounds(): Rect {
     const i = this.info;
-    const left = this.def.flipX ? this.x - (i.width - i.originX) : this.x - i.originX;
-    return { x: left, y: this.y - i.originY, w: i.width, h: i.height };
+    const left = this.def.flipX ? this.x - (i.width - i.originX) * this.scale : this.x - i.originX * this.scale;
+    return { x: left, y: this.y - i.originY * this.scale, w: i.width * this.scale, h: i.height * this.scale };
   }
 
   /** Area where a crouching player counts as hidden (lower part of the image). */

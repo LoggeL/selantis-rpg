@@ -10,6 +10,36 @@ const originalAudio = G.audio;
 afterEach(() => { G.audio = originalAudio; G.state.reset(); });
 
 describe('Lias Urmacht scene', () => {
+  it('restores Kyras bound description when a retry reuses the same battle definition', async () => {
+    G.audio = { sfx: vi.fn() } as unknown as AudioApi;
+    const def = rescueBattle(3, true);
+    const presenter = {
+      bark: vi.fn(), setObjective: vi.fn(), showHint: vi.fn(async () => {}), clearHint: vi.fn(), focus: vi.fn(async () => {}),
+    } as unknown as Presenter;
+    const controller = new BattleController(def, presenter, { say: vi.fn(async () => {}) } as unknown as UiApi, () => {});
+    const flick = controller.battle.unit('flick');
+    const kyra = controller.battle.unit('kyra');
+    controller.battle.startTurns();
+    expect(controller.unitDefs.get('kyra')!.title).toContain('Gefesselt');
+    const events = controller.battle.act(flick.id, 'k5-losschneiden', kyra);
+    expect(events.some(e => e.type === 'free')).toBe(true);
+    await def.hooks!.onFree!(controller.ctx, kyra, flick);
+    expect(kyra.statuses.bound).toBeUndefined();
+    expect(controller.unitDefs.get('kyra')!.title).toContain('Befreit');
+    // TacticsScene.onFinish('retry') restarts with the same startData.battle object.
+    const retry = new BattleController(def, presenter, { say: vi.fn(async () => {}) } as unknown as UiApi, () => {}, 1);
+    expect(retry.def).toBe(controller.def);
+    expect(retry.battle.has(retry.battle.unit('kyra'), 'bound')).toBe(true);
+    await def.hooks!.onStart!(retry.ctx);
+    expect(retry.unitDefs.get('kyra')!.title).toContain('Gefesselt');
+    retry.battle.startTurns();
+    const retryKyra = retry.battle.unit('kyra');
+    const retryFlick = retry.battle.unit('flick');
+    retry.battle.act(retryFlick.id, 'k5-losschneiden', retryKyra);
+    await def.hooks!.onFree!(retry.ctx, retryKyra, retryFlick);
+    expect(retry.unitDefs.get('kyra')!.title).toContain('Befreit');
+  });
+
   it.each([false, true])('finishes the engine explosion before opening the art (Flick already down: %s)', async alreadyDown => {
     G.audio = { sfx: vi.fn() } as unknown as AudioApi;
     const def = rescueBattle(2, true);

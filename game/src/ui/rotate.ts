@@ -14,12 +14,16 @@ function dismissed(): boolean {
  * back on the next visit until it was closed once).
  */
 export class RotateHint {
+  private layer!: HTMLElement;
   private node: HTMLElement | null = null;
   /** Shown long enough this session: stays away until the next page load. */
   private retired = false;
   private timer = 0;
 
   mount(): void {
+    // Keep the hint above the title and below modal overlays, in its own layer.
+    this.layer = el('div', 'ui-layer ui-layer-rotate-hint');
+    ctx.root.appendChild(this.layer);
     ctx.onLayout(() => this.sync());
     this.sync();
   }
@@ -46,6 +50,7 @@ export class RotateHint {
     close.appendChild(icon('close'));
     const dismiss = (e: Event) => {
       e.preventDefault(); e.stopPropagation();
+      this.retired = true;
       try { localStorage.setItem(KEY, '1'); } catch { /* storage optional */ }
       sfx('ui-close', { volume: 0.5 });
       this.hide();
@@ -53,17 +58,21 @@ export class RotateHint {
     close.addEventListener('click', dismiss);
     node.addEventListener('pointerdown', e => e.stopPropagation());
     node.append(ico, text, close);
-    ctx.layers.toast.appendChild(node);
+    this.layer.appendChild(node);
     this.node = node;
-    requestAnimationFrame(() => node.classList.add('is-in'));
+    requestAnimationFrame(() => { if (this.node === node) node.classList.add('is-in'); });
     clearTimeout(this.timer);
     this.timer = window.setTimeout(() => { this.retired = true; this.hide(); }, 12000);
   }
 
   private hide(): void {
+    clearTimeout(this.timer);
+    this.timer = 0;
     const node = this.node;
     if (!node) return;
     this.node = null;
+    node.inert = true;
+    node.setAttribute('aria-hidden', 'true');
     node.classList.remove('is-in');
     setTimeout(() => node.remove(), 500);
   }

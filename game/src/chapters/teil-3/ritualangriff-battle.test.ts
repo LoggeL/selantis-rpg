@@ -44,7 +44,7 @@ describe('e3-ritualangriff (ritual on the hill)', () => {
     expect(STANDS).toHaveLength(10);
     for (const s of STANDS) {
       expect(grid.standable(s.x, s.y), `stand ${s.x},${s.y}`).toBe(false);
-      expect(def.map.props!.some(p => p.x === s.x && p.y === s.y && p.prop === 'stake')).toBe(true);
+      expect(def.map.props!.some(p => p.x === s.x && p.y === s.y && p.prop === 'ritual-stand')).toBe(true);
     }
     const sides = [{ x: STONE.x - 1, y: STONE.y }, { x: STONE.x + 1, y: STONE.y }, { x: STONE.x, y: STONE.y - 1 }, { x: STONE.x, y: STONE.y + 1 }];
     for (const t of sides) expect(grid.standable(t.x, t.y)).toBe(true);

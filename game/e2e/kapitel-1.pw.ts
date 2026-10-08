@@ -254,8 +254,10 @@ test('trauer: carry a stone at arm height without rectangular light edges', asyn
   const carried = () => page.evaluate(() => {
     const w = (window as any).__world;
     const stone = w.children.list.find((o: any) => o.texture?.key === 'prop:iso-rock-0');
-    return stone ? { dx: stone.x - w.player.sprite.x, dy: stone.y - w.player.sprite.y,
-      depth: stone.depth - w.player.sprite.depth, width: stone.displayWidth } : null;
+    const sprite = w.player.sprite;
+    // Compare in figure pixels so map-specific artwork scales retain the same hand anchor and stone size.
+    return stone ? { dx: Math.round((stone.x - sprite.x) / sprite.scaleX), dy: Math.round((stone.y - sprite.y) / sprite.scaleY),
+      depth: stone.depth - sprite.depth, width: stone.displayWidth / sprite.scaleX } : null;
   });
   await expect.poll(carried).toMatchObject({ dx: 5, dy: -14 });
   expect((await carried())!.width).toBeLessThan(15);

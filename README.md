@@ -1,6 +1,6 @@
 # Selantis
 
-Ein Story-RPG im Browser mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der Prolog folgt Valentus; fünf Kapitel erzählen von Lia und Kyras letztem Sommertag am Hof bis zu Kyras Rettung. Aktuell ist das Spiel ein Prototyp.
+Ein Story-RPG im Browser mit Lia, freier Erkundung und taktischen Rasterkämpfen. Der Prolog folgt Valentus. Teil I erzählt in fünf Kapiteln von Lia und Kyras letztem Sommertag am Hof bis zu Kyras Rettung. Teil II "Letzte Hoffnung" und Teil III "Falscher Glaube" führen die Geschichte weiter. Aktuell ist das Spiel ein Prototyp.
 
 [Spiel öffnen](https://selantis.logge.top/) · [Szenenmusik anhören](https://selantis.logge.top/musik.html)
 
@@ -13,6 +13,10 @@ Die Spielwelt verwendet gemalte Pixelgrafiken, Licht, Wetter und Partikel. Dialo
 | ![Titelbildschirm unter dem Sternenhimmel](docs/screenshots/title.jpg) | ![Lia und Kyra auf dem Heimweg zwischen den Feldern](docs/screenshots/exploration.jpg) | ![Isometrischer Übungsplatz mit ausgewählter Figur und Bewegungsfeldern](docs/screenshots/battle.jpg) |
 
 Die Aufnahmen zeigen den lokalen Titelbildschirm, den Heimweg (`heimweg`) und den taktischen Übungsplatz (`tactics-sandbox`).
+
+## Arbeitsordner
+
+Der aktuelle Entwicklungsstand liegt im Hauptordner `SelantisRPG`. Frühere Arbeitskopien sind unter `.local/retired-worktrees/` gesammelt, die alte Quellensicherung unter `.local/history-archive/`. Diese Verzeichnisse enthalten historische Stände und bleiben lokal. Noch offene Codex-Arbeitskopien, insbesondere für die Vertonung, sind über `.local/codex-workspaces/` erreichbar. Sicherungen und das Protokoll der Zusammenführung liegen unter `.local/consolidation-2026-10-08/`.
 
 ## Lokal starten
 
@@ -80,6 +84,8 @@ Ohne URL-Parameter startet der Titelbildschirm. `?scene=<id>` springt über `G.w
 | III: Der Goldene Eber | `eber`, `leselager`, `kyra` |
 | IV: Die Freie Bruderschaft | `augenbinde`, `bruderschaft`, `verrat` |
 | V: Regen | `regenwald`, `faehrte`, `schattenlager`, `rettung`, `finale`, optional `weiterreise` |
+| Teil II: Letzte Hoffnung | `e2-taverne` bis `e2-aufbruch`, [Szenen und Umsetzung](docs/teil-2/umsetzung.md) |
+| Teil III: Falscher Glaube | `e3-valentus` bis `e3-epilog`, [Szenen und Umsetzung](docs/teil-3/umsetzung.md) |
 
 Lias Weg verbindet Erkundung, Gespräche, das Packen der Reiseausrüstung, Feuermachen, Spurensuche und Schleichen. Valentus kämpft im Prolog; Lia nutzt bei Kyras Rettung zusammen mit Flick ihre verfügbaren Fähigkeiten und Gegenstände. Kapitelentscheidungen und Funde werden im gemeinsamen Kampagnenzustand geführt.
 
@@ -89,7 +95,7 @@ Story-Aktionen wie Handheben, Augenöffnen, Wundpflege und Blasebalgtreten lasse
 
 ## Spielstände und Debug
 
-[`GameState`](game/src/core/state.ts) verwaltet Flags, Inventar, Ziele, Erinnerungen, Wissen, Hinweise, Fähigkeiten und Gruppe. `G.goto()` speichert beim Einstieg in eine reguläre Storyszene Kapitel, Szenen-ID, Parameter und Zustand im `localStorage` unter `selantis.save.v1`. "Fortsetzen" im Titel lädt diesen Stand und startet die gespeicherte Szene erneut. Änderungen innerhalb einer laufenden Szene werden beim nächsten Szenenwechsel gesichert. Einstellungen liegen getrennt unter `selantis.settings.v1`.
+[`GameState`](game/src/core/state.ts) verwaltet Flags, Inventar, Ziele mit Herkunft und Zeitangaben, Erinnerungen, Wissen, Hinweise, Fähigkeiten, Gruppe und Spielzeit. `G.goto()` speichert beim Einstieg in eine reguläre Storyszene Kapitel, Szenen-ID, Parameter und Zustand im `localStorage` unter `selantis.save.v1`. "Fortsetzen" im Titel lädt diesen Stand und startet die gespeicherte Szene erneut. Szenenwechsel und ausdrücklich gesetzte Zwischenstände sichern den Fortschritt; das Finale speichert auch seine abgeschlossenen Abschnitte. Einstellungen liegen getrennt unter `selantis.settings.v1`.
 
 F2 öffnet eine filterbare Szenenwahl mit den Storykapiteln und versteckten Entwicklungsdemos. Sie zeigt die aktuelle Szene sowie Anzahlen von Flags, Gegenständen und Zielen. Ein Sprung setzt den Zustand wie ein URL-Einstieg zurück. Versteckte Dev-Kapitel schreiben keinen Spielstand.
 
@@ -114,7 +120,7 @@ npx playwright install chromium
 npm run verify
 ```
 
-`verify` führt die TypeScript-Prüfung, Vitest-Tests, den Produktionsbuild und Playwright-Browserregressionen aus. Die Typprüfung umfasst `src/` und `e2e/`. Ein Fehler stoppt den Lauf. GitHub Actions verwendet denselben Prüfbefehl.
+`verify` führt die TypeScript-Prüfung, Vitest-Tests, den Produktionsbuild und Playwright-Browserregressionen aus. Die Typprüfung umfasst `src/` und `e2e/`. Ein Fehler stoppt den Lauf. Die Prüfungen laufen lokal; GitHub-CI ist deaktiviert.
 
 Einzelne Prüfungen vom Projektstamm:
 

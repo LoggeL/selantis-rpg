@@ -3,6 +3,7 @@ import { G } from '../../core/G';
 import { isoPropKey, tacticsManifest } from './assets';
 import { pal } from './palette';
 import { Pix, artRng } from './pixels';
+import { paintRitualStand } from './ritualStand';
 
 export interface IsoProp {
   key: string;
@@ -19,7 +20,7 @@ export interface IsoProp {
   /** Draw in front of a unit standing on the same tile (bushes hide feet). */
   overUnit?: boolean;
   light?: { color: number; radius: number };
-  /** Display scale (procedural fallbacks drawn for the old 32 px tiles are shown at 1.5x). */
+  /** Display scale (legacy 32 px fallbacks use 1.5x; story-specific recipes can use their own size). */
   scale?: number;
   /** Painted campfire: the scene adds animated flames on top. */
   flame?: boolean;
@@ -28,7 +29,7 @@ export interface IsoProp {
 }
 
 type Painter = (p: Pix, rnd: () => number, frame: number) => void;
-interface Recipe { w: number; h: number; ox: number; oy: number; frames?: number; fps?: number; tall?: boolean; overUnit?: boolean; light?: IsoProp['light']; paint: Painter }
+interface Recipe { w: number; h: number; ox: number; oy: number; frames?: number; fps?: number; tall?: boolean; overUnit?: boolean; light?: IsoProp['light']; scale?: number; paint: Painter }
 
 const OUT = () => pal('ink', 0);
 
@@ -50,10 +51,14 @@ function flames(p: Pix, f: number, cx: number, base: number, count: number, maxH
 }
 
 /**
- * Code-drawn props: only effects (fire, flames). Everything else is painted (PAINTED below, Codex art in
+ * Code-drawn props: effects and the story-specific ritual stand. Everything else is painted (PAINTED below, Codex art in
  * public/assets/props/iso-*.png); a missing painting shows a neutral placeholder block.
  */
 const RECIPES: Record<string, Recipe> = {
+  'ritual-stand': {
+    w: 32, h: 46, ox: 16, oy: 42, tall: true, scale: 0.9,
+    paint(p, rnd) { paintRitualStand(p, Math.floor(rnd() * 2)); },
+  },
   fire: {
     w: 30, h: 40, ox: 15, oy: 35, frames: 4, fps: 9, light: { color: 0xffa040, radius: 52 },
     paint(p, rnd, f) {
@@ -114,7 +119,7 @@ export function paintedProp(scene: Phaser.Scene, id: string, variant = 0): IsoPr
   };
 }
 
-/** Ensures a tactics prop texture (painted art when available; code-drawn only for fire/flames) and returns its info. */
+/** Ensures a tactics prop texture (painted art or a registered code-native recipe) and returns its info. */
 export function isoProp(scene: Phaser.Scene, id: string, variant = 0): IsoProp {
   const painted = paintedProp(scene, id, variant);
   if (painted) return painted;
@@ -136,13 +141,13 @@ export function isoProp(scene: Phaser.Scene, id: string, variant = 0): IsoProp {
   const info: IsoProp = {
     key, w: r.w, h: r.h, ox: r.ox, oy: r.oy, tall: r.tall, overUnit: r.overUnit, light: r.light,
     frames: frames > 1 ? Array.from({ length: frames }, (_, f) => `f${f}`) : undefined, fps: r.fps,
-    scale: id === 'fire' || id === 'flames' ? 1 : 1.5,
+    scale: r.scale ?? (id === 'fire' || id === 'flames' ? 1 : 1.5),
   };
   built.set(key, info);
   return info;
 }
 
-export const isoPropIds = () => [...Object.keys(PAINTED), 'fire', 'flames'];
+export const isoPropIds = () => [...Object.keys(PAINTED), ...Object.keys(RECIPES).filter(id => id !== 'placeholder')];
 
 /**
  * Optionally uses the shared art layer's prop (e.g. a tree) when it exists and is not a placeholder.
@@ -161,4 +166,4 @@ export function sharedProp(scene: Phaser.Scene, id: string, variant = 0): IsoPro
 }
 
 /** Painted asset ids of the shared art layer a battle map may use as decoration (loaded via G.art.preload). */
-export const isTacticsPropId = (id: string) => id === 'fire' || id === 'flames' || id in PAINTED;
+export const isTacticsPropId = (id: string) => id in PAINTED || (id !== 'placeholder' && id in RECIPES);

@@ -4,7 +4,7 @@
 // wrong picks are corrected by Flick without penalty. Optional: Kyra at the stable door, Craupor's provisions once.
 import { registerClues, registerMemories } from '../../core/catalog';
 import { G } from '../../core/G';
-import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
+import { defineMap, startWorld, type MapDef, type Polygon, type WorldCtx } from '../../world';
 import { eberMap } from '../kapitel-3/eber';
 import { halt } from '../kapitel-4/shared';
 import { loggeCat, loggeGlasses, loggeNpc, pascalNpc, sebastianNpc } from './logge';
@@ -31,10 +31,17 @@ const SEAT_KYRA: [number, number] = [198, 150];
 const SEAT_FLICK: [number, number] = [46, 150];
 const TABLE_STAND: [number, number] = [112, 176];
 const COUNTER: [number, number] = [504, 134];
-const DOOR: [number, number] = [284, 336];
+// Click-to-move stops up to 3 px before its target. Keep the marker well inside the exit strip.
+export const TAVERN_DOOR: [number, number] = [284, 351];
+export const TAVERN_EXIT: Polygon = [[228, 342], [338, 342], [338, 360], [228, 360]];
+
+// The stool tops support both sitting poses at the same height; feet project slightly in front of their stools.
+const CAMEO_SEAT_Y = 190;
+const CAMEO_STOOL_Y = 184;
+const CAMEO_WOOD = 0xd39464;
 
 /** Logge's cat sleeps on the cameo table; the player pets it from the gap between the two stools. */
-const CAT = loggeCat([446, 170], [440, 196]);
+const CAT = loggeCat([444, 170], [440, 196]);
 
 const found = (): number => sourcesFound(G.state.data.clues);
 
@@ -61,8 +68,8 @@ export const eberAbend: MapDef = defineMap({
       talk: async w => { void w.actor('hund').emote('heart'); await w.think('Er erkennt mich. Oder er erkennt meinen Beutel mit dem Käse.'); },
     },
     // Cameo guests (user's wish): Logge, drunk and breaking the fourth wall, his sober friend Sebastian, and Pascal alone.
-    loggeNpc([419, 184], 'right'),
-    sebastianNpc([461, 184], 'left'),
+    loggeNpc([407, CAMEO_SEAT_Y], 'right'),
+    sebastianNpc([473, CAMEO_SEAT_Y], 'left'),
     pascalNpc([476, 300], 'left'),
   ],
   interactables: [
@@ -83,19 +90,22 @@ export const eberAbend: MapDef = defineMap({
   ],
   clues: [],
   triggers: [
-    { id: 'ausgang', poly: [[228, 342], [338, 342], [338, 360], [228, 360]], when: () => G.state.is('e2-route-klar') },
+    { id: 'ausgang', poly: TAVERN_EXIT, when: () => G.state.is('e2-route-klar') },
     {
-      id: 'tuer-zu', poly: [[228, 342], [338, 342], [338, 360], [228, 360]], once: false, when: () => !G.state.is('e2-route-klar'),
+      id: 'tuer-zu', poly: TAVERN_EXIT, once: false, when: () => !G.state.is('e2-route-klar'),
       onEnter: async w => { await w.think(found() >= 3 ? 'Erst den Weg festlegen. Am Tisch, mit den beiden.' : 'Wohin denn? Ich weiß ja nicht mal, wo das Lager heute ist.'); },
     },
   ],
   exits: [],
   // A free-standing table for the cameo guests: the painted tables hide seated figures behind their edges.
   props: [
-    { prop: 'stool', at: [419, 186], id: 'hocker-logge', collide: false },
-    { prop: 'stool', at: [461, 186], id: 'hocker-sebastian', collide: false },
-    { prop: 'table', at: [440, 178], id: 'tisch-gaeste' },
-    CAT.prop,
+    { prop: 'stool', at: [407, CAMEO_STOOL_Y], id: 'hocker-logge', scale: 1.5, tint: CAMEO_WOOD, collide: false },
+    { prop: 'stool', at: [473, CAMEO_STOOL_Y], id: 'hocker-sebastian', scale: 1.5, tint: CAMEO_WOOD, collide: false },
+    { prop: 'table', at: [440, 188], id: 'tisch-gaeste', scale: 1.5, tint: CAMEO_WOOD },
+    // The same beeswax candle and warm pool as the painted tables, with depth anchored to the table's feet.
+    { prop: 'candle', at: [429, 163], id: 'kerze-gaeste', collide: false, depthOffset: 26,
+      light: { kind: 'candle', radius: 34, intensity: 0.45, always: true } },
+    { ...CAT.prop, depthOffset: 20 },
   ],
   spawns: { tisch: { at: TABLE_STAND, dir: 'up' }, eingang: { at: [284, 326], dir: 'up' } },
   time: 'dusk',
@@ -383,6 +393,7 @@ async function taverneScript(w: WorldCtx): Promise<void> {
   await intro(w);
   updateObjective(w);
   await until(w, () => found() >= 3);
+  w.setObjective('e2-zugang', 'Finde heraus, wie man heute zum Lager der Bruderschaft kommt (3/3).');
   w.completeObjective('e2-zugang');
   const flick = w.actor('flick');
   flick.hold(false);
@@ -390,7 +401,7 @@ async function taverneScript(w: WorldCtx): Promise<void> {
   bg(flick.walkTo(SEAT_FLICK[0] + 10, SEAT_FLICK[1] + 26, { face: 'up' }));
   w.setObjective('e2-weg', 'Setz dich mit Kyra und Flick an den Tisch und legt den Weg fest.', 'tisch');
   await until(w, () => G.state.is('e2-route-klar'));
-  w.setObjective('e2-aufbruch', 'Brich mit Kyra und Flick auf.', DOOR);
+  w.setObjective('e2-aufbruch', 'Brich mit Kyra und Flick auf.', TAVERN_DOOR);
   await w.waitForTrigger('ausgang');
   w.lockPlayer();
   w.completeObjective('e2-aufbruch');

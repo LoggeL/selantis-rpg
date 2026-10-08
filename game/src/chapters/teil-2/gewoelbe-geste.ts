@@ -7,7 +7,6 @@ import { previewCanvas } from '../../art/blurhash';
 import { manifest } from '../../art/manifest';
 
 type Facing = 'left' | 'right' | 'up' | 'down';
-type GestureImage = HTMLImageElement | HTMLCanvasElement;
 
 export interface GestureFigure {
   /** Character id and pose (a manifest pose, or the walk sheet's idle frame when the pose is missing). */
@@ -26,6 +25,8 @@ export interface GesturePicture {
   /** Map pixel the close-up centres on and its zoom (screen px per map px). */
   focus: readonly [number, number];
   zoom: number;
+  /** Figure scale in this hand-staged close-up; defaults to 1, independent of the world map. */
+  figureScale?: number;
   figures: GestureFigure[];
   /** Map pixel of the small thing the hand works on (nail head, knot): glints with the gesture's progress. */
   glint: readonly [number, number];
@@ -42,35 +43,40 @@ export function restageGesture(kind: string, instruction: string, picture?: Gest
   if (!root) return;
   const help = root.querySelector('.action-instruction');
   if (help) help.textContent = instruction;
-  if (!picture) return;
   const stage = root.querySelector<HTMLElement>('.action-stage');
   const original = stage?.querySelector<HTMLCanvasElement>('canvas.mini-illustration');
   if (!stage || !original) return;
+  const title = root.querySelector('.ch-title')?.textContent?.trim() || root.getAttribute('aria-label') || '';
+  const description = [title, instruction].filter(Boolean).join('. ');
+  if (!picture) { original.setAttribute('aria-label', description); return; }
   const canvas = document.createElement('canvas');
   canvas.className = 'mini-illustration';
   canvas.setAttribute('role', 'img');
-  canvas.setAttribute('aria-label', original.getAttribute('aria-label') ?? '');
+  canvas.setAttribute('aria-label', description);
   stage.prepend(canvas);
   original.style.visibility = 'hidden';
+  original.setAttribute('aria-hidden', 'true');
+  original.setAttribute('role', 'presentation');
+  original.removeAttribute('aria-label');
   void draw(root, stage, canvas, picture);
 }
 
 function draw(root: HTMLElement, stage: HTMLElement, canvas: HTMLCanvasElement, pic: GesturePicture): void {
   const art = manifest();
+  const figureK = pic.figureScale ?? 1;
   const bgFile = art.backgrounds[pic.background]?.file;
-  let background: GestureImage | null = bgFile ? previewCanvas(bgFile) : null;
+  let background: HTMLImageElement | HTMLCanvasElement | null = bgFile ? previewCanvas(bgFile) : null;
+  if (bgFile) void loadImage(bgFile).then(image => { if (image) background = image; });
   const sprites = pic.figures.map(f => {
     const entry = art.characters[f.id];
     const pose = entry?.poses[f.pose];
     const file = pose?.file ?? entry?.walk?.file;
-    return { f, entry, pose, file, image: file ? previewCanvas(file) as GestureImage | null : null };
+    const sprite = { f, entry, pose, image: (file ? previewCanvas(file) : null) as HTMLImageElement | HTMLCanvasElement | null };
+    if (file) void loadImage(file).then(image => { if (image) sprite.image = image; });
+    return sprite;
   });
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-  if (bgFile) void loadImage(bgFile).then(image => { if (image) background = image; });
-  for (const sprite of sprites) {
-    if (sprite.file) void loadImage(sprite.file).then(image => { if (image) sprite.image = image; });
-  }
   const t0 = performance.now();
   const frame = () => {
     if (!root.isConnected || root.classList.contains('is-complete')) return;
@@ -96,7 +102,7 @@ function draw(root: HTMLElement, stage: HTMLElement, canvas: HTMLCanvasElement, 
         ctx.translate((s.f.at[0] - sx) * z, (s.f.at[1] - sy) * z);
         if (mirror) ctx.scale(-1, 1);
         if (s.f.dim) ctx.filter = 'brightness(0.55)';
-        ctx.drawImage(s.image, srcX, srcY, pw, ph, -foot[0] * z, -foot[1] * z, pw * z, ph * z);
+        ctx.drawImage(s.image, srcX, srcY, pw, ph, -foot[0] * z * figureK, -foot[1] * z * figureK, pw * z * figureK, ph * z * figureK);
         ctx.restore();
       }
       // Vignette: the close-up is a held breath.

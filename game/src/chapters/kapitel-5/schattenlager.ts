@@ -7,6 +7,7 @@ import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { runBluff } from './bluffScene';
 import { ambience, CROUCH, lia, sfx } from './common';
 import { FIRE_AT, LAGER_BLOCK, LAGER_HIDING, LAGER_OCCLUDERS, LAGER_SURFACES, LAGER_WALK } from './lagerGeom';
+import { completeScouting, updateScoutObjective } from './scoutObjective';
 
 const HORSES: [number, number][] = [[1036, 300], [1066, 306], [1096, 312], [1050, 336], [1080, 342], [1110, 348]];
 
@@ -65,14 +66,8 @@ export const schattenlagerMap: MapDef = defineMap({
 
 // ---------------------------------------------------------------------------------------------------------------
 
-const SCOUT = ['k5-sp-felsen', 'k5-sp-stamm', 'k5-lauschen'];
-const scouted = () => SCOUT.filter(f => G.state.is(f)).length;
-
 function scoutObjective(w: WorldCtx): void {
-  const n = scouted();
-  if (n >= 3) return;
-  const next = !G.state.is('k5-sp-felsen') ? 'felsen' : !G.state.is('k5-sp-stamm') ? 'stamm' : [888, 492] as [number, number];
-  w.setObjective('k5-auskundschaften', `Kundschafte das Lager aus, ohne gesehen zu werden (${n}/3).`, next);
+  updateScoutObjective(w, G.state);
 }
 
 async function scoutRocks(w: WorldCtx): Promise<void> {
@@ -186,8 +181,7 @@ async function treeScene(w: WorldCtx): Promise<void> {
     w.stealth.resetGuards();
     w.stealth.enable(true);
   });
-  w.completeObjective('k5-auskundschaften');
-  w.setObjective('k5-zurueck', 'Schleich zurück zu Flick an den Waldrand.', 'flick');
+  completeScouting(w, G.state);
 }
 
 async function plan(w: WorldCtx): Promise<void> {

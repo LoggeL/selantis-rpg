@@ -37,6 +37,23 @@ export function complete(found: readonly string[]): boolean {
   return DEDUCTIONS.every(d => found.includes(d.id));
 }
 
+interface ClueStore {
+  data: { clues: string[] };
+  hasClue(id: string): boolean;
+  addClue(id: string): boolean;
+}
+
+/** Persist independently of the board's animation, including recovery of an older incomplete save. */
+export function reconcileConclusion(state: ClueStore): boolean {
+  return complete(state.data.clues) && !state.hasClue(FINAL) ? state.addClue(FINAL) : false;
+}
+
+/** A new deduction and the conclusion it unlocks form one synchronous notebook action. */
+export function recordDeduction(state: ClueStore, deduction: Deduction): { added: boolean; concluded: boolean } {
+  const added = state.addClue(deduction.id);
+  return { added, concluded: reconcileConclusion(state) };
+}
+
 /**
  * Lia has evidence that contradicts Foltan's „Craupor weiß nichts.“: the ribbon (the hard proof) plus at least one
  * deduction that places Kyra in the inn — or the overheard „Fünf Mann“ at the counter.

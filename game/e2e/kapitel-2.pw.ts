@@ -296,7 +296,7 @@ test('waldweg: breakfast, the fork, midday rest and her name, Speikraut, on to t
   await advance(page, objectiveIs(page, 'k2-rast'), o => o.findIndex(t => /brauche wirklich eine Pause/.test(t)));
   expect(await page.evaluate(() => (window as any).G.state.is('k2-azar-stolz'))).toBe(true);
   await clickWorld(page, 872, 574);
-  await advance(page, objectiveIs(page, 'k2-osten'));
+  await advance(page, objectiveIs(page, 'k2-trittsteine'));
   expect(await page.evaluate(() => (window as any).G.state.is('k2-name-genannt'))).toBe(true);
   await clickWorld(page, 952, 428);
   await advance(page, async () => (await page.evaluate(() => (window as any).G.state.is('k2-speikraut-gepflueckt'))) && !(await busy(page)), o => o.findIndex(t => /Azar/.test(t)));

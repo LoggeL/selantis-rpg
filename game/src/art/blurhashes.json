@@ -45,7 +45,7 @@
   "width": 640,
   "height": 360,
   "hash": "L05;mv#+veRj=ZR*x]S401EjK6I;",
-  "sourceHash": "af492615ed73f1960cf2988be06acd2e546d38c0a77b4aefa07cb8f92ff1bc91"
+  "sourceHash": "6dac238bb9d65d4d50b19db6a5b74f711a6c6fb46675da14142f4e1ad8d823dd"
  },
  "assets/bg/e3-falsches-lager.png": {
   "width": 1280,
@@ -117,7 +117,7 @@
   "width": 1280,
   "height": 720,
   "hash": "L6EwT@Nu0%V_-l5U^4s.5AEP}qEN",
-  "sourceHash": "96bf1007aed2536005f5abe54bd98503d2dfa0cd82d97424eb2f61d51b7d4e31"
+  "sourceHash": "4cba06a209e0609055bd4fe0a14de7758383a9a259b27c965f13e73b7aa5da6a"
  },
  "assets/bg/k1-heimweg.png": {
   "width": 1280,
@@ -165,7 +165,7 @@
   "width": 1280,
   "height": 720,
   "hash": "L6CQ03x,0TWG?Xxr%GkB05ow~k%J",
-  "sourceHash": "65be48ea2e590e5c419b249c851c79b60bdaac2dbb85571bb090f4b46d487d46"
+  "sourceHash": "0cae4ce85de010fbbbd4ffcf86f816f9f1a6c4a3bf4f97bca0114e075d9ce64a"
  },
  "assets/bg/k3-eber.png": {
   "width": 640,
@@ -256,6 +256,24 @@
   "height": 360,
   "hash": "L29~NSxZ1N$%ozkC}q$h0,R+,;R+",
   "sourceHash": "541727d1ab396fdcf11a992b3470a4a4b2a4453a3ad0e3a65e4aaa7c30d71d68"
+ },
+ "assets/bg/variants/e2-kerker-fixed.png": {
+  "width": 640,
+  "height": 360,
+  "hash": "L06HDj#+z.M|^0R*x]Ne01EkJ:I;",
+  "sourceHash": "f30395662825bab36e44f1743d1c34d8495436e9c5aa3138eba4b36a9d123f4f"
+ },
+ "assets/bg/variants/e3-waldpfad-fixed.png": {
+  "width": 1280,
+  "height": 720,
+  "hash": "L5EAfGE#EN#:-l11}q$$E5Ej^35m",
+  "sourceHash": "77a3e769bcab74aaa4ddec9e585d7c2a4a8f8333043a2ad1219822d6cb6de35c"
+ },
+ "assets/bg/variants/k2-waldweg-fixed.png": {
+  "width": 1280,
+  "height": 720,
+  "hash": "L6B:$Gx,4xWG-,xpx.kB05ov~Q%I",
+  "sourceHash": "827a82e2039cb2f3fce041b3dc24e8a64c5ad16cc6ebcd326bc5c68b0f5058c2"
  },
  "assets/cut/bonus-goldener-eber.jpg": {
   "width": 1280,
@@ -1575,6 +1593,42 @@
   "height": 256,
   "hash": "LAB.lgR*04}?59s:xtI:10R*^MNd",
   "sourceHash": "4ca6bd454b9ee1108d5f691191d0ad473dd72751a0eff7d23a8213cf897df7ac"
+ },
+ "assets/portraits/flick-flight-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L9BL^VI;04}?4?s:%1I:1JoJ}qSN",
+  "sourceHash": "7052a395cdd5a8501dc17550ed9a95bdaece66c819b678934c26eb67d7042bf4"
+ },
+ "assets/portraits/flick-flight-pained.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L8B2=9I;03}?4?s:%1Ip10oJ}qSg",
+  "sourceHash": "4a76f1ed8573c40773f54aee92317c0bc06262c8fffe30efe60c76baf092297e"
+ },
+ "assets/portraits/flick-flight-sad.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LABe~rI;04^P59s:xtI:1KoJ}qSN",
+  "sourceHash": "0d61230495fc229afb73ff86488058238ec849fb9065c6feb605cacedaa4f9fe"
+ },
+ "assets/portraits/flick-flight-scared.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L9BCMXI;04}r9cs:xZI;10oJ}qS4",
+  "sourceHash": "34df9a545f6bce1803ca749657d3005ab069b8562789a4c2b539a518696c01ff"
+ },
+ "assets/portraits/flick-flight-smirk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LABe?SI;05^O59s:xtI:1KoJ}pSg",
+  "sourceHash": "facebfb9e8840cd1364484b38487dd061138379094b755cd0e86f488d0aa1b63"
+ },
+ "assets/portraits/flick-flight.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LABe~rI;04}s59s:xtI:10oJ}qSg",
+  "sourceHash": "38985c904e5e2c2ca8ddfd47a3b73b135efa7349f405d810f8b34bc59be047fd"
  },
  "assets/portraits/flick-happy.png": {
   "width": 256,

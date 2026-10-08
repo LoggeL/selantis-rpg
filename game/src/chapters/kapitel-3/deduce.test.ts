@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { available, combine, complete, contradictsFoltan, DEDUCTIONS } from './deduce';
+import { available, combine, complete, contradictsFoltan, DEDUCTIONS, FINAL, reconcileConclusion, recordDeduction } from './deduce';
+import { GameState } from '../../core/state';
 
 describe('kapitel-3 clue board', () => {
   it('combines matching pairs in any order', () => {
@@ -23,6 +24,27 @@ describe('kapitel-3 clue board', () => {
   it('is complete with all three deductions', () => {
     expect(complete(DEDUCTIONS.slice(0, 2).map(d => d.id))).toBe(false);
     expect(complete(DEDUCTIONS.map(d => d.id))).toBe(true);
+  });
+
+  it('persists the final conclusion in the same action as the last pair, before any UI delay', () => {
+    const state = new GameState();
+    expect(recordDeduction(state, DEDUCTIONS[0])).toEqual({ added: true, concluded: false });
+    recordDeduction(state, DEDUCTIONS[1]);
+    expect(state.hasClue(FINAL)).toBe(false);
+    expect(recordDeduction(state, DEDUCTIONS[2])).toEqual({ added: true, concluded: true });
+    expect(state.hasClue(FINAL)).toBe(true);
+    expect(recordDeduction(state, DEDUCTIONS[2])).toEqual({ added: false, concluded: false });
+    expect(state.data.clues.filter(id => id === FINAL)).toHaveLength(1);
+  });
+
+  it('recovers an interrupted older notebook without awarding incomplete evidence', () => {
+    const state = new GameState();
+    DEDUCTIONS.slice(0, 2).forEach(d => state.addClue(d.id));
+    expect(reconcileConclusion(state)).toBe(false);
+    state.addClue(DEDUCTIONS[2].id);
+    expect(reconcileConclusion(state)).toBe(true);
+    expect(state.hasClue(FINAL)).toBe(true);
+    expect(reconcileConclusion(state)).toBe(false);
   });
 
   it('contradicts Foltan only with real evidence', () => {

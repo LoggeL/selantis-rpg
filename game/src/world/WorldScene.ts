@@ -10,6 +10,7 @@ import type {
   At, ClueDef, ExitDef, InteractableDef, LightDef, MapDef, NpcDef, PropDef, StartWorldOptions, TriggerDef, WorldCtx, WorldEvent,
 } from './api';
 import { Actor, type ActorHost } from './actor';
+import { figureScale, needsFigureEdge } from './presentation';
 import { createCtx, WorldStopped } from './ctx';
 import type { UiApiExt } from '../ui';
 import { markSeen } from '../ui/gallery';
@@ -233,6 +234,7 @@ export class WorldScene extends Phaser.Scene {
       scaleAt: y => self.scaleAt(y),
       get worldK() { return wk(); },
       spriteScale: (key, frame) => self.spriteScale(key, frame),
+      get figureEdge() { return needsFigureEdge(self.map?.background); },
     };
   }
 
@@ -247,7 +249,7 @@ export class WorldScene extends Phaser.Scene {
   /** Base scale of character sprites: MapDef.spriteScale, or ×2 for small (≤32 px) fallback frames. */
   spriteScale(_key: string, frame: { w: number; h: number }): number {
     if (this.map?.spriteScale !== undefined) return this.map.spriteScale;
-    return frame.h <= 32 ? 2 : 1;
+    return (frame.h <= 32 ? 2 : 1) * figureScale(this.map?.background);
   }
 
   /** Wheat swallows the legs (hide terrain / hiding surfaces); everything else keeps actors on top of the ground. */
@@ -750,14 +752,14 @@ export class WorldScene extends Phaser.Scene {
       if (art || def.light) {
         const override = (def.light || {}) as Partial<LightDef>;
         const merged: LightDef = {
-          at: { x: pos.x, y: pos.y + (art?.offsetY ?? -6), px: true },
-          radius: art?.radius, color: art?.color, kind: art?.flicker ? 'fire' : 'plain', flicker: art?.flicker ? 1 : undefined,
+          at: { x: pos.x, y: pos.y + (art?.offsetY ?? -6) * p.scale, px: true },
+          radius: art?.radius === undefined ? undefined : art.radius * p.scale, color: art?.color, kind: art?.flicker ? 'fire' : 'plain', flicker: art?.flicker ? 1 : undefined,
           ...override,
         };
         this.addLight({ ...merged, id: merged.id ?? `${id}-light` });
       }
       p.info.lights?.forEach((l, i) => this.addLight({
-        id: `${id}-light-${i}`, at: { x: pos.x + l.x * flip, y: pos.y + l.y, px: true }, radius: l.radius, color: l.color,
+        id: `${id}-light-${i}`, at: { x: pos.x + l.x * flip * p.scale, y: pos.y + l.y * p.scale, px: true }, radius: l.radius * p.scale, color: l.color,
         kind: 'window', flicker: l.flicker ? 0.25 : 0.05,
       }));
     }
@@ -876,8 +878,8 @@ export class WorldScene extends Phaser.Scene {
   anchorOf(prop: PropObj, name: string): Vec & { onProp: boolean } {
     const a = prop.info.anchors?.[name];
     const flip = prop.def.flipX ? -1 : 1;
-    if (a) return { x: prop.x + a.x * flip, y: prop.y + a.y, onProp: a.y < 0 };
-    if (name === 'sit' || name === 'seat' || name === 'lie') return { x: prop.x, y: prop.y - Math.min(6, Math.round(prop.info.height * 0.25)), onProp: true };
+    if (a) return { x: prop.x + a.x * flip * prop.scale, y: prop.y + a.y * prop.scale, onProp: a.y < 0 };
+    if (name === 'sit' || name === 'seat' || name === 'lie') return { x: prop.x, y: prop.y - Math.min(6 * prop.scale, Math.round(prop.info.height * prop.scale * 0.25)), onProp: true };
     const fp = prop.footprint();
     return { x: prop.x, y: (fp ? fp.y + fp.h : prop.y) + 5, onProp: false };
   }

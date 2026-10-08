@@ -193,6 +193,8 @@ export interface PropDef {
   /** Handle id for scripts (w.prop(id)). */
   id?: string;
   variant?: number;
+  /** Uniform art scale; bounds, collision footprint and interaction anchors scale together. */
+  scale?: number;
   flipX?: boolean;
   /** Default: the art footprint collides. false = walk through. */
   collide?: boolean;

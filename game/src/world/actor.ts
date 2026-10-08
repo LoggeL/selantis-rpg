@@ -32,6 +32,8 @@ export interface ActorHost {
   readonly worldK: number;
   /** Base sprite scale for a character texture on this map (MapDef.spriteScale, procedural fallbacks ×2). */
   spriteScale(charKey: string, frame: { w: number; h: number }): number;
+  /** Subtle silhouette edge on backgrounds whose foliage shares the figure's palette. */
+  readonly figureEdge?: boolean;
 }
 
 export type ActorKind = 'player' | 'npc' | 'companion' | 'guard';
@@ -96,6 +98,9 @@ export class Actor {
   private shadowW = 1;
   /** Vertical squash (1 = none) that lowers characters without a crouch-walk sheet while they sneak. */
   private squash = 1;
+  private waterDepth = 0;
+  private ripple: Phaser.GameObjects.Image | null = null;
+  private edge: Phaser.GameObjects.Image[] = [];
 
   constructor(
     readonly host: ActorHost,
@@ -113,6 +118,9 @@ export class Actor {
     // Crisp pixel shadows: a small and a large variant instead of stretching one texture.
     this.shadow = host.addWorld(scene.add.image(at.x, at.y, 'w-shadow').setOrigin(0.5, 0.5).setDepth(SHADOW_DEPTH));
     this.sprite = host.addWorld(scene.add.sprite(at.x, at.y, this.charKey));
+    if (host.figureEdge) {
+      this.edge = Array.from({ length: 4 }, () => host.addWorld(scene.add.image(at.x, at.y, this.charKey).setTintFill(0x071019)));
+    }
     this.applyLook();
     this.applyAnim(true);
     this.sync();
@@ -247,6 +255,12 @@ export class Actor {
     this.visible = on;
     this.sprite.setVisible(on);
     this.shadow.setVisible(on);
+    if (!on) {
+      this.edge.forEach(image => image.setVisible(false));
+      this.ripple?.setVisible(false);
+    } else {
+      this.sync();
+    }
     if (!on) { this.emoteImg?.destroy(); this.emoteImg = null; }
   }
 
@@ -271,6 +285,14 @@ export class Actor {
     else this.rustle = Math.max(0, this.rustle - dt * 2.5);
     if (this.sink > 0.6 && !this.front) {
       this.front = this.host.addWorld(this.host.scene.add.image(this.x, this.y, this.fig.w > 12 ? 'w-wheat-front-l' : 'w-wheat-front').setOrigin(0.5, 1));
+    }
+    const terrain = this.host.terrainAt(this.x, this.y);
+    const wet = this.visible && (terrain === 'shallow' || terrain === 'water');
+    const depth = wet ? Math.min(this.figureH * 0.18, 7 * this.host.worldK) : 0;
+    this.waterDepth += (depth - this.waterDepth) * Math.min(1, dt * 12);
+    if (Math.abs(this.waterDepth - depth) < 0.05) this.waterDepth = depth;
+    if (this.waterDepth > 0.2 && !this.ripple) {
+      this.ripple = this.host.addWorld(this.host.scene.add.image(this.x, this.y, 'w-ripple').setOrigin(0.5));
     }
   }
 
@@ -401,12 +423,30 @@ export class Actor {
     this.sprite.setDepth(y + this.depthBias);
     this.sprite.setAlpha(this.fade);
     // Sinking into wheat: crop the bottom rows of the frame (the sprite keeps its feet origin, so the legs vanish).
-    const k = Math.round(this.sink);
+    const k = Math.round(Math.max(this.sink, this.waterDepth));
     const fr = this.sprite.frame;
     // The sink is in world px; the crop works in frame px (minus the transparent rows under the feet anchor).
     const below = fr ? fr.realHeight * (1 - this.sprite.originY) : 0;
     if (k > 0 && fr) this.sprite.setCrop(0, 0, fr.realWidth, Math.max(1, Math.round(fr.realHeight - below - k / (this.scale * this.squash))));
     else if (this.sprite.isCropped) this.sprite.setCrop();
+    // Follow the current pose/frame, crop and visibility; the edge must not expose a hidden actor.
+    const offsets = [[-0.8, 0], [0.8, 0], [0, -0.8], [0, 0.8]];
+    this.edge.forEach((image, i) => {
+      image.setTexture(this.sprite.texture.key, this.sprite.frame.name)
+        .setOrigin(this.sprite.originX, this.sprite.originY).setScale(sc, sc * this.squash)
+        .setPosition(x + offsets[i][0], y + this.hopY + offsets[i][1])
+        .setDepth(this.sprite.depth - 0.02).setFlipX(this.sprite.flipX)
+        .setAlpha(this.fade * 0.8).setVisible(this.visible && this.sprite.visible);
+      if (k > 0 && fr) image.setCrop(0, 0, fr.realWidth, Math.max(1, Math.round(fr.realHeight - below - k / (sc * this.squash))));
+      else if (image.isCropped) image.setCrop();
+    });
+    if (this.ripple) {
+      const wet = this.waterDepth > 0.2 && this.visible && this.sprite.visible;
+      const pulse = 1 + Math.sin(this.host.timeSec * 3 + this.frontPhase) * 0.12;
+      this.ripple.setVisible(wet).setPosition(x, y - this.waterDepth + 1)
+        .setScale(Math.max(1, this.figureW / 11) * pulse, Math.max(1, sc * 0.65))
+        .setDepth(this.sprite.depth + 0.2).setAlpha(wet ? this.fade * 0.65 : 0);
+    }
     if (this.front) {
       const on = this.sink > 0.6 && this.visible;
       this.front.setVisible(on);
@@ -437,6 +477,8 @@ export class Actor {
     this.emoteImg = null;
     this.front?.destroy();
     this.front = null;
+    this.ripple?.destroy(); this.ripple = null;
+    this.edge.forEach(image => image.destroy()); this.edge = [];
     this.sprite.destroy();
     this.shadow.destroy();
   }

@@ -263,7 +263,6 @@ async function departure(w: WorldCtx): Promise<void> {
     // Saves that already reached the end of book one (k5-ende) skip the closing tableau and get the choice again.
     if (!G.state.is('k5-ende')) {
       G.state.set('k5-ende');
-      G.state.complete('k5-aufbruch');
       ui().prefetchPlate('k5-aufbruch');
       await G.ui.fade('out', 900);
       await G.ui.plate('k5-aufbruch', { caption: 'Drei unter Crios', pan: 'in', durationMs: 22000 });
@@ -278,7 +277,13 @@ async function departure(w: WorldCtx): Promise<void> {
       G.checkpoint(); // k5-ende: „Fortsetzen“ (also after the credits) offers the choice again without the tableau
     }
     const next = await w.choose([...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]);
-    if (next === 3) { await G.ui.fade('in', 300); w.unlockPlayer(); return; }
+    if (next === 3) {
+      await G.ui.fade('in', 300);
+      restoreDepartureObjective(w);
+      w.unlockPlayer();
+      return;
+    }
+    w.completeObjective('k5-aufbruch');
     await G.ui.fade('out', 500);
     if (next === 1) { await G.goto('weiterreise'); return; }
     if (next === 2) { await continueToBook2(); return; }
@@ -288,6 +293,13 @@ async function departure(w: WorldCtx): Promise<void> {
   } finally {
     departing.delete(w);
   }
+}
+
+/** Staying at the fire also reopens the goal in saves made before this choice kept it active. */
+function restoreDepartureObjective(w: WorldCtx): void {
+  const objective = G.state.data.objectives.find(o => o.id === 'k5-aufbruch');
+  if (objective) objective.done = false;
+  w.setObjective('k5-aufbruch', 'Brich mit Kyra und Flick auf.', [650, 704]);
 }
 
 /** The three ways out of book one: credits, optional travel, or the explicit continuation into Teil II. */
@@ -314,6 +326,6 @@ export async function finaleScript(w: WorldCtx): Promise<void> {
   }
   if (G.state.is('k5-weiter')) {
     for (const id of ['flick', 'kyra']) { w.despawn(id); w.companions.add(id); }
-    w.setObjective('k5-aufbruch', 'Brich mit Kyra und Flick auf.', [650, 704]);
+    restoreDepartureObjective(w);
   } else w.setObjective('k5-reden', 'Sprich mit Kyra und Flick.', 'flick');
 }

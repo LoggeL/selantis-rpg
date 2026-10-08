@@ -614,26 +614,32 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (c.x < v.x + 50 || c.x > v.right - 50 || c.y < v.y + 40 || c.y > v.bottom - 60) cam.pan(c.x, c.y, 220, 'Sine.easeOut');
   }
 
-  private fadeTick = 0;
-  private fadeTallProps(): void {
+  private fadeObscuringProps(): void {
     const t = this.hover;
+    const b = this.ctrl.battle;
+    const focused = new Set([b.activeUnit, this.sel.unit, this.hintTarget?.unit, this.unitAtPoint(t)?.id]);
     const cursorAnchor = this.pointerArrow.visible ? { x: this.pointerArrow.getData('ax') as number, y: (this.pointerArrow.getData('ay') as number) + 4 } : null;
     for (const p of this.props) {
-      if (!p.info.tall) continue;
+      if (!p.info.tall && !p.info.overUnit) continue;
       const bnd = p.img.getBounds();
       const pd = this.iso.depthKey(p.x, p.y);
       let hide = false;
-      if (t && cursorAnchor && pd > this.iso.depthKey(t.x, t.y) && Phaser.Geom.Rectangle.Contains(bnd, cursorAnchor.x, cursorAnchor.y)) hide = true;
+      if (p.info.tall && t && cursorAnchor && pd > this.iso.depthKey(t.x, t.y) && Phaser.Geom.Rectangle.Contains(bnd, cursorAnchor.x, cursorAnchor.y)) hide = true;
       if (!hide) for (const v of this.views.values()) {
-        if (v.unit.down === 'dead' || pd <= this.iso.depthKey(Math.round(v.gx), Math.round(v.gy))) continue;
+        if (v.unit.down === 'dead' || !v.sprite.visible || p.img.depth <= v.sprite.depth) continue;
+        // Bushes sit in front even on the same cell. Reveal our focused figure, including its
+        // legs and feet, without exposing enemies whose concealment belongs to the rules.
+        if (!p.info.tall && (v.unit.team === 'enemy' || !focused.has(v.unit.id))) continue;
         const sb = v.figureRect();
         if (Phaser.Geom.Intersects.RectangleToRectangle(bnd, sb)) {
           const overlap = Phaser.Geom.Rectangle.Intersection(bnd, sb);
           if (overlap.width * overlap.height > sb.width * sb.height * 0.25) { hide = true; break; }
         }
       }
-      const target = hide ? 0.42 : 1;
-      p.img.setAlpha(p.img.alpha + (target - p.img.alpha) * 0.5);
+      // Preserve the usual bush cover when it does not obscure our focus. The cutaway only
+      // changes drawing, never the bush tile, cover modifier or concealment rules.
+      const normalAlpha = p.info.overUnit && b.unitAt(p.x, p.y) ? 0.72 : 1;
+      p.img.setAlpha(hide ? (p.info.overUnit ? 0.18 : 0.12) : p.img.alpha + (normalAlpha - p.img.alpha) * 0.15);
     }
   }
 
@@ -678,10 +684,8 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const onCursor = fv && this.hover && Math.round(fv.gx) === this.hover.x && Math.round(fv.gy) === this.hover.y;
     if (fv && !onCursor && this.sel.mode === 'target' && enabled) this.focusMarker.setVisible(true).setPosition(Math.round(fv.head.x), Math.round(fv.head.y - 12 + Math.sin(time / 160) * 2));
     else this.focusMarker.setVisible(false);
-    // Tall props (trees, banners, ruins) turn see-through when they hide a unit or the cursor.
-    if ((this.fadeTick = (this.fadeTick + 1) % 6) === 0) this.fadeTallProps();
-    // Bushes become see-through when someone hides in them.
-    for (const p of this.props) if (p.info.overUnit) p.img.setAlpha(this.ctrl.battle.unitAt(p.x, p.y) ? 0.72 : 1);
+    // Reveal friendly figures obscured by foreground props.
+    this.fadeObscuringProps();
     if (this.sel.unit && this.ctrl.inputEnabled() && (this.sel.mode !== 'none' || this.sel.actOpen)) this.placeMenu();
   }
 

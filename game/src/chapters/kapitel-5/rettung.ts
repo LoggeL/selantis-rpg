@@ -13,6 +13,8 @@ import { ui } from './common';
 
 export const GOAL = [{ x: 0, y: 4 }, { x: 0, y: 5 }, { x: 0, y: 6 }, { x: 0, y: 8 }];
 const onGoal = (p: { x: number; y: number }) => GOAL.some(t => t.x === p.x && t.y === p.y);
+const KYRA_BOUND_TITLE = 'Gefesselt an die Eiche, geknebelt, wütend';
+const KYRA_FREE_TITLE = 'Befreit von der Eiche. Wütend genug für den Weg zum Waldrand.';
 
 const CUT_BASE = {
   kind: 'interact', target: 'bound', range: [1, 1], shape: { type: 'single' }, power: 0, accuracy: 100, alwaysHits: true, vfx: 'free',
@@ -35,7 +37,7 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
     liaUnit('k5-rettung', { x: 5, y: 7, facing: 'e', tags: ['vip'], title: 'Ihre Eltern hat sie verloren. Kyra gibt sie nicht her.' }, { extra: setup.liaExtra }),
     { id: 'flick', ...characterStats('flick'), name: 'Flick', title: 'Fährtenleserin. Die beste, sagt sie.', team: 'player', x: setup.flick.x, y: setup.flick.y, facing: 'w', move: 5, jump: 3,
       abilities: setup.flickAbilities, nonLethal: true, preset: 'flick' },
-    { id: 'kyra', ...characterStats('kyra'), name: 'Kyra', title: 'Gefesselt an die Eiche, geknebelt, wütend', team: 'ally', x: 7, y: 4, facing: 's', move: 4, jump: 2,
+    { id: 'kyra', ...characterStats('kyra'), name: 'Kyra', title: KYRA_BOUND_TITLE, team: 'ally', x: 7, y: 4, facing: 's', move: 4, jump: 2,
       abilities: ['schubsen', 'ausweichen'], statuses: { bound: Infinity }, freedTeam: 'player', preset: 'kyra', boundPreset: 'kyra-bound', tags: ['vip', 'spared'] },
     shadow({ id: 'algard', ...characterStats('algard'), name: 'Algard', title: 'Der Narbige, Spötter und Trinker', x: 4, y: 6, facing: 'e', preset: 'algard', portrait: 'algard' }),
     shadow({ id: 'maedchen', ...characterStats('maedchen'), name: '„Mädchen“', title: 'Kahlgeschoren, mit Spieß und verletztem Stolz', x: 6, y: 8, facing: 'n', abilities: ['speerstoss'], preset: 'maedchen', portrait: 'maedchen' }),
@@ -145,6 +147,7 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
       },
       onFree: async (ctx, unit, by) => {
         if (unit.id !== 'kyra') return;
+        syncKyraTitle(ctx);
         G.audio.sfx('rope-cut');
         await ctx.say('kyra', by.id === 'lia' ? 'Mmpf! … Lia?! Ist das … Vaters Dolch?' : 'Mmpf! … Wer bist du? Und warum grinst du so?', { mood: 'surprised' });
         if (by.id === 'lia') await ctx.say('k5-lia', 'Später. Lauf zum Waldrand und dreh dich nicht um.', { mood: 'determined' });
@@ -183,7 +186,15 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
   };
 }
 
+/** A retry reuses the definition, so its description must follow the newly initialized rules unit. */
+function syncKyraTitle(ctx: BattleCtx): void {
+  const unit = ctx.unit('kyra');
+  const def = ctx.def.units.find(u => u.id === 'kyra');
+  if (unit && def) def.title = ctx.battle.has(unit, 'bound') ? KYRA_BOUND_TITLE : KYRA_FREE_TITLE;
+}
+
 async function opening(ctx: BattleCtx, skip: boolean, firstCut: boolean, hasDagger: boolean): Promise<void> {
+  syncKyraTitle(ctx);
   await ctx.focus('lia', 300);
   await ctx.say('algard', 'Pfeile aus dem Dunkeln. Und du weißt von nichts, was?', { mood: 'angry' });
   await ctx.focus('flick', 400);

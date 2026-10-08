@@ -17,6 +17,7 @@ import type { SfxLoop } from '../../audio/api';
 import { G } from '../../core/G';
 import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
 import { HALLE_SPAWNS, HALLE_SPOT, halleBase, halleBrazierLights, pinPlayer } from '../teil-2/gewoelbe';
+import { restageGesture } from '../teil-2/gewoelbe-geste';
 import { calmRing, drawRift, tearMeadow } from './hoffnung-riss';
 import {
   CONTACT, FIGURE_HOPE, FIGURE_TALK, HALL_AFTER, HALL_WAKE, type InnerLine, type Line, MEADOW_OPENING, MEADOW_SPOT,
@@ -242,7 +243,9 @@ async function halleScript(w: WorldCtx): Promise<void> {
   // Coming to: violet light fades from the edges, then the hall.
   w.lighting.flash(VIOLET, 700);
   await ui().fade('in', 1400);
-  await G.ui.storyAction('open-eyes', 'Die Augen öffnen', { help: 'Weg von der Wiese, zurück in den kalten Körper. Mach die Augen auf.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  restageGesture('open-eyes', 'Weg von der Wiese, zurück in den kalten Körper. Mach die Augen auf.');
+  await wake;
   await w.cutscene(async () => {
     for (const l of HALL_WAKE.slice(0, 2)) await sayLine(w, l);
     bg(vamir.play('cast', { ms: 1400 }));

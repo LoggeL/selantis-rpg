@@ -3,6 +3,19 @@
 export type StrikeSide = 'left' | 'right' | 'high';
 export type Dodge = 'left' | 'right' | 'duck';
 
+/** Active drill time. Neither edge of a paused interval counts towards the next strike. */
+export class DrillClock {
+  elapsed = 0;
+  constructor(private last: number, private paused = false) {}
+
+  tick(now: number, paused: boolean): number {
+    if (!paused && !this.paused) this.elapsed += Math.max(0, now - this.last);
+    this.last = now;
+    this.paused = paused;
+    return this.elapsed;
+  }
+}
+
 /** The answer that avoids a strike from `side` (pure, unit-tested). */
 export function dodgeFor(side: StrikeSide): Dodge {
   return side === 'left' ? 'right' : side === 'right' ? 'left' : 'duck';

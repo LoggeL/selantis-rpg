@@ -314,7 +314,9 @@ async function morgenScript(w: WorldCtx): Promise<void> {
   await w.cutscene(async () => {
     await w.say('e3-kyra', 'Hoch. Sofort.', { mood: 'angry' });
   });
-  await G.ui.storyAction('open-eyes', 'Die Augen öffnen', { help: 'Die Lider sind schwer wie nasse Wolle. Schieb sie trotzdem hoch.' });
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  restageGesture('open-eyes', 'Die Lider sind schwer wie nasse Wolle. Schieb sie trotzdem hoch.');
+  await wake;
   await w.cutscene(async () => {
     for (const l of MORNING) await say(w, l);
     w.player.setIdle('idle');

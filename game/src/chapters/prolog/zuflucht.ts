@@ -7,6 +7,7 @@ import { defineMap, startWorld, type WorldCtx } from '../../world';
 import { ambience, bubbleAt, music, sceneOf, sfx, sleep, ui } from './util';
 
 const CRADLE: [number, number] = [502, 250];
+const CRADLE_STAND: [number, number] = [CRADLE[0] - 22, CRADLE[1] + 4];
 const BED: [number, number] = [84, 178];
 const BED_EDGE: [number, number] = [140, 196];
 const DOOR: [number, number] = [568, 204];
@@ -35,7 +36,7 @@ export const zufluchtMap = defineMap({
   interactables: [
     {
       id: 'wiege-ansehen', verb: 'Hineinsehen', once: false, at: CRADLE, radius: 26, size: { w: 30, h: 26 },
-      standAt: [CRADLE[0] - 26, CRADLE[1] + 4], face: 'right', onInteract: lookCradle,
+      standAt: CRADLE_STAND, face: 'right', onInteract: lookCradle,
     },
     {
       id: 'fenster', verb: 'Hinaussehen', once: true, removeOnUse: false, poly: [[146, 18], [218, 18], [218, 74], [146, 74]], radius: 60,
@@ -56,7 +57,7 @@ export const zufluchtMap = defineMap({
     { id: 'wandkerze', at: [624, 146], kind: 'candle', radius: 50, always: true },
     { id: 'fensterlicht', at: [182, 60], kind: 'moon', radius: 60, intensity: 0.4 },
   ],
-  spawns: { bett: { at: BED_EDGE, dir: 'right' }, wiege: { at: [CRADLE[0] - 26, CRADLE[1] + 4], dir: 'right' } },
+  spawns: { bett: { at: BED_EDGE, dir: 'right' }, wiege: { at: CRADLE_STAND, dir: 'right' } },
   time: 'night',
   ambience: ['room', 'fire', 'crickets'],
   ambienceVolume: { crickets: 0.4, fire: 0.6 },
@@ -154,6 +155,7 @@ async function gift(w: WorldCtx): Promise<void> {
     await G.ui.closePlate();
     // Glaring light, a bang. Valentus is gone.
     G.state.set('prolog-geschenk');
+    w.completeObjective('prolog-geschenk');
     music(null, 300);
     await G.ui.fade('out', 260, '#eafffb');
     sfx('shockwave', { volume: 1.2 });

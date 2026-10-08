@@ -4522,6 +4522,14 @@
   },
   "villager-m": {
    "neutral": "assets/portraits/villager-m.png"
+  },
+  "flick-flight": {
+   "determined": "assets/portraits/flick-flight-determined.png",
+   "pained": "assets/portraits/flick-flight-pained.png",
+   "sad": "assets/portraits/flick-flight-sad.png",
+   "scared": "assets/portraits/flick-flight-scared.png",
+   "smirk": "assets/portraits/flick-flight-smirk.png",
+   "neutral": "assets/portraits/flick-flight.png"
   }
  },
  "backgrounds": {
@@ -4556,7 +4564,7 @@
    "h": 720
   },
   "e2-kerker": {
-   "file": "assets/bg/e2-kerker.png",
+   "file": "assets/bg/variants/e2-kerker-fixed.png",
    "w": 640,
    "h": 360
   },
@@ -4616,7 +4624,7 @@
    "h": 720
   },
   "e3-waldpfad": {
-   "file": "assets/bg/e3-waldpfad.png",
+   "file": "assets/bg/variants/e3-waldpfad-fixed.png",
    "w": 1280,
    "h": 720
   },
@@ -4656,7 +4664,7 @@
    "h": 720
   },
   "k2-waldweg": {
-   "file": "assets/bg/k2-waldweg.png",
+   "file": "assets/bg/variants/k2-waldweg-fixed.png",
    "w": 1280,
    "h": 720
   },

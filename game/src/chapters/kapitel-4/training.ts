@@ -14,10 +14,11 @@ import { assetUrl, manifest } from '../../art/manifest';
 import { ctx } from '../../ui/context';
 import { bg, lia, sfx } from './shared';
 
-import { dodgeFor, judge, strikePlan, type Dodge, type StrikeSide } from './drillLogic';
+import { DrillClock, dodgeFor, judge, strikePlan, type Dodge, type StrikeSide } from './drillLogic';
 
 const STYLE_ID = 'k4-drill-style';
 const CSS = `
+.k4-drill.is-paused * { animation-play-state: paused !important; }
 .k4-drill{--k4-gold:#f3d68a;--k4-bad:#e0644a;--k4-heat:0;overflow:hidden;touch-action:none;user-select:none;opacity:0;transition:opacity .45s ease;background:#120d08}
 .k4-drill.is-in{opacity:1}
 .k4-drill.is-out{opacity:0;transition-duration:.4s}
@@ -229,7 +230,7 @@ function startFx(canvas: HTMLCanvasElement, root: HTMLElement, foltan: HTMLEleme
   const loop = (now: number) => {
     if (!root.isConnected) return;
     resize();
-    draw(reduced ? 0 : Math.min(0.05, (now - last) / 1000));
+    if (!root.classList.contains('is-paused')) draw(reduced ? 0 : Math.min(0.05, (now - last) / 1000));
     last = now;
     requestAnimationFrame(loop);
   };
@@ -321,25 +322,58 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
 
   let answer: Dodge | null = null;
   let armed = false;
+  let disposed = false;
+  let focused = document.hasFocus();
+  const active = () => !disposed && focused && !document.hidden && document.hasFocus() && ctx.top()?.id === 'k4-drill';
+  const clock = new DrillClock(performance.now(), !active());
+  let pausedScene = false;
+  const activeTime = () => {
+    if (disposed) return clock.elapsed;
+    const paused = !active();
+    panel.classList.toggle('is-paused', paused);
+    if (paused && !pausedScene && scene.scene.isActive()) { scene.scene.pause(); pausedScene = true; }
+    else if (!paused && pausedScene) { scene.scene.resume(); pausedScene = false; }
+    return clock.tick(performance.now(), paused);
+  };
+  const waitActive = async (ms: number) => {
+    if (disposed) return;
+    const until = activeTime() + ms;
+    do { await ui.wait(16); } while (!disposed && (activeTime() < until || !active()));
+  };
   const commit = (d: Dodge) => {
-    if (!armed || answer) return;
+    if (!active() || !armed || answer) return;
     answer = d;
     const b = panel.querySelector(`[data-d="${d}"]`);
     b?.classList.add('is-ok');
-    setTimeout(() => b?.classList.remove('is-ok'), 260);
+    void waitActive(260).then(() => b?.classList.remove('is-ok'));
   };
-  const onKey = (e: KeyboardEvent) => {
-    const d = KEYMAP[e.code];
-    if (!d || e.repeat) return;
-    e.preventDefault();
-    commit(d);
-  };
-  window.addEventListener('keydown', onKey, true);
+  const closeModal = ctx.open({
+    id: 'k4-drill', allowMenu: true, allowJournal: true, releaseKeys: Object.keys(KEYMAP),
+    onKey(e) {
+      const d = KEYMAP[e.code];
+      if (!d) return false;
+      if (!e.repeat) commit(d);
+      return true;
+    },
+  });
+  const onBlur = () => { focused = false; activeTime(); };
+  const onFocus = () => { focused = true; activeTime(); };
+  const onVisibility = () => { activeTime(); };
+  window.addEventListener('blur', onBlur);
+  window.addEventListener('focus', onFocus);
+  document.addEventListener('visibilitychange', onVisibility);
   for (const b of panel.querySelectorAll<HTMLButtonElement>('.k4-btn')) {
     b.addEventListener('pointerdown', ev => { ev.preventDefault(); commit(b.dataset.d as Dodge); });
   }
   const cleanup = () => {
-    window.removeEventListener('keydown', onKey, true);
+    if (disposed) return;
+    disposed = true;
+    closeModal();
+    window.removeEventListener('blur', onBlur);
+    window.removeEventListener('focus', onFocus);
+    document.removeEventListener('visibilitychange', onVisibility);
+    if (pausedScene && w.alive) scene.scene.resume();
+    pausedScene = false;
     clearTimeout(sayTimer);
     panel.remove();
   };
@@ -364,12 +398,12 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
   let ok = 0, hits = 0, streakMiss = 0, feintMiss = 0;
   const plan = strikePlan(16);
   const home = { x: w.player.x, y: w.player.y };
-  await ui.wait(reduced ? 200 : 700);
+  await waitActive(reduced ? 200 : 700);
   for (let i = 0; i < plan.length && ok < need; i++) {
     if (!w.alive) break;
     const s = plan[i];
     answer = null;
-    await ui.wait(i === 0 ? 400 : 650);
+    await waitActive(i === 0 ? 400 : 650);
     // back to guard
     pose(figF, 'ready');
     pose(figL, 'ready');
@@ -382,23 +416,23 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     armed = true;
     panel.classList.add('is-armed');
     sfx('swing', { volume: 0.25, pitch: 0.7 });
-    const t0 = performance.now();
+    const t0 = activeTime();
     let side = s.side;
     let flipped = false;
     probe.armed = true;
-    while (performance.now() - t0 < s.windup) {
-      const k = (performance.now() - t0) / s.windup;
+    while (activeTime() - t0 < s.windup) {
+      const k = (activeTime() - t0) / s.windup;
       probe.side = side; probe.k = k;
       if (s.feint && !flipped && k > 0.5) {
         flipped = true; side = s.feint;
         sfx('whoosh', { volume: 0.35, pitch: 1.3 });
         pulse('fx-feint');
         drawArc(side, k, true);
-        await ui.wait(60);
+        await waitActive(60);
         continue;
       }
       drawArc(side, k);
-      await ui.wait(16);
+      await waitActive(16);
     }
     armed = false;
     probe.armed = false;
@@ -430,7 +464,7 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
         figL.classList.add(d === 'left' ? 'go-left' : 'go-right');
         const off = d === 'left' ? -12 : 12;
         w.player.teleport([home.x + off, home.y]);
-        await ui.wait(260);
+        await waitActive(260);
         w.player.teleport([home.x, home.y]);
       }
       w.fx.burst([w.player.x, w.player.y - 4], 'dust', 4);
@@ -446,7 +480,7 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
       bg(w.player.play('hit', { ms: 380 }));
       const b = panel.querySelector(answer ? `[data-d="${answer}"]` : '.k4-bar');
       b?.classList.add('is-hit');
-      setTimeout(() => b?.classList.remove('is-hit'), 360);
+      void waitActive(360).then(() => b?.classList.remove('is-hit'));
       if (s.feint && answer === dodgeFor(s.side)) { feintMiss++; remark('foltan', feintMiss === 1 ? 'Angetäuscht! Warte bis zuletzt.' : 'Zu früh. Wieder.', 1500); }
       else if (!answer) remark('player', 'Zu langsam … au.', 1200);
       else if (streakMiss >= 2) remark('foltan', 'Weg von der Klinge, nicht hin!', 1600);
@@ -457,7 +491,7 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     probe.ok = ok;
   }
   if (ok >= need && w.alive) {
-    await ui.wait(500);
+    await waitActive(500);
     pose(figF, 'ready');
     pose(figL, 'ready');
     figL.classList.remove('go-left', 'go-right', 'go-duck');
@@ -465,10 +499,10 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     result('Geschafft!', true);
     pulse('fx-won');
     sfx('pickup', { volume: 0.6 });
-    await ui.wait(reduced ? 400 : 1000);
+    await waitActive(reduced ? 400 : 1000);
   }
   panel.classList.add('is-out');
-  await ui.wait(reduced ? 120 : 380);
+  await waitActive(reduced ? 120 : 380);
   cleanup();
   G.state.set('k4-treffer', hits);
   return hits;

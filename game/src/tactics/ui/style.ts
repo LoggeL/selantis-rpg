@@ -52,7 +52,7 @@ export const TACTICS_CSS = `
 
 /* unit card */
 .tac-card{left:calc(.8em + var(--safe-left,0px));bottom:calc(.8em + var(--safe-bottom,0px));width:21em;padding:.6em .7em .6em;pointer-events:auto;transition:opacity .15s,transform .15s}
-.tac-card.hidden{opacity:0;transform:translateY(.5em);pointer-events:none}
+.tac-card.hidden{opacity:0;transform:translateY(.5em);pointer-events:none;visibility:hidden;pointer-events:none}
 .tac-card .top{display:flex;gap:.6em;align-items:flex-start}
 .tac-card .por{width:4.4em;height:4.4em;flex:0 0 auto;border-radius:.35em;border:1px solid rgba(216,178,90,.6);background:radial-gradient(circle at 40% 30%,#2a3550,#0d1119);overflow:hidden;box-shadow:inset 0 0 0 2px #0a0d14}
 .tac-card .por img{width:100%;height:100%;image-rendering:pixelated;display:block}
@@ -108,7 +108,7 @@ export const TACTICS_CSS = `
 
 /* target card */
 .tac-tcard{right:calc(.8em + var(--safe-right,0px));bottom:calc(4.4em + var(--safe-bottom,0px));width:19em;padding:.55em .7em .6em;transition:opacity .12s,transform .12s}
-.tac-tcard.hidden{opacity:0;transform:translateY(.4em)}
+.tac-tcard.hidden{opacity:0;transform:translateY(.4em);visibility:hidden;pointer-events:none}
 .tac-tcard .hd{display:flex;align-items:center;gap:.5em}
 .tac-tcard .por{width:2.6em;height:2.6em;border-radius:.3em;border:1px solid rgba(216,178,90,.5);overflow:hidden;background:#0e131d;flex:0 0 auto}
 .tac-tcard .por img{width:100%;height:100%;image-rendering:pixelated;display:block}
@@ -171,7 +171,7 @@ export const TACTICS_CSS = `
 .tac-tile{left:50%;bottom:.8em;transform:translateX(-50%);padding:.22em .8em .26em;font-size:.8em;white-space:nowrap;display:flex;gap:.6em;align-items:center}
 .tac-tile .h{font-family:'Alegreya Sans SC',sans-serif;color:var(--gold2);letter-spacing:.06em}
 .tac-tile .note{color:#bfb08c;font-style:italic}
-.tac-tile.hidden{opacity:0}
+.tac-tile.hidden{opacity:0;visibility:hidden;pointer-events:none}
 
 /* end turn */
 .tac-end{position:absolute;right:calc(.8em + var(--safe-right,0px));bottom:calc(.8em + var(--safe-bottom,0px));display:flex;gap:.4em;pointer-events:auto;align-items:stretch}

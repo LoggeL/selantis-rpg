@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { dodgeFor, judge, strikePlan } from './drillLogic';
+import { DrillClock, dodgeFor, judge, strikePlan } from './drillLogic';
 
 describe('Kapitel IV dodge drill', () => {
+  it('keeps active time still during pause and discards the resume interval', () => {
+    const clock = new DrillClock(100);
+    expect(clock.tick(500, false)).toBe(400);
+    expect(clock.tick(516, true)).toBe(400);
+    expect(clock.tick(90_516, true)).toBe(400);
+    expect(clock.tick(90_532, false)).toBe(400);
+    expect(clock.tick(90_548, false)).toBe(416);
+    expect(clock.tick(90_550, true)).toBe(416);
+    expect(clock.tick(120_550, false)).toBe(416);
+    expect(clock.tick(120_566, false)).toBe(432);
+  });
   it('dodges away from the blade', () => {
     expect(dodgeFor('left')).toBe('right');
     expect(dodgeFor('right')).toBe('left');
