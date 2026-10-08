@@ -1,10 +1,9 @@
 // Scene 'leselager' — campfire in the thicket (DESIGN.md §7.4, Kapitel III/2; novel p. 60–67).
-// Heart: gather stones for the fire ring, help Azar's fifth attempt by blowing on the tinder (minigame; Lia's own
-// tinder makes it easier), prove that Lia can read (her packed books decide what she reads), the stars, the promise.
+// Heart: gather stones for the fire ring, help Azar's fifth attempt by blowing on the tinder (staged; Lia's own
+// tinder is offered), prove that Lia can read (her packed books decide what she reads), the stars, the promise.
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { bg, ambience, lia, music, sfx, ui } from './k3';
-import { blowGame } from './panels';
 
 const FIRE: [number, number] = [312, 208];
 const STONES: [number, number][] = [[146, 165], [230, 114], [150, 232], [440, 128], [468, 140]];
@@ -156,7 +155,15 @@ async function fireplace(w: WorldCtx): Promise<void> {
       if (withTinder) { await azar.say('Zunder aus der Küche? Du bist ein Schatz!', { mood: 'happy' }); G.state.set('k3-zunder-geteilt'); }
     }
     w.player.setIdle('kneel');
-    await blowGame(withTinder);
+    // Staged, not played: Lia blows on the glow the way she learned at her own first fire.
+    if (withTinder) await w.think('Späne unter die Glut, locker, nicht drücken. Dann ganz leise. Wie über heiße Suppe.');
+    else await lia(w, 'Nicht wie ein Blasebalg, Azar. Wie über heiße Suppe. Bei meinem ersten Feuer hab ich auch geblasen wie ein Ochse.');
+    for (let i = 0; i < 3; i++) {
+      sfx('whoosh', { volume: 0.25 + i * 0.1, pitch: 1.3 });
+      w.fx.burst([FIRE[0] - 4, FIRE[1] - 5], 'sparkle', 3 + i * 3);
+      await w.wait(520);
+    }
+    sfx('fire-ignite', { volume: 0.8 });
     w.player.setIdle('sit');
     addFire(w);
     G.state.set('k3-feuer');

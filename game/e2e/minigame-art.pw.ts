@@ -20,7 +20,7 @@ test('all previews load their distinct artwork and the selector keeps every game
     if (r.url().endsWith('/assets/bg/minigame-forge.png') && r.ok()) forgeLoaded = true;
   });
   await open(page, 'cover');
-  for (const kind of ['cover', 'duck', 'listen', 'reach', 'lift', 'open-eyes', 'tend', 'bellows', 'blow', 'stake', 'fire']) {
+  for (const kind of ['cover', 'duck', 'listen', 'reach', 'lift', 'open-eyes', 'tend', 'bellows', 'stake', 'fire']) {
     if (kind !== 'cover') await page.getByRole('combobox', { name: 'Minispiel wählen' }).selectOption(kind);
     await expect(page.getByRole('combobox', { name: 'Minispiel wählen' })).toHaveValue(kind);
     if (['cover', 'duck', 'listen'].includes(kind)) {

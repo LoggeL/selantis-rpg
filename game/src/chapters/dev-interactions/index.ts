@@ -3,20 +3,20 @@ import { defineChapter } from '../../core/registry';
 import type { StoryActionKind, StealthKind } from '../../ui/interactionRules';
 import { fireAttempt } from '../kapitel-2/feuer';
 import { fireConfig, newFire, resetAttempt } from '../kapitel-2/feuerLogic';
-import { blowGame, stakeGame } from '../kapitel-3/panels';
+import { stakeGame } from '../kapitel-3/panels';
 import { startSong } from '../kapitel-3/song';
 import './style.css';
 import { assetUrl, manifest } from '../../art/manifest';
 
 const story: StoryActionKind[] = ['reach', 'lift', 'open-eyes', 'tend', 'bellows'];
 const stealth: StealthKind[] = ['cover', 'duck', 'listen'];
-const extras = ['fire', 'blow', 'stake'] as const;
+const extras = ['fire', 'stake'] as const;
 type PreviewKind = StoryActionKind | StealthKind | typeof extras[number];
 const labels: Record<PreviewKind, string> = {
   reach: 'Die Hand ausstrecken', lift: 'Die Hand heben', 'open-eyes': 'Augen öffnen',
   tend: 'Die Ferse versorgen', bellows: 'Blasebalg treten', cover: 'In der Böschung verstecken',
   duck: 'Unter den Reitern abtauchen', listen: 'Im Schatten lauschen',
-  fire: 'Feuerbohren', blow: 'Sanft pusten', stake: 'Der Pflock',
+  fire: 'Feuerbohren', stake: 'Der Pflock',
 };
 
 function previewPicker(kind: PreviewKind): void {
@@ -58,7 +58,7 @@ defineChapter({
       const art = manifest();
       const backdrops: Partial<Record<PreviewKind, string>> = {
         cover: 'art-gallery-meadow', duck: 'k1-heimweg', listen: 'k3-leselager',
-        tend: 'k4-bach', bellows: 'minigame-forge', blow: 'k3-leselager', stake: 'k2-lager',
+        tend: 'k4-bach', bellows: 'minigame-forge', stake: 'k2-lager',
       };
       const background = art.backgrounds[backdrops[kind] ?? 'k2-lager'];
       if (kind === 'reach' || kind === 'lift' || kind === 'open-eyes') await G.ui.plate(kind === 'reach' ? 'prolog-hoehle' : kind === 'lift' ? 'prolog-wiege' : 'k2-geweckt', { pan: 'none' });
@@ -68,8 +68,7 @@ defineChapter({
       }
       G.ui.letterbox(false);
       previewPicker(kind);
-      if (kind === 'blow') await blowGame(false);
-      else if (kind === 'stake') {
+      if (kind === 'stake') {
         const song = startSong({ volume: 0.6 });
         try { await stakeGame(song); } finally { song.stop(); }
       } else if (kind === 'fire') {

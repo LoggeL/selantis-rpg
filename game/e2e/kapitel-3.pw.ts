@@ -140,7 +140,7 @@ test('eber: gather clues, combine them, Foltan lies — the player knows better'
   expect(errors).toEqual([]);
 });
 
-test('leselager: stones, blowing on the tinder, reading aloud, the promise', async ({ page }) => {
+test('leselager: stones, the fifth fire attempt, reading aloud, the promise', async ({ page }) => {
   const errors = errorsOf(page);
   await page.goto('/?scene=leselager');
   await until(page, () => ((window as any).G?.state?.data?.objectives ?? []).some((o: any) => o.id === 'k3-steine') && !(window as any).G.ui.busy(), { max: 200 });
@@ -150,15 +150,8 @@ test('leselager: stones, blowing on the tinder, reading aloud, the promise', asy
     await settle(page);
   }
   await click(page, 312, 204, () => busy(page));
-  await until(page, () => Boolean(document.querySelector('.k3-blow')));
-  // Adjust the breath towards the moving glow zone using the arrow keys.
-  for (let i = 0; i < 500; i++) {
-    const d = await page.evaluate(() => { const r = document.querySelector<HTMLElement>('.k3-blow'); return r ? { b: +r.dataset.breath!, lo: +r.dataset.lo!, hi: +r.dataset.hi! } : null; });
-    if (!d) break;
-    const mid = (d.lo + d.hi) / 2;
-    if (Math.abs(d.b - mid) > 0.07) await page.keyboard.press(d.b < mid ? 'ArrowRight' : 'ArrowLeft');
-    await wait(page, 60);
-  }
+  // Azar's fifth attempt is staged now: Lia blows on the glow without a minigame.
+  await until(page, () => (window as any).G.state.is('k3-feuer'), { max: 300 });
   expect(await flag(page, 'k3-feuer')).toBe(true);
   await until(page, () => (window as any).G.currentScene === 'kyra', { max: 400 });
   expect(await flag(page, 'k3-gelesen')).toBe('kraeuter');
