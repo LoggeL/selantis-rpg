@@ -1018,6 +1018,19 @@
       "attempts": 1,
       "time": "2026-10-08T01:43:13"
     },
+    "output/imagegen/raw/art/characters/flick-beschuetzerin/turnaround.png": {
+      "kind": "turnaround",
+      "id": "flick-beschuetzerin",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: Flick, a slender, agile young half-elf woman around 20, exactly the same person as in the attached reference sheet (same face, a confident, proud, mischievous half-smile). Short, tousled, messy almost-black hair (a choppy uneven pixie cut) with ONE single pale ash-blonde streak at the front; pointed elven ears sticking out of the hair; freckles, amber-brown eyes, light olive skin. Her NEW, proud outfit as the sworn guard of a young mage: well-kept, fitted DARK-GREEN leather armour (a jerkin with neat stitching) with ONE polished leather SHOULDER PIECE on her LEFT shoulder, a cream linen shirt underneath, brown leather bracers; over her shoulders a short CLOAK in the colours of the Order of Light: WHITE with a BLUE border and blue lining (hood down), fastened at her chest with a round SILVER BROOCH showing a simple blue bird-of-prey shape (the order's guardian badge, no letters); a brown leather belt with a long KNIFE in a sheath at her RIGHT hip; a NEW elegant recurved LONGBOW of dark polished wood with pale horn tips carried in her LEFT hand; a new tooled leather quiver with white-feathered arrows on her back (fletchings over her RIGHT shoulder); dark brown leggings, tall brown leather boots. The attached reference sheet shows the SAME person in another outfit: keep her/his face, age, body type, skin, eye colour and hair colour identical; only the outfit/hair styling changes as described. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.",
+      "refs": [
+        "docs/rebuild/art/refs/flick.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T01:40:34"
+    },
     "output/imagegen/raw/art/characters/goblin-fips/turnaround.png": {
       "kind": "turnaround",
       "id": "goblin-fips",
@@ -2405,6 +2418,86 @@
         }
       },
       "portraits": {}
+    },
+    "flick-beschuetzerin": {
+      "id": "flick-beschuetzerin",
+      "height": 41,
+      "walk": {
+        "file": "game/public/assets/sprites/flick-beschuetzerin-walk.png",
+        "sha": "d294df0276f0270c",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 41
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/flick-beschuetzerin-attack.png",
+          "method": "pair",
+          "scale": 0.0469,
+          "size": [
+            33,
+            36
+          ]
+        },
+        "crouch": {
+          "file": "game/public/assets/sprites/flick-beschuetzerin-crouch.png",
+          "method": "pair",
+          "scale": 0.05,
+          "size": [
+            30,
+            21
+          ]
+        },
+        "hurt": {
+          "file": "game/public/assets/sprites/flick-beschuetzerin-hurt.png",
+          "method": "pair",
+          "scale": 0.0439,
+          "size": [
+            19,
+            37
+          ]
+        },
+        "lie": {
+          "file": "game/public/assets/sprites/flick-beschuetzerin-lie.png",
+          "method": "pair",
+          "scale": 0.0503,
+          "size": [
+            49,
+            17
+          ]
+        },
+        "shoot": {
+          "file": "game/public/assets/sprites/flick-beschuetzerin-shoot.png",
+          "method": "pair",
+          "scale": 0.0601,
+          "size": [
+            37,
+            46
+          ]
+        },
+        "sit": {
+          "file": "game/public/assets/sprites/flick-beschuetzerin-sit.png",
+          "method": "pair",
+          "scale": 0.0445,
+          "size": [
+            25,
+            24
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/flick-beschuetzerin-angry.png",
+        "determined": "game/public/assets/portraits/flick-beschuetzerin-determined.png",
+        "happy": "game/public/assets/portraits/flick-beschuetzerin-happy.png",
+        "neutral": "game/public/assets/portraits/flick-beschuetzerin.png",
+        "sad": "game/public/assets/portraits/flick-beschuetzerin-sad.png",
+        "smirk": "game/public/assets/portraits/flick-beschuetzerin-smirk.png",
+        "surprised": "game/public/assets/portraits/flick-beschuetzerin-surprised.png"
+      }
     }
   }
 }

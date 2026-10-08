@@ -1654,6 +1654,48 @@
   "hash": "LAB{AER*04}?59s:xtI:10R*^MNd",
   "sourceHash": "ea19d691c5437da9fa4cfd8b946c68970186fdb8ebe1beb17e70192ab2f48bae"
  },
+ "assets/portraits/flick-beschuetzerin-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDE1{c^*0$Vs029a9^-o5qR.}?R-",
+  "sourceHash": "4c74977498ac52af95901f3a153eec14de9bad32e1999fc6dc2169f90130adfb"
+ },
+ "assets/portraits/flick-beschuetzerin-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDE1{c^*0$Vs029a9^-o5qR.}?R-",
+  "sourceHash": "785f02bdbdcf00242d78f1be0d34478f4a96ea20ce88af5c0d265fed825cfb3a"
+ },
+ "assets/portraits/flick-beschuetzerin-happy.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDE1{c^*0$Vs029a9^-o5qR.}?R-",
+  "sourceHash": "0fd44f34bbf3cc4eec24831a681c509316aaeba6e80a7e4b26a6ed4835429231"
+ },
+ "assets/portraits/flick-beschuetzerin-sad.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDD[a?^*0$Vs02D*9^-o5pR.}?R-",
+  "sourceHash": "bb431ef0dfa33e59ece8b58a3432303013fe1f77566a39ec83bfa4db7f216f4f"
+ },
+ "assets/portraits/flick-beschuetzerin-smirk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDE1{b^*0$Vs02D*9^-o5pR.}?R-",
+  "sourceHash": "c4c11d99ce7ab6b728b69dbc5c541fc65759635cd1097edbe85df28093ada43e"
+ },
+ "assets/portraits/flick-beschuetzerin-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDE1{c^*0$Vs029a9^-o5qR.}?R-",
+  "sourceHash": "2501208233702377142e1dccb39c402cd601d3311fb62d62f5cc8abec9503796"
+ },
+ "assets/portraits/flick-beschuetzerin.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LDE1~k^*0$Vs029a9^-o5pR.}?R-",
+  "sourceHash": "0639d477943b034385e6545ae544bb50ec2954a8c637d1a368d5d61f7f2bd62a"
+ },
  "assets/portraits/flick-determined.png": {
   "width": 256,
   "height": 256,
@@ -9408,6 +9450,185 @@
   "hash": "LoG8$R~qxuM{~q?vt7M{x]xuofWB",
   "alphaHash": "L87UI{Rj00%MD%fQ-;fQ00t7~qM{",
   "sourceHash": "a83c81aef7aa9333304a507bd0998df116ea47242a4a4ee9e21b4f7a25d673aa"
+ },
+ "assets/sprites/flick-beschuetzerin-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L4A]pi0L?w#+_N54?HjH00VrxBR.",
+  "alphaHash": "L87BAmof00Rj9FWB-;t700ay~qof",
+  "sourceHash": "1d61bc6443d6100f5dfe91486e37cebed755b29d72e58177b60bd2024ea02b31"
+ },
+ "assets/sprites/flick-beschuetzerin-crouch.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "LBBL@s~UxuM|rq-OxDS5NfNMS4oI",
+  "alphaHash": "LB7d%rof00M{00WB~qxuxuofM{Rj",
+  "sourceHash": "6519db87f6f01044aee646e034c28225a81097d4f51e25f3f3f05bdc68411214"
+ },
+ "assets/sprites/flick-beschuetzerin-hurt.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L5Ac3*^*tSe.x.}=xYNH01$yr=R.",
+  "alphaHash": "LB8gy-t700IUD%WB-;t700WB~qxu",
+  "sourceHash": "a80e523c9cb6f1dd42f5458d31bb4458e894dda91f9f2afe98689f3650e9f93f"
+ },
+ "assets/sprites/flick-beschuetzerin-lie.png": {
+  "width": 128,
+  "height": 64,
+  "hash": "LCBCiP~A5%O=Q:Dk9bNwx@%L%1s-",
+  "alphaHash": "L86kVCxu00D%00Rj~qxuxuayM{of",
+  "sourceHash": "e5de4e863aef2ea15534680287901124c90a685e699906e1f97c5c305ec98b68"
+ },
+ "assets/sprites/flick-beschuetzerin-shoot.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L7A+v?0.s;$#}=9?s,xa0eInRk%2",
+  "alphaHash": "LB7^}WfQ00WBIUWB%Mof00j[~qay",
+  "sourceHash": "be3f7779ced1868fd5520959262e78de6b0a36a3f2a3fbba64bb1ddbb01360b2"
+ },
+ "assets/sprites/flick-beschuetzerin-sit.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "L39GI1y-kury00TIx9nOS.nLbfkD",
+  "alphaHash": "LD8Nqbof00M{00WB~qt7xuayRjj[",
+  "sourceHash": "2d9a8240ffebbc329937bb9e50e1a8ea8c422238bc3f8ce1d1afc94101d9ada6"
+ },
+ "assets/sprites/flick-beschuetzerin-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L0AvFEsr+cc6KrR89]t000Nh,u?a",
+  "alphaHash": "L07^}W?bRj_3WBWBayM{?bofj[WB",
+  "sourceHash": "fffbb8bd5bed0b7eaae08fcfeee454a8dcb00240215f05dbaa667203a73bb410",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L18y*jBt0N+[0E=jNfI.000g~A%1",
+    "alphaHash": "LFA0?#t700M{D%ay-;of00WB~qt7"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L18Mw5PD0NwI0KR}NbR:00Dz~8xu",
+    "alphaHash": "LGA0?#t700M{D%ay%Mof00WB~qxu"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L18pT8nr0ir=00?FEOIq0000~Q-p",
+    "alphaHash": "LGA0?#t700IUD%ay%Mof00WB~qt7"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L29F.?vr9cs*0C-EI[I.01=h}@XP",
+    "alphaHash": "LF9@S5of00RjD%fQ-;j[00WB~qt7"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L39PWr{#M#xu5EkGoNRi00K8tPM_",
+    "alphaHash": "LD9@S5Rj00%M9Fof-;Rj00t7~qM{"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L196dy.-0O~X023ObFR7007?_0Dj",
+    "alphaHash": "LD9%*VRj00%MD%of-;Rj00t7~qM{"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L18DIl+E0h%h0JX.fzM_00KS^jMw",
+    "alphaHash": "LDAAaaRj00%M9Fof-;Rj00t7~qM{"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L19Z1g_}05~X022:bqVa003~^%Dj",
+    "alphaHash": "LD9@S5Rj00%MD%of-;Rj00t7~qM{"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L28WN=~E4@IA0yjWs,oz00Vp%bx[",
+    "alphaHash": "LC9@S5%M004n9FRj-;xu00M{~q-;"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L28WHz,}5EIU0N=5w|XO00v$-ox[",
+    "alphaHash": "LC9%*V%M004n9FRj-;xu00M{~q-;"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L196au-?0VH@MDKG=f%400Q*?Y-=",
+    "alphaHash": "LDAAaa%M009F9FRj-;xu00Rj~q%M"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L08DIsuP0D8y04;G=vx_00*^~o.T",
+    "alphaHash": "LC9tJv%M004n9FRj-;xu00M{~q-;"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L28WaK?500WH03Z|%Mog00Fr~qog",
+    "alphaHash": "LF9@S5j[00WBD%ay%Mof00fQ~qay"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L38zAT=_01Rk02Ip%Ms:00Sh~Vs:",
+    "alphaHash": "LF9tJvof00M{IUay%Mof00WB~qt7"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L39sJB]=4Uk90iEAx]oa00,]~VW.",
+    "alphaHash": "LG9@S5j[00WBIUay%Mof00ay~qj["
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L49PsJ}s4oWC0f5lo}oe01$%~Vof",
+    "alphaHash": "LF9%*Vof00RjIUay%Mof00ay~qof"
+   }
+  ]
  },
  "assets/sprites/flick-crouch.png": {
   "width": 64,

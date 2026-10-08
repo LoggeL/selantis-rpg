@@ -2165,6 +2165,101 @@
    ],
    "height": 41
   },
+  "flick-beschuetzerin": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/flick-beschuetzerin-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "crouch": {
+     "file": "assets/sprites/flick-beschuetzerin-crouch.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/flick-beschuetzerin-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/flick-beschuetzerin-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "shoot": {
+     "file": "assets/sprites/flick-beschuetzerin-shoot.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/flick-beschuetzerin-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/flick-beschuetzerin-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
   "foltan": {
    "poses": {
     "attack": {
@@ -4837,6 +4932,15 @@
    "smirk": "assets/portraits/flick-smirk.png",
    "surprised": "assets/portraits/flick-surprised.png",
    "neutral": "assets/portraits/flick.png"
+  },
+  "flick-beschuetzerin": {
+   "angry": "assets/portraits/flick-beschuetzerin-angry.png",
+   "determined": "assets/portraits/flick-beschuetzerin-determined.png",
+   "happy": "assets/portraits/flick-beschuetzerin-happy.png",
+   "sad": "assets/portraits/flick-beschuetzerin-sad.png",
+   "smirk": "assets/portraits/flick-beschuetzerin-smirk.png",
+   "surprised": "assets/portraits/flick-beschuetzerin-surprised.png",
+   "neutral": "assets/portraits/flick-beschuetzerin.png"
   },
   "flick-flight": {
    "determined": "assets/portraits/flick-flight-determined.png",
