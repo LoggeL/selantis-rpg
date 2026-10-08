@@ -3828,6 +3828,65 @@
       ]
     },
     {
+      "id": "part2-0a56cf6acd799d18d670ff77",
+      "kind": "say",
+      "speaker": "vamir",
+      "text": "Baris, deine Pferde haben wohl mehr Fragen als ich.",
+      "display_text": "Baris, deine Pferde haben wohl mehr Fragen als ich.",
+      "voice": "Enceladus",
+      "audio": "audio/teil-2/part2-0a56cf6acd799d18d670ff77.mp3",
+      "sha256": "c5adb33cca76a64deea85e02471961695ffc7d9564e3509787bf1b1eac8667a4",
+      "seconds": 4.44,
+      "word_cues": [
+        {
+          "start": 0.25,
+          "end": 1.44
+        },
+        {
+          "start": 1.44,
+          "end": 1.6
+        },
+        {
+          "start": 1.6,
+          "end": 2.24
+        },
+        {
+          "start": 2.24,
+          "end": 2.48
+        },
+        {
+          "start": 2.48,
+          "end": 2.68
+        },
+        {
+          "start": 2.68,
+          "end": 2.98
+        },
+        {
+          "start": 2.98,
+          "end": 3.42
+        },
+        {
+          "start": 3.42,
+          "end": 3.64
+        },
+        {
+          "start": 3.64,
+          "end": 4.16
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "vamir",
+          "text": "Baris, deine Pferde haben wohl mehr Fragen als ich.",
+          "scene": "e2-flicks-verhoer",
+          "mood": "neutral",
+          "performance_variant": "neutral | Baris gezielt treffen; Pferde und mehr Fragen als ich mit dünner, überlegener Geduld."
+        }
+      ]
+    },
+    {
       "id": "part2-0a7aa7410ccb2844b86d266c",
       "kind": "say",
       "speaker": "narrator",
@@ -8973,6 +9032,77 @@
           "scene": "e2-lagerangriff",
           "mood": "neutral",
           "performance_variant": "neutral | Verletzt die Schwester weiterlaufen lassen; Ich komm nach als mutige eigene Zusage, nicht sichere Heilung."
+        }
+      ]
+    },
+    {
+      "id": "part2-1cca8245d03805bff27f3189",
+      "kind": "say",
+      "speaker": "vamir",
+      "text": "Holt Baris. Er soll sein Auge benutzen, solange er noch eines hat.",
+      "display_text": "Holt Baris. Er soll sein Auge benutzen, solange er noch eines hat.",
+      "voice": "Enceladus",
+      "audio": "audio/teil-2/part2-1cca8245d03805bff27f3189.mp3",
+      "sha256": "3b340b4f218a15bcd71cb3cc3a06a7ed7d1618af3979adaf4126568b46ecf3a6",
+      "seconds": 5.72,
+      "word_cues": [
+        {
+          "start": 0.22,
+          "end": 0.6
+        },
+        {
+          "start": 0.6,
+          "end": 1.68
+        },
+        {
+          "start": 1.99,
+          "end": 2.14
+        },
+        {
+          "start": 2.14,
+          "end": 2.38
+        },
+        {
+          "start": 2.38,
+          "end": 2.64
+        },
+        {
+          "start": 2.64,
+          "end": 3.0
+        },
+        {
+          "start": 3.0,
+          "end": 3.96
+        },
+        {
+          "start": 4.04,
+          "end": 4.52
+        },
+        {
+          "start": 4.52,
+          "end": 4.64
+        },
+        {
+          "start": 4.64,
+          "end": 4.8
+        },
+        {
+          "start": 4.8,
+          "end": 5.1
+        },
+        {
+          "start": 5.1,
+          "end": 5.52
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "vamir",
+          "text": "Holt Baris. Er soll sein Auge benutzen, solange er noch eines hat.",
+          "scene": "e2-pruefung",
+          "mood": "neutral",
+          "performance_variant": "neutral | Baris knapp rufen lassen; die Ein-Auge-Drohung ruhig schneidend ohne Lautstärkeboom."
         }
       ]
     },
@@ -74197,10 +74327,10 @@
     }
   ],
   "coverage": {
-    "version": "part2-individual-actual-body25-publication-v1",
+    "version": "part2-individual-actual-second3-publication-v1",
     "status": "partial",
     "expected_sources": 1401,
-    "published_sources": 1107,
+    "published_sources": 1109,
     "missing_sources": [
       {
         "id": "part2-0071630628f74fbbbe2bbf50",
@@ -74313,16 +74443,6 @@
         "speaker": "ignatius",
         "reasons": [
           "asr_lexical_mismatch_requires_review"
-        ]
-      },
-      {
-        "id": "part2-0a56cf6acd799d18d670ff77",
-        "scene": "e2-flicks-verhoer",
-        "kind": "say",
-        "speaker": "vamir",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review",
-          "Explicit current private qualification required"
         ]
       },
       {
@@ -74619,16 +74739,6 @@
         "scene": "e2-flicks-verhoer",
         "kind": "say",
         "speaker": "baris",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review",
-          "Explicit current private qualification required"
-        ]
-      },
-      {
-        "id": "part2-1cca8245d03805bff27f3189",
-        "scene": "e2-pruefung",
-        "kind": "say",
-        "speaker": "vamir",
         "reasons": [
           "asr_lexical_mismatch_requires_review",
           "Explicit current private qualification required"
@@ -77020,6 +77130,15 @@
     "logge_reuse_approved": false,
     "shared_take_reuse_approved": false,
     "body25_selection_sha256": "6b2bdd582ffdb5674391fb5882128b6b6f25b982092f0106164e6f09efc3ccc5",
-    "body25_baseline_manifest_sha256": "171c042031b31c67284425aeee7b11a44f2ead526636b77b8667618ff5140d7c"
+    "body25_baseline_manifest_sha256": "171c042031b31c67284425aeee7b11a44f2ead526636b77b8667618ff5140d7c",
+    "second3_complete_baseline_sources": 1107,
+    "second3_added_sources": 2,
+    "second3_replaced_sources": 0,
+    "second3_selected_sources": 2,
+    "second3_held_sources": 1,
+    "second3_strict_clear_unapproved_sources": 0,
+    "second3_actual_whole_completed_sources": 3,
+    "second3_selection_sha256": "2c22a95c3f662964eb2ffc5a1df323ecc9ef99a7f097cc97f37b9fb79da9a3cd",
+    "second3_baseline_manifest_sha256": "0ef92e2870409fba53d5f041e145d8b6b12d83d8d6aa10256beb0b9b17761506"
   }
 }
