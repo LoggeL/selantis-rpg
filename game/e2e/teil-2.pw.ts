@@ -254,6 +254,22 @@ test('e2-flicks-erinnerungen: Flick lays false trails and the Master finds only 
   expect(errors, errors.join('\n')).toEqual([]);
 });
 
+test('e2-flick-entkommt: Flick uses what she watched to get free and strike', async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
+  const errors = await campaign(page, p => fixtureSave(p, 'e2-flick-entkommt', "data.flags['e2-zelle-schelle'] = 'aermel';"), 'e2-flick-entkommt');
+  const replies: string[] = [];
+  await drive(page, { label: 'gerangel', until: async s => {
+    if (s.pick) {
+      const r = await page.evaluate(() => document.querySelector('.pick-reply.is-shown .pick-text')?.textContent ?? null);
+      if (r && replies[replies.length - 1] !== r) replies.push(r);
+    }
+    return page.evaluate(() => Boolean((window as any).G.state.is('e2-fe-schluessel-boden')));
+  } });
+  expect(replies.join('\n')).toContain('Ärmel zurück');
+  expect(replies.join('\n')).toContain('Schläfe');
+  expect(errors, errors.join('\n')).toEqual([]);
+});
+
 // ---------------------------------------------------------------------------------------------------------------
 // 4. Reload / once-only
 // ---------------------------------------------------------------------------------------------------------------

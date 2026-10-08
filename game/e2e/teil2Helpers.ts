@@ -5,6 +5,7 @@ import { playSceneAction, playScenePick } from './sceneActions';
 const PICK_PREFER = [
   'eiche', 'handschrift', 'name', 'leseratte', // e2-pruefung
   'grunwald', 'trapas', 'kuchen', 'tor', 'sueden', 'weissnicht', // e2-flicks-erinnerungen
+  'schelle', 'treppe', // e2-flick-entkommt
 ];
 
 /**
@@ -128,7 +129,6 @@ export interface Snap {
   choices: { text: string; tag: string | null; disabled: boolean }[];
   sammlung: boolean;
   zielen: string | null;
-  moment: string | null;
   credits: boolean;
   stealthMap: boolean;
   /** Visible dialogue line (speaker: text) and plate caption. */
@@ -146,7 +146,6 @@ export async function snap(page: Page): Promise<Snap> {
     }));
     const worldActive = Boolean(w?.player && w.sys.isActive());
     const d = G.state.data;
-    const moment = document.querySelector<HTMLElement>('.e2-moment');
     return {
       scene: G.currentScene,
       title: vis('.title-item'),
@@ -163,7 +162,6 @@ export async function snap(page: Page): Promise<Snap> {
       choices,
       sammlung: Boolean(document.querySelector('.e2s-root:not(.is-out)')),
       zielen: document.querySelector('.e2-zielen-call')?.textContent ?? null,
-      moment: moment?.isConnected ? (moment.dataset.state ?? 'wait') : null,
       credits: Boolean(document.querySelector('.k5-credits')),
       stealthMap: worldActive && Boolean((w.guards?.length ?? 0) > 0 || w.map?.hidingSpots?.length),
       line: (() => {
@@ -623,11 +621,6 @@ export async function drive(page: Page, opts: DriveOptions): Promise<Snap> {
     if (progress !== lastSig) { lastSig = progress; lastChange = Date.now(); }
     await sneak(page, s.stealthMap && s.worldActive);
     if (s.tactics) { lastAction = 'battle'; await battleStep(page); continue; }
-    if (s.moment) {
-      lastAction = `moment ${s.moment}`;
-      if (s.moment === 'window') { await page.keyboard.press('e'); await page.waitForTimeout(150); } else await page.waitForTimeout(25);
-      continue;
-    }
     if (s.sammlung) { lastAction = 'sammlung'; await sammlungStep(page); continue; }
     if (s.zielen) { lastAction = 'zielen'; aimPanel = true; await zielenStep(page, s.zielen); continue; }
     if (aimPanel && !s.zielen) aimPanel = false;

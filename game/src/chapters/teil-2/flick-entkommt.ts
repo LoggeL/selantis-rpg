@@ -3,8 +3,8 @@
 // Two checkpointed parts (G.goto with params, a reload restarts the current part):
 //  1. World `e2-kerker-flucht`: Kyra suffers visions, Flick and Elnon whisper that nobody of them knows where Lia is
 //     and that every night down here buys her time. Two wardens fetch Flick; in the corridor she slips the shackle she
-//     loosened with the nail the night before and strikes (a short reaction moment, a miss only repeats the beat), the
-//     key warden goes down, the key bunch lies on the stones. She runs to the cell of Elnon and Kyra; Elnon decides to
+//     loosened with the nail the night before and strikes („Was du gesehen hast“, flick-entkommt-moment.ts: what she
+//     observed works, a guess only repeats the beat), the key warden goes down, the key bunch lies on the stones. She runs to the cell of Elnon and Kyra; Elnon decides to
 //     stay with Kyra and sends her for help. Plate `e2-flucht`.
 //  2. World `e2-kerker-alarm`: the alarm. A stealth route past the searching warden and the stair guard (view
 //     cones, dark cells and a niche as hiding spots, each a checkpoint; spotted = soft reset, never game over) up the
@@ -13,7 +13,7 @@ import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { kerkerBase, kerkerLights } from './gewoelbe';
-import { strikeMoment } from './flick-entkommt-moment';
+import { scuffleBeats } from './flick-entkommt-moment';
 import {
   ALARM_FROM, ESCAPE_CHECKPOINTS, ESCAPE_EXIT, ESCAPE_GUARDS, ESCAPE_HIDING, ESCAPE_SPAWNS, FLICK_CELL, KEYS_AT, PRISON_CELL, SCUFFLE,
   STAIRS_TOP,
@@ -160,17 +160,30 @@ async function fetch(w: WorldCtx): Promise<void> {
 
 async function scuffle(w: WorldCtx): Promise<void> {
   const key = w.actor(KEY), club = w.actor(CLUB);
-  w.setObjective('e2-fe-moment', 'Reiß die Hand aus der Schelle und schlag zu, wenn der Ring golden leuchtet.');
+  w.setObjective('e2-fe-moment', 'Nutz, was du in zwei Nächten gesehen hast: frei kommen, dann zuschlagen.');
   w.lockPlayer();
-  await strikeMoment({
-    beats: [{ label: 'Losreißen!' }, { label: 'Zuschlagen!' }],
-    onWindup: beat => {
-      if (beat === 0) { club.face('player'); bg(club.emote('?', 700)); }
+  const beats = scuffleBeats(G.state.flag<string>('e2-zelle-schelle'));
+  await G.ui.scenePick({
+    label: 'Was du gesehen hast',
+    help: 'Flick hat die Wärter zwei Nächte lang beobachtet. Was sie weiß, funktioniert. Was sie nur hofft, tut weh.',
+    layout: 'row',
+    className: 'e2-gerangel',
+    rounds: beats.map(beat => ({
+      cue: beat.id,
+      prompt: { speaker: 'e2-flick', text: beat.prompt },
+      cards: beat.ideas.map(({ id, text, tag }) => ({ id, text, tag })),
+      judge: (id: string) => {
+        const idea = beat.ideas.find(x => x.id === id)!;
+        return { ok: idea.ok, mood: idea.ok ? 'flash' : 'hurt', reply: { speaker: 'e2-flick', text: idea.reply } };
+      },
+    })),
+    onRound: round => {
+      if (round === 0) { club.face('player'); bg(club.emote('?', 700)); }
       else { key.face('player'); bg(key.play('attack', { ms: 500 })); }
     },
-    onResult: async (ok, beat) => {
-      if (beat === 0) {
-        if (ok) {
+    onVerdict: async (v, round) => {
+      if (round === 0) {
+        if (v.ok) {
           sfx('chain', { volume: 0.7, pitch: 1.2 });
           sfx('hit', { volume: 0.6 });
           bg(club.play('hit', { ms: 500 }));
@@ -181,7 +194,7 @@ async function scuffle(w: WorldCtx): Promise<void> {
           w.bark(CLUB, 'He! Stillhalten!', 1200);
           await w.wait(500);
         }
-      } else if (ok) {
+      } else if (v.ok) {
         sfx('swing', { volume: 0.6 });
         await w.wait(120);
         sfx('hit-heavy', { volume: 0.7 });

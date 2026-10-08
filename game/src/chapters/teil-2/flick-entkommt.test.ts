@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { BlockDef } from '../../world';
 import { pointInPoly } from '../../world/poly';
-import { momentFeedback, momentVerdict } from './flick-entkommt-moment';
+import { scuffleBeats } from './flick-entkommt-moment';
 import {
   ALARM_FROM, ESCAPE_CHECKPOINTS, ESCAPE_EXIT, ESCAPE_GUARDS, ESCAPE_HIDING, ESCAPE_SPAWNS, KEYS_AT, NICHE, SCUFFLE,
 } from './flick-entkommt-weg';
@@ -12,20 +12,15 @@ const free = (walk: readonly (readonly Pt[])[], blocks: BlockDef[], [x, y]: Pt) 
   walk.some(p => pointInPoly(x, y, p)) && !blocks.some(b => pointInPoly(x, y, b.poly));
 const centre = (poly: readonly Pt[]): Pt => [poly.reduce((s, p) => s + p[0], 0) / poly.length, poly.reduce((s, p) => s + p[1], 0) / poly.length];
 
-describe('reaction moment in the corridor (e2-flick-entkommt)', () => {
-  it('only counts a press while the ring is in the gold zone', () => {
-    expect(momentVerdict(0.3)).toBe('early');
-    expect(momentVerdict(0.69)).toBe('early');
-    expect(momentVerdict(0.7)).toBe('good');
-    expect(momentVerdict(1)).toBe('good');
-    expect(momentVerdict(1.15)).toBe('good');
-    expect(momentVerdict(1.2)).toBe('late');
-  });
-
-  it('names the miss so a retry tells the player what to change', () => {
-    expect(momentFeedback('good')).toBe('Getroffen!');
-    expect(momentFeedback('early')).toBe('Zu früh!');
-    expect(momentFeedback('late')).toBe('Zu spät!');
+describe('„Was du gesehen hast“ (e2-flick-entkommt)', () => {
+  it('each beat has exactly one idea that works, and the first one follows how the shackle was hidden', () => {
+    for (const shackle of ['stroh', 'aermel', undefined]) {
+      const beats = scuffleBeats(shackle);
+      expect(beats.map(b => b.id)).toEqual(['losreissen', 'zuschlagen']);
+      for (const b of beats) expect(b.ideas.filter(i => i.ok)).toHaveLength(1);
+    }
+    expect(scuffleBeats('aermel')[0].ideas.find(i => i.ok)?.tag).toBe('Ärmel');
+    expect(scuffleBeats('stroh')[0].ideas.find(i => i.ok)?.tag).toBe('Stroh');
   });
 });
 
