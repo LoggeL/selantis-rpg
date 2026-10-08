@@ -7,7 +7,7 @@ import { evaluate } from '../../tactics/rules/objectives';
 import { restoreProgress, withEquipment } from '../../tactics/rules/progression';
 import type { BattleDef } from '../../tactics/api';
 import { dunkelhain } from '../prolog/schlacht';
-import { EARLY_PROGRESS, escortEncounter, forestEncounter, onwardEncounter } from './travelBattles';
+import { EARLY_PROGRESS, earlyProgress, escortEncounter, forestEncounter, onwardEncounter } from './travelBattles';
 
 function build(def: BattleDef, seed = def.seed, turnMode: 'phases' | 'speed' = 'phases'): Battle {
   return new Battle({ grid: Grid.parse(def.map.height, def.map.terrain),
@@ -15,41 +15,74 @@ function build(def: BattleDef, seed = def.seed, turnMode: 'phases' | 'speed' = '
 }
 
 describe('travel battles and campaign pace', () => {
-  it('keeps early Lia modest and unlocks her light only after learning it on the continuation', () => {
+  it('gives Lia Vaters Dolch from her first fight and unlocks her light only after learning it on the continuation', () => {
     G.state.reset();
     for (const def of [forestEncounter(), escortEncounter(), onwardEncounter(0), onwardEncounter(7)]) {
       const b = build(def, def.seed, 'speed');
       expect(b.units.length).toBe(def.units.length);
       expect(b.living('player').length).toBeGreaterThanOrEqual(3);
+      expect(b.unit('lia').attack, def.id).toBe('dolch');
+      expect(b.unit('lia').traits.map(t => t.id), def.id).toEqual(['verzweiflung']);
     }
-    expect(forestEncounter().units.find(u => u.id === 'lia')!.abilities).not.toContain('dolch');
+    expect(forestEncounter().units.find(u => u.id === 'lia')).toMatchObject({ level: 1, abilities: ['steinwurf'] });
+    expect(escortEncounter().units.find(u => u.id === 'lia')!.level).toBe(2);
+    G.state.give('tincture'); G.state.learn('ausweichen'); G.state.learn('ablenken');
+    expect(forestEncounter().units.find(u => u.id === 'lia')!.abilities).toEqual(['ausweichen', 'ablenken', 'steinwurf', 'versorgen']);
     expect(onwardEncounter(0).units.find(u => u.id === 'lia')!.abilities).not.toContain('lichtstoss');
     G.state.learn('lichtstoss');
-    expect(onwardEncounter(2).units.find(u => u.id === 'lia')!.abilities).toContain('lichtstoss');
+    expect(onwardEncounter(2).units.find(u => u.id === 'lia')).toMatchObject({ level: 4, abilities: expect.arrayContaining(['lichtstoss']) });
     G.state.reset();
   });
 
-  it('bounds support EXP within an early fight, including the victory bonus', () => {
-    const b = new Battle({ grid: Grid.parse(['00'], ['..']), progression: EARLY_PROGRESS,
-      units: [{ id: 'lia', name: 'Lia', team: 'player', x: 0, y: 0, level: 2, exp: 0, hp: 17, abilities: ['ausweichen'], weapon: 'vatersdolch' }] });
+  it('grows Lia by at most one level per early fight, including the victory bonus', () => {
+    const b = new Battle({ grid: Grid.parse(['00'], ['..']), progression: earlyProgress('k2-wegelagerer'),
+      units: [{ id: 'lia', name: 'Lia', team: 'player', x: 0, y: 0, level: 1, exp: 0, hp: 16, abilities: ['ausweichen'], weapon: 'vatersdolch' }] });
     for (let n = 0; n < 40; n++) {
       b.startPhase('player'); b.unit('lia').cooldowns = {};
       b.act('lia', 'ausweichen', { x: 0, y: 0 });
     }
     b.rewardVictory('lia');
-    expect(b.unit('lia')).toMatchObject({ level: 2, exp: 30 });
-    expect(b.unit('lia').abilityAp.dolch).toBe(8);
+    expect(b.unit('lia')).toMatchObject({ level: 2, exp: 0 });
+    expect(b.unit('lia').abilityAp.dolch).toBe(12);
     expect(b.unit('lia').mastered).toEqual([]);
-    const next = new Battle({ grid: b.grid, progression: EARLY_PROGRESS,
-      units: [{ id: 'lia', name: 'Lia', team: 'player', x: 0, y: 0, level: 2, exp: 95, hp: 17, abilities: [] }] });
+    const next = new Battle({ grid: b.grid, progression: earlyProgress('k3-begleitung'),
+      units: [{ id: 'lia', name: 'Lia', team: 'player', x: 0, y: 0, level: 2, exp: 95, hp: 19, abilities: [] }] });
     next.rewardVictory('lia');
     expect(next.unit('lia')).toMatchObject({ level: 3, exp: 0 });
+  });
+
+  it('caps the repeatable road so it cannot be farmed endlessly', () => {
+    G.state.reset();
+    const def = onwardEncounter(5);
+    const b = build(def);
+    const lia = b.unit('lia');
+    lia.level = 6; lia.exp = 0;
+    for (let n = 0; n < 5; n++) b.rewardVictory('lia');
+    expect(lia).toMatchObject({ level: 6, exp: 0 });
+    expect(def.progression!.budgets!.kyra.maxLevel).toBeDefined();
+  });
+
+  it('makes Verzweiflung strengthen the dagger at half HP or below, and only then', () => {
+    G.state.reset();
+    const def = forestEncounter(), b = build(def);
+    const lia = b.unit('lia'), foe = b.unit('raeuber-1');
+    const from = { x: foe.x - 1, y: foe.y };
+    const calm = b.previewTarget(lia, b.ability('dolch'), foe, from);
+    expect(calm.damage).toBe(5); // a level-1 bandit (10 HP) needs two stabs
+    expect(calm.mods.map(m => m.label)).not.toContain('Verzweiflung');
+    lia.hp = Math.floor(lia.maxHp / 2);
+    const desperate = b.previewTarget(lia, b.ability('dolch'), foe, from);
+    expect(desperate.damage).toBe(7);
+    expect(desperate.chance).toBe(Math.min(100, calm.chance + 10));
+    expect(desperate.mods.find(m => m.label === 'Verzweiflung')).toMatchObject({ text: '+10 % · Schaden +2', kind: 'good' });
+    // Thrown stones are not part of it.
+    expect(b.previewTarget(lia, b.ability('steinwurf'), foe, { x: foe.x - 2, y: foe.y }).damage).toBe(1);
   });
 
   it('keeps the first encounter forgiving across several seeds', () => {
     for (const seed of [1, 2, 3, 11, 23]) {
       const def = forestEncounter(), b = build(def, seed);
-      for (const u of b.units) if (u.team === 'player') u.ai = u.id === 'foltan' ? 'melee' : 'support';
+      for (const u of b.units) if (u.team === 'player') u.ai = u.id === 'foltan' || u.id === 'lia' ? 'melee' : 'support';
       b.startPhase('player');
       let outcome = null;
       for (let n = 0; n < 50 && !outcome; n++) {
@@ -58,14 +91,16 @@ describe('travel battles and campaign pace', () => {
         if (!outcome) b.endPhase();
       }
       expect(outcome, `seed ${seed}`).toBe('win');
-      expect(b.unit('lia').level).toBe(2);
+      expect(b.unit('lia').level).toBeLessThanOrEqual(2);
     }
   });
 
-  it('retains the travel progression in the rescue character without a premature power jump', () => {
+  it('retains the travel progression without a premature power jump, and lifts a lower save to the battle floor', () => {
     const spec = forestEncounter().units.find(u => u.id === 'lia')!;
     const lia = makeUnit(restoreProgress(spec, { level: 2, exp: 60, weapon: null, mastered: [], abilityAp: {} }));
-    expect(lia).toMatchObject({ level: 2, hp: 17, atk: 2, exp: 60 });
+    expect(lia).toMatchObject({ level: 2, hp: 19, atk: 3, exp: 60, weapon: 'vatersdolch', attack: 'dolch' });
+    const late = onwardEncounter(0).units.find(u => u.id === 'lia')!;
+    expect(makeUnit(restoreProgress(late, { level: 2, exp: 10, weapon: null, mastered: [], abilityAp: {} }))).toMatchObject({ level: 4, hp: 25 });
   });
 
   it('also caps the early companions when support actions are repeated', () => {
@@ -91,7 +126,7 @@ describe('travel battles and campaign pace', () => {
       if (def.id === 'k3-begleitung') expect(b.unit('reisender').attack).toBe(null);
       for (const u of b.units) if (u.team === 'player') {
         b.aiOverrides.set(u.id, u.id === 'reisender' ? { profile: 'flee', goal: { x: 7, y: 2 } }
-          : { profile: u.id === 'foltan' || u.id === 'kyra' || u.id === 'lia' && u.abilities.includes('dolch') ? 'melee' : u.id === 'flick' ? 'archer' : 'support' });
+          : { profile: u.id === 'foltan' || u.id === 'kyra' || u.id === 'lia' ? 'melee' : u.id === 'flick' ? 'archer' : 'support' });
       }
       b.startTurns();
       let outcome = null;

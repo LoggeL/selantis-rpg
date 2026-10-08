@@ -30,16 +30,16 @@ describe('kapitel-5 bluff', () => {
     const bad = rescueSetup(0, false);
     expect(bad.guardsSkipFirst).toBe(false);
     expect(bad.flick).toEqual({ x: 9, y: 2 });
-    expect(bad.lia).toEqual(['ausweichen', 'ablenken', 'steinwurf']);
+    expect(bad.liaExtra).toEqual([]);
     expect(bad.flickAbilities).toContain('k5-schneiden');
     const mid = rescueSetup(2, true);
     expect(mid.guardsSkipFirst).toBe(true);
     expect(mid.flick).toEqual({ x: 8, y: 4 });
-    expect(mid.lia).toEqual(['ausweichen', 'ablenken', 'steinwurf', 'dolch', 'k5-schneiden']);
+    expect(mid.liaExtra).toEqual(['k5-schneiden']);
     const best = rescueSetup(3, true);
     expect(best.firstCutDone).toBe(true);
     expect(best.flickAbilities).toContain('k5-losschneiden');
-    expect(best.lia).toContain('k5-losschneiden');
+    expect(best.liaExtra).toEqual(['k5-losschneiden']);
   });
 });
 

@@ -1,12 +1,13 @@
 // Battle „e2-uebungskampf“ (docs/teil-2/umsetzung.md §3 e2-stabtraining): two ghouls (Leichenfresser) sniff along
 // the hermit's brook after Lia's target practice. Lia fights with Schattentöter (Stabimpuls, plus Lichtstoß when she
-// knows it, Ausweichen, Ablenken, Versorgen); Ignatius stays at her side as a non-lethal ally who only guards: he
+// knows it) and keeps Vaters Dolch as her basic attack, plus Ausweichen, Ablenken, Stein werfen and Versorgen (kit from
+// common/liaKit); Ignatius stays at her side as a non-lethal ally who only guards: he
 // body-blocks for her and covers her (scripted „guarded“ status), he never strikes. Lose only when Lia falls
 // („Erneut versuchen“). The progression reward is paid once: after the first win (flag e2-uebungskampf-gewonnen)
 // every budget is zero, so a reload or replay cannot farm EXP.
 import type { BattleCtx, BattleDef, BattleUnitDef, Point } from '../../tactics/api';
 import type { AbilityDef, CombatStats } from '../../tactics/rules/types';
-import { characterStats } from '../common/battleCharacters';
+import { liaAbilities, liaBudget, liaCombatHint, liaUnit, withLiaHooks } from '../common/liaKit';
 import { TRAVEL_ABILITIES } from '../common/travelBattles';
 
 export const UEBUNGSKAMPF_WON = 'e2-uebungskampf-gewonnen';
@@ -18,16 +19,17 @@ export const STABIMPULS: AbilityDef = {
   description: 'Ein kleiner, gezielter Lichtimpuls aus der Spitze von Schattentöter. Einzelziel, ein bis drei Felder weit.',
 };
 
-/** The ghouls' rusty hatchets: weak, but two of them add up. */
+/** The ghouls' rusty hatchets: clumsy, but two of them add up. */
 const GHULHIEB: AbilityDef = {
   id: 'e2-ghulhieb', name: 'Schartiger Hieb', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-  power: 1, accuracy: 78, vfx: 'slash',
-  description: 'Ein ungelenker Hieb mit einem rostigen Beil.',
+  power: 2, accuracy: 90, hitMod: 5, vfx: 'slash',
+  description: 'Ein ungelenker, aber wuchtiger Hieb mit einem rostigen Beil.',
 };
 
 /** Ignatius has no campaign profile (BATTLE_CHARACTERS): an old council mage who only covers his pupil here. */
 const IGNATIUS: { level: number; baseStats: CombatStats } = { level: 12, baseStats: { maxHp: 20, maxMp: 12, atk: 1, def: 2, speed: 5 } };
-const GHOUL: { level: number; baseStats: CombatStats } = { level: 2, baseStats: { maxHp: 12, maxMp: 0, atk: 2, def: 0, speed: 4 } };
+/** Sized for Lia at level 6–7 (Teil II): she needs about three staff impulses per ghoul. */
+const GHOUL: { level: number; baseStats: CombatStats } = { level: 5, baseStats: { maxHp: 12, maxMp: 0, atk: 2, def: 0, speed: 4 } };
 
 export const UEBUNG_MAP: BattleDef['map'] = {
   ground: 'forest',
@@ -80,15 +82,18 @@ export interface UebungSetup {
   won: boolean;
 }
 
-/** Lia's actions in the practice fight: the staff impulse first, then her own small means. */
+/** Ignatius hands her Schattentöter for this fight, whatever the inventory says. */
+const staffKit = (lichtstoss: boolean) => ({ staff: true, state: { lichtstoss } });
+
+/** Lia's specials in the practice fight: the staff impulse first, then her own small means (the dagger stays her Angriff). */
 export function liaStaffAbilities(lichtstoss: boolean): string[] {
-  return ['e2-stabimpuls', ...(lichtstoss ? ['lichtstoss'] : []), 'ausweichen', 'ablenken', 'versorgen'];
+  return liaAbilities(staffKit(lichtstoss));
 }
 
 /** EXP/AP for the first win only. */
 export function uebungProgression(won: boolean): NonNullable<BattleDef['progression']> {
   if (won) return { actionExp: 0, defeatExp: 0, actionAp: 0, victoryExp: 0, victoryAp: 0, budgets: { lia: { exp: 0, ap: 0 }, ignatius: { exp: 0, ap: 0 } } };
-  return { actionExp: 4, defeatExp: 8, actionAp: 1, victoryExp: 20, victoryAp: 4, budgets: { lia: { exp: 40, ap: 10 }, ignatius: { exp: 0, ap: 0 } } };
+  return { actionExp: 4, defeatExp: 8, actionAp: 1, victoryExp: 20, victoryAp: 4, budgets: { lia: liaBudget('e2-uebungskampf'), ignatius: { exp: 0, ap: 0 } } };
 }
 
 const ghoul = (id: string, at: Point): BattleUnitDef => ({
@@ -110,9 +115,8 @@ export function uebungskampf(setup: UebungSetup): BattleDef {
     seed: 6215,
     map: UEBUNG_MAP,
     units: [
-      { id: 'lia', name: 'Lia', ...characterStats('lia'), team: 'player', x: LIA_START.x, y: LIA_START.y, facing: 'e', move: 4, jump: 2,
-        abilities: liaStaffAbilities(setup.lichtstoss), preset: 'e2-lia-stab', portrait: 'lia-cloak', nonLethal: true,
-        title: 'Mit einem geliehenen Stab und sehr viel Herzklopfen' },
+      liaUnit('e2-uebungskampf', { x: LIA_START.x, y: LIA_START.y, preset: 'e2-lia-stab', nonLethal: true,
+        title: 'Mit einem geliehenen Stab, Vaters Dolch am Gürtel und sehr viel Herzklopfen' }, staffKit(setup.lichtstoss)),
       { id: 'ignatius', name: 'Ignatius', ...IGNATIUS, team: 'ally', x: IGNATIUS_START.x, y: IGNATIUS_START.y, facing: 'e', move: 3, jump: 1,
         abilities: ['decken'], attack: false, preset: 'e2-ignatius', portrait: 'e2-ignatius', ai: 'guard', guardRadius: 1, nonLethal: true,
         title: 'Deckt seine Schülerin. Kämpfen muss sie selbst.' },
@@ -126,10 +130,11 @@ export function uebungskampf(setup: UebungSetup): BattleDef {
       win: [{ type: 'defeatAll' }],
       lose: [{ type: 'unitDown', units: ['lia'] }],
     },
-    hooks: {
+    hooks: withLiaHooks({
       onStart: opening,
       onRound: async (ctx, round, phase) => {
         if (phase === 'player' && round === 1) {
+          await liaCombatHint(ctx);
           await ctx.hint('<em>Stabimpuls</em>: ein kleiner, gezielter Lichtstoß aus der Stabspitze, ein bis drei Felder weit. Kostet 4 MP, dann zwei Züge Pause.', { title: 'Schattentöter', unit: 'lia' });
           await ctx.hint('Ignatius bleibt neben dir und deckt dich. Angreifen wird er nicht. Halte die beiden auf Abstand.', { title: 'Lehrer', unit: 'ignatius' });
         }
@@ -146,7 +151,7 @@ export function uebungskampf(setup: UebungSetup): BattleDef {
         if (unit.id === 'lia') ctx.bark('ignatius', 'Lia!', 1400);
       },
       onHpBelow: [{ unit: 'lia', below: 0.4, run: c => c.bark('ignatius', 'Zurück! Abstand ist auch eine Waffe.', 2200) }],
-    },
+    }),
     onWin: async ctx => {
       await ctx.focus('lia', 300);
       await ctx.say('e2-ignatius', 'Siehst du? Sie laufen. Und du stehst noch.', { mood: 'happy' });

@@ -89,8 +89,8 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   },
   dolch: {
     id: 'dolch', name: 'Dolch', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 1, accuracy: 80, hitMod: 0, vfx: 'dagger',
-    description: 'Vaters Dolch. Lia ist keine Kämpferin, aber von hinten zählt jeder Stich.',
+    power: 3, accuracy: 90, hitMod: 5, vfx: 'dagger',
+    description: 'Vaters Dolch, Lias Angriff. Sie führt ihn noch unsicher, doch jeder Kampf macht ihre Hand ruhiger. Von hinten trifft fast jeder Stich.',
   },
 
   // ---------------- Flick ----------------

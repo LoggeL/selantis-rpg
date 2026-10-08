@@ -129,6 +129,25 @@ export interface AbilityDef {
   icon?: string;
 }
 
+/**
+ * Passive trait (FFTA-like): while the unit stands at or below `hpAtOrBelow` of its max HP, the listed attacks
+ * hit harder and more often. Lia's „Verzweiflung“ uses it: grief and anger carry her when she is hurt.
+ */
+export interface TraitDef {
+  id: string;
+  /** German name shown on the unit card and as forecast chip, e.g. „Verzweiflung“. */
+  name: string;
+  description: string;
+  /** Fraction of max HP (0..1) at or below which the trait is active. */
+  hpAtOrBelow: number;
+  /** Boosted abilities; omitted = the unit's basic attack. */
+  abilities?: string[];
+  /** Extra damage per strike. */
+  power?: number;
+  /** Extra hit chance in percent (not for alwaysHits abilities). */
+  hitMod?: number;
+}
+
 export interface CombatStats {
   maxHp: number;
   maxMp: number;
@@ -187,6 +206,8 @@ export interface UnitSpec {
   freedTeam?: Team;
   /** Free-form tags for objectives and hooks (e.g. 'vip'). */
   tags?: string[];
+  /** Passive traits (e.g. Lia's „Verzweiflung“). */
+  traits?: TraitDef[];
 }
 
 export interface Unit {
@@ -225,6 +246,7 @@ export interface Unit {
   guardRadius: number;
   freedTeam: Team;
   tags: string[];
+  traits: TraitDef[];
   /** Turn bookkeeping for the current phase. */
   moved: boolean;
   acted: boolean;

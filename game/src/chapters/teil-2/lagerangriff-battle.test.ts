@@ -7,7 +7,7 @@ import { distanceField } from '../../tactics/rules/movement';
 import { key } from '../../tactics/rules/grid';
 import { liaRaidAbilities, raidBattle, WATER_GATE, type RaidSetup } from './lagerangriff-battle';
 
-const BASE: RaidSetup = { dagger: false, lichtstoss: false, azarSabre: false, foltanCovers: false };
+const BASE: RaidSetup = { azarSabre: false, foltanCovers: false };
 const originalAudio = G.audio;
 afterEach(() => { G.audio = originalAudio; G.state.reset(); });
 
@@ -43,13 +43,27 @@ describe('e2-ueberfall (camp raid)', () => {
     for (const u of [...def.units, ...(def.waves ?? []).flatMap(w => w.units)]) if (u.id !== 'lia') expect(u.nonLethal, u.id).toBe(true);
   });
 
-  it('starts Lia exhausted without the Urmacht, with the means she really has', () => {
+  it('starts Lia exhausted without the Urmacht, with Vaters Dolch and her own small means', () => {
+    G.state.learn('lichtstoss'); G.state.give('e2-schattentoeter');
     const { ctrl } = controller();
     const lia = ctrl.battle.unit('lia')!;
     expect(lia.hp).toBeLessThanOrEqual(Math.ceil(lia.maxHp / 2));
-    expect(liaRaidAbilities({ dagger: false, lichtstoss: false })).toEqual(['ausweichen', 'ablenken', 'steinwurf', 'versorgen']);
-    expect(liaRaidAbilities({ dagger: true, lichtstoss: true })).toEqual(['ausweichen', 'ablenken', 'steinwurf', 'versorgen', 'dolch', 'lichtstoss']);
+    expect(lia.attack).toBe('dolch');
+    expect(lia.level).toBe(5);
+    // „Das Licht schweigt“: no Lichtstoß and no staff even when she knows or holds them.
+    expect(lia.abilities).not.toContain('lichtstoss');
+    expect(lia.abilities).not.toContain('e2-stabimpuls');
     expect(lia.abilities).not.toContain('urmacht');
+    const all = { ausweichen: true, ablenken: true, tincture: true, lichtstoss: true, staff: true };
+    expect(liaRaidAbilities(all)).toEqual(['ausweichen', 'ablenken', 'steinwurf', 'versorgen']);
+    expect(liaRaidAbilities({ ...all, tincture: false, ausweichen: false, ablenken: false })).toEqual(['steinwurf']);
+    // Half HP: her Verzweiflung is awake from the first turn.
+    const foe = ctrl.battle.unit('ds-1');
+    const plain = ctrl.battle.previewTarget({ ...lia, traits: [] }, ctrl.battle.ability('dolch'), foe, { x: foe.x - 1, y: foe.y });
+    const desperate = ctrl.battle.previewTarget(lia, ctrl.battle.ability('dolch'), foe, { x: foe.x - 1, y: foe.y });
+    expect(desperate.damage).toBe(plain.damage + 2);
+    expect(desperate.chance).toBe(Math.min(100, plain.chance + 10));
+    expect(desperate.mods.map(m => m.label)).toContain('Verzweiflung');
   });
 
   it('turns the alarm choices into battle differences', () => {

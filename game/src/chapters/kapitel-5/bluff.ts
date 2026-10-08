@@ -70,8 +70,8 @@ export interface RescueSetup {
   guardsSkipFirst: boolean;
   /** Flick already cut the first strand of the rope before the fight starts. */
   firstCutDone: boolean;
-  /** Lia's abilities in the rescue battle. */
-  lia: string[];
+  /** Rescue-only actions Lia adds to her kit (common/liaKit): cutting the rope with Vaters Dolch. */
+  liaExtra: string[];
   /** Flick's abilities. */
   flickAbilities: string[];
 }
@@ -84,7 +84,7 @@ export function rescueSetup(points: number, hasDagger: boolean): RescueSetup {
     flick: p >= 1 ? { x: 8, y: 4 } : { x: 9, y: 2 },
     guardsSkipFirst: p >= 2,
     firstCutDone: p >= 3,
-    lia: ['ausweichen', 'ablenken', 'steinwurf', ...(hasDagger ? ['dolch', cut] : [])],
+    liaExtra: hasDagger ? [cut] : [],
     flickAbilities: ['bogen', 'messer', cut],
   };
 }

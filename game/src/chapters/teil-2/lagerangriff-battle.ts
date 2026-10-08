@@ -1,5 +1,6 @@
 // Battle „e2-ueberfall“ (docs/teil-2/umsetzung.md §3 e2-lagerangriff; quellenpruefung §4): dawn raid on the camp of
-// the Free Brotherhood. Lia (exhausted after the test: half HP, no Urmacht) and Kyra must get from the tents to the
+// the Free Brotherhood. Lia (exhausted after the test: half HP, the light silent, only Vaters Dolch and her own
+// small means; at half HP her Verzweiflung is already awake) and Kyra must get from the tents to the
 // rear water gate where the brook leaves the palisade; Flick, Elnon, Foltan and Azar hold the attackers (allies, all
 // nonLethal). Dunkelschatten come in waves – over the gate, over the fence on the woodpile side, a crossbowman at the
 // brook – and the scarred Baris arrives at the gate. Lose only when Lia is down; „Erneut versuchen“ on defeat.
@@ -8,6 +9,7 @@ import { G } from '../../core/G';
 import type { BattleCtx, BattleDef, BattleUnitDef, Point } from '../../tactics/api';
 import type { CombatStats } from '../../tactics/rules/types';
 import { characterStats, shadowStats } from '../common/battleCharacters';
+import { liaAbilities, liaBudget, liaCombatHint, liaUnit, withLiaHooks, type LiaKitState } from '../common/liaKit';
 import { TRAVEL_ABILITIES } from '../common/travelBattles';
 
 /** The rear water gate: the brook tiles where it slips under the palisade. */
@@ -17,10 +19,8 @@ const nearGate = (p: Point, d: number) => WATER_GATE.some(t => Math.abs(t.x - p.
 /** Elnon has no campaign profile in BATTLE_CHARACTERS: the elf captain of Ebaril, axe, steady. */
 const ELNON: { level: number; baseStats: CombatStats } = { level: 9, baseStats: { maxHp: 22, maxMp: 6, atk: 3, def: 2, speed: 6 } };
 
-/** What the alarm in the world decided (e2-lager-alarm) and what Lia carries. */
+/** What the alarm in the world decided (e2-lager-alarm). Lia's kit itself comes from common/liaKit. */
 export interface RaidSetup {
-  dagger: boolean;
-  lichtstoss: boolean;
   /** Lia brought Azar his sabre: he fights instead of only shoving. */
   azarSabre: boolean;
   /** Lia told Foltan the way to the brook: he holds the path instead of the gate. */
@@ -29,16 +29,17 @@ export interface RaidSetup {
 
 export function raidSetupFromState(): RaidSetup {
   return {
-    dagger: G.state.has('dagger'),
-    lichtstoss: G.state.knows('lichtstoss'),
     azarSabre: G.state.is('e2-alarm-azar'),
     foltanCovers: G.state.flag<string>('e2-alarm-foltan') === 'weg',
   };
 }
 
-/** Lia's actions in this battle: her own small means, never the Urmacht. */
-export function liaRaidAbilities(s: Pick<RaidSetup, 'dagger' | 'lichtstoss'>): string[] {
-  return ['ausweichen', 'ablenken', 'steinwurf', 'versorgen', ...(s.dagger ? ['dolch'] : []), ...(s.lichtstoss ? ['lichtstoss'] : [])];
+/** „Das Licht schweigt“: in the raid Lia has her dagger and her own small means, never the Urmacht (not even Lichtstoß). */
+export const RAID_LIA = { hpFraction: 0.5, light: false } as const;
+
+/** Lia's specials in this battle (the dagger is her basic attack). */
+export function liaRaidAbilities(state?: Partial<LiaKitState>): string[] {
+  return liaAbilities({ ...RAID_LIA, state });
 }
 
 const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'>): BattleUnitDef => {
@@ -55,9 +56,8 @@ const ally = (o: Omit<BattleUnitDef, 'team'>): BattleUnitDef => ({ ai: 'guard', 
 
 export function raidBattle(setup: RaidSetup = raidSetupFromState()): BattleDef {
   const units: BattleUnitDef[] = [
-    { id: 'lia', name: 'Lia', ...characterStats('lia', 0.5), team: 'player', x: 4, y: 2, facing: 's', move: 4, jump: 2,
-      abilities: liaRaidAbilities(setup), preset: 'lia-cloak', portrait: 'lia-cloak',
-      title: 'Seit der Prüfung zittern ihr die Knie. Das Licht schweigt.' },
+    liaUnit('e2-ueberfall', { x: 4, y: 2, facing: 's',
+      title: 'Seit der Prüfung zittern ihr die Knie. Das Licht schweigt, der Dolch nicht.' }, RAID_LIA),
     { id: 'kyra', name: 'Kyra', ...characterStats('kyra'), team: 'player', x: 3, y: 2, facing: 's', move: 4, jump: 2,
       abilities: ['schubsen', 'ausweichen', 'steinwurf'], preset: 'kyra', portrait: 'kyra', nonLethal: true,
       title: 'Wer an ihre Schwester will, muss erst an ihr vorbei' },
@@ -82,7 +82,7 @@ export function raidBattle(setup: RaidSetup = raidSetupFromState()): BattleDef {
     title: 'Überfall im Morgengrauen',
     subtitle: 'Zum hinteren Bachdurchlass',
     victoryText: 'Lia und Kyra schlüpfen unter der Palisade hindurch in den dunklen Wald.',
-    defeatText: 'Lia ist gestürzt. Ausweichen und Ablenken halten sie auf den Beinen, Kyra kann Verfolger wegschubsen. Die anderen halten euch den Rücken frei.',
+    defeatText: 'Lia ist gestürzt. Ausweichen und Ablenken halten sie auf den Beinen, der Dolch hält Verfolger nur kurz auf. Kyra kann sie wegschubsen, die anderen halten euch den Rücken frei.',
     backdrop: 'night',
     ambience: ['battle-far', 'night', 'stream'],
     music: 'battle',
@@ -155,7 +155,7 @@ export function raidBattle(setup: RaidSetup = raidSetupFromState()): BattleDef {
     progression: {
       actionExp: 4, defeatExp: 6, actionAp: 1, victoryExp: 20, victoryAp: 4,
       budgets: {
-        lia: { exp: 30, ap: 8 }, kyra: { exp: 30, ap: 8 },
+        lia: liaBudget('e2-ueberfall'), kyra: { exp: 30, ap: 8 },
         flick: { exp: 0, ap: 0 }, elnon: { exp: 0, ap: 0 }, foltan: { exp: 0, ap: 0 }, azar: { exp: 0, ap: 0 },
       },
     },
@@ -175,13 +175,14 @@ export function raidBattle(setup: RaidSetup = raidSetupFromState()): BattleDef {
       win: [{ type: 'reach', tiles: WATER_GATE, unit: 'lia' }],
       lose: [{ type: 'unitDown', units: ['lia'] }],
     },
-    hooks: {
+    hooks: withLiaHooks({
       onStart: opening,
       onRound: async (ctx, round, phase) => {
         if (phase !== 'player') return;
         if (round === 1) {
+          await liaCombatHint(ctx);
           await ctx.hint('Lia ist erschöpft: halbe Lebenspunkte, und das Licht in ihr schweigt. Bring sie zu den <em>goldenen Fahnen</em> am Bach.', { title: 'Flucht', unit: 'lia' });
-          await ctx.hint('<em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Verfolger zurück. Kyra kann <em>schubsen</em>. Flick, Elnon, Foltan und Azar kämpfen von selbst.', { title: 'Keine Kämpferin', unit: 'kyra' });
+          await ctx.hint('Die <em>Verzweiflung</em> ist schon wach: Ihr Dolch trifft jetzt härter. Trotzdem gilt: laufen, nicht siegen. <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Verfolger zurück, Kyra kann <em>schubsen</em>. Flick, Elnon, Foltan und Azar kämpfen von selbst.', { title: 'Nur raus hier', unit: 'kyra' });
         }
         if (round === 2) ctx.bark('elnon', 'Das Tor hält! Noch!', 1800);
         if (round === 4 && !ctx.hasFlag('e2-baris')) await barisArrives(ctx);
@@ -218,7 +219,7 @@ export function raidBattle(setup: RaidSetup = raidSetupFromState()): BattleDef {
         { unit: 'lia', below: 0.35, run: c => c.bark('lia', 'Nur noch … ein paar Schritte …', 2000) },
         { unit: 'kyra', below: 0.5, run: c => c.bark('kyra', 'Mein Knöchel! Egal. Weiter!', 1800) },
       ],
-    },
+    }),
     onWin: async ctx => {
       await ctx.focus('lia', 300);
       await ctx.say('kyra', 'Rein ins Wasser, Kopf runter! Unter dem Zaun durch!', { mood: 'determined' });

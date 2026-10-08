@@ -5,7 +5,7 @@ import { Rng } from './rng';
 import { EXP_PER_LEVEL, WEAPONS, awardProgress, basicAttack, characterLevel, skillAvailable, statsAtLevel } from './progression';
 import type {
   AbilityDef, ActionPreview, AiOverride, BattleEvent, BattleProgression, Facing, Phase, Point, PreviewMod, PushOutcome,
-  StatusId, TargetPreview, Team, Unit, UnitSpec,
+  StatusId, TargetPreview, Team, TraitDef, Unit, UnitSpec,
 } from './types';
 
 /** Damage when a pushed unit hits a wall/edge/cliff or another unit. */
@@ -51,6 +51,21 @@ export const LEGACY_ACCURACY_BASE = 85;
  */
 export const hitModOf = (a: AbilityDef): number => a.hitMod ?? a.accuracy - LEGACY_ACCURACY_BASE;
 
+/** Whether a passive trait is active now: the unit stands and its HP is at or below the trait's fraction. */
+export function traitActive(u: Pick<Unit, 'hp' | 'maxHp' | 'down'>, t: TraitDef): boolean {
+  return !u.down && u.hp > 0 && u.hp <= u.maxHp * t.hpAtOrBelow;
+}
+
+/** Whether a trait boosts this ability (default: the unit's basic attack). */
+export function traitBoosts(u: Pick<Unit, 'attack'>, t: TraitDef, abilityId: string): boolean {
+  return t.abilities ? t.abilities.includes(abilityId) : abilityId === u.attack;
+}
+
+/** Traits that strengthen `abilityId` right now. */
+export function activeTraits(u: Pick<Unit, 'hp' | 'maxHp' | 'down' | 'attack' | 'traits'>, abilityId: string): TraitDef[] {
+  return (u.traits ?? []).filter(t => traitBoosts(u, t, abilityId) && traitActive(u, t));
+}
+
 /** Everything a unit can choose under „Aktion“: the basic attack first, then its abilities (no duplicates). */
 export function actionList(u: Pick<Unit, 'attack' | 'abilities'>): string[] {
   return u.attack ? [u.attack, ...u.abilities.filter(id => id !== u.attack)] : [...u.abilities];
@@ -78,6 +93,7 @@ export function makeUnit(spec: UnitSpec): Unit {
     attack: basicAttack(spec, weapon), attackAuthored: spec.attack !== undefined, cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
     down: false, nonLethal: !!spec.nonLethal, ai: spec.ai ?? (spec.team === 'enemy' ? 'melee' : 'passive'),
     guardRadius: spec.guardRadius ?? 4, freedTeam: spec.freedTeam ?? 'player', tags: [...(spec.tags ?? [])],
+    traits: (spec.traits ?? []).map(t => ({ ...t, ...(t.abilities ? { abilities: [...t.abilities] } : {}) })),
     moved: false, acted: false, undo: null,
   };
 }
@@ -364,6 +380,15 @@ export class Battle {
       if (cover && !a.ignoresCover) { chance -= cover; mods.push({ label: 'Deckung', text: `−${cover} %`, kind: 'bad' }); }
       if (this.has(t, 'evasive')) { chance -= EVASIVE_PENALTY; mods.push({ label: 'Ausweichen', text: `−${EVASIVE_PENALTY} %`, kind: 'bad' }); }
       if (this.has(t, 'stunned')) { chance += STUNNED_HIT_BONUS; mods.push({ label: 'Benommen', text: `+${STUNNED_HIT_BONUS} %`, kind: 'good' }); }
+      // Passive traits (Lia's „Verzweiflung“): more power and accuracy while the user is badly hurt.
+      let traitPower = 0;
+      for (const tr of activeTraits(u, a.id)) {
+        const hitBonus = a.alwaysHits ? 0 : tr.hitMod ?? 0;
+        chance += hitBonus;
+        traitPower += tr.power ?? 0;
+        const parts = [hitBonus ? pct(hitBonus) : '', tr.power ? `Schaden +${tr.power}` : ''].filter(Boolean);
+        if (parts.length) mods.push({ label: tr.name, text: parts.join(' · '), kind: 'good' });
+      }
       chance = a.alwaysHits ? 100 : clamp(Math.round(chance), 5, 100);
 
       // Direction and height change only the hit chance; damage is power + atk − def.
@@ -371,7 +396,7 @@ export class Battle {
       if (guarded) mods.push({ label: 'Schutzwall', text: '×0,5', kind: 'bad' });
       if (a.fixedDamage !== undefined) damage = guarded ? Math.max(0, Math.floor(a.fixedDamage * 0.5)) : a.fixedDamage;
       else {
-        const base = Math.max(1, a.power + u.atk - t.def);
+        const base = Math.max(1, a.power + traitPower + u.atk - t.def);
         damage = guarded ? Math.max(1, Math.round(base * 0.5)) : base;
       }
     }

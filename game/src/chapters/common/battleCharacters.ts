@@ -8,7 +8,8 @@ export const BATTLE_CHARACTERS = {
   foltan: { level: 6, stats: { maxHp: 22, maxMp: 4, atk: 3, def: 1, speed: 5 } },
   azar: { level: 3, stats: { maxHp: 20, maxMp: 8, atk: 1, def: 1, speed: 4 } },
   flick: { level: 8, stats: { maxHp: 18, maxMp: 6, atk: 3, def: 1, speed: 8 } },
-  lia: { level: 2, stats: { maxHp: 14, maxMp: 18, atk: 1, def: 0, speed: 6 } },
+  // A weak but real fighter from her first battle on (Vaters Dolch); she grows through the per-battle level floors.
+  lia: { level: 1, stats: { maxHp: 16, maxMp: 8, atk: 2, def: 1, speed: 6 } },
   kyra: { level: 1, stats: { maxHp: 12, maxMp: 10, atk: 2, def: 0, speed: 6 } },
   'baris-young': { level: 14, stats: { maxHp: 24, maxMp: 2, atk: 4, def: 2, speed: 3 } },
   baris: { level: 16, stats: { maxHp: 24, maxMp: 2, atk: 4, def: 2, speed: 5 } },
@@ -25,12 +26,16 @@ export const BATTLE_CHARACTERS = {
 export type BattleCharacter = keyof typeof BATTLE_CHARACTERS;
 
 export function characterStats(id: BattleCharacter, hpFraction?: number): Pick<UnitSpec, 'level' | 'baseStats' | 'hp'> {
-  const character = BATTLE_CHARACTERS[id];
-  const baseStats = { ...character.stats };
+  return characterStatsAt(id, BATTLE_CHARACTERS[id].level, hpFraction);
+}
+
+/** Same as characterStats, at an authored campaign level (a floor: saved progress may be higher). */
+export function characterStatsAt(id: BattleCharacter, level: number, hpFraction?: number): Pick<UnitSpec, 'level' | 'baseStats' | 'hp'> {
+  const baseStats = { ...BATTLE_CHARACTERS[id].stats };
   const hp = hpFraction === undefined ? undefined
-    : Math.max(1, Math.round(statsAtLevel(baseStats, character.level).maxHp * Math.max(0, Math.min(1, hpFraction))));
+    : Math.max(1, Math.round(statsAtLevel(baseStats, level).maxHp * Math.max(0, Math.min(1, hpFraction))));
   return {
-    level: character.level, baseStats,
+    level, baseStats,
     ...(hp === undefined ? {} : { hp }),
   };
 }

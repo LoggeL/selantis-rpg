@@ -1,10 +1,12 @@
-// Kapitel V, Szene 4 „rettung“: FFTA tactics at the lone oak. Lia (Ausweichen, Ablenken, Stein werfen, Dolch) and
+// Kapitel V, Szene 4 „rettung“: FFTA tactics at the lone oak. Lia (Vaters Dolch, Ausweichen, Ablenken, Stein werfen) and
 // Flick (bow, knife) against Baris' men. The wet rope needs two cuts (with Vaters Dolch Lia can cut too: faster).
 // Kyra must reach the forest edge; then Orwen and Baris return. Climax: Flick is down, Baris raises the axe
 // („Halt still, Spitzohr. Dann geht’s schneller.“), Lia screams, her eyes glow blue, the turquoise Urmacht throws Baris away, the
 // Dunkelschatten flee, Lia collapses. The bluff points (flag 'k5-ablenkung') shape the opening.
 import { G } from '../../core/G';
 import { characterStats, shadowStats } from '../common/battleCharacters';
+import { liaBudget, liaCombatHint, liaUnit, withLiaHooks } from '../common/liaKit';
+import { TRAVEL_ABILITIES } from '../common/travelBattles';
 import type { AbilityDef, BattleCtx, BattleDef, BattleUnitDef, TacticsStartData } from '../../tactics/api';
 import { rescueSetup } from './bluff';
 import { ui } from './common';
@@ -30,8 +32,7 @@ const shadow = (o: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'id' | 'x' | 'y'
 export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1), hasDagger = G.state.has('dagger')): BattleDef {
   const setup = rescueSetup(points, hasDagger);
   const units: BattleUnitDef[] = [
-    { id: 'lia', ...characterStats('lia'), name: 'Lia', title: 'Keine Kämpferin. Aber sie gibt nicht auf.', team: 'player', x: 5, y: 7, facing: 'e', move: 4, jump: 2,
-      abilities: setup.lia, preset: 'lia-cloak', portrait: 'lia-cloak', tags: ['vip'] },
+    liaUnit('k5-rettung', { x: 5, y: 7, facing: 'e', tags: ['vip'], title: 'Ihre Eltern hat sie verloren. Kyra gibt sie nicht her.' }, { extra: setup.liaExtra }),
     { id: 'flick', ...characterStats('flick'), name: 'Flick', title: 'Fährtenleserin. Die beste, sagt sie.', team: 'player', x: setup.flick.x, y: setup.flick.y, facing: 'w', move: 5, jump: 3,
       abilities: setup.flickAbilities, nonLethal: true, preset: 'flick' },
     { id: 'kyra', ...characterStats('kyra'), name: 'Kyra', title: 'Gefesselt an die Eiche, geknebelt, wütend', team: 'ally', x: 7, y: 4, facing: 's', move: 4, jump: 2,
@@ -45,13 +46,13 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
     title: 'Am Baum über den Feldern',
     subtitle: 'Befreit Kyra',
     victoryText: 'Die Dunkelschatten fliehen in die Nacht.',
-    defeatText: 'Lia ist gestürzt. Ausweichen und Ablenken halten sie am Leben. Lass Flick die harte Arbeit machen.',
+    defeatText: 'Lia ist gestürzt. Ausweichen und Ablenken halten sie am Leben, Vaters Dolch trifft von hinten am sichersten. Flick hält die Wachen auf Abstand.',
     backdrop: 'dusk',
     ambience: ['wind', 'fire', 'crickets'],
     music: 'battle',
     seed: 516,
-    progression: { budgets: { lia: { exp: 30, ap: 8, maxLevel: 3 } } },
-    abilities: RESCUE_ABILITIES,
+    progression: { actionExp: 10, defeatExp: 25, actionAp: 2, victoryExp: 40, victoryAp: 4, budgets: { lia: liaBudget('k5-rettung') } },
+    abilities: { ...TRAVEL_ABILITIES, ...RESCUE_ABILITIES },
     map: {
       trees: 'mixed',
       ground: 'dry',
@@ -110,11 +111,12 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
       win: [{ type: 'flag', flag: 'k5-urmacht' }],
       lose: [{ type: 'unitDown', units: ['lia'] }],
     },
-    hooks: {
+    hooks: withLiaHooks({
       onStart: ctx => opening(ctx, setup.guardsSkipFirst, setup.firstCutDone, hasDagger),
       onRound: async (ctx, round, phase) => {
         if (round === 1 && phase === 'player') {
-          await ctx.hint('Lia ist keine Kämpferin. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.', { title: 'Lia', unit: 'lia' });
+          await liaCombatHint(ctx);
+          await ctx.hint('Gegen die Dunkelschatten ist Lia noch die Schwächste. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg. Zustechen lohnt sich vor allem von hinten.', { title: 'Lia', unit: 'lia' });
           await ctx.hint(hasDagger
             ? 'Wer neben Kyra steht, kann die <em>Fesseln schneiden</em>. Zwei Schnitte sind nötig. Mit Vaters Dolch kann auch Lia schneiden, so geht es doppelt so schnell.'
             : 'Flick steht neben Kyra und kann die <em>Fesseln schneiden</em>. Das nasse Seil braucht zwei Schnitte, einen pro Runde.', { title: 'Kyra', unit: 'kyra' });
@@ -168,7 +170,7 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
         { unit: 'lia', below: 0.5, run: c => c.bark('lia', 'In Büchern tut das weniger weh.', 2200) },
         { unit: 'flick', below: 0.45, run: c => c.bark('flick', 'Wird eng hier. Gefällt mir nicht.', 1800) },
       ],
-    },
+    }, { bark: false }), // the recorded half-HP line above already marks her despair
   };
 }
 

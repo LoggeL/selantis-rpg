@@ -84,10 +84,15 @@ describe('e2-uebungskampf', () => {
 
   it('gives Lia the staff impulse (single target, 1–3, mp 4, cooldown 2) and Lichtstoß only when known', () => {
     expect(STABIMPULS).toMatchObject({ id: 'e2-stabimpuls', range: [1, 3], shape: { type: 'single' }, mpCost: 4, cooldown: 2, vfx: 'palm' });
-    expect(liaStaffAbilities(false)).toEqual(['e2-stabimpuls', 'ausweichen', 'ablenken', 'versorgen']);
-    expect(liaStaffAbilities(true)).toContain('lichtstoss');
+    expect(liaStaffAbilities(false)).toEqual(['e2-stabimpuls', 'steinwurf']);
+    G.state.learn('ausweichen'); G.state.learn('ablenken'); G.state.give('tincture');
+    expect(liaStaffAbilities(false)).toEqual(['e2-stabimpuls', 'ausweichen', 'ablenken', 'steinwurf', 'versorgen']);
+    expect(liaStaffAbilities(true)).toEqual(['e2-stabimpuls', 'lichtstoss', 'ausweichen', 'ablenken', 'steinwurf', 'versorgen']);
     const { ctrl } = controller({ lichtstoss: false, won: false });
-    expect(ctrl.battle.unit('lia')!.abilities).not.toContain('lichtstoss');
+    const lia = ctrl.battle.unit('lia')!;
+    expect(lia.abilities).not.toContain('lichtstoss');
+    expect(lia.abilities[0]).toBe('e2-stabimpuls');
+    expect(lia.attack).toBe('dolch'); // Vaters Dolch stays her basic attack beside the staff
   });
 
   it('pays EXP and AP only for the first win', () => {

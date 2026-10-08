@@ -148,7 +148,7 @@ erwünscht; die Beats sind verbindlich.
   dabei gefasst; Flick, Elnon und mindestens ein weiterer Rebell werden gefangen; eine reglose Person ohne bestätigten Tod.
 - **Auftakt:** eigene Karte `e2-lager-alarm` (campBase, Morgengrauen/Nacht, Fackeln, kein Brand), Alarm am Tor,
   Elnon und die Torwachen laufen hin; Flick schickt Lia und Kyra fort und greift nach Bogen und Messer.
-- **Taktikkampf `e2-ueberfall`:** Lia (erschöpft: halbe LP, keine Urmacht) und Kyra müssen vom Lagerplatz zum hinteren
+- **Taktikkampf `e2-ueberfall`:** Lia (erschöpft: halbe LP, keine Urmacht, nur Vaters Dolch und ihre kleinen Mittel) und Kyra müssen vom Lagerplatz zum hinteren
   Bachdurchlass (reach mit `unit: 'lia'`); Flick, Elnon, Foltan und Azar halten Dunkelschatten auf (alle `nonLethal`);
   Gegner in Wellen, Baris (vernarbt, `nonLethal`) erscheint am Tor. Niederlage nur, wenn Lia fällt. Ein Sieg verhindert
   die Trennung nicht.
@@ -249,7 +249,7 @@ erwünscht; die Beats sind verbindlich.
   (Interaktion „Stabimpuls“), dabei das Vogelnest, Ignatius' Laterne und den Wasserkrug nicht treffen – Entscheidung vor
   Kraft. Fehltreffer: nur Kommentar und Neuversuch.
 - **Herzstück 2:** Kleiner Taktikkampf `e2-uebungskampf`: zwei Leichenfresser am Bach; Lia mit Schattentöter
-  (`e2-stabimpuls`, `lichtstoss`, `ausweichen`, `ablenken`), Ignatius als nichttödlicher Begleiter, der nur deckt.
+  (`e2-stabimpuls`, `lichtstoss`, `ausweichen`, `ablenken`, `steinwurf`, `versorgen`; Vaters Dolch bleibt ihr Angriff), Ignatius als nichttödlicher Begleiter, der nur deckt.
   Sieg einmal belohnt (`e2-uebungskampf-gewonnen`, Fortschrittsbudget). Niederlage: Erneut versuchen.
 - **Beats:** Lia lernt schnell; sie fühlt sich bereit, ihre Freunde zu holen; er vermisst Besonnenheit und gesteht ein
   eigenes Versagen ohne Details. `learn('e2-stabimpuls')`, `e2-training-complete`. → `G.goto('e2-flick-entkommt')`.

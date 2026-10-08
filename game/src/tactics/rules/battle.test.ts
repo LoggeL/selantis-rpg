@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { Battle, COLLIDE_DAMAGE, COLLIDE_OTHER_DAMAGE, EVASIVE_PENALTY, FALL_DAMAGE_PER_LEVEL, HIT_BASE, LEGACY_ACCURACY_BASE, SPEED_HIT_CAP, actionList, hitModOf, makeUnit } from './battle';
+import { Battle, COLLIDE_DAMAGE, COLLIDE_OTHER_DAMAGE, EVASIVE_PENALTY, FALL_DAMAGE_PER_LEVEL, HIT_BASE, LEGACY_ACCURACY_BASE, SPEED_HIT_CAP, actionList, activeTraits, hitModOf, makeUnit, traitActive } from './battle';
 import { Grid, directionTo } from './grid';
 import { pathTo, reachable } from './movement';
 import { evaluate } from './objectives';
 import { chooseFacing, executePlan, planTurn } from './ai';
-import type { UnitSpec } from './types';
+import type { TraitDef, UnitSpec } from './types';
 
 const flat = (w: number, h: number, ch = '.') => ({ height: Array(h).fill('0'.repeat(w)), terrain: Array(h).fill(ch.repeat(w)) });
 const hero = (o: Partial<UnitSpec> = {}): UnitSpec => ({ id: 'hero', name: 'Held', team: 'player', x: 0, y: 0, hp: 20, atk: 3, def: 1, move: 4, jump: 2, abilities: ['schwerthieb', 'handstoss', 'druckwelle', 'strahl', 'schutzwall', 'bolzen'], ...o });
@@ -444,5 +444,47 @@ describe('spared prisoners', () => {
     const dest = plan.moveTo!;
     expect(Math.abs(dest.x - 2) + Math.abs(dest.y - 2)).toBeLessThanOrEqual(2);
     expect(plan.action === null || b.unitAt(plan.action.target.x, plan.action.target.y)?.id !== 'kyra').toBe(true);
+  });
+});
+
+describe('passive traits (Verzweiflung)', () => {
+  const despair: TraitDef = { id: 'verzweiflung', name: 'Verzweiflung', description: 'test', hpAtOrBelow: 0.5, abilities: ['dolch'], power: 2, hitMod: 10 };
+  const setup = (hp: number, traits: TraitDef[] = [despair]) => make([
+    hero({ id: 'lia', hp, maxHp: 20, atk: 2, def: 0, speed: 5, abilities: ['steinwurf'], weapons: ['vatersdolch'], weapon: 'vatersdolch', traits }),
+    foe({ x: 1, y: 0, facing: 'w', def: 0, speed: 5 }),
+  ]);
+
+  it('is active at or below the HP fraction and not while down', () => {
+    expect(traitActive({ hp: 11, maxHp: 20, down: false }, despair)).toBe(false);
+    expect(traitActive({ hp: 10, maxHp: 20, down: false }, despair)).toBe(true);
+    expect(traitActive({ hp: 1, maxHp: 20, down: false }, despair)).toBe(true);
+    expect(traitActive({ hp: 0, maxHp: 20, down: 'wounded' }, despair)).toBe(false);
+  });
+
+  it('adds power and hit chance to the boosted attack, shown as one forecast chip', () => {
+    const calm = setup(11), hurt = setup(10);
+    const pc = calm.preview('lia', 'dolch', { x: 1, y: 0 }).targets[0];
+    const ph = hurt.preview('lia', 'dolch', { x: 1, y: 0 }).targets[0];
+    expect(pc.damage).toBe(3 + 2);
+    expect(ph.damage).toBe(pc.damage + 2);
+    expect(ph.chance).toBe(pc.chance + 10);
+    expect(pc.mods.some(m => m.label === 'Verzweiflung')).toBe(false);
+    expect(ph.mods).toContainEqual({ label: 'Verzweiflung', text: '+10 % · Schaden +2', kind: 'good' });
+    // Other abilities stay as they are.
+    expect(hurt.previewTarget(hurt.unit('lia'), hurt.ability('steinwurf'), hurt.unit('foe'), { x: 3, y: 0 }).damage).toBe(1);
+  });
+
+  it('defaults to the basic attack and resolves deterministically through act()', () => {
+    const generic: TraitDef = { ...despair, abilities: undefined };
+    const b = setup(5, [generic]);
+    expect(activeTraits(b.unit('lia'), 'dolch').map(t => t.id)).toEqual(['verzweiflung']);
+    expect(activeTraits(b.unit('lia'), 'steinwurf')).toEqual([]);
+    const p = b.preview('lia', 'dolch', { x: 1, y: 0 }).targets[0];
+    const twin = setup(5, [generic]);
+    const ev = b.act('lia', 'dolch', { x: 1, y: 0 });
+    const ev2 = twin.act('lia', 'dolch', { x: 1, y: 0 });
+    expect(ev2).toEqual(ev);
+    const strike = ev.find(e => e.type === 'strike')!;
+    if (strike.type === 'strike' && strike.hit) expect(strike.damage).toBe(p.damage);
   });
 });

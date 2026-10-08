@@ -1,5 +1,6 @@
 import { G } from '../../core/G';
 import { characterStats, shadowStats } from '../common/battleCharacters';
+import { liaUnit } from '../common/liaKit';
 import { defineChapter } from '../../core/registry';
 import type { BattleCtx, BattleDef, BattleUnitDef, TacticsStartData } from '../../tactics/api';
 
@@ -136,7 +137,7 @@ export const dunkelhainBattle: BattleDef = {
 };
 
 // ---------------------------------------------------------------------------------------------
-// Demo 2: Rettung im Wald — protect/escort, a non-fighter hero, a bound prisoner
+// Demo 2: Rettung im Wald — protect/escort, a hero still learning to fight, a bound prisoner
 // ---------------------------------------------------------------------------------------------
 export const rescueBattle: BattleDef = {
   id: 'dev-rescue',
@@ -184,8 +185,8 @@ export const rescueBattle: BattleDef = {
     ],
   },
   units: [
-    { id: 'lia', ...characterStats('lia'), name: 'Lia', title: 'Keine Kämpferin – aber sie gibt nicht auf', team: 'player', x: 2, y: 9, facing: 'n', move: 4, jump: 2,
-      abilities: ['ausweichen', 'ablenken', 'steinwurf', 'dolch', 'befreien'], preset: 'lia', tags: ['vip'] },
+    liaUnit('k5-rettung', { x: 2, y: 9, facing: 'n', preset: 'lia', portrait: 'lia', tags: ['vip'], title: 'Unsicher mit dem Dolch, aber entschlossen' },
+      { extra: ['befreien'], state: { ausweichen: true, ablenken: true, tincture: false, lichtstoss: false, staff: false } }),
     { id: 'flick', ...characterStats('flick'), name: 'Flick', title: 'Die beste Fährtenleserin südlich von Trapas', team: 'player', x: 1, y: 8, facing: 'n', move: 5, jump: 3,
       abilities: ['bogen', 'messer', 'befreien'], nonLethal: true, preset: 'flick' },
     { id: 'kyra', ...characterStats('kyra'), name: 'Kyra', title: 'Gefesselt an den Baum', team: 'ally', x: 5, y: 6, facing: 's', move: 4, jump: 2,
@@ -211,7 +212,7 @@ export const rescueBattle: BattleDef = {
     },
     async onRound(ctx, round, phase) {
       if (round === 1 && phase === 'player') {
-        await ctx.hint('Lia ist keine Kämpferin. <em>Ablenken</em> lockt die Wachen zu ihr, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.', { title: 'Lia', unit: 'lia' });
+        await ctx.hint('Lia kämpft mit Vaters Dolch, aber gegen Wachen ist sie die Schwächste. <em>Ablenken</em> lockt die Wachen zu ihr, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg. Ab halben Lebenspunkten trifft ihr Dolch dank <em>Verzweiflung</em> härter.', { title: 'Lia', unit: 'lia' });
         await ctx.hint('Wer neben Kyra steht, kann sie mit <em>Befreien</em> losbinden. Danach muss sie die <em>goldenen Felder</em> am Waldrand erreichen. Die Dunkelschatten dürfen ihr nichts antun – Baris will sie lebend.', { title: 'Ziel', unit: 'kyra' });
       }
     },

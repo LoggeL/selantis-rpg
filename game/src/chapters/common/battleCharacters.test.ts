@@ -19,7 +19,10 @@ describe('campaign character levels', () => {
     expect(stats(sandboxBattle, 'valentus')).toMatchObject({ level: 20, hp: 87, maxMp: 62, atk: 22, def: 11, speed: 9 });
     expect(stats(dunkelhain, 'falke')).toMatchObject({ level: 7, hp: 44, maxMp: 16, atk: 9, def: 5, speed: 8 });
     expect(stats(rescue, 'flick')).toMatchObject({ level: 8, hp: 39, maxMp: 20, atk: 10, def: 4, speed: 9 });
-    expect(stats(rescue, 'lia')).toMatchObject({ level: 2, hp: 17, maxMp: 20, atk: 2, def: 0, speed: 6 });
+    expect(makeUnit({ ...characterStats('lia'), id: 'lia', name: 'Lia', team: 'player', x: 0, y: 0, abilities: [] }))
+      .toMatchObject({ level: 1, hp: 16, maxMp: 8, atk: 2, def: 1, speed: 6 });
+    // The rescue's level floor is 3 (K2 1→2, K3 2→3): weak, but a real fighter with Vaters Dolch.
+    expect(stats(rescue, 'lia')).toMatchObject({ level: 3, hp: 22, maxMp: 12, atk: 4, def: 2, speed: 6, attack: 'dolch' });
     expect(stats(rescue, 'kyra')).toMatchObject({ level: 1, hp: 12, maxMp: 10, atk: 2, def: 0, speed: 6 });
     expect(stats(rescue, 'algard')).toMatchObject({ level: 5, hp: 26, atk: 6, def: 3 });
   });

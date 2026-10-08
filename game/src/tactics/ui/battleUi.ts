@@ -7,7 +7,7 @@ import { ICONS, abilityIcon } from './icons';
 import { TACTICS_CSS } from './style';
 import { AP_TO_MASTER, EXP_PER_LEVEL, MAX_LEVEL, WEAPONS } from '../rules/progression';
 import { STANDARD_ABILITIES } from '../rules/abilities';
-import { HIT_BASE, hitModOf, isPhysical } from '../rules/battle';
+import { HIT_BASE, hitModOf, isPhysical, traitActive, traitBoosts } from '../rules/battle';
 
 export interface UiHandlers {
   endTurn(): void;
@@ -143,6 +143,16 @@ function resources(u: Unit, afterHp?: number, afterMp?: number): string {
   return `${row('HP', u.hp, u.maxHp, '', afterHp)}${row('MP', u.mp, u.maxMp, 'tac-mp', afterMp)}<div class="tac-growth"><span>Lvl <b>${u.level}</b></span><span>Exp <b>${u.level === MAX_LEVEL ? 'MAX' : `${u.exp} / ${EXP_PER_LEVEL}`}</b></span><span>Tempo <b>${u.speed}</b></span></div><div class="tac-expbar" aria-label="Erfahrung"><b style="width:${u.level === MAX_LEVEL ? 100 : u.exp}%"></b></div>`;
 }
 
+/** Passive traits as chips: always listed (the player should know them), highlighted while active. */
+function traitChips(u: Unit): string[] {
+  return (u.traits ?? []).map(t => {
+    const on = traitActive(u, t);
+    const bonus = [t.power ? `+${t.power} Schaden` : '', t.hitMod ? `+${t.hitMod} %` : ''].filter(Boolean).join(', ');
+    const tip = `${t.description}${bonus ? ` (${bonus} ab ${Math.round(t.hpAtOrBelow * 100)} % HP oder weniger)` : ''}`;
+    return `<span class="tac-chip${on ? ' good' : ''}" title="${esc(tip)}">${esc(t.name)}${on ? ' aktiv' : ''}</span>`;
+  });
+}
+
 function combatant(u: Unit, def?: BattleUnitDef, hp?: number, mp?: number): string {
   return `<div class="tac-combatant ${u.team}"><div class="hd"><div class="por"><img alt="" src="${portraitFor(def, u)}"></div><div><div class="nm">${esc(u.name)}</div><div class="ab">${esc(def?.title ?? (u.team === 'enemy' ? 'Feind' : 'Verbündet'))}</div></div></div>${resources(u, hp, mp)}<div class="tac-weapon-name">${u.weapon ? esc(WEAPONS[u.weapon].name) : 'Ohne Waffe'}</div></div>`;
 }
@@ -173,6 +183,8 @@ export class BattleUi {
   private hintResolve: (() => void) | null = null;
   private outcomeResolve: ((v: 'retry' | 'continue') => void) | null = null;
   private lastCard = '';
+  /** Unit shown on the card; ability tooltips mention its traits. */
+  private cardUnit: Unit | null = null;
   private lastMenu = '';
   private lastPreview = '';
   private lastFacing = '';
@@ -414,6 +426,8 @@ export class BattleUi {
     const teamLabel = u.team === 'player' ? 'Verbündet' : u.team === 'enemy' ? 'Feind' : 'Begleitung';
     const statuses = Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip ${k === 'guarded' ? 'magic' : k === 'stunned' || k === 'bound' ? 'bad' : ''}">${STATUS_LABEL[k] ?? k}</span>`);
     if (u.down === 'wounded') statuses.unshift('<span class="tac-chip bad">Kampfunfähig</span>');
+    else statuses.push(...traitChips(u));
+    this.cardUnit = u;
     const abil = m.controllable && !u.down ? `<div class="tac-abil">${m.abilities.map(a => {
       const magic = a.def.kind === 'magic' || a.def.vfx === 'ward' ? ' magic' : '';
       return `<button type="button" data-ab="${a.def.id}" class="${magic}${a.attack ? ' attack' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>
@@ -466,6 +480,11 @@ export class BattleUi {
     if (a.cooldown) meta.push(`Abklingzeit ${a.cooldown}`);
     if (a.mpCost) meta.push(`${a.mpCost} MP`);
     if (slot.mastered) meta.push('Gemeistert, dauerhaft verfügbar');
+    const u = this.cardUnit;
+    for (const tr of u ? (u.traits ?? []).filter(t => traitBoosts(u, t, a.id)) : []) {
+      const bonus = [tr.power ? `+${tr.power} Schaden` : '', tr.hitMod && !a.alwaysHits ? `+${tr.hitMod} %` : ''].filter(Boolean).join(', ');
+      if (bonus) meta.push(`${tr.name}: ${bonus}${traitActive(u!, tr) ? ' (aktiv)' : ` (≤ ${Math.round(tr.hpAtOrBelow * 100)} % HP)`}`);
+    }
     const magic = a.kind === 'magic' || a.vfx === 'ward';
     t.innerHTML = `<h4>${esc(slotLabel(slot))}</h4><p>${esc(a.description)}</p><div class="meta">${meta.map(x => `<span class="tac-chip${magic ? ' magic' : ''}">${esc(x)}</span>`).join('')}</div>${slot.reason ? `<div class="meta" style="margin-top:.35em"><span class="tac-chip bad">${esc(slot.reason)}</span></div>` : ''}`;
     t.classList.remove('hidden');
@@ -483,7 +502,7 @@ export class BattleUi {
     if (sig === this.lastPreview) return;
     this.lastPreview = sig;
     c.classList.remove('forecast'); this.root.classList.remove('has-forecast');
-    const statuses = Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip">${STATUS_LABEL[k] ?? k}</span>`).join('');
+    const statuses = [...Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip">${STATUS_LABEL[k] ?? k}</span>`), ...(u.down ? [] : traitChips(u))].join('');
     c.innerHTML = `<div class="hd"><div class="por"><img alt="" src="${portraitFor(def, u)}"></div><div style="flex:1"><div class="nm">${esc(u.name)}</div>
       </div></div>${resources(u)}<div class="tac-weapon-name">${u.weapon ? esc(WEAPONS[u.weapon].name) : 'Ohne Waffe'}</div>
       <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Kraft <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>

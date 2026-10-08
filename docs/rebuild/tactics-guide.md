@@ -66,7 +66,7 @@ Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spa
 | Valentus | 20 | 87 | 62 | 22 | 11 | 9 |
 | Falke | 12 | 59 | 26 | 14 | 7 | 9 |
 | Flick | 8 | 39 | 20 | 10 | 4 | 9 |
-| Lia | 2 | 17 | 20 | 2 | 0 | 6 |
+| Lia | 1 | 16 | 8 | 2 | 1 | 6 |
 | Kyra | 1 | 12 | 10 | 2 | 0 | 6 |
 | Baris im Prolog | 9 | 48 | 18 | 12 | 6 | 4 |
 | Baris als Hauptmann | 16 | 69 | 32 | 19 | 9 | 8 |
@@ -77,6 +77,12 @@ Wasserfelder sollten auf Höhe 0 oder neben gleich hohen Feldern liegen. x = Spa
 | Dunkelschatten mit Schwert | 4 | 22 | 10 | 5 | 2 | 4 |
 
 `baseStats` beschreibt maximale HP/MP, Kraft (`atk`), Rüstung und Tempo auf Level 1. Pro weiterem Level steigen maximale HP um 3, maximale MP um 2 und Kraft um 1. Rüstung steigt auf Level 3, 5, 7 usw.; Tempo auf Level 6, 11, 16 usw. `statsAtLevel()` liefert die Anfangswerte. Speicherstand-Wiederherstellung und EXP-Levelaufstiege verwenden dieselbe Kurve. Bewegung und Sprung bleiben Eigenschaften der Figur.
+
+Lia wird nicht direkt mit `characterStats('lia')` gebaut, sondern mit `liaUnit(stage, …)` aus `chapters/common/liaKit.ts`: Jeder ihrer Kämpfe setzt dort eine Mindeststufe (K2 1, K3 2, Rettung 3, Weiterreise 4, Teil-II-Überfall 5, Übungskampf 6) samt EXP-Budget und Stufengrenze (`liaBudget(stage)`). Ihr Angriff ist immer Vaters Dolch, die Spezialaktionen folgen dem Kampagnenzustand (Tinktur, Ausweichen/Ablenken, Lichtstoß, Schattentöter); Optionen wie `{ light: false }` (Überfall) oder `{ extra: ['k5-schneiden'] }` passen einzelne Kämpfe an.
+
+### Eigenschaften (Traits)
+
+`UnitSpec.traits` nimmt passive Eigenschaften auf (`TraitDef`): Solange die Figur höchstens `hpAtOrBelow` ihrer maximalen HP hat, erhalten die genannten Fähigkeiten (ohne Angabe: der Grundangriff) `power` Zusatzschaden und `hitMod` Prozentpunkte Trefferchance. Die Vorschau zeigt das als eigenen Baustein, z. B. „Verzweiflung +10 % · Schaden +2“; Figurenkarte und Fähigkeits-Tooltip nennen die Eigenschaft. Lias „Verzweiflung“ (`VERZWEIFLUNG`, ab 50 % HP, Dolch +2 Schaden, +10 %) nutzt das. `withLiaHooks()` ergänzt einen einmaligen unvertonten Ausruf pro Kampf, `liaCombatHint(ctx)` den einmaligen Hinweis zu Dolch und Verzweiflung.
 
 Ohne `hp` und `mp` beginnt eine Figur mit vollen Ressourcen. Explizite Werte setzen Verletzung oder erschöpfte MP am angegebenen Startlevel. Die verwundeten Paladine behalten ihren Verletzungsanteil. Erhöht ein gespeichertes Level die Maxima, bleibt die fehlende Menge erhalten. Ältere Speicherstände mit Platzhalter-Level 1 unterschreiten das neue Ausgangslevel nicht; EXP und Meisterung bleiben erhalten. Ältere eigene Begegnungen ohne `baseStats` können weiterhin absolute Werte am Startlevel angeben.
 

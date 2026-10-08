@@ -72,7 +72,7 @@ async function winBattle(page: Page, screenshot?: string): Promise<void> {
         const { planTurn, executePlan } = await import(/* @vite-ignore */ aiUrl);
         const t = (window as any).__tactics, b = t.ctrl.battle, u = b.unit(b.activeUnit);
         if (u.id === 'reisender') b.aiOverrides.set(u.id, { profile: 'flee', goal: { x: 7, y: 2 } });
-        else b.aiOverrides.set(u.id, { profile: u.id === 'azar' || u.id === 'lia' && !u.abilities.includes('dolch') ? 'support' : u.id === 'flick' ? 'archer' : 'melee' });
+        else b.aiOverrides.set(u.id, { profile: u.id === 'azar' ? 'support' : u.id === 'flick' ? 'archer' : 'melee' });
         const plan = planTurn(b, u.id);
         void t.ctrl.perform(() => executePlan(b, plan)).then(() => t.ctrl.endTurn());
       });
@@ -95,7 +95,9 @@ test('forest encounter preserves the party and return point; victory stays compl
     const g = (window as any).G, w = (window as any).__world;
     return { lia: g.state.character('lia'), party: g.state.data.party, p: [w.player.x, w.player.y], done: g.state.is('k2-wegelagerer-besiegt') };
   });
-  expect(progress.done).toBe(true); expect(progress.lia.level).toBe(2); expect(progress.lia.exp).toBeLessThanOrEqual(30);
+  // Lia starts the first fight at level 1 and grows at most one level (budget 100 EXP, level cap 2).
+  expect(progress.done).toBe(true); expect(progress.lia.level).toBeGreaterThanOrEqual(1); expect(progress.lia.level).toBeLessThanOrEqual(2);
+  expect((progress.lia.level - 1) * 100 + progress.lia.exp).toBeLessThanOrEqual(100);
   expect(progress.party).toEqual(['foltan', 'azar']);
   await page.reload(); await page.getByRole('button', { name: /Fortsetzen/ }).click();
   await page.waitForFunction(() => (window as any).__world?.map.id === 'k2-waldweg');
