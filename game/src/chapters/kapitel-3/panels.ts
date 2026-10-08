@@ -141,7 +141,8 @@ const STYLE = `
 .k3-is-puff .k3-sub, .k3-sub.is-bad { color: #ffb19e; }
 .k3-sub.is-good { color: #ffe2a6; }
 .k3-sub.is-win { color: var(--gold-hi); font-family: var(--f-head); font-style: normal; letter-spacing: .06em; font-size: clamp(1.2em, 3.2vmin, 1.7em); }
-.k3-lyric { color: #f1d48a; }
+.k3-lyric { color: #f1d48a; transition: transform .15s, color .15s; }
+.k3-lyric.is-loud { color: #fff1c4; font-weight: bold; transform: translateX(-50%) scale(1.08); text-shadow: 0 0 .6em #ffb34d; }
 .k3-illustration.is-puff .mini-illustration { animation: k3-ash .6s ease-out; }
 @keyframes k3-ash { 0% { filter: grayscale(.9) brightness(.7); } 100% { filter: none; } }
 .k3-foot { position: relative; flex: none; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .55em 1.1em;
@@ -533,7 +534,7 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
         <div class="k3-gauge"><span class="ch-label">Pflock locker</span><div class="k3-bar is-loose"><i class="k3-loose"></i></div></div>
         <div class="k3-gauge"><span class="ch-label">Lärm</span><div class="k3-bar is-noise"><i class="k3-noise"></i></div></div>
       </div>
-      <div class="k3-hint">${keyHint('<span class="ch-key">E</span> · <span class="ch-key">Leertaste</span> · Klick <b>im Takt der Trommel</b><span class="k3-hint-long">. In den Pausen: stillhalten!</span>', 'Tippen <b>im Takt der Trommel</b><span class="k3-hint-long">. In den Pausen: stillhalten!</span>')}</div>
+      <div class="k3-hint">${keyHint('<span class="ch-key">E</span> · <span class="ch-key">Leertaste</span> · Klick, <b>wenn sie grölen</b><span class="k3-hint-long">. Bei leisen Zeilen und beim Trinken hört man jedes Klirren.</span>', 'Tippen, <b>wenn sie grölen</b><span class="k3-hint-long">. Bei leisen Zeilen hört man jedes Klirren.</span>')}</div>
     </div>
   </div></div>`;
   const pause = document.createElement('button');
@@ -669,6 +670,8 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
 
   let state: StakeState = stakeStart();
   let rest = false;
+  let loud = false;
+  let beatIndex = -1, tugBeat = -2;
   let lastBeatAt = performance.now();
   return new Promise<void>(resolve => {
     let finished = false;
@@ -679,8 +682,12 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
     const offs: (() => void)[] = [];
     offs.push(song.onBeat(b => {
       rest = b.rest;
+      loud = b.loud;
+      beatIndex = b.index;
       lastBeatAt = b.at;
       root.dataset.rest = rest ? '1' : '0';
+      root.dataset.loud = loud ? '1' : '0';
+      lyric.classList.toggle('is-loud', loud);
       ring.classList.toggle('is-rest', rest);
       ring.textContent = rest ? '…' : '♪';
       if (rest) lyric.textContent = 'Sie trinken. Still jetzt!';
@@ -689,8 +696,9 @@ export function stakeGame(song: Song, onLook?: (on: boolean) => void): Promise<v
     offs.push(song.onLine(text => { lyric.textContent = `„${text}“`; }));
     const tug = () => {
       if (finished || finishing || !active()) return;
-      const now = performance.now();
-      const r = stakeTug(state, now, lastBeatAt, song.nextBeatAt, rest);
+      const r = stakeTug(state, loud, rest, tugBeat === beatIndex);
+      if (r.result === 'again') return;
+      if (r.result === 'hit') tugBeat = beatIndex;
       state = r.state;
       ring.classList.remove('is-hit', 'is-miss');
       void ring.offsetWidth;

@@ -1,8 +1,8 @@
 // Scene 'kyra' — interlude: Kyra in Baris' camp at the pond (DESIGN.md §7.4, Kapitel III/3; novel p. 33–75).
 // Narrator bridge (the bite → „Mädchen“, the audience „Hast du Angst?“ – „Habe ich Grund dazu?“), then playable as
-// Kyra at night: chained to a stake while the men sing the Waffenknechtlied, she rocks the stake loose in time with
-// the drum (minigame), sneaks to the captain's tent, overhears Baris and Orwen (map, grotto, the master, the Geweih
-// Regas, a five-man ride), is caught and tied up again — and swears to fight and live. Writing stays unreadable.
+// Kyra at night: chained to a stake while the men sing the Waffenknechtlied, she rocks the stake loose while they bawl
+// the refrain (minigame: learn the song by ear), sneaks to the captain's tent, overhears Baris and Orwen (map, grotto,
+// the master, the Geweih Regas, a five-man ride), is caught and tied up again — and swears to fight and live. Writing stays unreadable.
 import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
 import { virtualInput } from '../../core/input';
@@ -228,9 +228,10 @@ async function atTheStake(w: WorldCtx): Promise<void> {
     await w.think('… Köstlich. Und das Metbier ist gar nicht so bitter, wie ich dachte.');
     await w.think('Ich warte nicht, bis dieser Baris mich zu Tode schuftet.');
     sfx('chain', { volume: 0.4 });
-    await w.think('Der Pflock steckt in weichem Uferlehm. Wenn ich im Takt der Trommel daran rüttle, hört es keiner.');
+    await w.think('Der Pflock steckt in weichem Uferlehm. Bei jedem Ruck klirrt die Kette.');
+    await w.think('Aber wenn die grölen, hört keiner was. Ich muss nur wissen, wann sie grölen. Das Lied kenn ich ja bald auswendig.');
   });
-  w.setObjective('k3-pflock', 'Rüttle im Takt der Trommel am Pflock.', null);
+  w.setObjective('k3-pflock', 'Rüttle am Pflock, wenn die Männer den Kehrreim grölen.', null);
   w.lockPlayer();
   const s = song!;
   await stakeGame(s, on => {

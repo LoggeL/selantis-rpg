@@ -1,6 +1,6 @@
 // „Das Leben als Waffenknecht“ — the drunken soldiers' song at Baris' camp (novel p. 67/71), played procedurally:
 // a barrel drum (thud) on every beat, a slightly out-of-tune lute (triangle blips) and rough voices (sawtooth blips).
-// The stake minigame uses the same beat clock, so the player rocks the stake in time with the drum.
+// The stake minigame uses the same clock: only the bawled refrain (LOUD_LINES) covers the rattle of the chain.
 import { G } from '../../core/G';
 
 export const VERSES: readonly (readonly string[])[] = [
@@ -29,6 +29,8 @@ const LINE_TUNES: readonly (readonly number[])[] = [
 /** Which tune each of the eight lines of a verse uses. */
 const VERSE_TUNES = [0, 1, 0, 3, 2, 1, 2, 3];
 export const BEATS_PER_LINE = 4;
+/** The refrain lines the men bawl at the top of their voices – the only cover for a rattling chain. */
+export const LOUD_LINES: readonly number[] = [6, 7];
 /** Silent beats between two verses (the men drink). */
 export const REST_BEATS = 4;
 export const BEAT_MS = 660;
@@ -42,6 +44,8 @@ export interface BeatInfo {
   line: number;
   /** True during the rest between verses (no drum). */
   rest: boolean;
+  /** True on a bawled refrain line (loud enough to cover the chain). */
+  loud: boolean;
   /** performance.now() of this beat. */
   at: number;
 }
@@ -96,9 +100,11 @@ export function startSong(opts: { volume?: number; startVerse?: number } = {}): 
     if (stopped) return;
     if (G.currentScene !== scene) { song.stop(); return; } // left to the title or elsewhere
     const pos = beatPosition(index);
-    const info: BeatInfo = { index, verse: pos.verse, line: pos.line, rest: pos.rest, at: next };
+    const loud = !pos.rest && LOUD_LINES.includes(pos.line);
+    const info: BeatInfo = { index, verse: pos.verse, line: pos.line, rest: pos.rest, loud, at: next };
     last = info;
-    const v = song.volume;
+    // The refrain is bawled: drum and voices much louder.
+    const v = song.volume * (loud ? 1.45 : 1);
     if (!pos.rest && v > 0) {
       // barrel drum: heavy on 1 and 3, lighter on 2 and 4
       play(() => G.audio.sfx('thud', { volume: (pos.beatInLine % 2 === 0 ? 0.55 : 0.32) * v, pitch: pos.beatInLine % 2 === 0 ? 0.8 : 1.05, key: 'k3-drum' }));

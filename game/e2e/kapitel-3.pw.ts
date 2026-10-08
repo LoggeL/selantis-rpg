@@ -159,19 +159,17 @@ test('leselager: stones, the fifth fire attempt, reading aloud, the promise', as
   expect(errors).toEqual([]);
 });
 
-test('kyra: free yourself on the beat, sneak to the tent, overhear, get caught', async ({ page }) => {
+test('kyra: free yourself while they bawl the refrain, sneak to the tent, overhear, get caught', async ({ page }) => {
   const errors = errorsOf(page);
   await page.goto('/?scene=kyra');
   await until(page, () => Boolean(document.querySelector('.k3-stake')), { max: 300 });
-  // Rock the stake on the drum beats; stay still during the rests and while someone looks.
-  for (let i = 0; i < 400; i++) {
-    const d = await page.evaluate(() => { const r = document.querySelector<HTMLElement>('.k3-stake'); return r ? { next: +r.dataset.next!, rest: r.dataset.rest === '1', watch: r.dataset.watch === '1', now: performance.now() } : null; });
+  // Rock the stake only while the men bawl the refrain; stay still on quiet lines, during the rests and while someone looks.
+  for (let i = 0; i < 900; i++) {
+    const d = await page.evaluate(() => { const r = document.querySelector<HTMLElement>('.k3-stake'); return r ? { loud: r.dataset.loud === '1', watch: r.dataset.watch === '1' } : null; });
     if (!d) break;
-    if (d.rest || d.watch) { await wait(page, 200); continue; }
-    const t = d.next - d.now - 30;
-    if (t > 0) await wait(page, t);
+    if (!d.loud || d.watch) { await wait(page, 120); continue; }
     await page.keyboard.press('e');
-    await wait(page, 250);
+    await wait(page, 680);
   }
   await until(page, () => !(window as any).G.ui.busy() && ((window as any).G.state.data.objectives ?? []).some((o: any) => o.id === 'k3-lauschen'), { max: 100 });
   await settle(page);

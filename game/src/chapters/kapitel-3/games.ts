@@ -1,5 +1,6 @@
-// Pure rules of the Kapitel III stake minigame „Der Pflock“ (kyra), tested in games.test.ts: rock the stake in time
-// with the soldiers' drum; off-beat tugs make noise.
+// Pure rules of the Kapitel III stake minigame „Der Pflock“ (kyra), tested in games.test.ts: Kyra learns the soldiers'
+// song by ear and rocks the stake only while they bawl the refrain; tugs during quiet lines or the drinking rest
+// make noise.
 
 // ------------------------------------------------------------------------------------------------ Der Pflock
 
@@ -16,29 +17,20 @@ export interface StakeState {
 
 export const stakeStart = (): StakeState => ({ loose: 0, noise: 0, watch: 0, combo: 0 });
 
-/** Timing window (ms) around a drum beat that counts as „on the beat“. */
-export const BEAT_WINDOW_MS = 170;
-
-/** Distance (ms) from `at` to the closest drum beat (last or next). */
-export function beatOffset(at: number, lastBeatAt: number, nextBeatAt: number): number {
-  return Math.min(Math.abs(at - lastBeatAt), Math.abs(nextBeatAt - at));
-}
-
-export type TugResult = 'hit' | 'miss' | 'rest' | 'caught';
+export type TugResult = 'hit' | 'quiet' | 'rest' | 'caught' | 'again';
 
 /**
- * A tug at time `at`. `rest` = the soldiers are drinking (no drum covers the noise).
- * Returns the new state and what happened.
+ * A tug. Only the bawled refrain (`loud`) covers the rattle; a quiet line or the drinking rest (`rest`) makes noise.
+ * One tug per beat counts (`sameBeat`: a second tug in the beat does nothing).
  */
-export function stakeTug(s: StakeState, at: number, lastBeatAt: number, nextBeatAt: number, rest: boolean): { state: StakeState; result: TugResult } {
+export function stakeTug(s: StakeState, loud: boolean, rest: boolean, sameBeat = false): { state: StakeState; result: TugResult } {
   if (s.watch > 0) return { state: { ...s, loose: Math.max(0, s.loose - 0.22), combo: 0, noise: 0.5, watch: 0 }, result: 'caught' };
   if (rest) return { state: { ...s, noise: Math.min(1, s.noise + 0.45), combo: 0 }, result: 'rest' };
-  if (beatOffset(at, lastBeatAt, nextBeatAt) <= BEAT_WINDOW_MS) {
-    const combo = s.combo + 1;
-    const gain = 0.065 + Math.min(combo, 6) * 0.006;
-    return { state: { ...s, loose: Math.min(1, s.loose + gain), combo, noise: Math.max(0, s.noise - 0.04) }, result: 'hit' };
-  }
-  return { state: { ...s, noise: Math.min(1, s.noise + 0.3), combo: 0 }, result: 'miss' };
+  if (!loud) return { state: { ...s, noise: Math.min(1, s.noise + 0.3), combo: 0 }, result: 'quiet' };
+  if (sameBeat) return { state: s, result: 'again' };
+  const combo = s.combo + 1;
+  const gain = 0.065 + Math.min(combo, 6) * 0.006;
+  return { state: { ...s, loose: Math.min(1, s.loose + gain), combo, noise: Math.max(0, s.noise - 0.04) }, result: 'hit' };
 }
 
 /** Time passes: noise fades, a soldier starts/stops watching. Returns 'look' when a soldier turns round. */
