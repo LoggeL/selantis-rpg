@@ -175,6 +175,11 @@ export interface UnitSpec {
   facing?: Facing;
   /** Initial HP; omitted characters start with their full level-derived maximum. */
   hp?: number;
+  /**
+   * Initial HP as a fraction of the final max HP (after saved progress is applied), rounded down so a fraction of
+   * 0.5 never starts above half. Overrides `hp`.
+   */
+  hpFraction?: number;
   maxHp?: number;
   /** Level-one attributes. When present, the level determines all combat attributes. */
   baseStats?: CombatStats;

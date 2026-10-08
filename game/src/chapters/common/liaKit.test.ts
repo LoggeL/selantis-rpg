@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { G } from '../../core/G';
 import { makeUnit } from '../../tactics/rules/battle';
 import type { BattleCtx } from '../../tactics/api';
-import { DESPAIR_BARKS, LIA_STAGES, VERZWEIFLUNG, despairBark, despairTrigger, liaAbilities, liaCombatHint, liaUnit, withLiaHooks } from './liaKit';
+import { DESPAIR_BARKS, DESPAIR_FLAG, LIA_STAGES, VERZWEIFLUNG, despairBark, despairTrigger, liaAbilities, liaCombatHint, liaUnit, withLiaHooks } from './liaKit';
 
 afterEach(() => G.state.reset());
 
@@ -43,14 +43,15 @@ describe('Lia battle kit', () => {
     expect(despairBark('k2-wegelagerer')).toBe(despairBark('k2-wegelagerer'));
     expect(DESPAIR_BARKS).toContain(despairBark('e2-ueberfall'));
     const lia = makeUnit(liaUnit('k2-wegelagerer', { x: 0, y: 0 }));
-    const bark = vi.fn();
-    const ctx = { unit: () => lia, bark, def: { id: 'k2-wegelagerer' } } as unknown as BattleCtx;
+    const bark = vi.fn(), flag = vi.fn();
+    const ctx = { unit: () => lia, bark, flag, def: { id: 'k2-wegelagerer' } } as unknown as BattleCtx;
     const t = despairTrigger();
     expect(t.when(ctx)).toBe(false);
     lia.hp = 8;
     expect(t.when(ctx)).toBe(true);
     void t.run(ctx);
     expect(bark).toHaveBeenCalledWith('lia', despairBark('k2-wegelagerer'), 2200);
+    expect(flag).toHaveBeenCalledWith(DESPAIR_FLAG);
     expect(t.once ?? true).toBe(true);
     expect(withLiaHooks({}).triggers).toHaveLength(1);
     expect(withLiaHooks({}, { bark: false }).triggers).toBeUndefined();

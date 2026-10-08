@@ -1,8 +1,10 @@
 import { G } from '../../core/G';
 import { findScene } from '../../core/registry';
 import { defineMap, type WorldCtx } from '../../world';
+import { BATTLE_CHARACTERS } from '../common/battleCharacters';
 import { BOOK2, continueToBook2 } from '../common/bookContract';
 import { onwardEncounter, playEncounter, saveEncounterReturn } from '../common/encounters';
+import { LIA_STAGES } from '../common/liaKit';
 import { waldweg } from '../kapitel-2/waldweg';
 import { showCredits } from './credits';
 
@@ -54,13 +56,21 @@ async function nextEncounter(w: WorldCtx): Promise<void> {
 
 async function rest(w: WorldCtx): Promise<void> {
   await w.say('flick', 'Erst Wunden verbinden, dann weiter. Und keiner bleibt liegen, verstanden?');
-  const lines = ['lia', 'flick', 'kyra'].map(id => {
-    const p = G.state.character(id);
+  const lines = (['lia', 'flick', 'kyra'] as const).map(id => {
+    const p = shownProgress(id);
     const name = id === 'lia' ? 'Lia' : id === 'flick' ? 'Flick' : 'Kyra';
     return p ? `${name}: Level ${p.level}, ${p.exp}/100 EXP.` : `${name}: Die ersten gemeinsamen Schritte stehen noch bevor.`;
   });
   await w.narrate(lines, { style: 'card' });
   saveEncounterReturn(w);
+}
+
+/** The next road fight lifts everyone to its level floor (Lia's stage, the others' authored level); show that level. */
+function shownProgress(id: 'lia' | 'flick' | 'kyra'): { level: number; exp: number } | undefined {
+  const saved = G.state.character(id);
+  if (!saved) return undefined;
+  const floor = id === 'lia' ? LIA_STAGES.weiterreise.level : BATTLE_CHARACTERS[id].level;
+  return { level: Math.max(saved.level, floor), exp: saved.exp };
 }
 
 async function finish(w: WorldCtx): Promise<void> {

@@ -10,7 +10,9 @@ Verbindliche Szenenspezifikation für `game/src/chapters/teil-2/` (Kapitel-ID `t
 - **Dialoge neu.** Kein Filmsatz wird übernommen, auch nicht leicht umgestellt. Filme liefern Ereignisse, Konflikte und
   Reihenfolge. Ton des Spiels: kurz, konkret, figurentypisch, höchstens ~140 Zeichen pro Box, Barks ~40.
   - **Lia**: belesen, trocken-ironisch, ängstlich und trotzdem widerborstig; sie denkt in Büchern; Schuldgefühle, weil
-    alle, die ihr nahe sind, in Gefahr geraten. Sie ist keine Kriegerin.
+    alle, die ihr nahe sind, in Gefahr geraten. Seit dem Tod der Eltern wehrt sie sich mit Vaters Dolch: unsicher, aber
+    entschlossen, getrieben von Trauer, Angst und dem Wunsch nach Rache. Sie wächst langsam, erst mit dem Dolch, dann
+    mit der Urmacht.
   - **Kyra**: zupackend, schlagfertig, beißt (wörtlich und im Wortsinn), kann nicht lesen, steht bedingungslos zu Lia.
   - **Flick**: Spott als Rüstung, Fährtenleserin, Halbelfe, nennt Lia „Leseratte“; Einsamkeit nur in leisen Momenten.
   - **Elnon**: kühl, knapp, Verantwortung für viele; sein Vorurteil gegen Flicks verschwiegene Herkunft ist konkret

@@ -5,7 +5,7 @@
 // Dunkelschatten flee, Lia collapses. The bluff points (flag 'k5-ablenkung') shape the opening.
 import { G } from '../../core/G';
 import { characterStats, shadowStats } from '../common/battleCharacters';
-import { liaBudget, liaCombatHint, liaUnit, withLiaHooks } from '../common/liaKit';
+import { DESPAIR_FLAG, liaBudget, liaCombatHint, liaDespairs, liaUnit, withLiaHooks } from '../common/liaKit';
 import { TRAVEL_ABILITIES } from '../common/travelBattles';
 import type { AbilityDef, BattleCtx, BattleDef, BattleUnitDef, TacticsStartData } from '../../tactics/api';
 import { rescueSetup } from './bluff';
@@ -167,10 +167,19 @@ export function rescueBattle(points = Number(G.state.flag('k5-ablenkung') ?? 1),
         if (kind === 'wounded' && ['algard', 'maedchen', 'schuetze'].includes(unit.id)) ctx.bark(unit.id, 'Für den Sold steh ich nicht auf.', 1600);
       },
       onHpBelow: [
-        { unit: 'lia', below: 0.5, run: c => c.bark('lia', 'In Büchern tut das weniger weh.', 2200) },
         { unit: 'flick', below: 0.45, run: c => c.bark('flick', 'Wird eng hier. Gefällt mir nicht.', 1800) },
       ],
-    }, { bark: false }), // the recorded half-HP line above already marks her despair
+      triggers: [{
+        // Her first real wound still draws a sore, bookish complaint. Once her Verzweiflung wakes (half HP or less),
+        // the shared despair bark speaks for her instead: Kyra is the one person she has left.
+        id: 'k5-lia-erste-wunde',
+        when: c => {
+          const u = c.unit('lia');
+          return !!u && !u.down && u.hp < u.maxHp * 0.75 && !liaDespairs(c) && !c.hasFlag(DESPAIR_FLAG);
+        },
+        run: c => c.bark('lia', 'In Büchern tut das weniger weh.', 2200),
+      }],
+    }),
   };
 }
 

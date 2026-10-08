@@ -1062,5 +1062,53 @@
     "context_de": "Erzähler schließt den vorliegenden Teil der Chronik ab.",
     "classification": "spoken",
     "inventory_id": "story-7e39577d27e3a8291e001a63"
+  },
+  {
+    "file": "game/src/chapters/common/liaKit.ts",
+    "line": 137,
+    "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+    "text": "Für Mutter. Für Vater. Ich stehe wieder auf.",
+    "kind": "bark",
+    "runtime_speaker": "lia",
+    "direction_en": "Wounded and pushing herself back up. Name each parent as a short vow on a strained breath, then let the last sentence rise into defiant resolve. Grief under the effort, not a battle cry.",
+    "emotion_de": "Trauer, trotzige Entschlossenheit",
+    "intensity": 4,
+    "context_de": "Taktikkampf: Lia sinkt auf die Hälfte ihrer Lebenspunkte, die Verzweiflung packt sie. Einmal pro Kampf; alle ihre Kämpfe liegen nach dem Mord an den Eltern.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval",
+    "rewrite_note": "Kampfbogen: neuer Ruf zur Verzweiflung; Erstaufnahme erforderlich."
+  },
+  {
+    "file": "game/src/chapters/common/liaKit.ts",
+    "line": 137,
+    "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+    "text": "Ihr nehmt mir nicht noch jemanden!",
+    "kind": "bark",
+    "runtime_speaker": "lia",
+    "direction_en": "Fear tipping into fury: a raw, protective outburst at the attackers. Lean on \"noch jemanden\"; strained and loud, but keep every word clear.",
+    "emotion_de": "Angst, die in Wut umschlägt",
+    "intensity": 4,
+    "context_de": "Taktikkampf: Lia sinkt auf die Hälfte ihrer Lebenspunkte, die Verzweiflung packt sie. Einmal pro Kampf; alle ihre Kämpfe liegen nach dem Mord an den Eltern.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval",
+    "rewrite_note": "Kampfbogen: neuer Ruf zur Verzweiflung; Erstaufnahme erforderlich."
+  },
+  {
+    "file": "game/src/chapters/common/liaKit.ts",
+    "line": 137,
+    "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+    "text": "Damals hab ich nur zugesehen. Heute nicht.",
+    "kind": "bark",
+    "runtime_speaker": "lia",
+    "direction_en": "Low and hard through pain. The first sentence remembers the farm with bitter guilt, the second refuses; clench the last two words without shouting.",
+    "emotion_de": "verbissene Rache, Schuld",
+    "intensity": 4,
+    "context_de": "Taktikkampf: Lia sinkt auf die Hälfte ihrer Lebenspunkte, die Verzweiflung packt sie. Einmal pro Kampf; alle ihre Kämpfe liegen nach dem Mord an den Eltern.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval",
+    "rewrite_note": "Kampfbogen: neuer Ruf zur Verzweiflung; Erstaufnahme erforderlich."
   }
 ]

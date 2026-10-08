@@ -3,6 +3,7 @@ import { G } from '../../core/G';
 import type { AudioApi } from '../../audio/api';
 import type { UiApi } from '../../ui/api';
 import { BattleController, type Presenter } from '../../tactics/controller';
+import { despairBark } from '../common/liaKit';
 import { rescueBattle } from './rettung';
 
 const originalAudio = G.audio;
@@ -44,5 +45,44 @@ describe('Lias Urmacht scene', () => {
     expect(ctx.hasFlag('k5-urmacht-exploded')).toBe(true);
     expect(ctx.hasFlag('k5-urmacht')).toBe(true);
     expect(G.state.is('k5-kyra-spaet-befreit')).toBe(true);
+  });
+});
+
+describe('Lia’s wound and despair lines in the rescue', () => {
+  function rescue() {
+    G.audio = { sfx: vi.fn() } as unknown as AudioApi;
+    const def = rescueBattle(2, true);
+    const bark = vi.fn();
+    const presenter = { refresh: vi.fn(), bark } as unknown as Presenter;
+    const ctrl = new BattleController(def, presenter, {} as UiApi, () => {});
+    const run = async () => { for (const t of def.hooks!.triggers!) if (t.when(ctrl.ctx)) await t.run(ctrl.ctx); };
+    return { ctrl, bark, run, lia: ctrl.ctx.unit('lia')! };
+  }
+
+  it('lets a first wound draw the bookish complaint, then despair speak at half HP', async () => {
+    const { bark, run, lia, ctrl } = rescue();
+    lia.hp = Math.floor(lia.maxHp * 0.7);
+    await run();
+    expect(bark).toHaveBeenLastCalledWith('lia', 'In Büchern tut das weniger weh.', 2200);
+    lia.hp = Math.floor(lia.maxHp / 2);
+    bark.mockClear();
+    await run();
+    expect(bark).toHaveBeenCalledOnce();
+    expect(bark).toHaveBeenCalledWith('lia', despairBark('k5-rettung'), 2200);
+    expect(despairBark('k5-rettung')).toBe('Ihr nehmt mir nicht noch jemanden!');
+    expect(ctrl.ctx.hasFlag('lia-verzweiflung')).toBe(true);
+  });
+
+  it('skips the complaint when one blow drops her straight into despair', async () => {
+    const { bark, run, lia } = rescue();
+    lia.hp = Math.floor(lia.maxHp / 2);
+    await run();
+    expect(bark).toHaveBeenCalledOnce();
+    expect(bark).toHaveBeenCalledWith('lia', despairBark('k5-rettung'), 2200);
+    // Healed above half again, the earlier complaint does not come back.
+    lia.hp = Math.floor(lia.maxHp * 0.7);
+    bark.mockClear();
+    await run();
+    expect(bark).not.toHaveBeenCalled();
   });
 });

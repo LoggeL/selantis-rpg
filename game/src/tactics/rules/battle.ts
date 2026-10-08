@@ -84,7 +84,7 @@ export function makeUnit(spec: UnitSpec): Unit {
   const weapon = spec.weapon ?? weapons[0] ?? null;
   return {
     id: spec.id, name: spec.name, team: spec.team, x: spec.x, y: spec.y, facing: spec.facing ?? 's',
-    ...stats, hp: clamp(spec.hp ?? stats.maxHp, 0, stats.maxHp),
+    ...stats, hp: clamp(spec.hpFraction !== undefined ? Math.max(1, Math.floor(stats.maxHp * clamp(spec.hpFraction, 0, 1))) : spec.hp ?? stats.maxHp, 0, stats.maxHp),
     move: spec.move ?? 4, jump: spec.jump ?? 2,
     mp: clamp(spec.mp ?? stats.maxMp, 0, stats.maxMp),
     level, exp: spec.exp ?? 0, weapon, weapons,

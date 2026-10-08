@@ -3540,9 +3540,9 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 117,
-    "expression_sha256": "818f6fd988b5ec2ae3752b858714ebd5bf5c9c56501a7e07ff1ece6ee1acdbcf",
-    "text": "Lia ist keine Kämpferin. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.",
+    "line": 119,
+    "expression_sha256": "1be8b9ca757bd0d5fc364e2b025c3b843c5ab7a381cb67855d5dacdd482ff4bd",
+    "text": "Gegen die Dunkelschatten ist Lia noch die Schwächste. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg. Zustechen lohnt sich vor allem von hinten.",
     "kind": "hint",
     "runtime_speaker": null,
     "direction_en": "Deliver the words under immediate pressure, with a firm practical pace. Give each instruction or threat a clear target.",
@@ -3786,7 +3786,7 @@
   },
   {
     "file": "game/src/chapters/kapitel-5/rettung.ts",
-    "line": 168,
+    "line": 180,
     "expression_sha256": "e2c7256b72b4feed1797a32477df29c0bba34dda8e19ae47d4a5787c60065203",
     "text": "In Büchern tut das weniger weh.",
     "kind": "bark",
@@ -3794,7 +3794,7 @@
     "direction_en": "A short, sore complaint through effort, with a trace of dry self-mockery. Let weniger weh land breathlessly; avoid a battle shout.",
     "emotion_de": "Kampfspannung",
     "intensity": 3,
-    "context_de": "Kapitel V, rettung, Ablauf rescueBattle.",
+    "context_de": "Kapitel V, rettung: Lias erste echte Wunde, bevor die Verzweiflung sie packt (die übernimmt ab halben Lebenspunkten).",
     "classification": "spoken"
   },
   {
@@ -4923,5 +4923,33 @@
     "intensity": 2,
     "context_de": "Aktuelle Rewrite-Quellstelle separat geprüft; Originaltext und Originalrolle unverändert.",
     "classification": "spoken"
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/finale.ts",
+    "line": 277,
+    "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
+    "text": "Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.",
+    "kind": "choice",
+    "runtime_speaker": null,
+    "direction_en": "",
+    "emotion_de": "neutral",
+    "intensity": 1,
+    "classification": "ui",
+    "context_de": "Abschluss des ersten Buchs: Menü für Weiterreise, Abschluss oder Teil II.",
+    "reason": "Menüauswahl: „Letzte Hoffnung“ ist der Titel von Teil II, keine gesprochene Antwort."
+  },
+  {
+    "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+    "line": 81,
+    "expression_sha256": "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
+    "text": "Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.",
+    "kind": "choice",
+    "runtime_speaker": null,
+    "direction_en": "",
+    "emotion_de": "neutral",
+    "intensity": 1,
+    "classification": "ui",
+    "context_de": "Reiseende nach dem ersten Buch: Menü für Weiterreise, Abschluss oder Teil II.",
+    "reason": "Menüauswahl: „Letzte Hoffnung“ ist der Titel von Teil II, keine gesprochene Antwort."
   }
 ]

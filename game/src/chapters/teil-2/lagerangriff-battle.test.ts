@@ -5,13 +5,15 @@ import type { UiApi } from '../../ui/api';
 import { BattleController, type Presenter } from '../../tactics/controller';
 import { distanceField } from '../../tactics/rules/movement';
 import { key } from '../../tactics/rules/grid';
+import { traitActive } from '../../tactics/rules/battle';
+import type { CharacterProgress } from '../../tactics/rules/progression';
 import { liaRaidAbilities, raidBattle, WATER_GATE, type RaidSetup } from './lagerangriff-battle';
 
 const BASE: RaidSetup = { azarSabre: false, foltanCovers: false };
 const originalAudio = G.audio;
 afterEach(() => { G.audio = originalAudio; G.state.reset(); });
 
-function controller(setup: RaidSetup = BASE) {
+function controller(setup: RaidSetup = BASE, progress?: Map<string, CharacterProgress>) {
   G.audio = { sfx: vi.fn() } as unknown as AudioApi;
   const def = raidBattle(setup);
   const presenter = {
@@ -19,7 +21,7 @@ function controller(setup: RaidSetup = BASE) {
     pose: vi.fn(), bark: vi.fn(), shake: vi.fn(), banner: vi.fn(async () => {}), setObjective: vi.fn(),
   } as unknown as Presenter;
   const ui = { say: vi.fn(async () => {}), plate: vi.fn(async () => {}), closePlate: vi.fn(async () => {}) } as unknown as UiApi;
-  return { def, ctrl: new BattleController(def, presenter, ui, () => {}) };
+  return { def, ctrl: new BattleController(def, presenter, ui, () => {}, 0, progress) };
 }
 
 describe('e2-ueberfall (camp raid)', () => {
@@ -64,6 +66,17 @@ describe('e2-ueberfall (camp raid)', () => {
     expect(desperate.damage).toBe(plain.damage + 2);
     expect(desperate.chance).toBe(Math.min(100, plain.chance + 10));
     expect(desperate.mods.map(m => m.label)).toContain('Verzweiflung');
+  });
+
+  it('keeps her at half HP with Verzweiflung awake when saved progress is above the level floor', () => {
+    for (const level of [5, 6, 7, 10]) {
+      const saved: CharacterProgress = { level, exp: 30, weapon: 'vatersdolch', mastered: [], abilityAp: {} };
+      const { ctrl } = controller(BASE, new Map([['lia', saved]]));
+      const lia = ctrl.battle.unit('lia')!;
+      expect(lia.level, `level ${level}`).toBe(level);
+      expect(lia.hp, `level ${level}`).toBe(Math.floor(lia.maxHp / 2));
+      expect(lia.traits.some(t => t.id === 'verzweiflung' && traitActive(lia, t)), `level ${level}`).toBe(true);
+    }
   });
 
   it('turns the alarm choices into battle differences', () => {

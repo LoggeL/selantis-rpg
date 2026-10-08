@@ -919,6 +919,15 @@
       "asset_id": "story-0f2314375eb335dbb98ea375"
     },
     {
+      "kind": "bark",
+      "speaker": "lia",
+      "text": "Damals hab ich nur zugesehen. Heute nicht.",
+      "scene": "*",
+      "mood": "neutral",
+      "performance_variant": "Low and hard through pain. The first sentence remembers the farm with bitter guilt, the second refuses; clench the last two words without shouting.",
+      "asset_id": "story-0f35c409186b5cc5f206e8ca"
+    },
+    {
       "kind": "say",
       "speaker": "azar",
       "text": "Jeder Kämpfer braucht einen guten Schmied. Sonst kämpft er bald im Hemd. Tritt mal den Blasebalg, ja?",
@@ -7489,6 +7498,15 @@
       "asset_id": "story-7d18b0177ac7888a1f3d6ff9"
     },
     {
+      "kind": "bark",
+      "speaker": "lia",
+      "text": "Für Mutter. Für Vater. Ich stehe wieder auf.",
+      "scene": "*",
+      "mood": "neutral",
+      "performance_variant": "Wounded and pushing herself back up. Name each parent as a short vow on a strained breath, then let the last sentence rise into defiant resolve. Grief under the effort, not a battle cry.",
+      "asset_id": "story-7d24fde4ae086b776698eef9"
+    },
+    {
       "kind": "say",
       "speaker": "flick",
       "text": "Ach? Und wen? Ich kenn mich hier aus, vielleicht …",
@@ -7721,6 +7739,15 @@
       "mood": "neutral",
       "performance_variant": "A brief situational call to the addressed person; clear and quick, with only the urgency or cheer already carried by the words.",
       "asset_id": "story-7ff9dbbd6d63373df92cbae7"
+    },
+    {
+      "kind": "bark",
+      "speaker": "lia",
+      "text": "Ihr nehmt mir nicht noch jemanden!",
+      "scene": "*",
+      "mood": "neutral",
+      "performance_variant": "Fear tipping into fury: a raw, protective outburst at the attackers. Lean on \"noch jemanden\"; strained and loud, but keep every word clear.",
+      "asset_id": "story-7ffce82b3bac9628d07e9a8c"
     },
     {
       "kind": "say",
@@ -8720,24 +8747,6 @@
       "mood": "neutral",
       "performance_variant": "Quiet inward thought, close and focused; follow the discovery or worry in the words, without projecting to other characters.",
       "asset_id": "story-916a4293d3f3ebcd04c6f353"
-    },
-    {
-      "kind": "choice",
-      "speaker": "lia",
-      "text": "Letzte Hoffnung",
-      "scene": "finale",
-      "mood": "neutral",
-      "performance_variant": "neutral",
-      "asset_id": "story-919398aab39f397e4c7c75c3"
-    },
-    {
-      "kind": "choice",
-      "speaker": "lia",
-      "text": "Letzte Hoffnung",
-      "scene": "weiterreise",
-      "mood": "neutral",
-      "performance_variant": "neutral",
-      "asset_id": "story-919398aab39f397e4c7c75c3"
     },
     {
       "kind": "think",
@@ -15974,11 +15983,12 @@
   "model": "gemini-3.8-flash-tts",
   "language": "de",
   "source_hashes": {
-    "game/src/chapters/common/battleCharacters.ts": "b538bc9d226ecd622ba58bfd31c3571b05ec16a16f791005b831db4231b7cd56",
+    "game/src/chapters/common/battleCharacters.ts": "419e5990792777deb3fe52491547d981a6aa6a06c40b7f84c04166f82de4cc72",
     "game/src/chapters/common/bookContract.ts": "44c84bf22416d0ca209c29dfb5c3b5c44ff1607c7cf63d72eb257ce4e733a3b0",
     "game/src/chapters/common/encounters.ts": "ae59a28df9c746e813cb001046ae163afe5d8aa05b7ab548f8b699815c94c899",
     "game/src/chapters/common/index.ts": "2d78f8f01fbaa117915a50bb34525fc8a450ea8586f1968c52d64171a8034249",
-    "game/src/chapters/common/travelBattles.ts": "6c7cd3ff04a0e9d8adb2b8eda0ed9cd850d207a4ee510e99ce5a17fb2292d19b",
+    "game/src/chapters/common/liaKit.ts": "452d67998e955de5e6d1906d7501a27cd2841903197efb7c1cf93eec8fccd9ab",
+    "game/src/chapters/common/travelBattles.ts": "6b9bfd3d27709572034afd8242367495a4c518302db7c92b0e7c92b632f9a244",
     "game/src/chapters/kapitel-1/catalog.ts": "04473be737cdfd73b4fa1002c30a0a2d48dabe4148f5a66f322b3d527d77f6f2",
     "game/src/chapters/kapitel-1/heimweg.ts": "9339235d5a0e2aad2a6e72fad512c935af5a6a557460f2c097c86bb0ae6af182",
     "game/src/chapters/kapitel-1/hofGeo.ts": "0e1c342ed110d197f355152969b60cd299e571ac8d810360886bb580d04f92ad",
@@ -16021,7 +16031,7 @@
     "game/src/chapters/kapitel-4/shared.ts": "92f06f14f53bbee43c5dd7c07b50ac0e1d6e2709414ef13711f53559ef60303c",
     "game/src/chapters/kapitel-4/training.ts": "657decaf78cae9f6abc2542dbebaf4487e847f5ffbdfe71e66820418ea7fa75c",
     "game/src/chapters/kapitel-4/verrat.ts": "0f03f782f962a337985a4ff1be99ecde6708a172e2cf7cda1a8abeb21ca12577",
-    "game/src/chapters/kapitel-5/bluff.ts": "7bb458a1e80833d97f15d0f0bcbeff473f61e65f4a550531571ecabaf0feaf08",
+    "game/src/chapters/kapitel-5/bluff.ts": "2ce9e2d26ff0a6c0c131247b313c3a76d6bf11563244554ba2d559a7e7a9747f",
     "game/src/chapters/kapitel-5/bluffScene.ts": "8a464048fff21773b2f2eb2b0c16756f5c6756954bf41fae7a4eaa12cc58c28b",
     "game/src/chapters/kapitel-5/catalog.ts": "0c759a5eb41bfde483b3f2ee274228ab3825bd81178b8564a6e965bc313a452a",
     "game/src/chapters/kapitel-5/common.ts": "38bfc3695b85bb6a75aa85c84f3489f3f0223b4e40c7a3278f9a3ef72cc1a759",
@@ -16033,18 +16043,18 @@
     "game/src/chapters/kapitel-5/index.ts": "0d07bb2b403e4683e709252f4c1d11cb7ee8dcfff0e113413e50fd485722e831",
     "game/src/chapters/kapitel-5/lagerGeom.ts": "c0a6de6df4f17409b2332eb66f144cc16f0a0c1dbe16a7bb20afddf97877c03d",
     "game/src/chapters/kapitel-5/regenwald.ts": "c4b4dd2c60653b2814fdae454f8fbc44f087ce88a7b51837cbd5985ecbdeb8d6",
-    "game/src/chapters/kapitel-5/rettung.ts": "09fb4e72229310a99a1dfb8748fba393d52f4cb1497b77c0e03e38ca9b52d276",
+    "game/src/chapters/kapitel-5/rettung.ts": "9a3c684e7c0ff0d44f0c66dff9e0442e5230d49e52566bb3b0764038822c6f07",
     "game/src/chapters/kapitel-5/schattenlager.ts": "fc715d0309256c088aaf7da415b524e93b87e873b7c019116d2d0cc8620347ca",
     "game/src/chapters/kapitel-5/styles.ts": "989bf03cb34a12cf2d85d2bea0cca1440c0ded8af0999bb7395b639c4f881a36",
-    "game/src/chapters/kapitel-5/weiterreise.ts": "8dce710219121e3b6a85aaef328307750431d0adb6edf8f3dedcf5bcbb91b042",
+    "game/src/chapters/kapitel-5/weiterreise.ts": "0c9f92e4640db6e8c5f7a004a4822dcc3bb4ed8824171f249b27f95b1feb98a2",
     "game/src/ui/text.ts": "6711c1d67b909ad468b392ac031bcc45692b5dbf3e05d3e8b8e3789d8297f71b",
     "game/src/world/ctx.ts": "59e95093feb27eea122463fe77c74af049ef54da158876499afe291fc1500357",
     "docs/voice-production/directions/kapitel-1.json": "bead3c40447b74f43ab22b66218b3a5e04a3deaab203124c8720f20bdc235a35",
     "docs/voice-production/directions/kapitel-2.json": "a0cc4cf26235d93f75045b284027244c8068ab817678c50c4179f3788fee1fa4",
     "docs/voice-production/directions/kapitel-3.json": "8375996385dfb548c60d9e6e4d64dc22c7fd705e9b23f450843717fb8ecfd426",
     "docs/voice-production/directions/kapitel-4.json": "6a9817cdd1d66bdf6aae031aa10d1a0abea6abeafdedf9f44601c356a24ed6ad",
-    "docs/voice-production/directions/kapitel-5.json": "cb23d87bf3ea1fd3de64504e17d43396585630c47659d71209a8ef938d2cb4a3",
-    "docs/voice-production/directions/supplemental.json": "faf40c26164372df251d5532a650e84a3d7ad2f10459bdd2f293a604971bf3e7"
+    "docs/voice-production/directions/kapitel-5.json": "720bf7ca7bd859b7a5782279d21c76dc81b94832967148c1f328b5bfa511fc56",
+    "docs/voice-production/directions/supplemental.json": "f2f6218b07924258915394c54c9cef83e79dea4a5125e457994ac598d1f17779"
   },
   "lines": [
     {
@@ -18644,10 +18654,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 236,
+          "line": 247,
           "column": 26,
-          "start": 13073,
-          "end": 13119,
+          "start": 13838,
+          "end": 13884,
           "expression": "'Halt still, Spitzohr. Dann geht’s schneller.'",
           "expression_sha256": "1997d60548de523d2319f3e9a8e526dc1ac7bfebe4e4f4e1b9f445df64e055b3",
           "review_anchor_hashes": [
@@ -19240,10 +19250,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 177,
+          "line": 188,
           "column": 27,
-          "start": 9925,
-          "end": 9980,
+          "start": 10690,
+          "end": 10745,
           "expression": "'Pfeile aus dem Dunkeln. Und du weißt von nichts, was?'",
           "expression_sha256": "9808d905cd569294bde6155bd3f2740a91214432cef5c09e2eaa7da6b0d15bea",
           "review_anchor_hashes": [
@@ -21406,6 +21416,58 @@
       ]
     },
     {
+      "scene": "*",
+      "chapter": "common",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "bark",
+      "text": "Damals hab ich nur zugesehen. Heute nicht.",
+      "display_text": "Damals hab ich nur zugesehen. Heute nicht.",
+      "mood": "neutral",
+      "performance_variant": "Low and hard through pain. The first sentence remembers the farm with bitter guilt, the second refuses; clench the last two words without shouting.",
+      "direction_en": "Low and hard through pain. The first sentence remembers the farm with bitter guilt, the second refuses; clench the last two words without shouting.",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 137,
+          "column": 23,
+          "start": 6439,
+          "end": 6462,
+          "expression": "despairBark(ctx.def.id)",
+          "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+          "review_anchor_hashes": [
+            "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+            "43d4fc498ad4b0682ac4dfefc7d037c6ae2b60e429e6626938d98ed30e01c0c5",
+            "965bb8cc516b9f9501b50a9b5a96aa505d195c9c4e20067cc3751809956c66c6",
+            "2504fd833b5c9644bacbb5e8f24c0eadcc4097c727279bdde2c877e9179fa31f"
+          ],
+          "function": "callback",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ],
+      "review": {
+        "file": "docs/voice-production/directions/supplemental.json",
+        "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+        "emotion_de": "verbissene Rache, Schuld",
+        "intensity": 4
+      },
+      "id": "story-0f35c409186b5cc5f206e8ca",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "lia",
+          "text": "Damals hab ich nur zugesehen. Heute nicht.",
+          "scene": "*",
+          "mood": "neutral",
+          "performance_variant": "Low and hard through pain. The first sentence remembers the farm with bitter guilt, the second refuses; clench the last two words without shouting."
+        }
+      ]
+    },
+    {
       "scene": "bruderschaft",
       "chapter": "kapitel-4",
       "speaker": "azar",
@@ -22584,10 +22646,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 46,
+          "line": 48,
           "column": 19,
-          "start": 2481,
-          "end": 2572,
+          "start": 2592,
+          "end": 2683,
           "expression": "'Keine Welle. Ein Stoß, nicht größer als eine Faust. Und ich hab ihn gewollt … glaube ich.'",
           "expression_sha256": "c4c571875563d313bdaea2d97632a63ecc2396a8e1bf9c8bb265a55334fe3240",
           "review_anchor_hashes": [
@@ -22721,10 +22783,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 165,
+          "line": 167,
           "column": 107,
-          "start": 9450,
-          "end": 9484,
+          "start": 9794,
+          "end": 9828,
           "expression": "'Für den Sold steh ich nicht auf.'",
           "expression_sha256": "d9df9431b1ed3e24989ef92a634188eff98f4560b3a9e867fe188532759e8172",
           "review_anchor_hashes": [
@@ -22777,10 +22839,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 244,
+          "line": 255,
           "column": 29,
-          "start": 13633,
-          "end": 13761,
+          "start": 14398,
+          "end": 14526,
           "expression": "'Baris fliegt wie ein Strohsack durch die Luft und schlägt zehn Schritte weiter ins Feld. Seine Axt wirbelt davon in die Nacht.'",
           "expression_sha256": "290590a5172e7114a7cc4225de893fb7848dc336681d8098ffa45a5a1cb109e4",
           "review_anchor_hashes": [
@@ -23207,10 +23269,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 180,
+          "line": 191,
           "column": 31,
-          "start": 10198,
-          "end": 10239,
+          "start": 10963,
+          "end": 11004,
           "expression": "'Jetzt, Leseratte! Mach Lärm. Viel Lärm.'",
           "expression_sha256": "1060f02f97a66222df1c45c1d2dd2c4d557e5025774eb0d0fd2b8a894f126ca6",
           "review_anchor_hashes": [
@@ -23263,10 +23325,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 149,
+          "line": 151,
           "column": 37,
-          "start": 8247,
-          "end": 8322,
+          "start": 8591,
+          "end": 8666,
           "expression": "'Deine Schwester hat mich angeheuert. Umsonst, leider. Lauf! Zum Waldrand!'",
           "expression_sha256": "3bde96d2aa99e477e9845bf49d87079f880651b4817a13f828f637b53c98f98a",
           "review_anchor_hashes": [
@@ -24815,10 +24877,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 254,
+          "line": 265,
           "column": 40,
-          "start": 14112,
-          "end": 14163,
+          "start": 14877,
+          "end": 14928,
           "expression": "id === 'orwen' ? 'Weg hier! Alle weg!' : 'Hexerei!'",
           "expression_sha256": "da42ce4ae0934c7e06bb1bbca9ec96b569765fb57185133b2f7e5faf33896f8a",
           "review_anchor_hashes": [
@@ -27834,10 +27896,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 168,
-          "column": 60,
-          "start": 9580,
-          "end": 9613,
+          "line": 180,
+          "column": 33,
+          "start": 10455,
+          "end": 10488,
           "expression": "'In Büchern tut das weniger weh.'",
           "expression_sha256": "e2c7256b72b4feed1797a32477df29c0bba34dda8e19ae47d4a5787c60065203",
           "review_anchor_hashes": [
@@ -27941,10 +28003,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 50,
+          "line": 52,
           "column": 19,
-          "start": 2767,
-          "end": 2833,
+          "start": 2878,
+          "end": 2944,
           "expression": "'Angst hatte ich trotzdem. Sie war nur leiser als meine Gedanken.'",
           "expression_sha256": "c8f2a9dd6efadcf8996785cc28f2f745b0621838c6f6ecc73b228f1bc5c203f6",
           "review_anchor_hashes": [
@@ -30396,10 +30458,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 259,
+          "line": 270,
           "column": 29,
-          "start": 14415,
-          "end": 14509,
+          "start": 15180,
+          "end": 15274,
           "expression": "'Auf einmal zirpen wieder die Grillen. Lias Knie geben nach, und das Gras kommt ihr entgegen.'",
           "expression_sha256": "f8eb527588868c32aa1dfc51a9a73efd9ada4ce8e08893a119df2bf1af31b2d9",
           "review_anchor_hashes": [
@@ -32551,10 +32613,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 27,
+          "line": 29,
           "column": 21,
-          "start": 1627,
-          "end": 1700,
+          "start": 1738,
+          "end": 1811,
           "expression": "'Kyra redet seit Stunden ohne Pause. Ich hab nie etwas Schöneres gehört.'",
           "expression_sha256": "59f457ac1571c1dcd921404c033cf05c2e723abff37befc8f6a5da9a30d44023",
           "review_anchor_hashes": [
@@ -34536,10 +34598,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 239,
+          "line": 250,
           "column": 27,
-          "start": 13225,
-          "end": 13240,
+          "start": 13990,
+          "end": 14005,
           "expression": "'Nein – FLICK!'",
           "expression_sha256": "2099fbc92233b3a5dfde0181768ea02e367016dcdb8f5b343acd6221bbda6d7e",
           "review_anchor_hashes": [
@@ -41362,10 +41424,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 151,
+          "line": 153,
           "column": 30,
-          "start": 8541,
-          "end": 8579,
+          "start": 8885,
+          "end": 8923,
           "expression": "'Sie haut ab! Fangen, nicht anfassen!'",
           "expression_sha256": "854e6f89587e300aec310a4d86d955daa8fedbf75dfe23726b62329cd4a640bb",
           "review_anchor_hashes": [
@@ -42573,10 +42635,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 184,
+          "line": 195,
           "column": 31,
-          "start": 10423,
-          "end": 10544,
+          "start": 11188,
+          "end": 11309,
           "expression": "'Die Wachen glotzen Lia noch an, als hätte sie ihnen ein Rätsel aufgegeben. Einen Atemzug lang gehört der Vorsprung dir.'",
           "expression_sha256": "a008dfeb3aae657d93b2518d1c8ca91c67ac55f5c3229349132ef3c7122c196d",
           "review_anchor_hashes": [
@@ -43705,10 +43767,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 254,
+          "line": 265,
           "column": 40,
-          "start": 14112,
-          "end": 14163,
+          "start": 14877,
+          "end": 14928,
           "expression": "id === 'orwen' ? 'Weg hier! Alle weg!' : 'Hexerei!'",
           "expression_sha256": "da42ce4ae0934c7e06bb1bbca9ec96b569765fb57185133b2f7e5faf33896f8a",
           "review_anchor_hashes": [
@@ -50330,10 +50392,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 165,
+          "line": 167,
           "column": 107,
-          "start": 9450,
-          "end": 9484,
+          "start": 9794,
+          "end": 9828,
           "expression": "'Für den Sold steh ich nicht auf.'",
           "expression_sha256": "d9df9431b1ed3e24989ef92a634188eff98f4560b3a9e867fe188532759e8172",
           "review_anchor_hashes": [
@@ -51542,10 +51604,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 201,
+          "line": 212,
           "column": 26,
-          "start": 11526,
-          "end": 11607,
+          "start": 12291,
+          "end": 12372,
           "expression": "'Die Kleine vom Feuer. Ich hab doch gleich gerochen, dass die nach Ärger stinkt.'",
           "expression_sha256": "d55adbef7876b958f5833749d3ed72a400d5414f17ca24bad6caa9fc71eae256",
           "review_anchor_hashes": [
@@ -52065,10 +52127,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 45,
+          "line": 47,
           "column": 26,
-          "start": 2390,
-          "end": 2460,
+          "start": 2501,
+          "end": 2571,
           "expression": "'Da war’s wieder, dein Licht. Nur hattest du es diesmal an der Leine.'",
           "expression_sha256": "5ed53cebd4d3b658a5efde403d9aff013be1fe6695a089172d7951397fb99259",
           "review_anchor_hashes": [
@@ -55676,10 +55738,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 200,
+          "line": 211,
           "column": 26,
-          "start": 11415,
-          "end": 11479,
+          "start": 12180,
+          "end": 12244,
           "expression": "'Kaum dreh ich mich um, und zwei Mädchen räumen mein Lager auf.'",
           "expression_sha256": "2368699f3c4c1dfbb7ee8a74c77bb9eac136e135f5ce7276f85ece8d400ad42d",
           "review_anchor_hashes": [
@@ -56985,10 +57047,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 140,
+          "line": 142,
           "column": 34,
-          "start": 7590,
-          "end": 7666,
+          "start": 7934,
+          "end": 8010,
           "expression": "info.unit.id === 'lia' ? 'Einer ist durch!' : 'Halb durch. Nasses Mistseil.'",
           "expression_sha256": "ce6ce51337615e3d4d2ef0f636f13bdf23254994be3a1dbdba31dcd6ae656965",
           "review_anchor_hashes": [
@@ -60063,10 +60125,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 56,
+          "line": 58,
           "column": 24,
-          "start": 2942,
-          "end": 3017,
+          "start": 3053,
+          "end": 3128,
           "expression": "'Erst Wunden verbinden, dann weiter. Und keiner bleibt liegen, verstanden?'",
           "expression_sha256": "a4ffa92a30c66d37b125cffa93ebaa874710c6420880a4e7a58e7c6e8a6dbf07",
           "review_anchor_hashes": [
@@ -60074,7 +60136,7 @@
             "429f52c580c63928681f2902fb1e5c9c9bb2501686cf17f41af42fa7fdbea0c1",
             "ae394a7a00f5ad1a3728dd9e1e13fc276c656d534bdcde2a8ee77eb892fec166",
             "eb061e22f814348c5e4bf6e86cb1d1b9783a08b3eb936c97760e72b0ee5b35bb",
-            "6dfd94b65bff9cff967d412b6e97ba1f17e559ec13da780abbcb8482cdceac59"
+            "83a433073be84db276a7c106c290931ce8146f24148ae0e3300e7cee35da0fdf"
           ],
           "function": "rest",
           "chapter": "kapitel-5",
@@ -60988,10 +61050,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 140,
+          "line": 142,
           "column": 34,
-          "start": 7590,
-          "end": 7666,
+          "start": 7934,
+          "end": 8010,
           "expression": "info.unit.id === 'lia' ? 'Einer ist durch!' : 'Halb durch. Nasses Mistseil.'",
           "expression_sha256": "ce6ce51337615e3d4d2ef0f636f13bdf23254994be3a1dbdba31dcd6ae656965",
           "review_anchor_hashes": [
@@ -61100,10 +61162,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 202,
+          "line": 213,
           "column": 26,
-          "start": 11654,
-          "end": 11716,
+          "start": 12419,
+          "end": 12481,
           "expression": "'Die Gefangene rührt keiner an. Das Spitzohr … das ist meins.'",
           "expression_sha256": "c1b2f89a3b7e88deba50314471762cfb8f95c355a093ee5e24cd4bbb4881cf77",
           "review_anchor_hashes": [
@@ -61362,6 +61424,58 @@
           "scene": "eber",
           "mood": "neutral",
           "performance_variant": "A brief situational call to the addressed person; clear and quick, with only the urgency or cheer already carried by the words."
+        }
+      ]
+    },
+    {
+      "scene": "*",
+      "chapter": "common",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "bark",
+      "text": "Für Mutter. Für Vater. Ich stehe wieder auf.",
+      "display_text": "Für Mutter. Für Vater. Ich stehe wieder auf.",
+      "mood": "neutral",
+      "performance_variant": "Wounded and pushing herself back up. Name each parent as a short vow on a strained breath, then let the last sentence rise into defiant resolve. Grief under the effort, not a battle cry.",
+      "direction_en": "Wounded and pushing herself back up. Name each parent as a short vow on a strained breath, then let the last sentence rise into defiant resolve. Grief under the effort, not a battle cry.",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 137,
+          "column": 23,
+          "start": 6439,
+          "end": 6462,
+          "expression": "despairBark(ctx.def.id)",
+          "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+          "review_anchor_hashes": [
+            "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+            "43d4fc498ad4b0682ac4dfefc7d037c6ae2b60e429e6626938d98ed30e01c0c5",
+            "965bb8cc516b9f9501b50a9b5a96aa505d195c9c4e20067cc3751809956c66c6",
+            "2504fd833b5c9644bacbb5e8f24c0eadcc4097c727279bdde2c877e9179fa31f"
+          ],
+          "function": "callback",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ],
+      "review": {
+        "file": "docs/voice-production/directions/supplemental.json",
+        "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+        "emotion_de": "Trauer, trotzige Entschlossenheit",
+        "intensity": 4
+      },
+      "id": "story-7d24fde4ae086b776698eef9",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "lia",
+          "text": "Für Mutter. Für Vater. Ich stehe wieder auf.",
+          "scene": "*",
+          "mood": "neutral",
+          "performance_variant": "Wounded and pushing herself back up. Name each parent as a short vow on a strained breath, then let the last sentence rise into defiant resolve. Grief under the effort, not a battle cry."
         }
       ]
     },
@@ -62719,6 +62833,58 @@
       ]
     },
     {
+      "scene": "*",
+      "chapter": "common",
+      "speaker": "lia",
+      "runtime_speakers": [
+        "lia"
+      ],
+      "kind": "bark",
+      "text": "Ihr nehmt mir nicht noch jemanden!",
+      "display_text": "Ihr nehmt mir nicht noch jemanden!",
+      "mood": "neutral",
+      "performance_variant": "Fear tipping into fury: a raw, protective outburst at the attackers. Lean on \"noch jemanden\"; strained and loud, but keep every word clear.",
+      "direction_en": "Fear tipping into fury: a raw, protective outburst at the attackers. Lean on \"noch jemanden\"; strained and loud, but keep every word clear.",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 137,
+          "column": 23,
+          "start": 6439,
+          "end": 6462,
+          "expression": "despairBark(ctx.def.id)",
+          "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+          "review_anchor_hashes": [
+            "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+            "43d4fc498ad4b0682ac4dfefc7d037c6ae2b60e429e6626938d98ed30e01c0c5",
+            "965bb8cc516b9f9501b50a9b5a96aa505d195c9c4e20067cc3751809956c66c6",
+            "2504fd833b5c9644bacbb5e8f24c0eadcc4097c727279bdde2c877e9179fa31f"
+          ],
+          "function": "callback",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ],
+      "review": {
+        "file": "docs/voice-production/directions/supplemental.json",
+        "expression_sha256": "f1e4e04471bebc8ced744dec722a1727696d0f12ceffa13dc2bb2b86c24cd0c7",
+        "emotion_de": "Angst, die in Wut umschlägt",
+        "intensity": 4
+      },
+      "id": "story-7ffce82b3bac9628d07e9a8c",
+      "runtime_keys": [
+        {
+          "kind": "bark",
+          "speaker": "lia",
+          "text": "Ihr nehmt mir nicht noch jemanden!",
+          "scene": "*",
+          "mood": "neutral",
+          "performance_variant": "Fear tipping into fury: a raw, protective outburst at the attackers. Lean on \"noch jemanden\"; strained and loud, but keep every word clear."
+        }
+      ]
+    },
+    {
       "scene": "kyra",
       "chapter": "kapitel-3",
       "speaker": "baris",
@@ -63280,10 +63446,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 179,
+          "line": 190,
           "column": 40,
-          "start": 10074,
-          "end": 10141,
+          "start": 10839,
+          "end": 10906,
           "expression": "'Ein Strang ist durch. Erzähl ihnen noch was vom Markt, Leseratte!'",
           "expression_sha256": "d963a0303e3be01766d073260ae9e7c9a82fdf8ed9988164a7ca6b7428e47a6a",
           "review_anchor_hashes": [
@@ -64508,10 +64674,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 169,
+          "line": 170,
           "column": 65,
-          "start": 9688,
-          "end": 9723,
+          "start": 9929,
+          "end": 9964,
           "expression": "'Wird eng hier. Gefällt mir nicht.'",
           "expression_sha256": "9d77c89d6620dcde89de7fc97312975140c6afcfce854417bdc8ba564fe21bba",
           "review_anchor_hashes": [
@@ -67613,10 +67779,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 49,
+          "line": 51,
           "column": 25,
-          "start": 2677,
-          "end": 2746,
+          "start": 2788,
+          "end": 2857,
           "expression": "'Woher wusstest du, wo die stehen? Steht das auch in deinen Büchern?'",
           "expression_sha256": "82a4e88df0424048973009b15c511a2b591f3c71724e0084a0d75c4d85fffe80",
           "review_anchor_hashes": [
@@ -68660,92 +68826,6 @@
       ]
     },
     {
-      "scene": "finale",
-      "chapter": "kapitel-5",
-      "speaker": "lia",
-      "runtime_speakers": [
-        "lia"
-      ],
-      "kind": "choice",
-      "text": "Letzte Hoffnung",
-      "display_text": "Letzte Hoffnung",
-      "mood": "neutral",
-      "performance_variant": "neutral",
-      "direction_en": "Selected player reply. Natural delivery grounded in the scene. Speak the German words exactly, without added speech or music.",
-      "sources": [
-        {
-          "file": "game/src/chapters/kapitel-5/finale.ts",
-          "line": 277,
-          "column": 33,
-          "start": 15212,
-          "end": 15282,
-          "expression": "[...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]",
-          "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
-          "review_anchor_hashes": [
-            "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
-            "bdf9855f85c8ee8c1761fcb9967ab914ddfbb848b1435ea13cd268ad1b604738",
-            "1ff419b2f15073af3a10a712a842747e3d5615dde255a7079a87df9257b34c1a",
-            "6bf65a9a408fc75670f907870650d17c579578b4f9e829380ca3b374a95b6276",
-            "85149ee7a155b226257a6bad9bb87d458adee5d068a823788810349dccc25ba2",
-            "6e903f740531a3018dc5fb592864f7f1b70cfa2d68ddaf2c844c60894e040df4",
-            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
-            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
-            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
-          ],
-          "function": "departure",
-          "chapter": "kapitel-5",
-          "scene": "finale",
-          "runtime_scenes": [
-            "finale"
-          ]
-        },
-        {
-          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 68,
-          "column": 31,
-          "start": 3523,
-          "end": 3748,
-          "expression": "[\n    { text: 'Noch weiterreisen.' },\n    { text: 'Das erste Buch abschließen.' },\n    { text: 'Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.', disabled: !book2, reason: book2 ? undefined : 'Noch nicht verfügbar.' },\n  ]",
-          "expression_sha256": "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
-          "review_anchor_hashes": [
-            "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
-            "9441503b3ba99bb2b3dbee135bd726de77e4df8be99057028f2dec81690cfeb1",
-            "02cb04d31c2930f4848bbadc6920832991bf913c241e2197bc4bea28e4a6afdd",
-            "b7b44c981d80f39645177348e4874967c386510530dcfec3bc399d0c099896d9",
-            "e6a9fe75ce9b2d399b67f8ba8129d6ce9feb5f43814a4fc2036bef75d2e0c86b",
-            "78b67b913d14ac1774b70feb01c23c5ddacc42c35cdfbe0611bde36b643f816d",
-            "e29cb2590d6cf5f941c46e05ab3b56df6aa225ecc493e257196e8fcb4df555a0"
-          ],
-          "function": "finish",
-          "chapter": "kapitel-5",
-          "scene": "weiterreise",
-          "runtime_scenes": [
-            "weiterreise"
-          ]
-        }
-      ],
-      "original_choice_text": "Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.",
-      "id": "story-919398aab39f397e4c7c75c3",
-      "runtime_keys": [
-        {
-          "kind": "choice",
-          "speaker": "lia",
-          "text": "Letzte Hoffnung",
-          "scene": "finale",
-          "mood": "neutral",
-          "performance_variant": "neutral"
-        },
-        {
-          "kind": "choice",
-          "speaker": "lia",
-          "text": "Letzte Hoffnung",
-          "scene": "weiterreise",
-          "mood": "neutral",
-          "performance_variant": "neutral"
-        }
-      ]
-    },
-    {
       "scene": "wiese",
       "chapter": "kapitel-1",
       "speaker": "lia",
@@ -69211,10 +69291,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 123,
+          "line": 125,
           "column": 30,
-          "start": 6652,
-          "end": 6674,
+          "start": 6996,
+          "end": 7018,
           "expression": "'Wo kam das denn her?'",
           "expression_sha256": "ab427b9ea3bcf1e803715cb1d625f5476b5822e15c9eafdd43d28e3d475bbc0f",
           "review_anchor_hashes": [
@@ -69223,7 +69303,7 @@
             "7373821cea8b2fd424c571fde64e4c2f5693e9b313bd3e5eb99f2b38ca635868",
             "a4e7c95473ccbb5fbb7a219982188f86680a05552bc02a63490b055d0de92b2d",
             "4c8e7fc385e1adafeadd1ae7c3e1f8676c9b3e1ac340683c3cd4b9ab0ff8070b",
-            "4ee6626abf67f7886c4b28fc83b6ab805032f2ac24450c25fbb3df3553b3b201"
+            "313214e5181e4141209efc1a6ffe5360b0fc8bbd31776b4a4e960cd609b6f6b1"
           ],
           "function": "callback",
           "chapter": "kapitel-5",
@@ -73083,10 +73163,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 26,
+          "line": 28,
           "column": 27,
-          "start": 1548,
-          "end": 1604,
+          "start": 1659,
+          "end": 1715,
           "expression": "'Und ich lauf diesmal freiwillig mit. Ganz ohne Strick.'",
           "expression_sha256": "edbc1c3a60c7059de707f0cd140ab2ac4320d7629ab49103f673b4c010c7dd31",
           "review_anchor_hashes": [
@@ -74199,10 +74279,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 165,
+          "line": 167,
           "column": 107,
-          "start": 9450,
-          "end": 9484,
+          "start": 9794,
+          "end": 9828,
           "expression": "'Für den Sold steh ich nicht auf.'",
           "expression_sha256": "d9df9431b1ed3e24989ef92a634188eff98f4560b3a9e867fe188532759e8172",
           "review_anchor_hashes": [
@@ -91086,10 +91166,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 148,
+          "line": 150,
           "column": 54,
-          "start": 8133,
-          "end": 8184,
+          "start": 8477,
+          "end": 8528,
           "expression": "'Später. Lauf zum Waldrand und dreh dich nicht um.'",
           "expression_sha256": "4c345abb887214beb01fbaa4911eb28de327b98ac5ffd2ef7a55a7aa2b1cfc79",
           "review_anchor_hashes": [
@@ -95167,10 +95247,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 147,
+          "line": 149,
           "column": 31,
-          "start": 7948,
-          "end": 8054,
+          "start": 8292,
+          "end": 8398,
           "expression": "by.id === 'lia' ? 'Mmpf! … Lia?! Ist das … Vaters Dolch?' : 'Mmpf! … Wer bist du? Und warum grinst du so?'",
           "expression_sha256": "41d257d4230af5cb13cb0abbf9cfdc9277aa77d6f6dc1151f52f6e2e2028003b",
           "review_anchor_hashes": [
@@ -96831,10 +96911,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 25,
+          "line": 27,
           "column": 28,
-          "start": 1407,
-          "end": 1519,
+          "start": 1518,
+          "end": 1630,
           "expression": "'Eine Regel: Keiner läuft mehr allein in den Wald. Ich schau dabei übrigens niemanden an. Schon gar nicht dich.'",
           "expression_sha256": "6d5a52ba10157d09efa0064885dc75df400b07f04d809c794ebbd317b0da8441",
           "review_anchor_hashes": [
@@ -97996,10 +98076,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 147,
+          "line": 149,
           "column": 31,
-          "start": 7948,
-          "end": 8054,
+          "start": 8292,
+          "end": 8398,
           "expression": "by.id === 'lia' ? 'Mmpf! … Lia?! Ist das … Vaters Dolch?' : 'Mmpf! … Wer bist du? Und warum grinst du so?'",
           "expression_sha256": "41d257d4230af5cb13cb0abbf9cfdc9277aa77d6f6dc1151f52f6e2e2028003b",
           "review_anchor_hashes": [
@@ -103476,10 +103556,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 254,
+          "line": 265,
           "column": 40,
-          "start": 14112,
-          "end": 14163,
+          "start": 14877,
+          "end": 14928,
           "expression": "id === 'orwen' ? 'Weg hier! Alle weg!' : 'Hexerei!'",
           "expression_sha256": "da42ce4ae0934c7e06bb1bbca9ec96b569765fb57185133b2f7e5faf33896f8a",
           "review_anchor_hashes": [
@@ -107541,10 +107621,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 243,
+          "line": 254,
           "column": 29,
-          "start": 13460,
-          "end": 13602,
+          "start": 14225,
+          "end": 14367,
           "expression": "'Etwas in Lia bricht auf. Ihre Augen glühen blau, ~türkises Licht~ rollt von ihr fort, drückt das Gras flach und reißt der Eiche das Laub ab.'",
           "expression_sha256": "223836461a595cad6f8bcd8bd5169470a169f29f41b3b015178cae876351a6fb",
           "review_anchor_hashes": [
@@ -110350,10 +110430,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 254,
+          "line": 265,
           "column": 40,
-          "start": 14112,
-          "end": 14163,
+          "start": 14877,
+          "end": 14928,
           "expression": "id === 'orwen' ? 'Weg hier! Alle weg!' : 'Hexerei!'",
           "expression_sha256": "da42ce4ae0934c7e06bb1bbca9ec96b569765fb57185133b2f7e5faf33896f8a",
           "review_anchor_hashes": [
@@ -110629,10 +110709,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 186,
+          "line": 197,
           "column": 31,
-          "start": 10588,
-          "end": 10655,
+          "start": 11353,
+          "end": 11420,
           "expression": "'Hinterhalt! Hab ich’s nicht gesagt? Aber auf mich hört ja keiner.'",
           "expression_sha256": "c52b02e1932f4efd492e38a20206f21bdee45c72abc6c62bd2b2f762be1929ba",
           "review_anchor_hashes": [
@@ -113801,14 +113881,143 @@
     },
     {
       "reason": "Display-only catalog/UI label or description, no implicit voice",
+      "text": "name: 'Verzweiflung'",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 14,
+          "column": 23,
+          "start": 1003,
+          "end": 1023,
+          "expression": "name: 'Verzweiflung'",
+          "expression_sha256": "0eb236d038cf1d1ac8e3af5f9d52de4f12286b45dfc7fe2419faed8cdf107668",
+          "review_anchor_hashes": [
+            "0eb236d038cf1d1ac8e3af5f9d52de4f12286b45dfc7fe2419faed8cdf107668",
+            "61cf7aa19da19ab0a364356de65713be98dbf55bd3444abbf016a96f9a04fd13",
+            "cd404f3c5184b12ba2054c770b96c70aef150860c3e85afca6d1fc2d9f20ba63",
+            "66e9c854b4c259ed135025767b817eeb046fe6f50b88f6fe4365d2bca239382d",
+            "0e430c7a3d97ef09d523fc466c361e618605f2fa9d7674aecc47a95a0c7d4a06"
+          ],
+          "function": null,
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ]
+    },
+    {
+      "reason": "Display-only catalog/UI label or description, no implicit voice",
+      "text": "description: 'Seit dem Überfall auf den Hof tragen Wut und Angst Lia weiter, wenn sie fallen müsste. Ist sie schwer verletzt, sticht sie mit Vaters Dolch härter und genauer zu.'",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 15,
+          "column": 3,
+          "start": 1089,
+          "end": 1266,
+          "expression": "description: 'Seit dem Überfall auf den Hof tragen Wut und Angst Lia weiter, wenn sie fallen müsste. Ist sie schwer verletzt, sticht sie mit Vaters Dolch härter und genauer zu.'",
+          "expression_sha256": "86e9ab4772795abeeea4f6a9e502635a3bef1f748025e9c849dc050cdae27127",
+          "review_anchor_hashes": [
+            "86e9ab4772795abeeea4f6a9e502635a3bef1f748025e9c849dc050cdae27127",
+            "61cf7aa19da19ab0a364356de65713be98dbf55bd3444abbf016a96f9a04fd13",
+            "cd404f3c5184b12ba2054c770b96c70aef150860c3e85afca6d1fc2d9f20ba63",
+            "66e9c854b4c259ed135025767b817eeb046fe6f50b88f6fe4365d2bca239382d",
+            "0e430c7a3d97ef09d523fc466c361e618605f2fa9d7674aecc47a95a0c7d4a06"
+          ],
+          "function": null,
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ]
+    },
+    {
+      "reason": "Display-only catalog/UI label or description, no implicit voice",
+      "text": "name: 'Lia'",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 91,
+          "column": 16,
+          "start": 4390,
+          "end": 4401,
+          "expression": "name: 'Lia'",
+          "expression_sha256": "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
+          "review_anchor_hashes": [
+            "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
+            "5f2b2cb2fa72749f048e5575d4d4706a3b9f20399261cf7400d6c75268d37fcf",
+            "bce53493d75e75038980fb30112a69de25340a763bdde6b54a7c01526f714784",
+            "359d38ea81848aa8feec7c9bfc28e06d4b516f4d9e3a7f6721ac58b9163b6229"
+          ],
+          "function": "liaUnit",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ]
+    },
+    {
+      "reason": "UI, interaction, visual-caption or tutorial panel",
+      "text": "ctx.hint(LIA_COMBAT_HINT, { title: 'Vaters Dolch', unit: 'lia' })",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 159,
+          "column": 9,
+          "start": 7501,
+          "end": 7566,
+          "expression": "ctx.hint(LIA_COMBAT_HINT, { title: 'Vaters Dolch', unit: 'lia' })",
+          "expression_sha256": "0a29cee976757e3a92727e3d99e3827435cb4f89846b0d30746c20f629358523",
+          "review_anchor_hashes": [
+            "0a29cee976757e3a92727e3d99e3827435cb4f89846b0d30746c20f629358523",
+            "1f7f9f3c6d6e151fe13218525a24324a1a3821a0a6a79d24a573251137d06c7b",
+            "ed6a3d26c5922063e387331bb755d2300e27063620ce8a7a5ca52362a1825a1a",
+            "a311277b7c5ec453dc1d5cdcc54847a10b040bd7194466c49bc1f70be6cb136a"
+          ],
+          "function": "liaCombatHint",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ]
+    },
+    {
+      "reason": "Display-only catalog/UI label or description, no implicit voice",
+      "text": "title: 'Vaters Dolch'",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/liaKit.ts",
+          "line": 159,
+          "column": 37,
+          "start": 7529,
+          "end": 7550,
+          "expression": "title: 'Vaters Dolch'",
+          "expression_sha256": "181b5a0d1d44f51c3b3d82985fcaa5d6a7a54ee3bd09abc6c8a81c83406c11b7",
+          "review_anchor_hashes": [
+            "181b5a0d1d44f51c3b3d82985fcaa5d6a7a54ee3bd09abc6c8a81c83406c11b7",
+            "52ca9a655cfa1f4f132704b3cff84ee25ac38e32de7a65791c4e36f92d0f2db4",
+            "0a29cee976757e3a92727e3d99e3827435cb4f89846b0d30746c20f629358523",
+            "1f7f9f3c6d6e151fe13218525a24324a1a3821a0a6a79d24a573251137d06c7b",
+            "ed6a3d26c5922063e387331bb755d2300e27063620ce8a7a5ca52362a1825a1a",
+            "a311277b7c5ec453dc1d5cdcc54847a10b040bd7194466c49bc1f70be6cb136a"
+          ],
+          "function": "liaCombatHint",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ]
+    },
+    {
+      "reason": "Display-only catalog/UI label or description, no implicit voice",
       "text": "name: 'Deckung geben'",
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 17,
+          "line": 23,
           "column": 17,
-          "start": 629,
-          "end": 650,
+          "start": 996,
+          "end": 1017,
           "expression": "name: 'Deckung geben'",
           "expression_sha256": "e20cd3ce0851e2bb1bacb61091b8d10436ac937ce8f627ace2ffe7979113d53b",
           "review_anchor_hashes": [
@@ -113832,10 +114041,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 20,
+          "line": 26,
           "column": 3,
-          "start": 860,
-          "end": 975,
+          "start": 1227,
+          "end": 1342,
           "expression": "description: 'Bei einem Gefährten bleiben und ihn bis zu seinem nächsten Zug vor der Hälfte des Schadens schützen.'",
           "expression_sha256": "3d3d001dd453a7c0d7318dc25503707bdc85482c4beeb5fdab5a980e956a5c1a",
           "review_anchor_hashes": [
@@ -113859,10 +114068,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 26,
+          "line": 32,
           "column": 22,
-          "start": 1148,
-          "end": 1165,
+          "start": 1515,
+          "end": 1532,
           "expression": "name: 'Versorgen'",
           "expression_sha256": "2c00337bfc38dfc445a1c52315c0b23f79537437288c4471915f32c0b6ae402d",
           "review_anchor_hashes": [
@@ -113888,10 +114097,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 28,
+          "line": 34,
           "column": 5,
-          "start": 1339,
-          "end": 1441,
+          "start": 1706,
+          "end": 1808,
           "expression": "description: 'Eine kleine Verletzung versorgen: 5 HP. Kostet 3 MP und braucht drei eigene Züge Pause.'",
           "expression_sha256": "130019a306cf5ba62e71c6ed5a58651820e6e6c1da8b13b758bee281146c82a3",
           "review_anchor_hashes": [
@@ -113917,10 +114126,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 31,
+          "line": 37,
           "column": 23,
-          "start": 1486,
-          "end": 1503,
+          "start": 1853,
+          "end": 1870,
           "expression": "name: 'Lichtstoß'",
           "expression_sha256": "fd0f6df4397b729402302358c8fe00149e2f8086c1532d05c068c801ddf1e009",
           "review_anchor_hashes": [
@@ -113946,10 +114155,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 33,
+          "line": 39,
           "column": 5,
-          "start": 1657,
-          "end": 1774,
+          "start": 2024,
+          "end": 2141,
           "expression": "description: 'Nach Kyras Rettung lernt Lia, einen kleinen Teil des Lichts zu lenken. Stößt das Ziel ein Feld zurück.'",
           "expression_sha256": "801bfb0ab2be88a55b91213cf26c6ac08f40c48f0310679f3c5352574c6495cd",
           "review_anchor_hashes": [
@@ -113971,48 +114180,25 @@
     },
     {
       "reason": "Display-only catalog/UI label or description, no implicit voice",
-      "text": "name: 'Lia'",
+      "text": "title: 'Unsicher mit dem Dolch, aber sie weicht nicht mehr zurück'",
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 46,
-          "column": 16,
-          "start": 2302,
-          "end": 2313,
-          "expression": "name: 'Lia'",
-          "expression_sha256": "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
+          "line": 52,
+          "column": 51,
+          "start": 2713,
+          "end": 2779,
+          "expression": "title: 'Unsicher mit dem Dolch, aber sie weicht nicht mehr zurück'",
+          "expression_sha256": "089af80874c6806952ade8cc4a33a9325a6ff894e2793e9cee52f607dda717ab",
           "review_anchor_hashes": [
-            "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
-            "43f24e3a611b3a283bf7088bf50bfe9ca983b04b6c01b67a26c656b05af0c0f5",
-            "720bcab827517b58b5e00b71a619f79beb8ec0219782459234ccf5d11361c2a3",
-            "0d856f794689c43bfe5821295d9161434930bc20e023aec06bd9526f6acb6564"
+            "089af80874c6806952ade8cc4a33a9325a6ff894e2793e9cee52f607dda717ab",
+            "2e6da3820ca4979d89f8aadb8aa3c4957e3cfb3e14c4dd51d2351d64203f9c19",
+            "024faa26884f66a2f71455d68bb9c9c6023f6fed9d6801031ae70967e9d032a7",
+            "c482884f95472e5c0faab2b639b9ee009905c97d70244b3517f8de0c40b1f8ef",
+            "4ef1206d922bfd510385496362260cb1f5e349833733e7761eea0e6cb7ea783c",
+            "b361032a00e7ff29a1864909385688a32be37159ab50f2199fcd7d402ae605b9"
           ],
-          "function": "liaUnit",
-          "chapter": "common",
-          "scene": "*",
-          "runtime_scenes": []
-        }
-      ]
-    },
-    {
-      "reason": "Display-only catalog/UI label or description, no implicit voice",
-      "text": "title: late ? 'Schritt für Schritt lernt sie, dem Licht zu vertrauen' : 'Noch unsicher, aber sie hilft ihren Gefährten'",
-      "sources": [
-        {
-          "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 48,
-          "column": 5,
-          "start": 2469,
-          "end": 2588,
-          "expression": "title: late ? 'Schritt für Schritt lernt sie, dem Licht zu vertrauen' : 'Noch unsicher, aber sie hilft ihren Gefährten'",
-          "expression_sha256": "fa72da111d1b23f091a3dbf6df107a974e50de792c184863f3bb3d8fc50a8826",
-          "review_anchor_hashes": [
-            "fa72da111d1b23f091a3dbf6df107a974e50de792c184863f3bb3d8fc50a8826",
-            "43f24e3a611b3a283bf7088bf50bfe9ca983b04b6c01b67a26c656b05af0c0f5",
-            "720bcab827517b58b5e00b71a619f79beb8ec0219782459234ccf5d11361c2a3",
-            "0d856f794689c43bfe5821295d9161434930bc20e023aec06bd9526f6acb6564"
-          ],
-          "function": "liaUnit",
+          "function": "travelParty",
           "chapter": "common",
           "scene": "*",
           "runtime_scenes": []
@@ -114025,18 +114211,18 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 58,
+          "line": 53,
           "column": 21,
-          "start": 2914,
-          "end": 2928,
+          "start": 2804,
+          "end": 2818,
           "expression": "name: 'Foltan'",
           "expression_sha256": "f9df855e33ed368387a1d7694c924ca9cf116406b7fdba57cb050370b369b000",
           "review_anchor_hashes": [
             "f9df855e33ed368387a1d7694c924ca9cf116406b7fdba57cb050370b369b000",
             "3c6af90bf7e65e28ed58351b42b5588d3866d151a8e0505f1e2d02b5d99f4009",
-            "d6f5038b255596acb8db36cf1e84f7f89f6dfb2cde4c1051e5ee71ef03ea3ee8",
-            "672bf6e2423bf5bd9537aeac84405c92991a49aa2a44adcd2fb7f1534d4d0fec",
-            "3ced839543d7cbae3c8c90fcf9bb512e66eda94263fdf3b1967d5d3783c08aa6"
+            "c482884f95472e5c0faab2b639b9ee009905c97d70244b3517f8de0c40b1f8ef",
+            "4ef1206d922bfd510385496362260cb1f5e349833733e7761eea0e6cb7ea783c",
+            "b361032a00e7ff29a1864909385688a32be37159ab50f2199fcd7d402ae605b9"
           ],
           "function": "travelParty",
           "chapter": "common",
@@ -114051,18 +114237,18 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 59,
+          "line": 54,
           "column": 80,
-          "start": 3097,
-          "end": 3145,
+          "start": 2987,
+          "end": 3035,
           "expression": "title: 'Erfahrener Soldat, Schwert und Armbrust'",
           "expression_sha256": "f1047be225390394fc4609293b63ca1a5d77158d0e9ea38937c3a13331167742",
           "review_anchor_hashes": [
             "f1047be225390394fc4609293b63ca1a5d77158d0e9ea38937c3a13331167742",
             "3c6af90bf7e65e28ed58351b42b5588d3866d151a8e0505f1e2d02b5d99f4009",
-            "d6f5038b255596acb8db36cf1e84f7f89f6dfb2cde4c1051e5ee71ef03ea3ee8",
-            "672bf6e2423bf5bd9537aeac84405c92991a49aa2a44adcd2fb7f1534d4d0fec",
-            "3ced839543d7cbae3c8c90fcf9bb512e66eda94263fdf3b1967d5d3783c08aa6"
+            "c482884f95472e5c0faab2b639b9ee009905c97d70244b3517f8de0c40b1f8ef",
+            "4ef1206d922bfd510385496362260cb1f5e349833733e7761eea0e6cb7ea783c",
+            "b361032a00e7ff29a1864909385688a32be37159ab50f2199fcd7d402ae605b9"
           ],
           "function": "travelParty",
           "chapter": "common",
@@ -114077,18 +114263,18 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 60,
+          "line": 55,
           "column": 19,
-          "start": 3167,
-          "end": 3179,
+          "start": 3057,
+          "end": 3069,
           "expression": "name: 'Azar'",
           "expression_sha256": "6ae62552c08565707d812853ad706fe044882842c6d71adad3fe92bb73d68cac",
           "review_anchor_hashes": [
             "6ae62552c08565707d812853ad706fe044882842c6d71adad3fe92bb73d68cac",
             "340947fd04b0d24d86e6e7224e8d90da43b578d0f1eb1578690e922a33b8d0a2",
-            "d6f5038b255596acb8db36cf1e84f7f89f6dfb2cde4c1051e5ee71ef03ea3ee8",
-            "672bf6e2423bf5bd9537aeac84405c92991a49aa2a44adcd2fb7f1534d4d0fec",
-            "3ced839543d7cbae3c8c90fcf9bb512e66eda94263fdf3b1967d5d3783c08aa6"
+            "c482884f95472e5c0faab2b639b9ee009905c97d70244b3517f8de0c40b1f8ef",
+            "4ef1206d922bfd510385496362260cb1f5e349833733e7761eea0e6cb7ea783c",
+            "b361032a00e7ff29a1864909385688a32be37159ab50f2199fcd7d402ae605b9"
           ],
           "function": "travelParty",
           "chapter": "common",
@@ -114103,18 +114289,18 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 61,
+          "line": 56,
           "column": 88,
-          "start": 3354,
-          "end": 3411,
+          "start": 3244,
+          "end": 3301,
           "expression": "title: 'Der Schmied hält seinen Freunden den Rücken frei'",
           "expression_sha256": "b0dc2dc7dfc04995ff3e076370cba957e1f1fd92f8ea9fb42ffb33cfcf9e8bd8",
           "review_anchor_hashes": [
             "b0dc2dc7dfc04995ff3e076370cba957e1f1fd92f8ea9fb42ffb33cfcf9e8bd8",
             "340947fd04b0d24d86e6e7224e8d90da43b578d0f1eb1578690e922a33b8d0a2",
-            "d6f5038b255596acb8db36cf1e84f7f89f6dfb2cde4c1051e5ee71ef03ea3ee8",
-            "672bf6e2423bf5bd9537aeac84405c92991a49aa2a44adcd2fb7f1534d4d0fec",
-            "3ced839543d7cbae3c8c90fcf9bb512e66eda94263fdf3b1967d5d3783c08aa6"
+            "c482884f95472e5c0faab2b639b9ee009905c97d70244b3517f8de0c40b1f8ef",
+            "4ef1206d922bfd510385496362260cb1f5e349833733e7761eea0e6cb7ea783c",
+            "b361032a00e7ff29a1864909385688a32be37159ab50f2199fcd7d402ae605b9"
           ],
           "function": "travelParty",
           "chapter": "common",
@@ -114129,10 +114315,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114154,10 +114340,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114179,17 +114365,17 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 76,
+          "line": 71,
           "column": 27,
-          "start": 4017,
-          "end": 4045,
+          "start": 3907,
+          "end": 3935,
           "expression": "title: 'Wegelagerer am Bach'",
           "expression_sha256": "d82fef804eeab385276525f9eabe9f70ead4a4d384f9a9b23eb638670efd326a",
           "review_anchor_hashes": [
             "d82fef804eeab385276525f9eabe9f70ead4a4d384f9a9b23eb638670efd326a",
-            "dc83c95c99e1f537144bc3cef39e4b0734d2f2c572a932a1b27d7ed6672414f2",
-            "d3f749f95075507569d8d9ba173aed3a427110c217e33dafec9ad51571427db2",
-            "316bd30f5c6865af71cb032f9df02a48525319bc2ebf74f4bfe2ec28ebc2ce15"
+            "bdcc53f376c67a3aae7104b3a723ec8c2639fd8056f91c2c6c2ac88807dcb3cb",
+            "232e45d6ebd34c0f28009559d970f768c362d87d3d8932a1d09287ba9958d692",
+            "a8ae95abee1e361ae036d37f3e80dee53ee116511bef4ed0dc72ea59e9e0c565"
           ],
           "function": "forestEncounter",
           "chapter": "common",
@@ -114204,10 +114390,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114229,10 +114415,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114254,10 +114440,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114279,10 +114465,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114304,17 +114490,17 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 88,
+          "line": 84,
           "column": 26,
-          "start": 4802,
-          "end": 4835,
+          "start": 4928,
+          "end": 4961,
           "expression": "title: 'Ein Stück sichere Straße'",
           "expression_sha256": "2f8d76e3836865ecab0c5491ee6f7db12b6c5e6541eb79ef59f64dd25adf5236",
           "review_anchor_hashes": [
             "2f8d76e3836865ecab0c5491ee6f7db12b6c5e6541eb79ef59f64dd25adf5236",
-            "30b8ff9b62c16237a9a6f8b0c6f85246e01a4aa2e998c9194f306b6307ea9e36",
-            "58ba47a3496356d0fe69140974e240e33447a9a8b80883142d74c11c471387af",
-            "d10525f69773d2596cd5499a3cb35ca65fe9a25998d6cd5c7f2c6851bdd7a978"
+            "80d02f5d3cf041f3e0b67e9ec8293176d09c0860a6b4ec9e69e6c0d7b715e8ee",
+            "c86214aff5b02bbaa024d3101e5c1313dfa59be5e27cb7e88b15ae3f4726be07",
+            "8decd8b41faab22c6f038331093da643cd1f574a20d3d3af1e9d863664cd55ed"
           ],
           "function": "escortEncounter",
           "chapter": "common",
@@ -114329,20 +114515,20 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 91,
+          "line": 87,
           "column": 26,
-          "start": 4981,
-          "end": 4998,
+          "start": 5122,
+          "end": 5139,
           "expression": "name: 'Reisender'",
           "expression_sha256": "8c20008eff589465fff3f8bc3a4006a87c0a0beaddb5d2653c6415f68079f13e",
           "review_anchor_hashes": [
             "8c20008eff589465fff3f8bc3a4006a87c0a0beaddb5d2653c6415f68079f13e",
             "8b6472deb286b3b0368e7f6881faef7286ede922260d469eeccd34f85fd9225d",
-            "ff55054eee6551bdaec6c60bfe508c386c6e7bd07a58ecdf67661142e4d99284",
-            "0fcb92b2bdbd9f72b94037d26dc70b8bda02932046208c7a02ef034b609feee8",
-            "30b8ff9b62c16237a9a6f8b0c6f85246e01a4aa2e998c9194f306b6307ea9e36",
-            "58ba47a3496356d0fe69140974e240e33447a9a8b80883142d74c11c471387af",
-            "d10525f69773d2596cd5499a3cb35ca65fe9a25998d6cd5c7f2c6851bdd7a978"
+            "241fbbb74e6342dc4bd8ecabd48cda5b72149ea4bfa76039f336888993b25d36",
+            "3fe9c186bf3da0b48228d4c600cce52462741530d037c239f505766169c1e73f",
+            "80d02f5d3cf041f3e0b67e9ec8293176d09c0860a6b4ec9e69e6c0d7b715e8ee",
+            "c86214aff5b02bbaa024d3101e5c1313dfa59be5e27cb7e88b15ae3f4726be07",
+            "8decd8b41faab22c6f038331093da643cd1f574a20d3d3af1e9d863664cd55ed"
           ],
           "function": "escortEncounter",
           "chapter": "common",
@@ -114357,20 +114543,20 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 92,
+          "line": 88,
           "column": 76,
-          "start": 5155,
-          "end": 5198,
+          "start": 5296,
+          "end": 5339,
           "expression": "title: 'Bringt ihn zum Wegzeichen im Osten'",
           "expression_sha256": "d13ef89399f190e79030712e54343f5ecdbbb4d536919f3ea9f82d870ac54f48",
           "review_anchor_hashes": [
             "d13ef89399f190e79030712e54343f5ecdbbb4d536919f3ea9f82d870ac54f48",
             "8b6472deb286b3b0368e7f6881faef7286ede922260d469eeccd34f85fd9225d",
-            "ff55054eee6551bdaec6c60bfe508c386c6e7bd07a58ecdf67661142e4d99284",
-            "0fcb92b2bdbd9f72b94037d26dc70b8bda02932046208c7a02ef034b609feee8",
-            "30b8ff9b62c16237a9a6f8b0c6f85246e01a4aa2e998c9194f306b6307ea9e36",
-            "58ba47a3496356d0fe69140974e240e33447a9a8b80883142d74c11c471387af",
-            "d10525f69773d2596cd5499a3cb35ca65fe9a25998d6cd5c7f2c6851bdd7a978"
+            "241fbbb74e6342dc4bd8ecabd48cda5b72149ea4bfa76039f336888993b25d36",
+            "3fe9c186bf3da0b48228d4c600cce52462741530d037c239f505766169c1e73f",
+            "80d02f5d3cf041f3e0b67e9ec8293176d09c0860a6b4ec9e69e6c0d7b715e8ee",
+            "c86214aff5b02bbaa024d3101e5c1313dfa59be5e27cb7e88b15ae3f4726be07",
+            "8decd8b41faab22c6f038331093da643cd1f574a20d3d3af1e9d863664cd55ed"
           ],
           "function": "escortEncounter",
           "chapter": "common",
@@ -114385,10 +114571,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114410,10 +114596,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114435,10 +114621,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114460,10 +114646,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114485,10 +114671,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114510,10 +114696,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114535,17 +114721,46 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 106,
+          "line": 103,
           "column": 33,
-          "start": 6146,
-          "end": 6237,
+          "start": 6353,
+          "end": 6444,
           "expression": "title: ['Die Straße nach Süden', 'Am steinigen Waldrand', 'Ein versperrter Weg'][visit % 3]",
           "expression_sha256": "e93a458a6e2e4463746f347aa35e2687ff6e8ddecf1a99c24fc3dbad84a13f7a",
           "review_anchor_hashes": [
             "e93a458a6e2e4463746f347aa35e2687ff6e8ddecf1a99c24fc3dbad84a13f7a",
-            "94278921f784204ac3ac46e34943655517e95184457b3fb6d4899cac74843c8a",
-            "245077c62cefeb2db9cc96eb28f4fc04a13045826ab369fa0e9834e03bee969b",
-            "27957c9fe62611ca6231d71865bdcff1080607986e9714f990f784175a708849"
+            "d4e14078d9c834c008278c7fbf0de92ea22a11512d18123368866c65a65b19e3",
+            "1aa3b123f3af70b3561cafee7eaa4573774a07587d24ddc0a501743057934478",
+            "9364236be26a46f31e276ca202fa9357432544f03b21f24e6cd3280dd25dfd1b"
+          ],
+          "function": "onwardEncounter",
+          "chapter": "common",
+          "scene": "*",
+          "runtime_scenes": []
+        }
+      ]
+    },
+    {
+      "reason": "Display-only catalog/UI label or description, no implicit voice",
+      "text": "title: 'Der Dolch liegt ruhiger in ihrer Hand. Und manchmal gehorcht ihr das Licht.'",
+      "sources": [
+        {
+          "file": "game/src/chapters/common/travelBattles.ts",
+          "line": 106,
+          "column": 61,
+          "start": 6614,
+          "end": 6698,
+          "expression": "title: 'Der Dolch liegt ruhiger in ihrer Hand. Und manchmal gehorcht ihr das Licht.'",
+          "expression_sha256": "f9c521cebe49752c35183c2898b84b080234f358d4c47e26083cca7413570680",
+          "review_anchor_hashes": [
+            "f9c521cebe49752c35183c2898b84b080234f358d4c47e26083cca7413570680",
+            "098430fc2d1f62cb2151775528ed1270dd00de323ad351891aa0c9efae61434e",
+            "f10a1f5177983c961a71bbc08d44684eb5e92b1dd8aeebbdeeda35fb3831d39d",
+            "910f3b2af4563b9676a51ed0ca16dcd6026d081680421ee3ec9a2adb1dadcd14",
+            "28e6a3ba63adf420c1d7f2663e08bed0fdda765ce5e9de7fc1f7c43e4f3a57e9",
+            "d4e14078d9c834c008278c7fbf0de92ea22a11512d18123368866c65a65b19e3",
+            "1aa3b123f3af70b3561cafee7eaa4573774a07587d24ddc0a501743057934478",
+            "9364236be26a46f31e276ca202fa9357432544f03b21f24e6cd3280dd25dfd1b"
           ],
           "function": "onwardEncounter",
           "chapter": "common",
@@ -114560,20 +114775,20 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 110,
+          "line": 107,
           "column": 22,
-          "start": 6389,
-          "end": 6402,
+          "start": 6724,
+          "end": 6737,
           "expression": "name: 'Flick'",
           "expression_sha256": "e6ef1e09e3580671f267fa1f36efe68876faf06dbdf3729c3ae3d09b8e84860c",
           "review_anchor_hashes": [
             "e6ef1e09e3580671f267fa1f36efe68876faf06dbdf3729c3ae3d09b8e84860c",
             "9333079116f11bcf76b054d06bfd72be3c0469a73cd3b4684d717ede8bd19916",
-            "26fc3e2836006ac47480766abe22d41d10209848e50393b7853ac6059797e45f",
-            "1683a973a227c36a11aff8b5729b89df6dd00b54b028a91f5ceaaf0b135994a3",
-            "94278921f784204ac3ac46e34943655517e95184457b3fb6d4899cac74843c8a",
-            "245077c62cefeb2db9cc96eb28f4fc04a13045826ab369fa0e9834e03bee969b",
-            "27957c9fe62611ca6231d71865bdcff1080607986e9714f990f784175a708849"
+            "910f3b2af4563b9676a51ed0ca16dcd6026d081680421ee3ec9a2adb1dadcd14",
+            "28e6a3ba63adf420c1d7f2663e08bed0fdda765ce5e9de7fc1f7c43e4f3a57e9",
+            "d4e14078d9c834c008278c7fbf0de92ea22a11512d18123368866c65a65b19e3",
+            "1aa3b123f3af70b3561cafee7eaa4573774a07587d24ddc0a501743057934478",
+            "9364236be26a46f31e276ca202fa9357432544f03b21f24e6cd3280dd25dfd1b"
           ],
           "function": "onwardEncounter",
           "chapter": "common",
@@ -114588,20 +114803,20 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 112,
+          "line": 109,
           "column": 21,
-          "start": 6587,
-          "end": 6599,
+          "start": 6922,
+          "end": 6934,
           "expression": "name: 'Kyra'",
           "expression_sha256": "67deb0a5fe70b5e41d00dc72c7cb20ca1997a32e52906f2d4430abc96663430d",
           "review_anchor_hashes": [
             "67deb0a5fe70b5e41d00dc72c7cb20ca1997a32e52906f2d4430abc96663430d",
             "18fc282cc0fe03f449d831eab550372a6b72bd3d243233f50fbda98df3daa5f6",
-            "26fc3e2836006ac47480766abe22d41d10209848e50393b7853ac6059797e45f",
-            "1683a973a227c36a11aff8b5729b89df6dd00b54b028a91f5ceaaf0b135994a3",
-            "94278921f784204ac3ac46e34943655517e95184457b3fb6d4899cac74843c8a",
-            "245077c62cefeb2db9cc96eb28f4fc04a13045826ab369fa0e9834e03bee969b",
-            "27957c9fe62611ca6231d71865bdcff1080607986e9714f990f784175a708849"
+            "910f3b2af4563b9676a51ed0ca16dcd6026d081680421ee3ec9a2adb1dadcd14",
+            "28e6a3ba63adf420c1d7f2663e08bed0fdda765ce5e9de7fc1f7c43e4f3a57e9",
+            "d4e14078d9c834c008278c7fbf0de92ea22a11512d18123368866c65a65b19e3",
+            "1aa3b123f3af70b3561cafee7eaa4573774a07587d24ddc0a501743057934478",
+            "9364236be26a46f31e276ca202fa9357432544f03b21f24e6cd3280dd25dfd1b"
           ],
           "function": "onwardEncounter",
           "chapter": "common",
@@ -114616,10 +114831,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114641,10 +114856,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114666,10 +114881,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114691,10 +114906,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -114716,10 +114931,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 67,
+          "line": 62,
           "column": 9,
-          "start": 3540,
-          "end": 3592,
+          "start": 3430,
+          "end": 3482,
           "expression": "name: ranged ? 'Räuber mit Armbrust' : 'Wegelagerer'",
           "expression_sha256": "7f2ea68b43f4550a60443f3cea4c27c7673443afea0f11afc977c550a2654b99",
           "review_anchor_hashes": [
@@ -114741,10 +114956,10 @@
       "sources": [
         {
           "file": "game/src/chapters/common/travelBattles.ts",
-          "line": 70,
+          "line": 65,
           "column": 58,
-          "start": 3878,
-          "end": 3923,
+          "start": 3768,
+          "end": 3813,
           "expression": "title: 'Räuber in zusammengetragener Rüstung'",
           "expression_sha256": "3c7e29990c6a23be1fa3bc7863eb80672e709ad2360261ad732e2483d8bbf7ed",
           "review_anchor_hashes": [
@@ -135158,10 +135373,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 20,
+          "line": 22,
           "column": 54,
-          "start": 1315,
-          "end": 1340,
+          "start": 1493,
+          "end": 1518,
           "expression": "name: 'Fesseln schneiden'",
           "expression_sha256": "e4b17fbf733bfb0f4daa4d55e058094dbc3b44adaca5103e55f22e2f46f60f6b",
           "review_anchor_hashes": [
@@ -135188,10 +135403,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 20,
+          "line": 22,
           "column": 81,
-          "start": 1342,
-          "end": 1455,
+          "start": 1520,
+          "end": 1633,
           "expression": "description: 'Das nasse Hanfseil ist dick: Der erste Schnitt reicht nicht. Danach ist nur noch ein Strang übrig.'",
           "expression_sha256": "cd88304cf4826fb01b989c9c6cb6a9c2ffe9de6a80591f581cb0f66776c94846",
           "review_anchor_hashes": [
@@ -135218,10 +135433,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 21,
+          "line": 23,
           "column": 60,
-          "start": 1533,
-          "end": 1553,
+          "start": 1711,
+          "end": 1731,
           "expression": "name: 'Losschneiden'",
           "expression_sha256": "638834d69bdd5560de680e3972d4bc6fa8e90c62db6118a67206bf269b7d8f37",
           "review_anchor_hashes": [
@@ -135248,10 +135463,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 21,
+          "line": 23,
           "column": 95,
-          "start": 1568,
-          "end": 1630,
+          "start": 1746,
+          "end": 1808,
           "expression": "description: 'Den letzten Strang durchtrennen. Kyra ist frei.'",
           "expression_sha256": "95f4675471ead3ecc8efcce8d4a1827d44867ad08d695c3c52689122551ed4fc",
           "review_anchor_hashes": [
@@ -135278,10 +135493,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 25,
+          "line": 27,
           "column": 3,
-          "start": 1759,
-          "end": 1781,
+          "start": 1937,
+          "end": 1959,
           "expression": "name: 'Dunkelschatten'",
           "expression_sha256": "a99d5ce58ccbce8514eb711855dec3c8c485cdd4c857d9d66d17d47f8ee18536",
           "review_anchor_hashes": [
@@ -135300,54 +135515,25 @@
     },
     {
       "reason": "Display-only catalog/UI label or description, no implicit voice",
-      "text": "name: 'Lia'",
+      "text": "title: 'Ihre Eltern hat sie verloren. Kyra gibt sie nicht her.'",
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 33,
-          "column": 44,
-          "start": 2276,
-          "end": 2287,
-          "expression": "name: 'Lia'",
-          "expression_sha256": "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
+          "line": 35,
+          "column": 69,
+          "start": 2479,
+          "end": 2542,
+          "expression": "title: 'Ihre Eltern hat sie verloren. Kyra gibt sie nicht her.'",
+          "expression_sha256": "b95c9cb409accfb51cb974629686ed3f4547a2af696090eae1826ddda6f50400",
           "review_anchor_hashes": [
-            "dc9e9e0f7e08f05604166af6a4f551b5e410d917f6c555cf376ecbe40938ecf3",
-            "614bfdb623f75b3c304ffc37ad6066d9c213c5579b8802a28764a0ff26b30bb2",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
-          ],
-          "function": "rescueBattle",
-          "chapter": "kapitel-5",
-          "scene": "rettung",
-          "runtime_scenes": [
-            "rettung"
-          ]
-        }
-      ]
-    },
-    {
-      "reason": "Display-only catalog/UI label or description, no implicit voice",
-      "text": "title: 'Keine Kämpferin. Aber sie gibt nicht auf.'",
-      "sources": [
-        {
-          "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 33,
-          "column": 57,
-          "start": 2289,
-          "end": 2339,
-          "expression": "title: 'Keine Kämpferin. Aber sie gibt nicht auf.'",
-          "expression_sha256": "d485226de42662cba5de4818fe0ca00156e0c48cea37a81efe22cb34c67b1595",
-          "review_anchor_hashes": [
-            "d485226de42662cba5de4818fe0ca00156e0c48cea37a81efe22cb34c67b1595",
-            "614bfdb623f75b3c304ffc37ad6066d9c213c5579b8802a28764a0ff26b30bb2",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b95c9cb409accfb51cb974629686ed3f4547a2af696090eae1826ddda6f50400",
+            "2e153bff71a77cdf5d670e2ca5ab264a559dd4da1471596ce46616acb12072a2",
+            "b17fee82fc600c840d98a408d32c6eff81e08d7a6534e2d384df75c968745968",
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135364,20 +135550,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 35,
+          "line": 36,
           "column": 48,
-          "start": 2536,
-          "end": 2549,
+          "start": 2621,
+          "end": 2634,
           "expression": "name: 'Flick'",
           "expression_sha256": "e6ef1e09e3580671f267fa1f36efe68876faf06dbdf3729c3ae3d09b8e84860c",
           "review_anchor_hashes": [
             "e6ef1e09e3580671f267fa1f36efe68876faf06dbdf3729c3ae3d09b8e84860c",
             "1f58ee811a1f96b0ac4e5ac0e9b1e404700ff2b2c96945213304785039e79f3c",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135394,20 +135580,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 35,
+          "line": 36,
           "column": 63,
-          "start": 2551,
-          "end": 2596,
+          "start": 2636,
+          "end": 2681,
           "expression": "title: 'Fährtenleserin. Die beste, sagt sie.'",
           "expression_sha256": "86fb6f1818ca214a8fd685ab9ccb051d8d165ec563bcf28acf68f12adea540ba",
           "review_anchor_hashes": [
             "86fb6f1818ca214a8fd685ab9ccb051d8d165ec563bcf28acf68f12adea540ba",
             "1f58ee811a1f96b0ac4e5ac0e9b1e404700ff2b2c96945213304785039e79f3c",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135424,20 +135610,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 37,
+          "line": 38,
           "column": 46,
-          "start": 2801,
-          "end": 2813,
+          "start": 2886,
+          "end": 2898,
           "expression": "name: 'Kyra'",
           "expression_sha256": "67deb0a5fe70b5e41d00dc72c7cb20ca1997a32e52906f2d4430abc96663430d",
           "review_anchor_hashes": [
             "67deb0a5fe70b5e41d00dc72c7cb20ca1997a32e52906f2d4430abc96663430d",
             "724b5bbc147edcf13d499fe60dd472b6c62db129f0e4829113028f59965e888f",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135454,20 +135640,20 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 37,
+          "line": 38,
           "column": 60,
-          "start": 2815,
-          "end": 2865,
+          "start": 2900,
+          "end": 2950,
           "expression": "title: 'Gefesselt an die Eiche, geknebelt, wütend'",
           "expression_sha256": "0e2d51fd41b0a63d8f81ad2df06bd12a4fdcdf60fc325c18e0fd669786d05389",
           "review_anchor_hashes": [
             "0e2d51fd41b0a63d8f81ad2df06bd12a4fdcdf60fc325c18e0fd669786d05389",
             "724b5bbc147edcf13d499fe60dd472b6c62db129f0e4829113028f59965e888f",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135484,21 +135670,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 39,
+          "line": 40,
           "column": 57,
-          "start": 3147,
-          "end": 3161,
+          "start": 3232,
+          "end": 3246,
           "expression": "name: 'Algard'",
           "expression_sha256": "2372217139771f93eebf8311b8875c9d0946d13d141bcd70372c6e6d6fbb5ea5",
           "review_anchor_hashes": [
             "2372217139771f93eebf8311b8875c9d0946d13d141bcd70372c6e6d6fbb5ea5",
             "87968e4f3f2c8bde40b78b7674f38b33deaf155322e18d2cb16e0da82c46ad3e",
             "c89ea43a9cafff819b96dfd8bb4138f8c582e5e921a6e7e3d34cbdb34954d672",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135515,21 +135701,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 39,
+          "line": 40,
           "column": 73,
-          "start": 3163,
-          "end": 3204,
+          "start": 3248,
+          "end": 3289,
           "expression": "title: 'Der Narbige, Spötter und Trinker'",
           "expression_sha256": "529952597f6feca35c00d3edbe49014e741c4e0ada06e0539814c56a1331715e",
           "review_anchor_hashes": [
             "529952597f6feca35c00d3edbe49014e741c4e0ada06e0539814c56a1331715e",
             "87968e4f3f2c8bde40b78b7674f38b33deaf155322e18d2cb16e0da82c46ad3e",
             "c89ea43a9cafff819b96dfd8bb4138f8c582e5e921a6e7e3d34cbdb34954d672",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135546,21 +135732,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 40,
+          "line": 41,
           "column": 61,
-          "start": 3332,
-          "end": 3349,
+          "start": 3417,
+          "end": 3434,
           "expression": "name: '„Mädchen“'",
           "expression_sha256": "d027335e841a7b334122bd74e2c241245cac16cf280e7d6e446d9304e8b16cbc",
           "review_anchor_hashes": [
             "d027335e841a7b334122bd74e2c241245cac16cf280e7d6e446d9304e8b16cbc",
             "9e90da6b2eab489e81d72f83a822c65037b91d1d9b48471827a356e95c298909",
             "1bab7a88c0611cf3b4ceea37eb2c2a6647d6ee10ca054e751ee5d3f67d609443",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135577,21 +135763,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 40,
+          "line": 41,
           "column": 80,
-          "start": 3351,
-          "end": 3405,
+          "start": 3436,
+          "end": 3490,
           "expression": "title: 'Kahlgeschoren, mit Spieß und verletztem Stolz'",
           "expression_sha256": "fb584f07d34cc80b568098f32de1e2d96b0a56e8ba3b90cc3d6c6fd8cacf593a",
           "review_anchor_hashes": [
             "fb584f07d34cc80b568098f32de1e2d96b0a56e8ba3b90cc3d6c6fd8cacf593a",
             "9e90da6b2eab489e81d72f83a822c65037b91d1d9b48471827a356e95c298909",
             "1bab7a88c0611cf3b4ceea37eb2c2a6647d6ee10ca054e751ee5d3f67d609443",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135608,21 +135794,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 41,
+          "line": 42,
           "column": 30,
-          "start": 3533,
-          "end": 3556,
+          "start": 3618,
+          "end": 3641,
           "expression": "name: 'Armbrustschütze'",
           "expression_sha256": "727d75b5bf02f493efd8a81f7b89321165820ddc10e3d0fff528025997777a55",
           "review_anchor_hashes": [
             "727d75b5bf02f493efd8a81f7b89321165820ddc10e3d0fff528025997777a55",
             "85983daa0172d91c740a0ae65ac46cfc7900b803aa2a1dd65e5d0e96ac059c4e",
             "ea88ecc19a5511afec332ab4de46937a6e7d91addd29998ff58b7275f9c2f120",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135639,21 +135825,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 41,
+          "line": 42,
           "column": 55,
-          "start": 3558,
-          "end": 3594,
+          "start": 3643,
+          "end": 3679,
           "expression": "title: 'Dunkelschatten mit Armbrust'",
           "expression_sha256": "d5f25e2a53cae5995db1162224fd259be0bae16b8baca2002aff733f9662391c",
           "review_anchor_hashes": [
             "d5f25e2a53cae5995db1162224fd259be0bae16b8baca2002aff733f9662391c",
             "85983daa0172d91c740a0ae65ac46cfc7900b803aa2a1dd65e5d0e96ac059c4e",
             "ea88ecc19a5511afec332ab4de46937a6e7d91addd29998ff58b7275f9c2f120",
-            "21bf85647f543160e1307c748b83227a7e46502a3da4f6db5f10d5e862830587",
-            "89b74df790a1aa0f87546341e21b13c525b0f14719146fad2e036d69381eb0f1",
-            "6d23359db665fca543b461e96f2ef60622bd23e9fa3b92bcbc3e2abb4b164984",
-            "591d33c2453234be80205a528c94facfecc9ab74183088c4afd968ac17e67c27",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "b8abf6d298fccbcec31fe8ad893671ac166cf666c9632cb1cf70f2aab5e41e39",
+            "233d9aee7f85c0f347f1c933ccdd40092934def7e6b2bc01586f296852de6e3d",
+            "460f80a072240b66363925118c88ce38df3f166cf89c0890934bded9da7b5ec0",
+            "2beedcf16f4a085dce3dd74d94b7c3640bbf790e6ab8e8da06366b73ee694ae5",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135670,17 +135856,17 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 45,
+          "line": 46,
           "column": 5,
-          "start": 3740,
-          "end": 3773,
+          "start": 3825,
+          "end": 3858,
           "expression": "title: 'Am Baum über den Feldern'",
           "expression_sha256": "a6715eac3e939c9d680c94096ec4a172f57c191193337f0cf7b6a274c7e50d19",
           "review_anchor_hashes": [
             "a6715eac3e939c9d680c94096ec4a172f57c191193337f0cf7b6a274c7e50d19",
-            "4c6ced6e5c99b5aa095d9c747551991b12e3d043d8d6dfdcfa3562e10284d748",
-            "add03a2f2418f9c049cb72711d145a3c950f198ca555a6bfcb0a3f8525a00fbd",
-            "b82df55124139d4d6009eba852f202b2e928addca8ad6d27dfb9843dcef816ff"
+            "744e4f7781d4a28fb2a9d60b0721c5b6c88337976a6c9a41614b053422e6c2ba",
+            "23f367ffb781762e308703ea52e88949f18da15eb12f41869a59d60d9fced349",
+            "5fe02a4b44fd881209cb8a887b34807e40040aad04d0599f334143125ca52f7d"
           ],
           "function": "rescueBattle",
           "chapter": "kapitel-5",
@@ -135693,23 +135879,23 @@
     },
     {
       "reason": "UI, interaction, visual-caption or tutorial panel",
-      "text": "ctx.hint('Lia ist keine Kämpferin. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.', { title: 'Lia', unit: 'lia' })",
+      "text": "ctx.hint('Gegen die Dunkelschatten ist Lia noch die Schwächste. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg. Zustechen lohnt sich vor allem von hinten.', { title: 'Lia', unit: 'lia' })",
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 117,
+          "line": 119,
           "column": 17,
-          "start": 5929,
-          "end": 6158,
-          "expression": "ctx.hint('Lia ist keine Kämpferin. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg.', { title: 'Lia', unit: 'lia' })",
-          "expression_sha256": "818f6fd988b5ec2ae3752b858714ebd5bf5c9c56501a7e07ff1ece6ee1acdbcf",
+          "start": 6201,
+          "end": 6502,
+          "expression": "ctx.hint('Gegen die Dunkelschatten ist Lia noch die Schwächste. <em>Ablenken</em> zieht die Wachen auf sie und lässt sie besser ausweichen, <em>Ausweichen</em> lässt Hiebe ins Leere gehen, ein <em>Stein</em> stößt Feinde weg. Zustechen lohnt sich vor allem von hinten.', { title: 'Lia', unit: 'lia' })",
+          "expression_sha256": "1be8b9ca757bd0d5fc364e2b025c3b843c5ab7a381cb67855d5dacdd482ff4bd",
           "review_anchor_hashes": [
-            "818f6fd988b5ec2ae3752b858714ebd5bf5c9c56501a7e07ff1ece6ee1acdbcf",
-            "4f002fef85d989834dde83e2b5dc44616f4b54518202ba5b6d4d9c092c7409ee",
-            "6b512768ed14b14074cbe9846909aa1e4fe5e20b19b4caf4bcf3ae6335c470b8",
-            "18aa9bcc75ce71dc8ea3bd7d6118e77adeaabc1a9fdd349a0c3b31604bc46c2b",
-            "282b5d5c4a6eec0d6bfda00e65897f2c8c510117c824686495e546613a1ecf06",
-            "4ee6626abf67f7886c4b28fc83b6ab805032f2ac24450c25fbb3df3553b3b201"
+            "1be8b9ca757bd0d5fc364e2b025c3b843c5ab7a381cb67855d5dacdd482ff4bd",
+            "5bbab89329470e6b6d2cb71e336444c1a0653903f11a1f7dcd0ae0f6890b4c37",
+            "0bf0f23b56f4cc99d21dbab2c655e1edc9b63c810aa38edde99233bed63e3dca",
+            "ea7220528bdc1b61560cb3209422942434ef1e494773adc65ed310d13d945642",
+            "9fa2d96307828f8dd1a8e054a5aa5877dce9a0e91db2b506e9717f8429d8db47",
+            "313214e5181e4141209efc1a6ffe5360b0fc8bbd31776b4a4e960cd609b6f6b1"
           ],
           "function": "callback",
           "chapter": "kapitel-5",
@@ -135726,21 +135912,21 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 117,
-          "column": 218,
-          "start": 6130,
-          "end": 6142,
+          "line": 119,
+          "column": 290,
+          "start": 6474,
+          "end": 6486,
           "expression": "title: 'Lia'",
           "expression_sha256": "f7a815ddbf658b729a550bdb0def4929e8fd60971fecf6a42e51ed4df52d9016",
           "review_anchor_hashes": [
             "f7a815ddbf658b729a550bdb0def4929e8fd60971fecf6a42e51ed4df52d9016",
             "deefffc0f18b90ec22226a9d670c6413eeb9953c8d2ad7ce776e202d1f18b41c",
-            "818f6fd988b5ec2ae3752b858714ebd5bf5c9c56501a7e07ff1ece6ee1acdbcf",
-            "4f002fef85d989834dde83e2b5dc44616f4b54518202ba5b6d4d9c092c7409ee",
-            "6b512768ed14b14074cbe9846909aa1e4fe5e20b19b4caf4bcf3ae6335c470b8",
-            "18aa9bcc75ce71dc8ea3bd7d6118e77adeaabc1a9fdd349a0c3b31604bc46c2b",
-            "282b5d5c4a6eec0d6bfda00e65897f2c8c510117c824686495e546613a1ecf06",
-            "4ee6626abf67f7886c4b28fc83b6ab805032f2ac24450c25fbb3df3553b3b201"
+            "1be8b9ca757bd0d5fc364e2b025c3b843c5ab7a381cb67855d5dacdd482ff4bd",
+            "5bbab89329470e6b6d2cb71e336444c1a0653903f11a1f7dcd0ae0f6890b4c37",
+            "0bf0f23b56f4cc99d21dbab2c655e1edc9b63c810aa38edde99233bed63e3dca",
+            "ea7220528bdc1b61560cb3209422942434ef1e494773adc65ed310d13d945642",
+            "9fa2d96307828f8dd1a8e054a5aa5877dce9a0e91db2b506e9717f8429d8db47",
+            "313214e5181e4141209efc1a6ffe5360b0fc8bbd31776b4a4e960cd609b6f6b1"
           ],
           "function": "callback",
           "chapter": "kapitel-5",
@@ -135757,19 +135943,19 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 118,
+          "line": 120,
           "column": 17,
-          "start": 6176,
-          "end": 6537,
+          "start": 6520,
+          "end": 6881,
           "expression": "ctx.hint(hasDagger\n            ? 'Wer neben Kyra steht, kann die <em>Fesseln schneiden</em>. Zwei Schnitte sind nötig. Mit Vaters Dolch kann auch Lia schneiden, so geht es doppelt so schnell.'\n            : 'Flick steht neben Kyra und kann die <em>Fesseln schneiden</em>. Das nasse Seil braucht zwei Schnitte, einen pro Runde.', { title: 'Kyra', unit: 'kyra' })",
           "expression_sha256": "663faa6e800a7e05356724ab6463ab0beccd6931cd2f63973516a1cfb8a1d586",
           "review_anchor_hashes": [
             "663faa6e800a7e05356724ab6463ab0beccd6931cd2f63973516a1cfb8a1d586",
             "52d79ed565e135399c5ad482215d924c0659ccc95a8f241a5e7cc37df2879537",
             "f8a8dfdf22b3a6a893d25850b64dc80554de2a07490bf073bca91c96efdcb5b0",
-            "18aa9bcc75ce71dc8ea3bd7d6118e77adeaabc1a9fdd349a0c3b31604bc46c2b",
-            "282b5d5c4a6eec0d6bfda00e65897f2c8c510117c824686495e546613a1ecf06",
-            "4ee6626abf67f7886c4b28fc83b6ab805032f2ac24450c25fbb3df3553b3b201"
+            "ea7220528bdc1b61560cb3209422942434ef1e494773adc65ed310d13d945642",
+            "9fa2d96307828f8dd1a8e054a5aa5877dce9a0e91db2b506e9717f8429d8db47",
+            "313214e5181e4141209efc1a6ffe5360b0fc8bbd31776b4a4e960cd609b6f6b1"
           ],
           "function": "callback",
           "chapter": "kapitel-5",
@@ -135786,10 +135972,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 120,
+          "line": 122,
           "column": 139,
-          "start": 6507,
-          "end": 6520,
+          "start": 6851,
+          "end": 6864,
           "expression": "title: 'Kyra'",
           "expression_sha256": "c2fd8ed4c408fdc17da4db6ec60f2cf68cbc0993436968687d3107bb20d999e6",
           "review_anchor_hashes": [
@@ -135798,9 +135984,9 @@
             "663faa6e800a7e05356724ab6463ab0beccd6931cd2f63973516a1cfb8a1d586",
             "52d79ed565e135399c5ad482215d924c0659ccc95a8f241a5e7cc37df2879537",
             "f8a8dfdf22b3a6a893d25850b64dc80554de2a07490bf073bca91c96efdcb5b0",
-            "18aa9bcc75ce71dc8ea3bd7d6118e77adeaabc1a9fdd349a0c3b31604bc46c2b",
-            "282b5d5c4a6eec0d6bfda00e65897f2c8c510117c824686495e546613a1ecf06",
-            "4ee6626abf67f7886c4b28fc83b6ab805032f2ac24450c25fbb3df3553b3b201"
+            "ea7220528bdc1b61560cb3209422942434ef1e494773adc65ed310d13d945642",
+            "9fa2d96307828f8dd1a8e054a5aa5877dce9a0e91db2b506e9717f8429d8db47",
+            "313214e5181e4141209efc1a6ffe5360b0fc8bbd31776b4a4e960cd609b6f6b1"
           ],
           "function": "callback",
           "chapter": "kapitel-5",
@@ -135817,10 +136003,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 141,
+          "line": 143,
           "column": 11,
-          "start": 7685,
-          "end": 7783,
+          "start": 8029,
+          "end": 8127,
           "expression": "ctx.setObjective('Befreit Kyra', 'Noch ein Schnitt! Wer neben Kyra steht, kann sie losschneiden.')",
           "expression_sha256": "54bdc911389e27705c76fc984e89c12accabcd05c26cdbc4716f40c582f720a7",
           "review_anchor_hashes": [
@@ -135845,10 +136031,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 150,
+          "line": 152,
           "column": 9,
-          "start": 8357,
-          "end": 8510,
+          "start": 8701,
+          "end": 8854,
           "expression": "ctx.setObjective('Bringt Kyra zum Waldrand', 'Kyra muss die goldenen Felder im Westen erreichen. Wer ihr den Weg verstellt: Stein werfen oder Schubsen!')",
           "expression_sha256": "6870de8ea5a778f7e60f636cc326339639423136665ad559d7efa299345e1f54",
           "review_anchor_hashes": [
@@ -135871,10 +136057,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 154,
+          "line": 156,
           "column": 15,
-          "start": 8732,
-          "end": 8930,
+          "start": 9076,
+          "end": 9274,
           "expression": "ctx.hint('Die Wachen dürfen Kyra nichts tun, aber „Mädchen“ stellt sich ihr in den Weg. Ein <em>Stein</em> oder Kyras <em>Schubsen</em> stößt ihn beiseite.', { title: 'Zum Waldrand', unit: 'kyra' })",
           "expression_sha256": "0a9d5b230c811b68ce615bea21164822eaef4a226bd84773e9d5795c711811a5",
           "review_anchor_hashes": [
@@ -135898,10 +136084,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 154,
+          "line": 156,
           "column": 175,
-          "start": 8892,
-          "end": 8913,
+          "start": 9236,
+          "end": 9257,
           "expression": "title: 'Zum Waldrand'",
           "expression_sha256": "96ee8aab423717ff43455798b5c3414615a3bc56b965d95ade1c3e257d3cb92b",
           "review_anchor_hashes": [
@@ -135927,10 +136113,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 196,
+          "line": 207,
           "column": 48,
-          "start": 10925,
-          "end": 10938,
+          "start": 11690,
+          "end": 11703,
           "expression": "name: 'Baris'",
           "expression_sha256": "ed2a5e5a123cc5c5ed8974aa9f4332e6e6a2bf498b8f02022e67da90facb355c",
           "review_anchor_hashes": [
@@ -135957,10 +136143,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 196,
+          "line": 207,
           "column": 63,
-          "start": 10940,
-          "end": 10977,
+          "start": 11705,
+          "end": 11742,
           "expression": "title: 'Hauptmann der Dunkelschatten'",
           "expression_sha256": "3336c9523a4bd9112c9f4133d5817d73cd48f4b9cbd1fe7618dbd2f74429b96b",
           "review_anchor_hashes": [
@@ -135987,10 +136173,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 198,
+          "line": 209,
           "column": 55,
-          "start": 11204,
-          "end": 11217,
+          "start": 11969,
+          "end": 11982,
           "expression": "name: 'Orwen'",
           "expression_sha256": "70534c978bfb92e0f4c59f2104131a1aa59bc7b19e071ac8cc90009de18e2603",
           "review_anchor_hashes": [
@@ -136018,10 +136204,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 198,
+          "line": 209,
           "column": 70,
-          "start": 11219,
-          "end": 11263,
+          "start": 11984,
+          "end": 12028,
           "expression": "title: 'Baris’ rechte Hand, der Grauhaarige'",
           "expression_sha256": "731232e1a85f7a10516ee669ec39c58c293b9172e2d763ae5647850707ca562c",
           "review_anchor_hashes": [
@@ -136049,10 +136235,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 205,
+          "line": 216,
           "column": 3,
-          "start": 11824,
-          "end": 11916,
+          "start": 12589,
+          "end": 12681,
           "expression": "ctx.setObjective('Haltet stand!', 'Baris will Flick. Lenk ihn ab, weich aus, haltet durch.')",
           "expression_sha256": "b76aa1649d805ee3ed5fbb3da517d54ce25ae1850141ac7c25d9cf85b1123818",
           "review_anchor_hashes": [
@@ -136075,10 +136261,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 242,
+          "line": 253,
           "column": 9,
-          "start": 13346,
-          "end": 13430,
+          "start": 14111,
+          "end": 14195,
           "expression": "ctx.ui.plate('k5-urmacht', { caption: 'Die Urmacht', pan: 'out', durationMs: 9000 })",
           "expression_sha256": "0f165fe3fbb9fb18d696f3924dca2462464416ecf631a3121b49a92fcf4ff5d0",
           "review_anchor_hashes": [
@@ -136102,10 +136288,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/rettung.ts",
-          "line": 242,
+          "line": 253,
           "column": 38,
-          "start": 13375,
-          "end": 13397,
+          "start": 14140,
+          "end": 14162,
           "expression": "caption: 'Die Urmacht'",
           "expression_sha256": "737dda5ab91b54d6fea366c6367f7b6f38b31a379aa3c8403dfb3258fe71b4cb",
           "review_anchor_hashes": [
@@ -136544,10 +136730,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 12,
+          "line": 14,
           "column": 25,
-          "start": 577,
-          "end": 604,
+          "start": 688,
+          "end": 715,
           "expression": "name: 'Zu dritt nach Süden'",
           "expression_sha256": "f6a150b3dad97a38fc3583b8dbb8cc52174f1e055f19b82c1cff7d2cb74fa5bd",
           "review_anchor_hashes": [
@@ -136573,10 +136759,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 16,
+          "line": 18,
           "column": 23,
-          "start": 772,
-          "end": 791,
+          "start": 883,
+          "end": 902,
           "expression": "verb: 'Weg sichern'",
           "expression_sha256": "acac8f4f0cb627ca755f2cc7e682f0a0510f643a895128657c2de23d31487a91",
           "review_anchor_hashes": [
@@ -136605,10 +136791,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 17,
+          "line": 19,
           "column": 24,
-          "start": 888,
-          "end": 917,
+          "start": 999,
+          "end": 1028,
           "expression": "verb: 'Mit der Gruppe rasten'",
           "expression_sha256": "a1bdc88dc4cf32ffb19f441a66495e50595e9d75a8e84adfbaee13ff7aeaae0a",
           "review_anchor_hashes": [
@@ -136637,10 +136823,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 18,
+          "line": 20,
           "column": 24,
-          "start": 990,
-          "end": 1011,
+          "start": 1101,
+          "end": 1122,
           "expression": "verb: 'Reise beenden'",
           "expression_sha256": "f6e220a2be960091b58b90185f767cf89f0a3e884e71ee22aff573623d71a842",
           "review_anchor_hashes": [
@@ -136669,10 +136855,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 22,
+          "line": 24,
           "column": 5,
-          "start": 1164,
-          "end": 1288,
+          "start": 1275,
+          "end": 1399,
           "expression": "w.setObjective('k5-weiterreise', 'Sichert gemeinsam den Weg. Am Rastplatz könnt ihr euren Fortschritt ansehen.', 'reiseweg')",
           "expression_sha256": "9a08928a39c72bbe1bb1537a09579023b2f159d3b6d00f1a1f8d0b1ba8d0ddb7",
           "review_anchor_hashes": [
@@ -136695,10 +136881,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 34,
+          "line": 36,
           "column": 31,
-          "start": 1838,
-          "end": 1916,
+          "start": 1949,
+          "end": 2027,
           "expression": "['Den nächsten Wegabschnitt gemeinsam sichern.', 'Noch am Rastplatz bleiben.']",
           "expression_sha256": "419dccc5f4394fdb80cdb1001ed0ff6aca2656e883c4ae3cdb5fdbd3cacc770e",
           "review_anchor_hashes": [
@@ -136725,10 +136911,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 34,
+          "line": 36,
           "column": 31,
-          "start": 1838,
-          "end": 1916,
+          "start": 1949,
+          "end": 2027,
           "expression": "['Den nächsten Wegabschnitt gemeinsam sichern.', 'Noch am Rastplatz bleiben.']",
           "expression_sha256": "419dccc5f4394fdb80cdb1001ed0ff6aca2656e883c4ae3cdb5fdbd3cacc770e",
           "review_anchor_hashes": [
@@ -136783,10 +136969,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 47,
+          "line": 49,
           "column": 5,
-          "start": 2579,
-          "end": 2624,
+          "start": 2690,
+          "end": 2735,
           "expression": "G.ui.toast('Lia lernt Lichtstoß.', 'ability')",
           "expression_sha256": "db763c9436e2297dcb7f42c74228e2c36c5a6ccfdaf0b8fb69bffb3cb4c9e4db",
           "review_anchor_hashes": [
@@ -136811,10 +136997,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 68,
+          "line": 78,
           "column": 31,
-          "start": 3523,
-          "end": 3748,
+          "start": 4092,
+          "end": 4317,
           "expression": "[\n    { text: 'Noch weiterreisen.' },\n    { text: 'Das erste Buch abschließen.' },\n    { text: 'Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.', disabled: !book2, reason: book2 ? undefined : 'Noch nicht verfügbar.' },\n  ]",
           "expression_sha256": "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
           "review_anchor_hashes": [
@@ -136841,10 +137027,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 68,
+          "line": 78,
           "column": 31,
-          "start": 3523,
-          "end": 3748,
+          "start": 4092,
+          "end": 4317,
           "expression": "[\n    { text: 'Noch weiterreisen.' },\n    { text: 'Das erste Buch abschließen.' },\n    { text: 'Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.', disabled: !book2, reason: book2 ? undefined : 'Noch nicht verfügbar.' },\n  ]",
           "expression_sha256": "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
           "review_anchor_hashes": [
@@ -136871,10 +137057,10 @@
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 71,
+          "line": 81,
           "column": 85,
-          "start": 3690,
-          "end": 3741,
+          "start": 4259,
+          "end": 4310,
           "expression": "reason: book2 ? undefined : 'Noch nicht verfügbar.'",
           "expression_sha256": "9636b05847d5c3b525a56c1c84755d6ecd7559c405fe1b8b962df671663ee82a",
           "review_anchor_hashes": [
@@ -137133,57 +137319,63 @@
       }
     },
     {
-      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
-      "text": "Lia: Die ersten gemeinsamen Schritte stehen noch bevor.",
+      "reason": "Chapter review ui: Menüauswahl: „Letzte Hoffnung“ ist der Titel von Teil II, keine gesprochene Antwort.",
+      "text": "Letzte Hoffnung",
       "sources": [
         {
-          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 62,
-          "column": 19,
-          "start": 3336,
-          "end": 3341,
-          "expression": "lines",
-          "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+          "file": "game/src/chapters/kapitel-5/finale.ts",
+          "line": 277,
+          "column": 33,
+          "start": 15212,
+          "end": 15282,
+          "expression": "[...bookOneEndChoices(), { text: 'Noch ein wenig am Feuer bleiben.' }]",
+          "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
           "review_anchor_hashes": [
-            "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
-            "301ea0f25fa6ebdc30e9b83ac19d228a49720b531102ed7a0a13d93de86f961c",
-            "e178b70600f84873581e8614429b84bcefb3f54fb106ec177ed5261a8817506b",
-            "8822bd1c038910c46007ebe57460210280919cf748be8884d118ae3c63c3b2fe",
-            "6dfd94b65bff9cff967d412b6e97ba1f17e559ec13da780abbcb8482cdceac59"
+            "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf",
+            "bdf9855f85c8ee8c1761fcb9967ab914ddfbb848b1435ea13cd268ad1b604738",
+            "1ff419b2f15073af3a10a712a842747e3d5615dde255a7079a87df9257b34c1a",
+            "6bf65a9a408fc75670f907870650d17c579578b4f9e829380ca3b374a95b6276",
+            "85149ee7a155b226257a6bad9bb87d458adee5d068a823788810349dccc25ba2",
+            "6e903f740531a3018dc5fb592864f7f1b70cfa2d68ddaf2c844c60894e040df4",
+            "28f804ac10555d68df1de9cdf1e26e431eb9a310bdab0d0cc464e1682eae8dd4",
+            "4707b1888036b924ff4a6e89db20d3fca90f9f393983639c7237f0f2e1aebea7",
+            "41bf960b7971b0db558183e096fe9133f23fa58e8d899cddcbbfc2dd0d21a674"
           ],
-          "function": "rest",
+          "function": "departure",
           "chapter": "kapitel-5",
-          "scene": "weiterreise",
+          "scene": "finale",
           "runtime_scenes": [
-            "weiterreise"
+            "finale"
           ]
         }
       ],
       "review_source": {
         "file": "docs/voice-production/directions/kapitel-5.json",
-        "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b"
+        "expression_sha256": "9e9ee37211562af9baa89f4506b9119ab5294d76faa3ed638e71623c4f7763cf"
       }
     },
     {
-      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
-      "text": "Flick: Die ersten gemeinsamen Schritte stehen noch bevor.",
+      "reason": "Chapter review ui: Menüauswahl: „Letzte Hoffnung“ ist der Titel von Teil II, keine gesprochene Antwort.",
+      "text": "Letzte Hoffnung",
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 62,
-          "column": 19,
-          "start": 3336,
-          "end": 3341,
-          "expression": "lines",
-          "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+          "line": 78,
+          "column": 31,
+          "start": 4092,
+          "end": 4317,
+          "expression": "[\n    { text: 'Noch weiterreisen.' },\n    { text: 'Das erste Buch abschließen.' },\n    { text: 'Weiter zu den Rebellen: Teil II „Letzte Hoffnung“.', disabled: !book2, reason: book2 ? undefined : 'Noch nicht verfügbar.' },\n  ]",
+          "expression_sha256": "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
           "review_anchor_hashes": [
-            "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
-            "301ea0f25fa6ebdc30e9b83ac19d228a49720b531102ed7a0a13d93de86f961c",
-            "e178b70600f84873581e8614429b84bcefb3f54fb106ec177ed5261a8817506b",
-            "8822bd1c038910c46007ebe57460210280919cf748be8884d118ae3c63c3b2fe",
-            "6dfd94b65bff9cff967d412b6e97ba1f17e559ec13da780abbcb8482cdceac59"
+            "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e",
+            "9441503b3ba99bb2b3dbee135bd726de77e4df8be99057028f2dec81690cfeb1",
+            "02cb04d31c2930f4848bbadc6920832991bf913c241e2197bc4bea28e4a6afdd",
+            "b7b44c981d80f39645177348e4874967c386510530dcfec3bc399d0c099896d9",
+            "e6a9fe75ce9b2d399b67f8ba8129d6ce9feb5f43814a4fc2036bef75d2e0c86b",
+            "78b67b913d14ac1774b70feb01c23c5ddacc42c35cdfbe0611bde36b643f816d",
+            "e29cb2590d6cf5f941c46e05ab3b56df6aa225ecc493e257196e8fcb4df555a0"
           ],
-          "function": "rest",
+          "function": "finish",
           "chapter": "kapitel-5",
           "scene": "weiterreise",
           "runtime_scenes": [
@@ -137193,39 +137385,7 @@
       ],
       "review_source": {
         "file": "docs/voice-production/directions/kapitel-5.json",
-        "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b"
-      }
-    },
-    {
-      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
-      "text": "Kyra: Die ersten gemeinsamen Schritte stehen noch bevor.",
-      "sources": [
-        {
-          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 62,
-          "column": 19,
-          "start": 3336,
-          "end": 3341,
-          "expression": "lines",
-          "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
-          "review_anchor_hashes": [
-            "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
-            "301ea0f25fa6ebdc30e9b83ac19d228a49720b531102ed7a0a13d93de86f961c",
-            "e178b70600f84873581e8614429b84bcefb3f54fb106ec177ed5261a8817506b",
-            "8822bd1c038910c46007ebe57460210280919cf748be8884d118ae3c63c3b2fe",
-            "6dfd94b65bff9cff967d412b6e97ba1f17e559ec13da780abbcb8482cdceac59"
-          ],
-          "function": "rest",
-          "chapter": "kapitel-5",
-          "scene": "weiterreise",
-          "runtime_scenes": [
-            "weiterreise"
-          ]
-        }
-      ],
-      "review_source": {
-        "file": "docs/voice-production/directions/kapitel-5.json",
-        "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b"
+        "expression_sha256": "e35952363dd6b32b318e52308e81ae72a05b5028084257f350d955934f57704e"
       }
     },
     {
@@ -137796,105 +137956,108 @@
       ]
     },
     {
-      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
-      "text": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
-      "sources": [
-        {
-          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 60,
-          "column": 16,
-          "start": 3200,
-          "end": 3246,
-          "expression": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
-          "expression_sha256": "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
-          "review_anchor_hashes": [
-            "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
-            "1c4fea439bb53fe8dbf6a072f72b7b5b41a7fc22b1d869ab4f14628b472f9276",
-            "84cc712a6349b0785e8304c5d4c8d6995eae97d77da16912a813073b2659d2ea",
-            "26b555ccc5305f1a024360dd778a1b3afb756889928cc5e1e66f8c3aae7b1e5b"
-          ],
-          "function": "callback",
-          "chapter": "kapitel-5",
-          "scene": "weiterreise",
-          "runtime_scenes": [
-            "weiterreise"
-          ]
-        }
-      ]
-    },
-    {
-      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
-      "text": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
-      "sources": [
-        {
-          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 60,
-          "column": 16,
-          "start": 3200,
-          "end": 3246,
-          "expression": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
-          "expression_sha256": "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
-          "review_anchor_hashes": [
-            "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
-            "1c4fea439bb53fe8dbf6a072f72b7b5b41a7fc22b1d869ab4f14628b472f9276",
-            "84cc712a6349b0785e8304c5d4c8d6995eae97d77da16912a813073b2659d2ea",
-            "26b555ccc5305f1a024360dd778a1b3afb756889928cc5e1e66f8c3aae7b1e5b"
-          ],
-          "function": "callback",
-          "chapter": "kapitel-5",
-          "scene": "weiterreise",
-          "runtime_scenes": [
-            "weiterreise"
-          ]
-        }
-      ]
-    },
-    {
-      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
-      "text": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
-      "sources": [
-        {
-          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 60,
-          "column": 16,
-          "start": 3200,
-          "end": 3246,
-          "expression": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
-          "expression_sha256": "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
-          "review_anchor_hashes": [
-            "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
-            "1c4fea439bb53fe8dbf6a072f72b7b5b41a7fc22b1d869ab4f14628b472f9276",
-            "84cc712a6349b0785e8304c5d4c8d6995eae97d77da16912a813073b2659d2ea",
-            "26b555ccc5305f1a024360dd778a1b3afb756889928cc5e1e66f8c3aae7b1e5b"
-          ],
-          "function": "callback",
-          "chapter": "kapitel-5",
-          "scene": "weiterreise",
-          "runtime_scenes": [
-            "weiterreise"
-          ]
-        }
-      ]
-    },
-    {
       "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, numerische Laufzeitstatusanzeige.",
       "text": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
       "sources": [
         {
           "file": "game/src/chapters/kapitel-5/weiterreise.ts",
-          "line": 60,
+          "line": 62,
           "column": 16,
-          "start": 3200,
-          "end": 3246,
+          "start": 3318,
+          "end": 3364,
           "expression": "`${name}: Level ${p.level}, ${p.exp}/100 EXP.`",
           "expression_sha256": "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
           "review_anchor_hashes": [
             "ba1d7924c612acecd69eea83e8ec7ae920e752f3efa8ee88a7a94e376077f34b",
             "1c4fea439bb53fe8dbf6a072f72b7b5b41a7fc22b1d869ab4f14628b472f9276",
             "84cc712a6349b0785e8304c5d4c8d6995eae97d77da16912a813073b2659d2ea",
-            "26b555ccc5305f1a024360dd778a1b3afb756889928cc5e1e66f8c3aae7b1e5b"
+            "0d898095909fefbbfed097d38181e9256c947f756cf2bddff910c3a626631d2c"
           ],
           "function": "callback",
+          "chapter": "kapitel-5",
+          "scene": "weiterreise",
+          "runtime_scenes": [
+            "weiterreise"
+          ]
+        }
+      ]
+    },
+    {
+      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
+      "text": "lines",
+      "sources": [
+        {
+          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+          "line": 64,
+          "column": 19,
+          "start": 3454,
+          "end": 3459,
+          "expression": "lines",
+          "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+          "review_anchor_hashes": [
+            "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+            "301ea0f25fa6ebdc30e9b83ac19d228a49720b531102ed7a0a13d93de86f961c",
+            "e178b70600f84873581e8614429b84bcefb3f54fb106ec177ed5261a8817506b",
+            "8822bd1c038910c46007ebe57460210280919cf748be8884d118ae3c63c3b2fe",
+            "83a433073be84db276a7c106c290931ce8146f24148ae0e3300e7cee35da0fdf"
+          ],
+          "function": "rest",
+          "chapter": "kapitel-5",
+          "scene": "weiterreise",
+          "runtime_scenes": [
+            "weiterreise"
+          ]
+        }
+      ]
+    },
+    {
+      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
+      "text": "lines",
+      "sources": [
+        {
+          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+          "line": 64,
+          "column": 19,
+          "start": 3454,
+          "end": 3459,
+          "expression": "lines",
+          "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+          "review_anchor_hashes": [
+            "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+            "301ea0f25fa6ebdc30e9b83ac19d228a49720b531102ed7a0a13d93de86f961c",
+            "e178b70600f84873581e8614429b84bcefb3f54fb106ec177ed5261a8817506b",
+            "8822bd1c038910c46007ebe57460210280919cf748be8884d118ae3c63c3b2fe",
+            "83a433073be84db276a7c106c290931ce8146f24148ae0e3300e7cee35da0fdf"
+          ],
+          "function": "rest",
+          "chapter": "kapitel-5",
+          "scene": "weiterreise",
+          "runtime_scenes": [
+            "weiterreise"
+          ]
+        }
+      ]
+    },
+    {
+      "reason": "Chapter review ui: Sourcegebundene Charakterfortschrittskarte, kein authored Dialogtext.",
+      "text": "lines",
+      "sources": [
+        {
+          "file": "game/src/chapters/kapitel-5/weiterreise.ts",
+          "line": 64,
+          "column": 19,
+          "start": 3454,
+          "end": 3459,
+          "expression": "lines",
+          "expression_sha256": "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+          "review_anchor_hashes": [
+            "5ea44c3961f16643e614435496b16115aa6d75458b5cc3fd5398aae291f3126b",
+            "301ea0f25fa6ebdc30e9b83ac19d228a49720b531102ed7a0a13d93de86f961c",
+            "e178b70600f84873581e8614429b84bcefb3f54fb106ec177ed5261a8817506b",
+            "8822bd1c038910c46007ebe57460210280919cf748be8884d118ae3c63c3b2fe",
+            "83a433073be84db276a7c106c290931ce8146f24148ae0e3300e7cee35da0fdf"
+          ],
+          "function": "rest",
           "chapter": "kapitel-5",
           "scene": "weiterreise",
           "runtime_scenes": [

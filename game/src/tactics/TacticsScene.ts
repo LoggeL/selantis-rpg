@@ -472,6 +472,22 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     return best?.u ?? null;
   }
 
+  /**
+   * The tile a pointer means: a unit's figure stands for its tile. While choosing where to move, though, figures
+   * standing in front cover the tiles behind them; a free tile the selected unit can reach wins over any sprite drawn
+   * across it (occupied tiles are never destinations, so clicking a unit's own tile still selects or inspects it).
+   */
+  private pointerTile(wx: number, wy: number): Point | null {
+    const u = this.pickUnit(wx, wy);
+    if (!u) return this.pick(wx, wy);
+    const s = this.sel, b = this.ctrl.battle;
+    if (s.unit && s.mode === 'move' && b.canMove(s.unit)) {
+      const t = this.pick(wx, wy), mover = b.unit(s.unit);
+      if (t && (t.x !== mover.x || t.y !== mover.y) && b.reach(s.unit).has(key(t.x, t.y))) return t;
+    }
+    return { x: u.x, y: u.y };
+  }
+
   private unitAtPoint(p: Point | null): Unit | undefined { return p ? this.ctrl.battle.unitAt(p.x, p.y) : undefined; }
 
   private setupInput(): void {
@@ -492,9 +508,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       }
       if (p.wasTouch) return;
       const wp = p.positionToCamera(this.cameras.main) as Phaser.Math.Vector2;
-      const u = this.pickUnit(wp.x, wp.y);
-      const t = u ? { x: u.x, y: u.y } : this.pick(wp.x, wp.y);
-      this.setHover(t);
+      this.setHover(this.pointerTile(wp.x, wp.y));
     });
     this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
       if (this.tableauActive) return;
@@ -508,8 +522,7 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       this.drag = null;
       if (!d || d.moved || p.rightButtonReleased()) return;
       const wp = p.positionToCamera(this.cameras.main) as Phaser.Math.Vector2;
-      const u = this.pickUnit(wp.x, wp.y);
-      const t = u ? { x: u.x, y: u.y } : this.pick(wp.x, wp.y);
+      const t = this.pointerTile(wp.x, wp.y);
       this.setHover(t);
       this.click(t, d.touch);
     });

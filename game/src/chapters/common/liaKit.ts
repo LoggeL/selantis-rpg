@@ -54,7 +54,7 @@ export function liaKitState(): LiaKitState {
 }
 
 export interface LiaKitOptions {
-  /** Starting HP as a fraction of her max HP (the raid: exhausted, half HP). */
+  /** Starting HP as a fraction of her max HP after saved progress, rounded down (the raid: exhausted, half HP). */
   hpFraction?: number;
   /** false: the Urmacht is silent (no Lichtstoß, no Stabimpuls). */
   light?: boolean;
@@ -89,7 +89,9 @@ export function liaAbilities(opts: LiaKitOptions = {}): string[] {
 export function liaUnit(stage: LiaStage, unit: Partial<BattleUnitDef> & Pick<BattleUnitDef, 'x' | 'y'>, opts: LiaKitOptions = {}): BattleUnitDef {
   return {
     id: 'lia', name: 'Lia', team: 'player', facing: 'e', move: 4, jump: 2,
-    ...characterStatsAt('lia', LIA_STAGES[stage].level, opts.hpFraction),
+    ...characterStatsAt('lia', LIA_STAGES[stage].level),
+    // Resolved by the engine against her final max HP, so saved levels above the floor still start at half.
+    ...(opts.hpFraction === undefined ? {} : { hpFraction: opts.hpFraction }),
     weapons: ['vatersdolch'], weapon: 'vatersdolch',
     abilities: liaAbilities(opts), traits: [VERZWEIFLUNG],
     preset: 'lia-cloak', portrait: 'lia-cloak',
@@ -105,7 +107,7 @@ export const DESPAIR_BARKS = [
 ] as const;
 
 /** Fixed line per battle, so a retry repeats it. The first fight looks back at the farm. */
-const DESPAIR_LINE: Record<string, number> = { 'k2-wegelagerer': 2, 'k3-begleitung': 0, 'e2-ueberfall': 1, 'e2-uebungskampf': 0 };
+const DESPAIR_LINE: Record<string, number> = { 'k2-wegelagerer': 2, 'k3-begleitung': 0, 'k5-rettung': 1, 'e2-ueberfall': 1, 'e2-uebungskampf': 0 };
 
 export function despairBark(battleId: string): string {
   const fixed = DESPAIR_LINE[battleId];
@@ -116,21 +118,30 @@ export function despairBark(battleId: string): string {
   return DESPAIR_BARKS[n % DESPAIR_BARKS.length];
 }
 
+/** Battle flag set once Lia's despair has woken in this battle (lines meant for before it can check it). */
+export const DESPAIR_FLAG = 'lia-verzweiflung';
+
+/** True while Lia's Verzweiflung carries her (player team, at or below half HP). */
+export function liaDespairs(ctx: BattleCtx): boolean {
+  const u = ctx.unit('lia');
+  return !!u && u.team === 'player' && u.traits.some(t => t.id === VERZWEIFLUNG.id && traitActive(u, t));
+}
+
 /** Fires once per battle when Lia's Verzweiflung becomes active. */
 export function despairTrigger(): CustomTrigger {
   return {
     id: 'lia-verzweiflung',
-    when: ctx => {
-      const u = ctx.unit('lia');
-      return !!u && u.team === 'player' && u.traits.some(t => t.id === VERZWEIFLUNG.id && traitActive(u, t));
+    when: liaDespairs,
+    run: ctx => {
+      ctx.flag(DESPAIR_FLAG);
+      ctx.bark('lia', despairBark(ctx.def.id), 2200);
     },
-    run: ctx => ctx.bark('lia', despairBark(ctx.def.id), 2200),
   };
 }
 
 /**
- * Adds Lia's despair bark to a battle's hooks. Battles with their own (recorded) Lia line at half HP pass
- * `bark: false`, so two bubbles never collide.
+ * Adds Lia's despair bark to a battle's hooks. A battle with its own Lia line at half HP can pass `bark: false`, so two
+ * bubbles never collide.
  */
 export function withLiaHooks(hooks: BattleHooks = {}, opts: { bark?: boolean } = {}): BattleHooks {
   if (opts.bark === false) return hooks;
