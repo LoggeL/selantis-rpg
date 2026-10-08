@@ -953,6 +953,71 @@
       "attempts": 1,
       "time": "2026-10-08T01:43:13"
     },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/turnaround.png": {
+      "kind": "turnaround",
+      "id": "paladin-anfuehrer",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand. The attached reference sheet shows ANOTHER soldier wearing the SAME uniform: copy the armour, tabard, cape, emblem, colours and weapon from it as closely as possible (except where the description says otherwise), but this is a DIFFERENT PERSON — the face, age, skin tone, hair, beard and body build must follow the description and must NOT look like the man on the attached sheet. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 57,
+      "attempts": 1,
+      "time": "2026-10-09T00:19:28"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/turnaround.png": {
+      "kind": "turnaround",
+      "id": "paladin-hauptmann",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand. The attached reference sheet shows ANOTHER soldier wearing the SAME uniform: copy the armour, tabard, cape, emblem, colours and weapon from it as closely as possible (except where the description says otherwise), but this is a DIFFERENT PERSON — the face, age, skin tone, hair, beard and body build must follow the description and must NOT look like the man on the attached sheet. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 62,
+      "attempts": 1,
+      "time": "2026-10-09T00:20:31"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/turnaround.png": {
+      "kind": "turnaround",
+      "id": "paladin-jung",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand. The attached reference sheet shows ANOTHER soldier wearing the SAME uniform: copy the armour, tabard, cape, emblem, colours and weapon from it as closely as possible (except where the description says otherwise), but this is a DIFFERENT PERSON — the face, age, skin tone, hair, beard and body build must follow the description and must NOT look like the man on the attached sheet. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 87,
+      "attempts": 1,
+      "time": "2026-10-09T00:19:57"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/turnaround.png": {
+      "kind": "turnaround",
+      "id": "paladin-novize",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand. The attached reference sheet shows ANOTHER soldier wearing the SAME uniform: copy the armour, tabard, cape, emblem, colours and weapon from it as closely as possible (except where the description says otherwise), but this is a DIFFERENT PERSON — the face, age, skin tone, hair, beard and body build must follow the description and must NOT look like the man on the attached sheet. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-09T00:20:53"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/turnaround.png": {
+      "kind": "turnaround",
+      "id": "paladin-wache",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand. The attached reference sheet shows ANOTHER soldier wearing the SAME uniform: copy the armour, tabard, cape, emblem, colours and weapon from it as closely as possible (except where the description says otherwise), but this is a DIFFERENT PERSON — the face, age, skin tone, hair, beard and body build must follow the description and must NOT look like the man on the attached sheet. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 56,
+      "attempts": 1,
+      "time": "2026-10-09T00:21:27"
+    },
     "output/imagegen/raw/art/cut/e3-abschied-rejected-1.png": {
       "kind": "plate",
       "id": "e3-abschied",
@@ -1581,6 +1646,177 @@
       "portraits": {
         "neutral": "game/public/assets/portraits/e3-gestalt.png",
         "sad": "game/public/assets/portraits/e3-gestalt-sad.png"
+      }
+    },
+    "paladin-anfuehrer": {
+      "id": "paladin-anfuehrer",
+      "height": 47,
+      "walk": {
+        "file": "game/public/assets/sprites/paladin-anfuehrer-walk.png",
+        "sha": "45186710f61d521e",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 47
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/paladin-anfuehrer-attack.png",
+          "method": "pair",
+          "scale": 0.0648,
+          "size": [
+            57,
+            34
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/paladin-anfuehrer-angry.png",
+        "determined": "game/public/assets/portraits/paladin-anfuehrer-determined.png",
+        "grim": "game/public/assets/portraits/paladin-anfuehrer-grim.png",
+        "neutral": "game/public/assets/portraits/paladin-anfuehrer.png",
+        "surprised": "game/public/assets/portraits/paladin-anfuehrer-surprised.png",
+        "thinking": "game/public/assets/portraits/paladin-anfuehrer-thinking.png"
+      }
+    },
+    "paladin-jung": {
+      "id": "paladin-jung",
+      "height": 46,
+      "walk": {
+        "file": "game/public/assets/sprites/paladin-jung-walk.png",
+        "sha": "218757236a755ffc",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 46
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/paladin-jung-attack.png",
+          "method": "pair",
+          "scale": 0.0613,
+          "size": [
+            58,
+            35
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/paladin-jung-angry.png",
+        "determined": "game/public/assets/portraits/paladin-jung-determined.png",
+        "neutral": "game/public/assets/portraits/paladin-jung.png",
+        "scared": "game/public/assets/portraits/paladin-jung-scared.png",
+        "surprised": "game/public/assets/portraits/paladin-jung-surprised.png",
+        "thinking": "game/public/assets/portraits/paladin-jung-thinking.png",
+        "worried": "game/public/assets/portraits/paladin-jung-worried.png"
+      }
+    },
+    "paladin-hauptmann": {
+      "id": "paladin-hauptmann",
+      "height": 45,
+      "walk": {
+        "file": "game/public/assets/sprites/paladin-hauptmann-walk.png",
+        "sha": "7bcc4776161292e8",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 45
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/paladin-hauptmann-attack.png",
+          "method": "pair",
+          "scale": 0.0582,
+          "size": [
+            48,
+            40
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/paladin-hauptmann-angry.png",
+        "determined": "game/public/assets/portraits/paladin-hauptmann-determined.png",
+        "grim": "game/public/assets/portraits/paladin-hauptmann-grim.png",
+        "neutral": "game/public/assets/portraits/paladin-hauptmann.png",
+        "surprised": "game/public/assets/portraits/paladin-hauptmann-surprised.png",
+        "thinking": "game/public/assets/portraits/paladin-hauptmann-thinking.png"
+      }
+    },
+    "paladin-novize": {
+      "id": "paladin-novize",
+      "height": 43,
+      "walk": {
+        "file": "game/public/assets/sprites/paladin-novize-walk.png",
+        "sha": "a4b16db89f46793e",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 43
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/paladin-novize-attack.png",
+          "method": "pair",
+          "scale": 0.0695,
+          "size": [
+            56,
+            37
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/paladin-novize-angry.png",
+        "determined": "game/public/assets/portraits/paladin-novize-determined.png",
+        "neutral": "game/public/assets/portraits/paladin-novize.png",
+        "scared": "game/public/assets/portraits/paladin-novize-scared.png",
+        "surprised": "game/public/assets/portraits/paladin-novize-surprised.png",
+        "thinking": "game/public/assets/portraits/paladin-novize-thinking.png"
+      }
+    },
+    "paladin-wache": {
+      "id": "paladin-wache",
+      "height": 45,
+      "walk": {
+        "file": "game/public/assets/sprites/paladin-wache-walk.png",
+        "sha": "63ac29758ba9a525",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 45
+      },
+      "poses": {
+        "attack": {
+          "file": "game/public/assets/sprites/paladin-wache-attack.png",
+          "method": "pair",
+          "scale": 0.0521,
+          "size": [
+            37,
+            35
+          ]
+        }
+      },
+      "portraits": {
+        "angry": "game/public/assets/portraits/paladin-wache-angry.png",
+        "determined": "game/public/assets/portraits/paladin-wache-determined.png",
+        "happy": "game/public/assets/portraits/paladin-wache-happy.png",
+        "neutral": "game/public/assets/portraits/paladin-wache.png",
+        "surprised": "game/public/assets/portraits/paladin-wache-surprised.png",
+        "thinking": "game/public/assets/portraits/paladin-wache-thinking.png"
       }
     }
   }

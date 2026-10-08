@@ -2069,6 +2069,192 @@
   "hash": "L47KMBt601oJ~UWW57s.0zR+={s.",
   "sourceHash": "8862c9fc404461b63ad7961c6aa082e51abaec3ed680621bb47962f9e8c51028"
  },
+ "assets/portraits/paladin-anfuehrer-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5ELyv?I0#~V00xW6A%M02-;V@9G",
+  "sourceHash": "5ffd557a44e5c5d28b8f3fb468c2266870d32c72c719c58e344f9cebf44ab53d"
+ },
+ "assets/portraits/paladin-anfuehrer-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5EoV#?I0g~V00xX1j%M02-;jE9G",
+  "sourceHash": "511aa4ece62d4388761166fd5864c23fa124f6cbf8256ffb78b415289da2f89f"
+ },
+ "assets/portraits/paladin-anfuehrer-grim.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5E.eA?b0z~V00xY1j%M02-;jE9G",
+  "sourceHash": "1256c4cbaf04be9a9eaae87d56c93dafd6e26cbf52f03ecdfd6dcb640b7e2695"
+ },
+ "assets/portraits/paladin-anfuehrer-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5EoV#?I0z~V00xY6Axv02-;nh9G",
+  "sourceHash": "bf98d1a23d18119cbe9a663132305a26b2dd4f42b653c5229b6cdb47c9474f57"
+ },
+ "assets/portraits/paladin-anfuehrer-thinking.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L8Ex^axv0z~V00%1FgWD4:x]adIU",
+  "sourceHash": "135e4acaf992b06f80d10e858f71e2cf5dac5e0b0797b4efa3c90de2f02f1aa0"
+ },
+ "assets/portraits/paladin-anfuehrer.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L5Ee=D-=0g~V00xY5@%M02-;jE9G",
+  "sourceHash": "d4ecbacd48f3d4a0f75bd62a37820fd6dd07ef8367f64d2b4797a498fd553f97"
+ },
+ "assets/portraits/paladin-hauptmann-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4GkE+^k000L00rp3sPB04JC01M{",
+  "sourceHash": "34ca4e667f139e72346ece69ab62cb0c3b3a7c07ec281044d2e363d8d978fff2"
+ },
+ "assets/portraits/paladin-hauptmann-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4Gtyc^k000L00rp3sPB04JC01M{",
+  "sourceHash": "ae1d0c6b38e58fa1b7e89509b1c745ec8583930ce7fba8340d26e70c9dd24849"
+ },
+ "assets/portraits/paladin-hauptmann-grim.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4G*NC^*000L00v|3?PB04JD01M{",
+  "sourceHash": "0873ea757a897475ada5e1f590916150f554c9884b8fd0b4e51ca65a4608b046"
+ },
+ "assets/portraits/paladin-hauptmann-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4Gaq7^k000M00v|8JPB04JC01RP",
+  "sourceHash": "4b2b9cf57594c82c84f0f24fe8006b61e8d6327acd878327f826b0d8f060e88c"
+ },
+ "assets/portraits/paladin-hauptmann-thinking.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L3G*QK%3000M00]}3ZL203AJ009G",
+  "sourceHash": "69c761b70542dd3a3b4a4940ebd1fca16326cc2dafa27f1e9ec6e54edd8530a5"
+ },
+ "assets/portraits/paladin-hauptmann.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4G*TR^*000L00v|3?PB04JC01M{",
+  "sourceHash": "8baee5787a1eedbbb12b127f0cb234e556ff507e4375b91b927a295eca44a2ad"
+ },
+ "assets/portraits/paladin-jung-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7GHSFxG02$y00=_GtyCA0kX}lMx",
+  "sourceHash": "c08617cf6008a425ccddbe5326da4dbcf57c63a76ed2df6ac88cd604c179c1c8"
+ },
+ "assets/portraits/paladin-jung-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7GHSGxG02$y00=_GayC5sbv}lMx",
+  "sourceHash": "2047a1d0a44ef1821373880bcc53ae6030a63ac48e4ac07b62d58b153dff9189"
+ },
+ "assets/portraits/paladin-jung-scared.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7GHVOxG02$y00-nGtyC5YkX}lIU",
+  "sourceHash": "fdf292f900973ec4432a7a0e441a3bcf9283a3035e4ef66f4429313ade08e8c6"
+ },
+ "assets/portraits/paladin-jung-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7G7;vxG02xC00=_GayCA0g3}lMx",
+  "sourceHash": "bbc957ced7c874ae6e2998066b72861236d14e8b77cde2f8db90ea22bc6e3ff0"
+ },
+ "assets/portraits/paladin-jung-thinking.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7GHYVnO02-o00?FGbtRETX9}lR6",
+  "sourceHash": "17d3d0b9e592eeda347ce9e81e63a70e95c4eb675b81d95a2440f05b47f54e2f"
+ },
+ "assets/portraits/paladin-jung-worried.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7G7;wxG02xV00-nGayD9%kX}+Mx",
+  "sourceHash": "de2dc040c4a2980e165b11a9adebf1bc6a51e9ba7cb2ed23c621b143cc0acdb2"
+ },
+ "assets/portraits/paladin-jung.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7G7@*xG02xV00=_GayC9~kW},Mx",
+  "sourceHash": "a26544a0cc997f09a09b3e3567384891a615f48965800ece7202ce03cadca7a7"
+ },
+ "assets/portraits/paladin-novize-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7En|hZ%00-o00-:_MJB%eE3^0V@",
+  "sourceHash": "ee73cee636d4d1eeddd336ecf63c3f9272b5c360588e502e337a5d932b09e71d"
+ },
+ "assets/portraits/paladin-novize-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7Eo0pZ%00-o00-:_MNe%eE3^0V@",
+  "sourceHash": "dcbed5660680f16560144baf827c9aeda75f16b776eca2b9de51a558b2babc65"
+ },
+ "assets/portraits/paladin-novize-scared.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7ExhFR600-n00-:?]Nx%LE3^1V@",
+  "sourceHash": "61b27fe2c0d84b6347f6e9218c8f4936c53008d1d405cf3ab781f576d3975a7f"
+ },
+ "assets/portraits/paladin-novize-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7EeY.Z%00-n00-:_MNe%eE3^0V@",
+  "sourceHash": "2f06f1f026ff400b4c7c226022087d8780abb05adc1ec6d14919741015bc0722"
+ },
+ "assets/portraits/paladin-novize-thinking.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L6ELKL$i00v}00x[?]pHyCIW|=W.",
+  "sourceHash": "ee569837b3063568895a43c0cf405ca12e1ef029b1109125a364a56b03f05cf7"
+ },
+ "assets/portraits/paladin-novize.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7Eeb^Z%00-o00-:_MNe%eE3^0V@",
+  "sourceHash": "3ea39b019db7aea4fd98fbcedd2cac75c41aec0c5db0a99161735d33fecee03e"
+ },
+ "assets/portraits/paladin-wache-angry.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LBD[znn%0f~A00-o-;IpkqkC$fWV",
+  "sourceHash": "03a30fbfd6e7fd2d257ce9103ed0aa7219c86bcc7ba69e83ed6f6c538cb9a137"
+ },
+ "assets/portraits/paladin-wache-determined.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LBD[wfn%0f~A00-o-;IpkqkC$fWV",
+  "sourceHash": "b0273e2c94bbe77b3d39cd554ab994f42fcfbcdd1c15cc79b2fc4abe167ba79e"
+ },
+ "assets/portraits/paladin-wache-happy.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LBD+J0n%0f~A00-o-;Ipkqf+$fWW",
+  "sourceHash": "f5bae7b688f2cc8531d8a68337d047f57ae388a19b7c8dd5f67556f1fa8d2992"
+ },
+ "assets/portraits/paladin-wache-surprised.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LBD[wfn%0f~A00-o-;Ipb^kC$fWV",
+  "sourceHash": "9a830f52f1a83fe83098f4322b16f41329b13fd7c179b6924270ff415ac07aaf"
+ },
+ "assets/portraits/paladin-wache-thinking.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LBD[wfaL0g~B00-o%gIptRW=$fWB",
+  "sourceHash": "bc0543a06b9c7f8b5e8014bffeff987a11ba549e11d0cb125f19ee75a5f4589d"
+ },
+ "assets/portraits/paladin-wache.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "LBD+F]nj0f~A00-o.7Ipo}kC$fWW",
+  "sourceHash": "0d667e9faca132753d16e1aa926b1275b719ed9e5fb1e0b6af4733999798a860"
+ },
  "assets/portraits/paladin.png": {
   "width": 256,
   "height": 256,
@@ -12287,12 +12473,732 @@
    }
   ]
  },
+ "assets/sprites/paladin-anfuehrer-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L6F5Z*c1*GiKB1.E?ERp9FIBt5R+",
+  "alphaHash": "L88z.GM{00%M00j[~qay00t7~qM{",
+  "sourceHash": "7a622baf453b118af634da26cb5f9e55d2a5bfdcf806cdf6cd5ca3fdbfa402a0"
+ },
+ "assets/sprites/paladin-anfuehrer-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L2FXhn6{;}8r2m,BB-+I04C4}YOZ",
+  "alphaHash": "L19jv0-;Rj_3RjD%of9F~qt7ofxu",
+  "sourceHash": "98e191a91cd896051c6b2b6534bdc402b5b0d46fc0592519f3abfa6476deab08",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L8CO:p~T9Hxa5@TGt7Rk9bxs-UIp",
+    "alphaHash": "LIBpnUIU00_39Ft7-;M{00xu~qD%"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L3CFR}Ki0L~A01bwnPM|01tL^%D+",
+    "alphaHash": "LIBzC4D%00~q9Ft7-;IU00xu~qD%"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L3CO{-}Z0M^%02byX5Io00rv^%E1",
+    "alphaHash": "LIBzC4IU00_39Ft7-;M{00xu~qD%"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L3CYjpK50g^i01~BVuEM00yA?F9a",
+    "alphaHash": "LJB|KZD%00_39Ft7-;IU00xu~qD%"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L6CrcmxID+?F0OT0ofM{03~VxZD*",
+    "alphaHash": "LLB3.^D%00~qD%xu%MIU4nxu?bD%"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L4CYXN0ND*~U0:~BR.IV01^+%L9G",
+    "alphaHash": "LLA^OKD%00~qD%xu%MIU00%M?bD%"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Ci5OrZD+~U1R}[xtD+00^*xC9a",
+    "alphaHash": "LKBM_P9F00~q9Fxu%MIU00%M?b9F"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L4Dk;}}tIV_11I-qx@D*00#:tO9a",
+    "alphaHash": "LKA^OKD%00~qD%xu%MIU00%M_3D%"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2CYdc}T029H050Lt7-;000Lw]^j",
+    "alphaHash": "LCA^OK~q00004nIU-;?b00D%_3~q"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Due+*$ISro0}0367yC0003-.~n",
+    "alphaHash": "LDA,zk_300009FIU-;?b00D%~q_3"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L3CP35]h0M9H0#02k;?Z0002-V~B",
+    "alphaHash": "LCBDWp~q00004nIU-;?b00D%~q_3"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L5D8:r|{VXVr2V03JTyB0d03=_?Z",
+    "alphaHash": "LDAwF=_300009FIU%M?b00D%~q_3"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5C5|#=]00020#Edx@%L00Io~o_2",
+    "alphaHash": "LGB:vz?b00009FM{-;%M00D%~q_3"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5BCc5xv000LA19x%2-n019c~o_1",
+    "alphaHash": "LHBM_P-;0000D%Rj%M%M00IU~q?b"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L6Crl%Tc004o0#s%%Lx[009t~V_1",
+    "alphaHash": "LHBzC4?b00009FM{-;%M00IU~q?b"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5Ci8Q.400011IM^%K-:0056~o~o",
+    "alphaHash": "LGBM_P?b0000D%M{%M-;00D%~q_3"
+   }
+  ]
+ },
  "assets/sprites/paladin-attack.png": {
   "width": 64,
   "height": 64,
   "hash": "L5C~bcOT9~020j0M~okp02ICsCkC",
   "alphaHash": "LCBWe~?b000000IU?b-;00M{~q_3",
   "sourceHash": "3392b97c377fa4359e213d7f37e3f465487b95b2f7ade0b7edd9fb996510e012"
+ },
+ "assets/sprites/paladin-hauptmann-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L6EBW;DQDk};w@1Qovw@z:ssxHsC",
+  "alphaHash": "LJBWe~xu00IU9FWB-;t700Rj~q%M",
+  "sourceHash": "cd72bb2b596e4dc5a827575855b76a02e435c0584721f797b6bd6cfa6ef50467"
+ },
+ "assets/sprites/paladin-hauptmann-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L7ELB1o}IUOX}RXQ%MS~^iodM{S2",
+  "alphaHash": "L2BpnU?bt7~qRjoft7WB_3offQWB",
+  "sourceHash": "939aa5afb806caa2d02955f979a5c7f95ab284840fd4aed04774846014c5f64d",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L7ByETcE03xW02Z~NZWD4;S~~Boy",
+    "alphaHash": "LRECwdt700M{D%WB%Mof00WB~qof"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L4BCiG-=02NZ1aN1%Moy01kF~Vox",
+    "alphaHash": "LQDcXTof00RjD%j[%May00WB~qt7"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L6ByBH}u01I:v};RxtXQDk,v^*Sd",
+    "alphaHash": "LQD,4Yj[00WBD%j[%May00WB~qof"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L6D8]-*H0MVu.Hs}OTahtITc~Uso",
+    "alphaHash": "LQDS:tof00RjIUayxuj[00ay~qof"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L6C$Dk[v03o|},U}$*km-eI0?FtM",
+    "alphaHash": "LKDS:tIU00-;4nt7-;M{00t7~qIU"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L7A++}~80ga%E0I-baWEEJT0-oad",
+    "alphaHash": "LKCP@eIU00?bD%t7%MM{00xu~qIU"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L3By54^N01={v3Ee%Le:8^0:~TnO",
+    "alphaHash": "LJD9#OD%00?b4nxu-;M{00xu~qD%"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L3AcST~l01wiMcJ4R.Nb4,9%^%rq",
+    "alphaHash": "LLCZbEIU00?bD%t7%MM{00xu~qIU"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L4Bov:Ib01WAVD-B-oofR2]|~TkX",
+    "alphaHash": "LKDS:t-;004n4nM{-;xu00IU~q-;"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Bf990303%J@=-r$%$yRKMc~Ao}",
+    "alphaHash": "LKCZbE-;009FD%Rj%Mxu00M{~q-;"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L5Crfn9J03$e+YAJxtxs{]j:~A%1",
+    "alphaHash": "LKDS:t-;009F4nM{-;xu00M{~q-;"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Bf600402t1*e-=r]jFiY]|~Tbw",
+    "alphaHash": "LKCi~;-;004nD%Rj%Mxu00IU~q-;"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L2Alqbro4mr?Dgx^9~j?00I:O_WE",
+    "alphaHash": "LQDl{3ay00fQD%j[%MWB00j[~qWB"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L4A]EJ]%0KXR{O}[RVRjVD$kxxSe",
+    "alphaHash": "LQDS:tay00j[IUj[%MWB00ay~qj["
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L2AcG3q]4T={4-IyERNZ00ROcbbu",
+    "alphaHash": "LQDl{3WB00t7IUofxuRj00j[~qay"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Acbvvy0dtR9tx{9gIo1DI@cHSK",
+    "alphaHash": "LQDJO}WB00ofIUj[xuWB00j[~qay"
+   }
+  ]
+ },
+ "assets/sprites/paladin-jung-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "LEFY3}$c?]Di$y~V$~%M9aRkxtWB",
+  "alphaHash": "LA8|^lay00Rj4nWB_3t700of~qof",
+  "sourceHash": "7e9ca67ab5ddadbe12a814658d51dbc62e3c79bf6d7a2607adb4baaf817684dc"
+ },
+ "assets/sprites/paladin-jung-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4Eo0+NZR4_4VXTIR$4.4.ogjpV[",
+  "alphaHash": "L08z.G_3Rj~qRjD%ofD%~qofWBt7",
+  "sourceHash": "5ff02d4643a9ff08b5f1f310f35e1b6fe2cca69ed0a57b809665490dd7fb9df4",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L5B{P{C80K}?;2GHx[n30057?GRi",
+    "alphaHash": "LHB3.^IU00_3D%t7%MM{00xu~qD%"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L7C#=03D4:^4{mPUX9rXZiKj?GaK",
+    "alphaHash": "LHAmrFM{00-;D%t7%MM{00t7~qIU"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L4Bo:V.T01^OICuOt,R50L?G^+IV",
+    "alphaHash": "LHBDWpM{00-;D%of-;M{00t7~qIU"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L4C~I}Kn55^NL%7yIt#84T9b^%M{",
+    "alphaHash": "LGAmrFIU00_3D%t7-;M{00xu~qD%"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L5BCx-.80L~B00E3XmVr00jF-oE1",
+    "alphaHash": "LHAwF=D%00~qD%xu%MIU00%M_39F"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L6A]gDO@0f}@D5OXS#a000Nb-oM{",
+    "alphaHash": "LGAAaaD%00~qIUxuxuIU00xu_39F"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L5Avh6X-0L~B00bdS~RP00WB?GE1",
+    "alphaHash": "LGAwF=9F00~q9Fxu%MIU00%M_39F"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L5Bo%FB=0e}[HsS~OYiw00S#-VIU",
+    "alphaHash": "LGAAaaD%00~qIUxuxuIU00%M_39F"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L5BMGQ}T0e5700rtS$XT00V??G%L",
+    "alphaHash": "LBAd7f_300004nIU-;-;00IU~q_3"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L5ByEf|=0L57M1#7Shk=00RP={%L",
+    "alphaHash": "LDATi,?b0000D%M{%M-;00IU~q_3"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Bo%F{b000f4T]=S~O@014n^k^+",
+    "alphaHash": "LBAd7f_300004nIU%M-;00D%~q~q"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "LBBx~0}VD*9u;4;MxGbwDjiw$*t7",
+    "alphaHash": "LCATi,_30000D%M{%M-;00D%~q_3"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L6C5;r+v009Z4qs7TJOs00E1~W?H",
+    "alphaHash": "LGAmrF-;0000IURj%Mxu00IU~q?b"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L6BVnq[;000eQ.;Mx]kq00D*~W^*",
+    "alphaHash": "LGAmrF-;0000D%Rj%M%M00IU~q?b"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L6B{W9#*00574q#8K5Os00E1~p-;",
+    "alphaHash": "LHA,zk%M004nIURj%Mxu00M{~q-;"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L8BfLj};009ZDkE3X9tR00IU^+-:",
+    "alphaHash": "LHAmrF%M004nIURj%Mxu00M{~q-;"
+   }
+  ]
+ },
+ "assets/sprites/paladin-novize-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L2A9pGMJcZHr0#5R~UEM0001?FS$",
+  "alphaHash": "L88NqbIU00?b4nof?bWB00%M~q9F",
+  "sourceHash": "a335aa18a39120de92c60dd84828bfbb57c01cbe8aab9523d5b7ae9ab0a639af"
+ },
+ "assets/sprites/paladin-novize-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L1ASi4xIV?}[bwnlxCW?7Ms.r=OY",
+  "alphaHash": "L08gy-~qxu~qt7WBWBD%~qayWBWB",
+  "sourceHash": "99d691672f59827e57156097d8589a9fd2abdfad4694edbc6181e760efd57e24",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L79sn}~qItjZ.S_3-;WBEQyD?aae",
+    "alphaHash": "LHAwF=ay00ofIUj[%MWB00fQ~qfQ"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L38M]h?t0LsCSRcF-pi_01Xm~VjF",
+    "alphaHash": "LIAmrFj[00WBIUj[xuay00ay~qof"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L38pfZ.802nig5yD-:jF00Os~Vae",
+    "alphaHash": "LHAd7fof00RjIUfQ%MfQ00ay~qof"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L38f[q.80Ms.O@yD-:Rj01Or~Vni",
+    "alphaHash": "LIAd7fof00RjIUj[xuay00WB~qt7"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L496wD~p0gxZ.8.S?HM|0gcF^+RQ",
+    "alphaHash": "LDAwF=Rj00%M9Fof-;Rj00of~qM{"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L496ac}s4pt766%2xtIp02F1?GRQ",
+    "alphaHash": "LDA0?#Rj00%MD%of%MRj00of~qM{"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L38pW9~V02xZkrg$-:M{02Fe^*M|",
+    "alphaHash": "LDAd7fM{00-;9Fof-;Rj00of~qM{"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L596m-}@4;t6Fy-p%LNG0gkq?ZRj",
+    "alphaHash": "LDA0?#Rj00%MIUof%MRj00of~qRj"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L38:n#E102IV%g0L^j?G0M9G~V?G",
+    "alphaHash": "LDAwF=-;004n9FRj-;xu00M{~q-;"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L39ZAp570Mi{%M4o-o%M0MMd~Ux[",
+    "alphaHash": "LD9%*Vxu009FIUWB%Mxu00Rj~qxu"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L29Ps84;01MeTy02^*?Z024:~p?a",
+    "alphaHash": "LDAd7f%M004n9FRj-;xu00Rj~q-;"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L39sI|0M02n57MDj-:%M4:4:~V?G",
+    "alphaHash": "LDAAaa%M004nD%Rj%Mxu00Rj~q%M"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L58:#Cr=02IpJ.IU%Lxu01R6~V%L",
+    "alphaHash": "LGAd7fxu00D%IUWB%Mt700Rj~qxu"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L59GU95602n,-=9G-o%20MIB~o%L",
+    "alphaHash": "LGAAaat700IUIUWB%Mt700WB~qt7"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L79?I5}E8{RQ5l9[o|oz02NG^*tQ",
+    "alphaHash": "LGAmrFt700IUIUWB%Mt700WB~qxu"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L59GU4xn02IVTbNE%Lxa01Ri~o%L",
+    "alphaHash": "LHATi,xu00D%IUWBxut700Rj~q%M"
+   }
+  ]
+ },
+ "assets/sprites/paladin-wache-attack.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L6E_EaQ8|z--0$0MpuxtMK#9=wWX",
+  "alphaHash": "L884i6xu00D%4nWB_3xu00Rj~q%M",
+  "sourceHash": "15bab7583de9d8420578ddc99d1bd136debbfff2b1ce474122e9accffa1c7fb1"
+ },
+ "assets/sprites/paladin-wache-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L4D[XyTdtR.injxIsER-0#=rbE:-",
+  "alphaHash": "L197eL%Mj[?bM{M{ofM{_3j[WBt7",
+  "sourceHash": "b03a9e399d3a183f22fcf5666d47910bd441abd8e4ed72def1dd2710d65828cd",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L8A+{P~A58of9br^s:NH4;xC-nNH",
+    "alphaHash": "LIBM_PM{00-;D%of-;Rj00t7~qM{"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L3Al,:~A01%19#^+-o9a0f^%^%E2",
+    "alphaHash": "LJBDWpM{00-;D%of%MRj00t7~qM{"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L3A]pQ}^02%006~n%1IV0-I^~TE2",
+    "alphaHash": "LIBWe~M{00-;9Fof-;M{00t7~qIU"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L6AvUh}?0goyIY=|%2M|0fox-nNH",
+    "alphaHash": "LJBDWpM{00-;D%of-;Rj00t7~qM{"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "LACr$P~VIpae%2?G$$IpIX-:slM|",
+    "alphaHash": "LCAmrFD%00~q00xu?bIU00xu~qD%"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L2ASxh}D02-:02%h%L9a00^%-n9a",
+    "alphaHash": "LDAJ~AIU00~q9Ft7?bIU00xu~qD%"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "LEC=^-~ANHofE4jFxZR+0gE3jsWV",
+    "alphaHash": "LEAwF=D%00~q4nxu?bIU00xu_39F"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L4A]g1}Y0Nxt0#?a%1E202^%%1E2",
+    "alphaHash": "LDATi,D%00~q9Ft7?bIU00xu~qD%"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2CiKx000$^*02AB=_-o00^cRPR.",
+    "alphaHash": "LDA,zk-;00004nM{?b%M00M{~q?b"
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L1AcPQr.00D,0Z00~T~V0000^d?a",
+    "alphaHash": "LDAd7f-;00004nM{?b-;00M{~q?b"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L2C$P|000h^*01V=?E-o00-hi^og",
+    "alphaHash": "LCAwF=?b000000M{?b-;00M{~q?b"
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L0BfLZ0000}Z0100an~q004T+L~p",
+    "alphaHash": "LDAd7f-;00009FM{?b-;00M{~q?b"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5B..Sje02D+0MDixW%L02w0~U-:",
+    "alphaHash": "LGA^OK%M004nD%Rj-;xu00M{~q-;"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5CPCJ0402wa7rD7%d%e0K4@~U?F",
+    "alphaHash": "LHA^OK%M004nD%Rj-;xu00M{~q-;"
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L5ByNqT002My8|9G%0%L01Iq~U-:",
+    "alphaHash": "LHB3.^%M004nD%Rj-;xu00M{~q-;"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L4B3QT?Y019H9*9bxJ-o01M}~V?Z",
+    "alphaHash": "LHA^OK%M004nD%Rj-;xu00M{~q-;"
+   }
+  ]
  },
  "assets/sprites/paladin-walk.png": {
   "width": 256,

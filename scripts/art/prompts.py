@@ -179,6 +179,23 @@ POSES: dict[str, dict] = {
                           "flushed red, eyes half-closed, a happy dopey grin, body turned three-quarter toward the "
                           "RIGHT.",
                   "measure": "pair"},
+    "hang": {"text": "Pose (RIGHT figure): hanging UPSIDE DOWN in the air, tied by the ankles: both feet bound together "
+                     "with a rope at the TOP, a SHORT straight piece of the rope (about one head long) going straight up "
+                     "from the ankles and ending at the top of the figure, the body hanging straight down head-first, the "
+                     "head at the BOTTOM about a hand's width above the ground line (NOT touching the ground), the hair "
+                     "hanging down, body turned three-quarter toward the RIGHT. The upside-down figure is as long as the "
+                     "standing figure is tall (plus the short rope).",
+             "measure": "pair"},
+    "frozen": {"text": "Pose (RIGHT figure): FROZEN in the middle of an attacking leap toward the RIGHT: one foot pushing off "
+                       "the ground, the other knee raised forward, body leaning forward, the RIGHT arm thrust forward with a "
+                       "drawn knife, the LEFT arm back for balance, a fierce determined face, body turned three-quarter "
+                       "toward the RIGHT. Compact pose: the whole figure fits inside a square.",
+               "measure": "pair"},
+    "crumble": {"text": "Pose (RIGHT figure): exactly the same frozen attacking leap as a statue, but the stone is BREAKING "
+                        "APART: cracks everywhere, chunks and flakes of grey stone bursting off and falling, and underneath "
+                        "patches of real living skin, hair and coloured clothes already show through, body turned "
+                        "three-quarter toward the RIGHT. Compact pose: the whole figure fits inside a square.",
+                "measure": "pair"},
     "lie": {"text": "Pose (RIGHT figure): lying flat on the ground on the back, unconscious or asleep, body stretched out "
                     "HORIZONTALLY (head on the LEFT, feet on the RIGHT), arms relaxed at the sides, eyes closed. Seen "
                     "slightly from above so face and clothing are readable. The lying figure is as long as the standing "
@@ -442,6 +459,70 @@ POSE_EXTRA: dict[tuple[str, str], str] = {
                                "forward, frowning in concentration.",
     ("e3-doktor", "read"): "He reads a heavy old leather-bound book held open in his LEFT arm, the RIGHT index finger "
                            "tracing a line, his nose close to the pages, absorbed.",
+    # Paladins with their own faces (paladin-*): same spear thrust as the base paladin, the captain uses a sword.
+    ("paladin-anfuehrer", "attack"): "He thrusts the spear forward horizontally with both hands toward the RIGHT (grip "
+                                     "near the middle of the shaft so it fits), bare head, stern face. " + STAND_WEAPON,
+    ("paladin-jung", "attack"): "He thrusts the spear forward horizontally with both hands toward the RIGHT (grip near "
+                                "the middle of the shaft so it fits), a little clumsy, eyes wide, bare head. "
+                                + STAND_WEAPON,
+    ("paladin-hauptmann", "attack"): "He swings his longsword with both hands in a powerful diagonal slash forward and "
+                                     "down toward the RIGHT, the blade in front of his chest (NOT raised high above the "
+                                     "head), the blue cape swinging, bald head. " + STAND_WEAPON,
+    ("paladin-novize", "attack"): "He thrusts the short spear forward with both hands toward the RIGHT (grip near the "
+                                  "middle of the shaft so it fits), determined but unsure. " + STAND_WEAPON,
+    ("paladin-wache", "attack"): "She thrusts the spear forward horizontally with both hands toward the RIGHT (grip near "
+                                 "the middle of the shaft so it fits), the braid swinging, calm focused face. "
+                                 + STAND_WEAPON,
+    # The goblin trio Ratz, Hotze, Fips (comic relief, they caught Flick)
+    ("goblin-ratz", "sit"): "Sitting on the ground cross-legged like a king on a throne, back straight, chin raised, the "
+                            "wooden spoon held upright like a sceptre in his RIGHT hand, the pot helmet slipping over one "
+                            "eye.",
+    ("goblin-ratz", "attack"): "He whacks forward and down with the big wooden spoon held in both hands like a club, "
+                               "the oversized pot helmet bouncing on his head, a furious squeal. " + STAND_WEAPON,
+    ("goblin-ratz", "hurt"): "He staggers back, the pot helmet knocked down over his eyes, both hands pushing it up, the "
+                             "spoon dangling from one hand.",
+    ("goblin-ratz", "crouch"): "Sneaking low on tiptoe, the spoon held close, the pot helmet pushed back, grinning "
+                               "slyly.",
+    ("goblin-hotze", "sit"): "Sitting on the ground with his short legs stretched out and his belly on his lap, happily "
+                             "biting the sausage off the roasting spit held in his RIGHT hand.",
+    ("goblin-hotze", "attack"): "He jabs the roasting spit forward toward the RIGHT with both hands like a little spear, "
+                                "belly wobbling, the sausage still on the tip. " + STAND_WEAPON,
+    ("goblin-hotze", "hurt"): "He flinches with both hands on his round belly, the spit dropped at his feet, cheeks "
+                              "puffed out.",
+    ("goblin-hotze", "crouch"): "Crouching as low as his belly allows, the spit held close, sniffing the air hungrily.",
+    ("goblin-fips", "sit"): "Sitting on the ground with his knees pulled up, fidgeting, counting pebbles from his pocket "
+                            "into his palm, the slingshot lying across his knees.",
+    ("goblin-fips", "attack"): "He shoots the slingshot toward the RIGHT: LEFT arm stretched out holding the Y-shaped "
+                               "slingshot, RIGHT hand pulling the leather pouch back to his huge nose, one eye squinting, "
+                               "a pebble flying away. " + STAND_WEAPON,
+    ("goblin-fips", "hurt"): "He jumps back in fright, ears flattened, both hands clutching his big nose, the feathers "
+                             "in his hair askew.",
+    ("goblin-fips", "crouch"): "Crouching low on his toes, hopping nervously, the slingshot loaded and ready, looking "
+                               "around with bulging eyes.",
+    # Flick hanging upside down in the goblins' camp, Flick turned to stone, Flick as Lia's guard
+    ("e2-flick-gefangen", "hang"): "INSTEAD of iron manacles here her wrists are free: her arms are CROSSED over her "
+                                   "chest (upside down), an annoyed, sarcastic, eye-rolling face, a ROPE tied around "
+                                   "both ankles. Her short dark hair hangs down.",
+    ("e3-flick-stein", "frozen"): "She is a STATUE of grey stone: the whole figure including hair, clothes, knife and "
+                                  "bow is one solid grey granite colour with stone texture, small cracks with a faint "
+                                  "glowing VIOLET light inside. The LEFT standing figure is the same grey stone statue "
+                                  "standing upright.",
+    ("e3-flick-stein", "crumble"): "Grey stone shell cracking open with a few faint violet sparks fading; underneath her "
+                                   "real freckled skin, almost-black hair and olive-green coat show through in patches. "
+                                   "The LEFT standing figure is the grey stone statue standing upright.",
+    ("flick-beschuetzerin", "shoot"): "She draws her new longbow to full draw toward the RIGHT: LEFT arm stretched out "
+                                      "holding the bow upright, RIGHT hand pulling the string back to her cheek, an arrow "
+                                      "nocked, the white-and-blue cloak swinging.",
+    ("flick-beschuetzerin", "attack"): "She lunges and stabs forward with her long knife in her RIGHT hand, the bow held "
+                                       "in her LEFT hand down at her side.",
+    ("flick-beschuetzerin", "crouch"): "Sneaking low, the bow held in her LEFT hand close to the ground, alert, the "
+                                       "cloak pooled behind her.",
+    ("flick-beschuetzerin", "sit"): "Sitting on the ground with one knee drawn up, her RIGHT forearm resting on the "
+                                    "knee, the bow lying across her lap, relaxed and proud, a cheeky grin.",
+    ("flick-beschuetzerin", "lie"): "Lying on her back resting with her hands folded behind her head, eyes closed, the "
+                                    "bow lying beside her, the cloak spread beneath her. No blood.",
+    ("flick-beschuetzerin", "hurt"): "She flinches, LEFT hand pressed against her RIGHT upper arm, teeth gritted, the bow "
+                                     "still in her hand.",
 }
 
 PORTRAIT = (
@@ -521,6 +602,25 @@ PORTRAIT_EXTRA: dict[str, str] = {
                  "shoulder. NOT a wizard, no robe, no staff.",
     "pascal": "The woven straw hat with the green band on his head, the faded red shirt and the bright orange braces "
               "visible at the bottom. NOT a guard, no armour, no dark clothing.",
+    "paladin-anfuehrer": "Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash "
+                         "visible at the bottom.",
+    "paladin-jung": "Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird "
+                    "emblem visible at the bottom.",
+    "paladin-hauptmann": "Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape "
+                         "and gold-rimmed pauldrons at the bottom.",
+    "paladin-novize": "Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the "
+                      "bottom.",
+    "paladin-wache": "Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the "
+                     "blue bird emblem visible at the bottom.",
+    "goblin-ratz": "A comic goblin portrait, cartoonishly expressive but in the same painted pixel style; the huge ears "
+                   "and the dented pot helmet clearly visible, the tip of the wooden spoon at the side.",
+    "goblin-hotze": "A comic goblin portrait, cartoonishly expressive but in the same painted pixel style; the floppy "
+                    "ears, round cheeks and the greasy apron clearly visible.",
+    "goblin-fips": "A comic goblin portrait, cartoonishly expressive but in the same painted pixel style; the enormous "
+                   "ears, the huge drooping nose and the three feathers in his hair clearly visible.",
+    "flick-beschuetzerin": "Her pointed elven ears clearly visible poking out of the short messy dark hair; the "
+                           "white-and-blue cloak with the round silver order brooch on her chest and the dark-green "
+                           "leather shoulder piece visible at the bottom.",
 }
 
 
@@ -543,7 +643,13 @@ def correction(extra: str) -> str:
 def turnaround_prompt(cid: str, extra: str = "") -> str:
     c = char(cid)
     base = ""
-    if c.get("base"):
+    if c.get("base") and c.get("baseKeep") == "outfit":
+        # Same uniform, different person (paladin-*): the base sheet only defines the equipment.
+        base = (" The attached reference sheet shows ANOTHER soldier wearing the SAME uniform: copy the armour, tabard, "
+                "cape, emblem, colours and weapon from it as closely as possible (except where the description says "
+                "otherwise), but this is a DIFFERENT PERSON — the face, age, skin tone, hair, beard and body build must "
+                "follow the description and must NOT look like the man on the attached sheet.")
+    elif c.get("base"):
         base = (" The attached reference sheet shows the SAME person in another outfit: keep her/his face, age, body "
                 "type, skin, eye colour and hair colour identical; only the outfit/hair styling changes as described.")
     return (TURNAROUND + "CHARACTER: " + c["desc"] + base + " " + PRIVACY + " " + MAGENTA + "\n" + STYLE + " "

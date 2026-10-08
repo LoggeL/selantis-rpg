@@ -441,6 +441,175 @@
         "widePoses": []
       }
     },
+    "paladin-anfuehrer": {
+      "name": "Paladin (Patrouillenführer)",
+      "height": 47,
+      "base": "paladin",
+      "baseKeep": "outfit",
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "surprised",
+        "determined",
+        "thinking",
+        "grim"
+      ],
+      "record": "teil-3"
+    },
+    "paladin-jung": {
+      "name": "Junger Paladin",
+      "height": 46,
+      "base": "paladin",
+      "baseKeep": "outfit",
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "surprised",
+        "determined",
+        "thinking",
+        "scared",
+        "worried"
+      ],
+      "record": "teil-3"
+    },
+    "paladin-hauptmann": {
+      "name": "Hauptmann der Wache",
+      "height": 45,
+      "base": "paladin",
+      "baseKeep": "outfit",
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "surprised",
+        "determined",
+        "thinking",
+        "grim"
+      ],
+      "record": "teil-3"
+    },
+    "paladin-novize": {
+      "name": "Paladin-Novize",
+      "height": 43,
+      "base": "paladin",
+      "baseKeep": "outfit",
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "surprised",
+        "determined",
+        "thinking",
+        "scared"
+      ],
+      "record": "teil-3"
+    },
+    "paladin-wache": {
+      "name": "Paladin-Wache",
+      "height": 45,
+      "base": "paladin",
+      "baseKeep": "outfit",
+      "sex": "f",
+      "styleAnchor": "valentus",
+      "desc": "A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.",
+      "poses": [
+        "attack"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "surprised",
+        "determined",
+        "thinking",
+        "happy"
+      ],
+      "record": "teil-3"
+    },
+    "goblin-ratz": {
+      "name": "Ratz",
+      "height": 34,
+      "sex": "f",
+      "record": "teil-3",
+      "desc": "Ratz, a small COMIC goblin, the self-appointed leader of a hapless trio (funny, not scary; a humanoid about half as tall as a man, slightly big head, cartoonish but still natural goblin proportions about 4 heads tall). SKINNY and bony with long thin arms and knobbly knees, greenish-grey skin, HUGE pointed ears sticking out sideways, a long pointy nose, small beady yellow eyes, a pompous, self-important pout. On his head a far too large, DENTED, battered iron COOKING POT worn as a helmet, slipping down to his eyebrows, its little handle sticking out at one side, the big ears poking out under the rim. Over his shoulders a ragged, moth-eaten faded PURPLE cape made from an old curtain, a patched brown burlap tunic tied with a frayed rope belt, bare big knobbly green feet. In his RIGHT hand he holds a big wooden cooking SPOON (a long ladle) raised like a royal sceptre.",
+      "poses": [
+        "sit",
+        "attack",
+        "hurt",
+        "crouch"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "angry",
+        "surprised",
+        "scared",
+        "smirk"
+      ]
+    },
+    "goblin-hotze": {
+      "name": "Hotze",
+      "height": 32,
+      "sex": "f",
+      "record": "teil-3",
+      "desc": "Hotze, a small COMIC goblin, the cook of a hapless trio, always hungry (funny, not scary; a humanoid about half as tall as a man, cartoonish but still natural goblin proportions about 4 heads tall). ROUND and FAT with a big pot belly, short stubby legs and arms, a double chin, greenish-grey skin, big FLOPPY droopy ears hanging down, a small upturned piggy nose, round cheeks, a hungry open-mouthed grin with two small blunt lower teeth, a bald head with three wiry hairs. A greasy, stained, once-white COOK'S APRON tied over a patched mustard-yellow tunic, a dirty checkered dish towel tucked into the apron string, bare green feet. In his RIGHT hand he carries a long iron roasting SPIT (a skewer) with a half-eaten sausage still stuck on the tip.",
+      "poses": [
+        "sit",
+        "attack",
+        "hurt",
+        "crouch"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "angry",
+        "surprised",
+        "scared",
+        "smirk"
+      ]
+    },
+    "goblin-fips": {
+      "name": "Fips",
+      "height": 29,
+      "sex": "f",
+      "record": "teil-3",
+      "desc": "Fips, a TINY, jittery COMIC goblin, the smallest of a hapless trio (funny, not scary; a humanoid smaller than his two friends, cartoonish but still natural goblin proportions about 4 heads tall). Scrawny and twitchy, greenish-grey skin, ENORMOUS ears, a HUGE long bulbous nose that droops over his mouth, big round bulging eyes, a nervous buck-toothed grin. A wild tuft of dark hair on top of his head with three colourful FEATHERS stuck in it (one red, one blue, one yellow). A ragged moss-green tunic too big for him with a sagging pocket full of pebbles, a frayed leather cord belt, bare tiny green feet. In his RIGHT hand he holds a wooden Y-shaped SLINGSHOT with a leather pouch.",
+      "poses": [
+        "sit",
+        "attack",
+        "hurt",
+        "crouch"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "angry",
+        "surprised",
+        "scared",
+        "smirk"
+      ]
+    },
     "council-mage-a": {
       "name": "Ratsmagierin",
       "height": 42,
@@ -686,6 +855,51 @@
       ],
       "moods": [],
       "record": "teil-2"
+    },
+    "e3-flick-stein": {
+      "name": "Flick (versteinert)",
+      "height": 41,
+      "base": "flick",
+      "portraitStyle": "female",
+      "record": "teil-3",
+      "desc": "Flick, a slender, agile young half-elf woman around 20, exactly as in the attached reference sheet (same face, short messy hair with the single streak, pointed elven ears, hunter's coat with the hood down, laced vest, bracers, belt with knife sheath, quiver with arrows on her back, longbow), but PETRIFIED by dark magic: she has been turned into a STATUE of solid GREY STONE. Everything — skin, hair, eyes, clothes, leather, bow, arrows and the drawn hunting knife — is the same cold grey granite, with a rough stone texture, darker grey shading in the folds, a little stone dust, NO other colours. Thin CRACKS run across the stone and a faint cold VIOLET light glows inside the cracks (Vamir's magic). The stone face is fierce and determined, mouth slightly open as if shouting, eyes blank stone.",
+      "poses": [
+        "frozen",
+        "crumble"
+      ],
+      "moods": [],
+      "build": {
+        "widePoses": [
+          "frozen",
+          "crumble"
+        ],
+        "magentaAllow": 60
+      }
+    },
+    "flick-beschuetzerin": {
+      "name": "Flick (Beschützerin)",
+      "height": 41,
+      "base": "flick",
+      "portraitStyle": "female",
+      "record": "teil-3",
+      "desc": "Flick, a slender, agile young half-elf woman around 20, exactly the same person as in the attached reference sheet (same face, a confident, proud, mischievous half-smile). Short, tousled, messy almost-black hair (a choppy uneven pixie cut) with ONE single pale ash-blonde streak at the front; pointed elven ears sticking out of the hair; freckles, amber-brown eyes, light olive skin. Her NEW, proud outfit as the sworn guard of a young mage: well-kept, fitted DARK-GREEN leather armour (a jerkin with neat stitching) with ONE polished leather SHOULDER PIECE on her LEFT shoulder, a cream linen shirt underneath, brown leather bracers; over her shoulders a short CLOAK in the colours of the Order of Light: WHITE with a BLUE border and blue lining (hood down), fastened at her chest with a round SILVER BROOCH showing a simple blue bird-of-prey shape (the order's guardian badge, no letters); a brown leather belt with a long KNIFE in a sheath at her RIGHT hip; a NEW elegant recurved LONGBOW of dark polished wood with pale horn tips carried in her LEFT hand; a new tooled leather quiver with white-feathered arrows on her back (fletchings over her RIGHT shoulder); dark brown leggings, tall brown leather boots.",
+      "poses": [
+        "sit",
+        "crouch",
+        "shoot",
+        "attack",
+        "hurt",
+        "lie"
+      ],
+      "moods": [
+        "neutral",
+        "happy",
+        "smirk",
+        "determined",
+        "surprised",
+        "angry",
+        "sad"
+      ]
     },
     "baris": {
       "name": "Baris",

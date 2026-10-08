@@ -3296,6 +3296,46 @@
    ],
    "height": 43
   },
+  "paladin-anfuehrer": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/paladin-anfuehrer-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/paladin-anfuehrer-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 47
+  },
   "paladin": {
    "poses": {
     "attack": {
@@ -3335,6 +3375,166 @@
     60
    ],
    "height": 47
+  },
+  "paladin-hauptmann": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/paladin-hauptmann-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/paladin-hauptmann-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 45
+  },
+  "paladin-jung": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/paladin-jung-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/paladin-jung-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 46
+  },
+  "paladin-novize": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/paladin-novize-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/paladin-novize-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     11,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "paladin-wache": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/paladin-wache-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/paladin-wache-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 45
   },
   "pascal": {
    "poses": {
@@ -4357,6 +4557,14 @@
    "surprised": "assets/portraits/flick-surprised.png",
    "neutral": "assets/portraits/flick.png"
   },
+  "flick-flight": {
+   "determined": "assets/portraits/flick-flight-determined.png",
+   "pained": "assets/portraits/flick-flight-pained.png",
+   "sad": "assets/portraits/flick-flight-sad.png",
+   "scared": "assets/portraits/flick-flight-scared.png",
+   "smirk": "assets/portraits/flick-flight-smirk.png",
+   "neutral": "assets/portraits/flick-flight.png"
+  },
   "foltan": {
    "angry": "assets/portraits/foltan-angry.png",
    "ashamed": "assets/portraits/foltan-ashamed.png",
@@ -4456,6 +4664,47 @@
    "smirk": "assets/portraits/orwen-smirk.png",
    "neutral": "assets/portraits/orwen.png"
   },
+  "paladin-anfuehrer": {
+   "angry": "assets/portraits/paladin-anfuehrer-angry.png",
+   "determined": "assets/portraits/paladin-anfuehrer-determined.png",
+   "grim": "assets/portraits/paladin-anfuehrer-grim.png",
+   "surprised": "assets/portraits/paladin-anfuehrer-surprised.png",
+   "thinking": "assets/portraits/paladin-anfuehrer-thinking.png",
+   "neutral": "assets/portraits/paladin-anfuehrer.png"
+  },
+  "paladin-hauptmann": {
+   "angry": "assets/portraits/paladin-hauptmann-angry.png",
+   "determined": "assets/portraits/paladin-hauptmann-determined.png",
+   "grim": "assets/portraits/paladin-hauptmann-grim.png",
+   "surprised": "assets/portraits/paladin-hauptmann-surprised.png",
+   "thinking": "assets/portraits/paladin-hauptmann-thinking.png",
+   "neutral": "assets/portraits/paladin-hauptmann.png"
+  },
+  "paladin-jung": {
+   "angry": "assets/portraits/paladin-jung-angry.png",
+   "determined": "assets/portraits/paladin-jung-determined.png",
+   "scared": "assets/portraits/paladin-jung-scared.png",
+   "surprised": "assets/portraits/paladin-jung-surprised.png",
+   "thinking": "assets/portraits/paladin-jung-thinking.png",
+   "worried": "assets/portraits/paladin-jung-worried.png",
+   "neutral": "assets/portraits/paladin-jung.png"
+  },
+  "paladin-novize": {
+   "angry": "assets/portraits/paladin-novize-angry.png",
+   "determined": "assets/portraits/paladin-novize-determined.png",
+   "scared": "assets/portraits/paladin-novize-scared.png",
+   "surprised": "assets/portraits/paladin-novize-surprised.png",
+   "thinking": "assets/portraits/paladin-novize-thinking.png",
+   "neutral": "assets/portraits/paladin-novize.png"
+  },
+  "paladin-wache": {
+   "angry": "assets/portraits/paladin-wache-angry.png",
+   "determined": "assets/portraits/paladin-wache-determined.png",
+   "happy": "assets/portraits/paladin-wache-happy.png",
+   "surprised": "assets/portraits/paladin-wache-surprised.png",
+   "thinking": "assets/portraits/paladin-wache-thinking.png",
+   "neutral": "assets/portraits/paladin-wache.png"
+  },
   "paladin": {
    "neutral": "assets/portraits/paladin.png"
   },
@@ -4522,14 +4771,6 @@
   },
   "villager-m": {
    "neutral": "assets/portraits/villager-m.png"
-  },
-  "flick-flight": {
-   "determined": "assets/portraits/flick-flight-determined.png",
-   "pained": "assets/portraits/flick-flight-pained.png",
-   "sad": "assets/portraits/flick-flight-sad.png",
-   "scared": "assets/portraits/flick-flight-scared.png",
-   "smirk": "assets/portraits/flick-flight-smirk.png",
-   "neutral": "assets/portraits/flick-flight.png"
   }
  },
  "backgrounds": {

@@ -590,6 +590,20 @@
       "attempts": 1,
       "time": "2026-10-05T02:15:18"
     },
+    "output/imagegen/raw/art/characters/lia-cloak/sneak.png": {
+      "kind": "sneak",
+      "id": "lia-cloak",
+      "prompt": "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view creeping toward the viewer.\nROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the hunched back).\nThe 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 frames, matching the attached walk sheet of this character. The character must match the attached full-body reference sheet and walk sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. A long moss-green hooded rain cloak (hood DOWN, resting on her back) reaching to mid-calf, fastened at the throat, open at the front over a white linen blouse and a plain mid-brown calf-length skirt. A large brown leather satchel on a strap worn diagonally across her body (strap over her RIGHT shoulder, the bag hanging at her LEFT hip). Light brown leather shoes with laces wound around her ankles.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia-cloak.png",
+        "game/public/assets/sprites/lia-cloak-walk.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 63,
+      "attempts": 1,
+      "time": "2026-10-08T01:02:58"
+    },
     "output/imagegen/raw/art/characters/lia-cloak/turnaround-v2.png": {
       "kind": "",
       "id": "lia-cloak",
@@ -851,6 +865,20 @@
       "attempts": 1,
       "time": "2026-10-05T02:07:21"
     },
+    "output/imagegen/raw/art/characters/lia/sneak.png": {
+      "kind": "sneak",
+      "id": "lia",
+      "prompt": "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view creeping toward the viewer.\nROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the hunched back).\nThe 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 frames, matching the attached walk sheet of this character. The character must match the attached full-body reference sheet and walk sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Lia, a slender 16-year-old farm girl from a medieval fantasy village (youthful teenage proportions: not a small child, not a grown woman; natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair, the curls loosely pinned up at the back of her head, a few loose curls framing her face. Fair skin with a few light freckles, grey-green eyes, a dreamy, thoughtful, slightly wry expression. Simple white linen blouse with sleeves rolled to the elbows and a small drawstring neckline, plain mid-brown calf-length skirt with a darker narrow waistband, simple pale carved wooden clogs.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/lia.png",
+        "game/public/assets/sprites/lia-walk.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 64,
+      "attempts": 1,
+      "time": "2026-10-08T01:01:55"
+    },
     "output/imagegen/raw/art/characters/lia/turnaround-v2.png": {
       "kind": "turnaround",
       "id": "lia",
@@ -899,6 +927,539 @@
       "seconds": 81,
       "attempts": 1,
       "time": "2026-10-05T02:00:16"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-angry.png": {
+      "kind": "portrait:angry",
+      "id": "paladin-anfuehrer",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: angry, brows furrowed hard, glaring, jaw clenched, nostrils flared. Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash visible at the bottom. CHARACTER (for reference): A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-anfuehrer.png"
+      ],
+      "ok": true,
+      "seconds": 62,
+      "attempts": 1,
+      "time": "2026-10-09T00:30:14"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-determined.png": {
+      "kind": "portrait:determined",
+      "id": "paladin-anfuehrer",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: determined, firm steady gaze, set jaw, a slight frown of resolve. Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash visible at the bottom. CHARACTER (for reference): A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-anfuehrer.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T00:30:53"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-grim.png": {
+      "kind": "portrait:grim",
+      "id": "paladin-anfuehrer",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: stern and severe, a cold disapproving gaze, brows lowered, mouth a hard straight line. Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash visible at the bottom. CHARACTER (for reference): A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-anfuehrer.png"
+      ],
+      "ok": true,
+      "seconds": 51,
+      "attempts": 1,
+      "time": "2026-10-09T00:31:45"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-neutral.png": {
+      "kind": "portrait:neutral",
+      "id": "paladin-anfuehrer",
+      "prompt": "Pixel-art dialogue portrait for an RPG (bust shot: head and shoulders down to mid-chest), three-quarter view with the face turned slightly toward the RIGHT, expressive face, detailed high-resolution pixel art with painterly pixel shading and a warm rim light, visible pixel grid, rendered in the same style as the attached portrait style reference (STYLE ONLY — do not copy that person's face, hair, clothes or age). Square image. The character must match the attached full-body reference sheet exactly (same face, hair, age, clothing, colours, accessories). Plain very dark neutral background (deep slate / charcoal with a faint green-blue tint), no scenery. Head and face CENTRED horizontally in the image and fully visible in the upper half, head not cropped at the top, shoulders reach the bottom edge. CHARACTER: A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand. Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash visible at the bottom. Expression: calm and attentive, a faint thoughtful look. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-anfuehrer.png",
+        "output/imagegen/style-refs/insel-portraits-kim.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-09T00:23:35"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-surprised.png": {
+      "kind": "portrait:surprised",
+      "id": "paladin-anfuehrer",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: surprised, eyes wide open, eyebrows raised high, mouth slightly open. Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash visible at the bottom. CHARACTER (for reference): A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-anfuehrer.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T00:30:03"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-thinking.png": {
+      "kind": "portrait:thinking",
+      "id": "paladin-anfuehrer",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: thinking, eyes looking up and to the side, one eyebrow slightly raised, a finger touching the chin. Bare head, NO helmet. The white tabard with the blue bird emblem and the dark-blue rank sash visible at the bottom. CHARACTER (for reference): A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-anfuehrer/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-anfuehrer.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T00:31:05"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/pose-attack.png": {
+      "kind": "pose:attack",
+      "id": "paladin-anfuehrer",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): ATTACKING — a dynamic melee strike toward the RIGHT side of the image: lunging forward with the front foot planted, the weapon swung or thrust forward at the moment of impact, determined face, body turned three-quarter toward the RIGHT. Compact pose: the weapon stays close to the body, the whole figure including the weapon fits inside a square. He thrusts the spear forward horizontally with both hands toward the RIGHT (grip near the middle of the shaft so it fits), bare head, stern face. The LEFT standing figure holds its weapon the same way as in the reference sheet, close to the body.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-anfuehrer.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-09T00:22:35"
+    },
+    "output/imagegen/raw/art/characters/paladin-anfuehrer/walk.png": {
+      "kind": "walk",
+      "id": "paladin-anfuehrer",
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one walking direction with a 4-frame walk cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view walking toward the viewer.\nROW 2: facing WEST — strict side profile walking toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile walking toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see the back of the head).\nThe 4 frames of every row MUST show a clear, readable walk cycle: frame 1 = LEFT leg forward and RIGHT arm forward (wide stride, contact pose), frame 2 = passing pose (legs together, one knee lifted, body slightly higher), frame 3 = RIGHT leg forward and LEFT arm forward (wide stride, contact pose), frame 4 = passing pose with the other knee lifted. Arms swing opposite to the legs. In the side rows the stride is wide and clearly visible; in the front and back rows the legs alternate visibly (one foot lifted and forward). Skirts and cloaks swing with the stride. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk to about 42 pixels tall, natural proportions (about 6 heads tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. The character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A patrol leader of the Paladins of the Light, a stern, hard-eyed man around 45, tall and broad-shouldered (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short cropped SALT-AND-PEPPER hair (dark brown streaked with grey), a short, neatly trimmed GREY-FLECKED beard and moustache, weathered fair skin, deep lines on the forehead, steel-grey eyes, a severe, unsmiling mouth. He wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots; as a mark of rank a narrow dark-blue sash runs diagonally over the tabard from the RIGHT shoulder. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-anfuehrer.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 93,
+      "attempts": 1,
+      "time": "2026-10-09T00:23:19"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-angry.png": {
+      "kind": "portrait:angry",
+      "id": "paladin-hauptmann",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: angry, brows furrowed hard, glaring, jaw clenched, nostrils flared. Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape and gold-rimmed pauldrons at the bottom. CHARACTER (for reference): The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-hauptmann.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T00:34:26"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-determined.png": {
+      "kind": "portrait:determined",
+      "id": "paladin-hauptmann",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: determined, firm steady gaze, set jaw, a slight frown of resolve. Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape and gold-rimmed pauldrons at the bottom. CHARACTER (for reference): The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-hauptmann.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-09T00:35:21"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-grim.png": {
+      "kind": "portrait:grim",
+      "id": "paladin-hauptmann",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: stern and severe, a cold disapproving gaze, brows lowered, mouth a hard straight line. Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape and gold-rimmed pauldrons at the bottom. CHARACTER (for reference): The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-hauptmann.png"
+      ],
+      "ok": true,
+      "seconds": 43,
+      "attempts": 1,
+      "time": "2026-10-09T00:36:04"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-neutral.png": {
+      "kind": "portrait:neutral",
+      "id": "paladin-hauptmann",
+      "prompt": "Pixel-art dialogue portrait for an RPG (bust shot: head and shoulders down to mid-chest), three-quarter view with the face turned slightly toward the RIGHT, expressive face, detailed high-resolution pixel art with painterly pixel shading and a warm rim light, visible pixel grid, rendered in the same style as the attached portrait style reference (STYLE ONLY — do not copy that person's face, hair, clothes or age). Square image. The character must match the attached full-body reference sheet exactly (same face, hair, age, clothing, colours, accessories). Plain very dark neutral background (deep slate / charcoal with a faint green-blue tint), no scenery. Head and face CENTRED horizontally in the image and fully visible in the upper half, head not cropped at the top, shoulders reach the bottom edge. CHARACTER: The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand. Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape and gold-rimmed pauldrons at the bottom. Expression: calm and attentive, a faint thoughtful look. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-hauptmann.png",
+        "output/imagegen/style-refs/insel-portraits-kim.png"
+      ],
+      "ok": true,
+      "seconds": 77,
+      "attempts": 1,
+      "time": "2026-10-09T00:26:51"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-surprised.png": {
+      "kind": "portrait:surprised",
+      "id": "paladin-hauptmann",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: surprised, eyes wide open, eyebrows raised high, mouth slightly open. Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape and gold-rimmed pauldrons at the bottom. CHARACTER (for reference): The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-hauptmann.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-09T00:35:11"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-thinking.png": {
+      "kind": "portrait:thinking",
+      "id": "paladin-hauptmann",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: thinking, eyes looking up and to the side, one eyebrow slightly raised, a finger touching the chin. Bald head, NO helmet, the scar through his LEFT eyebrow clearly visible, the deep-blue cape and gold-rimmed pauldrons at the bottom. CHARACTER (for reference): The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-hauptmann/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-hauptmann.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T00:36:13"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/pose-attack.png": {
+      "kind": "pose:attack",
+      "id": "paladin-hauptmann",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): ATTACKING — a dynamic melee strike toward the RIGHT side of the image: lunging forward with the front foot planted, the weapon swung or thrust forward at the moment of impact, determined face, body turned three-quarter toward the RIGHT. Compact pose: the weapon stays close to the body, the whole figure including the weapon fits inside a square. He swings his longsword with both hands in a powerful diagonal slash forward and down toward the RIGHT, the blade in front of his chest (NOT raised high above the head), the blue cape swinging, bald head. The LEFT standing figure holds its weapon the same way as in the reference sheet, close to the body.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-hauptmann.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T00:25:57"
+    },
+    "output/imagegen/raw/art/characters/paladin-hauptmann/walk.png": {
+      "kind": "walk",
+      "id": "paladin-hauptmann",
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one walking direction with a 4-frame walk cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view walking toward the viewer.\nROW 2: facing WEST — strict side profile walking toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile walking toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see the back of the head).\nThe 4 frames of every row MUST show a clear, readable walk cycle: frame 1 = LEFT leg forward and RIGHT arm forward (wide stride, contact pose), frame 2 = passing pose (legs together, one knee lifted, body slightly higher), frame 3 = RIGHT leg forward and LEFT arm forward (wide stride, contact pose), frame 4 = passing pose with the other knee lifted. Arms swing opposite to the legs. In the side rows the stride is wide and clearly visible; in the front and back rows the legs alternate visibly (one foot lifted and forward). Skirts and cloaks swing with the stride. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk to about 42 pixels tall, natural proportions (about 6 heads tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. The character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: The captain of the guard of the Paladins of the Light, a massive, thick-necked veteran around 50, broad and heavy-set (natural adult proportions, not chibi). COMPLETELY BALD shaved head that gleams, NO HELMET, NO beard (clean-shaven heavy square jaw with grey stubble), sun-tanned ruddy skin, small hard dark eyes under heavy brows, an old pale SCAR cutting vertically through his LEFT eyebrow, a broken nose. He wears the order's uniform as on the attached sheet but with the marks of a captain: polished white-silver plate armour with GOLD trim and large gold-rimmed pauldrons, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a long DEEP-BLUE cape with gold edging instead of the short white one, gauntlets, armoured boots. Instead of a spear he carries a straight LONGSWORD with a gold cross-guard, drawn and held point-down in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-hauptmann.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 62,
+      "attempts": 1,
+      "time": "2026-10-09T00:25:34"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-angry.png": {
+      "kind": "portrait:angry",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: angry, brows furrowed hard, glaring, jaw clenched, nostrils flared. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-jung.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T00:31:55"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-determined.png": {
+      "kind": "portrait:determined",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: determined, firm steady gaze, set jaw, a slight frown of resolve. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-jung.png"
+      ],
+      "ok": true,
+      "seconds": 44,
+      "attempts": 1,
+      "time": "2026-10-09T00:32:40"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png": {
+      "kind": "portrait:neutral",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait for an RPG (bust shot: head and shoulders down to mid-chest), three-quarter view with the face turned slightly toward the RIGHT, expressive face, detailed high-resolution pixel art with painterly pixel shading and a warm rim light, visible pixel grid, rendered in the same style as the attached portrait style reference (STYLE ONLY — do not copy that person's face, hair, clothes or age). Square image. The character must match the attached full-body reference sheet exactly (same face, hair, age, clothing, colours, accessories). Plain very dark neutral background (deep slate / charcoal with a faint green-blue tint), no scenery. Head and face CENTRED horizontally in the image and fully visible in the upper half, head not cropped at the top, shoulders reach the bottom edge. CHARACTER: A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. Expression: calm and attentive, a faint thoughtful look. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-jung.png",
+        "output/imagegen/style-refs/insel-portraits-kim.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-09T00:25:11"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-scared.png": {
+      "kind": "portrait:scared",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: frightened, eyes wide with fear, eyebrows pulled up and together, shoulders raised, lips parted. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-jung.png"
+      ],
+      "ok": true,
+      "seconds": 43,
+      "attempts": 1,
+      "time": "2026-10-09T00:33:23"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-surprised.png": {
+      "kind": "portrait:surprised",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: surprised, eyes wide open, eyebrows raised high, mouth slightly open. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-jung.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-09T00:32:31"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-thinking.png": {
+      "kind": "portrait:thinking",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: thinking, eyes looking up and to the side, one eyebrow slightly raised, a finger touching the chin. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-jung.png"
+      ],
+      "ok": true,
+      "seconds": 53,
+      "attempts": 1,
+      "time": "2026-10-09T00:33:24"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/portrait-worried.png": {
+      "kind": "portrait:worried",
+      "id": "paladin-jung",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: worried and anxious, brows knitted and pulled upward, eyes glancing to the side, lips pressed tight. Bare head, NO helmet, ginger hair and freckles clearly visible. The white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-jung/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-jung.png"
+      ],
+      "ok": true,
+      "seconds": 67,
+      "attempts": 1,
+      "time": "2026-10-09T00:34:31"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/pose-attack.png": {
+      "kind": "pose:attack",
+      "id": "paladin-jung",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): ATTACKING — a dynamic melee strike toward the RIGHT side of the image: lunging forward with the front foot planted, the weapon swung or thrust forward at the moment of impact, determined face, body turned three-quarter toward the RIGHT. Compact pose: the weapon stays close to the body, the whole figure including the weapon fits inside a square. He thrusts the spear forward horizontally with both hands toward the RIGHT (grip near the middle of the shaft so it fits), a little clumsy, eyes wide, bare head. The LEFT standing figure holds its weapon the same way as in the reference sheet, close to the body.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-jung.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T00:24:22"
+    },
+    "output/imagegen/raw/art/characters/paladin-jung/walk.png": {
+      "kind": "walk",
+      "id": "paladin-jung",
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one walking direction with a 4-frame walk cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view walking toward the viewer.\nROW 2: facing WEST — strict side profile walking toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile walking toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see the back of the head).\nThe 4 frames of every row MUST show a clear, readable walk cycle: frame 1 = LEFT leg forward and RIGHT arm forward (wide stride, contact pose), frame 2 = passing pose (legs together, one knee lifted, body slightly higher), frame 3 = RIGHT leg forward and LEFT arm forward (wide stride, contact pose), frame 4 = passing pose with the other knee lifted. Arms swing opposite to the legs. In the side rows the stride is wide and clearly visible; in the front and back rows the legs alternate visibly (one foot lifted and forward). Skirts and cloaks swing with the stride. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk to about 42 pixels tall, natural proportions (about 6 heads tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. The character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A young Paladin of the Light, barely 20, lanky and a little gangly, slightly hunched, unsure posture (natural adult proportions, not chibi). BARE HEAD, NO HELMET: short, tousled bright COPPER-RED (ginger) hair sticking up at the crown, a CLEAN-SHAVEN boyish face with many freckles, pale fair skin, big light-blue eyes, raised worried eyebrows, slightly protruding ears. He wears the order's uniform exactly as on the attached sheet but it looks a size too large on him: polished white-silver plate armour with GOLD trim, a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-jung.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 72,
+      "attempts": 1,
+      "time": "2026-10-09T00:24:32"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/portrait-angry.png": {
+      "kind": "portrait:angry",
+      "id": "paladin-novize",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: angry, brows furrowed hard, glaring, jaw clenched, nostrils flared. Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the bottom. CHARACTER (for reference): A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-novize/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-novize.png"
+      ],
+      "ok": true,
+      "seconds": 47,
+      "attempts": 1,
+      "time": "2026-10-09T00:36:52"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/portrait-determined.png": {
+      "kind": "portrait:determined",
+      "id": "paladin-novize",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: determined, firm steady gaze, set jaw, a slight frown of resolve. Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the bottom. CHARACTER (for reference): A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-novize/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-novize.png"
+      ],
+      "ok": true,
+      "seconds": 48,
+      "attempts": 1,
+      "time": "2026-10-09T00:37:40"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/portrait-neutral.png": {
+      "kind": "portrait:neutral",
+      "id": "paladin-novize",
+      "prompt": "Pixel-art dialogue portrait for an RPG (bust shot: head and shoulders down to mid-chest), three-quarter view with the face turned slightly toward the RIGHT, expressive face, detailed high-resolution pixel art with painterly pixel shading and a warm rim light, visible pixel grid, rendered in the same style as the attached portrait style reference (STYLE ONLY — do not copy that person's face, hair, clothes or age). Square image. The character must match the attached full-body reference sheet exactly (same face, hair, age, clothing, colours, accessories). Plain very dark neutral background (deep slate / charcoal with a faint green-blue tint), no scenery. Head and face CENTRED horizontally in the image and fully visible in the upper half, head not cropped at the top, shoulders reach the bottom edge. CHARACTER: A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand. Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the bottom. Expression: calm and attentive, a faint thoughtful look. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-novize.png",
+        "output/imagegen/style-refs/insel-portraits-kim.png"
+      ],
+      "ok": true,
+      "seconds": 64,
+      "attempts": 1,
+      "time": "2026-10-09T00:28:03"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/portrait-scared.png": {
+      "kind": "portrait:scared",
+      "id": "paladin-novize",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: frightened, eyes wide with fear, eyebrows pulled up and together, shoulders raised, lips parted. Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the bottom. CHARACTER (for reference): A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-novize/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-novize.png"
+      ],
+      "ok": true,
+      "seconds": 50,
+      "attempts": 1,
+      "time": "2026-10-09T00:38:31"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/portrait-surprised.png": {
+      "kind": "portrait:surprised",
+      "id": "paladin-novize",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: surprised, eyes wide open, eyebrows raised high, mouth slightly open. Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the bottom. CHARACTER (for reference): A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-novize/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-novize.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T00:37:15"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/portrait-thinking.png": {
+      "kind": "portrait:thinking",
+      "id": "paladin-novize",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: thinking, eyes looking up and to the side, one eyebrow slightly raised, a finger touching the chin. Bare head, NO helmet, dark curls. The quilted gambeson and the plain white tabard visible at the bottom. CHARACTER (for reference): A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-novize/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-novize.png"
+      ],
+      "ok": true,
+      "seconds": 55,
+      "attempts": 1,
+      "time": "2026-10-09T00:38:10"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/pose-attack.png": {
+      "kind": "pose:attack",
+      "id": "paladin-novize",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): ATTACKING — a dynamic melee strike toward the RIGHT side of the image: lunging forward with the front foot planted, the weapon swung or thrust forward at the moment of impact, determined face, body turned three-quarter toward the RIGHT. Compact pose: the weapon stays close to the body, the whole figure including the weapon fits inside a square. He thrusts the short spear forward with both hands toward the RIGHT (grip near the middle of the shaft so it fits), determined but unsure. The LEFT standing figure holds its weapon the same way as in the reference sheet, close to the body.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-novize.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-09T00:27:30"
+    },
+    "output/imagegen/raw/art/characters/paladin-novize/walk.png": {
+      "kind": "walk",
+      "id": "paladin-novize",
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one walking direction with a 4-frame walk cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view walking toward the viewer.\nROW 2: facing WEST — strict side profile walking toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile walking toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see the back of the head).\nThe 4 frames of every row MUST show a clear, readable walk cycle: frame 1 = LEFT leg forward and RIGHT arm forward (wide stride, contact pose), frame 2 = passing pose (legs together, one knee lifted, body slightly higher), frame 3 = RIGHT leg forward and LEFT arm forward (wide stride, contact pose), frame 4 = passing pose with the other knee lifted. Arms swing opposite to the legs. In the side rows the stride is wide and clearly visible; in the front and back rows the legs alternate visibly (one foot lifted and forward). Skirts and cloaks swing with the stride. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk to about 42 pixels tall, natural proportions (about 6 heads tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. The character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A novice of the Paladins of the Light, a skinny boy of about 16 (youthful teenage proportions, not chibi, smaller and slighter than the grown paladins). BARE HEAD, NO HELMET: a NARROW, thin, earnest face, olive skin, dark brown eyes, a mop of DARK BROWN-BLACK CURLS, no beard. His equipment is SIMPLER than a full paladin's: no plate armour, instead a padded quilted cream-coloured gambeson with a short MAIL shirt underneath, steel shoulder pieces only, plain brown leather bracers and belt, the order's WHITE tabard with a simple blue bird-of-prey emblem shape (no letters) but WITHOUT gold edges, plain brown leather boots, no cape. Armed with a shorter SPEAR (plain wooden shaft, steel spearhead) held in his RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-novize.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T00:26:59"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/portrait-angry.png": {
+      "kind": "portrait:angry",
+      "id": "paladin-wache",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: angry, brows furrowed hard, glaring, jaw clenched, nostrils flared. Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-wache/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-wache.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T00:38:57"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/portrait-determined.png": {
+      "kind": "portrait:determined",
+      "id": "paladin-wache",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: determined, firm steady gaze, set jaw, a slight frown of resolve. Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-wache/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-wache.png"
+      ],
+      "ok": true,
+      "seconds": 47,
+      "attempts": 1,
+      "time": "2026-10-09T00:39:45"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/portrait-happy.png": {
+      "kind": "portrait:happy",
+      "id": "paladin-wache",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: a warm genuine smile, bright eyes, cheeks lifted. Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-wache/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-wache.png"
+      ],
+      "ok": true,
+      "seconds": 61,
+      "attempts": 1,
+      "time": "2026-10-09T00:40:46"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/portrait-neutral.png": {
+      "kind": "portrait:neutral",
+      "id": "paladin-wache",
+      "prompt": "Pixel-art dialogue portrait for an RPG (bust shot: head and shoulders down to mid-chest), three-quarter view with the face turned slightly toward the RIGHT, expressive face, detailed high-resolution pixel art with painterly pixel shading and a warm rim light, visible pixel grid, rendered in the same style as the attached portrait style reference (STYLE ONLY — do not copy that person's face, hair, clothes or age). Square image. The character must match the attached full-body reference sheet exactly (same face, hair, age, clothing, colours, accessories). Plain very dark neutral background (deep slate / charcoal with a faint green-blue tint), no scenery. Head and face CENTRED horizontally in the image and fully visible in the upper half, head not cropped at the top, shoulders reach the bottom edge. CHARACTER: A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand. Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the blue bird emblem visible at the bottom. Expression: calm and attentive, a faint thoughtful look. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-wache.png",
+        "output/imagegen/style-refs/insel-portraits-gilbert.png"
+      ],
+      "ok": true,
+      "seconds": 49,
+      "attempts": 1,
+      "time": "2026-10-09T00:29:12"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/portrait-surprised.png": {
+      "kind": "portrait:surprised",
+      "id": "paladin-wache",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: surprised, eyes wide open, eyebrows raised high, mouth slightly open. Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-wache/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-wache.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T00:39:17"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/portrait-thinking.png": {
+      "kind": "portrait:thinking",
+      "id": "paladin-wache",
+      "prompt": "Pixel-art dialogue portrait, a mood variant of the attached BASE PORTRAIT: keep EXACTLY the same character, face shape, hairstyle, clothing, colours, framing, head position, camera angle, lighting, pixel style and plain dark background as the base portrait — ONLY the facial expression (and at most a small head tilt or hand gesture) changes. Square image. Expression: thinking, eyes looking up and to the side, one eyebrow slightly raised, a finger touching the chin. Bare head, NO helmet, the long braid falling over her RIGHT shoulder, the white tabard with the blue bird emblem visible at the bottom. CHARACTER (for reference): A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame.",
+      "refs": [
+        "output/imagegen/raw/art/characters/paladin-wache/portrait-neutral.png",
+        "docs/rebuild/art/refs/paladin-wache.png"
+      ],
+      "ok": true,
+      "seconds": 75,
+      "attempts": 1,
+      "time": "2026-10-09T00:40:33"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/pose-attack.png": {
+      "kind": "pose:attack",
+      "id": "paladin-wache",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): ATTACKING — a dynamic melee strike toward the RIGHT side of the image: lunging forward with the front foot planted, the weapon swung or thrust forward at the moment of impact, determined face, body turned three-quarter toward the RIGHT. Compact pose: the weapon stays close to the body, the whole figure including the weapon fits inside a square. She thrusts the spear forward horizontally with both hands toward the RIGHT (grip near the middle of the shaft so it fits), the braid swinging, calm focused face. The LEFT standing figure holds its weapon the same way as in the reference sheet, close to the body.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-wache.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-09T00:28:48"
+    },
+    "output/imagegen/raw/art/characters/paladin-wache/walk.png": {
+      "kind": "walk",
+      "id": "paladin-wache",
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one walking direction with a 4-frame walk cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view walking toward the viewer.\nROW 2: facing WEST — strict side profile walking toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile walking toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see the back of the head).\nThe 4 frames of every row MUST show a clear, readable walk cycle: frame 1 = LEFT leg forward and RIGHT arm forward (wide stride, contact pose), frame 2 = passing pose (legs together, one knee lifted, body slightly higher), frame 3 = RIGHT leg forward and LEFT arm forward (wide stride, contact pose), frame 4 = passing pose with the other knee lifted. Arms swing opposite to the legs. In the side rows the stride is wide and clearly visible; in the front and back rows the legs alternate visibly (one foot lifted and forward). Skirts and cloaks swing with the stride. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk to about 42 pixels tall, natural proportions (about 6 heads tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. The character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: A female guard of the Paladins of the Light, a tall, athletic, calm woman around 35 (natural adult proportions, not chibi). BARE HEAD, NO HELMET: DARK BROWN SKIN, a strong composed face with high cheekbones, dark brown eyes, black hair worn in a long thick BRAID (several tight cornrow braids gathered into one braid) hanging down over her RIGHT shoulder to her chest. She wears the order's uniform exactly as on the attached sheet: polished white-silver plate armour with GOLD trim (a breastplate shaped for a woman), a WHITE tabard with gold edges and a simple blue bird-of-prey emblem shape on the chest (no letters), a dark BLUE under-skirt, a short white cape, gauntlets, armoured boots. Armed with a long SPEAR (white-painted shaft, steel spearhead) held upright in her RIGHT hand.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/paladin-wache.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 52,
+      "attempts": 1,
+      "time": "2026-10-09T00:28:23"
     },
     "output/imagegen/raw/art/characters/valentus-cloak/portrait-angry.png": {
       "kind": "portrait:angry",
@@ -1301,34 +1862,6 @@
       "seconds": 64,
       "attempts": 1,
       "time": "2026-10-05T01:59:59"
-    },
-    "output/imagegen/raw/art/characters/lia-cloak/sneak.png": {
-      "kind": "sneak",
-      "id": "lia-cloak",
-      "prompt": "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view creeping toward the viewer.\nROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the hunched back).\nThe 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 frames, matching the attached walk sheet of this character. The character must match the attached full-body reference sheet and walk sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. A long moss-green hooded rain cloak (hood DOWN, resting on her back) reaching to mid-calf, fastened at the throat, open at the front over a white linen blouse and a plain mid-brown calf-length skirt. A large brown leather satchel on a strap worn diagonally across her body (strap over her RIGHT shoulder, the bag hanging at her LEFT hip). Light brown leather shoes with laces wound around her ankles.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
-      "refs": [
-        "docs/rebuild/art/refs/lia-cloak.png",
-        "game/public/assets/sprites/lia-cloak-walk.png",
-        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
-      ],
-      "ok": true,
-      "seconds": 63,
-      "attempts": 1,
-      "time": "2026-10-08T01:02:58"
-    },
-    "output/imagegen/raw/art/characters/lia/sneak.png": {
-      "kind": "sneak",
-      "id": "lia",
-      "prompt": "Game character SNEAK-WALK CYCLE SPRITE SHEET (crouch walking): one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). In EVERY frame the character sneaks in a LOW CROUCH: knees deeply bent, hips low, back hunched forward, head ducked between the shoulders but eyes alert, arms held close to the body and slightly forward for balance. The crouching figure is only about three quarters as tall as when standing upright. Each row is one direction with a 4-frame cautious tiptoe step cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view creeping toward the viewer.\nROW 2: facing WEST — strict side profile creeping toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile creeping toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view creeping away from the viewer (we see the back of the head and the hunched back).\nThe 4 frames of every row show short, careful crouched steps: frame 1 = LEFT foot placed forward, frame 2 = feet close together, frame 3 = RIGHT foot placed forward, frame 4 = feet close together again. The body stays low in all frames (no standing up between steps). Skirts and cloaks hang low and close. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk, natural proportions (not chibi). Identical clothing, colours, hair and accessories in all 16 frames, matching the attached walk sheet of this character. The character must match the attached full-body reference sheet and walk sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Lia, a slender 16-year-old farm girl from a medieval fantasy village (youthful teenage proportions: not a small child, not a grown woman; natural proportions, not chibi). Long strawberry-blonde (copper-golden) curly hair, the curls loosely pinned up at the back of her head, a few loose curls framing her face. Fair skin with a few light freckles, grey-green eyes, a dreamy, thoughtful, slightly wry expression. Simple white linen blouse with sleeves rolled to the elbows and a small drawstring neckline, plain mid-brown calf-length skirt with a darker narrow waistband, simple pale carved wooden clogs.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
-      "refs": [
-        "docs/rebuild/art/refs/lia.png",
-        "game/public/assets/sprites/lia-walk.png",
-        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
-      ],
-      "ok": true,
-      "seconds": 64,
-      "attempts": 1,
-      "time": "2026-10-08T01:01:55"
     }
   },
   "builds": {

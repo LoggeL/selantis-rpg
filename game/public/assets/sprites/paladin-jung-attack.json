@@ -1,0 +1,9 @@
+{
+  "facing": "right",
+  "foot": [
+    48,
+    60
+  ],
+  "character": "paladin-jung",
+  "pose": "attack"
+}
