@@ -88,6 +88,18 @@
       ],
       "cols": 1,
       "rows": 1
+    },
+    "e3-icons": {
+      "ids": [
+        "e3-lia-staff",
+        "e3-ordensfibel"
+      ],
+      "descs": [
+        "a long smooth pale almost WHITE wooden staff with spiral-twisted segments and small angular carved notches, ending at the top in a slender curled spiral, no gem, no metal, no leather, no glow, shown DIAGONALLY from bottom-left to top-right filling the cell",
+        "a round cloak brooch with a polished silver rim and a pin, its round face enamelled deep dark BLUE with a small WHITE spread-winged bird of prey in the centre, no letters, shown front-on filling the cell"
+      ],
+      "cols": 2,
+      "rows": 1
     }
   },
   "images": {
@@ -138,6 +150,18 @@
       "seconds": 37,
       "attempts": 1,
       "time": "2026-10-05T03:07:56"
+    },
+    "output/imagegen/raw/art/icons/e3-icons.png": {
+      "kind": "icons",
+      "id": "e3-icons",
+      "prompt": "Inventory item icon sheet for a fantasy RPG: a strict grid of 2 columns x 1 rows of separate item icons, each item centred in its own invisible square cell with wide empty gaps, nothing touching, every icon drawn large and bold so it stays readable at 32x32 pixels, slight three-quarter view, chunky pixels with a bold dark outline, warm soft lighting. Items in reading order (left to right, top to bottom): 1. a long smooth pale almost WHITE wooden staff with spiral-twisted segments and small angular carved notches, ending at the top in a slender curled spiral, no gem, no metal, no leather, no glow, shown DIAGONALLY from bottom-left to top-right filling the cell; 2. a round cloak brooch with a polished silver rim and a pin, its round face enamelled deep dark BLUE with a small WHITE spread-winged bird of prey in the centre, no letters, shown front-on filling the cell. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 38,
+      "attempts": 1,
+      "time": "2026-10-08T02:50:59"
     }
   }
 }

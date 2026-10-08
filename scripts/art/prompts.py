@@ -394,6 +394,54 @@ POSE_EXTRA: dict[tuple[str, str], str] = {
     ("pascal", "talk"): "He talks dryly with a deadpan face, one eyebrow raised, RIGHT hand lifted holding the two "
                         "wooden spoons and pointing them like a little baton, LEFT thumb hooked under an orange "
                         "brace.",
+    # ---- Teil III „Falscher Glaube“ (area teil-3)
+
+    ("e3-lia-eigenstab", "cast"): "INSTEAD of an open palm she uses her own pale spiral staff. CONTROLLED, focused "
+                                  "casting, NOT an outburst: she stands firmly and points the staff forward toward the "
+                                  "RIGHT with both hands (RIGHT hand low on the shaft, LEFT hand further up), the slender "
+                                  "spiral tip aimed forward. Only a SMALL, soft TURQUOISE light glows at the spiral tip — "
+                                  "no explosion, no beam, no swirl around her, hair and cloak calm, eyes normal (not "
+                                  "glowing). " + STAFF_STAND,
+    ("e3-lia-eigenstab", "attack"): "A short, controlled staff swing: she holds the pale staff with both hands near the "
+                                    "middle and strikes sideways toward the RIGHT with the spiral end, compact, the staff "
+                                    "kept close to the body; no glow, no magic. " + STAFF_STAND,
+    ("e3-lia-eigenstab", "sit"): "Sitting on the ground, the pale staff held loosely upright in her RIGHT hand and "
+                                 "leaning against her RIGHT shoulder, its foot on the ground. " + STAFF_STAND,
+    ("e3-lia-eigenstab", "kneel"): "Kneeling on ONE knee, holding the pale staff upright in her RIGHT hand with its foot "
+                                   "planted on the ground beside her, leaning lightly on it. " + STAFF_STAND,
+    ("e3-lia-eigenstab", "lie"): "Asleep on her back, the pale spiral staff lying on the ground right beside her, "
+                                 "parallel to her body. No glow.",
+    ("e3-lia-eigenstab", "hurt"): "She flinches, the pale staff still gripped in her RIGHT hand but lowered and "
+                                  "slanting. " + STAFF_STAND,
+    ("e3-lia-gefesselt", "sit"): "Sitting on the ground with her knees drawn up, her rope-bound wrists resting on her "
+                                 "knees, tired and frightened but with a stubborn set to her mouth.",
+    ("e3-lia-gefesselt", "kneel"): "Forced to kneel on both knees, her rope-bound wrists held in front of her, head "
+                                   "raised, scared but defiant.",
+    ("e3-lia-gefesselt", "lie"): "Lying on her back, eyes closed, her rope-bound wrists resting on her stomach, the "
+                                 "cloak spread beneath her. No blood.",
+    ("e3-lia-innen", "sit"): "Sitting in soft grass with her legs tucked to one side, the long white lace dress spread "
+                             "around her, bare feet visible, hands resting in her lap, her loose hair falling over her "
+                             "shoulders, looking up calmly.",
+    ("e3-ignatius-gefesselt", "kneel"): "Forced to kneel on both knees, his rope-bound wrists resting in front of him, "
+                                        "back straight and head raised with weary dignity.",
+    ("e2-ignatius", "lie"): "Lying on his back with the brown cloak spread beneath him, eyes closed, a peaceful face, "
+                            "both hands resting folded on his chest over the beard. No blood, no wound. NO staff.",
+    ("e2-ignatius", "hurt"): "He staggers back, struck by an invisible blow of cold magic: hunched forward, both hands "
+                             "pressed to his chest, face twisted in pain, teeth gritted. No blood. NO staff.",
+    ("e3-grossmeister", "talk"): "He speaks with authority: standing very upright, his RIGHT hand raised with the palm "
+                                 "turned down in a commanding, measured gesture (the gold signet ring visible), his LEFT "
+                                 "hand resting on his broad belt, chin raised, stern.",
+    ("e3-grossmeister", "sit"): "INSTEAD of sitting on the ground he sits UPRIGHT as if enthroned on a high chair, but "
+                                "the chair is NOT drawn at all (the seat is invisible; the game background provides the "
+                                "chair): thighs horizontal, lower legs vertical with both boots flat on the ground, back "
+                                "straight, both forearms resting forward as if on armrests, hands relaxed, stern gaze.",
+    ("e3-doktor", "talk"): "He lectures impatiently: RIGHT index finger raised like a pedant, LEFT hand holding the "
+                           "round magnifying glass by its handle at chest height, eyebrows raised, slightly smug.",
+    ("e3-doktor", "interact"): "Busy with an experiment at waist height: he holds a small clear glass crystal up in his "
+                               "LEFT hand and peers at it through the round magnifying glass in his RIGHT hand, leaning "
+                               "forward, frowning in concentration.",
+    ("e3-doktor", "read"): "He reads a heavy old leather-bound book held open in his LEFT arm, the RIGHT index finger "
+                           "tracing a line, his nose close to the pages, absorbed.",
 }
 
 PORTRAIT = (

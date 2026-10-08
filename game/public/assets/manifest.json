@@ -1182,6 +1182,17 @@
      ],
      "facing": "right"
     },
+    "hurt": {
+     "file": "assets/sprites/e2-ignatius-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
     "kneel": {
      "file": "assets/sprites/e2-ignatius-kneel.png",
      "w": 64,
@@ -1189,6 +1200,17 @@
      "frames": 1,
      "foot": [
       32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e2-ignatius-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
       60
      ],
      "facing": "right"
@@ -1398,6 +1420,384 @@
     60
    ],
    "height": 41
+  },
+  "e3-doktor": {
+   "poses": {
+    "interact": {
+     "file": "assets/sprites/e3-doktor-interact.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "read": {
+     "file": "assets/sprites/e3-doktor-read.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/e3-doktor-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-doktor-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     3,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "e3-gestalt": {
+   "poses": {},
+   "walk": {
+    "file": "assets/sprites/e3-gestalt-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
+  "e3-grossmeister": {
+   "poses": {
+    "sit": {
+     "file": "assets/sprites/e3-grossmeister-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "talk": {
+     "file": "assets/sprites/e3-grossmeister-talk.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-grossmeister-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 44
+  },
+  "e3-ignatius-gefesselt": {
+   "poses": {
+    "kneel": {
+     "file": "assets/sprites/e3-ignatius-gefesselt-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-ignatius-gefesselt-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 43
+  },
+  "e3-lia-eigenstab": {
+   "poses": {
+    "attack": {
+     "file": "assets/sprites/e3-lia-eigenstab-attack.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "cast": {
+     "file": "assets/sprites/e3-lia-eigenstab-cast.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "hurt": {
+     "file": "assets/sprites/e3-lia-eigenstab-hurt.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "kneel": {
+     "file": "assets/sprites/e3-lia-eigenstab-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e3-lia-eigenstab-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/e3-lia-eigenstab-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-lia-eigenstab-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     15
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
+  "e3-lia-gefesselt": {
+   "poses": {
+    "kneel": {
+     "file": "assets/sprites/e3-lia-gefesselt-kneel.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
+    "lie": {
+     "file": "assets/sprites/e3-lia-gefesselt-lie.png",
+     "w": 128,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      64,
+      60
+     ],
+     "facing": "right"
+    },
+    "sit": {
+     "file": "assets/sprites/e3-lia-gefesselt-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-lia-gefesselt-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     11,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
+  },
+  "e3-lia-innen": {
+   "poses": {
+    "sit": {
+     "file": "assets/sprites/e3-lia-innen-sit.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-lia-innen-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     1,
+     5,
+     9,
+     13
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 40
   },
   "elf-f": {
    "poses": {},
@@ -3902,6 +4302,25 @@
    "struggle": "assets/portraits/e2-kyra-gebannt-struggle.png",
    "neutral": "assets/portraits/e2-kyra-gebannt.png"
   },
+  "e3-doktor": {
+   "smirk": "assets/portraits/e3-doktor-smirk.png",
+   "surprised": "assets/portraits/e3-doktor-surprised.png",
+   "thinking": "assets/portraits/e3-doktor-thinking.png",
+   "neutral": "assets/portraits/e3-doktor.png"
+  },
+  "e3-gestalt": {
+   "sad": "assets/portraits/e3-gestalt-sad.png",
+   "neutral": "assets/portraits/e3-gestalt.png"
+  },
+  "e3-grossmeister": {
+   "angry": "assets/portraits/e3-grossmeister-angry.png",
+   "ashamed": "assets/portraits/e3-grossmeister-ashamed.png",
+   "determined": "assets/portraits/e3-grossmeister-determined.png",
+   "grim": "assets/portraits/e3-grossmeister-grim.png",
+   "surprised": "assets/portraits/e3-grossmeister-surprised.png",
+   "thinking": "assets/portraits/e3-grossmeister-thinking.png",
+   "neutral": "assets/portraits/e3-grossmeister.png"
+  },
   "elf-f": {
    "neutral": "assets/portraits/elf-f.png"
   },
@@ -4141,6 +4560,66 @@
    "w": 640,
    "h": 360
   },
+  "e3-falsches-lager": {
+   "file": "assets/bg/e3-falsches-lager.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-feldweg": {
+   "file": "assets/bg/e3-feldweg.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-gastzimmer": {
+   "file": "assets/bg/e3-gastzimmer.png",
+   "w": 640,
+   "h": 360
+  },
+  "e3-innenwelt": {
+   "file": "assets/bg/e3-innenwelt.png",
+   "w": 640,
+   "h": 360
+  },
+  "e3-keller": {
+   "file": "assets/bg/e3-keller.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-landstrasse": {
+   "file": "assets/bg/e3-landstrasse.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-lichtwald": {
+   "file": "assets/bg/e3-lichtwald.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-ordenshaus": {
+   "file": "assets/bg/e3-ordenshaus.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-ordenssaal": {
+   "file": "assets/bg/e3-ordenssaal.png",
+   "w": 640,
+   "h": 360
+  },
+  "e3-ritualhuegel": {
+   "file": "assets/bg/e3-ritualhuegel.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-trapas": {
+   "file": "assets/bg/e3-trapas.png",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-waldpfad": {
+   "file": "assets/bg/e3-waldpfad.png",
+   "w": 1280,
+   "h": 720
+  },
   "k1-heimweg": {
    "file": "assets/bg/k1-heimweg.png",
    "w": 1280,
@@ -4320,6 +4799,91 @@
   },
   "e2-vamir-anhoehe": {
    "file": "assets/cut/e2-vamir-anhoehe.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-abschied": {
+   "file": "assets/cut/e3-abschied.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-eigener-stab": {
+   "file": "assets/cut/e3-eigener-stab.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-epilog": {
+   "file": "assets/cut/e3-epilog.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-erscheinung": {
+   "file": "assets/cut/e3-erscheinung.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-falle": {
+   "file": "assets/cut/e3-falle.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-gestalt": {
+   "file": "assets/cut/e3-gestalt.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-gift": {
+   "file": "assets/cut/e3-gift.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-hueterin": {
+   "file": "assets/cut/e3-hueterin.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-paladine": {
+   "file": "assets/cut/e3-paladine.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-phiole": {
+   "file": "assets/cut/e3-phiole.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-relikte": {
+   "file": "assets/cut/e3-relikte.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-ritual": {
+   "file": "assets/cut/e3-ritual.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-schacht": {
+   "file": "assets/cut/e3-schacht.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-schutzreaktion": {
+   "file": "assets/cut/e3-schutzreaktion.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-stabrueckgabe": {
+   "file": "assets/cut/e3-stabrueckgabe.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-trapas": {
+   "file": "assets/cut/e3-trapas.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-vamir-fall": {
+   "file": "assets/cut/e3-vamir-fall.jpg",
    "w": 1280,
    "h": 720
   },
@@ -5845,7 +6409,9 @@
    "ribbon": 23,
    "honey-cake": 24,
    "chain-pastry": 25,
-   "e2-schattentoeter": 26
+   "e2-schattentoeter": 26,
+   "e3-lia-staff": 27,
+   "e3-ordensfibel": 28
   }
  },
  "images": {

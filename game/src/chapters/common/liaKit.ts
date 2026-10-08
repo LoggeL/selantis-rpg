@@ -26,6 +26,9 @@ export const LIA_STAGES = {
   weiterreise: { level: 4, maxLevel: 6, exp: 70, ap: 16 },
   'e2-ueberfall': { level: 5, maxLevel: 6, exp: 40, ap: 10 },
   'e2-uebungskampf': { level: 6, maxLevel: 7, exp: 60, ap: 10 },
+  // Teil III: days without a fight, then the hill and the forest path on the same evening (poisoned). Small budgets.
+  'e3-ritualangriff': { level: 7, maxLevel: 8, exp: 30, ap: 8 },
+  'e3-vamir-duell': { level: 7, maxLevel: 8, exp: 40, ap: 10 },
 } as const satisfies Record<string, { level: number; maxLevel: number; exp: number; ap: number }>;
 export type LiaStage = keyof typeof LIA_STAGES;
 
@@ -107,7 +110,11 @@ export const DESPAIR_BARKS = [
 ] as const;
 
 /** Fixed line per battle, so a retry repeats it. The first fight looks back at the farm. */
-const DESPAIR_LINE: Record<string, number> = { 'k2-wegelagerer': 2, 'k3-begleitung': 0, 'k5-rettung': 1, 'e2-ueberfall': 1, 'e2-uebungskampf': 0 };
+const DESPAIR_LINE: Record<string, number> = {
+  'k2-wegelagerer': 2, 'k3-begleitung': 0, 'k5-rettung': 1, 'e2-ueberfall': 1, 'e2-uebungskampf': 0,
+  // Teil III: on the stone she gets up again; on the forest path Vamir has just struck Ignatius down.
+  'e3-ritualangriff': 0, 'e3-vamir-duell': 1,
+};
 
 export function despairBark(battleId: string): string {
   const fixed = DESPAIR_LINE[battleId];

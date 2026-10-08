@@ -1102,6 +1102,113 @@
         "thinking"
       ],
       "record": "teil-2"
+    },
+    "e3-lia-eigenstab": {
+      "name": "Lia (eigener Stab)",
+      "height": 41,
+      "base": "lia-cloak",
+      "desc": "Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet. Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. Her long moss-green hooded rain cloak (hood DOWN) is THROWN BACK over both shoulders so it hangs down her back like a cape and leaves her arms and the front of her body free: white linen blouse and a plain mid-brown calf-length skirt clearly visible. A large brown leather satchel on a strap worn diagonally across her body (strap over her RIGHT shoulder, the bag hanging at her LEFT hip). Light brown leather shoes with laces wound around her ankles. In her RIGHT hand she carries her OWN magic staff: a long, slender staff a little taller than she is, made of smooth PALE, almost WHITE wood (like bleached ash or bone-white birch), the shaft formed of gently twisted SPIRAL segments like a slowly turning screw, with small ANGULAR carved notches and simple geometric marks cut into the segments (abstract shapes, not letters, not readable), the top end tapering into ONE slender open SPIRAL curl; NO gem, NO crystal, NO metal, NO leather grip, NO knot, no glow at rest. She holds it upright beside her, its foot on the ground.",
+      "poses": [
+        "cast",
+        "attack",
+        "sit",
+        "kneel",
+        "lie",
+        "hurt"
+      ],
+      "moods": [],
+      "record": "teil-3"
+    },
+    "e3-lia-gefesselt": {
+      "name": "Lia (gefesselt)",
+      "height": 40,
+      "base": "lia-cloak",
+      "desc": "Lia, a slender 16-year-old girl from a medieval fantasy village in her TRAVEL outfit (youthful teenage proportions, natural proportions, not chibi), exactly as in the attached reference sheet but held CAPTIVE and disarmed. Long strawberry-blonde (copper-golden) curly hair tied back at the nape with a dark green hair ribbon, a few loose curls at her face. Fair skin with a few light freckles, grey-green eyes. Her long moss-green hooded rain cloak (hood DOWN) is THROWN BACK over both shoulders so it hangs down her back like a cape and leaves her arms and the front of her body free: white linen blouse and a plain mid-brown calf-length skirt clearly visible. Cloak, blouse and skirt are DUSTY and smudged with dirt, a few curls have come loose. Light brown leather shoes with laces wound around her ankles. NO satchel, NO staff, no weapons. Her WRISTS are bound together IN FRONT of her body with a coarse hemp rope, a short rope end hanging down from the knot, so her hands are held close together at waist height. A tired, scared but stubborn look.",
+      "poses": [
+        "sit",
+        "kneel",
+        "lie"
+      ],
+      "moods": [],
+      "record": "teil-3"
+    },
+    "e3-lia-innen": {
+      "name": "Lia (innerer Raum)",
+      "height": 40,
+      "base": "lia",
+      "desc": "Lia, a slender 16-year-old girl (youthful teenage proportions, natural proportions, not chibi), the same girl as in the attached reference sheet, as she sees herself in a dream inside her own mind. Her long strawberry-blonde (copper-golden) curly hair worn completely LOOSE and open, falling over her shoulders and down her back to the middle of her back, no ribbon, no pins. Fair skin with a few light freckles, grey-green eyes, a calm, slightly wondering expression. A simple, plain, ankle-length WHITE dress with delicate white LACE at the round neckline, at the ends of the elbow-length sleeves and along the hem, a soft fitted waist, no belt, no jewellery. BAREFOOT (no shoes). No cloak, no satchel, no staff.",
+      "poses": [
+        "sit"
+      ],
+      "moods": [],
+      "record": "teil-3"
+    },
+    "e3-ignatius-gefesselt": {
+      "name": "Ignatius (gefesselt)",
+      "height": 43,
+      "base": "e2-ignatius",
+      "sex": "m",
+      "desc": "Ignatius of Ignis, an old hermit around 80 but spry and wiry, exactly as in the attached reference sheet but held CAPTIVE: deeply wrinkled, weathered sun-browned face, a BALD crown with a longer, untidy fringe of white hair reaching his collar, a LONG UNTRIMMED white beard reaching the middle of his chest, bushy white eyebrows, warm brown eyes, a weary but composed look. His old floor-length robe faded to a dusty rust-orange and patched with squares of brown and grey cloth, the gold trim worn and frayed; over it a hooded brown wool forest cloak (hood DOWN) reaching to his calves; a plain brown leather belt with two small pouches; worn brown leather boots. NO staff, no weapons. His WRISTS are bound together IN FRONT of his body with a coarse hemp rope, a short rope end hanging down from the knot, so his hands are held close together at waist height.",
+      "poses": [
+        "kneel"
+      ],
+      "moods": [],
+      "record": "teil-3",
+      "build": {
+        "widePoses": []
+      }
+    },
+    "e3-grossmeister": {
+      "name": "Der Großmeister",
+      "height": 44,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "The Grand Master of a pious knightly order of light in a fortified medieval fantasy city, a man around 55, tall, lean and very UPRIGHT with a rigid, commanding bearing (natural adult proportions, not chibi). Short-cropped GREY hair, a SHORT, neatly trimmed grey full beard, a lean lined face with a straight nose and a STERN, severe gaze from deep-set grey eyes under straight grey brows. He wears a long-sleeved CREAM-coloured wool undertunic (the cream sleeves fully visible down to the wrists) and over it a long SLEEVELESS surcoat reaching below the knees, divided VERTICALLY down the middle into DARK NAVY BLUE (his RIGHT half) and WHITE (his LEFT half), with a SMALL plain white bird-of-prey emblem with spread wings on the dark blue half at the chest (simple shape, no letters); a BROAD dark brown leather belt with a plain square buckle at the waist; a heavy GOLD SIGNET RING on his RIGHT hand; dark grey trousers and polished dark brown leather boots. NO helmet, NO armour, NO cape, NO weapon, empty hands.",
+      "poses": [
+        "talk",
+        "sit"
+      ],
+      "moods": [
+        "neutral",
+        "angry",
+        "thinking",
+        "grim",
+        "surprised",
+        "determined",
+        "ashamed"
+      ],
+      "record": "teil-3"
+    },
+    "e3-doktor": {
+      "name": "Der Doktor",
+      "height": 43,
+      "sex": "m",
+      "styleAnchor": "valentus",
+      "desc": "A scholar and physician of a pious knightly order in a medieval fantasy city, a man around 30, THIN and narrow-shouldered with a slightly stooped, fussy posture (natural adult proportions, not chibi). Short dark brown-black hair just visible at the forehead, a clean-shaven pale narrow face with high cheekbones, a thin pointed nose, sharp dark eyes and a vain, impatient, self-satisfied look. He wears a long plain BLACK scholar's robe reaching his ankles with long narrow sleeves; on his head a close-fitting BLACK linen COIF (a snug cap covering the top and sides of the head and the ears) tied under the chin with TWO WHITE linen bands that hang down below the chin; a brown leather belt hung with three small leather pouches and a round MAGNIFYING GLASS with a wooden handle on a cord; soft black leather shoes. No beard, no hat brim, no weapon.",
+      "poses": [
+        "talk",
+        "interact",
+        "read"
+      ],
+      "moods": [
+        "neutral",
+        "surprised",
+        "thinking",
+        "smirk"
+      ],
+      "record": "teil-3"
+    },
+    "e3-gestalt": {
+      "name": "Die Gestalt",
+      "height": 41,
+      "portraitStyle": "female",
+      "desc": "A mysterious young woman around 20 who exists only inside a girl's mind, an original design: slender and graceful (natural proportions, not chibi), very long straight WHITE-SILVER hair falling loose down to her waist, pale porcelain skin, a calm, serene, gentle face with pale silver-grey eyes and a quiet, kind expression. A plain, simple, floor-length WHITE SLEEVELESS dress without any decoration, gathered softly at the waist, BAREFOOT. She looks luminous and ethereal: pale cool-white colours with a soft silvery-white glow along her outline (no turquoise, no violet, no wings, no halo, no crown, no jewellery). Draw the figure fully opaque; the game itself makes her translucent.",
+      "poses": [],
+      "moods": [
+        "neutral",
+        "sad"
+      ],
+      "record": "teil-3"
     }
   }
 }
