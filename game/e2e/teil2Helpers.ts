@@ -212,12 +212,14 @@ async function planWalk(page: Page, stealth: boolean, seekTrigger = false): Prom
     const p = w.player;
     const canvas = document.querySelector('canvas')!;
     const r = canvas.getBoundingClientRect();
-    const toPage = (x: number, y: number) => { const s = w.toScreen(x, y); return { x: r.left + s.x * r.width / 640, y: r.top + s.y * r.height / 360, sx: s.x, sy: s.y }; };
+    // The logical canvas size follows the display since landscape/fullscreen fill (core/viewport.ts), not 640×360.
+    const gw: number = (window as any).G.game.scale.width, gh: number = (window as any).G.game.scale.height;
+    const toPage = (x: number, y: number) => { const s = w.toScreen(x, y); return { x: r.left + s.x * r.width / gw, y: r.top + s.y * r.height / gh, sx: s.x, sy: s.y }; };
     let avoidHits = false;
     const safe = (x: number, y: number) => {
       const s = toPage(x, y);
       if (avoidHits) { const h = hitAt(x, y); if (h && h !== it) return null; }
-      if (s.sx < 4 || s.sx > 636 || s.sy < 4 || s.sy > 356) return null;
+      if (s.sx < 4 || s.sx > gw - 4 || s.sy < 4 || s.sy > gh - 4) return null;
       const hitEl = document.elementFromPoint(s.x, s.y);
       if (hitEl !== canvas) return null;
       return s;

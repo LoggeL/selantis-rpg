@@ -444,11 +444,13 @@ test.describe('phone landscape', () => {
           const pos = it?.enabled() ? it.pos() : w.resolveTarget(t);
           if (!pos) return null;
           const c = document.querySelector('canvas')!.getBoundingClientRect();
+          // The logical canvas size follows the display (core/viewport.ts), not a fixed 640×360.
+          const gw: number = (window as any).G.game.scale.width, gh: number = (window as any).G.game.scale.height;
           const sc = w.toScreen(pos.x, pos.y - (it ? 6 : 0));
-          const inside = sc.x > 20 && sc.x < 620 && sc.y > 80 && sc.y < 330;
+          const inside = sc.x > 20 && sc.x < gw - 20 && sc.y > 80 && sc.y < gh - 30;
           const p = w.player;
           const tx = inside ? sc : w.toScreen(p.x + Math.sign(pos.x - p.x) * Math.min(120, Math.abs(pos.x - p.x)), p.y + Math.sign(pos.y - p.y) * Math.min(80, Math.abs(pos.y - p.y)));
-          return { x: c.left + tx.x * c.width / 640, y: c.top + tx.y * c.height / 360 };
+          return { x: c.left + tx.x * c.width / gw, y: c.top + tx.y * c.height / gh };
         });
         if (target) await page.touchscreen.tap(target.x, target.y);
         await page.waitForTimeout(500);
