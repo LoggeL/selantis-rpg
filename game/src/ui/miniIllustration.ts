@@ -1,6 +1,7 @@
 import { loadImage } from '../art/assets';
 import { previewCanvas } from '../art/blurhash';
 import { manifest, type CharacterEntry } from '../art/manifest';
+import { G } from '../core/G';
 import { ctx as ui } from './context';
 import type { StoryActionKind } from './interactionRules';
 
@@ -13,16 +14,52 @@ export interface IllustrationState {
 const DESCRIPTIONS: Record<IllustrationKind, string> = {
   reach: 'Valentus streckt die Hand nach der schwebenden Kugel der Urmacht aus.',
   lift: 'Valentus hebt die Hand über die Wiege, in der die Zwillinge schlafen.',
-  'open-eyes': 'Durch Lias sich öffnende Augen werden Foltan und Azar mit der Laterne sichtbar.',
+  'open-eyes': 'Lia öffnet langsam die Augen.',
   tend: 'Lia tupft Mutters Tinktur mit einem Leinenbausch auf ihre wunde Ferse am Bach.',
   bellows: 'Der Blasebalg facht die Glut in Azars Esse an.',
   blow: 'Lia und Azar knien an der Glut im Steinring.',
   stake: 'Kyra zieht an dem Pflock, während ein Dunkelschatten am Feuer Wache hält.',
 };
 
+/**
+ * What Lia sees when she opens her eyes. `backdrop` is a plate id (assets/cut/<id>.jpg) showing who stands over her.
+ * Without it, or while that plate does not exist yet, the scene's painted map background is shown heavily blurred and
+ * without figures (`fallback`, default: the background of the running world map) – never someone else's faces.
+ */
+export interface GestureView {
+  backdrop?: string;
+  fallback?: string;
+  /** Point of the image (fractions) that stays centred, and zoom over "cover". */
+  focus?: readonly [number, number];
+  zoom?: number;
+  /** Accessible description of the picture (defaults to a neutral line). */
+  description?: string;
+}
+
 /** Story-specific illustrations. The five story gestures are painted close-ups; blow and stake stay map-scale vignettes. */
-export function createMiniIllustration(host: HTMLElement, kind: IllustrationKind) {
-  return kind === 'blow' || kind === 'stake' ? legacyIllustration(host, kind) : paintedGesture(host, kind);
+export function createMiniIllustration(host: HTMLElement, kind: IllustrationKind, view: GestureView = {}) {
+  return kind === 'blow' || kind === 'stake' ? legacyIllustration(host, kind) : paintedGesture(host, kind, view);
+}
+
+/** Background id of the running world map, if any (duck-typed so the UI does not depend on the world module). */
+function activeMapBackground(): string | undefined {
+  try {
+    for (const scene of G.game?.scene.getScenes(true) ?? []) {
+      const id = (scene as unknown as { map?: { background?: string } }).map?.background;
+      if (id) return id;
+    }
+  } catch { /* no game yet */ }
+  return undefined;
+}
+
+/** Image candidates for the open-eyes gesture, best first. `blurred` marks the figure-less fallback. */
+export function wakeCandidates(view: GestureView, art = manifest(), mapBackground = activeMapBackground()): { file: string; blurred: boolean; lantern: boolean }[] {
+  const out: { file: string; blurred: boolean; lantern: boolean }[] = [];
+  if (view.backdrop) out.push({ file: art.plates[view.backdrop]?.file ?? `assets/cut/${view.backdrop}.jpg`, blurred: false, lantern: view.backdrop === 'k2-geweckt' });
+  const bg = view.fallback ?? mapBackground;
+  const bgFile = bg ? art.backgrounds[bg]?.file : undefined;
+  if (bgFile) out.push({ file: bgFile, blurred: true, lantern: false });
+  return out;
 }
 
 // ------------------------------------------------------------------------------------------------ painted gestures
@@ -45,12 +82,12 @@ const SCENES: Record<StoryActionKind, Shot & { pixel?: boolean; tall?: Shot }> =
   bellows: { focus: [0.545, 0.55], zoom: 1.1, tall: { focus: [0.57, 0.58], zoom: 1 } },
 };
 
-function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
+function paintedGesture(host: HTMLElement, kind: StoryActionKind, wake: GestureView) {
   const art = manifest();
   const canvas = document.createElement('canvas');
   canvas.className = 'mini-illustration is-painted';
   canvas.setAttribute('role', 'img');
-  canvas.setAttribute('aria-label', DESCRIPTIONS[kind]);
+  canvas.setAttribute('aria-label', (kind === 'open-eyes' && wake.description) || DESCRIPTIONS[kind]);
   host.prepend(canvas);
   host.classList.add('has-mini-art');
   host.dataset.art = 'loading';
@@ -59,7 +96,7 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
   const files: Record<string, string> = {
     reach: { backdrop: image('gesture-reach-scene'), arm: image('gesture-reach-arm') },
     lift: { backdrop: image('gesture-lift-scene'), arm: image('gesture-lift-arm') },
-    'open-eyes': { backdrop: art.plates['k2-geweckt']?.file ?? 'assets/cut/k2-geweckt.jpg' },
+    'open-eyes': {} as Record<string, string>,
     tend: { backdrop: image('gesture-tend-scene'), hand: image('gesture-tend-hand') },
     bellows: {
       backdrop: image('gesture-bellows-scene'),
@@ -73,11 +110,29 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
   }
   let loaded = false;
   let completed = 0;
-  const ready = Promise.all(Object.entries(files).map(async ([id, file]) => {
-    const pic = await loadImage(file);
-    if (pic) { pictures.set(id, pic); completed++; }
-  })).then(() => {
-    loaded = completed === Object.keys(files).length;
+  // Open-eyes: the first candidate that loads wins (scene plate, else the blurred map background without figures).
+  let blurred = false, lantern = false;
+  const candidates = kind === 'open-eyes' ? wakeCandidates(wake) : [];
+  if (candidates[0]) {
+    const preview = previewCanvas(candidates[0].file);
+    if (preview) { pictures.set('backdrop', preview); blurred = candidates[0].blurred; lantern = candidates[0].lantern; }
+  }
+  const ready = (kind === 'open-eyes'
+    ? (async () => {
+      for (const c of candidates) {
+        const pic = await loadImage(c.file);
+        if (pic) { pictures.set('backdrop', pic); blurred = c.blurred; lantern = c.lantern; host.dataset.backdrop = c.blurred ? 'fallback' : 'plate'; return true; }
+      }
+      pictures.delete('backdrop');
+      host.dataset.backdrop = 'none';
+      return true;
+    })()
+    : Promise.all(Object.entries(files).map(async ([id, file]) => {
+      const pic = await loadImage(file);
+      if (pic) { pictures.set(id, pic); completed++; }
+    })).then(() => completed === Object.keys(files).length)
+  ).then(ok => {
+    loaded = ok;
     host.dataset.art = loaded ? 'ready' : 'failed';
     return loaded;
   });
@@ -88,7 +143,8 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
   const reduced = () => ui.reducedMotion;
 
   const frame = (pic: IllustrationImage) => {
-    const scene = (W / H < 1.1 && SCENES[kind].tall) || SCENES[kind];
+    const custom: Shot | undefined = kind === 'open-eyes' && !lantern ? { focus: [wake.focus?.[0] ?? 0.5, wake.focus?.[1] ?? 0.45], zoom: wake.zoom ?? 1.08 } : undefined;
+    const scene = custom ?? ((W / H < 1.1 && SCENES[kind].tall) || SCENES[kind]);
     const s = Math.max(W / pic.width, H / pic.height) * scene.zoom;
     const ox = Math.min(0, Math.max(W - pic.width * s, W / 2 - scene.focus[0] * pic.width * s));
     const oy = Math.min(0, Math.max(H - pic.height * s, H / 2 - scene.focus[1] * pic.height * s));
@@ -213,14 +269,20 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
     const open = ease(p);
     const pic = pictures.get('backdrop');
     const canFilter = 'filter' in g;
-    if (canFilter) g.filter = `blur(${((1 - open) * 7).toFixed(1)}px) brightness(${(0.55 + 0.45 * open).toFixed(2)})`;
+    // The figure-less fallback never comes fully into focus: a place, not people.
+    const blur = blurred ? 6 + (1 - open) * 6 : (1 - open) * 7;
+    const bright = blurred ? 0.4 + 0.25 * open : 0.55 + 0.45 * open;
+    if (canFilter) g.filter = `blur(${blur.toFixed(1)}px) brightness(${bright.toFixed(2)})`;
     backdrop();
     if (canFilter) g.filter = 'none';
     // A drowsy double image that slides into focus.
     if (pic && open < 0.98) backdrop(0.35 * (1 - open), (1 - open) * W * 0.03, (1 - open) * H * 0.01);
-    light(at(1160, 190), H * 0.5 * flicker(2), 'rgba(255,170,70,0.5)', 0.25 + 0.35 * open, '#fff0c0');
-    light(at(1120, 610), H * 0.45 * flicker(5), 'rgba(255,120,40,0.45)', 0.2 + 0.2 * open, '#ffd08a');
-    vignette(0.6);
+    if (lantern) {
+      // Azar's lantern and the campfire in plate k2-geweckt.
+      light(at(1160, 190), H * 0.5 * flicker(2), 'rgba(255,170,70,0.5)', 0.25 + 0.35 * open, '#fff0c0');
+      light(at(1120, 610), H * 0.45 * flicker(5), 'rgba(255,120,40,0.45)', 0.2 + 0.2 * open, '#ffd08a');
+    }
+    vignette(blurred ? 0.75 : 0.6);
     // Eyelids: warm darkness with light glowing through, an almond opening that widens with the gesture.
     if (open < 1) {
       g.save();
@@ -346,6 +408,7 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
     const background = pictures.get('backdrop');
     if (background) frame(background);
     if (kind === 'bellows') layoutBellows(pos);
+    if (!background && kind === 'open-eyes' && host.dataset.backdrop === 'none') { drawOpenEyes(p); return; }
     if (!background) return;
     if (kind === 'reach') drawReach(p, pos);
     else if (kind === 'lift') drawLift(p, pos);

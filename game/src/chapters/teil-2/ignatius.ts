@@ -149,7 +149,7 @@ async function nightmare(w: WorldCtx): Promise<void> {
     { who: 'Kyra, im Traum', speaker: 'e2-kyra', text: 'Es tut nicht weh. Ehrlich. Nur ein bisschen.' },
     { who: 'Kyra und Flick, im Traum', speaker: ['e2-kyra', 'e2-flick'], text: 'Lia …!' },
   ]);
-  const gesture = G.ui.storyAction('open-eyes', 'Aufwachen');
+  const gesture = G.ui.storyAction('open-eyes', 'Aufwachen', { backdrop: 'e2-ignatius-geweckt', fallback: 'e2-ignatius-lager', caption: 'Nacht. Das Feuer. Kein Violett, nirgends.' });
   restageGesture('open-eyes', 'Schieb die Lider auf. Raus aus dem Violett. Es ist nur ein Traum. Oder?');
   await gesture;
   sfx('heartbeat', { volume: 0.5 });

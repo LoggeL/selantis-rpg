@@ -79,7 +79,7 @@ defineChapter({
         const state = newFire();
         let result;
         do { resetAttempt(state); result = await fireAttempt(state, fireConfig(true)); } while (result === 'failed');
-      } else if (story.includes(kind as StoryActionKind)) await G.ui.storyAction(kind as StoryActionKind, labels[kind]);
+      } else if (story.includes(kind as StoryActionKind)) await G.ui.storyAction(kind as StoryActionKind, labels[kind], kind === 'open-eyes' ? { backdrop: 'k2-geweckt' } : {});
       else await G.ui.stealthGame(kind as StealthKind, labels[kind]);
       G.state.set('demo-interaction-done');
       await G.ui.think('Fertig. Die Geschichte kann weitergehen.');

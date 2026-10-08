@@ -69,7 +69,7 @@ export async function foltanAzarSkript(w: WorldCtx): Promise<void> {
   await w.say('k2-stimme-b', '„Woher soll ich das wissen, du Ochse?“');
   await w.say('k2-stimme-a', '„Das war eine rhetorische Frage. Kein Grund, ausfallend zu werden.“');
   await w.say('narrator', 'Jemand hält Lias Handgelenk. Das ist kein Traum.');
-  await G.ui.storyAction('open-eyes', 'Augen öffnen');
+  await G.ui.storyAction('open-eyes', 'Augen öffnen', { backdrop: 'k2-geweckt', caption: 'Zwei Männer und eine Laterne. Über mir.' });
 
   // Stage the two men over Lia, then the painted tableau.
   foltan.teleport([SPOT.bed[0] - 26, SPOT.bed[1] + 18], 'right');

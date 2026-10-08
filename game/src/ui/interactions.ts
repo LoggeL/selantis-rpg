@@ -13,6 +13,17 @@ export interface StoryActionOptions {
   help?: string;
   /** false hides the built-in book-one illustration (cradle, Valentus' hand …); track and grip stay. */
   illustration?: boolean;
+  /**
+   * open-eyes: plate id of what Lia sees when she wakes (convention `<scene>-geweckt`). Missing or not yet painted →
+   * the scene's map background, blurred and without figures (`fallback`, default: the running world map's background).
+   */
+  backdrop?: string;
+  fallback?: string;
+  /** open-eyes: image point (fractions) kept centred and zoom over "cover" for `backdrop`. */
+  focus?: readonly [number, number];
+  zoom?: number;
+  /** open-eyes: short line that fades in once the eyes are open (place, time). Also the picture's description. */
+  caption?: string;
 }
 export interface StealthOptions {
   onNoise?: (mistakes: number) => void;
@@ -183,7 +194,10 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
   // The painted bellows is drawn on the canvas; this box follows its leather folds (geometry from the illustration).
   const ornament = el('div', `action-ornament ornament-${kind}`);
   if (kind === 'bellows') ornament.append(el('div', 'bellows-folds'));
-  const art = opts.illustration === false ? { ready: Promise.resolve(), render: () => {} } : createMiniIllustration(view.stage, kind);
+  const art = opts.illustration === false ? { ready: Promise.resolve(), render: () => {} }
+    : createMiniIllustration(view.stage, kind, { backdrop: opts.backdrop, fallback: opts.fallback, focus: opts.focus, zoom: opts.zoom, description: opts.caption });
+  const caption = kind === 'open-eyes' && opts.caption ? el('div', 'action-caption', opts.caption) : null;
+  if (caption) view.stage.append(caption);
   view.stage.append(ornament, track, goal, grip);
   const caps = (keys: string[]) => keys.map(k => `<kbd class="ch-key">${k}</kbd>`).join('');
   view.keyHint.innerHTML = `${vertical ? caps(['W', 'S']) : caps(['A', 'D'])} oder ${vertical ? caps(['↑', '↓']) : caps(['←', '→'])} · Griff ziehen`;
@@ -208,6 +222,7 @@ export function storyAction(kind: StoryActionKind, label: string, opts: StoryAct
       [...pips.children].forEach((pip, i) => pip.classList.toggle('is-done', i < state.strokes));
       opts.onProgress?.(progress);
       art.render({ progress, position: state.position, strokes: state.strokes }, dt);
+      caption?.classList.toggle('is-shown', progress > 0.7);
     };
     render();
     void art.ready.then(() => { if (view.root.isConnected) render(); });

@@ -225,3 +225,9 @@
   .is-stealth .action-instruction { transition: none; }
 }
 .reduced-motion .is-stealth .action-start.ch-btn, .reduced-motion .is-stealth .action-status { animation: none !important; }
+/* open-eyes: place and time, fading in once the lids are up. */
+.action-caption { position: absolute; left: 50%; bottom: .6em; transform: translateX(-50%); max-width: calc(100% - 7em); padding: .2em .8em; border-radius: .3em;
+  background: #0009; color: var(--parch, #f1e6cc); font-family: var(--f-body); font-style: italic; font-size: .85em; text-align: center; pointer-events: none;
+  opacity: 0; transition: opacity .6s ease-out; }
+.action-caption.is-shown { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .action-caption { transition: none; } }
