@@ -1,4 +1,5 @@
 import { manifest } from '../art/manifest';
+import { previewDataUrl, previewInfo } from '../art/blurhash';
 import { quotedChoiceText, voiceover } from '../audio/voiceover';
 import { speaker as speakerDef } from '../core/catalog';
 import { G } from '../core/G';
@@ -88,7 +89,7 @@ class DialogueBox {
     this.el.setAttribute('aria-live', 'polite');
     this.frame = el('div', 'dlg-portrait');
     this.inner = el('div', 'dlg-portrait-inner');
-    const mk = () => { const i = el('img', 'dlg-por'); i.alt = ''; i.draggable = false; return i; };
+    const mk = () => { const i = el('img', 'dlg-por'); i.alt = ''; i.draggable = false; i.setAttribute('data-image-managed', 'true'); return i; };
     this.imgs = [mk(), mk()];
     const sil = el('div', 'dlg-por-sil');
     sil.innerHTML = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 9c-9 0-15 7-15.5 16-.3 5 1.3 9.5 4.3 12.6C12 40.5 7 47 6 56h52c-1-9-6-15.5-14.8-18.4 3-3.1 4.6-7.6 4.3-12.6C47 16 41 9 32 9z" fill="currentColor"/><path d="M19.5 24c2-6.5 7-10 12.5-10s10.5 3.5 12.5 10c-3.5-3-8-4.5-12.5-4.5S23 21 19.5 24z" fill="#000" opacity=".25"/></svg>';
@@ -165,6 +166,18 @@ class DialogueBox {
     if (cut) {
       // A different face must never flash in: hide the old one right away.
       for (const i of this.imgs) { i.classList.remove('on'); i.classList.add('no-fade'); }
+    }
+    if (cut || !front.classList.contains('on')) {
+      const preview = previewDataUrl(url);
+      if (preview) {
+        const back = this.imgs[1 - this.front];
+        back.src = preview;
+        back.classList.remove('px');
+        back.classList.add('on');
+        this.frame.classList.remove('is-missing');
+        this.natural = previewInfo(url)?.width ?? 256;
+        this.sizePortrait();
+      }
     }
     void loadPortrait(url).then(async img => {
       if (this.wanted !== url) return;

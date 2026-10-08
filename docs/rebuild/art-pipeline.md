@@ -102,12 +102,22 @@ Namensregeln: Posen-Suffixe werden gegen die bekannten Figuren-IDs (`cast.json`,
 
 ## 7. Laufzeit (`G.art`)
 
-- `await G.art.preload(scene, { characters: ['lia'], props: ['campfire'], backgrounds: ['hof'], plates: ['wiese-lesen'] })` im `create()` der Szene. Danach sind die Texturen gemalt. Alles ist schon vorher synchron nutzbar: Texturen starten als neutrale Silhouette mit derselben Geometrie und werden beim Laden in-place ersetzt.
+- `await G.art.preload(scene, { characters: ['lia'], props: ['campfire'], backgrounds: ['hof'], plates: ['wiese-lesen'] })` im `create()` der Szene. Danach sind die Texturen gemalt. Alles ist schon vorher synchron nutzbar: vorhandene Bilder starten mit einer Blurhash-Vorschau in derselben Geometrie und werden beim Laden in-place ersetzt. Bei fehlenden Bildern bleibt der prozedurale Platzhalter.
 - `const key = G.art.character(scene, 'lia')`; Sprite mit `setOrigin(G.art.characterAnchor(key).x, …y)` (= (0.5, 60/64)), Animationen `G.art.animKey(key, 'walk', 'left')`. `walk`/`run`/`sneak`/`carry` nutzen die Laufzeilen (8/12/5/7 fps), `idle` = erster Frame der Laufzeile (oder eigene `idle`-Pose), übrige Animationen die Posen mit Fallback-Ketten (`sit → kneel → idle`, `hit → hurt`, `sleep/fall → lie`, `sit-read ↔ read`, …), links automatisch gespiegelt.
 - `G.art.background(scene, id)`, `G.art.prop(scene, id)` (PropInfo inkl. Footprint/Licht/Animation), `G.art.portrait(id, mood)` (URL; fehlende Stimmung → verwandte Stimmung → neutral; unbekannte ID → Kapuzen-Silhouette), `G.art.plateUrl(id)`, `G.art.hasAsset(kind, id)`, `G.art.icon(scene, id)` / `iconDataUrl(id)` (Atlas `ui/items.png`, sonst neutrales Bündel-Symbol als Platzhalter).
 - Zusätze (`G.art as ArtApi & ArtExtras`, Import aus `art/index.ts`): `manifest()`, `assetIds(kind)`, `poseIds(id)`, `moodIds(id)`.
 - Jede weitere Pose aus dem Manifest (Tierposen wie `graze`, `peck`, `fly`, oder `hurt`) ist unter ihrem eigenen Namen abspielbar: `G.art.animKey(key, 'graze' as CharAnimExtra, 'right')`.
 - Effekttexturen `fx-*` bleiben prozedural (Partikel, Licht). Prozedurale Kacheln, Requisiten, Figuren und Symbole gibt es nicht mehr.
+
+### Bildvorschauen
+
+`npm run images:prepare --prefix game` erzeugt `game/src/art/blurhashes.json` für alle PNG-, JPEG- und WebP-Bilder unter `game/public`. Dafür werden Python 3 mit Pillow und die installierten Spielabhängigkeiten gebraucht. Laufblätter, Posenstreifen und der Gegenstandsatlas erhalten einzelne Vorschauen pro Frame. Ein zusätzlicher Hash bewahrt den Alphakanal transparenter Bilder. SHA-256-Werte berücksichtigen Bild, Sidecar und Encodereinstellungen; unveränderte Dateien werden wiederverwendet.
+
+Der Entwicklungsserver aktualisiert die Metadaten beim Start automatisch. Der Produktionsbuild prüft sie mit `--check` und bricht bei fehlenden oder veralteten Einträgen ab. Diese Prüfung benötigt kein Python. Nach neuen oder geänderten Bildern die Metadaten zusammen mit den Bildern einchecken.
+
+DOM-Bilder über `setImageSource(img, url, { lazy: true })` aus `ui/image.ts` setzen. Die Vorschau ist sofort verfügbar; das Original ersetzt sie nach dem Decodieren. Galerie-Vorschaubilder laden das Original erst nahe am sichtbaren Bereich. Bei Ladefehlern bleibt die Vorschau. Canvas-Texturen verwenden `drawPreview` aus `art/blurhash.ts`; `previewCanvas` liefert für bestehende Sprite-Crops die native Blattgeometrie.
+
+Bei mehreren Python-Installationen kann `SELANTIS_IMAGE_PYTHON=/pfad/zu/python3` den Interpreter mit Pillow auswählen. Die Produktionsprüfung verwendet nur Node und die gespeicherten Hashes.
 
 ## 8. Qualitätsprüfung (Pflicht)
 

@@ -1,6 +1,7 @@
 import type Phaser from 'phaser';
 import type { ArtApi, AssetRequest, CharacterSpec, PropInfo } from './api';
 import { loadImage, upgradableTexture, warm, whenReady } from './assets';
+import { drawPreview, previewCanvas } from './blurhash';
 import { FX_KEYS, makeFx } from './fx';
 import { assetUrl, loadManifest, manifest, type AssetManifest } from './manifest';
 import { color as paletteColor } from './palette';
@@ -11,15 +12,40 @@ import { animKey, characterAnchor, characterIds, characterReady, characterSize, 
  * Selantis art runtime (DESIGN.md §3): painted, Codex-generated assets listed in public/assets/manifest.json,
  * plus procedural FX textures (particles, light) and neutral placeholders for everything not generated yet.
  *
- * The manifest and the item-icon atlas are loaded before the game boots (top-level await below), so all
- * lookups are synchronous. Textures are canvas textures that upgrade in place when their PNG has loaded
+ * The manifest is loaded before the game boots (top-level await below), so all lookups are synchronous.
+ * Textures, including the item-icon atlas, upgrade in place when their PNG has loaded
  * (see assets.ts); preload() just awaits that for the requested ids.
  */
 
 await loadManifest();
-const atlasImage: HTMLImageElement | null = manifest().icons.atlas
-  ? await Promise.race([loadImage(manifest().icons.atlas), new Promise<null>(r => setTimeout(() => r(null), 3000))])
-  : null;
+let atlasImage: HTMLImageElement | null = null;
+const pendingIcons: { textures: Phaser.Textures.TextureManager; texture: Phaser.Textures.CanvasTexture; id: string }[] = [];
+const iconUrlCache = new Map<string, string>();
+if (manifest().icons.atlas) void loadImage(manifest().icons.atlas).then(img => {
+  if (!img) return;
+  atlasImage = img;
+  for (const { textures, texture, id } of pendingIcons.splice(0)) {
+    if (!textures.exists(texture.key) || textures.get(texture.key) !== texture) continue;
+    const canvas = iconCanvas(id);
+    if (!canvas) continue;
+    const ctx = texture.getContext();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(canvas, 0, 0);
+    texture.refresh();
+  }
+  const upgradedUrls = new Map<string, string>();
+  for (const [id, oldUrl] of iconUrlCache) {
+    const canvas = iconCanvas(id);
+    if (!canvas) continue;
+    const url = canvas.toDataURL('image/png');
+    iconUrlCache.set(id, url);
+    upgradedUrls.set(oldUrl, url);
+  }
+  if (typeof document !== 'undefined') document.querySelectorAll<HTMLImageElement>('img').forEach(img => {
+    const url = upgradedUrls.get(img.src);
+    if (url) img.src = url;
+  });
+});
 
 const MOOD_FALLBACK: Record<string, string[]> = {
   pained: ['hurt', 'sad'], hurt: ['pained', 'sad'], scared: ['surprised', 'sad'], thinking: ['neutral'],
@@ -28,7 +54,6 @@ const MOOD_FALLBACK: Record<string, string[]> = {
 };
 
 const warnedProps = new Set<string>();
-const iconUrlCache = new Map<string, string>();
 
 function toNumberColor(c: number | string | undefined, fallback = 0xffc070): number {
   if (typeof c === 'number') return c;
@@ -43,12 +68,14 @@ function toNumberColor(c: number | string | undefined, fallback = 0xffc070): num
 function iconCanvas(id: string): HTMLCanvasElement | null {
   const m = manifest().icons;
   const idx = m.ids[id];
-  if (!atlasImage || idx === undefined || !m.cols) return null;
+  if (idx === undefined || !m.cols) return null;
+  const atlas = atlasImage ?? previewCanvas(m.atlas);
+  if (!atlas) return null;
   const c = document.createElement('canvas');
   c.width = m.cell; c.height = m.cell;
   const g = c.getContext('2d')!;
   g.imageSmoothingEnabled = false;
-  g.drawImage(atlasImage, (idx % m.cols) * m.cell, Math.floor(idx / m.cols) * m.cell, m.cell, m.cell, 0, 0, m.cell, m.cell);
+  g.drawImage(atlas, (idx % m.cols) * m.cell, Math.floor(idx / m.cols) * m.cell, m.cell, m.cell, 0, 0, m.cell, m.cell);
   return c;
 }
 
@@ -139,7 +166,8 @@ export function createArt(): ArtApi {
     icon(scene, id) {
       const key = `icon:${id}`;
       if (!scene.textures.exists(key)) {
-        scene.textures.addCanvas(key, iconCanvas(id) ?? placeholderIcon());
+        const texture = scene.textures.addCanvas(key, iconCanvas(id) ?? placeholderIcon());
+        if (texture && !atlasImage && manifest().icons.atlas) pendingIcons.push({ textures: scene.textures, texture, id });
       }
       return key;
     },
@@ -147,6 +175,8 @@ export function createArt(): ArtApi {
       let u = iconUrlCache.get(id);
       if (!u) {
         u = (iconCanvas(id) ?? placeholderIcon()).toDataURL('image/png');
+        // A fragment identifies the icon even when two interim crops have identical pixels.
+        if (!atlasImage && manifest().icons.ids[id] !== undefined) u += `#selantis-icon=${encodeURIComponent(id)}`;
         iconUrlCache.set(id, u);
       }
       return u;
@@ -189,10 +219,15 @@ export function portraitTexture(scene: Phaser.Scene, id: string, mood?: string):
   const url = createArtSingleton().portrait(id, mood);
   const c = document.createElement('canvas');
   c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d')!;
+  drawPreview(ctx, url, 0, 0, c.width, c.height);
   const tex = scene.textures.addCanvas(key, c)!;
-  const img = new Image();
-  img.onload = () => { c.getContext('2d')!.drawImage(img, 0, 0, 256, 256); tex.refresh(); };
-  img.src = url;
+  void loadImage(url).then(img => {
+    if (!img || !scene.textures.exists(key) || scene.textures.get(key) !== tex) return;
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    tex.refresh();
+  });
   return key;
 }
 

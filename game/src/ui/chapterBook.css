@@ -1,0 +1,105 @@
+/* Dark ink remains readable on the chronicle's parchment, including selected and locked entries. */
+.title-panel-body:has(.chap-spread), .menu-content:has(.chap-spread), .overlay-body:has(.chap-spread) { flex: 1; min-height: 0; overflow: visible; }
+.title-panel-body:has(.chap-spread) > .set-back, .menu-content:has(.chap-spread) > .set-back { flex: none; }
+.chap-spread[data-state] { --chap-turn-duration: 1050ms; grid-template-columns: 1fr 1fr; perspective-origin: 50% 32%; transform-style: preserve-3d; filter: none; box-shadow: 0 0.5em 1em #0005; }
+.chap-spread > .chap-page.is-left { grid-column: 1; }
+.chap-spread > .chap-page.is-right { grid-column: 2; }
+.chap-spread > .chap-gutter { position: absolute; z-index: 3; inset: 0 auto 0 calc(50% - 2px); width: 4px; pointer-events: none; }
+.chap-spread .chap-page { color: #382718; }
+.chap-spread .chap-page .chap-title, .chap-spread .chap-page .chap-scene-title, .chap-spread .chap-art-title { color: #382718; }
+.chap-spread .chap-page .chap-sub, .chap-spread .chap-page .chap-count { color: #63492f; }
+.chap-spread .chap-page .chap-num, .chap-spread .chap-art-num { color: #71381f; }
+.chap-spread .chap-page .chap-head.is-sel, .chap-spread .chap-page .chap-scene.is-sel { color: #3b2413; background: linear-gradient(90deg, #9c6b3033, #a8792910); }
+.chap-spread .chap-page .chap-head.is-sel .chap-title, .chap-spread .chap-page .chap-scene.is-sel .chap-scene-title { color: #3b2413; font-weight: 700; }
+.chap-spread .chap-page .chap-head.is-locked .chap-title, .chap-spread .chap-page .chap-scene.is-locked .chap-scene-title { color: #7a6048; font-weight: 400; }
+.chap-spread .chap-page .chap-scene.is-confirm .chap-scene-title, .chap-spread .chap-page .chap-warn { color: #792c1b; }
+.chap-spread .chap-art-img.is-in { opacity: 1; }
+.chap-spread .chap-art[data-scene] .chap-art-cap { font-size: 0.95em; }
+.chap-spread .chap-page button:focus-visible { outline: 2px solid #80502a; outline-offset: 1px; }
+.chap-spread .chap-turn { color: #644728; }
+.chap-spread .chap-turn.is-sel { color: #382718; }
+
+/* The old page stays above the new page until its reverse face settles on the other side of the spine. */
+.chap-spread > .chap-book-stationary { position: absolute; z-index: 4; top: 0; bottom: 0; width: 50%; pointer-events: none; }
+.chap-spread > .chap-book-stationary.is-left { left: 0; }
+.chap-spread > .chap-book-stationary.is-right { right: 0; }
+.chap-book-leaf { position: absolute; z-index: 6; inset: 0 0 0 50%; transform-origin: left center; transform-style: preserve-3d; transform: translateZ(2px); pointer-events: none; will-change: transform; }
+.chap-book-leaf.is-backward { inset: 0 50% 0 0; transform-origin: right center; }
+.chap-book-leaf.is-moving { animation: chap-leaf-forward var(--chap-turn-duration) cubic-bezier(0.34, 0.1, 0.28, 1) both; }
+.chap-book-leaf.is-backward.is-moving { animation-name: chap-leaf-backward; }
+.chap-book-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: preserve-3d; }
+.chap-book-face-front { transform: translateZ(0.5px); }
+.chap-book-face-back { transform: rotateY(180deg) translateZ(0.5px); }
+.chap-book-face > .chap-page { position: absolute; inset: 0; }
+.chap-book-face > .chap-spread { position: absolute; inset: 0; margin: 0; box-shadow: none; }
+.chap-book-mobile-snapshot { display: none; }
+.chap-book-leaf-shade { position: absolute; inset: 0; border-radius: 0.3em; pointer-events: none; opacity: 0; background: linear-gradient(90deg, #261507aa, #52351155 45%, #fff4d23b); }
+.chap-book-face-back .chap-book-leaf-shade { background: linear-gradient(90deg, #fff1c82b, #52351155 65%, #26150799); }
+.chap-book-leaf.is-moving .chap-book-leaf-shade { animation: chap-leaf-shade var(--chap-turn-duration) ease-in-out both; }
+.chap-book-leaf.is-moving .chap-book-face-back .chap-book-leaf-shade { animation-direction: reverse; }
+.chap-book-curl { position: absolute; inset: 0 -1px 0 auto; width: 1.2em; border-radius: 0 0.2em 0.2em 0; background: linear-gradient(90deg, transparent, #69422240 45%, #fff3cfaa 80%, #7e542777); transform-origin: left; opacity: 0; pointer-events: none; }
+.chap-book-face-back .chap-book-curl, .chap-book-leaf.is-backward .chap-book-face-front .chap-book-curl { inset: 0 auto 0 -1px; transform-origin: right; }
+.chap-book-leaf.is-backward .chap-book-face-back .chap-book-curl { inset: 0 -1px 0 auto; transform-origin: left; }
+.chap-book-leaf.is-moving .chap-book-curl { animation: chap-leaf-curl var(--chap-turn-duration) ease-in-out both; }
+.chap-book-cast-shadow { position: absolute; z-index: 5; inset: 0 0 0 50%; pointer-events: none; transform-origin: left center; background: linear-gradient(90deg, #3a200a66, #3a200a33 25%, transparent 80%); opacity: 0; }
+.chap-book-cast-shadow.is-backward { inset: 0 50% 0 0; transform-origin: right center; background: linear-gradient(270deg, #3a200a66, #3a200a33 25%, transparent 80%); }
+.chap-book-cast-shadow.is-moving { animation: chap-leaf-shadow var(--chap-turn-duration) ease-in-out both; }
+
+@keyframes chap-leaf-forward {
+  0% { transform: translateZ(2px) rotateY(0deg); }
+  12% { transform: translateZ(12px) rotateY(-12deg) rotateZ(-0.5deg); }
+  38% { transform: translateZ(20px) rotateY(-68deg) rotateZ(-1.2deg); }
+  62% { transform: translateZ(20px) rotateY(-126deg) rotateZ(-0.7deg); }
+  88% { transform: translateZ(4px) rotateY(-177deg) rotateZ(-0.2deg); }
+  96% { transform: translateZ(2px) rotateY(-181deg); }
+  100% { transform: translateZ(2px) rotateY(-180deg); }
+}
+@keyframes chap-leaf-backward {
+  0% { transform: translateZ(2px) rotateY(0deg); }
+  12% { transform: translateZ(12px) rotateY(12deg) rotateZ(0.5deg); }
+  38% { transform: translateZ(20px) rotateY(68deg) rotateZ(1.2deg); }
+  62% { transform: translateZ(20px) rotateY(126deg) rotateZ(0.7deg); }
+  88% { transform: translateZ(4px) rotateY(177deg) rotateZ(0.2deg); }
+  96% { transform: translateZ(2px) rotateY(181deg); }
+  100% { transform: translateZ(2px) rotateY(180deg); }
+}
+@keyframes chap-leaf-shade { 0%, 100% { opacity: 0; } 20% { opacity: 0.35; } 48% { opacity: 0.8; } 78% { opacity: 0.35; } }
+@keyframes chap-leaf-curl { 0%, 100% { opacity: 0; transform: rotateY(0deg); } 30%, 65% { opacity: 0.85; transform: rotateY(-28deg); } 88% { opacity: 0.2; transform: rotateY(-8deg); } }
+@keyframes chap-leaf-shadow { 0%, 100% { opacity: 0; transform: scaleX(1); } 28% { opacity: 0.65; transform: scaleX(0.8); } 50% { opacity: 0.85; transform: scaleX(0.15); } 72% { opacity: 0.3; transform: scaleX(0.65); } }
+
+@media (max-width: 640px) {
+  .chap-spread[data-state] { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+  .chap-spread > .chap-page.is-right { grid-column: 1; }
+  .chap-spread .chap-page.is-left { padding: 0.6em 0.8em 2em; }
+  .chap-spread .chap-page-head { padding-bottom: 0.3em; }
+  .chap-spread .chap-book-title { font-size: 1em; }
+  .chap-spread .chap-book-label { font-size: 0.65em; }
+  .chap-spread .chap-art { display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 0.7em; height: auto; min-height: 4.8em; margin: 0.4em 0 0; align-items: center; }
+  .chap-spread .chap-art-img { width: 100%; height: 4.8em; object-fit: cover; }
+  .chap-spread .chap-art-cap { margin: 0; font-size: 0.82em; text-align: left; }
+  .chap-spread .chap-art[data-scene] .chap-art-cap { font-size: 0.82em; }
+  .chap-spread .chap-art.is-empty { grid-template-columns: 1fr; min-height: 2.5em; }
+  .chap-spread .chap-art.is-empty .chap-art-cap { text-align: center; }
+  .chap-spread .chap-page.is-left .chap-turn { top: auto; bottom: 0.4em; }
+  .chap-spread .chap-page.is-right { padding: 0.5em 0.6em 2em; }
+  .chap-spread .chap-page .chap-head { grid-template-columns: 3.7em 1fr auto; gap: 0.4em; padding: 0.5em 0.4em; }
+  .chap-spread .chap-page .chap-scene.is-in-open { padding: 0.45em 0.5em 0.45em 1.8em; }
+  .chap-spread > .chap-book-stationary { display: none; }
+  .chap-book-leaf, .chap-book-leaf.is-backward { inset: 0; transform-origin: left center; }
+  .chap-book-leaf.is-backward { transform-origin: right center; }
+  .chap-book-face > .chap-book-desktop-snapshot { display: none; }
+  .chap-book-face > .chap-book-mobile-snapshot { display: grid; }
+  .chap-book-cast-shadow, .chap-book-cast-shadow.is-backward { inset: 0; }
+}
+@media (max-height: 460px) and (min-width: 641px) {
+  .chap-spread .chap-art { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 0.65em; align-items: center; }
+  .chap-spread .chap-art-img { width: 100%; height: 4.5em; }
+  .chap-spread .chap-art-cap, .chap-spread .chap-art[data-scene] .chap-art-cap { font-size: 0.82em; margin: 0; text-align: left; }
+  .chap-spread .chap-art.is-empty { grid-template-columns: 1fr; }
+}
+.reduced-motion .chap-book-leaf, .reduced-motion .chap-book-cast-shadow { animation-duration: 1ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .chap-book-leaf, .chap-book-cast-shadow, .chap-book-leaf-shade, .chap-book-curl { animation-duration: 1ms !important; }
+}
+/* The portrait chapter menu has its own layout; keep the orientation hint off its Back control. */
+.title-subpage:has(.chap-spread) .rotate-hint { display: none; }

@@ -3,6 +3,7 @@ import { speakers } from '../core/catalog';
 import { devMode } from './chapters';
 import { ctx } from './context';
 import { el, sfx } from './dom';
+import { setImageSource } from './image';
 import { NavList, type NavItem } from './nav';
 import { everythingUnlocked } from './unlocks';
 
@@ -149,7 +150,7 @@ export function buildGallery(host: HTMLElement, onBack: () => void): GalleryCtl 
         const img = el('img', 'gal-thumb');
         img.loading = 'lazy';
         img.alt = entry.title;
-        img.src = entry.images[0].url;
+        setImageSource(img, entry.images[0].url, { lazy: true });
         tile.append(img, el('span', 'gal-label', entry.title));
       } else {
         tile.append(el('span', 'gal-lock', '?'), el('span', 'gal-label', '???'));
@@ -173,7 +174,7 @@ export function buildGallery(host: HTMLElement, onBack: () => void): GalleryCtl 
     const paint = () => {
       const entry = list[i];
       const pic = entry.images[mood] ?? entry.images[0];
-      img.src = pic.url;
+      setImageSource(img, pic.url);
       img.classList.toggle('is-portrait', TABS[tab].kind === 'portrait');
       const moods = entry.images.length > 1 ? `  ·  ${pic.note} (${mood + 1}/${entry.images.length})` : '';
       caption.textContent = entry.title + moods;

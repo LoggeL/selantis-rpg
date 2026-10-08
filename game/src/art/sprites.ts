@@ -163,7 +163,10 @@ export async function characterReady(key: string): Promise<void> {
   const keys = [key];
   const id = info.get(key)?.id;
   const entry = id ? manifest().characters[id] : undefined;
-  if (entry) for (const pose of Object.keys(entry.poses)) keys.push(`${key}:${pose}`, `${key}:${pose}:flip`);
+  if (entry) for (const [pose, data] of Object.entries(entry.poses)) {
+    keys.push(`${key}:${pose}`, `${key}:${pose}:flip`);
+    for (const dir of Object.keys(data.dirs ?? {})) keys.push(`${key}:${pose}:${dir}`, `${key}:${pose}:${dir}:flip`);
+  }
   if (entry?.sneak) keys.push(`${key}:sneak-sheet`);
   await Promise.all(keys.map(whenReady));
 }

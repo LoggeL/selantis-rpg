@@ -1,4 +1,5 @@
 import type Phaser from 'phaser';
+import { drawPreview } from './blurhash';
 import { assetUrl } from './manifest';
 
 /**
@@ -53,11 +54,12 @@ export function upgradableTexture(textures: Phaser.Textures.TextureManager, key:
   }
   const ctx = tex.getContext();
   ctx.imageSmoothingEnabled = false;
-  if (placeholder) ctx.drawImage(placeholder, 0, 0);
+  const hasPreview = file ? drawPreview(ctx, file, 0, 0, w, h, grid, flip) : false;
+  if (!hasPreview && placeholder) ctx.drawImage(placeholder, 0, 0);
   tex.refresh();
   if (file) {
     upgrades.set(key, loadImage(file).then(img => {
-      if (!img || !textures.exists(key)) return;
+      if (!img || !textures.exists(key) || textures.get(key) !== tex) return;
       ctx.clearRect(0, 0, w, h);
       if (flip && grid) {
         for (let i = 0; i < grid.count; i++) {

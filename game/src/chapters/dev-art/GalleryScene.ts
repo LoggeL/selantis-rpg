@@ -2,8 +2,9 @@ import Phaser from 'phaser';
 import { G } from '../../core/G';
 import { GAME_H, GAME_W, canvasRect } from '../../core/viewport';
 import type { CharAnim, CharAnimExtra } from '../../art/api';
-import type { ArtExtras } from '../../art';
+import { assetUrl, type ArtExtras } from '../../art';
 import type { Dir } from '../../core/types';
+import { setImageSource } from '../../ui/image';
 
 export type GalleryPage = 'walk' | 'poses' | 'portraits' | 'props' | 'backgrounds' | 'fx';
 export const PAGES: { id: GalleryPage; label: string }[] = [
@@ -65,7 +66,7 @@ export class GalleryScene extends Phaser.Scene {
     this.input.on('wheel', (_p: unknown, _o: unknown, _dx: number, dy: number) => {
       this.cameras.main.scrollY += dy * 0.5 / this.cameras.main.zoom;
     });
-    this.events.once('shutdown', () => this.overlay.remove());
+    this.events.once('shutdown', () => { ++this.token; this.overlay.remove(); });
     this.show(this.page);
   }
 
@@ -143,14 +144,22 @@ export class GalleryScene extends Phaser.Scene {
 
   // ------------------------------------------------------------------ pages
 
+  /** Let Phaser paint each populated row before decoding the next group of previews. */
+  private nextFrame(token: number): Promise<boolean> {
+    return new Promise(resolve => requestAnimationFrame(() => resolve(token === this.token)));
+  }
+
   /** Characters standing and walking in all four directions over a painted background, at true game scale. */
   private async buildWalk(token: number): Promise<void> {
     const ids = art().assetIds('character');
     const bgs = art().assetIds('background');
     const bgId = ['art-gallery-meadow', 'dev-meadow'].find(b => bgs.includes(b)) ?? bgs[0];
-    await G.art.preload(this, { characters: ids, backgrounds: bgId ? [bgId] : [] });
     if (token !== this.token) return;
-    if (!ids.length) { this.label('Noch keine Figuren im Manifest', GAME_W / 2, 160); return; }
+    if (!ids.length) {
+      this.label('Noch keine Figuren im Manifest', GAME_W / 2, 160);
+      await G.art.preload(this, { backgrounds: bgId ? [bgId] : [] });
+      return;
+    }
     const perRow = 5, colW = GAME_W / perRow, bandH = 150, top = 30;
     const rows = Math.ceil(ids.length / perRow);
     if (bgId) {
@@ -160,7 +169,10 @@ export class GalleryScene extends Phaser.Scene {
         this.root.add(this.add.image(0, y, bg.key).setOrigin(0, 0).setScale(k).setDepth(-10));
       }
     }
-    ids.forEach((id, i) => {
+    this.label('oben: Stand · unten: Gehen (Süd, West, Ost, Nord) · Mausrad/Pfeile: blättern', GAME_W / 2, GAME_H - 18);
+    if (!await this.nextFrame(token)) return;
+    let chunkStart = performance.now();
+    for (const [i, id] of ids.entries()) {
       const key = G.art.character(this, id);
       const a = G.art.characterAnchor(key);
       const cx = Math.round(colW * (i % perRow) + colW / 2);
@@ -176,18 +188,23 @@ export class GalleryScene extends Phaser.Scene {
         walk.play(G.art.animKey(key, 'walk', d));
         this.root.add([idle, walk]);
       });
-    });
-    this.label('oben: Stand · unten: Gehen (Süd, West, Ost, Nord) · Mausrad/Pfeile: blättern', GAME_W / 2, GAME_H - 18);
+      if (i + 1 < ids.length && ((i + 1) % perRow === 0 || performance.now() - chunkStart >= 8)) {
+        if (!await this.nextFrame(token)) return;
+        chunkStart = performance.now();
+      }
+    }
+    await G.art.preload(this, { characters: ids, backgrounds: bgId ? [bgId] : [] });
   }
 
   /** Every painted pose of every character (true scale; left-facing columns are mirrored by the art layer). */
   private async buildPoses(token: number): Promise<void> {
     const ids = art().assetIds('character');
-    await G.art.preload(this, { characters: ids });
     if (token !== this.token) return;
     const m = art().manifest();
     const rowH = 78;
-    ids.forEach((id, i) => {
+    this.cameras.main.setZoom(1).setScroll(0, 0);
+    if (ids.length * rowH + 60 > GAME_H) this.label('↓ Mausrad', GAME_W - 40, GAME_H - 20);
+    for (const [i, id] of ids.entries()) {
       const key = G.art.character(this, id);
       const an = G.art.characterAnchor(key);
       const y = 40 + rowH * i + 56;
@@ -204,9 +221,9 @@ export class GalleryScene extends Phaser.Scene {
         this.spots.set(`${id}:${pose}`, { x, y: y - 20 });
         x += w / 2 + 6;
       });
-    });
-    this.cameras.main.setZoom(1).setScroll(0, 0);
-    if (ids.length * rowH + 60 > GAME_H) this.label('↓ Mausrad', GAME_W - 40, GAME_H - 20);
+      if (i + 1 < ids.length && !await this.nextFrame(token)) return;
+    }
+    await G.art.preload(this, { characters: ids });
   }
 
   private buildPortraits(): void {
@@ -224,7 +241,13 @@ export class GalleryScene extends Phaser.Scene {
       const moods = art().moodIds(id).sort((a, b) => (order.indexOf(a) + 99) % 99 - (order.indexOf(b) + 99) % 99);
       for (const mood of moods) {
         const f = document.createElement('figure');
-        f.innerHTML = `<img width="160" height="160" alt="${id} ${mood}" src="${G.art.portrait(id, mood)}"><figcaption>${mood}</figcaption>`;
+        const img = document.createElement('img');
+        img.width = 160; img.height = 160;
+        img.alt = `${id} ${mood}`;
+        setImageSource(img, G.art.portrait(id, mood), { lazy: true });
+        const caption = document.createElement('figcaption');
+        caption.textContent = mood;
+        f.append(img, caption);
         row.appendChild(f);
       }
       dom.appendChild(row);
@@ -234,7 +257,6 @@ export class GalleryScene extends Phaser.Scene {
   private async buildProps(token: number): Promise<void> {
     // own props first (iso-* belong to the tactics view and come last)
     const ids = art().assetIds('prop').sort((a, b) => Number(a.startsWith('iso-')) - Number(b.startsWith('iso-')) || a.localeCompare(b));
-    await G.art.preload(this, { props: ids });
     if (token !== this.token) return;
     // item icons on top
     const list = art().assetIds('icon');
@@ -248,7 +270,9 @@ export class GalleryScene extends Phaser.Scene {
     });
     let x = 16, y = 70 + Math.ceil(list.length / 12) * 54 + 20, rowH = 0;
     this.label('Requisiten (Anker türkis, Kollisionsfläche rot)', GAME_W / 2, y - 14);
-    for (const id of ids) {
+    if (ids.length && !await this.nextFrame(token)) return;
+    let chunkStart = performance.now();
+    for (const [i, id] of ids.entries()) {
       const info = G.art.prop(this, id);
       if (x + info.width > GAME_W - 10) { x = 16; y += rowH + 26; rowH = 0; }
       const px = x + info.originX, py = y + info.originY;
@@ -264,11 +288,17 @@ export class GalleryScene extends Phaser.Scene {
       this.spots.set(id, { x: px, y: py - info.height / 2 });
       x += Math.max(info.width, 44) + 18;
       rowH = Math.max(rowH, info.height);
+      if (i + 1 < ids.length && ((i + 1) % 8 === 0 || performance.now() - chunkStart >= 8)) {
+        if (!await this.nextFrame(token)) return;
+        chunkStart = performance.now();
+      }
     }
     if (!ids.length) this.label('Noch keine Requisiten im Manifest', GAME_W / 2, y + 20);
+    await G.art.preload(this, { props: ids });
   }
 
   private async buildBackgrounds(token: number): Promise<void> {
+    if (token !== this.token) return;
     const dom = this.dom();
     dom.style.display = 'block';
     const bgs = art().assetIds('background');
@@ -283,16 +313,23 @@ export class GalleryScene extends Phaser.Scene {
       if (!items.length) row.innerHTML = '<p class="empty">– noch keine –</p>';
       for (const id of items) {
         const f = document.createElement('figure');
-        f.innerHTML = `<img width="384" height="216" style="object-fit:contain;background:#000" alt="${id}" src="${src(id)}"><figcaption>${id} · ${size(id)}</figcaption>`;
+        const img = document.createElement('img');
+        img.width = 384; img.height = 216;
+        img.style.objectFit = 'contain';
+        img.style.backgroundColor = '#000';
+        img.alt = id;
+        setImageSource(img, src(id), { lazy: true });
+        const caption = document.createElement('figcaption');
+        caption.textContent = `${id} · ${size(id)}`;
+        f.append(img, caption);
         row.appendChild(f);
       }
       dom.appendChild(row);
     };
-    section('Kartenhintergründe', bgs, id => m.backgrounds[id].file, id => `${m.backgrounds[id].w}×${m.backgrounds[id].h}`);
+    section('Kartenhintergründe', bgs, id => assetUrl(m.backgrounds[id].file), id => `${m.backgrounds[id].w}×${m.backgrounds[id].h}`);
     section('Tafeln', plates, id => G.art.plateUrl(id), id => `${m.plates[id].w}×${m.plates[id].h}`);
     const other = Object.keys(m.images);
-    section('Weitere Bilder', other, id => m.images[id].file, id => `${m.images[id].w}×${m.images[id].h}`);
-    void token;
+    section('Weitere Bilder', other, id => assetUrl(m.images[id].file), id => `${m.images[id].w}×${m.images[id].h}`);
   }
 
   private buildFx(): void {

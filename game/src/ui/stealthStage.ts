@@ -1,10 +1,11 @@
 import { loadImage } from '../art/assets';
+import { previewCanvas } from '../art/blurhash';
 import { manifest, type CharacterEntry, type PoseEntry } from '../art/manifest';
 import { ctx as ui } from './context';
 import { stealthPhase, stealthSafe, stealthTarget, stealthTiming, type StealthKind, type StealthState } from './interactionRules';
 
 type Facing = 'down' | 'left' | 'right' | 'up';
-type Img = HTMLImageElement;
+type Img = HTMLImageElement | HTMLCanvasElement;
 interface Particle { x: number; y: number; vx: number; vy: number; life: number; max: number; size: number; color: string; kind: 'mote' | 'dust' | 'leaf' | 'spark' | 'ring' }
 
 /** World raster of the painted scenes (1280×720). Everything below is placed in these coordinates. */
@@ -72,14 +73,25 @@ export function createStealthStage(stage: HTMLElement, kind: StealthKind) {
   const tg = tint.getContext('2d')!;
   const body = document.createElement('canvas');
   const bg = body.getContext('2d')!;
-  const ready = Promise.all(Object.entries(files).map(async ([name, file]) => {
-    if (file) { const image = await loadImage(file); if (image) pictures[name as keyof typeof files] = image; }
-  })).then(() => {
-    if (kind === 'listen') for (const key of ['coverA', 'coverB'] as const) {
-      const img = pictures[key];
-      if (img) shaded[key] = nightShade(img);
+  const completed = new Set<string>();
+  for (const [name, file] of Object.entries(files)) {
+    const preview = file ? previewCanvas(file) : null;
+    if (preview) {
+      pictures[name as keyof typeof files] = preview;
+      if (kind === 'listen' && (name === 'coverA' || name === 'coverB')) shaded[name] = nightShade(preview);
     }
-    loaded = Boolean(pictures.ground && pictures.player && pictures.crouch && pictures.guard && pictures.rider && pictures.coverA && (kind === 'duck' || pictures.coverB));
+  }
+  const ready = Promise.all(Object.entries(files).map(async ([name, file]) => {
+    if (file) {
+      const image = await loadImage(file);
+      if (image) {
+        pictures[name as keyof typeof files] = image;
+        completed.add(name);
+        if (kind === 'listen' && (name === 'coverA' || name === 'coverB')) shaded[name] = nightShade(image);
+      }
+    }
+  })).then(() => {
+    loaded = ['ground', 'player', 'crouch', 'guard', 'rider', 'coverA', ...(kind === 'duck' ? [] : ['coverB'])].every(name => completed.has(name));
     stage.dataset.assets = loaded ? 'ready' : 'failed';
     return loaded;
   });
@@ -346,7 +358,7 @@ export function createStealthStage(stage: HTMLElement, kind: StealthKind) {
     shake = Math.max(0, shake - dt); flash = Math.max(0, flash - dt * 1.6); glory = Math.max(0, glory - dt * 0.8);
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.fillStyle = '#0b1018'; g.fillRect(0, 0, cw, ch);
-    if (!loaded) {
+    if (!pictures.ground || !pictures.coverA) {
       g.fillStyle = '#d9cfb5'; g.font = `${Math.round(16 * S)}px Alegreya, Georgia, serif`; g.textAlign = 'center';
       g.fillText(stage.dataset.assets === 'failed' ? 'Die Bilder konnten nicht geladen werden.' : 'Die Szene wird gemalt …', cw / 2, ch / 2);
       return;
@@ -555,6 +567,10 @@ export function createStealthStage(stage: HTMLElement, kind: StealthKind) {
       g.globalCompositeOperation = 'lighter';
       g.fillStyle = `rgba(243, 213, 138, ${0.12 * Math.min(1, glory)})`; g.fillRect(0, 0, cw, ch);
       g.globalCompositeOperation = 'source-over';
+    }
+    if (!loaded) {
+      g.fillStyle = '#d9cfb5'; g.font = `${Math.round(16 * S)}px Alegreya, Georgia, serif`; g.textAlign = 'center';
+      g.fillText(stage.dataset.assets === 'failed' ? 'Die Bilder konnten nicht geladen werden.' : 'Die Szene wird gemalt …', cw / 2, 24 * S);
     }
     stage.dataset.pose = hidden && !moving ? 'crouch' : moving ? 'walk' : 'idle';
     stage.dataset.hidden = String(hidden);

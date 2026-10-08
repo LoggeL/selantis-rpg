@@ -28,6 +28,7 @@ import { WorldVoicePlayer } from './worldVoicePlayer';
 import type { WorldScene } from '../world/WorldScene';
 import { trackProgress } from './unlocks';
 import './styles.css';
+import './chapterBook.css';
 
 export type { UiApi } from './api';
 

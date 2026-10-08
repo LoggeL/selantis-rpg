@@ -3,9 +3,11 @@
 // a close-up of the vault (painted background + the real sprites) over that picture. Purely cosmetic: input,
 // progress and completion stay with the UI; if the UI's markup ever changes, the gesture simply keeps its default look.
 import { loadImage } from '../../art/assets';
+import { previewCanvas } from '../../art/blurhash';
 import { manifest } from '../../art/manifest';
 
 type Facing = 'left' | 'right' | 'up' | 'down';
+type GestureImage = HTMLImageElement | HTMLCanvasElement;
 
 export interface GestureFigure {
   /** Character id and pose (a manifest pose, or the walk sheet's idle frame when the pose is missing). */
@@ -53,18 +55,22 @@ export function restageGesture(kind: string, instruction: string, picture?: Gest
   void draw(root, stage, canvas, picture);
 }
 
-async function draw(root: HTMLElement, stage: HTMLElement, canvas: HTMLCanvasElement, pic: GesturePicture): Promise<void> {
+function draw(root: HTMLElement, stage: HTMLElement, canvas: HTMLCanvasElement, pic: GesturePicture): void {
   const art = manifest();
   const bgFile = art.backgrounds[pic.background]?.file;
-  const background = bgFile ? await loadImage(bgFile) : null;
-  const sprites = await Promise.all(pic.figures.map(async f => {
+  let background: GestureImage | null = bgFile ? previewCanvas(bgFile) : null;
+  const sprites = pic.figures.map(f => {
     const entry = art.characters[f.id];
     const pose = entry?.poses[f.pose];
     const file = pose?.file ?? entry?.walk?.file;
-    return { f, entry, pose, image: file ? await loadImage(file) : null };
-  }));
+    return { f, entry, pose, file, image: file ? previewCanvas(file) as GestureImage | null : null };
+  });
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
+  if (bgFile) void loadImage(bgFile).then(image => { if (image) background = image; });
+  for (const sprite of sprites) {
+    if (sprite.file) void loadImage(sprite.file).then(image => { if (image) sprite.image = image; });
+  }
   const t0 = performance.now();
   const frame = () => {
     if (!root.isConnected || root.classList.contains('is-complete')) return;

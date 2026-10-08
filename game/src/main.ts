@@ -8,6 +8,7 @@ import BootScene from './scenes/BootScene';
 import TitleScene from './scenes/TitleScene';
 import { phaserScenes as tacticsScenes } from './tactics';
 import { createUi } from './ui';
+import { observeImagePlaceholders } from './ui/image';
 import { phaserScenes as worldScenes } from './world';
 
 // Chapters register themselves (defineChapter) when imported.
@@ -21,6 +22,7 @@ G.art = createArt();
 G.audio = createAudio();
 G.ui = createUi();
 G.ui.mount(document.getElementById('ui')!);
+observeImagePlaceholders(document.body);
 
 const chapterScenes = getChapters().flatMap(c => c.phaserScenes ?? []);
 

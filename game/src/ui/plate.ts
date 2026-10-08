@@ -1,8 +1,10 @@
 import { G } from '../core/G';
+import { manifest } from '../art/manifest';
 import { ctx } from './context';
 import { el, sfx, wait } from './dom';
 import { markSeen } from './gallery';
 import { frame, label, parchment } from './plateKit';
+import { setImageSource } from './image';
 
 type PlateDraw = () => HTMLCanvasElement | string;
 type Pan = 'left' | 'right' | 'in' | 'out' | 'none';
@@ -67,19 +69,20 @@ export class PlateUi {
   prefetch(id: string): void { void this.resolve(id); }
 
   async show(id: string, opts: { caption?: string; pan?: Pan; durationMs?: number } = {}): Promise<void> {
+    const known = manifest().plates[id];
     // Plates draw text with the UI fonts: make sure they are loaded before the first render.
-    if (!this.cache.has(id)) { try {
+    if (!known && !this.cache.has(id)) { try {
       const f = document.fonts;
       if (f) await Promise.race([Promise.all(['700 32px Cinzel', '500 32px Cinzel', '500 32px Alegreya', 'italic 500 32px Alegreya'].map(spec => f.load(spec))), new Promise(r => setTimeout(r, 1500))]);
     } catch { /* fonts optional */ } }
-    const r = await this.resolve(id);
+    const r: Rendered = known ? { url: plateUrl(id), w: known.w, h: known.h, pixel: known.w < 800 } : await this.resolve(id);
     markSeen('plate', id, opts.caption);
     const previous = this.current;
     const root = el('div', 'plate');
     const frameEl = el('div', 'plate-frame');
     const view = el('div', 'plate-view');
     const img = el('img', r.pixel ? 'plate-img px' : 'plate-img');
-    img.src = r.url;
+    setImageSource(img, r.url);
     img.alt = opts.caption ?? '';
     img.draggable = false;
     view.appendChild(img);
@@ -95,7 +98,12 @@ export class PlateUi {
     root.style.setProperty('--ar', String(r.w / r.h));
     ctx.layers.plate.appendChild(root);
     this.fitOne(root, r.w / r.h);
-    try { await img.decode(); } catch { /* data URLs decode synchronously enough */ }
+    if (!known) { try { await img.decode(); } catch { /* drawn fallback */ } }
+    else void this.resolve(id).then(resolved => {
+      if (!img.isConnected) return;
+      setImageSource(img, resolved.url);
+      img.classList.toggle('px', resolved.pixel);
+    });
 
     const hadLetterbox = previous?.hadLetterbox ?? ctx.root.classList.contains('has-letterbox');
     this.letterbox(true);

@@ -1,4 +1,5 @@
 import { loadImage } from '../art/assets';
+import { previewCanvas } from '../art/blurhash';
 import { manifest, type CharacterEntry } from '../art/manifest';
 import { ctx as ui } from './context';
 import type { StoryActionKind } from './interactionRules';
@@ -28,6 +29,7 @@ export function createMiniIllustration(host: HTMLElement, kind: IllustrationKind
 
 type Pt = { x: number; y: number };
 interface Framing { s: number; ox: number; oy: number }
+type IllustrationImage = HTMLImageElement | HTMLCanvasElement;
 const TAU = Math.PI * 2;
 const hash = (i: number) => { const v = Math.sin(i * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
@@ -64,10 +66,18 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
       top: image('gesture-bellows-top'), leather: image('gesture-bellows-leather'), base: image('gesture-bellows-base'),
     },
   }[kind];
-  const pictures = new Map<string, HTMLImageElement>();
+  const pictures = new Map<string, IllustrationImage>();
+  for (const [id, file] of Object.entries(files)) {
+    const preview = previewCanvas(file);
+    if (preview) pictures.set(id, preview);
+  }
   let loaded = false;
-  const ready = Promise.all(Object.entries(files).map(async ([id, file]) => { const pic = await loadImage(file); if (pic) pictures.set(id, pic); })).then(() => {
-    loaded = pictures.size === Object.keys(files).length;
+  let completed = 0;
+  const ready = Promise.all(Object.entries(files).map(async ([id, file]) => {
+    const pic = await loadImage(file);
+    if (pic) { pictures.set(id, pic); completed++; }
+  })).then(() => {
+    loaded = completed === Object.keys(files).length;
     host.dataset.art = loaded ? 'ready' : 'failed';
     return loaded;
   });
@@ -77,7 +87,7 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
   const at = (x: number, y: number): Pt => ({ x: view.ox + x * view.s, y: view.oy + y * view.s });
   const reduced = () => ui.reducedMotion;
 
-  const frame = (pic: HTMLImageElement) => {
+  const frame = (pic: IllustrationImage) => {
     const scene = (W / H < 1.1 && SCENES[kind].tall) || SCENES[kind];
     const s = Math.max(W / pic.width, H / pic.height) * scene.zoom;
     const ox = Math.min(0, Math.max(W - pic.width * s, W / 2 - scene.focus[0] * pic.width * s));
@@ -255,9 +265,10 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
   const geometry = { bellowsTop: 0, leatherTop: 0, leatherH: 0, x: 0, w: 0, bottom: 0 };
   const layoutBellows = (pos: number) => {
     const tall = W / H < 1.1;
-    const w = loaded ? W * (tall ? 0.5 : 0.33) : Math.min(W * 0.48, H * 1.05), k = w / 640;
+    const hasBackdrop = pictures.has('backdrop');
+    const w = hasBackdrop ? W * (tall ? 0.5 : 0.33) : Math.min(W * 0.48, H * 1.05), k = w / 640;
     // Until the art is there, a plain bottom-left placement keeps the fold box meaningful.
-    const pipe = loaded ? at(PIPE.x, PIPE.y) : { x: W * 0.05 + w, y: H - 10 - 42 * k };
+    const pipe = hasBackdrop ? at(PIPE.x, PIPE.y) : { x: W * 0.05 + w, y: H - 10 - 42 * k };
     const x = pipe.x + 3 * k - w;
     const bottom = pipe.y - NOZZLE_Y * 76 * k + 76 * k;
     const leatherBottom = bottom - 34 * k;
@@ -332,9 +343,10 @@ function paintedGesture(host: HTMLElement, kind: StoryActionKind) {
     if (lastPosition !== undefined && pos !== lastPosition) moveDir = Math.sign(pos - lastPosition);
     lastPosition = pos;
     g.fillStyle = '#0b0f17'; g.fillRect(0, 0, W, H);
-    if (loaded) frame(pictures.get('backdrop')!);
+    const background = pictures.get('backdrop');
+    if (background) frame(background);
     if (kind === 'bellows') layoutBellows(pos);
-    if (!loaded) return;
+    if (!background) return;
     if (kind === 'reach') drawReach(p, pos);
     else if (kind === 'lift') drawLift(p, pos);
     else if (kind === 'open-eyes') drawOpenEyes(p);
@@ -356,7 +368,7 @@ function legacyIllustration(host: HTMLElement, kind: 'blow' | 'stake') {
   host.prepend(canvas);
   host.classList.add('has-mini-art');
   const ctx = canvas.getContext('2d')!;
-  const pictures = new Map<string, HTMLImageElement>();
+  const pictures = new Map<string, IllustrationImage>();
   const files = new Map<string, string>();
   const addCharacter = (id: string, poses: string[]) => {
     const entry = art.characters[id];
@@ -369,10 +381,18 @@ function legacyIllustration(host: HTMLElement, kind: 'blow' | 'stake') {
   for (const id of props) if (art.props[id]) files.set(id, art.props[id].file);
   const backdrop = kind === 'blow' ? art.backgrounds['k3-leselager'] : art.backgrounds['k2-lager'];
   if (backdrop) files.set('backdrop', backdrop.file);
+  for (const [id, file] of files) {
+    const preview = previewCanvas(file);
+    if (preview) pictures.set(id, preview);
+  }
   host.dataset.art = 'loading';
   let loaded = false, time = 0, height = 200;
-  const ready = Promise.all([...files].map(async ([id, file]) => { const image = await loadImage(file); if (image) pictures.set(id, image); })).then(() => {
-    loaded = pictures.size === files.size;
+  let completed = 0;
+  const ready = Promise.all([...files].map(async ([id, file]) => {
+    const image = await loadImage(file);
+    if (image) { pictures.set(id, image); completed++; }
+  })).then(() => {
+    loaded = completed === files.size;
     host.dataset.art = loaded ? 'ready' : 'failed';
     return loaded;
   });
@@ -428,7 +448,7 @@ function legacyIllustration(host: HTMLElement, kind: 'blow' | 'stake') {
       ctx.drawImage(background, 0, top, background.width, cropH, 0, 0, 640, height);
     }
     ctx.fillStyle = '#07102099'; ctx.fillRect(0, 0, 640, height);
-    if (!loaded) return;
+    if (!pictures.size) return;
     const p = Math.max(0, Math.min(1, state.progress));
     const y = height * 0.87, scale = Math.max(1.3, Math.min(3.6, height / 80));
     if (kind === 'blow') {

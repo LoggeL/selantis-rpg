@@ -1,0 +1,2 @@
+img[data-image-state="loading"], img[data-image-state="error"] { image-rendering: auto; }
+.gal-thumb { height: auto; }

@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { texKey, type TexId } from './paint';
+import { upgradableTexture, whenReady } from '../../art/assets';
+import { previewInfo } from '../../art/blurhash';
 
 /**
  * Loader for the painted tactics art (public/assets/tactics/manifest.json lists what exists):
@@ -40,11 +42,21 @@ export async function loadTacticsArt(scene: Phaser.Scene, backdrop?: string): Pr
     manifest = m && Array.isArray(m.textures) ? { textures: m.textures, backdrops: m.backdrops ?? [], props: m.props ?? {} } : EMPTY;
   }
   const m = manifest;
+  const upgrades: Promise<void>[] = [];
+  const image = (load: Phaser.Loader.LoaderPlugin, key: string, file: string) => {
+    if (scene.textures.exists(key)) { upgrades.push(whenReady(key)); return; }
+    const info = previewInfo(file);
+    if (info) {
+      upgradableTexture(scene.textures, key, info.width, info.height, null, null, file);
+      upgrades.push(whenReady(key));
+    } else load.image(key, file);
+  };
   await run(scene, l => {
-    for (const t of m.textures) if (!scene.textures.exists(texKey(t as TexId))) l.image(texKey(t as TexId), `assets/tactics/tex-${t}.png`);
+    for (const t of m.textures) image(l, texKey(t as TexId), `assets/tactics/tex-${t}.png`);
     for (const [id, vars] of Object.entries(m.props)) {
-      for (const v of vars) if (!scene.textures.exists(isoPropKey(id, v.n))) l.image(isoPropKey(id, v.n), `assets/props/${id}-${v.n}.png`);
+      for (const v of vars) image(l, isoPropKey(id, v.n), `assets/props/${id}-${v.n}.png`);
     }
-    if (backdrop && m.backdrops.includes(backdrop) && !scene.textures.exists(skyKey(backdrop))) l.image(skyKey(backdrop), `assets/tactics/sky-${backdrop}.png`);
+    if (backdrop && m.backdrops.includes(backdrop)) image(l, skyKey(backdrop), `assets/tactics/sky-${backdrop}.png`);
   });
+  await Promise.all(upgrades);
 }

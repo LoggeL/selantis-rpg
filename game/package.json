@@ -4,8 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "images:prepare": "node ../scripts/art/build_blurhashes.mjs",
+    "predev": "npm run images:prepare",
     "dev": "vite --host 127.0.0.1",
     "check": "tsc --noEmit",
+    "prebuild": "node ../scripts/art/build_blurhashes.mjs --check",
     "build": "npm run check && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
@@ -13,10 +16,12 @@
     "verify": "npm run check && npm test && npm run build && npm run test:e2e"
   },
   "dependencies": {
+    "blurhash": "2.0.5",
     "phaser": "3.90.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",
+    "@types/node": "^22.20.5",
     "typescript": "^5.9.3",
     "vite": "^7.1.9",
     "vitest": "^3.2.4"

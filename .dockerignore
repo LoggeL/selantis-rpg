@@ -19,6 +19,8 @@
 !deploy/nginx.conf
 !scripts/
 !scripts/assemble_site.mjs
+!scripts/art/
+!scripts/art/build_blurhashes.mjs
 !musik.html
 !output/
 !output/audio/

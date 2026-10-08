@@ -1,6 +1,8 @@
 import { ctx } from './context';
 import { el } from './dom';
 import { TITLE_PREVIEW, TITLE_STARS } from './titleData';
+import { previewDataUrl } from '../art/blurhash';
+import { assetUrl } from '../art/manifest';
 
 /**
  * Title backdrop: the Codex-painted night over Selantis (assets/ui/title.png, 1280x720) brought to life in
@@ -93,9 +95,10 @@ class TitleBackdrop {
     this.img.alt = '';
     this.img.draggable = false;
     this.img.decoding = 'async';
+    this.img.dataset.imageManaged = 'true';
     // A tiny blurred preview shows at once; the full painting fades in over it once decoded.
     const preview = el('div', 'tb-preview');
-    preview.style.backgroundImage = `url(${TITLE_PREVIEW})`;
+    preview.style.backgroundImage = `url(${previewDataUrl(TITLE_IMAGE) ?? TITLE_PREVIEW})`;
     this.pic.append(preview, this.img, this.fx);
     this.root.append(this.pic, el('div', 'tb-shade'));
     const r = rng(1213);
@@ -118,7 +121,7 @@ class TitleBackdrop {
   /** Starts loading the painting (call early; idempotent). */
   preload(): Promise<void> {
     if (!this.ready) {
-      this.img.src = TITLE_IMAGE;
+      this.img.src = assetUrl(TITLE_IMAGE);
       this.ready = this.img.decode().then(() => { this.img.classList.add('is-loaded'); }, () => { /* missing image: the preview stays, effects still run */ });
     }
     return this.ready;
