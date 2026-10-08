@@ -162,6 +162,8 @@ async function intrigue(w: WorldCtx): Promise<void> {
   await gob(w, 'fips', 'Ich hab sie gefangen, ich darf sie auch runterschneiden. So ist das.', 'happy');
   sfx('rope-cut', { volume: 0.35 });
   await w.wait(200);
+  w.player.teleport(GHUL_SPOT.stake, 'left');
+  w.fx.burst(GHUL_SPOT.stake, 'dust', 10);
   sfx('thud', { volume: 0.5 });
   w.camera.shake(200, 0.004);
   w.player.setIdle('sit');
@@ -279,7 +281,8 @@ async function script(w: WorldCtx): Promise<void> {
     const s = w.spawn({ id: SITTER(id), preset: `goblin-${id}`, speaker: `e3-${id}`, at: HOME[id], dir: TO_FIRE[id], solid: false, facePlayer: false });
     s.hold(true);
   }
-  const release = pinPlayer(w, 'hang', 'left');
+  w.player.teleport(GHUL_SPOT.hang, 'right');
+  const release = pinPlayer(w, 'hang', 'right');
   await w.camera.zoom(1.25, 0);
   await w.camera.pan([FIRE[0] + 20, FIRE[1] + 30], 0);
   const plate = G.art.hasAsset('plate', 'e3-flick-kopfueber');
@@ -292,17 +295,20 @@ async function script(w: WorldCtx): Promise<void> {
     await gob(w, 'ratz', 'Du darfst gar nix sagen, Fips. Und sie hängt bis morgen. Wild muss abhängen.', 'smirk');
     await gob(w, 'hotze', 'Abgehangen ist zarter. Stimmt schon …', 'thinking');
     if (plate) await G.ui.closePlate();
-    await w.camera.pan([GHUL_SPOT.stake[0] - 30, GHUL_SPOT.stake[1]], 900);
+    await w.camera.pan([GHUL_SPOT.hang[0] - 30, GHUL_SPOT.hang[1] + 30], 900);
     await flick(w, 'Zwei Tage frei. Zwei. Dann ein Netz zwischen zwei Buchen, und jetzt hänge ich an einem Fuß und höre zu, wie drei Goblins mich würzen.', 'angry');
     await flick(w, 'Die rechte Hand taugt noch immer nichts, und das Messer liegt bei ihrem Kram. Bleibt das Mundwerk. Das hat noch nie versagt.', 'determined');
-    await w.camera.zoom(1, 600);
-    w.camera.follow();
+    // The intrigue: Flick on her rope and the three at the fire in one close frame.
+    await w.camera.zoom(1.6, 600);
+    await w.camera.pan([1094, 150], 600);
   });
   await intrigue(w);
   await brawl(w);
   G.state.set(F.freed);
   release();
   w.player.setIdle('idle');
+  await w.camera.zoom(1, 600);
+  w.camera.follow();
   await w.say('narrator', `Halte ${w.controlHint('sneak')} gedrückt: Geduckt im Farn sieht dich keiner.`);
   startWatchers(w);
   onCaught(w);

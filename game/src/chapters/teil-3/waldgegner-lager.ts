@@ -51,8 +51,10 @@ export const GHUL_SURFACES: SurfaceDef[] = [
 
 /** Named feet positions. */
 export const GHUL_SPOT = {
-  /** Flick under the low oak branch (head down on the rope first, later tied at the roots). */
+  /** Flick tied at the roots of the big oak (after she has been cut down). */
   stake: [1144, 204],
+  /** Head down on the rope from the oak's low left branch (the pose's rope reaches up to the branch at y ≈ 58). */
+  hang: [1132, 118],
   /** The three goblins around the fire: Ratz the „chief“ (south-west), Hotze at the pot (west), Fips (south). */
   ratz: [1020, 182],
   hotze: [1004, 140],
