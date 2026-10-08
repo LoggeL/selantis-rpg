@@ -1,0 +1,67 @@
+/* Scene pick: word cards over a painted scene (scenePick.ts). */
+.scene-pick { display: grid; grid-template-rows: minmax(0, 1fr) auto; background: #07090e; opacity: 0; transition: opacity .35s ease-out; font-family: var(--f-body); color: var(--parch); }
+.scene-pick.is-in { opacity: 1; }
+/* Without a painting the running scene stays visible behind a dark veil. */
+.scene-pick:not(.has-bg) { background: #07090e8c; }
+.scene-pick.is-out { opacity: 0; }
+.pick-stage { position: relative; overflow: hidden; min-height: 9em; }
+.pick-bg { position: absolute; inset: -3%; background: #0b0f17 center / cover no-repeat; transform: scale(1.04); animation: pick-pan 30s ease-in-out infinite alternate; }
+.pick-bg.is-dim { filter: blur(5px) brightness(.55) saturate(.8); }
+@keyframes pick-pan { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.08) translate(-1%, -.6%); } }
+.pick-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 40%, #05070cd0 100%); }
+.pick-flash { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: #fff6dc; }
+
+.pick-cards { position: absolute; inset: 0; }
+.scene-pick.is-row .pick-cards { inset: auto 0 .8em 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5em; padding: 0 1em; }
+.pick-card { display: inline-flex; align-items: baseline; gap: .45em; max-width: 19em; padding: .45em .8em; border: 1px solid var(--gold-line); border-radius: .45em;
+  background: #0d121cd9; color: var(--parch); font: inherit; font-size: .95em; text-align: left; cursor: pointer; box-shadow: 0 .2em .6em #0008;
+  transition: transform .2s, border-color .2s, background .2s, opacity .3s; }
+.scene-pick.is-drift .pick-card { position: absolute; transform: translate(-50%, -50%); animation: pick-drift 7s ease-in-out var(--drift-delay, 0s) infinite alternate; max-width: min(16em, 29vw); }
+@keyframes pick-drift { from { translate: -.6em .3em; } to { translate: .6em -.4em; } }
+.pick-card:hover:not(:disabled), .pick-card.is-focus { border-color: var(--gold); background: #1a2232f0; outline: none; box-shadow: 0 0 0 1px var(--gold), 0 0 1.2em #d8b25a55; }
+.pick-card:disabled { cursor: default; }
+.pick-card.is-wrong { opacity: .38; text-decoration: line-through; }
+.pick-card.is-held { border-color: #8fe6d0; background: #0f2a2ae6; box-shadow: 0 0 1.2em #49e0c855; }
+.pick-card:disabled:not(.is-wrong):not(.is-held) { opacity: .5; }
+.scene-pick:not(.is-picking) .pick-card:not(.is-held):not(.is-wrong) { opacity: .7; }
+.pick-num { font-family: var(--f-label); color: var(--gold-hi); font-size: .8em; }
+.pick-tag { font-size: .72em; color: var(--parch-dim); border: 1px solid var(--gold-line); border-radius: .3em; padding: 0 .35em; white-space: nowrap; }
+
+.pick-box { margin: 0 auto .6em; width: min(46em, calc(100% - 32px)); padding: .6em 1em .55em; }
+.pick-head { display: flex; align-items: center; justify-content: space-between; gap: 1em; }
+.pick-pips { display: flex; gap: .3em; }
+.pick-pips i { width: .55em; height: .55em; border-radius: 50%; border: 1px solid var(--gold); }
+.pick-pips i.is-done { background: var(--gold); }
+.pick-help { margin: .25em 0 .35em; color: var(--parch-dim); font-size: .88em; }
+.pick-prompt:empty { display: none; }
+.pick-prompt, .pick-reply { font-size: .98em; line-height: 1.35; }
+.pick-prompt { padding: .2em 0; }
+.pick-reply { display: none; padding: .35em .6em; margin: .2em 0; border-left: 2px solid var(--gold); background: #0006; cursor: pointer; }
+.pick-reply.is-shown { display: block; }
+.pick-speaker { margin-right: .5em; color: var(--gold-hi); font-family: var(--f-label); font-weight: normal; }
+.pick-next { margin-left: .5em; color: var(--gold); font-size: .8em; animation: pick-blink 1.2s steps(2) infinite; }
+@keyframes pick-blink { 50% { opacity: .2; } }
+.pick-keys { margin-top: .3em; font-size: .72em; color: var(--parch-dim); }
+.pick-breath { height: .3em; margin: .2em 0; border-radius: .2em; background: #ffffff14; overflow: hidden; visibility: hidden; }
+.pick-breath i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #d8b25a, #f3d68a); transform-origin: left; }
+.pick-breath.is-running { visibility: visible; }
+.pick-breath.is-running i { animation: pick-breath var(--breath, 6000ms) linear forwards; }
+@keyframes pick-breath { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+.scene-pick.fx-shake .pick-stage { animation: pick-shake .35s; }
+@keyframes pick-shake { 20% { transform: translate(-6px, 2px); } 40% { transform: translate(5px, -3px); } 60% { transform: translate(-3px, 2px); } 80% { transform: translate(2px, 0); } }
+.scene-pick.fx-flash .pick-flash { animation: pick-flash .6s ease-out; }
+.scene-pick.fx-hurt .pick-flash { background: #c43a24; animation: pick-flash .5s ease-out; }
+.scene-pick.fx-good .pick-flash { background: #f3d68a; animation: pick-flash .5s ease-out; }
+.scene-pick.fx-calm .pick-bg { animation: pick-pan 30s ease-in-out infinite alternate; filter: saturate(1.1); }
+@keyframes pick-flash { from { opacity: .45; } to { opacity: 0; } }
+
+@media (max-width: 700px) {
+  .pick-box { width: calc(100% - 32px); padding: .5em .7em; }
+  .pick-card { font-size: .86em; }
+  .scene-pick.is-drift .pick-card { max-width: 30vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pick-bg, .scene-pick.is-drift .pick-card, .pick-next { animation: none; }
+  .scene-pick.fx-shake .pick-stage { animation: none; }
+}

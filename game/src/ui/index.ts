@@ -11,6 +11,7 @@ import { FxUi } from './fx';
 import { BubbleUi, HintUi } from './hint';
 import { hold } from './hold';
 import { storyAction, stealthGame } from './interactions';
+import { scenePick } from './scenePick';
 import { HudUi } from './hud';
 import { openJournal } from './journal';
 import { openMenu } from './menu';
@@ -217,6 +218,7 @@ export function createUi(): UiApiExt {
     hold: (label, durationMs, opts) => (ctx.stale() ? ctx.never() : hold(label, durationMs, opts)),
     storyAction,
     stealthGame,
+    scenePick,
 
     panel(className) {
       const node = el('div', `ui-panel${className ? ` ${className}` : ''}`);

@@ -1,5 +1,6 @@
 import type { StoryActionKind, StealthKind } from './interactionRules';
 import type { StoryActionOptions, StealthOptions } from './interactions';
+import type { PickResult, ScenePickOptions } from './scenePick';
 
 /**
  * CONTRACT between ui/ (producer) and everyone else. The UI is DOM/CSS layered over the canvas (#ui).
@@ -79,6 +80,8 @@ export interface UiApi {
   storyAction(kind: StoryActionKind, label: string, opts?: StoryActionOptions): Promise<void>;
   /** Short hiding challenge. Mistakes retry the current beat; resolves with the number of noises. */
   stealthGame(kind: StealthKind, label: string, opts?: StealthOptions): Promise<number>;
+  /** Decision game over a painted scene: word cards per round, the caller judges each pick (see scenePick.ts). */
+  scenePick(opts: ScenePickOptions): Promise<PickResult>;
 
   /** Generic full-screen panel for minigames that need DOM (returns the element; remove() when done). */
   panel(className?: string): HTMLElement;

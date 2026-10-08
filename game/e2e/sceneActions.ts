@@ -27,3 +27,25 @@ export async function completeSceneAction(page: Page): Promise<void> {
     if (Date.now() - started > 20000) throw new Error('Scene action did not finish with directional inputs');
   }
 }
+
+/**
+ * One step in a scene pick (word cards over a scene): continue a shown reply, else pick a card with real keys.
+ * `prefer` names card ids to try first (e.g. the right answer); otherwise the first card still open is taken –
+ * wrong cards are struck through, so every round ends. Returns false when no scene pick is open.
+ */
+export async function playScenePick(page: Page, prefer: readonly string[] = []): Promise<boolean> {
+  const s = await page.evaluate(prefer => {
+    const r = document.querySelector<HTMLElement>('.scene-pick:not(.is-out)');
+    if (!r) return null;
+    if (r.querySelector('.pick-reply.is-shown')) return { key: 'Enter' };
+    if (!r.classList.contains('is-picking')) return { key: '' };
+    const cards = [...r.querySelectorAll<HTMLButtonElement>('.pick-card')];
+    const open = cards.map((c, i) => ({ id: c.dataset.id!, i, ok: !c.disabled })).filter(c => c.ok);
+    const pick = open.find(c => prefer.includes(c.id)) ?? open[0];
+    return { key: pick ? String(pick.i + 1) : '' };
+  }, [...prefer]);
+  if (!s) return false;
+  if (s.key) await page.keyboard.press(s.key);
+  await page.waitForTimeout(s.key ? 180 : 120);
+  return true;
+}
