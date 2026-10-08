@@ -28,7 +28,7 @@ export const TERRAIN: Record<TerrainKind, TerrainInfo> = {
   sand: { label: 'Sand', cost: 1, blocks: false, cover: 0, hides: false, hazard: 0, blocksLine: false, soft: false },
   water: { label: 'Wasser', cost: 2, blocks: false, cover: 0, hides: false, hazard: 0, blocksLine: false, soft: true, note: 'Kostet 2 Bewegung, dämpft Stürze' },
   mud: { label: 'Schlamm', cost: 2, blocks: false, cover: 0, hides: false, hazard: 0, blocksLine: false, soft: true, note: 'Kostet 2 Bewegung' },
-  bush: { label: 'Gebüsch', cost: 1, blocks: false, cover: 30, hides: true, hazard: 0, blocksLine: false, soft: false, note: 'Deckung −30 % Trefferchance, verbirgt' },
+  bush: { label: 'Gebüsch', cost: 1, blocks: false, cover: 20, hides: true, hazard: 0, blocksLine: false, soft: false, note: 'Deckung −20 % Trefferchance, verbirgt' },
   rock: { label: 'Fels', cost: 99, blocks: true, cover: 0, hides: false, hazard: 0, blocksLine: true, soft: false, note: 'Unpassierbar' },
   wall: { label: 'Mauer', cost: 99, blocks: true, cover: 0, hides: false, hazard: 0, blocksLine: true, soft: false, note: 'Unpassierbar' },
   tree: { label: 'Baum', cost: 99, blocks: true, cover: 0, hides: false, hazard: 0, blocksLine: true, soft: false, note: 'Unpassierbar' },

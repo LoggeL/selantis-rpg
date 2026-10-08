@@ -3,13 +3,14 @@ import type { AbilityDef } from './types';
 /**
  * Standard ability library. Battles may add or override entries via BattleDef.abilities.
  * Damage = power + user.atk − target.def (min 1), halved when guarded. Facing and height only change
- * the hit chance of physical attacks (see Battle.previewTarget).
+ * the hit chance of physical attacks (see Battle.previewTarget). Their `hitMod` shifts the facing base: shoves and
+ * thrown stones get a bonus so the pushes the story relies on stay dependable even from the front.
  */
 export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   // ---------------- Valentus ----------------
   handstoss: {
     id: 'handstoss', name: 'Handstoß', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 3, accuracy: 92, push: 1, vfx: 'palm',
+    power: 3, accuracy: 92, hitMod: 20, push: 1, vfx: 'palm',
     description: 'Ein Stoß mit der offenen Hand, getragen von Licht. Stößt das Ziel 1 Feld zurück.',
   },
   strahl: {
@@ -32,39 +33,39 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   // ---------------- Falken ----------------
   doppelhieb: {
     id: 'doppelhieb', name: 'Doppelhieb', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 1, hits: 2, accuracy: 86, vfx: 'double',
+    power: 1, hits: 2, accuracy: 86, hitMod: 0, vfx: 'double',
     description: 'Zwei schnelle Schläge mit beiden Kurzschwertern. Jeder Schlag würfelt einzeln.',
   },
   tritt: {
     id: 'tritt', name: 'Tritt', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 0, accuracy: 90, push: 1, cooldown: 2, vfx: 'kick',
+    power: 0, accuracy: 90, hitMod: 20, push: 1, cooldown: 2, vfx: 'kick',
     description: 'Ein harter Tritt, der das Ziel 1 Feld zurückstößt – gut über Kanten.',
   },
 
   // ---------------- Dunkelschatten ----------------
   schwerthieb: {
     id: 'schwerthieb', name: 'Schwerthieb', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 2, accuracy: 84, vfx: 'slash',
+    power: 2, accuracy: 84, hitMod: 0, vfx: 'slash',
     description: 'Ein grober Hieb mit dem Schwert.',
   },
   speerstoss: {
     id: 'speerstoss', name: 'Speerstoß', kind: 'melee', target: 'enemy', range: [1, 2], shape: { type: 'single' },
-    power: 2, accuracy: 82, vfx: 'thrust', vertical: 2,
+    power: 2, accuracy: 82, hitMod: 0, vfx: 'thrust', vertical: 2,
     description: 'Der Speer reicht zwei Felder weit.',
   },
   bolzen: {
     id: 'bolzen', name: 'Armbrustbolzen', kind: 'ranged', target: 'enemy', range: [2, 5], shape: { type: 'single' },
-    power: 2, accuracy: 78, heightRange: true, needsLine: true, vfx: 'bolt',
+    power: 2, accuracy: 78, hitMod: -5, heightRange: true, needsLine: true, vfx: 'bolt',
     description: 'Ein Bolzen auf Entfernung. Von oben reicht er weiter.',
   },
   axthieb: {
     id: 'axthieb', name: 'Axthieb', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 3, accuracy: 80, vfx: 'heavy',
+    power: 3, accuracy: 80, hitMod: -5, vfx: 'heavy',
     description: 'Ein wuchtiger Hieb mit der Axt.',
   },
   wuchtschlag: {
     id: 'wuchtschlag', name: 'Wuchtschlag', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 2, accuracy: 76, push: 1, cooldown: 2, vfx: 'heavy',
+    power: 2, accuracy: 76, hitMod: 10, push: 1, cooldown: 2, vfx: 'heavy',
     description: 'Die Axt mit voller Wucht: wirft das Ziel 1 Feld zurück.',
   },
 
@@ -73,7 +74,7 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
     id: 'ausweichen', name: 'Ausweichen', kind: 'support', target: 'self', range: [0, 0], shape: { type: 'self' },
     power: 0, accuracy: 100, alwaysHits: true, cooldown: 2, vfx: 'dodge',
     effects: [{ status: 'evasive', turns: 1, on: 'self' }],
-    description: 'Lia macht sich bereit, auszuweichen: −45 % Trefferchance gegen sie bis zu ihrem nächsten Zug.',
+    description: 'Lia macht sich bereit, auszuweichen: −25 % Trefferchance gegen sie bis zu ihrem nächsten Zug.',
   },
   ablenken: {
     id: 'ablenken', name: 'Ablenken', kind: 'support', target: 'self', range: [0, 0], shape: { type: 'self' },
@@ -83,31 +84,31 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   },
   steinwurf: {
     id: 'steinwurf', name: 'Stein werfen', kind: 'ranged', target: 'enemy', range: [2, 4], shape: { type: 'single' },
-    power: 0, fixedDamage: 1, accuracy: 85, push: 1, needsLine: true, vfx: 'stone',
+    power: 0, fixedDamage: 1, accuracy: 85, hitMod: 25, push: 1, needsLine: true, vfx: 'stone',
     description: 'Ein Stein an den Kopf: 1 Schaden, stößt das Ziel 1 Feld zurück.',
   },
   dolch: {
     id: 'dolch', name: 'Dolch', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 1, accuracy: 80, vfx: 'dagger',
+    power: 1, accuracy: 80, hitMod: 0, vfx: 'dagger',
     description: 'Vaters Dolch. Lia ist keine Kämpferin, aber von hinten zählt jeder Stich.',
   },
 
   // ---------------- Flick ----------------
   bogen: {
     id: 'bogen', name: 'Bogenschuss', kind: 'ranged', target: 'enemy', range: [2, 5], shape: { type: 'single' },
-    power: 2, accuracy: 86, heightRange: true, needsLine: true, vfx: 'arrow',
+    power: 2, accuracy: 86, hitMod: 0, heightRange: true, needsLine: true, vfx: 'arrow',
     description: 'Ein gezielter Pfeil. Von oben reicht der Bogen weiter.',
   },
   messer: {
     id: 'messer', name: 'Messer', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 1, accuracy: 90, vfx: 'dagger',
+    power: 1, accuracy: 90, hitMod: 5, vfx: 'dagger',
     description: 'Ein schneller Stich mit dem Jagdmesser.',
   },
 
   // ---------------- shared ----------------
   angriff: {
     id: 'angriff', name: 'Angriff', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 1, accuracy: 100, vfx: 'kick',
+    power: 1, accuracy: 100, hitMod: 0, vfx: 'kick',
     description: 'Ein Schlag ohne Waffe. Jeder kann ihn, wenn nichts anderes bleibt.',
   },
   befreien: {
@@ -117,7 +118,7 @@ export const STANDARD_ABILITIES: Record<string, AbilityDef> = {
   },
   schubsen: {
     id: 'schubsen', name: 'Schubsen', kind: 'melee', target: 'enemy', range: [1, 1], shape: { type: 'single' },
-    power: 0, accuracy: 88, push: 1, cooldown: 1, vfx: 'kick',
+    power: 0, accuracy: 88, hitMod: 30, push: 1, cooldown: 1, vfx: 'kick',
     description: 'Mit aller Kraft wegstoßen: 1 Feld zurück.',
   },
 };

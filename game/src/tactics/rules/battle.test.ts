@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Battle, COLLIDE_DAMAGE, COLLIDE_OTHER_DAMAGE, FALL_DAMAGE_PER_LEVEL, HIT_BASE, SPEED_HIT_CAP, actionList, makeUnit } from './battle';
+import { Battle, COLLIDE_DAMAGE, COLLIDE_OTHER_DAMAGE, EVASIVE_PENALTY, FALL_DAMAGE_PER_LEVEL, HIT_BASE, LEGACY_ACCURACY_BASE, SPEED_HIT_CAP, actionList, hitModOf, makeUnit } from './battle';
 import { Grid, directionTo } from './grid';
 import { pathTo, reachable } from './movement';
 import { evaluate } from './objectives';
@@ -152,11 +152,34 @@ describe('combat', () => {
     expect(b.preview('hero', 'schwerthieb', { x: 1, y: 1 }).targets[0].chance).toBe(90 - 15 + 10);
     expect(b.preview('hero', 'strahl', { x: 1, y: 1 }).targets[0].chance).toBe(b.ability('strahl').accuracy);
     expect(b.preview('hero', 'druckwelle', { x: 0, y: 1 }).targets[0].chance).toBe(100);
+    // The modifier is listed, so the forecast chips add up to the shown chance.
+    expect(b.preview('hero', 'schwerthieb', { x: 1, y: 1 }).targets[0].mods.find(m => m.label === 'Schwerthieb'))
+      .toEqual({ label: 'Schwerthieb', text: '+10 %', kind: 'good' });
+    // Magic has no direction to show or score.
+    expect(b.preview('hero', 'strahl', { x: 1, y: 1 }).targets[0].relation).toBe('none');
+  });
+  it('an ability without hitMod keeps its old accuracy relative to 85', () => {
+    const b = make([hero(), foe({ facing: 'w' })]);
+    b.abilities.altlast = { ...b.ability('schwerthieb'), id: 'altlast', name: 'Altlast', accuracy: 78, hitMod: undefined };
+    b.unit('hero').abilities.push('altlast');
+    expect(hitModOf(b.ability('altlast'))).toBe(78 - LEGACY_ACCURACY_BASE);
+    expect(b.preview('hero', 'altlast', { x: 1, y: 0 }).targets[0].chance).toBe(50 - 7);
+  });
+  it('shoves stay dependable from the front; evasion and cover leave a dodging unit hittable', () => {
+    const front = (ability: string, status?: 'evasive') => {
+      const b = make([hero({ speed: 4 }), foe({ facing: 'w', speed: 6 })]);
+      if (status) b.addStatus(b.unit('foe'), status, 1);
+      return b.preview('hero', ability, { x: 1, y: 0 }).targets[0].chance;
+    };
+    expect(front('schubsen')).toBe(50 - 6 + 30);
+    expect(front('handstoss')).toBeGreaterThanOrEqual(60);
+    expect(front('schwerthieb', 'evasive')).toBe(50 - 6 - EVASIVE_PENALTY);
+    expect(front('schwerthieb', 'evasive')).toBeGreaterThanOrEqual(15);
   });
   it('bush cover lowers hit chance, guarded halves damage', () => {
     const map = { height: ['000'], terrain: ['.b.'] };
     const b = make([hero(), foe({ x: 1, facing: 'w' })], map);
-    expect(b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0].chance).toBe(50 - 30);
+    expect(b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0].chance).toBe(50 - 20);
     b.addStatus(b.unit('foe'), 'guarded', 1);
     const p = b.preview('hero', 'schwerthieb', { x: 1, y: 0 }).targets[0];
     expect(p.damage).toBe(2);
@@ -304,6 +327,10 @@ describe('basic attack', () => {
     expect(b.unit('hero').attack).toBe('messer');
     b.equip('fix', 'jagdmesser');
     expect(b.unit('fix').attack).toBe('angriff');
+    // An authored attack that happens to match the weapon still stays.
+    const c = make([hero({ abilities: [], attack: 'bogen', weapons: ['jagdbogen', 'jagdmesser'] }), foe({ x: 5, y: 5 })]);
+    c.equip('hero', 'jagdmesser');
+    expect(c.unit('hero').attack).toBe('bogen');
   });
   it('rejects unknown attacks', () => {
     expect(() => make([hero({ attack: 'nichts' })])).toThrow();

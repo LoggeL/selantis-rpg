@@ -27,7 +27,7 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     await expect(card).toContainText('Lvl'); await expect(card).toContainText('Exp');
     await expect(card).toContainText('Lvl 8');
     await expect(card).toContainText('39 / 39');
-    await expect(card).toContainText('Angriff 10');
+    await expect(card).toContainText('Kraft 10');
     await page.getByRole('button', { name: 'Jagdmesser', exact: true }).click();
     await expect(card.locator('button[data-ab="bogen"]')).toHaveAttribute('aria-disabled', 'true');
     await page.getByRole('button', { name: 'Jagdbogen', exact: true }).click();
@@ -40,7 +40,7 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     await page.locator('.tac-confirm-facing').click();
     await ready(page, 'valentus');
     await expect(card).toContainText('Lvl 20');
-    await expect(card).toContainText('Angriff 22');
+    await expect(card).toContainText('Kraft 22');
     await page.locator('.tac-card button[data-ab="handstoss"]').click();
     await hoverUnit(page, 's-south');
     const target = await page.evaluate(() => (window as any).__tactics.debugPage('s-south'));
@@ -64,6 +64,10 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 844, height: 390 
     });
     await expect(page.locator('.tac-confirm-target')).toBeEnabled();
     expect(await page.evaluate(() => (window as any).__tactics.ctrl.battle.unit('valentus').acted)).toBe(false);
+    // The facing roll is not under test here (a front Handstoß can miss): this battle's copy of it always hits.
+    await page.evaluate(() => {
+      const b = (window as any).__tactics.ctrl.battle; b.abilities.handstoss = { ...b.abilities.handstoss, alwaysHits: true };
+    });
     if (viewport.width === 390) await page.locator('.tac-confirm-target').click();
     else await page.mouse.click(target.x, target.y);
     await page.waitForFunction(() => (window as any).__tactics.ctrl.battle.unit('valentus').acted);

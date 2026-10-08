@@ -149,7 +149,7 @@ Raster im selben Pixelstil wie die Welt (vgl Final Fantasy Tactics Advance).
 - **Aktion:** Jede Figur hat einen Grundangriff („Angriff“, von der Waffe) und dazu ihre Fähigkeiten. Der Spieler wählt einen Gegner oder ein Bodenfeld, sieht alle betroffenen Figuren und blättert durch sie, jeweils mit Schaden und Trefferchance (Angreifer und Ziel gegenübergestellt wie in FFTA).
 - **Flanken wie FFTA:** Körperliche Angriffe treffen von vorne zu 50 %, von der Seite zu 70 %, in den Rücken zu 90 %; Tempo und Höhe verschieben die Chance. Richtung ändert nur die Trefferchance, nicht den Schaden. Am Zugende wählt der Spieler die **Blickrichtung** (eigenes Richtungsmenü mit Vorschau an der Figur); die KI dreht sich zur Bedrohung. Aus dem Playtest: Blickrichtung muss verständlich sein.
 - **Wegstoßen:** Einheiten, die gegen Hindernisse oder andere Einheiten geschoben werden, nehmen Kollisionsschaden. Das erlaubt kreative Kombos (Druckwelle).
-- Gelände: Gras, Büsche (Deckung −30 % Trefferchance, verbergen), Felsen/Mauern (blockieren), Wasser/Schlamm (verlangsamt), Feuer.
+- Gelände: Gras, Büsche (Deckung −20 % Trefferchance, verbergen), Felsen/Mauern (blockieren), Wasser/Schlamm (verlangsamt), Feuer.
 - Volle Steuerung mit Maus (Klick auf Feld = bewegen, Klick auf Fähigkeit/Ziel), Tastatur und Touch. **Knopf „Zug beenden“ (Sanduhr)** immer sichtbar. Rückgängig für Bewegung, solange keine Aktion ausgeführt wurde.
 - Juice: Hit-Stop, Schadenszahlen, Treffer-Flash, Partikel, kurze Kamerazooms, Sieg-/Niederlage-Banner. Niederlage → „Erneut versuchen“ ohne Fortschrittsverlust.
 - Kampf-UI: Einheitenkarte (Porträt, LP-Leiste, Aktionen), Reichweiten (blau Bewegung, gold Aktion, rot Gefahr), Zugreihenfolge-Leiste, Ziel des Kampfes immer sichtbar.

@@ -21,7 +21,8 @@ export const HIT_BASE = { front: 50, side: 70, back: 90, none: 100 } as const;
 /** Hit chance per point of speed the attacker has over the target, capped at ±SPEED_HIT_CAP. */
 export const SPEED_HIT_PER_POINT = 3;
 export const SPEED_HIT_CAP = 15;
-export const EVASIVE_PENALTY = 45;
+/** Ausweichen/Ablenken; sized for the 50/70/90 facing base so a dodging unit stays hittable from the back. */
+export const EVASIVE_PENALTY = 25;
 export const STUNNED_HIT_BONUS = 25;
 const RELATION_LABEL = { front: 'Vorne', side: 'Seite', back: 'Rücken' } as const;
 
@@ -40,6 +41,15 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v
 
 /** Physical attacks roll against the target's facing; magic, support and noFlank abilities use `accuracy`. */
 export const isPhysical = (a: AbilityDef) => (a.kind === 'melee' || a.kind === 'ranged') && !a.noFlank && !a.alwaysHits;
+
+/** Accuracy the facing base replaces; older physical abilities keep their relative tuning as `accuracy − this`. */
+export const LEGACY_ACCURACY_BASE = 85;
+
+/**
+ * A physical ability's modifier on the facing base. Abilities authored before the FFTA rules only set `accuracy`
+ * (e.g. 78 or 92); without `hitMod` that value still counts, relative to LEGACY_ACCURACY_BASE.
+ */
+export const hitModOf = (a: AbilityDef): number => a.hitMod ?? a.accuracy - LEGACY_ACCURACY_BASE;
 
 /** Everything a unit can choose under „Aktion“: the basic attack first, then its abilities (no duplicates). */
 export function actionList(u: Pick<Unit, 'attack' | 'abilities'>): string[] {
@@ -64,7 +74,8 @@ export function makeUnit(spec: UnitSpec): Unit {
     mp: clamp(spec.mp ?? stats.maxMp, 0, stats.maxMp),
     level, exp: spec.exp ?? 0, weapon, weapons,
     innate: spec.abilities.filter(id => !weaponSkills.has(id)), mastered: [...(spec.mastered ?? [])], abilityAp: { ...(spec.abilityAp ?? {}) },
-    abilities: [...new Set([...spec.abilities, ...weaponSkills, ...(spec.mastered ?? [])])], attack: basicAttack(spec, weapon), cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
+    abilities: [...new Set([...spec.abilities, ...weaponSkills, ...(spec.mastered ?? [])])],
+    attack: basicAttack(spec, weapon), attackAuthored: spec.attack !== undefined, cooldowns: {}, statuses: { ...(spec.statuses ?? {}) },
     down: false, nonLethal: !!spec.nonLethal, ai: spec.ai ?? (spec.team === 'enemy' ? 'melee' : 'passive'),
     guardRadius: spec.guardRadius ?? 4, freedTeam: spec.freedTeam ?? 'player', tags: [...(spec.tags ?? [])],
     moved: false, acted: false, undo: null,
@@ -167,7 +178,7 @@ export class Battle {
     const u = this.unit(id);
     if (!this.canAct(id) || u.moved || !u.weapons.includes(weapon)) throw new Error('Equipment can only change before moving or acting on your turn');
     // A weapon-derived basic attack follows the new weapon; an authored one stays.
-    if (u.attack && u.attack === (u.weapon ? WEAPONS[u.weapon].attack : 'angriff')) u.attack = WEAPONS[weapon].attack;
+    if (u.attack && !u.attackAuthored) u.attack = WEAPONS[weapon].attack;
     u.weapon = weapon;
     return [{ type: 'equip', unit: id, weapon }];
   }
@@ -335,7 +346,8 @@ export class Battle {
     let chance = 100, damage = 0;
     const hits = a.hits ?? 1;
     if (offensive) {
-      relation = a.noFlank || (origin.x === t.x && origin.y === t.y) ? 'none' : this.relation(origin, t);
+      // Only physical attacks care where they land; magic and noFlank abilities have no direction.
+      relation = !isPhysical(a) || (origin.x === t.x && origin.y === t.y) ? 'none' : this.relation(origin, t);
       const pct = (n: number) => `${n > 0 ? '+' : '−'}${Math.abs(n)} %`;
       const lv = a.noFlank ? 0 : clamp(dh, -3, 3);
       if (isPhysical(a)) {
@@ -344,7 +356,8 @@ export class Battle {
         if (relation !== 'none') mods.push({ label: RELATION_LABEL[relation], text: `${chance} %`, kind: relation === 'front' ? 'neutral' : 'good' });
         const speed = clamp((u.speed - t.speed) * SPEED_HIT_PER_POINT, -SPEED_HIT_CAP, SPEED_HIT_CAP);
         if (speed) { chance += speed; mods.push({ label: 'Tempo', text: pct(speed), kind: speed > 0 ? 'good' : 'bad' }); }
-        if (a.hitMod) chance += a.hitMod;
+        const mod = hitModOf(a);
+        if (mod) { chance += mod; mods.push({ label: a.name, text: pct(mod), kind: mod > 0 ? 'good' : 'bad' }); }
       } else chance = a.accuracy;
       if (lv !== 0) { chance += lv * HEIGHT_HIT_PER_LEVEL; mods.push({ label: 'Höhe', text: pct(lv * HEIGHT_HIT_PER_LEVEL), kind: lv > 0 ? 'good' : 'bad' }); }
       const cover = TERRAIN[this.grid.tile(t.x, t.y)!.terrain].cover;
@@ -486,7 +499,8 @@ export class Battle {
         continue;
       }
       let anyHit = false;
-      const offensive = p.relation !== 'none' || (p.damage > 0);
+      // Same test as previewTarget: every offensive effect rolls its hit chance (100 % never consumes the RNG).
+      const offensive = a.kind !== 'support' && a.kind !== 'interact' && (this.isEnemy(u, t) || a.target === 'any');
       if (offensive) {
         for (let i = 0; i < p.hits; i++) {
           if (t.down) break;

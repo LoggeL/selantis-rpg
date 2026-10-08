@@ -7,7 +7,7 @@ import { ICONS, abilityIcon } from './icons';
 import { TACTICS_CSS } from './style';
 import { AP_TO_MASTER, EXP_PER_LEVEL, MAX_LEVEL, WEAPONS } from '../rules/progression';
 import { STANDARD_ABILITIES } from '../rules/abilities';
-import { HIT_BASE, isPhysical } from '../rules/battle';
+import { HIT_BASE, hitModOf, isPhysical } from '../rules/battle';
 
 export interface UiHandlers {
   endTurn(): void;
@@ -424,7 +424,7 @@ export class BattleUi {
     c.innerHTML = `<div class="top"><div class="por"><img alt="" src="${portraitFor(m.def, u)}"></div><div style="flex:1;min-width:0">
       <div class="nm">${esc(u.name)}<span class="team ${u.team}">${teamLabel}</span></div>${title}
       ${resources(u)}
-      <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Angriff <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>
+      <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Kraft <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>
       ${statuses.length ? `<div class="tac-chips">${statuses.join('')}</div>` : ''}
       </div></div>${this.equipment(u, m.controllable && m.canAct && !u.moved)}${abil}${doneLine}`;
     c.classList.remove('hidden');
@@ -458,8 +458,9 @@ export class BattleUi {
     meta.push(shapeText(a));
     if (a.power || a.fixedDamage) meta.push(a.fixedDamage ? `${a.fixedDamage} Schaden` : `Stärke ${a.power}${a.hits && a.hits > 1 ? ` ×${a.hits}` : ''}`);
     if (isPhysical(a)) {
-      const hit = (base: number) => Math.max(5, Math.min(100, base + (a.hitMod ?? 0)));
-      meta.push(`Treffer ${hit(HIT_BASE.front)}–${hit(HIT_BASE.back)} % je nach Richtung`);
+      // Front/side/back before speed, height and cover; kept short so the tip fits above the menu on phones.
+      const hit = (base: number) => Math.max(5, Math.min(100, base + hitModOf(a)));
+      meta.push(`Treffer ${hit(HIT_BASE.front)}/${hit(HIT_BASE.side)}/${hit(HIT_BASE.back)} %`);
     } else if (!a.alwaysHits && a.kind !== 'support') meta.push(`Treffer ${a.accuracy} %`);
     if (a.push) meta.push(`Stoß ${a.push}`);
     if (a.cooldown) meta.push(`Abklingzeit ${a.cooldown}`);
@@ -485,7 +486,7 @@ export class BattleUi {
     const statuses = Object.entries(u.statuses).filter(([, v]) => (v ?? 0) > 0).map(([k]) => `<span class="tac-chip">${STATUS_LABEL[k] ?? k}</span>`).join('');
     c.innerHTML = `<div class="hd"><div class="por"><img alt="" src="${portraitFor(def, u)}"></div><div style="flex:1"><div class="nm">${esc(u.name)}</div>
       </div></div>${resources(u)}<div class="tac-weapon-name">${u.weapon ? esc(WEAPONS[u.weapon].name) : 'Ohne Waffe'}</div>
-      <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Angriff <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>
+      <div class="tac-stats"><span>Bewegung <b>${u.move}</b></span><span>Sprung <b>${u.jump}</b></span><span>Kraft <b>${u.atk}</b></span><span>Rüstung <b>${u.def}</b></span></div>
       ${statuses || u.down ? `<div class="tac-chips">${u.down === 'wounded' ? '<span class="tac-chip bad">Kampfunfähig</span>' : ''}${statuses}</div>` : ''}
       ${note ? `<div class="tac-push" style="margin-top:.4em"><span>${note}</span></div>` : ''}`;
     c.classList.remove('hidden');
@@ -590,7 +591,8 @@ export class BattleUi {
         `<button type="button" data-m="${id}" class="${on ? 'on' : ''}" ${enabled ? '' : 'disabled'}>${icon}<span>${label}</span><kbd>${key}</kbd></button>`;
       // „Aktion“ lists the basic attack first (hotkey 0), then the specials (digits = index in Unit.abilities).
       const sub = m.actOpen ? `<div class="sub">${m.abilities.map(a => `<button type="button" data-ab="${a.def.id}" class="${a.def.kind === 'magic' || a.def.vfx === 'ward' ? 'magic' : ''}${a.attack ? ' attack' : ''}${m.selected === a.def.id ? ' on' : ''}${a.usable ? '' : ' dis'}" ${a.usable ? '' : 'aria-disabled="true"'}>${abilityIcon(a.def.vfx)}<span>${esc(slotLabel(a))}</span><kbd>${a.cooldown > 0 ? `⧗${a.cooldown}` : a.key ?? ''}</kbd></button>`).join('')}</div>` : '';
-      const keys = m.abilities.map(a => a.key).filter((k): k is string => !!k);
+      // An attack slot may carry two keys („0/1“); the menu shows the overall digit range.
+      const keys = m.abilities.flatMap(a => a.key?.split('/') ?? []).sort((x, y) => Number(x) - Number(y));
       const actKey = keys.length > 1 ? `${keys[0]}–${keys[keys.length - 1]}` : keys[0] ?? '';
       e.innerHTML = btn('move', ICONS.move, 'Bewegen', 'M', m.canMove, m.moveOn) + btn('act', ICONS.act, 'Aktion', actKey, m.canAct, m.actOpen) + sub +
         btn('wait', ICONS.wait, 'Warten', 'F', true) + (m.canUndo ? btn('undo', ICONS.undo, 'Rückgängig', 'Z', true) : '');

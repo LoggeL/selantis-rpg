@@ -558,8 +558,14 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     if (!this.ctrl.inputEnabled()) return;
     if (k === 'Enter' || k === 'e' || k === 'E') { e.preventDefault(); if (this.sel.mode === 'target' && this.sel.pending) this.confirmTarget(); else if (this.hover) this.click(this.hover, false); return; }
     if (k === ' ') { e.preventDefault(); this.requestEndTurn(); return; }
-    // Tab pages through the affected units of a pinned target, otherwise through the units that may still act.
-    if (k === 'Tab') { e.preventDefault(); if (this.sel.mode === 'target' && this.sel.pending) this.cycleFocus(e.shiftKey ? -1 : 1); else this.cycleUnit(e.shiftKey ? -1 : 1); return; }
+    // While targeting, Tab pages through the affected units of the shown forecast (pinned or hovered) and never drops
+    // the chosen ability; otherwise it steps through the units that may still act.
+    if (k === 'Tab') {
+      e.preventDefault();
+      if (this.sel.mode === 'target') { if (this.previewTarget()) this.cycleFocus(e.shiftKey ? -1 : 1); }
+      else this.cycleUnit(e.shiftKey ? -1 : 1);
+      return;
+    }
     if (k === 'Backspace') { e.preventDefault(); if (this.sel.mode === 'target' || this.sel.pending || this.sel.inspect || !this.sel.unit || !this.ctrl.battle.canUndo(this.sel.unit)) this.back(); else this.undo(); return; }
     if (k === 'z' || k === 'Z') { e.preventDefault(); this.undo(); return; }
     if (k === 'f' || k === 'F') { this.waitUnit(); return; }
@@ -737,6 +743,11 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
       const target = this.actionTarget(t)!;
       if (b.validTarget(s.unit, s.ability, target)) {
         if (!s.pending || s.pending.x !== target.x || s.pending.y !== target.y) { s.pending = { ...target }; this.focusKey = ''; this.refresh(); return; }
+        // A ring maps every neighbour to its caster: tapping another affected figure pages to it instead of casting.
+        if (occupant && occupant.id !== this.focusUnit && (t.x !== target.x || t.y !== target.y)) {
+          const i = b.affectedUnits(s.unit, s.ability, target).findIndex(x => x.id === occupant.id);
+          if (i >= 0) { s.focus = i; G.audio.sfx('ui-move', { volume: 0.3 }); this.refresh(); return; }
+        }
         this.confirmTarget();
         return;
       }
@@ -881,8 +892,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
   private cycleUnit(dir: number): void {
     const b = this.ctrl.battle;
     const list = b.units.filter(u => this.controllable(u) && !b.isDone(u.id));
-    if (!list.length) return;
     const i = list.findIndex(u => u.id === this.sel.unit);
+    // Re-selecting the only candidate would just reset its menu (and drop move mode).
+    if (!list.length || (list.length === 1 && i === 0)) return;
     const next = list[(i + dir + list.length) % list.length];
     this.select(next.id);
     this.setHover({ x: next.x, y: next.y });
@@ -1030,7 +1042,9 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     return actionList(u).map(id => {
       const attack = id === u.attack;
       const index = u.abilities.indexOf(id);
-      const key = attack ? '0' : index >= 0 && index < 9 ? String(index + 1) : undefined;
+      // Digits stay tied to the position in u.abilities, so an attack listed there answers to both keys.
+      const digit = index >= 0 && index < 9 ? String(index + 1) : undefined;
+      const key = attack ? (digit ? `0/${digit}` : '0') : digit;
       const def = b.ability(id);
       const cd = u.cooldowns[id] ?? 0;
       let usable = true;
@@ -1609,14 +1623,15 @@ export default class TacticsScene extends Phaser.Scene implements Presenter {
     const p = tgt.chest;
     if (e.hit) {
       const isBack = e.relation === 'back', isSide = e.relation === 'side';
-      const big = heavy || isBack || e.hp <= 0;
+      // Facing only changes the hit chance, so a back hit is not staged as a heavy blow.
+      const big = heavy || e.hp <= 0;
       tgt.flash(0xffffff, 80);
       tgt.play('hit');
       const magic = a?.kind === 'magic' || a?.vfx === 'palm';
       this.fx.impact(p.x, p.y, magic ? 0x9cf8e6 : 0xfff0b0, big);
       if (melee && a?.vfx !== 'kick' && a?.vfx !== 'palm') this.fx.slash(p.x, p.y, Math.atan2(tgt.feet.y - atk.feet.y, tgt.feet.x - atk.feet.x) + (e.index % 2 ? 0.6 : -0.6), e.index % 2 === 1);
       if (a?.vfx === 'palm') { void this.fx.ring(p.x, p.y + 6, 0x49e0c8, 14, 240); }
-      G.audio.sfx(heavy || isBack ? 'hit-heavy' : a?.vfx === 'arrow' || a?.vfx === 'bolt' ? 'arrow-hit' : a?.vfx === 'stone' ? 'thud' : 'hit', { volume: 0.8 });
+      G.audio.sfx(heavy ? 'hit-heavy' : a?.vfx === 'arrow' || a?.vfx === 'bolt' ? 'arrow-hit' : a?.vfx === 'stone' ? 'thud' : 'hit', { volume: 0.8 });
       // Hit-stop: freeze both for a beat.
       atk.sprite.anims.pause(); tgt.sprite.anims.pause();
       await this.wait(big ? 95 : 60);

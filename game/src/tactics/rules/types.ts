@@ -23,7 +23,7 @@ export type StatusId =
   | 'guarded'   // Schutzwall: halves incoming damage, ignores pushes
   | 'stunned'   // loses its next phase
   | 'taunt'     // Ablenken: enemies prefer this unit
-  | 'evasive'   // Ausweichen: −45 hit chance against this unit
+  | 'evasive'   // Ausweichen: −25 hit chance against this unit
   | 'bound'     // tied up: cannot move or act, untargetable, can be freed by an adjacent unit
   | 'burning';  // standing in fire: damage at phase start
 
@@ -92,10 +92,14 @@ export interface AbilityDef {
   hits?: number;
   /**
    * Base hit chance in percent for magic, support and `noFlank` abilities. Physical attacks (melee/ranged)
-   * start from the target's facing instead (front 50, side 70, back 90) and only add `hitMod`.
+   * start from the target's facing instead (front 50, side 70, back 90) and add `hitMod`; when that is missing,
+   * `accuracy − 85` is used, so abilities authored before the facing rules keep their relative tuning.
    */
   accuracy: number;
-  /** Physical attacks: flat hit chance modifier on top of the facing base (e.g. +10 for a quick stab). */
+  /**
+   * Physical attacks: flat hit chance modifier on top of the facing base (e.g. +20 for a reliable shove).
+   * Defaults to `accuracy − 85`.
+   */
   hitMod?: number;
   /** Tiles the target is pushed away from the caster. */
   push?: number;
@@ -211,6 +215,8 @@ export interface Unit {
   abilities: string[];
   /** Basic attack, not part of `abilities` (digit hotkeys index those); null = cannot strike. */
   attack: string | null;
+  /** The spec set `attack` itself, so changing weapons keeps it. */
+  attackAuthored?: boolean;
   cooldowns: Record<string, number>;
   statuses: StatusMap;
   down: false | DownKind;
