@@ -1,9 +1,10 @@
-// The ritual circle on the hilltop, drawn in code over the painted stands (no new art): ten small veiled things on the
-// stands, the veils coming off (ten different, nameless shapes: horn, bowl, ring, stones …), thin turquoise threads
+// The ritual circle on the hilltop over the painted stands: ten small veiled things on the stands, the veils coming off
+// (the painted relics e3-relikt-1 … 10 when present, else ten code-drawn nameless shapes: horn, bowl, ring, stones …), thin turquoise threads
 // from every stand to Lia on the stone and the turquoise sphere growing above her, with Vamir's cold violet beside
 // it. Turquoise here is the Urmacht being drawn out of Lia; violet is Vamir's (umsetzung.md §1 Farben).
 // Everything is removed when the world scene shuts down.
 import type Phaser from 'phaser';
+import { G } from '../../core/G';
 import type { LightHandle, WorldCtx } from '../../world';
 import { SPHERE, STANDS, STONE_LIE } from './ritual-huegel';
 import { TURQUOISE, VIOLET } from './shared';
@@ -56,6 +57,19 @@ function drawRelic(g: Phaser.GameObjects.Graphics, i: number, x: number, top: nu
   }
 }
 
+/** The painted relic for stand `i` (props e3-relikt-1 … e3-relikt-10), when it exists. */
+export const relicProp = (i: number): string => `e3-relikt-${i + 1}`;
+
+/** Puts the painted relic on top of its stand (bottom centre on the cap). Null without the painted prop. */
+function paintedRelic(scene: WorldSceneLike, i: number, x: number, top: number, depth: number): Phaser.GameObjects.Image | null {
+  const id = relicProp(i);
+  if (!G.art.hasAsset('prop', id)) return null;
+  const info = G.art.prop(scene, id);
+  const img = scene.add.image(x, top + 1, info.key).setOrigin(info.originX / info.width, info.originY / info.height).setDepth(depth);
+  scene.addWorld?.(img);
+  return img;
+}
+
 function drawVeil(g: Phaser.GameObjects.Graphics, x: number, top: number): void {
   g.fillStyle(LINEN, 1);
   g.lineStyle(1, LINEN_DARK, 1);
@@ -77,9 +91,15 @@ export function ritualCircle(w: WorldCtx, opts: { veiled: boolean }): RitualCirc
 
   // One small graphics object per stand, at the depth of the stand's foot: whoever stands in front of the stand covers
   // it, whoever stands behind is covered by the stand's occluder anyway.
+  const painted: (Phaser.GameObjects.Image | null)[] = STANDS.map(() => null);
+  const showRelic = (g: Phaser.GameObjects.Graphics, i: number) => {
+    const s = STANDS[i];
+    painted[i] ??= paintedRelic(scene, i, s.x, s.top, s.base + 0.25);
+    if (!painted[i]) drawRelic(g, i, s.x, s.top);
+  };
   const relics = STANDS.map((s, i) => {
     const g = world(scene.add.graphics().setDepth(s.base + 0.2));
-    if (opts.veiled) drawVeil(g, s.x, s.top); else drawRelic(g, i, s.x, s.top);
+    if (opts.veiled) drawVeil(g, s.x, s.top); else showRelic(g, i);
     return g;
   });
 
@@ -130,6 +150,7 @@ export function ritualCircle(w: WorldCtx, opts: { veiled: boolean }): RitualCirc
   const dispose = () => {
     scene.events.off('postupdate', onPost);
     for (const g of relics) g.destroy();
+    for (const img of painted) img?.destroy();
     threads.destroy(); sphere.destroy(); core.destroy(); violetGlow.destroy();
     try { light?.remove(); violetLight?.remove(); } catch { /* scene gone */ }
   };
@@ -141,7 +162,7 @@ export function ritualCircle(w: WorldCtx, opts: { veiled: boolean }): RitualCirc
       for (const [i, s] of STANDS.entries()) {
         const g = relics[i];
         g.clear();
-        drawRelic(g, i, s.x, s.top);
+        showRelic(g, i);
         // The cloth slides down as a small pale patch at the foot of the stand.
         const cloth = world(scene.add.graphics().setDepth(s.base + 0.1));
         cloth.fillStyle(LINEN, 0.9);
