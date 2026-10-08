@@ -138,7 +138,7 @@ async function steinScript(w: WorldCtx): Promise<void> {
   const { vamir, baris, kyra, circle } = stageHill(w, { veiled: true, men: true });
   await w.camera.pan([STONE_LIE[0], STONE_LIE[1] + 10], 0);
   await ui().fade('in', 1600);
-  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-ritual-geweckt', fallback: 'e3-ritualhuegel', caption: 'Abendhimmel, Fackeln, verhüllte Ständer. Baris grinst auf sie herab.' });
   restageGesture('open-eyes', 'Die Lider kleben, der Kopf ist schwer. Schieb die Augen trotzdem auf.');
   await wake;
   await w.cutscene(async () => {
@@ -281,8 +281,8 @@ async function anstiegScript(w: WorldCtx): Promise<void> {
   }
   friends = [
     w.spawn({ id: 'ignatius', preset: 'e2-ignatius', speaker: 'e2-ignatius', at: HILL_SPOT.ignatius, dir: 'up', solid: false, facePlayer: false, speed: 40 }),
-    w.spawn({ id: 'paladin-1', preset: 'paladin', speaker: 'e3-paladin', at: HILL_SPOT.paladin1, dir: 'up', solid: false, facePlayer: false, speed: 40 }),
-    w.spawn({ id: 'paladin-2', preset: 'paladin', speaker: 'e3-paladin', at: HILL_SPOT.paladin2, dir: 'up', solid: false, facePlayer: false, speed: 40 }),
+    w.spawn({ id: 'paladin-1', preset: 'paladin-anfuehrer', speaker: 'e3-paladin', at: HILL_SPOT.paladin1, dir: 'up', solid: false, facePlayer: false, speed: 40 }),
+    w.spawn({ id: 'paladin-2', preset: 'paladin-jung', speaker: 'e3-paladin-jung', at: HILL_SPOT.paladin2, dir: 'up', solid: false, facePlayer: false, speed: 40 }),
   ];
   for (const f of friends) f.hold(true);
   await ui().fade('in', 1000);

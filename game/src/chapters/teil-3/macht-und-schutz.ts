@@ -57,7 +57,7 @@ const stage = () => G.state.flag<Stage>(F.stage);
 
 const doctor = (w: WorldCtx, text: string, mood?: string) => w.say('e3-doktor', text, mood ? { mood } : undefined);
 const gm = (w: WorldCtx, text: string, mood?: string) => w.say('e3-grossmeister', text, mood ? { mood } : undefined);
-const paladin = (w: WorldCtx, text: string) => w.say('e3-paladin', text);
+const paladin = (w: WorldCtx, text: string) => w.say('e3-paladin-wache', text);
 const novice = (w: WorldCtx, text: string) => w.say('e3-novize', text);
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -120,11 +120,11 @@ export const hausTag: MapDef = defineMap({
   id: 'e3-ordenshaus-tag',
   name: 'Das Ordenshaus',
   npcs: [
-    { id: NOVICE, preset: 'paladin', speaker: 'e3-novize', at: OH_SPOT.novice, dir: 'down', verb: 'Ansprechen', talk: talkNovice },
-    { id: IGN_GUARD, preset: 'paladin', speaker: 'e3-paladin', at: OH_SPOT.ignatiusGuard, dir: 'left', verb: 'Ansprechen', talk: talkIgnatiusGuard },
+    { id: NOVICE, preset: 'paladin-novize', speaker: 'e3-novize', at: OH_SPOT.novice, dir: 'down', verb: 'Ansprechen', talk: talkNovice },
+    { id: IGN_GUARD, preset: 'paladin-wache', speaker: 'e3-paladin-wache', at: OH_SPOT.ignatiusGuard, dir: 'left', verb: 'Ansprechen', talk: talkIgnatiusGuard },
     {
-      id: EAST_GUARD, preset: 'paladin', speaker: 'e3-paladin', at: OH_SPOT.eastDoor, dir: 'left', verb: 'Ansprechen',
-      talk: async w => { await paladin(w, 'Hier geht es hinunter in den Saal. Ohne Befehl kommt keiner durch. Auch nicht mit großen Augen.'); },
+      id: EAST_GUARD, preset: 'paladin-anfuehrer', speaker: 'e3-paladin', at: OH_SPOT.eastDoor, dir: 'left', verb: 'Ansprechen',
+      talk: async w => { await w.say('e3-paladin', 'Hier geht es hinunter in den Saal. Ohne Befehl kommt keiner durch. Auch nicht mit großen Augen.'); },
     },
   ],
   interactables: [
@@ -160,7 +160,7 @@ async function wakeUp(w: WorldCtx): Promise<void> {
   const doc = w.spawn({ id: DOCTOR, preset: 'e3-doktor', speaker: 'e3-doktor', at: GZ_SPOT.tableSide, dir: 'right', solid: false, facePlayer: false });
   doc.hold(true);
   bg(doc.play('interact', { ms: 4000 }));
-  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen');
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e3-macht-und-schutz-geweckt', fallback: 'e3-gastzimmer', caption: 'Ein Dachzimmer. Ein Mann mit Kristall und Kerze am Tisch.' });
   restageGesture('open-eyes', 'Schieb die schweren Lider nach oben. Langsam.');
   await wake;
   await ui().fade('in', 1400);
@@ -321,7 +321,7 @@ async function verdict(w: WorldCtx): Promise<void> {
   await w.cutscene(async () => {
     sfx('door', { volume: 0.6 });
     const g = w.spawn({ id: GM, preset: 'e3-grossmeister', speaker: 'e3-grossmeister', at: GZ_SPOT.door, dir: 'left', solid: false, facePlayer: false });
-    const guard = w.spawn({ id: GUARD, preset: 'paladin', speaker: 'e3-paladin', at: GZ_SPOT.door, dir: 'left', solid: false, facePlayer: false });
+    const guard = w.spawn({ id: GUARD, preset: 'paladin-wache', speaker: 'e3-paladin-wache', at: GZ_SPOT.door, dir: 'left', solid: false, facePlayer: false });
     g.hold(true); guard.hold(true);
     bg(guard.walkTo(GZ_SPOT.doorGuard[0], GZ_SPOT.doorGuard[1], { face: 'left' }));
     await g.walkTo(430, 236, { face: 'left' });

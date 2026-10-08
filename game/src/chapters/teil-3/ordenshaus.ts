@@ -293,7 +293,7 @@ export const NIGHT_GUARD = { corridor: 'wache-flur', stairs: 'wache-treppe' } as
  */
 export const NIGHT_GUARDS: GuardDef[] = [
   {
-    id: NIGHT_GUARD.corridor, preset: 'paladin', speaker: 'e3-paladin', lantern: true, mode: 'pingpong', range: 130, fov: 66, reaction: 1.4,
+    id: NIGHT_GUARD.corridor, preset: 'paladin-wache', speaker: 'e3-paladin-wache', lantern: true, mode: 'pingpong', range: 130, fov: 66, reaction: 1.4,
     suspiciousBarks: ['Hm? Ist da wer?', 'Wer schleicht da herum?'],
     calmBarks: ['Nur das Gemäuer. Es knackt.', 'Ratten. Sogar hier.'],
     path: [

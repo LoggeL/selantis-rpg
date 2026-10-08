@@ -326,10 +326,10 @@ const MENTOR = 'ignatius';
 function stageHall(w: WorldCtx): { gm: ActorHandle; captain: ActorHandle; mentor: ActorHandle } {
   const gm = w.spawn({ id: GM, preset: 'e3-grossmeister', speaker: 'e3-grossmeister', at: HALL_SPOT.chair, dir: 'down', idle: 'sit', solid: false, facePlayer: false });
   gm.hold(true);
-  const captain = w.spawn({ id: CAPTAIN, preset: 'paladin', speaker: 'e3-hauptmann', at: [HALL_SPOT.door[0] + 26, HALL_SPOT.door[1] + 6], dir: 'up', solid: false, facePlayer: false });
+  const captain = w.spawn({ id: CAPTAIN, preset: 'paladin-hauptmann', speaker: 'e3-hauptmann', at: [HALL_SPOT.door[0] + 26, HALL_SPOT.door[1] + 6], dir: 'up', solid: false, facePlayer: false });
   captain.hold(true);
-  w.spawn({ id: 'pal-links', preset: 'paladin', speaker: 'e3-paladin', at: HALL_SPOT.sideLeft, dir: 'right', solid: false }).hold(true);
-  w.spawn({ id: 'pal-rechts', preset: 'paladin', speaker: 'e3-paladin', at: HALL_SPOT.sideRight, dir: 'left', solid: false }).hold(true);
+  w.spawn({ id: 'pal-links', preset: 'paladin-wache', speaker: 'e3-paladin-wache', at: HALL_SPOT.sideLeft, dir: 'right', solid: false }).hold(true);
+  w.spawn({ id: 'pal-rechts', preset: 'paladin-jung', speaker: 'e3-paladin-jung', at: HALL_SPOT.sideRight, dir: 'left', solid: false }).hold(true);
   const mentor = w.spawn({ id: MENTOR, preset: 'e2-ignatius', speaker: 'e2-ignatius', at: HALL_SPOT.table, dir: 'right', solid: false, facePlayer: false });
   mentor.hold(true);
   return { gm, captain, mentor };

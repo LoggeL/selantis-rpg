@@ -25,7 +25,7 @@ import { PLATZ_CLUES } from './spuersinn';
 const GM = 'grossmeister';
 
 const speakerOf: Record<Line['who'], string> = {
-  lia: 'e3-lia', 'lia-think': '', gm: 'e3-grossmeister', heilerin: 'e3-heilerin', paladin: 'e3-paladin', haendler: 'haendler',
+  lia: 'e3-lia', 'lia-think': '', gm: 'e3-grossmeister', heilerin: 'e3-heilerin', paladin: 'e3-paladin-jung', haendler: 'haendler',
   kyra: 'e3-kyra', flick: 'e2-flick', narrator: 'narrator',
 };
 
@@ -55,9 +55,9 @@ export const trapasZeremonie: MapDef = defineMap({
   npcs: [
     { id: 'heilerin', preset: 'villager-f', speaker: 'e3-heilerin', at: SPOT.healer, dir: 'down', verb: 'Mit der Heilerin reden', talk: w => talkHealer(w) },
     { id: 'haendler', preset: 'merchant', speaker: 'haendler', at: SPOT.merchant, dir: 'right', verb: 'Reden', talk: w => talkMerchant(w) },
-    { id: 'paladin', preset: 'paladin', speaker: 'e3-paladin', at: SPOT.paladinDoctor, dir: 'right', verb: 'Nach dem Doktor fragen', talk: w => talkPaladin(w) },
+    { id: 'paladin', preset: 'paladin-jung', speaker: 'e3-paladin-jung', at: SPOT.paladinDoctor, dir: 'right', verb: 'Nach dem Doktor fragen', talk: w => talkPaladin(w) },
     { id: 'novize', preset: 'villager-m', speaker: 'e3-novize', at: SPOT.novice, dir: 'left', barks: ['Gleich geht es los.', 'Der Großmeister zieht sich noch um.'], barkEvery: 8000 },
-    { id: 'banner-west', preset: 'paladin', speaker: 'e3-paladin', at: SPOT.bannerWest, dir: 'down' },
+    { id: 'banner-west', preset: 'paladin-wache', speaker: 'e3-paladin-wache', at: SPOT.bannerWest, dir: 'down' },
     { id: 'banner-ost', preset: 'paladin', speaker: 'e3-paladin', at: SPOT.bannerEast, dir: 'down' },
     { id: GM, preset: 'e3-grossmeister', speaker: 'e3-grossmeister', at: SPOT.gmPortal, dir: 'down', hidden: true, facePlayer: false },
     ...crowd,
@@ -100,7 +100,7 @@ async function talkHealer(w: WorldCtx): Promise<void> {
 }
 
 async function talkPaladin(w: WorldCtx): Promise<void> {
-  if (G.state.is(F.doctor)) { await w.say('e3-paladin', DOCTOR_AGAIN); return; }
+  if (G.state.is(F.doctor)) { await w.say('e3-paladin-jung', DOCTOR_AGAIN); return; }
   await w.cutscene(() => play(w, DOCTOR));
   G.state.set(F.doctor);
 }

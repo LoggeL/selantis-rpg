@@ -27,7 +27,6 @@ import { bg, e3Scene, lia, liaLook, nextScene, sfx, ui, until } from './shared';
 import { LANDSTRASSE_CLUES, TRAPAS_CLUES } from './spuersinn';
 
 registerSpeakers([
-  { id: 'e3-paladin-jung', name: 'Junger Paladin', portrait: 'paladin', voice: { pitch: 175, wave: 'square' }, color: '#c8d4e8' },
   { id: 'e3-schmied', name: 'Schmied', portrait: 'villager-m', voice: { pitch: 115, wave: 'triangle' }, color: '#a8794a' },
   { id: 'e3-buergerin', name: 'Bürgerin', portrait: 'villager-f', voice: { pitch: 250, wave: 'sine' }, color: '#b8a080' },
   { id: 'e3-buerger', name: 'Bürger', portrait: 'villager-m', voice: { pitch: 140, wave: 'triangle' }, color: '#b8a080' },
@@ -124,9 +123,9 @@ async function walkBarks(w: WorldCtx): Promise<void> {
 async function patrolArrives(w: WorldCtx): Promise<void> {
   G.state.set('e3-pal-angehalten');
   await w.cutscene(async () => {
-    const lead = w.spawn({ id: LEADER, preset: 'paladin', speaker: 'e3-paladin', at: ROAD_SPOT.patrolIn, dir: 'left', solid: false });
-    const jung = w.spawn({ id: YOUNG, preset: 'paladin', speaker: 'e3-paladin-jung', at: [ROAD_SPOT.patrolIn[0], ROAD_SPOT.patrolIn[1] - 18], dir: 'left', solid: false });
-    const third = w.spawn({ id: THIRD, preset: 'paladin', speaker: 'e3-paladin', at: [ROAD_SPOT.patrolIn[0], ROAD_SPOT.patrolIn[1] + 18], dir: 'left', solid: false });
+    const lead = w.spawn({ id: LEADER, preset: 'paladin-anfuehrer', speaker: 'e3-paladin', at: ROAD_SPOT.patrolIn, dir: 'left', solid: false });
+    const jung = w.spawn({ id: YOUNG, preset: 'paladin-jung', speaker: 'e3-paladin-jung', at: [ROAD_SPOT.patrolIn[0], ROAD_SPOT.patrolIn[1] - 18], dir: 'left', solid: false });
+    const third = w.spawn({ id: THIRD, preset: 'paladin-wache', speaker: 'e3-paladin-wache', at: [ROAD_SPOT.patrolIn[0], ROAD_SPOT.patrolIn[1] + 18], dir: 'left', solid: false });
     for (const a of [lead, jung, third]) a.hold(true);
     sfx('sword-draw', { volume: 0.5, distance: 0.5 });
     w.bark(YOUNG, 'Halt! Stehen bleiben!', 2200);
@@ -361,7 +360,7 @@ async function escortWalk(w: WorldCtx, points: readonly (readonly [number, numbe
 }
 
 async function enterCity(w: WorldCtx): Promise<void> {
-  const lead = w.spawn({ id: LEADER, preset: 'paladin', speaker: 'e3-paladin', at: [640, 640], dir: 'up', solid: false, speed: 40 });
+  const lead = w.spawn({ id: LEADER, preset: 'paladin-anfuehrer', speaker: 'e3-paladin', at: [640, 640], dir: 'up', solid: false, speed: 40 });
   lead.hold(true);
   ui().prefetchPlate('e3-trapas');
   // The plate goes up first, then the black lifts (as in Teil II): the city is seen from outside before the gate.
@@ -398,7 +397,7 @@ async function stopAtSmith(w: WorldCtx): Promise<void> {
     w.companions.remove(MENTOR);
     w.companions.remove(GUARD);
     const m = w.spawn({ id: MENTOR, preset: 'e3-ignatius-gefesselt', speaker: 'e2-ignatius', at: [mx, my], dir: 'left', solid: false, verb: 'Reden', talk: talkMentor });
-    const g = w.spawn({ id: GUARD, preset: 'paladin', speaker: 'e3-paladin', at: [gx, gy], dir: 'left', solid: false });
+    const g = w.spawn({ id: GUARD, preset: 'paladin-wache', speaker: 'e3-paladin-wache', at: [gx, gy], dir: 'left', solid: false });
     bg(m.walkTo(TRAPAS_SPOT.mentorWait[0], TRAPAS_SPOT.mentorWait[1], { face: 'left' }));
     bg(g.walkTo(TRAPAS_SPOT.mentorGuard[0], TRAPAS_SPOT.mentorGuard[1], { face: 'left' }));
     await w.player.walkTo(TRAPAS_SPOT.liaWait[0], TRAPAS_SPOT.liaWait[1], { face: 'up' });
@@ -503,7 +502,7 @@ async function onToOrderHouse(w: WorldCtx): Promise<void> {
     await lead.walkTo(TRAPAS_SPOT.leaderSmith[0] + 40, TRAPAS_SPOT.leaderSmith[1] - 10, { face: 'right' });
     await leader(w, 'Genug geplaudert. Zum Ordenshaus. Der Großmeister wartet nicht gern, und ich lasse ihn nicht gern warten.');
     w.companions.add(MENTOR, 'e3-ignatius-gefesselt', 'e2-ignatius');
-    w.companions.add(GUARD, 'paladin', 'e3-paladin');
+    w.companions.add(GUARD, 'paladin-wache', 'e3-paladin-wache');
   });
   w.setObjective('e3-pal-ordenshaus', 'Folge dem Paladin zum Ordenshaus.', LEADER);
   await escortWalk(w, [[470, 330], [560, 236], TRAPAS_SPOT.stairs]);
@@ -542,9 +541,9 @@ export const scene = e3Scene('e3-paladine', 'Händler und Tochter', async params
     await startWorld({
       map: trapasEskorte, spawn: 'tor', player: liaLook({ bound: true }), fadeIn: false, script: trapasScript,
       companions: [
-        { id: YOUNG, preset: 'paladin', speaker: 'e3-paladin-jung' },
+        { id: YOUNG, preset: 'paladin-jung', speaker: 'e3-paladin-jung' },
         { id: MENTOR, preset: 'e3-ignatius-gefesselt', speaker: 'e2-ignatius' },
-        { id: GUARD, preset: 'paladin', speaker: 'e3-paladin' },
+        { id: GUARD, preset: 'paladin-wache', speaker: 'e3-paladin-wache' },
       ],
     });
     return;

@@ -81,9 +81,9 @@ async function readPapers(w: WorldCtx): Promise<void> {
 function stageHall(w: WorldCtx): void {
   const g = w.spawn({ id: GM, preset: 'e3-grossmeister', speaker: 'e3-grossmeister', at: HALL_SPOT.chair, dir: 'down', idle: 'sit', solid: false, facePlayer: false });
   g.hold(true);
-  w.spawn({ id: CAPTAIN, preset: 'paladin', speaker: 'e3-hauptmann', at: HALL_SPOT.captain, dir: 'left', solid: false }).hold(true);
-  w.spawn({ id: SECOND, preset: 'paladin', speaker: 'e3-paladin', at: HALL_SPOT.sideLeft, dir: 'right', solid: false }).hold(true);
-  w.spawn({ id: SIDE_R, preset: 'paladin', speaker: 'e3-paladin', at: HALL_SPOT.sideRight, dir: 'left', solid: false }).hold(true);
+  w.spawn({ id: CAPTAIN, preset: 'paladin-hauptmann', speaker: 'e3-hauptmann', at: HALL_SPOT.captain, dir: 'left', solid: false }).hold(true);
+  w.spawn({ id: SECOND, preset: 'paladin-jung', speaker: 'e3-paladin-jung', at: HALL_SPOT.sideLeft, dir: 'right', solid: false }).hold(true);
+  w.spawn({ id: SIDE_R, preset: 'paladin-anfuehrer', speaker: 'e3-paladin', at: HALL_SPOT.sideRight, dir: 'left', solid: false }).hold(true);
   w.spawn({ id: MENTOR, preset: 'e3-ignatius-gefesselt', speaker: 'e2-ignatius', at: [350, 352], dir: 'up', solid: false }).hold(true);
   w.spawn({ id: MENTOR_GUARD, preset: 'paladin', speaker: 'e3-paladin', at: [362, 358], dir: 'up', solid: false }).hold(true);
 }
@@ -285,6 +285,6 @@ export const scene = e3Scene('e3-schutzreaktion', 'Was in ihr wohnt', async () =
   await ui().fade('out', 0);
   await startWorld({
     map: saalVerhoer, spawn: 'tuer', player: liaLook({ bound: true }), fadeIn: false, script: saalScript,
-    companions: [{ id: HOLDER, preset: 'paladin', speaker: 'e3-paladin' }],
+    companions: [{ id: HOLDER, preset: 'paladin-wache', speaker: 'e3-paladin-wache' }],
   });
 });

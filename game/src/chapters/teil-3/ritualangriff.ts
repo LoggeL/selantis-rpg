@@ -65,8 +65,8 @@ export const huegelDanach: MapDef = defineMap({
   npcs: [
     { id: 'kyra', preset: 'kyra', speaker: 'e3-kyra', at: HILL_SPOT.kyraAfter, dir: 'left', idle: 'kneel', facePlayer: false, verb: 'Zu Kyra', talk: talkKyra },
     { id: 'flick', preset: 'flick', speaker: 'e2-flick', at: HILL_SPOT.flickAfter, dir: 'right', verb: 'Mit Flick reden', talk: talkFlick },
-    { id: 'paladin-1', preset: 'paladin', speaker: 'e3-paladin', at: HILL_SPOT.paladinAfter1, dir: 'up', barks: ['Keiner mehr da.', 'Sie sind weg.'], barkEvery: 9000 },
-    { id: 'paladin-2', preset: 'paladin', speaker: 'e3-paladin', at: HILL_SPOT.paladinAfter2, dir: 'left' },
+    { id: 'paladin-1', preset: 'paladin-anfuehrer', speaker: 'e3-paladin', at: HILL_SPOT.paladinAfter1, dir: 'up', barks: ['Keiner mehr da.', 'Sie sind weg.'], barkEvery: 9000 },
+    { id: 'paladin-2', preset: 'paladin-jung', speaker: 'e3-paladin-jung', at: HILL_SPOT.paladinAfter2, dir: 'left' },
   ],
   interactables: [
     { id: 'relikt', at: HILL_SPOT.relicStand, verb: 'Ansehen, was auf dem Ständer liegt', radius: 22, standAt: HILL_SPOT.relicStandAt, face: 'up', once: false, sparkle: true, when: () => !knowsRelics(), onInteract: lookAtRelic },
