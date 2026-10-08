@@ -251,7 +251,7 @@ async function afterBattle(): Promise<void> {
   await G.ui.fade('in', 1400);
   await G.ui.say('narrator', 'Valentus lief, so schnell ihn seine alten Beine trugen. Durch den Saal, durch das Siegel, hinab in die Höhle.');
   await G.ui.say('valentus', 'Verzeiht mir, ihr Zehn. Ich breche den Eid, um ihn zu halten.', { mood: 'determined' });
-  await G.ui.storyAction('reach', 'Die Hand ausstrecken');
+  await G.ui.say('narrator', 'Er streckte die Hand aus. Das Licht hing über dem Stein, als hätte es tausend Jahre auf genau diese Hand gewartet.');
   sfx('urmacht', { volume: 1 });
   await G.ui.fade('out', 500, '#c8fff4');
   await sleep(300);
