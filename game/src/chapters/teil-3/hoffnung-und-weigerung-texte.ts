@@ -21,29 +21,45 @@ export const MEADOW_SPOT = {
 /** The three rifts Lia can close, in the order they tear (left among the flowers, right by the stones, front). */
 export const RIFTS: readonly Spot[] = [[166, 214], [454, 204], [300, 262]];
 
-/** Stand this close to a rift (map px, feet to the rift's centre). */
+/** Walk this close to a rift (map px, feet to the rift's centre) to hear what it whispers. */
 export const RIFT_RADIUS = 28;
-/** Standing still this long closes it (ms of calm). */
-export const RIFT_HOLD_MS = 2400;
-/** Below this speed (px/s) Lia counts as standing still. */
-export const STILL_SPEED = 8;
 
-/**
- * One step of closing a rift: calm standing next to it fills the hold, walking or standing away lets it run back
- * (faster than it fills, so it cannot be done in passing). Returns the new hold in ms (0 … RIFT_HOLD_MS).
- */
-export function riftStep(hold: number, dtMs: number, dist: number, speed: number): number {
-  if (dist <= RIFT_RADIUS && speed <= STILL_SPEED) return Math.min(RIFT_HOLD_MS, hold + dtMs);
-  return Math.max(0, hold - dtMs * 1.5);
-}
+/** The memories from the first visit (e3-innere-zuflucht) that Lia can hold against a rift. */
+export type RiftMemory = 'buch' | 'holz' | 'mutter';
+export const RIFT_MEMORIES: readonly RiftMemory[] = ['buch', 'holz', 'mutter'];
+export const RIFT_MEMORY_OPTIONS: Record<RiftMemory, string> = {
+  buch: 'An das Buch unter der Eiche denken.',
+  holz: 'An Kyra mit dem Feuerholz denken.',
+  mutter: 'An Mutter und das A wie Apfel denken.',
+};
 
-export const riftClosed = (hold: number): boolean => hold >= RIFT_HOLD_MS;
+/** Each rift whispers one doubt in Vamir's voice; one memory answers it. */
+export const RIFT_DOUBTS: readonly { whisper: string; answer: RiftMemory; lia: InnerLine }[] = [
+  {
+    whisper: 'Ein Bauernmädchen mit einem Buch. Was glaubst du eigentlich, wer du bist?', answer: 'mutter',
+    lia: { who: 'lia', text: 'Eine, die lesen kann. Mutter hat es mir beigebracht, Buchstabe für Buchstabe. Das nimmst du mir nicht.', mood: 'determined' },
+  },
+  {
+    whisper: 'Deine Schwester gehört mir. Sie hat dich längst vergessen.', answer: 'holz',
+    lia: { who: 'lia', text: 'Sie hat mir jahrelang die Hälfte von ihrem Holz untergeschoben. So jemand vergisst nicht. Nie.', mood: 'angry' },
+  },
+  {
+    whisper: 'Niemand kommt. Gute Enden gibt es nur in deinen Büchern.', answer: 'buch',
+    lia: { who: 'lia', text: 'Dann bin ich eben in einem. Und ich hab noch jedes bis zur letzten Seite gelesen.', mood: 'determined' },
+  },
+];
+
+/** A memory that does not answer the whisper: the rift widens for a moment. */
+export const RIFT_MISS: readonly string[] = [
+  'Das wärmt. Aber es antwortet nicht auf das, was er flüstert. Der Riss wird breiter.',
+  'Falsche Erinnerung für diesen Satz. Der Riss frisst sie einfach.',
+];
 
 /** Objective text for the rifts (text only in the inner world, no marker). */
 export function riftObjective(closed: number): string {
-  if (closed <= 0) return 'Ein violetter Riss in der Wiese. Stell dich davor und halte ganz still.';
+  if (closed <= 0) return 'Ein violetter Riss in der Wiese. Geh hin und hör, was er flüstert.';
   if (closed >= RIFTS.length) return 'Die Wiese hält. Noch.';
-  return `Noch ein Riss. Hingehen, stillhalten. (${closed} von ${RIFTS.length} geschlossen)`;
+  return `Noch ein Riss. Hingehen, zuhören, dagegenhalten. (${closed} von ${RIFTS.length} geschlossen)`;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -113,7 +129,7 @@ export const RIFT_LINES: { first: InnerLine[]; closed: InnerLine[][]; last: Inne
   first: [
     { who: 'lia', text: 'Was ist das? Das Gras … reißt auf. Und darunter ist es kalt und violett.', mood: 'scared' },
     { who: 'gestalt', text: 'Das ist er. Er drückt von außen, mit seiner Magie. Wenn er dich nicht wach bekommt, bricht er dich auf.' },
-    { who: 'gestalt', text: 'Stell dich davor. Halt still, ganz still. Dann hält auch die Wiese.' },
+    { who: 'gestalt', text: 'Er flüstert durch die Risse. Hör hin, und halt etwas dagegen, das wirklich dir gehört.' },
   ],
   closed: [
     [{ who: 'lia', text: 'Zu. Ich hab es zugemacht. Ich!', mood: 'surprised' }, { who: 'gestalt', text: 'Gut. Er hört nicht auf, nur weil es einmal nicht geklappt hat.' }],

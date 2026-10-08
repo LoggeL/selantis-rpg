@@ -4,8 +4,9 @@
 //     the screen edges still breathe). A white, translucent figure stands in the grass: „ein Teil von dir“, unnamed.
 //     Conversation with choices: what the meadow is, what they want outside; Lia lists who is left (Kyra, Flick,
 //     Ignatius, free order); the figure senses help coming (plate e3-gestalt). Heart: violet rifts tear the meadow –
-//     Lia walks to each and holds still until it closes (three times; muffled voices from outside in between). The
-//     fourth tears everywhere: Vamir wakes her.
+//     each whispers a doubt in Vamir's voice, and Lia holds one of the three memories of her first visit against it
+//     (choice; the wrong one widens the rift and is greyed out) until it closes (three times; muffled voices from
+//     outside in between). The fourth tears everywhere: Vamir wakes her.
 //  2. 'halle' (only with e3-hw-innen): Vamir's hall. Lia kneels bound at the floor ring (e3-lia-gefesselt, kneel,
 //     held in place). She opens her eyes (storyAction); Vamir demands the power and threatens pain; Lia refuses
 //     (choice, every option refuses). Baris announces the man from Trapas. Sets e3-geweigert.
@@ -21,11 +22,12 @@ import { restageGesture } from '../teil-2/gewoelbe-geste';
 import { calmRing, drawRift, tearMeadow } from './hoffnung-riss';
 import {
   CONTACT, FIGURE_HOPE, FIGURE_TALK, HALL_AFTER, HALL_WAKE, type InnerLine, type Line, MEADOW_OPENING, MEADOW_SPOT,
-  OUTSIDE_BETWEEN, REFUSALS, RIFT_HOLD_MS, RIFT_LINES, RIFTS, riftClosed, riftObjective, riftStep, TOPIC_TALK, TOPICS, type Topic,
+  OUTSIDE_BETWEEN, REFUSALS, RIFT_DOUBTS, RIFT_LINES, RIFT_MEMORIES, RIFT_MEMORY_OPTIONS, RIFT_MISS, RIFT_RADIUS, type RiftMemory, RIFTS,
+  riftObjective, TOPIC_TALK, TOPICS, type Topic,
 } from './hoffnung-und-weigerung-texte';
 import { innerFog, outsideVoices } from './innere-zuflucht-nebel';
 import { INNER_BLOCKS, INNER_OCCLUDERS, INNER_SPOT, INNER_WALK } from './innere-zuflucht-welt';
-import { bg, e3Scene, interlude, lia, liaLook, nextScene, sfx, ui, VIOLET } from './shared';
+import { bg, e3Scene, interlude, lia, liaLook, nextScene, sfx, ui, until, VIOLET } from './shared';
 import { NO_LOOK } from './spuersinn';
 
 /** Checkpoint flags between the parts, the topics said in this visit, the contract flags. */
@@ -113,23 +115,33 @@ function startHeartbeat(w: WorldCtx): void {
   w.scene.events.once('shutdown', () => { heart?.stop(600); heart = null; });
 }
 
-/** One rift: it tears at `at`; Lia has to stand next to it and hold still until it closes. */
-async function holdRift(w: WorldCtx, at: readonly [number, number], seed: number, ring: ReturnType<typeof calmRing>): Promise<void> {
+/**
+ * One rift: it tears at `at`; Lia walks up to it and hears Vamir's doubt, then holds a memory against it (choice). The
+ * wrong memory widens it for a moment and is greyed out; the right one closes it.
+ */
+async function answerRift(w: WorldCtx, at: readonly [number, number], seed: number, i: number, ring: ReturnType<typeof calmRing>): Promise<void> {
   const rift = drawRift(w, at, seed);
   sfx('shockwave', { volume: 0.3 });
   w.camera.shake(200, 0.002);
-  let hold = 0, lx = w.player.x, ly = w.player.y;
-  while (w.alive) {
-    await w.wait(100);
-    const speed = Math.hypot(w.player.x - lx, w.player.y - ly) / 0.1;
-    lx = w.player.x; ly = w.player.y;
-    if (G.ui.busy()) continue;
-    hold = riftStep(hold, 100, Math.hypot(w.player.x - at[0], w.player.y - at[1]), speed);
-    ring.set(hold / RIFT_HOLD_MS);
-    rift.setOpen(1 - 0.75 * (hold / RIFT_HOLD_MS));
-    heart?.set({ interval: hold > 0 ? 1.6 : 0.9, volume: 0.3 });
-    if (riftClosed(hold)) break;
+  await until(w, () => Math.hypot(w.player.x - at[0], w.player.y - at[1]) <= RIFT_RADIUS && !G.ui.busy(), 100);
+  w.lockPlayer();
+  const doubt = RIFT_DOUBTS[i];
+  heart?.set({ interval: 0.8, volume: 0.4 });
+  await outsideVoices([{ who: 'Aus dem Riss', text: doubt.whisper }]);
+  const tried = new Set<RiftMemory>();
+  for (;;) {
+    const opts = RIFT_MEMORIES.map(m => ({ text: RIFT_MEMORY_OPTIONS[m], disabled: tried.has(m), reason: tried.has(m) ? 'Hilft nicht gegen diesen Satz.' : undefined }));
+    const m = RIFT_MEMORIES[await w.choose(opts, { prompt: 'Was hältst du dagegen?', speaker: 'e3-lia' })];
+    if (m === doubt.answer) break;
+    tried.add(m);
+    rift.setOpen(1);
+    w.camera.shake(260, 0.004);
+    sfx('shockwave', { volume: 0.35, pitch: 0.8 });
+    await w.think(RIFT_MISS[(tried.size - 1) % RIFT_MISS.length]);
   }
+  await sayInner(w, doubt.lia);
+  for (let k = 1; k <= 10; k++) { ring.set(k / 10); rift.setOpen(1 - 0.075 * k); await w.wait(60); }
+  heart?.set({ interval: 1.3, volume: 0.24 });
   ring.set(0);
   sfx('heal', { volume: 0.35 });
   await rift.close(600);
@@ -197,8 +209,7 @@ async function innenScript(w: WorldCtx): Promise<void> {
     }
     w.setObjective('e3-hw-riss', riftObjective(i), null);
     w.unlockPlayer();
-    await holdRift(w, at, i + 1, ring);
-    w.lockPlayer();
+    await answerRift(w, at, i + 1, i, ring);
     for (const l of RIFT_LINES.closed[i]) await sayInner(w, l);
     if (i < OUTSIDE_BETWEEN.length) {
       fog.press(true);

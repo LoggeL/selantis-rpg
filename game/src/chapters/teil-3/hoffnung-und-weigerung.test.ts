@@ -2,8 +2,8 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { G } from '../../core/G';
 import { pointInPoly } from '../../world/poly';
 import {
-  CONTACT, FIGURE_HOPE, FIGURE_TALK, HALL_AFTER, HALL_WAKE, MEADOW_OPENING, MEADOW_SPOT, OUTSIDE_BETWEEN, REFUSALS, RIFT_HOLD_MS,
-  RIFT_LINES, RIFT_RADIUS, RIFTS, riftClosed, riftObjective, riftStep, STILL_SPEED, TOPIC_TALK, TOPICS,
+  CONTACT, FIGURE_HOPE, FIGURE_TALK, HALL_AFTER, HALL_WAKE, MEADOW_OPENING, MEADOW_SPOT, OUTSIDE_BETWEEN, REFUSALS, RIFT_DOUBTS,
+  RIFT_LINES, RIFT_MEMORIES, RIFT_MEMORY_OPTIONS, RIFT_MISS, RIFTS, riftObjective, TOPIC_TALK, TOPICS,
 } from './hoffnung-und-weigerung-texte';
 import { INNER_BLOCKS, INNER_WALK } from './innere-zuflucht-welt';
 import { prepareE3 } from './shared';
@@ -21,21 +21,19 @@ describe('the rifts in the meadow', () => {
     expect(RIFTS.length).toBe(3);
   });
 
-  it('closes only with calm standing next to it and runs back when she walks or stands away', () => {
-    let hold = 0;
-    for (let i = 0; i < 10; i++) hold = riftStep(hold, 100, RIFT_RADIUS - 2, 0);
-    expect(hold).toBe(1000);
-    // Walking through it does not count, and the hold runs back faster than it fills.
-    expect(riftStep(hold, 100, 0, STILL_SPEED + 30)).toBe(850);
-    expect(riftStep(hold, 100, RIFT_RADIUS + 10, 0)).toBe(850);
-    expect(riftStep(0, 100, 100, 0)).toBe(0);
-    for (let t = 0; t < RIFT_HOLD_MS; t += 100) hold = riftStep(hold, 100, 5, 2);
-    expect(riftClosed(hold)).toBe(true);
-    expect(hold).toBe(RIFT_HOLD_MS);
+  it('answers every whisper with exactly one of the three memories, each used once', () => {
+    expect(RIFT_DOUBTS.length).toBe(RIFTS.length);
+    expect(RIFT_DOUBTS.map(d => d.answer).sort()).toEqual([...RIFT_MEMORIES].sort());
+    for (const m of RIFT_MEMORIES) expect(RIFT_MEMORY_OPTIONS[m].length).toBeLessThanOrEqual(80);
+    for (const d of RIFT_DOUBTS) {
+      expect(d.whisper.length).toBeLessThanOrEqual(140);
+      expect(d.lia.text.length).toBeLessThanOrEqual(140);
+    }
+    for (const t of RIFT_MISS) expect(t.length).toBeLessThanOrEqual(140);
   });
 
   it('counts the rifts in the objective (text only, no marker)', () => {
-    expect(riftObjective(0)).toMatch(/still/);
+    expect(riftObjective(0)).toMatch(/flüstert/);
     expect(riftObjective(1)).toMatch(/1 von 3/);
     expect(riftObjective(3)).toMatch(/hält/);
   });

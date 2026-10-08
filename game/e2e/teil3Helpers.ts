@@ -265,7 +265,7 @@ async function lookClueStep(page: Page, s: Extract<Special, { kind: 'look-clue' 
 /**
  * Objectives without a marker: what a player does there, with real input.
  *  - e3-ri-posten: walk towards the next guard post not yet spotted with Q held (Spurenblick), then show it (E).
- *  - e3-hw-riss: walk to the open rift and stand still until it closes.
+ *  - e3-hw-riss: walk to the open rift; the memory choice that closes it follows on its own.
  *  - a clue only the Spurenblick shows (e3-fh-spur): Q, then click it.
  *  - else the interactive the objective text points to (e3-ms-umsehen: the bed), or the nearest one that sparkles.
  */
