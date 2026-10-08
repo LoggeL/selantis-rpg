@@ -3,11 +3,12 @@
 // The memory plate e2-erinnerung is visibly framed as what HE describes (his words, never narration): a burning
 // city, prisoners in a row, one of his men, a woman Flick is bound to – unnamed, no relation, no detail of her
 // fate. Flick demands he leave her head. Heart: inner resistance – first what she fills her head with (choice), then
-// she hides the forest memory of Lia from his searching gaze (stealthGame 'cover'; mistakes only repeat the beat,
-// no failure, no reward). She gives nothing away and he sends for the sister. → e2-kyras-widerstand.
+// „Falsche Fährten“ (falsche-faehrten.ts): she answers his questions with harmless memories of her own; a memory that
+// leads towards Lia makes him dig (no failure, it only changes his next line). She gives nothing away and he sends for the sister. → e2-kyras-widerstand.
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { bloodPool } from '../common/blood';
+import { PROBES } from './falsche-faehrten';
 import { HALLE_SPOT, HALLE_TABLE, halleBase, halleBrazierLights, pinArea, pinPlayer } from './gewoelbe';
 import { bg, e2Scene, interlude, master, sfx, ui, VIOLET, nextScene } from './shared';
 
@@ -71,7 +72,7 @@ async function memory(w: WorldCtx): Promise<void> {
 }
 
 async function resistance(w: WorldCtx): Promise<number> {
-  await w.think('Er sucht die Leseratte. In meinem Kopf. Dann versteck ich sie eben. Da drin kenn ich jeden Busch.');
+  await w.think('Er sucht die Leseratte. In meinem Kopf. Dann zeig ich ihm eben alles andere. Da drin gibt’s genug Wald für hundert falsche Fährten.');
   const pick = await w.choose([
     '(An den Wald denken: Laub, Wind, nichts als Laub.)',
     '(An Lias furchtbare Witze denken. Alle. Der Reihe nach.)',
@@ -81,12 +82,26 @@ async function resistance(w: WorldCtx): Promise<number> {
   if (pick === 0) await w.think('Buchen. Farn. Der Bach. Hundert Bäume, und hinter jedem kann sich eine kleine Leseratte verstecken.');
   else if (pick === 1) await w.think('„Was ist grün und liest?“ … Grauenhaft. Er soll ruhig mithören.');
   else await w.think('Eins. Zwei. Drei. Der vierte Stein hat einen Sprung. Fünf. Ich kann das die ganze Nacht.');
-  w.setObjective('e2-erinnerung-verschliessen', 'Halte die Erinnerung an Lia vor seinem Blick verborgen.', null);
-  const noise = await G.ui.stealthGame('cover', 'Die Erinnerung verschließen', {
-    onNoise: () => { sfx('suspicious', { volume: 0.35 }); w.lighting.flash(VIOLET, 200); },
-    help: 'In Flicks Kopf ist Wald. Bring die Leseratte in Deckung, solange sein Blick woanders sucht. Sucht er hier: nicht rühren.',
-    keyHint: 'A / D oder ← / → · Leseratte ziehen',
+  w.setObjective('e2-erinnerung-verschliessen', 'Zeig ihm falsche Fährten. Keine einzige zu Lia.', null);
+  const result = await G.ui.scenePick({
+    label: 'Falsche Fährten',
+    help: 'Er blättert in Flicks Kopf. Zeig ihm Erinnerungen, die zur Frage passen, aber nirgends zu Lia führen. Wer ausweicht, macht ihn neugierig.',
+    backdrop: 'minigames/stealth-cover',
+    dim: true,
+    layout: 'drift',
+    className: 'e2-faehrten',
+    rounds: PROBES.map(p => ({
+      cue: p.id,
+      prompt: { speaker: master(), text: p.question },
+      cards: p.trails.map(({ id, text }) => ({ id, text })),
+      judge: (id: string) => {
+        const t = p.trails.find(x => x.id === id)!;
+        return { ok: t.ok, mood: t.ok ? 'calm' : 'flash', reply: { speaker: master(), text: t.reply } };
+      },
+    })),
+    onVerdict: v => { if (!v.ok) { sfx('suspicious', { volume: 0.35 }); w.lighting.flash(VIOLET, 200); } },
   });
+  const noise = result.mistakes;
   w.completeObjective('e2-erinnerung-verschliessen');
   return noise;
 }
@@ -97,7 +112,7 @@ async function aftermath(w: WorldCtx, noise: number): Promise<void> {
     const veil = w.lighting.get('e2-schleier');
     await veil.fadeTo(0.2, 900);
     await w.camera.zoom(1.15, 800);
-    if (noise === 0) await w.say(master(), 'Nichts. Blätter. Lauter Blätter, und dahinter noch mehr Blätter.');
+    if (noise === 0) await w.say(master(), 'Nichts. Kuchen, Wälder, alte Kränkungen. Lauter Blätter, und dahinter noch mehr Blätter.');
     else await w.say(master(), 'Da! Ein Rascheln … und weg. Du rennst in deinem eigenen Kopf vor mir davon. Wie ungezogen.');
     await w.say(master(), 'Wo ist sie? Ein Wort. Ein Weg, ein Fluss, ein Name. Dann darfst du schlafen.');
     const pick = await w.choose([

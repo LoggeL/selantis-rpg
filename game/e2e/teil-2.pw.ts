@@ -240,6 +240,20 @@ test('e2-pruefung: in the surge Lia holds on to three things of her own', async 
   expect(errors, errors.join('\n')).toEqual([]);
 });
 
+test('e2-flicks-erinnerungen: Flick lays false trails and the Master finds only leaves', async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
+  const errors = await campaign(page, p => fixtureSave(p, 'e2-flicks-erinnerungen'), 'e2-flicks-erinnerungen');
+  const lines: string[] = [];
+  let sawPick = false;
+  await drive(page, { label: 'faehrten', until: s => s.scene !== 'e2-flicks-erinnerungen', onSnap: async s => {
+    if (s.pick) sawPick = true;
+    if (s.line && lines[lines.length - 1] !== s.line) lines.push(s.line);
+  } });
+  expect(sawPick).toBe(true);
+  expect(lines.join('\n')).toContain('Lauter Blätter');
+  expect(errors, errors.join('\n')).toEqual([]);
+});
+
 // ---------------------------------------------------------------------------------------------------------------
 // 4. Reload / once-only
 // ---------------------------------------------------------------------------------------------------------------

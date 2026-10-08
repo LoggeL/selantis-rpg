@@ -16,7 +16,7 @@
 .pick-card { display: inline-flex; align-items: baseline; gap: .45em; max-width: 19em; padding: .45em .8em; border: 1px solid var(--gold-line); border-radius: .45em;
   background: #0d121cd9; color: var(--parch); font: inherit; font-size: .95em; text-align: left; cursor: pointer; box-shadow: 0 .2em .6em #0008;
   transition: transform .2s, border-color .2s, background .2s, opacity .3s; }
-.scene-pick.is-drift .pick-card { position: absolute; transform: translate(-50%, -50%); animation: pick-drift 7s ease-in-out var(--drift-delay, 0s) infinite alternate; max-width: min(16em, 29vw); }
+.scene-pick.is-drift .pick-card { position: absolute; transform: translate(-50%, -50%); animation: pick-drift 7s ease-in-out var(--drift-delay, 0s) infinite alternate; width: max-content; max-width: min(16em, 29vw); }
 @keyframes pick-drift { from { translate: -.6em .3em; } to { translate: .6em -.4em; } }
 .pick-card:hover:not(:disabled), .pick-card.is-focus { border-color: var(--gold); background: #1a2232f0; outline: none; box-shadow: 0 0 0 1px var(--gold), 0 0 1.2em #d8b25a55; }
 .pick-card:disabled { cursor: default; }

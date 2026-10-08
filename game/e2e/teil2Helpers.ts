@@ -2,7 +2,10 @@ import { expect, test, type Page } from '@playwright/test';
 import { playSceneAction, playScenePick } from './sceneActions';
 
 /** Right answers the driver tries first in scene picks (a playthrough should mostly decide well). */
-const PICK_PREFER = ['eiche', 'handschrift', 'name', 'leseratte'];
+const PICK_PREFER = [
+  'eiche', 'handschrift', 'name', 'leseratte', // e2-pruefung
+  'grunwald', 'trapas', 'kuchen', 'tor', 'sueden', 'weissnicht', // e2-flicks-erinnerungen
+];
 
 /**
  * Helpers for the Teil II browser tests (teil-2.pw.ts). Everything that plays the game does it with real inputs:
