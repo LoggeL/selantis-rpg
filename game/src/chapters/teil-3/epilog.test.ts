@@ -3,52 +3,48 @@ import { G } from '../../core/G';
 import { pointInPoly } from '../../world/poly';
 import { BOOK3_CREDITS } from './epilog-credits';
 import {
-  ELNON, ELNON_ANSWERS, ELNON_CHOICES, ELNON_END, elnonAnswer, END_ZONE, ENDING, FELDWEG_SPOT, FELDWEG_WALK, FINISHED_LINE, OPENING, SCHUTZ, SOMMER,
-  SOMMER_ANSWERS, SOMMER_CHOICES, SOMMER_END, TALK_ORDER, TALK_ZONES, TRACK, TREE, TREE_BLOCK, nextTalk, talkFlag, talksDone, type Line,
+  APPLE_LINES, BANTER_ANSWERS, BANTER_CHOICES, BANTER_OPEN, ELNON, ELNON_ANSWERS, ELNON_CHOICES, ELNON_END, elnonAnswer, ENDING, EP,
+  FINISHED_LINE, FLICK_ANSWERS, FLICK_CHOICES, FLICK_IN, LEAVE_ZONE, NEST_LINES, OPENING, resetEpilog, SCHUTZ, SNEAK, SOMMER,
+  SOMMER_ANSWERS, SOMMER_CHOICES, SOMMER_END, WIESE_SPOT, type Line,
 } from './epilog-weg';
 import { hasOwnStaff, poisoned, prepareE3 } from './shared';
 
 afterEach(() => G.state.reset());
 
-const inWalk = (at: readonly [number, number]) => FELDWEG_WALK.some(p => pointInPoly(at[0], at[1], p)) && !pointInPoly(at[0], at[1], TREE_BLOCK);
-
-describe('the field track (e3-feldweg)', () => {
-  it('keeps the track, the tree spot and the apparition’s place walkable', () => {
-    for (const at of TRACK.slice(1, -1)) expect(inWalk(at), String(at)).toBe(true);
-    for (const id of ['start', 'tree', 'valentus'] as const) expect(inWalk(FELDWEG_SPOT[id]), id).toBe(true);
+describe('the meadow of the first scene (k1-wiese, autumn)', () => {
+  it('lets the three leave along the path where Kyra went home in the summer', () => {
+    expect(pointInPoly(WIESE_SPOT.away[0], WIESE_SPOT.away[1], LEAVE_ZONE)).toBe(true);
+    // The two apparitions stand in front of the oak (south of its trunk, k1-wiese block „eiche“ ends at y 452).
+    expect(Math.min(WIESE_SPOT.valentus[1], WIESE_SPOT.ignatius[1])).toBeGreaterThan(452);
   });
 
-  it('lays the talk zones across the track in walking order, before the end of the walk', () => {
-    expect(TALK_ZONES.map(z => z.id)).toEqual([...TALK_ORDER]);
-    const cut = (poly: readonly (readonly [number, number])[]) => TRACK.some(at => pointInPoly(at[0], at[1], poly))
-      || TRACK.slice(1).some((b, i) => { const a = TRACK[i]; return pointInPoly((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, poly); });
-    for (const z of TALK_ZONES) expect(cut(z.poly), z.id).toBe(true);
-    expect(cut(END_ZONE)).toBe(true);
-    const ys = TALK_ZONES.map(z => Math.min(...z.poly.map(p => p[1])));
-    expect([...ys].sort((a, b) => b - a)).toEqual(ys);
-    expect(Math.min(...END_ZONE.map(p => p[1]))).toBeLessThan(Math.min(...ys));
+  it('starts every visit fresh', () => {
+    for (const f of Object.values(EP)) G.state.set(f);
+    resetEpilog();
+    for (const f of Object.values(EP)) expect(G.state.is(f), f).toBe(false);
   });
 
-  it('never skips a talk', () => {
-    expect(nextTalk()).toBe('sommer');
-    G.state.set(talkFlag('sommer'));
-    expect(nextTalk()).toBe('elnon');
-    G.state.set(talkFlag('elnon'));
-    G.state.set(talkFlag('schutz'));
-    expect(talksDone()).toBe(true);
-    expect(nextTalk()).toBeUndefined();
+  it('mirrors the three answers of the first scene', () => {
+    expect(BANTER_CHOICES).toEqual([
+      '„Ich wollte gleich nachkommen. Ehrlich.“',
+      '„Aber Alana war gerade an der besten Stelle!“',
+      '„Holz sammeln kannst du eben besser. Jeder hat seine Talente.“',
+    ]);
+    expect(BANTER_ANSWERS.length).toBe(BANTER_CHOICES.length);
+    expect(FLICK_ANSWERS.length).toBe(FLICK_CHOICES.length);
   });
 });
 
 describe('the talks', () => {
   const lines: readonly Line[] = [
-    ...OPENING, ...SOMMER, ...SOMMER_ANSWERS.flat(), ...SOMMER_END, ...ELNON, ...ELNON_ANSWERS.flat(), ...ELNON_END, ...SCHUTZ, ...TREE, ...ENDING,
+    ...OPENING, ...SNEAK, ...BANTER_OPEN, ...BANTER_ANSWERS.flat(), ...SOMMER, ...SOMMER_ANSWERS.flat(), ...SOMMER_END, ...FLICK_IN,
+    ...FLICK_ANSWERS.flat(), ...SCHUTZ, ...ELNON, ...ELNON_ANSWERS.flat(), ...ELNON_END, ...NEST_LINES, ...APPLE_LINES, ...ENDING,
   ];
 
   it('fit one dialogue box each', () => {
     for (const l of lines) expect(l.text.length, l.text).toBeLessThanOrEqual(140);
     expect(FINISHED_LINE.length).toBeLessThanOrEqual(140);
-    for (const c of [...SOMMER_CHOICES, ...ELNON_CHOICES]) expect(c.length, c).toBeLessThanOrEqual(80);
+    for (const c of [...BANTER_CHOICES, ...SOMMER_CHOICES, ...FLICK_CHOICES, ...ELNON_CHOICES]) expect(c.length, c).toBeLessThanOrEqual(80);
     expect(SOMMER_ANSWERS.length).toBe(SOMMER_CHOICES.length);
     expect(ELNON_ANSWERS.length).toBe(ELNON_CHOICES.length);
   });

@@ -1,73 +1,53 @@
-// e3-epilog: the field track e3-feldweg (geometry, measured on the 1280×720 image with a 20 px grid) and the talks on
-// the way (pure, tested in epilog.test.ts). Newly written; the film (F3 45:44–46:59) only gives the beats: Kyra on how
-// much has changed and that the parents would be proud, Flick as the sisters' guard on the Großmeister's orders, all
-// three walk on, Valentus' apparition in the foreground. Kyra tells Lia about Elnon here (umsetzung.md §3): Lia only
-// learns now that he is dead and that Kyra's report in the forest was Vamir's lie.
+// e3-epilog: places on the meadow behind the farm (the painted k1-wiese of the very first scene, reused) and the texts
+// of the epilogue (pure, tested in epilog.test.ts). The epilogue mirrors Teil I's opening on purpose (user request
+// 2026-10-09): Lia reads under the old oak, Kyra comes out of the wood with firewood and sneaks up on her, they bicker
+// with the same three kinds of answer – and then Flick joins them, proud in her new outfit as Lia's guard. Kyra tells
+// Lia about Elnon here (umsetzung.md §3): Lia only learns now that he is dead and that Kyra's report was Vamir's lie.
+// At the end the three walk off along the path to the east, as Kyra did in the summer, and under the oak Valentus and
+// Ignatius appear and watch them go. Newly written; the film (F3 45:44–46:59) only gives the beats.
 import { G } from '../../core/G';
-import type { OccluderDef, Polygon, SurfaceDef } from '../../world';
+import type { Polygon } from '../../world';
 
 type Pt = [number, number];
 
-/** Track centre line from the bottom-left corner to the top-right (bottom → top). */
-export const TRACK: readonly Pt[] = [[120, 720], [270, 600], [415, 520], [570, 440], [650, 400], [805, 320], [925, 240], [1035, 160], [1165, 80], [1192, 56]];
-
-/**
- * The track with the grass strips between the fences (≈ 50 px left, 40 px right of the centre line), widened round
- * the lone tree so Lia can step under it. Everything else (stubble behind the fences, the hills) is blocked.
- */
-export const FELDWEG_WALK: Polygon[] = [[
-  // left edge, bottom → top
-  [40, 720], [70, 690], [200, 600], [340, 520], [470, 452], [540, 410], [585, 372], [610, 336], [640, 322], [690, 326],
-  [720, 340], [760, 300], [860, 236], [980, 152], [1100, 82], [1170, 40], [1196, 30],
-  // right edge, top → bottom
-  [1222, 48], [1206, 76], [1180, 104], [1066, 186], [956, 268], [842, 352], [706, 434], [604, 482], [450, 562],
-  [316, 640], [210, 720],
-]];
-
-/** The lone tree's trunk and roots (Lia stands below it). */
-export const TREE_BLOCK: Polygon = [[630, 336], [646, 318], [670, 318], [690, 336], [676, 352], [640, 352]];
-
-export const FELDWEG_OCCLUDERS: OccluderDef[] = [
-  // The lone tree's crown and trunk over whoever stands behind it.
-  { id: 'baum', baseline: 352, fade: 0.55, poly: [[556, 230], [580, 168], [640, 148], [710, 158], [752, 210], [744, 276], [700, 300], [690, 336], [676, 352], [640, 352], [630, 336], [600, 298], [560, 280]] },
-];
-
-export const FELDWEG_SURFACES: SurfaceDef[] = [
-  {
-    id: 'weg', kind: 'dirt',
-    poly: [[100, 720], [250, 600], [400, 512], [560, 432], [790, 312], [915, 232], [1025, 154], [1160, 72], [1192, 50], [1208, 60], [1176, 88],
-      [1045, 168], [935, 248], [820, 328], [585, 450], [430, 528], [290, 610], [150, 720]],
-  },
-];
-
-export const FELDWEG_SPOT = {
-  start: [120, 690] as Pt,
-  /** Under the lone tree (the promise about the graves). */
-  tree: [660, 368] as Pt,
-  /** Where Valentus' apparition stands in the foreground at the end (on the track behind the three). */
-  valentus: [690, 404] as Pt,
-  /** Where the three walk to at the end (out of the picture towards the horizon). */
-  away: [1188, 60] as Pt,
-  /** Camera at the end: the apparition low in the frame, the three walking away up the track. */
-  endCamera: [900, 280] as Pt,
+/** Feet positions on k1-wiese (same geometry as kapitel-1/wiese.ts). */
+export const WIESE_SPOT = {
+  /** Lia's seat under the oak (the first scene's OAK_SEAT). */
+  oakSeat: [500, 470] as Pt,
+  /** Kyra comes out of the wood path in the north-west and drops her firewood there. */
+  kyraIn: [276, 112] as Pt,
+  kyraWood: [290, 190] as Pt,
+  woodProp: [306, 196] as Pt,
+  /** Her sneaking path round the oak and where she ends up next to Lia. */
+  kyraSneak: [[360, 300], [430, 470]] as Pt[],
+  kyraAtLia: [474, 476] as Pt,
+  /** Where Lia jumps to when tickled, and where her book falls. */
+  liaUp: [520, 478] as Pt,
+  book: [540, 486] as Pt,
+  /** Flick comes along the path from the east and stops in front of the two. */
+  flickIn: [1210, 640] as Pt,
+  flickStop: [580, 470] as Pt,
+  /** The birch with the nest (empty now), the cornflowers and the apple trees. */
+  nest: [449, 132] as Pt,
+  /** Under the oak, in the foreground: where the two apparitions stand at the end. */
+  valentus: [462, 500] as Pt,
+  ignatius: [548, 504] as Pt,
+  /** Where the three walk off to (the path out of the picture to the east). */
+  away: [1270, 666] as Pt,
+  /** Camera at the end: the oak and the two apparitions, the three small on the path behind. */
+  endCamera: [640, 470] as Pt,
 };
 
-/** Talks along the track: each fires in its zone, in this order (zones cross the whole walkable width). */
-export interface TalkZone { id: TalkId; poly: Polygon }
-export type TalkId = 'sommer' | 'elnon' | 'schutz';
-export const TALK_ORDER: readonly TalkId[] = ['sommer', 'elnon', 'schutz'];
-export const TALK_ZONES: readonly TalkZone[] = [
-  { id: 'sommer', poly: [[220, 540], [300, 540], [380, 640], [300, 660]] },
-  { id: 'elnon', poly: [[470, 420], [540, 380], [620, 470], [560, 500]] },
-  { id: 'schutz', poly: [[780, 260], [840, 220], [920, 300], [860, 340]] },
-];
-/** The end of the walk: the three go on, the apparition appears. */
-export const END_ZONE: Polygon = [[920, 180], [990, 130], [1060, 200], [990, 250]];
+/** Leaving to the south: the east end of the path (the first scene's „heimgehen“ zone). */
+export const LEAVE_ZONE: Polygon = [[1236, 600], [1280, 600], [1280, 712], [1236, 712]];
+export const CORNFLOWERS: Polygon = [[880, 140], [960, 170], [1010, 192], [1004, 210], [950, 192], [874, 160]];
+export const APPLES: Polygon = [[996, 366], [1070, 366], [1074, 386], [992, 386]];
 
-export const talkFlag = (id: TalkId): string => `e3-ep-${id}`;
-export const talksDone = (): boolean => TALK_ORDER.every(id => G.state.is(talkFlag(id)));
-/** The next talk that has not happened yet (talks never skip one another). */
-export const nextTalk = (): TalkId | undefined => TALK_ORDER.find(id => !G.state.is(talkFlag(id)));
+/** Steps of the epilogue (flags reset when the scene starts). */
+export const EP = {
+  opening: 'e3-ep-anfang', book: 'e3-ep-buch', nest: 'e3-ep-nest', flowers: 'e3-ep-blumen', apples: 'e3-ep-aepfel', end: 'e3-ep-ende',
+} as const;
+export const resetEpilog = (): void => { for (const f of Object.values(EP)) G.state.set(f, false); };
 
 // ---------------------------------------------------------------------------------------------------------------
 // Texts
@@ -76,14 +56,57 @@ export const nextTalk = (): TalkId | undefined => TALK_ORDER.find(id => !G.state
 export type Who = 'lia' | 'lia-think' | 'kyra' | 'flick' | 'narrator';
 export interface Line { who: Who; text: string; mood?: string }
 
+/** Narration over the plate (mirrors „Sechzehn Sommer waren vergangen …“). */
+export const OPENING_NARRATION: readonly string[] = [
+  'Der Sommer war vorbei. Über der alten Eiche hinter dem Hof färbten sich die ersten Blätter gelb.',
+  'Lia saß unter ihr und las, wie früher. Nur lag jetzt ein Stab neben ihr im Gras, und am Morgen war sie bei zwei Steinhügeln gewesen.',
+];
 export const OPENING: readonly Line[] = [
-  { who: 'lia-think', text: 'Morgens ist das Land weit. Nebel über den Hügeln, Stoppeln, ein Weg, der nirgends aufhört.' },
-  { who: 'lia-think', text: 'Meine Beine tragen wieder. Nicht gut, aber freiwillig.' },
+  { who: 'lia', text: '„… und Alana hob die Hand, und das Licht gehorchte ihr.“', mood: 'happy' },
+  { who: 'lia-think', text: 'Manchmal gehorcht es. Manchmal nicht. Das hat Alana nie erwähnt.' },
+  { who: 'lia-think', text: 'Früher hab ich mir gewünscht, hier würde endlich etwas passieren. Das nehme ich zurück. Alles davon.' },
+];
+
+/** Lia's sharper senses: she hears Kyra coming this time. */
+export const SNEAK: readonly Line[] = [
+  { who: 'lia-think', text: 'Schritte im Laub. Links hinter der Eiche. Kyra schleicht wie eine Kuh durchs Kornfeld.' },
+  { who: 'lia', text: 'Ich hör dich, Kyra.', mood: 'smirk' },
+  { who: 'kyra', text: 'Ach ja?', mood: 'happy' },
+];
+
+export const BANTER_OPEN: readonly Line[] = [
+  { who: 'lia', text: 'Was sollte das denn?', mood: 'surprised' },
+  { who: 'kyra', text: 'Wer faulenzt, hat es nicht anders verdient. Das gilt auch für Hüterinnen.', mood: 'happy' },
+  { who: 'kyra', text: 'Ich schlepp Holz für heute Nacht, und du blätterst um. Manche Dinge ändern sich nie.', mood: 'smirk' },
+];
+/** The same three kinds of answer as in the summer. */
+export const BANTER_CHOICES: readonly string[] = [
+  '„Ich wollte gleich nachkommen. Ehrlich.“',
+  '„Aber Alana war gerade an der besten Stelle!“',
+  '„Holz sammeln kannst du eben besser. Jeder hat seine Talente.“',
+];
+export const BANTER_ANSWERS: readonly (readonly Line[])[] = [
+  [
+    { who: 'lia', text: 'Ich wollte gleich nachkommen. Ehrlich.', mood: 'sad' },
+    { who: 'kyra', text: 'Das hast du im Sommer auch gesagt. Wort für Wort.', mood: 'smirk' },
+    { who: 'lia', text: 'Und? Bin ich nachgekommen?', mood: 'thinking' },
+    { who: 'kyra', text: 'Nie. Und weißt du was? Ich hab es vermisst.', mood: 'happy' },
+  ],
+  [
+    { who: 'lia', text: 'Aber Alana war gerade an der besten Stelle!', mood: 'happy' },
+    { who: 'kyra', text: 'Verschon mich mit deiner Alana. Die mistet keinen Stall aus.', mood: 'smirk' },
+    { who: 'kyra', text: '… Na gut. Eine Stelle. Lies sie mir heute Abend vor. Am Feuer.', mood: 'happy' },
+  ],
+  [
+    { who: 'lia', text: 'Holz sammeln kannst du eben besser. Jeder hat seine Talente.', mood: 'smirk' },
+    { who: 'kyra', text: 'Und deins ist Rumsitzen? Pass auf, sonst kitzle ich dich gleich noch mal.', mood: 'angry' },
+    { who: 'lia', text: 'Bloß nicht! Ich ergebe mich! Schon wieder!', mood: 'happy' },
+  ],
 ];
 
 /** Since the summer; the parents would be proud. */
 export const SOMMER: readonly Line[] = [
-  { who: 'kyra', text: 'Weißt du, was im Sommer mein größtes Problem war? Dass du unter der Eiche liest, während ich das Holz schleppe.', mood: 'happy' },
+  { who: 'kyra', text: 'Weißt du, was im Sommer mein größtes Problem war? Dass du unter dieser Eiche liest, während ich das Holz schleppe.', mood: 'happy' },
   { who: 'lia', text: 'Ein ernstes Problem. Du hast es sehr laut vorgetragen.', mood: 'smirk' },
   { who: 'kyra', text: 'Und jetzt hat dir ein Baum einen Stab geschenkt, und ein ganzer Orden nennt dich Hüterin.', mood: 'neutral' },
   { who: 'lia', text: 'Ich würde trotzdem lieber lesen. Nur damit das klar ist.', mood: 'happy' },
@@ -91,7 +114,7 @@ export const SOMMER: readonly Line[] = [
 export const SOMMER_CHOICES: readonly string[] = [
   '„Was hätte Mutter wohl gesagt?“',
   '„Vater hätte die Fibel auf dem ganzen Markt herumgezeigt.“',
-  '„Manchmal denke ich, sie gehen ein Stück neben uns her.“',
+  '„Heute früh am Grab war mir, als hörten sie zu.“',
 ];
 export const SOMMER_ANSWERS: readonly (readonly Line[])[] = [
   [
@@ -103,8 +126,8 @@ export const SOMMER_ANSWERS: readonly (readonly Line[])[] = [
     { who: 'kyra', text: 'Und dazu erzählt, du hättest das Lesen von ihm. Was nicht stimmt. Stolz wäre er gewesen. Auf dich.', mood: 'happy' },
   ],
   [
-    { who: 'lia', text: 'Manchmal denke ich, sie gehen ein Stück neben uns her. Nur so weit, wie sie dürfen.', mood: 'sad' },
-    { who: 'kyra', text: 'Dann hoffe ich, sie sehen, was du getan hast. Sie wären stolz. Mehr als das.', mood: 'sad' },
+    { who: 'lia', text: 'Heute früh an den Steinhügeln war mir, als hörten sie zu. Nur so lange, wie sie dürfen.', mood: 'sad' },
+    { who: 'kyra', text: 'Dann hoffe ich, sie haben alles gehört. Sie wären stolz. Mehr als das.', mood: 'sad' },
   ],
 ];
 export const SOMMER_END: readonly Line[] = [
@@ -112,9 +135,47 @@ export const SOMMER_END: readonly Line[] = [
   { who: 'kyra', text: 'Mal sehen.', mood: 'sad' },
 ];
 
-/** Kyra stops: Elnon, the blade in her hand, the lie in the forest. */
+/** Flick comes along the path in her new outfit, very proud of it. */
+export const FLICK_IN: readonly Line[] = [
+  { who: 'kyra', text: 'Was glänzt denn da auf dem Weg? Ist das … Flick?', mood: 'surprised' },
+  { who: 'flick', text: 'Umgebung gesichert. Ein Eichhörnchen, sehr verdächtig. Ich hab es verwarnt.', mood: 'smirk' },
+  { who: 'flick', text: 'Na? Na? Sagt was. Ich stehe hier extra so, dass die Sonne auf die Fibel fällt.', mood: 'happy' },
+];
+export const FLICK_CHOICES: readonly string[] = [
+  '„Du siehst aus wie eine richtige Paladinin.“',
+  '„Hast du den Umhang geklaut?“',
+  '„Dreh dich mal. Langsam.“',
+];
+export const FLICK_ANSWERS: readonly (readonly Line[])[] = [
+  [
+    { who: 'lia', text: 'Du siehst aus wie eine richtige Paladinin.', mood: 'happy' },
+    { who: 'flick', text: 'Besser. Paladine müssen beten. Ich muss nur aufpassen. Und gut aussehen. Beides klappt.', mood: 'happy' },
+  ],
+  [
+    { who: 'lia', text: 'Hast du den Umhang geklaut?', mood: 'smirk' },
+    { who: 'flick', text: 'Geschenkt bekommen! Vom Großmeister persönlich. Er hat dabei nur ein bisschen gezuckt.', mood: 'angry' },
+    { who: 'flick', text: 'Gut, die Stiefel hab ich mir selbst ausgesucht. Aus der Kammer. Mit Erlaubnis. Fast.', mood: 'smirk' },
+  ],
+  [
+    { who: 'lia', text: 'Dreh dich mal. Langsam.', mood: 'happy' },
+    { who: 'flick', text: 'So? Der Umhang weht von allein, wenn man richtig geht. Ich hab den ganzen Weg geübt.', mood: 'happy' },
+    { who: 'kyra', text: 'Sie hat den ganzen Weg geübt, Lia. Den ganzen.', mood: 'smirk' },
+  ],
+];
+
+/** Flick on her new job. */
+export const SCHUTZ: readonly Line[] = [
+  { who: 'flick', text: 'Der Großmeister hat mich zu deinem Schutz abgestellt. Offiziell. Mit Siegel. Ich hab es mir dreimal vorlesen lassen.', mood: 'smirk' },
+  { who: 'flick', text: 'Wenn dir was passiert, lässt er mir das Fell gerben. Gesagt hat er das nicht. Aber geguckt.', mood: 'smirk' },
+  { who: 'lia', text: 'Du passt also auf mich auf? Du?', mood: 'surprised' },
+  { who: 'flick', text: 'Schutztruppe der Hüterin, eine Frau stark. Bezahlt in Äpfeln. Irgendwer muss es ja machen.', mood: 'happy' },
+  { who: 'kyra', text: 'Und wer passt auf dich auf?', mood: 'neutral' },
+  { who: 'flick', text: 'Ihr. Aber sagt es keinem.', mood: 'smirk' },
+];
+
+/** Kyra sits down: Elnon, the blade in her hand, the lie in the forest. */
 export const ELNON: readonly Line[] = [
-  { who: 'kyra', text: 'Lia. Warte. Ich muss dir etwas sagen. Wenn ich jetzt weitergehe, sage ich es nie.', mood: 'scared' },
+  { who: 'kyra', text: 'Lia. Bevor wir gehen. Ich muss dir etwas sagen. Wenn ich jetzt aufstehe, sage ich es nie.', mood: 'scared' },
   { who: 'kyra', text: 'Im Wald hab ich dir erzählt, ich hätte Elnon im Durcheinander verloren. Das war gelogen.', mood: 'ashamed' },
   { who: 'kyra', text: 'Es kommt zurück. Nicht alles. Aber die Klinge in meiner Hand. Und sein Gesicht, als er gemerkt hat, dass ich es bin.', mood: 'scared' },
   { who: 'kyra', text: 'Er ist tot. Ich hab ihn umgebracht. Und dann hab ich dir ins Gesicht gelogen, als wäre es nichts.', mood: 'sad' },
@@ -158,31 +219,28 @@ export const ELNON_END: readonly Line[] = [
   { who: 'lia', text: 'Und Foltan? Azar, Alastir? Die warten vielleicht noch auf ihn und wissen von nichts.', mood: 'sad' },
   { who: 'kyra', text: 'Dann sollen sie es von mir hören, nicht als Gerücht aus irgendeiner Schenke.', mood: 'determined' },
   { who: 'kyra', text: 'Baris hat in der Halle geflucht, die meisten seien nach Süden entwischt. Azar bestimmt. Der quatscht sich an jeder Wache vorbei.', mood: 'neutral' },
-  { who: 'lia', text: 'Dann gehen wir nach Süden.', mood: 'determined' },
+  { who: 'lia', text: 'Dann gehen wir nach Süden. Morgen früh.', mood: 'determined' },
+  { who: 'flick', text: 'Und bis dahin? Holz, Feuer, Äpfel. Die Schutztruppe hat Hunger.', mood: 'smirk' },
 ];
 
-/** Flick on her new job. */
-export const SCHUTZ: readonly Line[] = [
-  { who: 'flick', text: 'Übrigens: Der Großmeister hat mich zu eurem Schutz abgestellt. Mit Fibel und allem.', mood: 'smirk' },
-  { who: 'flick', text: 'Wenn euch was passiert, lässt er mir das Fell gerben. Gesagt hat er das nicht. Aber geguckt.', mood: 'smirk' },
-  { who: 'lia', text: 'Du passt also auf uns auf? Du?', mood: 'surprised' },
-  { who: 'flick', text: 'Schutztruppe des Lichterordens, eine Frau stark. Bezahlt in Äpfeln. Irgendwer muss es ja machen.', mood: 'happy' },
-  { who: 'kyra', text: 'Und wer passt auf dich auf?', mood: 'neutral' },
-  { who: 'flick', text: 'Ihr. Aber sagt es keinem.', mood: 'smirk' },
+/** Free time on the meadow: small mirrors of the summer. */
+export const BOOK_PICKUP = 'Mein Buch. Diesmal hätte ich es fast wieder liegen lassen. Manche Dinge ändern sich wirklich nie.';
+export const NEST_LINES: readonly Line[] = [
+  { who: 'lia-think', text: 'Das Nest in der Birke. Im Sommer hab ich ein Küken zurückgesetzt, das herausgefallen war.' },
+  { who: 'lia-think', text: 'Jetzt ist es leer. Ausgeflogen, alle drei. Irgendwohin, wo es warm ist.' },
 ];
-
-/** Optional, under the lone tree: the parents' graves as a promise (no visit). */
-export const TREE: readonly Line[] = [
-  { who: 'lia', text: 'Wenn das alles vorbei ist, gehen wir heim. Zu den zwei Steinhügeln vor dem Haus. Ich hab es ihnen versprochen.', mood: 'sad' },
-  { who: 'kyra', text: 'Wir beide. Und wir erzählen ihnen alles. Auch das mit dem Orden?', mood: 'sad' },
-  { who: 'lia', text: 'Vor allem das mit dem Orden. Vater hätte sich nicht mehr eingekriegt.', mood: 'happy' },
+export const FLOWER_LINE = 'Die letzten Kornblumen des Jahres. Für Mutters Stein, bevor wir gehen.';
+export const APPLE_LINES: readonly Line[] = [
+  { who: 'lia-think', text: 'Fallobst, schon ein bisschen runzlig. Die Schutztruppe wird nicht meckern.' },
+  { who: 'flick', text: 'Sold! Endlich. Ich hab schon gedacht, ihr lasst mich verhungern.', mood: 'happy' },
 ];
+export const LEAVE_EARLY = 'Mein Buch liegt noch unter der Eiche. Das lasse ich nicht im Gras.';
 
-/** The end of the walk (narrator over the plate e3-epilog). */
+/** The end (narrator over the plate e3-epilog-geister). */
 export const ENDING: readonly Line[] = [
-  { who: 'narrator', text: 'So gingen sie weiter, zu dritt, in einen Herbst hinein, der noch lange dauern sollte.' },
+  { who: 'narrator', text: 'Am nächsten Morgen gingen sie nach Süden, zu dritt, in einen Herbst hinein, der noch lange dauern sollte.' },
   { who: 'narrator', text: 'Vamir war fort. Wohin die zehn Dinge vom Hügel gekommen waren und wo der Doktor steckte, wusste niemand.' },
-  { who: 'narrator', text: 'Am Wegrand hinter ihnen schimmerte für einen Atemzug etwas Türkises, ein alter Mann mit grauem Bart, der ihnen nachsah.' },
+  { who: 'narrator', text: 'Unter der alten Eiche standen für einen Atemzug zwei, die keiner sah: ein alter Mann in Türkis und einer in warmem Bernstein.' },
   { who: 'narrator', text: 'Die ~Urmacht~ ruhte in ihrer Trägerin. Und zum ersten Mal seit dem Sommer fühlte sich das nicht wie eine Last an.' },
 ];
 
