@@ -65,7 +65,7 @@ function paintedRelic(scene: WorldSceneLike, i: number, x: number, top: number, 
   const id = relicProp(i);
   if (!G.art.hasAsset('prop', id)) return null;
   const info = G.art.prop(scene, id);
-  const img = scene.add.image(x, top + 1, info.key).setOrigin(info.originX / info.width, info.originY / info.height).setDepth(depth);
+  const img = scene.add.image(x, top + 4, info.key).setOrigin(info.originX / info.width, info.originY / info.height).setDepth(depth);
   scene.addWorld?.(img);
   return img;
 }
