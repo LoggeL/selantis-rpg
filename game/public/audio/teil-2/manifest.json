@@ -435,6 +435,81 @@
       ]
     },
     {
+      "id": "part2-0137660dd0d9b7f4380fb27e",
+      "kind": "say",
+      "speaker": "azar",
+      "text": "Heute Abend koch ich. Elnon weiß es noch nicht. Er wird es schmecken.",
+      "display_text": "Heute Abend koch ich. Elnon weiß es noch nicht. Er wird es schmecken.",
+      "voice": "Zubenelgenubi",
+      "audio": "audio/teil-2/part2-0137660dd0d9b7f4380fb27e.mp3",
+      "sha256": "abedc626529f50c7ab0ab63860e513abe4f65e2d0e7ff373adc434faf7734880",
+      "seconds": 4.72,
+      "word_cues": [
+        {
+          "start": 0.22,
+          "end": 0.48
+        },
+        {
+          "start": 0.48,
+          "end": 0.84
+        },
+        {
+          "start": 0.84,
+          "end": 1.12
+        },
+        {
+          "start": 1.12,
+          "end": 1.52
+        },
+        {
+          "start": 1.78,
+          "end": 2.14
+        },
+        {
+          "start": 2.14,
+          "end": 2.42
+        },
+        {
+          "start": 2.42,
+          "end": 2.58
+        },
+        {
+          "start": 2.58,
+          "end": 2.74
+        },
+        {
+          "start": 2.74,
+          "end": 3.08
+        },
+        {
+          "start": 3.16,
+          "end": 3.34
+        },
+        {
+          "start": 3.34,
+          "end": 3.62
+        },
+        {
+          "start": 3.62,
+          "end": 3.76
+        },
+        {
+          "start": 3.76,
+          "end": 4.3
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "azar",
+          "text": "Heute Abend koch ich. Elnon weiß es noch nicht. Er wird es schmecken.",
+          "scene": "e2-bruderschaft",
+          "mood": "happy",
+          "performance_variant": "happy | Das Abendkochen mit heiterer Selbstsicherheit ankündigen; schmecken kleine Küchenpointe."
+        }
+      ]
+    },
+    {
       "id": "part2-0190caf84eb0d6eaf4cbbda7",
       "kind": "say",
       "speaker": "lia",
@@ -5546,6 +5621,45 @@
       ]
     },
     {
+      "id": "part2-107872d8560cc981de679d60",
+      "kind": "say",
+      "speaker": "elnon",
+      "text": "Packt sie! Nicht loslassen!",
+      "display_text": "Packt sie! Nicht loslassen!",
+      "voice": "Alnilam",
+      "audio": "audio/teil-2/part2-107872d8560cc981de679d60.mp3",
+      "sha256": "4af510dc51a9eef8cad6ce61ead91d65a66db6bee86ac86b809deb6d2586450b",
+      "seconds": 2.56,
+      "word_cues": [
+        {
+          "start": 0.22,
+          "end": 0.7
+        },
+        {
+          "start": 0.7,
+          "end": 1.1
+        },
+        {
+          "start": 1.1,
+          "end": 1.54
+        },
+        {
+          "start": 1.54,
+          "end": 2.32
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "elnon",
+          "text": "Packt sie! Nicht loslassen!",
+          "scene": "e2-pruefung",
+          "mood": "surprised",
+          "performance_variant": "surprised | Auf den Ausbruch erschrocken sofort reagieren; zwei kurze echte Befehle, kein Zusatzschrei."
+        }
+      ]
+    },
+    {
       "id": "part2-10e69150d0bd35de6b96c7be",
       "kind": "say",
       "speaker": "ignatius",
@@ -7922,6 +8036,109 @@
           "scene": "e2-urmacht",
           "mood": "neutral",
           "performance_variant": "neutral | Das vertraute Fest lebhaft nennen; Trapas klar, die eigene bisherige Nichtteilnahme noch nicht vorwegnehmen."
+        }
+      ]
+    },
+    {
+      "id": "part2-1a70d4b1bd2a80955441ccd0",
+      "kind": "say",
+      "speaker": "ignatius",
+      "text": "Dann ist die, die weggelaufen ist, jetzt sehr müde. Stütz dich auf. Ich bin alt, aber ich falle nicht um.",
+      "display_text": "Dann ist die, die weggelaufen ist, jetzt sehr müde. Stütz dich auf. Ich bin alt, aber ich falle nicht um.",
+      "voice": "Algenib",
+      "audio": "audio/teil-2/part2-1a70d4b1bd2a80955441ccd0.mp3",
+      "sha256": "66350fca4b844a14e981c20cca2aaeeac6b457646bf7c5d964a6c88796364159",
+      "seconds": 8.24,
+      "word_cues": [
+        {
+          "start": 0.06,
+          "end": 0.56
+        },
+        {
+          "start": 0.56,
+          "end": 0.82
+        },
+        {
+          "start": 0.86,
+          "end": 1.16
+        },
+        {
+          "start": 1.16,
+          "end": 1.26
+        },
+        {
+          "start": 1.26,
+          "end": 1.94
+        },
+        {
+          "start": 1.94,
+          "end": 2.34
+        },
+        {
+          "start": 2.34,
+          "end": 2.42
+        },
+        {
+          "start": 2.42,
+          "end": 2.72
+        },
+        {
+          "start": 2.72,
+          "end": 3.22
+        },
+        {
+          "start": 4.01,
+          "end": 4.4
+        },
+        {
+          "start": 4.4,
+          "end": 4.48
+        },
+        {
+          "start": 4.48,
+          "end": 5.18
+        },
+        {
+          "start": 5.18,
+          "end": 5.7
+        },
+        {
+          "start": 5.7,
+          "end": 5.92
+        },
+        {
+          "start": 6.05,
+          "end": 6.58
+        },
+        {
+          "start": 6.7,
+          "end": 6.92
+        },
+        {
+          "start": 6.92,
+          "end": 7.1
+        },
+        {
+          "start": 7.1,
+          "end": 7.44
+        },
+        {
+          "start": 7.44,
+          "end": 7.58
+        },
+        {
+          "start": 7.58,
+          "end": 7.93
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "ignatius",
+          "text": "Dann ist die, die weggelaufen ist, jetzt sehr müde. Stütz dich auf. Ich bin alt, aber ich falle nicht um.",
+          "scene": "e2-der-fremde",
+          "mood": "neutral",
+          "performance_variant": "neutral | Ihre Selbstbezeichnung annehmen und auf Müdigkeit zurückführen; Stütz dich auf als konkrete Hilfe."
         }
       ]
     },
@@ -18056,6 +18273,85 @@
           "scene": "e2-lagerangriff",
           "mood": "neutral",
           "performance_variant": "neutral | Den Zusammenbruch sensorisch nah erzählen; die warme Hand vor dem Schwarz weich, ohne Retterwissen."
+        }
+      ]
+    },
+    {
+      "id": "part2-40ae960540f72f9254353014",
+      "kind": "say",
+      "speaker": "druide",
+      "text": "Lass mich bis morgen nachdenken. Ein alter Kopf braucht eine Nacht. Ein voller zwei.",
+      "display_text": "Lass mich bis morgen nachdenken. Ein alter Kopf braucht eine Nacht. Ein voller zwei.",
+      "voice": "Iapetus",
+      "audio": "audio/teil-2/part2-40ae960540f72f9254353014.mp3",
+      "sha256": "e1211bfed9d36e4057128c6d332f183fdd00e54f1798c2e9fa931a0758d46943",
+      "seconds": 8.44,
+      "word_cues": [
+        {
+          "start": 0.06,
+          "end": 0.5
+        },
+        {
+          "start": 0.5,
+          "end": 0.76
+        },
+        {
+          "start": 0.76,
+          "end": 1.32
+        },
+        {
+          "start": 1.32,
+          "end": 1.72
+        },
+        {
+          "start": 1.72,
+          "end": 2.76
+        },
+        {
+          "start": 2.93,
+          "end": 4.12
+        },
+        {
+          "start": 4.12,
+          "end": 4.42
+        },
+        {
+          "start": 4.42,
+          "end": 4.84
+        },
+        {
+          "start": 4.84,
+          "end": 5.4
+        },
+        {
+          "start": 5.4,
+          "end": 5.68
+        },
+        {
+          "start": 5.68,
+          "end": 6.42
+        },
+        {
+          "start": 6.86,
+          "end": 7.04
+        },
+        {
+          "start": 7.04,
+          "end": 7.42
+        },
+        {
+          "start": 7.42,
+          "end": 8.18
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "say",
+          "speaker": "druide",
+          "text": "Lass mich bis morgen nachdenken. Ein alter Kopf braucht eine Nacht. Ein voller zwei.",
+          "scene": "e2-pruefung",
+          "mood": "neutral",
+          "performance_variant": "neutral | Die Nacht zum Nachdenken erbitten; beim vollen Kopf nur ein kleiner alter trockener Humor."
         }
       ]
     },
@@ -29902,6 +30198,93 @@
           "scene": "e2-kyras-widerstand",
           "mood": "neutral",
           "performance_variant": "neutral | Die Stricke innerlich abtasten; Ferkelbild bitter bäuerlich, Schlachttag nicht sensationslustig."
+        }
+      ]
+    },
+    {
+      "id": "part2-6d53b986f8b57a2f0ff5824f",
+      "kind": "think",
+      "speaker": "lia",
+      "text": "Er sieht aus, als hätte er seit Wochen nicht geschlafen. Gut so. … Nein. Nicht gut.",
+      "display_text": "Er sieht aus, als hätte er seit Wochen nicht geschlafen. Gut so. … Nein. Nicht gut.",
+      "voice": "Zephyr",
+      "audio": "audio/teil-2/part2-6d53b986f8b57a2f0ff5824f.mp3",
+      "sha256": "a233ab8028f78139a63713d5621ad070e239ffc030d03c0ffb19bccd9bb270e2",
+      "seconds": 6.96,
+      "word_cues": [
+        {
+          "start": 0.26,
+          "end": 0.42
+        },
+        {
+          "start": 0.42,
+          "end": 0.64
+        },
+        {
+          "start": 0.64,
+          "end": 1.06
+        },
+        {
+          "start": 1.06,
+          "end": 1.2
+        },
+        {
+          "start": 1.42,
+          "end": 1.68
+        },
+        {
+          "start": 1.68,
+          "end": 1.82
+        },
+        {
+          "start": 1.82,
+          "end": 2.0
+        },
+        {
+          "start": 2.0,
+          "end": 2.3
+        },
+        {
+          "start": 2.3,
+          "end": 2.48
+        },
+        {
+          "start": 2.48,
+          "end": 3.4
+        },
+        {
+          "start": 3.63,
+          "end": 3.96
+        },
+        {
+          "start": 3.96,
+          "end": 4.58
+        },
+        {
+          "start": 4.58,
+          "end": 4.58
+        },
+        {
+          "start": 4.7,
+          "end": 5.98
+        },
+        {
+          "start": 6.05,
+          "end": 6.32
+        },
+        {
+          "start": 6.32,
+          "end": 6.72
+        }
+      ],
+      "runtime_keys": [
+        {
+          "kind": "think",
+          "speaker": "lia",
+          "text": "Er sieht aus, als hätte er seit Wochen nicht geschlafen. Gut so. … Nein. Nicht gut.",
+          "scene": "e2-bruderschaft",
+          "mood": "neutral",
+          "performance_variant": "neutral | Sein müdes Gesicht erst bitter billigen und dann im Kopf zurückrudern; Nein hörbar selbstkorrigierend."
         }
       ]
     },
@@ -73814,10 +74197,10 @@
     }
   ],
   "coverage": {
-    "version": "part2-individual-actual-body31-publication-v1",
+    "version": "part2-individual-actual-body25-publication-v1",
     "status": "partial",
     "expected_sources": 1401,
-    "published_sources": 1102,
+    "published_sources": 1107,
     "missing_sources": [
       {
         "id": "part2-0071630628f74fbbbe2bbf50",
@@ -73827,15 +74210,6 @@
         "reasons": [
           "asr_lexical_mismatch_requires_review",
           "Explicit current private qualification required"
-        ]
-      },
-      {
-        "id": "part2-0137660dd0d9b7f4380fb27e",
-        "scene": "e2-bruderschaft",
-        "kind": "say",
-        "speaker": "azar",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review"
         ]
       },
       {
@@ -74055,16 +74429,6 @@
         ]
       },
       {
-        "id": "part2-107872d8560cc981de679d60",
-        "scene": "e2-pruefung",
-        "kind": "say",
-        "speaker": "elnon",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review",
-          "Explicit current private qualification required"
-        ]
-      },
-      {
         "id": "part2-109fe9cc5d7427e04db290e4",
         "scene": "e2-aufbruch",
         "kind": "say",
@@ -74221,15 +74585,6 @@
         "speaker": "flick",
         "reasons": [
           "Explicit current private qualification required"
-        ]
-      },
-      {
-        "id": "part2-1a70d4b1bd2a80955441ccd0",
-        "scene": "e2-der-fremde",
-        "kind": "say",
-        "speaker": "ignatius",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review"
         ]
       },
       {
@@ -74659,16 +75014,6 @@
         ]
       },
       {
-        "id": "part2-40ae960540f72f9254353014",
-        "scene": "e2-pruefung",
-        "kind": "say",
-        "speaker": "druide",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review",
-          "Explicit current private qualification required"
-        ]
-      },
-      {
         "id": "part2-4154913f2d0540404b1a3baf",
         "scene": "e2-flick-entkommt",
         "kind": "say",
@@ -75082,16 +75427,6 @@
         "kind": "say",
         "speaker": "ignatius",
         "reasons": [
-          "Explicit current private qualification required"
-        ]
-      },
-      {
-        "id": "part2-6d53b986f8b57a2f0ff5824f",
-        "scene": "e2-bruderschaft",
-        "kind": "think",
-        "speaker": "lia",
-        "reasons": [
-          "asr_lexical_mismatch_requires_review",
           "Explicit current private qualification required"
         ]
       },
@@ -76674,6 +77009,17 @@
     "source32_reuse_approved": false,
     "all_original_word_signal_timing_failures_retained": true,
     "body31_selection_sha256": "2abdb55b6cf1208b86ab540fd3775544d77559049e39435830fe21122faff2c5",
-    "body31_baseline_manifest_sha256": "e7dc6fda1cb03959401cea86f9121d7b7fe8cd9893afaf0d36f91d808b51636d"
+    "body31_baseline_manifest_sha256": "e7dc6fda1cb03959401cea86f9121d7b7fe8cd9893afaf0d36f91d808b51636d",
+    "body25_complete_baseline_sources": 1102,
+    "body25_added_sources": 5,
+    "body25_replaced_sources": 0,
+    "body25_selected_sources": 5,
+    "body25_held_sources": 20,
+    "body25_strict_clear_unapproved_sources": 0,
+    "body25_actual_whole_completed_sources": 25,
+    "logge_reuse_approved": false,
+    "shared_take_reuse_approved": false,
+    "body25_selection_sha256": "6b2bdd582ffdb5674391fb5882128b6b6f25b982092f0106164e6f09efc3ccc5",
+    "body25_baseline_manifest_sha256": "171c042031b31c67284425aeee7b11a44f2ead526636b77b8667618ff5140d7c"
   }
 }
