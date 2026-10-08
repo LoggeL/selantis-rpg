@@ -56,6 +56,8 @@ export interface MemoryDef {
   /** A pale remembered figure (character preset, pose, feet position, facing) and props beside it. */
   figure?: { preset: string; pose: string; at: Spot; facing: 'left' | 'right' | 'up' | 'down' };
   props: { prop: string; at: Spot }[];
+  /** The painted memory (Lia's white spirit watches from the edge of the scene) and its caption. */
+  plate: { id: string; caption: string };
   lines: MemoryLine[];
 }
 
@@ -64,6 +66,7 @@ export const MEMORIES: Record<MemoryId, MemoryDef> = {
     id: 'buch', at: [334, 140], stand: [322, 160], verb: 'Sich erinnern',
     fog: { at: [360, 120], w: 300, h: 130 },
     props: [{ prop: 'alana-book', at: [348, 152] }],
+    plate: { id: 'e3-erinnerung-buch', caption: 'Der letzte Sommer' },
     lines: [
       { who: 'think', text: 'Die Eiche hinter dem Hof. Und darunter, aufgeschlagen, *Die Geschichten der Magierin Alana*.' },
       { who: 'think', text: 'Das dritte Mal gelesen, diesen Sommer. Die Ecken weich vom Umblättern, auf Seite vierzig ein Fleck vom Honigkuchen.' },
@@ -76,6 +79,7 @@ export const MEMORIES: Record<MemoryId, MemoryDef> = {
     fog: { at: [130, 200], w: 210, h: 170 },
     figure: { preset: 'kyra', pose: 'idle', at: [130, 204], facing: 'right' },
     props: [{ prop: 'twigs', at: [116, 214] }],
+    plate: { id: 'e3-erinnerung-holz', caption: 'Feuerholz' },
     lines: [
       { who: 'e3-kyra', text: 'Lia! Wenn du schon liest, dann wenigstens im Gehen. Und mit Holz unterm Arm.', mood: 'happy' },
       { who: 'lia', text: 'Sie hat immer das Doppelte getragen. Und so getan, als wär es nichts.' },
@@ -88,6 +92,7 @@ export const MEMORIES: Record<MemoryId, MemoryDef> = {
     fog: { at: [452, 230], w: 230, h: 150 },
     figure: { preset: 'mother', pose: 'kneel', at: [452, 238], facing: 'left' },
     props: [{ prop: 'alana-book', at: [438, 246] }],
+    plate: { id: 'e3-erinnerung-mutter', caption: 'A wie Apfel' },
     lines: [
       { who: 'mutter', text: 'Fahr mit dem Finger mit, Lia. Das hier ist ein A. Wie in Apfel. Und wie in Alana.' },
       { who: 'lia', text: 'Ein Apfel für jede Seite, die ich allein geschafft hab. Im ersten Winter hatten wir keine Äpfel mehr.' },

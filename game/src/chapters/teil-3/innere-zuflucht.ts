@@ -4,8 +4,9 @@
 //     island in fog (look e3-lia-innen, barefoot in white). Framed as consciousness, not as a place: breathing fog at
 //     the screen edges, dense fog over most of the meadow, no music but a slow muffled heartbeat, no place-name toast,
 //     no objective marker (text only). Heart: three bright places in the fog are memories from book one (the Alana
-//     book under the oak, Kyra with firewood, mother teaching her to read). Each one shows a pale remembered figure and
-//     a few lines, then its fog lifts and the meadow grows. After the first and the second memory, muffled voices of
+//     book under the oak, Kyra with firewood, mother teaching her to read). Each one shows a pale remembered figure, then
+//     the painted memory (plate e3-erinnerung-*, Lia's spirit watching at its edge) under a few lines; its fog lifts and
+//     the meadow grows. After the first and the second memory, muffled voices of
 //     Vamir's men at the cage drift in (outsideVoices, no picture). When the meadow is whole she sits under the oak.
 //  2. 'lager' (only with e3-zf-erinnert): framed „Unterdessen …“ cut in the false camp at dusk, player knowledge only.
 //     Vamir before his men (a great victory, praise for Kyra, who answers devoted). Flick, who tracked them, breaks out
@@ -126,7 +127,11 @@ async function remember(w: WorldCtx, id: MemoryId): Promise<void> {
       figure = rememberedFigure(w, a);
     }
     await w.wait(800);
+    // The memory itself, painted: Lia's white spirit stands at its edge and watches.
+    const plate = G.art.hasAsset('plate', m.plate.id);
+    if (plate) await G.ui.plate(m.plate.id, { caption: m.plate.caption, pan: 'in', durationMs: 24000 });
     for (const l of m.lines) await sayLine(w, l);
+    if (plate) await G.ui.closePlate();
     if (figure) await figure.fadeOut(1400);
   });
   G.state.set(F.mem(id));
@@ -234,11 +239,12 @@ async function lagerScript(w: WorldCtx): Promise<void> {
     await sayCamp(w, CAMP_CUT.rescue[2]);
     await w.player.play('cast' as never, { ms: 600 });
     await petrify(w, w.player, flick);
-    if (G.art.hasAsset('plate', 'e3-flick-versteinert')) await G.ui.plate('e3-flick-versteinert', { caption: 'Stein', pan: 'in', durationMs: 9000 });
-    await w.wait(500);
+    const plate = G.art.hasAsset('plate', 'e3-flick-versteinert');
+    if (plate) await G.ui.plate('e3-flick-versteinert', { caption: 'Stein', pan: 'in', durationMs: 16000 });
+    for (const l of CAMP_CUT.stone.slice(0, 2)) await sayCamp(w, l);
+    if (plate) await G.ui.closePlate();
     // Baris in front of the statue.
     await baris.walkTo(CAMP_SPOT.barisAtStone[0], CAMP_SPOT.barisAtStone[1], { face: 'right' });
-    for (const l of CAMP_CUT.stone.slice(0, 2)) await sayCamp(w, l);
     for (const l of CAMP_CUT.stone.slice(2)) await sayCamp(w, l);
     for (const l of CAMP_CUT.parting.slice(0, 2)) await sayCamp(w, l);
     await w.think('Flick kann nicht antworten. Aber hinter dem Stein, irgendwo, hört sie jedes Wort.');

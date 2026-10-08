@@ -280,13 +280,16 @@ async function script(w: WorldCtx): Promise<void> {
   const release = pinPlayer(w, 'hang', 'left');
   await w.camera.zoom(1.25, 0);
   await w.camera.pan([FIRE[0] + 20, FIRE[1] + 30], 0);
-  await ui().fade('in', 1000);
+  const plate = G.art.hasAsset('plate', 'e3-flick-kopfueber');
+  if (plate) await G.ui.plate('e3-flick-kopfueber', { caption: 'Kopfüber', pan: 'in', durationMs: 22000 });
+  await ui().fade('in', plate ? 0 : 1000);
   await w.cutscene(async () => {
     await gob(w, 'hotze', 'Ragout. Mit Pilzen. Elfenragout mit Pilzen.', 'happy');
     await gob(w, 'ratz', 'Am Spieß! Der Häuptling will sie am Spieß!', 'angry');
     await gob(w, 'fips', 'Ich hab sie gefangen. Ganz allein. Mit dem Netz. Da darf ich doch wohl sagen: Suppe.', 'determined');
     await gob(w, 'ratz', 'Du darfst gar nix sagen, Fips. Und sie hängt bis morgen. Wild muss abhängen.', 'smirk');
     await gob(w, 'hotze', 'Abgehangen ist zarter. Stimmt schon …', 'thinking');
+    if (plate) await G.ui.closePlate();
     await w.camera.pan([GHUL_SPOT.stake[0] - 30, GHUL_SPOT.stake[1]], 900);
     await flick(w, 'Zwei Tage frei. Zwei. Dann ein Netz zwischen zwei Buchen, und jetzt hänge ich an einem Fuß und höre zu, wie drei Goblins mich würzen.', 'angry');
     await flick(w, 'Die rechte Hand taugt noch immer nichts, und das Messer liegt bei ihrem Kram. Bleibt das Mundwerk. Das hat noch nie versagt.', 'determined');
@@ -309,6 +312,5 @@ async function script(w: WorldCtx): Promise<void> {
 
 export const scene = e3Scene('e3-waldgegner', 'Kopfüber', async () => {
   await interlude('Unterdessen, ein paar Täler weiter …');
-  if (G.art.hasAsset('plate', 'e3-flick-kopfueber')) await G.ui.plate('e3-flick-kopfueber', { caption: 'Kopfüber', pan: 'in', durationMs: 14000 });
   await startWorld({ map: ghulwald, spawn: 'pflock', player: 'e2-flick-gefangen', companions: [], fadeIn: false, script });
 });
