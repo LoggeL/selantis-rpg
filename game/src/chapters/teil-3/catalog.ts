@@ -19,8 +19,10 @@ registerSpeakers([
   { id: 'e3-heilerin', name: 'Heilerin des Ordens', portrait: 'villager-f', voice: { pitch: 260, wave: 'sine' }, color: '#b8c8a0' },
   { id: 'e3-gestalt', name: 'Die Gestalt', portrait: 'e3-gestalt', voice: { pitch: 300, wave: 'sine' }, color: '#e6eef5' },
   { id: 'e3-kyra', name: 'Kyra', portrait: 'kyra', voice: { pitch: 300, wave: 'triangle' }, color: '#b07a4f' },
-  { id: 'e3-ghul', name: 'Leichenfresser', portrait: 'ghoul', voice: { pitch: 85, wave: 'sawtooth' }, color: '#6d8a4a' },
-  { id: 'e3-ratze', name: 'Ratze', portrait: 'ghoul', voice: { pitch: 120, wave: 'sawtooth' }, color: '#6d8a4a' },
+  // The three goblins who caught Flick (comic relief, e3-waldgegner).
+  { id: 'e3-ratz', name: 'Ratz', portrait: 'goblin-ratz', voice: { pitch: 150, wave: 'sawtooth' }, color: '#8a9a4a' },
+  { id: 'e3-hotze', name: 'Hotze', portrait: 'goblin-hotze', voice: { pitch: 95, wave: 'sawtooth' }, color: '#9a8a4a' },
+  { id: 'e3-fips', name: 'Fips', portrait: 'goblin-fips', voice: { pitch: 230, wave: 'square' }, color: '#6d9a6a' },
 ]);
 
 registerItems([
