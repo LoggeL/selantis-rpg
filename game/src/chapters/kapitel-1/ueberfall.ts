@@ -1,6 +1,6 @@
 // Scene `ueberfall` (DESIGN.md §7.4, Kapitel I/3): the Dunkelschatten are already at the farm when Lia arrives.
 // She hides in the embankment, sneaks along it past the lookout, watches the interrogation (canon beats, violence
-// shown from the hiding place: both parents are stabbed, blood on the yard), must find cover twice (no game over), the riders pass right by her
+// shown from the hiding place: both parents are stabbed, blood on the yard), nearly gives herself away twice (staged), the riders pass right by her
 // hiding place, and Harro stays behind to bury the dead – Lia has to slip away from him through the old field gate.
 import type { CharAnim } from '../../art/api';
 import { G } from '../../core/G';
@@ -109,14 +109,21 @@ export async function ueberfallScript(w: WorldCtx): Promise<void> {
   w.setObjective('k1-naeher', 'Schleich dich in der Böschung näher an den Hof heran.', 'versteck');
 }
 
-/** Find a bush while the guard looks away, then stay still. A noise retries only that search. */
-async function hideFromGuard(w: WorldCtx, onSnap: (n: number) => void): Promise<number> {
-  return G.ui.stealthGame('cover', 'In der Böschung verstecken', {
-    onNoise: snaps => {
-      w.camera.shake(140, 0.003);
-      onSnap(snaps);
-    },
-  });
+/**
+ * Lia almost gives herself away: she wants to run to Kyra, a twig snaps under her knee and she freezes in the
+ * embankment. Staged, not played – the interrogation stays in view. Returns the number of snaps (always 1).
+ */
+async function hideFromGuard(w: WorldCtx, thought: string, onSnap: (n: number) => void): Promise<number> {
+  void w.player.play('crouch' as CharAnim, { ms: 500 });
+  await w.wait(250);
+  sfx('branch-snap', { volume: 0.6 });
+  w.camera.shake(140, 0.003);
+  onSnap(1);
+  sfx('heartbeat', { volume: 0.7 });
+  await w.wait(450);
+  sfx('heartbeat', { volume: 0.6, pitch: 1.1 });
+  await w.think(thought);
+  return 1;
 }
 
 async function confrontation(w: WorldCtx): Promise<void> {
@@ -167,7 +174,7 @@ async function confrontation(w: WorldCtx): Promise<void> {
 
     // Find cover (1)
     await w.think('Ich muss zu ihr! Ich muss –');
-    const s1 = await hideFromGuard(w, n => {
+    const s1 = await hideFromGuard(w, 'Nicht atmen. Ich bin ein Stein in der Böschung. Steine atmen nicht.', n => {
       kapuze.face('player');
       void kapuze.emote('?', 900);
       if (n === 1) w.bark('kapuze', 'Was war das?', 1600);
@@ -244,10 +251,10 @@ async function confrontation(w: WorldCtx): Promise<void> {
 
     // Find cover (2): a Dunkelschatten comes closer when a twig snaps.
     await w.think('Ich halte das nicht aus. Ich renne einfach hin, ich –');
-    const s2 = await hideFromGuard(w, n => {
+    const s2 = await hideFromGuard(w, 'Ein Busch. Ich bin ein Busch. Büsche zittern nicht. Hör auf zu zittern, Lia.', () => {
       kahle.face('player');
-      void kahle.emote(n > 1 ? '!' : '?', 900);
-      w.bark('kahle', n > 1 ? 'Da ist doch was!' : 'Hm?', 1500);
+      void kahle.emote('!', 900);
+      w.bark('kahle', 'Da ist doch was!', 1500);
     });
     if (s2) {
       await kahle.walkTo(560, 280);

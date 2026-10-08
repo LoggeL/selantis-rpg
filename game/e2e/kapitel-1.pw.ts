@@ -201,7 +201,7 @@ test('ueberfall: Harro uses the farm checkpoint after the prologue', async ({ pa
   expect(errors).toEqual([]);
 });
 
-test('ueberfall: sneak along the embankment, find cover, slip past Harro', async ({ page }) => {
+test('ueberfall: sneak along the embankment, freeze twice, slip past Harro', async ({ page }) => {
   test.setTimeout(420000);
   const errors = watchErrors(page);
   await warp(page, 'ueberfall');
@@ -212,7 +212,7 @@ test('ueberfall: sneak along the embankment, find cover, slip past Harro', async
   for (const p of [[240, 525], [350, 465], [430, 375]] as [number, number][]) await walkTo(page, p[0], p[1]);
   await clickMap(page, 505, 290);
   await page.keyboard.up('Control');
-  // The confrontation: two cover challenges, duck under the riders, Harro stays behind.
+  // The confrontation: two staged near-misses, duck under the riders, Harro stays behind.
   await playUntil(page, async () => (await mapId(page)) === 'k1-hof-harro' && (await objective(page)).includes('Feldgatter'), 300000);
   expect(await flag(page, 'k1-buch-verloren')).toBe(true);
   // Slip from bush to bush down to the old field gate while Harro is busy in the yard.
