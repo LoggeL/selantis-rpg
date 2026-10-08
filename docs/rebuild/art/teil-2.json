@@ -1559,6 +1559,30 @@
       "attempts": 1,
       "time": "2026-10-07T14:46:11"
     },
+    "output/imagegen/raw/art/cut/e2-fremder-geweckt.png": {
+      "kind": "plate",
+      "id": "e2-fremder-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: FIRST-PERSON point of view of a young woman who is just waking up and opening her eyes: the camera looks UP from below, from where she lies. The girl herself is NOT visible (no body, no hands of the viewer). The edges and corners of the image are soft, BLURRED and darkened like a vignette seen through half-open sleepy eyes, only the centre is sharp. The face of the person bending over her is in the upper right-centre of the image (about two thirds across and one third down), looking DOWN at the viewer. Scene: dusk at a hermit's forest clearing; she lies on furs under a low lean-to roof of woven branches and leaves that frames the top of the image; through the gaps a violet-orange dusk sky and dark treetops. Ignatius (the attached sheet: an old hermit around 80, bald crown, long untidy white fringe, long untrimmed white beard, faded rust-orange robe, brown hooded wool cloak with the hood down) leans in from the right, kind and curious, a faint amused smile in his beard, holding a steaming wooden cup; warm orange firelight from below right on his face, a wisp of campfire smoke. Calm, safe, a little mysterious.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e2-ignatius.png"
+      ],
+      "ok": true,
+      "seconds": 80,
+      "attempts": 1,
+      "time": "2026-10-09T01:27:32"
+    },
+    "output/imagegen/raw/art/cut/e2-ignatius-geweckt.png": {
+      "kind": "plate",
+      "id": "e2-ignatius-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: FIRST-PERSON point of view of a young woman who is just waking up and opening her eyes: the camera looks UP from below, from where she lies. The girl herself is NOT visible (no body, no hands of the viewer). The edges and corners of the image are soft, BLURRED and darkened like a vignette seen through half-open sleepy eyes, only the centre is sharp. The face of the person bending over her is in the upper right-centre of the image (about two thirds across and one third down), looking DOWN at the viewer. Scene: night at a hermit's forest clearing; she lies on furs under a low lean-to roof of woven branches framing the top of the image, a few stars between the leaves. Ignatius (the attached sheet: an old hermit around 80, bald crown, long untidy white fringe, long untrimmed white beard, faded rust-orange robe, brown hooded wool cloak) kneels beside her and bends down, concerned and gentle, one hand raised calmingly; warm orange firelight on his face. At the blurred edges of the image the last thin wisps of a VIOLET nightmare haze are fading away into the warm night.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e2-ignatius.png"
+      ],
+      "ok": true,
+      "seconds": 43,
+      "attempts": 1,
+      "time": "2026-10-09T01:28:17"
+    },
     "output/imagegen/raw/art/cut/e2-kontrolle-rejected-1.png": {
       "kind": "plate",
       "id": "e2-kontrolle",

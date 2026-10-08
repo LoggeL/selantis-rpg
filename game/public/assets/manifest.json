@@ -5401,6 +5401,16 @@
    "w": 1280,
    "h": 720
   },
+  "e2-fremder-geweckt": {
+   "file": "assets/cut/e2-fremder-geweckt.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e2-ignatius-geweckt": {
+   "file": "assets/cut/e2-ignatius-geweckt.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "e2-kontrolle": {
    "file": "assets/cut/e2-kontrolle.jpg",
    "w": 1280,
@@ -5481,8 +5491,18 @@
    "w": 1280,
    "h": 720
   },
+  "e3-hoffnung-geweckt": {
+   "file": "assets/cut/e3-hoffnung-geweckt.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "e3-hueterin": {
    "file": "assets/cut/e3-hueterin.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-macht-geweckt": {
+   "file": "assets/cut/e3-macht-geweckt.jpg",
    "w": 1280,
    "h": 720
   },
@@ -5501,6 +5521,11 @@
    "w": 1280,
    "h": 720
   },
+  "e3-ritual-geweckt": {
+   "file": "assets/cut/e3-ritual-geweckt.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "e3-ritual": {
    "file": "assets/cut/e3-ritual.jpg",
    "w": 1280,
@@ -5513,6 +5538,11 @@
   },
   "e3-schutzreaktion": {
    "file": "assets/cut/e3-schutzreaktion.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-schwester-geweckt": {
+   "file": "assets/cut/e3-schwester-geweckt.jpg",
    "w": 1280,
    "h": 720
   },

@@ -1274,6 +1274,18 @@
       "attempts": 1,
       "time": "2026-10-08T02:29:19"
     },
+    "output/imagegen/raw/art/cut/e3-hoffnung-geweckt.png": {
+      "kind": "plate",
+      "id": "e3-hoffnung-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: FIRST-PERSON point of view of a young woman who is just waking up and opening her eyes: the camera looks UP from below, from where she lies. The girl herself is NOT visible (no body, no hands of the viewer). The edges and corners of the image are soft, BLURRED and darkened like a vignette seen through half-open sleepy eyes, only the centre is sharp. The face of the person bending over her is in the upper right-centre of the image (about two thirds across and one third down), looking DOWN at the viewer. Scene: she KNEELS chained on the stone floor of a dark vaulted hall with her head bowed, and now looks UP: a gothic stone vault with arches high above, two iron braziers with warm fire left and right far behind, cold shadows. Vamir (the attached sheet: tall gaunt figure in a long black hooded robe, the face COMPLETELY hidden in pitch-black shadow inside the deep hood, no face, no eyes) towers over her very close, bending slightly down toward the viewer, one pale bony hand stretched out with cold VIOLET light crackling at the fingertips (violet only, absolutely no turquoise), thin black smoke curling from his sleeves. At the blurred edges the last violet light of a vision is fading. Menacing but not gory.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/vamir.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T01:31:00"
+    },
     "output/imagegen/raw/art/cut/e3-hueterin.png": {
       "kind": "plate",
       "id": "e3-hueterin",
@@ -1287,6 +1299,18 @@
       "seconds": 145,
       "attempts": 1,
       "time": "2026-10-08T02:41:04"
+    },
+    "output/imagegen/raw/art/cut/e3-macht-geweckt.png": {
+      "kind": "plate",
+      "id": "e3-macht-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: FIRST-PERSON point of view of a young woman who is just waking up and opening her eyes: the camera looks UP from below, from where she lies. The girl herself is NOT visible (no body, no hands of the viewer). The edges and corners of the image are soft, BLURRED and darkened like a vignette seen through half-open sleepy eyes, only the centre is sharp. The face of the person bending over her is in the upper right-centre of the image (about two thirds across and one third down), looking DOWN at the viewer. Scene: a small attic guest room in a stone order house, morning: sloping dark roof beams and rafters overhead, whitewashed stone wall, a small leaded window throwing warm golden sunbeams with dust motes; the edge of a pillow and a rough wool blanket at the bottom corner. The doctor (the attached sheet: thin pale man around 30, black scholar's robe, close-fitting black linen coif tied under the chin with two white bands) bends low over her and peers at her through his round MAGNIFYING GLASS held close to his eye, so his eye looks comically huge behind the lens, eyebrows raised, a smug, fussy, interested look. Slightly comic.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-doktor.png"
+      ],
+      "ok": true,
+      "seconds": 60,
+      "attempts": 1,
+      "time": "2026-10-09T01:29:18"
     },
     "output/imagegen/raw/art/cut/e3-paladine.png": {
       "kind": "plate",
@@ -1327,6 +1351,18 @@
       "seconds": 60,
       "attempts": 1,
       "time": "2026-10-08T02:33:48"
+    },
+    "output/imagegen/raw/art/cut/e3-ritual-geweckt.png": {
+      "kind": "plate",
+      "id": "e3-ritual-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: FIRST-PERSON point of view of a young woman who is just waking up and opening her eyes: the camera looks UP from below, from where she lies. The girl herself is NOT visible (no body, no hands of the viewer). The edges and corners of the image are soft, BLURRED and darkened like a vignette seen through half-open sleepy eyes, only the centre is sharp. The face of the person bending over her is in the upper right-centre of the image (about two thirds across and one third down), looking DOWN at the viewer. Scene: dusk on a bare hilltop, she lies on her back on a flat ritual stone: above, a darkening sky from orange at the horizon to deep violet-blue with the first stars and heavy clouds; at the blurred edges the tops of slender wooden stands with small objects veiled under pale linen cloths, and the warm light of a torch. Baris (the attached sheet: a HUGE man in heavy black plate armour, buzz-cut black hair, bushy black beard, the RIGHT half of his face a red burn scar with a milky blind RIGHT eye) leans over her with a cruel, gloating grin, the head of his big battle axe resting on his shoulder. Threatening, no blood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: The burn scar AND the milky blind eye are on the SAME side of his face: his RIGHT side, which is on the LEFT side of the image when he faces the viewer. His other eye (image right) is a normal dark, glaring eye. He bends forward over the viewer, looming close.",
+      "refs": [
+        "docs/rebuild/art/refs/baris-scarred.png"
+      ],
+      "ok": true,
+      "seconds": 46,
+      "attempts": 1,
+      "time": "2026-10-09T01:32:58"
     },
     "output/imagegen/raw/art/cut/e3-ritual-rejected-1.png": {
       "kind": "plate",
@@ -1410,6 +1446,18 @@
       "seconds": 62,
       "attempts": 1,
       "time": "2026-10-08T02:25:52"
+    },
+    "output/imagegen/raw/art/cut/e3-schwester-geweckt.png": {
+      "kind": "plate",
+      "id": "e3-schwester-geweckt",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: FIRST-PERSON point of view of a young woman who is just waking up and opening her eyes: the camera looks UP from below, from where she lies. The girl herself is NOT visible (no body, no hands of the viewer). The edges and corners of the image are soft, BLURRED and darkened like a vignette seen through half-open sleepy eyes, only the centre is sharp. The face of the person bending over her is in the upper right-centre of the image (about two thirds across and one third down), looking DOWN at the viewer. Scene: a grey, cold dawn in a dense forest thicket; dark leaves and twisted branches frame the image, pale grey morning light, a thin wisp of smoke from cold ashes. Kyra (the attached sheet: 16-year-old girl, long nut-brown hair tied back roughly with a cord, loose strands, beige linen dress, small wooden bead necklace, a small cut above her LEFT eyebrow; NO sword, empty hands) bends over her and reaches down to shake her shoulder roughly; her face is hard, cold and impatient, lips pressed, and only on a second look her brown eyes show a faint, unnatural cold VIOLET glint. Uneasy mood.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e2-kyra-gebannt.png"
+      ],
+      "ok": true,
+      "seconds": 54,
+      "attempts": 1,
+      "time": "2026-10-09T01:30:13"
     },
     "output/imagegen/raw/art/cut/e3-stabrueckgabe-rejected-1.png": {
       "kind": "plate",
