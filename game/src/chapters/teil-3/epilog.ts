@@ -49,9 +49,13 @@ async function play(w: WorldCtx, lines: readonly Line[]): Promise<void> {
   for (const l of lines) {
     if (l.who === 'lia-think') await w.think(l.text);
     else if (l.who === 'lia') await lia(w, l.text, l.mood);
+    else if (l.who === 'flick') await w.say('e2-flick', l.text, { mood: l.mood, portrait: flickPortrait() });
     else await w.say(speakerOf[l.who], l.text, l.mood ? { mood: l.mood } : undefined);
   }
 }
+
+/** Flick's portrait in her new outfit (falls back to her usual one). */
+const flickPortrait = (): string => (G.art.hasAsset('portrait', 'flick-beschuetzerin') ? 'flick-beschuetzerin' : 'flick');
 
 /** The first scene's meadow in autumn: its ground and trees, but the epilogue's own things to do. */
 export const wieseEpilog: MapDef = defineMap({
