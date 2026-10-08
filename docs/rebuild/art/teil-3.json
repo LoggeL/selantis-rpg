@@ -1189,6 +1189,36 @@
       "attempts": 1,
       "time": "2026-10-08T02:21:58"
     },
+    "output/imagegen/raw/art/cut/e3-epilog-geister.png": {
+      "kind": "plate",
+      "id": "e3-epilog-geister",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: A wide autumn landscape at morning: a field path runs from the foreground into the distance between meadows and harvested stubble fields, a single tree, haystacks, far blue hills under a bright sky. On the path three young women walk AWAY from the viewer side by side, seen from BEHIND: in the middle Lia (first sheet: long strawberry-blonde curly hair tied back with a green ribbon, moss-green cloak, carrying her pale spiral staff), on the left Kyra (second sheet: long wavy nut-brown hair, beige dress), on the right Flick (third sheet: short messy almost-black hair with one pale streak, pointed ears, dark-green leather armour, white-and-blue cloak, bow and quiver). In the FOREGROUND at the end of the path stand two TRANSLUCENT apparitions side by side, large and close, watching the girls go with gentle smiles: on the left the old mage Valentus (fourth sheet: shoulder-length silver-grey hair, grey beard, long royal-blue robe with white panels, NO staff) glowing softly in pale TURQUOISE, and beside him the old hermit Ignatius (fifth sheet: bald crown, long white beard, faded rust-orange robe, brown cloak) glowing softly in warm AMBER-GOLD; both are see-through like ghosts. NO town, NO village, NO buildings. Hopeful, calm farewell. Anatomically correct hands. Full figures, nobody cut off at the head.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-lia-eigenstab.png",
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/flick-beschuetzerin.png",
+        "docs/rebuild/art/refs/valentus.png",
+        "docs/rebuild/art/refs/e2-ignatius.png"
+      ],
+      "ok": true,
+      "seconds": 58,
+      "attempts": 1,
+      "time": "2026-10-09T01:49:31"
+    },
+    "output/imagegen/raw/art/cut/e3-epilog-wiese.png": {
+      "kind": "plate",
+      "id": "e3-epilog-wiese",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: Same composition as a classic storybook scene: late summer afternoon at the edge of a golden meadow; on the LEFT a huge old oak tree with a broad crown; in its shade Lia (first sheet: 16, long strawberry-blonde curls tied back with a green ribbon, white blouse, brown skirt, moss-green cloak thrown back) sits leaning against the trunk, absorbed in reading an old book on her lap, her own pale spiral wooden staff leaning against the tree beside her. In the middle ground Kyra (second sheet: long loose nut-brown hair, beige dress) comes running through the tall grass toward her, laughing, waving. Further back on the right, small in the distance, Flick (third sheet: short dark hair with a pale streak, pointed ears, dark-green leather armour, white-and-blue cloak, bow) walks toward them along the meadow path. Wheat fields, distant hills and a small farmstead far in the background, warm golden sunset light, peaceful and happy. Everyone fully visible, nobody cut off.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-lia-eigenstab.png",
+        "docs/rebuild/art/refs/kyra.png",
+        "docs/rebuild/art/refs/flick-beschuetzerin.png"
+      ],
+      "ok": true,
+      "seconds": 58,
+      "attempts": 1,
+      "time": "2026-10-09T01:48:32"
+    },
     "output/imagegen/raw/art/cut/e3-epilog.png": {
       "kind": "plate",
       "id": "e3-epilog",
