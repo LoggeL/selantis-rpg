@@ -1,5 +1,5 @@
 // Vamir's petrification of Flick (e3-innere-zuflucht, camp cut) and its end at nightfall (e3-flicks-hilfe, part 1).
-// The stone look is the painted figure `e3-flick-stein` (pose „crumble“ for the breaking stone) when it exists; without
+// The stone look is the painted figure `e3-flick-stein` (pose „frozen“ mid-run, „crumble“ for the breaking stone) when it exists; without
 // it, Flick's own sprite is tinted grey and frozen, so the beat always reads.
 import type { ArtExtras } from '../../art';
 import { G } from '../../core/G';
@@ -13,8 +13,10 @@ const hasStone = (): boolean => G.art.hasAsset('character', STONE_LOOK);
 
 /** Turns the actor to stone on the spot: frozen frame, stone look (or grey tint). */
 export function asStone(a: ActorHandle): void {
-  if (hasStone()) a.setLook(STONE_LOOK);
-  else {
+  if (hasStone()) {
+    a.setLook(STONE_LOOK);
+    if ((G.art as typeof G.art & ArtExtras).poseIds(STONE_LOOK).includes('frozen')) a.setIdle('frozen' as never);
+  } else {
     a.sprite?.setTint(GREY);
     a.sprite?.anims.pause();
   }
