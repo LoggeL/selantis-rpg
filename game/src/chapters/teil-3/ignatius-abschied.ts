@@ -14,7 +14,6 @@ import {
   AFTER_DEATH, APOLOGY, ARRIVAL, CARE_CHOICES, FINAL, FORGIVE, FORGIVE_CHOICES, FORGIVE_TONES, HAND, LAST, LAST_CHOICES, LETTING_GO,
   PROGRESS, SCHATTENTOETER, TINCTURE, WAKE, carriesSchattentoeter, endFarewell, tinctureOffered, type ForgiveTone, type Line,
 } from './ignatius-abschied-texte';
-import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import { look } from './battle-shared';
 import { poisonedGait } from './vamir-schwaeche';
 import { WALDPFAD_BLOCKS, WALDPFAD_OCCLUDERS, WALDPFAD_SPOT, WALDPFAD_SURFACES, WALDPFAD_WALK } from './waldpfad';
@@ -63,18 +62,6 @@ async function play(w: WorldCtx, lines: readonly Line[]): Promise<void> {
   }
 }
 
-/** Close-up behind the gesture: Ignatius on the moss, Lia kneeling beside him. */
-const HAND_PICTURE = (): GesturePicture => ({
-  background: 'e3-waldpfad',
-  focus: [438, 320],
-  zoom: 3.4,
-  figures: [
-    { id: 'e2-ignatius', pose: 'lie', at: WALDPFAD_SPOT.ignatius, facing: 'right' },
-    { id: look('e3-lia-eigenstab', 'lia-cloak'), pose: 'kneel', at: WALDPFAD_SPOT.kneel, facing: 'left' },
-  ],
-  glint: [WALDPFAD_SPOT.kneel[0] - 16, WALDPFAD_SPOT.kneel[1] - 14],
-});
-
 async function farewell(w: WorldCtx, ig: ActorHandle): Promise<void> {
   if (G.state.is(F.talked)) return;
   // Warm amber around him that fades with him (his colour, never turquoise).
@@ -94,9 +81,6 @@ async function farewell(w: WorldCtx, ig: ActorHandle): Promise<void> {
       if (pick === 0) await play(w, TINCTURE);
     }
     await G.ui.plate('e3-abschied', { caption: 'Abschied', pan: 'in', durationMs: 60000 });
-    const gesture = G.ui.storyAction('tend', 'Seine Hand halten');
-    restageGesture('tend', 'Nimm seine Hand. Ganz ruhig, hin und her, damit sie warm wird.', HAND_PICTURE());
-    await gesture;
     await play(w, HAND);
     await play(w, PROGRESS);
     await play(w, APOLOGY);

@@ -17,7 +17,6 @@ import { G } from '../../core/G';
 import { defineMap, startWorld, type ActorHandle, type LightHandle, type MapDef, type WorldCtx } from '../../world';
 import type { Dir } from '../../core/types';
 import { pinPlayer } from '../teil-2/gewoelbe';
-import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import { CAMP_BLOCKS, CAMP_OCCLUDERS, CAMP_SURFACES, FIRE_RING } from './falle-lager';
 import {
   FH_RESULT, type FlickTone, keepAway, NIGHT_CAMERA, NIGHT_SPOT, NIGHT_WALK, PATH_EXIT, PROOF_OPTIONS, STONE_CRACKS, type HallLine,
@@ -324,18 +323,6 @@ const GM = 'grossmeister';
 const CAPTAIN = 'hauptmann';
 const MENTOR = 'ignatius';
 
-/** Close-up for the staff: Ignatius holds it out, Flick reaches for it. */
-const STAFF_PICTURE: GesturePicture = {
-  background: 'e3-ordenssaal',
-  focus: [318, 200],
-  zoom: 3,
-  figures: [
-    { id: 'e2-ignatius', pose: 'idle', at: [304, 214], facing: 'right' },
-    { id: 'flick', pose: 'idle', at: [336, 212], facing: 'left' },
-  ],
-  glint: [320, 190],
-};
-
 function stageHall(w: WorldCtx): { gm: ActorHandle; captain: ActorHandle; mentor: ActorHandle } {
   const gm = w.spawn({ id: GM, preset: 'e3-grossmeister', speaker: 'e3-grossmeister', at: HALL_SPOT.chair, dir: 'down', idle: 'sit', solid: false, facePlayer: false });
   gm.hold(true);
@@ -420,9 +407,10 @@ async function saalScript(w: WorldCtx): Promise<void> {
   });
 
   // The handover: Flick takes Lia's staff.
-  const gesture = G.ui.storyAction('reach', 'Den Stab nehmen');
-  restageGesture('reach', 'Greif nach dem hellen Stab. Ignatius hält ihn dir hin.', STAFF_PICTURE);
-  await gesture;
+  await w.cutscene(async () => {
+    w.player.face('left');
+    await w.player.play('interact', { ms: 900 });
+  });
   // Where the staff is now (umsetzung.md §2): with Flick. Lia's inventory stays as it is; she does not have it.
   G.state.set(STAFF_PLACE_FLAG, 'flick');
   sfx('pickup', { volume: 0.4 });

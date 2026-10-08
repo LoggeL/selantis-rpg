@@ -131,18 +131,6 @@ function stageHill(w: WorldCtx, opts: { veiled: boolean; men: boolean }): Hill {
 // Part 1: on the stone (Lia)
 // ---------------------------------------------------------------------------------------------------------------
 
-/** Close-up for the reaching gesture: Lia on the stone, Kyra beside it. */
-const REACH_PICTURE: GesturePicture = {
-  background: 'e3-ritualhuegel',
-  focus: [690, 318],
-  zoom: 3,
-  figures: [
-    { id: 'e3-lia-gefesselt', pose: 'lie', at: STONE_LIE, facing: 'right' },
-    { id: 'e2-kyra-gebannt', pose: 'idle', at: HILL_SPOT.kyra, facing: 'left' },
-  ],
-  glint: [704, 316],
-};
-
 async function steinScript(w: WorldCtx): Promise<void> {
   w.lockPlayer();
   const release = pinPlayer(w, 'lie', 'down');
@@ -168,11 +156,11 @@ async function steinScript(w: WorldCtx): Promise<void> {
     await w.think('Kyra steht da, ein paar Schritte neben dem Stein. So nah. Wenn ich nur die Hände …');
   });
 
-  // Heart: Lia reaches for her sister. Kyra does not move.
-  const gesture = G.ui.storyAction('reach', 'Nach Kyra greifen');
-  restageGesture('reach', 'Streck die gefesselten Hände nach Kyra aus. Nur ein bisschen weiter.', REACH_PICTURE);
-  await gesture;
+  // Lia reaches for her sister. Kyra does not move.
   await w.cutscene(async () => {
+    await w.camera.pan([kyra.x - 20, kyra.y - 16], 700);
+    await w.think('Die Stricke schneiden, aber eine Handbreit geht. Noch eine. Kyra, sieh mich an.');
+    await w.wait(500);
     kyra.face('down');
     await w.wait(600);
     for (const l of ON_THE_STONE.kyra) await sayLine(w, l);

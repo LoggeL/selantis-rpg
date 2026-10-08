@@ -25,7 +25,6 @@ import {
   REST_HOTSPOT, SHADOW_CHECKPOINT, WELL_HOTSPOT,
 } from './kyras-fluchtweg-keller';
 import { GZ_DOOR_AT, GZ_SPOT, gastzimmerBase } from './ordenshaus';
-import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import { bg, e3Scene, hasOwnStaff, lia, liaLook, nextScene, sfx, staffPlace, ui, until } from './shared';
 import { KANAL_CLUES, NO_LOOK } from './spuersinn';
 
@@ -341,15 +340,6 @@ function centreOf(poly: readonly (readonly [number, number])[]): [number, number
   return [Math.round(poly.reduce((s, p) => s + p[0], 0) / poly.length), Math.round(poly.reduce((s, p) => s + p[1], 0) / poly.length)];
 }
 
-/** Close-up for the rungs: Lia on the north rim of the well, the ladder glinting in the shaft below her. */
-const SHAFT_PICTURE = (): GesturePicture => ({
-  background: 'e3-keller',
-  focus: [205, 250],
-  zoom: 2,
-  figures: [{ id: liaLook(), pose: 'crouch', at: CELLAR_SPOT.wellRim, facing: 'down' }],
-  glint: [204, 318],
-});
-
 /** Kyra climbs first, then Lia feels her way down the rungs; the channel below. */
 async function climbDown(w: WorldCtx): Promise<void> {
   if (!G.state.is(F.well) || w.map.id !== gewoelbe.id) return;
@@ -366,9 +356,15 @@ async function climbDown(w: WorldCtx): Promise<void> {
     await w.think('Natürlich. Natürlich muss es ein Brunnen sein.');
   });
   w.lockPlayer();
-  const gesture = G.ui.storyAction('reach', 'Die Steigeisen hinunter');
-  restageGesture('reach', 'Tast dich nach der nächsten Sprosse. Und nach der nächsten. Nicht nach unten sehen.', SHAFT_PICTURE());
-  await gesture;
+  await w.cutscene(async () => {
+    await w.player.walkTo(CELLAR_SPOT.wellRim[0], CELLAR_SPOT.wellRim[1], { face: 'up' });
+    for (const [i, t] of ['Eine Sprosse. Rostig.', 'Noch eine. Nicht nach unten sehen.', 'Wasser tropft mir in den Kragen.'].entries()) {
+      sfx('chain', { volume: 0.18 + i * 0.05, pitch: 1.4 - i * 0.15 });
+      w.player.bark(t, 1100);
+      await w.wait(1100);
+    }
+    w.player.hide();
+  });
   w.stealth.enable(false);
   sfx('splash', { volume: 0.6 });
   await w.changeMap(kanal, 'schacht');

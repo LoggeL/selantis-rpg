@@ -11,7 +11,6 @@
 // Ignatius is sent out, refuses, gives in. → e3-macht-und-schutz. A reload restarts at the hall door.
 import { G } from '../../core/G';
 import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
-import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import {
   BEFORE_DAIS, HALL_BLOCKS, HALL_CANDLES, HALL_OCCLUDERS, HALL_SPOT, HALL_SURFACES, HALL_WALK, hallCandleLights,
 } from './schutzreaktion-saal';
@@ -166,14 +165,6 @@ async function interrogation(w: WorldCtx): Promise<VerhoerTone> {
 // The grab and the Urmacht's answer
 // ---------------------------------------------------------------------------------------------------------------
 
-const GRAB_PICTURE = (): GesturePicture => ({
-  background: 'e3-ordenssaal', focus: [300, 192], zoom: 3, glint: [300, 190],
-  figures: [
-    { id: 'paladin', pose: 'idle', at: [276, 216], facing: 'right' },
-    { id: liaLook({ bound: true }), pose: 'idle', at: HALL_SPOT.lia, facing: 'down' },
-  ],
-});
-
 async function grab(w: WorldCtx): Promise<void> {
   const holder = w.actor(HOLDER), second = w.actor(SECOND);
   await w.cutscene(async () => {
@@ -185,16 +176,16 @@ async function grab(w: WorldCtx): Promise<void> {
     await w.wait(300);
   });
   w.lockPlayer();
-  const gesture = G.ui.storyAction('reach', 'Sich losreißen', { help: 'Reiß den Arm aus dem Griff. Zieh, so fest du kannst.' });
-  restageGesture('reach', 'Reiß den Arm aus dem Griff des Paladins. Zieh, so fest du kannst.', GRAB_PICTURE());
-  await gesture;
   await w.cutscene(async () => {
+    await w.camera.zoom(1.5, 400);
+    await w.think('Ich reiße am Arm, mit allem, was ich habe. Der Griff ist wie ein Schraubstock aus Eisenhandschuh.');
     w.camera.shake(220, 0.004);
     sfx('hit', { volume: 0.4, pitch: 0.8 });
     await w.say('narrator', 'Für einen Atemzug ist ihr Arm frei. Dann greift eine zweite Hand zu, und die erste packt fester als zuvor.');
     await second.walkTo(HALL_SPOT.lia[0] + 16, HALL_SPOT.lia[1] + 4, { face: 'left', run: true });
     bg(w.player.play('struggle' as never, { ms: 2000 }));
     await lia(w, 'Lasst … mich … los!', 'scared');
+    await w.camera.zoom(1, 500);
   });
 }
 

@@ -21,7 +21,6 @@ import { apparition, lightPoints, type Apparition } from './erscheinung';
 import { CLEARING_OVAL, CLEARING_WALK, OCCLUDERS, SPOT, SURFACES, WILLOW_REST, WILLOW_ROOTS, WILLOW_ZONE } from './lichtwald';
 import { bg, e3Scene, hasOwnStaff, lia, liaLook, nextScene, sfx, TURQUOISE, ui, until } from './shared';
 import { aimOwnStaff } from './zielen';
-import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import { STAFF } from '../common/bookContract';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import type Phaser from 'phaser';
@@ -44,11 +43,6 @@ const RULES: SpiritRules = {
 const val = (w: WorldCtx, text: string, mood?: string) => w.say('e3-valentus', text, mood ? { mood } : undefined);
 const mentor = (w: WorldCtx, text: string, mood?: string) => w.say('e2-ignatius', text, mood ? { mood } : undefined);
 const podsHit = (): string[] => String(G.state.flag(PODS) ?? '').split(',').filter(Boolean);
-
-const BRANCH_PICTURE = (): GesturePicture => ({
-  background: 'e3-lichtwald', focus: [846, 238], zoom: 3, glint: SPOT.branch,
-  figures: [{ id: liaLook(), pose: 'idle', at: SPOT.branchStand, facing: 'up' }],
-});
 
 export const lichtung: MapDef = defineMap({
   id: 'e3-lichtwald',
@@ -187,13 +181,14 @@ async function takeBranch(w: WorldCtx): Promise<void> {
   ui().prefetchPlate('e3-eigener-stab');
   await w.cutscene(async () => {
     w.player.face('up');
-    const gesture = G.ui.storyAction('reach', 'Nach dem hellen Ast greifen');
-    restageGesture('reach', 'Streck die Hand nach dem hellen Ast aus. Er hängt tiefer als die anderen, fast als warte er.', BRANCH_PICTURE());
-    await gesture;
+    await w.camera.zoom(1.6, 700);
+    await w.think('Er hängt tiefer als die anderen. Fast als würde er warten.');
+    await w.player.play('interact', { ms: 900 });
     sfx('urmacht', { volume: 0.45, pitch: 1.1 });
     w.lighting.flash(TURQUOISE, 320);
     w.fx.burst(SPOT.branch, 'urmacht', 16);
     await G.ui.plate('e3-eigener-stab', { caption: 'Ein eigener Stab', pan: 'in', durationMs: 28000 });
+    await w.camera.zoom(1, 0);
     await w.say('narrator', 'Der Ast löste sich, ohne dass Lia zog. In ihrer Hand wurde er länger, heller und gerade. Kein Messer hatte ihn je berührt.');
     await lia(w, 'Er ist … gewachsen. In meiner Hand. Das steht in keinem einzigen Buch.', 'surprised');
     await val(w, 'Dann schreib eins. Er gehört dir. Kein Name, keine Geschichte. Nur deiner.', 'happy');
