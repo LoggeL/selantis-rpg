@@ -2,6 +2,7 @@ import { CapturedMediaRoutingError } from './recordedMediaRouting';
 import recordedProlog from '../../public/audio/prolog/manifest.json';
 import frozenStory from '../../../docs/voice-production/story-lines.json';
 import frozenPart2 from '../../../docs/voice-production/teil-2/lines.json';
+import publishedStory from '../../public/audio/story/manifest.json';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import part2SharedSource from '../chapters/teil-2/shared.ts?raw';
 import { normalizeVoiceText, part2VoiceScenes, quotedChoiceText, voiceBankForScene, VoiceIndex, Voiceover, type VoiceManifest } from './voiceover';
@@ -310,8 +311,8 @@ describe('frozen production inventory compatibility', () => {
     }));
     const index = new VoiceIndex({ model: frozenStory.model, aliases: frozenStory.aliases,
       scene_players: frozenStory.scene_players, clips } as unknown as VoiceManifest, 'story');
-    expect(frozenStory.lines).toHaveLength(1576);
-    expect(frozenStory.runtime_lookup).toHaveLength(1770);
+    expect(frozenStory.lines).toHaveLength(1577);
+    expect(frozenStory.runtime_lookup).toHaveLength(1772);
     expect(Object.keys(frozenStory.aliases)).toHaveLength(67);
     for (const route of frozenStory.runtime_lookup) {
       const mood = route.mood === 'neutral' ? undefined : route.mood;
@@ -325,6 +326,17 @@ describe('frozen production inventory compatibility', () => {
     expect(frozenStory.aliases['lia-cloak']).toBe('lia');
     expect(frozenStory.aliases['kyra-bound']).toBe('kyra');
     expect(frozenStory.aliases.baris).not.toBe('baris-young');
+  });
+  it('ships no story take whose words were rewritten after recording', () => {
+    const current = new Map(frozenStory.lines.map(line => [line.id, line]));
+    for (const clip of publishedStory.clips) {
+      const line = current.get(clip.id);
+      expect(line, `${clip.id}: ${clip.text}`).toBeDefined();
+      expect(clip.text).toBe(line!.text);
+      expect(clip.speaker).toBe(line!.speaker);
+    }
+    const published = new Set(publishedStory.clips.map(clip => clip.id));
+    for (const route of publishedStory.runtime_lookup) expect(published.has(route.asset_id), route.text).toBe(true);
   });
 });
 

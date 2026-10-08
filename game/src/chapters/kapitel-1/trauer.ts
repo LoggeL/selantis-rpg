@@ -414,7 +414,7 @@ async function secretCompartment(w: WorldCtx): Promise<void> {
   G.state.give('coins');
   await w.think('Zweiundzwanzig Kupfer- und sieben Silbermünzen. Das haben sie nicht gefunden.');
   G.state.give('dagger');
-  await w.think('Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.');
+  await w.think('Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen. Jetzt trage ich ihn. Und wer ihnen das angetan hat, soll ihn spüren.');
   G.state.set('k1-geheimfach');
   stubeObjective(w);
 }

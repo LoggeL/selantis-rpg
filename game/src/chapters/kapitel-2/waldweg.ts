@@ -146,14 +146,14 @@ export const waldweg: MapDef = defineMap({
       when: () => G.state.is('k2-rast-fertig') && !G.state.is('k2-wegelagerer-besiegt') && !G.state.is('k2-wegelagerer-umgangen'),
       onInteract: async w => {
         await w.say('foltan', 'Zwei Kerle am anderen Ufer. Rostige Helme, geflickte Röcke. Wegelagerer. Wir jagen sie weg, oder wir queren weiter unten.');
-        const pick = await w.choose(['„Gehen wir ihnen aus dem Weg.“', '„Ich komme mit. Aber bleibt bei mir.“']);
+        const pick = await w.choose(['„Gehen wir ihnen aus dem Weg.“', '„Ich komme mit. Ich schaue nicht mehr nur zu.“']);
         if (pick === 0) {
           G.state.set('k2-wegelagerer-umgangen');
           saveEncounterReturn(w);
           await w.say('foltan', 'Vernünftig. Wir sind wegen deiner Schwester unterwegs, nicht wegen zwei Strauchdieben.');
           return;
         }
-        await w.say('foltan', 'Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.');
+        await w.say('foltan', 'Gut. Bleib an meiner Seite, nicht vor mir. Stich zu, wenn einer dir den Rücken zeigt. Azar, du deckst sie.');
         const result = await playEncounter(w, forestEncounter(), 'k2-wegelagerer-besiegt');
         if (result.outcome === 'win') {
           await w.think('Meine Hände zittern noch. Aber wir sind durchgekommen.');

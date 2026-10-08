@@ -214,7 +214,7 @@ async function plan(w: WorldCtx): Promise<void> {
     if (G.state.has('dagger')) {
       await w.say('flick', 'Hast du was Scharfes dabei? Außer deiner Zunge?');
       await lia('Vaters Dolch.');
-      await w.say('flick', 'Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.', { mood: 'determined' });
+      await w.say('flick', 'Gut. Ich seh, wie fest du den Griff hältst. Erst die Fesseln, zu zweit sind die schneller durch. Kommt dir einer zu nah: zustechen und weiterlaufen. Ich will dich heil zurück, Leseratte.', { mood: 'determined' });
       G.state.set('k5-dolch-plan');
     } else {
       await w.say('flick', 'Kein Messer? Dann säg ich allein an dem Seil, und das dauert. Halt sie lange genug bei Laune.', { mood: 'determined' });

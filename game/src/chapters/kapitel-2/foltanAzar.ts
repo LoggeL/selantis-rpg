@@ -104,8 +104,8 @@ export async function foltanAzarSkript(w: WorldCtx): Promise<void> {
     await w.say('foltan', 'Na schön. Das hab ich wohl verdient.');
   } else {
     G.state.set('k2-dolch-gezogen');
-    await w.say('foltan', 'Lass den Dolch stecken, Mädchen. Ich bin schneller. Und du zitterst.');
-    await w.think('Er hat recht. Ich zittere.');
+    await w.say('foltan', 'Ruhig, Mädchen. Ich sehe, dass du zustechen würdest. Aber ich bin nicht der, den du suchst. Und deine Hand zittert.');
+    await w.think('Ja, sie zittert. Aber ich habe schon einmal im Gebüsch gesessen und nichts getan. Nie wieder.');
   }
   await w.say('foltan', 'Und du hältst jetzt auch die Klappe, ja?', { mood: 'angry' });
   await w.say('azar', '’Tschuldige. Du weißt doch, dass ich schreckhaft bin.', { mood: 'worried' });

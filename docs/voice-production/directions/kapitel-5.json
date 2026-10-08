@@ -4626,15 +4626,18 @@
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",
     "line": 217,
-    "expression_sha256": "1786f56f7abe7be902e3bb5b933fea813e15150a5837ed67bd9d6ad9b0bf7d24",
-    "text": "Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.",
+    "expression_sha256": "72ccd504a1da0d0c6bf4e2bb0865209d3dfa683a92f98a0f7b506b99ca23b518",
+    "text": "Gut. Ich seh, wie fest du den Griff hältst. Erst die Fesseln, zu zweit sind die schneller durch. Kommt dir einer zu nah: zustechen und weiterlaufen. Ich will dich heil zurück, Leseratte.",
     "kind": "say",
     "runtime_speaker": "flick",
-    "direction_en": "Make the boundary clear and practical, stressing ropes and people separately. Follow with brisk reassurance about working together.",
-    "emotion_de": "entschlossene Schonung",
+    "direction_en": "Whispered planning, close and protective. Note her grip with a hint of concern, keep the plan brisk, make the danger rule practical, and let the last sentence soften into real care.",
+    "emotion_de": "beschützend, angespannte Planung",
     "intensity": 3,
-    "context_de": "Versteckt am Waldrand: Kyra befreien, Wachen ablenken und möglichst niemanden verletzen.",
-    "classification": "spoken"
+    "context_de": "Versteckt am Waldrand: Flick bemerkt Lias Entschlossenheit, ordnet die Befreiung vor den Kampf und will sie unversehrt zurück.",
+    "classification": "spoken",
+    "review_status": "draft_current_source_annotation_requires_Root_review",
+    "new_take_status": "pending_no_recording_or_audio_approval",
+    "rewrite_note": "Kampfbogen: ersetzt 'Seile schneiden, keine Leute'; Neuaufnahme erforderlich."
   },
   {
     "file": "game/src/chapters/kapitel-5/schattenlager.ts",

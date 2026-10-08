@@ -238,8 +238,8 @@ async function training(w: WorldCtx): Promise<void> {
       await w.think('Schon wieder weicht er aus. Genau wie im Eber.');
     }
     await foltan.say('Bis dahin: Wer mit uns zieht, muss sich wehren können. Oder wenigstens nicht getroffen werden.');
-    await lia(w, 'Ich bin keine Kriegerin. Ich lese Bücher.', 'thinking');
-    await foltan.say('Dann lies das hier: Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.');
+    await lia(w, 'Ich will mich wehren. Ich will, dass sie für Mutter und Vater bezahlen. Ich weiß nur noch nicht, wie.', 'determined');
+    await foltan.say('Mit Wut allein triffst du niemanden. Erst lernst du, nicht getroffen zu werden. Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.');
     await w.say('narrator', 'Ein Bogen zeigt, woher der Hieb kommt. Hieb von links: weiche nach rechts aus. Von rechts: nach links. Hoher Hieb: ducken.');
     await w.say('narrator', 'Tasten A/D bzw. ←/→ zum Ausweichen, S bzw. ↓ zum Ducken. Oder tippe die Knöpfe unten.');
   });

@@ -12557,72 +12557,6 @@
       "current_source_row_sha256": "694f1b91d3856235822b1b5d807d7a387b13c309864b8ce03d856890cc6be81d"
     },
     {
-      "id": "story-29ef123f7684aa91dbc01fb7",
-      "kind": "say",
-      "speaker": "lia",
-      "text": "Ich bin keine Kriegerin. Ich lese Bücher.",
-      "display_text": "Ich bin keine Kriegerin. Ich lese Bücher.",
-      "audio": "audio/story/story-29ef123f7684aa91dbc01fb7.mp3",
-      "sha256": "c0e7a208339e92f8e640cab2833727cef219f024412a3ec4bca9c89bc5a415dd",
-      "seconds": 3.44,
-      "voice": "Zephyr",
-      "word_cues": [
-        {
-          "start": 0.24,
-          "end": 0.46
-        },
-        {
-          "start": 0.67,
-          "end": 0.78
-        },
-        {
-          "start": 0.78,
-          "end": 1.08
-        },
-        {
-          "start": 1.08,
-          "end": 1.86
-        },
-        {
-          "start": 1.86,
-          "end": 2.38
-        },
-        {
-          "start": 2.38,
-          "end": 2.66
-        },
-        {
-          "start": 2.66,
-          "end": 3.26
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "lia",
-          "text": "Ich bin keine Kriegerin. Ich lese Bücher.",
-          "scene": "bruderschaft",
-          "mood": "thinking",
-          "performance_variant": "Speak naturally, with clear phrasing and restrained feeling."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "18563668a9c3942faf72a68184199db72b653b6976eb0d9350a77aa1198f1a7b",
-        "source_text_sha256": "d59bf951d80400022acf593e1c14eb50941aefe236675c3ff4480b1d781777bc",
-        "audio_sha256": "c0e7a208339e92f8e640cab2833727cef219f024412a3ec4bca9c89bc5a415dd",
-        "actual_receipt_sha256": "a82a0a6c8ebd519d0d98592e714b1b9b4eb07cab38a6e09bf2ba46c3ff8a4f9b",
-        "cues_sha256": "a94a10d3a10a1743ac44b6c680c390a559b04d6c52581b6b8f5cfa30e0ca5fb4",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "992c55cf83256c68a85421741ca5eec73953dd092d5f4d812c46fceb33ca147d",
-        "whole_alignment_report_sha256": "23e2e31af3579cf063b0066b101a25971da7bf9bec7d3564c72dd3170cf47067",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "d59bf951d80400022acf593e1c14eb50941aefe236675c3ff4480b1d781777bc",
-      "current_source_row_sha256": "a702c6f2c6dd0af551d346ab7b2645d2c2dae19ea713d173c1b2f45b1eab0509"
-    },
-    {
       "id": "story-2a016f0f00dea2be534e3267",
       "kind": "say",
       "speaker": "foltan",
@@ -27633,96 +27567,6 @@
       "current_source_row_sha256": "11ce048807391a3f2a8c5c34284557abbdb2ecfdfdb3de50d589956a6c436a11"
     },
     {
-      "id": "story-56da6a38863e7e486e01adcc",
-      "kind": "think",
-      "speaker": "lia",
-      "text": "Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.",
-      "display_text": "Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.",
-      "audio": "audio/story/story-56da6a38863e7e486e01adcc.mp3",
-      "sha256": "62ddd56eea81eeb77ec26c991223e12dc277508d20cd8abf31dc96be5bbc5335",
-      "seconds": 6.08,
-      "voice": "Zephyr",
-      "word_cues": [
-        {
-          "start": 0.37,
-          "end": 0.68
-        },
-        {
-          "start": 0.68,
-          "end": 1.14
-        },
-        {
-          "start": 1.25,
-          "end": 1.6
-        },
-        {
-          "start": 1.6,
-          "end": 1.7
-        },
-        {
-          "start": 1.7,
-          "end": 1.82
-        },
-        {
-          "start": 1.82,
-          "end": 2.74
-        },
-        {
-          "start": 2.74,
-          "end": 3.9
-        },
-        {
-          "start": 3.9,
-          "end": 4.08
-        },
-        {
-          "start": 4.08,
-          "end": 4.2
-        },
-        {
-          "start": 4.2,
-          "end": 4.4
-        },
-        {
-          "start": 4.4,
-          "end": 4.66
-        },
-        {
-          "start": 4.66,
-          "end": 5.24
-        },
-        {
-          "start": 5.24,
-          "end": 5.86
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "think",
-          "speaker": "lia",
-          "text": "Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.",
-          "scene": "trauer",
-          "mood": "neutral",
-          "performance_variant": "Recognize your father's dagger with quiet affection and awareness of his absence."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "18563668a9c3942faf72a68184199db72b653b6976eb0d9350a77aa1198f1a7b",
-        "source_text_sha256": "3816b078b9b59f822ac78608921e1216c90141c2a0501a6ca6fffd00a9b0e85f",
-        "audio_sha256": "62ddd56eea81eeb77ec26c991223e12dc277508d20cd8abf31dc96be5bbc5335",
-        "actual_receipt_sha256": "c80ab769ef82890c085f5306e72c1c0cfe4f0a0e191c55a532872f4f1dd03759",
-        "cues_sha256": "6bc8d551c2c74edc85f41e0cf38975e80b19a9b4dbb6a5d1a08b5fc314743e5f",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "992c55cf83256c68a85421741ca5eec73953dd092d5f4d812c46fceb33ca147d",
-        "whole_alignment_report_sha256": "23e2e31af3579cf063b0066b101a25971da7bf9bec7d3564c72dd3170cf47067",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "3816b078b9b59f822ac78608921e1216c90141c2a0501a6ca6fffd00a9b0e85f",
-      "current_source_row_sha256": "52e657cf59472407671dad4c19df81a139a85e86b6a8c768846a3be81de197e4"
-    },
-    {
       "id": "story-56e6db5ebae26a5502484a82",
       "kind": "bark",
       "speaker": "gaukler",
@@ -30955,64 +30799,6 @@
       },
       "source_text_sha256": "f065171ca8fa486d08fd8ad634ca3b059ee95f497f89f91fe8a0d23720d8f59e",
       "current_source_row_sha256": "c7221193aa7d915f18e3c86c71f26cc13324a8d9fe9fefae386cd060f5cd6171"
-    },
-    {
-      "id": "story-60792b70655256a71a6a6b39",
-      "kind": "think",
-      "speaker": "lia",
-      "text": "Er hat recht. Ich zittere.",
-      "display_text": "Er hat recht. Ich zittere.",
-      "audio": "audio/story/story-60792b70655256a71a6a6b39.mp3",
-      "sha256": "b4c394690b67d9c2fa9838b36edd5e03264c392edaa8573b9ba6876012de62ed",
-      "seconds": 2.96,
-      "voice": "Zephyr",
-      "word_cues": [
-        {
-          "start": 0.25,
-          "end": 0.44
-        },
-        {
-          "start": 0.44,
-          "end": 0.6
-        },
-        {
-          "start": 0.6,
-          "end": 1.34
-        },
-        {
-          "start": 1.51,
-          "end": 2.0
-        },
-        {
-          "start": 2.0,
-          "end": 2.78
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "think",
-          "speaker": "lia",
-          "text": "Er hat recht. Ich zittere.",
-          "scene": "foltan-azar",
-          "mood": "neutral",
-          "performance_variant": "Speak as a private thought, close and unforced. Follow the observation to its conclusion with small natural pauses."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "18563668a9c3942faf72a68184199db72b653b6976eb0d9350a77aa1198f1a7b",
-        "source_text_sha256": "a4c2fa2380fe1f32d94aa55bdab06898faa1542c952f243d5d526b55f0636656",
-        "audio_sha256": "b4c394690b67d9c2fa9838b36edd5e03264c392edaa8573b9ba6876012de62ed",
-        "actual_receipt_sha256": "0eb2c140f92f61cd08d6a6b09aa441c31a81c1035987c5f80b9b7392c8f27ebc",
-        "cues_sha256": "d50149f996e63e8fc78a3a466e3bb4b62672626c97833bc8a01d3626853c401d",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "992c55cf83256c68a85421741ca5eec73953dd092d5f4d812c46fceb33ca147d",
-        "whole_alignment_report_sha256": "23e2e31af3579cf063b0066b101a25971da7bf9bec7d3564c72dd3170cf47067",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "a4c2fa2380fe1f32d94aa55bdab06898faa1542c952f243d5d526b55f0636656",
-      "current_source_row_sha256": "7b454f94900831b171dd4a2404a74953cc73d72d07147aac058fab35782fa475"
     },
     {
       "id": "story-60d22e2c1a0a38867fb013db",
@@ -54395,88 +54181,6 @@
       "current_source_row_sha256": "8b2f8320b556f356d6348d2d16e793b10d369063f09daf80630e7e03ca77d304"
     },
     {
-      "id": "story-abd464326d33ec599d0739ad",
-      "kind": "say",
-      "speaker": "foltan",
-      "text": "Lass den Dolch stecken, Mädchen. Ich bin schneller. Und du zitterst.",
-      "display_text": "Lass den Dolch stecken, Mädchen. Ich bin schneller. Und du zitterst.",
-      "audio": "audio/story/story-abd464326d33ec599d0739ad.mp3",
-      "sha256": "5692ebcb0af1313c43d34c8c81ded88427f285b099167db199c9e4a6cbc55ae9",
-      "seconds": 5.12,
-      "voice": "Rasalgethi",
-      "word_cues": [
-        {
-          "start": 0.08,
-          "end": 0.76
-        },
-        {
-          "start": 0.76,
-          "end": 0.88
-        },
-        {
-          "start": 0.88,
-          "end": 1.16
-        },
-        {
-          "start": 1.16,
-          "end": 1.5
-        },
-        {
-          "start": 1.5,
-          "end": 2.14
-        },
-        {
-          "start": 2.14,
-          "end": 2.62
-        },
-        {
-          "start": 2.62,
-          "end": 2.78
-        },
-        {
-          "start": 2.78,
-          "end": 3.48
-        },
-        {
-          "start": 3.48,
-          "end": 4.06
-        },
-        {
-          "start": 4.06,
-          "end": 4.2
-        },
-        {
-          "start": 4.2,
-          "end": 4.92
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "foltan",
-          "text": "Lass den Dolch stecken, Mädchen. Ich bin schneller. Und du zitterst.",
-          "scene": "foltan-azar",
-          "mood": "neutral",
-          "performance_variant": "Speak quietly and urgently to prevent panic. Be firm enough to stop movement while conveying that you intend no harm."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "18563668a9c3942faf72a68184199db72b653b6976eb0d9350a77aa1198f1a7b",
-        "source_text_sha256": "3f7ad74dc202df9862ae29a761479d555ae63a029cd42b52a89faf6cff97ef27",
-        "audio_sha256": "5692ebcb0af1313c43d34c8c81ded88427f285b099167db199c9e4a6cbc55ae9",
-        "actual_receipt_sha256": "5c127f7bc7bdf8721ca2ae6bab5706de9fc586f8fdf6f2f9f25af1b09aaf0452",
-        "cues_sha256": "a009f158f24e2e687bd991be8864e8342511e7b45108a9114a04d50cb43ead76",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "992c55cf83256c68a85421741ca5eec73953dd092d5f4d812c46fceb33ca147d",
-        "whole_alignment_report_sha256": "23e2e31af3579cf063b0066b101a25971da7bf9bec7d3564c72dd3170cf47067",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "3f7ad74dc202df9862ae29a761479d555ae63a029cd42b52a89faf6cff97ef27",
-      "current_source_row_sha256": "6727bdb4eacd38d44fcb6b17e5c6aae1cd3f06bdb0fbbc511cb71de63d78adc5"
-    },
-    {
       "id": "story-abdcaab711d64ce034b9d5c3",
       "kind": "bark",
       "speaker": "lia",
@@ -55579,120 +55283,6 @@
       },
       "source_text_sha256": "d669f8d45f20d7fb0b0fc338f3740f08cb64be97205f99bfd83b90dbb75a3be9",
       "current_source_row_sha256": "b3f723e7e8c30e12f83b733b68410499f1dd658a2ecd22174b9ebc0d3aea640c"
-    },
-    {
-      "id": "story-aea49af4ca12143dd3700b44",
-      "kind": "say",
-      "speaker": "foltan",
-      "text": "Dann lies das hier: Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.",
-      "display_text": "Dann lies das hier: Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.",
-      "audio": "audio/story/story-aea49af4ca12143dd3700b44.mp3",
-      "sha256": "2c9af46847834df6199a7216f64fe74212038c6b15ee7812c4d0f0401235cc89",
-      "seconds": 8.2,
-      "voice": "Rasalgethi",
-      "word_cues": [
-        {
-          "start": 0.16,
-          "end": 0.44
-        },
-        {
-          "start": 0.44,
-          "end": 0.72
-        },
-        {
-          "start": 0.72,
-          "end": 0.96
-        },
-        {
-          "start": 0.96,
-          "end": 1.56
-        },
-        {
-          "start": 1.68,
-          "end": 1.86
-        },
-        {
-          "start": 1.86,
-          "end": 2.51
-        },
-        {
-          "start": 2.85,
-          "end": 3.0
-        },
-        {
-          "start": 3.0,
-          "end": 3.44
-        },
-        {
-          "start": 3.44,
-          "end": 3.9
-        },
-        {
-          "start": 4.23,
-          "end": 4.48
-        },
-        {
-          "start": 4.64,
-          "end": 5.02
-        },
-        {
-          "start": 5.02,
-          "end": 5.24
-        },
-        {
-          "start": 5.24,
-          "end": 5.38
-        },
-        {
-          "start": 5.38,
-          "end": 5.77
-        },
-        {
-          "start": 6.2,
-          "end": 6.34
-        },
-        {
-          "start": 6.34,
-          "end": 7.04
-        },
-        {
-          "start": 7.04,
-          "end": 7.16
-        },
-        {
-          "start": 7.16,
-          "end": 7.62
-        },
-        {
-          "start": 7.62,
-          "end": 7.96
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "foltan",
-          "text": "Dann lies das hier: Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.",
-          "scene": "bruderschaft",
-          "mood": "neutral",
-          "performance_variant": "Controlled and clipped; give practical words firm weight without shouting."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "18563668a9c3942faf72a68184199db72b653b6976eb0d9350a77aa1198f1a7b",
-        "source_text_sha256": "5b566a0d7cc599e50639d6b878fecc0a54a46e906d175653b7ab47583a4d251d",
-        "audio_sha256": "2c9af46847834df6199a7216f64fe74212038c6b15ee7812c4d0f0401235cc89",
-        "actual_receipt_sha256": "ccf5c73b5e68eaacfd8afa9fbc1002de21d6bbcea1e385c89282de2e21bbfa08",
-        "cues_sha256": "f7809e8a0280598bd7913fad179e8e3d652ee29c818c2cfcfe6945abfa39ca34",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "992c55cf83256c68a85421741ca5eec73953dd092d5f4d812c46fceb33ca147d",
-        "whole_alignment_report_sha256": "23e2e31af3579cf063b0066b101a25971da7bf9bec7d3564c72dd3170cf47067",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "5b566a0d7cc599e50639d6b878fecc0a54a46e906d175653b7ab47583a4d251d",
-      "current_source_row_sha256": "7dc5322a3755b8ab3be6640792d553d3404ad329f0b7a82b1df5181361341f3f"
     },
     {
       "id": "story-aec5a1fa5a73758ffa667756",
@@ -88643,92 +88233,6 @@
       "current_source_row_sha256": "c94d17d8bb0942518f054ffc4b26682f21260a6aea1a1cf86f9541ed040cec13"
     },
     {
-      "id": "story-350852800d295d58fbce34b6",
-      "kind": "say",
-      "speaker": "foltan",
-      "text": "Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.",
-      "display_text": "Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.",
-      "audio": "audio/story/story-350852800d295d58fbce34b6.mp3",
-      "sha256": "eab811a82ed191595edf97df02c77d7c7fe046fca9ce9de822bb540af5e7b850",
-      "seconds": 4.24,
-      "voice": "Rasalgethi",
-      "word_cues": [
-        {
-          "start": 0.09,
-          "end": 0.32
-        },
-        {
-          "start": 0.32,
-          "end": 0.74
-        },
-        {
-          "start": 0.74,
-          "end": 0.82
-        },
-        {
-          "start": 0.82,
-          "end": 1.21
-        },
-        {
-          "start": 1.42,
-          "end": 1.78
-        },
-        {
-          "start": 1.78,
-          "end": 1.94
-        },
-        {
-          "start": 1.94,
-          "end": 2.35
-        },
-        {
-          "start": 2.82,
-          "end": 3.14
-        },
-        {
-          "start": 3.14,
-          "end": 3.38
-        },
-        {
-          "start": 3.38,
-          "end": 3.44
-        },
-        {
-          "start": 3.44,
-          "end": 3.54
-        },
-        {
-          "start": 3.54,
-          "end": 3.99
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "foltan",
-          "text": "Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.",
-          "scene": "waldweg",
-          "mood": "neutral",
-          "performance_variant": "Give a calm, protective plan before the fight. State your own task firmly, direct Lia to Azar, then invite help without pressuring her."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "bb243f9af44a00e2fb63779620c1fe92ec6bf1f9896b7629f88195d8a16db343",
-        "source_text_sha256": "6a225b014f1c435e6616d2d76de9f112d3f608bd915c8b72cbec88ee356813dd",
-        "audio_sha256": "eab811a82ed191595edf97df02c77d7c7fe046fca9ce9de822bb540af5e7b850",
-        "actual_receipt_sha256": "81459e4394c849a1e4b58bc2eca3ddbcf8cf2efa191f2d14f3f2be4693f0dca2",
-        "cues_sha256": "c23906e425a9000a815e4f807e97c0b94ec43feddec530574dbb71693552c8f6",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "cff8903d6d68d697f023741a2b2572c5e59d9605e49f13232e14db381f45ba19",
-        "whole_alignment_report_sha256": "6e6ad20f5878b36e741d249e72283f76f3fc41748063c0a01ae6cafee63769b5",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "6a225b014f1c435e6616d2d76de9f112d3f608bd915c8b72cbec88ee356813dd",
-      "current_source_row_sha256": "27344af7474a2b700abb80ea445f8fc7fa301a27a12f1476cff4d99963a007a6"
-    },
-    {
       "id": "story-353fcff51286ea2ad9d4cd22",
       "kind": "choice",
       "speaker": "lia",
@@ -95775,104 +95279,6 @@
       },
       "source_text_sha256": "77624657a99f1fea02c1b850ede49d354b7b14d193fca635852476363cf1e915",
       "current_source_row_sha256": "8039ca2f9281888dfea385fe54ce1f399f881b20d761528b8a1265c1ab75ec6a"
-    },
-    {
-      "id": "story-72714a07cc8d27c68940e2b8",
-      "kind": "say",
-      "speaker": "flick",
-      "text": "Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.",
-      "display_text": "Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.",
-      "audio": "audio/story/story-72714a07cc8d27c68940e2b8.mp3",
-      "sha256": "7777bf8eb84eb083b6aa1f227f5d4ebfa65e73f8abeaedf331e62347ffb7ca88",
-      "seconds": 6.76,
-      "voice": "Autonoe",
-      "word_cues": [
-        {
-          "start": 0.34,
-          "end": 0.79
-        },
-        {
-          "start": 1.22,
-          "end": 1.56
-        },
-        {
-          "start": 1.56,
-          "end": 1.7
-        },
-        {
-          "start": 1.7,
-          "end": 2.03
-        },
-        {
-          "start": 2.43,
-          "end": 2.86
-        },
-        {
-          "start": 2.86,
-          "end": 3.4
-        },
-        {
-          "start": 3.56,
-          "end": 3.96
-        },
-        {
-          "start": 3.96,
-          "end": 4.86
-        },
-        {
-          "start": 4.86,
-          "end": 4.98
-        },
-        {
-          "start": 4.98,
-          "end": 5.34
-        },
-        {
-          "start": 5.34,
-          "end": 5.44
-        },
-        {
-          "start": 5.44,
-          "end": 5.56
-        },
-        {
-          "start": 5.56,
-          "end": 5.84
-        },
-        {
-          "start": 5.84,
-          "end": 6.14
-        },
-        {
-          "start": 6.14,
-          "end": 6.56
-        }
-      ],
-      "runtime_keys": [
-        {
-          "kind": "say",
-          "speaker": "flick",
-          "text": "Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.",
-          "scene": "schattenlager",
-          "mood": "determined",
-          "performance_variant": "Make the boundary clear and practical, stressing ropes and people separately. Follow with brisk reassurance about working together."
-        }
-      ],
-      "timing_policy": {
-        "method": "actual-take-qualified-partial-current-story-v1",
-        "source_manifest_sha256": "bb243f9af44a00e2fb63779620c1fe92ec6bf1f9896b7629f88195d8a16db343",
-        "source_text_sha256": "1bf3f30fda6f7004ed9f3a795327598899748196005a826fd46a8b8e6d626e32",
-        "audio_sha256": "7777bf8eb84eb083b6aa1f227f5d4ebfa65e73f8abeaedf331e62347ffb7ca88",
-        "actual_receipt_sha256": "3461860ae85fe8d3e189c7f9780624cd4a79395e4ca292af58cabf03372ee1ba",
-        "cues_sha256": "8de20970a1bb7221e791fbe5402fada744bf54dd48747657191ebda3f99fde88",
-        "alignment_engine": "mlx-whisper-authored-dtw-v1/story-waveform-v1",
-        "actual_alignment_model": "mlx-community/whisper-large-v3-turbo",
-        "whole_qa_report_sha256": "cff8903d6d68d697f023741a2b2572c5e59d9605e49f13232e14db381f45ba19",
-        "whole_alignment_report_sha256": "6e6ad20f5878b36e741d249e72283f76f3fc41748063c0a01ae6cafee63769b5",
-        "qualification_scope": "one_actual_take_from_unchanged_complete_reports"
-      },
-      "source_text_sha256": "1bf3f30fda6f7004ed9f3a795327598899748196005a826fd46a8b8e6d626e32",
-      "current_source_row_sha256": "33e870329789071453d3bd0bc6b74d17575c9cb698d56f98c8ac8e9667b1ebb2"
     },
     {
       "id": "story-73c9f347d785d1157c846c1e",
@@ -116957,15 +116363,6 @@
     },
     {
       "kind": "say",
-      "speaker": "lia",
-      "text": "Ich bin keine Kriegerin. Ich lese Bücher.",
-      "scene": "bruderschaft",
-      "mood": "thinking",
-      "performance_variant": "Speak naturally, with clear phrasing and restrained feeling.",
-      "asset_id": "story-29ef123f7684aa91dbc01fb7"
-    },
-    {
-      "kind": "say",
       "speaker": "foltan",
       "text": "Wohin so eilig? Im Dunkeln, ohne Feuer, mit Wölfen im Wald?",
       "scene": "foltan-azar",
@@ -119071,15 +118468,6 @@
       "asset_id": "story-566e96b3e7093edace832a22"
     },
     {
-      "kind": "think",
-      "speaker": "lia",
-      "text": "Und Vaters Dolch in der Lederscheide. Den hat er auf jeder Marktfahrt getragen.",
-      "scene": "trauer",
-      "mood": "neutral",
-      "performance_variant": "Recognize your father's dagger with quiet affection and awareness of his absence.",
-      "asset_id": "story-56da6a38863e7e486e01adcc"
-    },
-    {
       "kind": "bark",
       "speaker": "gaukler",
       "text": "Hopp, hopp, hopp!",
@@ -119528,15 +118916,6 @@
       "mood": "happy",
       "performance_variant": "Address the other person cautiously but clearly. Keep resolve personal and leave room for hesitation.",
       "asset_id": "story-5fee554d6c07f88548cf9203"
-    },
-    {
-      "kind": "think",
-      "speaker": "lia",
-      "text": "Er hat recht. Ich zittere.",
-      "scene": "foltan-azar",
-      "mood": "neutral",
-      "performance_variant": "Speak as a private thought, close and unforced. Follow the observation to its conclusion with small natural pauses.",
-      "asset_id": "story-60792b70655256a71a6a6b39"
     },
     {
       "kind": "think",
@@ -122716,15 +122095,6 @@
       "asset_id": "story-ab4829e1fd3cdcd79aa6cf18"
     },
     {
-      "kind": "say",
-      "speaker": "foltan",
-      "text": "Lass den Dolch stecken, Mädchen. Ich bin schneller. Und du zitterst.",
-      "scene": "foltan-azar",
-      "mood": "neutral",
-      "performance_variant": "Speak quietly and urgently to prevent panic. Be firm enough to stop movement while conveying that you intend no harm.",
-      "asset_id": "story-abd464326d33ec599d0739ad"
-    },
-    {
       "kind": "bark",
       "speaker": "lia",
       "text": "Meine Nase …",
@@ -122885,15 +122255,6 @@
       "mood": "neutral",
       "performance_variant": "Blunt and gruff in attitude; brisk consonants, contained pride, grounded comic timing.",
       "asset_id": "story-aea2b9b63e78b3d9a9f198d3"
-    },
-    {
-      "kind": "say",
-      "speaker": "foltan",
-      "text": "Dann lies das hier: Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.",
-      "scene": "bruderschaft",
-      "mood": "neutral",
-      "performance_variant": "Controlled and clipped; give practical words firm weight without shouting.",
-      "asset_id": "story-aea49af4ca12143dd3700b44"
     },
     {
       "kind": "think",
@@ -127243,15 +126604,6 @@
       "asset_id": "story-3443a2446d1ca92a10d72a34"
     },
     {
-      "kind": "say",
-      "speaker": "foltan",
-      "text": "Ich übernehme die Räuber. Bleib bei Azar. Hilf uns, wenn du kannst.",
-      "scene": "waldweg",
-      "mood": "neutral",
-      "performance_variant": "Give a calm, protective plan before the fight. State your own task firmly, direct Lia to Azar, then invite help without pressuring her.",
-      "asset_id": "story-350852800d295d58fbce34b6"
-    },
-    {
       "kind": "choice",
       "speaker": "lia",
       "text": "Wir suchen meine Schwester. Heute nicht.",
@@ -128105,15 +127457,6 @@
       "mood": "neutral",
       "performance_variant": "Deliver the judgment slowly and matter-of-factly. Let the short pauses impose pressure; keep the threat controlled and unembellished.",
       "asset_id": "story-71e5359ffc9ccb8d05b7ea84"
-    },
-    {
-      "kind": "say",
-      "speaker": "flick",
-      "text": "Gut. Wenn’s eng wird: Seile schneiden, keine Leute. Zu zweit sind die Fesseln schneller durch.",
-      "scene": "schattenlager",
-      "mood": "determined",
-      "performance_variant": "Make the boundary clear and practical, stressing ropes and people separately. Follow with brisk reassurance about working together.",
-      "asset_id": "story-72714a07cc8d27c68940e2b8"
     },
     {
       "kind": "say",
@@ -130623,7 +129966,6 @@
       "story-2926397d84e9b4489adac0e8",
       "story-2930d7399b4b6cf4737eea3f",
       "story-29ed07b7799bbe7aa1dd5b54",
-      "story-29ef123f7684aa91dbc01fb7",
       "story-2a016f0f00dea2be534e3267",
       "story-2a482b02774b47710e0a227a",
       "story-2a5cce4732eeca1b11637768",
@@ -130684,7 +130026,6 @@
       "story-3443a2446d1ca92a10d72a34",
       "story-34e4ab61872402f920df0478",
       "story-34fd3c6798e2bfa1e3d08181",
-      "story-350852800d295d58fbce34b6",
       "story-3529652de5c021b5332068e1",
       "story-353fcff51286ea2ad9d4cd22",
       "story-3562bfaca9cd7020fb653efb",
@@ -130889,7 +130230,6 @@
       "story-56258a58661c7e592b9dc7db",
       "story-5628386a38f509ffb9b2526d",
       "story-566e96b3e7093edace832a22",
-      "story-56da6a38863e7e486e01adcc",
       "story-56e6db5ebae26a5502484a82",
       "story-56f18d81aacfac6fa39ba458",
       "story-56fded00abdc5ee96d7b798b",
@@ -130948,7 +130288,6 @@
       "story-5fb041aff91d4eb335ce9387",
       "story-5fee554d6c07f88548cf9203",
       "story-60432c2414e45f918c2d8b14",
-      "story-60792b70655256a71a6a6b39",
       "story-60d22e2c1a0a38867fb013db",
       "story-61157896a6d0f6e653574ba6",
       "story-6192022fc0e6839392249de3",
@@ -131055,7 +130394,6 @@
       "story-71de7f3f55b415e9861d13fd",
       "story-71e5359ffc9ccb8d05b7ea84",
       "story-721e13fc6f72706c603a4722",
-      "story-72714a07cc8d27c68940e2b8",
       "story-7277a20b28a6162fcbbec9a2",
       "story-728fc972602478c091d95330",
       "story-72c0080bdb3e5963291d7ce2",
@@ -131387,7 +130725,6 @@
       "story-ab5869e36abb7eb90e1fdc53",
       "story-ab76d9f01bf89ca28e2cd56f",
       "story-ab8bcad75d27e969ff1939bc",
-      "story-abd464326d33ec599d0739ad",
       "story-abdcaab711d64ce034b9d5c3",
       "story-ac134ef0876be86bf8139fd7",
       "story-ac161a6260a4df172e8b4211",
@@ -131411,7 +130748,6 @@
       "story-ae5c3a545edea74dc6f36139",
       "story-ae88d61f4e00ac8777a79b96",
       "story-aea2b9b63e78b3d9a9f198d3",
-      "story-aea49af4ca12143dd3700b44",
       "story-aec5a1fa5a73758ffa667756",
       "story-af41ddd71286b969d9c18b82",
       "story-af62dd1a183134fac13d56e8",
@@ -131896,6 +131232,7 @@
       "story-0ad650d2461c2477d08a1ded",
       "story-0b170da0e7298684257dffcb",
       "story-11e61debb7d405e135d96ebb",
+      "story-160c7df9e0f9afe02b5f5b00",
       "story-210566c0aa1e0b5efabc0e22",
       "story-2d0be5d0df09d66c91291c9c",
       "story-2d0e31bae49f9f95bfdafea1",
@@ -131944,18 +131281,22 @@
       "story-92b3e0a46b39c8fa51163365",
       "story-94252ad06e91809629492f0b",
       "story-99752f7afa584c2b085bed2a",
+      "story-9a05db23c98d61cdc0c45dd9",
       "story-a0048bb6f133cd08ba01ecdb",
       "story-a0cb35220b5803315f99b934",
+      "story-a2180eedbf75ee2231faa116",
       "story-a2f82ef7e6ec1c9a05803136",
-      "story-a32820a6deb0f05ac24c0583",
       "story-a3cd5eb91bc73369b09a34c6",
+      "story-a8e01638dfd090179bf1b476",
       "story-b09569633f00ba2e927a62bc",
       "story-b191705bbdf175cbe8c387f8",
       "story-b42ec30bb23b8f05a319c8d4",
+      "story-b66e44fd9c1785e85d8614ac",
       "story-bc2ba9aba00f9ea561dd7a66",
       "story-bd442013d626f9f5cfcf3f50",
       "story-c0c7a83689b62e73a0d3faba",
       "story-c2519dc8cd0b74fbb1aafcd1",
+      "story-c5593e2352f21d241f14c0cd",
       "story-cb96b37bbc111110608c0f80",
       "story-cc2c15e03dd1b212311560c2",
       "story-d1927e3c77fdb0e183d3724d",
@@ -131970,11 +131311,13 @@
       "story-dd12a617235718db0fc7340b",
       "story-de2a7514ee6ceadf32d26f9d",
       "story-dfc39fc851835d9c5c4b9b77",
+      "story-e05036eec83ff6f8c6cec177",
       "story-e6d8a2756e9dfc8920cfda45",
       "story-e8e4afab7d8ad071ca1856b7",
       "story-e9779b05717bff8531e6efaf",
       "story-eaf47de5d7e340c9a8db4e56",
       "story-edbedf8d87d67780769e8231",
+      "story-eee31119e8860517002b48ea",
       "story-f06a5efd19de5a02af97d1f0",
       "story-f34a58ff069e825b1e2638ce",
       "story-fd74a52c6bfc61481e682dfb"
