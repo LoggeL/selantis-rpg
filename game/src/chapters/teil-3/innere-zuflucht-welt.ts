@@ -143,25 +143,31 @@ export const UNDER_THE_OAK: readonly MemoryLine[] = [
 
 /** Lines of the framed cut in the false camp at dusk (player knowledge only; Lia never learns of them). */
 export interface CampLine { who: string; text: string; mood?: string }
-export const CAMP_CUT: { speech: CampLine[]; atPost: CampLine[]; parting: CampLine[] } = {
+export const CAMP_CUT: { speech: CampLine[]; rescue: CampLine[]; stone: CampLine[]; parting: CampLine[] } = {
   speech: [
     { who: 'e2-vamir', text: 'Räte, Orden, ein alter Narr mit Stab: Alle haben sie vor mir versteckt. Heute liegt sie unter einer Plane.' },
     { who: 'e2-vamir', text: 'Bald fragt in Selantis niemand mehr, wem das Land gehört. Es wird keinen mehr geben, der es anders sagt.' },
     { who: 'e2-vamir', text: 'Kyra. Du warst gehorsam und geduldig. Beides gefällt mir.' },
     { who: 'e2-kyra-gebannt', text: 'Ich tue, was Ihr sagt.', mood: 'devoted' },
   ],
-  atPost: [
-    { who: 'e2-baris', text: 'Erst läufst du uns davon, dann schleichst du uns einen halben Tag hinterher. Entscheid dich mal, Spitzohr.' },
-    { who: 'e2-flick', text: 'Hab ich. Ich steh auf der Seite, wo du nicht stehst. Ist meistens die mit dem besseren Geruch.', mood: 'smirk' },
-    { who: 'e2-baris', text: 'Meister. Ein Hieb, und sie ist still.' },
-    { who: 'e2-vamir', text: 'Wozu? Tote schauen nicht zu. Lass sie am Pfosten stehen und zählen, wie weit der Wagen schon ist.' },
-    { who: 'e2-vamir', text: 'Danach gehört sie dem Wald. Man sagt, die Wölfe hier sind dieses Jahr früh hungrig.' },
+  /** Flick breaks out of the bushes and runs for the wagon. */
+  rescue: [
+    { who: 'e2-flick', text: 'Leseratte! Halt durch, ich mach den Käfig auf!', mood: 'determined' },
+    { who: 'e2-baris', text: 'Das Spitzohr! Packt sie!' },
+    { who: 'e2-vamir', text: 'Nicht nötig.' },
+  ],
+  /** After the spell: Flick stands as stone, mid-run, knife out. */
+  stone: [
+    { who: 'e2-baris', text: 'Erst läufst du uns davon, dann schleichst du uns einen halben Tag hinterher. Und jetzt stehst du da wie ein Grabstein.' },
+    { who: 'e2-baris', text: 'Meister. Ein Hieb mit dem Axtrücken, und sie liegt in Scherben.' },
+    { who: 'e2-vamir', text: 'Wozu? Stein hört zu. Sie soll hören, wie der Wagen fährt, und nichts tun können.' },
+    { who: 'e2-vamir', text: 'Der Zauber hält bis in die Nacht. Wenn er bricht, gehört sie dem Wald. Die Wölfe hier sind dieses Jahr früh hungrig.' },
     { who: 'e2-baris', text: 'Wie Ihr wollt.' },
   ],
   parting: [
     { who: 'e2-baris', text: 'Und falls du auf die Paladine in Trapas hoffst: Die suchen noch ihr Gästezimmer ab.' },
     { who: 'e2-baris', text: 'Du warst doch immer am liebsten allein, oder? Heute Nacht hast du es ganz für dich.' },
-    { who: 'e2-flick', text: 'Ich merk mir dein Gesicht, Baris. Die Hälfte, die noch übrig ist.', mood: 'angry' },
     { who: 'e2-vamir', text: 'Spannt an. Sobald es dunkel ist, fahren wir.' },
   ],
 };
+

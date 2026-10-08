@@ -60,13 +60,13 @@ describe('memories and voices', () => {
   it('keeps every line short enough for one box', () => {
     const all = [
       ...MEMORY_IDS.flatMap(id => MEMORIES[id].lines.map(l => l.text)), ...OUTSIDE_VOICES.flat().map(l => l.text), ...AFTER_VOICES,
-      ...UNDER_THE_OAK.map(l => l.text), ...CAMP_CUT.speech.map(l => l.text), ...CAMP_CUT.atPost.map(l => l.text), ...CAMP_CUT.parting.map(l => l.text),
+      ...UNDER_THE_OAK.map(l => l.text), ...CAMP_CUT.speech.map(l => l.text), ...CAMP_CUT.rescue.map(l => l.text), ...CAMP_CUT.stone.map(l => l.text), ...CAMP_CUT.parting.map(l => l.text),
     ];
     for (const t of all) expect(t.length, t).toBeLessThanOrEqual(140);
   });
 
   it('uses only the established names in the camp cut (no „Elbe“, no „Vardis“)', () => {
-    const all = [...CAMP_CUT.speech, ...CAMP_CUT.atPost, ...CAMP_CUT.parting].map(l => l.text).join(' ');
+    const all = [...CAMP_CUT.speech, ...CAMP_CUT.rescue, ...CAMP_CUT.stone, ...CAMP_CUT.parting].map(l => l.text).join(' ');
     expect(all).not.toMatch(/Elbe|Vardis/);
   });
 });

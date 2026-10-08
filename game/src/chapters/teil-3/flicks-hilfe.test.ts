@@ -3,7 +3,7 @@ import { G } from '../../core/G';
 import { pointInPoly } from '../../world/poly';
 import { CAMP_BLOCKS } from './falle-lager';
 import {
-  keepAway, NIGHT_CAMERA, NIGHT_SPOT, NIGHT_WALK, PATH_EXIT, PROOF_OPTIONS, ROPE_TURNS, TONE_OPTIONS, vouchLines, WOLF_NEAR, WOLF_STAGES,
+  keepAway, NIGHT_CAMERA, NIGHT_SPOT, NIGHT_WALK, PATH_EXIT, PROOF_OPTIONS, STONE_CRACKS, TONE_OPTIONS, vouchLines, WOLF_NEAR, WOLF_STAGES,
 } from './flicks-hilfe-wege';
 import { HALL_SPOT, HALL_WALK } from './schutzreaktion-saal';
 import { hasOwnStaff, prepareE3, staffPlace } from './shared';
@@ -14,7 +14,7 @@ const walkable = (at: readonly [number, number]) =>
   NIGHT_WALK.some(p => pointInPoly(at[0], at[1], p)) && !CAMP_BLOCKS.some(b => pointInPoly(at[0], at[1], b.poly));
 
 describe('the camp at night (e3-falsches-lager-nacht)', () => {
-  it('keeps the post, the brand, the ruts and the way out on open ground, west of where the wagon stood', () => {
+  it('keeps the statue, the brand, the ruts and the way out on open ground, west of where the wagon stood', () => {
     for (const [id, at] of Object.entries(NIGHT_SPOT)) {
       expect(walkable(at), id).toBe(true);
       expect(at[0], id).toBeLessThan(NIGHT_CAMERA.x + NIGHT_CAMERA.w);
@@ -27,10 +27,10 @@ describe('the camp at night (e3-falsches-lager-nacht)', () => {
 });
 
 describe('the wolves', () => {
-  it('gather in more pairs and closer with every turn of the rope', () => {
-    expect(WOLF_STAGES.length).toBe(ROPE_TURNS);
+  it('gather in more pairs and closer with every crack in the stone', () => {
+    expect(WOLF_STAGES.length).toBe(STONE_CRACKS);
     for (let i = 1; i < WOLF_STAGES.length; i++) expect(WOLF_STAGES[i].length).toBeGreaterThanOrEqual(WOLF_STAGES[i - 1].length);
-    const dist = (s: readonly (readonly [number, number])[]) => Math.min(...s.map(p => Math.hypot(p[0] - NIGHT_SPOT.post[0], p[1] - NIGHT_SPOT.post[1])));
+    const dist = (s: readonly (readonly [number, number])[]) => Math.min(...s.map(p => Math.hypot(p[0] - NIGHT_SPOT.stone[0], p[1] - NIGHT_SPOT.stone[1])));
     expect(dist(WOLF_STAGES[2])).toBeLessThan(dist(WOLF_STAGES[0]));
   });
 
@@ -49,7 +49,7 @@ describe('the wolves', () => {
 describe('the hall', () => {
   it('offers three tones and three proofs, each with its own reaction, and Ignatius always vouches', () => {
     expect(TONE_OPTIONS.map(o => o.key)).toEqual(['spott', 'ehrlich', 'ignatius']);
-    expect(PROOF_OPTIONS.map(o => o.key)).toEqual(['striemen', 'weg', 'geduld']);
+    expect(PROOF_OPTIONS.map(o => o.key)).toEqual(['stein', 'weg', 'geduld']);
     for (const o of [...TONE_OPTIONS, ...PROOF_OPTIONS]) {
       expect(o.lines[0].who).toBe('e2-flick');
       expect(o.lines.some(l => l.who === 'e3-grossmeister')).toBe(true);

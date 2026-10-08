@@ -18,8 +18,8 @@ export const NIGHT_WALK: P[] = [[
 export const NIGHT_CAMERA = { x: 340, y: 120, w: 660, h: 600 } as const;
 
 export const NIGHT_SPOT = {
-  /** Flick, with her back to the post and the shackle. */
-  post: CAMP_SPOT.post,
+  /** Flick, turned to stone mid-run by Vamir's spell (camp cut of e3-innere-zuflucht). */
+  stone: CAMP_SPOT.flickStone,
   /** Where she takes a brand from the embers. */
   brand: [604, 412],
   /** The wagon's ruts and the horses' prints, leading east out of the picture. */
@@ -63,14 +63,15 @@ export function keepAway(eye: Spot, flick: Spot, lurk: Spot, min: number, step =
 }
 
 /** Turns in the rope until her hands are free. */
-export const ROPE_TURNS = 3;
+/** The stone cracks in this many stages while the wolves gather (one wolf stage each). */
+export const STONE_CRACKS = 3;
 
 // ---------------------------------------------------------------------------------------------------------------
 // The hall: how Flick convinces the Großmeister
 // ---------------------------------------------------------------------------------------------------------------
 
 export type FlickTone = 'spott' | 'ehrlich' | 'ignatius';
-export type FlickProof = 'striemen' | 'weg' | 'geduld';
+export type FlickProof = 'stein' | 'weg' | 'geduld';
 
 export interface HallLine { who: string; text: string; mood?: string }
 export interface HallOption<K extends string> { key: K; text: string; lines: HallLine[] }
@@ -106,10 +107,10 @@ export const TONE_OPTIONS: readonly HallOption<FlickTone>[] = [
 /** Round 2 – „Why should I send my men into a forest a stranger shows me?“ */
 export const PROOF_OPTIONS: readonly HallOption<FlickProof>[] = [
   {
-    key: 'striemen', text: '(Die Handgelenke zeigen.) „Das ist von heute. Der Pfosten steht noch da, schaut ihn Euch an.“',
+    key: 'stein', text: '(Den Arm hinhalten.) „Grauer Staub, der nicht abgeht. Vamir hat mich zu Stein gemacht. Fasst ruhig an.“',
     lines: [
-      { who: 'e2-flick', text: 'Seht her. Das ist von heute. Der Pfosten steht noch da, mit einer Schelle dran. Schaut ihn Euch an.', mood: 'angry' },
-      { who: 'e3-grossmeister', text: 'Frische Striemen. Hm. Wer sich verkleidet, schneidet sich selten so tief.', mood: 'thinking' },
+      { who: 'e2-flick', text: 'Fasst an. Grauer Staub in jeder Falte, und er geht nicht ab. Vamir hat mich zu Stein gemacht, bis zur Nacht.', mood: 'angry' },
+      { who: 'e3-grossmeister', text: 'Steinstaub, der nicht abfällt. Ich habe von solchen Bannen gelesen. Nie geglaubt, einen zu sehen.', mood: 'thinking' },
     ],
   },
   {

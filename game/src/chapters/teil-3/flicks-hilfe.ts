@@ -1,9 +1,9 @@
 // Scene „e3-flicks-hilfe“ – Flicks Nachricht (docs/teil-3/umsetzung.md §3, F3 32:16–34:49). Flick's interlude, two
 // checkpointed parts (G.goto with { part }, a reload restarts the current part):
-//  1. default, e3-falsches-lager-nacht: „Unterdessen, im verlassenen Lager …“. The player is Flick (e2-flick-gefangen),
-//     tied to the post; the wagon with Lia is gone, the fire is down to embers, wolves howl. Heart: she twists her
-//     hands in the rope – storyAction('tend') three times at the post – while eyes gather at the edge of the light
-//     (only eyes and sounds, never a body). Free, she pulls a brand from the embers (a moving fire light; the eyes keep
+//  1. default, e3-falsches-lager-nacht: „Unterdessen, im verlassenen Lager …“. The player is Flick, still stone where
+//     Vamir's spell caught her mid-run (versteinerung.ts); the wagon with Lia is gone, the fire is down to embers. As
+//     night falls the spell weakens: the stone cracks in three stages while eyes gather at the edge of the light (only
+//     eyes and sounds, never a body), and she breaks out. Free, she pulls a brand from the embers (a moving fire light; the eyes keep
 //     their distance from it), reads the wagon's ruts with the Spurenblick (east), decides on Trapas (Baris let slip
 //     that the paladins are looking for Lia) and backs down the path facing the dark, brand first, slowly.
 //  2. 'saal' (only with e3-fh-frei): Trapas, the order's hall at night. Flick (look flick) is brought before the
@@ -20,15 +20,16 @@ import { pinPlayer } from '../teil-2/gewoelbe';
 import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import { CAMP_BLOCKS, CAMP_OCCLUDERS, CAMP_SURFACES, FIRE_RING } from './falle-lager';
 import {
-  FH_RESULT, type FlickTone, keepAway, NIGHT_CAMERA, NIGHT_SPOT, NIGHT_WALK, PATH_EXIT, PROOF_OPTIONS, ROPE_TURNS, type HallLine,
+  FH_RESULT, type FlickTone, keepAway, NIGHT_CAMERA, NIGHT_SPOT, NIGHT_WALK, PATH_EXIT, PROOF_OPTIONS, STONE_CRACKS, type HallLine,
   TONE_OPTIONS, vouchLines, WOLF_LURK, WOLF_NEAR, WOLF_STAGES,
 } from './flicks-hilfe-wege';
 import { BEFORE_DAIS, HALL_BLOCKS, HALL_OCCLUDERS, HALL_SPOT, HALL_SURFACES, HALL_WALK, hallCandleLights } from './schutzreaktion-saal';
 import { bg, e3Scene, interlude, nextScene, sfx, STAFF_PLACE_FLAG, ui, until } from './shared';
+import { asStone, breakStone } from './versteinerung';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flag between the parts. */
 const F = {
-  turns: 'e3-fh-drehungen', freed: 'e3-fh-haende-frei', brand: 'e3-fh-brand', ruts: 'e3-fh-spur', out: 'e3-fh-draussen',
+  freed: 'e3-fh-haende-frei', brand: 'e3-fh-brand', ruts: 'e3-fh-spur', out: 'e3-fh-draussen',
   free: 'e3-fh-frei', atDais: 'e3-fh-podest',
 } as const;
 
@@ -50,10 +51,6 @@ export const lagerNacht: MapDef = defineMap({
   surface: 'dirt',
   interactables: [
     {
-      id: 'seil', at: NIGHT_SPOT.post, verb: 'Die Hände im Seil drehen', radius: 30, once: false,
-      when: () => !G.state.is(F.freed), onInteract: twist,
-    },
-    {
       id: 'glut', verb: 'Einen Brand aus der Glut ziehen', poly: FIRE_RING, radius: 30, standAt: NIGHT_SPOT.brand, face: 'right', once: false,
       sparkle: true, when: () => G.state.is(F.freed) && !G.state.is(F.brand), onInteract: takeBrand,
     },
@@ -64,7 +61,7 @@ export const lagerNacht: MapDef = defineMap({
     { id: 'glut', at: [625, 356], kind: 'fire', radius: 70, intensity: 0.7, always: true, flame: 0.25 },
     { id: 'mond', at: [700, 120], kind: 'moon', radius: 300, intensity: 0.22 },
   ],
-  spawns: { pfosten: { at: NIGHT_SPOT.post, dir: 'down' } },
+  spawns: { stein: { at: NIGHT_SPOT.stone, dir: 'right' } },
   camera: { bounds: NIGHT_CAMERA },
   time: 'night',
   ambience: ['night', 'wind', 'crickets'],
@@ -182,36 +179,24 @@ function growl(): void {
 let pack: Wolves | null = null;
 let unpin: (() => void) | null = null;
 
-const ROPE_PICTURE: GesturePicture = {
-  background: 'e3-falsches-lager',
-  focus: [915, 262],
-  zoom: 3,
-  figures: [{ id: 'e2-flick-gefangen', pose: 'idle', at: NIGHT_SPOT.post, facing: 'down' }],
-  glint: [NIGHT_SPOT.post[0], NIGHT_SPOT.post[1] - 18],
-};
-
-const turns = (): number => Number(G.state.flag(F.turns) ?? 0);
-
-async function twist(w: WorldCtx): Promise<void> {
-  const n = turns();
-  if (n >= ROPE_TURNS) return;
-  const gesture = G.ui.storyAction('tend', 'Die Hände im Seil drehen');
-  restageGesture('tend', 'Dreh die Handgelenke im Seil, hin und her. Die Fasern geben nach, ganz langsam.', ROPE_PICTURE);
-  await gesture;
-  sfx('rustle', { volume: 0.25, pitch: 1.3 });
-  G.state.set(F.turns, n + 1);
-  if (n + 1 >= ROPE_TURNS) return;
-  // The eyes gather.
-  const stage = WOLF_STAGES[n + 1];
+/** One crack in the stone: the eyes gather (next wolf stage), Flick's thoughts get louder. */
+async function crack(w: WorldCtx, n: number): Promise<void> {
+  const stage = WOLF_STAGES[n];
   stage.forEach((p, i) => { if (pack) pack.target[i] = [p[0], p[1]]; });
-  if (n + 1 === 1) {
+  sfx('branch-snap', { volume: 0.3 + n * 0.15, pitch: 0.5 });
+  w.fx.burst([w.player.x, w.player.y - 20 - n * 6], 'dust', 5 + n * 3);
+  if (n === 0) {
+    howl(0.45);
+    await w.think('Nichts. Kein Finger, kein Lid. Nur hören. Den Wagen, wie er wegfährt. Und jetzt das Heulen.');
+    await w.think('Aber da, im Handgelenk. Es knackt. Der Zauber hält bis in die Nacht, hat er gesagt. Es wird Nacht.');
+  } else if (n === 1) {
     growl();
-    await flick(w, 'Da. Unten am Pfad, im Gebüsch. Zwei Augen, gelb wie Butterblumen.', 'scared');
-    await flick(w, 'Ganz ruhig, Flick. Wölfe fressen niemanden, der sie frech anstarrt. Glaub ich.', 'scared');
+    await w.think('Zwei Augen im Gebüsch, gelb wie Butterblumen. Ganz ruhig, Flick. Steine schmecken nicht. Hoffentlich.');
   } else {
     howl(0.6);
-    await flick(w, 'Jetzt sind es mehr. Und sie kommen näher. Los, Seil. Du bist doch auch nur Gras.', 'angry');
+    await w.think('Jetzt sind es mehr. Sie kommen näher. Komm schon, Stein. Brich. BRICH!');
   }
+  await w.wait(900);
 }
 
 async function takeBrand(w: WorldCtx): Promise<void> {
@@ -265,39 +250,29 @@ function backAway(w: WorldCtx, dir: Dir): () => void {
 
 async function nachtScript(w: WorldCtx): Promise<void> {
   for (const f of [F.freed, F.brand, F.ruts, F.out]) G.state.set(f, false);
-  G.state.set(F.turns, 0);
   w.lockPlayer();
   w.lookMode.enable(false);
   pack = wolves(w, 3);
-  unpin = pinPlayer(w, 'idle', 'down');
+  unpin = pinPlayer(w, 'idle', 'right');
+  asStone(w.player);
   await w.camera.zoom(1.2, 0);
-  await w.camera.pan([NIGHT_SPOT.post[0] - 60, NIGHT_SPOT.post[1] + 20], 0);
+  await w.camera.pan([NIGHT_SPOT.stone[0] - 60, NIGHT_SPOT.stone[1] + 20], 0);
   await ui().fade('in', 1200);
   await w.cutscene(async () => {
-    howl(0.45);
     await w.wait(1200);
-    await flick(w, 'Weg. Alle weg. Der Wagen, die Pferde, das Feuer bis auf die Glut. Und die Leseratte in ihrem Käfig.', 'sad');
-    await flick(w, 'Und ich? Hänge an einem Pfosten, als Abendbrot für die Nachbarschaft.', 'smirk');
-    howl(0.55);
-    WOLF_STAGES[0].forEach((q, i) => { if (pack) pack.target[i] = [q[0], q[1]]; });
-    await w.wait(900);
-    await flick(w, 'Die Schelle sitzt fest. Aber das Seil darunter ist alt. Wenn ich die Hände drehe …', 'determined');
+    await w.think('Weg. Alle weg. Der Wagen, die Pferde, das Feuer bis auf die Glut. Und die Leseratte in ihrem Käfig.');
+    for (let n = 0; n < STONE_CRACKS; n++) await crack(w, n);
+    unpin?.(); unpin = null;
+    await breakStone(w, w.player, 'flick');
+    w.player.face('down');
+    growl();
+    await flick(w, 'Luft! Hände! Alles noch dran. Und alles grau, als hätte ich im Mehlsack geschlafen.', 'surprised');
+    await flick(w, 'Und jetzt Licht. Wölfe mögen kein Feuer, das weiß jedes Kind.', 'determined');
     await w.camera.zoom(1, 700);
     w.camera.follow();
   });
-  w.setObjective('e3-fh-seil', 'Dreh die Hände im Seil, bis es nachgibt.', 'seil');
-  w.unlockPlayer();
-  await until(w, () => turns() >= ROPE_TURNS && !G.ui.busy(), 150);
-  w.completeObjective('e3-fh-seil');
   G.state.set(F.freed);
-  await w.cutscene(async () => {
-    sfx('rope-cut', { volume: 0.35 });
-    unpin?.(); unpin = null;
-    w.player.setLook('flick');
-    w.player.setIdle('idle');
-    growl();
-    await flick(w, 'Frei! Und jetzt Licht. Wölfe mögen kein Feuer, das weiß jedes Kind.', 'happy');
-  });
+  w.unlockPlayer();
   if (pack) { pack.follow = true; pack.near = WOLF_NEAR.bare; }
   w.setObjective('e3-fh-brand', 'Zieh einen brennenden Ast aus der Glut.', 'glut');
   await until(w, () => G.state.is(F.brand) && !G.ui.busy(), 150);
@@ -396,7 +371,7 @@ async function saalScript(w: WorldCtx): Promise<void> {
     bg(mentor.walkTo(HALL_SPOT.mentor[0] - 70, HALL_SPOT.mentor[1] - 10, { face: 'right' }));
     await w.camera.pan([320, 170], 700);
     await flick(w, 'Vamirs Leute haben Lia. In einem Lager im Wald, näher, als Ihr denkt. Kyra hat sie im Kreis geführt. Ich hab zugesehen.', 'determined');
-    await flick(w, 'Mich hatten sie an einen Pfosten gebunden, damit ich auch alles gut sehe. Dann haben sie sie im Käfig weggefahren.', 'angry');
+    await flick(w, 'Ich wollte sie aus dem Käfig holen. Vamir hat nur die Hand gehoben, und ich war Stein. Dann haben sie sie weggefahren.', 'angry');
     mentor.face('player');
     await w.say('e2-ignatius', 'Im Käfig … Sie ist doch vor zwei Nächten fort, aus freien Stücken. Wie kam sie zu Vamirs Leuten?', { mood: 'worried' });
     await flick(w, 'Ihre Schwester hat sie hingebracht. Und sah dabei aus, als wäre sie gar nicht richtig da.', 'sad');
@@ -471,5 +446,5 @@ export const scene = e3Scene('e3-flicks-hilfe', 'Flicks Nachricht', async params
     return;
   }
   await interlude('Unterdessen, im verlassenen Lager …');
-  await startWorld({ map: lagerNacht, spawn: 'pfosten', player: 'e2-flick-gefangen', companions: [], fadeIn: false, script: nachtScript });
+  await startWorld({ map: lagerNacht, spawn: 'stein', player: 'e2-flick-gefangen', companions: [], fadeIn: false, script: nachtScript });
 });

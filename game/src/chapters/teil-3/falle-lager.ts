@@ -76,8 +76,13 @@ export const CAMP_SPOT = {
   vamirFire: [626, 452],
   kyraEvening: [672, 460],
   barisEvening: [748, 410],
-  /** In front of Flick at the post. */
+  /** In front of Flick at the post (old staging, kept for the trail clues). */
   barisAtPost: [930, 336],
+  /** Flick breaks out of the bushes south-east and runs for the wagon; Vamir's spell catches her halfway. */
+  flickHide: [860, 560],
+  flickStone: [930, 430],
+  /** Baris in front of the statue. */
+  barisAtStone: [900, 446],
 } as const satisfies Record<string, Spot | readonly Spot[]>;
 
 /** Hotspots of the painted objects. */

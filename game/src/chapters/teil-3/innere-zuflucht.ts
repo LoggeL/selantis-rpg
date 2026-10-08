@@ -8,9 +8,10 @@
 //     a few lines, then its fog lifts and the meadow grows. After the first and the second memory, muffled voices of
 //     Vamir's men at the cage drift in (outsideVoices, no picture). When the meadow is whole she sits under the oak.
 //  2. 'lager' (only with e3-zf-erinnert): framed „Unterdessen …“ cut in the false camp at dusk, player knowledge only.
-//     Vamir before his men (a great victory, praise for Kyra, who answers devoted), Baris at the post where Flick is
-//     tied: she tracked them and was caught; Baris wants to kill her, Vamir: let her watch, then leave her to the
-//     wolves. Baris taunts her (and lets slip that the paladins of Trapas are searching their guest room). „Spannt an.“
+//     Vamir before his men (a great victory, praise for Kyra, who answers devoted). Flick, who tracked them, breaks out
+//     of the bushes and runs for the cage; Vamir turns her to stone mid-run (plate e3-flick-versteinert). Baris wants to
+//     smash the statue, Vamir: let her listen; the spell breaks at night, then the wolves may have her. Baris taunts
+//     her (and lets slip that the paladins of Trapas are searching their guest room). „Spannt an.“
 //     Sets e3-zuflucht-1. → e3-flicks-hilfe.
 import type { SfxLoop } from '../../audio/api';
 import { G } from '../../core/G';
@@ -23,6 +24,7 @@ import {
 } from './innere-zuflucht-welt';
 import { innerFog, type InnerFog, outsideVoices, rememberedFigure } from './innere-zuflucht-nebel';
 import { bg, e3Scene, interlude, nextScene, sfx, ui, until } from './shared';
+import { petrify } from './versteinerung';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flag between the parts. */
 const F = { mem: (id: MemoryId) => `e3-zf-erinnerung-${id}`, seated: 'e3-zf-sitzt', remembered: 'e3-zf-erinnert' } as const;
@@ -202,8 +204,9 @@ async function lagerScript(w: WorldCtx): Promise<void> {
   kyra.hold(true);
   const baris = w.spawn({ id: 'baris', preset: 'baris-scarred', speaker: 'e2-baris', at: CAMP_SPOT.barisEvening, dir: 'left', solid: false, facePlayer: false, speed: 40 });
   baris.hold(true);
-  const flick = w.spawn({ id: 'flick', preset: 'e2-flick-gefangen', speaker: 'e2-flick', at: CAMP_SPOT.post, dir: 'down', solid: false, facePlayer: false });
+  const flick = w.spawn({ id: 'flick', preset: 'e2-flick-gefangen', speaker: 'e2-flick', at: CAMP_SPOT.flickHide, dir: 'up', solid: false, facePlayer: false, speed: 110 });
   flick.hold(true);
+  flick.hide();
   const release = pinPlayer(w, 'idle', 'up');
   await w.camera.zoom(1.25, 0);
   await w.camera.pan([626, 410], 0);
@@ -217,17 +220,31 @@ async function lagerScript(w: WorldCtx): Promise<void> {
     w.player.face('right');
     kyra.face('player');
     for (const l of CAMP_CUT.speech.slice(2)) await sayCamp(w, l);
-    // Over to the post.
-    await w.camera.pan([880, 340], 1100);
-    await baris.walkTo(CAMP_SPOT.barisAtPost[0], CAMP_SPOT.barisAtPost[1], { face: 'up' });
-    flick.face('down');
-    for (const l of CAMP_CUT.atPost.slice(0, 3)) await sayCamp(w, l);
+    // Flick breaks out of the bushes and runs for the cage; Vamir does not even stand up.
+    sfx('rustle', { volume: 0.6 });
+    flick.show();
+    await w.camera.pan([900, 470], 700);
+    const run = flick.walkTo(CAMP_SPOT.flickStone[0], CAMP_SPOT.flickStone[1], { run: true, straight: true });
+    await sayCamp(w, CAMP_CUT.rescue[0]);
+    await run;
+    baris.face('flick');
+    men.forEach(m => m.face('flick'));
+    await sayCamp(w, CAMP_CUT.rescue[1]);
     w.player.face('right');
-    for (const l of CAMP_CUT.atPost.slice(3)) await sayCamp(w, l);
-    for (const l of CAMP_CUT.parting.slice(0, 3)) await sayCamp(w, l);
+    await sayCamp(w, CAMP_CUT.rescue[2]);
+    await w.player.play('cast' as never, { ms: 600 });
+    await petrify(w, w.player, flick);
+    if (G.art.hasAsset('plate', 'e3-flick-versteinert')) await G.ui.plate('e3-flick-versteinert', { caption: 'Stein', pan: 'in', durationMs: 9000 });
+    await w.wait(500);
+    // Baris in front of the statue.
+    await baris.walkTo(CAMP_SPOT.barisAtStone[0], CAMP_SPOT.barisAtStone[1], { face: 'right' });
+    for (const l of CAMP_CUT.stone.slice(0, 2)) await sayCamp(w, l);
+    for (const l of CAMP_CUT.stone.slice(2)) await sayCamp(w, l);
+    for (const l of CAMP_CUT.parting.slice(0, 2)) await sayCamp(w, l);
+    await w.think('Flick kann nicht antworten. Aber hinter dem Stein, irgendwo, hört sie jedes Wort.');
     bg(baris.walkTo(CAMP_SPOT.barisEvening[0], CAMP_SPOT.barisEvening[1]));
     await w.camera.pan([700, 400], 900);
-    await sayCamp(w, CAMP_CUT.parting[3]);
+    await sayCamp(w, CAMP_CUT.parting[2]);
     for (const m of men) bg(m.walkTo(1000, 410, { straight: true }));
     await w.wait(1200);
   });
