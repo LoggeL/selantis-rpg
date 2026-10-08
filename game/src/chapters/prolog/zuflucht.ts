@@ -5,6 +5,7 @@
 import { G } from '../../core/G';
 import { defineMap, startWorld, type WorldCtx } from '../../world';
 import { ambience, bubbleAt, music, sceneOf, sfx, sleep, ui } from './util';
+import { AFTERTHOUGHT, CHOICE_FLAG, lightSplits, TWINS, type Twin } from './wiege';
 
 const CRADLE: [number, number] = [502, 250];
 const CRADLE_STAND: [number, number] = [CRADLE[0] - 22, CRADLE[1] + 4];
@@ -142,7 +143,20 @@ async function gift(w: WorldCtx): Promise<void> {
     w.player.play('cast');
     let hum: { stop(ms?: number): void } | null = null;
     try { hum = G.audio.loop('urmacht', { interval: 1.6, volume: 0.35 }); } catch { hum = null; }
-    await G.ui.storyAction('lift', 'Die Hand heben');
+    const gift = await G.ui.scenePick({
+      label: 'Wem gebe ich sie?',
+      help: 'Zwei Kinder in einer Wiege. Die Urmacht in Valentus’ Hand. Er kann sie nur einem geben.',
+      backdrop: 'minigames/gesture-lift-scene',
+      layout: 'row',
+      className: 'prolog-wiege',
+      rounds: [{
+        prompt: { speaker: 'valentus', text: 'Eins von euch muss sie tragen. Welches?' },
+        cards: TWINS.map(t => ({ ...t })),
+        judge: (id: string) => ({ ok: true, mood: 'flash', reply: [{ speaker: 'valentus', text: lightSplits(id as Twin) }, { speaker: 'valentus', text: AFTERTHOUGHT }] }),
+      }],
+      onVerdict: () => { sfx('urmacht', { volume: 0.8 }); },
+    });
+    G.state.set(CHOICE_FLAG, gift.picks[0]?.id ?? 'still');
     shimmer.remove(false);
     hum?.stop(400);
     void glow.fadeTo(1.5, 600);

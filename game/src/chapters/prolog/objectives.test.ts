@@ -20,7 +20,7 @@ function context(): WorldCtx {
     emote: vi.fn(async () => {}),
   };
   G.ui = {
-    wait: vi.fn(async () => {}), storyAction: vi.fn(async () => {}), prefetchPlate: vi.fn(),
+    wait: vi.fn(async () => {}), storyAction: vi.fn(async () => {}), scenePick: vi.fn(async () => ({ picks: [{ round: 0, id: 'still', ok: true }], mistakes: 0 })), prefetchPlate: vi.fn(),
     plate: vi.fn(async () => {}), say: vi.fn(async () => {}), closePlate: vi.fn(async () => {}),
     fade: vi.fn(async () => {}), narrate: vi.fn(async () => {}), caption: vi.fn(async () => {}), bubble: vi.fn(),
   } as unknown as UiApi;
@@ -72,7 +72,7 @@ describe('prologue objective progression', () => {
       expect(G.state.activeObjective()).toBeUndefined();
     });
     await interact(w);
-    expect(G.ui.storyAction).toHaveBeenCalledWith('lift', 'Die Hand heben');
+    expect(G.ui.scenePick).toHaveBeenCalledWith(expect.objectContaining({ label: 'Wem gebe ich sie?' }));
     expect(G.goto).toHaveBeenCalledWith('wiese');
   });
 });

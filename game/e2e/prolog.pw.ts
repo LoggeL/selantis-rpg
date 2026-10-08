@@ -288,7 +288,7 @@ test.describe('Prolog', () => {
     expect(errors, errors.join('\n')).toEqual([]);
   });
 
-  test('prolog-zuflucht: wake, the cradle, raise the hand, light and bang, „Sechzehn Jahre später“', async ({ page }) => {
+  test('prolog-zuflucht: wake, the cradle, which child gets the light, light and bang, „Sechzehn Jahre später“', async ({ page }) => {
     test.setTimeout(600_000);
     const errors = watchErrors(page);
     await warp(page, 'prolog-zuflucht');
@@ -299,9 +299,9 @@ test.describe('Prolog', () => {
     await advance(page, { max: 40, idleMs: 3000 });
     await page.waitForFunction(() => (window as Win).G.state.activeObjective()?.id === 'prolog-geschenk', undefined, { timeout: 30000 });
     await interact(page, 'wiege-ansehen', 6);
-    await expect(page.locator('.action-lift')).toBeVisible({ timeout: 20000 }).catch(() => {});
     await advance(page, { max: 60, idleMs: 9000 });
     expect(await flag(page, 'prolog-geschenk')).toBe(true);
+    expect(['still', 'laut']).toContain(await page.evaluate(() => (window as Win).G.state.flag('prolog-wiege-wahl')));
     // The prologue hands over to Kapitel I.
     await page.waitForFunction(() => (window as Win).G.currentScene === 'wiese', undefined, { timeout: 60000 });
     expect(await scene(page)).toBe('wiese');
