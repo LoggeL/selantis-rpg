@@ -873,7 +873,17 @@
           "frozen",
           "crumble"
         ],
-        "magentaAllow": 60
+        "magentaAllow": 60,
+        "idleFrames": [
+          0,
+          4,
+          8,
+          12
+        ],
+        "note": "walk sheet = the statue standing still in 4 directions (no walk cycle; use idle/frozen/crumble)",
+        "ownPalette": [
+          "crumble"
+        ]
       }
     },
     "flick-beschuetzerin": {

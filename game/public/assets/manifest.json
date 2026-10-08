@@ -1494,6 +1494,57 @@
    ],
    "height": 43
   },
+  "e3-flick-stein": {
+   "poses": {
+    "crumble": {
+     "file": "assets/sprites/e3-flick-stein-crumble.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    },
+    "frozen": {
+     "file": "assets/sprites/e3-flick-stein-frozen.png",
+     "w": 96,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      48,
+      60
+     ],
+     "facing": "right"
+    }
+   },
+   "walk": {
+    "file": "assets/sprites/e3-flick-stein-walk.png",
+    "frameW": 64,
+    "frameH": 64,
+    "cols": 4,
+    "rows": 4,
+    "dirs": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ],
+    "fps": 8,
+    "idle": [
+     0,
+     4,
+     8,
+     12
+    ]
+   },
+   "foot": [
+    32,
+    60
+   ],
+   "height": 41
+  },
   "e3-gestalt": {
    "poses": {},
    "walk": {
@@ -5412,6 +5463,11 @@
   },
   "e3-flick-kopfueber": {
    "file": "assets/cut/e3-flick-kopfueber.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-flick-versteinert": {
+   "file": "assets/cut/e3-flick-versteinert.jpg",
    "w": 1280,
    "h": 720
   },

@@ -511,6 +511,71 @@
       "attempts": 1,
       "time": "2026-10-08T01:46:21"
     },
+    "output/imagegen/raw/art/characters/e3-flick-stein/pose-crumble-v2.png": {
+      "kind": "pose:crumble",
+      "id": "e3-flick-stein",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): exactly the same frozen attacking leap as a statue, but the stone is BREAKING APART: cracks everywhere, chunks and flakes of grey stone bursting off and falling, and underneath patches of real living skin, hair and coloured clothes already show through, body turned three-quarter toward the RIGHT. Compact pose: the whole figure fits inside a square. Grey stone shell cracking open with a few faint violet sparks fading; underneath her real freckled skin, almost-black hair and olive-green coat show through in patches. The LEFT standing figure is the grey stone statue standing upright.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Flick, a slender, agile young half-elf woman around 20, exactly as in the attached reference sheet (same face, short messy hair with the single streak, pointed elven ears, hunter's coat with the hood down, laced vest, bracers, belt with knife sheath, quiver with arrows on her back, longbow), but PETRIFIED by dark magic: she has been turned into a STATUE of solid GREY STONE. Everything — skin, hair, eyes, clothes, leather, bow, arrows and the drawn hunting knife — is the same cold grey granite, with a rough stone texture, darker grey shading in the folds, a little stone dust, NO other colours. Thin CRACKS run across the stone and a faint cold VIOLET light glows inside the cracks (Vamir's magic). The stone face is fierce and determined, mouth slightly open as if shouting, eyes blank stone.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: Use EXACTLY the same leaping attack pose as a lunge toward the RIGHT: one foot pushing off the ground, the other knee raised, the knife thrust forward in her RIGHT hand, the bow held back in her LEFT hand. About half of the stone shell has broken away: big flakes and a few chunks of stone falling CLOSE to the body (no tiny debris scattered far away). Where the stone is gone her real colours show: freckled skin, almost-black hair, olive-green coat, brown leather. Only a few faint violet sparks.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-flick-stein.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 45,
+      "attempts": 1,
+      "time": "2026-10-09T01:10:36"
+    },
+    "output/imagegen/raw/art/characters/e3-flick-stein/pose-crumble.png": {
+      "kind": "pose:crumble",
+      "id": "e3-flick-stein",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): exactly the same frozen attacking leap as a statue, but the stone is BREAKING APART: cracks everywhere, chunks and flakes of grey stone bursting off and falling, and underneath patches of real living skin, hair and coloured clothes already show through, body turned three-quarter toward the RIGHT. Compact pose: the whole figure fits inside a square. Grey stone shell cracking open with a few faint violet sparks fading; underneath her real freckled skin, almost-black hair and olive-green coat show through in patches. The LEFT standing figure is the grey stone statue standing upright.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Flick, a slender, agile young half-elf woman around 20, exactly as in the attached reference sheet (same face, short messy hair with the single streak, pointed elven ears, hunter's coat with the hood down, laced vest, bracers, belt with knife sheath, quiver with arrows on her back, longbow), but PETRIFIED by dark magic: she has been turned into a STATUE of solid GREY STONE. Everything — skin, hair, eyes, clothes, leather, bow, arrows and the drawn hunting knife — is the same cold grey granite, with a rough stone texture, darker grey shading in the folds, a little stone dust, NO other colours. Thin CRACKS run across the stone and a faint cold VIOLET light glows inside the cracks (Vamir's magic). The stone face is fierce and determined, mouth slightly open as if shouting, eyes blank stone.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-flick-stein.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 70,
+      "attempts": 1,
+      "time": "2026-10-09T01:09:20"
+    },
+    "output/imagegen/raw/art/characters/e3-flick-stein/pose-frozen.png": {
+      "kind": "pose:frozen",
+      "id": "e3-flick-stein",
+      "prompt": "Two full-body game sprites of the SAME character side by side, at IDENTICAL scale, with their ground contact on the same horizontal baseline and a wide empty gap between them: LEFT = the character standing straight in a neutral front view (scale reference); RIGHT = the same character in the pose described below. Slight three-quarter top-down game camera, compact readable game sprite style with chunky pixels and bold dark outline, natural proportions (not chibi). Nothing cut off. Pose (RIGHT figure): FROZEN in the middle of an attacking leap toward the RIGHT: one foot pushing off the ground, the other knee raised forward, body leaning forward, the RIGHT arm thrust forward with a drawn knife, the LEFT arm back for balance, a fierce determined face, body turned three-quarter toward the RIGHT. Compact pose: the whole figure fits inside a square. She is a STATUE of grey stone: the whole figure including hair, clothes, knife and bow is one solid grey granite colour with stone texture, small cracks with a faint glowing VIOLET light inside. The LEFT standing figure is the same grey stone statue standing upright.\nThe character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Flick, a slender, agile young half-elf woman around 20, exactly as in the attached reference sheet (same face, short messy hair with the single streak, pointed elven ears, hunter's coat with the hood down, laced vest, bracers, belt with knife sheath, quiver with arrows on her back, longbow), but PETRIFIED by dark magic: she has been turned into a STATUE of solid GREY STONE. Everything — skin, hair, eyes, clothes, leather, bow, arrows and the drawn hunting knife — is the same cold grey granite, with a rough stone texture, darker grey shading in the folds, a little stone dust, NO other colours. Thin CRACKS run across the stone and a faint cold VIOLET light glows inside the cracks (Vamir's magic). The stone face is fierce and determined, mouth slightly open as if shouting, eyes blank stone.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-flick-stein.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 65,
+      "attempts": 1,
+      "time": "2026-10-09T01:09:15"
+    },
+    "output/imagegen/raw/art/characters/e3-flick-stein/turnaround.png": {
+      "kind": "turnaround",
+      "id": "e3-flick-stein",
+      "prompt": "Character turnaround reference sheet for a 2D pixel-art RPG: the SAME character shown three times side by side in one row — LEFT: front view facing the viewer, MIDDLE: strict side profile facing RIGHT, RIGHT: back view. Full body from the top of the head to the soles of the feet, standing in a relaxed neutral pose with arms slightly away from the body, all three views at IDENTICAL scale with the feet on the same baseline, evenly spaced with wide gaps, nothing overlapping, nothing cut off. Each figure about 70% of the image height. Wide landscape image. CHARACTER: Flick, a slender, agile young half-elf woman around 20, exactly as in the attached reference sheet (same face, short messy hair with the single streak, pointed elven ears, hunter's coat with the hood down, laced vest, bracers, belt with knife sheath, quiver with arrows on her back, longbow), but PETRIFIED by dark magic: she has been turned into a STATUE of solid GREY STONE. Everything — skin, hair, eyes, clothes, leather, bow, arrows and the drawn hunting knife — is the same cold grey granite, with a rough stone texture, darker grey shading in the folds, a little stone dust, NO other colours. Thin CRACKS run across the stone and a faint cold VIOLET light glows inside the cracks (Vamir's magic). The stone face is fierce and determined, mouth slightly open as if shouting, eyes blank stone. The attached reference sheet shows the SAME person in another outfit: keep her/his face, age, body type, skin, eye colour and hair colour identical; only the outfit/hair styling changes as described. This is an ORIGINAL character design: do not make the face resemble any real person, actor or celebrity. Flat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). Match the pixel density and outline treatment of the attached small sprite reference.\nIMPORTANT CORRECTION: Show her as a stone statue standing upright in a neutral pose, the hunting knife drawn in her RIGHT hand pointing down, the bow in her LEFT hand. Everything grey stone, only the thin cracks glow faint violet.",
+      "refs": [
+        "docs/rebuild/art/refs/flick.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 65,
+      "attempts": 1,
+      "time": "2026-10-09T01:07:57"
+    },
+    "output/imagegen/raw/art/characters/e3-flick-stein/walk.png": {
+      "kind": "walk",
+      "id": "e3-flick-stein",
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: one square image containing a strict 4x4 grid of 16 full-body figures of the SAME character (4 rows x 4 columns, evenly spaced like the attached small walk-sheet reference, every figure centred in its own invisible square cell, identical scale in all 16 frames, wide empty gaps, nothing touching, nothing cut off at the edges). Each row is one walking direction with a 4-frame walk cycle, feet on a common baseline per row:\nROW 1 (top): facing SOUTH — front view walking toward the viewer.\nROW 2: facing WEST — strict side profile walking toward the LEFT edge of the image (face, nose and toes point LEFT).\nROW 3: facing EAST — strict side profile walking toward the RIGHT edge of the image (face, nose and toes point RIGHT).\nROW 4 (bottom): facing NORTH — back view walking away from the viewer (we see the back of the head).\nThe 4 frames of every row MUST show a clear, readable walk cycle: frame 1 = LEFT leg forward and RIGHT arm forward (wide stride, contact pose), frame 2 = passing pose (legs together, one knee lifted, body slightly higher), frame 3 = RIGHT leg forward and LEFT arm forward (wide stride, contact pose), frame 4 = passing pose with the other knee lifted. Arms swing opposite to the legs. In the side rows the stride is wide and clearly visible; in the front and back rows the legs alternate visibly (one foot lifted and forward). Skirts and cloaks swing with the stride. Slight three-quarter top-down game camera. Compact, readable game sprite with chunky pixels and bold dark outline, simple clear shapes that stay readable when shrunk to about 42 pixels tall, natural proportions (about 6 heads tall, not chibi). Identical clothing, colours, hair and accessories in all 16 frames. The character must match the attached full-body reference sheet exactly (same face, hair, age, body type, clothing, colours, accessories).\nCHARACTER: Flick, a slender, agile young half-elf woman around 20, exactly as in the attached reference sheet (same face, short messy hair with the single streak, pointed elven ears, hunter's coat with the hood down, laced vest, bracers, belt with knife sheath, quiver with arrows on her back, longbow), but PETRIFIED by dark magic: she has been turned into a STATUE of solid GREY STONE. Everything — skin, hair, eyes, clothes, leather, bow, arrows and the drawn hunting knife — is the same cold grey granite, with a rough stone texture, darker grey shading in the folds, a little stone dust, NO other colours. Thin CRACKS run across the stone and a faint cold VIOLET light glows inside the cracks (Vamir's magic). The stone face is fierce and determined, mouth slightly open as if shouting, eyes blank stone.\nFlat pure magenta #FF00FF background everywhere (one single flat colour, no gradient), no ground shadow, no floor, no scenery, no props unless stated.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.\nIMPORTANT CORRECTION: This character is a STONE STATUE and cannot walk: in ALL 4 frames of every row the statue stands perfectly still in the SAME upright neutral standing pose (feet side by side, knife pointing down in her RIGHT hand, bow in her LEFT hand), only seen from the direction of that row. No walking, no stride, identical frames within a row.",
+      "refs": [
+        "docs/rebuild/art/refs/e3-flick-stein.png",
+        "output/imagegen/style-refs/insel-sprites-kim-walk.png"
+      ],
+      "ok": true,
+      "seconds": 62,
+      "attempts": 1,
+      "time": "2026-10-09T01:11:46"
+    },
     "output/imagegen/raw/art/characters/e3-gestalt/portrait-neutral.png": {
       "kind": "portrait:neutral",
       "id": "e3-gestalt",
@@ -1168,6 +1233,20 @@
       "seconds": 68,
       "attempts": 1,
       "time": "2026-10-09T01:06:34"
+    },
+    "output/imagegen/raw/art/cut/e3-flick-versteinert.png": {
+      "kind": "plate",
+      "id": "e3-flick-versteinert",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: A false rebel camp in a forest clearing on a grey, overcast morning: empty white canvas tents, a sharpened wooden palisade, a black-and-white quartered banner, a smoking campfire nobody tends; in the BACKGROUND a heavy wooden CAGE WAGON with iron bars, its brown tarp half pulled off. On the LEFT stands Vamir (third sheet: tall figure in a long black hooded robe, the face completely hidden in black shadow inside the hood, black smoke curling from the hem), his RIGHT arm stretched out toward the right, pale bony fingers spread, and a crackling beam of cold VIOLET magic shoots from his hand (violet and black only, no turquoise). The beam hits Flick (first sheet: slender half-elf woman, short messy almost-black hair with one pale streak, pointed ears, olive-green hunter's coat, quiver on her back) in the middle of a furious attacking LEAP toward him with her hunting knife drawn in her RIGHT hand, a fierce determined face — and she is turning into grey STONE right there in mid-air: most of her body is already solid grey granite with thin glowing violet cracks (like the second sheet), only a few last patches of colour at her hair and coat are being swallowed by the creeping grey stone. Dramatic, cold violet light against the grey morning, a few stone flakes and violet sparks in the air. No blood. Both figures fully visible, nobody cut off. Anatomically correct hands.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/flick.png",
+        "docs/rebuild/art/refs/e3-flick-stein.png",
+        "docs/rebuild/art/refs/vamir.png"
+      ],
+      "ok": true,
+      "seconds": 82,
+      "attempts": 1,
+      "time": "2026-10-09T01:14:27"
     },
     "output/imagegen/raw/art/cut/e3-gestalt.png": {
       "kind": "plate",
@@ -2055,6 +2134,42 @@
         "smirk": "game/public/assets/portraits/goblin-fips-smirk.png",
         "surprised": "game/public/assets/portraits/goblin-fips-surprised.png"
       }
+    },
+    "e3-flick-stein": {
+      "id": "e3-flick-stein",
+      "height": 41,
+      "walk": {
+        "file": "game/public/assets/sprites/e3-flick-stein-walk.png",
+        "sha": "0ff4d89a65935a9c",
+        "rows": {
+          "down": "walk row 1",
+          "left": "walk row 2",
+          "right": "walk row 3",
+          "up": "walk row 4"
+        },
+        "height": 41
+      },
+      "poses": {
+        "crumble": {
+          "file": "game/public/assets/sprites/e3-flick-stein-crumble.png",
+          "method": "pair",
+          "scale": 0.0428,
+          "size": [
+            30,
+            36
+          ]
+        },
+        "frozen": {
+          "file": "game/public/assets/sprites/e3-flick-stein-frozen.png",
+          "method": "pair",
+          "scale": 0.0423,
+          "size": [
+            28,
+            37
+          ]
+        }
+      },
+      "portraits": {}
     }
   }
 }

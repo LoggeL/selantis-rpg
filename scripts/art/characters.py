@@ -417,8 +417,10 @@ def build(cid: str) -> list[str]:
             qa.walk_previews(f"{cid}-sneak", sheet)
             print(f"OK   {rel(dest)}  rows={sneak[1]['rows']}")
         meta["poses"] = {}
+        own = set(build_cfg(cid).get("ownPalette", []))  # poses whose colours differ a lot (e3-flick-stein crumble)
         for pose, (frame, info) in poses.items():
-            frame = apply_palette(frame, palette)
+            frame = apply_palette(frame, make_palette([frame], colors=int(c.get("colors", 44))) if pose in own
+                                  else palette)
             check_sprite(frame, cid, f"{cid}-{pose}")
             dest = SPRITES / f"{cid}-{pose}.png"
             frame.save(dest, optimize=True)

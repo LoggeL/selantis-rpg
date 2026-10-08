@@ -485,6 +485,12 @@
   "hash": "L5BCMk}p0f5t1AE*=W$+5ZEkJ6-P",
   "sourceHash": "65665c527304cc3f085e6f21a66cafa003698f84e209d8bd9148083e4906887f"
  },
+ "assets/cut/e3-flick-versteinert.jpg": {
+  "width": 1280,
+  "height": 720,
+  "hash": "L89s-m4nR$?H?wMwnzxvTKngIVS6",
+  "sourceHash": "44e126e5f3e0e2c8909f49f0f034ce934cf7b94f89a9558ec8d1ef77322e0ec9"
+ },
  "assets/cut/e3-gestalt.jpg": {
   "width": 1280,
   "height": 720,
@@ -7387,6 +7393,157 @@
     "height": 64,
     "hash": "L14-z+RC57Se~Cso$*t6xHsp%1s:",
     "alphaHash": "LGAmrFt700IUD%WB-;t700WB~qxu"
+   }
+  ]
+ },
+ "assets/sprites/e3-flick-stein-crumble.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L49Z+Z00_4nNt,00?bRQ0LIojYay",
+  "alphaHash": "L76[2HIU00_3D%of-;Rj00%M~q9F",
+  "sourceHash": "f72e54e5a878434d6bad6af63f2f227ef5386d83fb0bd3abefe0fd48713d12ca"
+ },
+ "assets/sprites/e3-flick-stein-frozen.png": {
+  "width": 96,
+  "height": 64,
+  "hash": "L18q83}[I.%M#8Z$o|WB00~qIUM|",
+  "alphaHash": "L86*dhD%00~qIUof%MRj00%M_34n",
+  "sourceHash": "62f495d6e959ffa0ade623d2cf0e2dad3c5ae677e3be20062cc80206bd2fd609"
+ },
+ "assets/sprites/e3-flick-stein-walk.png": {
+  "width": 256,
+  "height": 256,
+  "hash": "L08W{m%}pH~CD4X-J5^P~CJBOE={",
+  "alphaHash": "L27UI{t7ayt7M{WBfQWB_3j[j[j[",
+  "sourceHash": "bd488efa553763f2d21cfbae7175fa2eed2ad12f687ae57adcb57b8fce91ae07",
+  "frames": [
+   {
+    "x": 0,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L07w$z000J_30000oe-;00RP_3of",
+    "alphaHash": "LD9%*Vj[00WB9Fj[-;ay00ay~qof"
+   },
+   {
+    "x": 64,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L07A#yLR00=i000]r^#H000J~q-X",
+    "alphaHash": "LEA0?#t700M{D%ay-;j[00WB~qt7"
+   },
+   {
+    "x": 128,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L07dd{3H00^T000Jw6#a00c%~Wrx",
+    "alphaHash": "LD9%*Vj[00WB9Fj[-;ay00ay~qof"
+   },
+   {
+    "x": 192,
+    "y": 0,
+    "width": 64,
+    "height": 64,
+    "hash": "L07m]V1C00=~000cNYv:00F:_3xb",
+    "alphaHash": "LEA0?#t700M{D%ay-;j[00WB~qt7"
+   },
+   {
+    "x": 0,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L08D;J0c00~E0J}2tjJ|9tuF~qnU",
+    "alphaHash": "LA8gy-of00RjD%fQ-;fQ00WB~qt7"
+   },
+   {
+    "x": 64,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L084Pj0c01~E0c|Sx@J}ELym~qnT",
+    "alphaHash": "LA8qNgof00M{D%fQ-;fQ00WB~qt7"
+   },
+   {
+    "x": 128,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L07nI4-U00%gP94.%M%M00~q~qIU",
+    "alphaHash": "LA8qNgof00RjD%fQ-;ay00WB~qt7"
+   },
+   {
+    "x": 192,
+    "y": 64,
+    "width": 64,
+    "height": 64,
+    "hash": "L07^#:0000~X1V}_yBJ44opZ~qr^",
+    "alphaHash": "LA8qNgof00M{D%fQ-;j[00WB~qt7"
+   },
+   {
+    "x": 0,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L271Zj~q9YM|EJ-qoyRj01o|%3aL",
+    "alphaHash": "LA8qNgof00RjD%ay-;of00ay~qj["
+   },
+   {
+    "x": 64,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L27da=.iD%rx#HyUxbVu8{EJ%3s;",
+    "alphaHash": "LB8z.Gof00RjD%ay-;of00ay~qof"
+   },
+   {
+    "x": 128,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L271QN~q9GRQFo-;kVRi01bHxuf6",
+    "alphaHash": "LA8z.Gof00RjD%ay-;of00ay~qj["
+   },
+   {
+    "x": 192,
+    "y": 128,
+    "width": 64,
+    "height": 64,
+    "hash": "L371Zi_3E1RjE0%MofRj9YV[xuj[",
+    "alphaHash": "LB8qNgof00RjD%ay-;of00ay~qof"
+   },
+   {
+    "x": 0,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L27da:}e9FXM00#annS04U#@-qS0",
+    "alphaHash": "LE9@S5of00RjD%ay-;of00ay~qof"
+   },
+   {
+    "x": 64,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L27T@D]@4.Sv00,1r_S04n$n-qWm",
+    "alphaHash": "LE9@S5of00WBD%ay-;of00ay~qj["
+   },
+   {
+    "x": 128,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L17wsc_N4nWB00^,SeIo8{yU^+RR",
+    "alphaHash": "LE9@S5of00RjD%ay-;of00ay~qof"
+   },
+   {
+    "x": 192,
+    "y": 192,
+    "width": 64,
+    "height": 64,
+    "hash": "L27T;6}e9FSv00#anmSJ8_x0-;W,",
+    "alphaHash": "LE9@S5of00WBD%ay-;of00ay~qj["
    }
   ]
  },

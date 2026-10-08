@@ -1,0 +1,9 @@
+{
+  "facing": "right",
+  "foot": [
+    48,
+    60
+  ],
+  "character": "e3-flick-stein",
+  "pose": "crumble"
+}
