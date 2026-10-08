@@ -7,12 +7,11 @@
 // every find aside. The third find, sitting down at the fire or talking to Kyra springs the trap: a short cut to the
 // fire, Lia's last words depend on what she saw; Kyra calls the men; Baris and two henchmen seize her (plate e3-falle);
 // Kyra answers flat and obedient (portrait e2-kyra-gebannt, the violet glint in her eyes); Vamir steps out of the
-// smoke behind the fire. Lia refuses him. A last gesture: storyAction('reach') for Kyra's hand – Kyra steps back. Bound,
+// smoke behind the fire. Lia refuses him. Lia reaches for Kyra's hand – Kyra steps back (and the signs she overlooked at the tea come back). Bound,
 // dragged to the cage, black. Sets e3-gefangen. → e3-innere-zuflucht. A reload restarts at the bottom of the path.
 import { G } from '../../core/G';
 import { registerClues } from '../../core/catalog';
 import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } from '../../world';
-import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import {
   CAMP_BLOCKS, CAMP_HOTSPOT, CAMP_OCCLUDERS, CAMP_SPOT, CAMP_SURFACES, CAMP_WALK, FIND_THOUGHTS, FINDS, FINDS_FOR_TRAP,
   type FindId, findCount, KYRA_DEFLECT, KYRA_URGE, lastWords,
@@ -20,6 +19,7 @@ import {
 import { STAGGER_BARKS, STAGGER_EVERY_MS } from './vertraute-schwester-abend';
 import { bloodHit, preloadBlood } from '../common/blood';
 import { bg, e3Scene, lia, liaGait, liaLook, nextScene, poisoned, sfx, ui, until, VIOLET } from './shared';
+import { TEA_REGRET, TEA_SIGNS_FLAG } from './vertraute-schwester-abend';
 
 registerClues([
   {
@@ -167,19 +167,6 @@ async function arrive(w: WorldCtx, k: ActorHandle): Promise<void> {
 // The trap
 // ---------------------------------------------------------------------------------------------------------------
 
-/** Close-up for the last gesture: Lia held between the henchmen, Kyra one step away, the gap between their hands. */
-const REACH_PICTURE = (): GesturePicture => ({
-  background: 'e3-falsches-lager',
-  focus: [630, 400],
-  zoom: 3,
-  figures: [
-    { id: 'shadow-sword', pose: 'idle', at: CAMP_SPOT.manWestTrap, facing: 'right', dim: true },
-    { id: 'lia-cloak', pose: 'hurt', at: CAMP_SPOT.liaFire, facing: 'right' },
-    { id: 'e2-kyra-gebannt', pose: 'idle', at: CAMP_SPOT.kyraFire, facing: 'left' },
-  ],
-  glint: [CAMP_SPOT.liaFire[0] + 30, CAMP_SPOT.liaFire[1] - 20],
-});
-
 function hidden(w: WorldCtx, id: string, preset: string, speaker: string, at: readonly [number, number], dir: 'up' | 'down' | 'left' | 'right'): ActorHandle {
   const a = w.spawn({ id, preset, speaker, at, dir, solid: false, facePlayer: false, speed: 70 });
   a.hold(true);
@@ -263,13 +250,13 @@ async function springTrap(w: WorldCtx, k: ActorHandle): Promise<void> {
     await baris(w, 'Wie Ihr wollt, Meister.');
     w.player.face('right');
   });
-  // The last gesture: her hand towards Kyra's. Kyra does not take it.
-  const gesture = G.ui.storyAction('reach', 'Nach Kyras Hand greifen');
-  restageGesture('reach', 'Streck die Hand nach Kyra aus. Sie steht nur einen Schritt weit weg.', REACH_PICTURE());
-  await gesture;
+  // Her hand towards Kyra's. Kyra steps back, and what Lia overlooked at the fire comes back to her.
   await w.cutscene(async () => {
+    await w.player.play('interact', { ms: 700 });
     await k.walkTo(CAMP_SPOT.kyraFire[0] + 30, CAMP_SPOT.kyraFire[1] + 6, { face: 'left' });
     await lia(w, 'Kyra …', 'sad');
+    const regret = TEA_REGRET[Math.min(TEA_REGRET.length - 1, Number(G.state.flag(TEA_SIGNS_FLAG) ?? 0))];
+    if (regret) await w.think(regret);
     k.face('down');
     await w.wait(600);
     w.player.setLook('e3-lia-gefesselt');

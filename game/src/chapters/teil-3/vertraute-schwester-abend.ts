@@ -92,6 +92,43 @@ export function eveningOptions(told: ReadonlySet<TopicKey>): { picks: string[]; 
 export const BEFORE_TEA: readonly Line[] = [
   { who: 'kyra', text: 'Ich mach dir was Warmes. Gegen das kalte Wasser in deinen Knochen.' },
 ];
+/**
+ * Overlooked signs: before Lia drinks, the player may look at the cup and at Kyra. Each sign is real, and Lia talks each
+ * one away. How many she saw (TEA_SIGNS_FLAG, 0–3) comes back bitterly in e3-falle.
+ */
+export const TEA_SIGNS_FLAG = 'e3-tee-zeichen';
+export const TEA_SIGNS: readonly { option: string; lines: readonly Line[] }[] = [
+  {
+    option: 'Am Becher riechen.',
+    lines: [
+      { who: 'think', text: 'Rinde, Minze. Und darunter etwas Süßes, Schweres, wie welke Lilien. Das ist bestimmt nur eine Kräutersorte, die ich nicht kenne.' },
+    ],
+  },
+  {
+    option: 'Kyra ansehen.',
+    lines: [
+      { who: 'think', text: 'Sie sieht mir zu. Nicht ins Gesicht. Auf den Becher. Als würde sie zählen, wie viele Schlucke ich nehme.' },
+      { who: 'think', text: 'Sie hat bloß Angst, dass ich krank werde. Das ist alles.' },
+    ],
+  },
+  {
+    option: '„Willst du nicht auch einen?“',
+    lines: [
+      { who: 'lia', text: 'Willst du nicht auch einen? Du bist genauso nass wie ich.' },
+      { who: 'kyra-cold', text: 'Nein. Trink du.' },
+      { who: 'think', text: 'Kyra hat noch nie Nein zu etwas Warmem gesagt. Aber sie ist eben nicht mehr ganz die Alte. Wer wäre das schon?' },
+    ],
+  },
+];
+export const TEA_DRINK = 'Trinken.';
+/** In e3-falle, after the trap: what she saw and drank anyway (by the number of signs seen). */
+export const TEA_REGRET: readonly string[] = [
+  '',
+  'Der Tee. Er hat nach welken Lilien gerochen. Ich hab es gemerkt und trotzdem getrunken.',
+  'Der Tee, ihr Blick auf den Becher. Ich hab es gesehen. Und mir alles schöngeredet, weil sie meine Schwester ist.',
+  'Der Geruch, ihr Blick, ihr Nein. Drei Zeichen, und ich hab jedes weggeredet. Wie dumm kann man sein.',
+];
+
 export const AFTER_TEA: readonly Line[] = [
   { who: 'lia', text: 'Bitter. Mutter hätte Honig reingetan. Aber es wärmt. Danke.' },
   { who: 'lia', text: 'Weißt du, du redest kaum noch. Früher hast du mich nie ausreden lassen, nicht ein einziges Mal.', mood: 'thinking' },

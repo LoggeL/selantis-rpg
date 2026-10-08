@@ -16,7 +16,7 @@ import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } f
 import { HALLE_SPAWNS, HALLE_SPOT, halleBase, halleBrazierLights } from '../teil-2/gewoelbe';
 import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import {
-  AFTER_TEA, BEFORE_TEA, eveningOptions, HALL_CUT, KYRA_WAIT_BARKS, type Line, MORNING, STAGGER_BARKS, STAGGER_EVERY_MS,
+  AFTER_TEA, BEFORE_TEA, TEA_DRINK, TEA_SIGNS, TEA_SIGNS_FLAG, eveningOptions, HALL_CUT, KYRA_WAIT_BARKS, type Line, MORNING, STAGGER_BARKS, STAGGER_EVERY_MS,
   TINCTURE_THOUGHT, type TopicKey,
 } from './vertraute-schwester-abend';
 import { FIRE_HOTSPOT, PATH_EXIT, RAST_SPOT, RAST_WALK, WOOD_AT } from './vertraute-schwester-rast';
@@ -192,18 +192,6 @@ async function tellEverything(w: WorldCtx): Promise<void> {
   });
 }
 
-/** Close-up for the cup: Lia at the fire, Kyra standing beside her, the glint on the cup in Lia's hands. */
-const CUP_PICTURE = (): GesturePicture => ({
-  background: 'k3-leselager',
-  focus: [300, 214],
-  zoom: 3,
-  figures: [
-    { id: 'kyra', pose: 'idle', at: [RAST_SPOT.liaSeat[0] + 22, RAST_SPOT.liaSeat[1] - 4], facing: 'left' },
-    { id: liaLook(), pose: 'sit', at: RAST_SPOT.liaSeat, facing: 'right' },
-  ],
-  glint: [RAST_SPOT.liaSeat[0] + 6, RAST_SPOT.liaSeat[1] - 18],
-});
-
 async function tea(w: WorldCtx): Promise<void> {
   const k = w.actor(KYRA);
   ui().prefetchPlate('e3-gift');
@@ -217,9 +205,20 @@ async function tea(w: WorldCtx): Promise<void> {
     await w.say('e3-kyra', 'Hier. Vorsicht, heiß.');
   });
   w.lockPlayer();
-  const gesture = G.ui.storyAction('lift', 'Den Becher an die Lippen heben');
-  restageGesture('lift', 'Heb den Becher langsam an. Er ist heiß und riecht nach Rinde.', CUP_PICTURE());
-  await gesture;
+  // Overlooked signs: before she drinks, the player may look closer. Lia talks every sign away; drinking is canon.
+  const seen = new Set<number>();
+  for (;;) {
+    const opts = [
+      ...TEA_SIGNS.map((s, i) => ({ text: s.option, disabled: seen.has(i), reason: seen.has(i) ? 'Schon gesehen.' : undefined })),
+      { text: TEA_DRINK },
+    ];
+    const pick = await w.choose(opts, { prompt: 'Der Becher in Lias Händen …', speaker: 'e3-lia' });
+    if (pick === TEA_SIGNS.length) break;
+    seen.add(pick);
+    for (const l of TEA_SIGNS[pick].lines) await say(w, l);
+  }
+  G.state.set(TEA_SIGNS_FLAG, seen.size);
+  await w.player.play('interact', { ms: 900 });
   // Set at the drink (umsetzung.md §2 Gift): from here on Lia is poisoned.
   G.state.set('e3-vergiftet');
   G.state.set(F.drank);
