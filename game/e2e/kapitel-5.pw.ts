@@ -36,7 +36,10 @@ const pos = (page: Page) => page.evaluate(() => {
 
 /** One dialogue step: a choice gets a deliberate number key (next of c.picks, default 1); text gets Enter; a hold prompt is held. */
 /** Right answers by scene-pick cue (the ghoul's wind-ups). */
-const PICK_ANSWERS: Record<string, string> = { tief: 'wurzel', hoch: 'stamm', versteckt: 'mantel' };
+const PICK_ANSWERS: Record<string, string> = {
+  tief: 'wurzel', hoch: 'stamm', versteckt: 'mantel', // the ghoul
+  befehl: 'nah', fackel: 'fern', abschied: 'nah', 'wie-viele': 'drei', wohin: 'grotte', // Wortfetzen
+};
 
 async function step(c: Ctx): Promise<void> {
   const { page } = c;
@@ -215,6 +218,7 @@ test('schattenlager: scout three vantage points unseen, the tree, the plan, the 
   c.picks.push(1, 1, 1);
   await walkTo(c, 790, 400, { timeout: 40000, stopOnBusy: true }).catch(() => {});
   await until(c, async () => (await scene(page)) === 'rettung', 150000);
+  expect(await flag(page, 'k5-gelauscht-genau')).toBe(true);
   const points = await flag(page, 'k5-ablenkung');
   expect(points).toBeGreaterThanOrEqual(2);
   expectClean(c);

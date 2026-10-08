@@ -3,6 +3,7 @@ import { G } from '../../core/G';
 import type { WorldCtx } from '../../world';
 import { BEAT_NOISE, BEAT_YOUNG, beatGoods, clampPoints, verdict, type BluffOption } from './bluff';
 import { lia, sfx } from './common';
+import { LISTENED_FLAG } from './wortfetzen';
 
 async function play(w: WorldCtx, options: BluffOption[]): Promise<number> {
   const pick = await w.choose(options.map(o => (o.tag ? { text: o.text, tag: o.tag } : o.text)));
@@ -16,7 +17,8 @@ async function play(w: WorldCtx, options: BluffOption[]): Promise<number> {
 
 /** Lia walks into the camp and talks. Returns the distraction points 0..3. */
 export async function runBluff(w: WorldCtx): Promise<number> {
-  let points = 1;
+  // Whoever listened closely at the fire knows what to say: one extra point (wortfetzen.ts).
+  let points = 1 + (G.state.is(LISTENED_FLAG) ? 1 : 0);
   const algard = w.actor('algard'), maedchen = w.actor('maedchen'), schuetze = w.actor('schuetze');
   await w.cutscene(async () => {
     w.stealth.enable(false);

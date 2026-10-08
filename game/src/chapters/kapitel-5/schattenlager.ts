@@ -1,10 +1,12 @@
 // Kapitel V, Szene 3 „schattenlager“: Baris' troop rests at a lone oak above open fields. Lia scouts three vantage
 // points while Flick waits at the forest edge (stealth: patrols with view cones, bushes and tall grass). From the
-// closest bush she watches Kyra provoke a guard and Baris stop him („Die ist mehr wert als ihr drei zusammen.“). Back
-// with Flick: the plan. Then Lia walks into the camp and bluffs; the choices decide how long the distraction holds.
+// closest bush she watches Kyra provoke a guard and Baris stop him („Die ist mehr wert als ihr drei zusammen.“), then
+// listens to his orders („Wortfetzen“, wortfetzen.ts). Back with Flick she puts the scraps together; then the plan.
+// Then Lia walks into the camp and bluffs; the choices decide how long the distraction holds.
 import { G } from '../../core/G';
 import { defineMap, type MapDef, type WorldCtx } from '../../world';
 import { runBluff } from './bluffScene';
+import { judgeSpot, LISTENED_FLAG, MOMENTS, QUESTIONS, SPOTS } from './wortfetzen';
 import { ambience, CROUCH, lia, sfx } from './common';
 import { FIRE_AT, LAGER_BLOCK, LAGER_HIDING, LAGER_OCCLUDERS, LAGER_SURFACES, LAGER_WALK } from './lagerGeom';
 import { completeScouting, updateScoutObjective } from './scoutObjective';
@@ -163,12 +165,26 @@ async function treeScene(w: WorldCtx): Promise<void> {
     await w.player.emote('anger', 700);
     await w.camera.zoom(1, 700);
     await w.camera.pan('player', 600);
-    await G.ui.stealthGame('listen', 'Im Schatten lauschen', {
-      onNoise: () => { void w.player.emote('drop', 600); },
-    });
     await w.think('Mehr wert als drei Soldaten. Kyra. Ein Mädchen vom Hof, genau wie ich. Was wollen die von ihr?');
     await w.camera.pan([900, 340], 600);
-    await w.say('baris', 'Orwen. Wir sehen uns den Weg zur Grotte an. Ihr drei bleibt bei ihr.');
+    // „Wortfetzen“: Baris gives his orders; where Lia hides decides how much she hears.
+    await G.ui.scenePick({
+      label: 'Wortfetzen',
+      help: 'Am Feuer hörst du ganze Sätze, aber die Fackel kommt dort vorbei. Im Busch bist du sicher und hörst nur Fetzen.',
+      backdrop: 'minigames/stealth-listen',
+      layout: 'row',
+      className: 'k5-wortfetzen',
+      rounds: MOMENTS.map(m => ({
+        cue: m.cue,
+        prompt: { text: m.prompt },
+        cards: SPOTS.map(c => ({ ...c })),
+        judge: (id: string) => {
+          const v = judgeSpot(m, id);
+          return { ok: v.ok, mood: v.ok ? 'calm' : 'shake', reply: v.line };
+        },
+      })),
+      onVerdict: v => { if (!v.ok) { sfx('suspicious', { volume: 0.4 }); void w.player.emote('drop', 600); } },
+    });
     await w.say('orwen', 'Sofort, Hauptmann. Und du, Algard: Finger weg vom Weinschlauch.');
     const barisGone = baris.walkPath([[1000, 380], [1270, 420]], { speed: 60 }).catch(() => {});
     await orwen.walkPath([[1010, 390], [1270, 430]], { speed: 60 });
@@ -196,7 +212,28 @@ async function plan(w: WorldCtx): Promise<void> {
     await lia('Sie ist an die Eiche gebunden. Der Hüne sagt, sie ist mehr wert als drei von seinen Männern.', 'scared');
     await w.say('flick', 'Ein Bauernmädchen, auf das so einer aufpasst wie auf seinen Geldbeutel? Das riecht faul.', { mood: 'surprised' });
     await lia('Ich weiß es nicht. Daheim hat sie Feuerholz geschleppt und mich ausgelacht, weil ich lese. Mehr war da nie.', 'sad');
-    await w.say('flick', 'Der Hüne und der Grauhaarige sind eben weggeritten. Bleiben drei Wachen. Günstiger wird’s nicht.', { mood: 'determined' });
+    // Lia puts together what she overheard.
+    const pieced = await G.ui.scenePick({
+      label: 'Was hast du gehört?',
+      help: 'Setz zusammen, was am Feuer gesagt wurde. Auch Fetzen ergeben einen Satz.',
+      layout: 'row',
+      className: 'k5-zusammensetzen',
+      rounds: QUESTIONS.map(q => ({
+        cue: q.id,
+        prompt: { speaker: 'flick', text: q.prompt },
+        cards: q.answers.map(({ id, text }) => ({ id, text })),
+        judge: (id: string) => {
+          const a = q.answers.find(x => x.id === id)!;
+          return { ok: a.ok, mood: a.ok ? 'good' : 'shake', reply: { speaker: 'flick', text: a.reply } };
+        },
+      })),
+    });
+    if (pieced.mistakes === 0) {
+      G.state.set(LISTENED_FLAG);
+      await w.say('flick', 'Drei Wachen und eine Grotte, von der keiner was weiß. Gut gelauscht, Leseratte. Wer so genau hinhört, lügt auch überzeugender.', { mood: 'smirk' });
+      await lia('Lügen. Ich. Wunderbar.', 'sad');
+    }
+    await w.say('flick', 'Bleiben also drei Wachen. Günstiger wird’s nicht.', { mood: 'determined' });
     await w.say('flick', 'Ich würd’s ja allein machen. Aber drei Kerle, ein Seil, zwei Hände. Die Rechnung geht nicht auf.');
     await w.say('flick', 'Erst holen wir deine Schwester da raus. Solange die sie haben, haben die auch dich.');
     await w.say('flick', 'Ich kriech durchs Gras zum Baum und schneide sie los. Du sorgst dafür, dass keiner zum Baum schaut.');
