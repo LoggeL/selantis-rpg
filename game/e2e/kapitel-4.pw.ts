@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { completeSceneAction, playSceneAction } from './sceneActions';
+import { playSceneAction } from './sceneActions';
 
 /**
  * Kapitel IV „Die Freie Bruderschaft“: warps into each scene and plays its critical path with real inputs
@@ -141,10 +141,7 @@ test.describe('Kapitel IV', () => {
 
     await clickWorld(page, 420, 116);
     await advanceToChoices(page);
-    await page.keyboard.press('1'); // Mutters Tinktur: gently apply it back and forth
-    await page.waitForSelector('.action-tend', { timeout: 15000 });
-    await page.waitForTimeout(300);
-    await completeSceneAction(page);
+    await page.keyboard.press('1'); // Mutters Tinktur (the choice is the decision; applying it is staged)
     await advanceUntil(page, () => flag(page, 'k4-ferse'));
 
     // Azar and Foltan wake up; the blindfold question.
@@ -185,13 +182,10 @@ test.describe('Kapitel IV', () => {
     await page.waitForFunction(() => !(window as any).G.ui.busy(), undefined, { timeout: 15000 });
     await expect(page.locator('.hud-obj-text')).toContainText('Azar');
 
-    // Azar at the forge: the bellows.
+    // Azar at the forge: Lia treads the bellows (staged).
     await page.waitForFunction(() => { const a = (window as any).__world.actors.get('azar'); return a && Math.hypot(a.x - 968, a.y - 292) < 8; }, undefined, { timeout: 30000 });
     await goWorld(page, 968, 304, 60);
     await clickWorld(page, 968, 282);
-    await advanceUntil(page, () => page.locator('.action-bellows').first().isVisible().catch(() => false));
-    await page.waitForTimeout(300);
-    await completeSceneAction(page);
     await advanceUntil(page, () => flag(page, 'k4-t-azar'));
     await settle(page);
 

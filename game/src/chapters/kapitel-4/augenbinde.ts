@@ -107,7 +107,7 @@ async function tendHeel(w: WorldCtx): Promise<void> {
     'Nur die Füße ins kalte Wasser halten',
   ]);
   if (pick === 0) {
-    await G.ui.storyAction('tend', 'Die Ferse versorgen');
+    await w.player.play('kneel', { ms: 600 });
     sfx('heal', { volume: 0.6 });
     await w.think('Autsch. Mutter hat dabei immer gepustet. Und gesagt, dass es nur brennt, solange es hilft.');
   } else if (pick === 1) {
