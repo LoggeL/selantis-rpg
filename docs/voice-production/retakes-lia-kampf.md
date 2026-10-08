@@ -73,3 +73,10 @@ Erstaufnahme, Regie in directions/supplemental.json. IDs: story-0f35c409186b5cc5
 - „Für Mutter. Für Vater. Ich stehe wieder auf.“
 - „Ihr nehmt mir nicht noch jemanden!“
 - „Damals hab ich nur zugesehen. Heute nicht.“
+
+## Teil II (Bank `audio/teil-2`)
+
+Der Kampfbogen ändert in `teil-2/lagerangriff-battle.ts` und `teil-2/stabtraining-battle.ts` nur Hinweise, Einheitentitel, Niederlagentext und eine Fähigkeitsbeschreibung. Keine gesprochene Teil-II-Zeile ist neu geschrieben: Ein Scan des aktuellen Quelltexts ergibt dieselben 1.401 Zeilen und 1.408 Laufzeitrouten wie `teil-2/lines.json`, alle 921 Teil-II-Aufnahmen bleiben gebunden. Teil II braucht deshalb keine Neuaufnahme.
+
+- Die Verzweiflungsrufe fallen auch in `e2-ueberfall` („Ihr nehmt mir nicht noch jemanden!“) und `e2-uebungskampf` („Für Mutter. Für Vater. Ich stehe wieder auf.“). Diese Szenen spielen aus der Teil-II-Bank; der Teil-II-Scanner liest nur `chapters/teil-2`. Bis die Rufe dort im Inventar stehen, erscheinen sie in Teil II als Text.
+- `part2_voice_inventory.mjs --check` verlangt für die beiden geänderten Kampfdateien einen neuen Root-Quellstand (`derived-source-current.private.json`) und neue Kontextbindungen in `teil-2/directions`. Die Wortlaute und Regien bleiben dabei unverändert.
