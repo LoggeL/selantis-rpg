@@ -174,7 +174,7 @@ export class WorldScene extends Phaser.Scene {
   private camLook: Vec = { x: 0, y: 0 };
   private baseZoom = 1;
   private zoomPunch = 0;
-  look = { enabled: false, amt: 0, held: false };
+  look = { enabled: false, amt: 0, held: false, blocked: false };
   private colorFx: Phaser.FX.ColorMatrix | null = null;
   private vignetteFx: Phaser.FX.Vignette | null = null;
   stealthOn = true;
@@ -1786,7 +1786,14 @@ export class WorldScene extends Phaser.Scene {
 
   // ---- Spurenblick ----
   private updateLook(dt: number): void {
-    const held = this.look.enabled && !this.playerLocked && (this.keys.Q.isDown || virtualInput.look);
+    const pressed = !this.playerLocked && (this.keys.Q.isDown || virtualInput.look);
+    const held = this.look.enabled && pressed;
+    // A map without Spurenblick may say why (once per key press).
+    if (pressed && !this.look.enabled && !this.look.blocked && this.map?.lookBlocked && this.player && G.state.knows('spurenblick')) {
+      this.look.blocked = true;
+      this.barkActor(this.player, this.map.lookBlocked, 2400);
+    }
+    if (!pressed) this.look.blocked = false;
     if (held && !this.look.held) sfx('whoosh', 0.25);
     this.look.held = held;
     const target = held ? 1 : 0;

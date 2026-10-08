@@ -26,6 +26,7 @@ import {
 import { innerFog, type InnerFog, outsideVoices, rememberedFigure } from './innere-zuflucht-nebel';
 import { bg, e3Scene, interlude, nextScene, sfx, ui, until } from './shared';
 import { petrify } from './versteinerung';
+import { NO_LOOK } from './spuersinn';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flag between the parts. */
 const F = { mem: (id: MemoryId) => `e3-zf-erinnerung-${id}`, seated: 'e3-zf-sitzt', remembered: 'e3-zf-erinnert' } as const;
@@ -72,6 +73,7 @@ export const innenwelt: MapDef = defineMap({
   sneak: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.innen,
 });
 
 /** The false camp at dusk, Vamir's men round the fire (the cut). */
@@ -94,6 +96,7 @@ export const lagerSieg: MapDef = defineMap({
   sneak: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.halle,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

@@ -20,6 +20,7 @@ import {
 import { TRAPAS_BLOCKS, TRAPAS_OCCLUDERS, TRAPAS_SURFACES, TRAPAS_WALK } from './paladine-orte';
 import { poisonedGait } from './vamir-schwaeche';
 import { bg, e3Scene, lia, liaLook, nextScene, sfx, ui, until } from './shared';
+import { PLATZ_CLUES } from './spuersinn';
 
 const GM = 'grossmeister';
 
@@ -76,9 +77,10 @@ export const trapasZeremonie: MapDef = defineMap({
   ambience: ['wind', 'tavern', 'birds'],
   ambienceVolume: { wind: 0.25, tavern: 0.3, birds: 0.25 },
   music: 'refuge',
-  lookMode: false,
   critters: false,
   resetOnEnter: true,
+  lookMode: true,
+  clues: PLATZ_CLUES,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

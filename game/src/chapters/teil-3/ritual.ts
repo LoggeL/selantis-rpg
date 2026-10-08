@@ -22,6 +22,7 @@ import {
 } from './ritual-huegel';
 import { ritualCircle, type RitualCircle } from './ritual-kreis';
 import { bg, e3Scene, interlude, lia, liaLook, nextScene, poisoned, sfx, ui, until } from './shared';
+import { NO_LOOK } from './spuersinn';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flag between the parts. */
 const F = {
@@ -70,6 +71,7 @@ export const huegel: MapDef = defineMap({
   sneak: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.gefesselt,
 });
 
 /** Below the hill: the sunken path and the forest edge (Flick). Zoomed out so the hilltop stays in view. */

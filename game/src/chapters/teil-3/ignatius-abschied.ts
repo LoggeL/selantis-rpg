@@ -19,6 +19,7 @@ import { look } from './battle-shared';
 import { poisonedGait } from './vamir-schwaeche';
 import { WALDPFAD_BLOCKS, WALDPFAD_OCCLUDERS, WALDPFAD_SPOT, WALDPFAD_SURFACES, WALDPFAD_WALK } from './waldpfad';
 import { AMBER, VIOLET, bg, e3Scene, lia, liaLook, nextScene, sfx, ui, until } from './shared';
+import { NO_LOOK } from './spuersinn';
 
 const IGNATIUS = 'ignatius';
 /** Scene flags (reset when the scene starts): the conversation is over, his hand went still. */
@@ -49,6 +50,7 @@ export const waldpfadAbschied: MapDef = defineMap({
   lookMode: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.abschied,
 });
 
 const speakerOf: Record<Line['who'], string> = { ignatius: 'e2-ignatius', lia: 'e3-lia', 'lia-think': '', kyra: 'e3-kyra', flick: 'e2-flick' };

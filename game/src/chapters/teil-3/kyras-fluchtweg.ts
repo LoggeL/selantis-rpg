@@ -27,6 +27,7 @@ import {
 import { GZ_DOOR_AT, GZ_SPOT, gastzimmerBase } from './ordenshaus';
 import { type GesturePicture, restageGesture } from '../teil-2/gewoelbe-geste';
 import { bg, e3Scene, hasOwnStaff, lia, liaLook, nextScene, sfx, staffPlace, ui, until } from './shared';
+import { KANAL_CLUES, NO_LOOK } from './spuersinn';
 
 /** Flags of this visit (reset when a part starts), the checkpoint of part 2 and the kept results. */
 const F = {
@@ -78,6 +79,7 @@ export const zimmerFlucht: MapDef = defineMap({
   ],
   music: 'dread',
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.keller,
 });
 
 export const gewoelbe: MapDef = defineMap({
@@ -109,6 +111,7 @@ export const gewoelbe: MapDef = defineMap({
   critters: false,
   sneak: true,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.keller,
 });
 
 export const kanal: MapDef = defineMap({
@@ -132,10 +135,11 @@ export const kanal: MapDef = defineMap({
   ambienceVolume: { stream: 0.7, night: 0.35 },
   music: 'flight',
   playerLight: 20,
-  lookMode: false,
   critters: false,
   sneak: false,
   resetOnEnter: true,
+  lookMode: true,
+  clues: KANAL_CLUES,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

@@ -16,6 +16,7 @@ import {
   BEFORE_DAIS, HALL_BLOCKS, HALL_CANDLES, HALL_OCCLUDERS, HALL_SPOT, HALL_SURFACES, HALL_WALK, hallCandleLights,
 } from './schutzreaktion-saal';
 import { bg, e3Scene, lia, liaLook, nextScene, sfx, TURQUOISE, ui, until } from './shared';
+import { NO_LOOK } from './spuersinn';
 
 const GM = 'grossmeister';
 const CAPTAIN = 'hauptmann';
@@ -63,6 +64,7 @@ export const saalVerhoer: MapDef = defineMap({
   lookMode: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.saal,
 });
 
 async function readPapers(w: WorldCtx): Promise<void> {

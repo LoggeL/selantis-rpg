@@ -21,6 +21,7 @@ import {
 } from './vertraute-schwester-abend';
 import { FIRE_HOTSPOT, PATH_EXIT, RAST_SPOT, RAST_WALK, WOOD_AT } from './vertraute-schwester-rast';
 import { bg, e3Scene, interlude, lia, liaGait, liaLook, nextScene, poisoned, sfx, ui, until } from './shared';
+import { NO_LOOK, WALDRAST_CLUES } from './spuersinn';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flags. */
 const F = {
@@ -82,8 +83,9 @@ export const waldrast: MapDef = defineMap({
   music: null,
   playerLight: 60,
   critters: false,
-  lookMode: false,
   resetOnEnter: true,
+  lookMode: true,
+  clues: WALDRAST_CLUES,
 });
 
 /** Vamir's hall at night, braziers low (the plan). */
@@ -98,6 +100,7 @@ export const hallePlan: MapDef = defineMap({
   ambienceVolume: { room: 0.6 },
   music: 'dread',
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.halle,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

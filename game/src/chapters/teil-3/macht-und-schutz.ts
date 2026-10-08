@@ -27,6 +27,7 @@ import {
   lookIntoArmouryCam, showStaffInArmoury,
 } from './ordenshaus';
 import { bg, e3Scene, lia, liaLook, nextScene, sfx, staffPlace, TURQUOISE, ui, until } from './shared';
+import { NO_LOOK, ORDENSHAUS_CLUES } from './spuersinn';
 
 registerClues([
   {
@@ -89,6 +90,7 @@ export const pruefungMap: MapDef = defineMap({
   music: null,
   sneak: true,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.gastzimmer,
 });
 
 export const zimmerTag: MapDef = defineMap({
@@ -110,6 +112,7 @@ export const zimmerTag: MapDef = defineMap({
   music: 'refuge',
   sneak: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.gastzimmer,
 });
 
 export const hausTag: MapDef = defineMap({
@@ -143,6 +146,8 @@ export const hausTag: MapDef = defineMap({
   music: 'refuge',
   sneak: false,
   resetOnEnter: true,
+  lookMode: true,
+  clues: ORDENSHAUS_CLUES,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

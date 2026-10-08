@@ -26,6 +26,7 @@ import {
 import { BEFORE_DAIS, HALL_BLOCKS, HALL_OCCLUDERS, HALL_SPOT, HALL_SURFACES, HALL_WALK, hallCandleLights } from './schutzreaktion-saal';
 import { bg, e3Scene, interlude, nextScene, sfx, STAFF_PLACE_FLAG, ui, until } from './shared';
 import { asStone, breakStone } from './versteinerung';
+import { NO_LOOK } from './spuersinn';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flag between the parts. */
 const F = {
@@ -95,6 +96,7 @@ export const saalNacht: MapDef = defineMap({
   lookMode: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.verhoer,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

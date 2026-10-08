@@ -27,6 +27,7 @@ import {
   lookIntoArmouryCam, ordenshausBase, ordenshausNightLights, showStaffInArmoury, STUDY_LISTEN,
 } from './ordenshaus';
 import { bg, e3Scene, interlude, liaLook, nextScene, sfx, staffPlace, ui, until, VIOLET } from './shared';
+import { NO_LOOK } from './spuersinn';
 
 /** Flags of this visit (reset when a part starts) and the checkpoint flag of part 2. */
 const F = {
@@ -62,6 +63,7 @@ export const halleKugel: MapDef = defineMap({
   ambienceVolume: { room: 0.6 },
   music: 'dread',
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.halle,
 });
 
 export const zimmerNacht: MapDef = defineMap({
@@ -78,6 +80,7 @@ export const zimmerNacht: MapDef = defineMap({
   music: 'dread',
   sneak: true,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.nacht,
 });
 
 const setCheckpoint = (spawn: string) => () => { G.state.set(F.cp, spawn); };
@@ -105,6 +108,7 @@ export const hausNacht: MapDef = defineMap({
   music: 'dread',
   sneak: true,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.nacht,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

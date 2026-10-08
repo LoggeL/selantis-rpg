@@ -160,6 +160,11 @@ export interface MapDef {
 
   /** Allow Spurenblick (hold Q) on this map. Can also be toggled by script (w.lookMode.enable()). */
   lookMode?: boolean;
+  /**
+   * Places where the Spurenblick cannot be used: a short thought the player barks when Q is pressed here although look
+   * mode is off (only once Lia knows the Spurenblick). Without it, Q does nothing.
+   */
+  lookBlocked?: string;
   /** Allow sneaking (C/Ctrl). Default true. */
   sneak?: boolean;
   /** Stealth settings. checkpoint = spawn name used when spotted (default: the entry spawn). */

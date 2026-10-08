@@ -25,6 +25,7 @@ import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import { STAFF } from '../common/bookContract';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import type Phaser from 'phaser';
+import { LICHTWALD_CLUES } from './spuersinn';
 
 const VAL = 'valentus';
 const MENTOR = 'ignatius';
@@ -84,6 +85,8 @@ export const lichtung: MapDef = defineMap({
   ambienceVolume: { birds: 0.5, wind: 0.4, stream: 0.45 },
   music: 'refuge',
   resetOnEnter: true,
+  lookMode: true,
+  clues: LICHTWALD_CLUES,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

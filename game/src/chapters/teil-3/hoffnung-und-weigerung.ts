@@ -26,6 +26,7 @@ import {
 import { innerFog, outsideVoices } from './innere-zuflucht-nebel';
 import { INNER_BLOCKS, INNER_OCCLUDERS, INNER_SPOT, INNER_WALK } from './innere-zuflucht-welt';
 import { bg, e3Scene, interlude, lia, liaLook, nextScene, sfx, ui, VIOLET } from './shared';
+import { NO_LOOK } from './spuersinn';
 
 /** Checkpoint flags between the parts, the topics said in this visit, the contract flags. */
 const F = { inner: 'e3-hw-innen', topic: (t: Topic) => `e3-hw-thema-${t}`, refused: 'e3-geweigert', plan: 'e3-relikte-plan' } as const;
@@ -66,6 +67,7 @@ export const innenRiss: MapDef = defineMap({
   sneak: false,
   critters: false,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.innen,
 });
 
 /** Vamir's hall at night: Lia kneels at the floor ring. */
@@ -80,6 +82,7 @@ export const halleWeigerung: MapDef = defineMap({
   ambienceVolume: { room: 0.6 },
   music: 'dread',
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.gefesselt,
 });
 
 // ---------------------------------------------------------------------------------------------------------------

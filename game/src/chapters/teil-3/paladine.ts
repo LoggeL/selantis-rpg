@@ -24,6 +24,7 @@ import {
   confiscateStaffs, coverScore, escortVerdict, GOODS_ANSWERS, insideLeash, leaderVerdict, ROAD_ANSWERS, type Slip,
 } from './paladine-regeln';
 import { bg, e3Scene, lia, liaLook, nextScene, sfx, ui, until } from './shared';
+import { LANDSTRASSE_CLUES, TRAPAS_CLUES } from './spuersinn';
 
 registerSpeakers([
   { id: 'e3-paladin-jung', name: 'Junger Paladin', portrait: 'paladin', voice: { pitch: 175, wave: 'square' }, color: '#c8d4e8' },
@@ -80,6 +81,8 @@ export const landstrasse: MapDef = defineMap({
   ambienceVolume: { wind: 0.55, birds: 0.4 },
   music: 'exploration',
   resetOnEnter: true,
+  lookMode: true,
+  clues: LANDSTRASSE_CLUES,
 });
 
 async function readMilestone(w: WorldCtx): Promise<void> {
@@ -306,6 +309,8 @@ export const trapasEskorte: MapDef = defineMap({
   ambienceVolume: { wind: 0.3, forge: 0.45, birds: 0.25 },
   music: 'exploration',
   resetOnEnter: true,
+  lookMode: true,
+  clues: TRAPAS_CLUES,
 });
 
 const seenCount = () => Object.values(SEEN).filter(f => G.state.is(f)).length;

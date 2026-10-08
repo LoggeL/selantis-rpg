@@ -19,6 +19,7 @@ import {
   type Goblin, GOBLINS, type Ploy, ployOptions, type Step, STEPS,
 } from './waldgegner-lager';
 import { e3Scene, interlude, nextScene, sfx, ui, until } from './shared';
+import { NO_LOOK } from './spuersinn';
 
 /** Flags of this visit (reset when the scene starts). */
 const F = { freed: 'e3-wg-frei', out: 'e3-wg-draussen', cp: 'e3-wg-checkpoint' } as const;
@@ -62,6 +63,7 @@ export const ghulwald: MapDef = defineMap({
   critters: false,
   sneak: true,
   resetOnEnter: true,
+  lookBlocked: NO_LOOK.flick,
 });
 
 // ---------------------------------------------------------------------------------------------------------------
