@@ -479,6 +479,12 @@
   "hash": "L9BMD8~A?F=_x^WYxFn$9}EMIoIp",
   "sourceHash": "1a0af6d9589b590648faa6d0eca193c61a527cb028f2a0dea732f2be3af0dfa2"
  },
+ "assets/cut/e3-flick-kopfueber.jpg": {
+  "width": 1280,
+  "height": 720,
+  "hash": "L5BCMk}p0f5t1AE*=W$+5ZEkJ6-P",
+  "sourceHash": "65665c527304cc3f085e6f21a66cafa003698f84e209d8bd9148083e4906887f"
+ },
  "assets/cut/e3-gestalt.jpg": {
   "width": 1280,
   "height": 720,
@@ -6523,6 +6529,13 @@
   "hash": "L17,=9RL1Q%37izo~AXSQ-b=I:NH",
   "alphaHash": "LA7-Zwof00Rj00WB~qt7Rjoft7M{",
   "sourceHash": "d9ab39a25ee2f35bf27de89e1f4015231f8fbdf0c6257ab47af6222045df5dce"
+ },
+ "assets/sprites/e2-flick-gefangen-hang.png": {
+  "width": 64,
+  "height": 64,
+  "hash": "LCAlX%bWNbsp}BS1s,so$lS1fQoL",
+  "alphaHash": "L67-Zwt700IU00WB_3t700ay~qt7",
+  "sourceHash": "7fad2ef84582146296fbd985d1ec79bf6ab2fca5990876494a9bb94d4e1ce186"
  },
  "assets/sprites/e2-flick-gefangen-hurt.png": {
   "width": 64,

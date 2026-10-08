@@ -179,12 +179,13 @@ POSES: dict[str, dict] = {
                           "flushed red, eyes half-closed, a happy dopey grin, body turned three-quarter toward the "
                           "RIGHT.",
                   "measure": "pair"},
-    "hang": {"text": "Pose (RIGHT figure): hanging UPSIDE DOWN in the air, tied by the ankles: both feet bound together "
-                     "with a rope at the TOP, a SHORT straight piece of the rope (about one head long) going straight up "
-                     "from the ankles and ending at the top of the figure, the body hanging straight down head-first, the "
-                     "head at the BOTTOM about a hand's width above the ground line (NOT touching the ground), the hair "
-                     "hanging down, body turned three-quarter toward the RIGHT. The upside-down figure is as long as the "
-                     "standing figure is tall (plus the short rope).",
+    "hang": {"text": "Pose (RIGHT figure): a funny cartoon-style SNARE TRAP gag: the character dangles UPSIDE DOWN, "
+                     "caught by both BOOTS in a rope snare loop of a hunting trap; from the boots a SHORT straight piece "
+                     "of the snare rope (about one head long) leads straight up and ends at the top of the figure. The "
+                     "body points head-down, the head at the BOTTOM a hand's width above the ground line (NOT touching "
+                     "the ground), the hair falling down, body turned three-quarter toward the RIGHT. She is unhurt, "
+                     "safe and just very annoyed, a light-hearted comedy moment. The upside-down figure is as long as "
+                     "the standing figure is tall (plus the short rope).",
              "measure": "pair"},
     "frozen": {"text": "Pose (RIGHT figure): FROZEN in the middle of an attacking leap toward the RIGHT: one foot pushing off "
                        "the ground, the other knee raised forward, body leaning forward, the RIGHT arm thrust forward with a "
@@ -500,9 +501,9 @@ POSE_EXTRA: dict[tuple[str, str], str] = {
     ("goblin-fips", "crouch"): "Crouching low on his toes, hopping nervously, the slingshot loaded and ready, looking "
                                "around with bulging eyes.",
     # Flick hanging upside down in the goblins' camp, Flick turned to stone, Flick as Lia's guard
-    ("e2-flick-gefangen", "hang"): "INSTEAD of iron manacles here her wrists are free: her arms are CROSSED over her "
-                                   "chest (upside down), an annoyed, sarcastic, eye-rolling face, a ROPE tied around "
-                                   "both ankles. Her short dark hair hangs down.",
+    ("e2-flick-gefangen", "hang"): "Her manacled forearms are FOLDED over her chest (like crossed arms), an annoyed, "
+                                   "sarcastic, eye-rolling face, as if bored of waiting. Her short dark hair falls "
+                                   "down. No net.",
     ("e3-flick-stein", "frozen"): "She is a STATUE of grey stone: the whole figure including hair, clothes, knife and "
                                   "bow is one solid grey granite colour with stone texture, small cracks with a faint "
                                   "glowing VIOLET light inside. The LEFT standing figure is the same grey stone statue "

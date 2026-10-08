@@ -1076,6 +1076,17 @@
      ],
      "facing": "right"
     },
+    "hang": {
+     "file": "assets/sprites/e2-flick-gefangen-hang.png",
+     "w": 64,
+     "h": 64,
+     "frames": 1,
+     "foot": [
+      32,
+      60
+     ],
+     "facing": "right"
+    },
     "hurt": {
      "file": "assets/sprites/e2-flick-gefangen-hurt.png",
      "w": 64,
@@ -5396,6 +5407,11 @@
   },
   "e3-falle": {
    "file": "assets/cut/e3-falle.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "e3-flick-kopfueber": {
+   "file": "assets/cut/e3-flick-kopfueber.jpg",
    "w": 1280,
    "h": 720
   },

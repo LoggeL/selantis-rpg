@@ -1154,6 +1154,21 @@
       "attempts": 1,
       "time": "2026-10-08T02:31:49"
     },
+    "output/imagegen/raw/art/cut/e3-flick-kopfueber.png": {
+      "kind": "plate",
+      "id": "e3-flick-kopfueber",
+      "prompt": "Cinematic 16:9 story illustration (storybook plate) for a fantasy RPG, painted high-detail pixel art with soft painterly pixel shading, dramatic but warm lighting. Characters, if any, must match the attached reference sheets exactly and must not resemble any real person or actor. Scene: A light-hearted COMEDY scene in a small forest clearing at dusk (blue-violet evening sky between the trees, warm orange firelight). On the RIGHT a big old oak with one thick low branch. From the branch Flick (first sheet: slender half-elf woman, short messy almost-black hair with one pale streak, pointed ears, freckles, dusty olive-green coat, iron manacles on her wrists) dangles UPSIDE DOWN, caught by both boots in a goblin snare rope tied to the branch — a classic cartoon trap gag; she is unhurt and simply bored: arms folded over her chest, rolling her eyes with a dry, sarcastic, unimpressed look, her short hair falling down. Below her and to the LEFT, around a small campfire in a ring of stones with a big dented iron cooking pot hanging over it, the three small comic goblins squabble about the pot: Ratz (second sheet: skinny, dented pot as a helmet, ragged purple cape) points his big wooden spoon like a sceptre and gives pompous orders; fat Hotze (third sheet: round belly, greasy cook's apron, floppy ears) clutches the pot handle and his roasting spit with a sausage, licking his lips; tiny Fips (fourth sheet: huge nose, feathers in his hair, slingshot in his belt) tugs at the other side of the pot, arguing loudly. Funny body language, cosy evening light, fireflies, no blood, no injury, nothing scary. Flick and all three goblins fully visible, nobody cut off. Anatomically correct hands.\nHigh-quality 16-bit pixel art like a modern SNES-inspired fantasy adventure RPG, crisp visible square pixels, clean dark outlines, limited warm palette, soft natural light, rich painterly pixel shading, three-quarter top-down view for maps. No text, no letters, no watermark, no frame. Selantis palette: rich summer green, wheat gold, warm wood brown, brick red, stone grey, evening orange, night blue-violet; turquoise ONLY for the primordial magic (Urmacht). No text, no letters, no numbers, no labels, no captions, no watermark, no frame, no border, no grid lines.",
+      "refs": [
+        "docs/rebuild/art/refs/e2-flick-gefangen.png",
+        "docs/rebuild/art/refs/goblin-ratz.png",
+        "docs/rebuild/art/refs/goblin-hotze.png",
+        "docs/rebuild/art/refs/goblin-fips.png"
+      ],
+      "ok": true,
+      "seconds": 68,
+      "attempts": 1,
+      "time": "2026-10-09T01:06:34"
+    },
     "output/imagegen/raw/art/cut/e3-gestalt.png": {
       "kind": "plate",
       "id": "e3-gestalt",
