@@ -12,6 +12,18 @@ verdrahtet.
 > Handlung von Gewalt handelt (Falle, Ritualkampf, Vamirs Angriff auf Ignatius, Leichenfresser); kein Selbstzweck,
 > keine Folter als Spielmechanik. (2) **Elnon ist tot**: Kyra hat ihn in Teil II gebannt getötet; der Spieler sah es,
 > Lia nicht. Ein Auftrag, der „kein Blut“ oder „Elnons Schicksal offen“ verlangt, ist damit überholt.
+>
+> **Vorrang (Nutzer-Feedback 2026-10-09):** (3) Flick wird nicht von Leichenfressern gefangen, sondern von drei
+> **Goblins: Ratz, Hotze und Fips** (Comic Relief, eigene Figuren und Porträts); sie hängt zu Beginn **kopfüber am
+> Baum** (Tafel `e3-flick-kopfueber`). (4) Flick versucht Lia im falschen Lager zu befreien und wird von **Vamir
+> versteinert**, nicht an einen Pfahl gebunden; die Fackel-und-Wolf-Aufgabe bleibt. (5) Jede Erinnerung der inneren
+> Zuflucht zeigt eine Tafel, Lias Geist beobachtet am Rand. (6) „Augen öffnen“ zeigt je Szene, wer Lia
+> gegenübersteht. (7) **Spürsinn** (Spurenblick) findet in jedem passenden Ort versteckte Hinweise; wo er nicht geht,
+> sagt Lia warum (`MapDef.lookBlocked`, Daten in `spuersinn.ts`). (8) Die Relikte stehen sichtbar auf den Ständern.
+> (9) Am Ende erscheinen **Valentus und Ignatius** als Geister. (10) Der **Epilog spiegelt die erste Szene von Teil I**
+> (Lia liest unter der Eiche, Kyra kommt), dann stößt Flick in neuer Ausrüstung als Lias Beschützerin dazu.
+> (11) Minispiele nur, wenn sie kreativ sind: reine Regler-Gesten sind durch Inszenierung oder kleine Entscheidungen
+> ersetzt (Übersicht: `docs/minigames-review-2026-10-09.md`). Abweichende Zeilen unten sind damit überholt.
 
 ## 1. Grundregeln
 
@@ -208,13 +220,17 @@ helfe; Flag `e3-gift-abklingend`. Die Urmacht verhindert den Tod, nicht die Schw
   auszusprechen (Kyra sagt den Elnon-Satz glatt und ohne Pause, `e2-kyra-gebannt` `cold`/`devoted` nur als Andeutung;
   Lia glaubt ihr und will ihn retten). Kein Hinweis für Lia, kein Erzählerkommentar. → `e3-waldgegner`.
 
-### e3-waldgegner – „Rohes Fleisch“ (F3 23:37–24:51) — Flicks Zwischenspiel
+### e3-waldgegner – „Kopfüber“ (F3 23:37–24:51) — Flicks Zwischenspiel
 - **Rahmung:** `interlude('Unterdessen, ein paar Täler weiter …')`. Ort: `e3-ghulwald` (Hintergrund `k5-faehrte`),
-  Abend. Spielerfigur `e2-flick-gefangen` (Hände gebunden, Pflock). Drei Leichenfresser (`ghoul`) zanken ums Essen,
-  einer („Ratze“, Spitzname aus der Tonspur) soll den Strick nachziehen und vergisst es.
-- **Herzstück:** Flick reibt den Strick am Stein (`storyAction('tend', 'Den Strick am Stein reiben')`), nur wenn
-  keiner hersieht (Bark-Hinweise); danach Schleichweg weg vom Feuer (Sichtkegel, Farn als Versteck). Flucht gelingt.
-  Der Anführer schickt Ratze hinterher (Ton). `e3-flick-ghule`. → `e3-vertraute-schwester`.
+  Abend. Spielerfigur `e2-flick-gefangen`, kopfüber am Eichenast (Pose `hang`, Tafel `e3-flick-kopfueber`). Drei
+  Goblins (`goblin-ratz` der selbsternannte Häuptling, `goblin-hotze` der Koch, `goblin-fips` der Kleinste, der sie im
+  Netz gefangen hat) streiten, wie sie gekocht wird.
+- **Herzstück (Intrige):** Flick kann nur reden und spielt die drei in vier Schritten gegeneinander aus
+  (`waldgegner-lager.ts` `STEPS`): Hotze um die Ohren fürchten lassen, Ratz das „erste Stück“ versprechen (er befiehlt
+  Fips, sie herunterzuschneiden), Fips mit einer Spange bestechen (Knoten locker), Streit um die Ohren anzetteln.
+  Falsche Sätze bekommen eine komische Antwort und werden ausgegraut. Während die drei raufen, schlüpft sie aus der
+  Schlinge; danach Schleichweg weg vom Feuer (Sichtkegel, Farn als Versteck). Ratz schickt Fips hinterher (Ton).
+  `e3-flick-ghule`. → `e3-vertraute-schwester`.
 
 ### e3-vertraute-schwester – „Ein Becher Tee“ (F3 25:51–28:18)
 - **Ort:** `e3-waldrast` (Hintergrund `k3-leselager`), Nacht, kleines Feuer. Companion Kyra.
@@ -242,15 +258,16 @@ helfe; Flag `e3-gift-abklingend`. Die Urmacht verhindert den Tod, nicht die Schw
 - **Herzstück:** Erinnerungen aus Buch 1 finden: drei helle Stellen im Nebel (Buch unter der Eiche, Kyra mit
   Feuerholz, Mutter liest vor) – jede zeigt eine kurze Erinnerung (Text, `say`), danach wird die Wiese größer.
   Zwischen den Erinnerungen dringen gedämpfte Stimmen von außen herein (Vamirs Männer), ohne Bild.
-- **Schnitt (gerahmt, Spielerwissen):** Vamir vor seinen Männern: großer Sieg; lobt Kyra („meine Kleine“), sie dankt.
-  Baris zu Flick, die an einem Pfosten gefesselt ist: Wiedersehen, nicht schwer zu finden. Vamir: nicht töten,
-  zusehen lassen, dann den Wölfen überlassen. Baris höhnisch („Alleinsein – darin hast du Übung“, eigene Worte).
+- **Schnitt (gerahmt, Spielerwissen):** Vamir vor seinen Männern: großer Sieg; lobt Kyra, sie dankt. Flick bricht
+  aus dem Gebüsch und rennt zum Käfigwagen; Vamir hebt nur die Hand und **versteinert** sie mitten im Lauf (Tafel
+  `e3-flick-versteinert`, Look `e3-flick-stein`, `versteinerung.ts`). Baris will die Statue zerschlagen; Vamir: Stein
+  hört zu, der Bann hält bis in die Nacht, dann gehört sie den Wölfen. Baris höhnt.
 - → `e3-flicks-hilfe`.
 
 ### e3-flicks-hilfe – „Flicks Nachricht“ (F3 32:16–34:49) — Flicks Zwischenspiel
-- **Teil 1:** `e3-falsches-lager` am Abend, verlassen. Spieler Flick (`e2-flick-gefangen`) am Pfosten. Wölfe heulen.
-  Herzstück: Flick dreht die Hände im Seil (`storyAction('tend')`), ein Wolf (`dog`-Silhouette? nein: nur Augen und
-  Geräusch am Rand) nähert sich; Flick befreit sich, greift einen Feuerbrand und zieht rückwärts zum Weg.
+- **Teil 1:** `e3-falsches-lager` am Abend, verlassen. Spieler Flick steht als Statue, wo der Bann sie traf. Mit der
+  Nacht bekommt der Stein in drei Stufen Risse, während Wolfsaugen am Rand näherkommen; dann bricht sie heraus.
+  Herzstück: einen Feuerbrand aus der Glut ziehen und rückwärts zum Weg gehen, die Wölfe auf Abstand.
   Spurenblick: Wagenspuren des Käfigs nach Osten (sie weiß jetzt, wohin).
 - **Teil 2:** `e3-ordenssaal`, Nacht. Flick (normaler Look `flick`) wird vorgeführt. Großmeister misstraut (Vamirs
   Leuten?). Flick: sie habe es gesehen, sie kenne den Weg. Auswahl: Wie Flick überzeugt (Spott, Ehrlichkeit,
@@ -334,7 +351,13 @@ helfe; Flag `e3-gift-abklingend`. Die Urmacht verhindert den Tod, nicht die Schw
 - → `e3-epilog`.
 
 ### e3-epilog – „Zu dritt“ (F3 46:03–46:59)
-- **Ort:** `e3-feldweg`, Morgen. Companions Kyra und Flick.
+- **Neu (2026-10-09):** Aufbau wie die erste Szene von Teil I auf der Herbstwiese hinter dem Hof (`k1-wiese`): Lia
+  liest unter der Eiche (Tafel `e3-epilog-wiese`), Kyra kommt mit Feuerholz und schleicht sich an (Lia hört sie
+  diesmal), dieselben drei Antworttöne, die Eltern wären stolz, dann kommt Flick stolz in neuer Ausrüstung als Lias
+  Beschützerin (`flick-beschuetzerin`), Kyras Elnon-Geständnis, freie Zeit (Buch aufheben, leeres Nest im Spurenblick,
+  Kornblumen, Äpfel), Aufbruch nach Osten; unter der Eiche erscheinen Valentus (türkis) und Ignatius (bernstein,
+  `AMBER_GHOST`). Tafel `e3-epilog-geister`. Die folgenden Zeilen beschreiben den alten Feldweg-Entwurf.
+- **Ort (alt):** `e3-feldweg`, Morgen. Companions Kyra und Flick.
 - **Herzstück:** gemeinsamer Weg mit Gesprächen beim Gehen: Kyra (seit dem Sommer ist alles anders; Eltern sähen zu
   und wären stolz), Kyra über Elnon und das Schwert: Sie erinnert sich an die Klinge in ihrer Hand und an sein
   Gesicht; sie weiß jetzt, dass er tot ist und dass sie Lia über ihn angelogen hat. Lia erfährt hier erst, dass Elnon
