@@ -1,13 +1,14 @@
 // Scene „e2-pruefung“ – Die Prüfung (docs/teil-2/umsetzung.md §3, quellenpruefung §1/§8). Dusk in front of Elnon's
 // tent. Flick reports, Kyra bursts in, Lia barely remembers. Elnon orders the test; Kyra and Flick protest, Flick
-// offers to run. Heart: Lia's own decision (every answer leads to her wanting it herself), the lift gesture, the
-// surge she holds on to (hold with struggle, cannot finally fail), plate e2-pruefung, collapse. Cut, framed as
+// offers to run. Heart: Lia's own decision (every answer leads to her wanting it herself), drinking, the surge in
+// which she holds on to herself („Woran hältst du dich?“, pruefung-anker.ts; cannot fail), plate e2-pruefung, collapse. Cut, framed as
 // „Weit entfernt …“: the Master over his crystal (plate e2-sehkugel) sends for Baris. Afterwards the druid: weak but
 // alive, powers like the old stories of the Ten, Ignatius von Ignis, a night to think. Lore e2-lore-pruefung.
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { campBase } from '../kapitel-4/lager';
 import { halt } from '../kapitel-4/shared';
+import { ANCHORS, ANCHORS_NEEDED, anchorThought, DRUID_REMINDER } from './pruefung-anker';
 import { bg, e2Scene, interlude, lia, master, sfx, ui, nextScene } from './shared';
 
 /** Turquoise of the Urmacht (only ever used for it). */
@@ -149,16 +150,38 @@ async function surge(w: WorldCtx): Promise<void> {
         await w.wait(420);
       }
     })());
-    await G.ui.hold('Dich selbst festhalten', 4200, {
-      struggle: true,
-      onRelease: () => { w.camera.shake(260, 0.005); sfx('shockwave', { volume: 0.5 }); },
+    let heart: { stop(ms?: number): void } | null = null;
+    try { heart = G.audio.loop('heartbeat', { interval: 0.6, volume: 0.8 }); } catch { heart = null; }
+    const anchors = await G.ui.scenePick({
+      label: 'Woran hältst du dich?',
+      help: 'Worte und Bilder wirbeln im Licht. Greif drei, die zu dir gehören. Was von außen kommt, macht es schlimmer.',
+      layout: 'drift',
+      className: 'e2-anker',
+      rounds: [{
+        prompt: { speaker: 'e2-druide', text: 'Halt dich an dir selbst fest. An nichts anderem.' },
+        cards: ANCHORS.map(({ id, text }) => ({ id, text })),
+        need: ANCHORS_NEEDED,
+        judge: id => {
+          const a = ANCHORS.find(x => x.id === id)!;
+          return a.self ? { ok: true, mood: 'calm', reply: a.reply } : { ok: false, mood: 'flash', reply: [a.reply, DRUID_REMINDER] };
+        },
+      }],
+      onVerdict: v => {
+        if (v.ok) { void glow.fadeTo(1.1, 400); return; }
+        w.camera.shake(260, 0.005);
+        sfx('shockwave', { volume: 0.5 });
+        w.lighting.flash(TURQUOISE, 250);
+      },
     });
+    heart?.stop(400);
+    G.state.set('e2-pruefung-anker', anchors.mistakes);
     surging = false;
     await G.ui.plate('e2-pruefung', { caption: 'Die Prüfung', pan: 'in', durationMs: 20000 });
     await w.say('narrator', 'Das Licht kam nicht aus der Schale. Es kam aus Lia: ~türkis~, kalt und hell, bis hinauf in die Wipfel.');
     await w.say('narrator', 'Jemand warf ihr einen Strick um die Handgelenke. Er riss wie Zwirn. Zwei Rebellen landeten im Gras, zwei andere packten zu.');
     await w.say('narrator', 'Elnon wich einen Schritt zurück. Nur der Druide sah nicht weg.');
     await G.ui.closePlate();
+    await w.think(anchorThought(anchors.mistakes));
     sfx('fall', { volume: 0.6 });
     void glow.fadeTo(0, 900);
     w.player.setIdle('lie');

@@ -1,5 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
-import { playSceneAction } from './sceneActions';
+import { playSceneAction, playScenePick } from './sceneActions';
+
+/** Right answers the driver tries first in scene picks (a playthrough should mostly decide well). */
+const PICK_PREFER = ['eiche', 'handschrift', 'name', 'leseratte'];
 
 /**
  * Helpers for the Teil II browser tests (teil-2.pw.ts). Everything that plays the game does it with real inputs:
@@ -118,6 +121,7 @@ export interface Snap {
   tactics: boolean;
   hold: boolean;
   action: boolean;
+  pick: boolean;
   choices: { text: string; tag: string | null; disabled: boolean }[];
   sammlung: boolean;
   zielen: string | null;
@@ -152,6 +156,7 @@ export async function snap(page: Page): Promise<Snap> {
       tactics: Boolean(t?.ready && t.sys.isActive()),
       hold: vis('.hold'),
       action: Boolean(document.querySelector('.scene-action:not(.is-complete)')),
+      pick: Boolean(document.querySelector('.scene-pick:not(.is-out)')),
       choices,
       sammlung: Boolean(document.querySelector('.e2s-root:not(.is-out)')),
       zielen: document.querySelector('.e2-zielen-call')?.textContent ?? null,
@@ -632,6 +637,7 @@ export async function drive(page: Page, opts: DriveOptions): Promise<Snap> {
       continue;
     }
     if (s.action) { lastAction = 'scene-action'; await playSceneAction(page); continue; }
+    if (s.pick) { lastAction = 'scene-pick'; await playScenePick(page, PICK_PREFER); continue; }
     if (s.choices.length) { lastAction = `choose ${s.choices.map(c => c.text.slice(0, 20)).join(' / ')}`; await answer(page, s, chooser); continue; }
     if (s.credits) { lastAction = 'credits'; await page.waitForTimeout(4300); await page.keyboard.press('Enter'); await page.waitForTimeout(1500); continue; }
     if (s.busy) { lastAction = 'advance'; await page.keyboard.press('Enter'); await page.waitForTimeout(160); continue; }

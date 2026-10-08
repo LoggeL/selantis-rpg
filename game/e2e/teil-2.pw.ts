@@ -224,6 +224,22 @@ test('Lichtstoß: a save that already knows it completes e2-konzentration with t
   expect(errors, errors.join('\n')).toEqual([]);
 });
 
+test('e2-pruefung: in the surge Lia holds on to three things of her own', async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
+  const errors = await campaign(page, p => fixtureSave(p, 'e2-pruefung'), 'e2-pruefung');
+  const lines: string[] = [];
+  let sawPick = false;
+  await drive(page, { label: 'pruefung', until: s => s.scene !== 'e2-pruefung', onSnap: async s => {
+    if (s.pick) sawPick = true;
+    if (s.line && lines[lines.length - 1] !== s.line) lines.push(s.line);
+  } });
+  expect(sawPick).toBe(true);
+  const data = await state(page);
+  expect(data.flags['e2-pruefung-anker']).toBe(0);
+  expect(lines.join('\n')).toContain('Nur an mir');
+  expect(errors, errors.join('\n')).toEqual([]);
+});
+
 // ---------------------------------------------------------------------------------------------------------------
 // 4. Reload / once-only
 // ---------------------------------------------------------------------------------------------------------------
