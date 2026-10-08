@@ -1,3 +1,4 @@
+import { G } from '../core/G';
 import { FLOURISH } from './chapterCard';
 import { buildChapterSelect, devMode } from './chapters';
 import { el, html, sfx } from './dom';
@@ -80,6 +81,7 @@ export function openMenu(actions: MenuActions): OverlayHandle {
     sfx('ui-confirm', { volume: 0.5 });
     nav = buildChapterSelect(content, {
       includeHidden: devMode() || actions.debug(),
+      current: G.currentScene || undefined,
       onPick: id => { overlay.close(); actions.warp(id); },
       onBack: () => { sfx('ui-cancel', { volume: 0.5 }); showMain(); },
     });

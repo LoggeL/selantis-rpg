@@ -137,6 +137,27 @@
     "plate:bonus-goldener-eber": {
       "desc": "Edit of the FIRST attached image (a group picture in the 'Goldener Eber' tavern): keep the whole composition, all eight companions at the table, their faces, poses, clothing, the food, the fireplace, the golden boar sign and the lighting EXACTLY as they are. ONLY change the tavern background behind them: replace the blurred generic guests with three cheerful tavern guests from the other attached reference sheets, smaller and further back but clearly recognisable, each matching his sheet exactly: Pascal (straw hat with green band, faded brick-red shirt, bright orange braces) drumming with two wooden spoons on a back table; Logge (dark golden-blond hair, round orange-tinted spectacles, rust-orange tunic, pocketed leather vest, quill behind his ear) raising a tankard and writing in a little book; Sebastian (wavy dark-brown hair, moustache and goatee, charcoal doublet, white shirt, neckerchief) playing his lute with a wide theatrical grin. The barmaid with mugs may stay. The three must not cover any of the eight companions.",
       "chars": "pascal,logge,sebastian"
+    },
+    "plate:chap-prolog": {
+      "desc": "a solemn stone council hall interior with ten empty high-backed wooden chairs arranged in a half circle and plain coloured city banners (no symbols with letters) hanging on the walls; at the back a massive sealed stone door with a faint turquoise glow seeping through its cracks, the only turquoise in the image. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
+    },
+    "plate:chap-kapitel-1": {
+      "desc": "a late-summer meadow at golden hour with a big old oak tree; an open old book lies in the grass under the tree; a small half-timbered farmhouse far away in the distance. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
+    },
+    "plate:chap-kapitel-2": {
+      "desc": "a paved cobblestone country road at dusk with a plain wooden signpost with blank boards (nothing written on them), a forest edge, and a small ring of stones for a campfire (unlit) beside the road. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
+    },
+    "plate:chap-kapitel-3": {
+      "desc": "exterior of a cosy roadside tavern at evening, half-timbered, warm glowing windows, a hanging carved wooden boar-shaped sign without any letters, a wooden stable beside it. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
+    },
+    "plate:chap-kapitel-4": {
+      "desc": "a hidden forest camp: a wooden log palisade with small wooden watchtowers among tall trees in morning mist, thin smoke rising from inside the camp. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
+    },
+    "plate:chap-kapitel-5": {
+      "desc": "a dark forest at night in summer rain, visible rain streaks, puddles reflecting faint light, a narrow path disappearing between dark tree trunks, deep blue-violet night colours. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
+    },
+    "plate:chap-teil-2-1": {
+      "desc": "a forest brook crossing with flat stepping stones, the bark of a nearby tree marked with small carved notches, a thin line of camp smoke rising above the treetops in the distance. No turquoise or cyan anywhere. Calm, quiet establishing view of a place, soft light, main subject in the middle third of the wide image. Absolutely NO people, no figures, no silhouettes, no animals; no text, no letters, no numbers, no runes; no frame, no border, no dark vignette edge; no blood, no battle."
     }
   }
 }

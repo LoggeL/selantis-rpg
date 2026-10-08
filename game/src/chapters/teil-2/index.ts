@@ -27,6 +27,17 @@ defineChapter({
   numeral: 'Teil II',
   title: 'Letzte Hoffnung',
   subtitle: 'Zurück zu den Rebellen',
+  book: 2,
+  sections: [
+    { numeral: '1', title: 'Zurück zu den Rebellen', subtitle: 'Der Goldene Eber, die Bruderschaft, die Prüfung',
+      scenes: ['e2-taverne', 'e2-bruderschaft', 'e2-pruefung', 'e2-flicks-herkunft'] },
+    { numeral: '2', title: 'Überfall im Morgengrauen', subtitle: 'Getrennt',
+      scenes: ['e2-lagerangriff', 'e2-der-fremde', 'e2-gefangene'] },
+    { numeral: '3', title: 'Der Fremde im Wald', subtitle: 'Was Valentus tat',
+      scenes: ['e2-urmacht', 'e2-flicks-verhoer', 'e2-konzentration', 'e2-flicks-erinnerungen', 'e2-kyras-widerstand', 'e2-ignatius'] },
+    { numeral: '4', title: 'Schattentöter', subtitle: 'Ein geliehener Stab',
+      scenes: ['e2-zellengespraeche', 'e2-stabtraining', 'e2-flick-entkommt', 'e2-kontrolle', 'e2-aufbruch'] },
+  ],
   scenes: [
     taverne, bruderschaft, pruefung, flicksHerkunft, lagerangriff, derFremde, gefangene, urmacht, flicksVerhoer, konzentration, flicksErinnerungen, kyrasWiderstand, ignatius, zellengespraeche, stabtraining, flickEntkommt, kontrolle, aufbruch,
   ],

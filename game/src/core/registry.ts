@@ -13,6 +13,14 @@ export interface SceneEntry {
   prepare?(): void;
 }
 
+/** A part of a long chapter shown as its own entry in the chapter select (scene ids in story order). */
+export interface ChapterSection {
+  numeral: string;
+  title: string;
+  subtitle?: string;
+  scenes: string[];
+}
+
 export interface ChapterEntry {
   id: string;
   /** Sorting order: prolog = 0, kapitel-1 = 1, ... */
@@ -21,6 +29,10 @@ export interface ChapterEntry {
   title: string;
   subtitle?: string;
   scenes: SceneEntry[];
+  /** Which book of the chronicle the chapter belongs to (1 = book one incl. prolog, 2 = Teil II, 3 = Teil III). */
+  book?: number;
+  /** Long chapters (Teil II/III) list their scenes in these parts in the chapter select. */
+  sections?: ChapterSection[];
   /** Dev/test chapters (demo maps, galleries) are hidden from the title chapter select. */
   hidden?: boolean;
   /** Extra Phaser scenes this chapter needs (minigames). Added once at boot. */

@@ -321,10 +321,10 @@ test('an old book-one save (k5-ende) shows Teil II in the chapter select and war
   await page.reload();
   await expect(page.getByRole('button', { name: /Fortsetzen/ })).toBeVisible({ timeout: 30000 });
   await page.getByRole('button', { name: /^Kapitel/ }).click();
-  const head = page.locator('.chap-head', { hasText: 'Teil II' });
+  // The chapter select is a book: it opens on the double page of the reached scene (Zweites Buch · Letzte Hoffnung).
+  const head = page.locator('.chap-page-head');
   await expect(head).toBeVisible();
   await expect(head).toContainText('Letzte Hoffnung');
-  await head.scrollIntoViewIfNeeded();
   await page.waitForTimeout(400);
   await shot(page, '30-kapitelwahl-teil-2');
   const row = page.locator('.chap-scene', { hasText: 'Was Valentus tat' });

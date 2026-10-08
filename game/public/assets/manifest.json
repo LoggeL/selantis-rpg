@@ -4742,6 +4742,36 @@
    "w": 1280,
    "h": 720
   },
+  "chap-kapitel-1": {
+   "file": "assets/cut/chap-kapitel-1.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "chap-kapitel-2": {
+   "file": "assets/cut/chap-kapitel-2.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "chap-kapitel-3": {
+   "file": "assets/cut/chap-kapitel-3.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "chap-kapitel-4": {
+   "file": "assets/cut/chap-kapitel-4.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "chap-kapitel-5": {
+   "file": "assets/cut/chap-kapitel-5.jpg",
+   "w": 1280,
+   "h": 720
+  },
+  "chap-prolog": {
+   "file": "assets/cut/chap-prolog.jpg",
+   "w": 1280,
+   "h": 720
+  },
   "e2-aufbruch": {
    "file": "assets/cut/e2-aufbruch.jpg",
    "w": 1280,

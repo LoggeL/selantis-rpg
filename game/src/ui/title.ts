@@ -152,6 +152,7 @@ export function showTitle(): Promise<TitleChoice> {
       const save = savedScene();
       nav = buildChapterSelect(body, {
         includeHidden: devMode(),
+        current: save?.scene,
         onPick: id => finish({ warp: id }),
         // A campaign save would be overwritten by the warp: ask once (pick the same row again to confirm).
         confirm: () => (save && !save.hidden ? 'Nochmal wählen – der Spielstand wird überschrieben.' : null),

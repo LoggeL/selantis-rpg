@@ -29,6 +29,18 @@ defineChapter({
   numeral: 'Teil III',
   title: 'Falscher Glaube',
   subtitle: 'Ein eigener Stab',
+  book: 3,
+  sections: [
+    { numeral: '1', title: 'Ein eigener Stab', subtitle: 'Valentus im Wald', scenes: ['e3-valentus', 'e3-eigener-stab'] },
+    { numeral: '2', title: 'Trapas', subtitle: 'Die Paladine des Lichterordens',
+      scenes: ['e3-paladine', 'e3-schutzreaktion', 'e3-macht-und-schutz', 'e3-falscher-glaube'] },
+    { numeral: '3', title: 'Die Schwester', subtitle: 'Eine Flucht und ein Becher Tee',
+      scenes: ['e3-kyras-fluchtweg', 'e3-waldgegner', 'e3-vertraute-schwester', 'e3-falle'] },
+    { numeral: '4', title: 'Gefangen', subtitle: 'Die innere Zuflucht',
+      scenes: ['e3-innere-zuflucht', 'e3-flicks-hilfe', 'e3-hoffnung-und-weigerung'] },
+    { numeral: '5', title: 'Das Ritual', subtitle: 'Zehn Relikte', scenes: ['e3-ritual', 'e3-ritualangriff', 'e3-vamir'] },
+    { numeral: '6', title: 'Hüterin', subtitle: 'Abschied und Aufbruch', scenes: ['e3-ignatius-abschied', 'e3-hueterin', 'e3-epilog'] },
+  ],
   scenes: [
     valentus,
     eigenerStab,
