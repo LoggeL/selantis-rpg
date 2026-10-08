@@ -11,22 +11,12 @@ import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { HALLE_SPOT, HALLE_TABLE, halleBase, halleBrazierLights, pinArea, pinPlayer } from './gewoelbe';
-import { restageGesture, type GesturePicture } from './gewoelbe-geste';
 import { bg, e2Scene, interlude, master, sfx, ui, until, VIOLET, nextScene } from './shared';
 
 /** Flags of this visit (reset when the scene starts; a reload restarts the interrogation). */
 const F = { unwatched: 'e2-verhoer-unbeobachtet', stage: 'e2-verhoer-nagel-stufe', busy: 'e2-verhoer-nagel-busy', near: 'e2-verhoer-beinahe' } as const;
 
 const NAIL: [number, number] = [464, 170];
-
-/** Close-up for the reach gesture: Flick on the chair, the Master turned away at the edge, the nail head glinting. */
-const NAIL_PICTURE: GesturePicture = {
-  background: 'e2-halle', focus: [452, 160], zoom: 3, glint: [458, 158],
-  figures: [
-    { id: 'e2-flick-gefangen', pose: 'sit-chair', at: HALLE_SPOT.chair, facing: 'left' },
-    { id: 'vamir', pose: 'idle', at: [366, 176], facing: 'left', dim: true },
-  ],
-};
 
 export const verhoerMap: MapDef = defineMap({
   ...halleBase,
@@ -75,9 +65,8 @@ async function workNail(w: WorldCtx): Promise<void> {
       w.setObjective('e2-verhoer-nagel', 'Lockere den Nagel, sobald wieder keiner hinsieht (1/2).', 'nagel');
       return;
     }
-    const gesture = G.ui.storyAction('reach', 'Den losen Nagel lockern');
-    restageGesture('reach', 'Tast unter der Armlehne nach dem Nagelkopf und biege ihn hin und her, bis er nachgibt.', NAIL_PICTURE);
-    await gesture;
+    // Staged: the window is the decision, the wiggling is just shown.
+    for (let i = 0; i < 3; i++) { sfx('rustle', { volume: 0.25, pitch: 1.2 + i * 0.1 }); await w.wait(380); }
     sfx('chain', { volume: 0.3 });
     await w.think('Raus. Fingerlang, krumm, rostig. Das Schönste, was ich seit Tagen in der Hand hatte.');
     await w.think('Ab in den Saum vom Ärmel. Faust zu. Und Gesicht wie beim Kartenspiel.');

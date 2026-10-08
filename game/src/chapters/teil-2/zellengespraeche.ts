@@ -12,7 +12,6 @@ import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { bloodHit, bloodPool, preloadBlood } from '../common/blood';
 import { KERKER_CELLS, KERKER_SPOT, kerkerBase, kerkerLights } from './gewoelbe';
-import { restageGesture, type GesturePicture } from './gewoelbe-geste';
 import { bg, e2Scene, interlude, sfx, ui, until, nextScene } from './shared';
 import { OBSERVATIONS, observationAt, roundPhases, SHACKLE_OPTIONS, unwatched, type Observation, type RoutinePhase } from './zellengespraeche-routine';
 
@@ -43,15 +42,6 @@ const CORNER: [number, number] = [78, 106];
 /** Where Flick whispers through the wall, and the camera's close-up centre on both cells. */
 const WHISPER: [number, number] = [162, 114];
 const WALL_VIEW: [number, number] = [206, 104];
-
-/** Close-up for the tend gesture: Flick in the dark corner of her cell, the nail glinting at the shackle. */
-const PICK_PICTURE: GesturePicture = {
-  background: 'e2-kerker', focus: [112, 100], zoom: 3, glint: [84, 96],
-  figures: [
-    { id: 'e2-flick-gefangen', pose: 'sit', at: [84, 110], facing: 'down' },
-    { id: 'shadow-club', pose: 'idle', at: [140, 168], facing: 'left', dim: true },
-  ],
-};
 
 export const zellenMap: MapDef = defineMap({
   ...kerkerBase({ corridor: false, cells: [0] }),
@@ -216,9 +206,7 @@ async function workShackle(w: WorldCtx): Promise<void> {
   w.player.setIdle('sit');
   await w.think('Der Nagel aus dem Ärmelsaum, zwischen Daumen und Ringfinger der Rechten. Die zwei anderen Finger schreien bei jeder Bewegung.');
   await w.think('Die Spitze ins Schlüsselloch der linken Schelle. Ganz langsam. Und nicht auf den Verband bluten.');
-  const gesture = G.ui.storyAction('tend', 'Das Schloss mit dem Nagel öffnen');
-  restageGesture('tend', 'Schieb den Nagel ins Schloss und dreh ihn vor und zurück, bis der Riegel nachgibt. Leise.', PICK_PICTURE);
-  await gesture;
+  for (let i = 0; i < 3; i++) { sfx('chain', { volume: 0.12, pitch: 1.6 + i * 0.1 }); await w.wait(450); }
   sfx('chain', { volume: 0.25, pitch: 1.3 });
   await w.think('Klack. Leiser als ein Fingerschnipsen. Die Schelle ist offen.');
   await w.think('Und jetzt muss sie zu aussehen. Sonst ist der ganze Nagel nichts wert.');

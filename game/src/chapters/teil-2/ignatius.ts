@@ -14,7 +14,6 @@ import { G } from '../../core/G';
 import { registerItems } from '../../core/catalog';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { halt } from '../kapitel-4/shared';
-import { restageGesture, type GesturePicture } from './gewoelbe-geste';
 import { IG_EDGE, IG_SPOT, igFireLight, igLanternLight, ignatiusBase } from './ignatius-lager';
 import { playDream } from './ignatius-traum';
 import { bg, e2Scene, grantOnce, lia, liaLook, mentor, sfx, ui, until, nextScene } from './shared';
@@ -34,14 +33,6 @@ const MORNING_AT: [number, number] = [702, 292];
 /** Where Ignatius gathers wood at night: on the east path behind the stepping stones. */
 const WOOD_AT: [number, number] = [1206, 452];
 const TRAIL = ['ig-spur', 'ig-scheit', 'ig-zweige'] as const;
-
-const STAFF_PICTURE: GesturePicture = {
-  background: 'e2-ignatius-lager', focus: [684, 262], zoom: 3, glint: [684, 250],
-  figures: [
-    { id: 'e2-ignatius', pose: 'talk', at: [702, 284], facing: 'left' },
-    { id: 'lia-cloak', pose: 'idle', at: [664, 288], facing: 'right' },
-  ],
-};
 
 // ---------------------------------------------------------------------------------------------------------------
 // Maps (one per time of day, all on the painted clearing)
@@ -149,8 +140,10 @@ async function nightmare(w: WorldCtx): Promise<void> {
     { who: 'Kyra, im Traum', speaker: 'e2-kyra', text: 'Es tut nicht weh. Ehrlich. Nur ein bisschen.' },
     { who: 'Kyra und Flick, im Traum', speaker: ['e2-kyra', 'e2-flick'], text: 'Lia …!' },
   ]);
-  const gesture = G.ui.storyAction('open-eyes', 'Aufwachen', { backdrop: 'e2-ignatius-geweckt', fallback: 'e2-ignatius-lager', caption: 'Nacht. Das Feuer. Kein Violett, nirgends.' });
-  restageGesture('open-eyes', 'Schieb die Lider auf. Raus aus dem Violett. Es ist nur ein Traum. Oder?');
+  const gesture = G.ui.storyAction('open-eyes', 'Aufwachen', {
+    backdrop: 'e2-ignatius-geweckt', fallback: 'e2-ignatius-lager', caption: 'Nacht. Das Feuer. Kein Violett, nirgends.',
+    help: 'Schieb die Lider auf. Raus aus dem Violett. Es ist nur ein Traum. Oder?',
+  });
   await gesture;
   sfx('heartbeat', { volume: 0.5 });
   await ui().fade('in', 900);
@@ -325,9 +318,7 @@ async function morgenScript(w: WorldCtx): Promise<void> {
     await say(w, 'Ein paar Spinnweben. Und einmal eine Kerze, aus Versehen.', 'happy');
     await say(w, 'Er macht dich nicht stärker. Er gibt deinem Licht eine Richtung. Wie ein Finger, der auf etwas zeigt.');
     await say(w, 'Geliehen, nicht geschenkt. Ich hätte ihn gern irgendwann zurück. Mit dir dran.', 'thinking');
-    const gesture = G.ui.storyAction('reach', 'Den Stab nehmen');
-    restageGesture('reach', 'Greif nach dem Stab. Er beißt nicht. Er summt nur ein bisschen.', STAFF_PICTURE);
-    await gesture;
+    await w.think('Er hält ihn mir hin. Er beißt nicht, sagt er. Er summt nur ein bisschen.');
     sfx('urmacht', { volume: 0.35, pitch: 1.3 });
     await lia(w, 'Er ist warm. Als hätte gerade noch jemand die Hand drumgehabt.', 'surprised');
     await say(w, 'Hatte ich ja auch.', 'happy');

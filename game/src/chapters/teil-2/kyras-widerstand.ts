@@ -7,21 +7,10 @@
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { HALLE_CHAIR, HALLE_SPOT, halleBase, halleBrazierLights, pinArea, pinPlayer } from './gewoelbe';
-import { restageGesture, type GesturePicture } from './gewoelbe-geste';
 import { bg, e2Scene, interlude, master, sfx, ui, until, VIOLET, nextScene } from './shared';
 
 const KNOT_FREE = 'e2-kyra-knoten-frei';
 const KNOT_DONE = 'e2-kyra-knoten';
-
-/** Close-up for the tend gesture: Kyra bound on the table, the Master and the guard at the brazier, the knot glinting. */
-const KNOT_PICTURE: GesturePicture = {
-  background: 'e2-halle', focus: [150, 150], zoom: 3, glint: [140, 152],
-  figures: [
-    { id: 'kyra-bound', pose: 'lie', at: HALLE_SPOT.tableTop, facing: 'right' },
-    { id: 'vamir', pose: 'idle', at: [236, 112], facing: 'up', dim: true },
-    { id: 'shadow-club', pose: 'idle', at: [218, 106], facing: 'up', dim: true },
-  ],
-};
 
 export const tischMap: MapDef = defineMap({
   ...halleBase,
@@ -49,9 +38,7 @@ async function pickKnot(w: WorldCtx): Promise<void> {
   G.state.set(KNOT_FREE, false);
   sfx('rustle', { volume: 0.3 });
   await w.think('Der Knoten am rechten Handgelenk. Wer den gebunden hat, war müde. Daumen drunter, zupfen. Ganz leise.');
-  const gesture = G.ui.storyAction('tend', 'Am Knoten zupfen');
-  restageGesture('tend', 'Schieb den Daumen unter die Schlinge und zupf sie hin und her. Leise. Er dreht dir gerade den Rücken zu.', KNOT_PICTURE);
-  await gesture;
+  for (let i = 0; i < 3; i++) { sfx('rustle', { volume: 0.2, pitch: 1.3 }); await w.wait(420); }
   sfx('rope-cut', { volume: 0.25 });
   await w.think('Er gibt nach! Noch ein bisschen, dann hab ich eine Hand frei. Eine Hand reicht für ein Ohr. Oder eine Nase.');
   G.state.set(KNOT_DONE);

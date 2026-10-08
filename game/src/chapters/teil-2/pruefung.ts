@@ -116,7 +116,8 @@ async function decision(w: WorldCtx): Promise<void> {
     w.player.face('left');
   });
   w.lockPlayer();
-  await G.ui.storyAction('lift', 'Die Schale an die Lippen heben', { help: 'Heb die Holzschale langsam an. Es riecht nach Moos und etwas Bitterem.', illustration: false });
+  await w.player.play('interact' as never, { ms: 700 }).catch(() => {});
+  await w.think('Moos. Und darunter etwas Bitteres, das sich gleich hinter der Zunge festkrallt. Ein Schluck. Noch einer.');
   sfx('heal', { volume: 0.4, pitch: 0.7 });
   await w.wait(900);
 }

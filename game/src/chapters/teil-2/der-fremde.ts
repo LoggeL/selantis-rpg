@@ -7,7 +7,6 @@
 import { G } from '../../core/G';
 import { defineMap, startWorld, type MapDef, type WorldCtx } from '../../world';
 import { halt } from '../kapitel-4/shared';
-import { restageGesture } from './gewoelbe-geste';
 import { IG_EDGE, IG_SPOT, igFireLight, igLanternLight, ignatiusBase } from './ignatius-lager';
 import { AMBER, bg, e2Scene, lia, liaLook, mentor, sfx, ui, until, nextScene } from './shared';
 
@@ -96,8 +95,10 @@ async function wake(w: WorldCtx): Promise<void> {
   await w.camera.pan(IG_SPOT.bed, 0);
   await w.camera.zoom(1.35, 0);
   await G.ui.narrate(['Wasser rauscht. Holz knackt. Irgendwer summt, falsch und sehr zufrieden.'], { style: 'card' });
-  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', { backdrop: 'e2-der-fremde-geweckt', fallback: 'e2-ignatius-lager', caption: 'Ein Dach aus Ästen. Ein Fremder am Feuer, der summt.' });
-  restageGesture('open-eyes', 'Schieb die schweren Lider langsam nach oben.');
+  const wake = G.ui.storyAction('open-eyes', 'Die Augen öffnen', {
+    backdrop: 'e2-der-fremde-geweckt', fallback: 'e2-ignatius-lager', caption: 'Ein Dach aus Ästen. Ein Fremder am Feuer, der summt.',
+    help: 'Schieb die schweren Lider langsam nach oben.',
+  });
   await wake;
   await ui().fade('in', 1600);
   await w.cutscene(async () => {
@@ -216,7 +217,7 @@ async function teaAndQuestions(w: WorldCtx): Promise<void> {
       await w.say(mentor(), 'Kluge Beine. Die meisten probieren erst, wie hart der Boden ist.');
     }
     await w.say(mentor(), 'Trink. Weidenrinde, Minze, ein Löffel Honig. Kein Zauber, nur heißes Wasser mit Geduld.');
-    await G.ui.storyAction('lift', 'Den Becher an die Lippen heben', { help: 'Heb den Becher langsam an. Die Hände zittern noch.', illustration: false });
+    await w.think('Der Becher ist heiß. Meine Hände zittern so, dass ich ihn mit beiden halten muss.');
     sfx('eat', { volume: 0.3 });
     await lia(w, 'Bitter. Und süß. Wie Mutters Hustensaft.', 'thinking');
     await w.say(mentor(), 'Gute Mütter verstecken das Bittere im Süßen. Damit man trinkt, ohne es zu merken.');
