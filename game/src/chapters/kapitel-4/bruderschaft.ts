@@ -239,22 +239,23 @@ async function training(w: WorldCtx): Promise<void> {
     }
     await foltan.say('Bis dahin: Wer mit uns zieht, muss sich wehren können. Oder wenigstens nicht getroffen werden.');
     await lia(w, 'Ich will mich wehren. Ich will, dass sie für Mutter und Vater bezahlen. Ich weiß nur noch nicht, wie.', 'determined');
-    await foltan.say('Mit Wut allein triffst du niemanden. Erst lernst du, nicht getroffen zu werden. Ich schlage, du weichst aus. Immer WEG von der Klinge. Und Vorsicht: Ich täusche an.');
-    await w.say('narrator', 'Ein Bogen zeigt, woher der Hieb kommt. Hieb von links: weiche nach rechts aus. Von rechts: nach links. Hoher Hieb: ducken.');
+    await foltan.say('Mit Wut allein triffst du niemanden. Erst lernst du, nicht getroffen zu werden. Ich schlage, du weichst aus. Immer WEG von der Klinge.');
+    await w.think('Er ist schneller als ich. Viel schneller. Aber jeder hat Gewohnheiten. Vater hat beim Holzhacken auch immer zweimal links geschlagen.');
+    await w.say('narrator', 'Ein Bogen zeigt, woher der Hieb kommt. Hieb von links: weiche nach rechts aus. Von rechts: nach links. Hoher Hieb: ducken. Wer Foltans Folge kennt, darf schon ausweichen, bevor er ausholt.');
     await w.say('narrator', 'Tasten A/D bzw. ←/→ zum Ausweichen, S bzw. ↓ zum Ducken. Oder tippe die Knöpfe unten.');
   });
   w.player.teleport([252, 306], 'right');
   foltan.teleport([292, 306], 'left');
   w.setObjective('k4-ausweichen', 'Weiche Foltans Hieben aus.', null);
   w.lockPlayer();
-  const hits = await ausweichDrill(w, 5);
+  const hits = await ausweichDrill(w);
   w.unlockPlayer();
   w.completeObjective('k4-ausweichen');
   G.state.learn('ausweichen');
   await w.cutscene(async () => {
-    if (hits === 0) await foltan.say('Kein einziger Treffer? Hm. Nicht schlecht. Für eine Leserin.', { mood: 'surprised' });
-    else if (hits < 4) await foltan.say('Nicht schlecht. Für eine Leserin.');
-    else await foltan.say('Du hast mehr blaue Flecken als Ausweichschritte. Aber am Ende hast du es begriffen.');
+    if (hits === 0) await foltan.say('Kein einziger Treffer? Du hast mich gelesen wie eine Seite. Das hat noch keiner gemacht.', { mood: 'surprised' });
+    else if (hits < 5) await foltan.say('Nicht schlecht. Für eine Leserin. Ich sollte mir abgewöhnen, so berechenbar zu sein.');
+    else await foltan.say('Du hast mehr blaue Flecken als Ausweichschritte. Aber am Ende hast du mich durchschaut.');
     if (!G.state.data.memories.includes('k4-mem-stockfechten')) {
       await w.think('Kyra hat mich mit Haselstöcken gejagt, damals. Ich habe mich immer nur geduckt. Und manchmal gewonnen.');
       G.state.addMemory('k4-mem-stockfechten');

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DrillClock, dodgeFor, judge, strikePlan } from './drillLogic';
+import { afterStrike, DrillClock, dodgeFor, drillStart, FAST_WINDUP, HABITS, judge, MAX_STRIKES, nextStrike, READS_PER_HABIT, SHOW_WINDUP } from './drillLogic';
 
 describe('Kapitel IV dodge drill', () => {
   it('keeps active time still during pause and discards the resume interval', () => {
@@ -27,14 +27,37 @@ describe('Kapitel IV dodge drill', () => {
     expect(judge({ side: 'left', feint: 'right', windup: 1000 }, 'left')).toBe(true);
   });
 
-  it('plans a teaching opening, then a reproducible mix that speeds up', () => {
-    const plan = strikePlan(16);
-    expect(plan.slice(0, 3).map(s => s.side)).toEqual(['left', 'right', 'high']);
-    expect(plan[0].feint).toBeUndefined();
-    expect(plan[3].feint).toBe('right');
-    expect(strikePlan(16)).toEqual(plan);
-    for (let i = 1; i < plan.length; i++) expect(plan[i].windup).toBeLessThanOrEqual(plan[i - 1].windup);
-    expect(Math.min(...plan.map(s => s.windup))).toBeGreaterThanOrEqual(780);
-    for (const s of plan) if (s.feint) expect(s.feint).not.toBe(s.side);
+  it('shows the first habit slowly once, then only fast blows; three reads switch the habit, then it ends', () => {
+    let s = drillStart();
+    const seen: string[] = [];
+    for (let i = 0; i < 3; i++) {
+      const k = nextStrike(s);
+      expect(k.phase).toBe('show');
+      expect(k.windup).toBe(SHOW_WINDUP);
+      seen.push(k.side);
+      const r = afterStrike(s, true);
+      s = r.state;
+      if (i === 2) expect(r.event).toBe('speedup');
+    }
+    expect(seen).toEqual([...HABITS[0]]);
+    expect(s.reads).toBe(0);
+    // Fast blows: misses do not count, three reads switch to the next habit.
+    s = afterStrike(s, false).state;
+    expect(nextStrike(s).windup).toBe(FAST_WINDUP);
+    let event: string | null = null;
+    for (let i = 0; i < READS_PER_HABIT; i++) ({ state: s, event } = afterStrike(s, true));
+    expect(event).toBe('switch');
+    expect(s.habit).toBe(1);
+    expect(nextStrike(s)).toMatchObject({ side: HABITS[1][0], phase: 'fast' });
+    for (let i = 0; i < READS_PER_HABIT; i++) ({ state: s, event } = afterStrike(s, true));
+    expect(event).toBe('done');
+    expect(s.done).toBe(true);
+  });
+
+  it('always ends', () => {
+    let s = drillStart();
+    let n = 0;
+    while (!s.done) { s = afterStrike(s, false).state; n++; }
+    expect(n).toBe(MAX_STRIKES);
   });
 });

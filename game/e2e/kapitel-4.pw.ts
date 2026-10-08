@@ -197,13 +197,13 @@ test.describe('Kapitel IV', () => {
     await settle(page);
     await talk(page, 'foltan');
 
-    // Dodge drill: answer each telegraphed strike late (feints!) with the opposite direction.
+    // „Foltans Gewohnheiten“: a reader who knows the combination moves as soon as Foltan raises the sword.
     await page.waitForFunction(() => Boolean((window as any).__k4drill), undefined, { timeout: 60000 });
-    for (let i = 0; i < 600 && !(await page.evaluate(() => (window as any).G.state.knows('ausweichen'))); i++) {
+    for (let i = 0; i < 900 && !(await page.evaluate(() => (window as any).G.state.knows('ausweichen'))); i++) {
       const d = await page.evaluate(() => (window as any).__k4drill);
-      if (d.armed && d.k > 0.72) {
-        await page.keyboard.press(d.side === 'left' ? 'ArrowRight' : d.side === 'right' ? 'ArrowLeft' : 'ArrowDown');
-        await page.waitForTimeout(400);
+      if (d.armed) {
+        await page.keyboard.press(d.coming === 'left' ? 'ArrowRight' : d.coming === 'right' ? 'ArrowLeft' : 'ArrowDown');
+        await page.waitForTimeout(500);
       } else if (await busy(page)) { await page.keyboard.press('Enter'); await page.waitForTimeout(250); }
       else await page.waitForTimeout(40);
     }

@@ -1,5 +1,7 @@
 // Training at the palisade (bruderschaft, DESIGN.md §7.4 Adaption): Foltan teaches Ausweichen with a wooden sword
-// (timing drill: a strike is telegraphed left, right or high; dodge AWAY from it, feints punish early guesses),
+// („Foltans Gewohnheiten“: he repeats a combination of blows from the left, the right and high; shown slowly once,
+// then too fast to react to – Lia reads the combination from her notes and moves before the blade; after three reads
+// he switches to a new one),
 // then Gundrik and Jorin turn Ablenken into a little puzzle (make the guard look away from your friend).
 //
 // The dodge drill is staged as a painted sparring cut-in (assets/minigames/k4-drill-*, Codex, prompts in
@@ -14,7 +16,7 @@ import { assetUrl, manifest } from '../../art/manifest';
 import { ctx } from '../../ui/context';
 import { bg, lia, sfx } from './shared';
 
-import { DrillClock, dodgeFor, judge, strikePlan, type Dodge, type StrikeSide } from './drillLogic';
+import { afterStrike, DrillClock, drillStart, HABITS, judge, nextStrike, READS_PER_HABIT, type Dodge, type StrikeSide } from './drillLogic';
 
 const STYLE_ID = 'k4-drill-style';
 const CSS = `
@@ -77,6 +79,12 @@ const CSS = `
 .k4-drill .k4-title{margin:0;font-size:clamp(1.3em,3.6vmin,2em);line-height:1.05;letter-spacing:.08em;text-shadow:0 .06em 0 #2a1d0c,0 .1em .5em #000}
 .k4-drill .k4-sub{max-width:40em;font-size:clamp(.85em,2.1vmin,1.08em);color:var(--parch);text-align:center;text-shadow:0 1px 2px #000}
 .k4-drill .k4-pips{display:flex;gap:.9em;padding:.2em 0}
+.k4-drill .k4-notes{display:flex;flex-direction:column;align-items:center;gap:.1em;font-size:clamp(.8em,2vmin,1em);color:var(--parch);text-shadow:0 1px 2px #000}
+.k4-drill .k4-notes b{font-family:var(--f-label);font-weight:normal;font-size:.8em;color:var(--gold-hi)}
+.k4-drill .k4-note-line{display:flex;gap:.45em;min-height:1.2em;letter-spacing:.05em;font-size:1.3em}
+.k4-drill .k4-note-line i{font-style:normal;color:#e9a08f}.k4-drill .k4-note-line i.is-ok{color:var(--gold-hi)}
+.k4-drill .k4-note-line.is-read::after{content:'…';color:var(--parch-dim)}
+.k4-drill .k4-note-line.is-old{opacity:.4;text-decoration:line-through}
 .k4-drill .k4-pips span{width:.95em;height:.95em;transform:rotate(45deg);border:.12em solid var(--gold,#d8b25a);background:rgba(13,18,27,.6);box-shadow:0 0 .4em #000;transition:background .25s,box-shadow .25s}
 .k4-drill .k4-pips span.on{background:radial-gradient(circle at 35% 35%,#fff6d6,var(--k4-gold) 45%,#b8862e);box-shadow:0 0 .8em rgba(243,214,138,.9);animation:k4-pop .4s cubic-bezier(.34,1.56,.64,1)}
 .k4-drill .k4-score{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -239,10 +247,12 @@ function startFx(canvas: HTMLCanvasElement, root: HTMLElement, foltan: HTMLEleme
 }
 
 /**
- * The dodge drill. Foltan stands right of Lia. Needs `need` successful dodges; never fails for good (after many
- * strikes Foltan calls it a day). Returns the number of hits Lia took.
+ * „Foltans Gewohnheiten“: the dodge drill. Foltan stands right of Lia. By default it runs until Lia has read both of
+ * Foltan's habits (drillLogic.ts; never fails for good, after many blows Foltan calls it a day); `need` ends it after
+ * that many dodges instead (unit tests). Resolves with the hits Lia took.
  */
-export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
+export async function ausweichDrill(w: WorldCtx, need?: number): Promise<number> {
+  const goal = need ?? READS_PER_HABIT * HABITS.length;
   const ui = G.ui as UiApiExt;
   ensureStyle();
   const foltan = w.actor('foltan');
@@ -275,10 +285,11 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     </div>
     <div class="k4-ui">
       <div class="k4-head">
-        <div class="k4-titles"><div class="k4-cue" aria-live="assertive"></div><h2 class="k4-title ch-title">Ausweichen</h2></div>
-        <div class="k4-sub">Weich der Klinge aus: zur anderen Seite oder darunter. Foltan täuscht an, warte bis zuletzt.</div>
-        <div class="k4-pips" role="img" aria-label="Ausgewichen: 0 von ${need}">${'<span></span>'.repeat(need)}</div>
-        <div class="k4-score" role="status" aria-live="polite">Ausgewichen 0/${need}</div>
+        <div class="k4-titles"><div class="k4-cue" aria-live="assertive"></div><h2 class="k4-title ch-title">Foltans Gewohnheiten</h2></div>
+        <div class="k4-sub">Foltan wiederholt sich, ohne es zu merken. Schau, welche Folge er schlägt, und weich aus, bevor die Klinge kommt: zur anderen Seite oder darunter.</div>
+        <div class="k4-notes" aria-label="Lias Notizen"><b>Lias Notizen</b><span class="k4-note-line"></span></div>
+        <div class="k4-pips" role="img" aria-label="Gelesen: 0 von ${goal}">${'<span></span>'.repeat(goal)}</div>
+        <div class="k4-score" role="status" aria-live="polite">Gelesen 0/${goal}</div>
       </div>
       <div class="k4-say"></div>
     </div>
@@ -291,6 +302,14 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
   const pips = Array.from(panel.querySelectorAll<HTMLElement>('.k4-pips span'));
   const cue = panel.querySelector('.k4-cue') as HTMLElement;
   const sayEl = panel.querySelector('.k4-say') as HTMLElement;
+  const notesEl = panel.querySelector('.k4-notes') as HTMLElement;
+  const GLYPH: Record<StrikeSide, string> = { left: '◀', right: '▶', high: '▲' };
+  /** Lia's notes: one line per habit, a glyph per blow (gold when she got away). */
+  const notes: { glyphs: string[]; read: boolean; old: boolean }[] = [{ glyphs: [], read: false, old: false }];
+  const renderNotes = () => {
+    notesEl.innerHTML = '<b>Lias Notizen</b>' + notes.map(l =>
+      `<span class="k4-note-line${l.read ? ' is-read' : ''}${l.old ? ' is-old' : ''}">${l.glyphs.join('')}</span>`).join('');
+  };
   const slash = panel.querySelector('.k4-slash') as SVGElement;
   const figF = panel.querySelector('.k4-foltan') as HTMLElement;
   const figL = panel.querySelector('.k4-lia') as HTMLElement;
@@ -322,6 +341,8 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
 
   let answer: Dodge | null = null;
   let armed = false;
+  /** Between blows Lia may already commit: reading the habit means moving before the blade does. */
+  let early = false;
   let disposed = false;
   let focused = document.hasFocus();
   const active = () => !disposed && focused && !document.hidden && document.hasFocus() && ctx.top()?.id === 'k4-drill';
@@ -341,7 +362,7 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     do { await ui.wait(16); } while (!disposed && (activeTime() < until || !active()));
   };
   const commit = (d: Dodge) => {
-    if (!active() || !armed || answer) return;
+    if (!active() || !(armed || early) || answer) return;
     answer = d;
     const b = panel.querySelector(`[data-d="${d}"]`);
     b?.classList.add('is-ok');
@@ -393,16 +414,18 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
   };
 
   // Read-only probe for automated playtests (e2e/kapitel-4.pw.ts): what the telegraph currently shows.
-  const probe = { armed: false, side: 'left' as StrikeSide, k: 0, ok: 0 };
+  const probe = { armed: false, side: 'left' as StrikeSide, coming: 'left' as StrikeSide, k: 0, ok: 0 };
   (window as unknown as { __k4drill?: typeof probe }).__k4drill = probe;
-  let ok = 0, hits = 0, streakMiss = 0, feintMiss = 0;
-  const plan = strikePlan(16);
+  let ok = 0, hits = 0, streakMiss = 0, reads = 0;
+  let st = drillStart();
   const home = { x: w.player.x, y: w.player.y };
   await waitActive(reduced ? 200 : 700);
-  for (let i = 0; i < plan.length && ok < need; i++) {
+  for (let i = 0; !st.done && (need === undefined || ok < need); i++) {
     if (!w.alive) break;
-    const s = plan[i];
+    const s = nextStrike(st);
+    probe.coming = s.side;
     answer = null;
+    early = s.phase === 'fast';
     await waitActive(i === 0 ? 400 : 650);
     // back to guard
     pose(figF, 'ready');
@@ -417,24 +440,16 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     panel.classList.add('is-armed');
     sfx('swing', { volume: 0.25, pitch: 0.7 });
     const t0 = activeTime();
-    let side = s.side;
-    let flipped = false;
+    const side = s.side;
     probe.armed = true;
     while (activeTime() - t0 < s.windup) {
       const k = (activeTime() - t0) / s.windup;
       probe.side = side; probe.k = k;
-      if (s.feint && !flipped && k > 0.5) {
-        flipped = true; side = s.feint;
-        sfx('whoosh', { volume: 0.35, pitch: 1.3 });
-        pulse('fx-feint');
-        drawArc(side, k, true);
-        await waitActive(60);
-        continue;
-      }
       drawArc(side, k);
       await waitActive(16);
     }
     armed = false;
+    early = false;
     probe.armed = false;
     panel.classList.remove('is-armed');
     setArc(null);
@@ -448,13 +463,15 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
     slash.classList.toggle('from-high', side === 'high');
     const success = judge(s, answer);
     pulse('fx-strike');
+    notes[notes.length - 1].glyphs.push(`<i${success ? ' class="is-ok"' : ''}>${GLYPH[side]}</i>`);
+    renderNotes();
     if (success) {
       ok++; streakMiss = 0;
       sfx('dodge', { volume: 0.9 });
       const d: Dodge = answer!;
       pulse('fx-dodge');
-      result('Ausgewichen!', true);
-      pips[ok - 1]?.classList.add('on');
+      result(s.phase === 'fast' ? 'Gelesen!' : 'Ausgewichen!', true);
+      if (s.phase === 'fast') { reads++; pips[reads - 1]?.classList.add('on'); }
       if (d === 'duck') {
         pose(figL, 'duck');
         figL.classList.add('go-duck');
@@ -468,8 +485,6 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
         w.player.teleport([home.x, home.y]);
       }
       w.fx.burst([w.player.x, w.player.y - 4], 'dust', 4);
-      if (s.feint) remark('foltan', 'Gut gewartet!', 1100);
-      else if (ok === need - 1) remark('foltan', 'Einer noch!', 1000);
     } else {
       hits++; streakMiss++;
       sfx('thud', { volume: 0.8 });
@@ -481,16 +496,29 @@ export async function ausweichDrill(w: WorldCtx, need = 5): Promise<number> {
       const b = panel.querySelector(answer ? `[data-d="${answer}"]` : '.k4-bar');
       b?.classList.add('is-hit');
       void waitActive(360).then(() => b?.classList.remove('is-hit'));
-      if (s.feint && answer === dodgeFor(s.side)) { feintMiss++; remark('foltan', feintMiss === 1 ? 'Angetäuscht! Warte bis zuletzt.' : 'Zu früh. Wieder.', 1500); }
+      if (s.phase === 'fast' && streakMiss >= 2) remark('player', 'Zu schnell zum Zusehen. Ich muss vorher wissen, wohin.', 1700);
       else if (!answer) remark('player', 'Zu langsam … au.', 1200);
-      else if (streakMiss >= 2) remark('foltan', 'Weg von der Klinge, nicht hin!', 1600);
-      else remark('player', 'Au!', 900);
+      else remark('player', 'Au! Falsche Seite.', 1000);
     }
-    score.textContent = `Ausgewichen ${ok}/${need}`;
-    panel.querySelector('.k4-pips')?.setAttribute('aria-label', `Ausgewichen: ${ok} von ${need}`);
+    const next = afterStrike(st, success);
+    st = next.state;
+    if (next.event === 'speedup') {
+      remark('foltan', 'Das war langsam. Jetzt in echt.', 1600);
+      notes[notes.length - 1].read = true;
+      renderNotes();
+    } else if (next.event === 'switch' && need === undefined) {
+      await waitActive(500);
+      remark('foltan', 'Du liest mich wie eins deiner Bücher. Na schön. Neue Folge.', 2000);
+      for (const l of notes) l.old = true;
+      notes.push({ glyphs: [], read: false, old: false });
+      renderNotes();
+      await waitActive(reduced ? 300 : 900);
+    }
+    score.textContent = `Gelesen ${reads}/${goal}`;
+    panel.querySelector('.k4-pips')?.setAttribute('aria-label', `Gelesen: ${reads} von ${goal}`);
     probe.ok = ok;
   }
-  if (ok >= need && w.alive) {
+  if ((st.done || (need !== undefined && ok >= need)) && w.alive) {
     await waitActive(500);
     pose(figF, 'ready');
     pose(figL, 'ready');

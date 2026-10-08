@@ -142,7 +142,7 @@ describe('dodge drill pause', () => {
     await vi.advanceTimersByTimeAsync(400);
     expect(t.probe().armed).toBe(true);
     t.key('ArrowLeft');
-    await vi.advanceTimersByTimeAsync(2300);
+    await vi.advanceTimersByTimeAsync(2600);
     expect(await finished).toBe(1);
     expect(t.probe().ok).toBe(1);
   });
