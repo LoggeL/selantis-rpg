@@ -191,7 +191,7 @@ async function talkKyra(w: WorldCtx): Promise<void> {
     G.state.take('bead', beads);
     await w.say('kyra', 'Meine Perlen! Gestreut wie im Märchen. Hätt nie gedacht, dass dein ewiges Lesen mal was nützt.', { mood: 'happy' });
     await lia('Und wenn ich sie übersehen hätte?', 'sad');
-    await w.say('kyra', 'Dann hätt ich dem Riesen so lang in die Waden gebissen, bis er mich freiwillig laufen lässt.', { mood: 'happy' });
+    await w.say('kyra', 'Dann hätt ich dem Riesen so lang gegen die Schienbeine getreten, bis er mich freiwillig laufen lässt.', { mood: 'happy' });
     G.state.addMemory('k5-mem-perlen');
     return;
   }
@@ -228,7 +228,7 @@ async function talkFlick(w: WorldCtx): Promise<void> {
     ]);
     if (pick === 0) {
       await lia(G.state.is('k3-luege-bemerkt') ? 'Foltan wusste, wohin sie dich bringen. Seit dem Goldenen Eber. Ich hab’s ihm angesehen.' : 'Foltan wusste, wohin sie dich bringen. Und er hat kein Wort gesagt.', 'angry');
-      await w.say('kyra', 'Wer ist Foltan? Soll ich ihn beißen?', { mood: 'surprised' });
+      await w.say('kyra', 'Wer ist Foltan? Soll ich ihm eine verpassen?', { mood: 'surprised' });
       await lia('Vielleicht. Ich erzähl’s dir unterwegs.');
       await w.say('flick', 'Dann gehen wir zu dritt hin. Und diesmal stellen wir die Fragen.', { mood: 'determined' });
     } else {

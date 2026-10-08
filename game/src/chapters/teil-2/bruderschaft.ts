@@ -180,7 +180,7 @@ async function ambush(w: WorldCtx): Promise<void> {
     await w.say('flick', 'Ich hab nicht gelogen. Ich hab nur nicht alles gesagt.', { mood: 'angry' });
     await elnon.say('Bei uns ist das dasselbe. Du hast geschworen, nichts zu verbergen. Zwei Wochen später wusste es das ganze Lager.');
     await elnon.say('Ein Halbblut, das beim Eid lügt, steht auf keiner meiner Wachen. Daran hat sich nichts geändert.', { mood: 'grim' });
-    await w.say('kyra', 'Sag das noch mal, und ich beiß dir in die Wade. Ich hab Übung.', { mood: 'angry' });
+    await w.say('kyra', 'Sag das noch mal. Nur ein einziges Mal. Ich warte.', { mood: 'angry' });
     elnon.face('player');
     await elnon.say('Und du. Foltans Fundstück. In der Nacht, als ich mit ihm sprach, warst du auf einmal fort.');
     await elnon.say('Azar hat bis zum Morgen den Wald abgesucht. Foltan hat seitdem kaum ein Wort gesagt.');
@@ -361,7 +361,7 @@ async function talkFoltan(w: WorldCtx): Promise<void> {
     kyra.face('foltan');
     await w.say('kyra', 'Du bist also Foltan.');
     await foltan.say('Und du bist … die Schwester. Lebendig.', { mood: 'surprised' });
-    await w.say('kyra', 'Lia hat unterwegs alles erzählt. Ich hab lange überlegt, ob ich dich beiße.');
+    await w.say('kyra', 'Lia hat unterwegs alles erzählt. Ich hab lange überlegt, ob ich dir eine runterhaue.');
     await foltan.say('Und?');
     await w.say('kyra', 'Ich überleg noch. Ich hab Zeit.', { mood: 'determined' });
     G.state.set('e2-foltan-gesprochen');

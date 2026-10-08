@@ -179,7 +179,7 @@ async function firstMeeting(w: WorldCtx): Promise<void> {
     await w.say('e2-logge', 'Warte! Eins noch. Ich find meine Gläser nicht. Die orangenen. Ohne die sieht die Welt so … ungefärbt aus.', { mood: 'surprised' });
   }
   if (w.actor('e2-sebastian').exists) await w.say('e2-sebastian', 'Logge. Lass die Leute in Ruhe. Sie haben eine Geschichte zu erleben.', { mood: 'worried' });
-  w.bark('kyra', 'Soll ich ihn beißen?');
+  w.bark('kyra', 'Soll ich ihn rauswerfen?');
   w.bark('flick', 'Lass. Der ist harmlos. Glaub ich.');
   if (pick !== 2) await w.say('e2-logge', 'Ach, und wo du schon da bist: Hast du meine Gläser gesehen? Die orangenen. Ohne seh ich hier alles ungefärbt.', { mood: 'surprised' });
   G.state.set('e2-logge-sucht');

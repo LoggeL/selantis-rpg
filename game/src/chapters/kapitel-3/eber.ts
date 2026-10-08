@@ -523,9 +523,9 @@ async function intro(w: WorldCtx): Promise<void> {
       await azar.say('Nicht durstig? Dann trinke ich es. Wäre doch schade drum.', { mood: 'happy' });
     }
     await foltan.say('Lia. Beschreib mir deine Schwester. Ich frage Craupor, ob in letzter Zeit Dunkelschatten hier waren.');
-    const desc = await w.choose(['„So groß wie ich. Lange braune Haare, ein beiges Kleid.“', '„Braune Haare, braune Augen. Und sie beißt, wenn man sie ärgert.“']);
+    const desc = await w.choose(['„So groß wie ich. Lange braune Haare, ein beiges Kleid.“', '„Braune Haare, braune Augen. Und ein Mundwerk, vor dem sich das halbe Dorf fürchtet.“']);
     if (desc === 0) await foltan.say('Ich werde sehen, was sich machen lässt.');
-    else { await azar.say('Sie beißt? Die gefällt mir.', { mood: 'happy' }); await foltan.say('Ich werde sehen, was sich machen lässt.'); }
+    else { await azar.say('Ein Mundwerk? Die gefällt mir.', { mood: 'happy' }); await foltan.say('Ich werde sehen, was sich machen lässt.'); }
     // Optional question
     const ask = await w.choose(['„Was sind das für Rebellen, zu denen ihr gehört?“', '„Warum seid ihr eigentlich Freischärler?“']);
     if (ask === 0) {

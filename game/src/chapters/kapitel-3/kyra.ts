@@ -362,7 +362,7 @@ async function vow(w: WorldCtx): Promise<void> {
       'Aber Kyra beschloss, dass jetzt keine Zeit für Trauer oder Selbstmitleid war. Wenn sie aufgab, würde sie sterben.',
     ], { style: 'book' });
     await w.say('k3-kyra-bound', 'Ich werde kämpfen. Und ich werde leben.', { mood: 'determined' });
-    await w.say('k3-kyra-bound', 'Und irgendwann beiß ich dich auch, Baris. Und dann lass ich nicht mehr los.', { mood: 'angry' });
+    await w.say('k3-kyra-bound', 'Und irgendwann, Baris, bist du derjenige, der Angst hat.', { mood: 'angry' });
     await w.say('narrator', 'Über ihr leuchtete Crios, der hellste Stern im Westen.');
     await G.ui.closePlate();
   });

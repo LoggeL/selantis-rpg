@@ -444,9 +444,9 @@ async function kyraReturns(w: WorldCtx, loop: Promise<void>): Promise<void> {
     const pick = await w.choose([
       '„Kyra, hier ist Flick. Weißt du noch, wie Lia den Riesen ins Kornfeld gepustet hat?“',
       '(Leise summen. Irgendwas, das nach Lagerfeuer klingt.)',
-      '„Kyra. Beiß ihn nächstes Mal fester. Ich halt dir den Platz an der Tür frei.“',
+      '„Kyra. Wehr dich weiter. Noch fester. Ich halt dir den Platz an der Tür frei.“',
     ]);
-    G.state.set(ZG_RESULT.kyra, ['kornfeld', 'summen', 'beissen'][pick]);
+    G.state.set(ZG_RESULT.kyra, ['kornfeld', 'summen', 'wehren'][pick]);
     if (pick === 0) {
       await w.say('e2-flick', 'Kyra, hier ist Flick. Weißt du noch, wie Lia den Riesen ins Kornfeld gepustet hat? Mit Rüstung und allem?', { mood: 'smirk' });
       await w.say('e2-kyra-bound', 'Der Riese … ist geflogen. Wie ein Sack Rüben. Das war schön.', { mood: 'sad' });
@@ -454,7 +454,7 @@ async function kyraReturns(w: WorldCtx, loop: Promise<void>): Promise<void> {
       await w.say('narrator', 'Flick summt. Schief, leise, ohne Worte. Drüben wird Kyras Atem langsamer.');
       await w.say('e2-kyra-bound', 'Das klingt … wie Feuer. Warm.', { mood: 'sad' });
     } else {
-      await w.say('e2-flick', 'Kyra. Beiß ihn nächstes Mal fester. Ich halt dir den Platz an der Tür frei.', { mood: 'determined' });
+      await w.say('e2-flick', 'Kyra. Wehr dich weiter. Noch fester. Ich halt dir den Platz an der Tür frei.', { mood: 'determined' });
       await w.say('e2-kyra-bound', 'Fester. Ja. Mach ich. Gleich morgen.', { mood: 'determined' });
     }
     kyra.setIdle('lie');

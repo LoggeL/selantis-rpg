@@ -345,7 +345,7 @@ async function slipAway(w: WorldCtx): Promise<void> {
   w.setObjective('e2-flucht-steine', 'Zu den Steinen am Bach. Bleib aus dem Laternenlicht.', LEDGE);
   const unsub = w.onMap('spotted', '*', () => { w.bark('kyra', 'He! Hier drüben, ihr Blindfische!', 2000); });
   bg((async () => {
-    const lines = ['Hier bin ich, ihr Kohlköpfe!', 'Kommt doch! Ich beiß auch!', 'Was ist, traut ihr euch nicht?'];
+    const lines = ['Hier bin ich, ihr Kohlköpfe!', 'Kommt doch! Oder seid ihr festgewachsen?', 'Was ist, traut ihr euch nicht?'];
     for (let i = 0; w.alive && !G.state.is('e2-flucht-entkommen'); i++) {
       await w.wait(5200);
       if (!G.state.is('e2-flucht-entkommen') && !G.ui.busy()) w.bark('kyra', lines[i % lines.length], 2000);
@@ -375,7 +375,7 @@ async function separation(w: WorldCtx): Promise<void> {
   await G.ui.say('narrator', 'Baris tritt durch das Tor. Das Fackellicht liegt auf seiner verbrannten Gesichtshälfte.');
   await G.ui.say('e2-baris', 'Wen habt ihr mir da angeschleppt? Ich will die vom Feuer sehen.', { mood: 'angry' });
   await G.ui.say('dunkelschatten', 'Hauptmann! Die hier hat sich am Bach verkrochen. Und gebissen hat sie auch!');
-  await G.ui.say('kyra', 'Und ich beiß gleich noch mal!', { mood: 'angry' });
+  await G.ui.say('kyra', 'Und ich bin noch lang nicht fertig mit euch!', { mood: 'angry' });
   await G.ui.say('e2-baris', 'Dasselbe Gesicht. Zweimal in der Hand, zweimal die Falsche. Der Meister wird lachen. Ich nicht.', { mood: 'angry' });
   await G.ui.say('e2-baris', 'Und das Spitzohr von der Eiche über den Feldern. Wir zwei haben noch was offen.');
   await G.ui.say('e2-flick', 'Na, Hauptmann? Diesmal ohne Flug ins Kornfeld?', { mood: 'smirk' });

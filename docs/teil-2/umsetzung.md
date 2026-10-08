@@ -13,7 +13,7 @@ Verbindliche Szenenspezifikation für `game/src/chapters/teil-2/` (Kapitel-ID `t
     alle, die ihr nahe sind, in Gefahr geraten. Seit dem Tod der Eltern wehrt sie sich mit Vaters Dolch: unsicher, aber
     entschlossen, getrieben von Trauer, Angst und dem Wunsch nach Rache. Sie wächst langsam, erst mit dem Dolch, dann
     mit der Urmacht.
-  - **Kyra**: zupackend, schlagfertig, beißt (wörtlich und im Wortsinn), kann nicht lesen, steht bedingungslos zu Lia.
+  - **Kyra**: zupackend, schlagfertig, beißt, wenn es ernst wird (Entführung, Turm), sonst Mundwerk und Fäuste, kann nicht lesen, steht bedingungslos zu Lia.
   - **Flick**: Spott als Rüstung, Fährtenleserin, Halbelfe, nennt Lia „Leseratte“; Einsamkeit nur in leisen Momenten.
   - **Elnon**: kühl, knapp, Verantwortung für viele; sein Vorurteil gegen Flicks verschwiegene Herkunft ist konkret
     (sie hat gelogen, als sie aufgenommen wurde), später ehrliche Entschuldigung ohne Romanze.

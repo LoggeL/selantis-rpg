@@ -152,7 +152,7 @@ async function meetFlick(w: WorldCtx): Promise<void> {
       await w.say('flick', 'Ach? Und wen? Ich kenn mich hier aus, vielleicht …', { mood: 'surprised' });
       await lia('Nein. Danke.', 'angry');
     } else {
-      await w.say('flick', 'Oh. Sie beißt.', { mood: 'smirk' });
+      await w.say('flick', 'Oha. Stacheln hat sie auch.', { mood: 'smirk' });
     }
     await w.say('flick', 'Du bist ja ein richtiger Sonnenschein. Passt zum Wetter.', { mood: 'smirk' });
     await lia('Wenn Ihr fertig seid, würde ich gern weitergehen.');

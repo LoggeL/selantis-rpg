@@ -137,7 +137,7 @@ async function intro(w: WorldCtx): Promise<void> {
     await w.say('kyra', 'Leuchten! Du hast einen Riesen umgepustet! Andere Mädchen kriegen zum Sechzehnten ein Haarband.', { mood: 'happy' });
     await lia(w, 'Andere Mädchen werden zum Sechzehnten nicht gejagt.');
     await w.say('kyra', 'Stell dir vor, das steht irgendwann in einem von deinen Büchern. Mit uns drin. Mit mir auf dem Umschlag.', { mood: 'happy' });
-    await w.say('flick', 'Wer dich jagen will, muss erst an mir vorbei. Und an ihr. Sie beißt.', { mood: 'smirk' });
+    await w.say('flick', 'Wer dich jagen will, muss erst an mir vorbei. Und an ihr. Die ist schlimmer als ich.', { mood: 'smirk' });
     await w.say('kyra', 'Nur, wenn’s nötig ist.', { mood: 'happy' });
     const pick = await w.choose([
       '„Ich will nur, dass irgendwann wieder ein langweiliger Dienstag ist.“',

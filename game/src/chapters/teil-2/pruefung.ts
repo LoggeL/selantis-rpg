@@ -103,7 +103,7 @@ async function decision(w: WorldCtx): Promise<void> {
     if (pick === 0) {
       await w.say('flick', '… Stimmt. Leider. Ich hasse es, wenn du recht hast.', { mood: 'sad' });
     } else if (pick === 1) {
-      await w.say('kyra', 'Dann halt ich deine Hand. Und wenn’s schiefgeht, beiß ich den Druiden.', { mood: 'determined' });
+      await w.say('kyra', 'Dann halt ich deine Hand. Und wenn’s schiefgeht, verhau ich den Druiden.', { mood: 'determined' });
       await w.say('e2-druide', 'Das habe ich gehört.');
     } else {
       await w.say('kyra', 'Wie ein Sonnwendfeuer. Ich schwör’s auf Mutters Kräuterbuch.', { mood: 'sad' });

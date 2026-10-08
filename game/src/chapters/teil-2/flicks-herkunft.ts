@@ -240,7 +240,7 @@ async function talkFlick(w: WorldCtx): Promise<void> {
     await w.say('flick', 'Man redet viel mit Bäumen. Die widersprechen wenigstens nicht.', { mood: 'sad' });
     const pick = await w.choose([
       '„Jetzt sitze ich hier. Und Kyra kommt gleich nach, wetten?“',
-      '„Grunwald hat jetzt drei Mitglieder. Eine davon beißt.“',
+      '„Grunwald hat jetzt drei Mitglieder. Eine davon schnarcht.“',
       '„Du gehörst zu uns. Nicht zur Hälfte. Ganz.“',
     ]);
     G.state.set('e2-flick-ton', pick);

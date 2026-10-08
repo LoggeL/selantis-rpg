@@ -94,7 +94,7 @@ async function whisperElnon(w: WorldCtx): Promise<void> {
   }
   elnon.face('player');
   await w.say('e2-flick', 'Psst. Elnon. Lebst du noch, oder kniest du nur aus Gewohnheit?', { mood: 'smirk' });
-  await w.say('e2-elnon', 'Beides. Sie haben Kyra nach unten gebracht. Sie hat einem in den Daumen gebissen, bevor die Tür zuging.', { mood: 'grim' });
+  await w.say('e2-elnon', 'Beides. Sie haben Kyra nach unten gebracht. Sie hat getreten und geschrien, bis die Tür zuging.', { mood: 'grim' });
   await w.say('e2-flick', 'Das ist unser Mädchen.', { mood: 'happy' });
   await w.say('e2-elnon', 'Hör zu. Was immer sie fragen: kein Wort über die andere. Nicht wohin, nicht was sie kann.', { mood: 'grim' });
   await w.say('e2-flick', 'Keine Sorge. Ich hab schon mal bei einem Eid die Hälfte weggelassen. Ich hab Übung.', { mood: 'smirk' });
