@@ -1,51 +1,22 @@
-// Pure rules of „e3-macht-und-schutz“ (docs/teil-3/umsetzung.md §3): the doctor's three instruments and the
+// Pure rules of „e3-macht-und-schutz“ (docs/teil-3/umsetzung.md §3): the doctor's bowl and the
 // negotiation. No engine imports, so the rules are unit-tested (macht-und-schutz.test.ts).
-//  - Bowl: Lia leans over the water (crouched in the hotspot) and holds still. Moving resets most of the progress.
-//  - Candle: Lia follows the doctor's flame around the room. Close counts, far away earns a warning and loses a bit.
+//  - Bowl: what Lia thinks of over the water („Woran denkst du?“): calm memories leave it still, fear makes it leap.
 //  - Negotiation: three tones, one shared outcome (bonds off, staffs stay in the armoury, Lia stays).
 
-/** Holding still over the bowl. */
-export const STILL = {
-  /** Seconds of stillness the water needs. */
-  needSec: 2.4,
-  /** Feet movement per tick (px) that still counts as „still“. */
-  tolerance: 1.2,
-  /** Fraction of the progress kept after a fidget. */
-  keepOnMove: 0.35,
-} as const;
-
-/** Progress 0..1 of the bowl test after one tick. Only leaning over (crouched) and not moving fills it. */
-export function stepStill(progress: number, dt: number, leaning: boolean, movedPx: number): number {
-  if (!leaning) return Math.max(0, progress - dt * 0.15);
-  if (movedPx > STILL.tolerance) return progress * STILL.keepOnMove;
-  return Math.min(1, progress + dt / STILL.needSec);
-}
-
-/** Following the candle. */
-export const FOLLOW = {
-  /** Within this distance (px) of the doctor the flame is close enough. */
-  near: 58,
-  /** Beyond this distance the doctor complains. */
-  far: 120,
-  /** Seconds of watching the flame from close by. */
-  needSec: 7,
-} as const;
-
-export type FollowVerdict = 'close' | 'ok' | 'far';
-
-export function followVerdict(dist: number): FollowVerdict {
-  if (dist <= FOLLOW.near) return 'close';
-  if (dist <= FOLLOW.far) return 'ok';
-  return 'far';
-}
-
-/** Progress 0..1 of the candle test after one tick. */
-export function stepFollow(progress: number, dt: number, dist: number): number {
-  const v = followVerdict(dist);
-  if (v === 'close') return Math.min(1, progress + dt / FOLLOW.needSec);
-  if (v === 'far') return Math.max(0, progress - dt * 0.05);
-  return progress;
-}
+/** The bowl: what Lia thinks of with her hands over the water. Calm thoughts leave it still; fear makes it leap. */
+export type BowlThoughtId = 'kueche' | 'buch' | 'reiter' | 'kyra';
+export interface BowlThought { id: BowlThoughtId; text: string; thought: string; effect: 'still' | 'leap' }
+export const BOWL_THOUGHTS: readonly BowlThought[] = [
+  { id: 'kueche', text: 'An Mutters Küche, wenn das Brot im Ofen ist.', thought: 'Warmes Brot, Mehl auf dem Tisch, Mutter summt falsch. Das Wasser liegt da wie Glas.', effect: 'still' },
+  { id: 'buch', text: 'An Alana, Seite vierzig, mit dem Honigfleck.', thought: 'Alana hebt die Hand, und das Licht gehorcht. Das Wasser rührt sich nicht. Es liest wohl nicht gern.', effect: 'still' },
+  { id: 'reiter', text: 'An die Nacht, als die Reiter auf den Hof kamen.', thought: 'Fackeln. Das Schreien. Vater im Hof. Meine Hände zittern über der Schale, und das Wasser …', effect: 'leap' },
+  { id: 'kyra', text: 'An Kyra. Irgendwo da draußen, in Vamirs Händen.', thought: 'Kyra, allein, bei ihm. Und ich sitze hier mit Kissen. Etwas in mir zieht sich zusammen, und das Wasser …', effect: 'leap' },
+];
+/** The doctor's answers to calm water (in order). */
+export const BOWL_STILL: readonly string[] = [
+  'Glatt wie ein Spiegel. Hübsch. Und vollkommen nutzlos. Denk an etwas anderes.',
+  'Wieder nichts. Ich sehe mein Gesicht darin, und das kenne ich schon. Etwas, das dir Angst macht. Na los.',
+];
 
 /** Lia's tone in the negotiation (e3-verhandlung-ton). */
 export const VERHANDLUNG_TONES = ['kalt', 'bittend', 'klug'] as const;

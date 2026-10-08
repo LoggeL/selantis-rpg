@@ -6,12 +6,12 @@ import { buildPaintedGrid, normBlocks } from '../../world/navgrid';
 import { distToPoly, pointInPoly, polyCentroid } from '../../world/poly';
 import { STAFF } from '../common/bookContract';
 import {
-  FOLLOW, followVerdict, IGNATIUS_ASKS, STILL, stepFollow, stepStill, VERHANDLUNG_ANSWERS, VERHANDLUNG_TONES,
+  BOWL_STILL, BOWL_THOUGHTS, IGNATIUS_ASKS, VERHANDLUNG_ANSWERS, VERHANDLUNG_TONES,
 } from './macht-und-schutz-regeln';
 import { hasOwnStaff, liaLook, prepareE3, staffPlace } from './shared';
 
 vi.mock('../../world', () => ({ defineMap: (map: unknown) => map, startWorld: vi.fn() }));
-import { crystalPicture, doctorCandleAnchor, pruefungMap } from './macht-und-schutz';
+import { doctorCandleAnchor, pruefungMap } from './macht-und-schutz';
 
 function bowlGeometry() {
   const bowl = pruefungMap.interactables!.find(i => i.id === 'schale')!;
@@ -49,18 +49,15 @@ describe('e3-macht-und-schutz: the bowl', () => {
     for (const [x, y] of arrivals) expect(distToPoly(x, y, bowl.poly!), `arrival ${x},${y}`).toBeLessThanOrEqual(bowl.radius!);
   });
 
-  it('fills only while Lia leans over the bowl and holds still', () => {
-    let p = 0;
-    for (let t = 0; t < STILL.needSec - 0.2; t += 0.1) p = stepStill(p, 0.1, true, 0);
-    expect(p).toBeLessThan(1);
-    for (let t = 0; t < 0.4; t += 0.1) p = stepStill(p, 0.1, true, 0);
-    expect(p).toBe(1);
-    expect(stepStill(0.5, 0.1, false, 0)).toBeLessThan(0.5);
-  });
-
-  it('loses most of the progress on a fidget', () => {
-    expect(stepStill(0.8, 0.1, true, STILL.tolerance + 2)).toBeCloseTo(0.8 * STILL.keepOnMove);
-    expect(stepStill(0.8, 0.1, true, STILL.tolerance / 2)).toBeGreaterThan(0.8);
+  it('lets calm thoughts leave the water still and only fear make it leap', () => {
+    expect(BOWL_THOUGHTS.filter(b => b.effect === 'still').length).toBe(BOWL_STILL.length);
+    expect(BOWL_THOUGHTS.some(b => b.effect === 'leap')).toBe(true);
+    // The first option is calm, so a player who picks the top line still gets the doctor's boredom first.
+    expect(BOWL_THOUGHTS[0].effect).toBe('still');
+    for (const b of BOWL_THOUGHTS) {
+      expect(b.text.length, b.id).toBeLessThanOrEqual(80);
+      expect(b.thought.length, b.id).toBeLessThanOrEqual(140);
+    }
   });
 });
 
@@ -82,39 +79,6 @@ describe('e3-macht-und-schutz: the candle', () => {
     ['down', -8, -18], ['left', -4, -20], ['right', 3, -21], ['up', 6, -20],
   ] as const)('uses the visible %s hand from the actual walk sheet when no sprite is available', (dir, dx, dy) => {
     expect(doctorCandleAnchor({ x: 100, y: 200, dir, sprite: undefined })).toEqual({ at: [100 + dx, 200 + dy], depth: 200 });
-  });
-
-  it('counts only time close to the flame, and complains far away', () => {
-    expect(followVerdict(FOLLOW.near)).toBe('close');
-    expect(followVerdict(FOLLOW.near + 1)).toBe('ok');
-    expect(followVerdict(FOLLOW.far + 1)).toBe('far');
-    expect(stepFollow(0.3, 1, 30)).toBeCloseTo(0.3 + 1 / FOLLOW.needSec);
-    expect(stepFollow(0.3, 1, 90)).toBe(0.3);
-    expect(stepFollow(0.3, 1, 300)).toBeLessThan(0.3);
-    let p = 0;
-    for (let t = 0; t < FOLLOW.needSec + 0.2; t += 0.1) p = stepFollow(p, 0.1, 20);
-    expect(p).toBe(1);
-  });
-});
-
-describe('e3-macht-und-schutz: the crystal picture', () => {
-  it('frames the scaled heads, hands and feet within the observed 210 px canvas while retaining the map anchors', () => {
-    const originalArt = G.art;
-    G.art = { ...originalArt, hasAsset: () => true };
-    let picture: ReturnType<typeof crystalPicture>;
-    try { picture = crystalPicture(); } finally { G.art = originalArt; }
-    expect(picture.figureScale).toBe(figureScale(picture.background));
-    const scale = picture.figureScale!;
-    const top = picture.focus[1] - 210 / picture.zoom / 2;
-    const bottom = picture.focus[1] + 210 / picture.zoom / 2;
-    expect(picture.figures.map(f => f.at)).toEqual([[342, 130], [392, 150]]);
-    expect(picture.glint).toEqual([392, 92]);
-    for (const f of picture.figures) {
-      expect(f.at[1] - 44 * scale).toBeGreaterThanOrEqual(top);
-      expect(f.at[1]).toBeLessThanOrEqual(bottom);
-    }
-    expect(picture.glint[1]).toBeGreaterThan(top);
-    expect(picture.glint[1]).toBeLessThan(bottom);
   });
 });
 

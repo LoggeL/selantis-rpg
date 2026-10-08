@@ -2,9 +2,9 @@
 // checkpointed parts (G.goto with { part }, a reload restarts the current part):
 //  1. default, e3-gastzimmer-pruefung: Lia opens her eyes (storyAction 'open-eyes') on a bed under the roof, still
 //     bound. The doctor of the order examines her, and she has to take part herself: both hands on his reading crystal
-//     (storyAction 'reach' with a close-up of the room) – nothing at all; leaning over the water bowl and holding still
-//     (crouch in the hotspot, every fidget costs progress) – the water leaps into his face; following his candle around
-//     the room – the flame shoots up and leans towards her. Verdict: strong magic, the Urmacht cannot be proven, there
+//     – nothing at all; hands over the water bowl while she thinks of something (choice „Woran denkst du?“: calm
+//     memories leave the water still as glass, the doctor is bored; a frightening one makes it leap into his face,
+//     e3-ms-gedanke); then he carries his candle round the room – the flame leans towards her and shoots up. Verdict: strong magic, the Urmacht cannot be proven, there
 //     is nothing to compare. The Großmeister comes: „a few lives against thousands“; Lia answers in her own tone
 //     (e3-verhandlung-ton: kalt / bittend / klug), always with the same claim (no power without her consent, and he
 //     has seen what forcing her looks like). Same outcome: bonds off, the staffs stay in the armoury, she stays. A
@@ -20,7 +20,7 @@ import { defineMap, startWorld, type ActorHandle, type MapDef, type WorldCtx } f
 import { figureScale } from '../../world/presentation';
 import { restageGesture, type GesturePicture } from '../teil-2/gewoelbe-geste';
 import {
-  FOLLOW, IGNATIUS_ASKS, stepFollow, stepStill, VERHANDLUNG_ANSWERS, VERHANDLUNG_TONES, followVerdict,
+  BOWL_STILL, BOWL_THOUGHTS, type BowlThoughtId, IGNATIUS_ASKS, VERHANDLUNG_ANSWERS, VERHANDLUNG_TONES,
 } from './macht-und-schutz-regeln';
 import {
   ARMOURY_GRATE, GZ_CANDLE_LOOP, GZ_DOOR_AT, GZ_SPOT, gastzimmerBase, OH_DOOR, OH_HOTSPOT, OH_SPOT, ordenshausBase,
@@ -182,15 +182,6 @@ async function wakeUp(w: WorldCtx): Promise<void> {
 // Heart 1: the three instruments
 // ---------------------------------------------------------------------------------------------------------------
 
-export const crystalPicture = (): GesturePicture => ({
-  background: 'e3-gastzimmer', focus: [380, 100], zoom: 1.4, glint: GZ_SPOT.crystal,
-  figureScale: figureScale('e3-gastzimmer'),
-  figures: [
-    { id: 'e3-doktor', pose: 'interact', at: [342, 130], facing: 'right' },
-    { id: liaLook({ bound: true }), pose: 'idle', at: [392, 150], facing: 'up' },
-  ],
-});
-
 async function crystalTest(w: WorldCtx): Promise<void> {
   const doc = w.actor(DOCTOR);
   G.state.set(F.stage, 'kristall');
@@ -202,9 +193,10 @@ async function crystalTest(w: WorldCtx): Promise<void> {
     doc.face('player');
     await doctor(w, 'Ein Lesekristall. Er zeigt jede Magie an, auch die kleinste. Beide Hände drauf. Keine Angst, er ist nur kalt.');
   });
-  const gesture = G.ui.storyAction('reach', 'Die Hände auf den Kristall legen', { help: 'Schieb die gebundenen Hände zum Kristall.' });
-  restageGesture('reach', 'Schieb die gebundenen Hände auf den Kristall. Ganz ruhig.', crystalPicture());
-  await gesture;
+  await w.cutscene(async () => {
+    w.player.face('up');
+    await w.player.play('interact', { ms: 1100 });
+  });
   w.completeObjective('e3-ms-kristall');
   await w.cutscene(async () => {
     sfx('magic', { volume: 0.25, pitch: 0.6 });
@@ -229,22 +221,19 @@ async function bowlTest(w: WorldCtx): Promise<void> {
   w.setObjective('e3-ms-schale', 'Tritt an den Waschtisch zur Wasserschale.', 'schale');
   w.unlockPlayer();
   await w.waitForInteract('schale');
-  await doctor(w, 'Tief darüberbeugen und ganz langsam ausatmen. Nicht pusten, nicht reden, nicht zappeln.');
-  await w.say('narrator', `Halte ${w.controlHint('sneak')} gedrückt, um dich über die Schale zu beugen, und rühr dich nicht.`);
-  w.setObjective('e3-ms-schale', 'Beug dich über die Schale und halte still.', GZ_SPOT.washFront);
-  let p = 0, lastX = w.player.x, lastY = w.player.y, nagAt = -99, t = 0;
-  const said = new Set<number>();
-  while (w.alive && p < 1) {
-    await w.wait(100);
-    if (G.ui.busy()) continue;
-    t += 0.1;
-    const moved = Math.hypot(w.player.x - lastX, w.player.y - lastY);
-    lastX = w.player.x; lastY = w.player.y;
-    const before = p;
-    p = stepStill(p, 0.1, w.stealth.hidden, moved);
-    if (before > 0.2 && p < before * 0.5 && t - nagAt > 3) { nagAt = t; w.bark(DOCTOR, 'Nicht bewegen! Von vorn.', 1600); }
-    if (p >= 0.35 && !said.has(1)) { said.add(1); w.bark(DOCTOR, 'Gut … ganz ruhig …', 1600); }
-    if (p >= 0.7 && !said.has(2)) { said.add(2); w.bark(DOCTOR, 'Es kräuselt sich. Weiter …', 1600); sfx('splash', { volume: 0.15, pitch: 1.6 }); }
+  w.lockPlayer();
+  await doctor(w, 'Hände über das Wasser, nicht hinein. Und denk an etwas. Irgendwas. Wasser hört mit, wenn man denkt.');
+  w.setObjective('e3-ms-schale', 'Woran denkt Lia über der Schale? Bring das Wasser dazu, sich zu rühren.', null);
+  const tried = new Set<BowlThoughtId>();
+  for (;;) {
+    const opts = BOWL_THOUGHTS.map(b => ({ text: b.text, disabled: tried.has(b.id), reason: tried.has(b.id) ? 'Schon versucht.' : undefined }));
+    const pick = BOWL_THOUGHTS[await w.choose(opts, { prompt: 'Woran denkst du?', speaker: 'e3-lia' })];
+    tried.add(pick.id);
+    await w.think(pick.thought);
+    if (pick.effect === 'leap') { G.state.set('e3-ms-gedanke', pick.id); break; }
+    sfx('splash', { volume: 0.12, pitch: 1.8 });
+    w.fx.burst(GZ_SPOT.bowl, 'sparkle', 4);
+    await doctor(w, BOWL_STILL[(tried.size - 1) % BOWL_STILL.length], 'thinking');
   }
   w.completeObjective('e3-ms-schale');
   await w.cutscene(async () => {
@@ -274,36 +263,25 @@ async function candleTest(w: WorldCtx): Promise<void> {
     await doc.walkTo(GZ_SPOT.tableSide[0], GZ_SPOT.tableSide[1] + 10, { face: 'right' });
     void w.lighting.get('gz-kerze').fadeTo(0, 300);
     follow();
-    await doctor(w, 'Letzter Versuch. Die Kerze. Sieh in die Flamme und bleib dicht bei mir, ganz gleich, wohin ich gehe.');
+    await doctor(w, 'Letzter Versuch. Die Kerze. Sieh in die Flamme. Nur hinsehen, ich mache den Rest.');
   });
-  w.setObjective('e3-ms-kerze', 'Folge dem Doktor und seiner Kerze. Bleib nah an der Flamme.', DOCTOR);
-  w.unlockPlayer();
-  let done = false;
-  doc.setSpeed(34);
-  const walking = (async () => {
-    while (w.alive && !done) for (const at of GZ_CANDLE_LOOP) { if (done) break; await doc.walkTo(at[0], at[1]); }
-  })();
-  bg(walking);
-  let p = 0, nagAt = -99, t = 0, nag = 0;
-  const said = new Set<number>();
-  const nags = ['Näher! Die Flamme, nicht die Wand.', 'Hier vorne spielt die Musik.', 'Bleib dran, Mädchen.'];
-  while (w.alive && p < 1) {
-    await w.wait(60);
-    follow();
-    if (G.ui.busy()) continue;
-    t += 0.06;
-    const dist = Math.hypot(w.player.x - doc.x, w.player.y - doc.y);
-    p = stepFollow(p, 0.06, dist);
-    if (followVerdict(dist) === 'far' && t - nagAt > 4) { nagAt = t; w.bark(DOCTOR, nags[nag++ % nags.length], 1800); }
-    if (p >= 0.4 && !said.has(1)) { said.add(1); w.bark(DOCTOR, 'Gut so. Nicht blinzeln.', 1600); }
-    if (p >= 0.75 && !said.has(2)) { said.add(2); w.bark(DOCTOR, 'Sie flackert … warum flackert sie?', 1800); }
-  }
-  done = true;
+  w.setObjective('e3-ms-kerze', 'Sieh der Kerze des Doktors zu.', null);
+  // He carries the flame once round the room; the camera stays on Lia, the flame leans towards her more and more.
+  await w.cutscene(async () => {
+    doc.setSpeed(34);
+    const walking = (async () => { for (const at of GZ_CANDLE_LOOP) await doc.walkTo(at[0], at[1]); })();
+    let walked = false;
+    void walking.catch(() => {}).then(() => { walked = true; });
+    let n = 0;
+    while (w.alive && !walked) {
+      follow();
+      await w.wait(60);
+      if (++n === 40) w.bark(DOCTOR, 'Nicht blinzeln.', 1500);
+      if (n === 90) w.bark(DOCTOR, 'Sie flackert … warum flackert sie?', 1800);
+    }
+    await w.think('Die Flamme dreht sich mit, wohin er auch geht. Immer zu mir hin. Wie ein Hund, der weiß, wer das Futter hat.');
+  });
   w.completeObjective('e3-ms-kerze');
-  w.lockPlayer();
-  let walked = false;
-  void walking.catch(() => {}).then(() => { walked = true; });
-  while (w.alive && !walked) { follow(); await w.wait(50); }
   await w.cutscene(async () => {
     doc.face('player');
     w.player.face(DOCTOR);
@@ -598,5 +576,5 @@ export const scene = e3Scene('e3-macht-und-schutz', 'Untersuchung und Verhandlun
   await startWorld({ map: pruefungMap, spawn: 'bett', player: liaLook({ bound: true }), fadeIn: false, script: pruefungScript });
 });
 
-/** Exported for tests: the candle loop must stay on free floor, the thresholds must make sense. */
-export const MS_TEST = { FOLLOW, BOWL_LEAN };
+/** Exported for tests: the bowl's lean area. */
+export const MS_TEST = { BOWL_LEAN };
