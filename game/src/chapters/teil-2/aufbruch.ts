@@ -1,6 +1,6 @@
 // Scene „e2-aufbruch“ – Letzte Hoffnung (docs/teil-2/umsetzung.md §3, F2 38:15–40:15; quellenpruefung §7). Three
 // checkpointed parts (G.goto with { part }, a reload restarts the current part):
-//  1. default: plate e2-vamir-anhoehe (violet lightning, purpose unexplained), plate e2-stadtwache (a lone guard on a
+//  1. default: plate e2-vamir-anhoehe (violet lightning, the sky darkens, purpose unexplained), plate e2-stadtwache (a lone guard on a
 //     stone parapet over wooded hills sees the violet column: no city, no place name). Framed interlude: a horn,
 //     Flick hides in the ferns while four pursuers search right beside her (world stealth beat on the night forest
 //     of the prologue, map e2-flick-versteck; being seen only repeats the moment). She stays unseen.
@@ -80,6 +80,8 @@ async function farOff(): Promise<void> {
   ambience(['wind'], { wind: 0.6 });
   await G.ui.narrate(['Weit entfernt, auf einer Anhöhe über dem Land …'], { style: 'card' });
   await G.ui.plate('e2-vamir-anhoehe', { caption: 'Vamir', pan: 'in', durationMs: 16000 });
+  // Under his lightning the clear sky turns dark while the first line is read.
+  void G.ui.plateStorm(8000);
   await ui().fade('in', 900);
   await G.ui.say('narrator', 'Vamir breitete die Arme aus. Aus seinen Händen fuhren Blitze in den klaren Himmel, kalt und violett.');
   sfx('thunder', { volume: 0.7 });

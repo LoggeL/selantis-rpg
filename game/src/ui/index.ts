@@ -192,6 +192,7 @@ export function createUi(): UiApiExt {
     think: (text, opts) => dialogue.think(text, opts),
 
     plate: (id, opts) => (ctx.stale() ? ctx.never() : plates.show(id, opts)),
+    plateStorm: ms => (ctx.stale() ? ctx.never() : plates.storm(ms)),
     closePlate: () => plates.close(),
     registerPlate(id, draw) {
       if (plates) plates.register(id, draw); else pendingPlates.push([id, draw]);

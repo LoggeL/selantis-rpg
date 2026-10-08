@@ -40,6 +40,11 @@ export interface UiApi {
    * Resolves once it is visible (fade-in done). It stays until closePlate(); dialogue can run on top.
    */
   plate(id: string, opts?: { caption?: string; pan?: 'left' | 'right' | 'in' | 'out' | 'none'; durationMs?: number }): Promise<void>;
+  /**
+   * The sky of the open plate darkens to a storm sky over `ms` (default 7000), lit by short flickers; violet lightning
+   * stays bright. Resolves once dark; does nothing without an open plate. Lasts until the plate closes.
+   */
+  plateStorm(ms?: number): Promise<void>;
   closePlate(): Promise<void>;
   /** Registers a code-drawn plate. `draw` returns a canvas (any size, 16:9 recommended) or an image URL. */
   registerPlate(id: string, draw: () => HTMLCanvasElement | string): void;

@@ -5,6 +5,7 @@ import { el, sfx, wait } from './dom';
 import { markSeen } from './gallery';
 import { frame, label, parchment } from './plateKit';
 import { setImageSource } from './image';
+import { stormGrade } from './plateStorm';
 
 type PlateDraw = () => HTMLCanvasElement | string;
 type Pan = 'left' | 'right' | 'in' | 'out' | 'none';
@@ -21,7 +22,8 @@ interface Rendered { url: string; w: number; h: number; pixel: boolean; }
 export class PlateUi {
   private registry = new Map<string, PlateDraw>();
   private cache = new Map<string, Rendered>();
-  private current: { root: HTMLElement; close: () => void; hadLetterbox: boolean; img: HTMLImageElement; pan: Pan; dur: number; portrait: boolean; started: number } | null = null;
+  private storms = new Map<string, Promise<string | null>>();
+  private current: { root: HTMLElement; close: () => void; hadLetterbox: boolean; img: HTMLImageElement; layers: HTMLImageElement[]; pan: Pan; dur: number; portrait: boolean; started: number } | null = null;
   constructor(private letterbox: (on: boolean) => void) {
     ctx.onLayout(() => this.fit());
   }
@@ -111,7 +113,7 @@ export class PlateUi {
     // Slow pan (Ken Burns), never with reduced motion.
     const pan = ctx.reducedMotion ? 'none' : (opts.pan ?? 'in');
     const dur = opts.durationMs ?? 16000;
-    this.current = { root, close, hadLetterbox, img, pan, dur, portrait: ctx.portrait, started: performance.now() };
+    this.current = { root, close, hadLetterbox, img, layers: [], pan, dur, portrait: ctx.portrait, started: performance.now() };
     applyPan(img, pan, dur, ctx.portrait);
 
     sfx('page', { volume: 0.5, pitch: 0.85 });
@@ -136,6 +138,69 @@ export class PlateUi {
     cur.close();
   }
 
+  /**
+   * The sky of the open plate darkens to a storm sky over `ms`, flickering as if lit by the lightning; the lightning
+   * itself stays bright. The graded picture lies on top of the plate and pans with it. Resolves once dark.
+   */
+  async storm(ms = 7000): Promise<void> {
+    const cur = this.current;
+    if (!cur) return;
+    // Grade the full picture, not the Blurhash placeholder that may still be shown while it loads.
+    const url = await this.stormUrl(cur.img.dataset.imageSource ?? cur.img.src);
+    if (!url || this.current !== cur) return;
+    const layer = el('div', 'plate-storm');
+    const img = el('img', cur.img.className);
+    img.src = url;
+    img.alt = '';
+    img.draggable = false;
+    layer.appendChild(img);
+    cur.img.after(layer);
+    try { await img.decode(); } catch { /* shows on load */ }
+    if (this.current !== cur) return;
+    cur.layers.push(img);
+    followPan(img, cur.img);
+    // Short brightenings while it darkens: the bolts light up the clouds (no flicker with reduced motion).
+    const frames: Keyframe[] = ctx.reducedMotion
+      ? [{ opacity: 0 }, { opacity: 1 }]
+      : [
+          { opacity: 0, offset: 0 }, { opacity: 0.42, offset: 0.3 }, { opacity: 0.16, offset: 0.35 },
+          { opacity: 0.5, offset: 0.43 }, { opacity: 0.78, offset: 0.68 }, { opacity: 0.56, offset: 0.72 },
+          { opacity: 0.86, offset: 0.8 }, { opacity: 1, offset: 1 },
+        ];
+    const fade = layer.animate(frames, { duration: ms, easing: 'ease-in-out', fill: 'forwards' });
+    try { await fade.finished; } catch { /* plate closed meanwhile */ }
+  }
+
+  /** Storm-graded copy of a plate image (cached per image), null when the pixels cannot be read. */
+  private stormUrl(url: string): Promise<string | null> {
+    let job = this.storms.get(url);
+    if (!job) {
+      job = (async () => {
+        try {
+          const src = new Image();
+          src.src = url;
+          await src.decode();
+          const w = src.naturalWidth, h = src.naturalHeight;
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const g = canvas.getContext('2d', { willReadFrequently: true });
+          if (!g || !w || !h) return null;
+          g.drawImage(src, 0, 0);
+          const data = g.getImageData(0, 0, w, h);
+          data.data.set(stormGrade(data.data, w, h));
+          g.putImageData(data, 0, 0);
+          const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.92));
+          return blob ? URL.createObjectURL(blob) : null;
+        } catch (err) {
+          console.warn('[ui] plate storm grade failed', err);
+          return null;
+        }
+      })();
+      this.storms.set(url, job);
+    }
+    return job;
+  }
+
   clear(): void {
     if (!this.current) return;
     this.current.root.remove();
@@ -155,6 +220,7 @@ export class PlateUi {
       cur.img.getAnimations().forEach(a => a.cancel());
       const left = Math.max(2000, cur.dur - (performance.now() - cur.started));
       applyPan(cur.img, cur.pan, left, cur.portrait);
+      for (const layer of cur.layers) followPan(layer, cur.img);
     }
   }
 
@@ -218,6 +284,15 @@ function applyPan(img: HTMLImageElement, pan: Pan, dur: number, portrait: boolea
     frames = [{ transform: set[pan][0], objectPosition: '50% 50%' }, { transform: set[pan][1], objectPosition: '50% 50%' }];
   }
   img.animate(frames, { duration: dur, easing: ease, fill: 'forwards' });
+}
+
+/** Runs the same pan as `source` on `target`, at the same point in time (overlay layers of a plate). */
+function followPan(target: HTMLImageElement, source: HTMLImageElement): void {
+  target.getAnimations().forEach(a => a.cancel());
+  const pan = source.getAnimations()[0];
+  if (!(pan?.effect instanceof KeyframeEffect)) return;
+  const copy = target.animate(pan.effect.getKeyframes(), pan.effect.getTiming());
+  copy.currentTime = pan.currentTime;
 }
 
 function plateUrl(id: string): string {
